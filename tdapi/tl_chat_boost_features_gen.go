@@ -31,14 +31,25 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatBoostFeatures represents TL type `chatBoostFeatures#b9672a54`.
+// ChatBoostFeatures represents TL type `chatBoostFeatures#4dd864af`.
 type ChatBoostFeatures struct {
 	// The list of features
 	Features []ChatBoostLevelFeatures
+	// The minimum boost level required to set custom emoji for profile background
+	MinProfileBackgroundCustomEmojiBoostLevel int32
+	// The minimum boost level required to set custom emoji for reply header and link preview
+	// background
+	MinBackgroundCustomEmojiBoostLevel int32
+	// The minimum boost level required to set emoji status
+	MinEmojiStatusBoostLevel int32
+	// The minimum boost level required to set a chat theme background as chat background
+	MinChatThemeBackgroundBoostLevel int32
+	// The minimum boost level required to set custom chat background
+	MinCustomBackgroundBoostLevel int32
 }
 
 // ChatBoostFeaturesTypeID is TL type id of ChatBoostFeatures.
-const ChatBoostFeaturesTypeID = 0xb9672a54
+const ChatBoostFeaturesTypeID = 0x4dd864af
 
 // Ensuring interfaces in compile-time for ChatBoostFeatures.
 var (
@@ -53,6 +64,21 @@ func (c *ChatBoostFeatures) Zero() bool {
 		return true
 	}
 	if !(c.Features == nil) {
+		return false
+	}
+	if !(c.MinProfileBackgroundCustomEmojiBoostLevel == 0) {
+		return false
+	}
+	if !(c.MinBackgroundCustomEmojiBoostLevel == 0) {
+		return false
+	}
+	if !(c.MinEmojiStatusBoostLevel == 0) {
+		return false
+	}
+	if !(c.MinChatThemeBackgroundBoostLevel == 0) {
+		return false
+	}
+	if !(c.MinCustomBackgroundBoostLevel == 0) {
 		return false
 	}
 
@@ -95,6 +121,26 @@ func (c *ChatBoostFeatures) TypeInfo() tdp.Type {
 			Name:       "Features",
 			SchemaName: "features",
 		},
+		{
+			Name:       "MinProfileBackgroundCustomEmojiBoostLevel",
+			SchemaName: "min_profile_background_custom_emoji_boost_level",
+		},
+		{
+			Name:       "MinBackgroundCustomEmojiBoostLevel",
+			SchemaName: "min_background_custom_emoji_boost_level",
+		},
+		{
+			Name:       "MinEmojiStatusBoostLevel",
+			SchemaName: "min_emoji_status_boost_level",
+		},
+		{
+			Name:       "MinChatThemeBackgroundBoostLevel",
+			SchemaName: "min_chat_theme_background_boost_level",
+		},
+		{
+			Name:       "MinCustomBackgroundBoostLevel",
+			SchemaName: "min_custom_background_boost_level",
+		},
 	}
 	return typ
 }
@@ -102,7 +148,7 @@ func (c *ChatBoostFeatures) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatBoostFeatures) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostFeatures#b9672a54 as nil")
+		return fmt.Errorf("can't encode chatBoostFeatures#4dd864af as nil")
 	}
 	b.PutID(ChatBoostFeaturesTypeID)
 	return c.EncodeBare(b)
@@ -111,24 +157,29 @@ func (c *ChatBoostFeatures) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatBoostFeatures) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostFeatures#b9672a54 as nil")
+		return fmt.Errorf("can't encode chatBoostFeatures#4dd864af as nil")
 	}
 	b.PutInt(len(c.Features))
 	for idx, v := range c.Features {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare chatBoostFeatures#b9672a54: field features element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare chatBoostFeatures#4dd864af: field features element with index %d: %w", idx, err)
 		}
 	}
+	b.PutInt32(c.MinProfileBackgroundCustomEmojiBoostLevel)
+	b.PutInt32(c.MinBackgroundCustomEmojiBoostLevel)
+	b.PutInt32(c.MinEmojiStatusBoostLevel)
+	b.PutInt32(c.MinChatThemeBackgroundBoostLevel)
+	b.PutInt32(c.MinCustomBackgroundBoostLevel)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatBoostFeatures) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostFeatures#b9672a54 to nil")
+		return fmt.Errorf("can't decode chatBoostFeatures#4dd864af to nil")
 	}
 	if err := b.ConsumeID(ChatBoostFeaturesTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBoostFeatures#b9672a54: %w", err)
+		return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -136,12 +187,12 @@ func (c *ChatBoostFeatures) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatBoostFeatures) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostFeatures#b9672a54 to nil")
+		return fmt.Errorf("can't decode chatBoostFeatures#4dd864af to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostFeatures#b9672a54: field features: %w", err)
+			return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field features: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -150,10 +201,45 @@ func (c *ChatBoostFeatures) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatBoostLevelFeatures
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare chatBoostFeatures#b9672a54: field features: %w", err)
+				return fmt.Errorf("unable to decode bare chatBoostFeatures#4dd864af: field features: %w", err)
 			}
 			c.Features = append(c.Features, value)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_profile_background_custom_emoji_boost_level: %w", err)
+		}
+		c.MinProfileBackgroundCustomEmojiBoostLevel = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_background_custom_emoji_boost_level: %w", err)
+		}
+		c.MinBackgroundCustomEmojiBoostLevel = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_emoji_status_boost_level: %w", err)
+		}
+		c.MinEmojiStatusBoostLevel = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_chat_theme_background_boost_level: %w", err)
+		}
+		c.MinChatThemeBackgroundBoostLevel = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_custom_background_boost_level: %w", err)
+		}
+		c.MinCustomBackgroundBoostLevel = value
 	}
 	return nil
 }
@@ -161,7 +247,7 @@ func (c *ChatBoostFeatures) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatBoostFeatures) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostFeatures#b9672a54 as nil")
+		return fmt.Errorf("can't encode chatBoostFeatures#4dd864af as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatBoostFeatures")
@@ -170,12 +256,27 @@ func (c *ChatBoostFeatures) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range c.Features {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode chatBoostFeatures#b9672a54: field features element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatBoostFeatures#4dd864af: field features element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
 	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("min_profile_background_custom_emoji_boost_level")
+	b.PutInt32(c.MinProfileBackgroundCustomEmojiBoostLevel)
+	b.Comma()
+	b.FieldStart("min_background_custom_emoji_boost_level")
+	b.PutInt32(c.MinBackgroundCustomEmojiBoostLevel)
+	b.Comma()
+	b.FieldStart("min_emoji_status_boost_level")
+	b.PutInt32(c.MinEmojiStatusBoostLevel)
+	b.Comma()
+	b.FieldStart("min_chat_theme_background_boost_level")
+	b.PutInt32(c.MinChatThemeBackgroundBoostLevel)
+	b.Comma()
+	b.FieldStart("min_custom_background_boost_level")
+	b.PutInt32(c.MinCustomBackgroundBoostLevel)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -185,26 +286,56 @@ func (c *ChatBoostFeatures) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatBoostFeatures) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostFeatures#b9672a54 to nil")
+		return fmt.Errorf("can't decode chatBoostFeatures#4dd864af to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatBoostFeatures"); err != nil {
-				return fmt.Errorf("unable to decode chatBoostFeatures#b9672a54: %w", err)
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: %w", err)
 			}
 		case "features":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatBoostLevelFeatures
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode chatBoostFeatures#b9672a54: field features: %w", err)
+					return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field features: %w", err)
 				}
 				c.Features = append(c.Features, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatBoostFeatures#b9672a54: field features: %w", err)
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field features: %w", err)
 			}
+		case "min_profile_background_custom_emoji_boost_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_profile_background_custom_emoji_boost_level: %w", err)
+			}
+			c.MinProfileBackgroundCustomEmojiBoostLevel = value
+		case "min_background_custom_emoji_boost_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_background_custom_emoji_boost_level: %w", err)
+			}
+			c.MinBackgroundCustomEmojiBoostLevel = value
+		case "min_emoji_status_boost_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_emoji_status_boost_level: %w", err)
+			}
+			c.MinEmojiStatusBoostLevel = value
+		case "min_chat_theme_background_boost_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_chat_theme_background_boost_level: %w", err)
+			}
+			c.MinChatThemeBackgroundBoostLevel = value
+		case "min_custom_background_boost_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostFeatures#4dd864af: field min_custom_background_boost_level: %w", err)
+			}
+			c.MinCustomBackgroundBoostLevel = value
 		default:
 			return b.Skip()
 		}
@@ -218,4 +349,44 @@ func (c *ChatBoostFeatures) GetFeatures() (value []ChatBoostLevelFeatures) {
 		return
 	}
 	return c.Features
+}
+
+// GetMinProfileBackgroundCustomEmojiBoostLevel returns value of MinProfileBackgroundCustomEmojiBoostLevel field.
+func (c *ChatBoostFeatures) GetMinProfileBackgroundCustomEmojiBoostLevel() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MinProfileBackgroundCustomEmojiBoostLevel
+}
+
+// GetMinBackgroundCustomEmojiBoostLevel returns value of MinBackgroundCustomEmojiBoostLevel field.
+func (c *ChatBoostFeatures) GetMinBackgroundCustomEmojiBoostLevel() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MinBackgroundCustomEmojiBoostLevel
+}
+
+// GetMinEmojiStatusBoostLevel returns value of MinEmojiStatusBoostLevel field.
+func (c *ChatBoostFeatures) GetMinEmojiStatusBoostLevel() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MinEmojiStatusBoostLevel
+}
+
+// GetMinChatThemeBackgroundBoostLevel returns value of MinChatThemeBackgroundBoostLevel field.
+func (c *ChatBoostFeatures) GetMinChatThemeBackgroundBoostLevel() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MinChatThemeBackgroundBoostLevel
+}
+
+// GetMinCustomBackgroundBoostLevel returns value of MinCustomBackgroundBoostLevel field.
+func (c *ChatBoostFeatures) GetMinCustomBackgroundBoostLevel() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MinCustomBackgroundBoostLevel
 }

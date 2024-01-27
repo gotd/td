@@ -2617,7 +2617,7 @@ func (i *InputMessageVideo) GetHasSpoiler() (value bool) {
 	return i.HasSpoiler
 }
 
-// InputMessageVideoNote represents TL type `inputMessageVideoNote#10a2dcfb`.
+// InputMessageVideoNote represents TL type `inputMessageVideoNote#d56816dd`.
 type InputMessageVideoNote struct {
 	// Video note to be sent
 	VideoNote InputFileClass
@@ -2627,10 +2627,12 @@ type InputMessageVideoNote struct {
 	Duration int32
 	// Video width and height; must be positive and not greater than 640
 	Length int32
+	// Video note self-destruct type; pass null if none; private chats only
+	SelfDestructType MessageSelfDestructTypeClass
 }
 
 // InputMessageVideoNoteTypeID is TL type id of InputMessageVideoNote.
-const InputMessageVideoNoteTypeID = 0x10a2dcfb
+const InputMessageVideoNoteTypeID = 0xd56816dd
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageVideoNote) construct() InputMessageContentClass { return &i }
@@ -2659,6 +2661,9 @@ func (i *InputMessageVideoNote) Zero() bool {
 		return false
 	}
 	if !(i.Length == 0) {
+		return false
+	}
+	if !(i.SelfDestructType == nil) {
 		return false
 	}
 
@@ -2713,6 +2718,10 @@ func (i *InputMessageVideoNote) TypeInfo() tdp.Type {
 			Name:       "Length",
 			SchemaName: "length",
 		},
+		{
+			Name:       "SelfDestructType",
+			SchemaName: "self_destruct_type",
+		},
 	}
 	return typ
 }
@@ -2720,7 +2729,7 @@ func (i *InputMessageVideoNote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageVideoNote) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVideoNote#10a2dcfb as nil")
+		return fmt.Errorf("can't encode inputMessageVideoNote#d56816dd as nil")
 	}
 	b.PutID(InputMessageVideoNoteTypeID)
 	return i.EncodeBare(b)
@@ -2729,29 +2738,35 @@ func (i *InputMessageVideoNote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageVideoNote) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVideoNote#10a2dcfb as nil")
+		return fmt.Errorf("can't encode inputMessageVideoNote#d56816dd as nil")
 	}
 	if i.VideoNote == nil {
-		return fmt.Errorf("unable to encode inputMessageVideoNote#10a2dcfb: field video_note is nil")
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field video_note is nil")
 	}
 	if err := i.VideoNote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideoNote#10a2dcfb: field video_note: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field video_note: %w", err)
 	}
 	if err := i.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideoNote#10a2dcfb: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field thumbnail: %w", err)
 	}
 	b.PutInt32(i.Duration)
 	b.PutInt32(i.Length)
+	if i.SelfDestructType == nil {
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field self_destruct_type is nil")
+	}
+	if err := i.SelfDestructType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field self_destruct_type: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMessageVideoNote) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVideoNote#10a2dcfb to nil")
+		return fmt.Errorf("can't decode inputMessageVideoNote#d56816dd to nil")
 	}
 	if err := b.ConsumeID(InputMessageVideoNoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: %w", err)
+		return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2759,33 +2774,40 @@ func (i *InputMessageVideoNote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageVideoNote) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVideoNote#10a2dcfb to nil")
+		return fmt.Errorf("can't decode inputMessageVideoNote#d56816dd to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field video_note: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field video_note: %w", err)
 		}
 		i.VideoNote = value
 	}
 	{
 		if err := i.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field thumbnail: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field duration: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field duration: %w", err)
 		}
 		i.Duration = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field length: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field length: %w", err)
 		}
 		i.Length = value
+	}
+	{
+		value, err := DecodeMessageSelfDestructType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field self_destruct_type: %w", err)
+		}
+		i.SelfDestructType = value
 	}
 	return nil
 }
@@ -2793,22 +2815,22 @@ func (i *InputMessageVideoNote) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVideoNote#10a2dcfb as nil")
+		return fmt.Errorf("can't encode inputMessageVideoNote#d56816dd as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageVideoNote")
 	b.Comma()
 	b.FieldStart("video_note")
 	if i.VideoNote == nil {
-		return fmt.Errorf("unable to encode inputMessageVideoNote#10a2dcfb: field video_note is nil")
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field video_note is nil")
 	}
 	if err := i.VideoNote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideoNote#10a2dcfb: field video_note: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field video_note: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideoNote#10a2dcfb: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("duration")
@@ -2816,6 +2838,14 @@ func (i *InputMessageVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(i.Length)
+	b.Comma()
+	b.FieldStart("self_destruct_type")
+	if i.SelfDestructType == nil {
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field self_destruct_type is nil")
+	}
+	if err := i.SelfDestructType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageVideoNote#d56816dd: field self_destruct_type: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -2825,37 +2855,43 @@ func (i *InputMessageVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVideoNote#10a2dcfb to nil")
+		return fmt.Errorf("can't decode inputMessageVideoNote#d56816dd to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageVideoNote"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: %w", err)
 			}
 		case "video_note":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field video_note: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field video_note: %w", err)
 			}
 			i.VideoNote = value
 		case "thumbnail":
 			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field thumbnail: %w", err)
 			}
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field duration: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field duration: %w", err)
 			}
 			i.Duration = value
 		case "length":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field length: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field length: %w", err)
 			}
 			i.Length = value
+		case "self_destruct_type":
+			value, err := DecodeTDLibJSONMessageSelfDestructType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideoNote#d56816dd: field self_destruct_type: %w", err)
+			}
+			i.SelfDestructType = value
 		default:
 			return b.Skip()
 		}
@@ -2895,7 +2931,15 @@ func (i *InputMessageVideoNote) GetLength() (value int32) {
 	return i.Length
 }
 
-// InputMessageVoiceNote represents TL type `inputMessageVoiceNote#7f58b3e9`.
+// GetSelfDestructType returns value of SelfDestructType field.
+func (i *InputMessageVideoNote) GetSelfDestructType() (value MessageSelfDestructTypeClass) {
+	if i == nil {
+		return
+	}
+	return i.SelfDestructType
+}
+
+// InputMessageVoiceNote represents TL type `inputMessageVoiceNote#5723ffac`.
 type InputMessageVoiceNote struct {
 	// Voice note to be sent
 	VoiceNote InputFileClass
@@ -2906,10 +2950,12 @@ type InputMessageVoiceNote struct {
 	// Voice note caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
+	// Voice note self-destruct type; pass null if none; private chats only
+	SelfDestructType MessageSelfDestructTypeClass
 }
 
 // InputMessageVoiceNoteTypeID is TL type id of InputMessageVoiceNote.
-const InputMessageVoiceNoteTypeID = 0x7f58b3e9
+const InputMessageVoiceNoteTypeID = 0x5723ffac
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageVoiceNote) construct() InputMessageContentClass { return &i }
@@ -2938,6 +2984,9 @@ func (i *InputMessageVoiceNote) Zero() bool {
 		return false
 	}
 	if !(i.Caption.Zero()) {
+		return false
+	}
+	if !(i.SelfDestructType == nil) {
 		return false
 	}
 
@@ -2992,6 +3041,10 @@ func (i *InputMessageVoiceNote) TypeInfo() tdp.Type {
 			Name:       "Caption",
 			SchemaName: "caption",
 		},
+		{
+			Name:       "SelfDestructType",
+			SchemaName: "self_destruct_type",
+		},
 	}
 	return typ
 }
@@ -2999,7 +3052,7 @@ func (i *InputMessageVoiceNote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageVoiceNote) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVoiceNote#7f58b3e9 as nil")
+		return fmt.Errorf("can't encode inputMessageVoiceNote#5723ffac as nil")
 	}
 	b.PutID(InputMessageVoiceNoteTypeID)
 	return i.EncodeBare(b)
@@ -3008,18 +3061,24 @@ func (i *InputMessageVoiceNote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageVoiceNote) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVoiceNote#7f58b3e9 as nil")
+		return fmt.Errorf("can't encode inputMessageVoiceNote#5723ffac as nil")
 	}
 	if i.VoiceNote == nil {
-		return fmt.Errorf("unable to encode inputMessageVoiceNote#7f58b3e9: field voice_note is nil")
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field voice_note is nil")
 	}
 	if err := i.VoiceNote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVoiceNote#7f58b3e9: field voice_note: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field voice_note: %w", err)
 	}
 	b.PutInt32(i.Duration)
 	b.PutBytes(i.Waveform)
 	if err := i.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVoiceNote#7f58b3e9: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field caption: %w", err)
+	}
+	if i.SelfDestructType == nil {
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field self_destruct_type is nil")
+	}
+	if err := i.SelfDestructType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field self_destruct_type: %w", err)
 	}
 	return nil
 }
@@ -3027,10 +3086,10 @@ func (i *InputMessageVoiceNote) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessageVoiceNote) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVoiceNote#7f58b3e9 to nil")
+		return fmt.Errorf("can't decode inputMessageVoiceNote#5723ffac to nil")
 	}
 	if err := b.ConsumeID(InputMessageVoiceNoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: %w", err)
+		return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3038,33 +3097,40 @@ func (i *InputMessageVoiceNote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageVoiceNote) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVoiceNote#7f58b3e9 to nil")
+		return fmt.Errorf("can't decode inputMessageVoiceNote#5723ffac to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field voice_note: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field voice_note: %w", err)
 		}
 		i.VoiceNote = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field duration: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field duration: %w", err)
 		}
 		i.Duration = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field waveform: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field waveform: %w", err)
 		}
 		i.Waveform = value
 	}
 	{
 		if err := i.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field caption: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field caption: %w", err)
 		}
+	}
+	{
+		value, err := DecodeMessageSelfDestructType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field self_destruct_type: %w", err)
+		}
+		i.SelfDestructType = value
 	}
 	return nil
 }
@@ -3072,17 +3138,17 @@ func (i *InputMessageVoiceNote) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVoiceNote#7f58b3e9 as nil")
+		return fmt.Errorf("can't encode inputMessageVoiceNote#5723ffac as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageVoiceNote")
 	b.Comma()
 	b.FieldStart("voice_note")
 	if i.VoiceNote == nil {
-		return fmt.Errorf("unable to encode inputMessageVoiceNote#7f58b3e9: field voice_note is nil")
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field voice_note is nil")
 	}
 	if err := i.VoiceNote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVoiceNote#7f58b3e9: field voice_note: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field voice_note: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("duration")
@@ -3093,7 +3159,15 @@ func (i *InputMessageVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("caption")
 	if err := i.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVoiceNote#7f58b3e9: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field caption: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("self_destruct_type")
+	if i.SelfDestructType == nil {
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field self_destruct_type is nil")
+	}
+	if err := i.SelfDestructType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageVoiceNote#5723ffac: field self_destruct_type: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -3104,37 +3178,43 @@ func (i *InputMessageVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVoiceNote#7f58b3e9 to nil")
+		return fmt.Errorf("can't decode inputMessageVoiceNote#5723ffac to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageVoiceNote"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: %w", err)
 			}
 		case "voice_note":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field voice_note: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field voice_note: %w", err)
 			}
 			i.VoiceNote = value
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field duration: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field duration: %w", err)
 			}
 			i.Duration = value
 		case "waveform":
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field waveform: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field waveform: %w", err)
 			}
 			i.Waveform = value
 		case "caption":
 			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field caption: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field caption: %w", err)
 			}
+		case "self_destruct_type":
+			value, err := DecodeTDLibJSONMessageSelfDestructType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#5723ffac: field self_destruct_type: %w", err)
+			}
+			i.SelfDestructType = value
 		default:
 			return b.Skip()
 		}
@@ -3172,6 +3252,14 @@ func (i *InputMessageVoiceNote) GetCaption() (value FormattedText) {
 		return
 	}
 	return i.Caption
+}
+
+// GetSelfDestructType returns value of SelfDestructType field.
+func (i *InputMessageVoiceNote) GetSelfDestructType() (value MessageSelfDestructTypeClass) {
+	if i == nil {
+		return
+	}
+	return i.SelfDestructType
 }
 
 // InputMessageLocation represents TL type `inputMessageLocation#26aae970`.
@@ -5626,8 +5714,8 @@ const InputMessageContentClassName = "InputMessageContent"
 //	case *tdapi.InputMessagePhoto: // inputMessagePhoto#83234a22
 //	case *tdapi.InputMessageSticker: // inputMessageSticker#3ff1b6f9
 //	case *tdapi.InputMessageVideo: // inputMessageVideo#f17014da
-//	case *tdapi.InputMessageVideoNote: // inputMessageVideoNote#10a2dcfb
-//	case *tdapi.InputMessageVoiceNote: // inputMessageVoiceNote#7f58b3e9
+//	case *tdapi.InputMessageVideoNote: // inputMessageVideoNote#d56816dd
+//	case *tdapi.InputMessageVoiceNote: // inputMessageVoiceNote#5723ffac
 //	case *tdapi.InputMessageLocation: // inputMessageLocation#26aae970
 //	case *tdapi.InputMessageVenue: // inputMessageVenue#564d99fd
 //	case *tdapi.InputMessageContact: // inputMessageContact#c5710cff
@@ -5718,14 +5806,14 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessageVideoNoteTypeID:
-		// Decoding inputMessageVideoNote#10a2dcfb.
+		// Decoding inputMessageVideoNote#d56816dd.
 		v := InputMessageVideoNote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
 		}
 		return &v, nil
 	case InputMessageVoiceNoteTypeID:
-		// Decoding inputMessageVoiceNote#7f58b3e9.
+		// Decoding inputMessageVoiceNote#5723ffac.
 		v := InputMessageVoiceNote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5856,14 +5944,14 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessageVideoNote":
-		// Decoding inputMessageVideoNote#10a2dcfb.
+		// Decoding inputMessageVideoNote#d56816dd.
 		v := InputMessageVideoNote{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
 		}
 		return &v, nil
 	case "inputMessageVoiceNote":
-		// Decoding inputMessageVoiceNote#7f58b3e9.
+		// Decoding inputMessageVoiceNote#5723ffac.
 		v := InputMessageVoiceNote{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)

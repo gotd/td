@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatMessagePositionRequest represents TL type `getChatMessagePosition#dea71718`.
+// GetChatMessagePositionRequest represents TL type `getChatMessagePosition#e9d7d767`.
 type GetChatMessagePositionRequest struct {
 	// Identifier of the chat in which to find message position
 	ChatID int64
@@ -43,10 +43,13 @@ type GetChatMessagePositionRequest struct {
 	Filter SearchMessagesFilterClass
 	// If not 0, only messages in the specified thread will be considered; supergroups only
 	MessageThreadID int64
+	// If not null, only messages in the specified Saved Messages topic will be considered;
+	// pass null to consider all relevant messages, or for chats other than Saved Messages
+	SavedMessagesTopic SavedMessagesTopicClass
 }
 
 // GetChatMessagePositionRequestTypeID is TL type id of GetChatMessagePositionRequest.
-const GetChatMessagePositionRequestTypeID = 0xdea71718
+const GetChatMessagePositionRequestTypeID = 0xe9d7d767
 
 // Ensuring interfaces in compile-time for GetChatMessagePositionRequest.
 var (
@@ -70,6 +73,9 @@ func (g *GetChatMessagePositionRequest) Zero() bool {
 		return false
 	}
 	if !(g.MessageThreadID == 0) {
+		return false
+	}
+	if !(g.SavedMessagesTopic == nil) {
 		return false
 	}
 
@@ -124,6 +130,10 @@ func (g *GetChatMessagePositionRequest) TypeInfo() tdp.Type {
 			Name:       "MessageThreadID",
 			SchemaName: "message_thread_id",
 		},
+		{
+			Name:       "SavedMessagesTopic",
+			SchemaName: "saved_messages_topic",
+		},
 	}
 	return typ
 }
@@ -131,7 +141,7 @@ func (g *GetChatMessagePositionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatMessagePositionRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessagePosition#dea71718 as nil")
+		return fmt.Errorf("can't encode getChatMessagePosition#e9d7d767 as nil")
 	}
 	b.PutID(GetChatMessagePositionRequestTypeID)
 	return g.EncodeBare(b)
@@ -140,27 +150,33 @@ func (g *GetChatMessagePositionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatMessagePositionRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessagePosition#dea71718 as nil")
+		return fmt.Errorf("can't encode getChatMessagePosition#e9d7d767 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageID)
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatMessagePosition#dea71718: field filter is nil")
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessagePosition#dea71718: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field filter: %w", err)
 	}
 	b.PutInt53(g.MessageThreadID)
+	if g.SavedMessagesTopic == nil {
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field saved_messages_topic is nil")
+	}
+	if err := g.SavedMessagesTopic.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field saved_messages_topic: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetChatMessagePositionRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessagePosition#dea71718 to nil")
+		return fmt.Errorf("can't decode getChatMessagePosition#e9d7d767 to nil")
 	}
 	if err := b.ConsumeID(GetChatMessagePositionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: %w", err)
+		return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -168,35 +184,42 @@ func (g *GetChatMessagePositionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatMessagePositionRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessagePosition#dea71718 to nil")
+		return fmt.Errorf("can't decode getChatMessagePosition#e9d7d767 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
 		value, err := DecodeSearchMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field filter: %w", err)
+			return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field message_thread_id: %w", err)
 		}
 		g.MessageThreadID = value
+	}
+	{
+		value, err := DecodeSavedMessagesTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field saved_messages_topic: %w", err)
+		}
+		g.SavedMessagesTopic = value
 	}
 	return nil
 }
@@ -204,7 +227,7 @@ func (g *GetChatMessagePositionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatMessagePositionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessagePosition#dea71718 as nil")
+		return fmt.Errorf("can't encode getChatMessagePosition#e9d7d767 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatMessagePosition")
@@ -217,14 +240,22 @@ func (g *GetChatMessagePositionRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatMessagePosition#dea71718: field filter is nil")
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field filter is nil")
 	}
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessagePosition#dea71718: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field filter: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(g.MessageThreadID)
+	b.Comma()
+	b.FieldStart("saved_messages_topic")
+	if g.SavedMessagesTopic == nil {
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field saved_messages_topic is nil")
+	}
+	if err := g.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChatMessagePosition#e9d7d767: field saved_messages_topic: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -234,39 +265,45 @@ func (g *GetChatMessagePositionRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatMessagePositionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessagePosition#dea71718 to nil")
+		return fmt.Errorf("can't decode getChatMessagePosition#e9d7d767 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatMessagePosition"); err != nil {
-				return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: %w", err)
+				return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "filter":
 			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field filter: %w", err)
+				return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field filter: %w", err)
 			}
 			g.Filter = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessagePosition#dea71718: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field message_thread_id: %w", err)
 			}
 			g.MessageThreadID = value
+		case "saved_messages_topic":
+			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatMessagePosition#e9d7d767: field saved_messages_topic: %w", err)
+			}
+			g.SavedMessagesTopic = value
 		default:
 			return b.Skip()
 		}
@@ -306,7 +343,15 @@ func (g *GetChatMessagePositionRequest) GetMessageThreadID() (value int64) {
 	return g.MessageThreadID
 }
 
-// GetChatMessagePosition invokes method getChatMessagePosition#dea71718 returning error if any.
+// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
+func (g *GetChatMessagePositionRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+	if g == nil {
+		return
+	}
+	return g.SavedMessagesTopic
+}
+
+// GetChatMessagePosition invokes method getChatMessagePosition#e9d7d767 returning error if any.
 func (c *Client) GetChatMessagePosition(ctx context.Context, request *GetChatMessagePositionRequest) (*Count, error) {
 	var result Count
 

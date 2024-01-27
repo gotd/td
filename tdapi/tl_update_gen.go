@@ -9626,6 +9626,137 @@ func (u *UpdateChatOnlineMemberCount) GetOnlineMemberCount() (value int32) {
 	return u.OnlineMemberCount
 }
 
+// UpdatePinnedSavedMessagesTopics represents TL type `updatePinnedSavedMessagesTopics#2101c3a3`.
+type UpdatePinnedSavedMessagesTopics struct {
+}
+
+// UpdatePinnedSavedMessagesTopicsTypeID is TL type id of UpdatePinnedSavedMessagesTopics.
+const UpdatePinnedSavedMessagesTopicsTypeID = 0x2101c3a3
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePinnedSavedMessagesTopics) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePinnedSavedMessagesTopics.
+var (
+	_ bin.Encoder     = &UpdatePinnedSavedMessagesTopics{}
+	_ bin.Decoder     = &UpdatePinnedSavedMessagesTopics{}
+	_ bin.BareEncoder = &UpdatePinnedSavedMessagesTopics{}
+	_ bin.BareDecoder = &UpdatePinnedSavedMessagesTopics{}
+
+	_ UpdateClass = &UpdatePinnedSavedMessagesTopics{}
+)
+
+func (u *UpdatePinnedSavedMessagesTopics) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePinnedSavedMessagesTopics) String() string {
+	if u == nil {
+		return "UpdatePinnedSavedMessagesTopics(nil)"
+	}
+	type Alias UpdatePinnedSavedMessagesTopics
+	return fmt.Sprintf("UpdatePinnedSavedMessagesTopics%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdatePinnedSavedMessagesTopics) TypeID() uint32 {
+	return UpdatePinnedSavedMessagesTopicsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdatePinnedSavedMessagesTopics) TypeName() string {
+	return "updatePinnedSavedMessagesTopics"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePinnedSavedMessagesTopics) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePinnedSavedMessagesTopics",
+		ID:   UpdatePinnedSavedMessagesTopicsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePinnedSavedMessagesTopics) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePinnedSavedMessagesTopics#2101c3a3 as nil")
+	}
+	b.PutID(UpdatePinnedSavedMessagesTopicsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatePinnedSavedMessagesTopics) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePinnedSavedMessagesTopics#2101c3a3 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePinnedSavedMessagesTopics) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePinnedSavedMessagesTopics#2101c3a3 to nil")
+	}
+	if err := b.ConsumeID(UpdatePinnedSavedMessagesTopicsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePinnedSavedMessagesTopics#2101c3a3: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatePinnedSavedMessagesTopics) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePinnedSavedMessagesTopics#2101c3a3 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdatePinnedSavedMessagesTopics) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePinnedSavedMessagesTopics#2101c3a3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updatePinnedSavedMessagesTopics")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdatePinnedSavedMessagesTopics) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePinnedSavedMessagesTopics#2101c3a3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updatePinnedSavedMessagesTopics"); err != nil {
+				return fmt.Errorf("unable to decode updatePinnedSavedMessagesTopics#2101c3a3: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UpdateForumTopicInfo represents TL type `updateForumTopicInfo#6b6f2cc9`.
 type UpdateForumTopicInfo struct {
 	// Chat identifier
@@ -22031,6 +22162,172 @@ func (u *UpdateDefaultReactionType) GetReactionType() (value ReactionTypeClass) 
 	return u.ReactionType
 }
 
+// UpdateSavedMessagesTags represents TL type `updateSavedMessagesTags#dfc2ab29`.
+type UpdateSavedMessagesTags struct {
+	// The new used tags
+	Tags SavedMessagesTags
+}
+
+// UpdateSavedMessagesTagsTypeID is TL type id of UpdateSavedMessagesTags.
+const UpdateSavedMessagesTagsTypeID = 0xdfc2ab29
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSavedMessagesTags) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSavedMessagesTags.
+var (
+	_ bin.Encoder     = &UpdateSavedMessagesTags{}
+	_ bin.Decoder     = &UpdateSavedMessagesTags{}
+	_ bin.BareEncoder = &UpdateSavedMessagesTags{}
+	_ bin.BareDecoder = &UpdateSavedMessagesTags{}
+
+	_ UpdateClass = &UpdateSavedMessagesTags{}
+)
+
+func (u *UpdateSavedMessagesTags) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Tags.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSavedMessagesTags) String() string {
+	if u == nil {
+		return "UpdateSavedMessagesTags(nil)"
+	}
+	type Alias UpdateSavedMessagesTags
+	return fmt.Sprintf("UpdateSavedMessagesTags%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSavedMessagesTags) TypeID() uint32 {
+	return UpdateSavedMessagesTagsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSavedMessagesTags) TypeName() string {
+	return "updateSavedMessagesTags"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSavedMessagesTags) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSavedMessagesTags",
+		ID:   UpdateSavedMessagesTagsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Tags",
+			SchemaName: "tags",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSavedMessagesTags) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedMessagesTags#dfc2ab29 as nil")
+	}
+	b.PutID(UpdateSavedMessagesTagsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSavedMessagesTags) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedMessagesTags#dfc2ab29 as nil")
+	}
+	if err := u.Tags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateSavedMessagesTags#dfc2ab29: field tags: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSavedMessagesTags) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedMessagesTags#dfc2ab29 to nil")
+	}
+	if err := b.ConsumeID(UpdateSavedMessagesTagsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSavedMessagesTags#dfc2ab29: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSavedMessagesTags) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedMessagesTags#dfc2ab29 to nil")
+	}
+	{
+		if err := u.Tags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateSavedMessagesTags#dfc2ab29: field tags: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSavedMessagesTags) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedMessagesTags#dfc2ab29 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateSavedMessagesTags")
+	b.Comma()
+	b.FieldStart("tags")
+	if err := u.Tags.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateSavedMessagesTags#dfc2ab29: field tags: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSavedMessagesTags) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedMessagesTags#dfc2ab29 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateSavedMessagesTags"); err != nil {
+				return fmt.Errorf("unable to decode updateSavedMessagesTags#dfc2ab29: %w", err)
+			}
+		case "tags":
+			if err := u.Tags.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateSavedMessagesTags#dfc2ab29: field tags: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTags returns value of Tags field.
+func (u *UpdateSavedMessagesTags) GetTags() (value SavedMessagesTags) {
+	if u == nil {
+		return
+	}
+	return u.Tags
+}
+
 // UpdateSpeechRecognitionTrial represents TL type `updateSpeechRecognitionTrial#ff4efcc1`.
 type UpdateSpeechRecognitionTrial struct {
 	// The maximum allowed duration of media for speech recognition without Telegram Premium
@@ -28034,6 +28331,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
 //	case *tdapi.UpdateChatFolders: // updateChatFolders#71a4b3a
 //	case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
+//	case *tdapi.UpdatePinnedSavedMessagesTopics: // updatePinnedSavedMessagesTopics#2101c3a3
 //	case *tdapi.UpdateForumTopicInfo: // updateForumTopicInfo#6b6f2cc9
 //	case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
 //	case *tdapi.UpdateNotification: // updateNotification#8ee67ed4
@@ -28093,6 +28391,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
 //	case *tdapi.UpdateActiveEmojiReactions: // updateActiveEmojiReactions#691ffcb7
 //	case *tdapi.UpdateDefaultReactionType: // updateDefaultReactionType#4b615105
+//	case *tdapi.UpdateSavedMessagesTags: // updateSavedMessagesTags#dfc2ab29
 //	case *tdapi.UpdateSpeechRecognitionTrial: // updateSpeechRecognitionTrial#ff4efcc1
 //	case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
@@ -28457,6 +28756,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatOnlineMemberCountTypeID:
 		// Decoding updateChatOnlineMemberCount#1d0caa9d.
 		v := UpdateChatOnlineMemberCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdatePinnedSavedMessagesTopicsTypeID:
+		// Decoding updatePinnedSavedMessagesTopics#2101c3a3.
+		v := UpdatePinnedSavedMessagesTopics{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -28870,6 +29176,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateDefaultReactionTypeTypeID:
 		// Decoding updateDefaultReactionType#4b615105.
 		v := UpdateDefaultReactionType{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSavedMessagesTagsTypeID:
+		// Decoding updateSavedMessagesTags#dfc2ab29.
+		v := UpdateSavedMessagesTags{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -29355,6 +29668,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updatePinnedSavedMessagesTopics":
+		// Decoding updatePinnedSavedMessagesTopics#2101c3a3.
+		v := UpdatePinnedSavedMessagesTopics{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateForumTopicInfo":
 		// Decoding updateForumTopicInfo#6b6f2cc9.
 		v := UpdateForumTopicInfo{}
@@ -29764,6 +30084,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateDefaultReactionType":
 		// Decoding updateDefaultReactionType#4b615105.
 		v := UpdateDefaultReactionType{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateSavedMessagesTags":
+		// Decoding updateSavedMessagesTags#dfc2ab29.
+		v := UpdateSavedMessagesTags{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

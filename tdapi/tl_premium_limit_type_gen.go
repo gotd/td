@@ -1079,6 +1079,137 @@ func (p *PremiumLimitTypePinnedArchivedChatCount) DecodeTDLibJSON(b tdjson.Decod
 	})
 }
 
+// PremiumLimitTypePinnedSavedMessagesTopicCount represents TL type `premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df`.
+type PremiumLimitTypePinnedSavedMessagesTopicCount struct {
+}
+
+// PremiumLimitTypePinnedSavedMessagesTopicCountTypeID is TL type id of PremiumLimitTypePinnedSavedMessagesTopicCount.
+const PremiumLimitTypePinnedSavedMessagesTopicCountTypeID = 0xa3eb64df
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypePinnedSavedMessagesTopicCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypePinnedSavedMessagesTopicCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypePinnedSavedMessagesTopicCount{}
+	_ bin.Decoder     = &PremiumLimitTypePinnedSavedMessagesTopicCount{}
+	_ bin.BareEncoder = &PremiumLimitTypePinnedSavedMessagesTopicCount{}
+	_ bin.BareDecoder = &PremiumLimitTypePinnedSavedMessagesTopicCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypePinnedSavedMessagesTopicCount{}
+)
+
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypePinnedSavedMessagesTopicCount(nil)"
+	}
+	type Alias PremiumLimitTypePinnedSavedMessagesTopicCount
+	return fmt.Sprintf("PremiumLimitTypePinnedSavedMessagesTopicCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypePinnedSavedMessagesTopicCount) TypeID() uint32 {
+	return PremiumLimitTypePinnedSavedMessagesTopicCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypePinnedSavedMessagesTopicCount) TypeName() string {
+	return "premiumLimitTypePinnedSavedMessagesTopicCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypePinnedSavedMessagesTopicCount",
+		ID:   PremiumLimitTypePinnedSavedMessagesTopicCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df as nil")
+	}
+	b.PutID(PremiumLimitTypePinnedSavedMessagesTopicCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypePinnedSavedMessagesTopicCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypePinnedSavedMessagesTopicCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypePinnedSavedMessagesTopicCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypePinnedSavedMessagesTopicCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumLimitTypeCaptionLength represents TL type `premiumLimitTypeCaptionLength#1185d83a`.
 type PremiumLimitTypeCaptionLength struct {
 }
@@ -2409,6 +2540,7 @@ const PremiumLimitTypeClassName = "PremiumLimitType"
 //	case *tdapi.PremiumLimitTypeChatFolderCount: // premiumLimitTypeChatFolderCount#1680096e
 //	case *tdapi.PremiumLimitTypeChatFolderChosenChatCount: // premiumLimitTypeChatFolderChosenChatCount#64d14355
 //	case *tdapi.PremiumLimitTypePinnedArchivedChatCount: // premiumLimitTypePinnedArchivedChatCount#588b2a0c
+//	case *tdapi.PremiumLimitTypePinnedSavedMessagesTopicCount: // premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df
 //	case *tdapi.PremiumLimitTypeCaptionLength: // premiumLimitTypeCaptionLength#1185d83a
 //	case *tdapi.PremiumLimitTypeBioLength: // premiumLimitTypeBioLength#bba28603
 //	case *tdapi.PremiumLimitTypeChatFolderInviteLinkCount: // premiumLimitTypeChatFolderInviteLinkCount#f854261a
@@ -2502,6 +2634,13 @@ func DecodePremiumLimitType(buf *bin.Buffer) (PremiumLimitTypeClass, error) {
 	case PremiumLimitTypePinnedArchivedChatCountTypeID:
 		// Decoding premiumLimitTypePinnedArchivedChatCount#588b2a0c.
 		v := PremiumLimitTypePinnedArchivedChatCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case PremiumLimitTypePinnedSavedMessagesTopicCountTypeID:
+		// Decoding premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df.
+		v := PremiumLimitTypePinnedSavedMessagesTopicCount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
@@ -2640,6 +2779,13 @@ func DecodeTDLibJSONPremiumLimitType(buf tdjson.Decoder) (PremiumLimitTypeClass,
 	case "premiumLimitTypePinnedArchivedChatCount":
 		// Decoding premiumLimitTypePinnedArchivedChatCount#588b2a0c.
 		v := PremiumLimitTypePinnedArchivedChatCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypePinnedSavedMessagesTopicCount":
+		// Decoding premiumLimitTypePinnedSavedMessagesTopicCount#a3eb64df.
+		v := PremiumLimitTypePinnedSavedMessagesTopicCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}

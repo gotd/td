@@ -1203,137 +1203,6 @@ func (m *MessagePhoto) GetIsSecret() (value bool) {
 	return m.IsSecret
 }
 
-// MessageExpiredPhoto represents TL type `messageExpiredPhoto#ac46ddf7`.
-type MessageExpiredPhoto struct {
-}
-
-// MessageExpiredPhotoTypeID is TL type id of MessageExpiredPhoto.
-const MessageExpiredPhotoTypeID = 0xac46ddf7
-
-// construct implements constructor of MessageContentClass.
-func (m MessageExpiredPhoto) construct() MessageContentClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageExpiredPhoto.
-var (
-	_ bin.Encoder     = &MessageExpiredPhoto{}
-	_ bin.Decoder     = &MessageExpiredPhoto{}
-	_ bin.BareEncoder = &MessageExpiredPhoto{}
-	_ bin.BareDecoder = &MessageExpiredPhoto{}
-
-	_ MessageContentClass = &MessageExpiredPhoto{}
-)
-
-func (m *MessageExpiredPhoto) Zero() bool {
-	if m == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (m *MessageExpiredPhoto) String() string {
-	if m == nil {
-		return "MessageExpiredPhoto(nil)"
-	}
-	type Alias MessageExpiredPhoto
-	return fmt.Sprintf("MessageExpiredPhoto%+v", Alias(*m))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageExpiredPhoto) TypeID() uint32 {
-	return MessageExpiredPhotoTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*MessageExpiredPhoto) TypeName() string {
-	return "messageExpiredPhoto"
-}
-
-// TypeInfo returns info about TL type.
-func (m *MessageExpiredPhoto) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "messageExpiredPhoto",
-		ID:   MessageExpiredPhotoTypeID,
-	}
-	if m == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (m *MessageExpiredPhoto) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageExpiredPhoto#ac46ddf7 as nil")
-	}
-	b.PutID(MessageExpiredPhotoTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageExpiredPhoto) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageExpiredPhoto#ac46ddf7 as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (m *MessageExpiredPhoto) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageExpiredPhoto#ac46ddf7 to nil")
-	}
-	if err := b.ConsumeID(MessageExpiredPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageExpiredPhoto#ac46ddf7: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageExpiredPhoto) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageExpiredPhoto#ac46ddf7 to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageExpiredPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageExpiredPhoto#ac46ddf7 as nil")
-	}
-	b.ObjStart()
-	b.PutID("messageExpiredPhoto")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageExpiredPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageExpiredPhoto#ac46ddf7 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("messageExpiredPhoto"); err != nil {
-				return fmt.Errorf("unable to decode messageExpiredPhoto#ac46ddf7: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
 // MessageSticker represents TL type `messageSticker#e5f0dcca`.
 type MessageSticker struct {
 	// The sticker description
@@ -1803,137 +1672,6 @@ func (m *MessageVideo) GetIsSecret() (value bool) {
 	return m.IsSecret
 }
 
-// MessageExpiredVideo represents TL type `messageExpiredVideo#b7bf24c3`.
-type MessageExpiredVideo struct {
-}
-
-// MessageExpiredVideoTypeID is TL type id of MessageExpiredVideo.
-const MessageExpiredVideoTypeID = 0xb7bf24c3
-
-// construct implements constructor of MessageContentClass.
-func (m MessageExpiredVideo) construct() MessageContentClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageExpiredVideo.
-var (
-	_ bin.Encoder     = &MessageExpiredVideo{}
-	_ bin.Decoder     = &MessageExpiredVideo{}
-	_ bin.BareEncoder = &MessageExpiredVideo{}
-	_ bin.BareDecoder = &MessageExpiredVideo{}
-
-	_ MessageContentClass = &MessageExpiredVideo{}
-)
-
-func (m *MessageExpiredVideo) Zero() bool {
-	if m == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (m *MessageExpiredVideo) String() string {
-	if m == nil {
-		return "MessageExpiredVideo(nil)"
-	}
-	type Alias MessageExpiredVideo
-	return fmt.Sprintf("MessageExpiredVideo%+v", Alias(*m))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageExpiredVideo) TypeID() uint32 {
-	return MessageExpiredVideoTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*MessageExpiredVideo) TypeName() string {
-	return "messageExpiredVideo"
-}
-
-// TypeInfo returns info about TL type.
-func (m *MessageExpiredVideo) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "messageExpiredVideo",
-		ID:   MessageExpiredVideoTypeID,
-	}
-	if m == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (m *MessageExpiredVideo) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageExpiredVideo#b7bf24c3 as nil")
-	}
-	b.PutID(MessageExpiredVideoTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageExpiredVideo) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageExpiredVideo#b7bf24c3 as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (m *MessageExpiredVideo) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageExpiredVideo#b7bf24c3 to nil")
-	}
-	if err := b.ConsumeID(MessageExpiredVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageExpiredVideo#b7bf24c3: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageExpiredVideo) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageExpiredVideo#b7bf24c3 to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageExpiredVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageExpiredVideo#b7bf24c3 as nil")
-	}
-	b.ObjStart()
-	b.PutID("messageExpiredVideo")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageExpiredVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageExpiredVideo#b7bf24c3 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("messageExpiredVideo"); err != nil {
-				return fmt.Errorf("unable to decode messageExpiredVideo#b7bf24c3: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
 // MessageVideoNote represents TL type `messageVideoNote#396b2486`.
 type MessageVideoNote struct {
 	// The video note description
@@ -2401,6 +2139,530 @@ func (m *MessageVoiceNote) GetIsListened() (value bool) {
 		return
 	}
 	return m.IsListened
+}
+
+// MessageExpiredPhoto represents TL type `messageExpiredPhoto#ac46ddf7`.
+type MessageExpiredPhoto struct {
+}
+
+// MessageExpiredPhotoTypeID is TL type id of MessageExpiredPhoto.
+const MessageExpiredPhotoTypeID = 0xac46ddf7
+
+// construct implements constructor of MessageContentClass.
+func (m MessageExpiredPhoto) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageExpiredPhoto.
+var (
+	_ bin.Encoder     = &MessageExpiredPhoto{}
+	_ bin.Decoder     = &MessageExpiredPhoto{}
+	_ bin.BareEncoder = &MessageExpiredPhoto{}
+	_ bin.BareDecoder = &MessageExpiredPhoto{}
+
+	_ MessageContentClass = &MessageExpiredPhoto{}
+)
+
+func (m *MessageExpiredPhoto) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageExpiredPhoto) String() string {
+	if m == nil {
+		return "MessageExpiredPhoto(nil)"
+	}
+	type Alias MessageExpiredPhoto
+	return fmt.Sprintf("MessageExpiredPhoto%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageExpiredPhoto) TypeID() uint32 {
+	return MessageExpiredPhotoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageExpiredPhoto) TypeName() string {
+	return "messageExpiredPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageExpiredPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageExpiredPhoto",
+		ID:   MessageExpiredPhotoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageExpiredPhoto) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredPhoto#ac46ddf7 as nil")
+	}
+	b.PutID(MessageExpiredPhotoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageExpiredPhoto) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredPhoto#ac46ddf7 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageExpiredPhoto) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredPhoto#ac46ddf7 to nil")
+	}
+	if err := b.ConsumeID(MessageExpiredPhotoTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageExpiredPhoto#ac46ddf7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageExpiredPhoto) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredPhoto#ac46ddf7 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageExpiredPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredPhoto#ac46ddf7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageExpiredPhoto")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageExpiredPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredPhoto#ac46ddf7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageExpiredPhoto"); err != nil {
+				return fmt.Errorf("unable to decode messageExpiredPhoto#ac46ddf7: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// MessageExpiredVideo represents TL type `messageExpiredVideo#b7bf24c3`.
+type MessageExpiredVideo struct {
+}
+
+// MessageExpiredVideoTypeID is TL type id of MessageExpiredVideo.
+const MessageExpiredVideoTypeID = 0xb7bf24c3
+
+// construct implements constructor of MessageContentClass.
+func (m MessageExpiredVideo) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageExpiredVideo.
+var (
+	_ bin.Encoder     = &MessageExpiredVideo{}
+	_ bin.Decoder     = &MessageExpiredVideo{}
+	_ bin.BareEncoder = &MessageExpiredVideo{}
+	_ bin.BareDecoder = &MessageExpiredVideo{}
+
+	_ MessageContentClass = &MessageExpiredVideo{}
+)
+
+func (m *MessageExpiredVideo) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageExpiredVideo) String() string {
+	if m == nil {
+		return "MessageExpiredVideo(nil)"
+	}
+	type Alias MessageExpiredVideo
+	return fmt.Sprintf("MessageExpiredVideo%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageExpiredVideo) TypeID() uint32 {
+	return MessageExpiredVideoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageExpiredVideo) TypeName() string {
+	return "messageExpiredVideo"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageExpiredVideo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageExpiredVideo",
+		ID:   MessageExpiredVideoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageExpiredVideo) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVideo#b7bf24c3 as nil")
+	}
+	b.PutID(MessageExpiredVideoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageExpiredVideo) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVideo#b7bf24c3 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageExpiredVideo) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVideo#b7bf24c3 to nil")
+	}
+	if err := b.ConsumeID(MessageExpiredVideoTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageExpiredVideo#b7bf24c3: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageExpiredVideo) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVideo#b7bf24c3 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageExpiredVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVideo#b7bf24c3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageExpiredVideo")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageExpiredVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVideo#b7bf24c3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageExpiredVideo"); err != nil {
+				return fmt.Errorf("unable to decode messageExpiredVideo#b7bf24c3: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// MessageExpiredVideoNote represents TL type `messageExpiredVideoNote#23bc43e7`.
+type MessageExpiredVideoNote struct {
+}
+
+// MessageExpiredVideoNoteTypeID is TL type id of MessageExpiredVideoNote.
+const MessageExpiredVideoNoteTypeID = 0x23bc43e7
+
+// construct implements constructor of MessageContentClass.
+func (m MessageExpiredVideoNote) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageExpiredVideoNote.
+var (
+	_ bin.Encoder     = &MessageExpiredVideoNote{}
+	_ bin.Decoder     = &MessageExpiredVideoNote{}
+	_ bin.BareEncoder = &MessageExpiredVideoNote{}
+	_ bin.BareDecoder = &MessageExpiredVideoNote{}
+
+	_ MessageContentClass = &MessageExpiredVideoNote{}
+)
+
+func (m *MessageExpiredVideoNote) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageExpiredVideoNote) String() string {
+	if m == nil {
+		return "MessageExpiredVideoNote(nil)"
+	}
+	type Alias MessageExpiredVideoNote
+	return fmt.Sprintf("MessageExpiredVideoNote%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageExpiredVideoNote) TypeID() uint32 {
+	return MessageExpiredVideoNoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageExpiredVideoNote) TypeName() string {
+	return "messageExpiredVideoNote"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageExpiredVideoNote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageExpiredVideoNote",
+		ID:   MessageExpiredVideoNoteTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageExpiredVideoNote) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVideoNote#23bc43e7 as nil")
+	}
+	b.PutID(MessageExpiredVideoNoteTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageExpiredVideoNote) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVideoNote#23bc43e7 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageExpiredVideoNote) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVideoNote#23bc43e7 to nil")
+	}
+	if err := b.ConsumeID(MessageExpiredVideoNoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageExpiredVideoNote#23bc43e7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageExpiredVideoNote) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVideoNote#23bc43e7 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageExpiredVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVideoNote#23bc43e7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageExpiredVideoNote")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageExpiredVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVideoNote#23bc43e7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageExpiredVideoNote"); err != nil {
+				return fmt.Errorf("unable to decode messageExpiredVideoNote#23bc43e7: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// MessageExpiredVoiceNote represents TL type `messageExpiredVoiceNote#890757d`.
+type MessageExpiredVoiceNote struct {
+}
+
+// MessageExpiredVoiceNoteTypeID is TL type id of MessageExpiredVoiceNote.
+const MessageExpiredVoiceNoteTypeID = 0x890757d
+
+// construct implements constructor of MessageContentClass.
+func (m MessageExpiredVoiceNote) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageExpiredVoiceNote.
+var (
+	_ bin.Encoder     = &MessageExpiredVoiceNote{}
+	_ bin.Decoder     = &MessageExpiredVoiceNote{}
+	_ bin.BareEncoder = &MessageExpiredVoiceNote{}
+	_ bin.BareDecoder = &MessageExpiredVoiceNote{}
+
+	_ MessageContentClass = &MessageExpiredVoiceNote{}
+)
+
+func (m *MessageExpiredVoiceNote) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageExpiredVoiceNote) String() string {
+	if m == nil {
+		return "MessageExpiredVoiceNote(nil)"
+	}
+	type Alias MessageExpiredVoiceNote
+	return fmt.Sprintf("MessageExpiredVoiceNote%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageExpiredVoiceNote) TypeID() uint32 {
+	return MessageExpiredVoiceNoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageExpiredVoiceNote) TypeName() string {
+	return "messageExpiredVoiceNote"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageExpiredVoiceNote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageExpiredVoiceNote",
+		ID:   MessageExpiredVoiceNoteTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageExpiredVoiceNote) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVoiceNote#890757d as nil")
+	}
+	b.PutID(MessageExpiredVoiceNoteTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageExpiredVoiceNote) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVoiceNote#890757d as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageExpiredVoiceNote) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVoiceNote#890757d to nil")
+	}
+	if err := b.ConsumeID(MessageExpiredVoiceNoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageExpiredVoiceNote#890757d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageExpiredVoiceNote) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVoiceNote#890757d to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageExpiredVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageExpiredVoiceNote#890757d as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageExpiredVoiceNote")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageExpiredVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageExpiredVoiceNote#890757d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageExpiredVoiceNote"); err != nil {
+				return fmt.Errorf("unable to decode messageExpiredVoiceNote#890757d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // MessageLocation represents TL type `messageLocation#121e4474`.
@@ -14447,12 +14709,14 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageAudio: // messageAudio#107e741c
 //	case *tdapi.MessageDocument: // messageDocument#2394ab77
 //	case *tdapi.MessagePhoto: // messagePhoto#e54b4ad2
-//	case *tdapi.MessageExpiredPhoto: // messageExpiredPhoto#ac46ddf7
 //	case *tdapi.MessageSticker: // messageSticker#e5f0dcca
 //	case *tdapi.MessageVideo: // messageVideo#b63d003b
-//	case *tdapi.MessageExpiredVideo: // messageExpiredVideo#b7bf24c3
 //	case *tdapi.MessageVideoNote: // messageVideoNote#396b2486
 //	case *tdapi.MessageVoiceNote: // messageVoiceNote#1f753ff5
+//	case *tdapi.MessageExpiredPhoto: // messageExpiredPhoto#ac46ddf7
+//	case *tdapi.MessageExpiredVideo: // messageExpiredVideo#b7bf24c3
+//	case *tdapi.MessageExpiredVideoNote: // messageExpiredVideoNote#23bc43e7
+//	case *tdapi.MessageExpiredVoiceNote: // messageExpiredVoiceNote#890757d
 //	case *tdapi.MessageLocation: // messageLocation#121e4474
 //	case *tdapi.MessageVenue: // messageVenue#800f2175
 //	case *tdapi.MessageContact: // messageContact#e1710c5a
@@ -14574,13 +14838,6 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageExpiredPhotoTypeID:
-		// Decoding messageExpiredPhoto#ac46ddf7.
-		v := MessageExpiredPhoto{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
-		}
-		return &v, nil
 	case MessageStickerTypeID:
 		// Decoding messageSticker#e5f0dcca.
 		v := MessageSticker{}
@@ -14595,13 +14852,6 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageExpiredVideoTypeID:
-		// Decoding messageExpiredVideo#b7bf24c3.
-		v := MessageExpiredVideo{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
-		}
-		return &v, nil
 	case MessageVideoNoteTypeID:
 		// Decoding messageVideoNote#396b2486.
 		v := MessageVideoNote{}
@@ -14612,6 +14862,34 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageVoiceNoteTypeID:
 		// Decoding messageVoiceNote#1f753ff5.
 		v := MessageVoiceNote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageExpiredPhotoTypeID:
+		// Decoding messageExpiredPhoto#ac46ddf7.
+		v := MessageExpiredPhoto{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageExpiredVideoTypeID:
+		// Decoding messageExpiredVideo#b7bf24c3.
+		v := MessageExpiredVideo{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageExpiredVideoNoteTypeID:
+		// Decoding messageExpiredVideoNote#23bc43e7.
+		v := MessageExpiredVideoNote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageExpiredVoiceNoteTypeID:
+		// Decoding messageExpiredVoiceNote#890757d.
+		v := MessageExpiredVoiceNote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -15048,13 +15326,6 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageExpiredPhoto":
-		// Decoding messageExpiredPhoto#ac46ddf7.
-		v := MessageExpiredPhoto{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
-		}
-		return &v, nil
 	case "messageSticker":
 		// Decoding messageSticker#e5f0dcca.
 		v := MessageSticker{}
@@ -15069,13 +15340,6 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageExpiredVideo":
-		// Decoding messageExpiredVideo#b7bf24c3.
-		v := MessageExpiredVideo{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
-		}
-		return &v, nil
 	case "messageVideoNote":
 		// Decoding messageVideoNote#396b2486.
 		v := MessageVideoNote{}
@@ -15086,6 +15350,34 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageVoiceNote":
 		// Decoding messageVoiceNote#1f753ff5.
 		v := MessageVoiceNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageExpiredPhoto":
+		// Decoding messageExpiredPhoto#ac46ddf7.
+		v := MessageExpiredPhoto{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageExpiredVideo":
+		// Decoding messageExpiredVideo#b7bf24c3.
+		v := MessageExpiredVideo{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageExpiredVideoNote":
+		// Decoding messageExpiredVideoNote#23bc43e7.
+		v := MessageExpiredVideoNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageExpiredVoiceNote":
+		// Decoding messageExpiredVoiceNote#890757d.
+		v := MessageExpiredVoiceNote{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

@@ -41,7 +41,8 @@ type AddMessageReactionRequest struct {
 	ReactionType ReactionTypeClass
 	// Pass true if the reaction is added with a big animation
 	IsBig bool
-	// Pass true if the reaction needs to be added to recent reactions
+	// Pass true if the reaction needs to be added to recent reactions; tags are never added
+	// to the list of recent reactions
 	UpdateRecentReactions bool
 }
 

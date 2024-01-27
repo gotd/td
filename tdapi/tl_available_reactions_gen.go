@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AvailableReactions represents TL type `availableReactions#d5568da9`.
+// AvailableReactions represents TL type `availableReactions#3596f453`.
 type AvailableReactions struct {
 	// List of reactions to be shown at the top
 	TopReactions []AvailableReaction
@@ -41,10 +41,16 @@ type AvailableReactions struct {
 	PopularReactions []AvailableReaction
 	// True, if any custom emoji reaction can be added by Telegram Premium subscribers
 	AllowCustomEmoji bool
+	// True, if the reactions will be tags and the message can be found by them; currently,
+	// always false
+	AreTags bool
+	// The reason why the current user can't add reactions to the message, despite some other
+	// users can; may be null if none
+	UnavailabilityReason ReactionUnavailabilityReasonClass
 }
 
 // AvailableReactionsTypeID is TL type id of AvailableReactions.
-const AvailableReactionsTypeID = 0xd5568da9
+const AvailableReactionsTypeID = 0x3596f453
 
 // Ensuring interfaces in compile-time for AvailableReactions.
 var (
@@ -68,6 +74,12 @@ func (a *AvailableReactions) Zero() bool {
 		return false
 	}
 	if !(a.AllowCustomEmoji == false) {
+		return false
+	}
+	if !(a.AreTags == false) {
+		return false
+	}
+	if !(a.UnavailabilityReason == nil) {
 		return false
 	}
 
@@ -122,6 +134,14 @@ func (a *AvailableReactions) TypeInfo() tdp.Type {
 			Name:       "AllowCustomEmoji",
 			SchemaName: "allow_custom_emoji",
 		},
+		{
+			Name:       "AreTags",
+			SchemaName: "are_tags",
+		},
+		{
+			Name:       "UnavailabilityReason",
+			SchemaName: "unavailability_reason",
+		},
 	}
 	return typ
 }
@@ -129,7 +149,7 @@ func (a *AvailableReactions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AvailableReactions) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReactions#d5568da9 as nil")
+		return fmt.Errorf("can't encode availableReactions#3596f453 as nil")
 	}
 	b.PutID(AvailableReactionsTypeID)
 	return a.EncodeBare(b)
@@ -138,37 +158,44 @@ func (a *AvailableReactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AvailableReactions) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReactions#d5568da9 as nil")
+		return fmt.Errorf("can't encode availableReactions#3596f453 as nil")
 	}
 	b.PutInt(len(a.TopReactions))
 	for idx, v := range a.TopReactions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare availableReactions#d5568da9: field top_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare availableReactions#3596f453: field top_reactions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(len(a.RecentReactions))
 	for idx, v := range a.RecentReactions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare availableReactions#d5568da9: field recent_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare availableReactions#3596f453: field recent_reactions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(len(a.PopularReactions))
 	for idx, v := range a.PopularReactions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare availableReactions#d5568da9: field popular_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare availableReactions#3596f453: field popular_reactions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutBool(a.AllowCustomEmoji)
+	b.PutBool(a.AreTags)
+	if a.UnavailabilityReason == nil {
+		return fmt.Errorf("unable to encode availableReactions#3596f453: field unavailability_reason is nil")
+	}
+	if err := a.UnavailabilityReason.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode availableReactions#3596f453: field unavailability_reason: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *AvailableReactions) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReactions#d5568da9 to nil")
+		return fmt.Errorf("can't decode availableReactions#3596f453 to nil")
 	}
 	if err := b.ConsumeID(AvailableReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode availableReactions#d5568da9: %w", err)
+		return fmt.Errorf("unable to decode availableReactions#3596f453: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -176,12 +203,12 @@ func (a *AvailableReactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReactions#d5568da9 to nil")
+		return fmt.Errorf("can't decode availableReactions#3596f453 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReactions#d5568da9: field top_reactions: %w", err)
+			return fmt.Errorf("unable to decode availableReactions#3596f453: field top_reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -190,7 +217,7 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value AvailableReaction
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare availableReactions#d5568da9: field top_reactions: %w", err)
+				return fmt.Errorf("unable to decode bare availableReactions#3596f453: field top_reactions: %w", err)
 			}
 			a.TopReactions = append(a.TopReactions, value)
 		}
@@ -198,7 +225,7 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReactions#d5568da9: field recent_reactions: %w", err)
+			return fmt.Errorf("unable to decode availableReactions#3596f453: field recent_reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -207,7 +234,7 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value AvailableReaction
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare availableReactions#d5568da9: field recent_reactions: %w", err)
+				return fmt.Errorf("unable to decode bare availableReactions#3596f453: field recent_reactions: %w", err)
 			}
 			a.RecentReactions = append(a.RecentReactions, value)
 		}
@@ -215,7 +242,7 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReactions#d5568da9: field popular_reactions: %w", err)
+			return fmt.Errorf("unable to decode availableReactions#3596f453: field popular_reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -224,7 +251,7 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value AvailableReaction
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare availableReactions#d5568da9: field popular_reactions: %w", err)
+				return fmt.Errorf("unable to decode bare availableReactions#3596f453: field popular_reactions: %w", err)
 			}
 			a.PopularReactions = append(a.PopularReactions, value)
 		}
@@ -232,9 +259,23 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReactions#d5568da9: field allow_custom_emoji: %w", err)
+			return fmt.Errorf("unable to decode availableReactions#3596f453: field allow_custom_emoji: %w", err)
 		}
 		a.AllowCustomEmoji = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode availableReactions#3596f453: field are_tags: %w", err)
+		}
+		a.AreTags = value
+	}
+	{
+		value, err := DecodeReactionUnavailabilityReason(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode availableReactions#3596f453: field unavailability_reason: %w", err)
+		}
+		a.UnavailabilityReason = value
 	}
 	return nil
 }
@@ -242,7 +283,7 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReactions#d5568da9 as nil")
+		return fmt.Errorf("can't encode availableReactions#3596f453 as nil")
 	}
 	b.ObjStart()
 	b.PutID("availableReactions")
@@ -251,7 +292,7 @@ func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range a.TopReactions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode availableReactions#d5568da9: field top_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode availableReactions#3596f453: field top_reactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -262,7 +303,7 @@ func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range a.RecentReactions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode availableReactions#d5568da9: field recent_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode availableReactions#3596f453: field recent_reactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -273,7 +314,7 @@ func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range a.PopularReactions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode availableReactions#d5568da9: field popular_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode availableReactions#3596f453: field popular_reactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -283,6 +324,17 @@ func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("allow_custom_emoji")
 	b.PutBool(a.AllowCustomEmoji)
 	b.Comma()
+	b.FieldStart("are_tags")
+	b.PutBool(a.AreTags)
+	b.Comma()
+	b.FieldStart("unavailability_reason")
+	if a.UnavailabilityReason == nil {
+		return fmt.Errorf("unable to encode availableReactions#3596f453: field unavailability_reason is nil")
+	}
+	if err := a.UnavailabilityReason.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode availableReactions#3596f453: field unavailability_reason: %w", err)
+	}
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -291,54 +343,66 @@ func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AvailableReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReactions#d5568da9 to nil")
+		return fmt.Errorf("can't decode availableReactions#3596f453 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("availableReactions"); err != nil {
-				return fmt.Errorf("unable to decode availableReactions#d5568da9: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#3596f453: %w", err)
 			}
 		case "top_reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value AvailableReaction
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode availableReactions#d5568da9: field top_reactions: %w", err)
+					return fmt.Errorf("unable to decode availableReactions#3596f453: field top_reactions: %w", err)
 				}
 				a.TopReactions = append(a.TopReactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode availableReactions#d5568da9: field top_reactions: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#3596f453: field top_reactions: %w", err)
 			}
 		case "recent_reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value AvailableReaction
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode availableReactions#d5568da9: field recent_reactions: %w", err)
+					return fmt.Errorf("unable to decode availableReactions#3596f453: field recent_reactions: %w", err)
 				}
 				a.RecentReactions = append(a.RecentReactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode availableReactions#d5568da9: field recent_reactions: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#3596f453: field recent_reactions: %w", err)
 			}
 		case "popular_reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value AvailableReaction
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode availableReactions#d5568da9: field popular_reactions: %w", err)
+					return fmt.Errorf("unable to decode availableReactions#3596f453: field popular_reactions: %w", err)
 				}
 				a.PopularReactions = append(a.PopularReactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode availableReactions#d5568da9: field popular_reactions: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#3596f453: field popular_reactions: %w", err)
 			}
 		case "allow_custom_emoji":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode availableReactions#d5568da9: field allow_custom_emoji: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#3596f453: field allow_custom_emoji: %w", err)
 			}
 			a.AllowCustomEmoji = value
+		case "are_tags":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode availableReactions#3596f453: field are_tags: %w", err)
+			}
+			a.AreTags = value
+		case "unavailability_reason":
+			value, err := DecodeTDLibJSONReactionUnavailabilityReason(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode availableReactions#3596f453: field unavailability_reason: %w", err)
+			}
+			a.UnavailabilityReason = value
 		default:
 			return b.Skip()
 		}
@@ -376,4 +440,20 @@ func (a *AvailableReactions) GetAllowCustomEmoji() (value bool) {
 		return
 	}
 	return a.AllowCustomEmoji
+}
+
+// GetAreTags returns value of AreTags field.
+func (a *AvailableReactions) GetAreTags() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.AreTags
+}
+
+// GetUnavailabilityReason returns value of UnavailabilityReason field.
+func (a *AvailableReactions) GetUnavailabilityReason() (value ReactionUnavailabilityReasonClass) {
+	if a == nil {
+		return
+	}
+	return a.UnavailabilityReason
 }
