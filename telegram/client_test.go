@@ -86,6 +86,7 @@ func newTestClient(h testHandler) *Client {
 		ctx:           context.Background(),
 		cancel:        func() {},
 		updateHandler: UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error { return nil }),
+		onTransfer:    noopOnTransfer,
 	}
 	client.init()
 
