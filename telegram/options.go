@@ -94,6 +94,10 @@ type Options struct {
 
 	// OpenTelemetry.
 	TracerProvider trace.TracerProvider
+
+	// OnTransfer is called during authorization transfer.
+	// See [AuthTransferHandler] for details.
+	OnTransfer AuthTransferHandler
 }
 
 func (opt *Options) setDefaults() {
@@ -139,6 +143,9 @@ func (opt *Options) setDefaults() {
 		opt.UpdateHandler = UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			return nil
 		})
+	}
+	if opt.OnTransfer == nil {
+		opt.OnTransfer = noopOnTransfer
 	}
 }
 

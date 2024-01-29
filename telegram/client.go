@@ -128,6 +128,9 @@ type Client struct {
 
 	// Tracing.
 	tracer trace.Tracer
+
+	// onTransfer is called in transfer.
+	onTransfer AuthTransferHandler
 }
 
 // NewClient creates new unstarted client.
@@ -161,6 +164,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		migrationTimeout: opt.MigrationTimeout,
 		noUpdatesMode:    opt.NoUpdates,
 		mw:               opt.Middlewares,
+		onTransfer:       opt.OnTransfer,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
