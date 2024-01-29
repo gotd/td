@@ -94,6 +94,14 @@ type Options struct {
 
 	// OpenTelemetry.
 	TracerProvider trace.TracerProvider
+
+	// OnTransfer is called on authorization transfer to acquire external lock.
+	//
+	// The function should call tx function to perform transfer, serializing it
+	// with external lock.
+	//
+	// The function must return error if tx function returned error.
+	OnTransfer func(ctx context.Context, tx func(context.Context) error) error
 }
 
 func (opt *Options) setDefaults() {
@@ -139,6 +147,9 @@ func (opt *Options) setDefaults() {
 		opt.UpdateHandler = UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			return nil
 		})
+	}
+	if opt.OnTransfer == nil {
+		opt.OnTransfer = noopOnTransfer
 	}
 }
 
