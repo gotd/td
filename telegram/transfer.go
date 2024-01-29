@@ -17,6 +17,14 @@ func (c *Client) exportAuth(ctx context.Context, dcID int) (*tg.AuthExportedAuth
 	return export, nil
 }
 
+// AuthTransferHandler is a function that is called during authorization transfer.
+//
+// The fn callback should be serialized by user id via external locking.
+// You can call [Client.Self] to acquire current user id.
+//
+// The fn callback must return fn error if any.
+type AuthTransferHandler func(ctx context.Context, client *Client, fn func(context.Context) error) error
+
 func noopOnTransfer(ctx context.Context, _ *Client, fn func(context.Context) error) error {
 	return fn(ctx)
 }

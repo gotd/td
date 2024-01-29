@@ -129,8 +129,8 @@ type Client struct {
 	// Tracing.
 	tracer trace.Tracer
 
-	// onTransfer is called on authorization transfer.
-	onTransfer func(ctx context.Context, client *Client, tx func(ctx context.Context) error) error
+	// onTransfer is called in transfer.
+	onTransfer AuthTransferHandler
 }
 
 // NewClient creates new unstarted client.
