@@ -101,7 +101,7 @@ type Options struct {
 	// with external lock.
 	//
 	// The function must return error if tx function returned error.
-	OnTransfer func(ctx context.Context, tx func(context.Context) error) error
+	OnTransfer func(ctx context.Context, c *Client, tx func(context.Context) error) error
 }
 
 func (opt *Options) setDefaults() {

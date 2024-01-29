@@ -17,13 +17,15 @@ func (c *Client) exportAuth(ctx context.Context, dcID int) (*tg.AuthExportedAuth
 	return export, nil
 }
 
-func noopOnTransfer(ctx context.Context, fn func(context.Context) error) error { return fn(ctx) }
+func noopOnTransfer(ctx context.Context, _ *Client, fn func(context.Context) error) error {
+	return fn(ctx)
+}
 
 // transfer exports current authorization and imports it to another DC.
 // See https://core.telegram.org/api/datacenter#authorization-transfer.
 func (c *Client) transfer(ctx context.Context, to *tg.Client, dc int) (tg.AuthAuthorizationClass, error) {
 	var out tg.AuthAuthorizationClass
-	if err := c.onTransfer(ctx, func(ctx context.Context) error {
+	if err := c.onTransfer(ctx, c, func(ctx context.Context) error {
 		auth, err := c.exportAuth(ctx, dc)
 		if err != nil {
 			return errors.Wrapf(err, "export to %d", dc)
