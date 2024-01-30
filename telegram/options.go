@@ -153,7 +153,7 @@ func defaultBackoff(c clock.Clock) func() backoff.BackOff {
 	return func() backoff.BackOff {
 		b := backoff.NewExponentialBackOff()
 		b.Clock = c
-		b.MaxElapsedTime = 0
+		b.MaxElapsedTime = time.Minute
 		b.InitialInterval = time.Millisecond * 100
 		b.MaxInterval = time.Second
 		return b

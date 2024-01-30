@@ -131,10 +131,10 @@ func (opt *Options) setDefaults() {
 		opt.SaltFetchInterval = 1 * time.Hour
 	}
 	if opt.PingTimeout == 0 {
-		opt.PingTimeout = 15 * time.Second
+		opt.PingTimeout = 10 * time.Second
 	}
 	if opt.PingInterval == 0 {
-		opt.PingInterval = 1 * time.Minute
+		opt.PingInterval = 15 * time.Second
 	}
 	if opt.RequestTimeout == nil {
 		opt.RequestTimeout = func(req uint32) time.Duration {
