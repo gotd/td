@@ -22,8 +22,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 	if !c.noUpdatesMode {
 		g.Go(func(ctx context.Context) error {
 			// Call method which requires authorization, to subscribe for updates.
-			// See https://core.telegram.org/api/updates#subscribing-to-updates
-			c.log.Debug("Calling c.Self to subscribe for updates")
+			// See https://core.telegram.org/api/updates#subscribing-to-updates.
 			self, err := c.Self(ctx)
 			if err != nil {
 				// Ignore unauthorized errors.
@@ -59,29 +58,21 @@ func (c *Client) isPermanentError(err error) bool {
 }
 
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
+	// Note that we currently have no timeout on connection, so this is
+	// potentially eternal.
 	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
 
 	return backoff.RetryNotify(func() error {
 		if err := c.runUntilRestart(ctx); err != nil {
-			if ctxErr := ctx.Err(); ctxErr != nil {
-				c.log.Error("Stopping reconnection attempts due to parent context error",
-					zap.Error(err),
-					zap.Errors("error_parent", []error{ctxErr}),
-				)
-				return errors.Wrap(err, "parent context closed")
-			}
 			if c.isPermanentError(err) {
 				return backoff.Permanent(err)
 			}
-			return errors.Wrap(err, "runUntilRestart")
+			return err
 		}
 
 		return nil
 	}, b, func(err error, timeout time.Duration) {
-		c.log.Info("Restarting connection",
-			zap.Error(err),
-			zap.Duration("backoff", timeout),
-		)
+		c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
 
 		c.connMux.Lock()
 		c.conn = c.createPrimaryConn(nil)
