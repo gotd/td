@@ -1,8 +1,6 @@
 module github.com/gotd/td/examples
 
-go 1.21
-
-toolchain go1.21.0
+go 1.19
 
 require (
 	github.com/cockroachdb/pebble v0.0.0-20220107203702-aa376a819bf6
@@ -33,7 +31,7 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gotd/ige v0.2.2 // indirect
 	github.com/gotd/neo v0.1.5 // indirect
-	github.com/klauspost/compress v1.17.4 // indirect
+	github.com/klauspost/compress v1.17.5 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
