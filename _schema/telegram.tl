@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/SourceFiles/mtproto/scheme/api.tl
 // Merge:  _schema/legacy.tl
-// Layer:  172
-// SHA256: fbaa11d3539fd1f369fb788b89b3e7ff55cf25f5bcc6a9822d0da5f14fbd9433
+// Layer:  173
+// SHA256: e9fedcc9c68ac53e741e5ea9122fa99f7918d8931635a213217fd4c1e947f7da
 
 boolFalse#bc799737 = Bool;
 
@@ -2446,7 +2446,7 @@ invokeWithTakeout#aca9fd2e {X:Type} takeout_id:long query:!X = X;
 
 auth.sendCode#a677244f phone_number:string api_id:int api_hash:string settings:CodeSettings = auth.SentCode;
 
-auth.signUp#80eee427 phone_number:string phone_code_hash:string first_name:string last_name:string = auth.Authorization;
+auth.signUp#aac7b717 flags:# no_joined_notifications:flags.0?true phone_number:string phone_code_hash:string first_name:string last_name:string = auth.Authorization;
 
 auth.signIn#8d52a951 flags:# phone_number:string phone_code_hash:string phone_code:flags.0?string email_verification:flags.1?EmailVerification = auth.Authorization;
 
@@ -3118,7 +3118,7 @@ messages.toggleSavedDialogPin#ac81bbde flags:# pinned:flags.0?true peer:InputDia
 
 messages.reorderPinnedSavedDialogs#8b716587 flags:# force:flags.0?true order:Vector<InputDialogPeer> = Bool;
 
-messages.getSavedReactionTags#761ddacf hash:long = messages.SavedReactionTags;
+messages.getSavedReactionTags#3637e05b flags:# peer:flags.0?InputPeer hash:long = messages.SavedReactionTags;
 
 messages.updateSavedReactionTag#60297dec flags:# reaction:Reaction title:flags.0?string = Bool;
 
@@ -3610,4 +3610,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 172
+// LAYER 173

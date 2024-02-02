@@ -31,11 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AuthSignUpRequest represents TL type `auth.signUp#80eee427`.
+// AuthSignUpRequest represents TL type `auth.signUp#aac7b717`.
 // Registers a validated phone number in the system.
 //
 // See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
+	// Flags field of AuthSignUpRequest.
+	Flags bin.Fields
+	// NoJoinedNotifications field of AuthSignUpRequest.
+	NoJoinedNotifications bool
 	// Phone number in the international format
 	PhoneNumber string
 	// SMS-message ID
@@ -47,7 +51,7 @@ type AuthSignUpRequest struct {
 }
 
 // AuthSignUpRequestTypeID is TL type id of AuthSignUpRequest.
-const AuthSignUpRequestTypeID = 0x80eee427
+const AuthSignUpRequestTypeID = 0xaac7b717
 
 // Ensuring interfaces in compile-time for AuthSignUpRequest.
 var (
@@ -60,6 +64,12 @@ var (
 func (s *AuthSignUpRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.NoJoinedNotifications == false) {
+		return false
 	}
 	if !(s.PhoneNumber == "") {
 		return false
@@ -88,11 +98,13 @@ func (s *AuthSignUpRequest) String() string {
 
 // FillFrom fills AuthSignUpRequest from given interface.
 func (s *AuthSignUpRequest) FillFrom(from interface {
+	GetNoJoinedNotifications() (value bool)
 	GetPhoneNumber() (value string)
 	GetPhoneCodeHash() (value string)
 	GetFirstName() (value string)
 	GetLastName() (value string)
 }) {
+	s.NoJoinedNotifications = from.GetNoJoinedNotifications()
 	s.PhoneNumber = from.GetPhoneNumber()
 	s.PhoneCodeHash = from.GetPhoneCodeHash()
 	s.FirstName = from.GetFirstName()
@@ -123,6 +135,11 @@ func (s *AuthSignUpRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "NoJoinedNotifications",
+			SchemaName: "no_joined_notifications",
+			Null:       !s.Flags.Has(0),
+		},
+		{
 			Name:       "PhoneNumber",
 			SchemaName: "phone_number",
 		},
@@ -142,10 +159,17 @@ func (s *AuthSignUpRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *AuthSignUpRequest) SetFlags() {
+	if !(s.NoJoinedNotifications == false) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSignUpRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signUp#80eee427 as nil")
+		return fmt.Errorf("can't encode auth.signUp#aac7b717 as nil")
 	}
 	b.PutID(AuthSignUpRequestTypeID)
 	return s.EncodeBare(b)
@@ -154,7 +178,11 @@ func (s *AuthSignUpRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSignUpRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signUp#80eee427 as nil")
+		return fmt.Errorf("can't encode auth.signUp#aac7b717 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.signUp#aac7b717: field flags: %w", err)
 	}
 	b.PutString(s.PhoneNumber)
 	b.PutString(s.PhoneCodeHash)
@@ -166,10 +194,10 @@ func (s *AuthSignUpRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *AuthSignUpRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signUp#80eee427 to nil")
+		return fmt.Errorf("can't decode auth.signUp#aac7b717 to nil")
 	}
 	if err := b.ConsumeID(AuthSignUpRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.signUp#80eee427: %w", err)
+		return fmt.Errorf("unable to decode auth.signUp#aac7b717: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -177,37 +205,62 @@ func (s *AuthSignUpRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSignUpRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signUp#80eee427 to nil")
+		return fmt.Errorf("can't decode auth.signUp#aac7b717 to nil")
 	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode auth.signUp#aac7b717: field flags: %w", err)
+		}
+	}
+	s.NoJoinedNotifications = s.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode auth.signUp#aac7b717: field phone_number: %w", err)
 		}
 		s.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode auth.signUp#aac7b717: field phone_code_hash: %w", err)
 		}
 		s.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field first_name: %w", err)
+			return fmt.Errorf("unable to decode auth.signUp#aac7b717: field first_name: %w", err)
 		}
 		s.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signUp#80eee427: field last_name: %w", err)
+			return fmt.Errorf("unable to decode auth.signUp#aac7b717: field last_name: %w", err)
 		}
 		s.LastName = value
 	}
 	return nil
+}
+
+// SetNoJoinedNotifications sets value of NoJoinedNotifications conditional field.
+func (s *AuthSignUpRequest) SetNoJoinedNotifications(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.NoJoinedNotifications = true
+	} else {
+		s.Flags.Unset(0)
+		s.NoJoinedNotifications = false
+	}
+}
+
+// GetNoJoinedNotifications returns value of NoJoinedNotifications conditional field.
+func (s *AuthSignUpRequest) GetNoJoinedNotifications() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.
@@ -242,7 +295,7 @@ func (s *AuthSignUpRequest) GetLastName() (value string) {
 	return s.LastName
 }
 
-// AuthSignUp invokes method auth.signUp#80eee427 returning error if any.
+// AuthSignUp invokes method auth.signUp#aac7b717 returning error if any.
 // Registers a validated phone number in the system.
 //
 // Possible errors:

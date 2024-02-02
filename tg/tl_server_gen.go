@@ -6206,14 +6206,14 @@ func (s *ServerDispatcher) OnMessagesReorderPinnedSavedDialogs(f func(ctx contex
 	s.handlers[MessagesReorderPinnedSavedDialogsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetSavedReactionTags(f func(ctx context.Context, hash int64) (MessagesSavedReactionTagsClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetSavedReactionTags(f func(ctx context.Context, request *MessagesGetSavedReactionTagsRequest) (MessagesSavedReactionTagsClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetSavedReactionTagsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Hash)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
