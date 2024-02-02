@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 172
+const Layer = 173
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -1256,7 +1256,7 @@ func TypesMap() map[uint32]string {
 		InvokeWithMessagesRangeRequestTypeID:                                    "invokeWithMessagesRange#365275f2",
 		InvokeWithTakeoutRequestTypeID:                                          "invokeWithTakeout#aca9fd2e",
 		AuthSendCodeRequestTypeID:                                               "auth.sendCode#a677244f",
-		AuthSignUpRequestTypeID:                                                 "auth.signUp#80eee427",
+		AuthSignUpRequestTypeID:                                                 "auth.signUp#aac7b717",
 		AuthSignInRequestTypeID:                                                 "auth.signIn#8d52a951",
 		AuthLogOutRequestTypeID:                                                 "auth.logOut#3e72ba19",
 		AuthResetAuthorizationsRequestTypeID:                                    "auth.resetAuthorizations#9fab0d1a",
@@ -1592,7 +1592,7 @@ func TypesMap() map[uint32]string {
 		MessagesGetPinnedSavedDialogsRequestTypeID:                              "messages.getPinnedSavedDialogs#d63d94e0",
 		MessagesToggleSavedDialogPinRequestTypeID:                               "messages.toggleSavedDialogPin#ac81bbde",
 		MessagesReorderPinnedSavedDialogsRequestTypeID:                          "messages.reorderPinnedSavedDialogs#8b716587",
-		MessagesGetSavedReactionTagsRequestTypeID:                               "messages.getSavedReactionTags#761ddacf",
+		MessagesGetSavedReactionTagsRequestTypeID:                               "messages.getSavedReactionTags#3637e05b",
 		MessagesUpdateSavedReactionTagRequestTypeID:                             "messages.updateSavedReactionTag#60297dec",
 		MessagesGetDefaultTagReactionsRequestTypeID:                             "messages.getDefaultTagReactions#bdf93428",
 		MessagesGetOutboxReadDateRequestTypeID:                                  "messages.getOutboxReadDate#8c4bfe5d",

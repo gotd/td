@@ -1966,6 +1966,8 @@ type innerMessagesGetSavedReactionTags struct {
 }
 
 type MessagesGetSavedReactionTags struct {
+	// Query to send.
+	req *tg.MessagesGetSavedReactionTagsRequest
 	// Result state.
 	last atomic.Value
 
@@ -1974,8 +1976,9 @@ type MessagesGetSavedReactionTags struct {
 }
 
 // NewMessagesGetSavedReactionTags creates new MessagesGetSavedReactionTags.
-func NewMessagesGetSavedReactionTags(raw *tg.Client) *MessagesGetSavedReactionTags {
+func NewMessagesGetSavedReactionTags(raw *tg.Client, initial *tg.MessagesGetSavedReactionTagsRequest) *MessagesGetSavedReactionTags {
 	q := &MessagesGetSavedReactionTags{
+		req: initial,
 		raw: raw,
 	}
 
@@ -2017,7 +2020,8 @@ func (s *MessagesGetSavedReactionTags) Get(ctx context.Context) (*tg.MessagesSav
 func (s *MessagesGetSavedReactionTags) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
 
-	req := lastHash
+	req := s.req
+	req.Hash = lastHash
 	result, err := s.raw.MessagesGetSavedReactionTags(ctx, req)
 	if err != nil {
 		return false, errors.Wrap(err, "execute MessagesGetSavedReactionTags")

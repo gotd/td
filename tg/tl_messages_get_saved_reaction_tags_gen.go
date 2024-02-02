@@ -31,16 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetSavedReactionTagsRequest represents TL type `messages.getSavedReactionTags#761ddacf`.
+// MessagesGetSavedReactionTagsRequest represents TL type `messages.getSavedReactionTags#3637e05b`.
 //
 // See https://core.telegram.org/method/messages.getSavedReactionTags for reference.
 type MessagesGetSavedReactionTagsRequest struct {
+	// Flags field of MessagesGetSavedReactionTagsRequest.
+	Flags bin.Fields
+	// Peer field of MessagesGetSavedReactionTagsRequest.
+	//
+	// Use SetPeer and GetPeer helpers.
+	Peer InputPeerClass
 	// Hash field of MessagesGetSavedReactionTagsRequest.
 	Hash int64
 }
 
 // MessagesGetSavedReactionTagsRequestTypeID is TL type id of MessagesGetSavedReactionTagsRequest.
-const MessagesGetSavedReactionTagsRequestTypeID = 0x761ddacf
+const MessagesGetSavedReactionTagsRequestTypeID = 0x3637e05b
 
 // Ensuring interfaces in compile-time for MessagesGetSavedReactionTagsRequest.
 var (
@@ -53,6 +59,12 @@ var (
 func (g *MessagesGetSavedReactionTagsRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Peer == nil) {
+		return false
 	}
 	if !(g.Hash == 0) {
 		return false
@@ -72,8 +84,13 @@ func (g *MessagesGetSavedReactionTagsRequest) String() string {
 
 // FillFrom fills MessagesGetSavedReactionTagsRequest from given interface.
 func (g *MessagesGetSavedReactionTagsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass, ok bool)
 	GetHash() (value int64)
 }) {
+	if val, ok := from.GetPeer(); ok {
+		g.Peer = val
+	}
+
 	g.Hash = from.GetHash()
 }
 
@@ -101,6 +118,11 @@ func (g *MessagesGetSavedReactionTagsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Peer",
+			SchemaName: "peer",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Hash",
 			SchemaName: "hash",
 		},
@@ -108,10 +130,17 @@ func (g *MessagesGetSavedReactionTagsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetSavedReactionTagsRequest) SetFlags() {
+	if !(g.Peer == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSavedReactionTagsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedReactionTags#761ddacf as nil")
+		return fmt.Errorf("can't encode messages.getSavedReactionTags#3637e05b as nil")
 	}
 	b.PutID(MessagesGetSavedReactionTagsRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,7 +149,19 @@ func (g *MessagesGetSavedReactionTagsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSavedReactionTagsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedReactionTags#761ddacf as nil")
+		return fmt.Errorf("can't encode messages.getSavedReactionTags#3637e05b as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getSavedReactionTags#3637e05b: field flags: %w", err)
+	}
+	if g.Flags.Has(0) {
+		if g.Peer == nil {
+			return fmt.Errorf("unable to encode messages.getSavedReactionTags#3637e05b: field peer is nil")
+		}
+		if err := g.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getSavedReactionTags#3637e05b: field peer: %w", err)
+		}
 	}
 	b.PutLong(g.Hash)
 	return nil
@@ -129,10 +170,10 @@ func (g *MessagesGetSavedReactionTagsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetSavedReactionTagsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedReactionTags#761ddacf to nil")
+		return fmt.Errorf("can't decode messages.getSavedReactionTags#3637e05b to nil")
 	}
 	if err := b.ConsumeID(MessagesGetSavedReactionTagsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSavedReactionTags#761ddacf: %w", err)
+		return fmt.Errorf("unable to decode messages.getSavedReactionTags#3637e05b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -140,16 +181,46 @@ func (g *MessagesGetSavedReactionTagsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSavedReactionTagsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedReactionTags#761ddacf to nil")
+		return fmt.Errorf("can't decode messages.getSavedReactionTags#3637e05b to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getSavedReactionTags#3637e05b: field flags: %w", err)
+		}
+	}
+	if g.Flags.Has(0) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getSavedReactionTags#3637e05b: field peer: %w", err)
+		}
+		g.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedReactionTags#761ddacf: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedReactionTags#3637e05b: field hash: %w", err)
 		}
 		g.Hash = value
 	}
 	return nil
+}
+
+// SetPeer sets value of Peer conditional field.
+func (g *MessagesGetSavedReactionTagsRequest) SetPeer(value InputPeerClass) {
+	g.Flags.Set(0)
+	g.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetSavedReactionTagsRequest) GetPeer() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.Peer, true
 }
 
 // GetHash returns value of Hash field.
@@ -160,15 +231,12 @@ func (g *MessagesGetSavedReactionTagsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetSavedReactionTags invokes method messages.getSavedReactionTags#761ddacf returning error if any.
+// MessagesGetSavedReactionTags invokes method messages.getSavedReactionTags#3637e05b returning error if any.
 //
 // See https://core.telegram.org/method/messages.getSavedReactionTags for reference.
-func (c *Client) MessagesGetSavedReactionTags(ctx context.Context, hash int64) (MessagesSavedReactionTagsClass, error) {
+func (c *Client) MessagesGetSavedReactionTags(ctx context.Context, request *MessagesGetSavedReactionTagsRequest) (MessagesSavedReactionTagsClass, error) {
 	var result MessagesSavedReactionTagsBox
 
-	request := &MessagesGetSavedReactionTagsRequest{
-		Hash: hash,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
