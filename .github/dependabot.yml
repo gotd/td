@@ -4,10 +4,28 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    groups:
+      opentelemetry:
+        patterns:
+          - "go.opentelemetry.io/otel"
+          - "go.opentelemetry.io/otel/*"
+          - "go.opentelemetry.io/contrib/*"
+      golang:
+        patterns:
+          - "golang.org/x/*"
   - package-ecosystem: gomod
     directory: "_tools"
     schedule:
       interval: daily
+    groups:
+      opentelemetry:
+        patterns:
+          - "go.opentelemetry.io/otel"
+          - "go.opentelemetry.io/otel/*"
+          - "go.opentelemetry.io/contrib/*"
+      golang:
+        patterns:
+          - "golang.org/x/*"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
