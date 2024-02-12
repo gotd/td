@@ -782,6 +782,7 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MEDIA_FILE_INVALID: The specified media file is invalid.
 //	400 MEDIA_TYPE_INVALID: The specified media type cannot be used in stories.
+//	400 MEDIA_VIDEO_STORY_MISSING: A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	400 STORIES_TOO_MUCH: You have hit the maximum active stories limit as specified by the story_expiring_limit_* client configuration parameters: you should buy a Premium subscription, delete an active story, or wait for the oldest story to expire.

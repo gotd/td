@@ -209,6 +209,10 @@ func (d *MessagesDeleteScheduledMessagesRequest) GetID() (value []int) {
 // MessagesDeleteScheduledMessages invokes method messages.deleteScheduledMessages#59ae2b16 returning error if any.
 // Delete scheduled messages
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.deleteScheduledMessages for reference.
 func (c *Client) MessagesDeleteScheduledMessages(ctx context.Context, request *MessagesDeleteScheduledMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox

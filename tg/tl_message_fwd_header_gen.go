@@ -91,18 +91,19 @@ type MessageFwdHeader struct {
 	// Only for forwarded messages reforwarded to saved messages »¹, contains the sender of
 	// the original message (i.e. if user A sends a message, then user B forwards it
 	// somewhere, then user C saves it to saved messages, this field will contain the ID of
-	// user A and from_id will contain the ID of user B).
+	// user B and from_id will contain the ID of user A).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedFromID and GetSavedFromID helpers.
 	SavedFromID PeerClass
-	// Only for forwarded messages from users with forward privacy enabled reforwarded to
-	// saved messages »¹, contains the sender of the original message (i.e. if user A (fwd
-	// privacy enabled) sends a message, then user B forwards it somewhere, then user C saves
-	// it to saved messages, this field will contain the name of user A and from_id will
-	// contain the ID of user B).
+	// Only for forwarded messages from users with forward privacy enabled, sent by users
+	// with forward privacy enabled, reforwarded to saved messages »¹, contains the sender
+	// of the original message (i.e. if user A (fwd privacy enabled) sends a message, then
+	// user B (fwd privacy enabled) forwards it somewhere, then user C saves it to saved
+	// messages, this field will contain the name of user B and from_name will contain the
+	// name of user A).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
@@ -112,7 +113,7 @@ type MessageFwdHeader struct {
 	// Only for forwarded messages reforwarded to saved messages »¹, indicates when was the
 	// original message sent (i.e. if user A sends a message @ unixtime 1, then user B
 	// forwards it somewhere @ unixtime 2, then user C saves it to saved messages @ unixtime
-	// 3, this field will contain 1, date will contain 2 and the date of the containing
+	// 3, this field will contain 2, date will contain 1 and the date of the containing
 	// message² will contain 3).
 	//
 	// Links:

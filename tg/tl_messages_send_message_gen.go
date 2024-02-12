@@ -787,12 +787,13 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //
 // Possible errors:
 //
-//	400 ADMIN_RIGHTS_EMPTY:
+//	400 ADMIN_RIGHTS_EMPTY: The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
 //	400 BOT_DOMAIN_INVALID: Bot domain invalid.
 //	400 BOT_INVALID: This is not a valid bot.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
+//	400 BUTTON_USER_INVALID: The user_id passed to inputKeyboardButtonUserProfile is invalid!
 //	400 BUTTON_USER_PRIVACY_RESTRICTED: The privacy setting of the user specified in a inputKeyboardButtonUserProfile button do not allow creating such a button.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
@@ -817,6 +818,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
+//	406 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.

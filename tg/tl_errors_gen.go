@@ -87,6 +87,7 @@ const (
 	ErrButtonTextInvalid                = "BUTTON_TEXT_INVALID"
 	ErrButtonTypeInvalid                = "BUTTON_TYPE_INVALID"
 	ErrButtonURLInvalid                 = "BUTTON_URL_INVALID"
+	ErrButtonUserInvalid                = "BUTTON_USER_INVALID"
 	ErrButtonUserPrivacyRestricted      = "BUTTON_USER_PRIVACY_RESTRICTED"
 	ErrCallAlreadyAccepted              = "CALL_ALREADY_ACCEPTED"
 	ErrCallAlreadyDeclined              = "CALL_ALREADY_DECLINED"
@@ -149,6 +150,7 @@ const (
 	ErrConnectionLayerInvalid           = "CONNECTION_LAYER_INVALID"
 	ErrContactAddMissing                = "CONTACT_ADD_MISSING"
 	ErrContactIDInvalid                 = "CONTACT_ID_INVALID"
+	ErrContactMissing                   = "CONTACT_MISSING"
 	ErrContactNameEmpty                 = "CONTACT_NAME_EMPTY"
 	ErrContactReqMissing                = "CONTACT_REQ_MISSING"
 	ErrCreateCallFailed                 = "CREATE_CALL_FAILED"
@@ -216,7 +218,6 @@ const (
 	ErrGameBotInvalid                   = "GAME_BOT_INVALID"
 	ErrGeneralModifyIconForbidden       = "GENERAL_MODIFY_ICON_FORBIDDEN"
 	ErrGeoPointInvalid                  = "GEO_POINT_INVALID"
-	ErrGiftcodeNotAllowed               = "GIFTCODE_NOT_ALLOWED"
 	ErrGiftSlugExpired                  = "GIFT_SLUG_EXPIRED"
 	ErrGiftSlugInvalid                  = "GIFT_SLUG_INVALID"
 	ErrGifContentTypeInvalid            = "GIF_CONTENT_TYPE_INVALID"
@@ -277,6 +278,7 @@ const (
 	ErrMediaPrevInvalid                 = "MEDIA_PREV_INVALID"
 	ErrMediaTTLInvalid                  = "MEDIA_TTL_INVALID"
 	ErrMediaTypeInvalid                 = "MEDIA_TYPE_INVALID"
+	ErrMediaVideoStoryMissing           = "MEDIA_VIDEO_STORY_MISSING"
 	ErrMegagroupGeoRequired             = "MEGAGROUP_GEO_REQUIRED"
 	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
 	ErrMegagroupPrehistoryHidden        = "MEGAGROUP_PREHISTORY_HIDDEN"
@@ -365,6 +367,7 @@ const (
 	ErrPremiumSubActiveUntil            = "PREMIUM_SUB_ACTIVE_UNTIL"
 	ErrPreviousChatImportActiveWaitMin  = "PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_MIN"
 	ErrPrivacyKeyInvalid                = "PRIVACY_KEY_INVALID"
+	ErrPrivacyPremiumRequired           = "PRIVACY_PREMIUM_REQUIRED"
 	ErrPrivacyTooLong                   = "PRIVACY_TOO_LONG"
 	ErrPrivacyValueInvalid              = "PRIVACY_VALUE_INVALID"
 	ErrPublicChannelMissing             = "PUBLIC_CHANNEL_MISSING"
@@ -822,6 +825,11 @@ func IsButtonURLInvalid(err error) bool {
 	return tgerr.Is(err, ErrButtonURLInvalid)
 }
 
+// IsButtonUserInvalid reports whether err is BUTTON_USER_INVALID.
+func IsButtonUserInvalid(err error) bool {
+	return tgerr.Is(err, ErrButtonUserInvalid)
+}
+
 // IsButtonUserPrivacyRestricted reports whether err is BUTTON_USER_PRIVACY_RESTRICTED.
 func IsButtonUserPrivacyRestricted(err error) bool {
 	return tgerr.Is(err, ErrButtonUserPrivacyRestricted)
@@ -1130,6 +1138,11 @@ func IsContactAddMissing(err error) bool {
 // IsContactIDInvalid reports whether err is CONTACT_ID_INVALID.
 func IsContactIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrContactIDInvalid)
+}
+
+// IsContactMissing reports whether err is CONTACT_MISSING.
+func IsContactMissing(err error) bool {
+	return tgerr.Is(err, ErrContactMissing)
 }
 
 // IsContactNameEmpty reports whether err is CONTACT_NAME_EMPTY.
@@ -1467,11 +1480,6 @@ func IsGeoPointInvalid(err error) bool {
 	return tgerr.Is(err, ErrGeoPointInvalid)
 }
 
-// IsGiftcodeNotAllowed reports whether err is GIFTCODE_NOT_ALLOWED.
-func IsGiftcodeNotAllowed(err error) bool {
-	return tgerr.Is(err, ErrGiftcodeNotAllowed)
-}
-
 // IsGiftSlugExpired reports whether err is GIFT_SLUG_EXPIRED.
 func IsGiftSlugExpired(err error) bool {
 	return tgerr.Is(err, ErrGiftSlugExpired)
@@ -1770,6 +1778,11 @@ func IsMediaTTLInvalid(err error) bool {
 // IsMediaTypeInvalid reports whether err is MEDIA_TYPE_INVALID.
 func IsMediaTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrMediaTypeInvalid)
+}
+
+// IsMediaVideoStoryMissing reports whether err is MEDIA_VIDEO_STORY_MISSING.
+func IsMediaVideoStoryMissing(err error) bool {
+	return tgerr.Is(err, ErrMediaVideoStoryMissing)
 }
 
 // IsMegagroupGeoRequired reports whether err is MEGAGROUP_GEO_REQUIRED.
@@ -2210,6 +2223,11 @@ func IsPreviousChatImportActiveWaitMin(err error) bool {
 // IsPrivacyKeyInvalid reports whether err is PRIVACY_KEY_INVALID.
 func IsPrivacyKeyInvalid(err error) bool {
 	return tgerr.Is(err, ErrPrivacyKeyInvalid)
+}
+
+// IsPrivacyPremiumRequired reports whether err is PRIVACY_PREMIUM_REQUIRED.
+func IsPrivacyPremiumRequired(err error) bool {
+	return tgerr.Is(err, ErrPrivacyPremiumRequired)
 }
 
 // IsPrivacyTooLong reports whether err is PRIVACY_TOO_LONG.

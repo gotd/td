@@ -219,7 +219,7 @@ func (g *StoriesGetStoriesByIDRequest) GetID() (value []int) {
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 STORIES_NEVER_CREATED:
+//	400 STORIES_NEVER_CREATED: This peer hasn't ever posted any stories.
 //	400 STORY_ID_EMPTY: You specified no story IDs.
 //
 // See https://core.telegram.org/method/stories.getStoriesByID for reference.

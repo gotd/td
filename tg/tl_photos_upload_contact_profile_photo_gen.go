@@ -494,6 +494,7 @@ func (u *PhotosUploadContactProfilePhotoRequest) GetVideoEmojiMarkup() (value Vi
 //
 // Possible errors:
 //
+//	400 CONTACT_MISSING: The specified user is not a contact.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadContactProfilePhoto for reference.

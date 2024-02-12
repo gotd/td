@@ -174,6 +174,11 @@ func (g *ChatlistsGetLeaveChatlistSuggestionsRequest) GetChatlist() (value Input
 // Links:
 //  1. https://core.telegram.org/api/links#chat-folder-links
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//
 // See https://core.telegram.org/method/chatlists.getLeaveChatlistSuggestions for reference.
 // Can be used by bots.
 func (c *Client) ChatlistsGetLeaveChatlistSuggestions(ctx context.Context, chatlist InputChatlistDialogFilter) ([]PeerClass, error) {
