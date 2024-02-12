@@ -346,6 +346,7 @@ func (e *ChatlistsEditExportedInviteRequest) MapPeers() (value InputPeerClassArr
 // Possible errors:
 //
 //	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //
 // See https://core.telegram.org/method/chatlists.editExportedInvite for reference.
 // Can be used by bots.

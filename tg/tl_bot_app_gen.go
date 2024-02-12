@@ -134,10 +134,10 @@ func (b *BotAppNotModified) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotApp represents TL type `botApp#95fcd1d6`.
-// Contains information about a named Mini App¹.
+// Contains information about a direct link Mini App¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#named-mini-apps
+//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/constructor/botApp for reference.
 type BotApp struct {
@@ -150,10 +150,10 @@ type BotApp struct {
 	ID int64
 	// bot mini app access hash
 	AccessHash int64
-	// bot mini app short name, used to generate named Mini App deep links¹.
+	// bot mini app short name, used to generate Direct Mini App deep links¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#named-mini-app-links
+	//  1) https://core.telegram.org/api/links#direct-mini-app-links
 	ShortName string
 	// bot mini app title.
 	Title string

@@ -172,10 +172,9 @@ func (a *PaymentsApplyGiftCodeRequest) GetSlug() (value string) {
 //
 // Possible errors:
 //
-//	406 GIFTCODE_NOT_ALLOWED:
 //	400 GIFT_SLUG_EXPIRED: The specified gift slug has expired.
 //	400 GIFT_SLUG_INVALID: The specified slug is invalid.
-//	420 PREMIUM_SUB_ACTIVE_UNTIL_%d: You already have an premium subscription active until unxtime %d.
+//	420 PREMIUM_SUB_ACTIVE_UNTIL_%d: You already have a premium subscription active until unixtime %d .
 //
 // See https://core.telegram.org/method/payments.applyGiftCode for reference.
 func (c *Client) PaymentsApplyGiftCode(ctx context.Context, slug string) (UpdatesClass, error) {

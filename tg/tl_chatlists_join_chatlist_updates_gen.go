@@ -225,6 +225,11 @@ func (j *ChatlistsJoinChatlistUpdatesRequest) MapPeers() (value InputPeerClassAr
 // Links:
 //  1. https://core.telegram.org/api/links#chat-folder-links
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
+//
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
 // Can be used by bots.
 func (c *Client) ChatlistsJoinChatlistUpdates(ctx context.Context, request *ChatlistsJoinChatlistUpdatesRequest) (UpdatesClass, error) {

@@ -79,7 +79,7 @@ type UserFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.setChatWallPaper
-	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chator-channel
+	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat-or-channel
 	WallpaperOverridden bool
 	// ContactRequirePremium field of UserFull.
 	ContactRequirePremium bool

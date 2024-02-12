@@ -32,10 +32,10 @@ var (
 )
 
 // AppWebViewResultURL represents TL type `appWebViewResultUrl#3c1b4f0d`.
-// Contains the link that must be used to open a named Mini App¹.
+// Contains the link that must be used to open a direct link Mini App¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#named-mini-apps
+//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/constructor/appWebViewResultUrl for reference.
 type AppWebViewResultURL struct {

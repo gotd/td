@@ -193,6 +193,7 @@ func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
 //
 // Possible errors:
 //
+//	400 MAX_DATE_INVALID: The specified maximum date is invalid.
 //	400 MSG_WAIT_FAILED: A waiting call returned an error.
 //
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.

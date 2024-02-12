@@ -299,6 +299,10 @@ func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
 // Links:
 //  1. https://core.telegram.org/api/discussion
 //
+// Possible errors:
+//
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//
 // See https://core.telegram.org/method/contacts.blockFromReplies for reference.
 func (c *Client) ContactsBlockFromReplies(ctx context.Context, request *ContactsBlockFromRepliesRequest) (UpdatesClass, error) {
 	var result UpdatesBox

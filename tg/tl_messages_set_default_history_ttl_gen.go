@@ -164,6 +164,10 @@ func (s *MessagesSetDefaultHistoryTTLRequest) GetPeriod() (value int) {
 // MessagesSetDefaultHistoryTTL invokes method messages.setDefaultHistoryTTL#9eb51445 returning error if any.
 // Changes the default value of the Time-To-Live setting, applied to all new chats.
 //
+// Possible errors:
+//
+//	400 TTL_PERIOD_INVALID: The specified TTL period is invalid.
+//
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
 // Can be used by bots.
 func (c *Client) MessagesSetDefaultHistoryTTL(ctx context.Context, period int) (bool, error) {

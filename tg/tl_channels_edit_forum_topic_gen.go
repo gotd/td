@@ -433,6 +433,7 @@ func (e *ChannelsEditForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Possible errors:
 //
 //	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 GENERAL_MODIFY_ICON_FORBIDDEN: You can't modify the icon of the "General" topic.
