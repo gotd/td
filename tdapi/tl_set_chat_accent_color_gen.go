@@ -36,7 +36,7 @@ type SetChatAccentColorRequest struct {
 	// Chat identifier
 	ChatID int64
 	// Identifier of the accent color to use. The chat must have at least accentColor
-	// min_chat_boost_level boost level to pass the corresponding color
+	// min_channel_chat_boost_level boost level to pass the corresponding color
 	AccentColorID int32
 	// Identifier of a custom emoji to be shown on the reply header and link preview
 	// background; 0 if none. Use chatBoostLevelFeatures.can_set_background_custom_emoji to

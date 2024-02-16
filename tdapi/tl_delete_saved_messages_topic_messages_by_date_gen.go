@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DeleteSavedMessagesTopicMessagesByDateRequest represents TL type `deleteSavedMessagesTopicMessagesByDate#a18f779d`.
+// DeleteSavedMessagesTopicMessagesByDateRequest represents TL type `deleteSavedMessagesTopicMessagesByDate#160a25`.
 type DeleteSavedMessagesTopicMessagesByDateRequest struct {
-	// Saved Messages topic which messages will be deleted
-	SavedMessagesTopic SavedMessagesTopicClass
+	// Identifier of Saved Messages topic which messages will be deleted
+	SavedMessagesTopicID int64
 	// The minimum date of the messages to delete
 	MinDate int32
 	// The maximum date of the messages to delete
@@ -42,7 +42,7 @@ type DeleteSavedMessagesTopicMessagesByDateRequest struct {
 }
 
 // DeleteSavedMessagesTopicMessagesByDateRequestTypeID is TL type id of DeleteSavedMessagesTopicMessagesByDateRequest.
-const DeleteSavedMessagesTopicMessagesByDateRequestTypeID = 0xa18f779d
+const DeleteSavedMessagesTopicMessagesByDateRequestTypeID = 0x160a25
 
 // Ensuring interfaces in compile-time for DeleteSavedMessagesTopicMessagesByDateRequest.
 var (
@@ -56,7 +56,7 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.SavedMessagesTopic == nil) {
+	if !(d.SavedMessagesTopicID == 0) {
 		return false
 	}
 	if !(d.MinDate == 0) {
@@ -102,8 +102,8 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 		{
 			Name:       "MinDate",
@@ -120,7 +120,7 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DeleteSavedMessagesTopicMessagesByDateRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteSavedMessagesTopicMessagesByDate#a18f779d as nil")
+		return fmt.Errorf("can't encode deleteSavedMessagesTopicMessagesByDate#160a25 as nil")
 	}
 	b.PutID(DeleteSavedMessagesTopicMessagesByDateRequestTypeID)
 	return d.EncodeBare(b)
@@ -129,14 +129,9 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) Encode(b *bin.Buffer) er
 // EncodeBare implements bin.BareEncoder.
 func (d *DeleteSavedMessagesTopicMessagesByDateRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteSavedMessagesTopicMessagesByDate#a18f779d as nil")
+		return fmt.Errorf("can't encode deleteSavedMessagesTopicMessagesByDate#160a25 as nil")
 	}
-	if d.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicMessagesByDate#a18f779d: field saved_messages_topic is nil")
-	}
-	if err := d.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicMessagesByDate#a18f779d: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(d.SavedMessagesTopicID)
 	b.PutInt32(d.MinDate)
 	b.PutInt32(d.MaxDate)
 	return nil
@@ -145,10 +140,10 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) EncodeBare(b *bin.Buffer
 // Decode implements bin.Decoder.
 func (d *DeleteSavedMessagesTopicMessagesByDateRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteSavedMessagesTopicMessagesByDate#a18f779d to nil")
+		return fmt.Errorf("can't decode deleteSavedMessagesTopicMessagesByDate#160a25 to nil")
 	}
 	if err := b.ConsumeID(DeleteSavedMessagesTopicMessagesByDateRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: %w", err)
+		return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -156,26 +151,26 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) Decode(b *bin.Buffer) er
 // DecodeBare implements bin.BareDecoder.
 func (d *DeleteSavedMessagesTopicMessagesByDateRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteSavedMessagesTopicMessagesByDate#a18f779d to nil")
+		return fmt.Errorf("can't decode deleteSavedMessagesTopicMessagesByDate#160a25 to nil")
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: field saved_messages_topic_id: %w", err)
 		}
-		d.SavedMessagesTopic = value
+		d.SavedMessagesTopicID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: field min_date: %w", err)
+			return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: field min_date: %w", err)
 		}
 		d.MinDate = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: field max_date: %w", err)
+			return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: field max_date: %w", err)
 		}
 		d.MaxDate = value
 	}
@@ -185,18 +180,13 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) DecodeBare(b *bin.Buffer
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DeleteSavedMessagesTopicMessagesByDateRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteSavedMessagesTopicMessagesByDate#a18f779d as nil")
+		return fmt.Errorf("can't encode deleteSavedMessagesTopicMessagesByDate#160a25 as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteSavedMessagesTopicMessagesByDate")
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if d.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicMessagesByDate#a18f779d: field saved_messages_topic is nil")
-	}
-	if err := d.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicMessagesByDate#a18f779d: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(d.SavedMessagesTopicID)
 	b.Comma()
 	b.FieldStart("min_date")
 	b.PutInt32(d.MinDate)
@@ -212,31 +202,31 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) EncodeTDLibJSON(b tdjson
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DeleteSavedMessagesTopicMessagesByDateRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteSavedMessagesTopicMessagesByDate#a18f779d to nil")
+		return fmt.Errorf("can't decode deleteSavedMessagesTopicMessagesByDate#160a25 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteSavedMessagesTopicMessagesByDate"); err != nil {
-				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: %w", err)
+				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: %w", err)
 			}
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: field saved_messages_topic_id: %w", err)
 			}
-			d.SavedMessagesTopic = value
+			d.SavedMessagesTopicID = value
 		case "min_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: field min_date: %w", err)
+				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: field min_date: %w", err)
 			}
 			d.MinDate = value
 		case "max_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#a18f779d: field max_date: %w", err)
+				return fmt.Errorf("unable to decode deleteSavedMessagesTopicMessagesByDate#160a25: field max_date: %w", err)
 			}
 			d.MaxDate = value
 		default:
@@ -246,12 +236,12 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) DecodeTDLibJSON(b tdjson
 	})
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (d *DeleteSavedMessagesTopicMessagesByDateRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (d *DeleteSavedMessagesTopicMessagesByDateRequest) GetSavedMessagesTopicID() (value int64) {
 	if d == nil {
 		return
 	}
-	return d.SavedMessagesTopic
+	return d.SavedMessagesTopicID
 }
 
 // GetMinDate returns value of MinDate field.
@@ -270,7 +260,7 @@ func (d *DeleteSavedMessagesTopicMessagesByDateRequest) GetMaxDate() (value int3
 	return d.MaxDate
 }
 
-// DeleteSavedMessagesTopicMessagesByDate invokes method deleteSavedMessagesTopicMessagesByDate#a18f779d returning error if any.
+// DeleteSavedMessagesTopicMessagesByDate invokes method deleteSavedMessagesTopicMessagesByDate#160a25 returning error if any.
 func (c *Client) DeleteSavedMessagesTopicMessagesByDate(ctx context.Context, request *DeleteSavedMessagesTopicMessagesByDateRequest) error {
 	var ok Ok
 

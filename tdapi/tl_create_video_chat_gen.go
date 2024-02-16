@@ -41,7 +41,7 @@ type CreateVideoChatRequest struct {
 	// administrator; 0 to start the video chat immediately. The date must be at least 10
 	// seconds and at most 8 days in the future
 	StartDate int32
-	// Pass true to create an RTMP stream instead of an ordinary video chat; requires creator
+	// Pass true to create an RTMP stream instead of an ordinary video chat; requires owner
 	// privileges
 	IsRtmpStream bool
 }

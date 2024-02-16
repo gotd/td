@@ -31,16 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// RegisterUserRequest represents TL type `registerUser#f9719e1d`.
+// RegisterUserRequest represents TL type `registerUser#c3aa52ec`.
 type RegisterUserRequest struct {
 	// The first name of the user; 1-64 characters
 	FirstName string
 	// The last name of the user; 0-64 characters
 	LastName string
+	// Pass true to disable notification about the current user joining Telegram for other
+	// users that added them to contact list
+	DisableNotification bool
 }
 
 // RegisterUserRequestTypeID is TL type id of RegisterUserRequest.
-const RegisterUserRequestTypeID = 0xf9719e1d
+const RegisterUserRequestTypeID = 0xc3aa52ec
 
 // Ensuring interfaces in compile-time for RegisterUserRequest.
 var (
@@ -58,6 +61,9 @@ func (r *RegisterUserRequest) Zero() bool {
 		return false
 	}
 	if !(r.LastName == "") {
+		return false
+	}
+	if !(r.DisableNotification == false) {
 		return false
 	}
 
@@ -104,6 +110,10 @@ func (r *RegisterUserRequest) TypeInfo() tdp.Type {
 			Name:       "LastName",
 			SchemaName: "last_name",
 		},
+		{
+			Name:       "DisableNotification",
+			SchemaName: "disable_notification",
+		},
 	}
 	return typ
 }
@@ -111,7 +121,7 @@ func (r *RegisterUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RegisterUserRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode registerUser#f9719e1d as nil")
+		return fmt.Errorf("can't encode registerUser#c3aa52ec as nil")
 	}
 	b.PutID(RegisterUserRequestTypeID)
 	return r.EncodeBare(b)
@@ -120,20 +130,21 @@ func (r *RegisterUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RegisterUserRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode registerUser#f9719e1d as nil")
+		return fmt.Errorf("can't encode registerUser#c3aa52ec as nil")
 	}
 	b.PutString(r.FirstName)
 	b.PutString(r.LastName)
+	b.PutBool(r.DisableNotification)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *RegisterUserRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode registerUser#f9719e1d to nil")
+		return fmt.Errorf("can't decode registerUser#c3aa52ec to nil")
 	}
 	if err := b.ConsumeID(RegisterUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode registerUser#f9719e1d: %w", err)
+		return fmt.Errorf("unable to decode registerUser#c3aa52ec: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -141,21 +152,28 @@ func (r *RegisterUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RegisterUserRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode registerUser#f9719e1d to nil")
+		return fmt.Errorf("can't decode registerUser#c3aa52ec to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode registerUser#f9719e1d: field first_name: %w", err)
+			return fmt.Errorf("unable to decode registerUser#c3aa52ec: field first_name: %w", err)
 		}
 		r.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode registerUser#f9719e1d: field last_name: %w", err)
+			return fmt.Errorf("unable to decode registerUser#c3aa52ec: field last_name: %w", err)
 		}
 		r.LastName = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode registerUser#c3aa52ec: field disable_notification: %w", err)
+		}
+		r.DisableNotification = value
 	}
 	return nil
 }
@@ -163,7 +181,7 @@ func (r *RegisterUserRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *RegisterUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode registerUser#f9719e1d as nil")
+		return fmt.Errorf("can't encode registerUser#c3aa52ec as nil")
 	}
 	b.ObjStart()
 	b.PutID("registerUser")
@@ -174,6 +192,9 @@ func (r *RegisterUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("last_name")
 	b.PutString(r.LastName)
 	b.Comma()
+	b.FieldStart("disable_notification")
+	b.PutBool(r.DisableNotification)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -182,27 +203,33 @@ func (r *RegisterUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *RegisterUserRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode registerUser#f9719e1d to nil")
+		return fmt.Errorf("can't decode registerUser#c3aa52ec to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("registerUser"); err != nil {
-				return fmt.Errorf("unable to decode registerUser#f9719e1d: %w", err)
+				return fmt.Errorf("unable to decode registerUser#c3aa52ec: %w", err)
 			}
 		case "first_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode registerUser#f9719e1d: field first_name: %w", err)
+				return fmt.Errorf("unable to decode registerUser#c3aa52ec: field first_name: %w", err)
 			}
 			r.FirstName = value
 		case "last_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode registerUser#f9719e1d: field last_name: %w", err)
+				return fmt.Errorf("unable to decode registerUser#c3aa52ec: field last_name: %w", err)
 			}
 			r.LastName = value
+		case "disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode registerUser#c3aa52ec: field disable_notification: %w", err)
+			}
+			r.DisableNotification = value
 		default:
 			return b.Skip()
 		}
@@ -226,7 +253,15 @@ func (r *RegisterUserRequest) GetLastName() (value string) {
 	return r.LastName
 }
 
-// RegisterUser invokes method registerUser#f9719e1d returning error if any.
+// GetDisableNotification returns value of DisableNotification field.
+func (r *RegisterUserRequest) GetDisableNotification() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.DisableNotification
+}
+
+// RegisterUser invokes method registerUser#c3aa52ec returning error if any.
 func (c *Client) RegisterUser(ctx context.Context, request *RegisterUserRequest) error {
 	var ok Ok
 

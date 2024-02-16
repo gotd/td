@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatBoostLevelFeaturesRequest represents TL type `getChatBoostLevelFeatures#71f15dfb`.
+// GetChatBoostLevelFeaturesRequest represents TL type `getChatBoostLevelFeatures#45e63e8b`.
 type GetChatBoostLevelFeaturesRequest struct {
+	// Pass true to get the list of features for channels; pass false to get the list of
+	// features for supergroups
+	IsChannel bool
 	// Chat boost level
 	Level int32
 }
 
 // GetChatBoostLevelFeaturesRequestTypeID is TL type id of GetChatBoostLevelFeaturesRequest.
-const GetChatBoostLevelFeaturesRequestTypeID = 0x71f15dfb
+const GetChatBoostLevelFeaturesRequestTypeID = 0x45e63e8b
 
 // Ensuring interfaces in compile-time for GetChatBoostLevelFeaturesRequest.
 var (
@@ -51,6 +54,9 @@ var (
 func (g *GetChatBoostLevelFeaturesRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.IsChannel == false) {
+		return false
 	}
 	if !(g.Level == 0) {
 		return false
@@ -92,6 +98,10 @@ func (g *GetChatBoostLevelFeaturesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "IsChannel",
+			SchemaName: "is_channel",
+		},
+		{
 			Name:       "Level",
 			SchemaName: "level",
 		},
@@ -102,7 +112,7 @@ func (g *GetChatBoostLevelFeaturesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatBoostLevelFeaturesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoostLevelFeatures#71f15dfb as nil")
+		return fmt.Errorf("can't encode getChatBoostLevelFeatures#45e63e8b as nil")
 	}
 	b.PutID(GetChatBoostLevelFeaturesRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,8 +121,9 @@ func (g *GetChatBoostLevelFeaturesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatBoostLevelFeaturesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoostLevelFeatures#71f15dfb as nil")
+		return fmt.Errorf("can't encode getChatBoostLevelFeatures#45e63e8b as nil")
 	}
+	b.PutBool(g.IsChannel)
 	b.PutInt32(g.Level)
 	return nil
 }
@@ -120,10 +131,10 @@ func (g *GetChatBoostLevelFeaturesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetChatBoostLevelFeaturesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoostLevelFeatures#71f15dfb to nil")
+		return fmt.Errorf("can't decode getChatBoostLevelFeatures#45e63e8b to nil")
 	}
 	if err := b.ConsumeID(GetChatBoostLevelFeaturesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatBoostLevelFeatures#71f15dfb: %w", err)
+		return fmt.Errorf("unable to decode getChatBoostLevelFeatures#45e63e8b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +142,19 @@ func (g *GetChatBoostLevelFeaturesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatBoostLevelFeaturesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoostLevelFeatures#71f15dfb to nil")
+		return fmt.Errorf("can't decode getChatBoostLevelFeatures#45e63e8b to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode getChatBoostLevelFeatures#45e63e8b: field is_channel: %w", err)
+		}
+		g.IsChannel = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatBoostLevelFeatures#71f15dfb: field level: %w", err)
+			return fmt.Errorf("unable to decode getChatBoostLevelFeatures#45e63e8b: field level: %w", err)
 		}
 		g.Level = value
 	}
@@ -146,10 +164,13 @@ func (g *GetChatBoostLevelFeaturesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatBoostLevelFeaturesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoostLevelFeatures#71f15dfb as nil")
+		return fmt.Errorf("can't encode getChatBoostLevelFeatures#45e63e8b as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatBoostLevelFeatures")
+	b.Comma()
+	b.FieldStart("is_channel")
+	b.PutBool(g.IsChannel)
 	b.Comma()
 	b.FieldStart("level")
 	b.PutInt32(g.Level)
@@ -162,19 +183,25 @@ func (g *GetChatBoostLevelFeaturesRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatBoostLevelFeaturesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoostLevelFeatures#71f15dfb to nil")
+		return fmt.Errorf("can't decode getChatBoostLevelFeatures#45e63e8b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatBoostLevelFeatures"); err != nil {
-				return fmt.Errorf("unable to decode getChatBoostLevelFeatures#71f15dfb: %w", err)
+				return fmt.Errorf("unable to decode getChatBoostLevelFeatures#45e63e8b: %w", err)
 			}
+		case "is_channel":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatBoostLevelFeatures#45e63e8b: field is_channel: %w", err)
+			}
+			g.IsChannel = value
 		case "level":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatBoostLevelFeatures#71f15dfb: field level: %w", err)
+				return fmt.Errorf("unable to decode getChatBoostLevelFeatures#45e63e8b: field level: %w", err)
 			}
 			g.Level = value
 		default:
@@ -182,6 +209,14 @@ func (g *GetChatBoostLevelFeaturesRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 		}
 		return nil
 	})
+}
+
+// GetIsChannel returns value of IsChannel field.
+func (g *GetChatBoostLevelFeaturesRequest) GetIsChannel() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.IsChannel
 }
 
 // GetLevel returns value of Level field.
@@ -192,13 +227,10 @@ func (g *GetChatBoostLevelFeaturesRequest) GetLevel() (value int32) {
 	return g.Level
 }
 
-// GetChatBoostLevelFeatures invokes method getChatBoostLevelFeatures#71f15dfb returning error if any.
-func (c *Client) GetChatBoostLevelFeatures(ctx context.Context, level int32) (*ChatBoostLevelFeatures, error) {
+// GetChatBoostLevelFeatures invokes method getChatBoostLevelFeatures#45e63e8b returning error if any.
+func (c *Client) GetChatBoostLevelFeatures(ctx context.Context, request *GetChatBoostLevelFeaturesRequest) (*ChatBoostLevelFeatures, error) {
 	var result ChatBoostLevelFeatures
 
-	request := &GetChatBoostLevelFeaturesRequest{
-		Level: level,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

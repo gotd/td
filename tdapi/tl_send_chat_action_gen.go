@@ -35,7 +35,7 @@ var (
 type SendChatActionRequest struct {
 	// Chat identifier
 	ChatID int64
-	// If not 0, a message thread identifier in which the action was performed
+	// If not 0, the message thread identifier in which the action was performed
 	MessageThreadID int64
 	// The action description; pass null to cancel the currently active action
 	Action ChatActionClass

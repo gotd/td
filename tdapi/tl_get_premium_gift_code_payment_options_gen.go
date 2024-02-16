@@ -33,8 +33,8 @@ var (
 
 // GetPremiumGiftCodePaymentOptionsRequest represents TL type `getPremiumGiftCodePaymentOptions#89523a2c`.
 type GetPremiumGiftCodePaymentOptionsRequest struct {
-	// Identifier of the channel chat, which will be automatically boosted by receivers of
-	// the gift codes and which is administered by the user; 0 if none
+	// Identifier of the supergroup or channel chat, which will be automatically boosted by
+	// receivers of the gift codes and which is administered by the user; 0 if none
 	BoostedChatID int64
 }
 

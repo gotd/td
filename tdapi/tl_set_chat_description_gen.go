@@ -36,7 +36,7 @@ type SetChatDescriptionRequest struct {
 	// Identifier of the chat
 	ChatID int64
 	// Changes information about a chat. Available for basic groups, supergroups, and
-	// channels. Requires can_change_info administrator right
+	// channels. Requires can_change_info member right
 	Description string
 }
 

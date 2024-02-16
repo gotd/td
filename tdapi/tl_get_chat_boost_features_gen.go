@@ -31,12 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatBoostFeaturesRequest represents TL type `getChatBoostFeatures#34e76822`.
+// GetChatBoostFeaturesRequest represents TL type `getChatBoostFeatures#e8c128a0`.
 type GetChatBoostFeaturesRequest struct {
+	// Pass true to get the list of features for channels; pass false to get the list of
+	// features for supergroups
+	IsChannel bool
 }
 
 // GetChatBoostFeaturesRequestTypeID is TL type id of GetChatBoostFeaturesRequest.
-const GetChatBoostFeaturesRequestTypeID = 0x34e76822
+const GetChatBoostFeaturesRequestTypeID = 0xe8c128a0
 
 // Ensuring interfaces in compile-time for GetChatBoostFeaturesRequest.
 var (
@@ -49,6 +52,9 @@ var (
 func (g *GetChatBoostFeaturesRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.IsChannel == false) {
+		return false
 	}
 
 	return true
@@ -85,14 +91,19 @@ func (g *GetChatBoostFeaturesRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsChannel",
+			SchemaName: "is_channel",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (g *GetChatBoostFeaturesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoostFeatures#34e76822 as nil")
+		return fmt.Errorf("can't encode getChatBoostFeatures#e8c128a0 as nil")
 	}
 	b.PutID(GetChatBoostFeaturesRequestTypeID)
 	return g.EncodeBare(b)
@@ -101,18 +112,19 @@ func (g *GetChatBoostFeaturesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatBoostFeaturesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoostFeatures#34e76822 as nil")
+		return fmt.Errorf("can't encode getChatBoostFeatures#e8c128a0 as nil")
 	}
+	b.PutBool(g.IsChannel)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetChatBoostFeaturesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoostFeatures#34e76822 to nil")
+		return fmt.Errorf("can't decode getChatBoostFeatures#e8c128a0 to nil")
 	}
 	if err := b.ConsumeID(GetChatBoostFeaturesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatBoostFeatures#34e76822: %w", err)
+		return fmt.Errorf("unable to decode getChatBoostFeatures#e8c128a0: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -120,7 +132,14 @@ func (g *GetChatBoostFeaturesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatBoostFeaturesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoostFeatures#34e76822 to nil")
+		return fmt.Errorf("can't decode getChatBoostFeatures#e8c128a0 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode getChatBoostFeatures#e8c128a0: field is_channel: %w", err)
+		}
+		g.IsChannel = value
 	}
 	return nil
 }
@@ -128,10 +147,13 @@ func (g *GetChatBoostFeaturesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatBoostFeaturesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoostFeatures#34e76822 as nil")
+		return fmt.Errorf("can't encode getChatBoostFeatures#e8c128a0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatBoostFeatures")
+	b.Comma()
+	b.FieldStart("is_channel")
+	b.PutBool(g.IsChannel)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -141,15 +163,21 @@ func (g *GetChatBoostFeaturesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatBoostFeaturesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoostFeatures#34e76822 to nil")
+		return fmt.Errorf("can't decode getChatBoostFeatures#e8c128a0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatBoostFeatures"); err != nil {
-				return fmt.Errorf("unable to decode getChatBoostFeatures#34e76822: %w", err)
+				return fmt.Errorf("unable to decode getChatBoostFeatures#e8c128a0: %w", err)
 			}
+		case "is_channel":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatBoostFeatures#e8c128a0: field is_channel: %w", err)
+			}
+			g.IsChannel = value
 		default:
 			return b.Skip()
 		}
@@ -157,11 +185,21 @@ func (g *GetChatBoostFeaturesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatBoostFeatures invokes method getChatBoostFeatures#34e76822 returning error if any.
-func (c *Client) GetChatBoostFeatures(ctx context.Context) (*ChatBoostFeatures, error) {
+// GetIsChannel returns value of IsChannel field.
+func (g *GetChatBoostFeaturesRequest) GetIsChannel() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.IsChannel
+}
+
+// GetChatBoostFeatures invokes method getChatBoostFeatures#e8c128a0 returning error if any.
+func (c *Client) GetChatBoostFeatures(ctx context.Context, ischannel bool) (*ChatBoostFeatures, error) {
 	var result ChatBoostFeatures
 
-	request := &GetChatBoostFeaturesRequest{}
+	request := &GetChatBoostFeaturesRequest{
+		IsChannel: ischannel,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

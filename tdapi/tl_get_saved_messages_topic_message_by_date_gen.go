@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetSavedMessagesTopicMessageByDateRequest represents TL type `getSavedMessagesTopicMessageByDate#78ebcc7f`.
+// GetSavedMessagesTopicMessageByDateRequest represents TL type `getSavedMessagesTopicMessageByDate#c15e4680`.
 type GetSavedMessagesTopicMessageByDateRequest struct {
-	// Saved Messages topic which message will be returned
-	SavedMessagesTopic SavedMessagesTopicClass
+	// Identifier of Saved Messages topic which message will be returned
+	SavedMessagesTopicID int64
 	// Point in time (Unix timestamp) relative to which to search for messages
 	Date int32
 }
 
 // GetSavedMessagesTopicMessageByDateRequestTypeID is TL type id of GetSavedMessagesTopicMessageByDateRequest.
-const GetSavedMessagesTopicMessageByDateRequestTypeID = 0x78ebcc7f
+const GetSavedMessagesTopicMessageByDateRequestTypeID = 0xc15e4680
 
 // Ensuring interfaces in compile-time for GetSavedMessagesTopicMessageByDateRequest.
 var (
@@ -54,7 +54,7 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.SavedMessagesTopic == nil) {
+	if !(g.SavedMessagesTopicID == 0) {
 		return false
 	}
 	if !(g.Date == 0) {
@@ -97,8 +97,8 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 		{
 			Name:       "Date",
@@ -111,7 +111,7 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetSavedMessagesTopicMessageByDateRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSavedMessagesTopicMessageByDate#78ebcc7f as nil")
+		return fmt.Errorf("can't encode getSavedMessagesTopicMessageByDate#c15e4680 as nil")
 	}
 	b.PutID(GetSavedMessagesTopicMessageByDateRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,14 +120,9 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) Encode(b *bin.Buffer) error 
 // EncodeBare implements bin.BareEncoder.
 func (g *GetSavedMessagesTopicMessageByDateRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSavedMessagesTopicMessageByDate#78ebcc7f as nil")
+		return fmt.Errorf("can't encode getSavedMessagesTopicMessageByDate#c15e4680 as nil")
 	}
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicMessageByDate#78ebcc7f: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicMessageByDate#78ebcc7f: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.PutInt32(g.Date)
 	return nil
 }
@@ -135,10 +130,10 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) EncodeBare(b *bin.Buffer) er
 // Decode implements bin.Decoder.
 func (g *GetSavedMessagesTopicMessageByDateRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSavedMessagesTopicMessageByDate#78ebcc7f to nil")
+		return fmt.Errorf("can't decode getSavedMessagesTopicMessageByDate#c15e4680 to nil")
 	}
 	if err := b.ConsumeID(GetSavedMessagesTopicMessageByDateRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#78ebcc7f: %w", err)
+		return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#c15e4680: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -146,19 +141,19 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) Decode(b *bin.Buffer) error 
 // DecodeBare implements bin.BareDecoder.
 func (g *GetSavedMessagesTopicMessageByDateRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSavedMessagesTopicMessageByDate#78ebcc7f to nil")
+		return fmt.Errorf("can't decode getSavedMessagesTopicMessageByDate#c15e4680 to nil")
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#78ebcc7f: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#c15e4680: field saved_messages_topic_id: %w", err)
 		}
-		g.SavedMessagesTopic = value
+		g.SavedMessagesTopicID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#78ebcc7f: field date: %w", err)
+			return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#c15e4680: field date: %w", err)
 		}
 		g.Date = value
 	}
@@ -168,18 +163,13 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) DecodeBare(b *bin.Buffer) er
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetSavedMessagesTopicMessageByDateRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSavedMessagesTopicMessageByDate#78ebcc7f as nil")
+		return fmt.Errorf("can't encode getSavedMessagesTopicMessageByDate#c15e4680 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getSavedMessagesTopicMessageByDate")
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicMessageByDate#78ebcc7f: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicMessageByDate#78ebcc7f: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(g.Date)
@@ -192,25 +182,25 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) EncodeTDLibJSON(b tdjson.Enc
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetSavedMessagesTopicMessageByDateRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSavedMessagesTopicMessageByDate#78ebcc7f to nil")
+		return fmt.Errorf("can't decode getSavedMessagesTopicMessageByDate#c15e4680 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getSavedMessagesTopicMessageByDate"); err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#78ebcc7f: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#c15e4680: %w", err)
 			}
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#78ebcc7f: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#c15e4680: field saved_messages_topic_id: %w", err)
 			}
-			g.SavedMessagesTopic = value
+			g.SavedMessagesTopicID = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#78ebcc7f: field date: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicMessageByDate#c15e4680: field date: %w", err)
 			}
 			g.Date = value
 		default:
@@ -220,12 +210,12 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) DecodeTDLibJSON(b tdjson.Dec
 	})
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (g *GetSavedMessagesTopicMessageByDateRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (g *GetSavedMessagesTopicMessageByDateRequest) GetSavedMessagesTopicID() (value int64) {
 	if g == nil {
 		return
 	}
-	return g.SavedMessagesTopic
+	return g.SavedMessagesTopicID
 }
 
 // GetDate returns value of Date field.
@@ -236,7 +226,7 @@ func (g *GetSavedMessagesTopicMessageByDateRequest) GetDate() (value int32) {
 	return g.Date
 }
 
-// GetSavedMessagesTopicMessageByDate invokes method getSavedMessagesTopicMessageByDate#78ebcc7f returning error if any.
+// GetSavedMessagesTopicMessageByDate invokes method getSavedMessagesTopicMessageByDate#c15e4680 returning error if any.
 func (c *Client) GetSavedMessagesTopicMessageByDate(ctx context.Context, request *GetSavedMessagesTopicMessageByDateRequest) (*Message, error) {
 	var result Message
 

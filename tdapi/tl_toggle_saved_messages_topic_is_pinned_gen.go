@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ToggleSavedMessagesTopicIsPinnedRequest represents TL type `toggleSavedMessagesTopicIsPinned#3f8a8c2d`.
+// ToggleSavedMessagesTopicIsPinnedRequest represents TL type `toggleSavedMessagesTopicIsPinned#a15345cc`.
 type ToggleSavedMessagesTopicIsPinnedRequest struct {
-	// Saved Messages topic to pin or unpin
-	SavedMessagesTopic SavedMessagesTopicClass
+	// Identifier of Saved Messages topic to pin or unpin
+	SavedMessagesTopicID int64
 	// Pass true to pin the topic; pass false to unpin it
 	IsPinned bool
 }
 
 // ToggleSavedMessagesTopicIsPinnedRequestTypeID is TL type id of ToggleSavedMessagesTopicIsPinnedRequest.
-const ToggleSavedMessagesTopicIsPinnedRequestTypeID = 0x3f8a8c2d
+const ToggleSavedMessagesTopicIsPinnedRequestTypeID = 0xa15345cc
 
 // Ensuring interfaces in compile-time for ToggleSavedMessagesTopicIsPinnedRequest.
 var (
@@ -54,7 +54,7 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.SavedMessagesTopic == nil) {
+	if !(t.SavedMessagesTopicID == 0) {
 		return false
 	}
 	if !(t.IsPinned == false) {
@@ -97,8 +97,8 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 		{
 			Name:       "IsPinned",
@@ -111,7 +111,7 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ToggleSavedMessagesTopicIsPinnedRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSavedMessagesTopicIsPinned#3f8a8c2d as nil")
+		return fmt.Errorf("can't encode toggleSavedMessagesTopicIsPinned#a15345cc as nil")
 	}
 	b.PutID(ToggleSavedMessagesTopicIsPinnedRequestTypeID)
 	return t.EncodeBare(b)
@@ -120,14 +120,9 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ToggleSavedMessagesTopicIsPinnedRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSavedMessagesTopicIsPinned#3f8a8c2d as nil")
+		return fmt.Errorf("can't encode toggleSavedMessagesTopicIsPinned#a15345cc as nil")
 	}
-	if t.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field saved_messages_topic is nil")
-	}
-	if err := t.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(t.SavedMessagesTopicID)
 	b.PutBool(t.IsPinned)
 	return nil
 }
@@ -135,10 +130,10 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) EncodeBare(b *bin.Buffer) erro
 // Decode implements bin.Decoder.
 func (t *ToggleSavedMessagesTopicIsPinnedRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSavedMessagesTopicIsPinned#3f8a8c2d to nil")
+		return fmt.Errorf("can't decode toggleSavedMessagesTopicIsPinned#a15345cc to nil")
 	}
 	if err := b.ConsumeID(ToggleSavedMessagesTopicIsPinnedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#3f8a8c2d: %w", err)
+		return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#a15345cc: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -146,19 +141,19 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ToggleSavedMessagesTopicIsPinnedRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSavedMessagesTopicIsPinned#3f8a8c2d to nil")
+		return fmt.Errorf("can't decode toggleSavedMessagesTopicIsPinned#a15345cc to nil")
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#a15345cc: field saved_messages_topic_id: %w", err)
 		}
-		t.SavedMessagesTopic = value
+		t.SavedMessagesTopicID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field is_pinned: %w", err)
+			return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#a15345cc: field is_pinned: %w", err)
 		}
 		t.IsPinned = value
 	}
@@ -168,18 +163,13 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) DecodeBare(b *bin.Buffer) erro
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *ToggleSavedMessagesTopicIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSavedMessagesTopicIsPinned#3f8a8c2d as nil")
+		return fmt.Errorf("can't encode toggleSavedMessagesTopicIsPinned#a15345cc as nil")
 	}
 	b.ObjStart()
 	b.PutID("toggleSavedMessagesTopicIsPinned")
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if t.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field saved_messages_topic is nil")
-	}
-	if err := t.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(t.SavedMessagesTopicID)
 	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(t.IsPinned)
@@ -192,25 +182,25 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encod
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *ToggleSavedMessagesTopicIsPinnedRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSavedMessagesTopicIsPinned#3f8a8c2d to nil")
+		return fmt.Errorf("can't decode toggleSavedMessagesTopicIsPinned#a15345cc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleSavedMessagesTopicIsPinned"); err != nil {
-				return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#3f8a8c2d: %w", err)
+				return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#a15345cc: %w", err)
 			}
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#a15345cc: field saved_messages_topic_id: %w", err)
 			}
-			t.SavedMessagesTopic = value
+			t.SavedMessagesTopicID = value
 		case "is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#3f8a8c2d: field is_pinned: %w", err)
+				return fmt.Errorf("unable to decode toggleSavedMessagesTopicIsPinned#a15345cc: field is_pinned: %w", err)
 			}
 			t.IsPinned = value
 		default:
@@ -220,12 +210,12 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) DecodeTDLibJSON(b tdjson.Decod
 	})
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (t *ToggleSavedMessagesTopicIsPinnedRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (t *ToggleSavedMessagesTopicIsPinnedRequest) GetSavedMessagesTopicID() (value int64) {
 	if t == nil {
 		return
 	}
-	return t.SavedMessagesTopic
+	return t.SavedMessagesTopicID
 }
 
 // GetIsPinned returns value of IsPinned field.
@@ -236,7 +226,7 @@ func (t *ToggleSavedMessagesTopicIsPinnedRequest) GetIsPinned() (value bool) {
 	return t.IsPinned
 }
 
-// ToggleSavedMessagesTopicIsPinned invokes method toggleSavedMessagesTopicIsPinned#3f8a8c2d returning error if any.
+// ToggleSavedMessagesTopicIsPinned invokes method toggleSavedMessagesTopicIsPinned#a15345cc returning error if any.
 func (c *Client) ToggleSavedMessagesTopicIsPinned(ctx context.Context, request *ToggleSavedMessagesTopicIsPinnedRequest) error {
 	var ok Ok
 

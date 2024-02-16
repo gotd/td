@@ -35,9 +35,10 @@ var (
 type SetChatDraftMessageRequest struct {
 	// Chat identifier
 	ChatID int64
-	// If not 0, a message thread identifier in which the draft was changed
+	// If not 0, the message thread identifier in which the draft was changed
 	MessageThreadID int64
-	// New draft message; pass null to remove the draft
+	// New draft message; pass null to remove the draft. All files in draft message content
+	// must be of the type inputFileLocal. Media thumbnails and captions are ignored
 	DraftMessage DraftMessage
 }
 

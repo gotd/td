@@ -31,295 +31,54 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SavedMessagesTopicMyNotes represents TL type `savedMessagesTopicMyNotes#9dd7231d`.
-type SavedMessagesTopicMyNotes struct {
+// SavedMessagesTopic represents TL type `savedMessagesTopic#d2a8e1a4`.
+type SavedMessagesTopic struct {
+	// Unique topic identifier
+	ID int64
+	// Type of the topic
+	Type SavedMessagesTopicTypeClass
+	// True, if the topic is pinned
+	IsPinned bool
+	// A parameter used to determine order of the topic in the topic list. Topics must be
+	// sorted by the order in descending order
+	Order int64
+	// Last message in the topic; may be null if none or unknown
+	LastMessage Message
+	// A draft of a message in the topic; may be null if none
+	DraftMessage DraftMessage
 }
 
-// SavedMessagesTopicMyNotesTypeID is TL type id of SavedMessagesTopicMyNotes.
-const SavedMessagesTopicMyNotesTypeID = 0x9dd7231d
+// SavedMessagesTopicTypeID is TL type id of SavedMessagesTopic.
+const SavedMessagesTopicTypeID = 0xd2a8e1a4
 
-// construct implements constructor of SavedMessagesTopicClass.
-func (s SavedMessagesTopicMyNotes) construct() SavedMessagesTopicClass { return &s }
-
-// Ensuring interfaces in compile-time for SavedMessagesTopicMyNotes.
+// Ensuring interfaces in compile-time for SavedMessagesTopic.
 var (
-	_ bin.Encoder     = &SavedMessagesTopicMyNotes{}
-	_ bin.Decoder     = &SavedMessagesTopicMyNotes{}
-	_ bin.BareEncoder = &SavedMessagesTopicMyNotes{}
-	_ bin.BareDecoder = &SavedMessagesTopicMyNotes{}
-
-	_ SavedMessagesTopicClass = &SavedMessagesTopicMyNotes{}
+	_ bin.Encoder     = &SavedMessagesTopic{}
+	_ bin.Decoder     = &SavedMessagesTopic{}
+	_ bin.BareEncoder = &SavedMessagesTopic{}
+	_ bin.BareDecoder = &SavedMessagesTopic{}
 )
 
-func (s *SavedMessagesTopicMyNotes) Zero() bool {
+func (s *SavedMessagesTopic) Zero() bool {
 	if s == nil {
 		return true
 	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (s *SavedMessagesTopicMyNotes) String() string {
-	if s == nil {
-		return "SavedMessagesTopicMyNotes(nil)"
+	if !(s.ID == 0) {
+		return false
 	}
-	type Alias SavedMessagesTopicMyNotes
-	return fmt.Sprintf("SavedMessagesTopicMyNotes%+v", Alias(*s))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SavedMessagesTopicMyNotes) TypeID() uint32 {
-	return SavedMessagesTopicMyNotesTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*SavedMessagesTopicMyNotes) TypeName() string {
-	return "savedMessagesTopicMyNotes"
-}
-
-// TypeInfo returns info about TL type.
-func (s *SavedMessagesTopicMyNotes) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "savedMessagesTopicMyNotes",
-		ID:   SavedMessagesTopicMyNotesTypeID,
+	if !(s.Type == nil) {
+		return false
 	}
-	if s == nil {
-		typ.Null = true
-		return typ
+	if !(s.IsPinned == false) {
+		return false
 	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (s *SavedMessagesTopicMyNotes) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicMyNotes#9dd7231d as nil")
+	if !(s.Order == 0) {
+		return false
 	}
-	b.PutID(SavedMessagesTopicMyNotesTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *SavedMessagesTopicMyNotes) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicMyNotes#9dd7231d as nil")
+	if !(s.LastMessage.Zero()) {
+		return false
 	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (s *SavedMessagesTopicMyNotes) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicMyNotes#9dd7231d to nil")
-	}
-	if err := b.ConsumeID(SavedMessagesTopicMyNotesTypeID); err != nil {
-		return fmt.Errorf("unable to decode savedMessagesTopicMyNotes#9dd7231d: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *SavedMessagesTopicMyNotes) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicMyNotes#9dd7231d to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *SavedMessagesTopicMyNotes) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicMyNotes#9dd7231d as nil")
-	}
-	b.ObjStart()
-	b.PutID("savedMessagesTopicMyNotes")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *SavedMessagesTopicMyNotes) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicMyNotes#9dd7231d to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("savedMessagesTopicMyNotes"); err != nil {
-				return fmt.Errorf("unable to decode savedMessagesTopicMyNotes#9dd7231d: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// SavedMessagesTopicAuthorHidden represents TL type `savedMessagesTopicAuthorHidden#6e75aff7`.
-type SavedMessagesTopicAuthorHidden struct {
-}
-
-// SavedMessagesTopicAuthorHiddenTypeID is TL type id of SavedMessagesTopicAuthorHidden.
-const SavedMessagesTopicAuthorHiddenTypeID = 0x6e75aff7
-
-// construct implements constructor of SavedMessagesTopicClass.
-func (s SavedMessagesTopicAuthorHidden) construct() SavedMessagesTopicClass { return &s }
-
-// Ensuring interfaces in compile-time for SavedMessagesTopicAuthorHidden.
-var (
-	_ bin.Encoder     = &SavedMessagesTopicAuthorHidden{}
-	_ bin.Decoder     = &SavedMessagesTopicAuthorHidden{}
-	_ bin.BareEncoder = &SavedMessagesTopicAuthorHidden{}
-	_ bin.BareDecoder = &SavedMessagesTopicAuthorHidden{}
-
-	_ SavedMessagesTopicClass = &SavedMessagesTopicAuthorHidden{}
-)
-
-func (s *SavedMessagesTopicAuthorHidden) Zero() bool {
-	if s == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (s *SavedMessagesTopicAuthorHidden) String() string {
-	if s == nil {
-		return "SavedMessagesTopicAuthorHidden(nil)"
-	}
-	type Alias SavedMessagesTopicAuthorHidden
-	return fmt.Sprintf("SavedMessagesTopicAuthorHidden%+v", Alias(*s))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SavedMessagesTopicAuthorHidden) TypeID() uint32 {
-	return SavedMessagesTopicAuthorHiddenTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*SavedMessagesTopicAuthorHidden) TypeName() string {
-	return "savedMessagesTopicAuthorHidden"
-}
-
-// TypeInfo returns info about TL type.
-func (s *SavedMessagesTopicAuthorHidden) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "savedMessagesTopicAuthorHidden",
-		ID:   SavedMessagesTopicAuthorHiddenTypeID,
-	}
-	if s == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (s *SavedMessagesTopicAuthorHidden) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicAuthorHidden#6e75aff7 as nil")
-	}
-	b.PutID(SavedMessagesTopicAuthorHiddenTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *SavedMessagesTopicAuthorHidden) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicAuthorHidden#6e75aff7 as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (s *SavedMessagesTopicAuthorHidden) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicAuthorHidden#6e75aff7 to nil")
-	}
-	if err := b.ConsumeID(SavedMessagesTopicAuthorHiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode savedMessagesTopicAuthorHidden#6e75aff7: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *SavedMessagesTopicAuthorHidden) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicAuthorHidden#6e75aff7 to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *SavedMessagesTopicAuthorHidden) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicAuthorHidden#6e75aff7 as nil")
-	}
-	b.ObjStart()
-	b.PutID("savedMessagesTopicAuthorHidden")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *SavedMessagesTopicAuthorHidden) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicAuthorHidden#6e75aff7 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("savedMessagesTopicAuthorHidden"); err != nil {
-				return fmt.Errorf("unable to decode savedMessagesTopicAuthorHidden#6e75aff7: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// SavedMessagesTopicSavedFromChat represents TL type `savedMessagesTopicSavedFromChat#16543670`.
-type SavedMessagesTopicSavedFromChat struct {
-	// Identifier of the chat
-	ChatID int64
-}
-
-// SavedMessagesTopicSavedFromChatTypeID is TL type id of SavedMessagesTopicSavedFromChat.
-const SavedMessagesTopicSavedFromChatTypeID = 0x16543670
-
-// construct implements constructor of SavedMessagesTopicClass.
-func (s SavedMessagesTopicSavedFromChat) construct() SavedMessagesTopicClass { return &s }
-
-// Ensuring interfaces in compile-time for SavedMessagesTopicSavedFromChat.
-var (
-	_ bin.Encoder     = &SavedMessagesTopicSavedFromChat{}
-	_ bin.Decoder     = &SavedMessagesTopicSavedFromChat{}
-	_ bin.BareEncoder = &SavedMessagesTopicSavedFromChat{}
-	_ bin.BareDecoder = &SavedMessagesTopicSavedFromChat{}
-
-	_ SavedMessagesTopicClass = &SavedMessagesTopicSavedFromChat{}
-)
-
-func (s *SavedMessagesTopicSavedFromChat) Zero() bool {
-	if s == nil {
-		return true
-	}
-	if !(s.ChatID == 0) {
+	if !(s.DraftMessage.Zero()) {
 		return false
 	}
 
@@ -327,31 +86,31 @@ func (s *SavedMessagesTopicSavedFromChat) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (s *SavedMessagesTopicSavedFromChat) String() string {
+func (s *SavedMessagesTopic) String() string {
 	if s == nil {
-		return "SavedMessagesTopicSavedFromChat(nil)"
+		return "SavedMessagesTopic(nil)"
 	}
-	type Alias SavedMessagesTopicSavedFromChat
-	return fmt.Sprintf("SavedMessagesTopicSavedFromChat%+v", Alias(*s))
+	type Alias SavedMessagesTopic
+	return fmt.Sprintf("SavedMessagesTopic%+v", Alias(*s))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SavedMessagesTopicSavedFromChat) TypeID() uint32 {
-	return SavedMessagesTopicSavedFromChatTypeID
+func (*SavedMessagesTopic) TypeID() uint32 {
+	return SavedMessagesTopicTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SavedMessagesTopicSavedFromChat) TypeName() string {
-	return "savedMessagesTopicSavedFromChat"
+func (*SavedMessagesTopic) TypeName() string {
+	return "savedMessagesTopic"
 }
 
 // TypeInfo returns info about TL type.
-func (s *SavedMessagesTopicSavedFromChat) TypeInfo() tdp.Type {
+func (s *SavedMessagesTopic) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "savedMessagesTopicSavedFromChat",
-		ID:   SavedMessagesTopicSavedFromChatTypeID,
+		Name: "savedMessagesTopic",
+		ID:   SavedMessagesTopicTypeID,
 	}
 	if s == nil {
 		typ.Null = true
@@ -359,67 +118,156 @@ func (s *SavedMessagesTopicSavedFromChat) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "IsPinned",
+			SchemaName: "is_pinned",
+		},
+		{
+			Name:       "Order",
+			SchemaName: "order",
+		},
+		{
+			Name:       "LastMessage",
+			SchemaName: "last_message",
+		},
+		{
+			Name:       "DraftMessage",
+			SchemaName: "draft_message",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (s *SavedMessagesTopicSavedFromChat) Encode(b *bin.Buffer) error {
+func (s *SavedMessagesTopic) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicSavedFromChat#16543670 as nil")
+		return fmt.Errorf("can't encode savedMessagesTopic#d2a8e1a4 as nil")
 	}
-	b.PutID(SavedMessagesTopicSavedFromChatTypeID)
+	b.PutID(SavedMessagesTopicTypeID)
 	return s.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (s *SavedMessagesTopicSavedFromChat) EncodeBare(b *bin.Buffer) error {
+func (s *SavedMessagesTopic) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicSavedFromChat#16543670 as nil")
+		return fmt.Errorf("can't encode savedMessagesTopic#d2a8e1a4 as nil")
 	}
-	b.PutInt53(s.ChatID)
+	b.PutInt53(s.ID)
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field type is nil")
+	}
+	if err := s.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field type: %w", err)
+	}
+	b.PutBool(s.IsPinned)
+	b.PutLong(s.Order)
+	if err := s.LastMessage.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field last_message: %w", err)
+	}
+	if err := s.DraftMessage.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field draft_message: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (s *SavedMessagesTopicSavedFromChat) Decode(b *bin.Buffer) error {
+func (s *SavedMessagesTopic) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicSavedFromChat#16543670 to nil")
+		return fmt.Errorf("can't decode savedMessagesTopic#d2a8e1a4 to nil")
 	}
-	if err := b.ConsumeID(SavedMessagesTopicSavedFromChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode savedMessagesTopicSavedFromChat#16543670: %w", err)
+	if err := b.ConsumeID(SavedMessagesTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: %w", err)
 	}
 	return s.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (s *SavedMessagesTopicSavedFromChat) DecodeBare(b *bin.Buffer) error {
+func (s *SavedMessagesTopic) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicSavedFromChat#16543670 to nil")
+		return fmt.Errorf("can't decode savedMessagesTopic#d2a8e1a4 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedMessagesTopicSavedFromChat#16543670: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field id: %w", err)
 		}
-		s.ChatID = value
+		s.ID = value
+	}
+	{
+		value, err := DecodeSavedMessagesTopicType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field type: %w", err)
+		}
+		s.Type = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field is_pinned: %w", err)
+		}
+		s.IsPinned = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field order: %w", err)
+		}
+		s.Order = value
+	}
+	{
+		if err := s.LastMessage.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field last_message: %w", err)
+		}
+	}
+	{
+		if err := s.DraftMessage.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field draft_message: %w", err)
+		}
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *SavedMessagesTopicSavedFromChat) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (s *SavedMessagesTopic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedMessagesTopicSavedFromChat#16543670 as nil")
+		return fmt.Errorf("can't encode savedMessagesTopic#d2a8e1a4 as nil")
 	}
 	b.ObjStart()
-	b.PutID("savedMessagesTopicSavedFromChat")
+	b.PutID("savedMessagesTopic")
 	b.Comma()
-	b.FieldStart("chat_id")
-	b.PutInt53(s.ChatID)
+	b.FieldStart("id")
+	b.PutInt53(s.ID)
+	b.Comma()
+	b.FieldStart("type")
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field type is nil")
+	}
+	if err := s.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field type: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("is_pinned")
+	b.PutBool(s.IsPinned)
+	b.Comma()
+	b.FieldStart("order")
+	b.PutLong(s.Order)
+	b.Comma()
+	b.FieldStart("last_message")
+	if err := s.LastMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field last_message: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("draft_message")
+	if err := s.DraftMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode savedMessagesTopic#d2a8e1a4: field draft_message: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -427,23 +275,49 @@ func (s *SavedMessagesTopicSavedFromChat) EncodeTDLibJSON(b tdjson.Encoder) erro
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *SavedMessagesTopicSavedFromChat) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (s *SavedMessagesTopic) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedMessagesTopicSavedFromChat#16543670 to nil")
+		return fmt.Errorf("can't decode savedMessagesTopic#d2a8e1a4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("savedMessagesTopicSavedFromChat"); err != nil {
-				return fmt.Errorf("unable to decode savedMessagesTopicSavedFromChat#16543670: %w", err)
+			if err := b.ConsumeID("savedMessagesTopic"); err != nil {
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: %w", err)
 			}
-		case "chat_id":
+		case "id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode savedMessagesTopicSavedFromChat#16543670: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field id: %w", err)
 			}
-			s.ChatID = value
+			s.ID = value
+		case "type":
+			value, err := DecodeTDLibJSONSavedMessagesTopicType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field type: %w", err)
+			}
+			s.Type = value
+		case "is_pinned":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field is_pinned: %w", err)
+			}
+			s.IsPinned = value
+		case "order":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field order: %w", err)
+			}
+			s.Order = value
+		case "last_message":
+			if err := s.LastMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field last_message: %w", err)
+			}
+		case "draft_message":
+			if err := s.DraftMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode savedMessagesTopic#d2a8e1a4: field draft_message: %w", err)
+			}
 		default:
 			return b.Skip()
 		}
@@ -451,162 +325,50 @@ func (s *SavedMessagesTopicSavedFromChat) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
-// GetChatID returns value of ChatID field.
-func (s *SavedMessagesTopicSavedFromChat) GetChatID() (value int64) {
+// GetID returns value of ID field.
+func (s *SavedMessagesTopic) GetID() (value int64) {
 	if s == nil {
 		return
 	}
-	return s.ChatID
+	return s.ID
 }
 
-// SavedMessagesTopicClassName is schema name of SavedMessagesTopicClass.
-const SavedMessagesTopicClassName = "SavedMessagesTopic"
-
-// SavedMessagesTopicClass represents SavedMessagesTopic generic type.
-//
-// Example:
-//
-//	g, err := tdapi.DecodeSavedMessagesTopic(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tdapi.SavedMessagesTopicMyNotes: // savedMessagesTopicMyNotes#9dd7231d
-//	case *tdapi.SavedMessagesTopicAuthorHidden: // savedMessagesTopicAuthorHidden#6e75aff7
-//	case *tdapi.SavedMessagesTopicSavedFromChat: // savedMessagesTopicSavedFromChat#16543670
-//	default: panic(v)
-//	}
-type SavedMessagesTopicClass interface {
-	bin.Encoder
-	bin.Decoder
-	bin.BareEncoder
-	bin.BareDecoder
-	construct() SavedMessagesTopicClass
-
-	// TypeID returns type id in TL schema.
-	//
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// TypeName returns name of type in TL schema.
-	TypeName() string
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
-
-	EncodeTDLibJSON(b tdjson.Encoder) error
-	DecodeTDLibJSON(b tdjson.Decoder) error
+// GetType returns value of Type field.
+func (s *SavedMessagesTopic) GetType() (value SavedMessagesTopicTypeClass) {
+	if s == nil {
+		return
+	}
+	return s.Type
 }
 
-// DecodeSavedMessagesTopic implements binary de-serialization for SavedMessagesTopicClass.
-func DecodeSavedMessagesTopic(buf *bin.Buffer) (SavedMessagesTopicClass, error) {
-	id, err := buf.PeekID()
-	if err != nil {
-		return nil, err
+// GetIsPinned returns value of IsPinned field.
+func (s *SavedMessagesTopic) GetIsPinned() (value bool) {
+	if s == nil {
+		return
 	}
-	switch id {
-	case SavedMessagesTopicMyNotesTypeID:
-		// Decoding savedMessagesTopicMyNotes#9dd7231d.
-		v := SavedMessagesTopicMyNotes{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", err)
-		}
-		return &v, nil
-	case SavedMessagesTopicAuthorHiddenTypeID:
-		// Decoding savedMessagesTopicAuthorHidden#6e75aff7.
-		v := SavedMessagesTopicAuthorHidden{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", err)
-		}
-		return &v, nil
-	case SavedMessagesTopicSavedFromChatTypeID:
-		// Decoding savedMessagesTopicSavedFromChat#16543670.
-		v := SavedMessagesTopicSavedFromChat{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", err)
-		}
-		return &v, nil
-	default:
-		return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", bin.NewUnexpectedID(id))
-	}
+	return s.IsPinned
 }
 
-// DecodeTDLibJSONSavedMessagesTopic implements binary de-serialization for SavedMessagesTopicClass.
-func DecodeTDLibJSONSavedMessagesTopic(buf tdjson.Decoder) (SavedMessagesTopicClass, error) {
-	id, err := buf.FindTypeID()
-	if err != nil {
-		return nil, err
+// GetOrder returns value of Order field.
+func (s *SavedMessagesTopic) GetOrder() (value int64) {
+	if s == nil {
+		return
 	}
-	switch id {
-	case "savedMessagesTopicMyNotes":
-		// Decoding savedMessagesTopicMyNotes#9dd7231d.
-		v := SavedMessagesTopicMyNotes{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", err)
-		}
-		return &v, nil
-	case "savedMessagesTopicAuthorHidden":
-		// Decoding savedMessagesTopicAuthorHidden#6e75aff7.
-		v := SavedMessagesTopicAuthorHidden{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", err)
-		}
-		return &v, nil
-	case "savedMessagesTopicSavedFromChat":
-		// Decoding savedMessagesTopicSavedFromChat#16543670.
-		v := SavedMessagesTopicSavedFromChat{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", err)
-		}
-		return &v, nil
-	default:
-		return nil, fmt.Errorf("unable to decode SavedMessagesTopicClass: %w", tdjson.NewUnexpectedID(id))
-	}
+	return s.Order
 }
 
-// SavedMessagesTopic boxes the SavedMessagesTopicClass providing a helper.
-type SavedMessagesTopicBox struct {
-	SavedMessagesTopic SavedMessagesTopicClass
+// GetLastMessage returns value of LastMessage field.
+func (s *SavedMessagesTopic) GetLastMessage() (value Message) {
+	if s == nil {
+		return
+	}
+	return s.LastMessage
 }
 
-// Decode implements bin.Decoder for SavedMessagesTopicBox.
-func (b *SavedMessagesTopicBox) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("unable to decode SavedMessagesTopicBox to nil")
+// GetDraftMessage returns value of DraftMessage field.
+func (s *SavedMessagesTopic) GetDraftMessage() (value DraftMessage) {
+	if s == nil {
+		return
 	}
-	v, err := DecodeSavedMessagesTopic(buf)
-	if err != nil {
-		return fmt.Errorf("unable to decode boxed value: %w", err)
-	}
-	b.SavedMessagesTopic = v
-	return nil
-}
-
-// Encode implements bin.Encode for SavedMessagesTopicBox.
-func (b *SavedMessagesTopicBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode SavedMessagesTopicClass as nil")
-	}
-	return b.SavedMessagesTopic.Encode(buf)
-}
-
-// DecodeTDLibJSON implements bin.Decoder for SavedMessagesTopicBox.
-func (b *SavedMessagesTopicBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
-	if b == nil {
-		return fmt.Errorf("unable to decode SavedMessagesTopicBox to nil")
-	}
-	v, err := DecodeTDLibJSONSavedMessagesTopic(buf)
-	if err != nil {
-		return fmt.Errorf("unable to decode boxed value: %w", err)
-	}
-	b.SavedMessagesTopic = v
-	return nil
-}
-
-// EncodeTDLibJSON implements bin.Encode for SavedMessagesTopicBox.
-func (b *SavedMessagesTopicBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
-	if b == nil || b.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode SavedMessagesTopicClass as nil")
-	}
-	return b.SavedMessagesTopic.EncodeTDLibJSON(buf)
+	return s.DraftMessage
 }

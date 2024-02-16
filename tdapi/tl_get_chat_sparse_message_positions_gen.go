@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatSparseMessagePositionsRequest represents TL type `getChatSparseMessagePositions#7a9bab8e`.
+// GetChatSparseMessagePositionsRequest represents TL type `getChatSparseMessagePositions#3b452efd`.
 type GetChatSparseMessagePositionsRequest struct {
 	// Identifier of the chat in which to return information about message positions
 	ChatID int64
@@ -44,13 +44,13 @@ type GetChatSparseMessagePositionsRequest struct {
 	// The expected number of message positions to be returned; 50-2000. A smaller number of
 	// positions can be returned, if there are not enough appropriate messages
 	Limit int32
-	// If not null, only messages in the specified Saved Messages topic will be considered;
-	// pass null to consider all messages, or for chats other than Saved Messages
-	SavedMessagesTopic SavedMessagesTopicClass
+	// If not 0, only messages in the specified Saved Messages topic will be considered; pass
+	// 0 to consider all messages, or for chats other than Saved Messages
+	SavedMessagesTopicID int64
 }
 
 // GetChatSparseMessagePositionsRequestTypeID is TL type id of GetChatSparseMessagePositionsRequest.
-const GetChatSparseMessagePositionsRequestTypeID = 0x7a9bab8e
+const GetChatSparseMessagePositionsRequestTypeID = 0x3b452efd
 
 // Ensuring interfaces in compile-time for GetChatSparseMessagePositionsRequest.
 var (
@@ -76,7 +76,7 @@ func (g *GetChatSparseMessagePositionsRequest) Zero() bool {
 	if !(g.Limit == 0) {
 		return false
 	}
-	if !(g.SavedMessagesTopic == nil) {
+	if !(g.SavedMessagesTopicID == 0) {
 		return false
 	}
 
@@ -132,8 +132,8 @@ func (g *GetChatSparseMessagePositionsRequest) TypeInfo() tdp.Type {
 			SchemaName: "limit",
 		},
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 	}
 	return typ
@@ -142,7 +142,7 @@ func (g *GetChatSparseMessagePositionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatSparseMessagePositionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatSparseMessagePositions#7a9bab8e as nil")
+		return fmt.Errorf("can't encode getChatSparseMessagePositions#3b452efd as nil")
 	}
 	b.PutID(GetChatSparseMessagePositionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -151,33 +151,28 @@ func (g *GetChatSparseMessagePositionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatSparseMessagePositionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatSparseMessagePositions#7a9bab8e as nil")
+		return fmt.Errorf("can't encode getChatSparseMessagePositions#3b452efd as nil")
 	}
 	b.PutInt53(g.ChatID)
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field filter is nil")
+		return fmt.Errorf("unable to encode getChatSparseMessagePositions#3b452efd: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatSparseMessagePositions#3b452efd: field filter: %w", err)
 	}
 	b.PutInt53(g.FromMessageID)
 	b.PutInt32(g.Limit)
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(g.SavedMessagesTopicID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetChatSparseMessagePositionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatSparseMessagePositions#7a9bab8e to nil")
+		return fmt.Errorf("can't decode getChatSparseMessagePositions#3b452efd to nil")
 	}
 	if err := b.ConsumeID(GetChatSparseMessagePositionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: %w", err)
+		return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -185,42 +180,42 @@ func (g *GetChatSparseMessagePositionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatSparseMessagePositionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatSparseMessagePositions#7a9bab8e to nil")
+		return fmt.Errorf("can't decode getChatSparseMessagePositions#3b452efd to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := DecodeSearchMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field filter: %w", err)
+			return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field from_message_id: %w", err)
+			return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field from_message_id: %w", err)
 		}
 		g.FromMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field limit: %w", err)
+			return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field saved_messages_topic_id: %w", err)
 		}
-		g.SavedMessagesTopic = value
+		g.SavedMessagesTopicID = value
 	}
 	return nil
 }
@@ -228,7 +223,7 @@ func (g *GetChatSparseMessagePositionsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatSparseMessagePositions#7a9bab8e as nil")
+		return fmt.Errorf("can't encode getChatSparseMessagePositions#3b452efd as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatSparseMessagePositions")
@@ -238,10 +233,10 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field filter is nil")
+		return fmt.Errorf("unable to encode getChatSparseMessagePositions#3b452efd: field filter is nil")
 	}
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatSparseMessagePositions#3b452efd: field filter: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("from_message_id")
@@ -250,13 +245,8 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatSparseMessagePositions#7a9bab8e: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -266,45 +256,45 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatSparseMessagePositionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatSparseMessagePositions#7a9bab8e to nil")
+		return fmt.Errorf("can't decode getChatSparseMessagePositions#3b452efd to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatSparseMessagePositions"); err != nil {
-				return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: %w", err)
+				return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "filter":
 			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field filter: %w", err)
+				return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field filter: %w", err)
 			}
 			g.Filter = value
 		case "from_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field from_message_id: %w", err)
+				return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field from_message_id: %w", err)
 			}
 			g.FromMessageID = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field limit: %w", err)
+				return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field limit: %w", err)
 			}
 			g.Limit = value
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatSparseMessagePositions#7a9bab8e: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode getChatSparseMessagePositions#3b452efd: field saved_messages_topic_id: %w", err)
 			}
-			g.SavedMessagesTopic = value
+			g.SavedMessagesTopicID = value
 		default:
 			return b.Skip()
 		}
@@ -344,15 +334,15 @@ func (g *GetChatSparseMessagePositionsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (g *GetChatSparseMessagePositionsRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (g *GetChatSparseMessagePositionsRequest) GetSavedMessagesTopicID() (value int64) {
 	if g == nil {
 		return
 	}
-	return g.SavedMessagesTopic
+	return g.SavedMessagesTopicID
 }
 
-// GetChatSparseMessagePositions invokes method getChatSparseMessagePositions#7a9bab8e returning error if any.
+// GetChatSparseMessagePositions invokes method getChatSparseMessagePositions#3b452efd returning error if any.
 func (c *Client) GetChatSparseMessagePositions(ctx context.Context, request *GetChatSparseMessagePositionsRequest) (*MessagePositions, error) {
 	var result MessagePositions
 

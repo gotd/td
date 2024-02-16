@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetSavedMessagesTopicHistoryRequest represents TL type `getSavedMessagesTopicHistory#f115a1aa`.
+// GetSavedMessagesTopicHistoryRequest represents TL type `getSavedMessagesTopicHistory#77e5da68`.
 type GetSavedMessagesTopicHistoryRequest struct {
-	// Saved Messages topic which messages will be fetched
-	SavedMessagesTopic SavedMessagesTopicClass
+	// Identifier of Saved Messages topic which messages will be fetched
+	SavedMessagesTopicID int64
 	// Identifier of the message starting from which messages must be fetched; use 0 to get
 	// results from the last message
 	FromMessageID int64
@@ -48,7 +48,7 @@ type GetSavedMessagesTopicHistoryRequest struct {
 }
 
 // GetSavedMessagesTopicHistoryRequestTypeID is TL type id of GetSavedMessagesTopicHistoryRequest.
-const GetSavedMessagesTopicHistoryRequestTypeID = 0xf115a1aa
+const GetSavedMessagesTopicHistoryRequestTypeID = 0x77e5da68
 
 // Ensuring interfaces in compile-time for GetSavedMessagesTopicHistoryRequest.
 var (
@@ -62,7 +62,7 @@ func (g *GetSavedMessagesTopicHistoryRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.SavedMessagesTopic == nil) {
+	if !(g.SavedMessagesTopicID == 0) {
 		return false
 	}
 	if !(g.FromMessageID == 0) {
@@ -111,8 +111,8 @@ func (g *GetSavedMessagesTopicHistoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 		{
 			Name:       "FromMessageID",
@@ -133,7 +133,7 @@ func (g *GetSavedMessagesTopicHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetSavedMessagesTopicHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSavedMessagesTopicHistory#f115a1aa as nil")
+		return fmt.Errorf("can't encode getSavedMessagesTopicHistory#77e5da68 as nil")
 	}
 	b.PutID(GetSavedMessagesTopicHistoryRequestTypeID)
 	return g.EncodeBare(b)
@@ -142,14 +142,9 @@ func (g *GetSavedMessagesTopicHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetSavedMessagesTopicHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSavedMessagesTopicHistory#f115a1aa as nil")
+		return fmt.Errorf("can't encode getSavedMessagesTopicHistory#77e5da68 as nil")
 	}
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicHistory#f115a1aa: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicHistory#f115a1aa: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.PutInt53(g.FromMessageID)
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
@@ -159,10 +154,10 @@ func (g *GetSavedMessagesTopicHistoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetSavedMessagesTopicHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSavedMessagesTopicHistory#f115a1aa to nil")
+		return fmt.Errorf("can't decode getSavedMessagesTopicHistory#77e5da68 to nil")
 	}
 	if err := b.ConsumeID(GetSavedMessagesTopicHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: %w", err)
+		return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -170,33 +165,33 @@ func (g *GetSavedMessagesTopicHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetSavedMessagesTopicHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSavedMessagesTopicHistory#f115a1aa to nil")
-	}
-	{
-		value, err := DecodeSavedMessagesTopic(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field saved_messages_topic: %w", err)
-		}
-		g.SavedMessagesTopic = value
+		return fmt.Errorf("can't decode getSavedMessagesTopicHistory#77e5da68 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field from_message_id: %w", err)
+			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field saved_messages_topic_id: %w", err)
+		}
+		g.SavedMessagesTopicID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field from_message_id: %w", err)
 		}
 		g.FromMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field offset: %w", err)
+			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field limit: %w", err)
+			return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -206,18 +201,13 @@ func (g *GetSavedMessagesTopicHistoryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetSavedMessagesTopicHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSavedMessagesTopicHistory#f115a1aa as nil")
+		return fmt.Errorf("can't encode getSavedMessagesTopicHistory#77e5da68 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getSavedMessagesTopicHistory")
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicHistory#f115a1aa: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getSavedMessagesTopicHistory#f115a1aa: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(g.FromMessageID)
@@ -236,37 +226,37 @@ func (g *GetSavedMessagesTopicHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetSavedMessagesTopicHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSavedMessagesTopicHistory#f115a1aa to nil")
+		return fmt.Errorf("can't decode getSavedMessagesTopicHistory#77e5da68 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getSavedMessagesTopicHistory"); err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: %w", err)
 			}
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field saved_messages_topic_id: %w", err)
 			}
-			g.SavedMessagesTopic = value
+			g.SavedMessagesTopicID = value
 		case "from_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field from_message_id: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field from_message_id: %w", err)
 			}
 			g.FromMessageID = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field offset: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#f115a1aa: field limit: %w", err)
+				return fmt.Errorf("unable to decode getSavedMessagesTopicHistory#77e5da68: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -276,12 +266,12 @@ func (g *GetSavedMessagesTopicHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 	})
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (g *GetSavedMessagesTopicHistoryRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (g *GetSavedMessagesTopicHistoryRequest) GetSavedMessagesTopicID() (value int64) {
 	if g == nil {
 		return
 	}
-	return g.SavedMessagesTopic
+	return g.SavedMessagesTopicID
 }
 
 // GetFromMessageID returns value of FromMessageID field.
@@ -308,7 +298,7 @@ func (g *GetSavedMessagesTopicHistoryRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetSavedMessagesTopicHistory invokes method getSavedMessagesTopicHistory#f115a1aa returning error if any.
+// GetSavedMessagesTopicHistory invokes method getSavedMessagesTopicHistory#77e5da68 returning error if any.
 func (c *Client) GetSavedMessagesTopicHistory(ctx context.Context, request *GetSavedMessagesTopicHistoryRequest) (*Messages, error) {
 	var result Messages
 
