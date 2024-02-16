@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DeleteSavedMessagesTopicHistoryRequest represents TL type `deleteSavedMessagesTopicHistory#c1dc4e3d`.
+// DeleteSavedMessagesTopicHistoryRequest represents TL type `deleteSavedMessagesTopicHistory#69df3d6a`.
 type DeleteSavedMessagesTopicHistoryRequest struct {
-	// Saved Messages topic which messages will be deleted
-	SavedMessagesTopic SavedMessagesTopicClass
+	// Identifier of Saved Messages topic which messages will be deleted
+	SavedMessagesTopicID int64
 }
 
 // DeleteSavedMessagesTopicHistoryRequestTypeID is TL type id of DeleteSavedMessagesTopicHistoryRequest.
-const DeleteSavedMessagesTopicHistoryRequestTypeID = 0xc1dc4e3d
+const DeleteSavedMessagesTopicHistoryRequestTypeID = 0x69df3d6a
 
 // Ensuring interfaces in compile-time for DeleteSavedMessagesTopicHistoryRequest.
 var (
@@ -52,7 +52,7 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.SavedMessagesTopic == nil) {
+	if !(d.SavedMessagesTopicID == 0) {
 		return false
 	}
 
@@ -92,8 +92,8 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 	}
 	return typ
@@ -102,7 +102,7 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DeleteSavedMessagesTopicHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteSavedMessagesTopicHistory#c1dc4e3d as nil")
+		return fmt.Errorf("can't encode deleteSavedMessagesTopicHistory#69df3d6a as nil")
 	}
 	b.PutID(DeleteSavedMessagesTopicHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,24 +111,19 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DeleteSavedMessagesTopicHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteSavedMessagesTopicHistory#c1dc4e3d as nil")
+		return fmt.Errorf("can't encode deleteSavedMessagesTopicHistory#69df3d6a as nil")
 	}
-	if d.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicHistory#c1dc4e3d: field saved_messages_topic is nil")
-	}
-	if err := d.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicHistory#c1dc4e3d: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(d.SavedMessagesTopicID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *DeleteSavedMessagesTopicHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteSavedMessagesTopicHistory#c1dc4e3d to nil")
+		return fmt.Errorf("can't decode deleteSavedMessagesTopicHistory#69df3d6a to nil")
 	}
 	if err := b.ConsumeID(DeleteSavedMessagesTopicHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#c1dc4e3d: %w", err)
+		return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#69df3d6a: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -136,14 +131,14 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DeleteSavedMessagesTopicHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteSavedMessagesTopicHistory#c1dc4e3d to nil")
+		return fmt.Errorf("can't decode deleteSavedMessagesTopicHistory#69df3d6a to nil")
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#c1dc4e3d: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#69df3d6a: field saved_messages_topic_id: %w", err)
 		}
-		d.SavedMessagesTopic = value
+		d.SavedMessagesTopicID = value
 	}
 	return nil
 }
@@ -151,18 +146,13 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) DecodeBare(b *bin.Buffer) error
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DeleteSavedMessagesTopicHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteSavedMessagesTopicHistory#c1dc4e3d as nil")
+		return fmt.Errorf("can't encode deleteSavedMessagesTopicHistory#69df3d6a as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteSavedMessagesTopicHistory")
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if d.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicHistory#c1dc4e3d: field saved_messages_topic is nil")
-	}
-	if err := d.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode deleteSavedMessagesTopicHistory#c1dc4e3d: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(d.SavedMessagesTopicID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -172,21 +162,21 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) EncodeTDLibJSON(b tdjson.Encode
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DeleteSavedMessagesTopicHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteSavedMessagesTopicHistory#c1dc4e3d to nil")
+		return fmt.Errorf("can't decode deleteSavedMessagesTopicHistory#69df3d6a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteSavedMessagesTopicHistory"); err != nil {
-				return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#c1dc4e3d: %w", err)
+				return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#69df3d6a: %w", err)
 			}
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#c1dc4e3d: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode deleteSavedMessagesTopicHistory#69df3d6a: field saved_messages_topic_id: %w", err)
 			}
-			d.SavedMessagesTopic = value
+			d.SavedMessagesTopicID = value
 		default:
 			return b.Skip()
 		}
@@ -194,20 +184,20 @@ func (d *DeleteSavedMessagesTopicHistoryRequest) DecodeTDLibJSON(b tdjson.Decode
 	})
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (d *DeleteSavedMessagesTopicHistoryRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (d *DeleteSavedMessagesTopicHistoryRequest) GetSavedMessagesTopicID() (value int64) {
 	if d == nil {
 		return
 	}
-	return d.SavedMessagesTopic
+	return d.SavedMessagesTopicID
 }
 
-// DeleteSavedMessagesTopicHistory invokes method deleteSavedMessagesTopicHistory#c1dc4e3d returning error if any.
-func (c *Client) DeleteSavedMessagesTopicHistory(ctx context.Context, savedmessagestopic SavedMessagesTopicClass) error {
+// DeleteSavedMessagesTopicHistory invokes method deleteSavedMessagesTopicHistory#69df3d6a returning error if any.
+func (c *Client) DeleteSavedMessagesTopicHistory(ctx context.Context, savedmessagestopicid int64) error {
 	var ok Ok
 
 	request := &DeleteSavedMessagesTopicHistoryRequest{
-		SavedMessagesTopic: savedmessagestopic,
+		SavedMessagesTopicID: savedmessagestopicid,
 	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err

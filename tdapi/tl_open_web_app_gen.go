@@ -45,7 +45,7 @@ type OpenWebAppRequest struct {
 	Theme ThemeParameters
 	// Short name of the application; 0-64 English letters, digits, and underscores
 	ApplicationName string
-	// If not 0, a message thread identifier in which the message will be sent
+	// If not 0, the message thread identifier in which the message will be sent
 	MessageThreadID int64
 	// Information about the message or story to be replied in the message sent by the Web
 	// App; pass null if none

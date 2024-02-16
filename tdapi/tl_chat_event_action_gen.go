@@ -4540,6 +4540,206 @@ func (c *ChatEventStickerSetChanged) GetNewStickerSetID() (value int64) {
 	return c.NewStickerSetID
 }
 
+// ChatEventCustomEmojiStickerSetChanged represents TL type `chatEventCustomEmojiStickerSetChanged#70c431b`.
+type ChatEventCustomEmojiStickerSetChanged struct {
+	// Previous identifier of the chat sticker set; 0 if none
+	OldStickerSetID int64
+	// New identifier of the chat sticker set; 0 if none
+	NewStickerSetID int64
+}
+
+// ChatEventCustomEmojiStickerSetChangedTypeID is TL type id of ChatEventCustomEmojiStickerSetChanged.
+const ChatEventCustomEmojiStickerSetChangedTypeID = 0x70c431b
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventCustomEmojiStickerSetChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventCustomEmojiStickerSetChanged.
+var (
+	_ bin.Encoder     = &ChatEventCustomEmojiStickerSetChanged{}
+	_ bin.Decoder     = &ChatEventCustomEmojiStickerSetChanged{}
+	_ bin.BareEncoder = &ChatEventCustomEmojiStickerSetChanged{}
+	_ bin.BareDecoder = &ChatEventCustomEmojiStickerSetChanged{}
+
+	_ ChatEventActionClass = &ChatEventCustomEmojiStickerSetChanged{}
+)
+
+func (c *ChatEventCustomEmojiStickerSetChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldStickerSetID == 0) {
+		return false
+	}
+	if !(c.NewStickerSetID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventCustomEmojiStickerSetChanged) String() string {
+	if c == nil {
+		return "ChatEventCustomEmojiStickerSetChanged(nil)"
+	}
+	type Alias ChatEventCustomEmojiStickerSetChanged
+	return fmt.Sprintf("ChatEventCustomEmojiStickerSetChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventCustomEmojiStickerSetChanged) TypeID() uint32 {
+	return ChatEventCustomEmojiStickerSetChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventCustomEmojiStickerSetChanged) TypeName() string {
+	return "chatEventCustomEmojiStickerSetChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventCustomEmojiStickerSetChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventCustomEmojiStickerSetChanged",
+		ID:   ChatEventCustomEmojiStickerSetChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldStickerSetID",
+			SchemaName: "old_sticker_set_id",
+		},
+		{
+			Name:       "NewStickerSetID",
+			SchemaName: "new_sticker_set_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventCustomEmojiStickerSetChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventCustomEmojiStickerSetChanged#70c431b as nil")
+	}
+	b.PutID(ChatEventCustomEmojiStickerSetChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventCustomEmojiStickerSetChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventCustomEmojiStickerSetChanged#70c431b as nil")
+	}
+	b.PutLong(c.OldStickerSetID)
+	b.PutLong(c.NewStickerSetID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventCustomEmojiStickerSetChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventCustomEmojiStickerSetChanged#70c431b to nil")
+	}
+	if err := b.ConsumeID(ChatEventCustomEmojiStickerSetChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventCustomEmojiStickerSetChanged#70c431b: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventCustomEmojiStickerSetChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventCustomEmojiStickerSetChanged#70c431b to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventCustomEmojiStickerSetChanged#70c431b: field old_sticker_set_id: %w", err)
+		}
+		c.OldStickerSetID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventCustomEmojiStickerSetChanged#70c431b: field new_sticker_set_id: %w", err)
+		}
+		c.NewStickerSetID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventCustomEmojiStickerSetChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventCustomEmojiStickerSetChanged#70c431b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventCustomEmojiStickerSetChanged")
+	b.Comma()
+	b.FieldStart("old_sticker_set_id")
+	b.PutLong(c.OldStickerSetID)
+	b.Comma()
+	b.FieldStart("new_sticker_set_id")
+	b.PutLong(c.NewStickerSetID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventCustomEmojiStickerSetChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventCustomEmojiStickerSetChanged#70c431b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventCustomEmojiStickerSetChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventCustomEmojiStickerSetChanged#70c431b: %w", err)
+			}
+		case "old_sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventCustomEmojiStickerSetChanged#70c431b: field old_sticker_set_id: %w", err)
+			}
+			c.OldStickerSetID = value
+		case "new_sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventCustomEmojiStickerSetChanged#70c431b: field new_sticker_set_id: %w", err)
+			}
+			c.NewStickerSetID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldStickerSetID returns value of OldStickerSetID field.
+func (c *ChatEventCustomEmojiStickerSetChanged) GetOldStickerSetID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.OldStickerSetID
+}
+
+// GetNewStickerSetID returns value of NewStickerSetID field.
+func (c *ChatEventCustomEmojiStickerSetChanged) GetNewStickerSetID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.NewStickerSetID
+}
+
 // ChatEventTitleChanged represents TL type `chatEventTitleChanged#43990ad2`.
 type ChatEventTitleChanged struct {
 	// Previous chat title
@@ -9271,6 +9471,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventPhotoChanged: // chatEventPhotoChanged#cfa062c3
 //	case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
 //	case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
+//	case *tdapi.ChatEventCustomEmojiStickerSetChanged: // chatEventCustomEmojiStickerSetChanged#70c431b
 //	case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
 //	case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
 //	case *tdapi.ChatEventActiveUsernamesChanged: // chatEventActiveUsernamesChanged#95e54656
@@ -9484,6 +9685,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventStickerSetChangedTypeID:
 		// Decoding chatEventStickerSetChanged#b5e7558f.
 		v := ChatEventStickerSetChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventCustomEmojiStickerSetChangedTypeID:
+		// Decoding chatEventCustomEmojiStickerSetChanged#70c431b.
+		v := ChatEventCustomEmojiStickerSetChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -9832,6 +10040,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventStickerSetChanged":
 		// Decoding chatEventStickerSetChanged#b5e7558f.
 		v := ChatEventStickerSetChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventCustomEmojiStickerSetChanged":
+		// Decoding chatEventCustomEmojiStickerSetChanged#70c431b.
+		v := ChatEventCustomEmojiStickerSetChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

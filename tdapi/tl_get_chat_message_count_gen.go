@@ -31,22 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatMessageCountRequest represents TL type `getChatMessageCount#d1d1952d`.
+// GetChatMessageCountRequest represents TL type `getChatMessageCount#38f78909`.
 type GetChatMessageCountRequest struct {
 	// Identifier of the chat in which to count messages
 	ChatID int64
 	// Filter for message content; searchMessagesFilterEmpty is unsupported in this function
 	Filter SearchMessagesFilterClass
-	// If not null, only messages in the specified Saved Messages topic will be counted; pass
-	// null to count all messages, or for chats other than Saved Messages
-	SavedMessagesTopic SavedMessagesTopicClass
+	// If not 0, only messages in the specified Saved Messages topic will be counted; pass 0
+	// to count all messages, or for chats other than Saved Messages
+	SavedMessagesTopicID int64
 	// Pass true to get the number of messages without sending network requests, or -1 if the
 	// number of messages is unknown locally
 	ReturnLocal bool
 }
 
 // GetChatMessageCountRequestTypeID is TL type id of GetChatMessageCountRequest.
-const GetChatMessageCountRequestTypeID = 0xd1d1952d
+const GetChatMessageCountRequestTypeID = 0x38f78909
 
 // Ensuring interfaces in compile-time for GetChatMessageCountRequest.
 var (
@@ -66,7 +66,7 @@ func (g *GetChatMessageCountRequest) Zero() bool {
 	if !(g.Filter == nil) {
 		return false
 	}
-	if !(g.SavedMessagesTopic == nil) {
+	if !(g.SavedMessagesTopicID == 0) {
 		return false
 	}
 	if !(g.ReturnLocal == false) {
@@ -117,8 +117,8 @@ func (g *GetChatMessageCountRequest) TypeInfo() tdp.Type {
 			SchemaName: "filter",
 		},
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 		{
 			Name:       "ReturnLocal",
@@ -131,7 +131,7 @@ func (g *GetChatMessageCountRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatMessageCountRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessageCount#d1d1952d as nil")
+		return fmt.Errorf("can't encode getChatMessageCount#38f78909 as nil")
 	}
 	b.PutID(GetChatMessageCountRequestTypeID)
 	return g.EncodeBare(b)
@@ -140,21 +140,16 @@ func (g *GetChatMessageCountRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatMessageCountRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessageCount#d1d1952d as nil")
+		return fmt.Errorf("can't encode getChatMessageCount#38f78909 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field filter is nil")
+		return fmt.Errorf("unable to encode getChatMessageCount#38f78909: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatMessageCount#38f78909: field filter: %w", err)
 	}
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.PutBool(g.ReturnLocal)
 	return nil
 }
@@ -162,10 +157,10 @@ func (g *GetChatMessageCountRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetChatMessageCountRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessageCount#d1d1952d to nil")
+		return fmt.Errorf("can't decode getChatMessageCount#38f78909 to nil")
 	}
 	if err := b.ConsumeID(GetChatMessageCountRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: %w", err)
+		return fmt.Errorf("unable to decode getChatMessageCount#38f78909: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -173,33 +168,33 @@ func (g *GetChatMessageCountRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatMessageCountRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessageCount#d1d1952d to nil")
+		return fmt.Errorf("can't decode getChatMessageCount#38f78909 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := DecodeSearchMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field filter: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field saved_messages_topic_id: %w", err)
 		}
-		g.SavedMessagesTopic = value
+		g.SavedMessagesTopicID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field return_local: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field return_local: %w", err)
 		}
 		g.ReturnLocal = value
 	}
@@ -209,7 +204,7 @@ func (g *GetChatMessageCountRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessageCount#d1d1952d as nil")
+		return fmt.Errorf("can't encode getChatMessageCount#38f78909 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatMessageCount")
@@ -219,19 +214,14 @@ func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field filter is nil")
+		return fmt.Errorf("unable to encode getChatMessageCount#38f78909: field filter is nil")
 	}
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatMessageCount#38f78909: field filter: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCount#d1d1952d: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.Comma()
 	b.FieldStart("return_local")
 	b.PutBool(g.ReturnLocal)
@@ -244,37 +234,37 @@ func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatMessageCountRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessageCount#d1d1952d to nil")
+		return fmt.Errorf("can't decode getChatMessageCount#38f78909 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatMessageCount"); err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCount#38f78909: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "filter":
 			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field filter: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field filter: %w", err)
 			}
 			g.Filter = value
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field saved_messages_topic_id: %w", err)
 			}
-			g.SavedMessagesTopic = value
+			g.SavedMessagesTopicID = value
 		case "return_local":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCount#d1d1952d: field return_local: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCount#38f78909: field return_local: %w", err)
 			}
 			g.ReturnLocal = value
 		default:
@@ -300,12 +290,12 @@ func (g *GetChatMessageCountRequest) GetFilter() (value SearchMessagesFilterClas
 	return g.Filter
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (g *GetChatMessageCountRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (g *GetChatMessageCountRequest) GetSavedMessagesTopicID() (value int64) {
 	if g == nil {
 		return
 	}
-	return g.SavedMessagesTopic
+	return g.SavedMessagesTopicID
 }
 
 // GetReturnLocal returns value of ReturnLocal field.
@@ -316,7 +306,7 @@ func (g *GetChatMessageCountRequest) GetReturnLocal() (value bool) {
 	return g.ReturnLocal
 }
 
-// GetChatMessageCount invokes method getChatMessageCount#d1d1952d returning error if any.
+// GetChatMessageCount invokes method getChatMessageCount#38f78909 returning error if any.
 func (c *Client) GetChatMessageCount(ctx context.Context, request *GetChatMessageCountRequest) (*Count, error) {
 	var result Count
 

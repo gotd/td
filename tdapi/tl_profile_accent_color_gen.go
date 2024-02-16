@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ProfileAccentColor represents TL type `profileAccentColor#87d7df12`.
+// ProfileAccentColor represents TL type `profileAccentColor#213d8295`.
 type ProfileAccentColor struct {
 	// Profile accent color identifier
 	ID int32
@@ -39,12 +39,14 @@ type ProfileAccentColor struct {
 	LightThemeColors ProfileAccentColors
 	// Accent colors expected to be used in dark themes
 	DarkThemeColors ProfileAccentColors
-	// The minimum chat boost level required to use the color
-	MinChatBoostLevel int32
+	// The minimum chat boost level required to use the color in a supergroup chat
+	MinSupergroupChatBoostLevel int32
+	// The minimum chat boost level required to use the color in a channel chat
+	MinChannelChatBoostLevel int32
 }
 
 // ProfileAccentColorTypeID is TL type id of ProfileAccentColor.
-const ProfileAccentColorTypeID = 0x87d7df12
+const ProfileAccentColorTypeID = 0x213d8295
 
 // Ensuring interfaces in compile-time for ProfileAccentColor.
 var (
@@ -67,7 +69,10 @@ func (p *ProfileAccentColor) Zero() bool {
 	if !(p.DarkThemeColors.Zero()) {
 		return false
 	}
-	if !(p.MinChatBoostLevel == 0) {
+	if !(p.MinSupergroupChatBoostLevel == 0) {
+		return false
+	}
+	if !(p.MinChannelChatBoostLevel == 0) {
 		return false
 	}
 
@@ -119,8 +124,12 @@ func (p *ProfileAccentColor) TypeInfo() tdp.Type {
 			SchemaName: "dark_theme_colors",
 		},
 		{
-			Name:       "MinChatBoostLevel",
-			SchemaName: "min_chat_boost_level",
+			Name:       "MinSupergroupChatBoostLevel",
+			SchemaName: "min_supergroup_chat_boost_level",
+		},
+		{
+			Name:       "MinChannelChatBoostLevel",
+			SchemaName: "min_channel_chat_boost_level",
 		},
 	}
 	return typ
@@ -129,7 +138,7 @@ func (p *ProfileAccentColor) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *ProfileAccentColor) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode profileAccentColor#87d7df12 as nil")
+		return fmt.Errorf("can't encode profileAccentColor#213d8295 as nil")
 	}
 	b.PutID(ProfileAccentColorTypeID)
 	return p.EncodeBare(b)
@@ -138,26 +147,27 @@ func (p *ProfileAccentColor) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *ProfileAccentColor) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode profileAccentColor#87d7df12 as nil")
+		return fmt.Errorf("can't encode profileAccentColor#213d8295 as nil")
 	}
 	b.PutInt32(p.ID)
 	if err := p.LightThemeColors.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode profileAccentColor#87d7df12: field light_theme_colors: %w", err)
+		return fmt.Errorf("unable to encode profileAccentColor#213d8295: field light_theme_colors: %w", err)
 	}
 	if err := p.DarkThemeColors.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode profileAccentColor#87d7df12: field dark_theme_colors: %w", err)
+		return fmt.Errorf("unable to encode profileAccentColor#213d8295: field dark_theme_colors: %w", err)
 	}
-	b.PutInt32(p.MinChatBoostLevel)
+	b.PutInt32(p.MinSupergroupChatBoostLevel)
+	b.PutInt32(p.MinChannelChatBoostLevel)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *ProfileAccentColor) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode profileAccentColor#87d7df12 to nil")
+		return fmt.Errorf("can't decode profileAccentColor#213d8295 to nil")
 	}
 	if err := b.ConsumeID(ProfileAccentColorTypeID); err != nil {
-		return fmt.Errorf("unable to decode profileAccentColor#87d7df12: %w", err)
+		return fmt.Errorf("unable to decode profileAccentColor#213d8295: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -165,31 +175,38 @@ func (p *ProfileAccentColor) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *ProfileAccentColor) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode profileAccentColor#87d7df12 to nil")
+		return fmt.Errorf("can't decode profileAccentColor#213d8295 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field id: %w", err)
+			return fmt.Errorf("unable to decode profileAccentColor#213d8295: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		if err := p.LightThemeColors.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field light_theme_colors: %w", err)
+			return fmt.Errorf("unable to decode profileAccentColor#213d8295: field light_theme_colors: %w", err)
 		}
 	}
 	{
 		if err := p.DarkThemeColors.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field dark_theme_colors: %w", err)
+			return fmt.Errorf("unable to decode profileAccentColor#213d8295: field dark_theme_colors: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field min_chat_boost_level: %w", err)
+			return fmt.Errorf("unable to decode profileAccentColor#213d8295: field min_supergroup_chat_boost_level: %w", err)
 		}
-		p.MinChatBoostLevel = value
+		p.MinSupergroupChatBoostLevel = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode profileAccentColor#213d8295: field min_channel_chat_boost_level: %w", err)
+		}
+		p.MinChannelChatBoostLevel = value
 	}
 	return nil
 }
@@ -197,7 +214,7 @@ func (p *ProfileAccentColor) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *ProfileAccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode profileAccentColor#87d7df12 as nil")
+		return fmt.Errorf("can't encode profileAccentColor#213d8295 as nil")
 	}
 	b.ObjStart()
 	b.PutID("profileAccentColor")
@@ -207,16 +224,19 @@ func (p *ProfileAccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("light_theme_colors")
 	if err := p.LightThemeColors.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode profileAccentColor#87d7df12: field light_theme_colors: %w", err)
+		return fmt.Errorf("unable to encode profileAccentColor#213d8295: field light_theme_colors: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("dark_theme_colors")
 	if err := p.DarkThemeColors.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode profileAccentColor#87d7df12: field dark_theme_colors: %w", err)
+		return fmt.Errorf("unable to encode profileAccentColor#213d8295: field dark_theme_colors: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("min_chat_boost_level")
-	b.PutInt32(p.MinChatBoostLevel)
+	b.FieldStart("min_supergroup_chat_boost_level")
+	b.PutInt32(p.MinSupergroupChatBoostLevel)
+	b.Comma()
+	b.FieldStart("min_channel_chat_boost_level")
+	b.PutInt32(p.MinChannelChatBoostLevel)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -226,35 +246,41 @@ func (p *ProfileAccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *ProfileAccentColor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode profileAccentColor#87d7df12 to nil")
+		return fmt.Errorf("can't decode profileAccentColor#213d8295 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("profileAccentColor"); err != nil {
-				return fmt.Errorf("unable to decode profileAccentColor#87d7df12: %w", err)
+				return fmt.Errorf("unable to decode profileAccentColor#213d8295: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field id: %w", err)
+				return fmt.Errorf("unable to decode profileAccentColor#213d8295: field id: %w", err)
 			}
 			p.ID = value
 		case "light_theme_colors":
 			if err := p.LightThemeColors.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field light_theme_colors: %w", err)
+				return fmt.Errorf("unable to decode profileAccentColor#213d8295: field light_theme_colors: %w", err)
 			}
 		case "dark_theme_colors":
 			if err := p.DarkThemeColors.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field dark_theme_colors: %w", err)
+				return fmt.Errorf("unable to decode profileAccentColor#213d8295: field dark_theme_colors: %w", err)
 			}
-		case "min_chat_boost_level":
+		case "min_supergroup_chat_boost_level":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode profileAccentColor#87d7df12: field min_chat_boost_level: %w", err)
+				return fmt.Errorf("unable to decode profileAccentColor#213d8295: field min_supergroup_chat_boost_level: %w", err)
 			}
-			p.MinChatBoostLevel = value
+			p.MinSupergroupChatBoostLevel = value
+		case "min_channel_chat_boost_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode profileAccentColor#213d8295: field min_channel_chat_boost_level: %w", err)
+			}
+			p.MinChannelChatBoostLevel = value
 		default:
 			return b.Skip()
 		}
@@ -286,10 +312,18 @@ func (p *ProfileAccentColor) GetDarkThemeColors() (value ProfileAccentColors) {
 	return p.DarkThemeColors
 }
 
-// GetMinChatBoostLevel returns value of MinChatBoostLevel field.
-func (p *ProfileAccentColor) GetMinChatBoostLevel() (value int32) {
+// GetMinSupergroupChatBoostLevel returns value of MinSupergroupChatBoostLevel field.
+func (p *ProfileAccentColor) GetMinSupergroupChatBoostLevel() (value int32) {
 	if p == nil {
 		return
 	}
-	return p.MinChatBoostLevel
+	return p.MinSupergroupChatBoostLevel
+}
+
+// GetMinChannelChatBoostLevel returns value of MinChannelChatBoostLevel field.
+func (p *ProfileAccentColor) GetMinChannelChatBoostLevel() (value int32) {
+	if p == nil {
+		return
+	}
+	return p.MinChannelChatBoostLevel
 }

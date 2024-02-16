@@ -35,7 +35,7 @@ var (
 type ImportMessagesRequest struct {
 	// Identifier of a chat to which the messages will be imported. It must be an identifier
 	// of a private chat with a mutual contact or an identifier of a supergroup chat with
-	// can_change_info administrator right
+	// can_change_info member right
 	ChatID int64
 	// File with messages to import. Only inputFileLocal and inputFileGenerated are supported
 	// The file must not be previously uploaded

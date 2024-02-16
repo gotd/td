@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetPinnedSavedMessagesTopicsRequest represents TL type `setPinnedSavedMessagesTopics#81065db4`.
+// SetPinnedSavedMessagesTopicsRequest represents TL type `setPinnedSavedMessagesTopics#475a1110`.
 type SetPinnedSavedMessagesTopicsRequest struct {
-	// The new list of pinned Saved Messages topics
-	SavedMessagesTopics []SavedMessagesTopicClass
+	// Identifiers of the new pinned Saved Messages topics
+	SavedMessagesTopicIDs []int64
 }
 
 // SetPinnedSavedMessagesTopicsRequestTypeID is TL type id of SetPinnedSavedMessagesTopicsRequest.
-const SetPinnedSavedMessagesTopicsRequestTypeID = 0x81065db4
+const SetPinnedSavedMessagesTopicsRequestTypeID = 0x475a1110
 
 // Ensuring interfaces in compile-time for SetPinnedSavedMessagesTopicsRequest.
 var (
@@ -52,7 +52,7 @@ func (s *SetPinnedSavedMessagesTopicsRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.SavedMessagesTopics == nil) {
+	if !(s.SavedMessagesTopicIDs == nil) {
 		return false
 	}
 
@@ -92,8 +92,8 @@ func (s *SetPinnedSavedMessagesTopicsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "SavedMessagesTopics",
-			SchemaName: "saved_messages_topics",
+			Name:       "SavedMessagesTopicIDs",
+			SchemaName: "saved_messages_topic_ids",
 		},
 	}
 	return typ
@@ -102,7 +102,7 @@ func (s *SetPinnedSavedMessagesTopicsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetPinnedSavedMessagesTopicsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setPinnedSavedMessagesTopics#81065db4 as nil")
+		return fmt.Errorf("can't encode setPinnedSavedMessagesTopics#475a1110 as nil")
 	}
 	b.PutID(SetPinnedSavedMessagesTopicsRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,16 +111,11 @@ func (s *SetPinnedSavedMessagesTopicsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetPinnedSavedMessagesTopicsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setPinnedSavedMessagesTopics#81065db4 as nil")
+		return fmt.Errorf("can't encode setPinnedSavedMessagesTopics#475a1110 as nil")
 	}
-	b.PutInt(len(s.SavedMessagesTopics))
-	for idx, v := range s.SavedMessagesTopics {
-		if v == nil {
-			return fmt.Errorf("unable to encode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics element with index %d is nil", idx)
-		}
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics element with index %d: %w", idx, err)
-		}
+	b.PutInt(len(s.SavedMessagesTopicIDs))
+	for _, v := range s.SavedMessagesTopicIDs {
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -128,10 +123,10 @@ func (s *SetPinnedSavedMessagesTopicsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetPinnedSavedMessagesTopicsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setPinnedSavedMessagesTopics#81065db4 to nil")
+		return fmt.Errorf("can't decode setPinnedSavedMessagesTopics#475a1110 to nil")
 	}
 	if err := b.ConsumeID(SetPinnedSavedMessagesTopicsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#81065db4: %w", err)
+		return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#475a1110: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -139,23 +134,23 @@ func (s *SetPinnedSavedMessagesTopicsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetPinnedSavedMessagesTopicsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setPinnedSavedMessagesTopics#81065db4 to nil")
+		return fmt.Errorf("can't decode setPinnedSavedMessagesTopics#475a1110 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics: %w", err)
+			return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#475a1110: field saved_messages_topic_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			s.SavedMessagesTopics = make([]SavedMessagesTopicClass, 0, headerLen%bin.PreallocateLimit)
+			s.SavedMessagesTopicIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeSavedMessagesTopic(b)
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics: %w", err)
+				return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#475a1110: field saved_messages_topic_ids: %w", err)
 			}
-			s.SavedMessagesTopics = append(s.SavedMessagesTopics, value)
+			s.SavedMessagesTopicIDs = append(s.SavedMessagesTopicIDs, value)
 		}
 	}
 	return nil
@@ -164,20 +159,15 @@ func (s *SetPinnedSavedMessagesTopicsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetPinnedSavedMessagesTopicsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setPinnedSavedMessagesTopics#81065db4 as nil")
+		return fmt.Errorf("can't encode setPinnedSavedMessagesTopics#475a1110 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setPinnedSavedMessagesTopics")
 	b.Comma()
-	b.FieldStart("saved_messages_topics")
+	b.FieldStart("saved_messages_topic_ids")
 	b.ArrStart()
-	for idx, v := range s.SavedMessagesTopics {
-		if v == nil {
-			return fmt.Errorf("unable to encode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics element with index %d is nil", idx)
-		}
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics element with index %d: %w", idx, err)
-		}
+	for _, v := range s.SavedMessagesTopicIDs {
+		b.PutInt53(v)
 		b.Comma()
 	}
 	b.StripComma()
@@ -191,25 +181,25 @@ func (s *SetPinnedSavedMessagesTopicsRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetPinnedSavedMessagesTopicsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setPinnedSavedMessagesTopics#81065db4 to nil")
+		return fmt.Errorf("can't decode setPinnedSavedMessagesTopics#475a1110 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setPinnedSavedMessagesTopics"); err != nil {
-				return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#81065db4: %w", err)
+				return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#475a1110: %w", err)
 			}
-		case "saved_messages_topics":
+		case "saved_messages_topic_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics: %w", err)
+					return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#475a1110: field saved_messages_topic_ids: %w", err)
 				}
-				s.SavedMessagesTopics = append(s.SavedMessagesTopics, value)
+				s.SavedMessagesTopicIDs = append(s.SavedMessagesTopicIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#81065db4: field saved_messages_topics: %w", err)
+				return fmt.Errorf("unable to decode setPinnedSavedMessagesTopics#475a1110: field saved_messages_topic_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -218,20 +208,20 @@ func (s *SetPinnedSavedMessagesTopicsRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 	})
 }
 
-// GetSavedMessagesTopics returns value of SavedMessagesTopics field.
-func (s *SetPinnedSavedMessagesTopicsRequest) GetSavedMessagesTopics() (value []SavedMessagesTopicClass) {
+// GetSavedMessagesTopicIDs returns value of SavedMessagesTopicIDs field.
+func (s *SetPinnedSavedMessagesTopicsRequest) GetSavedMessagesTopicIDs() (value []int64) {
 	if s == nil {
 		return
 	}
-	return s.SavedMessagesTopics
+	return s.SavedMessagesTopicIDs
 }
 
-// SetPinnedSavedMessagesTopics invokes method setPinnedSavedMessagesTopics#81065db4 returning error if any.
-func (c *Client) SetPinnedSavedMessagesTopics(ctx context.Context, savedmessagestopics []SavedMessagesTopicClass) error {
+// SetPinnedSavedMessagesTopics invokes method setPinnedSavedMessagesTopics#475a1110 returning error if any.
+func (c *Client) SetPinnedSavedMessagesTopics(ctx context.Context, savedmessagestopicids []int64) error {
 	var ok Ok
 
 	request := &SetPinnedSavedMessagesTopicsRequest{
-		SavedMessagesTopics: savedmessagestopics,
+		SavedMessagesTopicIDs: savedmessagestopicids,
 	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err

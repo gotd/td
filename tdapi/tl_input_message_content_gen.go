@@ -37,8 +37,8 @@ type InputMessageText struct {
 	// Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, Code, Pre,
 	// PreCode, TextUrl and MentionName entities are allowed to be specified manually
 	Text FormattedText
-	// Options to be used for generation of a link preview; pass null to use default link
-	// preview options
+	// Options to be used for generation of a link preview; may be null if none; pass null to
+	// use default link preview options
 	LinkPreviewOptions LinkPreviewOptions
 	// True, if a chat message draft must be deleted
 	ClearDraft bool
@@ -2621,13 +2621,14 @@ func (i *InputMessageVideo) GetHasSpoiler() (value bool) {
 type InputMessageVideoNote struct {
 	// Video note to be sent
 	VideoNote InputFileClass
-	// Video thumbnail; pass null to skip thumbnail uploading
+	// Video thumbnail; may be null if empty; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
 	// Duration of the video, in seconds
 	Duration int32
 	// Video width and height; must be positive and not greater than 640
 	Length int32
-	// Video note self-destruct type; pass null if none; private chats only
+	// Video note self-destruct type; may be null if none; pass null if none; private chats
+	// only
 	SelfDestructType MessageSelfDestructTypeClass
 }
 
@@ -2947,10 +2948,11 @@ type InputMessageVoiceNote struct {
 	Duration int32
 	// Waveform representation of the voice note in 5-bit format
 	Waveform []byte
-	// Voice note caption; pass null to use an empty caption;
+	// Voice note caption; may be null if empty; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
-	// Voice note self-destruct type; pass null if none; private chats only
+	// Voice note self-destruct type; may be null if none; pass null if none; private chats
+	// only
 	SelfDestructType MessageSelfDestructTypeClass
 }
 

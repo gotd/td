@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatMessageCalendarRequest represents TL type `getChatMessageCalendar#69fdc3d2`.
+// GetChatMessageCalendarRequest represents TL type `getChatMessageCalendar#81af2db7`.
 type GetChatMessageCalendarRequest struct {
 	// Identifier of the chat in which to return information about messages
 	ChatID int64
@@ -42,13 +42,13 @@ type GetChatMessageCalendarRequest struct {
 	// The message identifier from which to return information about messages; use 0 to get
 	// results from the last message
 	FromMessageID int64
-	// If not null, only messages in the specified Saved Messages topic will be considered;
-	// pass null to consider all messages, or for chats other than Saved Messages
-	SavedMessagesTopic SavedMessagesTopicClass
+	// If not0, only messages in the specified Saved Messages topic will be considered; pass
+	// 0 to consider all messages, or for chats other than Saved Messages
+	SavedMessagesTopicID int64
 }
 
 // GetChatMessageCalendarRequestTypeID is TL type id of GetChatMessageCalendarRequest.
-const GetChatMessageCalendarRequestTypeID = 0x69fdc3d2
+const GetChatMessageCalendarRequestTypeID = 0x81af2db7
 
 // Ensuring interfaces in compile-time for GetChatMessageCalendarRequest.
 var (
@@ -71,7 +71,7 @@ func (g *GetChatMessageCalendarRequest) Zero() bool {
 	if !(g.FromMessageID == 0) {
 		return false
 	}
-	if !(g.SavedMessagesTopic == nil) {
+	if !(g.SavedMessagesTopicID == 0) {
 		return false
 	}
 
@@ -123,8 +123,8 @@ func (g *GetChatMessageCalendarRequest) TypeInfo() tdp.Type {
 			SchemaName: "from_message_id",
 		},
 		{
-			Name:       "SavedMessagesTopic",
-			SchemaName: "saved_messages_topic",
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
 		},
 	}
 	return typ
@@ -133,7 +133,7 @@ func (g *GetChatMessageCalendarRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatMessageCalendarRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessageCalendar#69fdc3d2 as nil")
+		return fmt.Errorf("can't encode getChatMessageCalendar#81af2db7 as nil")
 	}
 	b.PutID(GetChatMessageCalendarRequestTypeID)
 	return g.EncodeBare(b)
@@ -142,32 +142,27 @@ func (g *GetChatMessageCalendarRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatMessageCalendarRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessageCalendar#69fdc3d2 as nil")
+		return fmt.Errorf("can't encode getChatMessageCalendar#81af2db7 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field filter is nil")
+		return fmt.Errorf("unable to encode getChatMessageCalendar#81af2db7: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatMessageCalendar#81af2db7: field filter: %w", err)
 	}
 	b.PutInt53(g.FromMessageID)
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field saved_messages_topic: %w", err)
-	}
+	b.PutInt53(g.SavedMessagesTopicID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetChatMessageCalendarRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessageCalendar#69fdc3d2 to nil")
+		return fmt.Errorf("can't decode getChatMessageCalendar#81af2db7 to nil")
 	}
 	if err := b.ConsumeID(GetChatMessageCalendarRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: %w", err)
+		return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -175,35 +170,35 @@ func (g *GetChatMessageCalendarRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatMessageCalendarRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessageCalendar#69fdc3d2 to nil")
+		return fmt.Errorf("can't decode getChatMessageCalendar#81af2db7 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := DecodeSearchMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field filter: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field from_message_id: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field from_message_id: %w", err)
 		}
 		g.FromMessageID = value
 	}
 	{
-		value, err := DecodeSavedMessagesTopic(b)
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field saved_messages_topic: %w", err)
+			return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field saved_messages_topic_id: %w", err)
 		}
-		g.SavedMessagesTopic = value
+		g.SavedMessagesTopicID = value
 	}
 	return nil
 }
@@ -211,7 +206,7 @@ func (g *GetChatMessageCalendarRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatMessageCalendar#69fdc3d2 as nil")
+		return fmt.Errorf("can't encode getChatMessageCalendar#81af2db7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatMessageCalendar")
@@ -221,22 +216,17 @@ func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field filter is nil")
+		return fmt.Errorf("unable to encode getChatMessageCalendar#81af2db7: field filter is nil")
 	}
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field filter: %w", err)
+		return fmt.Errorf("unable to encode getChatMessageCalendar#81af2db7: field filter: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(g.FromMessageID)
 	b.Comma()
-	b.FieldStart("saved_messages_topic")
-	if g.SavedMessagesTopic == nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field saved_messages_topic is nil")
-	}
-	if err := g.SavedMessagesTopic.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatMessageCalendar#69fdc3d2: field saved_messages_topic: %w", err)
-	}
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(g.SavedMessagesTopicID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -246,39 +236,39 @@ func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatMessageCalendarRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatMessageCalendar#69fdc3d2 to nil")
+		return fmt.Errorf("can't decode getChatMessageCalendar#81af2db7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatMessageCalendar"); err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "filter":
 			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field filter: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field filter: %w", err)
 			}
 			g.Filter = value
 		case "from_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field from_message_id: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field from_message_id: %w", err)
 			}
 			g.FromMessageID = value
-		case "saved_messages_topic":
-			value, err := DecodeTDLibJSONSavedMessagesTopic(b)
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatMessageCalendar#69fdc3d2: field saved_messages_topic: %w", err)
+				return fmt.Errorf("unable to decode getChatMessageCalendar#81af2db7: field saved_messages_topic_id: %w", err)
 			}
-			g.SavedMessagesTopic = value
+			g.SavedMessagesTopicID = value
 		default:
 			return b.Skip()
 		}
@@ -310,15 +300,15 @@ func (g *GetChatMessageCalendarRequest) GetFromMessageID() (value int64) {
 	return g.FromMessageID
 }
 
-// GetSavedMessagesTopic returns value of SavedMessagesTopic field.
-func (g *GetChatMessageCalendarRequest) GetSavedMessagesTopic() (value SavedMessagesTopicClass) {
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (g *GetChatMessageCalendarRequest) GetSavedMessagesTopicID() (value int64) {
 	if g == nil {
 		return
 	}
-	return g.SavedMessagesTopic
+	return g.SavedMessagesTopicID
 }
 
-// GetChatMessageCalendar invokes method getChatMessageCalendar#69fdc3d2 returning error if any.
+// GetChatMessageCalendar invokes method getChatMessageCalendar#81af2db7 returning error if any.
 func (c *Client) GetChatMessageCalendar(ctx context.Context, request *GetChatMessageCalendarRequest) (*MessageCalendar, error) {
 	var result MessageCalendar
 

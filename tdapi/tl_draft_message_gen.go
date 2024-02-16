@@ -38,7 +38,8 @@ type DraftMessage struct {
 	ReplyTo InputMessageReplyToClass
 	// Point in time (Unix timestamp) when the draft was created
 	Date int32
-	// Content of the message draft; must be of the type inputMessageText
+	// Content of the message draft; must be of the type inputMessageText,
+	// inputMessageVideoNote, or inputMessageVoiceNote
 	InputMessageText InputMessageContentClass
 }
 

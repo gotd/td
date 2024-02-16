@@ -31,8 +31,11 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchSavedMessagesRequest represents TL type `searchSavedMessages#da8efe2a`.
+// SearchSavedMessagesRequest represents TL type `searchSavedMessages#8a9b9f96`.
 type SearchSavedMessagesRequest struct {
+	// If not 0, only messages in the specified Saved Messages topic will be considered; pass
+	// 0 to consider all messages
+	SavedMessagesTopicID int64
 	// Tag to search for; pass null to return all suitable messages
 	Tag ReactionTypeClass
 	// Query to search for
@@ -49,7 +52,7 @@ type SearchSavedMessagesRequest struct {
 }
 
 // SearchSavedMessagesRequestTypeID is TL type id of SearchSavedMessagesRequest.
-const SearchSavedMessagesRequestTypeID = 0xda8efe2a
+const SearchSavedMessagesRequestTypeID = 0x8a9b9f96
 
 // Ensuring interfaces in compile-time for SearchSavedMessagesRequest.
 var (
@@ -62,6 +65,9 @@ var (
 func (s *SearchSavedMessagesRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.SavedMessagesTopicID == 0) {
+		return false
 	}
 	if !(s.Tag == nil) {
 		return false
@@ -115,6 +121,10 @@ func (s *SearchSavedMessagesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "SavedMessagesTopicID",
+			SchemaName: "saved_messages_topic_id",
+		},
+		{
 			Name:       "Tag",
 			SchemaName: "tag",
 		},
@@ -141,7 +151,7 @@ func (s *SearchSavedMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchSavedMessagesRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchSavedMessages#da8efe2a as nil")
+		return fmt.Errorf("can't encode searchSavedMessages#8a9b9f96 as nil")
 	}
 	b.PutID(SearchSavedMessagesRequestTypeID)
 	return s.EncodeBare(b)
@@ -150,13 +160,14 @@ func (s *SearchSavedMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchSavedMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchSavedMessages#da8efe2a as nil")
+		return fmt.Errorf("can't encode searchSavedMessages#8a9b9f96 as nil")
 	}
+	b.PutInt53(s.SavedMessagesTopicID)
 	if s.Tag == nil {
-		return fmt.Errorf("unable to encode searchSavedMessages#da8efe2a: field tag is nil")
+		return fmt.Errorf("unable to encode searchSavedMessages#8a9b9f96: field tag is nil")
 	}
 	if err := s.Tag.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode searchSavedMessages#da8efe2a: field tag: %w", err)
+		return fmt.Errorf("unable to encode searchSavedMessages#8a9b9f96: field tag: %w", err)
 	}
 	b.PutString(s.Query)
 	b.PutInt53(s.FromMessageID)
@@ -168,10 +179,10 @@ func (s *SearchSavedMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchSavedMessagesRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchSavedMessages#da8efe2a to nil")
+		return fmt.Errorf("can't decode searchSavedMessages#8a9b9f96 to nil")
 	}
 	if err := b.ConsumeID(SearchSavedMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: %w", err)
+		return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -179,40 +190,47 @@ func (s *SearchSavedMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchSavedMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchSavedMessages#da8efe2a to nil")
+		return fmt.Errorf("can't decode searchSavedMessages#8a9b9f96 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field saved_messages_topic_id: %w", err)
+		}
+		s.SavedMessagesTopicID = value
 	}
 	{
 		value, err := DecodeReactionType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field tag: %w", err)
+			return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field tag: %w", err)
 		}
 		s.Tag = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field query: %w", err)
+			return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field query: %w", err)
 		}
 		s.Query = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field from_message_id: %w", err)
+			return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field from_message_id: %w", err)
 		}
 		s.FromMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field offset: %w", err)
+			return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field offset: %w", err)
 		}
 		s.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field limit: %w", err)
+			return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field limit: %w", err)
 		}
 		s.Limit = value
 	}
@@ -222,17 +240,20 @@ func (s *SearchSavedMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchSavedMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchSavedMessages#da8efe2a as nil")
+		return fmt.Errorf("can't encode searchSavedMessages#8a9b9f96 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchSavedMessages")
 	b.Comma()
+	b.FieldStart("saved_messages_topic_id")
+	b.PutInt53(s.SavedMessagesTopicID)
+	b.Comma()
 	b.FieldStart("tag")
 	if s.Tag == nil {
-		return fmt.Errorf("unable to encode searchSavedMessages#da8efe2a: field tag is nil")
+		return fmt.Errorf("unable to encode searchSavedMessages#8a9b9f96: field tag is nil")
 	}
 	if err := s.Tag.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode searchSavedMessages#da8efe2a: field tag: %w", err)
+		return fmt.Errorf("unable to encode searchSavedMessages#8a9b9f96: field tag: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("query")
@@ -255,43 +276,49 @@ func (s *SearchSavedMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchSavedMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchSavedMessages#da8efe2a to nil")
+		return fmt.Errorf("can't decode searchSavedMessages#8a9b9f96 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchSavedMessages"); err != nil {
-				return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: %w", err)
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: %w", err)
 			}
+		case "saved_messages_topic_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field saved_messages_topic_id: %w", err)
+			}
+			s.SavedMessagesTopicID = value
 		case "tag":
 			value, err := DecodeTDLibJSONReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field tag: %w", err)
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field tag: %w", err)
 			}
 			s.Tag = value
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field query: %w", err)
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field query: %w", err)
 			}
 			s.Query = value
 		case "from_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field from_message_id: %w", err)
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field from_message_id: %w", err)
 			}
 			s.FromMessageID = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field offset: %w", err)
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field offset: %w", err)
 			}
 			s.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchSavedMessages#da8efe2a: field limit: %w", err)
+				return fmt.Errorf("unable to decode searchSavedMessages#8a9b9f96: field limit: %w", err)
 			}
 			s.Limit = value
 		default:
@@ -299,6 +326,14 @@ func (s *SearchSavedMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetSavedMessagesTopicID returns value of SavedMessagesTopicID field.
+func (s *SearchSavedMessagesRequest) GetSavedMessagesTopicID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.SavedMessagesTopicID
 }
 
 // GetTag returns value of Tag field.
@@ -341,7 +376,7 @@ func (s *SearchSavedMessagesRequest) GetLimit() (value int32) {
 	return s.Limit
 }
 
-// SearchSavedMessages invokes method searchSavedMessages#da8efe2a returning error if any.
+// SearchSavedMessages invokes method searchSavedMessages#8a9b9f96 returning error if any.
 func (c *Client) SearchSavedMessages(ctx context.Context, request *SearchSavedMessagesRequest) (*FoundChatMessages, error) {
 	var result FoundChatMessages
 

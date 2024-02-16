@@ -82,9 +82,11 @@ type Supergroup struct {
 	IsScam bool
 	// True, if many users reported this supergroup or channel as a fake account
 	IsFake bool
-	// True, if the channel has non-expired stories available to the current user
+	// True, if the supergroup or channel has non-expired stories available to the current
+	// user
 	HasActiveStories bool
-	// True, if the channel has unread non-expired stories available to the current user
+	// True, if the supergroup or channel has unread non-expired stories available to the
+	// current user
 	HasUnreadActiveStories bool
 }
 

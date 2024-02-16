@@ -70,7 +70,7 @@ type Chat struct {
 	// True, if the chat is marked as unread
 	IsMarkedAsUnread bool
 	// True, if the chat is a forum supergroup that must be shown in the "View as topics"
-	// mode
+	// mode, or Saved Messages chat that must be shown in the "View as chats"
 	ViewAsTopics bool
 	// True, if the chat has scheduled messages
 	HasScheduledMessages bool

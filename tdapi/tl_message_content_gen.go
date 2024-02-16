@@ -8618,6 +8618,172 @@ func (m *MessageChatSetMessageAutoDeleteTime) GetFromUserID() (value int64) {
 	return m.FromUserID
 }
 
+// MessageChatBoost represents TL type `messageChatBoost#5e5f658b`.
+type MessageChatBoost struct {
+	// Number of times the chat was boosted
+	BoostCount int32
+}
+
+// MessageChatBoostTypeID is TL type id of MessageChatBoost.
+const MessageChatBoostTypeID = 0x5e5f658b
+
+// construct implements constructor of MessageContentClass.
+func (m MessageChatBoost) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageChatBoost.
+var (
+	_ bin.Encoder     = &MessageChatBoost{}
+	_ bin.Decoder     = &MessageChatBoost{}
+	_ bin.BareEncoder = &MessageChatBoost{}
+	_ bin.BareDecoder = &MessageChatBoost{}
+
+	_ MessageContentClass = &MessageChatBoost{}
+)
+
+func (m *MessageChatBoost) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.BoostCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageChatBoost) String() string {
+	if m == nil {
+		return "MessageChatBoost(nil)"
+	}
+	type Alias MessageChatBoost
+	return fmt.Sprintf("MessageChatBoost%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageChatBoost) TypeID() uint32 {
+	return MessageChatBoostTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageChatBoost) TypeName() string {
+	return "messageChatBoost"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageChatBoost) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageChatBoost",
+		ID:   MessageChatBoostTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BoostCount",
+			SchemaName: "boost_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageChatBoost) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatBoost#5e5f658b as nil")
+	}
+	b.PutID(MessageChatBoostTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageChatBoost) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatBoost#5e5f658b as nil")
+	}
+	b.PutInt32(m.BoostCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageChatBoost) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatBoost#5e5f658b to nil")
+	}
+	if err := b.ConsumeID(MessageChatBoostTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageChatBoost#5e5f658b: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageChatBoost) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatBoost#5e5f658b to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageChatBoost#5e5f658b: field boost_count: %w", err)
+		}
+		m.BoostCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageChatBoost) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatBoost#5e5f658b as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageChatBoost")
+	b.Comma()
+	b.FieldStart("boost_count")
+	b.PutInt32(m.BoostCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageChatBoost) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatBoost#5e5f658b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageChatBoost"); err != nil {
+				return fmt.Errorf("unable to decode messageChatBoost#5e5f658b: %w", err)
+			}
+		case "boost_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageChatBoost#5e5f658b: field boost_count: %w", err)
+			}
+			m.BoostCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetBoostCount returns value of BoostCount field.
+func (m *MessageChatBoost) GetBoostCount() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.BoostCount
+}
+
 // MessageForumTopicCreated represents TL type `messageForumTopicCreated#b8ce47d1`.
 type MessageForumTopicCreated struct {
 	// Name of the topic
@@ -14747,6 +14913,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageChatSetBackground: // messageChatSetBackground#3d5d7c40
 //	case *tdapi.MessageChatSetTheme: // messageChatSetTheme#99ae9408
 //	case *tdapi.MessageChatSetMessageAutoDeleteTime: // messageChatSetMessageAutoDeleteTime#619e052e
+//	case *tdapi.MessageChatBoost: // messageChatBoost#5e5f658b
 //	case *tdapi.MessageForumTopicCreated: // messageForumTopicCreated#b8ce47d1
 //	case *tdapi.MessageForumTopicEdited: // messageForumTopicEdited#c0b780
 //	case *tdapi.MessageForumTopicIsClosedToggled: // messageForumTopicIsClosedToggled#4b578fe0
@@ -15100,6 +15267,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageChatSetMessageAutoDeleteTimeTypeID:
 		// Decoding messageChatSetMessageAutoDeleteTime#619e052e.
 		v := MessageChatSetMessageAutoDeleteTime{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageChatBoostTypeID:
+		// Decoding messageChatBoost#5e5f658b.
+		v := MessageChatBoost{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -15588,6 +15762,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageChatSetMessageAutoDeleteTime":
 		// Decoding messageChatSetMessageAutoDeleteTime#619e052e.
 		v := MessageChatSetMessageAutoDeleteTime{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageChatBoost":
+		// Decoding messageChatBoost#5e5f658b.
+		v := MessageChatBoost{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

@@ -35,7 +35,7 @@ var (
 type ForwardMessagesRequest struct {
 	// Identifier of the chat to which to forward messages
 	ChatID int64
-	// If not 0, a message thread identifier in which the message will be sent; for forum
+	// If not 0, the message thread identifier in which the message will be sent; for forum
 	// threads only
 	MessageThreadID int64
 	// Identifier of the chat from which to forward messages

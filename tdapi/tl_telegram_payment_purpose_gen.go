@@ -33,8 +33,9 @@ var (
 
 // TelegramPaymentPurposePremiumGiftCodes represents TL type `telegramPaymentPurposePremiumGiftCodes#91009cc`.
 type TelegramPaymentPurposePremiumGiftCodes struct {
-	// Identifier of the channel chat, which will be automatically boosted by the users for
-	// duration of the Premium subscription and which is administered by the user; 0 if none
+	// Identifier of the supergroup or channel chat, which will be automatically boosted by
+	// the users for duration of the Premium subscription and which is administered by the
+	// user; 0 if none
 	BoostedChatID int64
 	// ISO 4217 currency code of the payment currency
 	Currency string

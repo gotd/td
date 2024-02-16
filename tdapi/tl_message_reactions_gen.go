@@ -35,8 +35,7 @@ var (
 type MessageReactions struct {
 	// List of added reactions
 	Reactions []MessageReaction
-	// True, if the reactions are tags and Telegram Premium users can filter messages by
-	// them; currently, always false
+	// True, if the reactions are tags and Telegram Premium users can filter messages by them
 	AreTags bool
 }
 

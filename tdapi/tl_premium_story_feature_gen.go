@@ -817,6 +817,137 @@ func (p *PremiumStoryFeatureLinksAndFormatting) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
+// PremiumStoryFeatureVideoQuality represents TL type `premiumStoryFeatureVideoQuality#baafbea9`.
+type PremiumStoryFeatureVideoQuality struct {
+}
+
+// PremiumStoryFeatureVideoQualityTypeID is TL type id of PremiumStoryFeatureVideoQuality.
+const PremiumStoryFeatureVideoQualityTypeID = 0xbaafbea9
+
+// construct implements constructor of PremiumStoryFeatureClass.
+func (p PremiumStoryFeatureVideoQuality) construct() PremiumStoryFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumStoryFeatureVideoQuality.
+var (
+	_ bin.Encoder     = &PremiumStoryFeatureVideoQuality{}
+	_ bin.Decoder     = &PremiumStoryFeatureVideoQuality{}
+	_ bin.BareEncoder = &PremiumStoryFeatureVideoQuality{}
+	_ bin.BareDecoder = &PremiumStoryFeatureVideoQuality{}
+
+	_ PremiumStoryFeatureClass = &PremiumStoryFeatureVideoQuality{}
+)
+
+func (p *PremiumStoryFeatureVideoQuality) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumStoryFeatureVideoQuality) String() string {
+	if p == nil {
+		return "PremiumStoryFeatureVideoQuality(nil)"
+	}
+	type Alias PremiumStoryFeatureVideoQuality
+	return fmt.Sprintf("PremiumStoryFeatureVideoQuality%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumStoryFeatureVideoQuality) TypeID() uint32 {
+	return PremiumStoryFeatureVideoQualityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumStoryFeatureVideoQuality) TypeName() string {
+	return "premiumStoryFeatureVideoQuality"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumStoryFeatureVideoQuality) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumStoryFeatureVideoQuality",
+		ID:   PremiumStoryFeatureVideoQualityTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumStoryFeatureVideoQuality) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumStoryFeatureVideoQuality#baafbea9 as nil")
+	}
+	b.PutID(PremiumStoryFeatureVideoQualityTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumStoryFeatureVideoQuality) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumStoryFeatureVideoQuality#baafbea9 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumStoryFeatureVideoQuality) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumStoryFeatureVideoQuality#baafbea9 to nil")
+	}
+	if err := b.ConsumeID(PremiumStoryFeatureVideoQualityTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumStoryFeatureVideoQuality#baafbea9: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumStoryFeatureVideoQuality) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumStoryFeatureVideoQuality#baafbea9 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumStoryFeatureVideoQuality) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumStoryFeatureVideoQuality#baafbea9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumStoryFeatureVideoQuality")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumStoryFeatureVideoQuality) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumStoryFeatureVideoQuality#baafbea9 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumStoryFeatureVideoQuality"); err != nil {
+				return fmt.Errorf("unable to decode premiumStoryFeatureVideoQuality#baafbea9: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumStoryFeatureClassName is schema name of PremiumStoryFeatureClass.
 const PremiumStoryFeatureClassName = "PremiumStoryFeature"
 
@@ -835,6 +966,7 @@ const PremiumStoryFeatureClassName = "PremiumStoryFeature"
 //	case *tdapi.PremiumStoryFeatureCustomExpirationDuration: // premiumStoryFeatureCustomExpirationDuration#dca40a96
 //	case *tdapi.PremiumStoryFeatureSaveStories: // premiumStoryFeatureSaveStories#a6842fbd
 //	case *tdapi.PremiumStoryFeatureLinksAndFormatting: // premiumStoryFeatureLinksAndFormatting#dae383f7
+//	case *tdapi.PremiumStoryFeatureVideoQuality: // premiumStoryFeatureVideoQuality#baafbea9
 //	default: panic(v)
 //	}
 type PremiumStoryFeatureClass interface {
@@ -908,6 +1040,13 @@ func DecodePremiumStoryFeature(buf *bin.Buffer) (PremiumStoryFeatureClass, error
 			return nil, fmt.Errorf("unable to decode PremiumStoryFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumStoryFeatureVideoQualityTypeID:
+		// Decoding premiumStoryFeatureVideoQuality#baafbea9.
+		v := PremiumStoryFeatureVideoQuality{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumStoryFeatureClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumStoryFeatureClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -958,6 +1097,13 @@ func DecodeTDLibJSONPremiumStoryFeature(buf tdjson.Decoder) (PremiumStoryFeature
 	case "premiumStoryFeatureLinksAndFormatting":
 		// Decoding premiumStoryFeatureLinksAndFormatting#dae383f7.
 		v := PremiumStoryFeatureLinksAndFormatting{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumStoryFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumStoryFeatureVideoQuality":
+		// Decoding premiumStoryFeatureVideoQuality#baafbea9.
+		v := PremiumStoryFeatureVideoQuality{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumStoryFeatureClass: %w", err)
 		}

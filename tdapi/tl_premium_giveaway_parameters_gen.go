@@ -33,12 +33,12 @@ var (
 
 // PremiumGiveawayParameters represents TL type `premiumGiveawayParameters#f9f5bf5e`.
 type PremiumGiveawayParameters struct {
-	// Identifier of the channel chat, which will be automatically boosted by the winners of
-	// the giveaway for duration of the Premium subscription
+	// Identifier of the supergroup or channel chat, which will be automatically boosted by
+	// the winners of the giveaway for duration of the Premium subscription.
 	BoostedChatID int64
-	// Identifiers of other channel chats that must be subscribed by the users to be eligible
-	// for the giveaway. There can be up to getOption("giveaway_additional_chat_count_max")
-	// additional chats
+	// Identifiers of other supergroup or channel chats that must be subscribed by the users
+	// to be eligible for the giveaway. There can be up to
+	// getOption("giveaway_additional_chat_count_max") additional chats
 	AdditionalChatIDs []int64
 	// Point in time (Unix timestamp) when the giveaway is expected to be performed; must be
 	// 60-getOption("giveaway_duration_max") seconds in the future in scheduled giveaways

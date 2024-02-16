@@ -33,7 +33,7 @@ var (
 
 // GetChatBoostStatusRequest represents TL type `getChatBoostStatus#cfac8acf`.
 type GetChatBoostStatusRequest struct {
-	// Identifier of the channel chat
+	// Identifier of the chat
 	ChatID int64
 }
 

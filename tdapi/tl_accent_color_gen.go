@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccentColor represents TL type `accentColor#ed4c76c9`.
+// AccentColor represents TL type `accentColor#53312690`.
 type AccentColor struct {
 	// Accent color identifier
 	ID int32
@@ -43,12 +43,12 @@ type AccentColor struct {
 	// The list of 1-3 colors in RGB format, describing the accent color, as expected to be
 	// shown in dark themes
 	DarkThemeColors []int32
-	// The minimum chat boost level required to use the color
-	MinChatBoostLevel int32
+	// The minimum chat boost level required to use the color in a channel chat
+	MinChannelChatBoostLevel int32
 }
 
 // AccentColorTypeID is TL type id of AccentColor.
-const AccentColorTypeID = 0xed4c76c9
+const AccentColorTypeID = 0x53312690
 
 // Ensuring interfaces in compile-time for AccentColor.
 var (
@@ -74,7 +74,7 @@ func (a *AccentColor) Zero() bool {
 	if !(a.DarkThemeColors == nil) {
 		return false
 	}
-	if !(a.MinChatBoostLevel == 0) {
+	if !(a.MinChannelChatBoostLevel == 0) {
 		return false
 	}
 
@@ -130,8 +130,8 @@ func (a *AccentColor) TypeInfo() tdp.Type {
 			SchemaName: "dark_theme_colors",
 		},
 		{
-			Name:       "MinChatBoostLevel",
-			SchemaName: "min_chat_boost_level",
+			Name:       "MinChannelChatBoostLevel",
+			SchemaName: "min_channel_chat_boost_level",
 		},
 	}
 	return typ
@@ -140,7 +140,7 @@ func (a *AccentColor) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccentColor) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accentColor#ed4c76c9 as nil")
+		return fmt.Errorf("can't encode accentColor#53312690 as nil")
 	}
 	b.PutID(AccentColorTypeID)
 	return a.EncodeBare(b)
@@ -149,7 +149,7 @@ func (a *AccentColor) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccentColor) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accentColor#ed4c76c9 as nil")
+		return fmt.Errorf("can't encode accentColor#53312690 as nil")
 	}
 	b.PutInt32(a.ID)
 	b.PutInt32(a.BuiltInAccentColorID)
@@ -161,17 +161,17 @@ func (a *AccentColor) EncodeBare(b *bin.Buffer) error {
 	for _, v := range a.DarkThemeColors {
 		b.PutInt32(v)
 	}
-	b.PutInt32(a.MinChatBoostLevel)
+	b.PutInt32(a.MinChannelChatBoostLevel)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *AccentColor) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accentColor#ed4c76c9 to nil")
+		return fmt.Errorf("can't decode accentColor#53312690 to nil")
 	}
 	if err := b.ConsumeID(AccentColorTypeID); err != nil {
-		return fmt.Errorf("unable to decode accentColor#ed4c76c9: %w", err)
+		return fmt.Errorf("unable to decode accentColor#53312690: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -179,26 +179,26 @@ func (a *AccentColor) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccentColor) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accentColor#ed4c76c9 to nil")
+		return fmt.Errorf("can't decode accentColor#53312690 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode accentColor#ed4c76c9: field id: %w", err)
+			return fmt.Errorf("unable to decode accentColor#53312690: field id: %w", err)
 		}
 		a.ID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode accentColor#ed4c76c9: field built_in_accent_color_id: %w", err)
+			return fmt.Errorf("unable to decode accentColor#53312690: field built_in_accent_color_id: %w", err)
 		}
 		a.BuiltInAccentColorID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accentColor#ed4c76c9: field light_theme_colors: %w", err)
+			return fmt.Errorf("unable to decode accentColor#53312690: field light_theme_colors: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -207,7 +207,7 @@ func (a *AccentColor) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field light_theme_colors: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field light_theme_colors: %w", err)
 			}
 			a.LightThemeColors = append(a.LightThemeColors, value)
 		}
@@ -215,7 +215,7 @@ func (a *AccentColor) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode accentColor#ed4c76c9: field dark_theme_colors: %w", err)
+			return fmt.Errorf("unable to decode accentColor#53312690: field dark_theme_colors: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -224,7 +224,7 @@ func (a *AccentColor) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field dark_theme_colors: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field dark_theme_colors: %w", err)
 			}
 			a.DarkThemeColors = append(a.DarkThemeColors, value)
 		}
@@ -232,9 +232,9 @@ func (a *AccentColor) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode accentColor#ed4c76c9: field min_chat_boost_level: %w", err)
+			return fmt.Errorf("unable to decode accentColor#53312690: field min_channel_chat_boost_level: %w", err)
 		}
-		a.MinChatBoostLevel = value
+		a.MinChannelChatBoostLevel = value
 	}
 	return nil
 }
@@ -242,7 +242,7 @@ func (a *AccentColor) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode accentColor#ed4c76c9 as nil")
+		return fmt.Errorf("can't encode accentColor#53312690 as nil")
 	}
 	b.ObjStart()
 	b.PutID("accentColor")
@@ -271,8 +271,8 @@ func (a *AccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.StripComma()
 	b.ArrEnd()
 	b.Comma()
-	b.FieldStart("min_chat_boost_level")
-	b.PutInt32(a.MinChatBoostLevel)
+	b.FieldStart("min_channel_chat_boost_level")
+	b.PutInt32(a.MinChannelChatBoostLevel)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -282,55 +282,55 @@ func (a *AccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AccentColor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode accentColor#ed4c76c9 to nil")
+		return fmt.Errorf("can't decode accentColor#53312690 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("accentColor"); err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field id: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field id: %w", err)
 			}
 			a.ID = value
 		case "built_in_accent_color_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field built_in_accent_color_id: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field built_in_accent_color_id: %w", err)
 			}
 			a.BuiltInAccentColorID = value
 		case "light_theme_colors":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode accentColor#ed4c76c9: field light_theme_colors: %w", err)
+					return fmt.Errorf("unable to decode accentColor#53312690: field light_theme_colors: %w", err)
 				}
 				a.LightThemeColors = append(a.LightThemeColors, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field light_theme_colors: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field light_theme_colors: %w", err)
 			}
 		case "dark_theme_colors":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode accentColor#ed4c76c9: field dark_theme_colors: %w", err)
+					return fmt.Errorf("unable to decode accentColor#53312690: field dark_theme_colors: %w", err)
 				}
 				a.DarkThemeColors = append(a.DarkThemeColors, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field dark_theme_colors: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field dark_theme_colors: %w", err)
 			}
-		case "min_chat_boost_level":
+		case "min_channel_chat_boost_level":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode accentColor#ed4c76c9: field min_chat_boost_level: %w", err)
+				return fmt.Errorf("unable to decode accentColor#53312690: field min_channel_chat_boost_level: %w", err)
 			}
-			a.MinChatBoostLevel = value
+			a.MinChannelChatBoostLevel = value
 		default:
 			return b.Skip()
 		}
@@ -370,10 +370,10 @@ func (a *AccentColor) GetDarkThemeColors() (value []int32) {
 	return a.DarkThemeColors
 }
 
-// GetMinChatBoostLevel returns value of MinChatBoostLevel field.
-func (a *AccentColor) GetMinChatBoostLevel() (value int32) {
+// GetMinChannelChatBoostLevel returns value of MinChannelChatBoostLevel field.
+func (a *AccentColor) GetMinChannelChatBoostLevel() (value int32) {
 	if a == nil {
 		return
 	}
-	return a.MinChatBoostLevel
+	return a.MinChannelChatBoostLevel
 }

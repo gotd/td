@@ -2520,6 +2520,399 @@ func (p *PremiumFeatureBackgroundForBoth) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
+// PremiumFeatureSavedMessagesTags represents TL type `premiumFeatureSavedMessagesTags#3bcbe986`.
+type PremiumFeatureSavedMessagesTags struct {
+}
+
+// PremiumFeatureSavedMessagesTagsTypeID is TL type id of PremiumFeatureSavedMessagesTags.
+const PremiumFeatureSavedMessagesTagsTypeID = 0x3bcbe986
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureSavedMessagesTags) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureSavedMessagesTags.
+var (
+	_ bin.Encoder     = &PremiumFeatureSavedMessagesTags{}
+	_ bin.Decoder     = &PremiumFeatureSavedMessagesTags{}
+	_ bin.BareEncoder = &PremiumFeatureSavedMessagesTags{}
+	_ bin.BareDecoder = &PremiumFeatureSavedMessagesTags{}
+
+	_ PremiumFeatureClass = &PremiumFeatureSavedMessagesTags{}
+)
+
+func (p *PremiumFeatureSavedMessagesTags) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureSavedMessagesTags) String() string {
+	if p == nil {
+		return "PremiumFeatureSavedMessagesTags(nil)"
+	}
+	type Alias PremiumFeatureSavedMessagesTags
+	return fmt.Sprintf("PremiumFeatureSavedMessagesTags%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureSavedMessagesTags) TypeID() uint32 {
+	return PremiumFeatureSavedMessagesTagsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureSavedMessagesTags) TypeName() string {
+	return "premiumFeatureSavedMessagesTags"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureSavedMessagesTags) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureSavedMessagesTags",
+		ID:   PremiumFeatureSavedMessagesTagsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureSavedMessagesTags) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureSavedMessagesTags#3bcbe986 as nil")
+	}
+	b.PutID(PremiumFeatureSavedMessagesTagsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureSavedMessagesTags) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureSavedMessagesTags#3bcbe986 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureSavedMessagesTags) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureSavedMessagesTags#3bcbe986 to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureSavedMessagesTagsTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureSavedMessagesTags#3bcbe986: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureSavedMessagesTags) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureSavedMessagesTags#3bcbe986 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureSavedMessagesTags) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureSavedMessagesTags#3bcbe986 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureSavedMessagesTags")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureSavedMessagesTags) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureSavedMessagesTags#3bcbe986 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureSavedMessagesTags"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureSavedMessagesTags#3bcbe986: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// PremiumFeatureMessagePrivacy represents TL type `premiumFeatureMessagePrivacy#2fd278f6`.
+type PremiumFeatureMessagePrivacy struct {
+}
+
+// PremiumFeatureMessagePrivacyTypeID is TL type id of PremiumFeatureMessagePrivacy.
+const PremiumFeatureMessagePrivacyTypeID = 0x2fd278f6
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureMessagePrivacy) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureMessagePrivacy.
+var (
+	_ bin.Encoder     = &PremiumFeatureMessagePrivacy{}
+	_ bin.Decoder     = &PremiumFeatureMessagePrivacy{}
+	_ bin.BareEncoder = &PremiumFeatureMessagePrivacy{}
+	_ bin.BareDecoder = &PremiumFeatureMessagePrivacy{}
+
+	_ PremiumFeatureClass = &PremiumFeatureMessagePrivacy{}
+)
+
+func (p *PremiumFeatureMessagePrivacy) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureMessagePrivacy) String() string {
+	if p == nil {
+		return "PremiumFeatureMessagePrivacy(nil)"
+	}
+	type Alias PremiumFeatureMessagePrivacy
+	return fmt.Sprintf("PremiumFeatureMessagePrivacy%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureMessagePrivacy) TypeID() uint32 {
+	return PremiumFeatureMessagePrivacyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureMessagePrivacy) TypeName() string {
+	return "premiumFeatureMessagePrivacy"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureMessagePrivacy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureMessagePrivacy",
+		ID:   PremiumFeatureMessagePrivacyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureMessagePrivacy) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureMessagePrivacy#2fd278f6 as nil")
+	}
+	b.PutID(PremiumFeatureMessagePrivacyTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureMessagePrivacy) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureMessagePrivacy#2fd278f6 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureMessagePrivacy) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureMessagePrivacy#2fd278f6 to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureMessagePrivacyTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureMessagePrivacy#2fd278f6: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureMessagePrivacy) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureMessagePrivacy#2fd278f6 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureMessagePrivacy) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureMessagePrivacy#2fd278f6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureMessagePrivacy")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureMessagePrivacy) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureMessagePrivacy#2fd278f6 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureMessagePrivacy"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureMessagePrivacy#2fd278f6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// PremiumFeatureLastSeenTimes represents TL type `premiumFeatureLastSeenTimes#d2914a8f`.
+type PremiumFeatureLastSeenTimes struct {
+}
+
+// PremiumFeatureLastSeenTimesTypeID is TL type id of PremiumFeatureLastSeenTimes.
+const PremiumFeatureLastSeenTimesTypeID = 0xd2914a8f
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureLastSeenTimes) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureLastSeenTimes.
+var (
+	_ bin.Encoder     = &PremiumFeatureLastSeenTimes{}
+	_ bin.Decoder     = &PremiumFeatureLastSeenTimes{}
+	_ bin.BareEncoder = &PremiumFeatureLastSeenTimes{}
+	_ bin.BareDecoder = &PremiumFeatureLastSeenTimes{}
+
+	_ PremiumFeatureClass = &PremiumFeatureLastSeenTimes{}
+)
+
+func (p *PremiumFeatureLastSeenTimes) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureLastSeenTimes) String() string {
+	if p == nil {
+		return "PremiumFeatureLastSeenTimes(nil)"
+	}
+	type Alias PremiumFeatureLastSeenTimes
+	return fmt.Sprintf("PremiumFeatureLastSeenTimes%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureLastSeenTimes) TypeID() uint32 {
+	return PremiumFeatureLastSeenTimesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureLastSeenTimes) TypeName() string {
+	return "premiumFeatureLastSeenTimes"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureLastSeenTimes) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureLastSeenTimes",
+		ID:   PremiumFeatureLastSeenTimesTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureLastSeenTimes) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureLastSeenTimes#d2914a8f as nil")
+	}
+	b.PutID(PremiumFeatureLastSeenTimesTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureLastSeenTimes) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureLastSeenTimes#d2914a8f as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureLastSeenTimes) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureLastSeenTimes#d2914a8f to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureLastSeenTimesTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureLastSeenTimes#d2914a8f: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureLastSeenTimes) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureLastSeenTimes#d2914a8f to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureLastSeenTimes) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureLastSeenTimes#d2914a8f as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureLastSeenTimes")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureLastSeenTimes) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureLastSeenTimes#d2914a8f to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureLastSeenTimes"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureLastSeenTimes#d2914a8f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureClassName is schema name of PremiumFeatureClass.
 const PremiumFeatureClassName = "PremiumFeature"
 
@@ -2551,6 +2944,9 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureChatBoost: // premiumFeatureChatBoost#5df89f1b
 //	case *tdapi.PremiumFeatureAccentColor: // premiumFeatureAccentColor#361ac59e
 //	case *tdapi.PremiumFeatureBackgroundForBoth: // premiumFeatureBackgroundForBoth#2246eefa
+//	case *tdapi.PremiumFeatureSavedMessagesTags: // premiumFeatureSavedMessagesTags#3bcbe986
+//	case *tdapi.PremiumFeatureMessagePrivacy: // premiumFeatureMessagePrivacy#2fd278f6
+//	case *tdapi.PremiumFeatureLastSeenTimes: // premiumFeatureLastSeenTimes#d2914a8f
 //	default: panic(v)
 //	}
 type PremiumFeatureClass interface {
@@ -2715,6 +3111,27 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumFeatureSavedMessagesTagsTypeID:
+		// Decoding premiumFeatureSavedMessagesTags#3bcbe986.
+		v := PremiumFeatureSavedMessagesTags{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case PremiumFeatureMessagePrivacyTypeID:
+		// Decoding premiumFeatureMessagePrivacy#2fd278f6.
+		v := PremiumFeatureMessagePrivacy{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case PremiumFeatureLastSeenTimesTypeID:
+		// Decoding premiumFeatureLastSeenTimes#d2914a8f.
+		v := PremiumFeatureLastSeenTimes{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2856,6 +3273,27 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureBackgroundForBoth":
 		// Decoding premiumFeatureBackgroundForBoth#2246eefa.
 		v := PremiumFeatureBackgroundForBoth{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureSavedMessagesTags":
+		// Decoding premiumFeatureSavedMessagesTags#3bcbe986.
+		v := PremiumFeatureSavedMessagesTags{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureMessagePrivacy":
+		// Decoding premiumFeatureMessagePrivacy#2fd278f6.
+		v := PremiumFeatureMessagePrivacy{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureLastSeenTimes":
+		// Decoding premiumFeatureLastSeenTimes#d2914a8f.
+		v := PremiumFeatureLastSeenTimes{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}

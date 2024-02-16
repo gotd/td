@@ -272,7 +272,7 @@ func (i *InputMessageReplyToMessage) GetQuote() (value InputTextQuote) {
 // InputMessageReplyToStory represents TL type `inputMessageReplyToStory#51aece78`.
 type InputMessageReplyToStory struct {
 	// The identifier of the sender of the story. Currently, stories can be replied only in
-	// the sender's chat
+	// the sender's chat and channel stories can't be replied
 	StorySenderChatID int64
 	// The identifier of the story
 	StoryID int32

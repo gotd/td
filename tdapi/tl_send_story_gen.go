@@ -42,7 +42,8 @@ type SendStoryRequest struct {
 	// Story caption; pass null to use an empty caption;
 	// 0-getOption("story_caption_length_max") characters
 	Caption FormattedText
-	// The privacy settings for the story
+	// The privacy settings for the story; ignored for stories sent to supergroup and channel
+	// chats
 	PrivacySettings StoryPrivacySettingsClass
 	// Period after which the story is moved to archive, in seconds; must be one of 6 * 3600,
 	// 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise

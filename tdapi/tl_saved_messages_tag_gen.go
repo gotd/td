@@ -35,7 +35,8 @@ var (
 type SavedMessagesTag struct {
 	// The tag
 	Tag ReactionTypeClass
-	// Label of the tag; 0-12 characters
+	// Label of the tag; 0-12 characters. Always empty if the tag is returned for a Saved
+	// Messages topic
 	Label string
 	// Number of times the tag was used; may be 0 if the tag has non-empty label
 	Count int32

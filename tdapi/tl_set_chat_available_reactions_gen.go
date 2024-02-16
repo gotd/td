@@ -36,8 +36,8 @@ type SetChatAvailableReactionsRequest struct {
 	// Identifier of the chat
 	ChatID int64
 	// Reactions available in the chat. All explicitly specified emoji reactions must be
-	// active. Up to the chat's boost level custom emoji reactions can be explicitly
-	// specified
+	// active. In channel chats up to the chat's boost level custom emoji reactions can be
+	// explicitly specified
 	AvailableReactions ChatAvailableReactionsClass
 }
 

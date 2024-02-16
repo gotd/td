@@ -35,7 +35,7 @@ var (
 type SendInlineQueryResultMessageRequest struct {
 	// Target chat
 	ChatID int64
-	// If not 0, a message thread identifier in which the message will be sent
+	// If not 0, the message thread identifier in which the message will be sent
 	MessageThreadID int64
 	// Information about the message or story to be replied; pass null if none
 	ReplyTo InputMessageReplyToClass

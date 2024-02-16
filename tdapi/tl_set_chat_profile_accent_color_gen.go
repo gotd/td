@@ -36,8 +36,7 @@ type SetChatProfileAccentColorRequest struct {
 	// Chat identifier
 	ChatID int64
 	// Identifier of the accent color to use for profile; pass -1 if none. The chat must have
-	// at least profileAccentColor.min_chat_boost_level boost level to pass the corresponding
-	// color
+	// at least profileAccentColor.min_supergroup_chat_boost_level for supergroups
 	ProfileAccentColorID int32
 	// Identifier of a custom emoji to be shown on the chat's profile photo background; 0 if
 	// none. Use chatBoostLevelFeatures.can_set_profile_background_custom_emoji to check
