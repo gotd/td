@@ -473,19 +473,19 @@ func (i *InputReplyToMessage) MapQuoteEntities() (value MessageEntityClassArray,
 	return MessageEntityClassArray(i.QuoteEntities), true
 }
 
-// InputReplyToStory represents TL type `inputReplyToStory#15b0f283`.
+// InputReplyToStory represents TL type `inputReplyToStory#5881323a`.
 // Reply to a story.
 //
 // See https://core.telegram.org/constructor/inputReplyToStory for reference.
 type InputReplyToStory struct {
-	// ID of the user that posted the story.
-	UserID InputUserClass
+	// Peer field of InputReplyToStory.
+	Peer InputPeerClass
 	// ID of the story to reply to.
 	StoryID int
 }
 
 // InputReplyToStoryTypeID is TL type id of InputReplyToStory.
-const InputReplyToStoryTypeID = 0x15b0f283
+const InputReplyToStoryTypeID = 0x5881323a
 
 // construct implements constructor of InputReplyToClass.
 func (i InputReplyToStory) construct() InputReplyToClass { return &i }
@@ -504,7 +504,7 @@ func (i *InputReplyToStory) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.UserID == nil) {
+	if !(i.Peer == nil) {
 		return false
 	}
 	if !(i.StoryID == 0) {
@@ -525,10 +525,10 @@ func (i *InputReplyToStory) String() string {
 
 // FillFrom fills InputReplyToStory from given interface.
 func (i *InputReplyToStory) FillFrom(from interface {
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetStoryID() (value int)
 }) {
-	i.UserID = from.GetUserID()
+	i.Peer = from.GetPeer()
 	i.StoryID = from.GetStoryID()
 }
 
@@ -556,8 +556,8 @@ func (i *InputReplyToStory) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "StoryID",
@@ -570,7 +570,7 @@ func (i *InputReplyToStory) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputReplyToStory) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReplyToStory#15b0f283 as nil")
+		return fmt.Errorf("can't encode inputReplyToStory#5881323a as nil")
 	}
 	b.PutID(InputReplyToStoryTypeID)
 	return i.EncodeBare(b)
@@ -579,13 +579,13 @@ func (i *InputReplyToStory) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReplyToStory) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReplyToStory#15b0f283 as nil")
+		return fmt.Errorf("can't encode inputReplyToStory#5881323a as nil")
 	}
-	if i.UserID == nil {
-		return fmt.Errorf("unable to encode inputReplyToStory#15b0f283: field user_id is nil")
+	if i.Peer == nil {
+		return fmt.Errorf("unable to encode inputReplyToStory#5881323a: field peer is nil")
 	}
-	if err := i.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputReplyToStory#15b0f283: field user_id: %w", err)
+	if err := i.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputReplyToStory#5881323a: field peer: %w", err)
 	}
 	b.PutInt(i.StoryID)
 	return nil
@@ -594,10 +594,10 @@ func (i *InputReplyToStory) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputReplyToStory) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReplyToStory#15b0f283 to nil")
+		return fmt.Errorf("can't decode inputReplyToStory#5881323a to nil")
 	}
 	if err := b.ConsumeID(InputReplyToStoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReplyToStory#15b0f283: %w", err)
+		return fmt.Errorf("unable to decode inputReplyToStory#5881323a: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -605,31 +605,31 @@ func (i *InputReplyToStory) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReplyToStory) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReplyToStory#15b0f283 to nil")
+		return fmt.Errorf("can't decode inputReplyToStory#5881323a to nil")
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToStory#15b0f283: field user_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToStory#5881323a: field peer: %w", err)
 		}
-		i.UserID = value
+		i.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToStory#15b0f283: field story_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToStory#5881323a: field story_id: %w", err)
 		}
 		i.StoryID = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (i *InputReplyToStory) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (i *InputReplyToStory) GetPeer() (value InputPeerClass) {
 	if i == nil {
 		return
 	}
-	return i.UserID
+	return i.Peer
 }
 
 // GetStoryID returns value of StoryID field.
@@ -655,7 +655,7 @@ const InputReplyToClassName = "InputReplyTo"
 //	}
 //	switch v := g.(type) {
 //	case *tg.InputReplyToMessage: // inputReplyToMessage#22c0f6d5
-//	case *tg.InputReplyToStory: // inputReplyToStory#15b0f283
+//	case *tg.InputReplyToStory: // inputReplyToStory#5881323a
 //	default: panic(v)
 //	}
 type InputReplyToClass interface {
@@ -692,7 +692,7 @@ func DecodeInputReplyTo(buf *bin.Buffer) (InputReplyToClass, error) {
 		}
 		return &v, nil
 	case InputReplyToStoryTypeID:
-		// Decoding inputReplyToStory#15b0f283.
+		// Decoding inputReplyToStory#5881323a.
 		v := InputReplyToStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputReplyToClass: %w", err)

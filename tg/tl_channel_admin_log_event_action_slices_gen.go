@@ -701,6 +701,19 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChange
 	return to
 }
 
+// AsChannelAdminLogEventActionChangeEmojiStickerSet returns copy with only ChannelAdminLogEventActionChangeEmojiStickerSet constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeEmojiStickerSet() (to ChannelAdminLogEventActionChangeEmojiStickerSetArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeEmojiStickerSet)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -4379,6 +4392,88 @@ func (s *ChannelAdminLogEventActionChangeEmojiStatusArray) PopFirst() (v Channel
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionChangeEmojiStatusArray) Pop() (v ChannelAdminLogEventActionChangeEmojiStatus, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeEmojiStickerSetArray is adapter for slice of ChannelAdminLogEventActionChangeEmojiStickerSet.
+type ChannelAdminLogEventActionChangeEmojiStickerSetArray []ChannelAdminLogEventActionChangeEmojiStickerSet
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeEmojiStickerSet.
+func (s ChannelAdminLogEventActionChangeEmojiStickerSetArray) Sort(less func(a, b ChannelAdminLogEventActionChangeEmojiStickerSet) bool) ChannelAdminLogEventActionChangeEmojiStickerSetArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeEmojiStickerSet.
+func (s ChannelAdminLogEventActionChangeEmojiStickerSetArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeEmojiStickerSet) bool) ChannelAdminLogEventActionChangeEmojiStickerSetArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeEmojiStickerSet.
+func (s ChannelAdminLogEventActionChangeEmojiStickerSetArray) Retain(keep func(x ChannelAdminLogEventActionChangeEmojiStickerSet) bool) ChannelAdminLogEventActionChangeEmojiStickerSetArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeEmojiStickerSetArray) First() (v ChannelAdminLogEventActionChangeEmojiStickerSet, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeEmojiStickerSetArray) Last() (v ChannelAdminLogEventActionChangeEmojiStickerSet, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeEmojiStickerSetArray) PopFirst() (v ChannelAdminLogEventActionChangeEmojiStickerSet, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeEmojiStickerSet
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeEmojiStickerSetArray) Pop() (v ChannelAdminLogEventActionChangeEmojiStickerSet, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

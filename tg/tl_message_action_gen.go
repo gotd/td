@@ -7693,6 +7693,140 @@ func (m *MessageActionGiveawayResults) GetUnclaimedCount() (value int) {
 	return m.UnclaimedCount
 }
 
+// MessageActionBoostApply represents TL type `messageActionBoostApply#cc02aa6d`.
+//
+// See https://core.telegram.org/constructor/messageActionBoostApply for reference.
+type MessageActionBoostApply struct {
+	// Boosts field of MessageActionBoostApply.
+	Boosts int
+}
+
+// MessageActionBoostApplyTypeID is TL type id of MessageActionBoostApply.
+const MessageActionBoostApplyTypeID = 0xcc02aa6d
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionBoostApply) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionBoostApply.
+var (
+	_ bin.Encoder     = &MessageActionBoostApply{}
+	_ bin.Decoder     = &MessageActionBoostApply{}
+	_ bin.BareEncoder = &MessageActionBoostApply{}
+	_ bin.BareDecoder = &MessageActionBoostApply{}
+
+	_ MessageActionClass = &MessageActionBoostApply{}
+)
+
+func (m *MessageActionBoostApply) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Boosts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionBoostApply) String() string {
+	if m == nil {
+		return "MessageActionBoostApply(nil)"
+	}
+	type Alias MessageActionBoostApply
+	return fmt.Sprintf("MessageActionBoostApply%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionBoostApply from given interface.
+func (m *MessageActionBoostApply) FillFrom(from interface {
+	GetBoosts() (value int)
+}) {
+	m.Boosts = from.GetBoosts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionBoostApply) TypeID() uint32 {
+	return MessageActionBoostApplyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionBoostApply) TypeName() string {
+	return "messageActionBoostApply"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionBoostApply) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionBoostApply",
+		ID:   MessageActionBoostApplyTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Boosts",
+			SchemaName: "boosts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionBoostApply) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionBoostApply#cc02aa6d as nil")
+	}
+	b.PutID(MessageActionBoostApplyTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionBoostApply) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionBoostApply#cc02aa6d as nil")
+	}
+	b.PutInt(m.Boosts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionBoostApply) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionBoostApply#cc02aa6d to nil")
+	}
+	if err := b.ConsumeID(MessageActionBoostApplyTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionBoostApply#cc02aa6d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionBoostApply) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionBoostApply#cc02aa6d to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionBoostApply#cc02aa6d: field boosts: %w", err)
+		}
+		m.Boosts = value
+	}
+	return nil
+}
+
+// GetBoosts returns value of Boosts field.
+func (m *MessageActionBoostApply) GetBoosts() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Boosts
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -7748,6 +7882,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionGiftCode: // messageActionGiftCode#678c2e09
 //	case *tg.MessageActionGiveawayLaunch: // messageActionGiveawayLaunch#332ba9ed
 //	case *tg.MessageActionGiveawayResults: // messageActionGiveawayResults#2a9fadc5
+//	case *tg.MessageActionBoostApply: // messageActionBoostApply#cc02aa6d
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -8059,6 +8194,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionGiveawayResultsTypeID:
 		// Decoding messageActionGiveawayResults#2a9fadc5.
 		v := MessageActionGiveawayResults{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionBoostApplyTypeID:
+		// Decoding messageActionBoostApply#cc02aa6d.
+		v := MessageActionBoostApply{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

@@ -7395,6 +7395,179 @@ func (c *ChannelAdminLogEventActionChangeEmojiStatus) GetNewValue() (value Emoji
 	return c.NewValue
 }
 
+// ChannelAdminLogEventActionChangeEmojiStickerSet represents TL type `channelAdminLogEventActionChangeEmojiStickerSet#46d840ab`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStickerSet for reference.
+type ChannelAdminLogEventActionChangeEmojiStickerSet struct {
+	// PrevStickerset field of ChannelAdminLogEventActionChangeEmojiStickerSet.
+	PrevStickerset InputStickerSetClass
+	// NewStickerset field of ChannelAdminLogEventActionChangeEmojiStickerSet.
+	NewStickerset InputStickerSetClass
+}
+
+// ChannelAdminLogEventActionChangeEmojiStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeEmojiStickerSet.
+const ChannelAdminLogEventActionChangeEmojiStickerSetTypeID = 0x46d840ab
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeEmojiStickerSet) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeEmojiStickerSet.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeEmojiStickerSet{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeEmojiStickerSet{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeEmojiStickerSet{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeEmojiStickerSet{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeEmojiStickerSet{}
+)
+
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevStickerset == nil) {
+		return false
+	}
+	if !(c.NewStickerset == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeEmojiStickerSet(nil)"
+	}
+	type Alias ChannelAdminLogEventActionChangeEmojiStickerSet
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeEmojiStickerSet%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeEmojiStickerSet from given interface.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) FillFrom(from interface {
+	GetPrevStickerset() (value InputStickerSetClass)
+	GetNewStickerset() (value InputStickerSetClass)
+}) {
+	c.PrevStickerset = from.GetPrevStickerset()
+	c.NewStickerset = from.GetNewStickerset()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionChangeEmojiStickerSet) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeEmojiStickerSetTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionChangeEmojiStickerSet) TypeName() string {
+	return "channelAdminLogEventActionChangeEmojiStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeEmojiStickerSet",
+		ID:   ChannelAdminLogEventActionChangeEmojiStickerSetTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevStickerset",
+			SchemaName: "prev_stickerset",
+		},
+		{
+			Name:       "NewStickerset",
+			SchemaName: "new_stickerset",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionChangeEmojiStickerSetTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab as nil")
+	}
+	if c.PrevStickerset == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: field prev_stickerset is nil")
+	}
+	if err := c.PrevStickerset.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: field prev_stickerset: %w", err)
+	}
+	if c.NewStickerset == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: field new_stickerset is nil")
+	}
+	if err := c.NewStickerset.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: field new_stickerset: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionChangeEmojiStickerSetTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab to nil")
+	}
+	{
+		value, err := DecodeInputStickerSet(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: field prev_stickerset: %w", err)
+		}
+		c.PrevStickerset = value
+	}
+	{
+		value, err := DecodeInputStickerSet(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeEmojiStickerSet#46d840ab: field new_stickerset: %w", err)
+		}
+		c.NewStickerset = value
+	}
+	return nil
+}
+
+// GetPrevStickerset returns value of PrevStickerset field.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) GetPrevStickerset() (value InputStickerSetClass) {
+	if c == nil {
+		return
+	}
+	return c.PrevStickerset
+}
+
+// GetNewStickerset returns value of NewStickerset field.
+func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) GetNewStickerset() (value InputStickerSetClass) {
+	if c == nil {
+		return
+	}
+	return c.NewStickerset
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -7456,6 +7629,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //	case *tg.ChannelAdminLogEventActionChangeProfilePeerColor: // channelAdminLogEventActionChangeProfilePeerColor#5e477b25
 //	case *tg.ChannelAdminLogEventActionChangeWallpaper: // channelAdminLogEventActionChangeWallpaper#31bb5d52
 //	case *tg.ChannelAdminLogEventActionChangeEmojiStatus: // channelAdminLogEventActionChangeEmojiStatus#3ea9feb1
+//	case *tg.ChannelAdminLogEventActionChangeEmojiStickerSet: // channelAdminLogEventActionChangeEmojiStickerSet#46d840ab
 //	default: panic(v)
 //	}
 type ChannelAdminLogEventActionClass interface {
@@ -7809,6 +7983,13 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionChangeEmojiStatusTypeID:
 		// Decoding channelAdminLogEventActionChangeEmojiStatus#3ea9feb1.
 		v := ChannelAdminLogEventActionChangeEmojiStatus{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionChangeEmojiStickerSetTypeID:
+		// Decoding channelAdminLogEventActionChangeEmojiStickerSet#46d840ab.
+		v := ChannelAdminLogEventActionChangeEmojiStickerSet{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

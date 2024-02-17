@@ -706,7 +706,7 @@ func (m *MessageReplyHeader) MapQuoteEntities() (value MessageEntityClassArray, 
 	return MessageEntityClassArray(m.QuoteEntities), true
 }
 
-// MessageReplyStoryHeader represents TL type `messageReplyStoryHeader#9c98bfc1`.
+// MessageReplyStoryHeader represents TL type `messageReplyStoryHeader#e5af939`.
 // Represents a reply to a story¹
 //
 // Links:
@@ -714,14 +714,14 @@ func (m *MessageReplyHeader) MapQuoteEntities() (value MessageEntityClassArray, 
 //
 // See https://core.telegram.org/constructor/messageReplyStoryHeader for reference.
 type MessageReplyStoryHeader struct {
-	// ID of the user that posted a story
-	UserID int64
+	// Peer field of MessageReplyStoryHeader.
+	Peer PeerClass
 	// Story ID
 	StoryID int
 }
 
 // MessageReplyStoryHeaderTypeID is TL type id of MessageReplyStoryHeader.
-const MessageReplyStoryHeaderTypeID = 0x9c98bfc1
+const MessageReplyStoryHeaderTypeID = 0xe5af939
 
 // construct implements constructor of MessageReplyHeaderClass.
 func (m MessageReplyStoryHeader) construct() MessageReplyHeaderClass { return &m }
@@ -740,7 +740,7 @@ func (m *MessageReplyStoryHeader) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.UserID == 0) {
+	if !(m.Peer == nil) {
 		return false
 	}
 	if !(m.StoryID == 0) {
@@ -761,10 +761,10 @@ func (m *MessageReplyStoryHeader) String() string {
 
 // FillFrom fills MessageReplyStoryHeader from given interface.
 func (m *MessageReplyStoryHeader) FillFrom(from interface {
-	GetUserID() (value int64)
+	GetPeer() (value PeerClass)
 	GetStoryID() (value int)
 }) {
-	m.UserID = from.GetUserID()
+	m.Peer = from.GetPeer()
 	m.StoryID = from.GetStoryID()
 }
 
@@ -792,8 +792,8 @@ func (m *MessageReplyStoryHeader) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "StoryID",
@@ -806,7 +806,7 @@ func (m *MessageReplyStoryHeader) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReplyStoryHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplyStoryHeader#9c98bfc1 as nil")
+		return fmt.Errorf("can't encode messageReplyStoryHeader#e5af939 as nil")
 	}
 	b.PutID(MessageReplyStoryHeaderTypeID)
 	return m.EncodeBare(b)
@@ -815,9 +815,14 @@ func (m *MessageReplyStoryHeader) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReplyStoryHeader) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplyStoryHeader#9c98bfc1 as nil")
+		return fmt.Errorf("can't encode messageReplyStoryHeader#e5af939 as nil")
 	}
-	b.PutLong(m.UserID)
+	if m.Peer == nil {
+		return fmt.Errorf("unable to encode messageReplyStoryHeader#e5af939: field peer is nil")
+	}
+	if err := m.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageReplyStoryHeader#e5af939: field peer: %w", err)
+	}
 	b.PutInt(m.StoryID)
 	return nil
 }
@@ -825,10 +830,10 @@ func (m *MessageReplyStoryHeader) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageReplyStoryHeader) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplyStoryHeader#9c98bfc1 to nil")
+		return fmt.Errorf("can't decode messageReplyStoryHeader#e5af939 to nil")
 	}
 	if err := b.ConsumeID(MessageReplyStoryHeaderTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReplyStoryHeader#9c98bfc1: %w", err)
+		return fmt.Errorf("unable to decode messageReplyStoryHeader#e5af939: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -836,31 +841,31 @@ func (m *MessageReplyStoryHeader) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReplyStoryHeader) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplyStoryHeader#9c98bfc1 to nil")
+		return fmt.Errorf("can't decode messageReplyStoryHeader#e5af939 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyStoryHeader#9c98bfc1: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplyStoryHeader#e5af939: field peer: %w", err)
 		}
-		m.UserID = value
+		m.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyStoryHeader#9c98bfc1: field story_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplyStoryHeader#e5af939: field story_id: %w", err)
 		}
 		m.StoryID = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (m *MessageReplyStoryHeader) GetUserID() (value int64) {
+// GetPeer returns value of Peer field.
+func (m *MessageReplyStoryHeader) GetPeer() (value PeerClass) {
 	if m == nil {
 		return
 	}
-	return m.UserID
+	return m.Peer
 }
 
 // GetStoryID returns value of StoryID field.
@@ -886,7 +891,7 @@ const MessageReplyHeaderClassName = "MessageReplyHeader"
 //	}
 //	switch v := g.(type) {
 //	case *tg.MessageReplyHeader: // messageReplyHeader#afbc09db
-//	case *tg.MessageReplyStoryHeader: // messageReplyStoryHeader#9c98bfc1
+//	case *tg.MessageReplyStoryHeader: // messageReplyStoryHeader#e5af939
 //	default: panic(v)
 //	}
 type MessageReplyHeaderClass interface {
@@ -923,7 +928,7 @@ func DecodeMessageReplyHeader(buf *bin.Buffer) (MessageReplyHeaderClass, error) 
 		}
 		return &v, nil
 	case MessageReplyStoryHeaderTypeID:
-		// Decoding messageReplyStoryHeader#9c98bfc1.
+		// Decoding messageReplyStoryHeader#e5af939.
 		v := MessageReplyStoryHeader{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageReplyHeaderClass: %w", err)

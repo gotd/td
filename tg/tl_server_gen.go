@@ -8062,6 +8062,44 @@ func (s *ServerDispatcher) OnChannelsUpdateEmojiStatus(f func(ctx context.Contex
 	s.handlers[ChannelsUpdateEmojiStatusRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsSetBoostsToUnblockRestrictions(f func(ctx context.Context, request *ChannelsSetBoostsToUnblockRestrictionsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsSetBoostsToUnblockRestrictionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsSetBoostsToUnblockRestrictionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsSetEmojiStickers(f func(ctx context.Context, request *ChannelsSetEmojiStickersRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsSetEmojiStickersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsSetEmojiStickersRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
