@@ -9,9 +9,9 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/mt"
+	"github.com/gotd/td/proto"
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )

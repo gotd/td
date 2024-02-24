@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/session/tdesktop"
 	"github.com/gotd/td/telegram/dcs"
 )

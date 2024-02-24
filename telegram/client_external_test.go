@@ -12,12 +12,12 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/e2etest"
+	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )

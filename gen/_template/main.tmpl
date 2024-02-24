@@ -1,0 +1,31 @@
+{{- /*gotype: github.com/gotd/td/gen.config*/ -}}
+
+{{ define "main" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+{{ range $s := $.Structs }}
+{{ template "struct" $s }}
+{{ template "zero_derive" $s }}
+{{ template "string_derive" $s }}
+{{ if $.Flags.Mapping }}{{ template "fill_from" $s }}{{ end }}
+{{ template "type_info" $s }}
+{{ template "set_flags" $s }}
+{{ template "encode" $s }}
+{{ template "decode" $s }}
+{{- if $.Flags.TDLibJSON }}
+{{ template "encode_tdlib_json" $s }}
+{{ template "decode_tdlib_json" $s }}
+{{- end }}
+{{ if $.Flags.GetSet }}{{ template "getset" $s }}{{ end }}
+{{ if $.Flags.Mapping }}{{ template "field_mapping" newStructConfig ($s) ($) }}{{ end }}
+{{ if $.Flags.Client }}{{ template "method" $s }}{{ end }}
+{{ end }}
+
+{{ range $f := $.Interfaces }}
+{{ template "interface" newInterfaceConfig ($f) ($) }}
+{{ if $.Flags.Mapping }}{{ template "interface_mapping" $f }}{{ end }}
+{{ template "box" newInterfaceConfig ($f) ($) }}
+{{ end }}
+
+{{- end }}

@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/neo"
 
 	"github.com/gotd/td/constant"
-	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgmock"
 )

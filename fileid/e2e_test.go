@@ -11,9 +11,9 @@ import (
 	"go.uber.org/zap/zaptest"
 
 	"github.com/gotd/td/fileid"
-	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/downloader"
+	"github.com/gotd/td/testutil"
 )
 
 func runBot(ctx context.Context, token, fileID string, logger *zap.Logger) error {

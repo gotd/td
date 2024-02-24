@@ -9,8 +9,8 @@ import (
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/exchange"
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/auth"
 )
 

@@ -1,0 +1,30 @@
+{{ define "zero_derive" }}{{ $s := . }}
+{{- /*gotype: github.com/gotd/td/gen.structDef*/ -}}
+func ({{ $s.Receiver }} *{{ $s.Name }}) Zero() bool {
+    if {{ $s.Receiver }} == nil {
+        return true
+    }
+{{- /*gotype: github.com/gotd/td/gen.fieldDef*/ -}}
+{{- range $f := $s.Fields }}{{- if ne ($f.Name) ($f.ConditionalField) }}
+    if !({{ $s.Receiver }}.{{template "compare_zero" $f}}) {
+        return false
+    }
+{{- end }}{{- end }}
+
+    return true
+}
+{{- end -}}
+
+{{ define "compare_zero" }}
+{{- /*gotype: github.com/gotd/td/gen.fieldDef*/ -}}
+{{- .Name -}}
+{{- if or (.Slice) (.DoubleSlice) -}} == nil
+{{- else if eq (.Type) ("bin.Int128") -}} == bin.Int128{}
+{{- else if eq (.Type) ("bin.Int256") -}} == bin.Int256{}
+{{- else if or (hasPrefix (.Type) ("int")) (hasPrefix (.Type) ("float")) }} == 0
+{{- else if eq (.Type) ("string") -}} == ""
+{{- else if eq (.Type) ("bool") -}} == false
+{{- else if eq (.Type) ("bin.Object") }} == nil
+{{- else if hasSuffix (.Type) ("Class") }} == nil
+{{- else -}}.Zero()
+{{- end -}}{{- end }}

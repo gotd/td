@@ -1,0 +1,58 @@
+{{- /*gotype: github.com/gotd/td/gen.interfaceConfig*/ -}}
+{{ define "interface" }}{{ $f := .Interface }}
+
+// {{ $f.Name }}Name is schema name of {{ $f.Name }}.
+const {{ $f.Name }}Name = "{{ $f.RawType }}"
+
+// {{ $f.Name }} represents {{ $f.RawType }} generic type.
+//
+{{- if $f.URL }}
+// See {{ $f.URL }} for reference.
+//
+{{- end }}
+// Example:
+//  g, err := {{ $.Config.Package }}.Decode{{ $f.Func }}(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+{{ range $c := $f.Constructors -}}
+//  case *{{ $.Config.Package }}.{{ $c.Name }}: // {{ $c.RawType }}
+{{ end -}}
+//  default: panic(v)
+//  }
+type {{ $f.Name }} interface {
+{{ template "class_interface_header" $f }}
+
+    {{ if $.Config.Flags.TDLibJSON }}
+    EncodeTDLibJSON(b tdjson.Encoder) error
+    DecodeTDLibJSON(b tdjson.Decoder) error
+    {{- end }}
+
+{{ range $field := $f.SharedFields.Common -}}
+    {{- template "print_comment" $field.Comment }}
+    {{- if $field.Links }}
+        {{- template "print_links" $field.Links }}
+    {{- end }}
+    {{ if $.Config.Flags.GetSet }}{{ template "getter_func_type" $field -}}{{ end }}
+
+    {{- if and ($.Config.Flags.Mapping) (not $field.DoubleSlice) }}
+    {{- if not $field.Slice }}
+    {{- $mappings := index ($.Config.Mappings) ($field.Type) -}}
+    {{- range $mapping := $mappings -}}
+    {{- template "print_comment" $field.Comment }}
+    Get{{ $field.Name }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
+    {{- end }}
+    {{ else }}{{- if $field.Interface }}
+    {{- template "print_comment" $field.Comment }}
+    Map{{ $field.Name }}() (value {{ template "slice_field_name" $field }}{{ if $field.Conditional }}, ok bool{{ end }})
+    {{- end }}{{- end }}
+
+    {{- end }}
+{{- end }}
+{{ range $mapping := $f.Mappings -}}{{- if and ($.Config.Flags.Mapping) (not $mapping.Constructor) -}}
+    // As{{ $mapping.MapperName }} tries to map {{ $f.Name }} to {{ $mapping.Name }}.
+    {{ template "mapper_func_type" $mapping }}
+{{ end }}{{ end }}
+}
+{{ end }}

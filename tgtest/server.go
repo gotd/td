@@ -12,11 +12,11 @@ import (
 	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/exchange"
+	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/tdsync"
+	"github.com/gotd/td/tmap"
 	"github.com/gotd/td/transport"
 )
 

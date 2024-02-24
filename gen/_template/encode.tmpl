@@ -1,0 +1,71 @@
+{{- /*gotype: github.com/gotd/td/gen.structDef*/ -}}
+{{ define "encode" }}{{ $s := . }}
+// Encode implements bin.Encoder.
+func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) error {
+    if {{ $s.Receiver }} == nil {
+        return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
+    }
+{{ if not $s.Vector -}}
+    {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
+{{- end }}
+    return {{ $s.Receiver }}.EncodeBare({{ $s.BufArg }})
+}
+
+// EncodeBare implements bin.BareEncoder.
+func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeBare({{ $s.BufArg }} *bin.Buffer) error {
+    if {{ $s.Receiver }} == nil {
+        return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
+    }
+{{- if hasFlags $s }}
+    {{ $s.Receiver }}.SetFlags()
+{{- end }}
+{{- range $f := $s.Fields }}
+    {{- if not $f.ConditionalBool }}
+    {{- if $f.Conditional }}
+    if {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
+    {{- end }}
+    {{- if $f.Vector }}
+    {{ if not $f.BareVector }}{{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }})){{ else }}{{ $s.BufArg }}.PutInt(len({{ $s.Receiver }}.{{ $f.Name }})){{- end }}
+    for {{ if $f.Encoder }}idx{{ else }}_{{ end }}, {{- if $f.DoubleVector }}row{{else}}v{{end}} := range {{ $s.Receiver }}.{{ $f.Name }} {
+    {{- if $f.DoubleVector }}
+        {{ $s.BufArg }}.PutVectorHeader(len(row))
+        for _, v := range row {
+    {{- end }}
+    {{- if $f.Encoder }}
+        {{- if $f.Interface }}
+            if v == nil {
+            return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} element with index %d is nil", idx)
+            }
+        {{- end}}
+        if err := v.Encode{{ if and $f.BareEncoder $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
+            return fmt.Errorf("unable to encode{{ if and $f.BareEncoder $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }} element with index %d: %w", idx, err)
+        }
+    {{- else }}
+        {{ $s.BufArg }}.Put{{ $f.Func }}(v)
+    {{- end }}
+    {{- if $f.DoubleVector }}
+        }
+    {{- end }}
+    }
+    {{- else }}
+    {{- if $f.Encoder }}
+    {{- if $f.Interface }}
+    if {{ $s.Receiver }}.{{ $f.Name }} == nil {
+        return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} is nil")
+    }
+    {{- end}}
+    if err := {{ $s.Receiver }}.{{ $f.Name }}.Encode({{ $s.BufArg }}); err != nil {
+        return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
+    }
+    {{- else }}
+    {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
+    {{- end }}
+    {{- end }}
+    {{- if $f.Conditional }}
+    }
+    {{- end }}
+    {{- end }}
+{{- end }}
+    return nil
+}
+{{ end }}

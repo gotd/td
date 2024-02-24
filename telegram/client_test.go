@@ -21,15 +21,15 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/rpc"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/mt"
+	"github.com/gotd/td/proto"
+	"github.com/gotd/td/rpc"
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgmock"
+	"github.com/gotd/td/tmap"
 )
 
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)

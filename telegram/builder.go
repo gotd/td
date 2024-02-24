@@ -14,7 +14,7 @@ import (
 	"golang.org/x/net/proxy"
 
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
