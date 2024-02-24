@@ -1,0 +1,15 @@
+{{- /*gotype: github.com/gotd/td/gen.structDef*/ -}}
+{{ define "set_flags" }}{{ $s := . }}
+{{- if hasFlags $s }}
+// SetFlags sets flags for non-zero fields.
+func ({{ $s.Receiver }} *{{ $s.Name }}) SetFlags() {
+{{- range $f := $s.Fields }}
+    {{- if $f.Conditional }}
+        if !({{ $s.Receiver }}.{{template "compare_zero" $f}}) {
+        {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
+        }
+    {{- end }}
+{{- end }}
+}
+{{- end }}
+{{ end }}

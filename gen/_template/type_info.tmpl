@@ -1,0 +1,40 @@
+{{- /*gotype: github.com/gotd/td/gen.structDef*/ -}}
+{{ define "type_info" }}{{ $s := . }}
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*{{ $s.Name }}) TypeID() uint32 {
+    return {{ $s.Name }}TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*{{ $s.Name }}) TypeName() string {
+    return "{{ $s.RawName }}"
+}
+
+// TypeInfo returns info about TL type.
+func ({{ $s.Receiver }} *{{ $s.Name }}) TypeInfo() tdp.Type {
+    typ := tdp.Type{
+        Name: "{{ $s.RawName }}",
+        ID:   {{ $s.Name }}TypeID,
+    }
+    if {{ $s.Receiver }} == nil {
+        typ.Null = true
+        return typ
+    }
+    typ.Fields = []tdp.Field{
+{{- range $f := $s.Fields }}
+{{- if ne ($f.Type) ("bin.Fields") }}
+        {
+            Name: "{{ $f.Name }}",
+            SchemaName: "{{ $f.RawName }}",
+        {{- if $f.Conditional }}
+            Null: !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}),
+        {{- end }}
+        },
+{{- end }}
+{{- end }}
+    }
+    return typ
+}
+{{ end }}

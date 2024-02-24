@@ -9,11 +9,11 @@ import (
 	"github.com/k0kubun/pp/v3"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/mt"
+	"github.com/gotd/td/proto/codec"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tmap"
 	"github.com/gotd/td/transport"
 )
 

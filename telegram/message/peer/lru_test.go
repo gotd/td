@@ -11,7 +11,7 @@ import (
 
 	"github.com/gotd/neo"
 
-	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/tg"
 )
 

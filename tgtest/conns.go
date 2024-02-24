@@ -5,7 +5,7 @@ import (
 
 	"go.uber.org/atomic"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/transport"
 )
 

@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/proto/codec"
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/transport"
 )
 

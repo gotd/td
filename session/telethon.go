@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-faster/errors"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/crypto"
 )
 
 // https://github.com/LonamiWebs/Telethon/blob/master/telethon/sessions/string.py#L11

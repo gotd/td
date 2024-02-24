@@ -2,7 +2,7 @@ package manager
 
 import (
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mtproto"
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
 

@@ -1,0 +1,51 @@
+{{- /*gotype: github.com/gotd/td/gen.config*/ -}}
+
+{{ define "registry" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+{{- if $.Layer }}
+// Layer version of schema.
+const Layer = {{ $.Layer }}
+{{- end }}
+
+// TypesMap returns mapping from type ids to TL type names.
+func TypesMap() map[uint32]string {
+  return map[uint32]string {
+{{- range $elem := $.Registry }}
+    {{ $elem.Name }}TypeID: "{{ $elem.Raw }}",
+{{- end }}
+  }
+}
+
+// NamesMap returns mapping from type names to TL type ids.
+func NamesMap() map[string]uint32 {
+  return map[string]uint32 {
+{{- range $elem := $.Registry }}
+    "{{ trimSuffix (trimSuffix ($elem.Raw) ($elem.HexID)) ("#") }}": {{ $elem.Name }}TypeID,
+{{- end }}
+  }
+}
+
+// TypesConstructorMap maps type ids to constructors.
+func TypesConstructorMap() map[uint32]func() bin.Object {
+return map[uint32]func() bin.Object {
+{{- range $elem := $.Registry }}
+    {{ $elem.Name }}TypeID: func() bin.Object { return &{{ $elem.Name }}{} },
+{{- end }}
+  }
+}
+
+// ClassConstructorsMap maps class schema name to constructors type ids.
+func ClassConstructorsMap() map[string][]uint32 {
+return map[string][]uint32 {
+{{- range $elem := $.Interfaces }}
+    {{ $elem.Name }}Name: {
+    {{- range $c := $elem.Constructors }}
+        {{ $c.Name }}TypeID,
+    {{- end }}
+    },
+{{- end }}
+}
+}
+{{ end }}

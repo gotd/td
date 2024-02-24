@@ -15,9 +15,9 @@ import (
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/syncio"
-	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/syncio"
+	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/tg"
 )
 

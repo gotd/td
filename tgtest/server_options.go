@@ -7,12 +7,12 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/mt"
+	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/proto"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tmap"
 	"github.com/gotd/td/transport"
 )
 

@@ -11,9 +11,9 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/pool"
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )

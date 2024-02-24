@@ -7,9 +7,9 @@ import (
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/pool"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/pool"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tg"
 )

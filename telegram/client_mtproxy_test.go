@@ -16,8 +16,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
-	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
 )

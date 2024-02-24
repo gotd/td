@@ -1,0 +1,88 @@
+{{ define "request_params" }}ctx context.Context{{- if .UnpackParameters }}{{- if .Fields }}
+{{- range $f := .Fields }}, {{ lowerGo $f.Name }} {{ template "print_type" $f }}{{- end }}
+{{- end }}
+{{- else }}, request *{{ .Name }}{{- end }}
+{{- end }}
+
+{{ define "pack_request" }}{{- if .UnpackParameters }}
+    request := &{{ $.Name }}{
+        {{- range $f := $.Fields }}
+        {{ $f.Name }}: {{ lowerGo $f.Name }},
+        {{- end }}
+    }
+{{- end }}{{- end }}
+
+{{ define "unpack_request" }}ctx{{- if .UnpackParameters }}{{- if .Fields }}
+{{- range $f := $.Fields }}, request.{{ $f.Name }}
+{{- end }}{{- end }}
+{{- else }}, &request{{- end }}
+{{- end }}
+
+{{ define "print_type" }}
+{{- /*gotype: github.com/gotd/td/gen.fieldDef*/ -}}
+{{- if $.DoubleSlice }}[][]{{ $.Type }}
+{{- else if $.Slice }}[]{{ $.Type }}
+{{- else }}{{ $.Type }}
+{{- end }}{{- end }}
+
+{{ define "getter_func_type" }}{{- /*gotype: github.com/gotd/td/gen.fieldDef*/ -}}
+Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (not $.ConditionalBool) }}, ok bool{{ end }})
+{{- end }}
+
+{{ define "print_mapper_type" }}{{ $mapping := . -}}
+{{- /*gotype: github.com/gotd/td/gen.constructorMapping*/ -}}
+{{- if not ($mapping.Concrete) }}{{ $mapping.Name }}{{- else }}*{{ $mapping.Name }}{{- end -}}
+{{ end }}
+
+{{ define "mapper_func_type" }}{{ $mapping := . -}}
+{{- /*gotype: github.com/gotd/td/gen.constructorMapping*/ -}}
+{{- if $mapping.Fields }}As{{ $mapping.MapperName }}() {{ template "print_mapper_type" $mapping }}
+{{- else }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
+{{- end }}{{- end }}
+
+{{ define "print_links" }}
+//
+// Links:
+{{- range $i, $link := . }}
+//  {{ add $i 1 }}) {{ $link }}
+{{- end }}
+{{- end }}
+
+{{ define "print_comment" }}
+{{- range $line := . }}
+// {{ trim $line }}
+{{- end }}
+{{- end }}
+
+{{ define "print_errors" }}
+//
+// Possible errors:
+{{- range $err := . }}
+//  {{ $err.Code }} {{ $err.Type }}: {{ $err.Description }}
+{{- end }}
+{{- end }}
+
+{{ define "class_interface_header" }}{{ $f := . }}
+{{- /*gotype: github.com/gotd/td/gen.interfaceDef*/ -}}
+    bin.Encoder
+    bin.Decoder
+    bin.BareEncoder
+    bin.BareDecoder
+    construct() {{ $f.Name }}
+
+    // TypeID returns type id in TL schema.
+    //
+    // See https://core.telegram.org/mtproto/TL-tl#remarks.
+    TypeID() uint32
+    // TypeName returns name of type in TL schema.
+    TypeName() string
+    // String implements fmt.Stringer.
+    String() string
+    // Zero returns true if current object has a zero value.
+    Zero() bool
+{{- end }}
+
+
+{{ define "map_collector_name" }}{{ $field := . }}{{- /*gotype: github.com/gotd/td/gen.fieldDef*/ -}}
+{{ if ne ($field.Name) ("ID") }}{{ $field.Name }}{{ end }}
+{{- end }}

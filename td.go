@@ -7,3 +7,5 @@ package td
 //go:generate go run github.com/gotd/td/cmd/gotdgen --clean --package tdapi --tdlib-json --target tdapi --schema _schema/tdapi.tl
 
 //go:generate go run github.com/gotd/td/cmd/gotdgen --clean --client=false --package tgtrace --target tgtrace --schema _schema/trace.tl
+
+//go:generate go run github.com/gotd/td/cmd/gotdgen --clean --package mt --target mt --client=false --schema _schema/mt.tl

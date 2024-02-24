@@ -12,7 +12,7 @@ import (
 
 	"github.com/gotd/tl"
 
-	"github.com/gotd/td/internal/gen"
+	"github.com/gotd/td/gen"
 )
 
 type formattedSource struct {

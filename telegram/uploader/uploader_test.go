@@ -16,9 +16,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 
-	"github.com/gotd/td/internal/syncio"
-	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/syncio"
 	"github.com/gotd/td/telegram/uploader/source"
+	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/tg"
 )
 

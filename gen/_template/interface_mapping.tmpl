@@ -1,0 +1,56 @@
+{{- /*gotype: github.com/gotd/td/gen.interfaceDef*/ -}}
+{{ define "interface_mapping" }}{{ $f := . }}
+{{ range $mapping := $f.Mappings -}}
+
+{{- if not ($mapping.Concrete) }}
+// {{ $mapping.Name }} represents {{ $mapping.MapperName }} subset of {{ $f.Name }}.
+type {{ $mapping.Name }} interface {
+{{ template "class_interface_header" $f }}
+
+{{ range $field := index ($f.SharedFields) ($mapping.MapperName) -}}{{- /*gotype: github.com/gotd/td/gen.fieldDef*/ -}}
+    {{- template "print_comment" $field.Comment }}
+    {{- if $field.Links }}
+        {{- template "print_links" $field.Links }}
+    {{- end }}
+    {{ template "getter_func_type" $field}}
+{{ end }}
+}
+{{- end }}
+
+{{ range $s := $f.Constructors -}}{{- if or (not $mapping.Constructor) (eq ($s.Name) ($mapping.Constructor)) }}
+// As{{ $mapping.MapperName }} tries to map {{ $s.Name }} to {{ $mapping.Name }}.
+func ({{ $s.Receiver }} *{{ $s.Name }}) {{ template "mapper_func_type" $mapping }} {
+{{- if not ($mapping.Concrete) }}
+    value, ok := ({{ $f.Name }}({{ $s.Receiver }})).({{ $mapping.Name }})
+    return value, ok
+{{- else }}{{- if $mapping.Fields }}
+    value := new({{ $mapping.Name }})
+    {{- range $pair := $mapping.Fields -}}
+    {{- if and ($pair.L.Conditional) (not $pair.L.ConditionalBool) }}
+    if fieldValue, ok := {{ $s.Receiver }}.Get{{ $pair.L.Name }}(); ok {
+        {{- if $pair.R.Conditional }}
+        value.Set{{ $pair.R.Name }}(fieldValue)
+        {{- else }}
+        value.{{ $pair.R.Name }} = fieldValue
+        {{- end }}
+    }
+    {{ else }}
+        {{- if $pair.R.Conditional -}}
+        value.Set{{ $pair.R.Name }}({{ $s.Receiver }}.Get{{ $pair.L.Name }}())
+        {{- else }}
+        value.{{ $pair.R.Name }} = {{ $s.Receiver }}.Get{{ $pair.L.Name }}()
+        {{- end }}
+    {{- end }}
+    {{- end }}
+
+    return value
+{{- else }}
+    {{- if eq ($s.Name) ($mapping.Name) }} return {{ $s.Receiver }}, true
+    {{- else }} return nil, false {{ end }}
+{{- end }}{{- end }}
+}
+{{ end }}{{ end }}
+
+{{ end }}
+{{ end }}
+

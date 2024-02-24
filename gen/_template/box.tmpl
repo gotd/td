@@ -1,0 +1,96 @@
+{{- /*gotype: github.com/gotd/td/gen.interfaceConfig*/ -}}
+{{ define "box" }}{{ $f := .Interface }}
+// Decode{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.
+func Decode{{ $f.Func }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
+    id, err := buf.PeekID()
+    if err != nil {
+        return nil, err
+    }
+    switch id {
+    {{- range $c := $f.Constructors }}
+    case {{ $c.Name }}TypeID:
+        // Decoding {{ $c.RawType }}.
+        v := {{ $c.Name }}{}
+        if err := v.Decode(buf); err != nil {
+            return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", err)
+        }
+        return &v, nil
+    {{- end }}
+    default:
+        return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", bin.NewUnexpectedID(id))
+    }
+}
+
+{{- if $.Config.Flags.TDLibJSON }}
+// DecodeTDLibJSON{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.
+func DecodeTDLibJSON{{ $f.Func }} (buf tdjson.Decoder) ({{ $f.Name }}, error) {
+    id, err := buf.FindTypeID()
+    if err != nil {
+        return nil, err
+    }
+    switch id {
+    {{- range $c := $f.Constructors }}
+    case "{{ $c.RawName }}":
+        // Decoding {{ $c.RawType }}.
+        v := {{ $c.Name }}{}
+        if err := v.DecodeTDLibJSON(buf); err != nil {
+            return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", err)
+        }
+        return &v, nil
+    {{- end }}
+    default:
+        return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", tdjson.NewUnexpectedID(id))
+    }
+}
+{{- end }}
+
+// {{ $f.Func }} boxes the {{ $f.Name }} providing a helper.
+type {{ $f.Func }}Box struct {
+    {{ $f.BaseName }} {{ $f.Name }}
+}
+
+// Decode implements bin.Decoder for {{ $f.Func }}Box.
+func (b *{{ $f.Func }}Box) Decode(buf *bin.Buffer) error {
+    if b == nil {
+        return fmt.Errorf("unable to decode {{ $f.Func }}Box to nil")
+    }
+    v, err := Decode{{ $f.Func }}(buf)
+    if err != nil {
+        return fmt.Errorf("unable to decode boxed value: %w", err)
+    }
+    b.{{ $f.BaseName }} = v
+    return nil
+}
+
+// Encode implements bin.Encode for {{ $f.Func }}Box.
+func (b *{{ $f.Func }}Box) Encode(buf *bin.Buffer) error {
+    if b == nil || b.{{ $f.BaseName }} == nil {
+        return fmt.Errorf("unable to encode {{ $f.Name }} as nil")
+    }
+    return b.{{ $f.BaseName }}.Encode(buf)
+}
+
+{{- if $.Config.Flags.TDLibJSON }}
+// DecodeTDLibJSON implements bin.Decoder for {{ $f.Func }}Box.
+func (b *{{ $f.Func }}Box) DecodeTDLibJSON(buf tdjson.Decoder) error {
+    if b == nil {
+        return fmt.Errorf("unable to decode {{ $f.Func }}Box to nil")
+    }
+    v, err := DecodeTDLibJSON{{ $f.Func }}(buf)
+    if err != nil {
+        return fmt.Errorf("unable to decode boxed value: %w", err)
+    }
+    b.{{ $f.BaseName }} = v
+    return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for {{ $f.Func }}Box.
+func (b *{{ $f.Func }}Box) EncodeTDLibJSON(buf tdjson.Encoder) error {
+    if b == nil || b.{{ $f.BaseName }} == nil {
+        return fmt.Errorf("unable to encode {{ $f.Name }} as nil")
+    }
+    return b.{{ $f.BaseName }}.EncodeTDLibJSON(buf)
+}
+{{- end }}
+
+{{ end }}

@@ -5,7 +5,7 @@ import (
 
 	"go.uber.org/zap/zapcore"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/crypto"
 )
 
 // Session represents connection session.

@@ -1,0 +1,148 @@
+{{- /*gotype: github.com/gotd/td/gen.config*/ -}}
+
+{{ define "slices" }}
+//go:build !no_gotd_slices
+// +build !no_gotd_slices
+
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+{{- range $f := $.Interfaces }}
+{{ template "interface_slice" $f }}
+
+{{- range $s := $.Structs }}{{- if generateSliceHelper ($s) -}}
+{{ template "struct_slice" $s }}
+{{- end }}{{- end }}
+
+{{ end }}
+{{ end }}
+
+{{ define "slice_sort_by" }}{{ $args := . -}}
+{{ $f := index ($args) (0) -}}
+{{ $field := index ($args) (1) -}}
+// SortBy{{ $field.Name }} sorts slice of {{ $f.Name }} by {{ $field.Name }}.
+func (s {{ template "slice_name" $f }}) SortBy{{ $field.Name }}() {{ template "slice_name" $f }} {
+    return s.Sort(func(a, b {{ $f.Name }}) bool {
+        return a.Get{{ $field.Name }}() < b.Get{{ $field.Name }}()
+    })
+}
+
+// SortStableBy{{ $field.Name }} sorts slice of {{ $f.Name }} by {{ $field.Name }}.
+func (s {{ template "slice_name" $f }}) SortStableBy{{ $field.Name }}() {{ template "slice_name" $f }} {
+    return s.SortStable(func(a, b {{ $f.Name }}) bool {
+        return a.Get{{ $field.Name }}() < b.Get{{ $field.Name }}()
+    })
+}
+{{ end }}
+
+{{ define "slice_collect_to_map" }}{{ $args := . -}}
+{{ $f := index ($args) (0) -}}
+{{ $field := index ($args) (1) -}}
+{{ $name := index ($args) (2) -}}
+// Fill{{ $name }}Map fills only {{ $name }} constructors to given map.
+func (s {{ template "slice_name" $f }}) Fill{{ $name }}{{ template "map_collector_name" $field }}Map(to map[{{ $field.Type }}]*{{ $name }} ) {
+    for _, elem := range s {
+        value, ok := elem.(*{{ $name }})
+        if !ok {
+            continue
+        }
+        to[value.Get{{ $field.Name }}()] = value
+    }
+}
+
+// {{ $name }}ToMap collects only {{ $name }} constructors to map.
+func (s {{ template "slice_name" $f }}) {{ $name }}To{{ template "map_collector_name" $field }}Map() map[{{ $field.Type }}]*{{ $name }} {
+    r := make(map[{{ $field.Type }}]*{{ $name }}, len(s))
+    s.Fill{{ $name }}Map(r)
+    return r
+}
+{{ end }}
+
+{{ define "slice_name" }}{{ $.Name }}Array{{ end }}
+{{ define "slice_field_name" }}{{ $.Type }}Array{{ end }}
+{{ define "slice_result_name" }}{{ if $.Interface }}{{ $.ResultFunc }}Array{{ else }}[]{{ $.ResultFunc }}{{ end }}{{ end }}
+
+{{ define "slice" }}{{ $f := . }}
+// {{ template "slice_name" $f }} is adapter for slice of {{ $f.Name }}.
+type {{ template "slice_name" $f }} []{{ $f.Name }}
+
+// Sort sorts slice of {{ $f.Name }}.
+func (s {{ template "slice_name" $f }}) Sort(less func(a, b {{ $f.Name }}) bool) {{ template "slice_name" $f }} {
+    sort.Slice(s, func(i, j int) bool {
+        return less(s[i], s[j])
+    })
+    return s
+}
+
+// SortStable sorts slice of {{ $f.Name }}.
+func (s {{ template "slice_name" $f }}) SortStable(less func(a, b {{ $f.Name }}) bool) {{ template "slice_name" $f }} {
+    sort.SliceStable(s, func(i, j int) bool {
+        return less(s[i], s[j])
+    })
+    return s
+}
+
+// Retain filters in-place slice of {{ $f.Name }}.
+func (s {{ template "slice_name" $f }}) Retain(keep func(x {{ $f.Name }}) bool) {{ template "slice_name" $f }} {
+    n := 0
+    for _, x := range s {
+        if keep(x) {
+            s[n] = x
+            n++
+        }
+    }
+    s = s[:n]
+
+    return s
+}
+
+// First returns first element of slice (if exists).
+func (s {{ template "slice_name" $f }}) First() (v {{ $f.Name }}, ok bool) {
+    if len(s) < 1 {
+        return
+    }
+    return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s {{ template "slice_name" $f }}) Last() (v {{ $f.Name }}, ok bool) {
+    if len(s) < 1 {
+        return
+    }
+    return s[len(s)-1], true
+}
+
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *{{ template "slice_name" $f }}) PopFirst() (v {{ $f.Name }}, ok bool) {
+    if s == nil || len(*s) < 1 {
+        return
+    }
+
+    a := *s
+    v = a[0]
+
+    // Delete by index from SliceTricks.
+    copy(a[0:], a[1:])
+    var zero {{ $f.Name }}
+    a[len(a)-1] = zero
+    a = a[:len(a)-1]
+    *s = a
+
+    return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *{{ template "slice_name" $f }}) Pop() (v {{ $f.Name }}, ok bool) {
+    if s == nil || len(*s) < 1 {
+        return
+    }
+
+    a := *s
+    v = a[len(a)-1]
+    a = a[:len(a)-1]
+    *s = a
+
+    return v, true
+}
+{{ end }}

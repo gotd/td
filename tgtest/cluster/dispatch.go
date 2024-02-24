@@ -5,8 +5,8 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/exchange"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/tgtest/services"
 	"github.com/gotd/td/transport"
