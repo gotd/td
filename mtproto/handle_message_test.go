@@ -107,7 +107,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 		gotSession: tdsync.NewReady(),
 	}
 
-	corpusDir := filepath.Join("..", "..", "_fuzz", "handle_message", "corpus")
+	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
 	corpus, err := os.ReadDir(corpusDir)
 	if err != nil {
 		t.Fatal(err)
