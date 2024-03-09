@@ -1533,6 +1533,84 @@ func (s UpdateClassArray) AsUpdatePinnedSavedDialogs() (to UpdatePinnedSavedDial
 	return to
 }
 
+// AsUpdateSMSJob returns copy with only UpdateSMSJob constructors.
+func (s UpdateClassArray) AsUpdateSMSJob() (to UpdateSMSJobArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateSMSJob)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateQuickReplies returns copy with only UpdateQuickReplies constructors.
+func (s UpdateClassArray) AsUpdateQuickReplies() (to UpdateQuickRepliesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateQuickReplies)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateNewQuickReply returns copy with only UpdateNewQuickReply constructors.
+func (s UpdateClassArray) AsUpdateNewQuickReply() (to UpdateNewQuickReplyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateNewQuickReply)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateDeleteQuickReply returns copy with only UpdateDeleteQuickReply constructors.
+func (s UpdateClassArray) AsUpdateDeleteQuickReply() (to UpdateDeleteQuickReplyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateDeleteQuickReply)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateQuickReplyMessage returns copy with only UpdateQuickReplyMessage constructors.
+func (s UpdateClassArray) AsUpdateQuickReplyMessage() (to UpdateQuickReplyMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateQuickReplyMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateDeleteQuickReplyMessages returns copy with only UpdateDeleteQuickReplyMessages constructors.
+func (s UpdateClassArray) AsUpdateDeleteQuickReplyMessages() (to UpdateDeleteQuickReplyMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateDeleteQuickReplyMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -10725,6 +10803,498 @@ func (s *UpdatePinnedSavedDialogsArray) PopFirst() (v UpdatePinnedSavedDialogs, 
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdatePinnedSavedDialogsArray) Pop() (v UpdatePinnedSavedDialogs, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateSMSJobArray is adapter for slice of UpdateSMSJob.
+type UpdateSMSJobArray []UpdateSMSJob
+
+// Sort sorts slice of UpdateSMSJob.
+func (s UpdateSMSJobArray) Sort(less func(a, b UpdateSMSJob) bool) UpdateSMSJobArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateSMSJob.
+func (s UpdateSMSJobArray) SortStable(less func(a, b UpdateSMSJob) bool) UpdateSMSJobArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateSMSJob.
+func (s UpdateSMSJobArray) Retain(keep func(x UpdateSMSJob) bool) UpdateSMSJobArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateSMSJobArray) First() (v UpdateSMSJob, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateSMSJobArray) Last() (v UpdateSMSJob, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateSMSJobArray) PopFirst() (v UpdateSMSJob, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateSMSJob
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateSMSJobArray) Pop() (v UpdateSMSJob, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateQuickRepliesArray is adapter for slice of UpdateQuickReplies.
+type UpdateQuickRepliesArray []UpdateQuickReplies
+
+// Sort sorts slice of UpdateQuickReplies.
+func (s UpdateQuickRepliesArray) Sort(less func(a, b UpdateQuickReplies) bool) UpdateQuickRepliesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateQuickReplies.
+func (s UpdateQuickRepliesArray) SortStable(less func(a, b UpdateQuickReplies) bool) UpdateQuickRepliesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateQuickReplies.
+func (s UpdateQuickRepliesArray) Retain(keep func(x UpdateQuickReplies) bool) UpdateQuickRepliesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateQuickRepliesArray) First() (v UpdateQuickReplies, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateQuickRepliesArray) Last() (v UpdateQuickReplies, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateQuickRepliesArray) PopFirst() (v UpdateQuickReplies, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateQuickReplies
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateQuickRepliesArray) Pop() (v UpdateQuickReplies, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateNewQuickReplyArray is adapter for slice of UpdateNewQuickReply.
+type UpdateNewQuickReplyArray []UpdateNewQuickReply
+
+// Sort sorts slice of UpdateNewQuickReply.
+func (s UpdateNewQuickReplyArray) Sort(less func(a, b UpdateNewQuickReply) bool) UpdateNewQuickReplyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateNewQuickReply.
+func (s UpdateNewQuickReplyArray) SortStable(less func(a, b UpdateNewQuickReply) bool) UpdateNewQuickReplyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateNewQuickReply.
+func (s UpdateNewQuickReplyArray) Retain(keep func(x UpdateNewQuickReply) bool) UpdateNewQuickReplyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateNewQuickReplyArray) First() (v UpdateNewQuickReply, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateNewQuickReplyArray) Last() (v UpdateNewQuickReply, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateNewQuickReplyArray) PopFirst() (v UpdateNewQuickReply, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateNewQuickReply
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateNewQuickReplyArray) Pop() (v UpdateNewQuickReply, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateDeleteQuickReplyArray is adapter for slice of UpdateDeleteQuickReply.
+type UpdateDeleteQuickReplyArray []UpdateDeleteQuickReply
+
+// Sort sorts slice of UpdateDeleteQuickReply.
+func (s UpdateDeleteQuickReplyArray) Sort(less func(a, b UpdateDeleteQuickReply) bool) UpdateDeleteQuickReplyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateDeleteQuickReply.
+func (s UpdateDeleteQuickReplyArray) SortStable(less func(a, b UpdateDeleteQuickReply) bool) UpdateDeleteQuickReplyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateDeleteQuickReply.
+func (s UpdateDeleteQuickReplyArray) Retain(keep func(x UpdateDeleteQuickReply) bool) UpdateDeleteQuickReplyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateDeleteQuickReplyArray) First() (v UpdateDeleteQuickReply, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateDeleteQuickReplyArray) Last() (v UpdateDeleteQuickReply, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateDeleteQuickReplyArray) PopFirst() (v UpdateDeleteQuickReply, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateDeleteQuickReply
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateDeleteQuickReplyArray) Pop() (v UpdateDeleteQuickReply, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateQuickReplyMessageArray is adapter for slice of UpdateQuickReplyMessage.
+type UpdateQuickReplyMessageArray []UpdateQuickReplyMessage
+
+// Sort sorts slice of UpdateQuickReplyMessage.
+func (s UpdateQuickReplyMessageArray) Sort(less func(a, b UpdateQuickReplyMessage) bool) UpdateQuickReplyMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateQuickReplyMessage.
+func (s UpdateQuickReplyMessageArray) SortStable(less func(a, b UpdateQuickReplyMessage) bool) UpdateQuickReplyMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateQuickReplyMessage.
+func (s UpdateQuickReplyMessageArray) Retain(keep func(x UpdateQuickReplyMessage) bool) UpdateQuickReplyMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateQuickReplyMessageArray) First() (v UpdateQuickReplyMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateQuickReplyMessageArray) Last() (v UpdateQuickReplyMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateQuickReplyMessageArray) PopFirst() (v UpdateQuickReplyMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateQuickReplyMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateQuickReplyMessageArray) Pop() (v UpdateQuickReplyMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateDeleteQuickReplyMessagesArray is adapter for slice of UpdateDeleteQuickReplyMessages.
+type UpdateDeleteQuickReplyMessagesArray []UpdateDeleteQuickReplyMessages
+
+// Sort sorts slice of UpdateDeleteQuickReplyMessages.
+func (s UpdateDeleteQuickReplyMessagesArray) Sort(less func(a, b UpdateDeleteQuickReplyMessages) bool) UpdateDeleteQuickReplyMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateDeleteQuickReplyMessages.
+func (s UpdateDeleteQuickReplyMessagesArray) SortStable(less func(a, b UpdateDeleteQuickReplyMessages) bool) UpdateDeleteQuickReplyMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateDeleteQuickReplyMessages.
+func (s UpdateDeleteQuickReplyMessagesArray) Retain(keep func(x UpdateDeleteQuickReplyMessages) bool) UpdateDeleteQuickReplyMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateDeleteQuickReplyMessagesArray) First() (v UpdateDeleteQuickReplyMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateDeleteQuickReplyMessagesArray) Last() (v UpdateDeleteQuickReplyMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateDeleteQuickReplyMessagesArray) PopFirst() (v UpdateDeleteQuickReplyMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateDeleteQuickReplyMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateDeleteQuickReplyMessagesArray) Pop() (v UpdateDeleteQuickReplyMessages, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

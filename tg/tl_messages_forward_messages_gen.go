@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#c661bbc4`.
+// MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#d5039208`.
 // Forwards messages by their IDs.
 //
 // See https://core.telegram.org/method/messages.forwardMessages for reference.
@@ -81,10 +81,14 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
+	// QuickReplyShortcut field of MessagesForwardMessagesRequest.
+	//
+	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
+	QuickReplyShortcut InputQuickReplyShortcutClass
 }
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
-const MessagesForwardMessagesRequestTypeID = 0xc661bbc4
+const MessagesForwardMessagesRequestTypeID = 0xd5039208
 
 // Ensuring interfaces in compile-time for MessagesForwardMessagesRequest.
 var (
@@ -140,6 +144,9 @@ func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if !(f.SendAs == nil) {
 		return false
 	}
+	if !(f.QuickReplyShortcut == nil) {
+		return false
+	}
 
 	return true
 }
@@ -168,6 +175,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetTopMsgID() (value int, ok bool)
 	GetScheduleDate() (value int, ok bool)
 	GetSendAs() (value InputPeerClass, ok bool)
+	GetQuickReplyShortcut() (value InputQuickReplyShortcutClass, ok bool)
 }) {
 	f.Silent = from.GetSilent()
 	f.Background = from.GetBackground()
@@ -189,6 +197,10 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 
 	if val, ok := from.GetSendAs(); ok {
 		f.SendAs = val
+	}
+
+	if val, ok := from.GetQuickReplyShortcut(); ok {
+		f.QuickReplyShortcut = val
 	}
 
 }
@@ -277,6 +289,11 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 			SchemaName: "send_as",
 			Null:       !f.Flags.Has(13),
 		},
+		{
+			Name:       "QuickReplyShortcut",
+			SchemaName: "quick_reply_shortcut",
+			Null:       !f.Flags.Has(17),
+		},
 	}
 	return typ
 }
@@ -310,12 +327,15 @@ func (f *MessagesForwardMessagesRequest) SetFlags() {
 	if !(f.SendAs == nil) {
 		f.Flags.Set(13)
 	}
+	if !(f.QuickReplyShortcut == nil) {
+		f.Flags.Set(17)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#c661bbc4 as nil")
+		return fmt.Errorf("can't encode messages.forwardMessages#d5039208 as nil")
 	}
 	b.PutID(MessagesForwardMessagesRequestTypeID)
 	return f.EncodeBare(b)
@@ -324,17 +344,17 @@ func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#c661bbc4 as nil")
+		return fmt.Errorf("can't encode messages.forwardMessages#d5039208 as nil")
 	}
 	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field flags: %w", err)
 	}
 	if f.FromPeer == nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field from_peer is nil")
+		return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field from_peer is nil")
 	}
 	if err := f.FromPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field from_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field from_peer: %w", err)
 	}
 	b.PutVectorHeader(len(f.ID))
 	for _, v := range f.ID {
@@ -345,10 +365,10 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	if f.ToPeer == nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field to_peer is nil")
+		return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field to_peer is nil")
 	}
 	if err := f.ToPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field to_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field to_peer: %w", err)
 	}
 	if f.Flags.Has(9) {
 		b.PutInt(f.TopMsgID)
@@ -358,10 +378,18 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if f.Flags.Has(13) {
 		if f.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field send_as is nil")
 		}
 		if err := f.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#c661bbc4: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field send_as: %w", err)
+		}
+	}
+	if f.Flags.Has(17) {
+		if f.QuickReplyShortcut == nil {
+			return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field quick_reply_shortcut is nil")
+		}
+		if err := f.QuickReplyShortcut.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.forwardMessages#d5039208: field quick_reply_shortcut: %w", err)
 		}
 	}
 	return nil
@@ -370,10 +398,10 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forwardMessages#c661bbc4 to nil")
+		return fmt.Errorf("can't decode messages.forwardMessages#d5039208 to nil")
 	}
 	if err := b.ConsumeID(MessagesForwardMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: %w", err)
+		return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -381,11 +409,11 @@ func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forwardMessages#c661bbc4 to nil")
+		return fmt.Errorf("can't decode messages.forwardMessages#d5039208 to nil")
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field flags: %w", err)
 		}
 	}
 	f.Silent = f.Flags.Has(5)
@@ -397,14 +425,14 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field from_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field from_peer: %w", err)
 		}
 		f.FromPeer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -413,7 +441,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field id: %w", err)
+				return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field id: %w", err)
 			}
 			f.ID = append(f.ID, value)
 		}
@@ -421,7 +449,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field random_id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -430,7 +458,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field random_id: %w", err)
+				return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field random_id: %w", err)
 			}
 			f.RandomID = append(f.RandomID, value)
 		}
@@ -438,30 +466,37 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field to_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field to_peer: %w", err)
 		}
 		f.ToPeer = value
 	}
 	if f.Flags.Has(9) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field top_msg_id: %w", err)
 		}
 		f.TopMsgID = value
 	}
 	if f.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field schedule_date: %w", err)
 		}
 		f.ScheduleDate = value
 	}
 	if f.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#c661bbc4: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field send_as: %w", err)
 		}
 		f.SendAs = value
+	}
+	if f.Flags.Has(17) {
+		value, err := DecodeInputQuickReplyShortcut(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.forwardMessages#d5039208: field quick_reply_shortcut: %w", err)
+		}
+		f.QuickReplyShortcut = value
 	}
 	return nil
 }
@@ -666,7 +701,25 @@ func (f *MessagesForwardMessagesRequest) GetSendAs() (value InputPeerClass, ok b
 	return f.SendAs, true
 }
 
-// MessagesForwardMessages invokes method messages.forwardMessages#c661bbc4 returning error if any.
+// SetQuickReplyShortcut sets value of QuickReplyShortcut conditional field.
+func (f *MessagesForwardMessagesRequest) SetQuickReplyShortcut(value InputQuickReplyShortcutClass) {
+	f.Flags.Set(17)
+	f.QuickReplyShortcut = value
+}
+
+// GetQuickReplyShortcut returns value of QuickReplyShortcut conditional field and
+// boolean which is true if field was set.
+func (f *MessagesForwardMessagesRequest) GetQuickReplyShortcut() (value InputQuickReplyShortcutClass, ok bool) {
+	if f == nil {
+		return
+	}
+	if !f.Flags.Has(17) {
+		return value, false
+	}
+	return f.QuickReplyShortcut, true
+}
+
+// MessagesForwardMessages invokes method messages.forwardMessages#d5039208 returning error if any.
 // Forwards messages by their IDs.
 //
 // Possible errors:
