@@ -89,12 +89,12 @@ func splitByWords(s string) []string {
 
 // pascal converts the given name into a PascalCase.
 //
-//		user_info 	 => UserInfo
-//		full_name 	 => FullName
-//		user_id   	 => UserID
-//		full-admin	 => FullAdmin
-//	 cdnConfig    => CDNConfig
-//	 cdn_1_config => CDN1Config
+//	user_info 	 => UserInfo
+//	full_name 	 => FullName
+//	user_id   	 => UserID
+//	full-admin	 => FullAdmin
+//	cdnConfig    => CDNConfig
+//	cdn_1_config => CDN1Config
 func pascal(s string) string {
 	words := splitByWords(s)
 	return pascalWords(words)
@@ -133,7 +133,8 @@ func ruleset() *inflect.Ruleset {
 	}
 
 	aliases = map[string]string{
-		"TCPO": "TCPObfuscated",
+		"TCPO":    "TCPObfuscated",
+		"SMSJOBS": "SMSJobs",
 	}
 
 	return r
