@@ -31,13 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatFolder represents TL type `chatFolder#aa7d5740`.
+// ChatFolder represents TL type `chatFolder#65805ba5`.
 type ChatFolder struct {
 	// The title of the folder; 1-12 characters without line feeds
 	Title string
 	// The chosen icon for the chat folder; may be null. If null, use
 	// getChatFolderDefaultIconName to get default icon name for the folder
 	Icon ChatFolderIcon
+	// The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then
+	// color is didabled
+	ColorID int32
 	// True, if at least one link has been created for the folder
 	IsShareable bool
 	// The chat identifiers of pinned chats in the folder. There can be up to
@@ -73,7 +76,7 @@ type ChatFolder struct {
 }
 
 // ChatFolderTypeID is TL type id of ChatFolder.
-const ChatFolderTypeID = 0xaa7d5740
+const ChatFolderTypeID = 0x65805ba5
 
 // Ensuring interfaces in compile-time for ChatFolder.
 var (
@@ -91,6 +94,9 @@ func (c *ChatFolder) Zero() bool {
 		return false
 	}
 	if !(c.Icon.Zero()) {
+		return false
+	}
+	if !(c.ColorID == 0) {
 		return false
 	}
 	if !(c.IsShareable == false) {
@@ -174,6 +180,10 @@ func (c *ChatFolder) TypeInfo() tdp.Type {
 			SchemaName: "icon",
 		},
 		{
+			Name:       "ColorID",
+			SchemaName: "color_id",
+		},
+		{
 			Name:       "IsShareable",
 			SchemaName: "is_shareable",
 		},
@@ -228,7 +238,7 @@ func (c *ChatFolder) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatFolder) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFolder#aa7d5740 as nil")
+		return fmt.Errorf("can't encode chatFolder#65805ba5 as nil")
 	}
 	b.PutID(ChatFolderTypeID)
 	return c.EncodeBare(b)
@@ -237,12 +247,13 @@ func (c *ChatFolder) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatFolder) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFolder#aa7d5740 as nil")
+		return fmt.Errorf("can't encode chatFolder#65805ba5 as nil")
 	}
 	b.PutString(c.Title)
 	if err := c.Icon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatFolder#aa7d5740: field icon: %w", err)
+		return fmt.Errorf("unable to encode chatFolder#65805ba5: field icon: %w", err)
 	}
+	b.PutInt32(c.ColorID)
 	b.PutBool(c.IsShareable)
 	b.PutInt(len(c.PinnedChatIDs))
 	for _, v := range c.PinnedChatIDs {
@@ -270,10 +281,10 @@ func (c *ChatFolder) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatFolder) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFolder#aa7d5740 to nil")
+		return fmt.Errorf("can't decode chatFolder#65805ba5 to nil")
 	}
 	if err := b.ConsumeID(ChatFolderTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatFolder#aa7d5740: %w", err)
+		return fmt.Errorf("unable to decode chatFolder#65805ba5: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -281,31 +292,38 @@ func (c *ChatFolder) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFolder#aa7d5740 to nil")
+		return fmt.Errorf("can't decode chatFolder#65805ba5 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field title: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		if err := c.Icon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field icon: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field icon: %w", err)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field color_id: %w", err)
+		}
+		c.ColorID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field is_shareable: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field is_shareable: %w", err)
 		}
 		c.IsShareable = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field pinned_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -314,7 +332,7 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field pinned_chat_ids: %w", err)
 			}
 			c.PinnedChatIDs = append(c.PinnedChatIDs, value)
 		}
@@ -322,7 +340,7 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field included_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -331,7 +349,7 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field included_chat_ids: %w", err)
 			}
 			c.IncludedChatIDs = append(c.IncludedChatIDs, value)
 		}
@@ -339,7 +357,7 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field excluded_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -348,7 +366,7 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field excluded_chat_ids: %w", err)
 			}
 			c.ExcludedChatIDs = append(c.ExcludedChatIDs, value)
 		}
@@ -356,56 +374,56 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_muted: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field exclude_muted: %w", err)
 		}
 		c.ExcludeMuted = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_read: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field exclude_read: %w", err)
 		}
 		c.ExcludeRead = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_archived: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field exclude_archived: %w", err)
 		}
 		c.ExcludeArchived = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_contacts: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_contacts: %w", err)
 		}
 		c.IncludeContacts = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_non_contacts: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_non_contacts: %w", err)
 		}
 		c.IncludeNonContacts = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_bots: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_bots: %w", err)
 		}
 		c.IncludeBots = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_groups: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_groups: %w", err)
 		}
 		c.IncludeGroups = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_channels: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_channels: %w", err)
 		}
 		c.IncludeChannels = value
 	}
@@ -415,7 +433,7 @@ func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatFolder) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFolder#aa7d5740 as nil")
+		return fmt.Errorf("can't encode chatFolder#65805ba5 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatFolder")
@@ -425,8 +443,11 @@ func (c *ChatFolder) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("icon")
 	if err := c.Icon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatFolder#aa7d5740: field icon: %w", err)
+		return fmt.Errorf("unable to encode chatFolder#65805ba5: field icon: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("color_id")
+	b.PutInt32(c.ColorID)
 	b.Comma()
 	b.FieldStart("is_shareable")
 	b.PutBool(c.IsShareable)
@@ -490,110 +511,116 @@ func (c *ChatFolder) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatFolder) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFolder#aa7d5740 to nil")
+		return fmt.Errorf("can't decode chatFolder#65805ba5 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatFolder"); err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field title: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field title: %w", err)
 			}
 			c.Title = value
 		case "icon":
 			if err := c.Icon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field icon: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field icon: %w", err)
 			}
+		case "color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field color_id: %w", err)
+			}
+			c.ColorID = value
 		case "is_shareable":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field is_shareable: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field is_shareable: %w", err)
 			}
 			c.IsShareable = value
 		case "pinned_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode chatFolder#65805ba5: field pinned_chat_ids: %w", err)
 				}
 				c.PinnedChatIDs = append(c.PinnedChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field pinned_chat_ids: %w", err)
 			}
 		case "included_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode chatFolder#65805ba5: field included_chat_ids: %w", err)
 				}
 				c.IncludedChatIDs = append(c.IncludedChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field included_chat_ids: %w", err)
 			}
 		case "excluded_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode chatFolder#65805ba5: field excluded_chat_ids: %w", err)
 				}
 				c.ExcludedChatIDs = append(c.ExcludedChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field excluded_chat_ids: %w", err)
 			}
 		case "exclude_muted":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_muted: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field exclude_muted: %w", err)
 			}
 			c.ExcludeMuted = value
 		case "exclude_read":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_read: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field exclude_read: %w", err)
 			}
 			c.ExcludeRead = value
 		case "exclude_archived":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_archived: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field exclude_archived: %w", err)
 			}
 			c.ExcludeArchived = value
 		case "include_contacts":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_contacts: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_contacts: %w", err)
 			}
 			c.IncludeContacts = value
 		case "include_non_contacts":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_non_contacts: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_non_contacts: %w", err)
 			}
 			c.IncludeNonContacts = value
 		case "include_bots":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_bots: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_bots: %w", err)
 			}
 			c.IncludeBots = value
 		case "include_groups":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_groups: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_groups: %w", err)
 			}
 			c.IncludeGroups = value
 		case "include_channels":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_channels: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#65805ba5: field include_channels: %w", err)
 			}
 			c.IncludeChannels = value
 		default:
@@ -617,6 +644,14 @@ func (c *ChatFolder) GetIcon() (value ChatFolderIcon) {
 		return
 	}
 	return c.Icon
+}
+
+// GetColorID returns value of ColorID field.
+func (c *ChatFolder) GetColorID() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.ColorID
 }
 
 // GetIsShareable returns value of IsShareable field.
