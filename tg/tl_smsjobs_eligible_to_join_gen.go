@@ -31,28 +31,28 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsEligibleToJoin represents TL type `smsjobs.eligibleToJoin#dc8b44cf`.
+// SMSJobsEligibleToJoin represents TL type `smsjobs.eligibleToJoin#dc8b44cf`.
 //
 // See https://core.telegram.org/constructor/smsjobs.eligibleToJoin for reference.
-type SmsjobsEligibleToJoin struct {
-	// TermsURL field of SmsjobsEligibleToJoin.
+type SMSJobsEligibleToJoin struct {
+	// TermsURL field of SMSJobsEligibleToJoin.
 	TermsURL string
-	// MonthlySentSMS field of SmsjobsEligibleToJoin.
+	// MonthlySentSMS field of SMSJobsEligibleToJoin.
 	MonthlySentSMS int
 }
 
-// SmsjobsEligibleToJoinTypeID is TL type id of SmsjobsEligibleToJoin.
-const SmsjobsEligibleToJoinTypeID = 0xdc8b44cf
+// SMSJobsEligibleToJoinTypeID is TL type id of SMSJobsEligibleToJoin.
+const SMSJobsEligibleToJoinTypeID = 0xdc8b44cf
 
-// Ensuring interfaces in compile-time for SmsjobsEligibleToJoin.
+// Ensuring interfaces in compile-time for SMSJobsEligibleToJoin.
 var (
-	_ bin.Encoder     = &SmsjobsEligibleToJoin{}
-	_ bin.Decoder     = &SmsjobsEligibleToJoin{}
-	_ bin.BareEncoder = &SmsjobsEligibleToJoin{}
-	_ bin.BareDecoder = &SmsjobsEligibleToJoin{}
+	_ bin.Encoder     = &SMSJobsEligibleToJoin{}
+	_ bin.Decoder     = &SMSJobsEligibleToJoin{}
+	_ bin.BareEncoder = &SMSJobsEligibleToJoin{}
+	_ bin.BareDecoder = &SMSJobsEligibleToJoin{}
 )
 
-func (e *SmsjobsEligibleToJoin) Zero() bool {
+func (e *SMSJobsEligibleToJoin) Zero() bool {
 	if e == nil {
 		return true
 	}
@@ -67,16 +67,16 @@ func (e *SmsjobsEligibleToJoin) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (e *SmsjobsEligibleToJoin) String() string {
+func (e *SMSJobsEligibleToJoin) String() string {
 	if e == nil {
-		return "SmsjobsEligibleToJoin(nil)"
+		return "SMSJobsEligibleToJoin(nil)"
 	}
-	type Alias SmsjobsEligibleToJoin
-	return fmt.Sprintf("SmsjobsEligibleToJoin%+v", Alias(*e))
+	type Alias SMSJobsEligibleToJoin
+	return fmt.Sprintf("SMSJobsEligibleToJoin%+v", Alias(*e))
 }
 
-// FillFrom fills SmsjobsEligibleToJoin from given interface.
-func (e *SmsjobsEligibleToJoin) FillFrom(from interface {
+// FillFrom fills SMSJobsEligibleToJoin from given interface.
+func (e *SMSJobsEligibleToJoin) FillFrom(from interface {
 	GetTermsURL() (value string)
 	GetMonthlySentSMS() (value int)
 }) {
@@ -87,20 +87,20 @@ func (e *SmsjobsEligibleToJoin) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsEligibleToJoin) TypeID() uint32 {
-	return SmsjobsEligibleToJoinTypeID
+func (*SMSJobsEligibleToJoin) TypeID() uint32 {
+	return SMSJobsEligibleToJoinTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsEligibleToJoin) TypeName() string {
+func (*SMSJobsEligibleToJoin) TypeName() string {
 	return "smsjobs.eligibleToJoin"
 }
 
 // TypeInfo returns info about TL type.
-func (e *SmsjobsEligibleToJoin) TypeInfo() tdp.Type {
+func (e *SMSJobsEligibleToJoin) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.eligibleToJoin",
-		ID:   SmsjobsEligibleToJoinTypeID,
+		ID:   SMSJobsEligibleToJoinTypeID,
 	}
 	if e == nil {
 		typ.Null = true
@@ -120,16 +120,16 @@ func (e *SmsjobsEligibleToJoin) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (e *SmsjobsEligibleToJoin) Encode(b *bin.Buffer) error {
+func (e *SMSJobsEligibleToJoin) Encode(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode smsjobs.eligibleToJoin#dc8b44cf as nil")
 	}
-	b.PutID(SmsjobsEligibleToJoinTypeID)
+	b.PutID(SMSJobsEligibleToJoinTypeID)
 	return e.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (e *SmsjobsEligibleToJoin) EncodeBare(b *bin.Buffer) error {
+func (e *SMSJobsEligibleToJoin) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode smsjobs.eligibleToJoin#dc8b44cf as nil")
 	}
@@ -139,18 +139,18 @@ func (e *SmsjobsEligibleToJoin) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (e *SmsjobsEligibleToJoin) Decode(b *bin.Buffer) error {
+func (e *SMSJobsEligibleToJoin) Decode(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't decode smsjobs.eligibleToJoin#dc8b44cf to nil")
 	}
-	if err := b.ConsumeID(SmsjobsEligibleToJoinTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsEligibleToJoinTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.eligibleToJoin#dc8b44cf: %w", err)
 	}
 	return e.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (e *SmsjobsEligibleToJoin) DecodeBare(b *bin.Buffer) error {
+func (e *SMSJobsEligibleToJoin) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't decode smsjobs.eligibleToJoin#dc8b44cf to nil")
 	}
@@ -172,7 +172,7 @@ func (e *SmsjobsEligibleToJoin) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetTermsURL returns value of TermsURL field.
-func (e *SmsjobsEligibleToJoin) GetTermsURL() (value string) {
+func (e *SMSJobsEligibleToJoin) GetTermsURL() (value string) {
 	if e == nil {
 		return
 	}
@@ -180,7 +180,7 @@ func (e *SmsjobsEligibleToJoin) GetTermsURL() (value string) {
 }
 
 // GetMonthlySentSMS returns value of MonthlySentSMS field.
-func (e *SmsjobsEligibleToJoin) GetMonthlySentSMS() (value int) {
+func (e *SMSJobsEligibleToJoin) GetMonthlySentSMS() (value int) {
 	if e == nil {
 		return
 	}

@@ -31,28 +31,28 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsUpdateSettingsRequest represents TL type `smsjobs.updateSettings#93fa0bf`.
+// SMSJobsUpdateSettingsRequest represents TL type `smsjobs.updateSettings#93fa0bf`.
 //
 // See https://core.telegram.org/method/smsjobs.updateSettings for reference.
-type SmsjobsUpdateSettingsRequest struct {
-	// Flags field of SmsjobsUpdateSettingsRequest.
+type SMSJobsUpdateSettingsRequest struct {
+	// Flags field of SMSJobsUpdateSettingsRequest.
 	Flags bin.Fields
-	// AllowInternational field of SmsjobsUpdateSettingsRequest.
+	// AllowInternational field of SMSJobsUpdateSettingsRequest.
 	AllowInternational bool
 }
 
-// SmsjobsUpdateSettingsRequestTypeID is TL type id of SmsjobsUpdateSettingsRequest.
-const SmsjobsUpdateSettingsRequestTypeID = 0x93fa0bf
+// SMSJobsUpdateSettingsRequestTypeID is TL type id of SMSJobsUpdateSettingsRequest.
+const SMSJobsUpdateSettingsRequestTypeID = 0x93fa0bf
 
-// Ensuring interfaces in compile-time for SmsjobsUpdateSettingsRequest.
+// Ensuring interfaces in compile-time for SMSJobsUpdateSettingsRequest.
 var (
-	_ bin.Encoder     = &SmsjobsUpdateSettingsRequest{}
-	_ bin.Decoder     = &SmsjobsUpdateSettingsRequest{}
-	_ bin.BareEncoder = &SmsjobsUpdateSettingsRequest{}
-	_ bin.BareDecoder = &SmsjobsUpdateSettingsRequest{}
+	_ bin.Encoder     = &SMSJobsUpdateSettingsRequest{}
+	_ bin.Decoder     = &SMSJobsUpdateSettingsRequest{}
+	_ bin.BareEncoder = &SMSJobsUpdateSettingsRequest{}
+	_ bin.BareDecoder = &SMSJobsUpdateSettingsRequest{}
 )
 
-func (u *SmsjobsUpdateSettingsRequest) Zero() bool {
+func (u *SMSJobsUpdateSettingsRequest) Zero() bool {
 	if u == nil {
 		return true
 	}
@@ -67,16 +67,16 @@ func (u *SmsjobsUpdateSettingsRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *SmsjobsUpdateSettingsRequest) String() string {
+func (u *SMSJobsUpdateSettingsRequest) String() string {
 	if u == nil {
-		return "SmsjobsUpdateSettingsRequest(nil)"
+		return "SMSJobsUpdateSettingsRequest(nil)"
 	}
-	type Alias SmsjobsUpdateSettingsRequest
-	return fmt.Sprintf("SmsjobsUpdateSettingsRequest%+v", Alias(*u))
+	type Alias SMSJobsUpdateSettingsRequest
+	return fmt.Sprintf("SMSJobsUpdateSettingsRequest%+v", Alias(*u))
 }
 
-// FillFrom fills SmsjobsUpdateSettingsRequest from given interface.
-func (u *SmsjobsUpdateSettingsRequest) FillFrom(from interface {
+// FillFrom fills SMSJobsUpdateSettingsRequest from given interface.
+func (u *SMSJobsUpdateSettingsRequest) FillFrom(from interface {
 	GetAllowInternational() (value bool)
 }) {
 	u.AllowInternational = from.GetAllowInternational()
@@ -85,20 +85,20 @@ func (u *SmsjobsUpdateSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsUpdateSettingsRequest) TypeID() uint32 {
-	return SmsjobsUpdateSettingsRequestTypeID
+func (*SMSJobsUpdateSettingsRequest) TypeID() uint32 {
+	return SMSJobsUpdateSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsUpdateSettingsRequest) TypeName() string {
+func (*SMSJobsUpdateSettingsRequest) TypeName() string {
 	return "smsjobs.updateSettings"
 }
 
 // TypeInfo returns info about TL type.
-func (u *SmsjobsUpdateSettingsRequest) TypeInfo() tdp.Type {
+func (u *SMSJobsUpdateSettingsRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.updateSettings",
-		ID:   SmsjobsUpdateSettingsRequestTypeID,
+		ID:   SMSJobsUpdateSettingsRequestTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -115,23 +115,23 @@ func (u *SmsjobsUpdateSettingsRequest) TypeInfo() tdp.Type {
 }
 
 // SetFlags sets flags for non-zero fields.
-func (u *SmsjobsUpdateSettingsRequest) SetFlags() {
+func (u *SMSJobsUpdateSettingsRequest) SetFlags() {
 	if !(u.AllowInternational == false) {
 		u.Flags.Set(0)
 	}
 }
 
 // Encode implements bin.Encoder.
-func (u *SmsjobsUpdateSettingsRequest) Encode(b *bin.Buffer) error {
+func (u *SMSJobsUpdateSettingsRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode smsjobs.updateSettings#93fa0bf as nil")
 	}
-	b.PutID(SmsjobsUpdateSettingsRequestTypeID)
+	b.PutID(SMSJobsUpdateSettingsRequestTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *SmsjobsUpdateSettingsRequest) EncodeBare(b *bin.Buffer) error {
+func (u *SMSJobsUpdateSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode smsjobs.updateSettings#93fa0bf as nil")
 	}
@@ -143,18 +143,18 @@ func (u *SmsjobsUpdateSettingsRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (u *SmsjobsUpdateSettingsRequest) Decode(b *bin.Buffer) error {
+func (u *SMSJobsUpdateSettingsRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode smsjobs.updateSettings#93fa0bf to nil")
 	}
-	if err := b.ConsumeID(SmsjobsUpdateSettingsRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsUpdateSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.updateSettings#93fa0bf: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *SmsjobsUpdateSettingsRequest) DecodeBare(b *bin.Buffer) error {
+func (u *SMSJobsUpdateSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode smsjobs.updateSettings#93fa0bf to nil")
 	}
@@ -168,7 +168,7 @@ func (u *SmsjobsUpdateSettingsRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // SetAllowInternational sets value of AllowInternational conditional field.
-func (u *SmsjobsUpdateSettingsRequest) SetAllowInternational(value bool) {
+func (u *SMSJobsUpdateSettingsRequest) SetAllowInternational(value bool) {
 	if value {
 		u.Flags.Set(0)
 		u.AllowInternational = true
@@ -179,17 +179,17 @@ func (u *SmsjobsUpdateSettingsRequest) SetAllowInternational(value bool) {
 }
 
 // GetAllowInternational returns value of AllowInternational conditional field.
-func (u *SmsjobsUpdateSettingsRequest) GetAllowInternational() (value bool) {
+func (u *SMSJobsUpdateSettingsRequest) GetAllowInternational() (value bool) {
 	if u == nil {
 		return
 	}
 	return u.Flags.Has(0)
 }
 
-// SmsjobsUpdateSettings invokes method smsjobs.updateSettings#93fa0bf returning error if any.
+// SMSJobsUpdateSettings invokes method smsjobs.updateSettings#93fa0bf returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.updateSettings for reference.
-func (c *Client) SmsjobsUpdateSettings(ctx context.Context, request *SmsjobsUpdateSettingsRequest) (bool, error) {
+func (c *Client) SMSJobsUpdateSettings(ctx context.Context, request *SMSJobsUpdateSettingsRequest) (bool, error) {
 	var result BoolBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {

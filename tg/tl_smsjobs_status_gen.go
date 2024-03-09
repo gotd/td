@@ -31,44 +31,44 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsStatus represents TL type `smsjobs.status#2aee9191`.
+// SMSJobsStatus represents TL type `smsjobs.status#2aee9191`.
 //
 // See https://core.telegram.org/constructor/smsjobs.status for reference.
-type SmsjobsStatus struct {
-	// Flags field of SmsjobsStatus.
+type SMSJobsStatus struct {
+	// Flags field of SMSJobsStatus.
 	Flags bin.Fields
-	// AllowInternational field of SmsjobsStatus.
+	// AllowInternational field of SMSJobsStatus.
 	AllowInternational bool
-	// RecentSent field of SmsjobsStatus.
+	// RecentSent field of SMSJobsStatus.
 	RecentSent int
-	// RecentSince field of SmsjobsStatus.
+	// RecentSince field of SMSJobsStatus.
 	RecentSince int
-	// RecentRemains field of SmsjobsStatus.
+	// RecentRemains field of SMSJobsStatus.
 	RecentRemains int
-	// TotalSent field of SmsjobsStatus.
+	// TotalSent field of SMSJobsStatus.
 	TotalSent int
-	// TotalSince field of SmsjobsStatus.
+	// TotalSince field of SMSJobsStatus.
 	TotalSince int
-	// LastGiftSlug field of SmsjobsStatus.
+	// LastGiftSlug field of SMSJobsStatus.
 	//
 	// Use SetLastGiftSlug and GetLastGiftSlug helpers.
 	LastGiftSlug string
-	// TermsURL field of SmsjobsStatus.
+	// TermsURL field of SMSJobsStatus.
 	TermsURL string
 }
 
-// SmsjobsStatusTypeID is TL type id of SmsjobsStatus.
-const SmsjobsStatusTypeID = 0x2aee9191
+// SMSJobsStatusTypeID is TL type id of SMSJobsStatus.
+const SMSJobsStatusTypeID = 0x2aee9191
 
-// Ensuring interfaces in compile-time for SmsjobsStatus.
+// Ensuring interfaces in compile-time for SMSJobsStatus.
 var (
-	_ bin.Encoder     = &SmsjobsStatus{}
-	_ bin.Decoder     = &SmsjobsStatus{}
-	_ bin.BareEncoder = &SmsjobsStatus{}
-	_ bin.BareDecoder = &SmsjobsStatus{}
+	_ bin.Encoder     = &SMSJobsStatus{}
+	_ bin.Decoder     = &SMSJobsStatus{}
+	_ bin.BareEncoder = &SMSJobsStatus{}
+	_ bin.BareDecoder = &SMSJobsStatus{}
 )
 
-func (s *SmsjobsStatus) Zero() bool {
+func (s *SMSJobsStatus) Zero() bool {
 	if s == nil {
 		return true
 	}
@@ -104,16 +104,16 @@ func (s *SmsjobsStatus) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (s *SmsjobsStatus) String() string {
+func (s *SMSJobsStatus) String() string {
 	if s == nil {
-		return "SmsjobsStatus(nil)"
+		return "SMSJobsStatus(nil)"
 	}
-	type Alias SmsjobsStatus
-	return fmt.Sprintf("SmsjobsStatus%+v", Alias(*s))
+	type Alias SMSJobsStatus
+	return fmt.Sprintf("SMSJobsStatus%+v", Alias(*s))
 }
 
-// FillFrom fills SmsjobsStatus from given interface.
-func (s *SmsjobsStatus) FillFrom(from interface {
+// FillFrom fills SMSJobsStatus from given interface.
+func (s *SMSJobsStatus) FillFrom(from interface {
 	GetAllowInternational() (value bool)
 	GetRecentSent() (value int)
 	GetRecentSince() (value int)
@@ -139,20 +139,20 @@ func (s *SmsjobsStatus) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsStatus) TypeID() uint32 {
-	return SmsjobsStatusTypeID
+func (*SMSJobsStatus) TypeID() uint32 {
+	return SMSJobsStatusTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsStatus) TypeName() string {
+func (*SMSJobsStatus) TypeName() string {
 	return "smsjobs.status"
 }
 
 // TypeInfo returns info about TL type.
-func (s *SmsjobsStatus) TypeInfo() tdp.Type {
+func (s *SMSJobsStatus) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.status",
-		ID:   SmsjobsStatusTypeID,
+		ID:   SMSJobsStatusTypeID,
 	}
 	if s == nil {
 		typ.Null = true
@@ -198,7 +198,7 @@ func (s *SmsjobsStatus) TypeInfo() tdp.Type {
 }
 
 // SetFlags sets flags for non-zero fields.
-func (s *SmsjobsStatus) SetFlags() {
+func (s *SMSJobsStatus) SetFlags() {
 	if !(s.AllowInternational == false) {
 		s.Flags.Set(0)
 	}
@@ -208,16 +208,16 @@ func (s *SmsjobsStatus) SetFlags() {
 }
 
 // Encode implements bin.Encoder.
-func (s *SmsjobsStatus) Encode(b *bin.Buffer) error {
+func (s *SMSJobsStatus) Encode(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode smsjobs.status#2aee9191 as nil")
 	}
-	b.PutID(SmsjobsStatusTypeID)
+	b.PutID(SMSJobsStatusTypeID)
 	return s.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (s *SmsjobsStatus) EncodeBare(b *bin.Buffer) error {
+func (s *SMSJobsStatus) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode smsjobs.status#2aee9191 as nil")
 	}
@@ -238,18 +238,18 @@ func (s *SmsjobsStatus) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (s *SmsjobsStatus) Decode(b *bin.Buffer) error {
+func (s *SMSJobsStatus) Decode(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode smsjobs.status#2aee9191 to nil")
 	}
-	if err := b.ConsumeID(SmsjobsStatusTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsStatusTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.status#2aee9191: %w", err)
 	}
 	return s.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (s *SmsjobsStatus) DecodeBare(b *bin.Buffer) error {
+func (s *SMSJobsStatus) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode smsjobs.status#2aee9191 to nil")
 	}
@@ -312,7 +312,7 @@ func (s *SmsjobsStatus) DecodeBare(b *bin.Buffer) error {
 }
 
 // SetAllowInternational sets value of AllowInternational conditional field.
-func (s *SmsjobsStatus) SetAllowInternational(value bool) {
+func (s *SMSJobsStatus) SetAllowInternational(value bool) {
 	if value {
 		s.Flags.Set(0)
 		s.AllowInternational = true
@@ -323,7 +323,7 @@ func (s *SmsjobsStatus) SetAllowInternational(value bool) {
 }
 
 // GetAllowInternational returns value of AllowInternational conditional field.
-func (s *SmsjobsStatus) GetAllowInternational() (value bool) {
+func (s *SMSJobsStatus) GetAllowInternational() (value bool) {
 	if s == nil {
 		return
 	}
@@ -331,7 +331,7 @@ func (s *SmsjobsStatus) GetAllowInternational() (value bool) {
 }
 
 // GetRecentSent returns value of RecentSent field.
-func (s *SmsjobsStatus) GetRecentSent() (value int) {
+func (s *SMSJobsStatus) GetRecentSent() (value int) {
 	if s == nil {
 		return
 	}
@@ -339,7 +339,7 @@ func (s *SmsjobsStatus) GetRecentSent() (value int) {
 }
 
 // GetRecentSince returns value of RecentSince field.
-func (s *SmsjobsStatus) GetRecentSince() (value int) {
+func (s *SMSJobsStatus) GetRecentSince() (value int) {
 	if s == nil {
 		return
 	}
@@ -347,7 +347,7 @@ func (s *SmsjobsStatus) GetRecentSince() (value int) {
 }
 
 // GetRecentRemains returns value of RecentRemains field.
-func (s *SmsjobsStatus) GetRecentRemains() (value int) {
+func (s *SMSJobsStatus) GetRecentRemains() (value int) {
 	if s == nil {
 		return
 	}
@@ -355,7 +355,7 @@ func (s *SmsjobsStatus) GetRecentRemains() (value int) {
 }
 
 // GetTotalSent returns value of TotalSent field.
-func (s *SmsjobsStatus) GetTotalSent() (value int) {
+func (s *SMSJobsStatus) GetTotalSent() (value int) {
 	if s == nil {
 		return
 	}
@@ -363,7 +363,7 @@ func (s *SmsjobsStatus) GetTotalSent() (value int) {
 }
 
 // GetTotalSince returns value of TotalSince field.
-func (s *SmsjobsStatus) GetTotalSince() (value int) {
+func (s *SMSJobsStatus) GetTotalSince() (value int) {
 	if s == nil {
 		return
 	}
@@ -371,14 +371,14 @@ func (s *SmsjobsStatus) GetTotalSince() (value int) {
 }
 
 // SetLastGiftSlug sets value of LastGiftSlug conditional field.
-func (s *SmsjobsStatus) SetLastGiftSlug(value string) {
+func (s *SMSJobsStatus) SetLastGiftSlug(value string) {
 	s.Flags.Set(1)
 	s.LastGiftSlug = value
 }
 
 // GetLastGiftSlug returns value of LastGiftSlug conditional field and
 // boolean which is true if field was set.
-func (s *SmsjobsStatus) GetLastGiftSlug() (value string, ok bool) {
+func (s *SMSJobsStatus) GetLastGiftSlug() (value string, ok bool) {
 	if s == nil {
 		return
 	}
@@ -389,7 +389,7 @@ func (s *SmsjobsStatus) GetLastGiftSlug() (value string, ok bool) {
 }
 
 // GetTermsURL returns value of TermsURL field.
-func (s *SmsjobsStatus) GetTermsURL() (value string) {
+func (s *SMSJobsStatus) GetTermsURL() (value string) {
 	if s == nil {
 		return
 	}

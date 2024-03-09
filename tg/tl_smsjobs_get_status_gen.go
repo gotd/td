@@ -31,24 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsGetStatusRequest represents TL type `smsjobs.getStatus#10a698e8`.
+// SMSJobsGetStatusRequest represents TL type `smsjobs.getStatus#10a698e8`.
 //
 // See https://core.telegram.org/method/smsjobs.getStatus for reference.
-type SmsjobsGetStatusRequest struct {
+type SMSJobsGetStatusRequest struct {
 }
 
-// SmsjobsGetStatusRequestTypeID is TL type id of SmsjobsGetStatusRequest.
-const SmsjobsGetStatusRequestTypeID = 0x10a698e8
+// SMSJobsGetStatusRequestTypeID is TL type id of SMSJobsGetStatusRequest.
+const SMSJobsGetStatusRequestTypeID = 0x10a698e8
 
-// Ensuring interfaces in compile-time for SmsjobsGetStatusRequest.
+// Ensuring interfaces in compile-time for SMSJobsGetStatusRequest.
 var (
-	_ bin.Encoder     = &SmsjobsGetStatusRequest{}
-	_ bin.Decoder     = &SmsjobsGetStatusRequest{}
-	_ bin.BareEncoder = &SmsjobsGetStatusRequest{}
-	_ bin.BareDecoder = &SmsjobsGetStatusRequest{}
+	_ bin.Encoder     = &SMSJobsGetStatusRequest{}
+	_ bin.Decoder     = &SMSJobsGetStatusRequest{}
+	_ bin.BareEncoder = &SMSJobsGetStatusRequest{}
+	_ bin.BareDecoder = &SMSJobsGetStatusRequest{}
 )
 
-func (g *SmsjobsGetStatusRequest) Zero() bool {
+func (g *SMSJobsGetStatusRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
@@ -57,31 +57,31 @@ func (g *SmsjobsGetStatusRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (g *SmsjobsGetStatusRequest) String() string {
+func (g *SMSJobsGetStatusRequest) String() string {
 	if g == nil {
-		return "SmsjobsGetStatusRequest(nil)"
+		return "SMSJobsGetStatusRequest(nil)"
 	}
-	type Alias SmsjobsGetStatusRequest
-	return fmt.Sprintf("SmsjobsGetStatusRequest%+v", Alias(*g))
+	type Alias SMSJobsGetStatusRequest
+	return fmt.Sprintf("SMSJobsGetStatusRequest%+v", Alias(*g))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsGetStatusRequest) TypeID() uint32 {
-	return SmsjobsGetStatusRequestTypeID
+func (*SMSJobsGetStatusRequest) TypeID() uint32 {
+	return SMSJobsGetStatusRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsGetStatusRequest) TypeName() string {
+func (*SMSJobsGetStatusRequest) TypeName() string {
 	return "smsjobs.getStatus"
 }
 
 // TypeInfo returns info about TL type.
-func (g *SmsjobsGetStatusRequest) TypeInfo() tdp.Type {
+func (g *SMSJobsGetStatusRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.getStatus",
-		ID:   SmsjobsGetStatusRequestTypeID,
+		ID:   SMSJobsGetStatusRequestTypeID,
 	}
 	if g == nil {
 		typ.Null = true
@@ -92,16 +92,16 @@ func (g *SmsjobsGetStatusRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (g *SmsjobsGetStatusRequest) Encode(b *bin.Buffer) error {
+func (g *SMSJobsGetStatusRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode smsjobs.getStatus#10a698e8 as nil")
 	}
-	b.PutID(SmsjobsGetStatusRequestTypeID)
+	b.PutID(SMSJobsGetStatusRequestTypeID)
 	return g.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (g *SmsjobsGetStatusRequest) EncodeBare(b *bin.Buffer) error {
+func (g *SMSJobsGetStatusRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode smsjobs.getStatus#10a698e8 as nil")
 	}
@@ -109,31 +109,31 @@ func (g *SmsjobsGetStatusRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (g *SmsjobsGetStatusRequest) Decode(b *bin.Buffer) error {
+func (g *SMSJobsGetStatusRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode smsjobs.getStatus#10a698e8 to nil")
 	}
-	if err := b.ConsumeID(SmsjobsGetStatusRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsGetStatusRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.getStatus#10a698e8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (g *SmsjobsGetStatusRequest) DecodeBare(b *bin.Buffer) error {
+func (g *SMSJobsGetStatusRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode smsjobs.getStatus#10a698e8 to nil")
 	}
 	return nil
 }
 
-// SmsjobsGetStatus invokes method smsjobs.getStatus#10a698e8 returning error if any.
+// SMSJobsGetStatus invokes method smsjobs.getStatus#10a698e8 returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.getStatus for reference.
-func (c *Client) SmsjobsGetStatus(ctx context.Context) (*SmsjobsStatus, error) {
-	var result SmsjobsStatus
+func (c *Client) SMSJobsGetStatus(ctx context.Context) (*SMSJobsStatus, error) {
+	var result SMSJobsStatus
 
-	request := &SmsjobsGetStatusRequest{}
+	request := &SMSJobsGetStatusRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

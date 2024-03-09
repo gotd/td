@@ -31,26 +31,26 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsGetSMSJobRequest represents TL type `smsjobs.getSmsJob#778d902f`.
+// SMSJobsGetSMSJobRequest represents TL type `smsjobs.getSmsJob#778d902f`.
 //
 // See https://core.telegram.org/method/smsjobs.getSmsJob for reference.
-type SmsjobsGetSMSJobRequest struct {
-	// JobID field of SmsjobsGetSMSJobRequest.
+type SMSJobsGetSMSJobRequest struct {
+	// JobID field of SMSJobsGetSMSJobRequest.
 	JobID string
 }
 
-// SmsjobsGetSMSJobRequestTypeID is TL type id of SmsjobsGetSMSJobRequest.
-const SmsjobsGetSMSJobRequestTypeID = 0x778d902f
+// SMSJobsGetSMSJobRequestTypeID is TL type id of SMSJobsGetSMSJobRequest.
+const SMSJobsGetSMSJobRequestTypeID = 0x778d902f
 
-// Ensuring interfaces in compile-time for SmsjobsGetSMSJobRequest.
+// Ensuring interfaces in compile-time for SMSJobsGetSMSJobRequest.
 var (
-	_ bin.Encoder     = &SmsjobsGetSMSJobRequest{}
-	_ bin.Decoder     = &SmsjobsGetSMSJobRequest{}
-	_ bin.BareEncoder = &SmsjobsGetSMSJobRequest{}
-	_ bin.BareDecoder = &SmsjobsGetSMSJobRequest{}
+	_ bin.Encoder     = &SMSJobsGetSMSJobRequest{}
+	_ bin.Decoder     = &SMSJobsGetSMSJobRequest{}
+	_ bin.BareEncoder = &SMSJobsGetSMSJobRequest{}
+	_ bin.BareDecoder = &SMSJobsGetSMSJobRequest{}
 )
 
-func (g *SmsjobsGetSMSJobRequest) Zero() bool {
+func (g *SMSJobsGetSMSJobRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
@@ -62,16 +62,16 @@ func (g *SmsjobsGetSMSJobRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (g *SmsjobsGetSMSJobRequest) String() string {
+func (g *SMSJobsGetSMSJobRequest) String() string {
 	if g == nil {
-		return "SmsjobsGetSMSJobRequest(nil)"
+		return "SMSJobsGetSMSJobRequest(nil)"
 	}
-	type Alias SmsjobsGetSMSJobRequest
-	return fmt.Sprintf("SmsjobsGetSMSJobRequest%+v", Alias(*g))
+	type Alias SMSJobsGetSMSJobRequest
+	return fmt.Sprintf("SMSJobsGetSMSJobRequest%+v", Alias(*g))
 }
 
-// FillFrom fills SmsjobsGetSMSJobRequest from given interface.
-func (g *SmsjobsGetSMSJobRequest) FillFrom(from interface {
+// FillFrom fills SMSJobsGetSMSJobRequest from given interface.
+func (g *SMSJobsGetSMSJobRequest) FillFrom(from interface {
 	GetJobID() (value string)
 }) {
 	g.JobID = from.GetJobID()
@@ -80,20 +80,20 @@ func (g *SmsjobsGetSMSJobRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsGetSMSJobRequest) TypeID() uint32 {
-	return SmsjobsGetSMSJobRequestTypeID
+func (*SMSJobsGetSMSJobRequest) TypeID() uint32 {
+	return SMSJobsGetSMSJobRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsGetSMSJobRequest) TypeName() string {
+func (*SMSJobsGetSMSJobRequest) TypeName() string {
 	return "smsjobs.getSmsJob"
 }
 
 // TypeInfo returns info about TL type.
-func (g *SmsjobsGetSMSJobRequest) TypeInfo() tdp.Type {
+func (g *SMSJobsGetSMSJobRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.getSmsJob",
-		ID:   SmsjobsGetSMSJobRequestTypeID,
+		ID:   SMSJobsGetSMSJobRequestTypeID,
 	}
 	if g == nil {
 		typ.Null = true
@@ -109,16 +109,16 @@ func (g *SmsjobsGetSMSJobRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (g *SmsjobsGetSMSJobRequest) Encode(b *bin.Buffer) error {
+func (g *SMSJobsGetSMSJobRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode smsjobs.getSmsJob#778d902f as nil")
 	}
-	b.PutID(SmsjobsGetSMSJobRequestTypeID)
+	b.PutID(SMSJobsGetSMSJobRequestTypeID)
 	return g.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (g *SmsjobsGetSMSJobRequest) EncodeBare(b *bin.Buffer) error {
+func (g *SMSJobsGetSMSJobRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode smsjobs.getSmsJob#778d902f as nil")
 	}
@@ -127,18 +127,18 @@ func (g *SmsjobsGetSMSJobRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (g *SmsjobsGetSMSJobRequest) Decode(b *bin.Buffer) error {
+func (g *SMSJobsGetSMSJobRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode smsjobs.getSmsJob#778d902f to nil")
 	}
-	if err := b.ConsumeID(SmsjobsGetSMSJobRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsGetSMSJobRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.getSmsJob#778d902f: %w", err)
 	}
 	return g.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (g *SmsjobsGetSMSJobRequest) DecodeBare(b *bin.Buffer) error {
+func (g *SMSJobsGetSMSJobRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode smsjobs.getSmsJob#778d902f to nil")
 	}
@@ -153,20 +153,20 @@ func (g *SmsjobsGetSMSJobRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetJobID returns value of JobID field.
-func (g *SmsjobsGetSMSJobRequest) GetJobID() (value string) {
+func (g *SMSJobsGetSMSJobRequest) GetJobID() (value string) {
 	if g == nil {
 		return
 	}
 	return g.JobID
 }
 
-// SmsjobsGetSMSJob invokes method smsjobs.getSmsJob#778d902f returning error if any.
+// SMSJobsGetSMSJob invokes method smsjobs.getSmsJob#778d902f returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.getSmsJob for reference.
-func (c *Client) SmsjobsGetSMSJob(ctx context.Context, jobid string) (*SMSJob, error) {
+func (c *Client) SMSJobsGetSMSJob(ctx context.Context, jobid string) (*SMSJob, error) {
 	var result SMSJob
 
-	request := &SmsjobsGetSMSJobRequest{
+	request := &SMSJobsGetSMSJobRequest{
 		JobID: jobid,
 	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {

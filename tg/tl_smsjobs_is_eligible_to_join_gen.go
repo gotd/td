@@ -31,24 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsIsEligibleToJoinRequest represents TL type `smsjobs.isEligibleToJoin#edc39d0`.
+// SMSJobsIsEligibleToJoinRequest represents TL type `smsjobs.isEligibleToJoin#edc39d0`.
 //
 // See https://core.telegram.org/method/smsjobs.isEligibleToJoin for reference.
-type SmsjobsIsEligibleToJoinRequest struct {
+type SMSJobsIsEligibleToJoinRequest struct {
 }
 
-// SmsjobsIsEligibleToJoinRequestTypeID is TL type id of SmsjobsIsEligibleToJoinRequest.
-const SmsjobsIsEligibleToJoinRequestTypeID = 0xedc39d0
+// SMSJobsIsEligibleToJoinRequestTypeID is TL type id of SMSJobsIsEligibleToJoinRequest.
+const SMSJobsIsEligibleToJoinRequestTypeID = 0xedc39d0
 
-// Ensuring interfaces in compile-time for SmsjobsIsEligibleToJoinRequest.
+// Ensuring interfaces in compile-time for SMSJobsIsEligibleToJoinRequest.
 var (
-	_ bin.Encoder     = &SmsjobsIsEligibleToJoinRequest{}
-	_ bin.Decoder     = &SmsjobsIsEligibleToJoinRequest{}
-	_ bin.BareEncoder = &SmsjobsIsEligibleToJoinRequest{}
-	_ bin.BareDecoder = &SmsjobsIsEligibleToJoinRequest{}
+	_ bin.Encoder     = &SMSJobsIsEligibleToJoinRequest{}
+	_ bin.Decoder     = &SMSJobsIsEligibleToJoinRequest{}
+	_ bin.BareEncoder = &SMSJobsIsEligibleToJoinRequest{}
+	_ bin.BareDecoder = &SMSJobsIsEligibleToJoinRequest{}
 )
 
-func (i *SmsjobsIsEligibleToJoinRequest) Zero() bool {
+func (i *SMSJobsIsEligibleToJoinRequest) Zero() bool {
 	if i == nil {
 		return true
 	}
@@ -57,31 +57,31 @@ func (i *SmsjobsIsEligibleToJoinRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (i *SmsjobsIsEligibleToJoinRequest) String() string {
+func (i *SMSJobsIsEligibleToJoinRequest) String() string {
 	if i == nil {
-		return "SmsjobsIsEligibleToJoinRequest(nil)"
+		return "SMSJobsIsEligibleToJoinRequest(nil)"
 	}
-	type Alias SmsjobsIsEligibleToJoinRequest
-	return fmt.Sprintf("SmsjobsIsEligibleToJoinRequest%+v", Alias(*i))
+	type Alias SMSJobsIsEligibleToJoinRequest
+	return fmt.Sprintf("SMSJobsIsEligibleToJoinRequest%+v", Alias(*i))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsIsEligibleToJoinRequest) TypeID() uint32 {
-	return SmsjobsIsEligibleToJoinRequestTypeID
+func (*SMSJobsIsEligibleToJoinRequest) TypeID() uint32 {
+	return SMSJobsIsEligibleToJoinRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsIsEligibleToJoinRequest) TypeName() string {
+func (*SMSJobsIsEligibleToJoinRequest) TypeName() string {
 	return "smsjobs.isEligibleToJoin"
 }
 
 // TypeInfo returns info about TL type.
-func (i *SmsjobsIsEligibleToJoinRequest) TypeInfo() tdp.Type {
+func (i *SMSJobsIsEligibleToJoinRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.isEligibleToJoin",
-		ID:   SmsjobsIsEligibleToJoinRequestTypeID,
+		ID:   SMSJobsIsEligibleToJoinRequestTypeID,
 	}
 	if i == nil {
 		typ.Null = true
@@ -92,16 +92,16 @@ func (i *SmsjobsIsEligibleToJoinRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (i *SmsjobsIsEligibleToJoinRequest) Encode(b *bin.Buffer) error {
+func (i *SMSJobsIsEligibleToJoinRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode smsjobs.isEligibleToJoin#edc39d0 as nil")
 	}
-	b.PutID(SmsjobsIsEligibleToJoinRequestTypeID)
+	b.PutID(SMSJobsIsEligibleToJoinRequestTypeID)
 	return i.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (i *SmsjobsIsEligibleToJoinRequest) EncodeBare(b *bin.Buffer) error {
+func (i *SMSJobsIsEligibleToJoinRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode smsjobs.isEligibleToJoin#edc39d0 as nil")
 	}
@@ -109,31 +109,31 @@ func (i *SmsjobsIsEligibleToJoinRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (i *SmsjobsIsEligibleToJoinRequest) Decode(b *bin.Buffer) error {
+func (i *SMSJobsIsEligibleToJoinRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't decode smsjobs.isEligibleToJoin#edc39d0 to nil")
 	}
-	if err := b.ConsumeID(SmsjobsIsEligibleToJoinRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsIsEligibleToJoinRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.isEligibleToJoin#edc39d0: %w", err)
 	}
 	return i.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (i *SmsjobsIsEligibleToJoinRequest) DecodeBare(b *bin.Buffer) error {
+func (i *SMSJobsIsEligibleToJoinRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't decode smsjobs.isEligibleToJoin#edc39d0 to nil")
 	}
 	return nil
 }
 
-// SmsjobsIsEligibleToJoin invokes method smsjobs.isEligibleToJoin#edc39d0 returning error if any.
+// SMSJobsIsEligibleToJoin invokes method smsjobs.isEligibleToJoin#edc39d0 returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.isEligibleToJoin for reference.
-func (c *Client) SmsjobsIsEligibleToJoin(ctx context.Context) (*SmsjobsEligibleToJoin, error) {
-	var result SmsjobsEligibleToJoin
+func (c *Client) SMSJobsIsEligibleToJoin(ctx context.Context) (*SMSJobsEligibleToJoin, error) {
+	var result SMSJobsEligibleToJoin
 
-	request := &SmsjobsIsEligibleToJoinRequest{}
+	request := &SMSJobsIsEligibleToJoinRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

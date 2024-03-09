@@ -31,32 +31,32 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsFinishJobRequest represents TL type `smsjobs.finishJob#4f1ebf24`.
+// SMSJobsFinishJobRequest represents TL type `smsjobs.finishJob#4f1ebf24`.
 //
 // See https://core.telegram.org/method/smsjobs.finishJob for reference.
-type SmsjobsFinishJobRequest struct {
-	// Flags field of SmsjobsFinishJobRequest.
+type SMSJobsFinishJobRequest struct {
+	// Flags field of SMSJobsFinishJobRequest.
 	Flags bin.Fields
-	// JobID field of SmsjobsFinishJobRequest.
+	// JobID field of SMSJobsFinishJobRequest.
 	JobID string
-	// Error field of SmsjobsFinishJobRequest.
+	// Error field of SMSJobsFinishJobRequest.
 	//
 	// Use SetError and GetError helpers.
 	Error string
 }
 
-// SmsjobsFinishJobRequestTypeID is TL type id of SmsjobsFinishJobRequest.
-const SmsjobsFinishJobRequestTypeID = 0x4f1ebf24
+// SMSJobsFinishJobRequestTypeID is TL type id of SMSJobsFinishJobRequest.
+const SMSJobsFinishJobRequestTypeID = 0x4f1ebf24
 
-// Ensuring interfaces in compile-time for SmsjobsFinishJobRequest.
+// Ensuring interfaces in compile-time for SMSJobsFinishJobRequest.
 var (
-	_ bin.Encoder     = &SmsjobsFinishJobRequest{}
-	_ bin.Decoder     = &SmsjobsFinishJobRequest{}
-	_ bin.BareEncoder = &SmsjobsFinishJobRequest{}
-	_ bin.BareDecoder = &SmsjobsFinishJobRequest{}
+	_ bin.Encoder     = &SMSJobsFinishJobRequest{}
+	_ bin.Decoder     = &SMSJobsFinishJobRequest{}
+	_ bin.BareEncoder = &SMSJobsFinishJobRequest{}
+	_ bin.BareDecoder = &SMSJobsFinishJobRequest{}
 )
 
-func (f *SmsjobsFinishJobRequest) Zero() bool {
+func (f *SMSJobsFinishJobRequest) Zero() bool {
 	if f == nil {
 		return true
 	}
@@ -74,16 +74,16 @@ func (f *SmsjobsFinishJobRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (f *SmsjobsFinishJobRequest) String() string {
+func (f *SMSJobsFinishJobRequest) String() string {
 	if f == nil {
-		return "SmsjobsFinishJobRequest(nil)"
+		return "SMSJobsFinishJobRequest(nil)"
 	}
-	type Alias SmsjobsFinishJobRequest
-	return fmt.Sprintf("SmsjobsFinishJobRequest%+v", Alias(*f))
+	type Alias SMSJobsFinishJobRequest
+	return fmt.Sprintf("SMSJobsFinishJobRequest%+v", Alias(*f))
 }
 
-// FillFrom fills SmsjobsFinishJobRequest from given interface.
-func (f *SmsjobsFinishJobRequest) FillFrom(from interface {
+// FillFrom fills SMSJobsFinishJobRequest from given interface.
+func (f *SMSJobsFinishJobRequest) FillFrom(from interface {
 	GetJobID() (value string)
 	GetError() (value string, ok bool)
 }) {
@@ -97,20 +97,20 @@ func (f *SmsjobsFinishJobRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsFinishJobRequest) TypeID() uint32 {
-	return SmsjobsFinishJobRequestTypeID
+func (*SMSJobsFinishJobRequest) TypeID() uint32 {
+	return SMSJobsFinishJobRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsFinishJobRequest) TypeName() string {
+func (*SMSJobsFinishJobRequest) TypeName() string {
 	return "smsjobs.finishJob"
 }
 
 // TypeInfo returns info about TL type.
-func (f *SmsjobsFinishJobRequest) TypeInfo() tdp.Type {
+func (f *SMSJobsFinishJobRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.finishJob",
-		ID:   SmsjobsFinishJobRequestTypeID,
+		ID:   SMSJobsFinishJobRequestTypeID,
 	}
 	if f == nil {
 		typ.Null = true
@@ -131,23 +131,23 @@ func (f *SmsjobsFinishJobRequest) TypeInfo() tdp.Type {
 }
 
 // SetFlags sets flags for non-zero fields.
-func (f *SmsjobsFinishJobRequest) SetFlags() {
+func (f *SMSJobsFinishJobRequest) SetFlags() {
 	if !(f.Error == "") {
 		f.Flags.Set(0)
 	}
 }
 
 // Encode implements bin.Encoder.
-func (f *SmsjobsFinishJobRequest) Encode(b *bin.Buffer) error {
+func (f *SMSJobsFinishJobRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode smsjobs.finishJob#4f1ebf24 as nil")
 	}
-	b.PutID(SmsjobsFinishJobRequestTypeID)
+	b.PutID(SMSJobsFinishJobRequestTypeID)
 	return f.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (f *SmsjobsFinishJobRequest) EncodeBare(b *bin.Buffer) error {
+func (f *SMSJobsFinishJobRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode smsjobs.finishJob#4f1ebf24 as nil")
 	}
@@ -163,18 +163,18 @@ func (f *SmsjobsFinishJobRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (f *SmsjobsFinishJobRequest) Decode(b *bin.Buffer) error {
+func (f *SMSJobsFinishJobRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode smsjobs.finishJob#4f1ebf24 to nil")
 	}
-	if err := b.ConsumeID(SmsjobsFinishJobRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsFinishJobRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.finishJob#4f1ebf24: %w", err)
 	}
 	return f.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (f *SmsjobsFinishJobRequest) DecodeBare(b *bin.Buffer) error {
+func (f *SMSJobsFinishJobRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode smsjobs.finishJob#4f1ebf24 to nil")
 	}
@@ -201,7 +201,7 @@ func (f *SmsjobsFinishJobRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetJobID returns value of JobID field.
-func (f *SmsjobsFinishJobRequest) GetJobID() (value string) {
+func (f *SMSJobsFinishJobRequest) GetJobID() (value string) {
 	if f == nil {
 		return
 	}
@@ -209,14 +209,14 @@ func (f *SmsjobsFinishJobRequest) GetJobID() (value string) {
 }
 
 // SetError sets value of Error conditional field.
-func (f *SmsjobsFinishJobRequest) SetError(value string) {
+func (f *SMSJobsFinishJobRequest) SetError(value string) {
 	f.Flags.Set(0)
 	f.Error = value
 }
 
 // GetError returns value of Error conditional field and
 // boolean which is true if field was set.
-func (f *SmsjobsFinishJobRequest) GetError() (value string, ok bool) {
+func (f *SMSJobsFinishJobRequest) GetError() (value string, ok bool) {
 	if f == nil {
 		return
 	}
@@ -226,10 +226,10 @@ func (f *SmsjobsFinishJobRequest) GetError() (value string, ok bool) {
 	return f.Error, true
 }
 
-// SmsjobsFinishJob invokes method smsjobs.finishJob#4f1ebf24 returning error if any.
+// SMSJobsFinishJob invokes method smsjobs.finishJob#4f1ebf24 returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.finishJob for reference.
-func (c *Client) SmsjobsFinishJob(ctx context.Context, request *SmsjobsFinishJobRequest) (bool, error) {
+func (c *Client) SMSJobsFinishJob(ctx context.Context, request *SMSJobsFinishJobRequest) (bool, error) {
 	var result BoolBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {

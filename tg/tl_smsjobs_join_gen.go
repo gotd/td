@@ -31,24 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsJoinRequest represents TL type `smsjobs.join#a74ece2d`.
+// SMSJobsJoinRequest represents TL type `smsjobs.join#a74ece2d`.
 //
 // See https://core.telegram.org/method/smsjobs.join for reference.
-type SmsjobsJoinRequest struct {
+type SMSJobsJoinRequest struct {
 }
 
-// SmsjobsJoinRequestTypeID is TL type id of SmsjobsJoinRequest.
-const SmsjobsJoinRequestTypeID = 0xa74ece2d
+// SMSJobsJoinRequestTypeID is TL type id of SMSJobsJoinRequest.
+const SMSJobsJoinRequestTypeID = 0xa74ece2d
 
-// Ensuring interfaces in compile-time for SmsjobsJoinRequest.
+// Ensuring interfaces in compile-time for SMSJobsJoinRequest.
 var (
-	_ bin.Encoder     = &SmsjobsJoinRequest{}
-	_ bin.Decoder     = &SmsjobsJoinRequest{}
-	_ bin.BareEncoder = &SmsjobsJoinRequest{}
-	_ bin.BareDecoder = &SmsjobsJoinRequest{}
+	_ bin.Encoder     = &SMSJobsJoinRequest{}
+	_ bin.Decoder     = &SMSJobsJoinRequest{}
+	_ bin.BareEncoder = &SMSJobsJoinRequest{}
+	_ bin.BareDecoder = &SMSJobsJoinRequest{}
 )
 
-func (j *SmsjobsJoinRequest) Zero() bool {
+func (j *SMSJobsJoinRequest) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -57,31 +57,31 @@ func (j *SmsjobsJoinRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *SmsjobsJoinRequest) String() string {
+func (j *SMSJobsJoinRequest) String() string {
 	if j == nil {
-		return "SmsjobsJoinRequest(nil)"
+		return "SMSJobsJoinRequest(nil)"
 	}
-	type Alias SmsjobsJoinRequest
-	return fmt.Sprintf("SmsjobsJoinRequest%+v", Alias(*j))
+	type Alias SMSJobsJoinRequest
+	return fmt.Sprintf("SMSJobsJoinRequest%+v", Alias(*j))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsJoinRequest) TypeID() uint32 {
-	return SmsjobsJoinRequestTypeID
+func (*SMSJobsJoinRequest) TypeID() uint32 {
+	return SMSJobsJoinRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsJoinRequest) TypeName() string {
+func (*SMSJobsJoinRequest) TypeName() string {
 	return "smsjobs.join"
 }
 
 // TypeInfo returns info about TL type.
-func (j *SmsjobsJoinRequest) TypeInfo() tdp.Type {
+func (j *SMSJobsJoinRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.join",
-		ID:   SmsjobsJoinRequestTypeID,
+		ID:   SMSJobsJoinRequestTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -92,16 +92,16 @@ func (j *SmsjobsJoinRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *SmsjobsJoinRequest) Encode(b *bin.Buffer) error {
+func (j *SMSJobsJoinRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode smsjobs.join#a74ece2d as nil")
 	}
-	b.PutID(SmsjobsJoinRequestTypeID)
+	b.PutID(SMSJobsJoinRequestTypeID)
 	return j.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (j *SmsjobsJoinRequest) EncodeBare(b *bin.Buffer) error {
+func (j *SMSJobsJoinRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode smsjobs.join#a74ece2d as nil")
 	}
@@ -109,31 +109,31 @@ func (j *SmsjobsJoinRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (j *SmsjobsJoinRequest) Decode(b *bin.Buffer) error {
+func (j *SMSJobsJoinRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode smsjobs.join#a74ece2d to nil")
 	}
-	if err := b.ConsumeID(SmsjobsJoinRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsJoinRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.join#a74ece2d: %w", err)
 	}
 	return j.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (j *SmsjobsJoinRequest) DecodeBare(b *bin.Buffer) error {
+func (j *SMSJobsJoinRequest) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode smsjobs.join#a74ece2d to nil")
 	}
 	return nil
 }
 
-// SmsjobsJoin invokes method smsjobs.join#a74ece2d returning error if any.
+// SMSJobsJoin invokes method smsjobs.join#a74ece2d returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.join for reference.
-func (c *Client) SmsjobsJoin(ctx context.Context) (bool, error) {
+func (c *Client) SMSJobsJoin(ctx context.Context) (bool, error) {
 	var result BoolBox
 
-	request := &SmsjobsJoinRequest{}
+	request := &SMSJobsJoinRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

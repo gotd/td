@@ -31,24 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SmsjobsLeaveRequest represents TL type `smsjobs.leave#9898ad73`.
+// SMSJobsLeaveRequest represents TL type `smsjobs.leave#9898ad73`.
 //
 // See https://core.telegram.org/method/smsjobs.leave for reference.
-type SmsjobsLeaveRequest struct {
+type SMSJobsLeaveRequest struct {
 }
 
-// SmsjobsLeaveRequestTypeID is TL type id of SmsjobsLeaveRequest.
-const SmsjobsLeaveRequestTypeID = 0x9898ad73
+// SMSJobsLeaveRequestTypeID is TL type id of SMSJobsLeaveRequest.
+const SMSJobsLeaveRequestTypeID = 0x9898ad73
 
-// Ensuring interfaces in compile-time for SmsjobsLeaveRequest.
+// Ensuring interfaces in compile-time for SMSJobsLeaveRequest.
 var (
-	_ bin.Encoder     = &SmsjobsLeaveRequest{}
-	_ bin.Decoder     = &SmsjobsLeaveRequest{}
-	_ bin.BareEncoder = &SmsjobsLeaveRequest{}
-	_ bin.BareDecoder = &SmsjobsLeaveRequest{}
+	_ bin.Encoder     = &SMSJobsLeaveRequest{}
+	_ bin.Decoder     = &SMSJobsLeaveRequest{}
+	_ bin.BareEncoder = &SMSJobsLeaveRequest{}
+	_ bin.BareDecoder = &SMSJobsLeaveRequest{}
 )
 
-func (l *SmsjobsLeaveRequest) Zero() bool {
+func (l *SMSJobsLeaveRequest) Zero() bool {
 	if l == nil {
 		return true
 	}
@@ -57,31 +57,31 @@ func (l *SmsjobsLeaveRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (l *SmsjobsLeaveRequest) String() string {
+func (l *SMSJobsLeaveRequest) String() string {
 	if l == nil {
-		return "SmsjobsLeaveRequest(nil)"
+		return "SMSJobsLeaveRequest(nil)"
 	}
-	type Alias SmsjobsLeaveRequest
-	return fmt.Sprintf("SmsjobsLeaveRequest%+v", Alias(*l))
+	type Alias SMSJobsLeaveRequest
+	return fmt.Sprintf("SMSJobsLeaveRequest%+v", Alias(*l))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SmsjobsLeaveRequest) TypeID() uint32 {
-	return SmsjobsLeaveRequestTypeID
+func (*SMSJobsLeaveRequest) TypeID() uint32 {
+	return SMSJobsLeaveRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SmsjobsLeaveRequest) TypeName() string {
+func (*SMSJobsLeaveRequest) TypeName() string {
 	return "smsjobs.leave"
 }
 
 // TypeInfo returns info about TL type.
-func (l *SmsjobsLeaveRequest) TypeInfo() tdp.Type {
+func (l *SMSJobsLeaveRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "smsjobs.leave",
-		ID:   SmsjobsLeaveRequestTypeID,
+		ID:   SMSJobsLeaveRequestTypeID,
 	}
 	if l == nil {
 		typ.Null = true
@@ -92,16 +92,16 @@ func (l *SmsjobsLeaveRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (l *SmsjobsLeaveRequest) Encode(b *bin.Buffer) error {
+func (l *SMSJobsLeaveRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't encode smsjobs.leave#9898ad73 as nil")
 	}
-	b.PutID(SmsjobsLeaveRequestTypeID)
+	b.PutID(SMSJobsLeaveRequestTypeID)
 	return l.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (l *SmsjobsLeaveRequest) EncodeBare(b *bin.Buffer) error {
+func (l *SMSJobsLeaveRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't encode smsjobs.leave#9898ad73 as nil")
 	}
@@ -109,31 +109,31 @@ func (l *SmsjobsLeaveRequest) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (l *SmsjobsLeaveRequest) Decode(b *bin.Buffer) error {
+func (l *SMSJobsLeaveRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't decode smsjobs.leave#9898ad73 to nil")
 	}
-	if err := b.ConsumeID(SmsjobsLeaveRequestTypeID); err != nil {
+	if err := b.ConsumeID(SMSJobsLeaveRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode smsjobs.leave#9898ad73: %w", err)
 	}
 	return l.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (l *SmsjobsLeaveRequest) DecodeBare(b *bin.Buffer) error {
+func (l *SMSJobsLeaveRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't decode smsjobs.leave#9898ad73 to nil")
 	}
 	return nil
 }
 
-// SmsjobsLeave invokes method smsjobs.leave#9898ad73 returning error if any.
+// SMSJobsLeave invokes method smsjobs.leave#9898ad73 returning error if any.
 //
 // See https://core.telegram.org/method/smsjobs.leave for reference.
-func (c *Client) SmsjobsLeave(ctx context.Context) (bool, error) {
+func (c *Client) SMSJobsLeave(ctx context.Context) (bool, error) {
 	var result BoolBox
 
-	request := &SmsjobsLeaveRequest{}
+	request := &SMSJobsLeaveRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

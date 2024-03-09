@@ -10654,9 +10654,9 @@ func (s *ServerDispatcher) OnPremiumGetUserBoosts(f func(ctx context.Context, re
 	s.handlers[PremiumGetUserBoostsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsIsEligibleToJoin(f func(ctx context.Context) (*SmsjobsEligibleToJoin, error)) {
+func (s *ServerDispatcher) OnSMSJobsIsEligibleToJoin(f func(ctx context.Context) (*SMSJobsEligibleToJoin, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsIsEligibleToJoinRequest
+		var request SMSJobsIsEligibleToJoinRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10668,12 +10668,12 @@ func (s *ServerDispatcher) OnSmsjobsIsEligibleToJoin(f func(ctx context.Context)
 		return response, nil
 	}
 
-	s.handlers[SmsjobsIsEligibleToJoinRequestTypeID] = handler
+	s.handlers[SMSJobsIsEligibleToJoinRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsJoin(f func(ctx context.Context) (bool, error)) {
+func (s *ServerDispatcher) OnSMSJobsJoin(f func(ctx context.Context) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsJoinRequest
+		var request SMSJobsJoinRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10689,12 +10689,12 @@ func (s *ServerDispatcher) OnSmsjobsJoin(f func(ctx context.Context) (bool, erro
 		return &BoolBox{Bool: &BoolFalse{}}, nil
 	}
 
-	s.handlers[SmsjobsJoinRequestTypeID] = handler
+	s.handlers[SMSJobsJoinRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsLeave(f func(ctx context.Context) (bool, error)) {
+func (s *ServerDispatcher) OnSMSJobsLeave(f func(ctx context.Context) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsLeaveRequest
+		var request SMSJobsLeaveRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10710,12 +10710,12 @@ func (s *ServerDispatcher) OnSmsjobsLeave(f func(ctx context.Context) (bool, err
 		return &BoolBox{Bool: &BoolFalse{}}, nil
 	}
 
-	s.handlers[SmsjobsLeaveRequestTypeID] = handler
+	s.handlers[SMSJobsLeaveRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsUpdateSettings(f func(ctx context.Context, request *SmsjobsUpdateSettingsRequest) (bool, error)) {
+func (s *ServerDispatcher) OnSMSJobsUpdateSettings(f func(ctx context.Context, request *SMSJobsUpdateSettingsRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsUpdateSettingsRequest
+		var request SMSJobsUpdateSettingsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10731,12 +10731,12 @@ func (s *ServerDispatcher) OnSmsjobsUpdateSettings(f func(ctx context.Context, r
 		return &BoolBox{Bool: &BoolFalse{}}, nil
 	}
 
-	s.handlers[SmsjobsUpdateSettingsRequestTypeID] = handler
+	s.handlers[SMSJobsUpdateSettingsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsGetStatus(f func(ctx context.Context) (*SmsjobsStatus, error)) {
+func (s *ServerDispatcher) OnSMSJobsGetStatus(f func(ctx context.Context) (*SMSJobsStatus, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsGetStatusRequest
+		var request SMSJobsGetStatusRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10748,12 +10748,12 @@ func (s *ServerDispatcher) OnSmsjobsGetStatus(f func(ctx context.Context) (*Smsj
 		return response, nil
 	}
 
-	s.handlers[SmsjobsGetStatusRequestTypeID] = handler
+	s.handlers[SMSJobsGetStatusRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsGetSMSJob(f func(ctx context.Context, jobid string) (*SMSJob, error)) {
+func (s *ServerDispatcher) OnSMSJobsGetSMSJob(f func(ctx context.Context, jobid string) (*SMSJob, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsGetSMSJobRequest
+		var request SMSJobsGetSMSJobRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10765,12 +10765,12 @@ func (s *ServerDispatcher) OnSmsjobsGetSMSJob(f func(ctx context.Context, jobid 
 		return response, nil
 	}
 
-	s.handlers[SmsjobsGetSMSJobRequestTypeID] = handler
+	s.handlers[SMSJobsGetSMSJobRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnSmsjobsFinishJob(f func(ctx context.Context, request *SmsjobsFinishJobRequest) (bool, error)) {
+func (s *ServerDispatcher) OnSMSJobsFinishJob(f func(ctx context.Context, request *SMSJobsFinishJobRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request SmsjobsFinishJobRequest
+		var request SMSJobsFinishJobRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
@@ -10786,7 +10786,7 @@ func (s *ServerDispatcher) OnSmsjobsFinishJob(f func(ctx context.Context, reques
 		return &BoolBox{Bool: &BoolFalse{}}, nil
 	}
 
-	s.handlers[SmsjobsFinishJobRequestTypeID] = handler
+	s.handlers[SMSJobsFinishJobRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {
