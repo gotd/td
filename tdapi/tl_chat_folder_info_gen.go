@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatFolderInfo represents TL type `chatFolderInfo#4c3ee0d4`.
+// ChatFolderInfo represents TL type `chatFolderInfo#b61a485`.
 type ChatFolderInfo struct {
 	// Unique chat folder identifier
 	ID int32
@@ -39,6 +39,9 @@ type ChatFolderInfo struct {
 	Title string
 	// The chosen or default icon for the chat folder
 	Icon ChatFolderIcon
+	// The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then
+	// color is didabled
+	ColorID int32
 	// True, if at least one link has been created for the folder
 	IsShareable bool
 	// True, if the chat folder has invite links created by the current user
@@ -46,7 +49,7 @@ type ChatFolderInfo struct {
 }
 
 // ChatFolderInfoTypeID is TL type id of ChatFolderInfo.
-const ChatFolderInfoTypeID = 0x4c3ee0d4
+const ChatFolderInfoTypeID = 0xb61a485
 
 // Ensuring interfaces in compile-time for ChatFolderInfo.
 var (
@@ -67,6 +70,9 @@ func (c *ChatFolderInfo) Zero() bool {
 		return false
 	}
 	if !(c.Icon.Zero()) {
+		return false
+	}
+	if !(c.ColorID == 0) {
 		return false
 	}
 	if !(c.IsShareable == false) {
@@ -124,6 +130,10 @@ func (c *ChatFolderInfo) TypeInfo() tdp.Type {
 			SchemaName: "icon",
 		},
 		{
+			Name:       "ColorID",
+			SchemaName: "color_id",
+		},
+		{
 			Name:       "IsShareable",
 			SchemaName: "is_shareable",
 		},
@@ -138,7 +148,7 @@ func (c *ChatFolderInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatFolderInfo) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFolderInfo#4c3ee0d4 as nil")
+		return fmt.Errorf("can't encode chatFolderInfo#b61a485 as nil")
 	}
 	b.PutID(ChatFolderInfoTypeID)
 	return c.EncodeBare(b)
@@ -147,13 +157,14 @@ func (c *ChatFolderInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatFolderInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFolderInfo#4c3ee0d4 as nil")
+		return fmt.Errorf("can't encode chatFolderInfo#b61a485 as nil")
 	}
 	b.PutInt32(c.ID)
 	b.PutString(c.Title)
 	if err := c.Icon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatFolderInfo#4c3ee0d4: field icon: %w", err)
+		return fmt.Errorf("unable to encode chatFolderInfo#b61a485: field icon: %w", err)
 	}
+	b.PutInt32(c.ColorID)
 	b.PutBool(c.IsShareable)
 	b.PutBool(c.HasMyInviteLinks)
 	return nil
@@ -162,10 +173,10 @@ func (c *ChatFolderInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatFolderInfo) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFolderInfo#4c3ee0d4 to nil")
+		return fmt.Errorf("can't decode chatFolderInfo#b61a485 to nil")
 	}
 	if err := b.ConsumeID(ChatFolderInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: %w", err)
+		return fmt.Errorf("unable to decode chatFolderInfo#b61a485: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -173,38 +184,45 @@ func (c *ChatFolderInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatFolderInfo) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFolderInfo#4c3ee0d4 to nil")
+		return fmt.Errorf("can't decode chatFolderInfo#b61a485 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field id: %w", err)
+			return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field title: %w", err)
+			return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		if err := c.Icon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field icon: %w", err)
+			return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field icon: %w", err)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field color_id: %w", err)
+		}
+		c.ColorID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field is_shareable: %w", err)
+			return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field is_shareable: %w", err)
 		}
 		c.IsShareable = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field has_my_invite_links: %w", err)
+			return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field has_my_invite_links: %w", err)
 		}
 		c.HasMyInviteLinks = value
 	}
@@ -214,7 +232,7 @@ func (c *ChatFolderInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatFolderInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFolderInfo#4c3ee0d4 as nil")
+		return fmt.Errorf("can't encode chatFolderInfo#b61a485 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatFolderInfo")
@@ -227,8 +245,11 @@ func (c *ChatFolderInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("icon")
 	if err := c.Icon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatFolderInfo#4c3ee0d4: field icon: %w", err)
+		return fmt.Errorf("unable to encode chatFolderInfo#b61a485: field icon: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("color_id")
+	b.PutInt32(c.ColorID)
 	b.Comma()
 	b.FieldStart("is_shareable")
 	b.PutBool(c.IsShareable)
@@ -244,41 +265,47 @@ func (c *ChatFolderInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatFolderInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFolderInfo#4c3ee0d4 to nil")
+		return fmt.Errorf("can't decode chatFolderInfo#b61a485 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatFolderInfo"); err != nil {
-				return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: %w", err)
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field id: %w", err)
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field id: %w", err)
 			}
 			c.ID = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field title: %w", err)
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field title: %w", err)
 			}
 			c.Title = value
 		case "icon":
 			if err := c.Icon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field icon: %w", err)
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field icon: %w", err)
 			}
+		case "color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field color_id: %w", err)
+			}
+			c.ColorID = value
 		case "is_shareable":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field is_shareable: %w", err)
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field is_shareable: %w", err)
 			}
 			c.IsShareable = value
 		case "has_my_invite_links":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFolderInfo#4c3ee0d4: field has_my_invite_links: %w", err)
+				return fmt.Errorf("unable to decode chatFolderInfo#b61a485: field has_my_invite_links: %w", err)
 			}
 			c.HasMyInviteLinks = value
 		default:
@@ -310,6 +337,14 @@ func (c *ChatFolderInfo) GetIcon() (value ChatFolderIcon) {
 		return
 	}
 	return c.Icon
+}
+
+// GetColorID returns value of ColorID field.
+func (c *ChatFolderInfo) GetColorID() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.ColorID
 }
 
 // GetIsShareable returns value of IsShareable field.

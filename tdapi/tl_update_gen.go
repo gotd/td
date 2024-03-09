@@ -4461,6 +4461,426 @@ func (u *UpdateChatPosition) GetPosition() (value ChatPosition) {
 	return u.Position
 }
 
+// UpdateChatAddedToList represents TL type `updateChatAddedToList#ab7004ec`.
+type UpdateChatAddedToList struct {
+	// Chat identifier
+	ChatID int64
+	// The chat list to which the chat was added
+	ChatList ChatListClass
+}
+
+// UpdateChatAddedToListTypeID is TL type id of UpdateChatAddedToList.
+const UpdateChatAddedToListTypeID = 0xab7004ec
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatAddedToList) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatAddedToList.
+var (
+	_ bin.Encoder     = &UpdateChatAddedToList{}
+	_ bin.Decoder     = &UpdateChatAddedToList{}
+	_ bin.BareEncoder = &UpdateChatAddedToList{}
+	_ bin.BareDecoder = &UpdateChatAddedToList{}
+
+	_ UpdateClass = &UpdateChatAddedToList{}
+)
+
+func (u *UpdateChatAddedToList) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.ChatList == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatAddedToList) String() string {
+	if u == nil {
+		return "UpdateChatAddedToList(nil)"
+	}
+	type Alias UpdateChatAddedToList
+	return fmt.Sprintf("UpdateChatAddedToList%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatAddedToList) TypeID() uint32 {
+	return UpdateChatAddedToListTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatAddedToList) TypeName() string {
+	return "updateChatAddedToList"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatAddedToList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatAddedToList",
+		ID:   UpdateChatAddedToListTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "ChatList",
+			SchemaName: "chat_list",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatAddedToList) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAddedToList#ab7004ec as nil")
+	}
+	b.PutID(UpdateChatAddedToListTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatAddedToList) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAddedToList#ab7004ec as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if u.ChatList == nil {
+		return fmt.Errorf("unable to encode updateChatAddedToList#ab7004ec: field chat_list is nil")
+	}
+	if err := u.ChatList.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatAddedToList#ab7004ec: field chat_list: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatAddedToList) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAddedToList#ab7004ec to nil")
+	}
+	if err := b.ConsumeID(UpdateChatAddedToListTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatAddedToList#ab7004ec: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatAddedToList) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAddedToList#ab7004ec to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatAddedToList#ab7004ec: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := DecodeChatList(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatAddedToList#ab7004ec: field chat_list: %w", err)
+		}
+		u.ChatList = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatAddedToList) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAddedToList#ab7004ec as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatAddedToList")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("chat_list")
+	if u.ChatList == nil {
+		return fmt.Errorf("unable to encode updateChatAddedToList#ab7004ec: field chat_list is nil")
+	}
+	if err := u.ChatList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatAddedToList#ab7004ec: field chat_list: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatAddedToList) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAddedToList#ab7004ec to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatAddedToList"); err != nil {
+				return fmt.Errorf("unable to decode updateChatAddedToList#ab7004ec: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAddedToList#ab7004ec: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "chat_list":
+			value, err := DecodeTDLibJSONChatList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAddedToList#ab7004ec: field chat_list: %w", err)
+			}
+			u.ChatList = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatAddedToList) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetChatList returns value of ChatList field.
+func (u *UpdateChatAddedToList) GetChatList() (value ChatListClass) {
+	if u == nil {
+		return
+	}
+	return u.ChatList
+}
+
+// UpdateChatRemovedFromList represents TL type `updateChatRemovedFromList#4d2ac21c`.
+type UpdateChatRemovedFromList struct {
+	// Chat identifier
+	ChatID int64
+	// The chat list from which the chat was removed
+	ChatList ChatListClass
+}
+
+// UpdateChatRemovedFromListTypeID is TL type id of UpdateChatRemovedFromList.
+const UpdateChatRemovedFromListTypeID = 0x4d2ac21c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatRemovedFromList) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatRemovedFromList.
+var (
+	_ bin.Encoder     = &UpdateChatRemovedFromList{}
+	_ bin.Decoder     = &UpdateChatRemovedFromList{}
+	_ bin.BareEncoder = &UpdateChatRemovedFromList{}
+	_ bin.BareDecoder = &UpdateChatRemovedFromList{}
+
+	_ UpdateClass = &UpdateChatRemovedFromList{}
+)
+
+func (u *UpdateChatRemovedFromList) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.ChatList == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatRemovedFromList) String() string {
+	if u == nil {
+		return "UpdateChatRemovedFromList(nil)"
+	}
+	type Alias UpdateChatRemovedFromList
+	return fmt.Sprintf("UpdateChatRemovedFromList%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatRemovedFromList) TypeID() uint32 {
+	return UpdateChatRemovedFromListTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatRemovedFromList) TypeName() string {
+	return "updateChatRemovedFromList"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatRemovedFromList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatRemovedFromList",
+		ID:   UpdateChatRemovedFromListTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "ChatList",
+			SchemaName: "chat_list",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatRemovedFromList) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatRemovedFromList#4d2ac21c as nil")
+	}
+	b.PutID(UpdateChatRemovedFromListTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatRemovedFromList) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatRemovedFromList#4d2ac21c as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if u.ChatList == nil {
+		return fmt.Errorf("unable to encode updateChatRemovedFromList#4d2ac21c: field chat_list is nil")
+	}
+	if err := u.ChatList.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatRemovedFromList#4d2ac21c: field chat_list: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatRemovedFromList) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatRemovedFromList#4d2ac21c to nil")
+	}
+	if err := b.ConsumeID(UpdateChatRemovedFromListTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatRemovedFromList#4d2ac21c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatRemovedFromList) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatRemovedFromList#4d2ac21c to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatRemovedFromList#4d2ac21c: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := DecodeChatList(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatRemovedFromList#4d2ac21c: field chat_list: %w", err)
+		}
+		u.ChatList = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatRemovedFromList) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatRemovedFromList#4d2ac21c as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatRemovedFromList")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("chat_list")
+	if u.ChatList == nil {
+		return fmt.Errorf("unable to encode updateChatRemovedFromList#4d2ac21c: field chat_list is nil")
+	}
+	if err := u.ChatList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatRemovedFromList#4d2ac21c: field chat_list: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatRemovedFromList) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatRemovedFromList#4d2ac21c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatRemovedFromList"); err != nil {
+				return fmt.Errorf("unable to decode updateChatRemovedFromList#4d2ac21c: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatRemovedFromList#4d2ac21c: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "chat_list":
+			value, err := DecodeTDLibJSONChatList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatRemovedFromList#4d2ac21c: field chat_list: %w", err)
+			}
+			u.ChatList = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatRemovedFromList) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetChatList returns value of ChatList field.
+func (u *UpdateChatRemovedFromList) GetChatList() (value ChatListClass) {
+	if u == nil {
+		return
+	}
+	return u.ChatList
+}
+
 // UpdateChatReadInbox represents TL type `updateChatReadInbox#d07036e7`.
 type UpdateChatReadInbox struct {
 	// Chat identifier
@@ -9198,16 +9618,18 @@ func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) 
 	return u.HasScheduledMessages
 }
 
-// UpdateChatFolders represents TL type `updateChatFolders#71a4b3a`.
+// UpdateChatFolders represents TL type `updateChatFolders#e110242a`.
 type UpdateChatFolders struct {
 	// The new list of chat folders
 	ChatFolders []ChatFolderInfo
 	// Position of the main chat list among chat folders, 0-based
 	MainChatListPosition int32
+	// True, if folder tags are enabled
+	AreTagsEnabled bool
 }
 
 // UpdateChatFoldersTypeID is TL type id of UpdateChatFolders.
-const UpdateChatFoldersTypeID = 0x71a4b3a
+const UpdateChatFoldersTypeID = 0xe110242a
 
 // construct implements constructor of UpdateClass.
 func (u UpdateChatFolders) construct() UpdateClass { return &u }
@@ -9230,6 +9652,9 @@ func (u *UpdateChatFolders) Zero() bool {
 		return false
 	}
 	if !(u.MainChatListPosition == 0) {
+		return false
+	}
+	if !(u.AreTagsEnabled == false) {
 		return false
 	}
 
@@ -9276,6 +9701,10 @@ func (u *UpdateChatFolders) TypeInfo() tdp.Type {
 			Name:       "MainChatListPosition",
 			SchemaName: "main_chat_list_position",
 		},
+		{
+			Name:       "AreTagsEnabled",
+			SchemaName: "are_tags_enabled",
+		},
 	}
 	return typ
 }
@@ -9283,7 +9712,7 @@ func (u *UpdateChatFolders) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateChatFolders) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatFolders#71a4b3a as nil")
+		return fmt.Errorf("can't encode updateChatFolders#e110242a as nil")
 	}
 	b.PutID(UpdateChatFoldersTypeID)
 	return u.EncodeBare(b)
@@ -9292,25 +9721,26 @@ func (u *UpdateChatFolders) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateChatFolders) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatFolders#71a4b3a as nil")
+		return fmt.Errorf("can't encode updateChatFolders#e110242a as nil")
 	}
 	b.PutInt(len(u.ChatFolders))
 	for idx, v := range u.ChatFolders {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare updateChatFolders#71a4b3a: field chat_folders element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare updateChatFolders#e110242a: field chat_folders element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt32(u.MainChatListPosition)
+	b.PutBool(u.AreTagsEnabled)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateChatFolders) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatFolders#71a4b3a to nil")
+		return fmt.Errorf("can't decode updateChatFolders#e110242a to nil")
 	}
 	if err := b.ConsumeID(UpdateChatFoldersTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: %w", err)
+		return fmt.Errorf("unable to decode updateChatFolders#e110242a: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -9318,12 +9748,12 @@ func (u *UpdateChatFolders) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateChatFolders) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatFolders#71a4b3a to nil")
+		return fmt.Errorf("can't decode updateChatFolders#e110242a to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field chat_folders: %w", err)
+			return fmt.Errorf("unable to decode updateChatFolders#e110242a: field chat_folders: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -9332,7 +9762,7 @@ func (u *UpdateChatFolders) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatFolderInfo
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare updateChatFolders#71a4b3a: field chat_folders: %w", err)
+				return fmt.Errorf("unable to decode bare updateChatFolders#e110242a: field chat_folders: %w", err)
 			}
 			u.ChatFolders = append(u.ChatFolders, value)
 		}
@@ -9340,9 +9770,16 @@ func (u *UpdateChatFolders) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field main_chat_list_position: %w", err)
+			return fmt.Errorf("unable to decode updateChatFolders#e110242a: field main_chat_list_position: %w", err)
 		}
 		u.MainChatListPosition = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatFolders#e110242a: field are_tags_enabled: %w", err)
+		}
+		u.AreTagsEnabled = value
 	}
 	return nil
 }
@@ -9350,7 +9787,7 @@ func (u *UpdateChatFolders) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateChatFolders) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatFolders#71a4b3a as nil")
+		return fmt.Errorf("can't encode updateChatFolders#e110242a as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateChatFolders")
@@ -9359,7 +9796,7 @@ func (u *UpdateChatFolders) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range u.ChatFolders {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode updateChatFolders#71a4b3a: field chat_folders element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updateChatFolders#e110242a: field chat_folders element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -9369,6 +9806,9 @@ func (u *UpdateChatFolders) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("main_chat_list_position")
 	b.PutInt32(u.MainChatListPosition)
 	b.Comma()
+	b.FieldStart("are_tags_enabled")
+	b.PutBool(u.AreTagsEnabled)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -9377,32 +9817,38 @@ func (u *UpdateChatFolders) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateChatFolders) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatFolders#71a4b3a to nil")
+		return fmt.Errorf("can't decode updateChatFolders#e110242a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatFolders"); err != nil {
-				return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: %w", err)
+				return fmt.Errorf("unable to decode updateChatFolders#e110242a: %w", err)
 			}
 		case "chat_folders":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatFolderInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field chat_folders: %w", err)
+					return fmt.Errorf("unable to decode updateChatFolders#e110242a: field chat_folders: %w", err)
 				}
 				u.ChatFolders = append(u.ChatFolders, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field chat_folders: %w", err)
+				return fmt.Errorf("unable to decode updateChatFolders#e110242a: field chat_folders: %w", err)
 			}
 		case "main_chat_list_position":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field main_chat_list_position: %w", err)
+				return fmt.Errorf("unable to decode updateChatFolders#e110242a: field main_chat_list_position: %w", err)
 			}
 			u.MainChatListPosition = value
+		case "are_tags_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatFolders#e110242a: field are_tags_enabled: %w", err)
+			}
+			u.AreTagsEnabled = value
 		default:
 			return b.Skip()
 		}
@@ -9424,6 +9870,14 @@ func (u *UpdateChatFolders) GetMainChatListPosition() (value int32) {
 		return
 	}
 	return u.MainChatListPosition
+}
+
+// GetAreTagsEnabled returns value of AreTagsEnabled field.
+func (u *UpdateChatFolders) GetAreTagsEnabled() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.AreTagsEnabled
 }
 
 // UpdateChatOnlineMemberCount represents TL type `updateChatOnlineMemberCount#1d0caa9d`.
@@ -9956,6 +10410,757 @@ func (u *UpdateSavedMessagesTopicCount) GetTopicCount() (value int32) {
 		return
 	}
 	return u.TopicCount
+}
+
+// UpdateQuickReplyShortcut represents TL type `updateQuickReplyShortcut#c69338cf`.
+type UpdateQuickReplyShortcut struct {
+	// New data about the shortcut
+	Shortcut QuickReplyShortcut
+}
+
+// UpdateQuickReplyShortcutTypeID is TL type id of UpdateQuickReplyShortcut.
+const UpdateQuickReplyShortcutTypeID = 0xc69338cf
+
+// construct implements constructor of UpdateClass.
+func (u UpdateQuickReplyShortcut) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateQuickReplyShortcut.
+var (
+	_ bin.Encoder     = &UpdateQuickReplyShortcut{}
+	_ bin.Decoder     = &UpdateQuickReplyShortcut{}
+	_ bin.BareEncoder = &UpdateQuickReplyShortcut{}
+	_ bin.BareDecoder = &UpdateQuickReplyShortcut{}
+
+	_ UpdateClass = &UpdateQuickReplyShortcut{}
+)
+
+func (u *UpdateQuickReplyShortcut) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Shortcut.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateQuickReplyShortcut) String() string {
+	if u == nil {
+		return "UpdateQuickReplyShortcut(nil)"
+	}
+	type Alias UpdateQuickReplyShortcut
+	return fmt.Sprintf("UpdateQuickReplyShortcut%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateQuickReplyShortcut) TypeID() uint32 {
+	return UpdateQuickReplyShortcutTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateQuickReplyShortcut) TypeName() string {
+	return "updateQuickReplyShortcut"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateQuickReplyShortcut) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateQuickReplyShortcut",
+		ID:   UpdateQuickReplyShortcutTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Shortcut",
+			SchemaName: "shortcut",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateQuickReplyShortcut) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcut#c69338cf as nil")
+	}
+	b.PutID(UpdateQuickReplyShortcutTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateQuickReplyShortcut) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcut#c69338cf as nil")
+	}
+	if err := u.Shortcut.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateQuickReplyShortcut#c69338cf: field shortcut: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateQuickReplyShortcut) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcut#c69338cf to nil")
+	}
+	if err := b.ConsumeID(UpdateQuickReplyShortcutTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateQuickReplyShortcut#c69338cf: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateQuickReplyShortcut) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcut#c69338cf to nil")
+	}
+	{
+		if err := u.Shortcut.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplyShortcut#c69338cf: field shortcut: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateQuickReplyShortcut) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcut#c69338cf as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateQuickReplyShortcut")
+	b.Comma()
+	b.FieldStart("shortcut")
+	if err := u.Shortcut.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateQuickReplyShortcut#c69338cf: field shortcut: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateQuickReplyShortcut) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcut#c69338cf to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateQuickReplyShortcut"); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcut#c69338cf: %w", err)
+			}
+		case "shortcut":
+			if err := u.Shortcut.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcut#c69338cf: field shortcut: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetShortcut returns value of Shortcut field.
+func (u *UpdateQuickReplyShortcut) GetShortcut() (value QuickReplyShortcut) {
+	if u == nil {
+		return
+	}
+	return u.Shortcut
+}
+
+// UpdateQuickReplyShortcutDeleted represents TL type `updateQuickReplyShortcutDeleted#e8b9bc3a`.
+type UpdateQuickReplyShortcutDeleted struct {
+	// The identifier of the deleted shortcut
+	ShortcutID int32
+}
+
+// UpdateQuickReplyShortcutDeletedTypeID is TL type id of UpdateQuickReplyShortcutDeleted.
+const UpdateQuickReplyShortcutDeletedTypeID = 0xe8b9bc3a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateQuickReplyShortcutDeleted) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateQuickReplyShortcutDeleted.
+var (
+	_ bin.Encoder     = &UpdateQuickReplyShortcutDeleted{}
+	_ bin.Decoder     = &UpdateQuickReplyShortcutDeleted{}
+	_ bin.BareEncoder = &UpdateQuickReplyShortcutDeleted{}
+	_ bin.BareDecoder = &UpdateQuickReplyShortcutDeleted{}
+
+	_ UpdateClass = &UpdateQuickReplyShortcutDeleted{}
+)
+
+func (u *UpdateQuickReplyShortcutDeleted) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ShortcutID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateQuickReplyShortcutDeleted) String() string {
+	if u == nil {
+		return "UpdateQuickReplyShortcutDeleted(nil)"
+	}
+	type Alias UpdateQuickReplyShortcutDeleted
+	return fmt.Sprintf("UpdateQuickReplyShortcutDeleted%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateQuickReplyShortcutDeleted) TypeID() uint32 {
+	return UpdateQuickReplyShortcutDeletedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateQuickReplyShortcutDeleted) TypeName() string {
+	return "updateQuickReplyShortcutDeleted"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateQuickReplyShortcutDeleted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateQuickReplyShortcutDeleted",
+		ID:   UpdateQuickReplyShortcutDeletedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortcutID",
+			SchemaName: "shortcut_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateQuickReplyShortcutDeleted) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcutDeleted#e8b9bc3a as nil")
+	}
+	b.PutID(UpdateQuickReplyShortcutDeletedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateQuickReplyShortcutDeleted) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcutDeleted#e8b9bc3a as nil")
+	}
+	b.PutInt32(u.ShortcutID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateQuickReplyShortcutDeleted) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcutDeleted#e8b9bc3a to nil")
+	}
+	if err := b.ConsumeID(UpdateQuickReplyShortcutDeletedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateQuickReplyShortcutDeleted#e8b9bc3a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateQuickReplyShortcutDeleted) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcutDeleted#e8b9bc3a to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplyShortcutDeleted#e8b9bc3a: field shortcut_id: %w", err)
+		}
+		u.ShortcutID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateQuickReplyShortcutDeleted) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcutDeleted#e8b9bc3a as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateQuickReplyShortcutDeleted")
+	b.Comma()
+	b.FieldStart("shortcut_id")
+	b.PutInt32(u.ShortcutID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateQuickReplyShortcutDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcutDeleted#e8b9bc3a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateQuickReplyShortcutDeleted"); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcutDeleted#e8b9bc3a: %w", err)
+			}
+		case "shortcut_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcutDeleted#e8b9bc3a: field shortcut_id: %w", err)
+			}
+			u.ShortcutID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetShortcutID returns value of ShortcutID field.
+func (u *UpdateQuickReplyShortcutDeleted) GetShortcutID() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.ShortcutID
+}
+
+// UpdateQuickReplyShortcuts represents TL type `updateQuickReplyShortcuts#77d31a6a`.
+type UpdateQuickReplyShortcuts struct {
+	// The new list of identifiers of quick reply shortcuts
+	ShortcutIDs []int32
+}
+
+// UpdateQuickReplyShortcutsTypeID is TL type id of UpdateQuickReplyShortcuts.
+const UpdateQuickReplyShortcutsTypeID = 0x77d31a6a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateQuickReplyShortcuts) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateQuickReplyShortcuts.
+var (
+	_ bin.Encoder     = &UpdateQuickReplyShortcuts{}
+	_ bin.Decoder     = &UpdateQuickReplyShortcuts{}
+	_ bin.BareEncoder = &UpdateQuickReplyShortcuts{}
+	_ bin.BareDecoder = &UpdateQuickReplyShortcuts{}
+
+	_ UpdateClass = &UpdateQuickReplyShortcuts{}
+)
+
+func (u *UpdateQuickReplyShortcuts) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ShortcutIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateQuickReplyShortcuts) String() string {
+	if u == nil {
+		return "UpdateQuickReplyShortcuts(nil)"
+	}
+	type Alias UpdateQuickReplyShortcuts
+	return fmt.Sprintf("UpdateQuickReplyShortcuts%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateQuickReplyShortcuts) TypeID() uint32 {
+	return UpdateQuickReplyShortcutsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateQuickReplyShortcuts) TypeName() string {
+	return "updateQuickReplyShortcuts"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateQuickReplyShortcuts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateQuickReplyShortcuts",
+		ID:   UpdateQuickReplyShortcutsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortcutIDs",
+			SchemaName: "shortcut_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateQuickReplyShortcuts) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcuts#77d31a6a as nil")
+	}
+	b.PutID(UpdateQuickReplyShortcutsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateQuickReplyShortcuts) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcuts#77d31a6a as nil")
+	}
+	b.PutInt(len(u.ShortcutIDs))
+	for _, v := range u.ShortcutIDs {
+		b.PutInt32(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateQuickReplyShortcuts) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcuts#77d31a6a to nil")
+	}
+	if err := b.ConsumeID(UpdateQuickReplyShortcutsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateQuickReplyShortcuts#77d31a6a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateQuickReplyShortcuts) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcuts#77d31a6a to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplyShortcuts#77d31a6a: field shortcut_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.ShortcutIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcuts#77d31a6a: field shortcut_ids: %w", err)
+			}
+			u.ShortcutIDs = append(u.ShortcutIDs, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateQuickReplyShortcuts) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcuts#77d31a6a as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateQuickReplyShortcuts")
+	b.Comma()
+	b.FieldStart("shortcut_ids")
+	b.ArrStart()
+	for _, v := range u.ShortcutIDs {
+		b.PutInt32(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateQuickReplyShortcuts) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcuts#77d31a6a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateQuickReplyShortcuts"); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcuts#77d31a6a: %w", err)
+			}
+		case "shortcut_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateQuickReplyShortcuts#77d31a6a: field shortcut_ids: %w", err)
+				}
+				u.ShortcutIDs = append(u.ShortcutIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcuts#77d31a6a: field shortcut_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetShortcutIDs returns value of ShortcutIDs field.
+func (u *UpdateQuickReplyShortcuts) GetShortcutIDs() (value []int32) {
+	if u == nil {
+		return
+	}
+	return u.ShortcutIDs
+}
+
+// UpdateQuickReplyShortcutMessages represents TL type `updateQuickReplyShortcutMessages#8bb36b72`.
+type UpdateQuickReplyShortcutMessages struct {
+	// The identifier of the shortcut
+	ShortcutID int32
+	// The new list of quick reply messages for the shortcut in order from the first to the
+	// last sent
+	Messages []QuickReplyMessage
+}
+
+// UpdateQuickReplyShortcutMessagesTypeID is TL type id of UpdateQuickReplyShortcutMessages.
+const UpdateQuickReplyShortcutMessagesTypeID = 0x8bb36b72
+
+// construct implements constructor of UpdateClass.
+func (u UpdateQuickReplyShortcutMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateQuickReplyShortcutMessages.
+var (
+	_ bin.Encoder     = &UpdateQuickReplyShortcutMessages{}
+	_ bin.Decoder     = &UpdateQuickReplyShortcutMessages{}
+	_ bin.BareEncoder = &UpdateQuickReplyShortcutMessages{}
+	_ bin.BareDecoder = &UpdateQuickReplyShortcutMessages{}
+
+	_ UpdateClass = &UpdateQuickReplyShortcutMessages{}
+)
+
+func (u *UpdateQuickReplyShortcutMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ShortcutID == 0) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateQuickReplyShortcutMessages) String() string {
+	if u == nil {
+		return "UpdateQuickReplyShortcutMessages(nil)"
+	}
+	type Alias UpdateQuickReplyShortcutMessages
+	return fmt.Sprintf("UpdateQuickReplyShortcutMessages%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateQuickReplyShortcutMessages) TypeID() uint32 {
+	return UpdateQuickReplyShortcutMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateQuickReplyShortcutMessages) TypeName() string {
+	return "updateQuickReplyShortcutMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateQuickReplyShortcutMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateQuickReplyShortcutMessages",
+		ID:   UpdateQuickReplyShortcutMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortcutID",
+			SchemaName: "shortcut_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateQuickReplyShortcutMessages) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcutMessages#8bb36b72 as nil")
+	}
+	b.PutID(UpdateQuickReplyShortcutMessagesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateQuickReplyShortcutMessages) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcutMessages#8bb36b72 as nil")
+	}
+	b.PutInt32(u.ShortcutID)
+	b.PutInt(len(u.Messages))
+	for idx, v := range u.Messages {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateQuickReplyShortcutMessages#8bb36b72: field messages element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateQuickReplyShortcutMessages) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcutMessages#8bb36b72 to nil")
+	}
+	if err := b.ConsumeID(UpdateQuickReplyShortcutMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateQuickReplyShortcutMessages) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcutMessages#8bb36b72 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: field shortcut_id: %w", err)
+		}
+		u.ShortcutID = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: field messages: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Messages = make([]QuickReplyMessage, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value QuickReplyMessage
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateQuickReplyShortcutMessages#8bb36b72: field messages: %w", err)
+			}
+			u.Messages = append(u.Messages, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateQuickReplyShortcutMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyShortcutMessages#8bb36b72 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateQuickReplyShortcutMessages")
+	b.Comma()
+	b.FieldStart("shortcut_id")
+	b.PutInt32(u.ShortcutID)
+	b.Comma()
+	b.FieldStart("messages")
+	b.ArrStart()
+	for idx, v := range u.Messages {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateQuickReplyShortcutMessages#8bb36b72: field messages element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateQuickReplyShortcutMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyShortcutMessages#8bb36b72 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateQuickReplyShortcutMessages"); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: %w", err)
+			}
+		case "shortcut_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: field shortcut_id: %w", err)
+			}
+			u.ShortcutID = value
+		case "messages":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value QuickReplyMessage
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: field messages: %w", err)
+				}
+				u.Messages = append(u.Messages, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplyShortcutMessages#8bb36b72: field messages: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetShortcutID returns value of ShortcutID field.
+func (u *UpdateQuickReplyShortcutMessages) GetShortcutID() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.ShortcutID
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateQuickReplyShortcutMessages) GetMessages() (value []QuickReplyMessage) {
+	if u == nil {
+		return
+	}
+	return u.Messages
 }
 
 // UpdateForumTopicInfo represents TL type `updateForumTopicInfo#6b6f2cc9`.
@@ -28542,6 +29747,8 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatPermissions: // updateChatPermissions#9f52176d
 //	case *tdapi.UpdateChatLastMessage: // updateChatLastMessage#f10cab1d
 //	case *tdapi.UpdateChatPosition: // updateChatPosition#ff76fa77
+//	case *tdapi.UpdateChatAddedToList: // updateChatAddedToList#ab7004ec
+//	case *tdapi.UpdateChatRemovedFromList: // updateChatRemovedFromList#4d2ac21c
 //	case *tdapi.UpdateChatReadInbox: // updateChatReadInbox#d07036e7
 //	case *tdapi.UpdateChatReadOutbox: // updateChatReadOutbox#2a385285
 //	case *tdapi.UpdateChatActionBar: // updateChatActionBar#d9a258c2
@@ -28565,10 +29772,14 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatViewAsTopics: // updateChatViewAsTopics#5bff163d
 //	case *tdapi.UpdateChatBlockList: // updateChatBlockList#872af48e
 //	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
-//	case *tdapi.UpdateChatFolders: // updateChatFolders#71a4b3a
+//	case *tdapi.UpdateChatFolders: // updateChatFolders#e110242a
 //	case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
 //	case *tdapi.UpdateSavedMessagesTopic: // updateSavedMessagesTopic#9f823b30
 //	case *tdapi.UpdateSavedMessagesTopicCount: // updateSavedMessagesTopicCount#fbd279d1
+//	case *tdapi.UpdateQuickReplyShortcut: // updateQuickReplyShortcut#c69338cf
+//	case *tdapi.UpdateQuickReplyShortcutDeleted: // updateQuickReplyShortcutDeleted#e8b9bc3a
+//	case *tdapi.UpdateQuickReplyShortcuts: // updateQuickReplyShortcuts#77d31a6a
+//	case *tdapi.UpdateQuickReplyShortcutMessages: // updateQuickReplyShortcutMessages#8bb36b72
 //	case *tdapi.UpdateForumTopicInfo: // updateForumTopicInfo#6b6f2cc9
 //	case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
 //	case *tdapi.UpdateNotification: // updateNotification#8ee67ed4
@@ -28822,6 +30033,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateChatAddedToListTypeID:
+		// Decoding updateChatAddedToList#ab7004ec.
+		v := UpdateChatAddedToList{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatRemovedFromListTypeID:
+		// Decoding updateChatRemovedFromList#4d2ac21c.
+		v := UpdateChatRemovedFromList{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateChatReadInboxTypeID:
 		// Decoding updateChatReadInbox#d07036e7.
 		v := UpdateChatReadInbox{}
@@ -28984,7 +30209,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateChatFoldersTypeID:
-		// Decoding updateChatFolders#71a4b3a.
+		// Decoding updateChatFolders#e110242a.
 		v := UpdateChatFolders{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -29007,6 +30232,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateSavedMessagesTopicCountTypeID:
 		// Decoding updateSavedMessagesTopicCount#fbd279d1.
 		v := UpdateSavedMessagesTopicCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateQuickReplyShortcutTypeID:
+		// Decoding updateQuickReplyShortcut#c69338cf.
+		v := UpdateQuickReplyShortcut{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateQuickReplyShortcutDeletedTypeID:
+		// Decoding updateQuickReplyShortcutDeleted#e8b9bc3a.
+		v := UpdateQuickReplyShortcutDeleted{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateQuickReplyShortcutsTypeID:
+		// Decoding updateQuickReplyShortcuts#77d31a6a.
+		v := UpdateQuickReplyShortcuts{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateQuickReplyShortcutMessagesTypeID:
+		// Decoding updateQuickReplyShortcutMessages#8bb36b72.
+		v := UpdateQuickReplyShortcutMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -29737,6 +30990,20 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateChatAddedToList":
+		// Decoding updateChatAddedToList#ab7004ec.
+		v := UpdateChatAddedToList{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatRemovedFromList":
+		// Decoding updateChatRemovedFromList#4d2ac21c.
+		v := UpdateChatRemovedFromList{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateChatReadInbox":
 		// Decoding updateChatReadInbox#d07036e7.
 		v := UpdateChatReadInbox{}
@@ -29899,7 +31166,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateChatFolders":
-		// Decoding updateChatFolders#71a4b3a.
+		// Decoding updateChatFolders#e110242a.
 		v := UpdateChatFolders{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -29922,6 +31189,34 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateSavedMessagesTopicCount":
 		// Decoding updateSavedMessagesTopicCount#fbd279d1.
 		v := UpdateSavedMessagesTopicCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateQuickReplyShortcut":
+		// Decoding updateQuickReplyShortcut#c69338cf.
+		v := UpdateQuickReplyShortcut{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateQuickReplyShortcutDeleted":
+		// Decoding updateQuickReplyShortcutDeleted#e8b9bc3a.
+		v := UpdateQuickReplyShortcutDeleted{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateQuickReplyShortcuts":
+		// Decoding updateQuickReplyShortcuts#77d31a6a.
+		v := UpdateQuickReplyShortcuts{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateQuickReplyShortcutMessages":
+		// Decoding updateQuickReplyShortcutMessages#8bb36b72.
+		v := UpdateQuickReplyShortcutMessages{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
