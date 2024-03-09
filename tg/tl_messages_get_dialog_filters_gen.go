@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#f19ed96d`.
+// MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#efd48c89`.
 // Get folders¹
 //
 // Links:
@@ -42,7 +42,7 @@ type MessagesGetDialogFiltersRequest struct {
 }
 
 // MessagesGetDialogFiltersRequestTypeID is TL type id of MessagesGetDialogFiltersRequest.
-const MessagesGetDialogFiltersRequestTypeID = 0xf19ed96d
+const MessagesGetDialogFiltersRequestTypeID = 0xefd48c89
 
 // Ensuring interfaces in compile-time for MessagesGetDialogFiltersRequest.
 var (
@@ -98,7 +98,7 @@ func (g *MessagesGetDialogFiltersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogFilters#f19ed96d as nil")
+		return fmt.Errorf("can't encode messages.getDialogFilters#efd48c89 as nil")
 	}
 	b.PutID(MessagesGetDialogFiltersRequestTypeID)
 	return g.EncodeBare(b)
@@ -107,7 +107,7 @@ func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDialogFiltersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogFilters#f19ed96d as nil")
+		return fmt.Errorf("can't encode messages.getDialogFilters#efd48c89 as nil")
 	}
 	return nil
 }
@@ -115,10 +115,10 @@ func (g *MessagesGetDialogFiltersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogFilters#f19ed96d to nil")
+		return fmt.Errorf("can't decode messages.getDialogFilters#efd48c89 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetDialogFiltersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDialogFilters#f19ed96d: %w", err)
+		return fmt.Errorf("unable to decode messages.getDialogFilters#efd48c89: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -126,24 +126,24 @@ func (g *MessagesGetDialogFiltersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDialogFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogFilters#f19ed96d to nil")
+		return fmt.Errorf("can't decode messages.getDialogFilters#efd48c89 to nil")
 	}
 	return nil
 }
 
-// MessagesGetDialogFilters invokes method messages.getDialogFilters#f19ed96d returning error if any.
+// MessagesGetDialogFilters invokes method messages.getDialogFilters#efd48c89 returning error if any.
 // Get folders¹
 //
 // Links:
 //  1. https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getDialogFilters for reference.
-func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilterClass, error) {
-	var result DialogFilterClassVector
+func (c *Client) MessagesGetDialogFilters(ctx context.Context) (*MessagesDialogFilters, error) {
+	var result MessagesDialogFilters
 
 	request := &MessagesGetDialogFiltersRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return []DialogFilterClass(result.Elems), nil
+	return &result, nil
 }

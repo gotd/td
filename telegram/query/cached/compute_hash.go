@@ -20,3 +20,17 @@ func (s *ContactsGetContacts) computeHash(v *tg.ContactsContacts) int64 {
 
 	return h.Sum()
 }
+
+func (s *MessagesGetQuickReplies) computeHash(v *tg.MessagesQuickReplies) int64 {
+	r := v.QuickReplies
+
+	sort.SliceStable(r, func(i, j int) bool {
+		return r[i].ShortcutID < r[j].ShortcutID
+	})
+	h := hasher.Hasher{}
+	for _, contact := range r {
+		h.Update(uint32(contact.ShortcutID))
+	}
+
+	return h.Sum()
+}

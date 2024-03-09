@@ -25296,6 +25296,870 @@ func (u *UpdateSavedReactionTags) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UpdateSMSJob represents TL type `updateSmsJob#f16269d4`.
+//
+// See https://core.telegram.org/constructor/updateSmsJob for reference.
+type UpdateSMSJob struct {
+	// JobID field of UpdateSMSJob.
+	JobID string
+}
+
+// UpdateSMSJobTypeID is TL type id of UpdateSMSJob.
+const UpdateSMSJobTypeID = 0xf16269d4
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSMSJob) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSMSJob.
+var (
+	_ bin.Encoder     = &UpdateSMSJob{}
+	_ bin.Decoder     = &UpdateSMSJob{}
+	_ bin.BareEncoder = &UpdateSMSJob{}
+	_ bin.BareDecoder = &UpdateSMSJob{}
+
+	_ UpdateClass = &UpdateSMSJob{}
+)
+
+func (u *UpdateSMSJob) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.JobID == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSMSJob) String() string {
+	if u == nil {
+		return "UpdateSMSJob(nil)"
+	}
+	type Alias UpdateSMSJob
+	return fmt.Sprintf("UpdateSMSJob%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateSMSJob from given interface.
+func (u *UpdateSMSJob) FillFrom(from interface {
+	GetJobID() (value string)
+}) {
+	u.JobID = from.GetJobID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSMSJob) TypeID() uint32 {
+	return UpdateSMSJobTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSMSJob) TypeName() string {
+	return "updateSmsJob"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSMSJob) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSmsJob",
+		ID:   UpdateSMSJobTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "JobID",
+			SchemaName: "job_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSMSJob) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSmsJob#f16269d4 as nil")
+	}
+	b.PutID(UpdateSMSJobTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSMSJob) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSmsJob#f16269d4 as nil")
+	}
+	b.PutString(u.JobID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSMSJob) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSmsJob#f16269d4 to nil")
+	}
+	if err := b.ConsumeID(UpdateSMSJobTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSmsJob#f16269d4: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSMSJob) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSmsJob#f16269d4 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSmsJob#f16269d4: field job_id: %w", err)
+		}
+		u.JobID = value
+	}
+	return nil
+}
+
+// GetJobID returns value of JobID field.
+func (u *UpdateSMSJob) GetJobID() (value string) {
+	if u == nil {
+		return
+	}
+	return u.JobID
+}
+
+// UpdateQuickReplies represents TL type `updateQuickReplies#f9470ab2`.
+//
+// See https://core.telegram.org/constructor/updateQuickReplies for reference.
+type UpdateQuickReplies struct {
+	// QuickReplies field of UpdateQuickReplies.
+	QuickReplies []QuickReply
+}
+
+// UpdateQuickRepliesTypeID is TL type id of UpdateQuickReplies.
+const UpdateQuickRepliesTypeID = 0xf9470ab2
+
+// construct implements constructor of UpdateClass.
+func (u UpdateQuickReplies) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateQuickReplies.
+var (
+	_ bin.Encoder     = &UpdateQuickReplies{}
+	_ bin.Decoder     = &UpdateQuickReplies{}
+	_ bin.BareEncoder = &UpdateQuickReplies{}
+	_ bin.BareDecoder = &UpdateQuickReplies{}
+
+	_ UpdateClass = &UpdateQuickReplies{}
+)
+
+func (u *UpdateQuickReplies) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.QuickReplies == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateQuickReplies) String() string {
+	if u == nil {
+		return "UpdateQuickReplies(nil)"
+	}
+	type Alias UpdateQuickReplies
+	return fmt.Sprintf("UpdateQuickReplies%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateQuickReplies from given interface.
+func (u *UpdateQuickReplies) FillFrom(from interface {
+	GetQuickReplies() (value []QuickReply)
+}) {
+	u.QuickReplies = from.GetQuickReplies()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateQuickReplies) TypeID() uint32 {
+	return UpdateQuickRepliesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateQuickReplies) TypeName() string {
+	return "updateQuickReplies"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateQuickReplies) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateQuickReplies",
+		ID:   UpdateQuickRepliesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QuickReplies",
+			SchemaName: "quick_replies",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateQuickReplies) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplies#f9470ab2 as nil")
+	}
+	b.PutID(UpdateQuickRepliesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateQuickReplies) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplies#f9470ab2 as nil")
+	}
+	b.PutVectorHeader(len(u.QuickReplies))
+	for idx, v := range u.QuickReplies {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateQuickReplies#f9470ab2: field quick_replies element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateQuickReplies) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplies#f9470ab2 to nil")
+	}
+	if err := b.ConsumeID(UpdateQuickRepliesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateQuickReplies#f9470ab2: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateQuickReplies) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplies#f9470ab2 to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplies#f9470ab2: field quick_replies: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.QuickReplies = make([]QuickReply, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value QuickReply
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode updateQuickReplies#f9470ab2: field quick_replies: %w", err)
+			}
+			u.QuickReplies = append(u.QuickReplies, value)
+		}
+	}
+	return nil
+}
+
+// GetQuickReplies returns value of QuickReplies field.
+func (u *UpdateQuickReplies) GetQuickReplies() (value []QuickReply) {
+	if u == nil {
+		return
+	}
+	return u.QuickReplies
+}
+
+// UpdateNewQuickReply represents TL type `updateNewQuickReply#f53da717`.
+//
+// See https://core.telegram.org/constructor/updateNewQuickReply for reference.
+type UpdateNewQuickReply struct {
+	// QuickReply field of UpdateNewQuickReply.
+	QuickReply QuickReply
+}
+
+// UpdateNewQuickReplyTypeID is TL type id of UpdateNewQuickReply.
+const UpdateNewQuickReplyTypeID = 0xf53da717
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewQuickReply) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewQuickReply.
+var (
+	_ bin.Encoder     = &UpdateNewQuickReply{}
+	_ bin.Decoder     = &UpdateNewQuickReply{}
+	_ bin.BareEncoder = &UpdateNewQuickReply{}
+	_ bin.BareDecoder = &UpdateNewQuickReply{}
+
+	_ UpdateClass = &UpdateNewQuickReply{}
+)
+
+func (u *UpdateNewQuickReply) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.QuickReply.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateNewQuickReply) String() string {
+	if u == nil {
+		return "UpdateNewQuickReply(nil)"
+	}
+	type Alias UpdateNewQuickReply
+	return fmt.Sprintf("UpdateNewQuickReply%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNewQuickReply from given interface.
+func (u *UpdateNewQuickReply) FillFrom(from interface {
+	GetQuickReply() (value QuickReply)
+}) {
+	u.QuickReply = from.GetQuickReply()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateNewQuickReply) TypeID() uint32 {
+	return UpdateNewQuickReplyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateNewQuickReply) TypeName() string {
+	return "updateNewQuickReply"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewQuickReply) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewQuickReply",
+		ID:   UpdateNewQuickReplyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QuickReply",
+			SchemaName: "quick_reply",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateNewQuickReply) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewQuickReply#f53da717 as nil")
+	}
+	b.PutID(UpdateNewQuickReplyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateNewQuickReply) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewQuickReply#f53da717 as nil")
+	}
+	if err := u.QuickReply.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewQuickReply#f53da717: field quick_reply: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateNewQuickReply) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewQuickReply#f53da717 to nil")
+	}
+	if err := b.ConsumeID(UpdateNewQuickReplyTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateNewQuickReply#f53da717: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateNewQuickReply) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewQuickReply#f53da717 to nil")
+	}
+	{
+		if err := u.QuickReply.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateNewQuickReply#f53da717: field quick_reply: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetQuickReply returns value of QuickReply field.
+func (u *UpdateNewQuickReply) GetQuickReply() (value QuickReply) {
+	if u == nil {
+		return
+	}
+	return u.QuickReply
+}
+
+// UpdateDeleteQuickReply represents TL type `updateDeleteQuickReply#53e6f1ec`.
+//
+// See https://core.telegram.org/constructor/updateDeleteQuickReply for reference.
+type UpdateDeleteQuickReply struct {
+	// ShortcutID field of UpdateDeleteQuickReply.
+	ShortcutID int
+}
+
+// UpdateDeleteQuickReplyTypeID is TL type id of UpdateDeleteQuickReply.
+const UpdateDeleteQuickReplyTypeID = 0x53e6f1ec
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDeleteQuickReply) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDeleteQuickReply.
+var (
+	_ bin.Encoder     = &UpdateDeleteQuickReply{}
+	_ bin.Decoder     = &UpdateDeleteQuickReply{}
+	_ bin.BareEncoder = &UpdateDeleteQuickReply{}
+	_ bin.BareDecoder = &UpdateDeleteQuickReply{}
+
+	_ UpdateClass = &UpdateDeleteQuickReply{}
+)
+
+func (u *UpdateDeleteQuickReply) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ShortcutID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateDeleteQuickReply) String() string {
+	if u == nil {
+		return "UpdateDeleteQuickReply(nil)"
+	}
+	type Alias UpdateDeleteQuickReply
+	return fmt.Sprintf("UpdateDeleteQuickReply%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDeleteQuickReply from given interface.
+func (u *UpdateDeleteQuickReply) FillFrom(from interface {
+	GetShortcutID() (value int)
+}) {
+	u.ShortcutID = from.GetShortcutID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateDeleteQuickReply) TypeID() uint32 {
+	return UpdateDeleteQuickReplyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateDeleteQuickReply) TypeName() string {
+	return "updateDeleteQuickReply"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDeleteQuickReply) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDeleteQuickReply",
+		ID:   UpdateDeleteQuickReplyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortcutID",
+			SchemaName: "shortcut_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateDeleteQuickReply) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDeleteQuickReply#53e6f1ec as nil")
+	}
+	b.PutID(UpdateDeleteQuickReplyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateDeleteQuickReply) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDeleteQuickReply#53e6f1ec as nil")
+	}
+	b.PutInt(u.ShortcutID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateDeleteQuickReply) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDeleteQuickReply#53e6f1ec to nil")
+	}
+	if err := b.ConsumeID(UpdateDeleteQuickReplyTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateDeleteQuickReply#53e6f1ec: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateDeleteQuickReply) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDeleteQuickReply#53e6f1ec to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDeleteQuickReply#53e6f1ec: field shortcut_id: %w", err)
+		}
+		u.ShortcutID = value
+	}
+	return nil
+}
+
+// GetShortcutID returns value of ShortcutID field.
+func (u *UpdateDeleteQuickReply) GetShortcutID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.ShortcutID
+}
+
+// UpdateQuickReplyMessage represents TL type `updateQuickReplyMessage#3e050d0f`.
+//
+// See https://core.telegram.org/constructor/updateQuickReplyMessage for reference.
+type UpdateQuickReplyMessage struct {
+	// Message field of UpdateQuickReplyMessage.
+	Message MessageClass
+}
+
+// UpdateQuickReplyMessageTypeID is TL type id of UpdateQuickReplyMessage.
+const UpdateQuickReplyMessageTypeID = 0x3e050d0f
+
+// construct implements constructor of UpdateClass.
+func (u UpdateQuickReplyMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateQuickReplyMessage.
+var (
+	_ bin.Encoder     = &UpdateQuickReplyMessage{}
+	_ bin.Decoder     = &UpdateQuickReplyMessage{}
+	_ bin.BareEncoder = &UpdateQuickReplyMessage{}
+	_ bin.BareDecoder = &UpdateQuickReplyMessage{}
+
+	_ UpdateClass = &UpdateQuickReplyMessage{}
+)
+
+func (u *UpdateQuickReplyMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateQuickReplyMessage) String() string {
+	if u == nil {
+		return "UpdateQuickReplyMessage(nil)"
+	}
+	type Alias UpdateQuickReplyMessage
+	return fmt.Sprintf("UpdateQuickReplyMessage%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateQuickReplyMessage from given interface.
+func (u *UpdateQuickReplyMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+}) {
+	u.Message = from.GetMessage()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateQuickReplyMessage) TypeID() uint32 {
+	return UpdateQuickReplyMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateQuickReplyMessage) TypeName() string {
+	return "updateQuickReplyMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateQuickReplyMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateQuickReplyMessage",
+		ID:   UpdateQuickReplyMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateQuickReplyMessage) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyMessage#3e050d0f as nil")
+	}
+	b.PutID(UpdateQuickReplyMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateQuickReplyMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateQuickReplyMessage#3e050d0f as nil")
+	}
+	if u.Message == nil {
+		return fmt.Errorf("unable to encode updateQuickReplyMessage#3e050d0f: field message is nil")
+	}
+	if err := u.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateQuickReplyMessage#3e050d0f: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateQuickReplyMessage) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyMessage#3e050d0f to nil")
+	}
+	if err := b.ConsumeID(UpdateQuickReplyMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateQuickReplyMessage#3e050d0f: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateQuickReplyMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateQuickReplyMessage#3e050d0f to nil")
+	}
+	{
+		value, err := DecodeMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateQuickReplyMessage#3e050d0f: field message: %w", err)
+		}
+		u.Message = value
+	}
+	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateQuickReplyMessage) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
+	return u.Message
+}
+
+// UpdateDeleteQuickReplyMessages represents TL type `updateDeleteQuickReplyMessages#566fe7cd`.
+//
+// See https://core.telegram.org/constructor/updateDeleteQuickReplyMessages for reference.
+type UpdateDeleteQuickReplyMessages struct {
+	// ShortcutID field of UpdateDeleteQuickReplyMessages.
+	ShortcutID int
+	// Messages field of UpdateDeleteQuickReplyMessages.
+	Messages []int
+}
+
+// UpdateDeleteQuickReplyMessagesTypeID is TL type id of UpdateDeleteQuickReplyMessages.
+const UpdateDeleteQuickReplyMessagesTypeID = 0x566fe7cd
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDeleteQuickReplyMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDeleteQuickReplyMessages.
+var (
+	_ bin.Encoder     = &UpdateDeleteQuickReplyMessages{}
+	_ bin.Decoder     = &UpdateDeleteQuickReplyMessages{}
+	_ bin.BareEncoder = &UpdateDeleteQuickReplyMessages{}
+	_ bin.BareDecoder = &UpdateDeleteQuickReplyMessages{}
+
+	_ UpdateClass = &UpdateDeleteQuickReplyMessages{}
+)
+
+func (u *UpdateDeleteQuickReplyMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ShortcutID == 0) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateDeleteQuickReplyMessages) String() string {
+	if u == nil {
+		return "UpdateDeleteQuickReplyMessages(nil)"
+	}
+	type Alias UpdateDeleteQuickReplyMessages
+	return fmt.Sprintf("UpdateDeleteQuickReplyMessages%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDeleteQuickReplyMessages from given interface.
+func (u *UpdateDeleteQuickReplyMessages) FillFrom(from interface {
+	GetShortcutID() (value int)
+	GetMessages() (value []int)
+}) {
+	u.ShortcutID = from.GetShortcutID()
+	u.Messages = from.GetMessages()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateDeleteQuickReplyMessages) TypeID() uint32 {
+	return UpdateDeleteQuickReplyMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateDeleteQuickReplyMessages) TypeName() string {
+	return "updateDeleteQuickReplyMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDeleteQuickReplyMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDeleteQuickReplyMessages",
+		ID:   UpdateDeleteQuickReplyMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortcutID",
+			SchemaName: "shortcut_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateDeleteQuickReplyMessages) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDeleteQuickReplyMessages#566fe7cd as nil")
+	}
+	b.PutID(UpdateDeleteQuickReplyMessagesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateDeleteQuickReplyMessages) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDeleteQuickReplyMessages#566fe7cd as nil")
+	}
+	b.PutInt(u.ShortcutID)
+	b.PutVectorHeader(len(u.Messages))
+	for _, v := range u.Messages {
+		b.PutInt(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateDeleteQuickReplyMessages) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDeleteQuickReplyMessages#566fe7cd to nil")
+	}
+	if err := b.ConsumeID(UpdateDeleteQuickReplyMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateDeleteQuickReplyMessages#566fe7cd: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateDeleteQuickReplyMessages) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDeleteQuickReplyMessages#566fe7cd to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDeleteQuickReplyMessages#566fe7cd: field shortcut_id: %w", err)
+		}
+		u.ShortcutID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDeleteQuickReplyMessages#566fe7cd: field messages: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Messages = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateDeleteQuickReplyMessages#566fe7cd: field messages: %w", err)
+			}
+			u.Messages = append(u.Messages, value)
+		}
+	}
+	return nil
+}
+
+// GetShortcutID returns value of ShortcutID field.
+func (u *UpdateDeleteQuickReplyMessages) GetShortcutID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.ShortcutID
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteQuickReplyMessages) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
+	return u.Messages
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -25435,6 +26299,12 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateSavedDialogPinned: // updateSavedDialogPinned#aeaf9e74
 //	case *tg.UpdatePinnedSavedDialogs: // updatePinnedSavedDialogs#686c85a6
 //	case *tg.UpdateSavedReactionTags: // updateSavedReactionTags#39c67432
+//	case *tg.UpdateSMSJob: // updateSmsJob#f16269d4
+//	case *tg.UpdateQuickReplies: // updateQuickReplies#f9470ab2
+//	case *tg.UpdateNewQuickReply: // updateNewQuickReply#f53da717
+//	case *tg.UpdateDeleteQuickReply: // updateDeleteQuickReply#53e6f1ec
+//	case *tg.UpdateQuickReplyMessage: // updateQuickReplyMessage#3e050d0f
+//	case *tg.UpdateDeleteQuickReplyMessages: // updateDeleteQuickReplyMessages#566fe7cd
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -26334,6 +27204,48 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateSavedReactionTagsTypeID:
 		// Decoding updateSavedReactionTags#39c67432.
 		v := UpdateSavedReactionTags{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSMSJobTypeID:
+		// Decoding updateSmsJob#f16269d4.
+		v := UpdateSMSJob{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateQuickRepliesTypeID:
+		// Decoding updateQuickReplies#f9470ab2.
+		v := UpdateQuickReplies{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateNewQuickReplyTypeID:
+		// Decoding updateNewQuickReply#f53da717.
+		v := UpdateNewQuickReply{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateDeleteQuickReplyTypeID:
+		// Decoding updateDeleteQuickReply#53e6f1ec.
+		v := UpdateDeleteQuickReply{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateQuickReplyMessageTypeID:
+		// Decoding updateQuickReplyMessage#3e050d0f.
+		v := UpdateQuickReplyMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateDeleteQuickReplyMessagesTypeID:
+		// Decoding updateDeleteQuickReplyMessages#566fe7cd.
+		v := UpdateDeleteQuickReplyMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -1698,6 +1698,90 @@ func (s *MessagesGetMaskStickers) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerMessagesGetQuickReplies struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesQuickReplies
+}
+
+type MessagesGetQuickReplies struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetQuickReplies creates new MessagesGetQuickReplies.
+func NewMessagesGetQuickReplies(raw *tg.Client) *MessagesGetQuickReplies {
+	q := &MessagesGetQuickReplies{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetQuickReplies) store(v innerMessagesGetQuickReplies) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetQuickReplies) load() (innerMessagesGetQuickReplies, bool) {
+	v, ok := s.last.Load().(innerMessagesGetQuickReplies)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesQuickReplies must not be mutated.
+func (s *MessagesGetQuickReplies) Value() *tg.MessagesQuickReplies {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetQuickReplies) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetQuickReplies) Get(ctx context.Context) (*tg.MessagesQuickReplies, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetQuickReplies) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.MessagesGetQuickReplies(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetQuickReplies")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesQuickReplies:
+		hash := s.computeHash(variant)
+
+		s.store(innerMessagesGetQuickReplies{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesQuickRepliesNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerMessagesGetRecentReactions struct {
 	// Last received hash.
 	hash int64

@@ -1355,3 +1355,63 @@ func (u UpdateDispatcher) OnSavedReactionTags(handler SavedReactionTagsHandler) 
 		return handler(ctx, e, update.(*UpdateSavedReactionTags))
 	}
 }
+
+// SMSJobHandler is a SMSJob event handler.
+type SMSJobHandler func(ctx context.Context, e Entities, update *UpdateSMSJob) error
+
+// OnSMSJob sets SMSJob handler.
+func (u UpdateDispatcher) OnSMSJob(handler SMSJobHandler) {
+	u.handlers[UpdateSMSJobTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSMSJob))
+	}
+}
+
+// QuickRepliesHandler is a QuickReplies event handler.
+type QuickRepliesHandler func(ctx context.Context, e Entities, update *UpdateQuickReplies) error
+
+// OnQuickReplies sets QuickReplies handler.
+func (u UpdateDispatcher) OnQuickReplies(handler QuickRepliesHandler) {
+	u.handlers[UpdateQuickRepliesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateQuickReplies))
+	}
+}
+
+// NewQuickReplyHandler is a NewQuickReply event handler.
+type NewQuickReplyHandler func(ctx context.Context, e Entities, update *UpdateNewQuickReply) error
+
+// OnNewQuickReply sets NewQuickReply handler.
+func (u UpdateDispatcher) OnNewQuickReply(handler NewQuickReplyHandler) {
+	u.handlers[UpdateNewQuickReplyTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewQuickReply))
+	}
+}
+
+// DeleteQuickReplyHandler is a DeleteQuickReply event handler.
+type DeleteQuickReplyHandler func(ctx context.Context, e Entities, update *UpdateDeleteQuickReply) error
+
+// OnDeleteQuickReply sets DeleteQuickReply handler.
+func (u UpdateDispatcher) OnDeleteQuickReply(handler DeleteQuickReplyHandler) {
+	u.handlers[UpdateDeleteQuickReplyTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDeleteQuickReply))
+	}
+}
+
+// QuickReplyMessageHandler is a QuickReplyMessage event handler.
+type QuickReplyMessageHandler func(ctx context.Context, e Entities, update *UpdateQuickReplyMessage) error
+
+// OnQuickReplyMessage sets QuickReplyMessage handler.
+func (u UpdateDispatcher) OnQuickReplyMessage(handler QuickReplyMessageHandler) {
+	u.handlers[UpdateQuickReplyMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateQuickReplyMessage))
+	}
+}
+
+// DeleteQuickReplyMessagesHandler is a DeleteQuickReplyMessages event handler.
+type DeleteQuickReplyMessagesHandler func(ctx context.Context, e Entities, update *UpdateDeleteQuickReplyMessages) error
+
+// OnDeleteQuickReplyMessages sets DeleteQuickReplyMessages handler.
+func (u UpdateDispatcher) OnDeleteQuickReplyMessages(handler DeleteQuickReplyMessagesHandler) {
+	u.handlers[UpdateDeleteQuickReplyMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDeleteQuickReplyMessages))
+	}
+}
