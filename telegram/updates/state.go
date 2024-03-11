@@ -138,6 +138,12 @@ func (s *internalState) Push(ctx context.Context, u tg.UpdatesClass) error {
 }
 
 func (s *internalState) Run(ctx context.Context) error {
+	if s == nil {
+		return errors.New("invalid: nil internalState")
+	}
+	if s.log == nil {
+		return errors.New("invalid: nil logger")
+	}
 	s.log.Debug("Starting updates handler")
 	defer s.log.Debug("Updates handler stopped")
 	s.getDifferenceLogger(ctx)
