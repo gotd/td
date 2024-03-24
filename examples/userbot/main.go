@@ -51,8 +51,7 @@ func run(ctx context.Context) error {
 	flag.Parse()
 
 	// Using ".env" file to load environment variables.
-	err := godotenv.Load()
-	if err != nil {
+	if err := godotenv.Load(); err != nil && !os.IsNotExist(err) {
 		return errors.Wrap(err, "load env")
 	}
 
