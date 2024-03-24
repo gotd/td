@@ -23,6 +23,13 @@ func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 		}
 	}
 	if u, ok := i.(interface {
+		GetReplyTo() (tg.MessageReplyHeaderClass, bool)
+	}); ok {
+		if v, ok := u.GetReplyTo(); ok {
+			msg.SetReplyTo(v)
+		}
+	}
+	if u, ok := i.(interface {
 		GetEntities() ([]tg.MessageEntityClass, bool)
 	}); ok {
 		if v, ok := u.GetEntities(); ok {
