@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PremiumState represents TL type `premiumState#fd42d2cd`.
+// PremiumState represents TL type `premiumState#91a8799`.
 type PremiumState struct {
 	// Text description of the state of the current Premium subscription; may be empty if the
 	// current user has no Telegram Premium subscription
@@ -40,10 +40,12 @@ type PremiumState struct {
 	PaymentOptions []PremiumStatePaymentOption
 	// The list of available promotion animations for Premium features
 	Animations []PremiumFeaturePromotionAnimation
+	// The list of available promotion animations for Business features
+	BusinessAnimations []BusinessFeaturePromotionAnimation
 }
 
 // PremiumStateTypeID is TL type id of PremiumState.
-const PremiumStateTypeID = 0xfd42d2cd
+const PremiumStateTypeID = 0x91a8799
 
 // Ensuring interfaces in compile-time for PremiumState.
 var (
@@ -64,6 +66,9 @@ func (p *PremiumState) Zero() bool {
 		return false
 	}
 	if !(p.Animations == nil) {
+		return false
+	}
+	if !(p.BusinessAnimations == nil) {
 		return false
 	}
 
@@ -114,6 +119,10 @@ func (p *PremiumState) TypeInfo() tdp.Type {
 			Name:       "Animations",
 			SchemaName: "animations",
 		},
+		{
+			Name:       "BusinessAnimations",
+			SchemaName: "business_animations",
+		},
 	}
 	return typ
 }
@@ -121,7 +130,7 @@ func (p *PremiumState) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PremiumState) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumState#fd42d2cd as nil")
+		return fmt.Errorf("can't encode premiumState#91a8799 as nil")
 	}
 	b.PutID(PremiumStateTypeID)
 	return p.EncodeBare(b)
@@ -130,21 +139,27 @@ func (p *PremiumState) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PremiumState) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumState#fd42d2cd as nil")
+		return fmt.Errorf("can't encode premiumState#91a8799 as nil")
 	}
 	if err := p.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode premiumState#fd42d2cd: field state: %w", err)
+		return fmt.Errorf("unable to encode premiumState#91a8799: field state: %w", err)
 	}
 	b.PutInt(len(p.PaymentOptions))
 	for idx, v := range p.PaymentOptions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare premiumState#fd42d2cd: field payment_options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare premiumState#91a8799: field payment_options element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(len(p.Animations))
 	for idx, v := range p.Animations {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare premiumState#fd42d2cd: field animations element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare premiumState#91a8799: field animations element with index %d: %w", idx, err)
+		}
+	}
+	b.PutInt(len(p.BusinessAnimations))
+	for idx, v := range p.BusinessAnimations {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare premiumState#91a8799: field business_animations element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -153,10 +168,10 @@ func (p *PremiumState) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PremiumState) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumState#fd42d2cd to nil")
+		return fmt.Errorf("can't decode premiumState#91a8799 to nil")
 	}
 	if err := b.ConsumeID(PremiumStateTypeID); err != nil {
-		return fmt.Errorf("unable to decode premiumState#fd42d2cd: %w", err)
+		return fmt.Errorf("unable to decode premiumState#91a8799: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -164,17 +179,17 @@ func (p *PremiumState) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PremiumState) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumState#fd42d2cd to nil")
+		return fmt.Errorf("can't decode premiumState#91a8799 to nil")
 	}
 	{
 		if err := p.State.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode premiumState#fd42d2cd: field state: %w", err)
+			return fmt.Errorf("unable to decode premiumState#91a8799: field state: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumState#fd42d2cd: field payment_options: %w", err)
+			return fmt.Errorf("unable to decode premiumState#91a8799: field payment_options: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -183,7 +198,7 @@ func (p *PremiumState) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PremiumStatePaymentOption
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare premiumState#fd42d2cd: field payment_options: %w", err)
+				return fmt.Errorf("unable to decode bare premiumState#91a8799: field payment_options: %w", err)
 			}
 			p.PaymentOptions = append(p.PaymentOptions, value)
 		}
@@ -191,7 +206,7 @@ func (p *PremiumState) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumState#fd42d2cd: field animations: %w", err)
+			return fmt.Errorf("unable to decode premiumState#91a8799: field animations: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -200,9 +215,26 @@ func (p *PremiumState) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PremiumFeaturePromotionAnimation
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare premiumState#fd42d2cd: field animations: %w", err)
+				return fmt.Errorf("unable to decode bare premiumState#91a8799: field animations: %w", err)
 			}
 			p.Animations = append(p.Animations, value)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode premiumState#91a8799: field business_animations: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.BusinessAnimations = make([]BusinessFeaturePromotionAnimation, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value BusinessFeaturePromotionAnimation
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare premiumState#91a8799: field business_animations: %w", err)
+			}
+			p.BusinessAnimations = append(p.BusinessAnimations, value)
 		}
 	}
 	return nil
@@ -211,21 +243,21 @@ func (p *PremiumState) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PremiumState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumState#fd42d2cd as nil")
+		return fmt.Errorf("can't encode premiumState#91a8799 as nil")
 	}
 	b.ObjStart()
 	b.PutID("premiumState")
 	b.Comma()
 	b.FieldStart("state")
 	if err := p.State.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode premiumState#fd42d2cd: field state: %w", err)
+		return fmt.Errorf("unable to encode premiumState#91a8799: field state: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("payment_options")
 	b.ArrStart()
 	for idx, v := range p.PaymentOptions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode premiumState#fd42d2cd: field payment_options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode premiumState#91a8799: field payment_options element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -236,7 +268,18 @@ func (p *PremiumState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range p.Animations {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode premiumState#fd42d2cd: field animations element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode premiumState#91a8799: field animations element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("business_animations")
+	b.ArrStart()
+	for idx, v := range p.BusinessAnimations {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode premiumState#91a8799: field business_animations element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -251,40 +294,51 @@ func (p *PremiumState) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PremiumState) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumState#fd42d2cd to nil")
+		return fmt.Errorf("can't decode premiumState#91a8799 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("premiumState"); err != nil {
-				return fmt.Errorf("unable to decode premiumState#fd42d2cd: %w", err)
+				return fmt.Errorf("unable to decode premiumState#91a8799: %w", err)
 			}
 		case "state":
 			if err := p.State.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode premiumState#fd42d2cd: field state: %w", err)
+				return fmt.Errorf("unable to decode premiumState#91a8799: field state: %w", err)
 			}
 		case "payment_options":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PremiumStatePaymentOption
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode premiumState#fd42d2cd: field payment_options: %w", err)
+					return fmt.Errorf("unable to decode premiumState#91a8799: field payment_options: %w", err)
 				}
 				p.PaymentOptions = append(p.PaymentOptions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode premiumState#fd42d2cd: field payment_options: %w", err)
+				return fmt.Errorf("unable to decode premiumState#91a8799: field payment_options: %w", err)
 			}
 		case "animations":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PremiumFeaturePromotionAnimation
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode premiumState#fd42d2cd: field animations: %w", err)
+					return fmt.Errorf("unable to decode premiumState#91a8799: field animations: %w", err)
 				}
 				p.Animations = append(p.Animations, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode premiumState#fd42d2cd: field animations: %w", err)
+				return fmt.Errorf("unable to decode premiumState#91a8799: field animations: %w", err)
+			}
+		case "business_animations":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value BusinessFeaturePromotionAnimation
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode premiumState#91a8799: field business_animations: %w", err)
+				}
+				p.BusinessAnimations = append(p.BusinessAnimations, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode premiumState#91a8799: field business_animations: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -315,4 +369,12 @@ func (p *PremiumState) GetAnimations() (value []PremiumFeaturePromotionAnimation
 		return
 	}
 	return p.Animations
+}
+
+// GetBusinessAnimations returns value of BusinessAnimations field.
+func (p *PremiumState) GetBusinessAnimations() (value []BusinessFeaturePromotionAnimation) {
+	if p == nil {
+		return
+	}
+	return p.BusinessAnimations
 }

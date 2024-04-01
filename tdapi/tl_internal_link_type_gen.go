@@ -3663,7 +3663,7 @@ func (i *InternalLinkTypeMessageDraft) GetContainsLink() (value bool) {
 
 // InternalLinkTypePassportDataRequest represents TL type `internalLinkTypePassportDataRequest#c50fce81`.
 type InternalLinkTypePassportDataRequest struct {
-	// User identifier of the service's bot
+	// User identifier of the service's bot; the corresponding user may be unknown yet
 	BotUserID int64
 	// Telegram Passport element types requested by the service
 	Scope string

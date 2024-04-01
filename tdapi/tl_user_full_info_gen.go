@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UserFullInfo represents TL type `userFullInfo#760faed8`.
+// UserFullInfo represents TL type `userFullInfo#809a3ac2`.
 type UserFullInfo struct {
 	// User profile photo set by the current user for the contact; may be null. If null and
 	// user.profile_photo is null, then the photo is empty; otherwise, it is unknown.
@@ -64,6 +64,10 @@ type UserFullInfo struct {
 	SetChatBackground bool
 	// A short user bio; may be null for bots
 	Bio FormattedText
+	// Birthdate of the user; may be null if unknown
+	Birthdate Birthdate
+	// Identifier of the personal chat of the user; 0 if none
+	PersonalChatID int64
 	// The list of available options for gifting Telegram Premium to the user
 	PremiumGiftOptions []PremiumPaymentOption
 	// Number of group chats where both the other user and the current user are a member; 0
@@ -77,7 +81,7 @@ type UserFullInfo struct {
 }
 
 // UserFullInfoTypeID is TL type id of UserFullInfo.
-const UserFullInfoTypeID = 0x760faed8
+const UserFullInfoTypeID = 0x809a3ac2
 
 // Ensuring interfaces in compile-time for UserFullInfo.
 var (
@@ -128,6 +132,12 @@ func (u *UserFullInfo) Zero() bool {
 		return false
 	}
 	if !(u.Bio.Zero()) {
+		return false
+	}
+	if !(u.Birthdate.Zero()) {
+		return false
+	}
+	if !(u.PersonalChatID == 0) {
 		return false
 	}
 	if !(u.PremiumGiftOptions == nil) {
@@ -231,6 +241,14 @@ func (u *UserFullInfo) TypeInfo() tdp.Type {
 			SchemaName: "bio",
 		},
 		{
+			Name:       "Birthdate",
+			SchemaName: "birthdate",
+		},
+		{
+			Name:       "PersonalChatID",
+			SchemaName: "personal_chat_id",
+		},
+		{
 			Name:       "PremiumGiftOptions",
 			SchemaName: "premium_gift_options",
 		},
@@ -253,7 +271,7 @@ func (u *UserFullInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserFullInfo) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFullInfo#760faed8 as nil")
+		return fmt.Errorf("can't encode userFullInfo#809a3ac2 as nil")
 	}
 	b.PutID(UserFullInfoTypeID)
 	return u.EncodeBare(b)
@@ -262,22 +280,22 @@ func (u *UserFullInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserFullInfo) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFullInfo#760faed8 as nil")
+		return fmt.Errorf("can't encode userFullInfo#809a3ac2 as nil")
 	}
 	if err := u.PersonalPhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field personal_photo: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field personal_photo: %w", err)
 	}
 	if err := u.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field photo: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field photo: %w", err)
 	}
 	if err := u.PublicPhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field public_photo: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field public_photo: %w", err)
 	}
 	if u.BlockList == nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field block_list is nil")
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field block_list is nil")
 	}
 	if err := u.BlockList.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field block_list: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field block_list: %w", err)
 	}
 	b.PutBool(u.CanBeCalled)
 	b.PutBool(u.SupportsVideoCalls)
@@ -288,20 +306,24 @@ func (u *UserFullInfo) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(u.NeedPhoneNumberPrivacyException)
 	b.PutBool(u.SetChatBackground)
 	if err := u.Bio.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field bio: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field bio: %w", err)
 	}
+	if err := u.Birthdate.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field birthdate: %w", err)
+	}
+	b.PutInt53(u.PersonalChatID)
 	b.PutInt(len(u.PremiumGiftOptions))
 	for idx, v := range u.PremiumGiftOptions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare userFullInfo#760faed8: field premium_gift_options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare userFullInfo#809a3ac2: field premium_gift_options element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt32(u.GroupInCommonCount)
 	if err := u.BusinessInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field business_info: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field business_info: %w", err)
 	}
 	if err := u.BotInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field bot_info: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field bot_info: %w", err)
 	}
 	return nil
 }
@@ -309,10 +331,10 @@ func (u *UserFullInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserFullInfo) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFullInfo#760faed8 to nil")
+		return fmt.Errorf("can't decode userFullInfo#809a3ac2 to nil")
 	}
 	if err := b.ConsumeID(UserFullInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode userFullInfo#760faed8: %w", err)
+		return fmt.Errorf("unable to decode userFullInfo#809a3ac2: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -320,95 +342,107 @@ func (u *UserFullInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserFullInfo) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFullInfo#760faed8 to nil")
+		return fmt.Errorf("can't decode userFullInfo#809a3ac2 to nil")
 	}
 	{
 		if err := u.PersonalPhoto.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field personal_photo: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field personal_photo: %w", err)
 		}
 	}
 	{
 		if err := u.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field photo: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field photo: %w", err)
 		}
 	}
 	{
 		if err := u.PublicPhoto.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field public_photo: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field public_photo: %w", err)
 		}
 	}
 	{
 		value, err := DecodeBlockList(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field block_list: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field block_list: %w", err)
 		}
 		u.BlockList = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field can_be_called: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field can_be_called: %w", err)
 		}
 		u.CanBeCalled = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field supports_video_calls: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field supports_video_calls: %w", err)
 		}
 		u.SupportsVideoCalls = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_private_calls: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_private_calls: %w", err)
 		}
 		u.HasPrivateCalls = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_private_forwards: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_private_forwards: %w", err)
 		}
 		u.HasPrivateForwards = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_restricted_voice_and_video_note_messages: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_restricted_voice_and_video_note_messages: %w", err)
 		}
 		u.HasRestrictedVoiceAndVideoNoteMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_pinned_stories: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_pinned_stories: %w", err)
 		}
 		u.HasPinnedStories = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field need_phone_number_privacy_exception: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field need_phone_number_privacy_exception: %w", err)
 		}
 		u.NeedPhoneNumberPrivacyException = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field set_chat_background: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field set_chat_background: %w", err)
 		}
 		u.SetChatBackground = value
 	}
 	{
 		if err := u.Bio.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field bio: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field bio: %w", err)
 		}
+	}
+	{
+		if err := u.Birthdate.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field birthdate: %w", err)
+		}
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field personal_chat_id: %w", err)
+		}
+		u.PersonalChatID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field premium_gift_options: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field premium_gift_options: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -417,7 +451,7 @@ func (u *UserFullInfo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PremiumPaymentOption
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare userFullInfo#760faed8: field premium_gift_options: %w", err)
+				return fmt.Errorf("unable to decode bare userFullInfo#809a3ac2: field premium_gift_options: %w", err)
 			}
 			u.PremiumGiftOptions = append(u.PremiumGiftOptions, value)
 		}
@@ -425,18 +459,18 @@ func (u *UserFullInfo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field group_in_common_count: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field group_in_common_count: %w", err)
 		}
 		u.GroupInCommonCount = value
 	}
 	{
 		if err := u.BusinessInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field business_info: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field business_info: %w", err)
 		}
 	}
 	{
 		if err := u.BotInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFullInfo#760faed8: field bot_info: %w", err)
+			return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field bot_info: %w", err)
 		}
 	}
 	return nil
@@ -445,32 +479,32 @@ func (u *UserFullInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFullInfo#760faed8 as nil")
+		return fmt.Errorf("can't encode userFullInfo#809a3ac2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userFullInfo")
 	b.Comma()
 	b.FieldStart("personal_photo")
 	if err := u.PersonalPhoto.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field personal_photo: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field personal_photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("photo")
 	if err := u.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field photo: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("public_photo")
 	if err := u.PublicPhoto.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field public_photo: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field public_photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("block_list")
 	if u.BlockList == nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field block_list is nil")
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field block_list is nil")
 	}
 	if err := u.BlockList.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field block_list: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field block_list: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("can_be_called")
@@ -499,14 +533,22 @@ func (u *UserFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("bio")
 	if err := u.Bio.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field bio: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field bio: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("birthdate")
+	if err := u.Birthdate.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field birthdate: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("personal_chat_id")
+	b.PutInt53(u.PersonalChatID)
 	b.Comma()
 	b.FieldStart("premium_gift_options")
 	b.ArrStart()
 	for idx, v := range u.PremiumGiftOptions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode userFullInfo#760faed8: field premium_gift_options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field premium_gift_options element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -518,12 +560,12 @@ func (u *UserFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("business_info")
 	if err := u.BusinessInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field business_info: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field business_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("bot_info")
 	if err := u.BotInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userFullInfo#760faed8: field bot_info: %w", err)
+		return fmt.Errorf("unable to encode userFullInfo#809a3ac2: field bot_info: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -534,109 +576,119 @@ func (u *UserFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFullInfo#760faed8 to nil")
+		return fmt.Errorf("can't decode userFullInfo#809a3ac2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userFullInfo"); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: %w", err)
 			}
 		case "personal_photo":
 			if err := u.PersonalPhoto.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field personal_photo: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field personal_photo: %w", err)
 			}
 		case "photo":
 			if err := u.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field photo: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field photo: %w", err)
 			}
 		case "public_photo":
 			if err := u.PublicPhoto.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field public_photo: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field public_photo: %w", err)
 			}
 		case "block_list":
 			value, err := DecodeTDLibJSONBlockList(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field block_list: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field block_list: %w", err)
 			}
 			u.BlockList = value
 		case "can_be_called":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field can_be_called: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field can_be_called: %w", err)
 			}
 			u.CanBeCalled = value
 		case "supports_video_calls":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field supports_video_calls: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field supports_video_calls: %w", err)
 			}
 			u.SupportsVideoCalls = value
 		case "has_private_calls":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_private_calls: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_private_calls: %w", err)
 			}
 			u.HasPrivateCalls = value
 		case "has_private_forwards":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_private_forwards: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_private_forwards: %w", err)
 			}
 			u.HasPrivateForwards = value
 		case "has_restricted_voice_and_video_note_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_restricted_voice_and_video_note_messages: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_restricted_voice_and_video_note_messages: %w", err)
 			}
 			u.HasRestrictedVoiceAndVideoNoteMessages = value
 		case "has_pinned_stories":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field has_pinned_stories: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field has_pinned_stories: %w", err)
 			}
 			u.HasPinnedStories = value
 		case "need_phone_number_privacy_exception":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field need_phone_number_privacy_exception: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field need_phone_number_privacy_exception: %w", err)
 			}
 			u.NeedPhoneNumberPrivacyException = value
 		case "set_chat_background":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field set_chat_background: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field set_chat_background: %w", err)
 			}
 			u.SetChatBackground = value
 		case "bio":
 			if err := u.Bio.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field bio: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field bio: %w", err)
 			}
+		case "birthdate":
+			if err := u.Birthdate.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field birthdate: %w", err)
+			}
+		case "personal_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field personal_chat_id: %w", err)
+			}
+			u.PersonalChatID = value
 		case "premium_gift_options":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PremiumPaymentOption
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode userFullInfo#760faed8: field premium_gift_options: %w", err)
+					return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field premium_gift_options: %w", err)
 				}
 				u.PremiumGiftOptions = append(u.PremiumGiftOptions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field premium_gift_options: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field premium_gift_options: %w", err)
 			}
 		case "group_in_common_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field group_in_common_count: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field group_in_common_count: %w", err)
 			}
 			u.GroupInCommonCount = value
 		case "business_info":
 			if err := u.BusinessInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field business_info: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field business_info: %w", err)
 			}
 		case "bot_info":
 			if err := u.BotInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userFullInfo#760faed8: field bot_info: %w", err)
+				return fmt.Errorf("unable to decode userFullInfo#809a3ac2: field bot_info: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -747,6 +799,22 @@ func (u *UserFullInfo) GetBio() (value FormattedText) {
 		return
 	}
 	return u.Bio
+}
+
+// GetBirthdate returns value of Birthdate field.
+func (u *UserFullInfo) GetBirthdate() (value Birthdate) {
+	if u == nil {
+		return
+	}
+	return u.Birthdate
+}
+
+// GetPersonalChatID returns value of PersonalChatID field.
+func (u *UserFullInfo) GetPersonalChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.PersonalChatID
 }
 
 // GetPremiumGiftOptions returns value of PremiumGiftOptions field.

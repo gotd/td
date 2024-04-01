@@ -1412,6 +1412,137 @@ func (s *SuggestedActionGiftPremiumForChristmas) DecodeTDLibJSON(b tdjson.Decode
 	})
 }
 
+// SuggestedActionSetBirthdate represents TL type `suggestedActionSetBirthdate#eabd9b02`.
+type SuggestedActionSetBirthdate struct {
+}
+
+// SuggestedActionSetBirthdateTypeID is TL type id of SuggestedActionSetBirthdate.
+const SuggestedActionSetBirthdateTypeID = 0xeabd9b02
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionSetBirthdate) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionSetBirthdate.
+var (
+	_ bin.Encoder     = &SuggestedActionSetBirthdate{}
+	_ bin.Decoder     = &SuggestedActionSetBirthdate{}
+	_ bin.BareEncoder = &SuggestedActionSetBirthdate{}
+	_ bin.BareDecoder = &SuggestedActionSetBirthdate{}
+
+	_ SuggestedActionClass = &SuggestedActionSetBirthdate{}
+)
+
+func (s *SuggestedActionSetBirthdate) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionSetBirthdate) String() string {
+	if s == nil {
+		return "SuggestedActionSetBirthdate(nil)"
+	}
+	type Alias SuggestedActionSetBirthdate
+	return fmt.Sprintf("SuggestedActionSetBirthdate%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionSetBirthdate) TypeID() uint32 {
+	return SuggestedActionSetBirthdateTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionSetBirthdate) TypeName() string {
+	return "suggestedActionSetBirthdate"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionSetBirthdate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionSetBirthdate",
+		ID:   SuggestedActionSetBirthdateTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionSetBirthdate) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetBirthdate#eabd9b02 as nil")
+	}
+	b.PutID(SuggestedActionSetBirthdateTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionSetBirthdate) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetBirthdate#eabd9b02 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionSetBirthdate) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetBirthdate#eabd9b02 to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionSetBirthdateTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionSetBirthdate#eabd9b02: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionSetBirthdate) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetBirthdate#eabd9b02 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionSetBirthdate) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetBirthdate#eabd9b02 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionSetBirthdate")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionSetBirthdate) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetBirthdate#eabd9b02 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionSetBirthdate"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionSetBirthdate#eabd9b02: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SuggestedActionClassName is schema name of SuggestedActionClass.
 const SuggestedActionClassName = "SuggestedAction"
 
@@ -1434,6 +1565,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionRestorePremium: // suggestedActionRestorePremium#e909dd64
 //	case *tdapi.SuggestedActionSubscribeToAnnualPremium: // suggestedActionSubscribeToAnnualPremium#164978bb
 //	case *tdapi.SuggestedActionGiftPremiumForChristmas: // suggestedActionGiftPremiumForChristmas#93b3ee6f
+//	case *tdapi.SuggestedActionSetBirthdate: // suggestedActionSetBirthdate#eabd9b02
 //	default: panic(v)
 //	}
 type SuggestedActionClass interface {
@@ -1535,6 +1667,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionSetBirthdateTypeID:
+		// Decoding suggestedActionSetBirthdate#eabd9b02.
+		v := SuggestedActionSetBirthdate{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1613,6 +1752,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionGiftPremiumForChristmas":
 		// Decoding suggestedActionGiftPremiumForChristmas#93b3ee6f.
 		v := SuggestedActionGiftPremiumForChristmas{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionSetBirthdate":
+		// Decoding suggestedActionSetBirthdate#eabd9b02.
+		v := SuggestedActionSetBirthdate{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

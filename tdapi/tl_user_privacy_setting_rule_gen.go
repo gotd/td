@@ -293,6 +293,137 @@ func (u *UserPrivacySettingRuleAllowContacts) DecodeTDLibJSON(b tdjson.Decoder) 
 	})
 }
 
+// UserPrivacySettingRuleAllowPremiumUsers represents TL type `userPrivacySettingRuleAllowPremiumUsers#60ce8541`.
+type UserPrivacySettingRuleAllowPremiumUsers struct {
+}
+
+// UserPrivacySettingRuleAllowPremiumUsersTypeID is TL type id of UserPrivacySettingRuleAllowPremiumUsers.
+const UserPrivacySettingRuleAllowPremiumUsersTypeID = 0x60ce8541
+
+// construct implements constructor of UserPrivacySettingRuleClass.
+func (u UserPrivacySettingRuleAllowPremiumUsers) construct() UserPrivacySettingRuleClass { return &u }
+
+// Ensuring interfaces in compile-time for UserPrivacySettingRuleAllowPremiumUsers.
+var (
+	_ bin.Encoder     = &UserPrivacySettingRuleAllowPremiumUsers{}
+	_ bin.Decoder     = &UserPrivacySettingRuleAllowPremiumUsers{}
+	_ bin.BareEncoder = &UserPrivacySettingRuleAllowPremiumUsers{}
+	_ bin.BareDecoder = &UserPrivacySettingRuleAllowPremiumUsers{}
+
+	_ UserPrivacySettingRuleClass = &UserPrivacySettingRuleAllowPremiumUsers{}
+)
+
+func (u *UserPrivacySettingRuleAllowPremiumUsers) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) String() string {
+	if u == nil {
+		return "UserPrivacySettingRuleAllowPremiumUsers(nil)"
+	}
+	type Alias UserPrivacySettingRuleAllowPremiumUsers
+	return fmt.Sprintf("UserPrivacySettingRuleAllowPremiumUsers%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingRuleAllowPremiumUsers) TypeID() uint32 {
+	return UserPrivacySettingRuleAllowPremiumUsersTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingRuleAllowPremiumUsers) TypeName() string {
+	return "userPrivacySettingRuleAllowPremiumUsers"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingRuleAllowPremiumUsers",
+		ID:   UserPrivacySettingRuleAllowPremiumUsersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowPremiumUsers#60ce8541 as nil")
+	}
+	b.PutID(UserPrivacySettingRuleAllowPremiumUsersTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowPremiumUsers#60ce8541 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowPremiumUsers#60ce8541 to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingRuleAllowPremiumUsersTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingRuleAllowPremiumUsers#60ce8541: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowPremiumUsers#60ce8541 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowPremiumUsers#60ce8541 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleAllowPremiumUsers")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingRuleAllowPremiumUsers) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowPremiumUsers#60ce8541 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingRuleAllowPremiumUsers"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowPremiumUsers#60ce8541: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingRuleAllowUsers represents TL type `userPrivacySettingRuleAllowUsers#d1570b70`.
 type UserPrivacySettingRuleAllowUsers struct {
 	// The user identifiers, total number of users in all rules must not exceed 1000
@@ -1329,6 +1460,7 @@ const UserPrivacySettingRuleClassName = "UserPrivacySettingRule"
 //	switch v := g.(type) {
 //	case *tdapi.UserPrivacySettingRuleAllowAll: // userPrivacySettingRuleAllowAll#8abf1c3f
 //	case *tdapi.UserPrivacySettingRuleAllowContacts: // userPrivacySettingRuleAllowContacts#8f2f2d10
+//	case *tdapi.UserPrivacySettingRuleAllowPremiumUsers: // userPrivacySettingRuleAllowPremiumUsers#60ce8541
 //	case *tdapi.UserPrivacySettingRuleAllowUsers: // userPrivacySettingRuleAllowUsers#d1570b70
 //	case *tdapi.UserPrivacySettingRuleAllowChatMembers: // userPrivacySettingRuleAllowChatMembers#f249b617
 //	case *tdapi.UserPrivacySettingRuleRestrictAll: // userPrivacySettingRuleRestrictAll#ac2a9550
@@ -1376,6 +1508,13 @@ func DecodeUserPrivacySettingRule(buf *bin.Buffer) (UserPrivacySettingRuleClass,
 	case UserPrivacySettingRuleAllowContactsTypeID:
 		// Decoding userPrivacySettingRuleAllowContacts#8f2f2d10.
 		v := UserPrivacySettingRuleAllowContacts{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
+		}
+		return &v, nil
+	case UserPrivacySettingRuleAllowPremiumUsersTypeID:
+		// Decoding userPrivacySettingRuleAllowPremiumUsers#60ce8541.
+		v := UserPrivacySettingRuleAllowPremiumUsers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
 		}
@@ -1444,6 +1583,13 @@ func DecodeTDLibJSONUserPrivacySettingRule(buf tdjson.Decoder) (UserPrivacySetti
 	case "userPrivacySettingRuleAllowContacts":
 		// Decoding userPrivacySettingRuleAllowContacts#8f2f2d10.
 		v := UserPrivacySettingRuleAllowContacts{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
+		}
+		return &v, nil
+	case "userPrivacySettingRuleAllowPremiumUsers":
+		// Decoding userPrivacySettingRuleAllowPremiumUsers#60ce8541.
+		v := UserPrivacySettingRuleAllowPremiumUsers{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
 		}

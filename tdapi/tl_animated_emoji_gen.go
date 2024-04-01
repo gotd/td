@@ -34,7 +34,7 @@ var (
 // AnimatedEmoji represents TL type `animatedEmoji#52309ebf`.
 type AnimatedEmoji struct {
 	// Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker
-	// is a custom emoji, it can have arbitrary format different from stickerFormatTgs
+	// is a custom emoji, then it can have arbitrary format
 	Sticker Sticker
 	// Expected width of the sticker, which can be used if the sticker is null
 	StickerWidth int32

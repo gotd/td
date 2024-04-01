@@ -33,7 +33,8 @@ var (
 
 // SetBusinessOpeningHoursRequest represents TL type `setBusinessOpeningHours#e470a472`.
 type SetBusinessOpeningHoursRequest struct {
-	// The new opening hours of the business; pass null to remove the opening hours
+	// The new opening hours of the business; pass null to remove the opening hours; up to 28
+	// time intervals can be specified
 	OpeningHours BusinessOpeningHours
 }
 

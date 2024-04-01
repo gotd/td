@@ -37,7 +37,7 @@ type MessageExtendedMediaPreview struct {
 	Width int32
 	// Media height; 0 if unknown
 	Height int32
-	// Media duration; 0 if unknown
+	// Media duration, in seconds; 0 if unknown
 	Duration int32
 	// Media minithumbnail; may be null
 	Minithumbnail Minithumbnail

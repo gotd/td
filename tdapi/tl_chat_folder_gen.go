@@ -39,7 +39,8 @@ type ChatFolder struct {
 	// getChatFolderDefaultIconName to get default icon name for the folder
 	Icon ChatFolderIcon
 	// The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then
-	// color is didabled
+	// color is didabled. Can't be changed if folder tags are disabled or the current user
+	// doesn't have Telegram Premium subscription
 	ColorID int32
 	// True, if at least one link has been created for the folder
 	IsShareable bool

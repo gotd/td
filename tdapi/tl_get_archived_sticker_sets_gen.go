@@ -35,7 +35,8 @@ var (
 type GetArchivedStickerSetsRequest struct {
 	// Type of the sticker sets to return
 	StickerType StickerTypeClass
-	// Identifier of the sticker set from which to return the result
+	// Identifier of the sticker set from which to return the result; use 0 to get results
+	// from the beginning
 	OffsetStickerSetID int64
 	// The maximum number of sticker sets to return; up to 100
 	Limit int32

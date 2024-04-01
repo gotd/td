@@ -33,9 +33,10 @@ var (
 
 // AddStickerToSetRequest represents TL type `addStickerToSet#56dc1e3b`.
 type AddStickerToSetRequest struct {
-	// Sticker set owner
+	// Sticker set owner; ignored for regular users
 	UserID int64
-	// Sticker set name
+	// Sticker set name. The sticker set must be owned by the current user, and contain less
+	// than 200 stickers for custom emoji sticker sets and less than 120 otherwise
 	Name string
 	// Sticker to add to the set
 	Sticker InputSticker

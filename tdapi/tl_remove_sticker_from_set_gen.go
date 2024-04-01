@@ -33,7 +33,7 @@ var (
 
 // RemoveStickerFromSetRequest represents TL type `removeStickerFromSet#61e1eea4`.
 type RemoveStickerFromSetRequest struct {
-	// Sticker
+	// Sticker to remove from the set
 	Sticker InputFileClass
 }
 

@@ -23772,7 +23772,7 @@ func (u *UpdateSavedMessagesTags) GetTags() (value SavedMessagesTags) {
 // UpdateSpeechRecognitionTrial represents TL type `updateSpeechRecognitionTrial#ff4efcc1`.
 type UpdateSpeechRecognitionTrial struct {
 	// The maximum allowed duration of media for speech recognition without Telegram Premium
-	// subscription
+	// subscription, in seconds
 	MaxMediaDuration int32
 	// The total number of allowed speech recognitions per week; 0 if none
 	WeeklyCount int32
@@ -24955,6 +24955,200 @@ func (u *UpdateSuggestedActions) GetRemovedActions() (value []SuggestedActionCla
 	return u.RemovedActions
 }
 
+// UpdateContactCloseBirthdays represents TL type `updateContactCloseBirthdays#c88b98ce`.
+type UpdateContactCloseBirthdays struct {
+	// List of contact users with close birthday
+	CloseBirthdayUsers []CloseBirthdayUser
+}
+
+// UpdateContactCloseBirthdaysTypeID is TL type id of UpdateContactCloseBirthdays.
+const UpdateContactCloseBirthdaysTypeID = 0xc88b98ce
+
+// construct implements constructor of UpdateClass.
+func (u UpdateContactCloseBirthdays) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateContactCloseBirthdays.
+var (
+	_ bin.Encoder     = &UpdateContactCloseBirthdays{}
+	_ bin.Decoder     = &UpdateContactCloseBirthdays{}
+	_ bin.BareEncoder = &UpdateContactCloseBirthdays{}
+	_ bin.BareDecoder = &UpdateContactCloseBirthdays{}
+
+	_ UpdateClass = &UpdateContactCloseBirthdays{}
+)
+
+func (u *UpdateContactCloseBirthdays) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.CloseBirthdayUsers == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateContactCloseBirthdays) String() string {
+	if u == nil {
+		return "UpdateContactCloseBirthdays(nil)"
+	}
+	type Alias UpdateContactCloseBirthdays
+	return fmt.Sprintf("UpdateContactCloseBirthdays%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateContactCloseBirthdays) TypeID() uint32 {
+	return UpdateContactCloseBirthdaysTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateContactCloseBirthdays) TypeName() string {
+	return "updateContactCloseBirthdays"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateContactCloseBirthdays) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateContactCloseBirthdays",
+		ID:   UpdateContactCloseBirthdaysTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CloseBirthdayUsers",
+			SchemaName: "close_birthday_users",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateContactCloseBirthdays) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateContactCloseBirthdays#c88b98ce as nil")
+	}
+	b.PutID(UpdateContactCloseBirthdaysTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateContactCloseBirthdays) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateContactCloseBirthdays#c88b98ce as nil")
+	}
+	b.PutInt(len(u.CloseBirthdayUsers))
+	for idx, v := range u.CloseBirthdayUsers {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateContactCloseBirthdays#c88b98ce: field close_birthday_users element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateContactCloseBirthdays) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateContactCloseBirthdays#c88b98ce to nil")
+	}
+	if err := b.ConsumeID(UpdateContactCloseBirthdaysTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateContactCloseBirthdays#c88b98ce: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateContactCloseBirthdays) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateContactCloseBirthdays#c88b98ce to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateContactCloseBirthdays#c88b98ce: field close_birthday_users: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.CloseBirthdayUsers = make([]CloseBirthdayUser, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value CloseBirthdayUser
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateContactCloseBirthdays#c88b98ce: field close_birthday_users: %w", err)
+			}
+			u.CloseBirthdayUsers = append(u.CloseBirthdayUsers, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateContactCloseBirthdays) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateContactCloseBirthdays#c88b98ce as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateContactCloseBirthdays")
+	b.Comma()
+	b.FieldStart("close_birthday_users")
+	b.ArrStart()
+	for idx, v := range u.CloseBirthdayUsers {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateContactCloseBirthdays#c88b98ce: field close_birthday_users element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateContactCloseBirthdays) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateContactCloseBirthdays#c88b98ce to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateContactCloseBirthdays"); err != nil {
+				return fmt.Errorf("unable to decode updateContactCloseBirthdays#c88b98ce: %w", err)
+			}
+		case "close_birthday_users":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value CloseBirthdayUser
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateContactCloseBirthdays#c88b98ce: field close_birthday_users: %w", err)
+				}
+				u.CloseBirthdayUsers = append(u.CloseBirthdayUsers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateContactCloseBirthdays#c88b98ce: field close_birthday_users: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetCloseBirthdayUsers returns value of CloseBirthdayUsers field.
+func (u *UpdateContactCloseBirthdays) GetCloseBirthdayUsers() (value []CloseBirthdayUser) {
+	if u == nil {
+		return
+	}
+	return u.CloseBirthdayUsers
+}
+
 // UpdateAddChatMembersPrivacyForbidden represents TL type `updateAddChatMembersPrivacyForbidden#b8b50363`.
 type UpdateAddChatMembersPrivacyForbidden struct {
 	// Chat identifier
@@ -25387,6 +25581,830 @@ func (u *UpdateAutosaveSettings) GetSettings() (value ScopeAutosaveSettings) {
 		return
 	}
 	return u.Settings
+}
+
+// UpdateBusinessConnection represents TL type `updateBusinessConnection#8632f476`.
+type UpdateBusinessConnection struct {
+	// New data about the connection
+	Connection BusinessConnection
+}
+
+// UpdateBusinessConnectionTypeID is TL type id of UpdateBusinessConnection.
+const UpdateBusinessConnectionTypeID = 0x8632f476
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBusinessConnection) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBusinessConnection.
+var (
+	_ bin.Encoder     = &UpdateBusinessConnection{}
+	_ bin.Decoder     = &UpdateBusinessConnection{}
+	_ bin.BareEncoder = &UpdateBusinessConnection{}
+	_ bin.BareDecoder = &UpdateBusinessConnection{}
+
+	_ UpdateClass = &UpdateBusinessConnection{}
+)
+
+func (u *UpdateBusinessConnection) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Connection.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBusinessConnection) String() string {
+	if u == nil {
+		return "UpdateBusinessConnection(nil)"
+	}
+	type Alias UpdateBusinessConnection
+	return fmt.Sprintf("UpdateBusinessConnection%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBusinessConnection) TypeID() uint32 {
+	return UpdateBusinessConnectionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBusinessConnection) TypeName() string {
+	return "updateBusinessConnection"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBusinessConnection) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBusinessConnection",
+		ID:   UpdateBusinessConnectionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Connection",
+			SchemaName: "connection",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBusinessConnection) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessConnection#8632f476 as nil")
+	}
+	b.PutID(UpdateBusinessConnectionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBusinessConnection) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessConnection#8632f476 as nil")
+	}
+	if err := u.Connection.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBusinessConnection#8632f476: field connection: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBusinessConnection) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessConnection#8632f476 to nil")
+	}
+	if err := b.ConsumeID(UpdateBusinessConnectionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBusinessConnection#8632f476: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBusinessConnection) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessConnection#8632f476 to nil")
+	}
+	{
+		if err := u.Connection.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBusinessConnection#8632f476: field connection: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateBusinessConnection) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessConnection#8632f476 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateBusinessConnection")
+	b.Comma()
+	b.FieldStart("connection")
+	if err := u.Connection.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateBusinessConnection#8632f476: field connection: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateBusinessConnection) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessConnection#8632f476 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateBusinessConnection"); err != nil {
+				return fmt.Errorf("unable to decode updateBusinessConnection#8632f476: %w", err)
+			}
+		case "connection":
+			if err := u.Connection.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateBusinessConnection#8632f476: field connection: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetConnection returns value of Connection field.
+func (u *UpdateBusinessConnection) GetConnection() (value BusinessConnection) {
+	if u == nil {
+		return
+	}
+	return u.Connection
+}
+
+// UpdateNewBusinessMessage represents TL type `updateNewBusinessMessage#86be4644`.
+type UpdateNewBusinessMessage struct {
+	// Unique identifier of the business connection
+	ConnectionID string
+	// The new message
+	Message BusinessMessage
+}
+
+// UpdateNewBusinessMessageTypeID is TL type id of UpdateNewBusinessMessage.
+const UpdateNewBusinessMessageTypeID = 0x86be4644
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewBusinessMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewBusinessMessage.
+var (
+	_ bin.Encoder     = &UpdateNewBusinessMessage{}
+	_ bin.Decoder     = &UpdateNewBusinessMessage{}
+	_ bin.BareEncoder = &UpdateNewBusinessMessage{}
+	_ bin.BareDecoder = &UpdateNewBusinessMessage{}
+
+	_ UpdateClass = &UpdateNewBusinessMessage{}
+)
+
+func (u *UpdateNewBusinessMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ConnectionID == "") {
+		return false
+	}
+	if !(u.Message.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateNewBusinessMessage) String() string {
+	if u == nil {
+		return "UpdateNewBusinessMessage(nil)"
+	}
+	type Alias UpdateNewBusinessMessage
+	return fmt.Sprintf("UpdateNewBusinessMessage%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateNewBusinessMessage) TypeID() uint32 {
+	return UpdateNewBusinessMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateNewBusinessMessage) TypeName() string {
+	return "updateNewBusinessMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewBusinessMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewBusinessMessage",
+		ID:   UpdateNewBusinessMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ConnectionID",
+			SchemaName: "connection_id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateNewBusinessMessage) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBusinessMessage#86be4644 as nil")
+	}
+	b.PutID(UpdateNewBusinessMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateNewBusinessMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBusinessMessage#86be4644 as nil")
+	}
+	b.PutString(u.ConnectionID)
+	if err := u.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBusinessMessage#86be4644: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateNewBusinessMessage) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBusinessMessage#86be4644 to nil")
+	}
+	if err := b.ConsumeID(UpdateNewBusinessMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateNewBusinessMessage#86be4644: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateNewBusinessMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBusinessMessage#86be4644 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessMessage#86be4644: field connection_id: %w", err)
+		}
+		u.ConnectionID = value
+	}
+	{
+		if err := u.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessMessage#86be4644: field message: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewBusinessMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBusinessMessage#86be4644 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateNewBusinessMessage")
+	b.Comma()
+	b.FieldStart("connection_id")
+	b.PutString(u.ConnectionID)
+	b.Comma()
+	b.FieldStart("message")
+	if err := u.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBusinessMessage#86be4644: field message: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewBusinessMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBusinessMessage#86be4644 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateNewBusinessMessage"); err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessMessage#86be4644: %w", err)
+			}
+		case "connection_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessMessage#86be4644: field connection_id: %w", err)
+			}
+			u.ConnectionID = value
+		case "message":
+			if err := u.Message.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessMessage#86be4644: field message: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetConnectionID returns value of ConnectionID field.
+func (u *UpdateNewBusinessMessage) GetConnectionID() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ConnectionID
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateNewBusinessMessage) GetMessage() (value BusinessMessage) {
+	if u == nil {
+		return
+	}
+	return u.Message
+}
+
+// UpdateBusinessMessageEdited represents TL type `updateBusinessMessageEdited#81a66d89`.
+type UpdateBusinessMessageEdited struct {
+	// Unique identifier of the business connection
+	ConnectionID string
+	// The edited message
+	Message BusinessMessage
+}
+
+// UpdateBusinessMessageEditedTypeID is TL type id of UpdateBusinessMessageEdited.
+const UpdateBusinessMessageEditedTypeID = 0x81a66d89
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBusinessMessageEdited) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBusinessMessageEdited.
+var (
+	_ bin.Encoder     = &UpdateBusinessMessageEdited{}
+	_ bin.Decoder     = &UpdateBusinessMessageEdited{}
+	_ bin.BareEncoder = &UpdateBusinessMessageEdited{}
+	_ bin.BareDecoder = &UpdateBusinessMessageEdited{}
+
+	_ UpdateClass = &UpdateBusinessMessageEdited{}
+)
+
+func (u *UpdateBusinessMessageEdited) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ConnectionID == "") {
+		return false
+	}
+	if !(u.Message.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBusinessMessageEdited) String() string {
+	if u == nil {
+		return "UpdateBusinessMessageEdited(nil)"
+	}
+	type Alias UpdateBusinessMessageEdited
+	return fmt.Sprintf("UpdateBusinessMessageEdited%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBusinessMessageEdited) TypeID() uint32 {
+	return UpdateBusinessMessageEditedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBusinessMessageEdited) TypeName() string {
+	return "updateBusinessMessageEdited"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBusinessMessageEdited) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBusinessMessageEdited",
+		ID:   UpdateBusinessMessageEditedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ConnectionID",
+			SchemaName: "connection_id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBusinessMessageEdited) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessMessageEdited#81a66d89 as nil")
+	}
+	b.PutID(UpdateBusinessMessageEditedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBusinessMessageEdited) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessMessageEdited#81a66d89 as nil")
+	}
+	b.PutString(u.ConnectionID)
+	if err := u.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBusinessMessageEdited#81a66d89: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBusinessMessageEdited) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessMessageEdited#81a66d89 to nil")
+	}
+	if err := b.ConsumeID(UpdateBusinessMessageEditedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBusinessMessageEdited#81a66d89: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBusinessMessageEdited) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessMessageEdited#81a66d89 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBusinessMessageEdited#81a66d89: field connection_id: %w", err)
+		}
+		u.ConnectionID = value
+	}
+	{
+		if err := u.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBusinessMessageEdited#81a66d89: field message: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateBusinessMessageEdited) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessMessageEdited#81a66d89 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateBusinessMessageEdited")
+	b.Comma()
+	b.FieldStart("connection_id")
+	b.PutString(u.ConnectionID)
+	b.Comma()
+	b.FieldStart("message")
+	if err := u.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateBusinessMessageEdited#81a66d89: field message: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateBusinessMessageEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessMessageEdited#81a66d89 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateBusinessMessageEdited"); err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessageEdited#81a66d89: %w", err)
+			}
+		case "connection_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessageEdited#81a66d89: field connection_id: %w", err)
+			}
+			u.ConnectionID = value
+		case "message":
+			if err := u.Message.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessageEdited#81a66d89: field message: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetConnectionID returns value of ConnectionID field.
+func (u *UpdateBusinessMessageEdited) GetConnectionID() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ConnectionID
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateBusinessMessageEdited) GetMessage() (value BusinessMessage) {
+	if u == nil {
+		return
+	}
+	return u.Message
+}
+
+// UpdateBusinessMessagesDeleted represents TL type `updateBusinessMessagesDeleted#e036d3ed`.
+type UpdateBusinessMessagesDeleted struct {
+	// Unique identifier of the business connection
+	ConnectionID string
+	// Identifier of a chat in the business account in which messages were deleted
+	ChatID int64
+	// Unique message identifiers of the deleted messages
+	MessageIDs []int64
+}
+
+// UpdateBusinessMessagesDeletedTypeID is TL type id of UpdateBusinessMessagesDeleted.
+const UpdateBusinessMessagesDeletedTypeID = 0xe036d3ed
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBusinessMessagesDeleted) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBusinessMessagesDeleted.
+var (
+	_ bin.Encoder     = &UpdateBusinessMessagesDeleted{}
+	_ bin.Decoder     = &UpdateBusinessMessagesDeleted{}
+	_ bin.BareEncoder = &UpdateBusinessMessagesDeleted{}
+	_ bin.BareDecoder = &UpdateBusinessMessagesDeleted{}
+
+	_ UpdateClass = &UpdateBusinessMessagesDeleted{}
+)
+
+func (u *UpdateBusinessMessagesDeleted) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ConnectionID == "") {
+		return false
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MessageIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBusinessMessagesDeleted) String() string {
+	if u == nil {
+		return "UpdateBusinessMessagesDeleted(nil)"
+	}
+	type Alias UpdateBusinessMessagesDeleted
+	return fmt.Sprintf("UpdateBusinessMessagesDeleted%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBusinessMessagesDeleted) TypeID() uint32 {
+	return UpdateBusinessMessagesDeletedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBusinessMessagesDeleted) TypeName() string {
+	return "updateBusinessMessagesDeleted"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBusinessMessagesDeleted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBusinessMessagesDeleted",
+		ID:   UpdateBusinessMessagesDeletedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ConnectionID",
+			SchemaName: "connection_id",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageIDs",
+			SchemaName: "message_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBusinessMessagesDeleted) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessMessagesDeleted#e036d3ed as nil")
+	}
+	b.PutID(UpdateBusinessMessagesDeletedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBusinessMessagesDeleted) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessMessagesDeleted#e036d3ed as nil")
+	}
+	b.PutString(u.ConnectionID)
+	b.PutInt53(u.ChatID)
+	b.PutInt(len(u.MessageIDs))
+	for _, v := range u.MessageIDs {
+		b.PutInt53(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBusinessMessagesDeleted) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessMessagesDeleted#e036d3ed to nil")
+	}
+	if err := b.ConsumeID(UpdateBusinessMessagesDeletedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBusinessMessagesDeleted) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessMessagesDeleted#e036d3ed to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field connection_id: %w", err)
+		}
+		u.ConnectionID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field message_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field message_ids: %w", err)
+			}
+			u.MessageIDs = append(u.MessageIDs, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateBusinessMessagesDeleted) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBusinessMessagesDeleted#e036d3ed as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateBusinessMessagesDeleted")
+	b.Comma()
+	b.FieldStart("connection_id")
+	b.PutString(u.ConnectionID)
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("message_ids")
+	b.ArrStart()
+	for _, v := range u.MessageIDs {
+		b.PutInt53(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateBusinessMessagesDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBusinessMessagesDeleted#e036d3ed to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateBusinessMessagesDeleted"); err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: %w", err)
+			}
+		case "connection_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field connection_id: %w", err)
+			}
+			u.ConnectionID = value
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "message_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Int53()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field message_ids: %w", err)
+				}
+				u.MessageIDs = append(u.MessageIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateBusinessMessagesDeleted#e036d3ed: field message_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetConnectionID returns value of ConnectionID field.
+func (u *UpdateBusinessMessagesDeleted) GetConnectionID() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ConnectionID
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateBusinessMessagesDeleted) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetMessageIDs returns value of MessageIDs field.
+func (u *UpdateBusinessMessagesDeleted) GetMessageIDs() (value []int64) {
+	if u == nil {
+		return
+	}
+	return u.MessageIDs
 }
 
 // UpdateNewInlineQuery represents TL type `updateNewInlineQuery#7171bf34`.
@@ -29845,8 +30863,13 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
 //	case *tdapi.UpdateAnimationSearchParameters: // updateAnimationSearchParameters#6016ef01
 //	case *tdapi.UpdateSuggestedActions: // updateSuggestedActions#c2e5cccb
+//	case *tdapi.UpdateContactCloseBirthdays: // updateContactCloseBirthdays#c88b98ce
 //	case *tdapi.UpdateAddChatMembersPrivacyForbidden: // updateAddChatMembersPrivacyForbidden#b8b50363
 //	case *tdapi.UpdateAutosaveSettings: // updateAutosaveSettings#da274f0b
+//	case *tdapi.UpdateBusinessConnection: // updateBusinessConnection#8632f476
+//	case *tdapi.UpdateNewBusinessMessage: // updateNewBusinessMessage#86be4644
+//	case *tdapi.UpdateBusinessMessageEdited: // updateBusinessMessageEdited#81a66d89
+//	case *tdapi.UpdateBusinessMessagesDeleted: // updateBusinessMessagesDeleted#e036d3ed
 //	case *tdapi.UpdateNewInlineQuery: // updateNewInlineQuery#7171bf34
 //	case *tdapi.UpdateNewChosenInlineResult: // updateNewChosenInlineResult#cb4c4f5d
 //	case *tdapi.UpdateNewCallbackQuery: // updateNewCallbackQuery#8964d05e
@@ -30719,6 +31742,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateContactCloseBirthdaysTypeID:
+		// Decoding updateContactCloseBirthdays#c88b98ce.
+		v := UpdateContactCloseBirthdays{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateAddChatMembersPrivacyForbiddenTypeID:
 		// Decoding updateAddChatMembersPrivacyForbidden#b8b50363.
 		v := UpdateAddChatMembersPrivacyForbidden{}
@@ -30729,6 +31759,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateAutosaveSettingsTypeID:
 		// Decoding updateAutosaveSettings#da274f0b.
 		v := UpdateAutosaveSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBusinessConnectionTypeID:
+		// Decoding updateBusinessConnection#8632f476.
+		v := UpdateBusinessConnection{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateNewBusinessMessageTypeID:
+		// Decoding updateNewBusinessMessage#86be4644.
+		v := UpdateNewBusinessMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBusinessMessageEditedTypeID:
+		// Decoding updateBusinessMessageEdited#81a66d89.
+		v := UpdateBusinessMessageEdited{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBusinessMessagesDeletedTypeID:
+		// Decoding updateBusinessMessagesDeleted#e036d3ed.
+		v := UpdateBusinessMessagesDeleted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -31676,6 +32734,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateContactCloseBirthdays":
+		// Decoding updateContactCloseBirthdays#c88b98ce.
+		v := UpdateContactCloseBirthdays{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateAddChatMembersPrivacyForbidden":
 		// Decoding updateAddChatMembersPrivacyForbidden#b8b50363.
 		v := UpdateAddChatMembersPrivacyForbidden{}
@@ -31686,6 +32751,34 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateAutosaveSettings":
 		// Decoding updateAutosaveSettings#da274f0b.
 		v := UpdateAutosaveSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateBusinessConnection":
+		// Decoding updateBusinessConnection#8632f476.
+		v := UpdateBusinessConnection{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateNewBusinessMessage":
+		// Decoding updateNewBusinessMessage#86be4644.
+		v := UpdateNewBusinessMessage{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateBusinessMessageEdited":
+		// Decoding updateBusinessMessageEdited#81a66d89.
+		v := UpdateBusinessMessageEdited{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateBusinessMessagesDeleted":
+		// Decoding updateBusinessMessagesDeleted#e036d3ed.
+		v := UpdateBusinessMessagesDeleted{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
