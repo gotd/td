@@ -33,7 +33,7 @@ var (
 
 // SetStickerSetTitleRequest represents TL type `setStickerSetTitle#64e933a2`.
 type SetStickerSetTitleRequest struct {
-	// Sticker set name
+	// Sticker set name. The sticker set must be owned by the current user
 	Name string
 	// New sticker set title
 	Title string

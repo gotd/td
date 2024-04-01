@@ -40,7 +40,8 @@ type Usernames struct {
 	// List of currently disabled usernames; the username can be activated with
 	// toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive
 	DisabledUsernames []string
-	// The active username, which can be changed with setUsername or setSupergroupUsername
+	// The active username, which can be changed with setUsername or setSupergroupUsername.
+	// Information about other active usernames can be received using getCollectibleItemInfo
 	EditableUsername string
 }
 

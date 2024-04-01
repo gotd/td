@@ -2623,7 +2623,7 @@ type InputMessageVideoNote struct {
 	VideoNote InputFileClass
 	// Video thumbnail; may be null if empty; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
-	// Duration of the video, in seconds
+	// Duration of the video, in seconds; 0-60
 	Duration int32
 	// Video width and height; must be positive and not greater than 640
 	Length int32

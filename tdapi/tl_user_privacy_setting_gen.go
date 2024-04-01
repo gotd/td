@@ -686,6 +686,137 @@ func (u *UserPrivacySettingShowBio) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// UserPrivacySettingShowBirthdate represents TL type `userPrivacySettingShowBirthdate#4596b4df`.
+type UserPrivacySettingShowBirthdate struct {
+}
+
+// UserPrivacySettingShowBirthdateTypeID is TL type id of UserPrivacySettingShowBirthdate.
+const UserPrivacySettingShowBirthdateTypeID = 0x4596b4df
+
+// construct implements constructor of UserPrivacySettingClass.
+func (u UserPrivacySettingShowBirthdate) construct() UserPrivacySettingClass { return &u }
+
+// Ensuring interfaces in compile-time for UserPrivacySettingShowBirthdate.
+var (
+	_ bin.Encoder     = &UserPrivacySettingShowBirthdate{}
+	_ bin.Decoder     = &UserPrivacySettingShowBirthdate{}
+	_ bin.BareEncoder = &UserPrivacySettingShowBirthdate{}
+	_ bin.BareDecoder = &UserPrivacySettingShowBirthdate{}
+
+	_ UserPrivacySettingClass = &UserPrivacySettingShowBirthdate{}
+)
+
+func (u *UserPrivacySettingShowBirthdate) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingShowBirthdate) String() string {
+	if u == nil {
+		return "UserPrivacySettingShowBirthdate(nil)"
+	}
+	type Alias UserPrivacySettingShowBirthdate
+	return fmt.Sprintf("UserPrivacySettingShowBirthdate%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingShowBirthdate) TypeID() uint32 {
+	return UserPrivacySettingShowBirthdateTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingShowBirthdate) TypeName() string {
+	return "userPrivacySettingShowBirthdate"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingShowBirthdate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingShowBirthdate",
+		ID:   UserPrivacySettingShowBirthdateTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingShowBirthdate) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowBirthdate#4596b4df as nil")
+	}
+	b.PutID(UserPrivacySettingShowBirthdateTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingShowBirthdate) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowBirthdate#4596b4df as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingShowBirthdate) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingShowBirthdate#4596b4df to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingShowBirthdateTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingShowBirthdate#4596b4df: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingShowBirthdate) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingShowBirthdate#4596b4df to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingShowBirthdate) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowBirthdate#4596b4df as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingShowBirthdate")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingShowBirthdate) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingShowBirthdate#4596b4df to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingShowBirthdate"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingShowBirthdate#4596b4df: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingAllowChatInvites represents TL type `userPrivacySettingAllowChatInvites#4bcc1d27`.
 type UserPrivacySettingAllowChatInvites struct {
 }
@@ -1360,6 +1491,7 @@ const UserPrivacySettingClassName = "UserPrivacySetting"
 //	case *tdapi.UserPrivacySettingShowLinkInForwardedMessages: // userPrivacySettingShowLinkInForwardedMessages#2353b6e6
 //	case *tdapi.UserPrivacySettingShowPhoneNumber: // userPrivacySettingShowPhoneNumber#d0d1a229
 //	case *tdapi.UserPrivacySettingShowBio: // userPrivacySettingShowBio#39382761
+//	case *tdapi.UserPrivacySettingShowBirthdate: // userPrivacySettingShowBirthdate#4596b4df
 //	case *tdapi.UserPrivacySettingAllowChatInvites: // userPrivacySettingAllowChatInvites#4bcc1d27
 //	case *tdapi.UserPrivacySettingAllowCalls: // userPrivacySettingAllowCalls#c9f0c705
 //	case *tdapi.UserPrivacySettingAllowPeerToPeerCalls: // userPrivacySettingAllowPeerToPeerCalls#1502b940
@@ -1427,6 +1559,13 @@ func DecodeUserPrivacySetting(buf *bin.Buffer) (UserPrivacySettingClass, error) 
 	case UserPrivacySettingShowBioTypeID:
 		// Decoding userPrivacySettingShowBio#39382761.
 		v := UserPrivacySettingShowBio{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
+	case UserPrivacySettingShowBirthdateTypeID:
+		// Decoding userPrivacySettingShowBirthdate#4596b4df.
+		v := UserPrivacySettingShowBirthdate{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}
@@ -1509,6 +1648,13 @@ func DecodeTDLibJSONUserPrivacySetting(buf tdjson.Decoder) (UserPrivacySettingCl
 	case "userPrivacySettingShowBio":
 		// Decoding userPrivacySettingShowBio#39382761.
 		v := UserPrivacySettingShowBio{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
+	case "userPrivacySettingShowBirthdate":
+		// Decoding userPrivacySettingShowBirthdate#4596b4df.
+		v := UserPrivacySettingShowBirthdate{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}

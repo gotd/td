@@ -33,7 +33,7 @@ var (
 
 // SetCustomEmojiStickerSetThumbnailRequest represents TL type `setCustomEmojiStickerSetThumbnail#bd12e0ea`.
 type SetCustomEmojiStickerSetThumbnailRequest struct {
-	// Sticker set name
+	// Sticker set name. The sticker set must be owned by the current user
 	Name string
 	// Identifier of the custom emoji from the sticker set, which will be set as sticker set
 	// thumbnail; pass 0 to remove the sticker set thumbnail

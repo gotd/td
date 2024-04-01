@@ -31,18 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendChatActionRequest represents TL type `sendChatAction#7cfce154`.
+// SendChatActionRequest represents TL type `sendChatAction#8823f29e`.
 type SendChatActionRequest struct {
 	// Chat identifier
 	ChatID int64
 	// If not 0, the message thread identifier in which the action was performed
 	MessageThreadID int64
+	// Unique identifier of business connection on behalf of which to send the request; for
+	// bots only
+	BusinessConnectionID string
 	// The action description; pass null to cancel the currently active action
 	Action ChatActionClass
 }
 
 // SendChatActionRequestTypeID is TL type id of SendChatActionRequest.
-const SendChatActionRequestTypeID = 0x7cfce154
+const SendChatActionRequestTypeID = 0x8823f29e
 
 // Ensuring interfaces in compile-time for SendChatActionRequest.
 var (
@@ -60,6 +63,9 @@ func (s *SendChatActionRequest) Zero() bool {
 		return false
 	}
 	if !(s.MessageThreadID == 0) {
+		return false
+	}
+	if !(s.BusinessConnectionID == "") {
 		return false
 	}
 	if !(s.Action == nil) {
@@ -110,6 +116,10 @@ func (s *SendChatActionRequest) TypeInfo() tdp.Type {
 			SchemaName: "message_thread_id",
 		},
 		{
+			Name:       "BusinessConnectionID",
+			SchemaName: "business_connection_id",
+		},
+		{
 			Name:       "Action",
 			SchemaName: "action",
 		},
@@ -120,7 +130,7 @@ func (s *SendChatActionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendChatActionRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendChatAction#7cfce154 as nil")
+		return fmt.Errorf("can't encode sendChatAction#8823f29e as nil")
 	}
 	b.PutID(SendChatActionRequestTypeID)
 	return s.EncodeBare(b)
@@ -129,15 +139,16 @@ func (s *SendChatActionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendChatActionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendChatAction#7cfce154 as nil")
+		return fmt.Errorf("can't encode sendChatAction#8823f29e as nil")
 	}
 	b.PutInt53(s.ChatID)
 	b.PutInt53(s.MessageThreadID)
+	b.PutString(s.BusinessConnectionID)
 	if s.Action == nil {
-		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action is nil")
+		return fmt.Errorf("unable to encode sendChatAction#8823f29e: field action is nil")
 	}
 	if err := s.Action.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action: %w", err)
+		return fmt.Errorf("unable to encode sendChatAction#8823f29e: field action: %w", err)
 	}
 	return nil
 }
@@ -145,10 +156,10 @@ func (s *SendChatActionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendChatActionRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendChatAction#7cfce154 to nil")
+		return fmt.Errorf("can't decode sendChatAction#8823f29e to nil")
 	}
 	if err := b.ConsumeID(SendChatActionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendChatAction#7cfce154: %w", err)
+		return fmt.Errorf("unable to decode sendChatAction#8823f29e: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -156,26 +167,33 @@ func (s *SendChatActionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendChatActionRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendChatAction#7cfce154 to nil")
+		return fmt.Errorf("can't decode sendChatAction#8823f29e to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendChatAction#7cfce154: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendChatAction#8823f29e: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendChatAction#7cfce154: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode sendChatAction#8823f29e: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
 	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendChatAction#8823f29e: field business_connection_id: %w", err)
+		}
+		s.BusinessConnectionID = value
+	}
+	{
 		value, err := DecodeChatAction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendChatAction#7cfce154: field action: %w", err)
+			return fmt.Errorf("unable to decode sendChatAction#8823f29e: field action: %w", err)
 		}
 		s.Action = value
 	}
@@ -185,7 +203,7 @@ func (s *SendChatActionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendChatActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendChatAction#7cfce154 as nil")
+		return fmt.Errorf("can't encode sendChatAction#8823f29e as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendChatAction")
@@ -196,12 +214,15 @@ func (s *SendChatActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
 	b.Comma()
+	b.FieldStart("business_connection_id")
+	b.PutString(s.BusinessConnectionID)
+	b.Comma()
 	b.FieldStart("action")
 	if s.Action == nil {
-		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action is nil")
+		return fmt.Errorf("unable to encode sendChatAction#8823f29e: field action is nil")
 	}
 	if err := s.Action.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action: %w", err)
+		return fmt.Errorf("unable to encode sendChatAction#8823f29e: field action: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -212,31 +233,37 @@ func (s *SendChatActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendChatActionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendChatAction#7cfce154 to nil")
+		return fmt.Errorf("can't decode sendChatAction#8823f29e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendChatAction"); err != nil {
-				return fmt.Errorf("unable to decode sendChatAction#7cfce154: %w", err)
+				return fmt.Errorf("unable to decode sendChatAction#8823f29e: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendChatAction#7cfce154: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendChatAction#8823f29e: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendChatAction#7cfce154: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode sendChatAction#8823f29e: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
+		case "business_connection_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendChatAction#8823f29e: field business_connection_id: %w", err)
+			}
+			s.BusinessConnectionID = value
 		case "action":
 			value, err := DecodeTDLibJSONChatAction(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendChatAction#7cfce154: field action: %w", err)
+				return fmt.Errorf("unable to decode sendChatAction#8823f29e: field action: %w", err)
 			}
 			s.Action = value
 		default:
@@ -262,6 +289,14 @@ func (s *SendChatActionRequest) GetMessageThreadID() (value int64) {
 	return s.MessageThreadID
 }
 
+// GetBusinessConnectionID returns value of BusinessConnectionID field.
+func (s *SendChatActionRequest) GetBusinessConnectionID() (value string) {
+	if s == nil {
+		return
+	}
+	return s.BusinessConnectionID
+}
+
 // GetAction returns value of Action field.
 func (s *SendChatActionRequest) GetAction() (value ChatActionClass) {
 	if s == nil {
@@ -270,7 +305,7 @@ func (s *SendChatActionRequest) GetAction() (value ChatActionClass) {
 	return s.Action
 }
 
-// SendChatAction invokes method sendChatAction#7cfce154 returning error if any.
+// SendChatAction invokes method sendChatAction#8823f29e returning error if any.
 func (c *Client) SendChatAction(ctx context.Context, request *SendChatActionRequest) error {
 	var ok Ok
 

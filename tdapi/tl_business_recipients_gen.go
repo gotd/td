@@ -31,10 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BusinessRecipients represents TL type `businessRecipients#2f3ca54a`.
+// BusinessRecipients represents TL type `businessRecipients#802011e2`.
 type BusinessRecipients struct {
 	// Identifiers of selected private chats
 	ChatIDs []int64
+	// Identifiers of private chats that are always excluded; for businessConnectedBot only
+	ExcludedChatIDs []int64
 	// True, if all existing private chats are selected
 	SelectExistingChats bool
 	// True, if all new private chats are selected
@@ -49,7 +51,7 @@ type BusinessRecipients struct {
 }
 
 // BusinessRecipientsTypeID is TL type id of BusinessRecipients.
-const BusinessRecipientsTypeID = 0x2f3ca54a
+const BusinessRecipientsTypeID = 0x802011e2
 
 // Ensuring interfaces in compile-time for BusinessRecipients.
 var (
@@ -64,6 +66,9 @@ func (b *BusinessRecipients) Zero() bool {
 		return true
 	}
 	if !(b.ChatIDs == nil) {
+		return false
+	}
+	if !(b.ExcludedChatIDs == nil) {
 		return false
 	}
 	if !(b.SelectExistingChats == false) {
@@ -122,6 +127,10 @@ func (b *BusinessRecipients) TypeInfo() tdp.Type {
 			SchemaName: "chat_ids",
 		},
 		{
+			Name:       "ExcludedChatIDs",
+			SchemaName: "excluded_chat_ids",
+		},
+		{
 			Name:       "SelectExistingChats",
 			SchemaName: "select_existing_chats",
 		},
@@ -148,7 +157,7 @@ func (b *BusinessRecipients) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BusinessRecipients) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessRecipients#2f3ca54a as nil")
+		return fmt.Errorf("can't encode businessRecipients#802011e2 as nil")
 	}
 	buf.PutID(BusinessRecipientsTypeID)
 	return b.EncodeBare(buf)
@@ -157,10 +166,14 @@ func (b *BusinessRecipients) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BusinessRecipients) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessRecipients#2f3ca54a as nil")
+		return fmt.Errorf("can't encode businessRecipients#802011e2 as nil")
 	}
 	buf.PutInt(len(b.ChatIDs))
 	for _, v := range b.ChatIDs {
+		buf.PutInt53(v)
+	}
+	buf.PutInt(len(b.ExcludedChatIDs))
+	for _, v := range b.ExcludedChatIDs {
 		buf.PutInt53(v)
 	}
 	buf.PutBool(b.SelectExistingChats)
@@ -174,10 +187,10 @@ func (b *BusinessRecipients) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BusinessRecipients) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessRecipients#2f3ca54a to nil")
+		return fmt.Errorf("can't decode businessRecipients#802011e2 to nil")
 	}
 	if err := buf.ConsumeID(BusinessRecipientsTypeID); err != nil {
-		return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: %w", err)
+		return fmt.Errorf("unable to decode businessRecipients#802011e2: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -185,12 +198,12 @@ func (b *BusinessRecipients) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BusinessRecipients) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessRecipients#2f3ca54a to nil")
+		return fmt.Errorf("can't decode businessRecipients#802011e2 to nil")
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field chat_ids: %w", err)
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -199,43 +212,60 @@ func (b *BusinessRecipients) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := buf.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field chat_ids: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field chat_ids: %w", err)
 			}
 			b.ChatIDs = append(b.ChatIDs, value)
 		}
 	}
 	{
+		headerLen, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field excluded_chat_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			b.ExcludedChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := buf.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field excluded_chat_ids: %w", err)
+			}
+			b.ExcludedChatIDs = append(b.ExcludedChatIDs, value)
+		}
+	}
+	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_existing_chats: %w", err)
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_existing_chats: %w", err)
 		}
 		b.SelectExistingChats = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_new_chats: %w", err)
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_new_chats: %w", err)
 		}
 		b.SelectNewChats = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_contacts: %w", err)
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_contacts: %w", err)
 		}
 		b.SelectContacts = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_non_contacts: %w", err)
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_non_contacts: %w", err)
 		}
 		b.SelectNonContacts = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field exclude_selected: %w", err)
+			return fmt.Errorf("unable to decode businessRecipients#802011e2: field exclude_selected: %w", err)
 		}
 		b.ExcludeSelected = value
 	}
@@ -245,7 +275,7 @@ func (b *BusinessRecipients) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BusinessRecipients) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessRecipients#2f3ca54a as nil")
+		return fmt.Errorf("can't encode businessRecipients#802011e2 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("businessRecipients")
@@ -253,6 +283,15 @@ func (b *BusinessRecipients) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.FieldStart("chat_ids")
 	buf.ArrStart()
 	for _, v := range b.ChatIDs {
+		buf.PutInt53(v)
+		buf.Comma()
+	}
+	buf.StripComma()
+	buf.ArrEnd()
+	buf.Comma()
+	buf.FieldStart("excluded_chat_ids")
+	buf.ArrStart()
+	for _, v := range b.ExcludedChatIDs {
 		buf.PutInt53(v)
 		buf.Comma()
 	}
@@ -282,54 +321,65 @@ func (b *BusinessRecipients) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BusinessRecipients) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessRecipients#2f3ca54a to nil")
+		return fmt.Errorf("can't decode businessRecipients#802011e2 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("businessRecipients"); err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: %w", err)
 			}
 		case "chat_ids":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				value, err := buf.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field chat_ids: %w", err)
+					return fmt.Errorf("unable to decode businessRecipients#802011e2: field chat_ids: %w", err)
 				}
 				b.ChatIDs = append(b.ChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field chat_ids: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field chat_ids: %w", err)
+			}
+		case "excluded_chat_ids":
+			if err := buf.Arr(func(buf tdjson.Decoder) error {
+				value, err := buf.Int53()
+				if err != nil {
+					return fmt.Errorf("unable to decode businessRecipients#802011e2: field excluded_chat_ids: %w", err)
+				}
+				b.ExcludedChatIDs = append(b.ExcludedChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field excluded_chat_ids: %w", err)
 			}
 		case "select_existing_chats":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_existing_chats: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_existing_chats: %w", err)
 			}
 			b.SelectExistingChats = value
 		case "select_new_chats":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_new_chats: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_new_chats: %w", err)
 			}
 			b.SelectNewChats = value
 		case "select_contacts":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_contacts: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_contacts: %w", err)
 			}
 			b.SelectContacts = value
 		case "select_non_contacts":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field select_non_contacts: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field select_non_contacts: %w", err)
 			}
 			b.SelectNonContacts = value
 		case "exclude_selected":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode businessRecipients#2f3ca54a: field exclude_selected: %w", err)
+				return fmt.Errorf("unable to decode businessRecipients#802011e2: field exclude_selected: %w", err)
 			}
 			b.ExcludeSelected = value
 		default:
@@ -345,6 +395,14 @@ func (b *BusinessRecipients) GetChatIDs() (value []int64) {
 		return
 	}
 	return b.ChatIDs
+}
+
+// GetExcludedChatIDs returns value of ExcludedChatIDs field.
+func (b *BusinessRecipients) GetExcludedChatIDs() (value []int64) {
+	if b == nil {
+		return
+	}
+	return b.ExcludedChatIDs
 }
 
 // GetSelectExistingChats returns value of SelectExistingChats field.

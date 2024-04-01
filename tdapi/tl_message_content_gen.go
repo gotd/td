@@ -13079,16 +13079,16 @@ func (m *MessageContactRegistered) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// MessageUsersShared represents TL type `messageUsersShared#95dca529`.
+// MessageUsersShared represents TL type `messageUsersShared#7f1f4a22`.
 type MessageUsersShared struct {
-	// Identifier of the shared users
-	UserIDs []int64
+	// The shared users
+	Users []SharedUser
 	// Identifier of the keyboard button with the request
 	ButtonID int32
 }
 
 // MessageUsersSharedTypeID is TL type id of MessageUsersShared.
-const MessageUsersSharedTypeID = 0x95dca529
+const MessageUsersSharedTypeID = 0x7f1f4a22
 
 // construct implements constructor of MessageContentClass.
 func (m MessageUsersShared) construct() MessageContentClass { return &m }
@@ -13107,7 +13107,7 @@ func (m *MessageUsersShared) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.UserIDs == nil) {
+	if !(m.Users == nil) {
 		return false
 	}
 	if !(m.ButtonID == 0) {
@@ -13150,8 +13150,8 @@ func (m *MessageUsersShared) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserIDs",
-			SchemaName: "user_ids",
+			Name:       "Users",
+			SchemaName: "users",
 		},
 		{
 			Name:       "ButtonID",
@@ -13164,7 +13164,7 @@ func (m *MessageUsersShared) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageUsersShared) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUsersShared#95dca529 as nil")
+		return fmt.Errorf("can't encode messageUsersShared#7f1f4a22 as nil")
 	}
 	b.PutID(MessageUsersSharedTypeID)
 	return m.EncodeBare(b)
@@ -13173,11 +13173,13 @@ func (m *MessageUsersShared) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageUsersShared) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUsersShared#95dca529 as nil")
+		return fmt.Errorf("can't encode messageUsersShared#7f1f4a22 as nil")
 	}
-	b.PutInt(len(m.UserIDs))
-	for _, v := range m.UserIDs {
-		b.PutInt53(v)
+	b.PutInt(len(m.Users))
+	for idx, v := range m.Users {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare messageUsersShared#7f1f4a22: field users element with index %d: %w", idx, err)
+		}
 	}
 	b.PutInt32(m.ButtonID)
 	return nil
@@ -13186,10 +13188,10 @@ func (m *MessageUsersShared) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageUsersShared) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUsersShared#95dca529 to nil")
+		return fmt.Errorf("can't decode messageUsersShared#7f1f4a22 to nil")
 	}
 	if err := b.ConsumeID(MessageUsersSharedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageUsersShared#95dca529: %w", err)
+		return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -13197,29 +13199,29 @@ func (m *MessageUsersShared) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageUsersShared) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUsersShared#95dca529 to nil")
+		return fmt.Errorf("can't decode messageUsersShared#7f1f4a22 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUsersShared#95dca529: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: field users: %w", err)
 		}
 
 		if headerLen > 0 {
-			m.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+			m.Users = make([]SharedUser, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageUsersShared#95dca529: field user_ids: %w", err)
+			var value SharedUser
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare messageUsersShared#7f1f4a22: field users: %w", err)
 			}
-			m.UserIDs = append(m.UserIDs, value)
+			m.Users = append(m.Users, value)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageUsersShared#95dca529: field button_id: %w", err)
+			return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: field button_id: %w", err)
 		}
 		m.ButtonID = value
 	}
@@ -13229,15 +13231,17 @@ func (m *MessageUsersShared) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageUsersShared) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageUsersShared#95dca529 as nil")
+		return fmt.Errorf("can't encode messageUsersShared#7f1f4a22 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageUsersShared")
 	b.Comma()
-	b.FieldStart("user_ids")
+	b.FieldStart("users")
 	b.ArrStart()
-	for _, v := range m.UserIDs {
-		b.PutInt53(v)
+	for idx, v := range m.Users {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode messageUsersShared#7f1f4a22: field users element with index %d: %w", idx, err)
+		}
 		b.Comma()
 	}
 	b.StripComma()
@@ -13254,30 +13258,30 @@ func (m *MessageUsersShared) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageUsersShared) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageUsersShared#95dca529 to nil")
+		return fmt.Errorf("can't decode messageUsersShared#7f1f4a22 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageUsersShared"); err != nil {
-				return fmt.Errorf("unable to decode messageUsersShared#95dca529: %w", err)
+				return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: %w", err)
 			}
-		case "user_ids":
+		case "users":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int53()
-				if err != nil {
-					return fmt.Errorf("unable to decode messageUsersShared#95dca529: field user_ids: %w", err)
+				var value SharedUser
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: field users: %w", err)
 				}
-				m.UserIDs = append(m.UserIDs, value)
+				m.Users = append(m.Users, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageUsersShared#95dca529: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: field users: %w", err)
 			}
 		case "button_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageUsersShared#95dca529: field button_id: %w", err)
+				return fmt.Errorf("unable to decode messageUsersShared#7f1f4a22: field button_id: %w", err)
 			}
 			m.ButtonID = value
 		default:
@@ -13287,12 +13291,12 @@ func (m *MessageUsersShared) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetUserIDs returns value of UserIDs field.
-func (m *MessageUsersShared) GetUserIDs() (value []int64) {
+// GetUsers returns value of Users field.
+func (m *MessageUsersShared) GetUsers() (value []SharedUser) {
 	if m == nil {
 		return
 	}
-	return m.UserIDs
+	return m.Users
 }
 
 // GetButtonID returns value of ButtonID field.
@@ -13303,16 +13307,16 @@ func (m *MessageUsersShared) GetButtonID() (value int32) {
 	return m.ButtonID
 }
 
-// MessageChatShared represents TL type `messageChatShared#22db7091`.
+// MessageChatShared represents TL type `messageChatShared#aec6d961`.
 type MessageChatShared struct {
-	// Identifier of the shared chat
-	ChatID int64
+	// The shared chat
+	Chat SharedChat
 	// Identifier of the keyboard button with the request
 	ButtonID int32
 }
 
 // MessageChatSharedTypeID is TL type id of MessageChatShared.
-const MessageChatSharedTypeID = 0x22db7091
+const MessageChatSharedTypeID = 0xaec6d961
 
 // construct implements constructor of MessageContentClass.
 func (m MessageChatShared) construct() MessageContentClass { return &m }
@@ -13331,7 +13335,7 @@ func (m *MessageChatShared) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.ChatID == 0) {
+	if !(m.Chat.Zero()) {
 		return false
 	}
 	if !(m.ButtonID == 0) {
@@ -13374,8 +13378,8 @@ func (m *MessageChatShared) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
+			Name:       "Chat",
+			SchemaName: "chat",
 		},
 		{
 			Name:       "ButtonID",
@@ -13388,7 +13392,7 @@ func (m *MessageChatShared) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageChatShared) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatShared#22db7091 as nil")
+		return fmt.Errorf("can't encode messageChatShared#aec6d961 as nil")
 	}
 	b.PutID(MessageChatSharedTypeID)
 	return m.EncodeBare(b)
@@ -13397,9 +13401,11 @@ func (m *MessageChatShared) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageChatShared) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatShared#22db7091 as nil")
+		return fmt.Errorf("can't encode messageChatShared#aec6d961 as nil")
 	}
-	b.PutInt53(m.ChatID)
+	if err := m.Chat.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageChatShared#aec6d961: field chat: %w", err)
+	}
 	b.PutInt32(m.ButtonID)
 	return nil
 }
@@ -13407,10 +13413,10 @@ func (m *MessageChatShared) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageChatShared) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatShared#22db7091 to nil")
+		return fmt.Errorf("can't decode messageChatShared#aec6d961 to nil")
 	}
 	if err := b.ConsumeID(MessageChatSharedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatShared#22db7091: %w", err)
+		return fmt.Errorf("unable to decode messageChatShared#aec6d961: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -13418,19 +13424,17 @@ func (m *MessageChatShared) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageChatShared) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatShared#22db7091 to nil")
+		return fmt.Errorf("can't decode messageChatShared#aec6d961 to nil")
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageChatShared#22db7091: field chat_id: %w", err)
+		if err := m.Chat.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageChatShared#aec6d961: field chat: %w", err)
 		}
-		m.ChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatShared#22db7091: field button_id: %w", err)
+			return fmt.Errorf("unable to decode messageChatShared#aec6d961: field button_id: %w", err)
 		}
 		m.ButtonID = value
 	}
@@ -13440,13 +13444,15 @@ func (m *MessageChatShared) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageChatShared) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatShared#22db7091 as nil")
+		return fmt.Errorf("can't encode messageChatShared#aec6d961 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageChatShared")
 	b.Comma()
-	b.FieldStart("chat_id")
-	b.PutInt53(m.ChatID)
+	b.FieldStart("chat")
+	if err := m.Chat.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageChatShared#aec6d961: field chat: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("button_id")
 	b.PutInt32(m.ButtonID)
@@ -13459,25 +13465,23 @@ func (m *MessageChatShared) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageChatShared) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatShared#22db7091 to nil")
+		return fmt.Errorf("can't decode messageChatShared#aec6d961 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageChatShared"); err != nil {
-				return fmt.Errorf("unable to decode messageChatShared#22db7091: %w", err)
+				return fmt.Errorf("unable to decode messageChatShared#aec6d961: %w", err)
 			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageChatShared#22db7091: field chat_id: %w", err)
+		case "chat":
+			if err := m.Chat.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageChatShared#aec6d961: field chat: %w", err)
 			}
-			m.ChatID = value
 		case "button_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatShared#22db7091: field button_id: %w", err)
+				return fmt.Errorf("unable to decode messageChatShared#aec6d961: field button_id: %w", err)
 			}
 			m.ButtonID = value
 		default:
@@ -13487,12 +13491,12 @@ func (m *MessageChatShared) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatID returns value of ChatID field.
-func (m *MessageChatShared) GetChatID() (value int64) {
+// GetChat returns value of Chat field.
+func (m *MessageChatShared) GetChat() (value SharedChat) {
 	if m == nil {
 		return
 	}
-	return m.ChatID
+	return m.Chat
 }
 
 // GetButtonID returns value of ButtonID field.
@@ -14930,8 +14934,8 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessagePremiumGiveawayCompleted: // messagePremiumGiveawayCompleted#80533949
 //	case *tdapi.MessagePremiumGiveawayWinners: // messagePremiumGiveawayWinners#815d5f31
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
-//	case *tdapi.MessageUsersShared: // messageUsersShared#95dca529
-//	case *tdapi.MessageChatShared: // messageChatShared#22db7091
+//	case *tdapi.MessageUsersShared: // messageUsersShared#7f1f4a22
+//	case *tdapi.MessageChatShared: // messageChatShared#aec6d961
 //	case *tdapi.MessageBotWriteAccessAllowed: // messageBotWriteAccessAllowed#9a8ab7b4
 //	case *tdapi.MessageWebAppDataSent: // messageWebAppDataSent#fb033912
 //	case *tdapi.MessageWebAppDataReceived: // messageWebAppDataReceived#ff7d1a15
@@ -15391,14 +15395,14 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageUsersSharedTypeID:
-		// Decoding messageUsersShared#95dca529.
+		// Decoding messageUsersShared#7f1f4a22.
 		v := MessageUsersShared{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case MessageChatSharedTypeID:
-		// Decoding messageChatShared#22db7091.
+		// Decoding messageChatShared#aec6d961.
 		v := MessageChatShared{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -15886,14 +15890,14 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageUsersShared":
-		// Decoding messageUsersShared#95dca529.
+		// Decoding messageUsersShared#7f1f4a22.
 		v := MessageUsersShared{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case "messageChatShared":
-		// Decoding messageChatShared#22db7091.
+		// Decoding messageChatShared#aec6d961.
 		v := MessageChatShared{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)

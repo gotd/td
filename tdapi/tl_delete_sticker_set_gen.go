@@ -33,7 +33,7 @@ var (
 
 // DeleteStickerSetRequest represents TL type `deleteStickerSet#5e0a7bad`.
 type DeleteStickerSetRequest struct {
-	// Sticker set name
+	// Sticker set name. The sticker set must be owned by the current user
 	Name string
 }
 
