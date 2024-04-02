@@ -1216,16 +1216,6 @@ func (u UpdateDispatcher) OnAutoSaveSettings(handler AutoSaveSettingsHandler) {
 	}
 }
 
-// GroupInvitePrivacyForbiddenHandler is a GroupInvitePrivacyForbidden event handler.
-type GroupInvitePrivacyForbiddenHandler func(ctx context.Context, e Entities, update *UpdateGroupInvitePrivacyForbidden) error
-
-// OnGroupInvitePrivacyForbidden sets GroupInvitePrivacyForbidden handler.
-func (u UpdateDispatcher) OnGroupInvitePrivacyForbidden(handler GroupInvitePrivacyForbiddenHandler) {
-	u.handlers[UpdateGroupInvitePrivacyForbiddenTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
-		return handler(ctx, e, update.(*UpdateGroupInvitePrivacyForbidden))
-	}
-}
-
 // StoryHandler is a Story event handler.
 type StoryHandler func(ctx context.Context, e Entities, update *UpdateStory) error
 
@@ -1413,5 +1403,45 @@ type DeleteQuickReplyMessagesHandler func(ctx context.Context, e Entities, updat
 func (u UpdateDispatcher) OnDeleteQuickReplyMessages(handler DeleteQuickReplyMessagesHandler) {
 	u.handlers[UpdateDeleteQuickReplyMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
 		return handler(ctx, e, update.(*UpdateDeleteQuickReplyMessages))
+	}
+}
+
+// BotBusinessConnectHandler is a BotBusinessConnect event handler.
+type BotBusinessConnectHandler func(ctx context.Context, e Entities, update *UpdateBotBusinessConnect) error
+
+// OnBotBusinessConnect sets BotBusinessConnect handler.
+func (u UpdateDispatcher) OnBotBusinessConnect(handler BotBusinessConnectHandler) {
+	u.handlers[UpdateBotBusinessConnectTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotBusinessConnect))
+	}
+}
+
+// BotNewBusinessMessageHandler is a BotNewBusinessMessage event handler.
+type BotNewBusinessMessageHandler func(ctx context.Context, e Entities, update *UpdateBotNewBusinessMessage) error
+
+// OnBotNewBusinessMessage sets BotNewBusinessMessage handler.
+func (u UpdateDispatcher) OnBotNewBusinessMessage(handler BotNewBusinessMessageHandler) {
+	u.handlers[UpdateBotNewBusinessMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotNewBusinessMessage))
+	}
+}
+
+// BotEditBusinessMessageHandler is a BotEditBusinessMessage event handler.
+type BotEditBusinessMessageHandler func(ctx context.Context, e Entities, update *UpdateBotEditBusinessMessage) error
+
+// OnBotEditBusinessMessage sets BotEditBusinessMessage handler.
+func (u UpdateDispatcher) OnBotEditBusinessMessage(handler BotEditBusinessMessageHandler) {
+	u.handlers[UpdateBotEditBusinessMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotEditBusinessMessage))
+	}
+}
+
+// BotDeleteBusinessMessageHandler is a BotDeleteBusinessMessage event handler.
+type BotDeleteBusinessMessageHandler func(ctx context.Context, e Entities, update *UpdateBotDeleteBusinessMessage) error
+
+// OnBotDeleteBusinessMessage sets BotDeleteBusinessMessage handler.
+func (u UpdateDispatcher) OnBotDeleteBusinessMessage(handler BotDeleteBusinessMessageHandler) {
+	u.handlers[UpdateBotDeleteBusinessMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotDeleteBusinessMessage))
 	}
 }

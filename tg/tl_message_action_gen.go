@@ -7827,6 +7827,190 @@ func (m *MessageActionBoostApply) GetBoosts() (value int) {
 	return m.Boosts
 }
 
+// MessageActionRequestedPeerSentMe represents TL type `messageActionRequestedPeerSentMe#93b31848`.
+//
+// See https://core.telegram.org/constructor/messageActionRequestedPeerSentMe for reference.
+type MessageActionRequestedPeerSentMe struct {
+	// ButtonID field of MessageActionRequestedPeerSentMe.
+	ButtonID int
+	// Peers field of MessageActionRequestedPeerSentMe.
+	Peers []RequestedPeerClass
+}
+
+// MessageActionRequestedPeerSentMeTypeID is TL type id of MessageActionRequestedPeerSentMe.
+const MessageActionRequestedPeerSentMeTypeID = 0x93b31848
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionRequestedPeerSentMe) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionRequestedPeerSentMe.
+var (
+	_ bin.Encoder     = &MessageActionRequestedPeerSentMe{}
+	_ bin.Decoder     = &MessageActionRequestedPeerSentMe{}
+	_ bin.BareEncoder = &MessageActionRequestedPeerSentMe{}
+	_ bin.BareDecoder = &MessageActionRequestedPeerSentMe{}
+
+	_ MessageActionClass = &MessageActionRequestedPeerSentMe{}
+)
+
+func (m *MessageActionRequestedPeerSentMe) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ButtonID == 0) {
+		return false
+	}
+	if !(m.Peers == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionRequestedPeerSentMe) String() string {
+	if m == nil {
+		return "MessageActionRequestedPeerSentMe(nil)"
+	}
+	type Alias MessageActionRequestedPeerSentMe
+	return fmt.Sprintf("MessageActionRequestedPeerSentMe%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionRequestedPeerSentMe from given interface.
+func (m *MessageActionRequestedPeerSentMe) FillFrom(from interface {
+	GetButtonID() (value int)
+	GetPeers() (value []RequestedPeerClass)
+}) {
+	m.ButtonID = from.GetButtonID()
+	m.Peers = from.GetPeers()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionRequestedPeerSentMe) TypeID() uint32 {
+	return MessageActionRequestedPeerSentMeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionRequestedPeerSentMe) TypeName() string {
+	return "messageActionRequestedPeerSentMe"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionRequestedPeerSentMe) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionRequestedPeerSentMe",
+		ID:   MessageActionRequestedPeerSentMeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+		{
+			Name:       "Peers",
+			SchemaName: "peers",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionRequestedPeerSentMe) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionRequestedPeerSentMe#93b31848 as nil")
+	}
+	b.PutID(MessageActionRequestedPeerSentMeTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionRequestedPeerSentMe) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionRequestedPeerSentMe#93b31848 as nil")
+	}
+	b.PutInt(m.ButtonID)
+	b.PutVectorHeader(len(m.Peers))
+	for idx, v := range m.Peers {
+		if v == nil {
+			return fmt.Errorf("unable to encode messageActionRequestedPeerSentMe#93b31848: field peers element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionRequestedPeerSentMe#93b31848: field peers element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionRequestedPeerSentMe) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionRequestedPeerSentMe#93b31848 to nil")
+	}
+	if err := b.ConsumeID(MessageActionRequestedPeerSentMeTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionRequestedPeerSentMe#93b31848: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionRequestedPeerSentMe) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionRequestedPeerSentMe#93b31848 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionRequestedPeerSentMe#93b31848: field button_id: %w", err)
+		}
+		m.ButtonID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionRequestedPeerSentMe#93b31848: field peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Peers = make([]RequestedPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeRequestedPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageActionRequestedPeerSentMe#93b31848: field peers: %w", err)
+			}
+			m.Peers = append(m.Peers, value)
+		}
+	}
+	return nil
+}
+
+// GetButtonID returns value of ButtonID field.
+func (m *MessageActionRequestedPeerSentMe) GetButtonID() (value int) {
+	if m == nil {
+		return
+	}
+	return m.ButtonID
+}
+
+// GetPeers returns value of Peers field.
+func (m *MessageActionRequestedPeerSentMe) GetPeers() (value []RequestedPeerClass) {
+	if m == nil {
+		return
+	}
+	return m.Peers
+}
+
+// MapPeers returns field Peers wrapped in RequestedPeerClassArray helper.
+func (m *MessageActionRequestedPeerSentMe) MapPeers() (value RequestedPeerClassArray) {
+	return RequestedPeerClassArray(m.Peers)
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -7883,6 +8067,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionGiveawayLaunch: // messageActionGiveawayLaunch#332ba9ed
 //	case *tg.MessageActionGiveawayResults: // messageActionGiveawayResults#2a9fadc5
 //	case *tg.MessageActionBoostApply: // messageActionBoostApply#cc02aa6d
+//	case *tg.MessageActionRequestedPeerSentMe: // messageActionRequestedPeerSentMe#93b31848
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -8201,6 +8386,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionBoostApplyTypeID:
 		// Decoding messageActionBoostApply#cc02aa6d.
 		v := MessageActionBoostApply{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionRequestedPeerSentMeTypeID:
+		// Decoding messageActionRequestedPeerSentMe#93b31848.
+		v := MessageActionRequestedPeerSentMe{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

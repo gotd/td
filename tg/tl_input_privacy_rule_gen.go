@@ -1156,6 +1156,107 @@ func (i *InputPrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyValueAllowPremium represents TL type `inputPrivacyValueAllowPremium#77cdc9f1`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowPremium for reference.
+type InputPrivacyValueAllowPremium struct {
+}
+
+// InputPrivacyValueAllowPremiumTypeID is TL type id of InputPrivacyValueAllowPremium.
+const InputPrivacyValueAllowPremiumTypeID = 0x77cdc9f1
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowPremium) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowPremium.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowPremium{}
+	_ bin.Decoder     = &InputPrivacyValueAllowPremium{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowPremium{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowPremium{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowPremium{}
+)
+
+func (i *InputPrivacyValueAllowPremium) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowPremium) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowPremium(nil)"
+	}
+	type Alias InputPrivacyValueAllowPremium
+	return fmt.Sprintf("InputPrivacyValueAllowPremium%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyValueAllowPremium) TypeID() uint32 {
+	return InputPrivacyValueAllowPremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyValueAllowPremium) TypeName() string {
+	return "inputPrivacyValueAllowPremium"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowPremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowPremium",
+		ID:   InputPrivacyValueAllowPremiumTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyValueAllowPremium) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueAllowPremium#77cdc9f1 as nil")
+	}
+	b.PutID(InputPrivacyValueAllowPremiumTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyValueAllowPremium) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueAllowPremium#77cdc9f1 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyValueAllowPremium) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueAllowPremium#77cdc9f1 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyValueAllowPremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyValueAllowPremium#77cdc9f1: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyValueAllowPremium) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueAllowPremium#77cdc9f1 to nil")
+	}
+	return nil
+}
+
 // InputPrivacyRuleClassName is schema name of InputPrivacyRuleClass.
 const InputPrivacyRuleClassName = "InputPrivacyRule"
 
@@ -1179,6 +1280,7 @@ const InputPrivacyRuleClassName = "InputPrivacyRule"
 //	case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#840649cf
 //	case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
 //	case *tg.InputPrivacyValueAllowCloseFriends: // inputPrivacyValueAllowCloseFriends#2f453e49
+//	case *tg.InputPrivacyValueAllowPremium: // inputPrivacyValueAllowPremium#77cdc9f1
 //	default: panic(v)
 //	}
 type InputPrivacyRuleClass interface {
@@ -1266,6 +1368,13 @@ func DecodeInputPrivacyRule(buf *bin.Buffer) (InputPrivacyRuleClass, error) {
 	case InputPrivacyValueAllowCloseFriendsTypeID:
 		// Decoding inputPrivacyValueAllowCloseFriends#2f453e49.
 		v := InputPrivacyValueAllowCloseFriends{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyValueAllowPremiumTypeID:
+		// Decoding inputPrivacyValueAllowPremium#77cdc9f1.
+		v := InputPrivacyValueAllowPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
 		}

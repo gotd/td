@@ -558,6 +558,19 @@ func (s MessageActionClassArray) AsMessageActionBoostApply() (to MessageActionBo
 	return to
 }
 
+// AsMessageActionRequestedPeerSentMe returns copy with only MessageActionRequestedPeerSentMe constructors.
+func (s MessageActionClassArray) AsMessageActionRequestedPeerSentMe() (to MessageActionRequestedPeerSentMeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionRequestedPeerSentMe)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -3334,6 +3347,88 @@ func (s *MessageActionBoostApplyArray) PopFirst() (v MessageActionBoostApply, ok
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionBoostApplyArray) Pop() (v MessageActionBoostApply, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionRequestedPeerSentMeArray is adapter for slice of MessageActionRequestedPeerSentMe.
+type MessageActionRequestedPeerSentMeArray []MessageActionRequestedPeerSentMe
+
+// Sort sorts slice of MessageActionRequestedPeerSentMe.
+func (s MessageActionRequestedPeerSentMeArray) Sort(less func(a, b MessageActionRequestedPeerSentMe) bool) MessageActionRequestedPeerSentMeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionRequestedPeerSentMe.
+func (s MessageActionRequestedPeerSentMeArray) SortStable(less func(a, b MessageActionRequestedPeerSentMe) bool) MessageActionRequestedPeerSentMeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionRequestedPeerSentMe.
+func (s MessageActionRequestedPeerSentMeArray) Retain(keep func(x MessageActionRequestedPeerSentMe) bool) MessageActionRequestedPeerSentMeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionRequestedPeerSentMeArray) First() (v MessageActionRequestedPeerSentMe, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionRequestedPeerSentMeArray) Last() (v MessageActionRequestedPeerSentMe, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionRequestedPeerSentMeArray) PopFirst() (v MessageActionRequestedPeerSentMe, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionRequestedPeerSentMe
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionRequestedPeerSentMeArray) Pop() (v MessageActionRequestedPeerSentMe, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

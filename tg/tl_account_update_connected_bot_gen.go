@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountUpdateConnectedBotRequest represents TL type `account.updateConnectedBot#9c2d527d`.
+// AccountUpdateConnectedBotRequest represents TL type `account.updateConnectedBot#43d8521d`.
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 type AccountUpdateConnectedBotRequest struct {
@@ -44,11 +44,11 @@ type AccountUpdateConnectedBotRequest struct {
 	// Bot field of AccountUpdateConnectedBotRequest.
 	Bot InputUserClass
 	// Recipients field of AccountUpdateConnectedBotRequest.
-	Recipients InputBusinessRecipients
+	Recipients InputBusinessBotRecipients
 }
 
 // AccountUpdateConnectedBotRequestTypeID is TL type id of AccountUpdateConnectedBotRequest.
-const AccountUpdateConnectedBotRequestTypeID = 0x9c2d527d
+const AccountUpdateConnectedBotRequestTypeID = 0x43d8521d
 
 // Ensuring interfaces in compile-time for AccountUpdateConnectedBotRequest.
 var (
@@ -95,7 +95,7 @@ func (u *AccountUpdateConnectedBotRequest) FillFrom(from interface {
 	GetCanReply() (value bool)
 	GetDeleted() (value bool)
 	GetBot() (value InputUserClass)
-	GetRecipients() (value InputBusinessRecipients)
+	GetRecipients() (value InputBusinessBotRecipients)
 }) {
 	u.CanReply = from.GetCanReply()
 	u.Deleted = from.GetDeleted()
@@ -161,7 +161,7 @@ func (u *AccountUpdateConnectedBotRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateConnectedBotRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateConnectedBot#9c2d527d as nil")
+		return fmt.Errorf("can't encode account.updateConnectedBot#43d8521d as nil")
 	}
 	b.PutID(AccountUpdateConnectedBotRequestTypeID)
 	return u.EncodeBare(b)
@@ -170,20 +170,20 @@ func (u *AccountUpdateConnectedBotRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateConnectedBotRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateConnectedBot#9c2d527d as nil")
+		return fmt.Errorf("can't encode account.updateConnectedBot#43d8521d as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateConnectedBot#9c2d527d: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.updateConnectedBot#43d8521d: field flags: %w", err)
 	}
 	if u.Bot == nil {
-		return fmt.Errorf("unable to encode account.updateConnectedBot#9c2d527d: field bot is nil")
+		return fmt.Errorf("unable to encode account.updateConnectedBot#43d8521d: field bot is nil")
 	}
 	if err := u.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateConnectedBot#9c2d527d: field bot: %w", err)
+		return fmt.Errorf("unable to encode account.updateConnectedBot#43d8521d: field bot: %w", err)
 	}
 	if err := u.Recipients.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateConnectedBot#9c2d527d: field recipients: %w", err)
+		return fmt.Errorf("unable to encode account.updateConnectedBot#43d8521d: field recipients: %w", err)
 	}
 	return nil
 }
@@ -191,10 +191,10 @@ func (u *AccountUpdateConnectedBotRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateConnectedBotRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateConnectedBot#9c2d527d to nil")
+		return fmt.Errorf("can't decode account.updateConnectedBot#43d8521d to nil")
 	}
 	if err := b.ConsumeID(AccountUpdateConnectedBotRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateConnectedBot#9c2d527d: %w", err)
+		return fmt.Errorf("unable to decode account.updateConnectedBot#43d8521d: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -202,11 +202,11 @@ func (u *AccountUpdateConnectedBotRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateConnectedBotRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateConnectedBot#9c2d527d to nil")
+		return fmt.Errorf("can't decode account.updateConnectedBot#43d8521d to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateConnectedBot#9c2d527d: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.updateConnectedBot#43d8521d: field flags: %w", err)
 		}
 	}
 	u.CanReply = u.Flags.Has(0)
@@ -214,13 +214,13 @@ func (u *AccountUpdateConnectedBotRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateConnectedBot#9c2d527d: field bot: %w", err)
+			return fmt.Errorf("unable to decode account.updateConnectedBot#43d8521d: field bot: %w", err)
 		}
 		u.Bot = value
 	}
 	{
 		if err := u.Recipients.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateConnectedBot#9c2d527d: field recipients: %w", err)
+			return fmt.Errorf("unable to decode account.updateConnectedBot#43d8521d: field recipients: %w", err)
 		}
 	}
 	return nil
@@ -273,14 +273,14 @@ func (u *AccountUpdateConnectedBotRequest) GetBot() (value InputUserClass) {
 }
 
 // GetRecipients returns value of Recipients field.
-func (u *AccountUpdateConnectedBotRequest) GetRecipients() (value InputBusinessRecipients) {
+func (u *AccountUpdateConnectedBotRequest) GetRecipients() (value InputBusinessBotRecipients) {
 	if u == nil {
 		return
 	}
 	return u.Recipients
 }
 
-// AccountUpdateConnectedBot invokes method account.updateConnectedBot#9c2d527d returning error if any.
+// AccountUpdateConnectedBot invokes method account.updateConnectedBot#43d8521d returning error if any.
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 func (c *Client) AccountUpdateConnectedBot(ctx context.Context, request *AccountUpdateConnectedBotRequest) (UpdatesClass, error) {

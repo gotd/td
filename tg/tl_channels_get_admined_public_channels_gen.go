@@ -62,6 +62,8 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//  3) https://core.telegram.org/method/channels.checkUsername
 	//  4) https://core.telegram.org/method/channels.updateUsername
 	CheckLimit bool
+	// ForPersonal field of ChannelsGetAdminedPublicChannelsRequest.
+	ForPersonal bool
 }
 
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
@@ -88,6 +90,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Zero() bool {
 	if !(g.CheckLimit == false) {
 		return false
 	}
+	if !(g.ForPersonal == false) {
+		return false
+	}
 
 	return true
 }
@@ -105,9 +110,11 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 func (g *ChannelsGetAdminedPublicChannelsRequest) FillFrom(from interface {
 	GetByLocation() (value bool)
 	GetCheckLimit() (value bool)
+	GetForPersonal() (value bool)
 }) {
 	g.ByLocation = from.GetByLocation()
 	g.CheckLimit = from.GetCheckLimit()
+	g.ForPersonal = from.GetForPersonal()
 }
 
 // TypeID returns type id in TL schema.
@@ -143,6 +150,11 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) TypeInfo() tdp.Type {
 			SchemaName: "check_limit",
 			Null:       !g.Flags.Has(1),
 		},
+		{
+			Name:       "ForPersonal",
+			SchemaName: "for_personal",
+			Null:       !g.Flags.Has(2),
+		},
 	}
 	return typ
 }
@@ -154,6 +166,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetFlags() {
 	}
 	if !(g.CheckLimit == false) {
 		g.Flags.Set(1)
+	}
+	if !(g.ForPersonal == false) {
+		g.Flags.Set(2)
 	}
 }
 
@@ -201,6 +216,7 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) erro
 	}
 	g.ByLocation = g.Flags.Has(0)
 	g.CheckLimit = g.Flags.Has(1)
+	g.ForPersonal = g.Flags.Has(2)
 	return nil
 }
 
@@ -240,6 +256,25 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
 		return
 	}
 	return g.Flags.Has(1)
+}
+
+// SetForPersonal sets value of ForPersonal conditional field.
+func (g *ChannelsGetAdminedPublicChannelsRequest) SetForPersonal(value bool) {
+	if value {
+		g.Flags.Set(2)
+		g.ForPersonal = true
+	} else {
+		g.Flags.Unset(2)
+		g.ForPersonal = false
+	}
+}
+
+// GetForPersonal returns value of ForPersonal conditional field.
+func (g *ChannelsGetAdminedPublicChannelsRequest) GetForPersonal() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(2)
 }
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.

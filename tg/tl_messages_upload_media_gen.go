@@ -31,11 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesUploadMediaRequest represents TL type `messages.uploadMedia#519bc2b1`.
+// MessagesUploadMediaRequest represents TL type `messages.uploadMedia#14967978`.
 // Upload a file and associate it to a chat (without actually sending it to the chat)
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 type MessagesUploadMediaRequest struct {
+	// Flags field of MessagesUploadMediaRequest.
+	Flags bin.Fields
+	// BusinessConnectionID field of MessagesUploadMediaRequest.
+	//
+	// Use SetBusinessConnectionID and GetBusinessConnectionID helpers.
+	BusinessConnectionID string
 	// The chat, can be inputPeerEmpty¹ for bots and inputPeerSelf² for users.
 	//
 	// Links:
@@ -50,7 +56,7 @@ type MessagesUploadMediaRequest struct {
 }
 
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.
-const MessagesUploadMediaRequestTypeID = 0x519bc2b1
+const MessagesUploadMediaRequestTypeID = 0x14967978
 
 // Ensuring interfaces in compile-time for MessagesUploadMediaRequest.
 var (
@@ -63,6 +69,12 @@ var (
 func (u *MessagesUploadMediaRequest) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.BusinessConnectionID == "") {
+		return false
 	}
 	if !(u.Peer == nil) {
 		return false
@@ -85,9 +97,14 @@ func (u *MessagesUploadMediaRequest) String() string {
 
 // FillFrom fills MessagesUploadMediaRequest from given interface.
 func (u *MessagesUploadMediaRequest) FillFrom(from interface {
+	GetBusinessConnectionID() (value string, ok bool)
 	GetPeer() (value InputPeerClass)
 	GetMedia() (value InputMediaClass)
 }) {
+	if val, ok := from.GetBusinessConnectionID(); ok {
+		u.BusinessConnectionID = val
+	}
+
 	u.Peer = from.GetPeer()
 	u.Media = from.GetMedia()
 }
@@ -116,6 +133,11 @@ func (u *MessagesUploadMediaRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BusinessConnectionID",
+			SchemaName: "business_connection_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -127,10 +149,17 @@ func (u *MessagesUploadMediaRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *MessagesUploadMediaRequest) SetFlags() {
+	if !(u.BusinessConnectionID == "") {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uploadMedia#519bc2b1 as nil")
+		return fmt.Errorf("can't encode messages.uploadMedia#14967978 as nil")
 	}
 	b.PutID(MessagesUploadMediaRequestTypeID)
 	return u.EncodeBare(b)
@@ -139,19 +168,26 @@ func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUploadMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.uploadMedia#519bc2b1 as nil")
+		return fmt.Errorf("can't encode messages.uploadMedia#14967978 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.uploadMedia#14967978: field flags: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutString(u.BusinessConnectionID)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field peer is nil")
+		return fmt.Errorf("unable to encode messages.uploadMedia#14967978: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.uploadMedia#14967978: field peer: %w", err)
 	}
 	if u.Media == nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field media is nil")
+		return fmt.Errorf("unable to encode messages.uploadMedia#14967978: field media is nil")
 	}
 	if err := u.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field media: %w", err)
+		return fmt.Errorf("unable to encode messages.uploadMedia#14967978: field media: %w", err)
 	}
 	return nil
 }
@@ -159,10 +195,10 @@ func (u *MessagesUploadMediaRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *MessagesUploadMediaRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uploadMedia#519bc2b1 to nil")
+		return fmt.Errorf("can't decode messages.uploadMedia#14967978 to nil")
 	}
 	if err := b.ConsumeID(MessagesUploadMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: %w", err)
+		return fmt.Errorf("unable to decode messages.uploadMedia#14967978: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -170,23 +206,53 @@ func (u *MessagesUploadMediaRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUploadMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.uploadMedia#519bc2b1 to nil")
+		return fmt.Errorf("can't decode messages.uploadMedia#14967978 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.uploadMedia#14967978: field flags: %w", err)
+		}
+	}
+	if u.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.uploadMedia#14967978: field business_connection_id: %w", err)
+		}
+		u.BusinessConnectionID = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.uploadMedia#14967978: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	{
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: field media: %w", err)
+			return fmt.Errorf("unable to decode messages.uploadMedia#14967978: field media: %w", err)
 		}
 		u.Media = value
 	}
 	return nil
+}
+
+// SetBusinessConnectionID sets value of BusinessConnectionID conditional field.
+func (u *MessagesUploadMediaRequest) SetBusinessConnectionID(value string) {
+	u.Flags.Set(0)
+	u.BusinessConnectionID = value
+}
+
+// GetBusinessConnectionID returns value of BusinessConnectionID conditional field and
+// boolean which is true if field was set.
+func (u *MessagesUploadMediaRequest) GetBusinessConnectionID() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.BusinessConnectionID, true
 }
 
 // GetPeer returns value of Peer field.
@@ -205,7 +271,7 @@ func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
 	return u.Media
 }
 
-// MessagesUploadMedia invokes method messages.uploadMedia#519bc2b1 returning error if any.
+// MessagesUploadMedia invokes method messages.uploadMedia#14967978 returning error if any.
 // Upload a file and associate it to a chat (without actually sending it to the chat)
 //
 // Possible errors:
