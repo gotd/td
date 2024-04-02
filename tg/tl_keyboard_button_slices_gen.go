@@ -324,6 +324,19 @@ func (s KeyboardButtonClassArray) AsKeyboardButtonRequestPeer() (to KeyboardButt
 	return to
 }
 
+// AsInputKeyboardButtonRequestPeer returns copy with only InputKeyboardButtonRequestPeer constructors.
+func (s KeyboardButtonClassArray) AsInputKeyboardButtonRequestPeer() (to InputKeyboardButtonRequestPeerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputKeyboardButtonRequestPeer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // KeyboardButtonArray is adapter for slice of KeyboardButton.
 type KeyboardButtonArray []KeyboardButton
 
@@ -1624,6 +1637,88 @@ func (s *KeyboardButtonRequestPeerArray) PopFirst() (v KeyboardButtonRequestPeer
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *KeyboardButtonRequestPeerArray) Pop() (v KeyboardButtonRequestPeer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputKeyboardButtonRequestPeerArray is adapter for slice of InputKeyboardButtonRequestPeer.
+type InputKeyboardButtonRequestPeerArray []InputKeyboardButtonRequestPeer
+
+// Sort sorts slice of InputKeyboardButtonRequestPeer.
+func (s InputKeyboardButtonRequestPeerArray) Sort(less func(a, b InputKeyboardButtonRequestPeer) bool) InputKeyboardButtonRequestPeerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputKeyboardButtonRequestPeer.
+func (s InputKeyboardButtonRequestPeerArray) SortStable(less func(a, b InputKeyboardButtonRequestPeer) bool) InputKeyboardButtonRequestPeerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputKeyboardButtonRequestPeer.
+func (s InputKeyboardButtonRequestPeerArray) Retain(keep func(x InputKeyboardButtonRequestPeer) bool) InputKeyboardButtonRequestPeerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputKeyboardButtonRequestPeerArray) First() (v InputKeyboardButtonRequestPeer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputKeyboardButtonRequestPeerArray) Last() (v InputKeyboardButtonRequestPeer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputKeyboardButtonRequestPeerArray) PopFirst() (v InputKeyboardButtonRequestPeer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputKeyboardButtonRequestPeer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputKeyboardButtonRequestPeerArray) Pop() (v InputKeyboardButtonRequestPeer, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

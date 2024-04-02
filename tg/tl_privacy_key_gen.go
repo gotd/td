@@ -1054,6 +1054,107 @@ func (p *PrivacyKeyAbout) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PrivacyKeyBirthday represents TL type `privacyKeyBirthday#2000a518`.
+//
+// See https://core.telegram.org/constructor/privacyKeyBirthday for reference.
+type PrivacyKeyBirthday struct {
+}
+
+// PrivacyKeyBirthdayTypeID is TL type id of PrivacyKeyBirthday.
+const PrivacyKeyBirthdayTypeID = 0x2000a518
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyBirthday) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyBirthday.
+var (
+	_ bin.Encoder     = &PrivacyKeyBirthday{}
+	_ bin.Decoder     = &PrivacyKeyBirthday{}
+	_ bin.BareEncoder = &PrivacyKeyBirthday{}
+	_ bin.BareDecoder = &PrivacyKeyBirthday{}
+
+	_ PrivacyKeyClass = &PrivacyKeyBirthday{}
+)
+
+func (p *PrivacyKeyBirthday) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyBirthday) String() string {
+	if p == nil {
+		return "PrivacyKeyBirthday(nil)"
+	}
+	type Alias PrivacyKeyBirthday
+	return fmt.Sprintf("PrivacyKeyBirthday%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrivacyKeyBirthday) TypeID() uint32 {
+	return PrivacyKeyBirthdayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrivacyKeyBirthday) TypeName() string {
+	return "privacyKeyBirthday"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrivacyKeyBirthday) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "privacyKeyBirthday",
+		ID:   PrivacyKeyBirthdayTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrivacyKeyBirthday) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyBirthday#2000a518 as nil")
+	}
+	b.PutID(PrivacyKeyBirthdayTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyBirthday) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyBirthday#2000a518 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrivacyKeyBirthday) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyBirthday#2000a518 to nil")
+	}
+	if err := b.ConsumeID(PrivacyKeyBirthdayTypeID); err != nil {
+		return fmt.Errorf("unable to decode privacyKeyBirthday#2000a518: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyBirthday#2000a518 to nil")
+	}
+	return nil
+}
+
 // PrivacyKeyClassName is schema name of PrivacyKeyClass.
 const PrivacyKeyClassName = "PrivacyKey"
 
@@ -1078,6 +1179,7 @@ const PrivacyKeyClassName = "PrivacyKey"
 //	case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
 //	case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
 //	case *tg.PrivacyKeyAbout: // privacyKeyAbout#a486b761
+//	case *tg.PrivacyKeyBirthday: // privacyKeyBirthday#2000a518
 //	default: panic(v)
 //	}
 type PrivacyKeyClass interface {
@@ -1172,6 +1274,13 @@ func DecodePrivacyKey(buf *bin.Buffer) (PrivacyKeyClass, error) {
 	case PrivacyKeyAboutTypeID:
 		// Decoding privacyKeyAbout#a486b761.
 		v := PrivacyKeyAbout{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case PrivacyKeyBirthdayTypeID:
+		// Decoding privacyKeyBirthday#2000a518.
+		v := PrivacyKeyBirthday{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
 		}

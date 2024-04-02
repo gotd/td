@@ -1054,6 +1054,107 @@ func (i *InputPrivacyKeyAbout) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyKeyBirthday represents TL type `inputPrivacyKeyBirthday#d65a11cc`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyBirthday for reference.
+type InputPrivacyKeyBirthday struct {
+}
+
+// InputPrivacyKeyBirthdayTypeID is TL type id of InputPrivacyKeyBirthday.
+const InputPrivacyKeyBirthdayTypeID = 0xd65a11cc
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyBirthday) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyBirthday.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyBirthday{}
+	_ bin.Decoder     = &InputPrivacyKeyBirthday{}
+	_ bin.BareEncoder = &InputPrivacyKeyBirthday{}
+	_ bin.BareDecoder = &InputPrivacyKeyBirthday{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyBirthday{}
+)
+
+func (i *InputPrivacyKeyBirthday) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyBirthday) String() string {
+	if i == nil {
+		return "InputPrivacyKeyBirthday(nil)"
+	}
+	type Alias InputPrivacyKeyBirthday
+	return fmt.Sprintf("InputPrivacyKeyBirthday%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyKeyBirthday) TypeID() uint32 {
+	return InputPrivacyKeyBirthdayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyKeyBirthday) TypeName() string {
+	return "inputPrivacyKeyBirthday"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyBirthday) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyBirthday",
+		ID:   InputPrivacyKeyBirthdayTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyKeyBirthday) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyBirthday#d65a11cc as nil")
+	}
+	b.PutID(InputPrivacyKeyBirthdayTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyBirthday) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyBirthday#d65a11cc as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyKeyBirthday) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyBirthday#d65a11cc to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyKeyBirthdayTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyKeyBirthday#d65a11cc: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyBirthday#d65a11cc to nil")
+	}
+	return nil
+}
+
 // InputPrivacyKeyClassName is schema name of InputPrivacyKeyClass.
 const InputPrivacyKeyClassName = "InputPrivacyKey"
 
@@ -1078,6 +1179,7 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 //	case *tg.InputPrivacyKeyAddedByPhone: // inputPrivacyKeyAddedByPhone#d1219bdd
 //	case *tg.InputPrivacyKeyVoiceMessages: // inputPrivacyKeyVoiceMessages#aee69d68
 //	case *tg.InputPrivacyKeyAbout: // inputPrivacyKeyAbout#3823cc40
+//	case *tg.InputPrivacyKeyBirthday: // inputPrivacyKeyBirthday#d65a11cc
 //	default: panic(v)
 //	}
 type InputPrivacyKeyClass interface {
@@ -1172,6 +1274,13 @@ func DecodeInputPrivacyKey(buf *bin.Buffer) (InputPrivacyKeyClass, error) {
 	case InputPrivacyKeyAboutTypeID:
 		// Decoding inputPrivacyKeyAbout#3823cc40.
 		v := InputPrivacyKeyAbout{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyKeyBirthdayTypeID:
+		// Decoding inputPrivacyKeyBirthday#d65a11cc.
+		v := InputPrivacyKeyBirthday{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
 		}

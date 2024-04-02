@@ -244,6 +244,8 @@ type User struct {
 	StoriesUnavailable bool
 	// ContactRequirePremium field of User.
 	ContactRequirePremium bool
+	// BotBusiness field of User.
+	BotBusiness bool
 	// ID of the user
 	ID int64
 	// Access hash of the user
@@ -422,6 +424,9 @@ func (u *User) Zero() bool {
 	if !(u.ContactRequirePremium == false) {
 		return false
 	}
+	if !(u.BotBusiness == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -511,6 +516,7 @@ func (u *User) FillFrom(from interface {
 	GetStoriesHidden() (value bool)
 	GetStoriesUnavailable() (value bool)
 	GetContactRequirePremium() (value bool)
+	GetBotBusiness() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -552,6 +558,7 @@ func (u *User) FillFrom(from interface {
 	u.StoriesHidden = from.GetStoriesHidden()
 	u.StoriesUnavailable = from.GetStoriesUnavailable()
 	u.ContactRequirePremium = from.GetContactRequirePremium()
+	u.BotBusiness = from.GetBotBusiness()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -758,6 +765,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags2.Has(10),
 		},
 		{
+			Name:       "BotBusiness",
+			SchemaName: "bot_business",
+			Null:       !u.Flags2.Has(11),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -915,6 +927,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.ContactRequirePremium == false) {
 		u.Flags2.Set(10)
+	}
+	if !(u.BotBusiness == false) {
+		u.Flags2.Set(11)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -1117,6 +1132,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.StoriesHidden = u.Flags2.Has(3)
 	u.StoriesUnavailable = u.Flags2.Has(4)
 	u.ContactRequirePremium = u.Flags2.Has(10)
+	u.BotBusiness = u.Flags2.Has(11)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1692,6 +1708,25 @@ func (u *User) GetContactRequirePremium() (value bool) {
 	return u.Flags2.Has(10)
 }
 
+// SetBotBusiness sets value of BotBusiness conditional field.
+func (u *User) SetBotBusiness(value bool) {
+	if value {
+		u.Flags2.Set(11)
+		u.BotBusiness = true
+	} else {
+		u.Flags2.Unset(11)
+		u.BotBusiness = false
+	}
+}
+
+// GetBotBusiness returns value of BotBusiness conditional field.
+func (u *User) GetBotBusiness() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(11)
+}
+
 // GetID returns value of ID field.
 func (u *User) GetID() (value int64) {
 	if u == nil {
@@ -2048,6 +2083,16 @@ func (u *User) AsInput() *InputUser {
 	value.UserID = u.GetID()
 	if fieldValue, ok := u.GetAccessHash(); ok {
 		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsInputCollectibleUsername tries to map User to InputCollectibleUsername.
+func (u *User) AsInputCollectibleUsername() *InputCollectibleUsername {
+	value := new(InputCollectibleUsername)
+	if fieldValue, ok := u.GetUsername(); ok {
+		value.Username = fieldValue
 	}
 
 	return value

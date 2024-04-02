@@ -2309,6 +2309,217 @@ func (s *ServerDispatcher) OnAccountGetConnectedBots(f func(ctx context.Context)
 	s.handlers[AccountGetConnectedBotsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountGetBotBusinessConnection(f func(ctx context.Context, connectionid string) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetBotBusinessConnectionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ConnectionID)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[AccountGetBotBusinessConnectionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountUpdateBusinessIntro(f func(ctx context.Context, request *AccountUpdateBusinessIntroRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountUpdateBusinessIntroRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountUpdateBusinessIntroRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountToggleConnectedBotPaused(f func(ctx context.Context, request *AccountToggleConnectedBotPausedRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountToggleConnectedBotPausedRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountToggleConnectedBotPausedRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountDisablePeerConnectedBot(f func(ctx context.Context, peer InputPeerClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountDisablePeerConnectedBotRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Peer)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountDisablePeerConnectedBotRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountUpdateBirthday(f func(ctx context.Context, request *AccountUpdateBirthdayRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountUpdateBirthdayRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountUpdateBirthdayRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountCreateBusinessChatLink(f func(ctx context.Context, link InputBusinessChatLink) (*BusinessChatLink, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountCreateBusinessChatLinkRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Link)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountCreateBusinessChatLinkRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountEditBusinessChatLink(f func(ctx context.Context, request *AccountEditBusinessChatLinkRequest) (*BusinessChatLink, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountEditBusinessChatLinkRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountEditBusinessChatLinkRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountDeleteBusinessChatLink(f func(ctx context.Context, slug string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountDeleteBusinessChatLinkRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Slug)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountDeleteBusinessChatLinkRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetBusinessChatLinks(f func(ctx context.Context) (*AccountBusinessChatLinks, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetBusinessChatLinksRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountGetBusinessChatLinksRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountResolveBusinessChatLink(f func(ctx context.Context, slug string) (*AccountResolvedBusinessChatLinks, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountResolveBusinessChatLinkRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Slug)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountResolveBusinessChatLinkRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountUpdatePersonalChannel(f func(ctx context.Context, channel InputChannelClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountUpdatePersonalChannelRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Channel)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountUpdatePersonalChannelRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -2838,6 +3049,23 @@ func (s *ServerDispatcher) OnContactsSetBlocked(f func(ctx context.Context, requ
 	s.handlers[ContactsSetBlockedRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnContactsGetBirthdays(f func(ctx context.Context) (*ContactsContactBirthdays, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsGetBirthdaysRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ContactsGetBirthdaysRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetMessagesRequest
@@ -3173,7 +3401,7 @@ func (s *ServerDispatcher) OnMessagesEditChatPhoto(f func(ctx context.Context, r
 	s.handlers[MessagesEditChatPhotoRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesAddChatUser(f func(ctx context.Context, request *MessagesAddChatUserRequest) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnMessagesAddChatUser(f func(ctx context.Context, request *MessagesAddChatUserRequest) (*MessagesInvitedUsers, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesAddChatUserRequest
 		if err := request.Decode(b); err != nil {
@@ -3184,7 +3412,7 @@ func (s *ServerDispatcher) OnMessagesAddChatUser(f func(ctx context.Context, req
 		if err != nil {
 			return nil, err
 		}
-		return &UpdatesBox{Updates: response}, nil
+		return response, nil
 	}
 
 	s.handlers[MessagesAddChatUserRequestTypeID] = handler
@@ -3207,7 +3435,7 @@ func (s *ServerDispatcher) OnMessagesDeleteChatUser(f func(ctx context.Context, 
 	s.handlers[MessagesDeleteChatUserRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesCreateChat(f func(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnMessagesCreateChat(f func(ctx context.Context, request *MessagesCreateChatRequest) (*MessagesInvitedUsers, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesCreateChatRequest
 		if err := request.Decode(b); err != nil {
@@ -3218,7 +3446,7 @@ func (s *ServerDispatcher) OnMessagesCreateChat(f func(ctx context.Context, requ
 		if err != nil {
 			return nil, err
 		}
-		return &UpdatesBox{Updates: response}, nil
+		return response, nil
 	}
 
 	s.handlers[MessagesCreateChatRequestTypeID] = handler
@@ -6569,6 +6797,23 @@ func (s *ServerDispatcher) OnMessagesToggleDialogFilterTags(f func(ctx context.C
 	s.handlers[MessagesToggleDialogFilterTagsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetMyStickers(f func(ctx context.Context, request *MessagesGetMyStickersRequest) (*MessagesMyStickers, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetMyStickersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetMyStickersRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -7582,7 +7827,7 @@ func (s *ServerDispatcher) OnChannelsLeaveChannel(f func(ctx context.Context, ch
 	s.handlers[ChannelsLeaveChannelRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsInviteToChannel(f func(ctx context.Context, request *ChannelsInviteToChannelRequest) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnChannelsInviteToChannel(f func(ctx context.Context, request *ChannelsInviteToChannelRequest) (*MessagesInvitedUsers, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsInviteToChannelRequest
 		if err := request.Decode(b); err != nil {
@@ -7593,7 +7838,7 @@ func (s *ServerDispatcher) OnChannelsInviteToChannel(f func(ctx context.Context,
 		if err != nil {
 			return nil, err
 		}
-		return &UpdatesBox{Updates: response}, nil
+		return response, nil
 	}
 
 	s.handlers[ChannelsInviteToChannelRequestTypeID] = handler
@@ -8408,6 +8653,40 @@ func (s *ServerDispatcher) OnChannelsSetEmojiStickers(f func(ctx context.Context
 	s.handlers[ChannelsSetEmojiStickersRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsReportSponsoredMessage(f func(ctx context.Context, request *ChannelsReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsReportSponsoredMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &ChannelsSponsoredMessageReportResultBox{SponsoredMessageReportResult: response}, nil
+	}
+
+	s.handlers[ChannelsReportSponsoredMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsRestrictSponsoredMessages(f func(ctx context.Context, request *ChannelsRestrictSponsoredMessagesRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsRestrictSponsoredMessagesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsRestrictSponsoredMessagesRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -9178,6 +9457,23 @@ func (s *ServerDispatcher) OnStickersDeleteStickerSet(f func(ctx context.Context
 	s.handlers[StickersDeleteStickerSetRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnStickersReplaceSticker(f func(ctx context.Context, request *StickersReplaceStickerRequest) (MessagesStickerSetClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StickersReplaceStickerRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesStickerSetBox{StickerSet: response}, nil
+	}
+
+	s.handlers[StickersReplaceStickerRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnPhoneGetCallConfig(f func(ctx context.Context) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneGetCallConfigRequest
@@ -9944,6 +10240,57 @@ func (s *ServerDispatcher) OnStatsGetStoryPublicForwards(f func(ctx context.Cont
 	}
 
 	s.handlers[StatsGetStoryPublicForwardsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStatsGetBroadcastRevenueStats(f func(ctx context.Context, request *StatsGetBroadcastRevenueStatsRequest) (*StatsBroadcastRevenueStats, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StatsGetBroadcastRevenueStatsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StatsGetBroadcastRevenueStatsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStatsGetBroadcastRevenueWithdrawalURL(f func(ctx context.Context, request *StatsGetBroadcastRevenueWithdrawalURLRequest) (*StatsBroadcastRevenueWithdrawalURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StatsGetBroadcastRevenueWithdrawalURLRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StatsGetBroadcastRevenueWithdrawalURLRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStatsGetBroadcastRevenueTransactions(f func(ctx context.Context, request *StatsGetBroadcastRevenueTransactionsRequest) (*StatsBroadcastRevenueTransactions, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StatsGetBroadcastRevenueTransactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StatsGetBroadcastRevenueTransactionsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnChatlistsExportChatlistInvite(f func(ctx context.Context, request *ChatlistsExportChatlistInviteRequest) (*ChatlistsExportedChatlistInvite, error)) {
@@ -10787,6 +11134,23 @@ func (s *ServerDispatcher) OnSMSJobsFinishJob(f func(ctx context.Context, reques
 	}
 
 	s.handlers[SMSJobsFinishJobRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnFragmentGetCollectibleInfo(f func(ctx context.Context, collectible InputCollectibleClass) (*FragmentCollectibleInfo, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request FragmentGetCollectibleInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Collectible)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[FragmentGetCollectibleInfoRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {

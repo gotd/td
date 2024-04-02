@@ -50,6 +50,8 @@ type SponsoredMessage struct {
 	// sent in groups. The photo shown in the bubble is obtained either from the peer
 	// contained in from_id, or from chat_invite.
 	ShowPeerPhoto bool
+	// CanReport field of SponsoredMessage.
+	CanReport bool
 	// Message ID
 	RandomID []byte
 	// ID of the sender of the message
@@ -132,6 +134,9 @@ func (s *SponsoredMessage) Zero() bool {
 	if !(s.ShowPeerPhoto == false) {
 		return false
 	}
+	if !(s.CanReport == false) {
+		return false
+	}
 	if !(s.RandomID == nil) {
 		return false
 	}
@@ -188,6 +193,7 @@ func (s *SponsoredMessage) String() string {
 func (s *SponsoredMessage) FillFrom(from interface {
 	GetRecommended() (value bool)
 	GetShowPeerPhoto() (value bool)
+	GetCanReport() (value bool)
 	GetRandomID() (value []byte)
 	GetFromID() (value PeerClass, ok bool)
 	GetChatInvite() (value ChatInviteClass, ok bool)
@@ -204,6 +210,7 @@ func (s *SponsoredMessage) FillFrom(from interface {
 }) {
 	s.Recommended = from.GetRecommended()
 	s.ShowPeerPhoto = from.GetShowPeerPhoto()
+	s.CanReport = from.GetCanReport()
 	s.RandomID = from.GetRandomID()
 	if val, ok := from.GetFromID(); ok {
 		s.FromID = val
@@ -286,6 +293,11 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(6),
 		},
 		{
+			Name:       "CanReport",
+			SchemaName: "can_report",
+			Null:       !s.Flags.Has(12),
+		},
+		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -359,6 +371,9 @@ func (s *SponsoredMessage) SetFlags() {
 	}
 	if !(s.ShowPeerPhoto == false) {
 		s.Flags.Set(6)
+	}
+	if !(s.CanReport == false) {
+		s.Flags.Set(12)
 	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(3)
@@ -499,6 +514,7 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 	}
 	s.Recommended = s.Flags.Has(5)
 	s.ShowPeerPhoto = s.Flags.Has(6)
+	s.CanReport = s.Flags.Has(12)
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -637,6 +653,25 @@ func (s *SponsoredMessage) GetShowPeerPhoto() (value bool) {
 		return
 	}
 	return s.Flags.Has(6)
+}
+
+// SetCanReport sets value of CanReport conditional field.
+func (s *SponsoredMessage) SetCanReport(value bool) {
+	if value {
+		s.Flags.Set(12)
+		s.CanReport = true
+	} else {
+		s.Flags.Unset(12)
+		s.CanReport = false
+	}
+}
+
+// GetCanReport returns value of CanReport conditional field.
+func (s *SponsoredMessage) GetCanReport() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(12)
 }
 
 // GetRandomID returns value of RandomID field.

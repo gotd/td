@@ -3108,6 +3108,349 @@ func (k *KeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
 	return k.MaxQuantity
 }
 
+// InputKeyboardButtonRequestPeer represents TL type `inputKeyboardButtonRequestPeer#c9662d05`.
+//
+// See https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer for reference.
+type InputKeyboardButtonRequestPeer struct {
+	// Flags field of InputKeyboardButtonRequestPeer.
+	Flags bin.Fields
+	// NameRequested field of InputKeyboardButtonRequestPeer.
+	NameRequested bool
+	// UsernameRequested field of InputKeyboardButtonRequestPeer.
+	UsernameRequested bool
+	// PhotoRequested field of InputKeyboardButtonRequestPeer.
+	PhotoRequested bool
+	// Text field of InputKeyboardButtonRequestPeer.
+	Text string
+	// ButtonID field of InputKeyboardButtonRequestPeer.
+	ButtonID int
+	// PeerType field of InputKeyboardButtonRequestPeer.
+	PeerType RequestPeerTypeClass
+	// MaxQuantity field of InputKeyboardButtonRequestPeer.
+	MaxQuantity int
+}
+
+// InputKeyboardButtonRequestPeerTypeID is TL type id of InputKeyboardButtonRequestPeer.
+const InputKeyboardButtonRequestPeerTypeID = 0xc9662d05
+
+// construct implements constructor of KeyboardButtonClass.
+func (i InputKeyboardButtonRequestPeer) construct() KeyboardButtonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputKeyboardButtonRequestPeer.
+var (
+	_ bin.Encoder     = &InputKeyboardButtonRequestPeer{}
+	_ bin.Decoder     = &InputKeyboardButtonRequestPeer{}
+	_ bin.BareEncoder = &InputKeyboardButtonRequestPeer{}
+	_ bin.BareDecoder = &InputKeyboardButtonRequestPeer{}
+
+	_ KeyboardButtonClass = &InputKeyboardButtonRequestPeer{}
+)
+
+func (i *InputKeyboardButtonRequestPeer) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.NameRequested == false) {
+		return false
+	}
+	if !(i.UsernameRequested == false) {
+		return false
+	}
+	if !(i.PhotoRequested == false) {
+		return false
+	}
+	if !(i.Text == "") {
+		return false
+	}
+	if !(i.ButtonID == 0) {
+		return false
+	}
+	if !(i.PeerType == nil) {
+		return false
+	}
+	if !(i.MaxQuantity == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputKeyboardButtonRequestPeer) String() string {
+	if i == nil {
+		return "InputKeyboardButtonRequestPeer(nil)"
+	}
+	type Alias InputKeyboardButtonRequestPeer
+	return fmt.Sprintf("InputKeyboardButtonRequestPeer%+v", Alias(*i))
+}
+
+// FillFrom fills InputKeyboardButtonRequestPeer from given interface.
+func (i *InputKeyboardButtonRequestPeer) FillFrom(from interface {
+	GetNameRequested() (value bool)
+	GetUsernameRequested() (value bool)
+	GetPhotoRequested() (value bool)
+	GetText() (value string)
+	GetButtonID() (value int)
+	GetPeerType() (value RequestPeerTypeClass)
+	GetMaxQuantity() (value int)
+}) {
+	i.NameRequested = from.GetNameRequested()
+	i.UsernameRequested = from.GetUsernameRequested()
+	i.PhotoRequested = from.GetPhotoRequested()
+	i.Text = from.GetText()
+	i.ButtonID = from.GetButtonID()
+	i.PeerType = from.GetPeerType()
+	i.MaxQuantity = from.GetMaxQuantity()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputKeyboardButtonRequestPeer) TypeID() uint32 {
+	return InputKeyboardButtonRequestPeerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputKeyboardButtonRequestPeer) TypeName() string {
+	return "inputKeyboardButtonRequestPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputKeyboardButtonRequestPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputKeyboardButtonRequestPeer",
+		ID:   InputKeyboardButtonRequestPeerTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NameRequested",
+			SchemaName: "name_requested",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "UsernameRequested",
+			SchemaName: "username_requested",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "PhotoRequested",
+			SchemaName: "photo_requested",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+		{
+			Name:       "PeerType",
+			SchemaName: "peer_type",
+		},
+		{
+			Name:       "MaxQuantity",
+			SchemaName: "max_quantity",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputKeyboardButtonRequestPeer) SetFlags() {
+	if !(i.NameRequested == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.UsernameRequested == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.PhotoRequested == false) {
+		i.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputKeyboardButtonRequestPeer) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputKeyboardButtonRequestPeer#c9662d05 as nil")
+	}
+	b.PutID(InputKeyboardButtonRequestPeerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputKeyboardButtonRequestPeer) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputKeyboardButtonRequestPeer#c9662d05 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputKeyboardButtonRequestPeer#c9662d05: field flags: %w", err)
+	}
+	b.PutString(i.Text)
+	b.PutInt(i.ButtonID)
+	if i.PeerType == nil {
+		return fmt.Errorf("unable to encode inputKeyboardButtonRequestPeer#c9662d05: field peer_type is nil")
+	}
+	if err := i.PeerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputKeyboardButtonRequestPeer#c9662d05: field peer_type: %w", err)
+	}
+	b.PutInt(i.MaxQuantity)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputKeyboardButtonRequestPeer) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputKeyboardButtonRequestPeer#c9662d05 to nil")
+	}
+	if err := b.ConsumeID(InputKeyboardButtonRequestPeerTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputKeyboardButtonRequestPeer#c9662d05: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputKeyboardButtonRequestPeer) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputKeyboardButtonRequestPeer#c9662d05 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonRequestPeer#c9662d05: field flags: %w", err)
+		}
+	}
+	i.NameRequested = i.Flags.Has(0)
+	i.UsernameRequested = i.Flags.Has(1)
+	i.PhotoRequested = i.Flags.Has(2)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonRequestPeer#c9662d05: field text: %w", err)
+		}
+		i.Text = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonRequestPeer#c9662d05: field button_id: %w", err)
+		}
+		i.ButtonID = value
+	}
+	{
+		value, err := DecodeRequestPeerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonRequestPeer#c9662d05: field peer_type: %w", err)
+		}
+		i.PeerType = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonRequestPeer#c9662d05: field max_quantity: %w", err)
+		}
+		i.MaxQuantity = value
+	}
+	return nil
+}
+
+// SetNameRequested sets value of NameRequested conditional field.
+func (i *InputKeyboardButtonRequestPeer) SetNameRequested(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.NameRequested = true
+	} else {
+		i.Flags.Unset(0)
+		i.NameRequested = false
+	}
+}
+
+// GetNameRequested returns value of NameRequested conditional field.
+func (i *InputKeyboardButtonRequestPeer) GetNameRequested() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(0)
+}
+
+// SetUsernameRequested sets value of UsernameRequested conditional field.
+func (i *InputKeyboardButtonRequestPeer) SetUsernameRequested(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.UsernameRequested = true
+	} else {
+		i.Flags.Unset(1)
+		i.UsernameRequested = false
+	}
+}
+
+// GetUsernameRequested returns value of UsernameRequested conditional field.
+func (i *InputKeyboardButtonRequestPeer) GetUsernameRequested() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(1)
+}
+
+// SetPhotoRequested sets value of PhotoRequested conditional field.
+func (i *InputKeyboardButtonRequestPeer) SetPhotoRequested(value bool) {
+	if value {
+		i.Flags.Set(2)
+		i.PhotoRequested = true
+	} else {
+		i.Flags.Unset(2)
+		i.PhotoRequested = false
+	}
+}
+
+// GetPhotoRequested returns value of PhotoRequested conditional field.
+func (i *InputKeyboardButtonRequestPeer) GetPhotoRequested() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(2)
+}
+
+// GetText returns value of Text field.
+func (i *InputKeyboardButtonRequestPeer) GetText() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Text
+}
+
+// GetButtonID returns value of ButtonID field.
+func (i *InputKeyboardButtonRequestPeer) GetButtonID() (value int) {
+	if i == nil {
+		return
+	}
+	return i.ButtonID
+}
+
+// GetPeerType returns value of PeerType field.
+func (i *InputKeyboardButtonRequestPeer) GetPeerType() (value RequestPeerTypeClass) {
+	if i == nil {
+		return
+	}
+	return i.PeerType
+}
+
+// GetMaxQuantity returns value of MaxQuantity field.
+func (i *InputKeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
+	if i == nil {
+		return
+	}
+	return i.MaxQuantity
+}
+
 // KeyboardButtonClassName is schema name of KeyboardButtonClass.
 const KeyboardButtonClassName = "KeyboardButton"
 
@@ -3138,6 +3481,7 @@ const KeyboardButtonClassName = "KeyboardButton"
 //	case *tg.KeyboardButtonWebView: // keyboardButtonWebView#13767230
 //	case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
 //	case *tg.KeyboardButtonRequestPeer: // keyboardButtonRequestPeer#53d7bfd8
+//	case *tg.InputKeyboardButtonRequestPeer: // inputKeyboardButtonRequestPeer#c9662d05
 //	default: panic(v)
 //	}
 type KeyboardButtonClass interface {
@@ -3277,6 +3621,13 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 	case KeyboardButtonRequestPeerTypeID:
 		// Decoding keyboardButtonRequestPeer#53d7bfd8.
 		v := KeyboardButtonRequestPeer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case InputKeyboardButtonRequestPeerTypeID:
+		// Decoding inputKeyboardButtonRequestPeer#c9662d05.
+		v := InputKeyboardButtonRequestPeer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}

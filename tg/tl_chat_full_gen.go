@@ -1102,6 +1102,10 @@ type ChannelFull struct {
 	//  1) https://core.telegram.org/api/forum
 	//  2) https://core.telegram.org/method/channels.toggleViewForumAsMessages
 	ViewForumAsMessages bool
+	// RestrictedSponsored field of ChannelFull.
+	RestrictedSponsored bool
+	// CanViewRevenue field of ChannelFull.
+	CanViewRevenue bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1360,6 +1364,12 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.ViewForumAsMessages == false) {
 		return false
 	}
+	if !(c.RestrictedSponsored == false) {
+		return false
+	}
+	if !(c.CanViewRevenue == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1509,6 +1519,8 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetTranslationsDisabled() (value bool)
 	GetStoriesPinnedAvailable() (value bool)
 	GetViewForumAsMessages() (value bool)
+	GetRestrictedSponsored() (value bool)
+	GetCanViewRevenue() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1564,6 +1576,8 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.TranslationsDisabled = from.GetTranslationsDisabled()
 	c.StoriesPinnedAvailable = from.GetStoriesPinnedAvailable()
 	c.ViewForumAsMessages = from.GetViewForumAsMessages()
+	c.RestrictedSponsored = from.GetRestrictedSponsored()
+	c.CanViewRevenue = from.GetCanViewRevenue()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1791,6 +1805,16 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "ViewForumAsMessages",
 			SchemaName: "view_forum_as_messages",
 			Null:       !c.Flags2.Has(6),
+		},
+		{
+			Name:       "RestrictedSponsored",
+			SchemaName: "restricted_sponsored",
+			Null:       !c.Flags2.Has(11),
+		},
+		{
+			Name:       "CanViewRevenue",
+			SchemaName: "can_view_revenue",
+			Null:       !c.Flags2.Has(12),
 		},
 		{
 			Name:       "ID",
@@ -2030,6 +2054,12 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.ViewForumAsMessages == false) {
 		c.Flags2.Set(6)
+	}
+	if !(c.RestrictedSponsored == false) {
+		c.Flags2.Set(11)
+	}
+	if !(c.CanViewRevenue == false) {
+		c.Flags2.Set(12)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2348,6 +2378,8 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.TranslationsDisabled = c.Flags2.Has(3)
 	c.StoriesPinnedAvailable = c.Flags2.Has(5)
 	c.ViewForumAsMessages = c.Flags2.Has(6)
+	c.RestrictedSponsored = c.Flags2.Has(11)
+	c.CanViewRevenue = c.Flags2.Has(12)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2915,6 +2947,44 @@ func (c *ChannelFull) GetViewForumAsMessages() (value bool) {
 		return
 	}
 	return c.Flags2.Has(6)
+}
+
+// SetRestrictedSponsored sets value of RestrictedSponsored conditional field.
+func (c *ChannelFull) SetRestrictedSponsored(value bool) {
+	if value {
+		c.Flags2.Set(11)
+		c.RestrictedSponsored = true
+	} else {
+		c.Flags2.Unset(11)
+		c.RestrictedSponsored = false
+	}
+}
+
+// GetRestrictedSponsored returns value of RestrictedSponsored conditional field.
+func (c *ChannelFull) GetRestrictedSponsored() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(11)
+}
+
+// SetCanViewRevenue sets value of CanViewRevenue conditional field.
+func (c *ChannelFull) SetCanViewRevenue(value bool) {
+	if value {
+		c.Flags2.Set(12)
+		c.CanViewRevenue = true
+	} else {
+		c.Flags2.Unset(12)
+		c.CanViewRevenue = false
+	}
+}
+
+// GetCanViewRevenue returns value of CanViewRevenue conditional field.
+func (c *ChannelFull) GetCanViewRevenue() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(12)
 }
 
 // GetID returns value of ID field.

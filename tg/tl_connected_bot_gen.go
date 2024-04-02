@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ConnectedBot represents TL type `connectedBot#e7e999e7`.
+// ConnectedBot represents TL type `connectedBot#bd068601`.
 //
 // See https://core.telegram.org/constructor/connectedBot for reference.
 type ConnectedBot struct {
@@ -42,11 +42,11 @@ type ConnectedBot struct {
 	// BotID field of ConnectedBot.
 	BotID int64
 	// Recipients field of ConnectedBot.
-	Recipients BusinessRecipients
+	Recipients BusinessBotRecipients
 }
 
 // ConnectedBotTypeID is TL type id of ConnectedBot.
-const ConnectedBotTypeID = 0xe7e999e7
+const ConnectedBotTypeID = 0xbd068601
 
 // Ensuring interfaces in compile-time for ConnectedBot.
 var (
@@ -89,7 +89,7 @@ func (c *ConnectedBot) String() string {
 func (c *ConnectedBot) FillFrom(from interface {
 	GetCanReply() (value bool)
 	GetBotID() (value int64)
-	GetRecipients() (value BusinessRecipients)
+	GetRecipients() (value BusinessBotRecipients)
 }) {
 	c.CanReply = from.GetCanReply()
 	c.BotID = from.GetBotID()
@@ -146,7 +146,7 @@ func (c *ConnectedBot) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *ConnectedBot) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode connectedBot#e7e999e7 as nil")
+		return fmt.Errorf("can't encode connectedBot#bd068601 as nil")
 	}
 	b.PutID(ConnectedBotTypeID)
 	return c.EncodeBare(b)
@@ -155,15 +155,15 @@ func (c *ConnectedBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ConnectedBot) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode connectedBot#e7e999e7 as nil")
+		return fmt.Errorf("can't encode connectedBot#bd068601 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#e7e999e7: field flags: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#bd068601: field flags: %w", err)
 	}
 	b.PutLong(c.BotID)
 	if err := c.Recipients.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#e7e999e7: field recipients: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#bd068601: field recipients: %w", err)
 	}
 	return nil
 }
@@ -171,10 +171,10 @@ func (c *ConnectedBot) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ConnectedBot) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode connectedBot#e7e999e7 to nil")
+		return fmt.Errorf("can't decode connectedBot#bd068601 to nil")
 	}
 	if err := b.ConsumeID(ConnectedBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode connectedBot#e7e999e7: %w", err)
+		return fmt.Errorf("unable to decode connectedBot#bd068601: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -182,24 +182,24 @@ func (c *ConnectedBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ConnectedBot) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode connectedBot#e7e999e7 to nil")
+		return fmt.Errorf("can't decode connectedBot#bd068601 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#e7e999e7: field flags: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#bd068601: field flags: %w", err)
 		}
 	}
 	c.CanReply = c.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode connectedBot#e7e999e7: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#bd068601: field bot_id: %w", err)
 		}
 		c.BotID = value
 	}
 	{
 		if err := c.Recipients.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#e7e999e7: field recipients: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#bd068601: field recipients: %w", err)
 		}
 	}
 	return nil
@@ -233,7 +233,7 @@ func (c *ConnectedBot) GetBotID() (value int64) {
 }
 
 // GetRecipients returns value of Recipients field.
-func (c *ConnectedBot) GetRecipients() (value BusinessRecipients) {
+func (c *ConnectedBot) GetRecipients() (value BusinessBotRecipients) {
 	if c == nil {
 		return
 	}

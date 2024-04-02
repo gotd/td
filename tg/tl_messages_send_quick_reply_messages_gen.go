@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendQuickReplyMessagesRequest represents TL type `messages.sendQuickReplyMessages#33153ad4`.
+// MessagesSendQuickReplyMessagesRequest represents TL type `messages.sendQuickReplyMessages#6c750de1`.
 //
 // See https://core.telegram.org/method/messages.sendQuickReplyMessages for reference.
 type MessagesSendQuickReplyMessagesRequest struct {
@@ -39,10 +39,14 @@ type MessagesSendQuickReplyMessagesRequest struct {
 	Peer InputPeerClass
 	// ShortcutID field of MessagesSendQuickReplyMessagesRequest.
 	ShortcutID int
+	// ID field of MessagesSendQuickReplyMessagesRequest.
+	ID []int
+	// RandomID field of MessagesSendQuickReplyMessagesRequest.
+	RandomID []int64
 }
 
 // MessagesSendQuickReplyMessagesRequestTypeID is TL type id of MessagesSendQuickReplyMessagesRequest.
-const MessagesSendQuickReplyMessagesRequestTypeID = 0x33153ad4
+const MessagesSendQuickReplyMessagesRequestTypeID = 0x6c750de1
 
 // Ensuring interfaces in compile-time for MessagesSendQuickReplyMessagesRequest.
 var (
@@ -62,6 +66,12 @@ func (s *MessagesSendQuickReplyMessagesRequest) Zero() bool {
 	if !(s.ShortcutID == 0) {
 		return false
 	}
+	if !(s.ID == nil) {
+		return false
+	}
+	if !(s.RandomID == nil) {
+		return false
+	}
 
 	return true
 }
@@ -79,9 +89,13 @@ func (s *MessagesSendQuickReplyMessagesRequest) String() string {
 func (s *MessagesSendQuickReplyMessagesRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetShortcutID() (value int)
+	GetID() (value []int)
+	GetRandomID() (value []int64)
 }) {
 	s.Peer = from.GetPeer()
 	s.ShortcutID = from.GetShortcutID()
+	s.ID = from.GetID()
+	s.RandomID = from.GetRandomID()
 }
 
 // TypeID returns type id in TL schema.
@@ -115,6 +129,14 @@ func (s *MessagesSendQuickReplyMessagesRequest) TypeInfo() tdp.Type {
 			Name:       "ShortcutID",
 			SchemaName: "shortcut_id",
 		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
 	}
 	return typ
 }
@@ -122,7 +144,7 @@ func (s *MessagesSendQuickReplyMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendQuickReplyMessagesRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendQuickReplyMessages#33153ad4 as nil")
+		return fmt.Errorf("can't encode messages.sendQuickReplyMessages#6c750de1 as nil")
 	}
 	b.PutID(MessagesSendQuickReplyMessagesRequestTypeID)
 	return s.EncodeBare(b)
@@ -131,25 +153,33 @@ func (s *MessagesSendQuickReplyMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendQuickReplyMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendQuickReplyMessages#33153ad4 as nil")
+		return fmt.Errorf("can't encode messages.sendQuickReplyMessages#6c750de1 as nil")
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendQuickReplyMessages#33153ad4: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendQuickReplyMessages#6c750de1: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendQuickReplyMessages#33153ad4: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendQuickReplyMessages#6c750de1: field peer: %w", err)
 	}
 	b.PutInt(s.ShortcutID)
+	b.PutVectorHeader(len(s.ID))
+	for _, v := range s.ID {
+		b.PutInt(v)
+	}
+	b.PutVectorHeader(len(s.RandomID))
+	for _, v := range s.RandomID {
+		b.PutLong(v)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *MessagesSendQuickReplyMessagesRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendQuickReplyMessages#33153ad4 to nil")
+		return fmt.Errorf("can't decode messages.sendQuickReplyMessages#6c750de1 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendQuickReplyMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#33153ad4: %w", err)
+		return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -157,21 +187,55 @@ func (s *MessagesSendQuickReplyMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendQuickReplyMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendQuickReplyMessages#33153ad4 to nil")
+		return fmt.Errorf("can't decode messages.sendQuickReplyMessages#6c750de1 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#33153ad4: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#33153ad4: field shortcut_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: field shortcut_id: %w", err)
 		}
 		s.ShortcutID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: field id: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.ID = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: field id: %w", err)
+			}
+			s.ID = append(s.ID, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: field random_id: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.RandomID = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.sendQuickReplyMessages#6c750de1: field random_id: %w", err)
+			}
+			s.RandomID = append(s.RandomID, value)
+		}
 	}
 	return nil
 }
@@ -192,7 +256,23 @@ func (s *MessagesSendQuickReplyMessagesRequest) GetShortcutID() (value int) {
 	return s.ShortcutID
 }
 
-// MessagesSendQuickReplyMessages invokes method messages.sendQuickReplyMessages#33153ad4 returning error if any.
+// GetID returns value of ID field.
+func (s *MessagesSendQuickReplyMessagesRequest) GetID() (value []int) {
+	if s == nil {
+		return
+	}
+	return s.ID
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendQuickReplyMessagesRequest) GetRandomID() (value []int64) {
+	if s == nil {
+		return
+	}
+	return s.RandomID
+}
+
+// MessagesSendQuickReplyMessages invokes method messages.sendQuickReplyMessages#6c750de1 returning error if any.
 //
 // See https://core.telegram.org/method/messages.sendQuickReplyMessages for reference.
 func (c *Client) MessagesSendQuickReplyMessages(ctx context.Context, request *MessagesSendQuickReplyMessagesRequest) (UpdatesClass, error) {

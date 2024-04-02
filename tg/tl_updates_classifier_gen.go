@@ -76,6 +76,14 @@ func IsQtsUpdate(u UpdateClass) (qts int, ok bool) {
 		return u.Qts, true
 	case *UpdateBotMessageReactions:
 		return u.Qts, true
+	case *UpdateBotBusinessConnect:
+		return u.Qts, true
+	case *UpdateBotNewBusinessMessage:
+		return u.Qts, true
+	case *UpdateBotEditBusinessMessage:
+		return u.Qts, true
+	case *UpdateBotDeleteBusinessMessage:
+		return u.Qts, true
 	}
 
 	return

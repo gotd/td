@@ -1136,6 +1136,107 @@ func (p *PrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PrivacyValueAllowPremium represents TL type `privacyValueAllowPremium#ece9814b`.
+//
+// See https://core.telegram.org/constructor/privacyValueAllowPremium for reference.
+type PrivacyValueAllowPremium struct {
+}
+
+// PrivacyValueAllowPremiumTypeID is TL type id of PrivacyValueAllowPremium.
+const PrivacyValueAllowPremiumTypeID = 0xece9814b
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowPremium) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowPremium.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowPremium{}
+	_ bin.Decoder     = &PrivacyValueAllowPremium{}
+	_ bin.BareEncoder = &PrivacyValueAllowPremium{}
+	_ bin.BareDecoder = &PrivacyValueAllowPremium{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowPremium{}
+)
+
+func (p *PrivacyValueAllowPremium) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueAllowPremium) String() string {
+	if p == nil {
+		return "PrivacyValueAllowPremium(nil)"
+	}
+	type Alias PrivacyValueAllowPremium
+	return fmt.Sprintf("PrivacyValueAllowPremium%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrivacyValueAllowPremium) TypeID() uint32 {
+	return PrivacyValueAllowPremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrivacyValueAllowPremium) TypeName() string {
+	return "privacyValueAllowPremium"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrivacyValueAllowPremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "privacyValueAllowPremium",
+		ID:   PrivacyValueAllowPremiumTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrivacyValueAllowPremium) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowPremium#ece9814b as nil")
+	}
+	b.PutID(PrivacyValueAllowPremiumTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueAllowPremium) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowPremium#ece9814b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrivacyValueAllowPremium) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowPremium#ece9814b to nil")
+	}
+	if err := b.ConsumeID(PrivacyValueAllowPremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode privacyValueAllowPremium#ece9814b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueAllowPremium) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowPremium#ece9814b to nil")
+	}
+	return nil
+}
+
 // PrivacyRuleClassName is schema name of PrivacyRuleClass.
 const PrivacyRuleClassName = "PrivacyRule"
 
@@ -1159,6 +1260,7 @@ const PrivacyRuleClassName = "PrivacyRule"
 //	case *tg.PrivacyValueAllowChatParticipants: // privacyValueAllowChatParticipants#6b134e8e
 //	case *tg.PrivacyValueDisallowChatParticipants: // privacyValueDisallowChatParticipants#41c87565
 //	case *tg.PrivacyValueAllowCloseFriends: // privacyValueAllowCloseFriends#f7e8d89b
+//	case *tg.PrivacyValueAllowPremium: // privacyValueAllowPremium#ece9814b
 //	default: panic(v)
 //	}
 type PrivacyRuleClass interface {
@@ -1262,6 +1364,13 @@ func DecodePrivacyRule(buf *bin.Buffer) (PrivacyRuleClass, error) {
 	case PrivacyValueAllowCloseFriendsTypeID:
 		// Decoding privacyValueAllowCloseFriends#f7e8d89b.
 		v := PrivacyValueAllowCloseFriends{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrivacyRuleClass: %w", err)
+		}
+		return &v, nil
+	case PrivacyValueAllowPremiumTypeID:
+		// Decoding privacyValueAllowPremium#ece9814b.
+		v := PrivacyValueAllowPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PrivacyRuleClass: %w", err)
 		}
