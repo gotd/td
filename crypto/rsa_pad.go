@@ -9,9 +9,7 @@ import (
 	"math/big"
 
 	"github.com/go-faster/errors"
-
 	"github.com/go-faster/xor"
-
 	"github.com/gotd/ige"
 
 	"github.com/gotd/td/bin"

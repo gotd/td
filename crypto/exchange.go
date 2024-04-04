@@ -6,7 +6,6 @@ import (
 	"io"
 
 	"github.com/go-faster/errors"
-
 	"github.com/gotd/ige"
 
 	"github.com/gotd/td/bin"
