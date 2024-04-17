@@ -2,7 +2,7 @@
 
 A fast Telegram client in pure Go.
 
-Telegram Groups: [![Telegram: English chat](https://api.go-faster.org/badge/telegram/gotd_en?title=EN)](https://t.me/gotd_en) [![Telegram: Russian chat](https://api.go-faster.org/badge/telegram/gotd_ru?title=RU)](https://t.me/gotd_ru) [![Telegram: Chinese chat](https://api.go-faster.org/badge/telegram/gotd_cn?title=CN)](https://t.me/gotd_cn)
+[![Telegram: English chat](https://api.go-faster.org/badge/telegram/gotd_en?title=EN)](https://t.me/gotd_en) [![Telegram: Russian chat](https://api.go-faster.org/badge/telegram/gotd_ru?title=RU)](https://t.me/gotd_ru) [![Telegram: Chinese chat](https://api.go-faster.org/badge/telegram/gotd_cn?title=CN)](https://t.me/gotd_cn)
 
 * [Examples](examples)
 * [Security policy](.github/SECURITY.md)
