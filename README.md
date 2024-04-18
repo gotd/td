@@ -1,6 +1,6 @@
 # td [![Go Reference](https://img.shields.io/badge/go-pkg-00ADD8)](https://pkg.go.dev/github.com/gotd/td#section-documentation) [![codecov](https://img.shields.io/codecov/c/github/gotd/td?label=cover)](https://codecov.io/gh/gotd/td) [![beta](https://img.shields.io/badge/-beta-yellow)](https://go-faster.org/docs/projects/status#beta)
 
-A fast Telegram client in pure Go.
+Telegram MTProto API client in Go for users and bots.
 
 [![Telegram: English chat](https://api.go-faster.org/badge/telegram/gotd_en?title=EN&v=1)](https://t.me/gotd_en) [![Telegram: Russian chat](https://api.go-faster.org/badge/telegram/gotd_ru?title=RU&v=1)](https://t.me/gotd_ru) [![Telegram: Chinese chat](https://api.go-faster.org/badge/telegram/gotd_zhcn?title=CN&v=1)](https://t.me/gotd_zhcn)
 
