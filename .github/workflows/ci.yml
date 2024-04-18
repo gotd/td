@@ -14,8 +14,8 @@ jobs:
       matrix:
         flags: [""]
         go:
-          - "1.20"
           - "1.21"
+          - "1.22"
         arch:
           - amd64
         runner:
@@ -32,9 +32,6 @@ jobs:
             runner: ubuntu-latest
             flags: "-race"
 
-          - arch: amd64
-            go: "1.19"
-            runner: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
