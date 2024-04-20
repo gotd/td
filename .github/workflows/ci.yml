@@ -24,11 +24,11 @@ jobs:
         include:
           - arch: amd64
             runner: windows-latest
-            go: "1.21"
+            go: "1.22"
             flags: "-p=1"
 
           - arch: amd64
-            go: "1.21"
+            go: "1.22"
             runner: ubuntu-latest
             flags: "-race"
 
