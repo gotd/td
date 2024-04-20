@@ -2,8 +2,6 @@ module github.com/gotd/td/examples
 
 go 1.21
 
-toolchain go1.21.0
-
 require (
 	github.com/cockroachdb/pebble v0.0.0-20220107203702-aa376a819bf6
 	github.com/go-faster/errors v0.7.1
