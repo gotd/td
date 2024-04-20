@@ -1,7 +1,6 @@
 ---
 name: Feature request
 about: Use this template for proposing features.
-title: "subject: short description"
 labels: enhancement
 ---
 
