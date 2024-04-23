@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatBoostLevelFeatures represents TL type `chatBoostLevelFeatures#d248546f`.
+// ChatBoostLevelFeatures represents TL type `chatBoostLevelFeatures#f4b51914`.
 type ChatBoostLevelFeatures struct {
 	// Target chat boost level
 	Level int32
@@ -61,10 +61,12 @@ type ChatBoostLevelFeatures struct {
 	// True, if speech recognition can be used for video note and voice note messages by all
 	// users
 	CanRecognizeSpeech bool
+	// True, if sponsored messages can be disabled in the chat
+	CanDisableSponsoredMessages bool
 }
 
 // ChatBoostLevelFeaturesTypeID is TL type id of ChatBoostLevelFeatures.
-const ChatBoostLevelFeaturesTypeID = 0xd248546f
+const ChatBoostLevelFeaturesTypeID = 0xf4b51914
 
 // Ensuring interfaces in compile-time for ChatBoostLevelFeatures.
 var (
@@ -115,6 +117,9 @@ func (c *ChatBoostLevelFeatures) Zero() bool {
 		return false
 	}
 	if !(c.CanRecognizeSpeech == false) {
+		return false
+	}
+	if !(c.CanDisableSponsoredMessages == false) {
 		return false
 	}
 
@@ -205,6 +210,10 @@ func (c *ChatBoostLevelFeatures) TypeInfo() tdp.Type {
 			Name:       "CanRecognizeSpeech",
 			SchemaName: "can_recognize_speech",
 		},
+		{
+			Name:       "CanDisableSponsoredMessages",
+			SchemaName: "can_disable_sponsored_messages",
+		},
 	}
 	return typ
 }
@@ -212,7 +221,7 @@ func (c *ChatBoostLevelFeatures) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatBoostLevelFeatures) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostLevelFeatures#d248546f as nil")
+		return fmt.Errorf("can't encode chatBoostLevelFeatures#f4b51914 as nil")
 	}
 	b.PutID(ChatBoostLevelFeaturesTypeID)
 	return c.EncodeBare(b)
@@ -221,7 +230,7 @@ func (c *ChatBoostLevelFeatures) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatBoostLevelFeatures) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostLevelFeatures#d248546f as nil")
+		return fmt.Errorf("can't encode chatBoostLevelFeatures#f4b51914 as nil")
 	}
 	b.PutInt32(c.Level)
 	b.PutInt32(c.StoryPerDayCount)
@@ -236,16 +245,17 @@ func (c *ChatBoostLevelFeatures) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(c.CanSetCustomBackground)
 	b.PutBool(c.CanSetCustomEmojiStickerSet)
 	b.PutBool(c.CanRecognizeSpeech)
+	b.PutBool(c.CanDisableSponsoredMessages)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatBoostLevelFeatures) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostLevelFeatures#d248546f to nil")
+		return fmt.Errorf("can't decode chatBoostLevelFeatures#f4b51914 to nil")
 	}
 	if err := b.ConsumeID(ChatBoostLevelFeaturesTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: %w", err)
+		return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -253,98 +263,105 @@ func (c *ChatBoostLevelFeatures) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatBoostLevelFeatures) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostLevelFeatures#d248546f to nil")
+		return fmt.Errorf("can't decode chatBoostLevelFeatures#f4b51914 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field level: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field level: %w", err)
 		}
 		c.Level = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field story_per_day_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field story_per_day_count: %w", err)
 		}
 		c.StoryPerDayCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field custom_emoji_reaction_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field custom_emoji_reaction_count: %w", err)
 		}
 		c.CustomEmojiReactionCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field title_color_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field title_color_count: %w", err)
 		}
 		c.TitleColorCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field profile_accent_color_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field profile_accent_color_count: %w", err)
 		}
 		c.ProfileAccentColorCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_profile_background_custom_emoji: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_profile_background_custom_emoji: %w", err)
 		}
 		c.CanSetProfileBackgroundCustomEmoji = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field accent_color_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field accent_color_count: %w", err)
 		}
 		c.AccentColorCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_background_custom_emoji: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_background_custom_emoji: %w", err)
 		}
 		c.CanSetBackgroundCustomEmoji = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_emoji_status: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_emoji_status: %w", err)
 		}
 		c.CanSetEmojiStatus = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field chat_theme_background_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field chat_theme_background_count: %w", err)
 		}
 		c.ChatThemeBackgroundCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_custom_background: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_custom_background: %w", err)
 		}
 		c.CanSetCustomBackground = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_custom_emoji_sticker_set: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_custom_emoji_sticker_set: %w", err)
 		}
 		c.CanSetCustomEmojiStickerSet = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_recognize_speech: %w", err)
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_recognize_speech: %w", err)
 		}
 		c.CanRecognizeSpeech = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_disable_sponsored_messages: %w", err)
+		}
+		c.CanDisableSponsoredMessages = value
 	}
 	return nil
 }
@@ -352,7 +369,7 @@ func (c *ChatBoostLevelFeatures) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatBoostLevelFeatures) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostLevelFeatures#d248546f as nil")
+		return fmt.Errorf("can't encode chatBoostLevelFeatures#f4b51914 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatBoostLevelFeatures")
@@ -396,6 +413,9 @@ func (c *ChatBoostLevelFeatures) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("can_recognize_speech")
 	b.PutBool(c.CanRecognizeSpeech)
 	b.Comma()
+	b.FieldStart("can_disable_sponsored_messages")
+	b.PutBool(c.CanDisableSponsoredMessages)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -404,93 +424,99 @@ func (c *ChatBoostLevelFeatures) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatBoostLevelFeatures) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostLevelFeatures#d248546f to nil")
+		return fmt.Errorf("can't decode chatBoostLevelFeatures#f4b51914 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatBoostLevelFeatures"); err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: %w", err)
 			}
 		case "level":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field level: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field level: %w", err)
 			}
 			c.Level = value
 		case "story_per_day_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field story_per_day_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field story_per_day_count: %w", err)
 			}
 			c.StoryPerDayCount = value
 		case "custom_emoji_reaction_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field custom_emoji_reaction_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field custom_emoji_reaction_count: %w", err)
 			}
 			c.CustomEmojiReactionCount = value
 		case "title_color_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field title_color_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field title_color_count: %w", err)
 			}
 			c.TitleColorCount = value
 		case "profile_accent_color_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field profile_accent_color_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field profile_accent_color_count: %w", err)
 			}
 			c.ProfileAccentColorCount = value
 		case "can_set_profile_background_custom_emoji":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_profile_background_custom_emoji: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_profile_background_custom_emoji: %w", err)
 			}
 			c.CanSetProfileBackgroundCustomEmoji = value
 		case "accent_color_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field accent_color_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field accent_color_count: %w", err)
 			}
 			c.AccentColorCount = value
 		case "can_set_background_custom_emoji":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_background_custom_emoji: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_background_custom_emoji: %w", err)
 			}
 			c.CanSetBackgroundCustomEmoji = value
 		case "can_set_emoji_status":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_emoji_status: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_emoji_status: %w", err)
 			}
 			c.CanSetEmojiStatus = value
 		case "chat_theme_background_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field chat_theme_background_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field chat_theme_background_count: %w", err)
 			}
 			c.ChatThemeBackgroundCount = value
 		case "can_set_custom_background":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_custom_background: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_custom_background: %w", err)
 			}
 			c.CanSetCustomBackground = value
 		case "can_set_custom_emoji_sticker_set":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_set_custom_emoji_sticker_set: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_set_custom_emoji_sticker_set: %w", err)
 			}
 			c.CanSetCustomEmojiStickerSet = value
 		case "can_recognize_speech":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostLevelFeatures#d248546f: field can_recognize_speech: %w", err)
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_recognize_speech: %w", err)
 			}
 			c.CanRecognizeSpeech = value
+		case "can_disable_sponsored_messages":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostLevelFeatures#f4b51914: field can_disable_sponsored_messages: %w", err)
+			}
+			c.CanDisableSponsoredMessages = value
 		default:
 			return b.Skip()
 		}
@@ -600,4 +626,12 @@ func (c *ChatBoostLevelFeatures) GetCanRecognizeSpeech() (value bool) {
 		return
 	}
 	return c.CanRecognizeSpeech
+}
+
+// GetCanDisableSponsoredMessages returns value of CanDisableSponsoredMessages field.
+func (c *ChatBoostLevelFeatures) GetCanDisableSponsoredMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanDisableSponsoredMessages
 }

@@ -817,27 +817,27 @@ func (b *BusinessFeatureAccountLinks) DecodeTDLibJSON(buf tdjson.Decoder) error 
 	})
 }
 
-// BusinessFeatureIntro represents TL type `businessFeatureIntro#b7843cb4`.
-type BusinessFeatureIntro struct {
+// BusinessFeatureStartPage represents TL type `businessFeatureStartPage#17edf7e1`.
+type BusinessFeatureStartPage struct {
 }
 
-// BusinessFeatureIntroTypeID is TL type id of BusinessFeatureIntro.
-const BusinessFeatureIntroTypeID = 0xb7843cb4
+// BusinessFeatureStartPageTypeID is TL type id of BusinessFeatureStartPage.
+const BusinessFeatureStartPageTypeID = 0x17edf7e1
 
 // construct implements constructor of BusinessFeatureClass.
-func (b BusinessFeatureIntro) construct() BusinessFeatureClass { return &b }
+func (b BusinessFeatureStartPage) construct() BusinessFeatureClass { return &b }
 
-// Ensuring interfaces in compile-time for BusinessFeatureIntro.
+// Ensuring interfaces in compile-time for BusinessFeatureStartPage.
 var (
-	_ bin.Encoder     = &BusinessFeatureIntro{}
-	_ bin.Decoder     = &BusinessFeatureIntro{}
-	_ bin.BareEncoder = &BusinessFeatureIntro{}
-	_ bin.BareDecoder = &BusinessFeatureIntro{}
+	_ bin.Encoder     = &BusinessFeatureStartPage{}
+	_ bin.Decoder     = &BusinessFeatureStartPage{}
+	_ bin.BareEncoder = &BusinessFeatureStartPage{}
+	_ bin.BareDecoder = &BusinessFeatureStartPage{}
 
-	_ BusinessFeatureClass = &BusinessFeatureIntro{}
+	_ BusinessFeatureClass = &BusinessFeatureStartPage{}
 )
 
-func (b *BusinessFeatureIntro) Zero() bool {
+func (b *BusinessFeatureStartPage) Zero() bool {
 	if b == nil {
 		return true
 	}
@@ -846,31 +846,31 @@ func (b *BusinessFeatureIntro) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (b *BusinessFeatureIntro) String() string {
+func (b *BusinessFeatureStartPage) String() string {
 	if b == nil {
-		return "BusinessFeatureIntro(nil)"
+		return "BusinessFeatureStartPage(nil)"
 	}
-	type Alias BusinessFeatureIntro
-	return fmt.Sprintf("BusinessFeatureIntro%+v", Alias(*b))
+	type Alias BusinessFeatureStartPage
+	return fmt.Sprintf("BusinessFeatureStartPage%+v", Alias(*b))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*BusinessFeatureIntro) TypeID() uint32 {
-	return BusinessFeatureIntroTypeID
+func (*BusinessFeatureStartPage) TypeID() uint32 {
+	return BusinessFeatureStartPageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*BusinessFeatureIntro) TypeName() string {
-	return "businessFeatureIntro"
+func (*BusinessFeatureStartPage) TypeName() string {
+	return "businessFeatureStartPage"
 }
 
 // TypeInfo returns info about TL type.
-func (b *BusinessFeatureIntro) TypeInfo() tdp.Type {
+func (b *BusinessFeatureStartPage) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "businessFeatureIntro",
-		ID:   BusinessFeatureIntroTypeID,
+		Name: "businessFeatureStartPage",
+		ID:   BusinessFeatureStartPageTypeID,
 	}
 	if b == nil {
 		typ.Null = true
@@ -881,48 +881,48 @@ func (b *BusinessFeatureIntro) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (b *BusinessFeatureIntro) Encode(buf *bin.Buffer) error {
+func (b *BusinessFeatureStartPage) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessFeatureIntro#b7843cb4 as nil")
+		return fmt.Errorf("can't encode businessFeatureStartPage#17edf7e1 as nil")
 	}
-	buf.PutID(BusinessFeatureIntroTypeID)
+	buf.PutID(BusinessFeatureStartPageTypeID)
 	return b.EncodeBare(buf)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (b *BusinessFeatureIntro) EncodeBare(buf *bin.Buffer) error {
+func (b *BusinessFeatureStartPage) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessFeatureIntro#b7843cb4 as nil")
+		return fmt.Errorf("can't encode businessFeatureStartPage#17edf7e1 as nil")
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (b *BusinessFeatureIntro) Decode(buf *bin.Buffer) error {
+func (b *BusinessFeatureStartPage) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessFeatureIntro#b7843cb4 to nil")
+		return fmt.Errorf("can't decode businessFeatureStartPage#17edf7e1 to nil")
 	}
-	if err := buf.ConsumeID(BusinessFeatureIntroTypeID); err != nil {
-		return fmt.Errorf("unable to decode businessFeatureIntro#b7843cb4: %w", err)
+	if err := buf.ConsumeID(BusinessFeatureStartPageTypeID); err != nil {
+		return fmt.Errorf("unable to decode businessFeatureStartPage#17edf7e1: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (b *BusinessFeatureIntro) DecodeBare(buf *bin.Buffer) error {
+func (b *BusinessFeatureStartPage) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessFeatureIntro#b7843cb4 to nil")
+		return fmt.Errorf("can't decode businessFeatureStartPage#17edf7e1 to nil")
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (b *BusinessFeatureIntro) EncodeTDLibJSON(buf tdjson.Encoder) error {
+func (b *BusinessFeatureStartPage) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessFeatureIntro#b7843cb4 as nil")
+		return fmt.Errorf("can't encode businessFeatureStartPage#17edf7e1 as nil")
 	}
 	buf.ObjStart()
-	buf.PutID("businessFeatureIntro")
+	buf.PutID("businessFeatureStartPage")
 	buf.Comma()
 	buf.StripComma()
 	buf.ObjEnd()
@@ -930,16 +930,16 @@ func (b *BusinessFeatureIntro) EncodeTDLibJSON(buf tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (b *BusinessFeatureIntro) DecodeTDLibJSON(buf tdjson.Decoder) error {
+func (b *BusinessFeatureStartPage) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessFeatureIntro#b7843cb4 to nil")
+		return fmt.Errorf("can't decode businessFeatureStartPage#17edf7e1 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := buf.ConsumeID("businessFeatureIntro"); err != nil {
-				return fmt.Errorf("unable to decode businessFeatureIntro#b7843cb4: %w", err)
+			if err := buf.ConsumeID("businessFeatureStartPage"); err != nil {
+				return fmt.Errorf("unable to decode businessFeatureStartPage#17edf7e1: %w", err)
 			}
 		default:
 			return buf.Skip()
@@ -1490,7 +1490,7 @@ const BusinessFeatureClassName = "BusinessFeature"
 //	case *tdapi.BusinessFeatureGreetingMessage: // businessFeatureGreetingMessage#6aa87474
 //	case *tdapi.BusinessFeatureAwayMessage: // businessFeatureAwayMessage#40f9e8dd
 //	case *tdapi.BusinessFeatureAccountLinks: // businessFeatureAccountLinks#6ffa970e
-//	case *tdapi.BusinessFeatureIntro: // businessFeatureIntro#b7843cb4
+//	case *tdapi.BusinessFeatureStartPage: // businessFeatureStartPage#17edf7e1
 //	case *tdapi.BusinessFeatureBots: // businessFeatureBots#106575e5
 //	case *tdapi.BusinessFeatureEmojiStatus: // businessFeatureEmojiStatus#cd8ec0e5
 //	case *tdapi.BusinessFeatureChatFolderTags: // businessFeatureChatFolderTags#df95092a
@@ -1568,9 +1568,9 @@ func DecodeBusinessFeature(buf *bin.Buffer) (BusinessFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode BusinessFeatureClass: %w", err)
 		}
 		return &v, nil
-	case BusinessFeatureIntroTypeID:
-		// Decoding businessFeatureIntro#b7843cb4.
-		v := BusinessFeatureIntro{}
+	case BusinessFeatureStartPageTypeID:
+		// Decoding businessFeatureStartPage#17edf7e1.
+		v := BusinessFeatureStartPage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BusinessFeatureClass: %w", err)
 		}
@@ -1657,9 +1657,9 @@ func DecodeTDLibJSONBusinessFeature(buf tdjson.Decoder) (BusinessFeatureClass, e
 			return nil, fmt.Errorf("unable to decode BusinessFeatureClass: %w", err)
 		}
 		return &v, nil
-	case "businessFeatureIntro":
-		// Decoding businessFeatureIntro#b7843cb4.
-		v := BusinessFeatureIntro{}
+	case "businessFeatureStartPage":
+		// Decoding businessFeatureStartPage#17edf7e1.
+		v := BusinessFeatureStartPage{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BusinessFeatureClass: %w", err)
 		}

@@ -133,8 +133,8 @@ type Message struct {
 	SenderBoostCount int32
 	// For channel posts and anonymous group messages, optional author signature
 	AuthorSignature string
-	// Unique identifier of an album this message belongs to. Only audios, documents, photos
-	// and videos can be grouped together in albums
+	// Unique identifier of an album this message belongs to; 0 if none. Only audios,
+	// documents, photos and videos can be grouped together in albums
 	MediaAlbumID int64
 	// If non-empty, contains a human-readable description of the reason why access to this
 	// message must be restricted

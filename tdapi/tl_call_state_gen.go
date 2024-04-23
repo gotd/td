@@ -362,7 +362,7 @@ func (c *CallStateExchangingKeys) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// CallStateReady represents TL type `callStateReady#ce59c044`.
+// CallStateReady represents TL type `callStateReady#17038381`.
 type CallStateReady struct {
 	// Call protocols supported by the other call participant
 	Protocol CallProtocol
@@ -376,10 +376,12 @@ type CallStateReady struct {
 	Emojis []string
 	// True, if peer-to-peer connection is allowed by users privacy settings
 	AllowP2P bool
+	// Custom JSON-encoded call parameters to be passed to tgcalls
+	CustomParameters string
 }
 
 // CallStateReadyTypeID is TL type id of CallStateReady.
-const CallStateReadyTypeID = 0xce59c044
+const CallStateReadyTypeID = 0x17038381
 
 // construct implements constructor of CallStateClass.
 func (c CallStateReady) construct() CallStateClass { return &c }
@@ -414,6 +416,9 @@ func (c *CallStateReady) Zero() bool {
 		return false
 	}
 	if !(c.AllowP2P == false) {
+		return false
+	}
+	if !(c.CustomParameters == "") {
 		return false
 	}
 
@@ -476,6 +481,10 @@ func (c *CallStateReady) TypeInfo() tdp.Type {
 			Name:       "AllowP2P",
 			SchemaName: "allow_p2p",
 		},
+		{
+			Name:       "CustomParameters",
+			SchemaName: "custom_parameters",
+		},
 	}
 	return typ
 }
@@ -483,7 +492,7 @@ func (c *CallStateReady) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CallStateReady) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callStateReady#ce59c044 as nil")
+		return fmt.Errorf("can't encode callStateReady#17038381 as nil")
 	}
 	b.PutID(CallStateReadyTypeID)
 	return c.EncodeBare(b)
@@ -492,15 +501,15 @@ func (c *CallStateReady) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CallStateReady) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callStateReady#ce59c044 as nil")
+		return fmt.Errorf("can't encode callStateReady#17038381 as nil")
 	}
 	if err := c.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode callStateReady#ce59c044: field protocol: %w", err)
+		return fmt.Errorf("unable to encode callStateReady#17038381: field protocol: %w", err)
 	}
 	b.PutInt(len(c.Servers))
 	for idx, v := range c.Servers {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare callStateReady#ce59c044: field servers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare callStateReady#17038381: field servers element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(c.Config)
@@ -510,16 +519,17 @@ func (c *CallStateReady) EncodeBare(b *bin.Buffer) error {
 		b.PutString(v)
 	}
 	b.PutBool(c.AllowP2P)
+	b.PutString(c.CustomParameters)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CallStateReady) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callStateReady#ce59c044 to nil")
+		return fmt.Errorf("can't decode callStateReady#17038381 to nil")
 	}
 	if err := b.ConsumeID(CallStateReadyTypeID); err != nil {
-		return fmt.Errorf("unable to decode callStateReady#ce59c044: %w", err)
+		return fmt.Errorf("unable to decode callStateReady#17038381: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -527,17 +537,17 @@ func (c *CallStateReady) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callStateReady#ce59c044 to nil")
+		return fmt.Errorf("can't decode callStateReady#17038381 to nil")
 	}
 	{
 		if err := c.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode callStateReady#ce59c044: field protocol: %w", err)
+			return fmt.Errorf("unable to decode callStateReady#17038381: field protocol: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateReady#ce59c044: field servers: %w", err)
+			return fmt.Errorf("unable to decode callStateReady#17038381: field servers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -546,7 +556,7 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value CallServer
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare callStateReady#ce59c044: field servers: %w", err)
+				return fmt.Errorf("unable to decode bare callStateReady#17038381: field servers: %w", err)
 			}
 			c.Servers = append(c.Servers, value)
 		}
@@ -554,21 +564,21 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateReady#ce59c044: field config: %w", err)
+			return fmt.Errorf("unable to decode callStateReady#17038381: field config: %w", err)
 		}
 		c.Config = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateReady#ce59c044: field encryption_key: %w", err)
+			return fmt.Errorf("unable to decode callStateReady#17038381: field encryption_key: %w", err)
 		}
 		c.EncryptionKey = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateReady#ce59c044: field emojis: %w", err)
+			return fmt.Errorf("unable to decode callStateReady#17038381: field emojis: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -577,7 +587,7 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field emojis: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field emojis: %w", err)
 			}
 			c.Emojis = append(c.Emojis, value)
 		}
@@ -585,9 +595,16 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateReady#ce59c044: field allow_p2p: %w", err)
+			return fmt.Errorf("unable to decode callStateReady#17038381: field allow_p2p: %w", err)
 		}
 		c.AllowP2P = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode callStateReady#17038381: field custom_parameters: %w", err)
+		}
+		c.CustomParameters = value
 	}
 	return nil
 }
@@ -595,21 +612,21 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CallStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callStateReady#ce59c044 as nil")
+		return fmt.Errorf("can't encode callStateReady#17038381 as nil")
 	}
 	b.ObjStart()
 	b.PutID("callStateReady")
 	b.Comma()
 	b.FieldStart("protocol")
 	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode callStateReady#ce59c044: field protocol: %w", err)
+		return fmt.Errorf("unable to encode callStateReady#17038381: field protocol: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("servers")
 	b.ArrStart()
 	for idx, v := range c.Servers {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode callStateReady#ce59c044: field servers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode callStateReady#17038381: field servers element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -634,6 +651,9 @@ func (c *CallStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("allow_p2p")
 	b.PutBool(c.AllowP2P)
 	b.Comma()
+	b.FieldStart("custom_parameters")
+	b.PutString(c.CustomParameters)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -642,59 +662,65 @@ func (c *CallStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CallStateReady) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callStateReady#ce59c044 to nil")
+		return fmt.Errorf("can't decode callStateReady#17038381 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("callStateReady"); err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: %w", err)
 			}
 		case "protocol":
 			if err := c.Protocol.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field protocol: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field protocol: %w", err)
 			}
 		case "servers":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value CallServer
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode callStateReady#ce59c044: field servers: %w", err)
+					return fmt.Errorf("unable to decode callStateReady#17038381: field servers: %w", err)
 				}
 				c.Servers = append(c.Servers, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field servers: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field servers: %w", err)
 			}
 		case "config":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field config: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field config: %w", err)
 			}
 			c.Config = value
 		case "encryption_key":
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field encryption_key: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field encryption_key: %w", err)
 			}
 			c.EncryptionKey = value
 		case "emojis":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
-					return fmt.Errorf("unable to decode callStateReady#ce59c044: field emojis: %w", err)
+					return fmt.Errorf("unable to decode callStateReady#17038381: field emojis: %w", err)
 				}
 				c.Emojis = append(c.Emojis, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field emojis: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field emojis: %w", err)
 			}
 		case "allow_p2p":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateReady#ce59c044: field allow_p2p: %w", err)
+				return fmt.Errorf("unable to decode callStateReady#17038381: field allow_p2p: %w", err)
 			}
 			c.AllowP2P = value
+		case "custom_parameters":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateReady#17038381: field custom_parameters: %w", err)
+			}
+			c.CustomParameters = value
 		default:
 			return b.Skip()
 		}
@@ -748,6 +774,14 @@ func (c *CallStateReady) GetAllowP2P() (value bool) {
 		return
 	}
 	return c.AllowP2P
+}
+
+// GetCustomParameters returns value of CustomParameters field.
+func (c *CallStateReady) GetCustomParameters() (value string) {
+	if c == nil {
+		return
+	}
+	return c.CustomParameters
 }
 
 // CallStateHangingUp represents TL type `callStateHangingUp#80d0f2aa`.
@@ -1340,7 +1374,7 @@ const CallStateClassName = "CallState"
 //	switch v := g.(type) {
 //	case *tdapi.CallStatePending: // callStatePending#3ff56c2c
 //	case *tdapi.CallStateExchangingKeys: // callStateExchangingKeys#91d77a65
-//	case *tdapi.CallStateReady: // callStateReady#ce59c044
+//	case *tdapi.CallStateReady: // callStateReady#17038381
 //	case *tdapi.CallStateHangingUp: // callStateHangingUp#80d0f2aa
 //	case *tdapi.CallStateDiscarded: // callStateDiscarded#531b7c45
 //	case *tdapi.CallStateError: // callStateError#c5df6495
@@ -1390,7 +1424,7 @@ func DecodeCallState(buf *bin.Buffer) (CallStateClass, error) {
 		}
 		return &v, nil
 	case CallStateReadyTypeID:
-		// Decoding callStateReady#ce59c044.
+		// Decoding callStateReady#17038381.
 		v := CallStateReady{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
@@ -1444,7 +1478,7 @@ func DecodeTDLibJSONCallState(buf tdjson.Decoder) (CallStateClass, error) {
 		}
 		return &v, nil
 	case "callStateReady":
-		// Decoding callStateReady#ce59c044.
+		// Decoding callStateReady#17038381.
 		v := CallStateReady{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)

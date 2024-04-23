@@ -42,7 +42,7 @@ type MessageForwardInfo struct {
 	// message from which the message was forwarded last time; may be null for other forwards
 	// or if unknown
 	Source ForwardSource
-	// The type of a public service announcement for the forwarded message
+	// The type of public service announcement for the forwarded message
 	PublicServiceAnnouncementType string
 }
 
