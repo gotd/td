@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BusinessInfo represents TL type `businessInfo#cc697499`.
+// BusinessInfo represents TL type `businessInfo#4212a956`.
 type BusinessInfo struct {
 	// Location of the business; may be null if none
 	Location BusinessLocation
@@ -44,12 +44,12 @@ type BusinessInfo struct {
 	// The away message; may be null if none or the Business account is not of the current
 	// user
 	AwayMessageSettings BusinessAwayMessageSettings
-	// Information about intro of the business; may be null if none
-	Intro BusinessIntro
+	// Information about start page of the account; may be null if none
+	StartPage BusinessStartPage
 }
 
 // BusinessInfoTypeID is TL type id of BusinessInfo.
-const BusinessInfoTypeID = 0xcc697499
+const BusinessInfoTypeID = 0x4212a956
 
 // Ensuring interfaces in compile-time for BusinessInfo.
 var (
@@ -75,7 +75,7 @@ func (b *BusinessInfo) Zero() bool {
 	if !(b.AwayMessageSettings.Zero()) {
 		return false
 	}
-	if !(b.Intro.Zero()) {
+	if !(b.StartPage.Zero()) {
 		return false
 	}
 
@@ -131,8 +131,8 @@ func (b *BusinessInfo) TypeInfo() tdp.Type {
 			SchemaName: "away_message_settings",
 		},
 		{
-			Name:       "Intro",
-			SchemaName: "intro",
+			Name:       "StartPage",
+			SchemaName: "start_page",
 		},
 	}
 	return typ
@@ -141,7 +141,7 @@ func (b *BusinessInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BusinessInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessInfo#cc697499 as nil")
+		return fmt.Errorf("can't encode businessInfo#4212a956 as nil")
 	}
 	buf.PutID(BusinessInfoTypeID)
 	return b.EncodeBare(buf)
@@ -150,22 +150,22 @@ func (b *BusinessInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BusinessInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessInfo#cc697499 as nil")
+		return fmt.Errorf("can't encode businessInfo#4212a956 as nil")
 	}
 	if err := b.Location.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field location: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field location: %w", err)
 	}
 	if err := b.OpeningHours.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field opening_hours: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field opening_hours: %w", err)
 	}
 	if err := b.GreetingMessageSettings.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field greeting_message_settings: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field greeting_message_settings: %w", err)
 	}
 	if err := b.AwayMessageSettings.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field away_message_settings: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field away_message_settings: %w", err)
 	}
-	if err := b.Intro.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field intro: %w", err)
+	if err := b.StartPage.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field start_page: %w", err)
 	}
 	return nil
 }
@@ -173,10 +173,10 @@ func (b *BusinessInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BusinessInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessInfo#cc697499 to nil")
+		return fmt.Errorf("can't decode businessInfo#4212a956 to nil")
 	}
 	if err := buf.ConsumeID(BusinessInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode businessInfo#cc697499: %w", err)
+		return fmt.Errorf("unable to decode businessInfo#4212a956: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -184,31 +184,31 @@ func (b *BusinessInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BusinessInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessInfo#cc697499 to nil")
+		return fmt.Errorf("can't decode businessInfo#4212a956 to nil")
 	}
 	{
 		if err := b.Location.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode businessInfo#cc697499: field location: %w", err)
+			return fmt.Errorf("unable to decode businessInfo#4212a956: field location: %w", err)
 		}
 	}
 	{
 		if err := b.OpeningHours.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode businessInfo#cc697499: field opening_hours: %w", err)
+			return fmt.Errorf("unable to decode businessInfo#4212a956: field opening_hours: %w", err)
 		}
 	}
 	{
 		if err := b.GreetingMessageSettings.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode businessInfo#cc697499: field greeting_message_settings: %w", err)
+			return fmt.Errorf("unable to decode businessInfo#4212a956: field greeting_message_settings: %w", err)
 		}
 	}
 	{
 		if err := b.AwayMessageSettings.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode businessInfo#cc697499: field away_message_settings: %w", err)
+			return fmt.Errorf("unable to decode businessInfo#4212a956: field away_message_settings: %w", err)
 		}
 	}
 	{
-		if err := b.Intro.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode businessInfo#cc697499: field intro: %w", err)
+		if err := b.StartPage.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode businessInfo#4212a956: field start_page: %w", err)
 		}
 	}
 	return nil
@@ -217,34 +217,34 @@ func (b *BusinessInfo) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BusinessInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode businessInfo#cc697499 as nil")
+		return fmt.Errorf("can't encode businessInfo#4212a956 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("businessInfo")
 	buf.Comma()
 	buf.FieldStart("location")
 	if err := b.Location.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field location: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field location: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("opening_hours")
 	if err := b.OpeningHours.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field opening_hours: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field opening_hours: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("greeting_message_settings")
 	if err := b.GreetingMessageSettings.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field greeting_message_settings: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field greeting_message_settings: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("away_message_settings")
 	if err := b.AwayMessageSettings.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field away_message_settings: %w", err)
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field away_message_settings: %w", err)
 	}
 	buf.Comma()
-	buf.FieldStart("intro")
-	if err := b.Intro.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode businessInfo#cc697499: field intro: %w", err)
+	buf.FieldStart("start_page")
+	if err := b.StartPage.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode businessInfo#4212a956: field start_page: %w", err)
 	}
 	buf.Comma()
 	buf.StripComma()
@@ -255,34 +255,34 @@ func (b *BusinessInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BusinessInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode businessInfo#cc697499 to nil")
+		return fmt.Errorf("can't decode businessInfo#4212a956 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("businessInfo"); err != nil {
-				return fmt.Errorf("unable to decode businessInfo#cc697499: %w", err)
+				return fmt.Errorf("unable to decode businessInfo#4212a956: %w", err)
 			}
 		case "location":
 			if err := b.Location.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode businessInfo#cc697499: field location: %w", err)
+				return fmt.Errorf("unable to decode businessInfo#4212a956: field location: %w", err)
 			}
 		case "opening_hours":
 			if err := b.OpeningHours.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode businessInfo#cc697499: field opening_hours: %w", err)
+				return fmt.Errorf("unable to decode businessInfo#4212a956: field opening_hours: %w", err)
 			}
 		case "greeting_message_settings":
 			if err := b.GreetingMessageSettings.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode businessInfo#cc697499: field greeting_message_settings: %w", err)
+				return fmt.Errorf("unable to decode businessInfo#4212a956: field greeting_message_settings: %w", err)
 			}
 		case "away_message_settings":
 			if err := b.AwayMessageSettings.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode businessInfo#cc697499: field away_message_settings: %w", err)
+				return fmt.Errorf("unable to decode businessInfo#4212a956: field away_message_settings: %w", err)
 			}
-		case "intro":
-			if err := b.Intro.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode businessInfo#cc697499: field intro: %w", err)
+		case "start_page":
+			if err := b.StartPage.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode businessInfo#4212a956: field start_page: %w", err)
 			}
 		default:
 			return buf.Skip()
@@ -323,10 +323,10 @@ func (b *BusinessInfo) GetAwayMessageSettings() (value BusinessAwayMessageSettin
 	return b.AwayMessageSettings
 }
 
-// GetIntro returns value of Intro field.
-func (b *BusinessInfo) GetIntro() (value BusinessIntro) {
+// GetStartPage returns value of StartPage field.
+func (b *BusinessInfo) GetStartPage() (value BusinessStartPage) {
 	if b == nil {
 		return
 	}
-	return b.Intro
+	return b.StartPage
 }

@@ -39,7 +39,7 @@ type GetSupergroupMembersRequest struct {
 	Filter SupergroupMembersFilterClass
 	// Number of users to skip
 	Offset int32
-	// The maximum number of users be returned; up to 200
+	// The maximum number of users to be returned; up to 200
 	Limit int32
 }
 

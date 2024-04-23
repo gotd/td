@@ -40,7 +40,7 @@ type ChatFolderInfo struct {
 	// The chosen or default icon for the chat folder
 	Icon ChatFolderIcon
 	// The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then
-	// color is didabled
+	// color is disabled
 	ColorID int32
 	// True, if at least one link has been created for the folder
 	IsShareable bool

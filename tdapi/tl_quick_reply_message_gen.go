@@ -40,13 +40,12 @@ type QuickReplyMessage struct {
 	SendingState MessageSendingStateClass
 	// True, if the message can be edited
 	CanBeEdited bool
-	// Information about the identifier of the quick reply message to which the message
-	// replies
+	// The identifier of the quick reply message to which the message replies; 0 if none
 	ReplyToMessageID int64
 	// If non-zero, the user identifier of the bot through which this message was sent
 	ViaBotUserID int64
-	// Unique identifier of an album this message belongs to. Only audios, documents, photos
-	// and videos can be grouped together in albums
+	// Unique identifier of an album this message belongs to; 0 if none. Only audios,
+	// documents, photos and videos can be grouped together in albums
 	MediaAlbumID int64
 	// Content of the message
 	Content MessageContentClass
