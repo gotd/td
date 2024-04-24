@@ -971,6 +971,12 @@ func (b *SearchGlobalQueryBuilder) OffsetID(offsetID int) *SearchGlobalQueryBuil
 	return b
 }
 
+// BroadcastsOnly sets BroadcastsOnly field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) BroadcastsOnly(paramBroadcastsOnly bool) *SearchGlobalQueryBuilder {
+	b.req.BroadcastsOnly = paramBroadcastsOnly
+	return b
+}
+
 // Filter sets Filter field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) Filter(paramFilter tg.MessagesFilterClass) *SearchGlobalQueryBuilder {
 	b.req.Filter = paramFilter
@@ -1105,6 +1111,7 @@ func (b *SearchGlobalQueryBuilder) Query(ctx context.Context, req Request) (tg.M
 		Limit: req.Limit,
 	}
 
+	r.BroadcastsOnly = b.req.BroadcastsOnly
 	r.Filter = b.req.Filter
 	r.FolderID = b.req.FolderID
 	r.MaxDate = b.req.MaxDate

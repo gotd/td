@@ -31,18 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsGetChannelRecommendationsRequest represents TL type `channels.getChannelRecommendations#83b70d97`.
+// ChannelsGetChannelRecommendationsRequest represents TL type `channels.getChannelRecommendations#25a71742`.
 // Obtain a list of similarly themed public channels, selected based on similarities in
 // their subscriber bases.
 //
 // See https://core.telegram.org/method/channels.getChannelRecommendations for reference.
 type ChannelsGetChannelRecommendationsRequest struct {
+	// Flags field of ChannelsGetChannelRecommendationsRequest.
+	Flags bin.Fields
 	// The method will return channels related to the passed channel.
+	//
+	// Use SetChannel and GetChannel helpers.
 	Channel InputChannelClass
 }
 
 // ChannelsGetChannelRecommendationsRequestTypeID is TL type id of ChannelsGetChannelRecommendationsRequest.
-const ChannelsGetChannelRecommendationsRequestTypeID = 0x83b70d97
+const ChannelsGetChannelRecommendationsRequestTypeID = 0x25a71742
 
 // Ensuring interfaces in compile-time for ChannelsGetChannelRecommendationsRequest.
 var (
@@ -55,6 +59,9 @@ var (
 func (g *ChannelsGetChannelRecommendationsRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
 	}
 	if !(g.Channel == nil) {
 		return false
@@ -74,9 +81,12 @@ func (g *ChannelsGetChannelRecommendationsRequest) String() string {
 
 // FillFrom fills ChannelsGetChannelRecommendationsRequest from given interface.
 func (g *ChannelsGetChannelRecommendationsRequest) FillFrom(from interface {
-	GetChannel() (value InputChannelClass)
+	GetChannel() (value InputChannelClass, ok bool)
 }) {
-	g.Channel = from.GetChannel()
+	if val, ok := from.GetChannel(); ok {
+		g.Channel = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -105,15 +115,23 @@ func (g *ChannelsGetChannelRecommendationsRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "Channel",
 			SchemaName: "channel",
+			Null:       !g.Flags.Has(0),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *ChannelsGetChannelRecommendationsRequest) SetFlags() {
+	if !(g.Channel == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetChannelRecommendationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getChannelRecommendations#83b70d97 as nil")
+		return fmt.Errorf("can't encode channels.getChannelRecommendations#25a71742 as nil")
 	}
 	b.PutID(ChannelsGetChannelRecommendationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,13 +140,19 @@ func (g *ChannelsGetChannelRecommendationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetChannelRecommendationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getChannelRecommendations#83b70d97 as nil")
+		return fmt.Errorf("can't encode channels.getChannelRecommendations#25a71742 as nil")
 	}
-	if g.Channel == nil {
-		return fmt.Errorf("unable to encode channels.getChannelRecommendations#83b70d97: field channel is nil")
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.getChannelRecommendations#25a71742: field flags: %w", err)
 	}
-	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getChannelRecommendations#83b70d97: field channel: %w", err)
+	if g.Flags.Has(0) {
+		if g.Channel == nil {
+			return fmt.Errorf("unable to encode channels.getChannelRecommendations#25a71742: field channel is nil")
+		}
+		if err := g.Channel.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode channels.getChannelRecommendations#25a71742: field channel: %w", err)
+		}
 	}
 	return nil
 }
@@ -136,10 +160,10 @@ func (g *ChannelsGetChannelRecommendationsRequest) EncodeBare(b *bin.Buffer) err
 // Decode implements bin.Decoder.
 func (g *ChannelsGetChannelRecommendationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getChannelRecommendations#83b70d97 to nil")
+		return fmt.Errorf("can't decode channels.getChannelRecommendations#25a71742 to nil")
 	}
 	if err := b.ConsumeID(ChannelsGetChannelRecommendationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getChannelRecommendations#83b70d97: %w", err)
+		return fmt.Errorf("unable to decode channels.getChannelRecommendations#25a71742: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -147,32 +171,51 @@ func (g *ChannelsGetChannelRecommendationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetChannelRecommendationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getChannelRecommendations#83b70d97 to nil")
+		return fmt.Errorf("can't decode channels.getChannelRecommendations#25a71742 to nil")
 	}
 	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.getChannelRecommendations#25a71742: field flags: %w", err)
+		}
+	}
+	if g.Flags.Has(0) {
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getChannelRecommendations#83b70d97: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.getChannelRecommendations#25a71742: field channel: %w", err)
 		}
 		g.Channel = value
 	}
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *ChannelsGetChannelRecommendationsRequest) GetChannel() (value InputChannelClass) {
+// SetChannel sets value of Channel conditional field.
+func (g *ChannelsGetChannelRecommendationsRequest) SetChannel(value InputChannelClass) {
+	g.Flags.Set(0)
+	g.Channel = value
+}
+
+// GetChannel returns value of Channel conditional field and
+// boolean which is true if field was set.
+func (g *ChannelsGetChannelRecommendationsRequest) GetChannel() (value InputChannelClass, ok bool) {
 	if g == nil {
 		return
 	}
-	return g.Channel
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.Channel, true
 }
 
-// GetChannelAsNotEmpty returns mapped value of Channel field.
+// GetChannelAsNotEmpty returns mapped value of Channel conditional field and
+// boolean which is true if field was set.
 func (g *ChannelsGetChannelRecommendationsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
+	if value, ok := g.GetChannel(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
-// ChannelsGetChannelRecommendations invokes method channels.getChannelRecommendations#83b70d97 returning error if any.
+// ChannelsGetChannelRecommendations invokes method channels.getChannelRecommendations#25a71742 returning error if any.
 // Obtain a list of similarly themed public channels, selected based on similarities in
 // their subscriber bases.
 //
@@ -181,12 +224,9 @@ func (g *ChannelsGetChannelRecommendationsRequest) GetChannelAsNotEmpty() (NotEm
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.getChannelRecommendations for reference.
-func (c *Client) ChannelsGetChannelRecommendations(ctx context.Context, channel InputChannelClass) (MessagesChatsClass, error) {
+func (c *Client) ChannelsGetChannelRecommendations(ctx context.Context, request *ChannelsGetChannelRecommendationsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 
-	request := &ChannelsGetChannelRecommendationsRequest{
-		Channel: channel,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -530,6 +530,251 @@ func (w *WebPageAttributeStory) GetStory() (value StoryItemClass, ok bool) {
 	return w.Story, true
 }
 
+// WebPageAttributeStickerSet represents TL type `webPageAttributeStickerSet#50cc03d3`.
+//
+// See https://core.telegram.org/constructor/webPageAttributeStickerSet for reference.
+type WebPageAttributeStickerSet struct {
+	// Flags field of WebPageAttributeStickerSet.
+	Flags bin.Fields
+	// Emojis field of WebPageAttributeStickerSet.
+	Emojis bool
+	// TextColor field of WebPageAttributeStickerSet.
+	TextColor bool
+	// Stickers field of WebPageAttributeStickerSet.
+	Stickers []DocumentClass
+}
+
+// WebPageAttributeStickerSetTypeID is TL type id of WebPageAttributeStickerSet.
+const WebPageAttributeStickerSetTypeID = 0x50cc03d3
+
+// construct implements constructor of WebPageAttributeClass.
+func (w WebPageAttributeStickerSet) construct() WebPageAttributeClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPageAttributeStickerSet.
+var (
+	_ bin.Encoder     = &WebPageAttributeStickerSet{}
+	_ bin.Decoder     = &WebPageAttributeStickerSet{}
+	_ bin.BareEncoder = &WebPageAttributeStickerSet{}
+	_ bin.BareDecoder = &WebPageAttributeStickerSet{}
+
+	_ WebPageAttributeClass = &WebPageAttributeStickerSet{}
+)
+
+func (w *WebPageAttributeStickerSet) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.Emojis == false) {
+		return false
+	}
+	if !(w.TextColor == false) {
+		return false
+	}
+	if !(w.Stickers == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (w *WebPageAttributeStickerSet) String() string {
+	if w == nil {
+		return "WebPageAttributeStickerSet(nil)"
+	}
+	type Alias WebPageAttributeStickerSet
+	return fmt.Sprintf("WebPageAttributeStickerSet%+v", Alias(*w))
+}
+
+// FillFrom fills WebPageAttributeStickerSet from given interface.
+func (w *WebPageAttributeStickerSet) FillFrom(from interface {
+	GetEmojis() (value bool)
+	GetTextColor() (value bool)
+	GetStickers() (value []DocumentClass)
+}) {
+	w.Emojis = from.GetEmojis()
+	w.TextColor = from.GetTextColor()
+	w.Stickers = from.GetStickers()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*WebPageAttributeStickerSet) TypeID() uint32 {
+	return WebPageAttributeStickerSetTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*WebPageAttributeStickerSet) TypeName() string {
+	return "webPageAttributeStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPageAttributeStickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPageAttributeStickerSet",
+		ID:   WebPageAttributeStickerSetTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "TextColor",
+			SchemaName: "text_color",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (w *WebPageAttributeStickerSet) SetFlags() {
+	if !(w.Emojis == false) {
+		w.Flags.Set(0)
+	}
+	if !(w.TextColor == false) {
+		w.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (w *WebPageAttributeStickerSet) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeStickerSet#50cc03d3 as nil")
+	}
+	b.PutID(WebPageAttributeStickerSetTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPageAttributeStickerSet) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeStickerSet#50cc03d3 as nil")
+	}
+	w.SetFlags()
+	if err := w.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode webPageAttributeStickerSet#50cc03d3: field flags: %w", err)
+	}
+	b.PutVectorHeader(len(w.Stickers))
+	for idx, v := range w.Stickers {
+		if v == nil {
+			return fmt.Errorf("unable to encode webPageAttributeStickerSet#50cc03d3: field stickers element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode webPageAttributeStickerSet#50cc03d3: field stickers element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (w *WebPageAttributeStickerSet) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeStickerSet#50cc03d3 to nil")
+	}
+	if err := b.ConsumeID(WebPageAttributeStickerSetTypeID); err != nil {
+		return fmt.Errorf("unable to decode webPageAttributeStickerSet#50cc03d3: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPageAttributeStickerSet) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeStickerSet#50cc03d3 to nil")
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode webPageAttributeStickerSet#50cc03d3: field flags: %w", err)
+		}
+	}
+	w.Emojis = w.Flags.Has(0)
+	w.TextColor = w.Flags.Has(1)
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPageAttributeStickerSet#50cc03d3: field stickers: %w", err)
+		}
+
+		if headerLen > 0 {
+			w.Stickers = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeDocument(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode webPageAttributeStickerSet#50cc03d3: field stickers: %w", err)
+			}
+			w.Stickers = append(w.Stickers, value)
+		}
+	}
+	return nil
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (w *WebPageAttributeStickerSet) SetEmojis(value bool) {
+	if value {
+		w.Flags.Set(0)
+		w.Emojis = true
+	} else {
+		w.Flags.Unset(0)
+		w.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (w *WebPageAttributeStickerSet) GetEmojis() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(0)
+}
+
+// SetTextColor sets value of TextColor conditional field.
+func (w *WebPageAttributeStickerSet) SetTextColor(value bool) {
+	if value {
+		w.Flags.Set(1)
+		w.TextColor = true
+	} else {
+		w.Flags.Unset(1)
+		w.TextColor = false
+	}
+}
+
+// GetTextColor returns value of TextColor conditional field.
+func (w *WebPageAttributeStickerSet) GetTextColor() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(1)
+}
+
+// GetStickers returns value of Stickers field.
+func (w *WebPageAttributeStickerSet) GetStickers() (value []DocumentClass) {
+	if w == nil {
+		return
+	}
+	return w.Stickers
+}
+
+// MapStickers returns field Stickers wrapped in DocumentClassArray helper.
+func (w *WebPageAttributeStickerSet) MapStickers() (value DocumentClassArray) {
+	return DocumentClassArray(w.Stickers)
+}
+
 // WebPageAttributeClassName is schema name of WebPageAttributeClass.
 const WebPageAttributeClassName = "WebPageAttribute"
 
@@ -546,6 +791,7 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //	switch v := g.(type) {
 //	case *tg.WebPageAttributeTheme: // webPageAttributeTheme#54b56617
 //	case *tg.WebPageAttributeStory: // webPageAttributeStory#2e94c3e7
+//	case *tg.WebPageAttributeStickerSet: // webPageAttributeStickerSet#50cc03d3
 //	default: panic(v)
 //	}
 type WebPageAttributeClass interface {
@@ -584,6 +830,13 @@ func DecodeWebPageAttribute(buf *bin.Buffer) (WebPageAttributeClass, error) {
 	case WebPageAttributeStoryTypeID:
 		// Decoding webPageAttributeStory#2e94c3e7.
 		v := WebPageAttributeStory{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
+		}
+		return &v, nil
+	case WebPageAttributeStickerSetTypeID:
+		// Decoding webPageAttributeStickerSet#50cc03d3.
+		v := WebPageAttributeStickerSet{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
 		}

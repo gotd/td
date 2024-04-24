@@ -1445,3 +1445,13 @@ func (u UpdateDispatcher) OnBotDeleteBusinessMessage(handler BotDeleteBusinessMe
 		return handler(ctx, e, update.(*UpdateBotDeleteBusinessMessage))
 	}
 }
+
+// NewStoryReactionHandler is a NewStoryReaction event handler.
+type NewStoryReactionHandler func(ctx context.Context, e Entities, update *UpdateNewStoryReaction) error
+
+// OnNewStoryReaction sets NewStoryReaction handler.
+func (u UpdateDispatcher) OnNewStoryReaction(handler NewStoryReactionHandler) {
+	u.handlers[UpdateNewStoryReactionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewStoryReaction))
+	}
+}

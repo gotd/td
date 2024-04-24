@@ -2520,6 +2520,61 @@ func (s *ServerDispatcher) OnAccountUpdatePersonalChannel(f func(ctx context.Con
 	s.handlers[AccountUpdatePersonalChannelRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountToggleSponsoredMessages(f func(ctx context.Context, enabled bool) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountToggleSponsoredMessagesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Enabled)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountToggleSponsoredMessagesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetReactionsNotifySettings(f func(ctx context.Context) (*ReactionsNotifySettings, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetReactionsNotifySettingsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountGetReactionsNotifySettingsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountSetReactionsNotifySettings(f func(ctx context.Context, settings ReactionsNotifySettings) (*ReactionsNotifySettings, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountSetReactionsNotifySettingsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Settings)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountSetReactionsNotifySettingsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -8581,14 +8636,14 @@ func (s *ServerDispatcher) OnChannelsToggleViewForumAsMessages(f func(ctx contex
 	s.handlers[ChannelsToggleViewForumAsMessagesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsGetChannelRecommendations(f func(ctx context.Context, channel InputChannelClass) (MessagesChatsClass, error)) {
+func (s *ServerDispatcher) OnChannelsGetChannelRecommendations(f func(ctx context.Context, request *ChannelsGetChannelRecommendationsRequest) (MessagesChatsClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsGetChannelRecommendationsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Channel)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -10914,6 +10969,27 @@ func (s *ServerDispatcher) OnStoriesGetStoryReactionsList(f func(ctx context.Con
 	}
 
 	s.handlers[StoriesGetStoryReactionsListRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesTogglePinnedToTop(f func(ctx context.Context, request *StoriesTogglePinnedToTopRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesTogglePinnedToTopRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesTogglePinnedToTopRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPremiumGetBoostsList(f func(ctx context.Context, request *PremiumGetBoostsListRequest) (*PremiumBoostsList, error)) {

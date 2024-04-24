@@ -142,6 +142,19 @@ func (s WebPageAttributeClassArray) AsWebPageAttributeStory() (to WebPageAttribu
 	return to
 }
 
+// AsWebPageAttributeStickerSet returns copy with only WebPageAttributeStickerSet constructors.
+func (s WebPageAttributeClassArray) AsWebPageAttributeStickerSet() (to WebPageAttributeStickerSetArray) {
+	for _, elem := range s {
+		value, ok := elem.(*WebPageAttributeStickerSet)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // WebPageAttributeThemeArray is adapter for slice of WebPageAttributeTheme.
 type WebPageAttributeThemeArray []WebPageAttributeTheme
 
@@ -332,4 +345,86 @@ func (s WebPageAttributeStoryArray) ToMap() map[int]WebPageAttributeStory {
 	r := make(map[int]WebPageAttributeStory, len(s))
 	s.FillMap(r)
 	return r
+}
+
+// WebPageAttributeStickerSetArray is adapter for slice of WebPageAttributeStickerSet.
+type WebPageAttributeStickerSetArray []WebPageAttributeStickerSet
+
+// Sort sorts slice of WebPageAttributeStickerSet.
+func (s WebPageAttributeStickerSetArray) Sort(less func(a, b WebPageAttributeStickerSet) bool) WebPageAttributeStickerSetArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of WebPageAttributeStickerSet.
+func (s WebPageAttributeStickerSetArray) SortStable(less func(a, b WebPageAttributeStickerSet) bool) WebPageAttributeStickerSetArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of WebPageAttributeStickerSet.
+func (s WebPageAttributeStickerSetArray) Retain(keep func(x WebPageAttributeStickerSet) bool) WebPageAttributeStickerSetArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s WebPageAttributeStickerSetArray) First() (v WebPageAttributeStickerSet, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WebPageAttributeStickerSetArray) Last() (v WebPageAttributeStickerSet, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WebPageAttributeStickerSetArray) PopFirst() (v WebPageAttributeStickerSet, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero WebPageAttributeStickerSet
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WebPageAttributeStickerSetArray) Pop() (v WebPageAttributeStickerSet, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }
