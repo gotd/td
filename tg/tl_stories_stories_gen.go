@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesStories represents TL type `stories.stories#5dd8c3c8`.
+// StoriesStories represents TL type `stories.stories#63c3dd0a`.
 // List of stories¹
 //
 // Links:
@@ -39,10 +39,16 @@ var (
 //
 // See https://core.telegram.org/constructor/stories.stories for reference.
 type StoriesStories struct {
+	// Flags field of StoriesStories.
+	Flags bin.Fields
 	// Total number of stories that can be fetched
 	Count int
 	// Stories
 	Stories []StoryItemClass
+	// PinnedToTop field of StoriesStories.
+	//
+	// Use SetPinnedToTop and GetPinnedToTop helpers.
+	PinnedToTop []int
 	// Mentioned chats
 	Chats []ChatClass
 	// Mentioned users
@@ -50,7 +56,7 @@ type StoriesStories struct {
 }
 
 // StoriesStoriesTypeID is TL type id of StoriesStories.
-const StoriesStoriesTypeID = 0x5dd8c3c8
+const StoriesStoriesTypeID = 0x63c3dd0a
 
 // Ensuring interfaces in compile-time for StoriesStories.
 var (
@@ -64,10 +70,16 @@ func (s *StoriesStories) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
 	if !(s.Count == 0) {
 		return false
 	}
 	if !(s.Stories == nil) {
+		return false
+	}
+	if !(s.PinnedToTop == nil) {
 		return false
 	}
 	if !(s.Chats == nil) {
@@ -93,11 +105,16 @@ func (s *StoriesStories) String() string {
 func (s *StoriesStories) FillFrom(from interface {
 	GetCount() (value int)
 	GetStories() (value []StoryItemClass)
+	GetPinnedToTop() (value []int, ok bool)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
 	s.Count = from.GetCount()
 	s.Stories = from.GetStories()
+	if val, ok := from.GetPinnedToTop(); ok {
+		s.PinnedToTop = val
+	}
+
 	s.Chats = from.GetChats()
 	s.Users = from.GetUsers()
 }
@@ -134,6 +151,11 @@ func (s *StoriesStories) TypeInfo() tdp.Type {
 			SchemaName: "stories",
 		},
 		{
+			Name:       "PinnedToTop",
+			SchemaName: "pinned_to_top",
+			Null:       !s.Flags.Has(0),
+		},
+		{
 			Name:       "Chats",
 			SchemaName: "chats",
 		},
@@ -145,10 +167,17 @@ func (s *StoriesStories) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *StoriesStories) SetFlags() {
+	if !(s.PinnedToTop == nil) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *StoriesStories) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.stories#5dd8c3c8 as nil")
+		return fmt.Errorf("can't encode stories.stories#63c3dd0a as nil")
 	}
 	b.PutID(StoriesStoriesTypeID)
 	return s.EncodeBare(b)
@@ -157,34 +186,44 @@ func (s *StoriesStories) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoriesStories) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.stories#5dd8c3c8 as nil")
+		return fmt.Errorf("can't encode stories.stories#63c3dd0a as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field flags: %w", err)
 	}
 	b.PutInt(s.Count)
 	b.PutVectorHeader(len(s.Stories))
 	for idx, v := range s.Stories {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.stories#5dd8c3c8: field stories element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field stories element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.stories#5dd8c3c8: field stories element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field stories element with index %d: %w", idx, err)
+		}
+	}
+	if s.Flags.Has(0) {
+		b.PutVectorHeader(len(s.PinnedToTop))
+		for _, v := range s.PinnedToTop {
+			b.PutInt(v)
 		}
 	}
 	b.PutVectorHeader(len(s.Chats))
 	for idx, v := range s.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.stories#5dd8c3c8: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.stories#5dd8c3c8: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.stories#5dd8c3c8: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.stories#5dd8c3c8: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.stories#63c3dd0a: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -193,10 +232,10 @@ func (s *StoriesStories) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoriesStories) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.stories#5dd8c3c8 to nil")
+		return fmt.Errorf("can't decode stories.stories#63c3dd0a to nil")
 	}
 	if err := b.ConsumeID(StoriesStoriesTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: %w", err)
+		return fmt.Errorf("unable to decode stories.stories#63c3dd0a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -204,19 +243,24 @@ func (s *StoriesStories) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoriesStories) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.stories#5dd8c3c8 to nil")
+		return fmt.Errorf("can't decode stories.stories#63c3dd0a to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field count: %w", err)
+			return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field count: %w", err)
 		}
 		s.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field stories: %w", err)
+			return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field stories: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -225,15 +269,32 @@ func (s *StoriesStories) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStoryItem(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field stories: %w", err)
+				return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field stories: %w", err)
 			}
 			s.Stories = append(s.Stories, value)
+		}
+	}
+	if s.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field pinned_to_top: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.PinnedToTop = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field pinned_to_top: %w", err)
+			}
+			s.PinnedToTop = append(s.PinnedToTop, value)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field chats: %w", err)
+			return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -242,7 +303,7 @@ func (s *StoriesStories) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field chats: %w", err)
+				return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field chats: %w", err)
 			}
 			s.Chats = append(s.Chats, value)
 		}
@@ -250,7 +311,7 @@ func (s *StoriesStories) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field users: %w", err)
+			return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -259,7 +320,7 @@ func (s *StoriesStories) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.stories#5dd8c3c8: field users: %w", err)
+				return fmt.Errorf("unable to decode stories.stories#63c3dd0a: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
 		}
@@ -281,6 +342,24 @@ func (s *StoriesStories) GetStories() (value []StoryItemClass) {
 		return
 	}
 	return s.Stories
+}
+
+// SetPinnedToTop sets value of PinnedToTop conditional field.
+func (s *StoriesStories) SetPinnedToTop(value []int) {
+	s.Flags.Set(0)
+	s.PinnedToTop = value
+}
+
+// GetPinnedToTop returns value of PinnedToTop conditional field and
+// boolean which is true if field was set.
+func (s *StoriesStories) GetPinnedToTop() (value []int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.PinnedToTop, true
 }
 
 // GetChats returns value of Chats field.

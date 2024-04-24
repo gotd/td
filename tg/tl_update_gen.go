@@ -26938,6 +26938,204 @@ func (u *UpdateBotDeleteBusinessMessage) GetQts() (value int) {
 	return u.Qts
 }
 
+// UpdateNewStoryReaction represents TL type `updateNewStoryReaction#1824e40b`.
+//
+// See https://core.telegram.org/constructor/updateNewStoryReaction for reference.
+type UpdateNewStoryReaction struct {
+	// StoryID field of UpdateNewStoryReaction.
+	StoryID int
+	// Peer field of UpdateNewStoryReaction.
+	Peer PeerClass
+	// Reaction field of UpdateNewStoryReaction.
+	Reaction ReactionClass
+}
+
+// UpdateNewStoryReactionTypeID is TL type id of UpdateNewStoryReaction.
+const UpdateNewStoryReactionTypeID = 0x1824e40b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewStoryReaction) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewStoryReaction.
+var (
+	_ bin.Encoder     = &UpdateNewStoryReaction{}
+	_ bin.Decoder     = &UpdateNewStoryReaction{}
+	_ bin.BareEncoder = &UpdateNewStoryReaction{}
+	_ bin.BareDecoder = &UpdateNewStoryReaction{}
+
+	_ UpdateClass = &UpdateNewStoryReaction{}
+)
+
+func (u *UpdateNewStoryReaction) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.StoryID == 0) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Reaction == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateNewStoryReaction) String() string {
+	if u == nil {
+		return "UpdateNewStoryReaction(nil)"
+	}
+	type Alias UpdateNewStoryReaction
+	return fmt.Sprintf("UpdateNewStoryReaction%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNewStoryReaction from given interface.
+func (u *UpdateNewStoryReaction) FillFrom(from interface {
+	GetStoryID() (value int)
+	GetPeer() (value PeerClass)
+	GetReaction() (value ReactionClass)
+}) {
+	u.StoryID = from.GetStoryID()
+	u.Peer = from.GetPeer()
+	u.Reaction = from.GetReaction()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateNewStoryReaction) TypeID() uint32 {
+	return UpdateNewStoryReactionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateNewStoryReaction) TypeName() string {
+	return "updateNewStoryReaction"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewStoryReaction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewStoryReaction",
+		ID:   UpdateNewStoryReactionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StoryID",
+			SchemaName: "story_id",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Reaction",
+			SchemaName: "reaction",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateNewStoryReaction) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewStoryReaction#1824e40b as nil")
+	}
+	b.PutID(UpdateNewStoryReactionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateNewStoryReaction) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewStoryReaction#1824e40b as nil")
+	}
+	b.PutInt(u.StoryID)
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateNewStoryReaction#1824e40b: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewStoryReaction#1824e40b: field peer: %w", err)
+	}
+	if u.Reaction == nil {
+		return fmt.Errorf("unable to encode updateNewStoryReaction#1824e40b: field reaction is nil")
+	}
+	if err := u.Reaction.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewStoryReaction#1824e40b: field reaction: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateNewStoryReaction) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewStoryReaction#1824e40b to nil")
+	}
+	if err := b.ConsumeID(UpdateNewStoryReactionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateNewStoryReaction#1824e40b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateNewStoryReaction) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewStoryReaction#1824e40b to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewStoryReaction#1824e40b: field story_id: %w", err)
+		}
+		u.StoryID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewStoryReaction#1824e40b: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := DecodeReaction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewStoryReaction#1824e40b: field reaction: %w", err)
+		}
+		u.Reaction = value
+	}
+	return nil
+}
+
+// GetStoryID returns value of StoryID field.
+func (u *UpdateNewStoryReaction) GetStoryID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.StoryID
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateNewStoryReaction) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetReaction returns value of Reaction field.
+func (u *UpdateNewStoryReaction) GetReaction() (value ReactionClass) {
+	if u == nil {
+		return
+	}
+	return u.Reaction
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -27086,6 +27284,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBotNewBusinessMessage: // updateBotNewBusinessMessage#9ddb347c
 //	case *tg.UpdateBotEditBusinessMessage: // updateBotEditBusinessMessage#7df587c
 //	case *tg.UpdateBotDeleteBusinessMessage: // updateBotDeleteBusinessMessage#a02a982e
+//	case *tg.UpdateNewStoryReaction: // updateNewStoryReaction#1824e40b
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -28048,6 +28247,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateBotDeleteBusinessMessageTypeID:
 		// Decoding updateBotDeleteBusinessMessage#a02a982e.
 		v := UpdateBotDeleteBusinessMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateNewStoryReactionTypeID:
+		// Decoding updateNewStoryReaction#1824e40b.
+		v := UpdateNewStoryReaction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -41,6 +41,8 @@ type MessagesSearchGlobalRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// BroadcastsOnly field of MessagesSearchGlobalRequest.
+	BroadcastsOnly bool
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
@@ -98,6 +100,9 @@ func (s *MessagesSearchGlobalRequest) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
+	if !(s.BroadcastsOnly == false) {
+		return false
+	}
 	if !(s.FolderID == 0) {
 		return false
 	}
@@ -140,6 +145,7 @@ func (s *MessagesSearchGlobalRequest) String() string {
 
 // FillFrom fills MessagesSearchGlobalRequest from given interface.
 func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
+	GetBroadcastsOnly() (value bool)
 	GetFolderID() (value int, ok bool)
 	GetQ() (value string)
 	GetFilter() (value MessagesFilterClass)
@@ -150,6 +156,7 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 	GetOffsetID() (value int)
 	GetLimit() (value int)
 }) {
+	s.BroadcastsOnly = from.GetBroadcastsOnly()
 	if val, ok := from.GetFolderID(); ok {
 		s.FolderID = val
 	}
@@ -187,6 +194,11 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
+		{
+			Name:       "BroadcastsOnly",
+			SchemaName: "broadcasts_only",
+			Null:       !s.Flags.Has(1),
+		},
 		{
 			Name:       "FolderID",
 			SchemaName: "folder_id",
@@ -230,6 +242,9 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *MessagesSearchGlobalRequest) SetFlags() {
+	if !(s.BroadcastsOnly == false) {
+		s.Flags.Set(1)
+	}
 	if !(s.FolderID == 0) {
 		s.Flags.Set(0)
 	}
@@ -298,6 +313,7 @@ func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field flags: %w", err)
 		}
 	}
+	s.BroadcastsOnly = s.Flags.Has(1)
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
@@ -362,6 +378,25 @@ func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 		s.Limit = value
 	}
 	return nil
+}
+
+// SetBroadcastsOnly sets value of BroadcastsOnly conditional field.
+func (s *MessagesSearchGlobalRequest) SetBroadcastsOnly(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.BroadcastsOnly = true
+	} else {
+		s.Flags.Unset(1)
+		s.BroadcastsOnly = false
+	}
+}
+
+// GetBroadcastsOnly returns value of BroadcastsOnly conditional field.
+func (s *MessagesSearchGlobalRequest) GetBroadcastsOnly() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
 }
 
 // SetFolderID sets value of FolderID conditional field.
