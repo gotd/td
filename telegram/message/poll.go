@@ -28,24 +28,24 @@ func RawPollAnswer(poll tg.PollAnswer) PollAnswerOption {
 }
 
 // PollAnswer creates new plain poll answer option.
-func PollAnswer(text string) PollAnswerOption {
+func PollAnswer(text string, entities ...tg.MessageEntityClass) PollAnswerOption {
 	return func(p *pollAnswerBuilder) {
 		i := len(p.input.Poll.Answers)
 		p.input.Poll.Answers = append(p.input.Poll.Answers, tg.PollAnswer{
-			Text:   text,
+			Text:   tg.TextWithEntities{Text: text, Entities: entities},
 			Option: []byte(strconv.Itoa(i)),
 		})
 	}
 }
 
 // CorrectPollAnswer creates new correct poll answer option.
-func CorrectPollAnswer(text string) PollAnswerOption {
+func CorrectPollAnswer(text string, entities ...tg.MessageEntityClass) PollAnswerOption {
 	return func(p *pollAnswerBuilder) {
 		p.input.Poll.Quiz = true
 		i := len(p.input.Poll.Answers)
 		option := []byte(strconv.Itoa(i))
 		p.input.Poll.Answers = append(p.input.Poll.Answers, tg.PollAnswer{
-			Text:   text,
+			Text:   tg.TextWithEntities{Text: text, Entities: entities},
 			Option: option,
 		})
 		p.input.CorrectAnswers = append(p.input.CorrectAnswers, option)
@@ -148,12 +148,19 @@ func (p *PollBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&p.input).apply(ctx, b)
 }
 
+func (p *PollBuilder) QuestionEntities(entities []tg.MessageEntityClass) *PollBuilder {
+	p.input.Poll.Question.Entities = entities
+	return p
+}
+
 // Poll adds poll attachment.
+//
+// To set poll question entities, use [QuestionEntities](#PollBuilder.QuestionEntities).
 func Poll(question string, a, b PollAnswerOption, answers ...PollAnswerOption) *PollBuilder {
 	return &PollBuilder{
 		input: tg.InputMediaPoll{
 			Poll: tg.Poll{
-				Question: question,
+				Question: tg.TextWithEntities{Text: question},
 			},
 		},
 		answers: append([]PollAnswerOption{a, b}, answers...),
