@@ -43,11 +43,15 @@ func TestPoll(t *testing.T) {
 		CorrectPollAnswer("A?"),
 		PollAnswer("Che?"),
 		PollAnswer("Kuda?"),
-	).PublicVoters(true).
+	).
+		PublicVoters(true).
 		StyledExplanation(
 			styling.Plain("See"),
 			styling.TextURL("https://youtu.be/PYzX7SDKhd0.", "https://youtu.be/PYzX7SDKhd0"),
-		)
+		).
+		QuestionEntities([]tg.MessageEntityClass{
+			&tg.MessageEntityEmail{Offset: 0, Length: 128},
+		})
 
 	_, err := sender.Self().Media(ctx, poll)
 	require.NoError(t, err)
