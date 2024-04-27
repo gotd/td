@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 178
+const Layer = 179
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -669,6 +669,8 @@ func TypesMap() map[uint32]string {
 		AuthSentCodeTypeSetUpEmailRequiredTypeID:                 "auth.sentCodeTypeSetUpEmailRequired#a5491dea",
 		AuthSentCodeTypeFragmentSMSTypeID:                        "auth.sentCodeTypeFragmentSms#d9565c39",
 		AuthSentCodeTypeFirebaseSMSTypeID:                        "auth.sentCodeTypeFirebaseSms#e57b1432",
+		AuthSentCodeTypeSMSWordTypeID:                            "auth.sentCodeTypeSmsWord#a416ac81",
+		AuthSentCodeTypeSMSPhraseTypeID:                          "auth.sentCodeTypeSmsPhrase#b37794af",
 		MessagesBotCallbackAnswerTypeID:                          "messages.botCallbackAnswer#36585ea4",
 		MessagesMessageEditDataTypeID:                            "messages.messageEditData#26b5dde6",
 		InputBotInlineMessageIDTypeID:                            "inputBotInlineMessageID#890c3d89",
@@ -953,8 +955,8 @@ func TypesMap() map[uint32]string {
 		HelpSupportNameTypeID:                                                   "help.supportName#8c05f1c9",
 		HelpUserInfoEmptyTypeID:                                                 "help.userInfoEmpty#f3ae2eed",
 		HelpUserInfoTypeID:                                                      "help.userInfo#1eb3758",
-		PollAnswerTypeID:                                                        "pollAnswer#6ca9c2e9",
-		PollTypeID:                                                              "poll#86e18161",
+		PollAnswerTypeID:                                                        "pollAnswer#ff16e2ca",
+		PollTypeID:                                                              "poll#58747131",
 		PollAnswerVotersTypeID:                                                  "pollAnswerVoters#3b6ddad2",
 		PollResultsTypeID:                                                       "pollResults#7adf2420",
 		ChatOnlinesTypeID:                                                       "chatOnlines#f041e250",
@@ -1356,6 +1358,7 @@ func TypesMap() map[uint32]string {
 		AuthImportWebTokenAuthorizationRequestTypeID:                            "auth.importWebTokenAuthorization#2db873a9",
 		AuthRequestFirebaseSMSRequestTypeID:                                     "auth.requestFirebaseSms#89464b50",
 		AuthResetLoginEmailRequestTypeID:                                        "auth.resetLoginEmail#7e960193",
+		AuthReportMissingCodeRequestTypeID:                                      "auth.reportMissingCode#cb9deff6",
 		AccountRegisterDeviceRequestTypeID:                                      "account.registerDevice#ec86017a",
 		AccountUnregisterDeviceRequestTypeID:                                    "account.unregisterDevice#6a0d3206",
 		AccountUpdateNotifySettingsRequestTypeID:                                "account.updateNotifySettings#84be5b93",
@@ -2601,6 +2604,8 @@ func NamesMap() map[string]uint32 {
 		"auth.sentCodeTypeSetUpEmailRequired":                AuthSentCodeTypeSetUpEmailRequiredTypeID,
 		"auth.sentCodeTypeFragmentSms":                       AuthSentCodeTypeFragmentSMSTypeID,
 		"auth.sentCodeTypeFirebaseSms":                       AuthSentCodeTypeFirebaseSMSTypeID,
+		"auth.sentCodeTypeSmsWord":                           AuthSentCodeTypeSMSWordTypeID,
+		"auth.sentCodeTypeSmsPhrase":                         AuthSentCodeTypeSMSPhraseTypeID,
 		"messages.botCallbackAnswer":                         MessagesBotCallbackAnswerTypeID,
 		"messages.messageEditData":                           MessagesMessageEditDataTypeID,
 		"inputBotInlineMessageID":                            InputBotInlineMessageIDTypeID,
@@ -3288,6 +3293,7 @@ func NamesMap() map[string]uint32 {
 		"auth.importWebTokenAuthorization":                                  AuthImportWebTokenAuthorizationRequestTypeID,
 		"auth.requestFirebaseSms":                                           AuthRequestFirebaseSMSRequestTypeID,
 		"auth.resetLoginEmail":                                              AuthResetLoginEmailRequestTypeID,
+		"auth.reportMissingCode":                                            AuthReportMissingCodeRequestTypeID,
 		"account.registerDevice":                                            AccountRegisterDeviceRequestTypeID,
 		"account.unregisterDevice":                                          AccountUnregisterDeviceRequestTypeID,
 		"account.updateNotifySettings":                                      AccountUpdateNotifySettingsRequestTypeID,
@@ -4533,6 +4539,8 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		AuthSentCodeTypeSetUpEmailRequiredTypeID:                 func() bin.Object { return &AuthSentCodeTypeSetUpEmailRequired{} },
 		AuthSentCodeTypeFragmentSMSTypeID:                        func() bin.Object { return &AuthSentCodeTypeFragmentSMS{} },
 		AuthSentCodeTypeFirebaseSMSTypeID:                        func() bin.Object { return &AuthSentCodeTypeFirebaseSMS{} },
+		AuthSentCodeTypeSMSWordTypeID:                            func() bin.Object { return &AuthSentCodeTypeSMSWord{} },
+		AuthSentCodeTypeSMSPhraseTypeID:                          func() bin.Object { return &AuthSentCodeTypeSMSPhrase{} },
 		MessagesBotCallbackAnswerTypeID:                          func() bin.Object { return &MessagesBotCallbackAnswer{} },
 		MessagesMessageEditDataTypeID:                            func() bin.Object { return &MessagesMessageEditData{} },
 		InputBotInlineMessageIDTypeID:                            func() bin.Object { return &InputBotInlineMessageID{} },
@@ -5220,6 +5228,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		AuthImportWebTokenAuthorizationRequestTypeID:                            func() bin.Object { return &AuthImportWebTokenAuthorizationRequest{} },
 		AuthRequestFirebaseSMSRequestTypeID:                                     func() bin.Object { return &AuthRequestFirebaseSMSRequest{} },
 		AuthResetLoginEmailRequestTypeID:                                        func() bin.Object { return &AuthResetLoginEmailRequest{} },
+		AuthReportMissingCodeRequestTypeID:                                      func() bin.Object { return &AuthReportMissingCodeRequest{} },
 		AccountRegisterDeviceRequestTypeID:                                      func() bin.Object { return &AccountRegisterDeviceRequest{} },
 		AccountUnregisterDeviceRequestTypeID:                                    func() bin.Object { return &AccountUnregisterDeviceRequest{} },
 		AccountUpdateNotifySettingsRequestTypeID:                                func() bin.Object { return &AccountUpdateNotifySettingsRequest{} },
@@ -5903,6 +5912,8 @@ func ClassConstructorsMap() map[string][]uint32 {
 			AuthSentCodeTypeSetUpEmailRequiredTypeID,
 			AuthSentCodeTypeFragmentSMSTypeID,
 			AuthSentCodeTypeFirebaseSMSTypeID,
+			AuthSentCodeTypeSMSWordTypeID,
+			AuthSentCodeTypeSMSPhraseTypeID,
 		},
 		BaseThemeClassName: {
 			BaseThemeClassicTypeID,

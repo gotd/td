@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Poll represents TL type `poll#86e18161`.
+// Poll represents TL type `poll#58747131`.
 // Poll
 //
 // See https://core.telegram.org/constructor/poll for reference.
@@ -53,7 +53,7 @@ type Poll struct {
 	// type)
 	Quiz bool
 	// The question of the poll
-	Question string
+	Question TextWithEntities
 	// The possible answers, vote using messages.sendVote¹.
 	//
 	// Links:
@@ -73,7 +73,7 @@ type Poll struct {
 }
 
 // PollTypeID is TL type id of Poll.
-const PollTypeID = 0x86e18161
+const PollTypeID = 0x58747131
 
 // Ensuring interfaces in compile-time for Poll.
 var (
@@ -105,7 +105,7 @@ func (p *Poll) Zero() bool {
 	if !(p.Quiz == false) {
 		return false
 	}
-	if !(p.Question == "") {
+	if !(p.Question.Zero()) {
 		return false
 	}
 	if !(p.Answers == nil) {
@@ -137,7 +137,7 @@ func (p *Poll) FillFrom(from interface {
 	GetPublicVoters() (value bool)
 	GetMultipleChoice() (value bool)
 	GetQuiz() (value bool)
-	GetQuestion() (value string)
+	GetQuestion() (value TextWithEntities)
 	GetAnswers() (value []PollAnswer)
 	GetClosePeriod() (value int, ok bool)
 	GetCloseDate() (value int, ok bool)
@@ -253,7 +253,7 @@ func (p *Poll) SetFlags() {
 // Encode implements bin.Encoder.
 func (p *Poll) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
+		return fmt.Errorf("can't encode poll#58747131 as nil")
 	}
 	b.PutID(PollTypeID)
 	return p.EncodeBare(b)
@@ -262,18 +262,20 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
+		return fmt.Errorf("can't encode poll#58747131 as nil")
 	}
 	p.SetFlags()
 	b.PutLong(p.ID)
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode poll#86e18161: field flags: %w", err)
+		return fmt.Errorf("unable to encode poll#58747131: field flags: %w", err)
 	}
-	b.PutString(p.Question)
+	if err := p.Question.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode poll#58747131: field question: %w", err)
+	}
 	b.PutVectorHeader(len(p.Answers))
 	for idx, v := range p.Answers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode poll#86e18161: field answers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode poll#58747131: field answers element with index %d: %w", idx, err)
 		}
 	}
 	if p.Flags.Has(4) {
@@ -288,10 +290,10 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *Poll) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
+		return fmt.Errorf("can't decode poll#58747131 to nil")
 	}
 	if err := b.ConsumeID(PollTypeID); err != nil {
-		return fmt.Errorf("unable to decode poll#86e18161: %w", err)
+		return fmt.Errorf("unable to decode poll#58747131: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -299,18 +301,18 @@ func (p *Poll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
+		return fmt.Errorf("can't decode poll#58747131 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field id: %w", err)
+			return fmt.Errorf("unable to decode poll#58747131: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field flags: %w", err)
+			return fmt.Errorf("unable to decode poll#58747131: field flags: %w", err)
 		}
 	}
 	p.Closed = p.Flags.Has(0)
@@ -318,16 +320,14 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	p.MultipleChoice = p.Flags.Has(2)
 	p.Quiz = p.Flags.Has(3)
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field question: %w", err)
+		if err := p.Question.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode poll#58747131: field question: %w", err)
 		}
-		p.Question = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+			return fmt.Errorf("unable to decode poll#58747131: field answers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -336,7 +336,7 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollAnswer
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+				return fmt.Errorf("unable to decode poll#58747131: field answers: %w", err)
 			}
 			p.Answers = append(p.Answers, value)
 		}
@@ -344,14 +344,14 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_period: %w", err)
+			return fmt.Errorf("unable to decode poll#58747131: field close_period: %w", err)
 		}
 		p.ClosePeriod = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_date: %w", err)
+			return fmt.Errorf("unable to decode poll#58747131: field close_date: %w", err)
 		}
 		p.CloseDate = value
 	}
@@ -443,7 +443,7 @@ func (p *Poll) GetQuiz() (value bool) {
 }
 
 // GetQuestion returns value of Question field.
-func (p *Poll) GetQuestion() (value string) {
+func (p *Poll) GetQuestion() (value TextWithEntities) {
 	if p == nil {
 		return
 	}

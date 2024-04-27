@@ -233,6 +233,32 @@ func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeFirebaseSMS() (to AuthSent
 	return to
 }
 
+// AsAuthSentCodeTypeSMSWord returns copy with only AuthSentCodeTypeSMSWord constructors.
+func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeSMSWord() (to AuthSentCodeTypeSMSWordArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCodeTypeSMSWord)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsAuthSentCodeTypeSMSPhrase returns copy with only AuthSentCodeTypeSMSPhrase constructors.
+func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeSMSPhrase() (to AuthSentCodeTypeSMSPhraseArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCodeTypeSMSPhrase)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AuthSentCodeTypeAppArray is adapter for slice of AuthSentCodeTypeApp.
 type AuthSentCodeTypeAppArray []AuthSentCodeTypeApp
 
@@ -959,6 +985,170 @@ func (s *AuthSentCodeTypeFirebaseSMSArray) PopFirst() (v AuthSentCodeTypeFirebas
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *AuthSentCodeTypeFirebaseSMSArray) Pop() (v AuthSentCodeTypeFirebaseSMS, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthSentCodeTypeSMSWordArray is adapter for slice of AuthSentCodeTypeSMSWord.
+type AuthSentCodeTypeSMSWordArray []AuthSentCodeTypeSMSWord
+
+// Sort sorts slice of AuthSentCodeTypeSMSWord.
+func (s AuthSentCodeTypeSMSWordArray) Sort(less func(a, b AuthSentCodeTypeSMSWord) bool) AuthSentCodeTypeSMSWordArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeTypeSMSWord.
+func (s AuthSentCodeTypeSMSWordArray) SortStable(less func(a, b AuthSentCodeTypeSMSWord) bool) AuthSentCodeTypeSMSWordArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeTypeSMSWord.
+func (s AuthSentCodeTypeSMSWordArray) Retain(keep func(x AuthSentCodeTypeSMSWord) bool) AuthSentCodeTypeSMSWordArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeTypeSMSWordArray) First() (v AuthSentCodeTypeSMSWord, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeTypeSMSWordArray) Last() (v AuthSentCodeTypeSMSWord, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeSMSWordArray) PopFirst() (v AuthSentCodeTypeSMSWord, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeTypeSMSWord
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeSMSWordArray) Pop() (v AuthSentCodeTypeSMSWord, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthSentCodeTypeSMSPhraseArray is adapter for slice of AuthSentCodeTypeSMSPhrase.
+type AuthSentCodeTypeSMSPhraseArray []AuthSentCodeTypeSMSPhrase
+
+// Sort sorts slice of AuthSentCodeTypeSMSPhrase.
+func (s AuthSentCodeTypeSMSPhraseArray) Sort(less func(a, b AuthSentCodeTypeSMSPhrase) bool) AuthSentCodeTypeSMSPhraseArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeTypeSMSPhrase.
+func (s AuthSentCodeTypeSMSPhraseArray) SortStable(less func(a, b AuthSentCodeTypeSMSPhrase) bool) AuthSentCodeTypeSMSPhraseArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeTypeSMSPhrase.
+func (s AuthSentCodeTypeSMSPhraseArray) Retain(keep func(x AuthSentCodeTypeSMSPhrase) bool) AuthSentCodeTypeSMSPhraseArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeTypeSMSPhraseArray) First() (v AuthSentCodeTypeSMSPhrase, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeTypeSMSPhraseArray) Last() (v AuthSentCodeTypeSMSPhrase, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeSMSPhraseArray) PopFirst() (v AuthSentCodeTypeSMSPhrase, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeTypeSMSPhrase
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeSMSPhraseArray) Pop() (v AuthSentCodeTypeSMSPhrase, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
