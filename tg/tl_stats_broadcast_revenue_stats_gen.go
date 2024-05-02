@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StatsBroadcastRevenueStats represents TL type `stats.broadcastRevenueStats#d07b4bad`.
+// StatsBroadcastRevenueStats represents TL type `stats.broadcastRevenueStats#5407e297`.
 //
 // See https://core.telegram.org/constructor/stats.broadcastRevenueStats for reference.
 type StatsBroadcastRevenueStats struct {
@@ -39,18 +39,14 @@ type StatsBroadcastRevenueStats struct {
 	TopHoursGraph StatsGraphClass
 	// RevenueGraph field of StatsBroadcastRevenueStats.
 	RevenueGraph StatsGraphClass
-	// CurrentBalance field of StatsBroadcastRevenueStats.
-	CurrentBalance int64
-	// AvailableBalance field of StatsBroadcastRevenueStats.
-	AvailableBalance int64
-	// OverallRevenue field of StatsBroadcastRevenueStats.
-	OverallRevenue int64
+	// Balances field of StatsBroadcastRevenueStats.
+	Balances BroadcastRevenueBalances
 	// UsdRate field of StatsBroadcastRevenueStats.
 	UsdRate float64
 }
 
 // StatsBroadcastRevenueStatsTypeID is TL type id of StatsBroadcastRevenueStats.
-const StatsBroadcastRevenueStatsTypeID = 0xd07b4bad
+const StatsBroadcastRevenueStatsTypeID = 0x5407e297
 
 // Ensuring interfaces in compile-time for StatsBroadcastRevenueStats.
 var (
@@ -70,13 +66,7 @@ func (b *StatsBroadcastRevenueStats) Zero() bool {
 	if !(b.RevenueGraph == nil) {
 		return false
 	}
-	if !(b.CurrentBalance == 0) {
-		return false
-	}
-	if !(b.AvailableBalance == 0) {
-		return false
-	}
-	if !(b.OverallRevenue == 0) {
+	if !(b.Balances.Zero()) {
 		return false
 	}
 	if !(b.UsdRate == 0) {
@@ -99,16 +89,12 @@ func (b *StatsBroadcastRevenueStats) String() string {
 func (b *StatsBroadcastRevenueStats) FillFrom(from interface {
 	GetTopHoursGraph() (value StatsGraphClass)
 	GetRevenueGraph() (value StatsGraphClass)
-	GetCurrentBalance() (value int64)
-	GetAvailableBalance() (value int64)
-	GetOverallRevenue() (value int64)
+	GetBalances() (value BroadcastRevenueBalances)
 	GetUsdRate() (value float64)
 }) {
 	b.TopHoursGraph = from.GetTopHoursGraph()
 	b.RevenueGraph = from.GetRevenueGraph()
-	b.CurrentBalance = from.GetCurrentBalance()
-	b.AvailableBalance = from.GetAvailableBalance()
-	b.OverallRevenue = from.GetOverallRevenue()
+	b.Balances = from.GetBalances()
 	b.UsdRate = from.GetUsdRate()
 }
 
@@ -144,16 +130,8 @@ func (b *StatsBroadcastRevenueStats) TypeInfo() tdp.Type {
 			SchemaName: "revenue_graph",
 		},
 		{
-			Name:       "CurrentBalance",
-			SchemaName: "current_balance",
-		},
-		{
-			Name:       "AvailableBalance",
-			SchemaName: "available_balance",
-		},
-		{
-			Name:       "OverallRevenue",
-			SchemaName: "overall_revenue",
+			Name:       "Balances",
+			SchemaName: "balances",
 		},
 		{
 			Name:       "UsdRate",
@@ -166,7 +144,7 @@ func (b *StatsBroadcastRevenueStats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *StatsBroadcastRevenueStats) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode stats.broadcastRevenueStats#d07b4bad as nil")
+		return fmt.Errorf("can't encode stats.broadcastRevenueStats#5407e297 as nil")
 	}
 	buf.PutID(StatsBroadcastRevenueStatsTypeID)
 	return b.EncodeBare(buf)
@@ -175,23 +153,23 @@ func (b *StatsBroadcastRevenueStats) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *StatsBroadcastRevenueStats) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode stats.broadcastRevenueStats#d07b4bad as nil")
+		return fmt.Errorf("can't encode stats.broadcastRevenueStats#5407e297 as nil")
 	}
 	if b.TopHoursGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#d07b4bad: field top_hours_graph is nil")
+		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#5407e297: field top_hours_graph is nil")
 	}
 	if err := b.TopHoursGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#d07b4bad: field top_hours_graph: %w", err)
+		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#5407e297: field top_hours_graph: %w", err)
 	}
 	if b.RevenueGraph == nil {
-		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#d07b4bad: field revenue_graph is nil")
+		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#5407e297: field revenue_graph is nil")
 	}
 	if err := b.RevenueGraph.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#d07b4bad: field revenue_graph: %w", err)
+		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#5407e297: field revenue_graph: %w", err)
 	}
-	buf.PutLong(b.CurrentBalance)
-	buf.PutLong(b.AvailableBalance)
-	buf.PutLong(b.OverallRevenue)
+	if err := b.Balances.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode stats.broadcastRevenueStats#5407e297: field balances: %w", err)
+	}
 	buf.PutDouble(b.UsdRate)
 	return nil
 }
@@ -199,10 +177,10 @@ func (b *StatsBroadcastRevenueStats) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *StatsBroadcastRevenueStats) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode stats.broadcastRevenueStats#d07b4bad to nil")
+		return fmt.Errorf("can't decode stats.broadcastRevenueStats#5407e297 to nil")
 	}
 	if err := buf.ConsumeID(StatsBroadcastRevenueStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: %w", err)
+		return fmt.Errorf("unable to decode stats.broadcastRevenueStats#5407e297: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -210,47 +188,31 @@ func (b *StatsBroadcastRevenueStats) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *StatsBroadcastRevenueStats) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode stats.broadcastRevenueStats#d07b4bad to nil")
+		return fmt.Errorf("can't decode stats.broadcastRevenueStats#5407e297 to nil")
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: field top_hours_graph: %w", err)
+			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#5407e297: field top_hours_graph: %w", err)
 		}
 		b.TopHoursGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: field revenue_graph: %w", err)
+			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#5407e297: field revenue_graph: %w", err)
 		}
 		b.RevenueGraph = value
 	}
 	{
-		value, err := buf.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: field current_balance: %w", err)
+		if err := b.Balances.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#5407e297: field balances: %w", err)
 		}
-		b.CurrentBalance = value
-	}
-	{
-		value, err := buf.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: field available_balance: %w", err)
-		}
-		b.AvailableBalance = value
-	}
-	{
-		value, err := buf.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: field overall_revenue: %w", err)
-		}
-		b.OverallRevenue = value
 	}
 	{
 		value, err := buf.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#d07b4bad: field usd_rate: %w", err)
+			return fmt.Errorf("unable to decode stats.broadcastRevenueStats#5407e297: field usd_rate: %w", err)
 		}
 		b.UsdRate = value
 	}
@@ -273,28 +235,12 @@ func (b *StatsBroadcastRevenueStats) GetRevenueGraph() (value StatsGraphClass) {
 	return b.RevenueGraph
 }
 
-// GetCurrentBalance returns value of CurrentBalance field.
-func (b *StatsBroadcastRevenueStats) GetCurrentBalance() (value int64) {
+// GetBalances returns value of Balances field.
+func (b *StatsBroadcastRevenueStats) GetBalances() (value BroadcastRevenueBalances) {
 	if b == nil {
 		return
 	}
-	return b.CurrentBalance
-}
-
-// GetAvailableBalance returns value of AvailableBalance field.
-func (b *StatsBroadcastRevenueStats) GetAvailableBalance() (value int64) {
-	if b == nil {
-		return
-	}
-	return b.AvailableBalance
-}
-
-// GetOverallRevenue returns value of OverallRevenue field.
-func (b *StatsBroadcastRevenueStats) GetOverallRevenue() (value int64) {
-	if b == nil {
-		return
-	}
-	return b.OverallRevenue
+	return b.Balances
 }
 
 // GetUsdRate returns value of UsdRate field.
