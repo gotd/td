@@ -6890,6 +6890,23 @@ func (s *ServerDispatcher) OnMessagesGetMyStickers(f func(ctx context.Context, r
 	s.handlers[MessagesGetMyStickersRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetEmojiStickerGroups(f func(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetEmojiStickerGroupsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesEmojiGroupsBox{EmojiGroups: response}, nil
+	}
+
+	s.handlers[MessagesGetEmojiStickerGroupsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest

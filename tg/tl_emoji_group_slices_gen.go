@@ -33,3 +33,370 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// EmojiGroupClassArray is adapter for slice of EmojiGroupClass.
+type EmojiGroupClassArray []EmojiGroupClass
+
+// Sort sorts slice of EmojiGroupClass.
+func (s EmojiGroupClassArray) Sort(less func(a, b EmojiGroupClass) bool) EmojiGroupClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiGroupClass.
+func (s EmojiGroupClassArray) SortStable(less func(a, b EmojiGroupClass) bool) EmojiGroupClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiGroupClass.
+func (s EmojiGroupClassArray) Retain(keep func(x EmojiGroupClass) bool) EmojiGroupClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EmojiGroupClassArray) First() (v EmojiGroupClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiGroupClassArray) Last() (v EmojiGroupClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiGroupClassArray) PopFirst() (v EmojiGroupClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EmojiGroupClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiGroupClassArray) Pop() (v EmojiGroupClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsEmojiGroup returns copy with only EmojiGroup constructors.
+func (s EmojiGroupClassArray) AsEmojiGroup() (to EmojiGroupArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EmojiGroup)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsEmojiGroupGreeting returns copy with only EmojiGroupGreeting constructors.
+func (s EmojiGroupClassArray) AsEmojiGroupGreeting() (to EmojiGroupGreetingArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EmojiGroupGreeting)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsEmojiGroupPremium returns copy with only EmojiGroupPremium constructors.
+func (s EmojiGroupClassArray) AsEmojiGroupPremium() (to EmojiGroupPremiumArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EmojiGroupPremium)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// EmojiGroupArray is adapter for slice of EmojiGroup.
+type EmojiGroupArray []EmojiGroup
+
+// Sort sorts slice of EmojiGroup.
+func (s EmojiGroupArray) Sort(less func(a, b EmojiGroup) bool) EmojiGroupArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiGroup.
+func (s EmojiGroupArray) SortStable(less func(a, b EmojiGroup) bool) EmojiGroupArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiGroup.
+func (s EmojiGroupArray) Retain(keep func(x EmojiGroup) bool) EmojiGroupArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EmojiGroupArray) First() (v EmojiGroup, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiGroupArray) Last() (v EmojiGroup, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiGroupArray) PopFirst() (v EmojiGroup, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EmojiGroup
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiGroupArray) Pop() (v EmojiGroup, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// EmojiGroupGreetingArray is adapter for slice of EmojiGroupGreeting.
+type EmojiGroupGreetingArray []EmojiGroupGreeting
+
+// Sort sorts slice of EmojiGroupGreeting.
+func (s EmojiGroupGreetingArray) Sort(less func(a, b EmojiGroupGreeting) bool) EmojiGroupGreetingArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiGroupGreeting.
+func (s EmojiGroupGreetingArray) SortStable(less func(a, b EmojiGroupGreeting) bool) EmojiGroupGreetingArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiGroupGreeting.
+func (s EmojiGroupGreetingArray) Retain(keep func(x EmojiGroupGreeting) bool) EmojiGroupGreetingArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EmojiGroupGreetingArray) First() (v EmojiGroupGreeting, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiGroupGreetingArray) Last() (v EmojiGroupGreeting, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiGroupGreetingArray) PopFirst() (v EmojiGroupGreeting, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EmojiGroupGreeting
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiGroupGreetingArray) Pop() (v EmojiGroupGreeting, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// EmojiGroupPremiumArray is adapter for slice of EmojiGroupPremium.
+type EmojiGroupPremiumArray []EmojiGroupPremium
+
+// Sort sorts slice of EmojiGroupPremium.
+func (s EmojiGroupPremiumArray) Sort(less func(a, b EmojiGroupPremium) bool) EmojiGroupPremiumArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiGroupPremium.
+func (s EmojiGroupPremiumArray) SortStable(less func(a, b EmojiGroupPremium) bool) EmojiGroupPremiumArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiGroupPremium.
+func (s EmojiGroupPremiumArray) Retain(keep func(x EmojiGroupPremium) bool) EmojiGroupPremiumArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EmojiGroupPremiumArray) First() (v EmojiGroupPremium, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiGroupPremiumArray) Last() (v EmojiGroupPremium, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiGroupPremiumArray) PopFirst() (v EmojiGroupPremium, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EmojiGroupPremium
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiGroupPremiumArray) Pop() (v EmojiGroupPremium, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
