@@ -2942,7 +2942,9 @@ func (i *InputMessageVideoNote) GetSelfDestructType() (value MessageSelfDestruct
 
 // InputMessageVoiceNote represents TL type `inputMessageVoiceNote#5723ffac`.
 type InputMessageVoiceNote struct {
-	// Voice note to be sent
+	// Voice note to be sent. The voice note must be encoded with the Opus codec and stored
+	// inside an OGG container with a single audio channel, or be in MP3 or M4A format as
+	// regular audio
 	VoiceNote InputFileClass
 	// Duration of the voice note, in seconds
 	Duration int32
@@ -3269,7 +3271,7 @@ type InputMessageLocation struct {
 	// Location to be sent
 	Location Location
 	// Period for which the location can be updated, in seconds; must be between 60 and 86400
-	// for a live location and 0 otherwise
+	// for a temporary live location, 0x7FFFFFFF for permanent live location, and 0 otherwise
 	LivePeriod int32
 	// For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0
 	// if unknown
@@ -4820,12 +4822,14 @@ func (i *InputMessageInvoice) GetExtendedMediaContent() (value InputMessageConte
 	return i.ExtendedMediaContent
 }
 
-// InputMessagePoll represents TL type `inputMessagePoll#fe79770`.
+// InputMessagePoll represents TL type `inputMessagePoll#9046c716`.
 type InputMessagePoll struct {
-	// Poll question; 1-255 characters (up to 300 characters for bots)
-	Question string
-	// List of poll answer options, 2-10 strings 1-100 characters each
-	Options []string
+	// Poll question; 1-255 characters (up to 300 characters for bots). Only custom emoji
+	// entities are allowed to be added and only by Premium users
+	Question FormattedText
+	// List of poll answer options, 2-10 strings 1-100 characters each. Only custom emoji
+	// entities are allowed to be added and only by Premium users
+	Options []FormattedText
 	// True, if the poll voters are anonymous. Non-anonymous polls can't be sent or forwarded
 	// to channels
 	IsAnonymous bool
@@ -4841,7 +4845,7 @@ type InputMessagePoll struct {
 }
 
 // InputMessagePollTypeID is TL type id of InputMessagePoll.
-const InputMessagePollTypeID = 0xfe79770
+const InputMessagePollTypeID = 0x9046c716
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessagePoll) construct() InputMessageContentClass { return &i }
@@ -4860,7 +4864,7 @@ func (i *InputMessagePoll) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.Question == "") {
+	if !(i.Question.Zero()) {
 		return false
 	}
 	if !(i.Options == nil) {
@@ -4952,7 +4956,7 @@ func (i *InputMessagePoll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagePoll) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePoll#fe79770 as nil")
+		return fmt.Errorf("can't encode inputMessagePoll#9046c716 as nil")
 	}
 	b.PutID(InputMessagePollTypeID)
 	return i.EncodeBare(b)
@@ -4961,19 +4965,23 @@ func (i *InputMessagePoll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagePoll) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePoll#fe79770 as nil")
+		return fmt.Errorf("can't encode inputMessagePoll#9046c716 as nil")
 	}
-	b.PutString(i.Question)
+	if err := i.Question.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field question: %w", err)
+	}
 	b.PutInt(len(i.Options))
-	for _, v := range i.Options {
-		b.PutString(v)
+	for idx, v := range i.Options {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare inputMessagePoll#9046c716: field options element with index %d: %w", idx, err)
+		}
 	}
 	b.PutBool(i.IsAnonymous)
 	if i.Type == nil {
-		return fmt.Errorf("unable to encode inputMessagePoll#fe79770: field type is nil")
+		return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field type is nil")
 	}
 	if err := i.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePoll#fe79770: field type: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field type: %w", err)
 	}
 	b.PutInt32(i.OpenPeriod)
 	b.PutInt32(i.CloseDate)
@@ -4984,10 +4992,10 @@ func (i *InputMessagePoll) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessagePoll) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePoll#fe79770 to nil")
+		return fmt.Errorf("can't decode inputMessagePoll#9046c716 to nil")
 	}
 	if err := b.ConsumeID(InputMessagePollTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagePoll#fe79770: %w", err)
+		return fmt.Errorf("unable to decode inputMessagePoll#9046c716: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -4995,28 +5003,26 @@ func (i *InputMessagePoll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagePoll) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePoll#fe79770 to nil")
+		return fmt.Errorf("can't decode inputMessagePoll#9046c716 to nil")
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field question: %w", err)
+		if err := i.Question.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field question: %w", err)
 		}
-		i.Question = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field options: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field options: %w", err)
 		}
 
 		if headerLen > 0 {
-			i.Options = make([]string, 0, headerLen%bin.PreallocateLimit)
+			i.Options = make([]FormattedText, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field options: %w", err)
+			var value FormattedText
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare inputMessagePoll#9046c716: field options: %w", err)
 			}
 			i.Options = append(i.Options, value)
 		}
@@ -5024,35 +5030,35 @@ func (i *InputMessagePoll) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field is_anonymous: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field is_anonymous: %w", err)
 		}
 		i.IsAnonymous = value
 	}
 	{
 		value, err := DecodePollType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field type: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field type: %w", err)
 		}
 		i.Type = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field open_period: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field open_period: %w", err)
 		}
 		i.OpenPeriod = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field close_date: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field close_date: %w", err)
 		}
 		i.CloseDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field is_closed: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field is_closed: %w", err)
 		}
 		i.IsClosed = value
 	}
@@ -5062,18 +5068,22 @@ func (i *InputMessagePoll) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessagePoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePoll#fe79770 as nil")
+		return fmt.Errorf("can't encode inputMessagePoll#9046c716 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessagePoll")
 	b.Comma()
 	b.FieldStart("question")
-	b.PutString(i.Question)
+	if err := i.Question.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field question: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("options")
 	b.ArrStart()
-	for _, v := range i.Options {
-		b.PutString(v)
+	for idx, v := range i.Options {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field options element with index %d: %w", idx, err)
+		}
 		b.Comma()
 	}
 	b.StripComma()
@@ -5084,10 +5094,10 @@ func (i *InputMessagePoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("type")
 	if i.Type == nil {
-		return fmt.Errorf("unable to encode inputMessagePoll#fe79770: field type is nil")
+		return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field type is nil")
 	}
 	if err := i.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePoll#fe79770: field type: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePoll#9046c716: field type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("open_period")
@@ -5107,60 +5117,58 @@ func (i *InputMessagePoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessagePoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePoll#fe79770 to nil")
+		return fmt.Errorf("can't decode inputMessagePoll#9046c716 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessagePoll"); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: %w", err)
 			}
 		case "question":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field question: %w", err)
+			if err := i.Question.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field question: %w", err)
 			}
-			i.Question = value
 		case "options":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.String()
-				if err != nil {
-					return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field options: %w", err)
+				var value FormattedText
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field options: %w", err)
 				}
 				i.Options = append(i.Options, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field options: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field options: %w", err)
 			}
 		case "is_anonymous":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field is_anonymous: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field is_anonymous: %w", err)
 			}
 			i.IsAnonymous = value
 		case "type":
 			value, err := DecodeTDLibJSONPollType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field type: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field type: %w", err)
 			}
 			i.Type = value
 		case "open_period":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field open_period: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field open_period: %w", err)
 			}
 			i.OpenPeriod = value
 		case "close_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field close_date: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field close_date: %w", err)
 			}
 			i.CloseDate = value
 		case "is_closed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field is_closed: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePoll#9046c716: field is_closed: %w", err)
 			}
 			i.IsClosed = value
 		default:
@@ -5171,7 +5179,7 @@ func (i *InputMessagePoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetQuestion returns value of Question field.
-func (i *InputMessagePoll) GetQuestion() (value string) {
+func (i *InputMessagePoll) GetQuestion() (value FormattedText) {
 	if i == nil {
 		return
 	}
@@ -5179,7 +5187,7 @@ func (i *InputMessagePoll) GetQuestion() (value string) {
 }
 
 // GetOptions returns value of Options field.
-func (i *InputMessagePoll) GetOptions() (value []string) {
+func (i *InputMessagePoll) GetOptions() (value []FormattedText) {
 	if i == nil {
 		return
 	}
@@ -5724,7 +5732,7 @@ const InputMessageContentClassName = "InputMessageContent"
 //	case *tdapi.InputMessageDice: // inputMessageDice#322967a9
 //	case *tdapi.InputMessageGame: // inputMessageGame#4aae6ae2
 //	case *tdapi.InputMessageInvoice: // inputMessageInvoice#34cd1d60
-//	case *tdapi.InputMessagePoll: // inputMessagePoll#fe79770
+//	case *tdapi.InputMessagePoll: // inputMessagePoll#9046c716
 //	case *tdapi.InputMessageStory: // inputMessageStory#21099d63
 //	case *tdapi.InputMessageForwarded: // inputMessageForwarded#651a73f8
 //	default: panic(v)
@@ -5864,7 +5872,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessagePollTypeID:
-		// Decoding inputMessagePoll#fe79770.
+		// Decoding inputMessagePoll#9046c716.
 		v := InputMessagePoll{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -6002,7 +6010,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessagePoll":
-		// Decoding inputMessagePoll#fe79770.
+		// Decoding inputMessagePoll#9046c716.
 		v := InputMessagePoll{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)

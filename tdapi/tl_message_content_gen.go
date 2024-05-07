@@ -2670,10 +2670,11 @@ type MessageLocation struct {
 	// The location description
 	Location Location
 	// Time relative to the message send date, for which the location can be updated, in
-	// seconds
+	// seconds; if 0x7FFFFFFF, then location can be updated forever
 	LivePeriod int32
-	// Left time for which the location can be updated, in seconds. updateMessageContent is
-	// not sent when this field changes
+	// Left time for which the location can be updated, in seconds. If 0, then the location
+	// can't be updated anymore. The update updateMessageContent is not sent when this field
+	// changes
 	ExpiresIn int32
 	// For live locations, a direction in which the location moves, in degrees; 1-360. If 0
 	// the direction is unknown
@@ -3506,11 +3507,11 @@ func (m *MessageAnimatedEmoji) GetEmoji() (value string) {
 
 // MessageDice represents TL type `messageDice#42817239`.
 type MessageDice struct {
-	// The animated stickers with the initial dice animation; may be null if unknown.
-	// updateMessageContent will be sent when the sticker became known
+	// The animated stickers with the initial dice animation; may be null if unknown. The
+	// update updateMessageContent will be sent when the sticker became known
 	InitialState DiceStickersClass
-	// The animated stickers with the final dice animation; may be null if unknown.
-	// updateMessageContent will be sent when the sticker became known
+	// The animated stickers with the final dice animation; may be null if unknown. The
+	// update updateMessageContent will be sent when the sticker became known
 	FinalState DiceStickersClass
 	// Emoji on which the dice throw animation is based
 	Emoji string

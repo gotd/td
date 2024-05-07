@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageSponsor represents TL type `messageSponsor#a0b25071`.
+// MessageSponsor represents TL type `messageSponsor#77c251de`.
 type MessageSponsor struct {
-	// Type of the sponsor
-	Type MessageSponsorTypeClass
+	// URL of the sponsor to be opened when the message is clicked
+	URL string
 	// Photo of the sponsor; may be null if must not be shown
-	Photo ChatPhotoInfo
+	Photo Photo
 	// Additional optional information about the sponsor to be shown along with the message
 	Info string
 }
 
 // MessageSponsorTypeID is TL type id of MessageSponsor.
-const MessageSponsorTypeID = 0xa0b25071
+const MessageSponsorTypeID = 0x77c251de
 
 // Ensuring interfaces in compile-time for MessageSponsor.
 var (
@@ -56,7 +56,7 @@ func (m *MessageSponsor) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.Type == nil) {
+	if !(m.URL == "") {
 		return false
 	}
 	if !(m.Photo.Zero()) {
@@ -102,8 +102,8 @@ func (m *MessageSponsor) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Type",
-			SchemaName: "type",
+			Name:       "URL",
+			SchemaName: "url",
 		},
 		{
 			Name:       "Photo",
@@ -120,7 +120,7 @@ func (m *MessageSponsor) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageSponsor) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSponsor#a0b25071 as nil")
+		return fmt.Errorf("can't encode messageSponsor#77c251de as nil")
 	}
 	b.PutID(MessageSponsorTypeID)
 	return m.EncodeBare(b)
@@ -129,16 +129,11 @@ func (m *MessageSponsor) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageSponsor) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSponsor#a0b25071 as nil")
+		return fmt.Errorf("can't encode messageSponsor#77c251de as nil")
 	}
-	if m.Type == nil {
-		return fmt.Errorf("unable to encode messageSponsor#a0b25071: field type is nil")
-	}
-	if err := m.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageSponsor#a0b25071: field type: %w", err)
-	}
+	b.PutString(m.URL)
 	if err := m.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageSponsor#a0b25071: field photo: %w", err)
+		return fmt.Errorf("unable to encode messageSponsor#77c251de: field photo: %w", err)
 	}
 	b.PutString(m.Info)
 	return nil
@@ -147,10 +142,10 @@ func (m *MessageSponsor) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageSponsor) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSponsor#a0b25071 to nil")
+		return fmt.Errorf("can't decode messageSponsor#77c251de to nil")
 	}
 	if err := b.ConsumeID(MessageSponsorTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageSponsor#a0b25071: %w", err)
+		return fmt.Errorf("unable to decode messageSponsor#77c251de: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -158,24 +153,24 @@ func (m *MessageSponsor) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageSponsor) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSponsor#a0b25071 to nil")
+		return fmt.Errorf("can't decode messageSponsor#77c251de to nil")
 	}
 	{
-		value, err := DecodeMessageSponsorType(b)
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSponsor#a0b25071: field type: %w", err)
+			return fmt.Errorf("unable to decode messageSponsor#77c251de: field url: %w", err)
 		}
-		m.Type = value
+		m.URL = value
 	}
 	{
 		if err := m.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageSponsor#a0b25071: field photo: %w", err)
+			return fmt.Errorf("unable to decode messageSponsor#77c251de: field photo: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSponsor#a0b25071: field info: %w", err)
+			return fmt.Errorf("unable to decode messageSponsor#77c251de: field info: %w", err)
 		}
 		m.Info = value
 	}
@@ -185,22 +180,17 @@ func (m *MessageSponsor) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageSponsor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSponsor#a0b25071 as nil")
+		return fmt.Errorf("can't encode messageSponsor#77c251de as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageSponsor")
 	b.Comma()
-	b.FieldStart("type")
-	if m.Type == nil {
-		return fmt.Errorf("unable to encode messageSponsor#a0b25071: field type is nil")
-	}
-	if err := m.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageSponsor#a0b25071: field type: %w", err)
-	}
+	b.FieldStart("url")
+	b.PutString(m.URL)
 	b.Comma()
 	b.FieldStart("photo")
 	if err := m.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageSponsor#a0b25071: field photo: %w", err)
+		return fmt.Errorf("unable to encode messageSponsor#77c251de: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("info")
@@ -214,29 +204,29 @@ func (m *MessageSponsor) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageSponsor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSponsor#a0b25071 to nil")
+		return fmt.Errorf("can't decode messageSponsor#77c251de to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSponsor"); err != nil {
-				return fmt.Errorf("unable to decode messageSponsor#a0b25071: %w", err)
+				return fmt.Errorf("unable to decode messageSponsor#77c251de: %w", err)
 			}
-		case "type":
-			value, err := DecodeTDLibJSONMessageSponsorType(b)
+		case "url":
+			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSponsor#a0b25071: field type: %w", err)
+				return fmt.Errorf("unable to decode messageSponsor#77c251de: field url: %w", err)
 			}
-			m.Type = value
+			m.URL = value
 		case "photo":
 			if err := m.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageSponsor#a0b25071: field photo: %w", err)
+				return fmt.Errorf("unable to decode messageSponsor#77c251de: field photo: %w", err)
 			}
 		case "info":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSponsor#a0b25071: field info: %w", err)
+				return fmt.Errorf("unable to decode messageSponsor#77c251de: field info: %w", err)
 			}
 			m.Info = value
 		default:
@@ -246,16 +236,16 @@ func (m *MessageSponsor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetType returns value of Type field.
-func (m *MessageSponsor) GetType() (value MessageSponsorTypeClass) {
+// GetURL returns value of URL field.
+func (m *MessageSponsor) GetURL() (value string) {
 	if m == nil {
 		return
 	}
-	return m.Type
+	return m.URL
 }
 
 // GetPhoto returns value of Photo field.
-func (m *MessageSponsor) GetPhoto() (value ChatPhotoInfo) {
+func (m *MessageSponsor) GetPhoto() (value Photo) {
 	if m == nil {
 		return
 	}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneNumberAuthenticationSettings represents TL type `phoneNumberAuthenticationSettings#c6e19fa1`.
+// PhoneNumberAuthenticationSettings represents TL type `phoneNumberAuthenticationSettings#3e1183db`.
 type PhoneNumberAuthenticationSettings struct {
 	// Pass true if the authentication code may be sent via a flash call to the specified
 	// phone number
@@ -41,6 +41,9 @@ type PhoneNumberAuthenticationSettings struct {
 	AllowMissedCall bool
 	// Pass true if the authenticated phone number is used on the current device
 	IsCurrentPhoneNumber bool
+	// Pass true if there is a SIM card in the current device, but it is not possible to
+	// check whether phone number matches
+	HasUnknownPhoneNumber bool
 	// For official applications only. True, if the application can use Android SMS Retriever
 	// API (requires Google Play Services >= 10.2) to automatically receive the
 	// authentication code from the SMS. See https://developers.google
@@ -55,7 +58,7 @@ type PhoneNumberAuthenticationSettings struct {
 }
 
 // PhoneNumberAuthenticationSettingsTypeID is TL type id of PhoneNumberAuthenticationSettings.
-const PhoneNumberAuthenticationSettingsTypeID = 0xc6e19fa1
+const PhoneNumberAuthenticationSettingsTypeID = 0x3e1183db
 
 // Ensuring interfaces in compile-time for PhoneNumberAuthenticationSettings.
 var (
@@ -76,6 +79,9 @@ func (p *PhoneNumberAuthenticationSettings) Zero() bool {
 		return false
 	}
 	if !(p.IsCurrentPhoneNumber == false) {
+		return false
+	}
+	if !(p.HasUnknownPhoneNumber == false) {
 		return false
 	}
 	if !(p.AllowSMSRetrieverAPI == false) {
@@ -136,6 +142,10 @@ func (p *PhoneNumberAuthenticationSettings) TypeInfo() tdp.Type {
 			SchemaName: "is_current_phone_number",
 		},
 		{
+			Name:       "HasUnknownPhoneNumber",
+			SchemaName: "has_unknown_phone_number",
+		},
+		{
 			Name:       "AllowSMSRetrieverAPI",
 			SchemaName: "allow_sms_retriever_api",
 		},
@@ -154,7 +164,7 @@ func (p *PhoneNumberAuthenticationSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneNumberAuthenticationSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#c6e19fa1 as nil")
+		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#3e1183db as nil")
 	}
 	b.PutID(PhoneNumberAuthenticationSettingsTypeID)
 	return p.EncodeBare(b)
@@ -163,17 +173,18 @@ func (p *PhoneNumberAuthenticationSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneNumberAuthenticationSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#c6e19fa1 as nil")
+		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#3e1183db as nil")
 	}
 	b.PutBool(p.AllowFlashCall)
 	b.PutBool(p.AllowMissedCall)
 	b.PutBool(p.IsCurrentPhoneNumber)
+	b.PutBool(p.HasUnknownPhoneNumber)
 	b.PutBool(p.AllowSMSRetrieverAPI)
 	if p.FirebaseAuthenticationSettings == nil {
-		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#c6e19fa1: field firebase_authentication_settings is nil")
+		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#3e1183db: field firebase_authentication_settings is nil")
 	}
 	if err := p.FirebaseAuthenticationSettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#c6e19fa1: field firebase_authentication_settings: %w", err)
+		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#3e1183db: field firebase_authentication_settings: %w", err)
 	}
 	b.PutInt(len(p.AuthenticationTokens))
 	for _, v := range p.AuthenticationTokens {
@@ -185,10 +196,10 @@ func (p *PhoneNumberAuthenticationSettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneNumberAuthenticationSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#c6e19fa1 to nil")
+		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#3e1183db to nil")
 	}
 	if err := b.ConsumeID(PhoneNumberAuthenticationSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: %w", err)
+		return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -196,47 +207,54 @@ func (p *PhoneNumberAuthenticationSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneNumberAuthenticationSettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#c6e19fa1 to nil")
+		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#3e1183db to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field allow_flash_call: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field allow_flash_call: %w", err)
 		}
 		p.AllowFlashCall = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field allow_missed_call: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field allow_missed_call: %w", err)
 		}
 		p.AllowMissedCall = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field is_current_phone_number: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field is_current_phone_number: %w", err)
 		}
 		p.IsCurrentPhoneNumber = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field allow_sms_retriever_api: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field has_unknown_phone_number: %w", err)
+		}
+		p.HasUnknownPhoneNumber = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field allow_sms_retriever_api: %w", err)
 		}
 		p.AllowSMSRetrieverAPI = value
 	}
 	{
 		value, err := DecodeFirebaseAuthenticationSettings(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field firebase_authentication_settings: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field firebase_authentication_settings: %w", err)
 		}
 		p.FirebaseAuthenticationSettings = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field authentication_tokens: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field authentication_tokens: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -245,7 +263,7 @@ func (p *PhoneNumberAuthenticationSettings) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field authentication_tokens: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field authentication_tokens: %w", err)
 			}
 			p.AuthenticationTokens = append(p.AuthenticationTokens, value)
 		}
@@ -256,7 +274,7 @@ func (p *PhoneNumberAuthenticationSettings) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#c6e19fa1 as nil")
+		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#3e1183db as nil")
 	}
 	b.ObjStart()
 	b.PutID("phoneNumberAuthenticationSettings")
@@ -270,15 +288,18 @@ func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b tdjson.Encoder) er
 	b.FieldStart("is_current_phone_number")
 	b.PutBool(p.IsCurrentPhoneNumber)
 	b.Comma()
+	b.FieldStart("has_unknown_phone_number")
+	b.PutBool(p.HasUnknownPhoneNumber)
+	b.Comma()
 	b.FieldStart("allow_sms_retriever_api")
 	b.PutBool(p.AllowSMSRetrieverAPI)
 	b.Comma()
 	b.FieldStart("firebase_authentication_settings")
 	if p.FirebaseAuthenticationSettings == nil {
-		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#c6e19fa1: field firebase_authentication_settings is nil")
+		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#3e1183db: field firebase_authentication_settings is nil")
 	}
 	if err := p.FirebaseAuthenticationSettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#c6e19fa1: field firebase_authentication_settings: %w", err)
+		return fmt.Errorf("unable to encode phoneNumberAuthenticationSettings#3e1183db: field firebase_authentication_settings: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("authentication_tokens")
@@ -298,55 +319,61 @@ func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b tdjson.Encoder) er
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PhoneNumberAuthenticationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#c6e19fa1 to nil")
+		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#3e1183db to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("phoneNumberAuthenticationSettings"); err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: %w", err)
 			}
 		case "allow_flash_call":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field allow_flash_call: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field allow_flash_call: %w", err)
 			}
 			p.AllowFlashCall = value
 		case "allow_missed_call":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field allow_missed_call: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field allow_missed_call: %w", err)
 			}
 			p.AllowMissedCall = value
 		case "is_current_phone_number":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field is_current_phone_number: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field is_current_phone_number: %w", err)
 			}
 			p.IsCurrentPhoneNumber = value
+		case "has_unknown_phone_number":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field has_unknown_phone_number: %w", err)
+			}
+			p.HasUnknownPhoneNumber = value
 		case "allow_sms_retriever_api":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field allow_sms_retriever_api: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field allow_sms_retriever_api: %w", err)
 			}
 			p.AllowSMSRetrieverAPI = value
 		case "firebase_authentication_settings":
 			value, err := DecodeTDLibJSONFirebaseAuthenticationSettings(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field firebase_authentication_settings: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field firebase_authentication_settings: %w", err)
 			}
 			p.FirebaseAuthenticationSettings = value
 		case "authentication_tokens":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
-					return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field authentication_tokens: %w", err)
+					return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field authentication_tokens: %w", err)
 				}
 				p.AuthenticationTokens = append(p.AuthenticationTokens, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#c6e19fa1: field authentication_tokens: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#3e1183db: field authentication_tokens: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -377,6 +404,14 @@ func (p *PhoneNumberAuthenticationSettings) GetIsCurrentPhoneNumber() (value boo
 		return
 	}
 	return p.IsCurrentPhoneNumber
+}
+
+// GetHasUnknownPhoneNumber returns value of HasUnknownPhoneNumber field.
+func (p *PhoneNumberAuthenticationSettings) GetHasUnknownPhoneNumber() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.HasUnknownPhoneNumber
 }
 
 // GetAllowSMSRetrieverAPI returns value of AllowSMSRetrieverAPI field.

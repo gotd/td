@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PollOption represents TL type `pollOption#57d9d5a5`.
+// PollOption represents TL type `pollOption#63e97090`.
 type PollOption struct {
-	// Option text; 1-100 characters
-	Text string
+	// Option text; 1-100 characters. Only custom emoji entities are allowed
+	Text FormattedText
 	// Number of voters for this option, available only for closed or voted polls
 	VoterCount int32
 	// The percentage of votes for this option; 0-100
@@ -46,7 +46,7 @@ type PollOption struct {
 }
 
 // PollOptionTypeID is TL type id of PollOption.
-const PollOptionTypeID = 0x57d9d5a5
+const PollOptionTypeID = 0x63e97090
 
 // Ensuring interfaces in compile-time for PollOption.
 var (
@@ -60,7 +60,7 @@ func (p *PollOption) Zero() bool {
 	if p == nil {
 		return true
 	}
-	if !(p.Text == "") {
+	if !(p.Text.Zero()) {
 		return false
 	}
 	if !(p.VoterCount == 0) {
@@ -138,7 +138,7 @@ func (p *PollOption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PollOption) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollOption#57d9d5a5 as nil")
+		return fmt.Errorf("can't encode pollOption#63e97090 as nil")
 	}
 	b.PutID(PollOptionTypeID)
 	return p.EncodeBare(b)
@@ -147,9 +147,11 @@ func (p *PollOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PollOption) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollOption#57d9d5a5 as nil")
+		return fmt.Errorf("can't encode pollOption#63e97090 as nil")
 	}
-	b.PutString(p.Text)
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pollOption#63e97090: field text: %w", err)
+	}
 	b.PutInt32(p.VoterCount)
 	b.PutInt32(p.VotePercentage)
 	b.PutBool(p.IsChosen)
@@ -160,10 +162,10 @@ func (p *PollOption) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PollOption) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollOption#57d9d5a5 to nil")
+		return fmt.Errorf("can't decode pollOption#63e97090 to nil")
 	}
 	if err := b.ConsumeID(PollOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollOption#57d9d5a5: %w", err)
+		return fmt.Errorf("unable to decode pollOption#63e97090: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -171,40 +173,38 @@ func (p *PollOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PollOption) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollOption#57d9d5a5 to nil")
+		return fmt.Errorf("can't decode pollOption#63e97090 to nil")
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pollOption#57d9d5a5: field text: %w", err)
+		if err := p.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pollOption#63e97090: field text: %w", err)
 		}
-		p.Text = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollOption#57d9d5a5: field voter_count: %w", err)
+			return fmt.Errorf("unable to decode pollOption#63e97090: field voter_count: %w", err)
 		}
 		p.VoterCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollOption#57d9d5a5: field vote_percentage: %w", err)
+			return fmt.Errorf("unable to decode pollOption#63e97090: field vote_percentage: %w", err)
 		}
 		p.VotePercentage = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollOption#57d9d5a5: field is_chosen: %w", err)
+			return fmt.Errorf("unable to decode pollOption#63e97090: field is_chosen: %w", err)
 		}
 		p.IsChosen = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollOption#57d9d5a5: field is_being_chosen: %w", err)
+			return fmt.Errorf("unable to decode pollOption#63e97090: field is_being_chosen: %w", err)
 		}
 		p.IsBeingChosen = value
 	}
@@ -214,13 +214,15 @@ func (p *PollOption) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PollOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollOption#57d9d5a5 as nil")
+		return fmt.Errorf("can't encode pollOption#63e97090 as nil")
 	}
 	b.ObjStart()
 	b.PutID("pollOption")
 	b.Comma()
 	b.FieldStart("text")
-	b.PutString(p.Text)
+	if err := p.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pollOption#63e97090: field text: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("voter_count")
 	b.PutInt32(p.VoterCount)
@@ -242,43 +244,41 @@ func (p *PollOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PollOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollOption#57d9d5a5 to nil")
+		return fmt.Errorf("can't decode pollOption#63e97090 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("pollOption"); err != nil {
-				return fmt.Errorf("unable to decode pollOption#57d9d5a5: %w", err)
+				return fmt.Errorf("unable to decode pollOption#63e97090: %w", err)
 			}
 		case "text":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field text: %w", err)
+			if err := p.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode pollOption#63e97090: field text: %w", err)
 			}
-			p.Text = value
 		case "voter_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field voter_count: %w", err)
+				return fmt.Errorf("unable to decode pollOption#63e97090: field voter_count: %w", err)
 			}
 			p.VoterCount = value
 		case "vote_percentage":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field vote_percentage: %w", err)
+				return fmt.Errorf("unable to decode pollOption#63e97090: field vote_percentage: %w", err)
 			}
 			p.VotePercentage = value
 		case "is_chosen":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field is_chosen: %w", err)
+				return fmt.Errorf("unable to decode pollOption#63e97090: field is_chosen: %w", err)
 			}
 			p.IsChosen = value
 		case "is_being_chosen":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field is_being_chosen: %w", err)
+				return fmt.Errorf("unable to decode pollOption#63e97090: field is_being_chosen: %w", err)
 			}
 			p.IsBeingChosen = value
 		default:
@@ -289,7 +289,7 @@ func (p *PollOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetText returns value of Text field.
-func (p *PollOption) GetText() (value string) {
+func (p *PollOption) GetText() (value FormattedText) {
 	if p == nil {
 		return
 	}

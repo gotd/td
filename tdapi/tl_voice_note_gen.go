@@ -37,7 +37,8 @@ type VoiceNote struct {
 	Duration int32
 	// A waveform representation of the voice note in 5-bit format
 	Waveform []byte
-	// MIME type of the file; as defined by the sender
+	// MIME type of the file; as defined by the sender. Usually, one of "audio/ogg" for Opus
+	// in an OGG container, "audio/mpeg" for an MP3 audio, or "audio/mp4" for an M4A audio
 	MimeType string
 	// Result of speech recognition in the voice note; may be null
 	SpeechRecognitionResult SpeechRecognitionResultClass

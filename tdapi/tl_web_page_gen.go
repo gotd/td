@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// WebPage represents TL type `webPage#dafbc3a4`.
+// WebPage represents TL type `webPage#23088efb`.
 type WebPage struct {
 	// Original URL of the link
 	URL string
@@ -89,12 +89,14 @@ type WebPage struct {
 	StorySenderChatID int64
 	// The identifier of the previewed story; 0 if none
 	StoryID int32
+	// Up to 4 stickers from the sticker set available via the link
+	Stickers []Sticker
 	// Version of web page instant view (currently, can be 1 or 2); 0 if none
 	InstantViewVersion int32
 }
 
 // WebPageTypeID is TL type id of WebPage.
-const WebPageTypeID = 0xdafbc3a4
+const WebPageTypeID = 0x23088efb
 
 // Ensuring interfaces in compile-time for WebPage.
 var (
@@ -184,6 +186,9 @@ func (w *WebPage) Zero() bool {
 		return false
 	}
 	if !(w.StoryID == 0) {
+		return false
+	}
+	if !(w.Stickers == nil) {
 		return false
 	}
 	if !(w.InstantViewVersion == 0) {
@@ -330,6 +335,10 @@ func (w *WebPage) TypeInfo() tdp.Type {
 			SchemaName: "story_id",
 		},
 		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+		},
+		{
 			Name:       "InstantViewVersion",
 			SchemaName: "instant_view_version",
 		},
@@ -340,7 +349,7 @@ func (w *WebPage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPage) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPage#dafbc3a4 as nil")
+		return fmt.Errorf("can't encode webPage#23088efb as nil")
 	}
 	b.PutID(WebPageTypeID)
 	return w.EncodeBare(b)
@@ -349,7 +358,7 @@ func (w *WebPage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPage#dafbc3a4 as nil")
+		return fmt.Errorf("can't encode webPage#23088efb as nil")
 	}
 	b.PutString(w.URL)
 	b.PutString(w.DisplayURL)
@@ -357,10 +366,10 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	b.PutString(w.SiteName)
 	b.PutString(w.Title)
 	if err := w.Description.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field description: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field description: %w", err)
 	}
 	if err := w.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field photo: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field photo: %w", err)
 	}
 	b.PutString(w.EmbedURL)
 	b.PutString(w.EmbedType)
@@ -373,28 +382,34 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(w.SkipConfirmation)
 	b.PutBool(w.ShowAboveText)
 	if err := w.Animation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field animation: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field animation: %w", err)
 	}
 	if err := w.Audio.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field audio: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field audio: %w", err)
 	}
 	if err := w.Document.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field document: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field document: %w", err)
 	}
 	if err := w.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field sticker: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field sticker: %w", err)
 	}
 	if err := w.Video.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field video: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field video: %w", err)
 	}
 	if err := w.VideoNote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field video_note: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field video_note: %w", err)
 	}
 	if err := w.VoiceNote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field voice_note: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field voice_note: %w", err)
 	}
 	b.PutInt53(w.StorySenderChatID)
 	b.PutInt32(w.StoryID)
+	b.PutInt(len(w.Stickers))
+	for idx, v := range w.Stickers {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare webPage#23088efb: field stickers element with index %d: %w", idx, err)
+		}
+	}
 	b.PutInt32(w.InstantViewVersion)
 	return nil
 }
@@ -402,10 +417,10 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (w *WebPage) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPage#dafbc3a4 to nil")
+		return fmt.Errorf("can't decode webPage#23088efb to nil")
 	}
 	if err := b.ConsumeID(WebPageTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPage#dafbc3a4: %w", err)
+		return fmt.Errorf("unable to decode webPage#23088efb: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -413,176 +428,193 @@ func (w *WebPage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPage#dafbc3a4 to nil")
+		return fmt.Errorf("can't decode webPage#23088efb to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field url: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field url: %w", err)
 		}
 		w.URL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field display_url: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field display_url: %w", err)
 		}
 		w.DisplayURL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field type: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field type: %w", err)
 		}
 		w.Type = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field site_name: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field site_name: %w", err)
 		}
 		w.SiteName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field title: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field title: %w", err)
 		}
 		w.Title = value
 	}
 	{
 		if err := w.Description.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field description: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field description: %w", err)
 		}
 	}
 	{
 		if err := w.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field photo: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field photo: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_url: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field embed_url: %w", err)
 		}
 		w.EmbedURL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_type: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field embed_type: %w", err)
 		}
 		w.EmbedType = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_width: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field embed_width: %w", err)
 		}
 		w.EmbedWidth = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_height: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field embed_height: %w", err)
 		}
 		w.EmbedHeight = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field duration: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field duration: %w", err)
 		}
 		w.Duration = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field author: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field author: %w", err)
 		}
 		w.Author = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field has_large_media: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field has_large_media: %w", err)
 		}
 		w.HasLargeMedia = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field show_large_media: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field show_large_media: %w", err)
 		}
 		w.ShowLargeMedia = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field skip_confirmation: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field skip_confirmation: %w", err)
 		}
 		w.SkipConfirmation = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field show_above_text: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field show_above_text: %w", err)
 		}
 		w.ShowAboveText = value
 	}
 	{
 		if err := w.Animation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field animation: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field animation: %w", err)
 		}
 	}
 	{
 		if err := w.Audio.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field audio: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field audio: %w", err)
 		}
 	}
 	{
 		if err := w.Document.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field document: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field document: %w", err)
 		}
 	}
 	{
 		if err := w.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field sticker: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field sticker: %w", err)
 		}
 	}
 	{
 		if err := w.Video.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field video: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field video: %w", err)
 		}
 	}
 	{
 		if err := w.VideoNote.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field video_note: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field video_note: %w", err)
 		}
 	}
 	{
 		if err := w.VoiceNote.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field voice_note: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field voice_note: %w", err)
 		}
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field story_sender_chat_id: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field story_sender_chat_id: %w", err)
 		}
 		w.StorySenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field story_id: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field story_id: %w", err)
 		}
 		w.StoryID = value
 	}
 	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPage#23088efb: field stickers: %w", err)
+		}
+
+		if headerLen > 0 {
+			w.Stickers = make([]Sticker, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value Sticker
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare webPage#23088efb: field stickers: %w", err)
+			}
+			w.Stickers = append(w.Stickers, value)
+		}
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPage#dafbc3a4: field instant_view_version: %w", err)
+			return fmt.Errorf("unable to decode webPage#23088efb: field instant_view_version: %w", err)
 		}
 		w.InstantViewVersion = value
 	}
@@ -592,7 +624,7 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (w *WebPage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPage#dafbc3a4 as nil")
+		return fmt.Errorf("can't encode webPage#23088efb as nil")
 	}
 	b.ObjStart()
 	b.PutID("webPage")
@@ -614,12 +646,12 @@ func (w *WebPage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("description")
 	if err := w.Description.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field description: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field description: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("photo")
 	if err := w.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field photo: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("embed_url")
@@ -654,37 +686,37 @@ func (w *WebPage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("animation")
 	if err := w.Animation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field animation: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("audio")
 	if err := w.Audio.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field audio: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field audio: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("document")
 	if err := w.Document.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field document: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field document: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := w.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field sticker: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field sticker: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("video")
 	if err := w.Video.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field video: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field video: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("video_note")
 	if err := w.VideoNote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field video_note: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field video_note: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("voice_note")
 	if err := w.VoiceNote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode webPage#dafbc3a4: field voice_note: %w", err)
+		return fmt.Errorf("unable to encode webPage#23088efb: field voice_note: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("story_sender_chat_id")
@@ -692,6 +724,17 @@ func (w *WebPage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("story_id")
 	b.PutInt32(w.StoryID)
+	b.Comma()
+	b.FieldStart("stickers")
+	b.ArrStart()
+	for idx, v := range w.Stickers {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode webPage#23088efb: field stickers element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
 	b.Comma()
 	b.FieldStart("instant_view_version")
 	b.PutInt32(w.InstantViewVersion)
@@ -704,157 +747,168 @@ func (w *WebPage) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (w *WebPage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPage#dafbc3a4 to nil")
+		return fmt.Errorf("can't decode webPage#23088efb to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("webPage"); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field url: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field url: %w", err)
 			}
 			w.URL = value
 		case "display_url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field display_url: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field display_url: %w", err)
 			}
 			w.DisplayURL = value
 		case "type":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field type: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field type: %w", err)
 			}
 			w.Type = value
 		case "site_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field site_name: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field site_name: %w", err)
 			}
 			w.SiteName = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field title: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field title: %w", err)
 			}
 			w.Title = value
 		case "description":
 			if err := w.Description.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field description: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field description: %w", err)
 			}
 		case "photo":
 			if err := w.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field photo: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field photo: %w", err)
 			}
 		case "embed_url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_url: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field embed_url: %w", err)
 			}
 			w.EmbedURL = value
 		case "embed_type":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_type: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field embed_type: %w", err)
 			}
 			w.EmbedType = value
 		case "embed_width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_width: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field embed_width: %w", err)
 			}
 			w.EmbedWidth = value
 		case "embed_height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field embed_height: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field embed_height: %w", err)
 			}
 			w.EmbedHeight = value
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field duration: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field duration: %w", err)
 			}
 			w.Duration = value
 		case "author":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field author: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field author: %w", err)
 			}
 			w.Author = value
 		case "has_large_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field has_large_media: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field has_large_media: %w", err)
 			}
 			w.HasLargeMedia = value
 		case "show_large_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field show_large_media: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field show_large_media: %w", err)
 			}
 			w.ShowLargeMedia = value
 		case "skip_confirmation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field skip_confirmation: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field skip_confirmation: %w", err)
 			}
 			w.SkipConfirmation = value
 		case "show_above_text":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field show_above_text: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field show_above_text: %w", err)
 			}
 			w.ShowAboveText = value
 		case "animation":
 			if err := w.Animation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field animation: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field animation: %w", err)
 			}
 		case "audio":
 			if err := w.Audio.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field audio: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field audio: %w", err)
 			}
 		case "document":
 			if err := w.Document.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field document: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field document: %w", err)
 			}
 		case "sticker":
 			if err := w.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field sticker: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field sticker: %w", err)
 			}
 		case "video":
 			if err := w.Video.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field video: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field video: %w", err)
 			}
 		case "video_note":
 			if err := w.VideoNote.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field video_note: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field video_note: %w", err)
 			}
 		case "voice_note":
 			if err := w.VoiceNote.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field voice_note: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field voice_note: %w", err)
 			}
 		case "story_sender_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field story_sender_chat_id: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field story_sender_chat_id: %w", err)
 			}
 			w.StorySenderChatID = value
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field story_id: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field story_id: %w", err)
 			}
 			w.StoryID = value
+		case "stickers":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value Sticker
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode webPage#23088efb: field stickers: %w", err)
+				}
+				w.Stickers = append(w.Stickers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode webPage#23088efb: field stickers: %w", err)
+			}
 		case "instant_view_version":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPage#dafbc3a4: field instant_view_version: %w", err)
+				return fmt.Errorf("unable to decode webPage#23088efb: field instant_view_version: %w", err)
 			}
 			w.InstantViewVersion = value
 		default:
@@ -1070,6 +1124,14 @@ func (w *WebPage) GetStoryID() (value int32) {
 		return
 	}
 	return w.StoryID
+}
+
+// GetStickers returns value of Stickers field.
+func (w *WebPage) GetStickers() (value []Sticker) {
+	if w == nil {
+		return
+	}
+	return w.Stickers
 }
 
 // GetInstantViewVersion returns value of InstantViewVersion field.

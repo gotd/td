@@ -434,7 +434,7 @@ func (b *BackgroundFillGradient) GetRotationAngle() (value int32) {
 
 // BackgroundFillFreeformGradient represents TL type `backgroundFillFreeformGradient#fa31756a`.
 type BackgroundFillFreeformGradient struct {
-	// A list of 3 or 4 colors of the freeform gradients in the RGB24 format
+	// A list of 3 or 4 colors of the freeform gradient in the RGB24 format
 	Colors []int32
 }
 

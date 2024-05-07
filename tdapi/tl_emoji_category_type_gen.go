@@ -162,6 +162,137 @@ func (e *EmojiCategoryTypeDefault) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// EmojiCategoryTypeRegularStickers represents TL type `emojiCategoryTypeRegularStickers#b04799d2`.
+type EmojiCategoryTypeRegularStickers struct {
+}
+
+// EmojiCategoryTypeRegularStickersTypeID is TL type id of EmojiCategoryTypeRegularStickers.
+const EmojiCategoryTypeRegularStickersTypeID = 0xb04799d2
+
+// construct implements constructor of EmojiCategoryTypeClass.
+func (e EmojiCategoryTypeRegularStickers) construct() EmojiCategoryTypeClass { return &e }
+
+// Ensuring interfaces in compile-time for EmojiCategoryTypeRegularStickers.
+var (
+	_ bin.Encoder     = &EmojiCategoryTypeRegularStickers{}
+	_ bin.Decoder     = &EmojiCategoryTypeRegularStickers{}
+	_ bin.BareEncoder = &EmojiCategoryTypeRegularStickers{}
+	_ bin.BareDecoder = &EmojiCategoryTypeRegularStickers{}
+
+	_ EmojiCategoryTypeClass = &EmojiCategoryTypeRegularStickers{}
+)
+
+func (e *EmojiCategoryTypeRegularStickers) Zero() bool {
+	if e == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (e *EmojiCategoryTypeRegularStickers) String() string {
+	if e == nil {
+		return "EmojiCategoryTypeRegularStickers(nil)"
+	}
+	type Alias EmojiCategoryTypeRegularStickers
+	return fmt.Sprintf("EmojiCategoryTypeRegularStickers%+v", Alias(*e))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*EmojiCategoryTypeRegularStickers) TypeID() uint32 {
+	return EmojiCategoryTypeRegularStickersTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*EmojiCategoryTypeRegularStickers) TypeName() string {
+	return "emojiCategoryTypeRegularStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EmojiCategoryTypeRegularStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "emojiCategoryTypeRegularStickers",
+		ID:   EmojiCategoryTypeRegularStickersTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (e *EmojiCategoryTypeRegularStickers) Encode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiCategoryTypeRegularStickers#b04799d2 as nil")
+	}
+	b.PutID(EmojiCategoryTypeRegularStickersTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EmojiCategoryTypeRegularStickers) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiCategoryTypeRegularStickers#b04799d2 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (e *EmojiCategoryTypeRegularStickers) Decode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiCategoryTypeRegularStickers#b04799d2 to nil")
+	}
+	if err := b.ConsumeID(EmojiCategoryTypeRegularStickersTypeID); err != nil {
+		return fmt.Errorf("unable to decode emojiCategoryTypeRegularStickers#b04799d2: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EmojiCategoryTypeRegularStickers) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiCategoryTypeRegularStickers#b04799d2 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (e *EmojiCategoryTypeRegularStickers) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiCategoryTypeRegularStickers#b04799d2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("emojiCategoryTypeRegularStickers")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (e *EmojiCategoryTypeRegularStickers) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiCategoryTypeRegularStickers#b04799d2 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("emojiCategoryTypeRegularStickers"); err != nil {
+				return fmt.Errorf("unable to decode emojiCategoryTypeRegularStickers#b04799d2: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // EmojiCategoryTypeEmojiStatus represents TL type `emojiCategoryTypeEmojiStatus#5254b347`.
 type EmojiCategoryTypeEmojiStatus struct {
 }
@@ -437,6 +568,7 @@ const EmojiCategoryTypeClassName = "EmojiCategoryType"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.EmojiCategoryTypeDefault: // emojiCategoryTypeDefault#46db626b
+//	case *tdapi.EmojiCategoryTypeRegularStickers: // emojiCategoryTypeRegularStickers#b04799d2
 //	case *tdapi.EmojiCategoryTypeEmojiStatus: // emojiCategoryTypeEmojiStatus#5254b347
 //	case *tdapi.EmojiCategoryTypeChatPhoto: // emojiCategoryTypeChatPhoto#3f200529
 //	default: panic(v)
@@ -477,6 +609,13 @@ func DecodeEmojiCategoryType(buf *bin.Buffer) (EmojiCategoryTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode EmojiCategoryTypeClass: %w", err)
 		}
 		return &v, nil
+	case EmojiCategoryTypeRegularStickersTypeID:
+		// Decoding emojiCategoryTypeRegularStickers#b04799d2.
+		v := EmojiCategoryTypeRegularStickers{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode EmojiCategoryTypeClass: %w", err)
+		}
+		return &v, nil
 	case EmojiCategoryTypeEmojiStatusTypeID:
 		// Decoding emojiCategoryTypeEmojiStatus#5254b347.
 		v := EmojiCategoryTypeEmojiStatus{}
@@ -506,6 +645,13 @@ func DecodeTDLibJSONEmojiCategoryType(buf tdjson.Decoder) (EmojiCategoryTypeClas
 	case "emojiCategoryTypeDefault":
 		// Decoding emojiCategoryTypeDefault#46db626b.
 		v := EmojiCategoryTypeDefault{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode EmojiCategoryTypeClass: %w", err)
+		}
+		return &v, nil
+	case "emojiCategoryTypeRegularStickers":
+		// Decoding emojiCategoryTypeRegularStickers#b04799d2.
+		v := EmojiCategoryTypeRegularStickers{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode EmojiCategoryTypeClass: %w", err)
 		}
