@@ -35,8 +35,9 @@ var (
 type DeleteAccountRequest struct {
 	// The reason why the account was deleted; optional
 	Reason string
-	// The 2-step verification password of the current user. If not specified, account
-	// deletion can be canceled within one week
+	// The 2-step verification password of the current user. If the current user isn't
+	// authorized, then an empty string can be passed and account deletion can be canceled
+	// within one week
 	Password string
 }
 

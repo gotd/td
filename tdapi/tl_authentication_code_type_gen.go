@@ -363,6 +363,338 @@ func (a *AuthenticationCodeTypeSMS) GetLength() (value int32) {
 	return a.Length
 }
 
+// AuthenticationCodeTypeSMSWord represents TL type `authenticationCodeTypeSmsWord#a6063c63`.
+type AuthenticationCodeTypeSMSWord struct {
+	// The first letters of the word if known
+	FirstLetter string
+}
+
+// AuthenticationCodeTypeSMSWordTypeID is TL type id of AuthenticationCodeTypeSMSWord.
+const AuthenticationCodeTypeSMSWordTypeID = 0xa6063c63
+
+// construct implements constructor of AuthenticationCodeTypeClass.
+func (a AuthenticationCodeTypeSMSWord) construct() AuthenticationCodeTypeClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthenticationCodeTypeSMSWord.
+var (
+	_ bin.Encoder     = &AuthenticationCodeTypeSMSWord{}
+	_ bin.Decoder     = &AuthenticationCodeTypeSMSWord{}
+	_ bin.BareEncoder = &AuthenticationCodeTypeSMSWord{}
+	_ bin.BareDecoder = &AuthenticationCodeTypeSMSWord{}
+
+	_ AuthenticationCodeTypeClass = &AuthenticationCodeTypeSMSWord{}
+)
+
+func (a *AuthenticationCodeTypeSMSWord) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.FirstLetter == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthenticationCodeTypeSMSWord) String() string {
+	if a == nil {
+		return "AuthenticationCodeTypeSMSWord(nil)"
+	}
+	type Alias AuthenticationCodeTypeSMSWord
+	return fmt.Sprintf("AuthenticationCodeTypeSMSWord%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthenticationCodeTypeSMSWord) TypeID() uint32 {
+	return AuthenticationCodeTypeSMSWordTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthenticationCodeTypeSMSWord) TypeName() string {
+	return "authenticationCodeTypeSmsWord"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthenticationCodeTypeSMSWord) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authenticationCodeTypeSmsWord",
+		ID:   AuthenticationCodeTypeSMSWordTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FirstLetter",
+			SchemaName: "first_letter",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthenticationCodeTypeSMSWord) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSmsWord#a6063c63 as nil")
+	}
+	b.PutID(AuthenticationCodeTypeSMSWordTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthenticationCodeTypeSMSWord) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSmsWord#a6063c63 as nil")
+	}
+	b.PutString(a.FirstLetter)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthenticationCodeTypeSMSWord) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSmsWord#a6063c63 to nil")
+	}
+	if err := b.ConsumeID(AuthenticationCodeTypeSMSWordTypeID); err != nil {
+		return fmt.Errorf("unable to decode authenticationCodeTypeSmsWord#a6063c63: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthenticationCodeTypeSMSWord) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSmsWord#a6063c63 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeSmsWord#a6063c63: field first_letter: %w", err)
+		}
+		a.FirstLetter = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthenticationCodeTypeSMSWord) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSmsWord#a6063c63 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeSmsWord")
+	b.Comma()
+	b.FieldStart("first_letter")
+	b.PutString(a.FirstLetter)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthenticationCodeTypeSMSWord) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSmsWord#a6063c63 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeSmsWord"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeSmsWord#a6063c63: %w", err)
+			}
+		case "first_letter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeSmsWord#a6063c63: field first_letter: %w", err)
+			}
+			a.FirstLetter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetFirstLetter returns value of FirstLetter field.
+func (a *AuthenticationCodeTypeSMSWord) GetFirstLetter() (value string) {
+	if a == nil {
+		return
+	}
+	return a.FirstLetter
+}
+
+// AuthenticationCodeTypeSMSPhrase represents TL type `authenticationCodeTypeSmsPhrase#2ebc8cd1`.
+type AuthenticationCodeTypeSMSPhrase struct {
+	// The first word of the phrase if known
+	FirstWord string
+}
+
+// AuthenticationCodeTypeSMSPhraseTypeID is TL type id of AuthenticationCodeTypeSMSPhrase.
+const AuthenticationCodeTypeSMSPhraseTypeID = 0x2ebc8cd1
+
+// construct implements constructor of AuthenticationCodeTypeClass.
+func (a AuthenticationCodeTypeSMSPhrase) construct() AuthenticationCodeTypeClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthenticationCodeTypeSMSPhrase.
+var (
+	_ bin.Encoder     = &AuthenticationCodeTypeSMSPhrase{}
+	_ bin.Decoder     = &AuthenticationCodeTypeSMSPhrase{}
+	_ bin.BareEncoder = &AuthenticationCodeTypeSMSPhrase{}
+	_ bin.BareDecoder = &AuthenticationCodeTypeSMSPhrase{}
+
+	_ AuthenticationCodeTypeClass = &AuthenticationCodeTypeSMSPhrase{}
+)
+
+func (a *AuthenticationCodeTypeSMSPhrase) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.FirstWord == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthenticationCodeTypeSMSPhrase) String() string {
+	if a == nil {
+		return "AuthenticationCodeTypeSMSPhrase(nil)"
+	}
+	type Alias AuthenticationCodeTypeSMSPhrase
+	return fmt.Sprintf("AuthenticationCodeTypeSMSPhrase%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthenticationCodeTypeSMSPhrase) TypeID() uint32 {
+	return AuthenticationCodeTypeSMSPhraseTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthenticationCodeTypeSMSPhrase) TypeName() string {
+	return "authenticationCodeTypeSmsPhrase"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthenticationCodeTypeSMSPhrase) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authenticationCodeTypeSmsPhrase",
+		ID:   AuthenticationCodeTypeSMSPhraseTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FirstWord",
+			SchemaName: "first_word",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthenticationCodeTypeSMSPhrase) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSmsPhrase#2ebc8cd1 as nil")
+	}
+	b.PutID(AuthenticationCodeTypeSMSPhraseTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthenticationCodeTypeSMSPhrase) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSmsPhrase#2ebc8cd1 as nil")
+	}
+	b.PutString(a.FirstWord)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthenticationCodeTypeSMSPhrase) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSmsPhrase#2ebc8cd1 to nil")
+	}
+	if err := b.ConsumeID(AuthenticationCodeTypeSMSPhraseTypeID); err != nil {
+		return fmt.Errorf("unable to decode authenticationCodeTypeSmsPhrase#2ebc8cd1: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthenticationCodeTypeSMSPhrase) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSmsPhrase#2ebc8cd1 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeSmsPhrase#2ebc8cd1: field first_word: %w", err)
+		}
+		a.FirstWord = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthenticationCodeTypeSMSPhrase) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSmsPhrase#2ebc8cd1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeSmsPhrase")
+	b.Comma()
+	b.FieldStart("first_word")
+	b.PutString(a.FirstWord)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthenticationCodeTypeSMSPhrase) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSmsPhrase#2ebc8cd1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeSmsPhrase"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeSmsPhrase#2ebc8cd1: %w", err)
+			}
+		case "first_word":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeSmsPhrase#2ebc8cd1: field first_word: %w", err)
+			}
+			a.FirstWord = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetFirstWord returns value of FirstWord field.
+func (a *AuthenticationCodeTypeSMSPhrase) GetFirstWord() (value string) {
+	if a == nil {
+		return
+	}
+	return a.FirstWord
+}
+
 // AuthenticationCodeTypeCall represents TL type `authenticationCodeTypeCall#61876c67`.
 type AuthenticationCodeTypeCall struct {
 	// Length of the code
@@ -1545,6 +1877,8 @@ const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 //	switch v := g.(type) {
 //	case *tdapi.AuthenticationCodeTypeTelegramMessage: // authenticationCodeTypeTelegramMessage#7bf49b2a
 //	case *tdapi.AuthenticationCodeTypeSMS: // authenticationCodeTypeSms#3960e288
+//	case *tdapi.AuthenticationCodeTypeSMSWord: // authenticationCodeTypeSmsWord#a6063c63
+//	case *tdapi.AuthenticationCodeTypeSMSPhrase: // authenticationCodeTypeSmsPhrase#2ebc8cd1
 //	case *tdapi.AuthenticationCodeTypeCall: // authenticationCodeTypeCall#61876c67
 //	case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
 //	case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
@@ -1592,6 +1926,20 @@ func DecodeAuthenticationCodeType(buf *bin.Buffer) (AuthenticationCodeTypeClass,
 	case AuthenticationCodeTypeSMSTypeID:
 		// Decoding authenticationCodeTypeSms#3960e288.
 		v := AuthenticationCodeTypeSMS{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthenticationCodeTypeSMSWordTypeID:
+		// Decoding authenticationCodeTypeSmsWord#a6063c63.
+		v := AuthenticationCodeTypeSMSWord{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthenticationCodeTypeSMSPhraseTypeID:
+		// Decoding authenticationCodeTypeSmsPhrase#2ebc8cd1.
+		v := AuthenticationCodeTypeSMSPhrase{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}
@@ -1660,6 +2008,20 @@ func DecodeTDLibJSONAuthenticationCodeType(buf tdjson.Decoder) (AuthenticationCo
 	case "authenticationCodeTypeSms":
 		// Decoding authenticationCodeTypeSms#3960e288.
 		v := AuthenticationCodeTypeSMS{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeSmsWord":
+		// Decoding authenticationCodeTypeSmsWord#a6063c63.
+		v := AuthenticationCodeTypeSMSWord{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeSmsPhrase":
+		// Decoding authenticationCodeTypeSmsPhrase#2ebc8cd1.
+		v := AuthenticationCodeTypeSMSPhrase{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}

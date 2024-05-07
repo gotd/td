@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SponsoredMessage represents TL type `sponsoredMessage#3748e46f`.
+// SponsoredMessage represents TL type `sponsoredMessage#b78d4c25`.
 type SponsoredMessage struct {
 	// Message identifier; unique for the chat to which the sponsored message belongs among
 	// both ordinary and sponsored messages
@@ -45,15 +45,21 @@ type SponsoredMessage struct {
 	Content MessageContentClass
 	// Information about the sponsor of the message
 	Sponsor MessageSponsor
-	// If non-empty, text for the message action button
+	// Title of the sponsored message
+	Title string
+	// Text for the message action button
 	ButtonText string
+	// Identifier of the accent color for title, button text and message background
+	AccentColorID int32
+	// Identifier of a custom emoji to be shown on the message background; 0 if none
+	BackgroundCustomEmojiID int64
 	// If non-empty, additional information about the sponsored message to be shown along
 	// with the message
 	AdditionalInfo string
 }
 
 // SponsoredMessageTypeID is TL type id of SponsoredMessage.
-const SponsoredMessageTypeID = 0x3748e46f
+const SponsoredMessageTypeID = 0xb78d4c25
 
 // Ensuring interfaces in compile-time for SponsoredMessage.
 var (
@@ -82,7 +88,16 @@ func (s *SponsoredMessage) Zero() bool {
 	if !(s.Sponsor.Zero()) {
 		return false
 	}
+	if !(s.Title == "") {
+		return false
+	}
 	if !(s.ButtonText == "") {
+		return false
+	}
+	if !(s.AccentColorID == 0) {
+		return false
+	}
+	if !(s.BackgroundCustomEmojiID == 0) {
 		return false
 	}
 	if !(s.AdditionalInfo == "") {
@@ -145,8 +160,20 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 			SchemaName: "sponsor",
 		},
 		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
 			Name:       "ButtonText",
 			SchemaName: "button_text",
+		},
+		{
+			Name:       "AccentColorID",
+			SchemaName: "accent_color_id",
+		},
+		{
+			Name:       "BackgroundCustomEmojiID",
+			SchemaName: "background_custom_emoji_id",
 		},
 		{
 			Name:       "AdditionalInfo",
@@ -159,7 +186,7 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#3748e46f as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#b78d4c25 as nil")
 	}
 	b.PutID(SponsoredMessageTypeID)
 	return s.EncodeBare(b)
@@ -168,21 +195,24 @@ func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#3748e46f as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#b78d4c25 as nil")
 	}
 	b.PutInt53(s.MessageID)
 	b.PutBool(s.IsRecommended)
 	b.PutBool(s.CanBeReported)
 	if s.Content == nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3748e46f: field content is nil")
+		return fmt.Errorf("unable to encode sponsoredMessage#b78d4c25: field content is nil")
 	}
 	if err := s.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3748e46f: field content: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#b78d4c25: field content: %w", err)
 	}
 	if err := s.Sponsor.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3748e46f: field sponsor: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#b78d4c25: field sponsor: %w", err)
 	}
+	b.PutString(s.Title)
 	b.PutString(s.ButtonText)
+	b.PutInt32(s.AccentColorID)
+	b.PutLong(s.BackgroundCustomEmojiID)
 	b.PutString(s.AdditionalInfo)
 	return nil
 }
@@ -190,10 +220,10 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SponsoredMessage) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#3748e46f to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#b78d4c25 to nil")
 	}
 	if err := b.ConsumeID(SponsoredMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: %w", err)
+		return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -201,52 +231,73 @@ func (s *SponsoredMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#3748e46f to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#b78d4c25 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field message_id: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field message_id: %w", err)
 		}
 		s.MessageID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field is_recommended: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field is_recommended: %w", err)
 		}
 		s.IsRecommended = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field can_be_reported: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field can_be_reported: %w", err)
 		}
 		s.CanBeReported = value
 	}
 	{
 		value, err := DecodeMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field content: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field content: %w", err)
 		}
 		s.Content = value
 	}
 	{
 		if err := s.Sponsor.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field sponsor: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field sponsor: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field button_text: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field title: %w", err)
+		}
+		s.Title = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field button_text: %w", err)
 		}
 		s.ButtonText = value
 	}
 	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field accent_color_id: %w", err)
+		}
+		s.AccentColorID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field background_custom_emoji_id: %w", err)
+		}
+		s.BackgroundCustomEmojiID = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field additional_info: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field additional_info: %w", err)
 		}
 		s.AdditionalInfo = value
 	}
@@ -256,7 +307,7 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#3748e46f as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#b78d4c25 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sponsoredMessage")
@@ -272,19 +323,28 @@ func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("content")
 	if s.Content == nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3748e46f: field content is nil")
+		return fmt.Errorf("unable to encode sponsoredMessage#b78d4c25: field content is nil")
 	}
 	if err := s.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3748e46f: field content: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#b78d4c25: field content: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("sponsor")
 	if err := s.Sponsor.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3748e46f: field sponsor: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#b78d4c25: field sponsor: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("title")
+	b.PutString(s.Title)
 	b.Comma()
 	b.FieldStart("button_text")
 	b.PutString(s.ButtonText)
+	b.Comma()
+	b.FieldStart("accent_color_id")
+	b.PutInt32(s.AccentColorID)
+	b.Comma()
+	b.FieldStart("background_custom_emoji_id")
+	b.PutLong(s.BackgroundCustomEmojiID)
 	b.Comma()
 	b.FieldStart("additional_info")
 	b.PutString(s.AdditionalInfo)
@@ -297,53 +357,71 @@ func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SponsoredMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#3748e46f to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#b78d4c25 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sponsoredMessage"); err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: %w", err)
 			}
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field message_id: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field message_id: %w", err)
 			}
 			s.MessageID = value
 		case "is_recommended":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field is_recommended: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field is_recommended: %w", err)
 			}
 			s.IsRecommended = value
 		case "can_be_reported":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field can_be_reported: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field can_be_reported: %w", err)
 			}
 			s.CanBeReported = value
 		case "content":
 			value, err := DecodeTDLibJSONMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field content: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field content: %w", err)
 			}
 			s.Content = value
 		case "sponsor":
 			if err := s.Sponsor.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field sponsor: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field sponsor: %w", err)
 			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field title: %w", err)
+			}
+			s.Title = value
 		case "button_text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field button_text: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field button_text: %w", err)
 			}
 			s.ButtonText = value
+		case "accent_color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field accent_color_id: %w", err)
+			}
+			s.AccentColorID = value
+		case "background_custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field background_custom_emoji_id: %w", err)
+			}
+			s.BackgroundCustomEmojiID = value
 		case "additional_info":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3748e46f: field additional_info: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#b78d4c25: field additional_info: %w", err)
 			}
 			s.AdditionalInfo = value
 		default:
@@ -393,12 +471,36 @@ func (s *SponsoredMessage) GetSponsor() (value MessageSponsor) {
 	return s.Sponsor
 }
 
+// GetTitle returns value of Title field.
+func (s *SponsoredMessage) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
+	return s.Title
+}
+
 // GetButtonText returns value of ButtonText field.
 func (s *SponsoredMessage) GetButtonText() (value string) {
 	if s == nil {
 		return
 	}
 	return s.ButtonText
+}
+
+// GetAccentColorID returns value of AccentColorID field.
+func (s *SponsoredMessage) GetAccentColorID() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.AccentColorID
+}
+
+// GetBackgroundCustomEmojiID returns value of BackgroundCustomEmojiID field.
+func (s *SponsoredMessage) GetBackgroundCustomEmojiID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.BackgroundCustomEmojiID
 }
 
 // GetAdditionalInfo returns value of AdditionalInfo field.

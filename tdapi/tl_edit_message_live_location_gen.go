@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditMessageLiveLocationRequest represents TL type `editMessageLiveLocation#ff29a512`.
+// EditMessageLiveLocationRequest represents TL type `editMessageLiveLocation#8f511394`.
 type EditMessageLiveLocationRequest struct {
 	// The chat the message belongs to
 	ChatID int64
@@ -41,6 +41,9 @@ type EditMessageLiveLocationRequest struct {
 	ReplyMarkup ReplyMarkupClass
 	// New location content of the message; pass null to stop sharing the live location
 	Location Location
+	// New time relative to the message send date, for which the location can be updated, in
+	// seconds. If 0x7FFFFFFF specified, then the location can be updated forever.
+	LivePeriod int32
 	// The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown
 	Heading int32
 	// The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the
@@ -49,7 +52,7 @@ type EditMessageLiveLocationRequest struct {
 }
 
 // EditMessageLiveLocationRequestTypeID is TL type id of EditMessageLiveLocationRequest.
-const EditMessageLiveLocationRequestTypeID = 0xff29a512
+const EditMessageLiveLocationRequestTypeID = 0x8f511394
 
 // Ensuring interfaces in compile-time for EditMessageLiveLocationRequest.
 var (
@@ -73,6 +76,9 @@ func (e *EditMessageLiveLocationRequest) Zero() bool {
 		return false
 	}
 	if !(e.Location.Zero()) {
+		return false
+	}
+	if !(e.LivePeriod == 0) {
 		return false
 	}
 	if !(e.Heading == 0) {
@@ -134,6 +140,10 @@ func (e *EditMessageLiveLocationRequest) TypeInfo() tdp.Type {
 			SchemaName: "location",
 		},
 		{
+			Name:       "LivePeriod",
+			SchemaName: "live_period",
+		},
+		{
 			Name:       "Heading",
 			SchemaName: "heading",
 		},
@@ -148,7 +158,7 @@ func (e *EditMessageLiveLocationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditMessageLiveLocationRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editMessageLiveLocation#ff29a512 as nil")
+		return fmt.Errorf("can't encode editMessageLiveLocation#8f511394 as nil")
 	}
 	b.PutID(EditMessageLiveLocationRequestTypeID)
 	return e.EncodeBare(b)
@@ -157,19 +167,20 @@ func (e *EditMessageLiveLocationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditMessageLiveLocationRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editMessageLiveLocation#ff29a512 as nil")
+		return fmt.Errorf("can't encode editMessageLiveLocation#8f511394 as nil")
 	}
 	b.PutInt53(e.ChatID)
 	b.PutInt53(e.MessageID)
 	if e.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup is nil")
+		return fmt.Errorf("unable to encode editMessageLiveLocation#8f511394: field reply_markup is nil")
 	}
 	if err := e.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode editMessageLiveLocation#8f511394: field reply_markup: %w", err)
 	}
 	if err := e.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field location: %w", err)
+		return fmt.Errorf("unable to encode editMessageLiveLocation#8f511394: field location: %w", err)
 	}
+	b.PutInt32(e.LivePeriod)
 	b.PutInt32(e.Heading)
 	b.PutInt32(e.ProximityAlertRadius)
 	return nil
@@ -178,10 +189,10 @@ func (e *EditMessageLiveLocationRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EditMessageLiveLocationRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editMessageLiveLocation#ff29a512 to nil")
+		return fmt.Errorf("can't decode editMessageLiveLocation#8f511394 to nil")
 	}
 	if err := b.ConsumeID(EditMessageLiveLocationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: %w", err)
+		return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -189,45 +200,52 @@ func (e *EditMessageLiveLocationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editMessageLiveLocation#ff29a512 to nil")
+		return fmt.Errorf("can't decode editMessageLiveLocation#8f511394 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field message_id: %w", err)
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field message_id: %w", err)
 		}
 		e.MessageID = value
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field reply_markup: %w", err)
 		}
 		e.ReplyMarkup = value
 	}
 	{
 		if err := e.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field location: %w", err)
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field location: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field heading: %w", err)
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field live_period: %w", err)
+		}
+		e.LivePeriod = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field heading: %w", err)
 		}
 		e.Heading = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field proximity_alert_radius: %w", err)
+			return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field proximity_alert_radius: %w", err)
 		}
 		e.ProximityAlertRadius = value
 	}
@@ -237,7 +255,7 @@ func (e *EditMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editMessageLiveLocation#ff29a512 as nil")
+		return fmt.Errorf("can't encode editMessageLiveLocation#8f511394 as nil")
 	}
 	b.ObjStart()
 	b.PutID("editMessageLiveLocation")
@@ -250,16 +268,19 @@ func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup is nil")
+		return fmt.Errorf("unable to encode editMessageLiveLocation#8f511394: field reply_markup is nil")
 	}
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode editMessageLiveLocation#8f511394: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("location")
 	if err := e.Location.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field location: %w", err)
+		return fmt.Errorf("unable to encode editMessageLiveLocation#8f511394: field location: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("live_period")
+	b.PutInt32(e.LivePeriod)
 	b.Comma()
 	b.FieldStart("heading")
 	b.PutInt32(e.Heading)
@@ -275,47 +296,53 @@ func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditMessageLiveLocationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editMessageLiveLocation#ff29a512 to nil")
+		return fmt.Errorf("can't decode editMessageLiveLocation#8f511394 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editMessageLiveLocation"); err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field message_id: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field message_id: %w", err)
 			}
 			e.MessageID = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field reply_markup: %w", err)
 			}
 			e.ReplyMarkup = value
 		case "location":
 			if err := e.Location.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field location: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field location: %w", err)
 			}
+		case "live_period":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field live_period: %w", err)
+			}
+			e.LivePeriod = value
 		case "heading":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field heading: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field heading: %w", err)
 			}
 			e.Heading = value
 		case "proximity_alert_radius":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field proximity_alert_radius: %w", err)
+				return fmt.Errorf("unable to decode editMessageLiveLocation#8f511394: field proximity_alert_radius: %w", err)
 			}
 			e.ProximityAlertRadius = value
 		default:
@@ -357,6 +384,14 @@ func (e *EditMessageLiveLocationRequest) GetLocation() (value Location) {
 	return e.Location
 }
 
+// GetLivePeriod returns value of LivePeriod field.
+func (e *EditMessageLiveLocationRequest) GetLivePeriod() (value int32) {
+	if e == nil {
+		return
+	}
+	return e.LivePeriod
+}
+
 // GetHeading returns value of Heading field.
 func (e *EditMessageLiveLocationRequest) GetHeading() (value int32) {
 	if e == nil {
@@ -373,7 +408,7 @@ func (e *EditMessageLiveLocationRequest) GetProximityAlertRadius() (value int32)
 	return e.ProximityAlertRadius
 }
 
-// EditMessageLiveLocation invokes method editMessageLiveLocation#ff29a512 returning error if any.
+// EditMessageLiveLocation invokes method editMessageLiveLocation#8f511394 returning error if any.
 func (c *Client) EditMessageLiveLocation(ctx context.Context, request *EditMessageLiveLocationRequest) (*Message, error) {
 	var result Message
 

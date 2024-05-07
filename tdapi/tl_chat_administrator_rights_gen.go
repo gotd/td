@@ -66,8 +66,9 @@ type ChatAdministratorRights struct {
 	// True, if the administrator can create new chat stories, or edit and delete posted
 	// stories; applicable to supergroups and channels only
 	CanPostStories bool
-	// True, if the administrator can edit stories posted by other users, pin stories and
-	// access story archive; applicable to supergroups and channels only
+	// True, if the administrator can edit stories posted by other users, post stories to the
+	// chat page, pin chat stories, and access story archive; applicable to supergroups and
+	// channels only
 	CanEditStories bool
 	// True, if the administrator can delete stories posted by other users; applicable to
 	// supergroups and channels only

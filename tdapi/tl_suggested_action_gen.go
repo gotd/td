@@ -1543,6 +1543,172 @@ func (s *SuggestedActionSetBirthdate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// SuggestedActionExtendPremium represents TL type `suggestedActionExtendPremium#de405cca`.
+type SuggestedActionExtendPremium struct {
+	// A URL for managing Telegram Premium subscription
+	ManagePremiumSubscriptionURL string
+}
+
+// SuggestedActionExtendPremiumTypeID is TL type id of SuggestedActionExtendPremium.
+const SuggestedActionExtendPremiumTypeID = 0xde405cca
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionExtendPremium) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionExtendPremium.
+var (
+	_ bin.Encoder     = &SuggestedActionExtendPremium{}
+	_ bin.Decoder     = &SuggestedActionExtendPremium{}
+	_ bin.BareEncoder = &SuggestedActionExtendPremium{}
+	_ bin.BareDecoder = &SuggestedActionExtendPremium{}
+
+	_ SuggestedActionClass = &SuggestedActionExtendPremium{}
+)
+
+func (s *SuggestedActionExtendPremium) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.ManagePremiumSubscriptionURL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionExtendPremium) String() string {
+	if s == nil {
+		return "SuggestedActionExtendPremium(nil)"
+	}
+	type Alias SuggestedActionExtendPremium
+	return fmt.Sprintf("SuggestedActionExtendPremium%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionExtendPremium) TypeID() uint32 {
+	return SuggestedActionExtendPremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionExtendPremium) TypeName() string {
+	return "suggestedActionExtendPremium"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionExtendPremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionExtendPremium",
+		ID:   SuggestedActionExtendPremiumTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ManagePremiumSubscriptionURL",
+			SchemaName: "manage_premium_subscription_url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionExtendPremium) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionExtendPremium#de405cca as nil")
+	}
+	b.PutID(SuggestedActionExtendPremiumTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionExtendPremium) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionExtendPremium#de405cca as nil")
+	}
+	b.PutString(s.ManagePremiumSubscriptionURL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionExtendPremium) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionExtendPremium#de405cca to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionExtendPremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionExtendPremium#de405cca: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionExtendPremium) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionExtendPremium#de405cca to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode suggestedActionExtendPremium#de405cca: field manage_premium_subscription_url: %w", err)
+		}
+		s.ManagePremiumSubscriptionURL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionExtendPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionExtendPremium#de405cca as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionExtendPremium")
+	b.Comma()
+	b.FieldStart("manage_premium_subscription_url")
+	b.PutString(s.ManagePremiumSubscriptionURL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionExtendPremium) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionExtendPremium#de405cca to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionExtendPremium"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionExtendPremium#de405cca: %w", err)
+			}
+		case "manage_premium_subscription_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode suggestedActionExtendPremium#de405cca: field manage_premium_subscription_url: %w", err)
+			}
+			s.ManagePremiumSubscriptionURL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetManagePremiumSubscriptionURL returns value of ManagePremiumSubscriptionURL field.
+func (s *SuggestedActionExtendPremium) GetManagePremiumSubscriptionURL() (value string) {
+	if s == nil {
+		return
+	}
+	return s.ManagePremiumSubscriptionURL
+}
+
 // SuggestedActionClassName is schema name of SuggestedActionClass.
 const SuggestedActionClassName = "SuggestedAction"
 
@@ -1566,6 +1732,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionSubscribeToAnnualPremium: // suggestedActionSubscribeToAnnualPremium#164978bb
 //	case *tdapi.SuggestedActionGiftPremiumForChristmas: // suggestedActionGiftPremiumForChristmas#93b3ee6f
 //	case *tdapi.SuggestedActionSetBirthdate: // suggestedActionSetBirthdate#eabd9b02
+//	case *tdapi.SuggestedActionExtendPremium: // suggestedActionExtendPremium#de405cca
 //	default: panic(v)
 //	}
 type SuggestedActionClass interface {
@@ -1674,6 +1841,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionExtendPremiumTypeID:
+		// Decoding suggestedActionExtendPremium#de405cca.
+		v := SuggestedActionExtendPremium{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1759,6 +1933,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionSetBirthdate":
 		// Decoding suggestedActionSetBirthdate#eabd9b02.
 		v := SuggestedActionSetBirthdate{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionExtendPremium":
+		// Decoding suggestedActionExtendPremium#de405cca.
+		v := SuggestedActionExtendPremium{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

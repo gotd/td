@@ -31,16 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Stories represents TL type `stories#5a860711`.
+// Stories represents TL type `stories#b88ff8ff`.
 type Stories struct {
 	// Approximate total number of stories found
 	TotalCount int32
 	// The list of stories
 	Stories []Story
+	// Identifiers of the pinned stories; returned only in getChatPostedToChatPageStories
+	// with from_story_id == 0
+	PinnedStoryIDs []int32
 }
 
 // StoriesTypeID is TL type id of Stories.
-const StoriesTypeID = 0x5a860711
+const StoriesTypeID = 0xb88ff8ff
 
 // Ensuring interfaces in compile-time for Stories.
 var (
@@ -58,6 +61,9 @@ func (s *Stories) Zero() bool {
 		return false
 	}
 	if !(s.Stories == nil) {
+		return false
+	}
+	if !(s.PinnedStoryIDs == nil) {
 		return false
 	}
 
@@ -104,6 +110,10 @@ func (s *Stories) TypeInfo() tdp.Type {
 			Name:       "Stories",
 			SchemaName: "stories",
 		},
+		{
+			Name:       "PinnedStoryIDs",
+			SchemaName: "pinned_story_ids",
+		},
 	}
 	return typ
 }
@@ -111,7 +121,7 @@ func (s *Stories) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Stories) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories#5a860711 as nil")
+		return fmt.Errorf("can't encode stories#b88ff8ff as nil")
 	}
 	b.PutID(StoriesTypeID)
 	return s.EncodeBare(b)
@@ -120,14 +130,18 @@ func (s *Stories) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Stories) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories#5a860711 as nil")
+		return fmt.Errorf("can't encode stories#b88ff8ff as nil")
 	}
 	b.PutInt32(s.TotalCount)
 	b.PutInt(len(s.Stories))
 	for idx, v := range s.Stories {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare stories#5a860711: field stories element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare stories#b88ff8ff: field stories element with index %d: %w", idx, err)
 		}
+	}
+	b.PutInt(len(s.PinnedStoryIDs))
+	for _, v := range s.PinnedStoryIDs {
+		b.PutInt32(v)
 	}
 	return nil
 }
@@ -135,10 +149,10 @@ func (s *Stories) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *Stories) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories#5a860711 to nil")
+		return fmt.Errorf("can't decode stories#b88ff8ff to nil")
 	}
 	if err := b.ConsumeID(StoriesTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories#5a860711: %w", err)
+		return fmt.Errorf("unable to decode stories#b88ff8ff: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -146,19 +160,19 @@ func (s *Stories) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Stories) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories#5a860711 to nil")
+		return fmt.Errorf("can't decode stories#b88ff8ff to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories#5a860711: field total_count: %w", err)
+			return fmt.Errorf("unable to decode stories#b88ff8ff: field total_count: %w", err)
 		}
 		s.TotalCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories#5a860711: field stories: %w", err)
+			return fmt.Errorf("unable to decode stories#b88ff8ff: field stories: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -167,9 +181,26 @@ func (s *Stories) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Story
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare stories#5a860711: field stories: %w", err)
+				return fmt.Errorf("unable to decode bare stories#b88ff8ff: field stories: %w", err)
 			}
 			s.Stories = append(s.Stories, value)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories#b88ff8ff: field pinned_story_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.PinnedStoryIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode stories#b88ff8ff: field pinned_story_ids: %w", err)
+			}
+			s.PinnedStoryIDs = append(s.PinnedStoryIDs, value)
 		}
 	}
 	return nil
@@ -178,7 +209,7 @@ func (s *Stories) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Stories) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories#5a860711 as nil")
+		return fmt.Errorf("can't encode stories#b88ff8ff as nil")
 	}
 	b.ObjStart()
 	b.PutID("stories")
@@ -190,8 +221,17 @@ func (s *Stories) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range s.Stories {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode stories#5a860711: field stories element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories#b88ff8ff: field stories element with index %d: %w", idx, err)
 		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("pinned_story_ids")
+	b.ArrStart()
+	for _, v := range s.PinnedStoryIDs {
+		b.PutInt32(v)
 		b.Comma()
 	}
 	b.StripComma()
@@ -205,31 +245,42 @@ func (s *Stories) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Stories) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories#5a860711 to nil")
+		return fmt.Errorf("can't decode stories#b88ff8ff to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("stories"); err != nil {
-				return fmt.Errorf("unable to decode stories#5a860711: %w", err)
+				return fmt.Errorf("unable to decode stories#b88ff8ff: %w", err)
 			}
 		case "total_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode stories#5a860711: field total_count: %w", err)
+				return fmt.Errorf("unable to decode stories#b88ff8ff: field total_count: %w", err)
 			}
 			s.TotalCount = value
 		case "stories":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Story
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode stories#5a860711: field stories: %w", err)
+					return fmt.Errorf("unable to decode stories#b88ff8ff: field stories: %w", err)
 				}
 				s.Stories = append(s.Stories, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode stories#5a860711: field stories: %w", err)
+				return fmt.Errorf("unable to decode stories#b88ff8ff: field stories: %w", err)
+			}
+		case "pinned_story_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode stories#b88ff8ff: field pinned_story_ids: %w", err)
+				}
+				s.PinnedStoryIDs = append(s.PinnedStoryIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode stories#b88ff8ff: field pinned_story_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -252,4 +303,12 @@ func (s *Stories) GetStories() (value []Story) {
 		return
 	}
 	return s.Stories
+}
+
+// GetPinnedStoryIDs returns value of PinnedStoryIDs field.
+func (s *Stories) GetPinnedStoryIDs() (value []int32) {
+	if s == nil {
+		return
+	}
+	return s.PinnedStoryIDs
 }

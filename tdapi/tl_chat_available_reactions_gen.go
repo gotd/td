@@ -31,12 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatAvailableReactionsAll represents TL type `chatAvailableReactionsAll#dff07c4e`.
+// ChatAvailableReactionsAll represents TL type `chatAvailableReactionsAll#29600b97`.
 type ChatAvailableReactionsAll struct {
+	// The maximum allowed number of reactions per message; 1-11
+	MaxReactionCount int32
 }
 
 // ChatAvailableReactionsAllTypeID is TL type id of ChatAvailableReactionsAll.
-const ChatAvailableReactionsAllTypeID = 0xdff07c4e
+const ChatAvailableReactionsAllTypeID = 0x29600b97
 
 // construct implements constructor of ChatAvailableReactionsClass.
 func (c ChatAvailableReactionsAll) construct() ChatAvailableReactionsClass { return &c }
@@ -54,6 +56,9 @@ var (
 func (c *ChatAvailableReactionsAll) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.MaxReactionCount == 0) {
+		return false
 	}
 
 	return true
@@ -90,14 +95,19 @@ func (c *ChatAvailableReactionsAll) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MaxReactionCount",
+			SchemaName: "max_reaction_count",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (c *ChatAvailableReactionsAll) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAvailableReactionsAll#dff07c4e as nil")
+		return fmt.Errorf("can't encode chatAvailableReactionsAll#29600b97 as nil")
 	}
 	b.PutID(ChatAvailableReactionsAllTypeID)
 	return c.EncodeBare(b)
@@ -106,18 +116,19 @@ func (c *ChatAvailableReactionsAll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatAvailableReactionsAll) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAvailableReactionsAll#dff07c4e as nil")
+		return fmt.Errorf("can't encode chatAvailableReactionsAll#29600b97 as nil")
 	}
+	b.PutInt32(c.MaxReactionCount)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatAvailableReactionsAll) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAvailableReactionsAll#dff07c4e to nil")
+		return fmt.Errorf("can't decode chatAvailableReactionsAll#29600b97 to nil")
 	}
 	if err := b.ConsumeID(ChatAvailableReactionsAllTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAvailableReactionsAll#dff07c4e: %w", err)
+		return fmt.Errorf("unable to decode chatAvailableReactionsAll#29600b97: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -125,7 +136,14 @@ func (c *ChatAvailableReactionsAll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatAvailableReactionsAll) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAvailableReactionsAll#dff07c4e to nil")
+		return fmt.Errorf("can't decode chatAvailableReactionsAll#29600b97 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatAvailableReactionsAll#29600b97: field max_reaction_count: %w", err)
+		}
+		c.MaxReactionCount = value
 	}
 	return nil
 }
@@ -133,10 +151,13 @@ func (c *ChatAvailableReactionsAll) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatAvailableReactionsAll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAvailableReactionsAll#dff07c4e as nil")
+		return fmt.Errorf("can't encode chatAvailableReactionsAll#29600b97 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatAvailableReactionsAll")
+	b.Comma()
+	b.FieldStart("max_reaction_count")
+	b.PutInt32(c.MaxReactionCount)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -146,15 +167,21 @@ func (c *ChatAvailableReactionsAll) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatAvailableReactionsAll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAvailableReactionsAll#dff07c4e to nil")
+		return fmt.Errorf("can't decode chatAvailableReactionsAll#29600b97 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatAvailableReactionsAll"); err != nil {
-				return fmt.Errorf("unable to decode chatAvailableReactionsAll#dff07c4e: %w", err)
+				return fmt.Errorf("unable to decode chatAvailableReactionsAll#29600b97: %w", err)
 			}
+		case "max_reaction_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatAvailableReactionsAll#29600b97: field max_reaction_count: %w", err)
+			}
+			c.MaxReactionCount = value
 		default:
 			return b.Skip()
 		}
@@ -162,14 +189,24 @@ func (c *ChatAvailableReactionsAll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// ChatAvailableReactionsSome represents TL type `chatAvailableReactionsSome#d3cc0a6b`.
+// GetMaxReactionCount returns value of MaxReactionCount field.
+func (c *ChatAvailableReactionsAll) GetMaxReactionCount() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MaxReactionCount
+}
+
+// ChatAvailableReactionsSome represents TL type `chatAvailableReactionsSome#36b46b7d`.
 type ChatAvailableReactionsSome struct {
 	// The list of reactions
 	Reactions []ReactionTypeClass
+	// The maximum allowed number of reactions per message; 1-11
+	MaxReactionCount int32
 }
 
 // ChatAvailableReactionsSomeTypeID is TL type id of ChatAvailableReactionsSome.
-const ChatAvailableReactionsSomeTypeID = 0xd3cc0a6b
+const ChatAvailableReactionsSomeTypeID = 0x36b46b7d
 
 // construct implements constructor of ChatAvailableReactionsClass.
 func (c ChatAvailableReactionsSome) construct() ChatAvailableReactionsClass { return &c }
@@ -189,6 +226,9 @@ func (c *ChatAvailableReactionsSome) Zero() bool {
 		return true
 	}
 	if !(c.Reactions == nil) {
+		return false
+	}
+	if !(c.MaxReactionCount == 0) {
 		return false
 	}
 
@@ -231,6 +271,10 @@ func (c *ChatAvailableReactionsSome) TypeInfo() tdp.Type {
 			Name:       "Reactions",
 			SchemaName: "reactions",
 		},
+		{
+			Name:       "MaxReactionCount",
+			SchemaName: "max_reaction_count",
+		},
 	}
 	return typ
 }
@@ -238,7 +282,7 @@ func (c *ChatAvailableReactionsSome) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatAvailableReactionsSome) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAvailableReactionsSome#d3cc0a6b as nil")
+		return fmt.Errorf("can't encode chatAvailableReactionsSome#36b46b7d as nil")
 	}
 	b.PutID(ChatAvailableReactionsSomeTypeID)
 	return c.EncodeBare(b)
@@ -247,27 +291,28 @@ func (c *ChatAvailableReactionsSome) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatAvailableReactionsSome) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAvailableReactionsSome#d3cc0a6b as nil")
+		return fmt.Errorf("can't encode chatAvailableReactionsSome#36b46b7d as nil")
 	}
 	b.PutInt(len(c.Reactions))
 	for idx, v := range c.Reactions {
 		if v == nil {
-			return fmt.Errorf("unable to encode chatAvailableReactionsSome#d3cc0a6b: field reactions element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode chatAvailableReactionsSome#36b46b7d: field reactions element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare chatAvailableReactionsSome#d3cc0a6b: field reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare chatAvailableReactionsSome#36b46b7d: field reactions element with index %d: %w", idx, err)
 		}
 	}
+	b.PutInt32(c.MaxReactionCount)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatAvailableReactionsSome) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAvailableReactionsSome#d3cc0a6b to nil")
+		return fmt.Errorf("can't decode chatAvailableReactionsSome#36b46b7d to nil")
 	}
 	if err := b.ConsumeID(ChatAvailableReactionsSomeTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAvailableReactionsSome#d3cc0a6b: %w", err)
+		return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -275,12 +320,12 @@ func (c *ChatAvailableReactionsSome) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatAvailableReactionsSome) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAvailableReactionsSome#d3cc0a6b to nil")
+		return fmt.Errorf("can't decode chatAvailableReactionsSome#36b46b7d to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAvailableReactionsSome#d3cc0a6b: field reactions: %w", err)
+			return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: field reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -289,10 +334,17 @@ func (c *ChatAvailableReactionsSome) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAvailableReactionsSome#d3cc0a6b: field reactions: %w", err)
+				return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: field reactions: %w", err)
 			}
 			c.Reactions = append(c.Reactions, value)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: field max_reaction_count: %w", err)
+		}
+		c.MaxReactionCount = value
 	}
 	return nil
 }
@@ -300,7 +352,7 @@ func (c *ChatAvailableReactionsSome) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatAvailableReactionsSome) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAvailableReactionsSome#d3cc0a6b as nil")
+		return fmt.Errorf("can't encode chatAvailableReactionsSome#36b46b7d as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatAvailableReactionsSome")
@@ -309,15 +361,18 @@ func (c *ChatAvailableReactionsSome) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range c.Reactions {
 		if v == nil {
-			return fmt.Errorf("unable to encode chatAvailableReactionsSome#d3cc0a6b: field reactions element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode chatAvailableReactionsSome#36b46b7d: field reactions element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode chatAvailableReactionsSome#d3cc0a6b: field reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatAvailableReactionsSome#36b46b7d: field reactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
 	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("max_reaction_count")
+	b.PutInt32(c.MaxReactionCount)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -327,26 +382,32 @@ func (c *ChatAvailableReactionsSome) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatAvailableReactionsSome) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAvailableReactionsSome#d3cc0a6b to nil")
+		return fmt.Errorf("can't decode chatAvailableReactionsSome#36b46b7d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatAvailableReactionsSome"); err != nil {
-				return fmt.Errorf("unable to decode chatAvailableReactionsSome#d3cc0a6b: %w", err)
+				return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: %w", err)
 			}
 		case "reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONReactionType(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode chatAvailableReactionsSome#d3cc0a6b: field reactions: %w", err)
+					return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: field reactions: %w", err)
 				}
 				c.Reactions = append(c.Reactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatAvailableReactionsSome#d3cc0a6b: field reactions: %w", err)
+				return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: field reactions: %w", err)
 			}
+		case "max_reaction_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatAvailableReactionsSome#36b46b7d: field max_reaction_count: %w", err)
+			}
+			c.MaxReactionCount = value
 		default:
 			return b.Skip()
 		}
@@ -362,6 +423,14 @@ func (c *ChatAvailableReactionsSome) GetReactions() (value []ReactionTypeClass) 
 	return c.Reactions
 }
 
+// GetMaxReactionCount returns value of MaxReactionCount field.
+func (c *ChatAvailableReactionsSome) GetMaxReactionCount() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MaxReactionCount
+}
+
 // ChatAvailableReactionsClassName is schema name of ChatAvailableReactionsClass.
 const ChatAvailableReactionsClassName = "ChatAvailableReactions"
 
@@ -374,8 +443,8 @@ const ChatAvailableReactionsClassName = "ChatAvailableReactions"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.ChatAvailableReactionsAll: // chatAvailableReactionsAll#dff07c4e
-//	case *tdapi.ChatAvailableReactionsSome: // chatAvailableReactionsSome#d3cc0a6b
+//	case *tdapi.ChatAvailableReactionsAll: // chatAvailableReactionsAll#29600b97
+//	case *tdapi.ChatAvailableReactionsSome: // chatAvailableReactionsSome#36b46b7d
 //	default: panic(v)
 //	}
 type ChatAvailableReactionsClass interface {
@@ -398,6 +467,9 @@ type ChatAvailableReactionsClass interface {
 
 	EncodeTDLibJSON(b tdjson.Encoder) error
 	DecodeTDLibJSON(b tdjson.Decoder) error
+
+	// The maximum allowed number of reactions per message; 1-11
+	GetMaxReactionCount() (value int32)
 }
 
 // DecodeChatAvailableReactions implements binary de-serialization for ChatAvailableReactionsClass.
@@ -408,14 +480,14 @@ func DecodeChatAvailableReactions(buf *bin.Buffer) (ChatAvailableReactionsClass,
 	}
 	switch id {
 	case ChatAvailableReactionsAllTypeID:
-		// Decoding chatAvailableReactionsAll#dff07c4e.
+		// Decoding chatAvailableReactionsAll#29600b97.
 		v := ChatAvailableReactionsAll{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatAvailableReactionsClass: %w", err)
 		}
 		return &v, nil
 	case ChatAvailableReactionsSomeTypeID:
-		// Decoding chatAvailableReactionsSome#d3cc0a6b.
+		// Decoding chatAvailableReactionsSome#36b46b7d.
 		v := ChatAvailableReactionsSome{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatAvailableReactionsClass: %w", err)
@@ -434,14 +506,14 @@ func DecodeTDLibJSONChatAvailableReactions(buf tdjson.Decoder) (ChatAvailableRea
 	}
 	switch id {
 	case "chatAvailableReactionsAll":
-		// Decoding chatAvailableReactionsAll#dff07c4e.
+		// Decoding chatAvailableReactionsAll#29600b97.
 		v := ChatAvailableReactionsAll{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatAvailableReactionsClass: %w", err)
 		}
 		return &v, nil
 	case "chatAvailableReactionsSome":
-		// Decoding chatAvailableReactionsSome#d3cc0a6b.
+		// Decoding chatAvailableReactionsSome#36b46b7d.
 		v := ChatAvailableReactionsSome{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatAvailableReactionsClass: %w", err)
