@@ -53,6 +53,9 @@ type Conn struct {
 	// This is necessary to transfer auth from previous connection to another DC.
 	setup SetupCallback // nilable
 
+	// onDead is called on connection death.
+	onDead func()
+
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
 	clock clock.Clock // immutable
@@ -123,6 +126,9 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 	defer func() {
 		if err != nil && ctx.Err() == nil {
 			c.log.Debug("Connection dead", zap.Error(err))
+			if c.onDead != nil {
+				c.onDead()
+			}
 		}
 	}()
 	return c.proto.Run(ctx, func(ctx context.Context) error {

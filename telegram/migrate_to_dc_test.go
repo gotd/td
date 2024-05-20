@@ -116,7 +116,7 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 		migrationTimeout: 10 * time.Second,
 	}
 	client.init()
-	client.conn = client.createConn(0, manager.ConnModeUpdates, nil)
+	client.conn = client.createConn(0, manager.ConnModeUpdates, nil, nil)
 	client.cfg.Store(cfg)
 	return client
 }
