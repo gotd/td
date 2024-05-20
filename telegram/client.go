@@ -89,6 +89,7 @@ type Client struct {
 	// Connection factory fields.
 	create       connConstructor        // immutable
 	resolver     dcs.Resolver           // immutable
+	onDead       func()                 // immutable
 	connBackoff  func() backoff.BackOff // immutable
 	defaultMode  manager.ConnMode       // immutable
 	connsCounter atomic.Int64
@@ -159,6 +160,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		resolver:         opt.Resolver,
 		defaultMode:      mode,
 		connBackoff:      opt.ReconnectionBackoff,
+		onDead:           opt.OnDead,
 		clock:            opt.Clock,
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,

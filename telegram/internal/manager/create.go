@@ -22,6 +22,7 @@ type ConnOptions struct {
 	Device  DeviceConfig
 	Handler Handler
 	Setup   SetupCallback
+	OnDead  func()
 	Backoff func(ctx context.Context) backoff.BackOff
 }
 
@@ -69,6 +70,7 @@ func CreateConn(
 		gotConfig:   tdsync.NewReady(),
 		dead:        tdsync.NewReady(),
 		setup:       connOpts.Setup,
+		onDead:      connOpts.OnDead,
 		connBackoff: connOpts.Backoff,
 	}
 
