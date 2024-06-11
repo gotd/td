@@ -37,7 +37,7 @@ func sendStyledText(ctx context.Context) error {
 			styling.TextURL("clickme", "https://google.com"), styling.Plain("\n\n"),
 			styling.Phone("+71234567891"), styling.Plain("\n\n"),
 			styling.Cashtag("$CASHTAG"), styling.Plain("\n\n"),
-			styling.Blockquote("blockquote"), styling.Plain("\n\n"),
+			styling.Blockquote("blockquote", false), styling.Plain("\n\n"),
 			styling.BankCard("5550111111111111"), styling.Plain("\n\n"),
 		}
 

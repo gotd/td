@@ -83,7 +83,9 @@ func TestBuilder_StyledText(t *testing.T) {
 		{"Strike", styling.Strike, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityStrike{Length: o}
 		}},
-		{"Blockquote", styling.Blockquote, func(o int) tg.MessageEntityClass {
+		{"Blockquote", func(msg string) StyledTextOption {
+			return styling.Blockquote(msg, false)
+		}, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityBlockquote{Length: o}
 		}},
 		{"BankCard", styling.BankCard, func(o int) tg.MessageEntityClass {
