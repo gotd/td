@@ -1455,3 +1455,23 @@ func (u UpdateDispatcher) OnNewStoryReaction(handler NewStoryReactionHandler) {
 		return handler(ctx, e, update.(*UpdateNewStoryReaction))
 	}
 }
+
+// BroadcastRevenueTransactionsHandler is a BroadcastRevenueTransactions event handler.
+type BroadcastRevenueTransactionsHandler func(ctx context.Context, e Entities, update *UpdateBroadcastRevenueTransactions) error
+
+// OnBroadcastRevenueTransactions sets BroadcastRevenueTransactions handler.
+func (u UpdateDispatcher) OnBroadcastRevenueTransactions(handler BroadcastRevenueTransactionsHandler) {
+	u.handlers[UpdateBroadcastRevenueTransactionsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBroadcastRevenueTransactions))
+	}
+}
+
+// StarsBalanceHandler is a StarsBalance event handler.
+type StarsBalanceHandler func(ctx context.Context, e Entities, update *UpdateStarsBalance) error
+
+// OnStarsBalance sets StarsBalance handler.
+func (u UpdateDispatcher) OnStarsBalance(handler StarsBalanceHandler) {
+	u.handlers[UpdateStarsBalanceTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStarsBalance))
+	}
+}

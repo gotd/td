@@ -3577,11 +3577,15 @@ func (m *MessageEntityCustomEmoji) GetDocumentID() (value int64) {
 	return m.DocumentID
 }
 
-// MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
+// MessageEntityBlockquote represents TL type `messageEntityBlockquote#f1ccaaac`.
 // Message entity representing a block quote.
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
+	// Flags field of MessageEntityBlockquote.
+	Flags bin.Fields
+	// Collapsed field of MessageEntityBlockquote.
+	Collapsed bool
 	// Offset of message entity within message (in UTF-16 code units¹)
 	//
 	// Links:
@@ -3595,7 +3599,7 @@ type MessageEntityBlockquote struct {
 }
 
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
-const MessageEntityBlockquoteTypeID = 0x20df5d0
+const MessageEntityBlockquoteTypeID = 0xf1ccaaac
 
 // construct implements constructor of MessageEntityClass.
 func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
@@ -3613,6 +3617,12 @@ var (
 func (m *MessageEntityBlockquote) Zero() bool {
 	if m == nil {
 		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Collapsed == false) {
+		return false
 	}
 	if !(m.Offset == 0) {
 		return false
@@ -3635,9 +3645,11 @@ func (m *MessageEntityBlockquote) String() string {
 
 // FillFrom fills MessageEntityBlockquote from given interface.
 func (m *MessageEntityBlockquote) FillFrom(from interface {
+	GetCollapsed() (value bool)
 	GetOffset() (value int)
 	GetLength() (value int)
 }) {
+	m.Collapsed = from.GetCollapsed()
 	m.Offset = from.GetOffset()
 	m.Length = from.GetLength()
 }
@@ -3666,6 +3678,11 @@ func (m *MessageEntityBlockquote) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Collapsed",
+			SchemaName: "collapsed",
+			Null:       !m.Flags.Has(0),
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -3677,10 +3694,17 @@ func (m *MessageEntityBlockquote) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageEntityBlockquote) SetFlags() {
+	if !(m.Collapsed == false) {
+		m.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
+		return fmt.Errorf("can't encode messageEntityBlockquote#f1ccaaac as nil")
 	}
 	b.PutID(MessageEntityBlockquoteTypeID)
 	return m.EncodeBare(b)
@@ -3689,7 +3713,11 @@ func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
+		return fmt.Errorf("can't encode messageEntityBlockquote#f1ccaaac as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageEntityBlockquote#f1ccaaac: field flags: %w", err)
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
@@ -3699,10 +3727,10 @@ func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
+		return fmt.Errorf("can't decode messageEntityBlockquote#f1ccaaac to nil")
 	}
 	if err := b.ConsumeID(MessageEntityBlockquoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: %w", err)
+		return fmt.Errorf("unable to decode messageEntityBlockquote#f1ccaaac: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -3710,23 +3738,48 @@ func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
+		return fmt.Errorf("can't decode messageEntityBlockquote#f1ccaaac to nil")
 	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageEntityBlockquote#f1ccaaac: field flags: %w", err)
+		}
+	}
+	m.Collapsed = m.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field offset: %w", err)
+			return fmt.Errorf("unable to decode messageEntityBlockquote#f1ccaaac: field offset: %w", err)
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field length: %w", err)
+			return fmt.Errorf("unable to decode messageEntityBlockquote#f1ccaaac: field length: %w", err)
 		}
 		m.Length = value
 	}
 	return nil
+}
+
+// SetCollapsed sets value of Collapsed conditional field.
+func (m *MessageEntityBlockquote) SetCollapsed(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Collapsed = true
+	} else {
+		m.Flags.Unset(0)
+		m.Collapsed = false
+	}
+}
+
+// GetCollapsed returns value of Collapsed conditional field.
+func (m *MessageEntityBlockquote) GetCollapsed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
 }
 
 // GetOffset returns value of Offset field.
@@ -3779,7 +3832,7 @@ const MessageEntityClassName = "MessageEntity"
 //	case *tg.MessageEntityBankCard: // messageEntityBankCard#761e6af4
 //	case *tg.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
 //	case *tg.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
-//	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
+//	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#f1ccaaac
 //	default: panic(v)
 //	}
 type MessageEntityClass interface {
@@ -3961,7 +4014,7 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 		}
 		return &v, nil
 	case MessageEntityBlockquoteTypeID:
-		// Decoding messageEntityBlockquote#20df5d0.
+		// Decoding messageEntityBlockquote#f1ccaaac.
 		v := MessageEntityBlockquote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)

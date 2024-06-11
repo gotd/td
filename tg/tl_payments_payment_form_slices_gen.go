@@ -33,3 +33,275 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// PaymentsPaymentFormClassArray is adapter for slice of PaymentsPaymentFormClass.
+type PaymentsPaymentFormClassArray []PaymentsPaymentFormClass
+
+// Sort sorts slice of PaymentsPaymentFormClass.
+func (s PaymentsPaymentFormClassArray) Sort(less func(a, b PaymentsPaymentFormClass) bool) PaymentsPaymentFormClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PaymentsPaymentFormClass.
+func (s PaymentsPaymentFormClassArray) SortStable(less func(a, b PaymentsPaymentFormClass) bool) PaymentsPaymentFormClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PaymentsPaymentFormClass.
+func (s PaymentsPaymentFormClassArray) Retain(keep func(x PaymentsPaymentFormClass) bool) PaymentsPaymentFormClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentFormClassArray) First() (v PaymentsPaymentFormClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentFormClassArray) Last() (v PaymentsPaymentFormClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentFormClassArray) PopFirst() (v PaymentsPaymentFormClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PaymentsPaymentFormClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentFormClassArray) Pop() (v PaymentsPaymentFormClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPaymentsPaymentForm returns copy with only PaymentsPaymentForm constructors.
+func (s PaymentsPaymentFormClassArray) AsPaymentsPaymentForm() (to PaymentsPaymentFormArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PaymentsPaymentForm)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPaymentsPaymentFormStars returns copy with only PaymentsPaymentFormStars constructors.
+func (s PaymentsPaymentFormClassArray) AsPaymentsPaymentFormStars() (to PaymentsPaymentFormStarsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PaymentsPaymentFormStars)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PaymentsPaymentFormArray is adapter for slice of PaymentsPaymentForm.
+type PaymentsPaymentFormArray []PaymentsPaymentForm
+
+// Sort sorts slice of PaymentsPaymentForm.
+func (s PaymentsPaymentFormArray) Sort(less func(a, b PaymentsPaymentForm) bool) PaymentsPaymentFormArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PaymentsPaymentForm.
+func (s PaymentsPaymentFormArray) SortStable(less func(a, b PaymentsPaymentForm) bool) PaymentsPaymentFormArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PaymentsPaymentForm.
+func (s PaymentsPaymentFormArray) Retain(keep func(x PaymentsPaymentForm) bool) PaymentsPaymentFormArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentFormArray) First() (v PaymentsPaymentForm, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentFormArray) Last() (v PaymentsPaymentForm, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentFormArray) PopFirst() (v PaymentsPaymentForm, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PaymentsPaymentForm
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentFormArray) Pop() (v PaymentsPaymentForm, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PaymentsPaymentFormStarsArray is adapter for slice of PaymentsPaymentFormStars.
+type PaymentsPaymentFormStarsArray []PaymentsPaymentFormStars
+
+// Sort sorts slice of PaymentsPaymentFormStars.
+func (s PaymentsPaymentFormStarsArray) Sort(less func(a, b PaymentsPaymentFormStars) bool) PaymentsPaymentFormStarsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PaymentsPaymentFormStars.
+func (s PaymentsPaymentFormStarsArray) SortStable(less func(a, b PaymentsPaymentFormStars) bool) PaymentsPaymentFormStarsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PaymentsPaymentFormStars.
+func (s PaymentsPaymentFormStarsArray) Retain(keep func(x PaymentsPaymentFormStars) bool) PaymentsPaymentFormStarsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentFormStarsArray) First() (v PaymentsPaymentFormStars, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentFormStarsArray) Last() (v PaymentsPaymentFormStars, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentFormStarsArray) PopFirst() (v PaymentsPaymentFormStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PaymentsPaymentFormStars
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentFormStarsArray) Pop() (v PaymentsPaymentFormStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

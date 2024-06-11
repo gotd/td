@@ -91,12 +91,17 @@ type PaymentsPaymentReceipt struct {
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
 const PaymentsPaymentReceiptTypeID = 0x70c4fe03
 
+// construct implements constructor of PaymentsPaymentReceiptClass.
+func (p PaymentsPaymentReceipt) construct() PaymentsPaymentReceiptClass { return &p }
+
 // Ensuring interfaces in compile-time for PaymentsPaymentReceipt.
 var (
 	_ bin.Encoder     = &PaymentsPaymentReceipt{}
 	_ bin.Decoder     = &PaymentsPaymentReceipt{}
 	_ bin.BareEncoder = &PaymentsPaymentReceipt{}
 	_ bin.BareDecoder = &PaymentsPaymentReceipt{}
+
+	_ PaymentsPaymentReceiptClass = &PaymentsPaymentReceipt{}
 )
 
 func (p *PaymentsPaymentReceipt) Zero() bool {
@@ -652,4 +657,575 @@ func (p *PaymentsPaymentReceipt) GetUsers() (value []UserClass) {
 // MapUsers returns field Users wrapped in UserClassArray helper.
 func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassArray) {
 	return UserClassArray(p.Users)
+}
+
+// PaymentsPaymentReceiptStars represents TL type `payments.paymentReceiptStars#dabbf83a`.
+//
+// See https://core.telegram.org/constructor/payments.paymentReceiptStars for reference.
+type PaymentsPaymentReceiptStars struct {
+	// Flags field of PaymentsPaymentReceiptStars.
+	Flags bin.Fields
+	// Date field of PaymentsPaymentReceiptStars.
+	Date int
+	// BotID field of PaymentsPaymentReceiptStars.
+	BotID int64
+	// Title field of PaymentsPaymentReceiptStars.
+	Title string
+	// Description field of PaymentsPaymentReceiptStars.
+	Description string
+	// Photo field of PaymentsPaymentReceiptStars.
+	//
+	// Use SetPhoto and GetPhoto helpers.
+	Photo WebDocumentClass
+	// Invoice field of PaymentsPaymentReceiptStars.
+	Invoice Invoice
+	// Currency field of PaymentsPaymentReceiptStars.
+	Currency string
+	// TotalAmount field of PaymentsPaymentReceiptStars.
+	TotalAmount int64
+	// TransactionID field of PaymentsPaymentReceiptStars.
+	TransactionID string
+	// Users field of PaymentsPaymentReceiptStars.
+	Users []UserClass
+}
+
+// PaymentsPaymentReceiptStarsTypeID is TL type id of PaymentsPaymentReceiptStars.
+const PaymentsPaymentReceiptStarsTypeID = 0xdabbf83a
+
+// construct implements constructor of PaymentsPaymentReceiptClass.
+func (p PaymentsPaymentReceiptStars) construct() PaymentsPaymentReceiptClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentReceiptStars.
+var (
+	_ bin.Encoder     = &PaymentsPaymentReceiptStars{}
+	_ bin.Decoder     = &PaymentsPaymentReceiptStars{}
+	_ bin.BareEncoder = &PaymentsPaymentReceiptStars{}
+	_ bin.BareDecoder = &PaymentsPaymentReceiptStars{}
+
+	_ PaymentsPaymentReceiptClass = &PaymentsPaymentReceiptStars{}
+)
+
+func (p *PaymentsPaymentReceiptStars) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.BotID == 0) {
+		return false
+	}
+	if !(p.Title == "") {
+		return false
+	}
+	if !(p.Description == "") {
+		return false
+	}
+	if !(p.Photo == nil) {
+		return false
+	}
+	if !(p.Invoice.Zero()) {
+		return false
+	}
+	if !(p.Currency == "") {
+		return false
+	}
+	if !(p.TotalAmount == 0) {
+		return false
+	}
+	if !(p.TransactionID == "") {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentReceiptStars) String() string {
+	if p == nil {
+		return "PaymentsPaymentReceiptStars(nil)"
+	}
+	type Alias PaymentsPaymentReceiptStars
+	return fmt.Sprintf("PaymentsPaymentReceiptStars%+v", Alias(*p))
+}
+
+// FillFrom fills PaymentsPaymentReceiptStars from given interface.
+func (p *PaymentsPaymentReceiptStars) FillFrom(from interface {
+	GetDate() (value int)
+	GetBotID() (value int64)
+	GetTitle() (value string)
+	GetDescription() (value string)
+	GetPhoto() (value WebDocumentClass, ok bool)
+	GetInvoice() (value Invoice)
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+	GetTransactionID() (value string)
+	GetUsers() (value []UserClass)
+}) {
+	p.Date = from.GetDate()
+	p.BotID = from.GetBotID()
+	p.Title = from.GetTitle()
+	p.Description = from.GetDescription()
+	if val, ok := from.GetPhoto(); ok {
+		p.Photo = val
+	}
+
+	p.Invoice = from.GetInvoice()
+	p.Currency = from.GetCurrency()
+	p.TotalAmount = from.GetTotalAmount()
+	p.TransactionID = from.GetTransactionID()
+	p.Users = from.GetUsers()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PaymentsPaymentReceiptStars) TypeID() uint32 {
+	return PaymentsPaymentReceiptStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PaymentsPaymentReceiptStars) TypeName() string {
+	return "payments.paymentReceiptStars"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentReceiptStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentReceiptStars",
+		ID:   PaymentsPaymentReceiptStarsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+		{
+			Name:       "TransactionID",
+			SchemaName: "transaction_id",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PaymentsPaymentReceiptStars) SetFlags() {
+	if !(p.Photo == nil) {
+		p.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PaymentsPaymentReceiptStars) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentReceiptStars#dabbf83a as nil")
+	}
+	b.PutID(PaymentsPaymentReceiptStarsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentReceiptStars) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentReceiptStars#dabbf83a as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.paymentReceiptStars#dabbf83a: field flags: %w", err)
+	}
+	b.PutInt(p.Date)
+	b.PutLong(p.BotID)
+	b.PutString(p.Title)
+	b.PutString(p.Description)
+	if p.Flags.Has(2) {
+		if p.Photo == nil {
+			return fmt.Errorf("unable to encode payments.paymentReceiptStars#dabbf83a: field photo is nil")
+		}
+		if err := p.Photo.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.paymentReceiptStars#dabbf83a: field photo: %w", err)
+		}
+	}
+	if err := p.Invoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.paymentReceiptStars#dabbf83a: field invoice: %w", err)
+	}
+	b.PutString(p.Currency)
+	b.PutLong(p.TotalAmount)
+	b.PutString(p.TransactionID)
+	b.PutVectorHeader(len(p.Users))
+	for idx, v := range p.Users {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.paymentReceiptStars#dabbf83a: field users element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.paymentReceiptStars#dabbf83a: field users element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PaymentsPaymentReceiptStars) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentReceiptStars#dabbf83a to nil")
+	}
+	if err := b.ConsumeID(PaymentsPaymentReceiptStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentReceiptStars) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentReceiptStars#dabbf83a to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field date: %w", err)
+		}
+		p.Date = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field bot_id: %w", err)
+		}
+		p.BotID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field title: %w", err)
+		}
+		p.Title = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field description: %w", err)
+		}
+		p.Description = value
+	}
+	if p.Flags.Has(2) {
+		value, err := DecodeWebDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field photo: %w", err)
+		}
+		p.Photo = value
+	}
+	{
+		if err := p.Invoice.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field invoice: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field currency: %w", err)
+		}
+		p.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field total_amount: %w", err)
+		}
+		p.TotalAmount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field transaction_id: %w", err)
+		}
+		p.TransactionID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeUser(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.paymentReceiptStars#dabbf83a: field users: %w", err)
+			}
+			p.Users = append(p.Users, value)
+		}
+	}
+	return nil
+}
+
+// GetDate returns value of Date field.
+func (p *PaymentsPaymentReceiptStars) GetDate() (value int) {
+	if p == nil {
+		return
+	}
+	return p.Date
+}
+
+// GetBotID returns value of BotID field.
+func (p *PaymentsPaymentReceiptStars) GetBotID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.BotID
+}
+
+// GetTitle returns value of Title field.
+func (p *PaymentsPaymentReceiptStars) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Title
+}
+
+// GetDescription returns value of Description field.
+func (p *PaymentsPaymentReceiptStars) GetDescription() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Description
+}
+
+// SetPhoto sets value of Photo conditional field.
+func (p *PaymentsPaymentReceiptStars) SetPhoto(value WebDocumentClass) {
+	p.Flags.Set(2)
+	p.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (p *PaymentsPaymentReceiptStars) GetPhoto() (value WebDocumentClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (p *PaymentsPaymentReceiptStars) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
+	return p.Invoice
+}
+
+// GetCurrency returns value of Currency field.
+func (p *PaymentsPaymentReceiptStars) GetCurrency() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (p *PaymentsPaymentReceiptStars) GetTotalAmount() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.TotalAmount
+}
+
+// GetTransactionID returns value of TransactionID field.
+func (p *PaymentsPaymentReceiptStars) GetTransactionID() (value string) {
+	if p == nil {
+		return
+	}
+	return p.TransactionID
+}
+
+// GetUsers returns value of Users field.
+func (p *PaymentsPaymentReceiptStars) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
+	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PaymentsPaymentReceiptStars) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}
+
+// PaymentsPaymentReceiptClassName is schema name of PaymentsPaymentReceiptClass.
+const PaymentsPaymentReceiptClassName = "payments.PaymentReceipt"
+
+// PaymentsPaymentReceiptClass represents payments.PaymentReceipt generic type.
+//
+// See https://core.telegram.org/type/payments.PaymentReceipt for reference.
+//
+// Example:
+//
+//	g, err := tg.DecodePaymentsPaymentReceipt(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PaymentsPaymentReceipt: // payments.paymentReceipt#70c4fe03
+//	case *tg.PaymentsPaymentReceiptStars: // payments.paymentReceiptStars#dabbf83a
+//	default: panic(v)
+//	}
+type PaymentsPaymentReceiptClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() PaymentsPaymentReceiptClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// Date of generation
+	GetDate() (value int)
+
+	// Bot ID
+	GetBotID() (value int64)
+
+	// Title
+	GetTitle() (value string)
+
+	// Description
+	GetDescription() (value string)
+
+	// Photo
+	GetPhoto() (value WebDocumentClass, ok bool)
+
+	// Invoice
+	GetInvoice() (value Invoice)
+
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	GetCurrency() (value string)
+
+	// Total amount in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
+	GetTotalAmount() (value int64)
+
+	// Users
+	GetUsers() (value []UserClass)
+	// Users
+	MapUsers() (value UserClassArray)
+}
+
+// DecodePaymentsPaymentReceipt implements binary de-serialization for PaymentsPaymentReceiptClass.
+func DecodePaymentsPaymentReceipt(buf *bin.Buffer) (PaymentsPaymentReceiptClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case PaymentsPaymentReceiptTypeID:
+		// Decoding payments.paymentReceipt#70c4fe03.
+		v := PaymentsPaymentReceipt{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentsPaymentReceiptClass: %w", err)
+		}
+		return &v, nil
+	case PaymentsPaymentReceiptStarsTypeID:
+		// Decoding payments.paymentReceiptStars#dabbf83a.
+		v := PaymentsPaymentReceiptStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentsPaymentReceiptClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PaymentsPaymentReceiptClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// PaymentsPaymentReceipt boxes the PaymentsPaymentReceiptClass providing a helper.
+type PaymentsPaymentReceiptBox struct {
+	PaymentReceipt PaymentsPaymentReceiptClass
+}
+
+// Decode implements bin.Decoder for PaymentsPaymentReceiptBox.
+func (b *PaymentsPaymentReceiptBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PaymentsPaymentReceiptBox to nil")
+	}
+	v, err := DecodePaymentsPaymentReceipt(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PaymentReceipt = v
+	return nil
+}
+
+// Encode implements bin.Encode for PaymentsPaymentReceiptBox.
+func (b *PaymentsPaymentReceiptBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PaymentReceipt == nil {
+		return fmt.Errorf("unable to encode PaymentsPaymentReceiptClass as nil")
+	}
+	return b.PaymentReceipt.Encode(buf)
 }

@@ -1301,6 +1301,212 @@ func (i *InputStorePaymentPremiumGiveaway) MapAdditionalPeers() (value InputPeer
 	return InputPeerClassArray(i.AdditionalPeers), true
 }
 
+// InputStorePaymentStars represents TL type `inputStorePaymentStars#4f0ee8df`.
+//
+// See https://core.telegram.org/constructor/inputStorePaymentStars for reference.
+type InputStorePaymentStars struct {
+	// Flags field of InputStorePaymentStars.
+	Flags bin.Fields
+	// Stars field of InputStorePaymentStars.
+	Stars int64
+	// Currency field of InputStorePaymentStars.
+	Currency string
+	// Amount field of InputStorePaymentStars.
+	Amount int64
+}
+
+// InputStorePaymentStarsTypeID is TL type id of InputStorePaymentStars.
+const InputStorePaymentStarsTypeID = 0x4f0ee8df
+
+// construct implements constructor of InputStorePaymentPurposeClass.
+func (i InputStorePaymentStars) construct() InputStorePaymentPurposeClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStorePaymentStars.
+var (
+	_ bin.Encoder     = &InputStorePaymentStars{}
+	_ bin.Decoder     = &InputStorePaymentStars{}
+	_ bin.BareEncoder = &InputStorePaymentStars{}
+	_ bin.BareDecoder = &InputStorePaymentStars{}
+
+	_ InputStorePaymentPurposeClass = &InputStorePaymentStars{}
+)
+
+func (i *InputStorePaymentStars) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Stars == 0) {
+		return false
+	}
+	if !(i.Currency == "") {
+		return false
+	}
+	if !(i.Amount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStorePaymentStars) String() string {
+	if i == nil {
+		return "InputStorePaymentStars(nil)"
+	}
+	type Alias InputStorePaymentStars
+	return fmt.Sprintf("InputStorePaymentStars%+v", Alias(*i))
+}
+
+// FillFrom fills InputStorePaymentStars from given interface.
+func (i *InputStorePaymentStars) FillFrom(from interface {
+	GetStars() (value int64)
+	GetCurrency() (value string)
+	GetAmount() (value int64)
+}) {
+	i.Stars = from.GetStars()
+	i.Currency = from.GetCurrency()
+	i.Amount = from.GetAmount()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStorePaymentStars) TypeID() uint32 {
+	return InputStorePaymentStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStorePaymentStars) TypeName() string {
+	return "inputStorePaymentStars"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStorePaymentStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStorePaymentStars",
+		ID:   InputStorePaymentStarsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputStorePaymentStars) SetFlags() {
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStorePaymentStars) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStorePaymentStars#4f0ee8df as nil")
+	}
+	b.PutID(InputStorePaymentStarsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStorePaymentStars) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStorePaymentStars#4f0ee8df as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputStorePaymentStars#4f0ee8df: field flags: %w", err)
+	}
+	b.PutLong(i.Stars)
+	b.PutString(i.Currency)
+	b.PutLong(i.Amount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStorePaymentStars) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStorePaymentStars#4f0ee8df to nil")
+	}
+	if err := b.ConsumeID(InputStorePaymentStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStorePaymentStars#4f0ee8df: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStorePaymentStars) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStorePaymentStars#4f0ee8df to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStars#4f0ee8df: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStars#4f0ee8df: field stars: %w", err)
+		}
+		i.Stars = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStars#4f0ee8df: field currency: %w", err)
+		}
+		i.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStars#4f0ee8df: field amount: %w", err)
+		}
+		i.Amount = value
+	}
+	return nil
+}
+
+// GetStars returns value of Stars field.
+func (i *InputStorePaymentStars) GetStars() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.Stars
+}
+
+// GetCurrency returns value of Currency field.
+func (i *InputStorePaymentStars) GetCurrency() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (i *InputStorePaymentStars) GetAmount() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.Amount
+}
+
 // InputStorePaymentPurposeClassName is schema name of InputStorePaymentPurposeClass.
 const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 
@@ -1319,6 +1525,7 @@ const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 //	case *tg.InputStorePaymentGiftPremium: // inputStorePaymentGiftPremium#616f7fe8
 //	case *tg.InputStorePaymentPremiumGiftCode: // inputStorePaymentPremiumGiftCode#a3805f3f
 //	case *tg.InputStorePaymentPremiumGiveaway: // inputStorePaymentPremiumGiveaway#160544ca
+//	case *tg.InputStorePaymentStars: // inputStorePaymentStars#4f0ee8df
 //	default: panic(v)
 //	}
 type InputStorePaymentPurposeClass interface {
@@ -1371,6 +1578,13 @@ func DecodeInputStorePaymentPurpose(buf *bin.Buffer) (InputStorePaymentPurposeCl
 	case InputStorePaymentPremiumGiveawayTypeID:
 		// Decoding inputStorePaymentPremiumGiveaway#160544ca.
 		v := InputStorePaymentPremiumGiveaway{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStorePaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case InputStorePaymentStarsTypeID:
+		// Decoding inputStorePaymentStars#4f0ee8df.
+		v := InputStorePaymentStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStorePaymentPurposeClass: %w", err)
 		}

@@ -33,3 +33,317 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// PaymentsPaymentReceiptClassArray is adapter for slice of PaymentsPaymentReceiptClass.
+type PaymentsPaymentReceiptClassArray []PaymentsPaymentReceiptClass
+
+// Sort sorts slice of PaymentsPaymentReceiptClass.
+func (s PaymentsPaymentReceiptClassArray) Sort(less func(a, b PaymentsPaymentReceiptClass) bool) PaymentsPaymentReceiptClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PaymentsPaymentReceiptClass.
+func (s PaymentsPaymentReceiptClassArray) SortStable(less func(a, b PaymentsPaymentReceiptClass) bool) PaymentsPaymentReceiptClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PaymentsPaymentReceiptClass.
+func (s PaymentsPaymentReceiptClassArray) Retain(keep func(x PaymentsPaymentReceiptClass) bool) PaymentsPaymentReceiptClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentReceiptClassArray) First() (v PaymentsPaymentReceiptClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentReceiptClassArray) Last() (v PaymentsPaymentReceiptClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentReceiptClassArray) PopFirst() (v PaymentsPaymentReceiptClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PaymentsPaymentReceiptClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentReceiptClassArray) Pop() (v PaymentsPaymentReceiptClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PaymentsPaymentReceiptClass by Date.
+func (s PaymentsPaymentReceiptClassArray) SortByDate() PaymentsPaymentReceiptClassArray {
+	return s.Sort(func(a, b PaymentsPaymentReceiptClass) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PaymentsPaymentReceiptClass by Date.
+func (s PaymentsPaymentReceiptClassArray) SortStableByDate() PaymentsPaymentReceiptClassArray {
+	return s.SortStable(func(a, b PaymentsPaymentReceiptClass) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// AsPaymentsPaymentReceipt returns copy with only PaymentsPaymentReceipt constructors.
+func (s PaymentsPaymentReceiptClassArray) AsPaymentsPaymentReceipt() (to PaymentsPaymentReceiptArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PaymentsPaymentReceipt)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPaymentsPaymentReceiptStars returns copy with only PaymentsPaymentReceiptStars constructors.
+func (s PaymentsPaymentReceiptClassArray) AsPaymentsPaymentReceiptStars() (to PaymentsPaymentReceiptStarsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PaymentsPaymentReceiptStars)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PaymentsPaymentReceiptArray is adapter for slice of PaymentsPaymentReceipt.
+type PaymentsPaymentReceiptArray []PaymentsPaymentReceipt
+
+// Sort sorts slice of PaymentsPaymentReceipt.
+func (s PaymentsPaymentReceiptArray) Sort(less func(a, b PaymentsPaymentReceipt) bool) PaymentsPaymentReceiptArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PaymentsPaymentReceipt.
+func (s PaymentsPaymentReceiptArray) SortStable(less func(a, b PaymentsPaymentReceipt) bool) PaymentsPaymentReceiptArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PaymentsPaymentReceipt.
+func (s PaymentsPaymentReceiptArray) Retain(keep func(x PaymentsPaymentReceipt) bool) PaymentsPaymentReceiptArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentReceiptArray) First() (v PaymentsPaymentReceipt, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentReceiptArray) Last() (v PaymentsPaymentReceipt, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentReceiptArray) PopFirst() (v PaymentsPaymentReceipt, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PaymentsPaymentReceipt
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentReceiptArray) Pop() (v PaymentsPaymentReceipt, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PaymentsPaymentReceipt by Date.
+func (s PaymentsPaymentReceiptArray) SortByDate() PaymentsPaymentReceiptArray {
+	return s.Sort(func(a, b PaymentsPaymentReceipt) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PaymentsPaymentReceipt by Date.
+func (s PaymentsPaymentReceiptArray) SortStableByDate() PaymentsPaymentReceiptArray {
+	return s.SortStable(func(a, b PaymentsPaymentReceipt) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// PaymentsPaymentReceiptStarsArray is adapter for slice of PaymentsPaymentReceiptStars.
+type PaymentsPaymentReceiptStarsArray []PaymentsPaymentReceiptStars
+
+// Sort sorts slice of PaymentsPaymentReceiptStars.
+func (s PaymentsPaymentReceiptStarsArray) Sort(less func(a, b PaymentsPaymentReceiptStars) bool) PaymentsPaymentReceiptStarsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PaymentsPaymentReceiptStars.
+func (s PaymentsPaymentReceiptStarsArray) SortStable(less func(a, b PaymentsPaymentReceiptStars) bool) PaymentsPaymentReceiptStarsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PaymentsPaymentReceiptStars.
+func (s PaymentsPaymentReceiptStarsArray) Retain(keep func(x PaymentsPaymentReceiptStars) bool) PaymentsPaymentReceiptStarsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentReceiptStarsArray) First() (v PaymentsPaymentReceiptStars, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentReceiptStarsArray) Last() (v PaymentsPaymentReceiptStars, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentReceiptStarsArray) PopFirst() (v PaymentsPaymentReceiptStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PaymentsPaymentReceiptStars
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentReceiptStarsArray) Pop() (v PaymentsPaymentReceiptStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PaymentsPaymentReceiptStars by Date.
+func (s PaymentsPaymentReceiptStarsArray) SortByDate() PaymentsPaymentReceiptStarsArray {
+	return s.Sort(func(a, b PaymentsPaymentReceiptStars) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PaymentsPaymentReceiptStars by Date.
+func (s PaymentsPaymentReceiptStarsArray) SortStableByDate() PaymentsPaymentReceiptStarsArray {
+	return s.SortStable(func(a, b PaymentsPaymentReceiptStars) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}

@@ -526,6 +526,140 @@ func (i *InputInvoicePremiumGiftCode) GetOption() (value PremiumGiftCodeOption) 
 	return i.Option
 }
 
+// InputInvoiceStars represents TL type `inputInvoiceStars#1da33ad8`.
+//
+// See https://core.telegram.org/constructor/inputInvoiceStars for reference.
+type InputInvoiceStars struct {
+	// Option field of InputInvoiceStars.
+	Option StarsTopupOption
+}
+
+// InputInvoiceStarsTypeID is TL type id of InputInvoiceStars.
+const InputInvoiceStarsTypeID = 0x1da33ad8
+
+// construct implements constructor of InputInvoiceClass.
+func (i InputInvoiceStars) construct() InputInvoiceClass { return &i }
+
+// Ensuring interfaces in compile-time for InputInvoiceStars.
+var (
+	_ bin.Encoder     = &InputInvoiceStars{}
+	_ bin.Decoder     = &InputInvoiceStars{}
+	_ bin.BareEncoder = &InputInvoiceStars{}
+	_ bin.BareDecoder = &InputInvoiceStars{}
+
+	_ InputInvoiceClass = &InputInvoiceStars{}
+)
+
+func (i *InputInvoiceStars) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Option.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputInvoiceStars) String() string {
+	if i == nil {
+		return "InputInvoiceStars(nil)"
+	}
+	type Alias InputInvoiceStars
+	return fmt.Sprintf("InputInvoiceStars%+v", Alias(*i))
+}
+
+// FillFrom fills InputInvoiceStars from given interface.
+func (i *InputInvoiceStars) FillFrom(from interface {
+	GetOption() (value StarsTopupOption)
+}) {
+	i.Option = from.GetOption()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputInvoiceStars) TypeID() uint32 {
+	return InputInvoiceStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputInvoiceStars) TypeName() string {
+	return "inputInvoiceStars"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputInvoiceStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputInvoiceStars",
+		ID:   InputInvoiceStarsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Option",
+			SchemaName: "option",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputInvoiceStars) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceStars#1da33ad8 as nil")
+	}
+	b.PutID(InputInvoiceStarsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputInvoiceStars) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceStars#1da33ad8 as nil")
+	}
+	if err := i.Option.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceStars#1da33ad8: field option: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputInvoiceStars) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceStars#1da33ad8 to nil")
+	}
+	if err := b.ConsumeID(InputInvoiceStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputInvoiceStars#1da33ad8: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputInvoiceStars) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceStars#1da33ad8 to nil")
+	}
+	{
+		if err := i.Option.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputInvoiceStars#1da33ad8: field option: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetOption returns value of Option field.
+func (i *InputInvoiceStars) GetOption() (value StarsTopupOption) {
+	if i == nil {
+		return
+	}
+	return i.Option
+}
+
 // InputInvoiceClassName is schema name of InputInvoiceClass.
 const InputInvoiceClassName = "InputInvoice"
 
@@ -543,6 +677,7 @@ const InputInvoiceClassName = "InputInvoice"
 //	case *tg.InputInvoiceMessage: // inputInvoiceMessage#c5b56859
 //	case *tg.InputInvoiceSlug: // inputInvoiceSlug#c326caef
 //	case *tg.InputInvoicePremiumGiftCode: // inputInvoicePremiumGiftCode#98986c0d
+//	case *tg.InputInvoiceStars: // inputInvoiceStars#1da33ad8
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -588,6 +723,13 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 	case InputInvoicePremiumGiftCodeTypeID:
 		// Decoding inputInvoicePremiumGiftCode#98986c0d.
 		v := InputInvoicePremiumGiftCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
+		}
+		return &v, nil
+	case InputInvoiceStarsTypeID:
+		// Decoding inputInvoiceStars#1da33ad8.
+		v := InputInvoiceStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}

@@ -250,11 +250,11 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 //	400 UNTIL_DATE_INVALID: Invalid until date provided.
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
-func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {
-	var result PaymentsPaymentForm
+func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (PaymentsPaymentFormClass, error) {
+	var result PaymentsPaymentFormBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.PaymentForm, nil
 }

@@ -168,7 +168,7 @@ func TestBuilder(t *testing.T) {
 		}, r)
 	})
 	t.Run("Blockquote", func(t *testing.T) {
-		_, ent := b.Blockquote("abc").Complete()
+		_, ent := b.Blockquote("abc", false).Complete()
 		r := ent[0]
 		require.Equal(t, &tg.MessageEntityBlockquote{
 			Offset: 0,

@@ -100,12 +100,17 @@ type PaymentsPaymentForm struct {
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
 const PaymentsPaymentFormTypeID = 0xa0058751
 
+// construct implements constructor of PaymentsPaymentFormClass.
+func (p PaymentsPaymentForm) construct() PaymentsPaymentFormClass { return &p }
+
 // Ensuring interfaces in compile-time for PaymentsPaymentForm.
 var (
 	_ bin.Encoder     = &PaymentsPaymentForm{}
 	_ bin.Decoder     = &PaymentsPaymentForm{}
 	_ bin.BareEncoder = &PaymentsPaymentForm{}
 	_ bin.BareDecoder = &PaymentsPaymentForm{}
+
+	_ PaymentsPaymentFormClass = &PaymentsPaymentForm{}
 )
 
 func (p *PaymentsPaymentForm) Zero() bool {
@@ -795,4 +800,479 @@ func (p *PaymentsPaymentForm) GetUsers() (value []UserClass) {
 // MapUsers returns field Users wrapped in UserClassArray helper.
 func (p *PaymentsPaymentForm) MapUsers() (value UserClassArray) {
 	return UserClassArray(p.Users)
+}
+
+// PaymentsPaymentFormStars represents TL type `payments.paymentFormStars#7bf6b15c`.
+//
+// See https://core.telegram.org/constructor/payments.paymentFormStars for reference.
+type PaymentsPaymentFormStars struct {
+	// Flags field of PaymentsPaymentFormStars.
+	Flags bin.Fields
+	// FormID field of PaymentsPaymentFormStars.
+	FormID int64
+	// BotID field of PaymentsPaymentFormStars.
+	BotID int64
+	// Title field of PaymentsPaymentFormStars.
+	Title string
+	// Description field of PaymentsPaymentFormStars.
+	Description string
+	// Photo field of PaymentsPaymentFormStars.
+	//
+	// Use SetPhoto and GetPhoto helpers.
+	Photo WebDocumentClass
+	// Invoice field of PaymentsPaymentFormStars.
+	Invoice Invoice
+	// Users field of PaymentsPaymentFormStars.
+	Users []UserClass
+}
+
+// PaymentsPaymentFormStarsTypeID is TL type id of PaymentsPaymentFormStars.
+const PaymentsPaymentFormStarsTypeID = 0x7bf6b15c
+
+// construct implements constructor of PaymentsPaymentFormClass.
+func (p PaymentsPaymentFormStars) construct() PaymentsPaymentFormClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentFormStars.
+var (
+	_ bin.Encoder     = &PaymentsPaymentFormStars{}
+	_ bin.Decoder     = &PaymentsPaymentFormStars{}
+	_ bin.BareEncoder = &PaymentsPaymentFormStars{}
+	_ bin.BareDecoder = &PaymentsPaymentFormStars{}
+
+	_ PaymentsPaymentFormClass = &PaymentsPaymentFormStars{}
+)
+
+func (p *PaymentsPaymentFormStars) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.FormID == 0) {
+		return false
+	}
+	if !(p.BotID == 0) {
+		return false
+	}
+	if !(p.Title == "") {
+		return false
+	}
+	if !(p.Description == "") {
+		return false
+	}
+	if !(p.Photo == nil) {
+		return false
+	}
+	if !(p.Invoice.Zero()) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentFormStars) String() string {
+	if p == nil {
+		return "PaymentsPaymentFormStars(nil)"
+	}
+	type Alias PaymentsPaymentFormStars
+	return fmt.Sprintf("PaymentsPaymentFormStars%+v", Alias(*p))
+}
+
+// FillFrom fills PaymentsPaymentFormStars from given interface.
+func (p *PaymentsPaymentFormStars) FillFrom(from interface {
+	GetFormID() (value int64)
+	GetBotID() (value int64)
+	GetTitle() (value string)
+	GetDescription() (value string)
+	GetPhoto() (value WebDocumentClass, ok bool)
+	GetInvoice() (value Invoice)
+	GetUsers() (value []UserClass)
+}) {
+	p.FormID = from.GetFormID()
+	p.BotID = from.GetBotID()
+	p.Title = from.GetTitle()
+	p.Description = from.GetDescription()
+	if val, ok := from.GetPhoto(); ok {
+		p.Photo = val
+	}
+
+	p.Invoice = from.GetInvoice()
+	p.Users = from.GetUsers()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PaymentsPaymentFormStars) TypeID() uint32 {
+	return PaymentsPaymentFormStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PaymentsPaymentFormStars) TypeName() string {
+	return "payments.paymentFormStars"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentFormStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentFormStars",
+		ID:   PaymentsPaymentFormStarsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FormID",
+			SchemaName: "form_id",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PaymentsPaymentFormStars) SetFlags() {
+	if !(p.Photo == nil) {
+		p.Flags.Set(5)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PaymentsPaymentFormStars) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentFormStars#7bf6b15c as nil")
+	}
+	b.PutID(PaymentsPaymentFormStarsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentFormStars) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentFormStars#7bf6b15c as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.paymentFormStars#7bf6b15c: field flags: %w", err)
+	}
+	b.PutLong(p.FormID)
+	b.PutLong(p.BotID)
+	b.PutString(p.Title)
+	b.PutString(p.Description)
+	if p.Flags.Has(5) {
+		if p.Photo == nil {
+			return fmt.Errorf("unable to encode payments.paymentFormStars#7bf6b15c: field photo is nil")
+		}
+		if err := p.Photo.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.paymentFormStars#7bf6b15c: field photo: %w", err)
+		}
+	}
+	if err := p.Invoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.paymentFormStars#7bf6b15c: field invoice: %w", err)
+	}
+	b.PutVectorHeader(len(p.Users))
+	for idx, v := range p.Users {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.paymentFormStars#7bf6b15c: field users element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.paymentFormStars#7bf6b15c: field users element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PaymentsPaymentFormStars) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentFormStars#7bf6b15c to nil")
+	}
+	if err := b.ConsumeID(PaymentsPaymentFormStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentFormStars) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentFormStars#7bf6b15c to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field form_id: %w", err)
+		}
+		p.FormID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field bot_id: %w", err)
+		}
+		p.BotID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field title: %w", err)
+		}
+		p.Title = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field description: %w", err)
+		}
+		p.Description = value
+	}
+	if p.Flags.Has(5) {
+		value, err := DecodeWebDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field photo: %w", err)
+		}
+		p.Photo = value
+	}
+	{
+		if err := p.Invoice.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field invoice: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeUser(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.paymentFormStars#7bf6b15c: field users: %w", err)
+			}
+			p.Users = append(p.Users, value)
+		}
+	}
+	return nil
+}
+
+// GetFormID returns value of FormID field.
+func (p *PaymentsPaymentFormStars) GetFormID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.FormID
+}
+
+// GetBotID returns value of BotID field.
+func (p *PaymentsPaymentFormStars) GetBotID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.BotID
+}
+
+// GetTitle returns value of Title field.
+func (p *PaymentsPaymentFormStars) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Title
+}
+
+// GetDescription returns value of Description field.
+func (p *PaymentsPaymentFormStars) GetDescription() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Description
+}
+
+// SetPhoto sets value of Photo conditional field.
+func (p *PaymentsPaymentFormStars) SetPhoto(value WebDocumentClass) {
+	p.Flags.Set(5)
+	p.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (p *PaymentsPaymentFormStars) GetPhoto() (value WebDocumentClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(5) {
+		return value, false
+	}
+	return p.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (p *PaymentsPaymentFormStars) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
+	return p.Invoice
+}
+
+// GetUsers returns value of Users field.
+func (p *PaymentsPaymentFormStars) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
+	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PaymentsPaymentFormStars) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}
+
+// PaymentsPaymentFormClassName is schema name of PaymentsPaymentFormClass.
+const PaymentsPaymentFormClassName = "payments.PaymentForm"
+
+// PaymentsPaymentFormClass represents payments.PaymentForm generic type.
+//
+// See https://core.telegram.org/type/payments.PaymentForm for reference.
+//
+// Example:
+//
+//	g, err := tg.DecodePaymentsPaymentForm(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PaymentsPaymentForm: // payments.paymentForm#a0058751
+//	case *tg.PaymentsPaymentFormStars: // payments.paymentFormStars#7bf6b15c
+//	default: panic(v)
+//	}
+type PaymentsPaymentFormClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() PaymentsPaymentFormClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// Form ID
+	GetFormID() (value int64)
+
+	// Bot ID
+	GetBotID() (value int64)
+
+	// Form title
+	GetTitle() (value string)
+
+	// Description
+	GetDescription() (value string)
+
+	// Product photo
+	GetPhoto() (value WebDocumentClass, ok bool)
+
+	// Invoice
+	GetInvoice() (value Invoice)
+
+	// Users
+	GetUsers() (value []UserClass)
+	// Users
+	MapUsers() (value UserClassArray)
+}
+
+// DecodePaymentsPaymentForm implements binary de-serialization for PaymentsPaymentFormClass.
+func DecodePaymentsPaymentForm(buf *bin.Buffer) (PaymentsPaymentFormClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case PaymentsPaymentFormTypeID:
+		// Decoding payments.paymentForm#a0058751.
+		v := PaymentsPaymentForm{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentsPaymentFormClass: %w", err)
+		}
+		return &v, nil
+	case PaymentsPaymentFormStarsTypeID:
+		// Decoding payments.paymentFormStars#7bf6b15c.
+		v := PaymentsPaymentFormStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentsPaymentFormClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PaymentsPaymentFormClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// PaymentsPaymentForm boxes the PaymentsPaymentFormClass providing a helper.
+type PaymentsPaymentFormBox struct {
+	PaymentForm PaymentsPaymentFormClass
+}
+
+// Decode implements bin.Decoder for PaymentsPaymentFormBox.
+func (b *PaymentsPaymentFormBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PaymentsPaymentFormBox to nil")
+	}
+	v, err := DecodePaymentsPaymentForm(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PaymentForm = v
+	return nil
+}
+
+// Encode implements bin.Encode for PaymentsPaymentFormBox.
+func (b *PaymentsPaymentFormBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PaymentForm == nil {
+		return fmt.Errorf("unable to encode PaymentsPaymentFormClass as nil")
+	}
+	return b.PaymentForm.Encode(buf)
 }

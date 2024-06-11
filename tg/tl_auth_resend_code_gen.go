@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AuthResendCodeRequest represents TL type `auth.resendCode#3ef1a9bf`.
+// AuthResendCodeRequest represents TL type `auth.resendCode#cae47523`.
 // Resend the login code via another medium, the phone code type is determined by the
 // return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
 //
@@ -40,6 +40,8 @@ var (
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
+	// Flags field of AuthResendCodeRequest.
+	Flags bin.Fields
 	// The phone number
 	PhoneNumber string
 	// The phone code hash obtained from auth.sendCode¹
@@ -47,10 +49,14 @@ type AuthResendCodeRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
+	// Reason field of AuthResendCodeRequest.
+	//
+	// Use SetReason and GetReason helpers.
+	Reason string
 }
 
 // AuthResendCodeRequestTypeID is TL type id of AuthResendCodeRequest.
-const AuthResendCodeRequestTypeID = 0x3ef1a9bf
+const AuthResendCodeRequestTypeID = 0xcae47523
 
 // Ensuring interfaces in compile-time for AuthResendCodeRequest.
 var (
@@ -64,10 +70,16 @@ func (r *AuthResendCodeRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
 	if !(r.PhoneNumber == "") {
 		return false
 	}
 	if !(r.PhoneCodeHash == "") {
+		return false
+	}
+	if !(r.Reason == "") {
 		return false
 	}
 
@@ -87,9 +99,14 @@ func (r *AuthResendCodeRequest) String() string {
 func (r *AuthResendCodeRequest) FillFrom(from interface {
 	GetPhoneNumber() (value string)
 	GetPhoneCodeHash() (value string)
+	GetReason() (value string, ok bool)
 }) {
 	r.PhoneNumber = from.GetPhoneNumber()
 	r.PhoneCodeHash = from.GetPhoneCodeHash()
+	if val, ok := from.GetReason(); ok {
+		r.Reason = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -123,14 +140,26 @@ func (r *AuthResendCodeRequest) TypeInfo() tdp.Type {
 			Name:       "PhoneCodeHash",
 			SchemaName: "phone_code_hash",
 		},
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+			Null:       !r.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (r *AuthResendCodeRequest) SetFlags() {
+	if !(r.Reason == "") {
+		r.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (r *AuthResendCodeRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.resendCode#3ef1a9bf as nil")
+		return fmt.Errorf("can't encode auth.resendCode#cae47523 as nil")
 	}
 	b.PutID(AuthResendCodeRequestTypeID)
 	return r.EncodeBare(b)
@@ -139,20 +168,27 @@ func (r *AuthResendCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AuthResendCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode auth.resendCode#3ef1a9bf as nil")
+		return fmt.Errorf("can't encode auth.resendCode#cae47523 as nil")
+	}
+	r.SetFlags()
+	if err := r.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.resendCode#cae47523: field flags: %w", err)
 	}
 	b.PutString(r.PhoneNumber)
 	b.PutString(r.PhoneCodeHash)
+	if r.Flags.Has(0) {
+		b.PutString(r.Reason)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.resendCode#3ef1a9bf to nil")
+		return fmt.Errorf("can't decode auth.resendCode#cae47523 to nil")
 	}
 	if err := b.ConsumeID(AuthResendCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: %w", err)
+		return fmt.Errorf("unable to decode auth.resendCode#cae47523: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -160,21 +196,33 @@ func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AuthResendCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode auth.resendCode#3ef1a9bf to nil")
+		return fmt.Errorf("can't decode auth.resendCode#cae47523 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode auth.resendCode#cae47523: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode auth.resendCode#cae47523: field phone_number: %w", err)
 		}
 		r.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode auth.resendCode#cae47523: field phone_code_hash: %w", err)
 		}
 		r.PhoneCodeHash = value
+	}
+	if r.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.resendCode#cae47523: field reason: %w", err)
+		}
+		r.Reason = value
 	}
 	return nil
 }
@@ -195,7 +243,25 @@ func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
 	return r.PhoneCodeHash
 }
 
-// AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.
+// SetReason sets value of Reason conditional field.
+func (r *AuthResendCodeRequest) SetReason(value string) {
+	r.Flags.Set(0)
+	r.Reason = value
+}
+
+// GetReason returns value of Reason conditional field and
+// boolean which is true if field was set.
+func (r *AuthResendCodeRequest) GetReason() (value string, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(0) {
+		return value, false
+	}
+	return r.Reason, true
+}
+
+// AuthResendCode invokes method auth.resendCode#cae47523 returning error if any.
 // Resend the login code via another medium, the phone code type is determined by the
 // return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
 //

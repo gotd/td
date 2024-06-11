@@ -380,11 +380,12 @@ func (b *Builder) CustomEmoji(s string, documentID int64) *Builder {
 // Blockquote creates Formatter of Blockquote message entity.
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote.
-func Blockquote() Formatter {
+func Blockquote(collapsed bool) Formatter {
 	return func(offset, length int) tg.MessageEntityClass {
 		return &tg.MessageEntityBlockquote{
-			Offset: offset,
-			Length: length,
+			Offset:    offset,
+			Length:    length,
+			Collapsed: collapsed,
 		}
 	}
 }
@@ -392,6 +393,6 @@ func Blockquote() Formatter {
 // Blockquote adds and formats message as Blockquote message entity.
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote.
-func (b *Builder) Blockquote(s string) *Builder {
-	return b.Format(s, Blockquote())
+func (b *Builder) Blockquote(s string, collapsed bool) *Builder {
+	return b.Format(s, Blockquote(collapsed))
 }
