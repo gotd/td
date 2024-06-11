@@ -240,7 +240,7 @@ func (m *MessageEmpty) GetPeerID() (value PeerClass, ok bool) {
 	return m.PeerID, true
 }
 
-// Message represents TL type `message#2357bf25`.
+// Message represents TL type `message#94345242`.
 // A message
 //
 // See https://core.telegram.org/constructor/message for reference.
@@ -397,10 +397,18 @@ type Message struct {
 	//
 	// Use SetQuickReplyShortcutID and GetQuickReplyShortcutID helpers.
 	QuickReplyShortcutID int
+	// Effect field of Message.
+	//
+	// Use SetEffect and GetEffect helpers.
+	Effect int64
+	// Factcheck field of Message.
+	//
+	// Use SetFactcheck and GetFactcheck helpers.
+	Factcheck FactCheck
 }
 
 // MessageTypeID is TL type id of Message.
-const MessageTypeID = 0x2357bf25
+const MessageTypeID = 0x94345242
 
 // construct implements constructor of MessageClass.
 func (m Message) construct() MessageClass { return &m }
@@ -533,6 +541,12 @@ func (m *Message) Zero() bool {
 	if !(m.QuickReplyShortcutID == 0) {
 		return false
 	}
+	if !(m.Effect == 0) {
+		return false
+	}
+	if !(m.Factcheck.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -584,6 +598,8 @@ func (m *Message) FillFrom(from interface {
 	GetRestrictionReason() (value []RestrictionReason, ok bool)
 	GetTTLPeriod() (value int, ok bool)
 	GetQuickReplyShortcutID() (value int, ok bool)
+	GetEffect() (value int64, ok bool)
+	GetFactcheck() (value FactCheck, ok bool)
 }) {
 	m.Out = from.GetOut()
 	m.Mentioned = from.GetMentioned()
@@ -679,6 +695,14 @@ func (m *Message) FillFrom(from interface {
 
 	if val, ok := from.GetQuickReplyShortcutID(); ok {
 		m.QuickReplyShortcutID = val
+	}
+
+	if val, ok := from.GetEffect(); ok {
+		m.Effect = val
+	}
+
+	if val, ok := from.GetFactcheck(); ok {
+		m.Factcheck = val
 	}
 
 }
@@ -882,6 +906,16 @@ func (m *Message) TypeInfo() tdp.Type {
 			SchemaName: "quick_reply_shortcut_id",
 			Null:       !m.Flags.Has(30),
 		},
+		{
+			Name:       "Effect",
+			SchemaName: "effect",
+			Null:       !m.Flags2.Has(2),
+		},
+		{
+			Name:       "Factcheck",
+			SchemaName: "factcheck",
+			Null:       !m.Flags2.Has(3),
+		},
 	}
 	return typ
 }
@@ -984,12 +1018,18 @@ func (m *Message) SetFlags() {
 	if !(m.QuickReplyShortcutID == 0) {
 		m.Flags.Set(30)
 	}
+	if !(m.Effect == 0) {
+		m.Flags2.Set(2)
+	}
+	if !(m.Factcheck.Zero()) {
+		m.Flags2.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#2357bf25 as nil")
+		return fmt.Errorf("can't encode message#94345242 as nil")
 	}
 	b.PutID(MessageTypeID)
 	return m.EncodeBare(b)
@@ -998,44 +1038,44 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#2357bf25 as nil")
+		return fmt.Errorf("can't encode message#94345242 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#2357bf25: field flags: %w", err)
+		return fmt.Errorf("unable to encode message#94345242: field flags: %w", err)
 	}
 	if err := m.Flags2.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#2357bf25: field flags2: %w", err)
+		return fmt.Errorf("unable to encode message#94345242: field flags2: %w", err)
 	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(8) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field from_id is nil")
+			return fmt.Errorf("unable to encode message#94345242: field from_id is nil")
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field from_id: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field from_id: %w", err)
 		}
 	}
 	if m.Flags.Has(29) {
 		b.PutInt(m.FromBoostsApplied)
 	}
 	if m.PeerID == nil {
-		return fmt.Errorf("unable to encode message#2357bf25: field peer_id is nil")
+		return fmt.Errorf("unable to encode message#94345242: field peer_id is nil")
 	}
 	if err := m.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#2357bf25: field peer_id: %w", err)
+		return fmt.Errorf("unable to encode message#94345242: field peer_id: %w", err)
 	}
 	if m.Flags.Has(28) {
 		if m.SavedPeerID == nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field saved_peer_id is nil")
+			return fmt.Errorf("unable to encode message#94345242: field saved_peer_id is nil")
 		}
 		if err := m.SavedPeerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field saved_peer_id: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field saved_peer_id: %w", err)
 		}
 	}
 	if m.Flags.Has(2) {
 		if err := m.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field fwd_from: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field fwd_from: %w", err)
 		}
 	}
 	if m.Flags.Has(11) {
@@ -1046,38 +1086,38 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(3) {
 		if m.ReplyTo == nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field reply_to is nil")
+			return fmt.Errorf("unable to encode message#94345242: field reply_to is nil")
 		}
 		if err := m.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field reply_to: %w", err)
 		}
 	}
 	b.PutInt(m.Date)
 	b.PutString(m.Message)
 	if m.Flags.Has(9) {
 		if m.Media == nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field media is nil")
+			return fmt.Errorf("unable to encode message#94345242: field media is nil")
 		}
 		if err := m.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field media: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field media: %w", err)
 		}
 	}
 	if m.Flags.Has(6) {
 		if m.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field reply_markup is nil")
+			return fmt.Errorf("unable to encode message#94345242: field reply_markup is nil")
 		}
 		if err := m.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field reply_markup: %w", err)
 		}
 	}
 	if m.Flags.Has(7) {
 		b.PutVectorHeader(len(m.Entities))
 		for idx, v := range m.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode message#2357bf25: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode message#94345242: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode message#2357bf25: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode message#94345242: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -1089,7 +1129,7 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(23) {
 		if err := m.Replies.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field replies: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field replies: %w", err)
 		}
 	}
 	if m.Flags.Has(15) {
@@ -1103,14 +1143,14 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(20) {
 		if err := m.Reactions.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#2357bf25: field reactions: %w", err)
+			return fmt.Errorf("unable to encode message#94345242: field reactions: %w", err)
 		}
 	}
 	if m.Flags.Has(22) {
 		b.PutVectorHeader(len(m.RestrictionReason))
 		for idx, v := range m.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode message#2357bf25: field restriction_reason element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode message#94345242: field restriction_reason element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -1120,16 +1160,24 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(30) {
 		b.PutInt(m.QuickReplyShortcutID)
 	}
+	if m.Flags2.Has(2) {
+		b.PutLong(m.Effect)
+	}
+	if m.Flags2.Has(3) {
+		if err := m.Factcheck.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode message#94345242: field factcheck: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#2357bf25 to nil")
+		return fmt.Errorf("can't decode message#94345242 to nil")
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#2357bf25: %w", err)
+		return fmt.Errorf("unable to decode message#94345242: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1137,11 +1185,11 @@ func (m *Message) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#2357bf25 to nil")
+		return fmt.Errorf("can't decode message#94345242 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field flags: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field flags: %w", err)
 		}
 	}
 	m.Out = m.Flags.Has(1)
@@ -1157,103 +1205,103 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	m.InvertMedia = m.Flags.Has(27)
 	{
 		if err := m.Flags2.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field flags2: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field flags2: %w", err)
 		}
 	}
 	m.Offline = m.Flags2.Has(1)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field id: %w", err)
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field from_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field from_id: %w", err)
 		}
 		m.FromID = value
 	}
 	if m.Flags.Has(29) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field from_boosts_applied: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field from_boosts_applied: %w", err)
 		}
 		m.FromBoostsApplied = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field peer_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field peer_id: %w", err)
 		}
 		m.PeerID = value
 	}
 	if m.Flags.Has(28) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field saved_peer_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field saved_peer_id: %w", err)
 		}
 		m.SavedPeerID = value
 	}
 	if m.Flags.Has(2) {
 		if err := m.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field fwd_from: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field fwd_from: %w", err)
 		}
 	}
 	if m.Flags.Has(11) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field via_bot_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field via_bot_id: %w", err)
 		}
 		m.ViaBotID = value
 	}
 	if m.Flags2.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field via_business_bot_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field via_business_bot_id: %w", err)
 		}
 		m.ViaBusinessBotID = value
 	}
 	if m.Flags.Has(3) {
 		value, err := DecodeMessageReplyHeader(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field reply_to: %w", err)
 		}
 		m.ReplyTo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field date: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field message: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field message: %w", err)
 		}
 		m.Message = value
 	}
 	if m.Flags.Has(9) {
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field media: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field media: %w", err)
 		}
 		m.Media = value
 	}
 	if m.Flags.Has(6) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field reply_markup: %w", err)
 		}
 		m.ReplyMarkup = value
 	}
 	if m.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field entities: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1262,7 +1310,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#2357bf25: field entities: %w", err)
+				return fmt.Errorf("unable to decode message#94345242: field entities: %w", err)
 			}
 			m.Entities = append(m.Entities, value)
 		}
@@ -1270,52 +1318,52 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field views: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field views: %w", err)
 		}
 		m.Views = value
 	}
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field forwards: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field forwards: %w", err)
 		}
 		m.Forwards = value
 	}
 	if m.Flags.Has(23) {
 		if err := m.Replies.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field replies: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field replies: %w", err)
 		}
 	}
 	if m.Flags.Has(15) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field edit_date: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field edit_date: %w", err)
 		}
 		m.EditDate = value
 	}
 	if m.Flags.Has(16) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field post_author: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field post_author: %w", err)
 		}
 		m.PostAuthor = value
 	}
 	if m.Flags.Has(17) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field grouped_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field grouped_id: %w", err)
 		}
 		m.GroupedID = value
 	}
 	if m.Flags.Has(20) {
 		if err := m.Reactions.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field reactions: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field reactions: %w", err)
 		}
 	}
 	if m.Flags.Has(22) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field restriction_reason: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1324,7 +1372,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode message#2357bf25: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode message#94345242: field restriction_reason: %w", err)
 			}
 			m.RestrictionReason = append(m.RestrictionReason, value)
 		}
@@ -1332,16 +1380,28 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(25) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field ttl_period: %w", err)
 		}
 		m.TTLPeriod = value
 	}
 	if m.Flags.Has(30) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#2357bf25: field quick_reply_shortcut_id: %w", err)
+			return fmt.Errorf("unable to decode message#94345242: field quick_reply_shortcut_id: %w", err)
 		}
 		m.QuickReplyShortcutID = value
+	}
+	if m.Flags2.Has(2) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#94345242: field effect: %w", err)
+		}
+		m.Effect = value
+	}
+	if m.Flags2.Has(3) {
+		if err := m.Factcheck.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode message#94345242: field factcheck: %w", err)
+		}
 	}
 	return nil
 }
@@ -1964,6 +2024,42 @@ func (m *Message) GetQuickReplyShortcutID() (value int, ok bool) {
 		return value, false
 	}
 	return m.QuickReplyShortcutID, true
+}
+
+// SetEffect sets value of Effect conditional field.
+func (m *Message) SetEffect(value int64) {
+	m.Flags2.Set(2)
+	m.Effect = value
+}
+
+// GetEffect returns value of Effect conditional field and
+// boolean which is true if field was set.
+func (m *Message) GetEffect() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags2.Has(2) {
+		return value, false
+	}
+	return m.Effect, true
+}
+
+// SetFactcheck sets value of Factcheck conditional field.
+func (m *Message) SetFactcheck(value FactCheck) {
+	m.Flags2.Set(3)
+	m.Factcheck = value
+}
+
+// GetFactcheck returns value of Factcheck conditional field and
+// boolean which is true if field was set.
+func (m *Message) GetFactcheck() (value FactCheck, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags2.Has(3) {
+		return value, false
+	}
+	return m.Factcheck, true
 }
 
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
@@ -2601,7 +2697,7 @@ const MessageClassName = "Message"
 //	}
 //	switch v := g.(type) {
 //	case *tg.MessageEmpty: // messageEmpty#90a6ca84
-//	case *tg.Message: // message#2357bf25
+//	case *tg.Message: // message#94345242
 //	case *tg.MessageService: // messageService#2b085862
 //	default: panic(v)
 //	}
@@ -2739,7 +2835,7 @@ func DecodeMessage(buf *bin.Buffer) (MessageClass, error) {
 		}
 		return &v, nil
 	case MessageTypeID:
-		// Decoding message#2357bf25.
+		// Decoding message#94345242.
 		v := Message{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)

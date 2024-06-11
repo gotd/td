@@ -2763,7 +2763,7 @@ func (i *InputMediaGame) GetID() (value InputGameClass) {
 	return i.ID
 }
 
-// InputMediaInvoice represents TL type `inputMediaInvoice#8eb5a6d5`.
+// InputMediaInvoice represents TL type `inputMediaInvoice#405fef0d`.
 // Generated invoice of a bot payment¹
 //
 // Links:
@@ -2794,6 +2794,8 @@ type InputMediaInvoice struct {
 	//
 	// Links:
 	//  1) https://t.me/botfather
+	//
+	// Use SetProvider and GetProvider helpers.
 	Provider string
 	// JSON-encoded data about the invoice, which will be shared with the payment provider. A
 	// detailed description of required fields should be provided by the payment provider.
@@ -2817,7 +2819,7 @@ type InputMediaInvoice struct {
 }
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
-const InputMediaInvoiceTypeID = 0x8eb5a6d5
+const InputMediaInvoiceTypeID = 0x405fef0d
 
 // construct implements constructor of InputMediaClass.
 func (i InputMediaInvoice) construct() InputMediaClass { return &i }
@@ -2886,7 +2888,7 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 	GetPhoto() (value InputWebDocument, ok bool)
 	GetInvoice() (value Invoice)
 	GetPayload() (value []byte)
-	GetProvider() (value string)
+	GetProvider() (value string, ok bool)
 	GetProviderData() (value DataJSON)
 	GetStartParam() (value string, ok bool)
 	GetExtendedMedia() (value InputMediaClass, ok bool)
@@ -2899,7 +2901,10 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 
 	i.Invoice = from.GetInvoice()
 	i.Payload = from.GetPayload()
-	i.Provider = from.GetProvider()
+	if val, ok := from.GetProvider(); ok {
+		i.Provider = val
+	}
+
 	i.ProviderData = from.GetProviderData()
 	if val, ok := from.GetStartParam(); ok {
 		i.StartParam = val
@@ -2958,6 +2963,7 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 		{
 			Name:       "Provider",
 			SchemaName: "provider",
+			Null:       !i.Flags.Has(3),
 		},
 		{
 			Name:       "ProviderData",
@@ -2982,6 +2988,9 @@ func (i *InputMediaInvoice) SetFlags() {
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
 	}
+	if !(i.Provider == "") {
+		i.Flags.Set(3)
+	}
 	if !(i.StartParam == "") {
 		i.Flags.Set(1)
 	}
@@ -2993,7 +3002,7 @@ func (i *InputMediaInvoice) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaInvoice#8eb5a6d5 as nil")
+		return fmt.Errorf("can't encode inputMediaInvoice#405fef0d as nil")
 	}
 	b.PutID(InputMediaInvoiceTypeID)
 	return i.EncodeBare(b)
@@ -3002,36 +3011,38 @@ func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaInvoice#8eb5a6d5 as nil")
+		return fmt.Errorf("can't encode inputMediaInvoice#405fef0d as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#8eb5a6d5: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputMediaInvoice#405fef0d: field flags: %w", err)
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Description)
 	if i.Flags.Has(0) {
 		if err := i.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaInvoice#8eb5a6d5: field photo: %w", err)
+			return fmt.Errorf("unable to encode inputMediaInvoice#405fef0d: field photo: %w", err)
 		}
 	}
 	if err := i.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#8eb5a6d5: field invoice: %w", err)
+		return fmt.Errorf("unable to encode inputMediaInvoice#405fef0d: field invoice: %w", err)
 	}
 	b.PutBytes(i.Payload)
-	b.PutString(i.Provider)
+	if i.Flags.Has(3) {
+		b.PutString(i.Provider)
+	}
 	if err := i.ProviderData.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaInvoice#8eb5a6d5: field provider_data: %w", err)
+		return fmt.Errorf("unable to encode inputMediaInvoice#405fef0d: field provider_data: %w", err)
 	}
 	if i.Flags.Has(1) {
 		b.PutString(i.StartParam)
 	}
 	if i.Flags.Has(2) {
 		if i.ExtendedMedia == nil {
-			return fmt.Errorf("unable to encode inputMediaInvoice#8eb5a6d5: field extended_media is nil")
+			return fmt.Errorf("unable to encode inputMediaInvoice#405fef0d: field extended_media is nil")
 		}
 		if err := i.ExtendedMedia.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaInvoice#8eb5a6d5: field extended_media: %w", err)
+			return fmt.Errorf("unable to encode inputMediaInvoice#405fef0d: field extended_media: %w", err)
 		}
 	}
 	return nil
@@ -3040,10 +3051,10 @@ func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaInvoice#8eb5a6d5 to nil")
+		return fmt.Errorf("can't decode inputMediaInvoice#405fef0d to nil")
 	}
 	if err := b.ConsumeID(InputMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: %w", err)
+		return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3051,67 +3062,67 @@ func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaInvoice#8eb5a6d5 to nil")
+		return fmt.Errorf("can't decode inputMediaInvoice#405fef0d to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field title: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field title: %w", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field description: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field description: %w", err)
 		}
 		i.Description = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field photo: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field photo: %w", err)
 		}
 	}
 	{
 		if err := i.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field invoice: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field invoice: %w", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field payload: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field payload: %w", err)
 		}
 		i.Payload = value
 	}
-	{
+	if i.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field provider: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field provider: %w", err)
 		}
 		i.Provider = value
 	}
 	{
 		if err := i.ProviderData.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field provider_data: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field provider_data: %w", err)
 		}
 	}
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field start_param: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field start_param: %w", err)
 		}
 		i.StartParam = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaInvoice#8eb5a6d5: field extended_media: %w", err)
+			return fmt.Errorf("unable to decode inputMediaInvoice#405fef0d: field extended_media: %w", err)
 		}
 		i.ExtendedMedia = value
 	}
@@ -3168,12 +3179,22 @@ func (i *InputMediaInvoice) GetPayload() (value []byte) {
 	return i.Payload
 }
 
-// GetProvider returns value of Provider field.
-func (i *InputMediaInvoice) GetProvider() (value string) {
+// SetProvider sets value of Provider conditional field.
+func (i *InputMediaInvoice) SetProvider(value string) {
+	i.Flags.Set(3)
+	i.Provider = value
+}
+
+// GetProvider returns value of Provider conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaInvoice) GetProvider() (value string, ok bool) {
 	if i == nil {
 		return
 	}
-	return i.Provider
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.Provider, true
 }
 
 // GetProviderData returns value of ProviderData field.
@@ -4507,7 +4528,7 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
 //	case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
 //	case *tg.InputMediaGame: // inputMediaGame#d33f43f3
-//	case *tg.InputMediaInvoice: // inputMediaInvoice#8eb5a6d5
+//	case *tg.InputMediaInvoice: // inputMediaInvoice#405fef0d
 //	case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
 //	case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
 //	case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
@@ -4619,7 +4640,7 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		}
 		return &v, nil
 	case InputMediaInvoiceTypeID:
-		// Decoding inputMediaInvoice#8eb5a6d5.
+		// Decoding inputMediaInvoice#405fef0d.
 		v := InputMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)

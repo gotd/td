@@ -205,9 +205,9 @@ func CustomEmoji(s string, documentID int64) StyledTextOption {
 // Blockquote formats text as Blockquote entity.
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote.
-func Blockquote(s string) StyledTextOption {
+func Blockquote(s string, collapsed bool) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
-		b.Blockquote(s)
+		b.Blockquote(s, collapsed)
 		return nil
 	})
 }

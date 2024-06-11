@@ -27136,6 +27136,306 @@ func (u *UpdateNewStoryReaction) GetReaction() (value ReactionClass) {
 	return u.Reaction
 }
 
+// UpdateBroadcastRevenueTransactions represents TL type `updateBroadcastRevenueTransactions#dfd961f5`.
+//
+// See https://core.telegram.org/constructor/updateBroadcastRevenueTransactions for reference.
+type UpdateBroadcastRevenueTransactions struct {
+	// Peer field of UpdateBroadcastRevenueTransactions.
+	Peer PeerClass
+	// Balances field of UpdateBroadcastRevenueTransactions.
+	Balances BroadcastRevenueBalances
+}
+
+// UpdateBroadcastRevenueTransactionsTypeID is TL type id of UpdateBroadcastRevenueTransactions.
+const UpdateBroadcastRevenueTransactionsTypeID = 0xdfd961f5
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBroadcastRevenueTransactions) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBroadcastRevenueTransactions.
+var (
+	_ bin.Encoder     = &UpdateBroadcastRevenueTransactions{}
+	_ bin.Decoder     = &UpdateBroadcastRevenueTransactions{}
+	_ bin.BareEncoder = &UpdateBroadcastRevenueTransactions{}
+	_ bin.BareDecoder = &UpdateBroadcastRevenueTransactions{}
+
+	_ UpdateClass = &UpdateBroadcastRevenueTransactions{}
+)
+
+func (u *UpdateBroadcastRevenueTransactions) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Balances.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBroadcastRevenueTransactions) String() string {
+	if u == nil {
+		return "UpdateBroadcastRevenueTransactions(nil)"
+	}
+	type Alias UpdateBroadcastRevenueTransactions
+	return fmt.Sprintf("UpdateBroadcastRevenueTransactions%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBroadcastRevenueTransactions from given interface.
+func (u *UpdateBroadcastRevenueTransactions) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetBalances() (value BroadcastRevenueBalances)
+}) {
+	u.Peer = from.GetPeer()
+	u.Balances = from.GetBalances()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBroadcastRevenueTransactions) TypeID() uint32 {
+	return UpdateBroadcastRevenueTransactionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBroadcastRevenueTransactions) TypeName() string {
+	return "updateBroadcastRevenueTransactions"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBroadcastRevenueTransactions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBroadcastRevenueTransactions",
+		ID:   UpdateBroadcastRevenueTransactionsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Balances",
+			SchemaName: "balances",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBroadcastRevenueTransactions) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBroadcastRevenueTransactions#dfd961f5 as nil")
+	}
+	b.PutID(UpdateBroadcastRevenueTransactionsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBroadcastRevenueTransactions) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBroadcastRevenueTransactions#dfd961f5 as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateBroadcastRevenueTransactions#dfd961f5: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBroadcastRevenueTransactions#dfd961f5: field peer: %w", err)
+	}
+	if err := u.Balances.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBroadcastRevenueTransactions#dfd961f5: field balances: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBroadcastRevenueTransactions) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBroadcastRevenueTransactions#dfd961f5 to nil")
+	}
+	if err := b.ConsumeID(UpdateBroadcastRevenueTransactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBroadcastRevenueTransactions#dfd961f5: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBroadcastRevenueTransactions) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBroadcastRevenueTransactions#dfd961f5 to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBroadcastRevenueTransactions#dfd961f5: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		if err := u.Balances.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBroadcastRevenueTransactions#dfd961f5: field balances: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateBroadcastRevenueTransactions) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetBalances returns value of Balances field.
+func (u *UpdateBroadcastRevenueTransactions) GetBalances() (value BroadcastRevenueBalances) {
+	if u == nil {
+		return
+	}
+	return u.Balances
+}
+
+// UpdateStarsBalance represents TL type `updateStarsBalance#fb85198`.
+//
+// See https://core.telegram.org/constructor/updateStarsBalance for reference.
+type UpdateStarsBalance struct {
+	// Balance field of UpdateStarsBalance.
+	Balance int64
+}
+
+// UpdateStarsBalanceTypeID is TL type id of UpdateStarsBalance.
+const UpdateStarsBalanceTypeID = 0xfb85198
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStarsBalance) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStarsBalance.
+var (
+	_ bin.Encoder     = &UpdateStarsBalance{}
+	_ bin.Decoder     = &UpdateStarsBalance{}
+	_ bin.BareEncoder = &UpdateStarsBalance{}
+	_ bin.BareDecoder = &UpdateStarsBalance{}
+
+	_ UpdateClass = &UpdateStarsBalance{}
+)
+
+func (u *UpdateStarsBalance) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Balance == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateStarsBalance) String() string {
+	if u == nil {
+		return "UpdateStarsBalance(nil)"
+	}
+	type Alias UpdateStarsBalance
+	return fmt.Sprintf("UpdateStarsBalance%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateStarsBalance from given interface.
+func (u *UpdateStarsBalance) FillFrom(from interface {
+	GetBalance() (value int64)
+}) {
+	u.Balance = from.GetBalance()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateStarsBalance) TypeID() uint32 {
+	return UpdateStarsBalanceTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateStarsBalance) TypeName() string {
+	return "updateStarsBalance"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStarsBalance) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStarsBalance",
+		ID:   UpdateStarsBalanceTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Balance",
+			SchemaName: "balance",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateStarsBalance) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarsBalance#fb85198 as nil")
+	}
+	b.PutID(UpdateStarsBalanceTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateStarsBalance) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarsBalance#fb85198 as nil")
+	}
+	b.PutLong(u.Balance)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateStarsBalance) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarsBalance#fb85198 to nil")
+	}
+	if err := b.ConsumeID(UpdateStarsBalanceTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateStarsBalance#fb85198: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateStarsBalance) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarsBalance#fb85198 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStarsBalance#fb85198: field balance: %w", err)
+		}
+		u.Balance = value
+	}
+	return nil
+}
+
+// GetBalance returns value of Balance field.
+func (u *UpdateStarsBalance) GetBalance() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.Balance
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -27285,6 +27585,8 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBotEditBusinessMessage: // updateBotEditBusinessMessage#7df587c
 //	case *tg.UpdateBotDeleteBusinessMessage: // updateBotDeleteBusinessMessage#a02a982e
 //	case *tg.UpdateNewStoryReaction: // updateNewStoryReaction#1824e40b
+//	case *tg.UpdateBroadcastRevenueTransactions: // updateBroadcastRevenueTransactions#dfd961f5
+//	case *tg.UpdateStarsBalance: // updateStarsBalance#fb85198
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -28254,6 +28556,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateNewStoryReactionTypeID:
 		// Decoding updateNewStoryReaction#1824e40b.
 		v := UpdateNewStoryReaction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBroadcastRevenueTransactionsTypeID:
+		// Decoding updateBroadcastRevenueTransactions#dfd961f5.
+		v := UpdateBroadcastRevenueTransactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateStarsBalanceTypeID:
+		// Decoding updateStarsBalance#fb85198.
+		v := UpdateStarsBalance{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -47,6 +47,104 @@ func NewQueryBuilder(raw *tg.Client) *QueryBuilder {
 	return &QueryBuilder{raw: raw}
 }
 
+// ChannelsSearchPostsQueryBuilder is query builder of ChannelsSearchPosts.
+type ChannelsSearchPostsQueryBuilder struct {
+	raw        *tg.Client
+	req        tg.ChannelsSearchPostsRequest
+	batchSize  int
+	offsetID   int
+	offsetPeer tg.InputPeerClass
+	offsetRate int
+}
+
+// ChannelsSearchPosts creates query builder of ChannelsSearchPosts.
+func (q *QueryBuilder) ChannelsSearchPosts() *ChannelsSearchPostsQueryBuilder {
+	b := &ChannelsSearchPostsQueryBuilder{
+		raw:       q.raw,
+		batchSize: 1,
+		req:       tg.ChannelsSearchPostsRequest{},
+	}
+
+	return b
+}
+
+// BatchSize sets buffer of message loaded from one request.
+// Be carefully, when set this limit, because Telegram does not return error if limit is too big,
+// so results can be incorrect.
+func (b *ChannelsSearchPostsQueryBuilder) BatchSize(batchSize int) *ChannelsSearchPostsQueryBuilder {
+	b.batchSize = batchSize
+	return b
+}
+
+// OffsetID sets offsetID from which iterate start.
+func (b *ChannelsSearchPostsQueryBuilder) OffsetID(offsetID int) *ChannelsSearchPostsQueryBuilder {
+	b.offsetID = offsetID
+	return b
+}
+
+// Hashtag sets Hashtag field of ChannelsSearchPosts query.
+func (b *ChannelsSearchPostsQueryBuilder) Hashtag(paramHashtag string) *ChannelsSearchPostsQueryBuilder {
+	b.req.Hashtag = paramHashtag
+	return b
+}
+
+// Query implements Query interface.
+func (b *ChannelsSearchPostsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
+	r := &tg.ChannelsSearchPostsRequest{
+		Limit: req.Limit,
+	}
+
+	r.Hashtag = b.req.Hashtag
+	r.OffsetID = req.OffsetID
+	r.OffsetPeer = req.OffsetPeer
+	r.OffsetRate = req.OffsetRate
+	return b.raw.ChannelsSearchPosts(ctx, r)
+}
+
+// Iter returns iterator using built query.
+func (b *ChannelsSearchPostsQueryBuilder) Iter() *Iterator {
+	iter := NewIterator(b, b.batchSize)
+	iter = iter.OffsetID(b.offsetID)
+	return iter
+}
+
+// ForEach calls given callback on each iterator element.
+func (b *ChannelsSearchPostsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
+	iter := b.Iter()
+	for iter.Next(ctx) {
+		if err := cb(ctx, iter.Value()); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *ChannelsSearchPostsQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, errors.Wrap(err, "get total")
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *ChannelsSearchPostsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get total")
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // GetHistoryQueryBuilder is query builder of MessagesGetHistory.
 type GetHistoryQueryBuilder struct {
 	raw        *tg.Client
