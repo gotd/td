@@ -31,12 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ResendAuthenticationCodeRequest represents TL type `resendAuthenticationCode#cf759719`.
+// ResendAuthenticationCodeRequest represents TL type `resendAuthenticationCode#a630bbb8`.
 type ResendAuthenticationCodeRequest struct {
+	// Reason of code resending; pass null if unknown
+	Reason ResendCodeReasonClass
 }
 
 // ResendAuthenticationCodeRequestTypeID is TL type id of ResendAuthenticationCodeRequest.
-const ResendAuthenticationCodeRequestTypeID = 0xcf759719
+const ResendAuthenticationCodeRequestTypeID = 0xa630bbb8
 
 // Ensuring interfaces in compile-time for ResendAuthenticationCodeRequest.
 var (
@@ -49,6 +51,9 @@ var (
 func (r *ResendAuthenticationCodeRequest) Zero() bool {
 	if r == nil {
 		return true
+	}
+	if !(r.Reason == nil) {
+		return false
 	}
 
 	return true
@@ -85,14 +90,19 @@ func (r *ResendAuthenticationCodeRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (r *ResendAuthenticationCodeRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendAuthenticationCode#cf759719 as nil")
+		return fmt.Errorf("can't encode resendAuthenticationCode#a630bbb8 as nil")
 	}
 	b.PutID(ResendAuthenticationCodeRequestTypeID)
 	return r.EncodeBare(b)
@@ -101,7 +111,13 @@ func (r *ResendAuthenticationCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ResendAuthenticationCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendAuthenticationCode#cf759719 as nil")
+		return fmt.Errorf("can't encode resendAuthenticationCode#a630bbb8 as nil")
+	}
+	if r.Reason == nil {
+		return fmt.Errorf("unable to encode resendAuthenticationCode#a630bbb8: field reason is nil")
+	}
+	if err := r.Reason.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode resendAuthenticationCode#a630bbb8: field reason: %w", err)
 	}
 	return nil
 }
@@ -109,10 +125,10 @@ func (r *ResendAuthenticationCodeRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ResendAuthenticationCodeRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendAuthenticationCode#cf759719 to nil")
+		return fmt.Errorf("can't decode resendAuthenticationCode#a630bbb8 to nil")
 	}
 	if err := b.ConsumeID(ResendAuthenticationCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode resendAuthenticationCode#cf759719: %w", err)
+		return fmt.Errorf("unable to decode resendAuthenticationCode#a630bbb8: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -120,7 +136,14 @@ func (r *ResendAuthenticationCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ResendAuthenticationCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendAuthenticationCode#cf759719 to nil")
+		return fmt.Errorf("can't decode resendAuthenticationCode#a630bbb8 to nil")
+	}
+	{
+		value, err := DecodeResendCodeReason(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode resendAuthenticationCode#a630bbb8: field reason: %w", err)
+		}
+		r.Reason = value
 	}
 	return nil
 }
@@ -128,10 +151,18 @@ func (r *ResendAuthenticationCodeRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendAuthenticationCode#cf759719 as nil")
+		return fmt.Errorf("can't encode resendAuthenticationCode#a630bbb8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("resendAuthenticationCode")
+	b.Comma()
+	b.FieldStart("reason")
+	if r.Reason == nil {
+		return fmt.Errorf("unable to encode resendAuthenticationCode#a630bbb8: field reason is nil")
+	}
+	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode resendAuthenticationCode#a630bbb8: field reason: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -141,15 +172,21 @@ func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ResendAuthenticationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendAuthenticationCode#cf759719 to nil")
+		return fmt.Errorf("can't decode resendAuthenticationCode#a630bbb8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("resendAuthenticationCode"); err != nil {
-				return fmt.Errorf("unable to decode resendAuthenticationCode#cf759719: %w", err)
+				return fmt.Errorf("unable to decode resendAuthenticationCode#a630bbb8: %w", err)
 			}
+		case "reason":
+			value, err := DecodeTDLibJSONResendCodeReason(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode resendAuthenticationCode#a630bbb8: field reason: %w", err)
+			}
+			r.Reason = value
 		default:
 			return b.Skip()
 		}
@@ -157,11 +194,21 @@ func (r *ResendAuthenticationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
-// ResendAuthenticationCode invokes method resendAuthenticationCode#cf759719 returning error if any.
-func (c *Client) ResendAuthenticationCode(ctx context.Context) error {
+// GetReason returns value of Reason field.
+func (r *ResendAuthenticationCodeRequest) GetReason() (value ResendCodeReasonClass) {
+	if r == nil {
+		return
+	}
+	return r.Reason
+}
+
+// ResendAuthenticationCode invokes method resendAuthenticationCode#a630bbb8 returning error if any.
+func (c *Client) ResendAuthenticationCode(ctx context.Context, reason ResendCodeReasonClass) error {
 	var ok Ok
 
-	request := &ResendAuthenticationCodeRequest{}
+	request := &ResendAuthenticationCodeRequest{
+		Reason: reason,
+	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}

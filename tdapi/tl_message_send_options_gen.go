@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageSendOptions represents TL type `messageSendOptions#9cca9fb3`.
+// MessageSendOptions represents TL type `messageSendOptions#828489ae`.
 type MessageSendOptions struct {
 	// Pass true to disable notification for the message
 	DisableNotification bool
@@ -46,6 +46,9 @@ type MessageSendOptions struct {
 	// Message scheduling state; pass null to send message immediately. Messages sent to a
 	// secret chat, live location messages and self-destructing messages can't be scheduled
 	SchedulingState MessageSchedulingStateClass
+	// Identifier of the effect to apply to the message; applicable only to sendMessage and
+	// sendMessageAlbum in private chats
+	EffectID int64
 	// Non-persistent identifier, which will be returned back in messageSendingStatePending
 	// object and can be used to match sent messages and corresponding updateNewMessage
 	// updates
@@ -55,7 +58,7 @@ type MessageSendOptions struct {
 }
 
 // MessageSendOptionsTypeID is TL type id of MessageSendOptions.
-const MessageSendOptionsTypeID = 0x9cca9fb3
+const MessageSendOptionsTypeID = 0x828489ae
 
 // Ensuring interfaces in compile-time for MessageSendOptions.
 var (
@@ -82,6 +85,9 @@ func (m *MessageSendOptions) Zero() bool {
 		return false
 	}
 	if !(m.SchedulingState == nil) {
+		return false
+	}
+	if !(m.EffectID == 0) {
 		return false
 	}
 	if !(m.SendingID == 0) {
@@ -147,6 +153,10 @@ func (m *MessageSendOptions) TypeInfo() tdp.Type {
 			SchemaName: "scheduling_state",
 		},
 		{
+			Name:       "EffectID",
+			SchemaName: "effect_id",
+		},
+		{
 			Name:       "SendingID",
 			SchemaName: "sending_id",
 		},
@@ -161,7 +171,7 @@ func (m *MessageSendOptions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageSendOptions) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendOptions#9cca9fb3 as nil")
+		return fmt.Errorf("can't encode messageSendOptions#828489ae as nil")
 	}
 	b.PutID(MessageSendOptionsTypeID)
 	return m.EncodeBare(b)
@@ -170,18 +180,19 @@ func (m *MessageSendOptions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageSendOptions) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendOptions#9cca9fb3 as nil")
+		return fmt.Errorf("can't encode messageSendOptions#828489ae as nil")
 	}
 	b.PutBool(m.DisableNotification)
 	b.PutBool(m.FromBackground)
 	b.PutBool(m.ProtectContent)
 	b.PutBool(m.UpdateOrderOfInstalledStickerSets)
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode messageSendOptions#9cca9fb3: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode messageSendOptions#828489ae: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageSendOptions#9cca9fb3: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode messageSendOptions#828489ae: field scheduling_state: %w", err)
 	}
+	b.PutLong(m.EffectID)
 	b.PutInt32(m.SendingID)
 	b.PutBool(m.OnlyPreview)
 	return nil
@@ -190,10 +201,10 @@ func (m *MessageSendOptions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageSendOptions) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendOptions#9cca9fb3 to nil")
+		return fmt.Errorf("can't decode messageSendOptions#828489ae to nil")
 	}
 	if err := b.ConsumeID(MessageSendOptionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: %w", err)
+		return fmt.Errorf("unable to decode messageSendOptions#828489ae: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -201,54 +212,61 @@ func (m *MessageSendOptions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageSendOptions) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendOptions#9cca9fb3 to nil")
+		return fmt.Errorf("can't decode messageSendOptions#828489ae to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field disable_notification: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field disable_notification: %w", err)
 		}
 		m.DisableNotification = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field from_background: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field from_background: %w", err)
 		}
 		m.FromBackground = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field protect_content: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field protect_content: %w", err)
 		}
 		m.ProtectContent = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field update_order_of_installed_sticker_sets: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field update_order_of_installed_sticker_sets: %w", err)
 		}
 		m.UpdateOrderOfInstalledStickerSets = value
 	}
 	{
 		value, err := DecodeMessageSchedulingState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field scheduling_state: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field scheduling_state: %w", err)
 		}
 		m.SchedulingState = value
 	}
 	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field effect_id: %w", err)
+		}
+		m.EffectID = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field sending_id: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field sending_id: %w", err)
 		}
 		m.SendingID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field only_preview: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#828489ae: field only_preview: %w", err)
 		}
 		m.OnlyPreview = value
 	}
@@ -258,7 +276,7 @@ func (m *MessageSendOptions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendOptions#9cca9fb3 as nil")
+		return fmt.Errorf("can't encode messageSendOptions#828489ae as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageSendOptions")
@@ -277,11 +295,14 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("scheduling_state")
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode messageSendOptions#9cca9fb3: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode messageSendOptions#828489ae: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageSendOptions#9cca9fb3: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode messageSendOptions#828489ae: field scheduling_state: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("effect_id")
+	b.PutLong(m.EffectID)
 	b.Comma()
 	b.FieldStart("sending_id")
 	b.PutInt32(m.SendingID)
@@ -297,55 +318,61 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageSendOptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendOptions#9cca9fb3 to nil")
+		return fmt.Errorf("can't decode messageSendOptions#828489ae to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSendOptions"); err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: %w", err)
 			}
 		case "disable_notification":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field disable_notification: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field disable_notification: %w", err)
 			}
 			m.DisableNotification = value
 		case "from_background":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field from_background: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field from_background: %w", err)
 			}
 			m.FromBackground = value
 		case "protect_content":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field protect_content: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field protect_content: %w", err)
 			}
 			m.ProtectContent = value
 		case "update_order_of_installed_sticker_sets":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field update_order_of_installed_sticker_sets: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field update_order_of_installed_sticker_sets: %w", err)
 			}
 			m.UpdateOrderOfInstalledStickerSets = value
 		case "scheduling_state":
 			value, err := DecodeTDLibJSONMessageSchedulingState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field scheduling_state: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field scheduling_state: %w", err)
 			}
 			m.SchedulingState = value
+		case "effect_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field effect_id: %w", err)
+			}
+			m.EffectID = value
 		case "sending_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field sending_id: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field sending_id: %w", err)
 			}
 			m.SendingID = value
 		case "only_preview":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#9cca9fb3: field only_preview: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#828489ae: field only_preview: %w", err)
 			}
 			m.OnlyPreview = value
 		default:
@@ -393,6 +420,14 @@ func (m *MessageSendOptions) GetSchedulingState() (value MessageSchedulingStateC
 		return
 	}
 	return m.SchedulingState
+}
+
+// GetEffectID returns value of EffectID field.
+func (m *MessageSendOptions) GetEffectID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.EffectID
 }
 
 // GetSendingID returns value of SendingID field.

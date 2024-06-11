@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchUserByPhoneNumberRequest represents TL type `searchUserByPhoneNumber#a2e22b12`.
+// SearchUserByPhoneNumberRequest represents TL type `searchUserByPhoneNumber#eb82adc8`.
 type SearchUserByPhoneNumberRequest struct {
 	// Phone number to search for
 	PhoneNumber string
+	// Pass true to get only locally available information without sending network requests
+	OnlyLocal bool
 }
 
 // SearchUserByPhoneNumberRequestTypeID is TL type id of SearchUserByPhoneNumberRequest.
-const SearchUserByPhoneNumberRequestTypeID = 0xa2e22b12
+const SearchUserByPhoneNumberRequestTypeID = 0xeb82adc8
 
 // Ensuring interfaces in compile-time for SearchUserByPhoneNumberRequest.
 var (
@@ -53,6 +55,9 @@ func (s *SearchUserByPhoneNumberRequest) Zero() bool {
 		return true
 	}
 	if !(s.PhoneNumber == "") {
+		return false
+	}
+	if !(s.OnlyLocal == false) {
 		return false
 	}
 
@@ -95,6 +100,10 @@ func (s *SearchUserByPhoneNumberRequest) TypeInfo() tdp.Type {
 			Name:       "PhoneNumber",
 			SchemaName: "phone_number",
 		},
+		{
+			Name:       "OnlyLocal",
+			SchemaName: "only_local",
+		},
 	}
 	return typ
 }
@@ -102,7 +111,7 @@ func (s *SearchUserByPhoneNumberRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchUserByPhoneNumberRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchUserByPhoneNumber#a2e22b12 as nil")
+		return fmt.Errorf("can't encode searchUserByPhoneNumber#eb82adc8 as nil")
 	}
 	b.PutID(SearchUserByPhoneNumberRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,19 +120,20 @@ func (s *SearchUserByPhoneNumberRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchUserByPhoneNumberRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchUserByPhoneNumber#a2e22b12 as nil")
+		return fmt.Errorf("can't encode searchUserByPhoneNumber#eb82adc8 as nil")
 	}
 	b.PutString(s.PhoneNumber)
+	b.PutBool(s.OnlyLocal)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SearchUserByPhoneNumberRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchUserByPhoneNumber#a2e22b12 to nil")
+		return fmt.Errorf("can't decode searchUserByPhoneNumber#eb82adc8 to nil")
 	}
 	if err := b.ConsumeID(SearchUserByPhoneNumberRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchUserByPhoneNumber#a2e22b12: %w", err)
+		return fmt.Errorf("unable to decode searchUserByPhoneNumber#eb82adc8: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -131,14 +141,21 @@ func (s *SearchUserByPhoneNumberRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchUserByPhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchUserByPhoneNumber#a2e22b12 to nil")
+		return fmt.Errorf("can't decode searchUserByPhoneNumber#eb82adc8 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchUserByPhoneNumber#a2e22b12: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode searchUserByPhoneNumber#eb82adc8: field phone_number: %w", err)
 		}
 		s.PhoneNumber = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode searchUserByPhoneNumber#eb82adc8: field only_local: %w", err)
+		}
+		s.OnlyLocal = value
 	}
 	return nil
 }
@@ -146,13 +163,16 @@ func (s *SearchUserByPhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchUserByPhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchUserByPhoneNumber#a2e22b12 as nil")
+		return fmt.Errorf("can't encode searchUserByPhoneNumber#eb82adc8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchUserByPhoneNumber")
 	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(s.PhoneNumber)
+	b.Comma()
+	b.FieldStart("only_local")
+	b.PutBool(s.OnlyLocal)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -162,21 +182,27 @@ func (s *SearchUserByPhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchUserByPhoneNumberRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchUserByPhoneNumber#a2e22b12 to nil")
+		return fmt.Errorf("can't decode searchUserByPhoneNumber#eb82adc8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchUserByPhoneNumber"); err != nil {
-				return fmt.Errorf("unable to decode searchUserByPhoneNumber#a2e22b12: %w", err)
+				return fmt.Errorf("unable to decode searchUserByPhoneNumber#eb82adc8: %w", err)
 			}
 		case "phone_number":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchUserByPhoneNumber#a2e22b12: field phone_number: %w", err)
+				return fmt.Errorf("unable to decode searchUserByPhoneNumber#eb82adc8: field phone_number: %w", err)
 			}
 			s.PhoneNumber = value
+		case "only_local":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchUserByPhoneNumber#eb82adc8: field only_local: %w", err)
+			}
+			s.OnlyLocal = value
 		default:
 			return b.Skip()
 		}
@@ -192,13 +218,18 @@ func (s *SearchUserByPhoneNumberRequest) GetPhoneNumber() (value string) {
 	return s.PhoneNumber
 }
 
-// SearchUserByPhoneNumber invokes method searchUserByPhoneNumber#a2e22b12 returning error if any.
-func (c *Client) SearchUserByPhoneNumber(ctx context.Context, phonenumber string) (*User, error) {
+// GetOnlyLocal returns value of OnlyLocal field.
+func (s *SearchUserByPhoneNumberRequest) GetOnlyLocal() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.OnlyLocal
+}
+
+// SearchUserByPhoneNumber invokes method searchUserByPhoneNumber#eb82adc8 returning error if any.
+func (c *Client) SearchUserByPhoneNumber(ctx context.Context, request *SearchUserByPhoneNumberRequest) (*User, error) {
 	var result User
 
-	request := &SearchUserByPhoneNumberRequest{
-		PhoneNumber: phonenumber,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -31,39 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentForm represents TL type `paymentForm#d40a1a85`.
+// PaymentForm represents TL type `paymentForm#7720ffb3`.
 type PaymentForm struct {
 	// The payment form identifier
 	ID int64
-	// Full information about the invoice
-	Invoice Invoice
+	// Type of the payment form
+	Type PaymentFormTypeClass
 	// User identifier of the seller bot
 	SellerBotUserID int64
-	// User identifier of the payment provider bot
-	PaymentProviderUserID int64
-	// Information about the payment provider
-	PaymentProvider PaymentProviderClass
-	// The list of additional payment options
-	AdditionalPaymentOptions []PaymentOption
-	// Saved server-side order information; may be null
-	SavedOrderInfo OrderInfo
-	// The list of saved payment credentials
-	SavedCredentials []SavedCredentials
-	// True, if the user can choose to save credentials
-	CanSaveCredentials bool
-	// True, if the user will be able to save credentials, if sets up a 2-step verification
-	// password
-	NeedPassword bool
-	// Product title
-	ProductTitle string
-	// Product description
-	ProductDescription FormattedText
-	// Product photo; may be null
-	ProductPhoto Photo
+	// Information about the product
+	ProductInfo ProductInfo
 }
 
 // PaymentFormTypeID is TL type id of PaymentForm.
-const PaymentFormTypeID = 0xd40a1a85
+const PaymentFormTypeID = 0x7720ffb3
 
 // Ensuring interfaces in compile-time for PaymentForm.
 var (
@@ -80,40 +61,13 @@ func (p *PaymentForm) Zero() bool {
 	if !(p.ID == 0) {
 		return false
 	}
-	if !(p.Invoice.Zero()) {
+	if !(p.Type == nil) {
 		return false
 	}
 	if !(p.SellerBotUserID == 0) {
 		return false
 	}
-	if !(p.PaymentProviderUserID == 0) {
-		return false
-	}
-	if !(p.PaymentProvider == nil) {
-		return false
-	}
-	if !(p.AdditionalPaymentOptions == nil) {
-		return false
-	}
-	if !(p.SavedOrderInfo.Zero()) {
-		return false
-	}
-	if !(p.SavedCredentials == nil) {
-		return false
-	}
-	if !(p.CanSaveCredentials == false) {
-		return false
-	}
-	if !(p.NeedPassword == false) {
-		return false
-	}
-	if !(p.ProductTitle == "") {
-		return false
-	}
-	if !(p.ProductDescription.Zero()) {
-		return false
-	}
-	if !(p.ProductPhoto.Zero()) {
+	if !(p.ProductInfo.Zero()) {
 		return false
 	}
 
@@ -157,52 +111,16 @@ func (p *PaymentForm) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
-			Name:       "Invoice",
-			SchemaName: "invoice",
+			Name:       "Type",
+			SchemaName: "type",
 		},
 		{
 			Name:       "SellerBotUserID",
 			SchemaName: "seller_bot_user_id",
 		},
 		{
-			Name:       "PaymentProviderUserID",
-			SchemaName: "payment_provider_user_id",
-		},
-		{
-			Name:       "PaymentProvider",
-			SchemaName: "payment_provider",
-		},
-		{
-			Name:       "AdditionalPaymentOptions",
-			SchemaName: "additional_payment_options",
-		},
-		{
-			Name:       "SavedOrderInfo",
-			SchemaName: "saved_order_info",
-		},
-		{
-			Name:       "SavedCredentials",
-			SchemaName: "saved_credentials",
-		},
-		{
-			Name:       "CanSaveCredentials",
-			SchemaName: "can_save_credentials",
-		},
-		{
-			Name:       "NeedPassword",
-			SchemaName: "need_password",
-		},
-		{
-			Name:       "ProductTitle",
-			SchemaName: "product_title",
-		},
-		{
-			Name:       "ProductDescription",
-			SchemaName: "product_description",
-		},
-		{
-			Name:       "ProductPhoto",
-			SchemaName: "product_photo",
+			Name:       "ProductInfo",
+			SchemaName: "product_info",
 		},
 	}
 	return typ
@@ -211,7 +129,7 @@ func (p *PaymentForm) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentForm) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentForm#d40a1a85 as nil")
+		return fmt.Errorf("can't encode paymentForm#7720ffb3 as nil")
 	}
 	b.PutID(PaymentFormTypeID)
 	return p.EncodeBare(b)
@@ -220,43 +138,18 @@ func (p *PaymentForm) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentForm) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentForm#d40a1a85 as nil")
+		return fmt.Errorf("can't encode paymentForm#7720ffb3 as nil")
 	}
 	b.PutLong(p.ID)
-	if err := p.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field invoice: %w", err)
+	if p.Type == nil {
+		return fmt.Errorf("unable to encode paymentForm#7720ffb3: field type is nil")
+	}
+	if err := p.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode paymentForm#7720ffb3: field type: %w", err)
 	}
 	b.PutInt53(p.SellerBotUserID)
-	b.PutInt53(p.PaymentProviderUserID)
-	if p.PaymentProvider == nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field payment_provider is nil")
-	}
-	if err := p.PaymentProvider.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field payment_provider: %w", err)
-	}
-	b.PutInt(len(p.AdditionalPaymentOptions))
-	for idx, v := range p.AdditionalPaymentOptions {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare paymentForm#d40a1a85: field additional_payment_options element with index %d: %w", idx, err)
-		}
-	}
-	if err := p.SavedOrderInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field saved_order_info: %w", err)
-	}
-	b.PutInt(len(p.SavedCredentials))
-	for idx, v := range p.SavedCredentials {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare paymentForm#d40a1a85: field saved_credentials element with index %d: %w", idx, err)
-		}
-	}
-	b.PutBool(p.CanSaveCredentials)
-	b.PutBool(p.NeedPassword)
-	b.PutString(p.ProductTitle)
-	if err := p.ProductDescription.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field product_description: %w", err)
-	}
-	if err := p.ProductPhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field product_photo: %w", err)
+	if err := p.ProductInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode paymentForm#7720ffb3: field product_info: %w", err)
 	}
 	return nil
 }
@@ -264,10 +157,10 @@ func (p *PaymentForm) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PaymentForm) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentForm#d40a1a85 to nil")
+		return fmt.Errorf("can't decode paymentForm#7720ffb3 to nil")
 	}
 	if err := b.ConsumeID(PaymentFormTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentForm#d40a1a85: %w", err)
+		return fmt.Errorf("unable to decode paymentForm#7720ffb3: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -275,109 +168,32 @@ func (p *PaymentForm) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentForm) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentForm#d40a1a85 to nil")
+		return fmt.Errorf("can't decode paymentForm#7720ffb3 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field id: %w", err)
+			return fmt.Errorf("unable to decode paymentForm#7720ffb3: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
-		if err := p.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field invoice: %w", err)
+		value, err := DecodePaymentFormType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode paymentForm#7720ffb3: field type: %w", err)
 		}
+		p.Type = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field seller_bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode paymentForm#7720ffb3: field seller_bot_user_id: %w", err)
 		}
 		p.SellerBotUserID = value
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field payment_provider_user_id: %w", err)
-		}
-		p.PaymentProviderUserID = value
-	}
-	{
-		value, err := DecodePaymentProvider(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field payment_provider: %w", err)
-		}
-		p.PaymentProvider = value
-	}
-	{
-		headerLen, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field additional_payment_options: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.AdditionalPaymentOptions = make([]PaymentOption, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value PaymentOption
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare paymentForm#d40a1a85: field additional_payment_options: %w", err)
-			}
-			p.AdditionalPaymentOptions = append(p.AdditionalPaymentOptions, value)
-		}
-	}
-	{
-		if err := p.SavedOrderInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field saved_order_info: %w", err)
-		}
-	}
-	{
-		headerLen, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field saved_credentials: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.SavedCredentials = make([]SavedCredentials, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value SavedCredentials
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare paymentForm#d40a1a85: field saved_credentials: %w", err)
-			}
-			p.SavedCredentials = append(p.SavedCredentials, value)
-		}
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field can_save_credentials: %w", err)
-		}
-		p.CanSaveCredentials = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field need_password: %w", err)
-		}
-		p.NeedPassword = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field product_title: %w", err)
-		}
-		p.ProductTitle = value
-	}
-	{
-		if err := p.ProductDescription.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field product_description: %w", err)
-		}
-	}
-	{
-		if err := p.ProductPhoto.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentForm#d40a1a85: field product_photo: %w", err)
+		if err := p.ProductInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode paymentForm#7720ffb3: field product_info: %w", err)
 		}
 	}
 	return nil
@@ -386,7 +202,7 @@ func (p *PaymentForm) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PaymentForm) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentForm#d40a1a85 as nil")
+		return fmt.Errorf("can't encode paymentForm#7720ffb3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("paymentForm")
@@ -394,69 +210,20 @@ func (p *PaymentForm) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("id")
 	b.PutLong(p.ID)
 	b.Comma()
-	b.FieldStart("invoice")
-	if err := p.Invoice.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field invoice: %w", err)
+	b.FieldStart("type")
+	if p.Type == nil {
+		return fmt.Errorf("unable to encode paymentForm#7720ffb3: field type is nil")
+	}
+	if err := p.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentForm#7720ffb3: field type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("seller_bot_user_id")
 	b.PutInt53(p.SellerBotUserID)
 	b.Comma()
-	b.FieldStart("payment_provider_user_id")
-	b.PutInt53(p.PaymentProviderUserID)
-	b.Comma()
-	b.FieldStart("payment_provider")
-	if p.PaymentProvider == nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field payment_provider is nil")
-	}
-	if err := p.PaymentProvider.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field payment_provider: %w", err)
-	}
-	b.Comma()
-	b.FieldStart("additional_payment_options")
-	b.ArrStart()
-	for idx, v := range p.AdditionalPaymentOptions {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode paymentForm#d40a1a85: field additional_payment_options element with index %d: %w", idx, err)
-		}
-		b.Comma()
-	}
-	b.StripComma()
-	b.ArrEnd()
-	b.Comma()
-	b.FieldStart("saved_order_info")
-	if err := p.SavedOrderInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field saved_order_info: %w", err)
-	}
-	b.Comma()
-	b.FieldStart("saved_credentials")
-	b.ArrStart()
-	for idx, v := range p.SavedCredentials {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode paymentForm#d40a1a85: field saved_credentials element with index %d: %w", idx, err)
-		}
-		b.Comma()
-	}
-	b.StripComma()
-	b.ArrEnd()
-	b.Comma()
-	b.FieldStart("can_save_credentials")
-	b.PutBool(p.CanSaveCredentials)
-	b.Comma()
-	b.FieldStart("need_password")
-	b.PutBool(p.NeedPassword)
-	b.Comma()
-	b.FieldStart("product_title")
-	b.PutString(p.ProductTitle)
-	b.Comma()
-	b.FieldStart("product_description")
-	if err := p.ProductDescription.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field product_description: %w", err)
-	}
-	b.Comma()
-	b.FieldStart("product_photo")
-	if err := p.ProductPhoto.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#d40a1a85: field product_photo: %w", err)
+	b.FieldStart("product_info")
+	if err := p.ProductInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentForm#7720ffb3: field product_info: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -467,94 +234,36 @@ func (p *PaymentForm) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PaymentForm) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentForm#d40a1a85 to nil")
+		return fmt.Errorf("can't decode paymentForm#7720ffb3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("paymentForm"); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: %w", err)
+				return fmt.Errorf("unable to decode paymentForm#7720ffb3: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field id: %w", err)
+				return fmt.Errorf("unable to decode paymentForm#7720ffb3: field id: %w", err)
 			}
 			p.ID = value
-		case "invoice":
-			if err := p.Invoice.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field invoice: %w", err)
+		case "type":
+			value, err := DecodeTDLibJSONPaymentFormType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#7720ffb3: field type: %w", err)
 			}
+			p.Type = value
 		case "seller_bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field seller_bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode paymentForm#7720ffb3: field seller_bot_user_id: %w", err)
 			}
 			p.SellerBotUserID = value
-		case "payment_provider_user_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field payment_provider_user_id: %w", err)
-			}
-			p.PaymentProviderUserID = value
-		case "payment_provider":
-			value, err := DecodeTDLibJSONPaymentProvider(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field payment_provider: %w", err)
-			}
-			p.PaymentProvider = value
-		case "additional_payment_options":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value PaymentOption
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode paymentForm#d40a1a85: field additional_payment_options: %w", err)
-				}
-				p.AdditionalPaymentOptions = append(p.AdditionalPaymentOptions, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field additional_payment_options: %w", err)
-			}
-		case "saved_order_info":
-			if err := p.SavedOrderInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field saved_order_info: %w", err)
-			}
-		case "saved_credentials":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value SavedCredentials
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode paymentForm#d40a1a85: field saved_credentials: %w", err)
-				}
-				p.SavedCredentials = append(p.SavedCredentials, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field saved_credentials: %w", err)
-			}
-		case "can_save_credentials":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field can_save_credentials: %w", err)
-			}
-			p.CanSaveCredentials = value
-		case "need_password":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field need_password: %w", err)
-			}
-			p.NeedPassword = value
-		case "product_title":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field product_title: %w", err)
-			}
-			p.ProductTitle = value
-		case "product_description":
-			if err := p.ProductDescription.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field product_description: %w", err)
-			}
-		case "product_photo":
-			if err := p.ProductPhoto.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentForm#d40a1a85: field product_photo: %w", err)
+		case "product_info":
+			if err := p.ProductInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentForm#7720ffb3: field product_info: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -571,12 +280,12 @@ func (p *PaymentForm) GetID() (value int64) {
 	return p.ID
 }
 
-// GetInvoice returns value of Invoice field.
-func (p *PaymentForm) GetInvoice() (value Invoice) {
+// GetType returns value of Type field.
+func (p *PaymentForm) GetType() (value PaymentFormTypeClass) {
 	if p == nil {
 		return
 	}
-	return p.Invoice
+	return p.Type
 }
 
 // GetSellerBotUserID returns value of SellerBotUserID field.
@@ -587,82 +296,10 @@ func (p *PaymentForm) GetSellerBotUserID() (value int64) {
 	return p.SellerBotUserID
 }
 
-// GetPaymentProviderUserID returns value of PaymentProviderUserID field.
-func (p *PaymentForm) GetPaymentProviderUserID() (value int64) {
+// GetProductInfo returns value of ProductInfo field.
+func (p *PaymentForm) GetProductInfo() (value ProductInfo) {
 	if p == nil {
 		return
 	}
-	return p.PaymentProviderUserID
-}
-
-// GetPaymentProvider returns value of PaymentProvider field.
-func (p *PaymentForm) GetPaymentProvider() (value PaymentProviderClass) {
-	if p == nil {
-		return
-	}
-	return p.PaymentProvider
-}
-
-// GetAdditionalPaymentOptions returns value of AdditionalPaymentOptions field.
-func (p *PaymentForm) GetAdditionalPaymentOptions() (value []PaymentOption) {
-	if p == nil {
-		return
-	}
-	return p.AdditionalPaymentOptions
-}
-
-// GetSavedOrderInfo returns value of SavedOrderInfo field.
-func (p *PaymentForm) GetSavedOrderInfo() (value OrderInfo) {
-	if p == nil {
-		return
-	}
-	return p.SavedOrderInfo
-}
-
-// GetSavedCredentials returns value of SavedCredentials field.
-func (p *PaymentForm) GetSavedCredentials() (value []SavedCredentials) {
-	if p == nil {
-		return
-	}
-	return p.SavedCredentials
-}
-
-// GetCanSaveCredentials returns value of CanSaveCredentials field.
-func (p *PaymentForm) GetCanSaveCredentials() (value bool) {
-	if p == nil {
-		return
-	}
-	return p.CanSaveCredentials
-}
-
-// GetNeedPassword returns value of NeedPassword field.
-func (p *PaymentForm) GetNeedPassword() (value bool) {
-	if p == nil {
-		return
-	}
-	return p.NeedPassword
-}
-
-// GetProductTitle returns value of ProductTitle field.
-func (p *PaymentForm) GetProductTitle() (value string) {
-	if p == nil {
-		return
-	}
-	return p.ProductTitle
-}
-
-// GetProductDescription returns value of ProductDescription field.
-func (p *PaymentForm) GetProductDescription() (value FormattedText) {
-	if p == nil {
-		return
-	}
-	return p.ProductDescription
-}
-
-// GetProductPhoto returns value of ProductPhoto field.
-func (p *PaymentForm) GetProductPhoto() (value Photo) {
-	if p == nil {
-		return
-	}
-	return p.ProductPhoto
+	return p.ProductInfo
 }

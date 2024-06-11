@@ -2728,6 +2728,240 @@ func (u *UpdateMessageUnreadReactions) GetUnreadReactionCount() (value int32) {
 	return u.UnreadReactionCount
 }
 
+// UpdateMessageFactCheck represents TL type `updateMessageFactCheck#3c78fb02`.
+type UpdateMessageFactCheck struct {
+	// Chat identifier
+	ChatID int64
+	// Message identifier
+	MessageID int64
+	// The new fact-check
+	FactCheck FactCheck
+}
+
+// UpdateMessageFactCheckTypeID is TL type id of UpdateMessageFactCheck.
+const UpdateMessageFactCheckTypeID = 0x3c78fb02
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessageFactCheck) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessageFactCheck.
+var (
+	_ bin.Encoder     = &UpdateMessageFactCheck{}
+	_ bin.Decoder     = &UpdateMessageFactCheck{}
+	_ bin.BareEncoder = &UpdateMessageFactCheck{}
+	_ bin.BareDecoder = &UpdateMessageFactCheck{}
+
+	_ UpdateClass = &UpdateMessageFactCheck{}
+)
+
+func (u *UpdateMessageFactCheck) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MessageID == 0) {
+		return false
+	}
+	if !(u.FactCheck.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateMessageFactCheck) String() string {
+	if u == nil {
+		return "UpdateMessageFactCheck(nil)"
+	}
+	type Alias UpdateMessageFactCheck
+	return fmt.Sprintf("UpdateMessageFactCheck%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateMessageFactCheck) TypeID() uint32 {
+	return UpdateMessageFactCheckTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateMessageFactCheck) TypeName() string {
+	return "updateMessageFactCheck"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessageFactCheck) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessageFactCheck",
+		ID:   UpdateMessageFactCheckTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageID",
+			SchemaName: "message_id",
+		},
+		{
+			Name:       "FactCheck",
+			SchemaName: "fact_check",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateMessageFactCheck) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageFactCheck#3c78fb02 as nil")
+	}
+	b.PutID(UpdateMessageFactCheckTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateMessageFactCheck) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageFactCheck#3c78fb02 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt53(u.MessageID)
+	if err := u.FactCheck.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageFactCheck#3c78fb02: field fact_check: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateMessageFactCheck) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageFactCheck#3c78fb02 to nil")
+	}
+	if err := b.ConsumeID(UpdateMessageFactCheckTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateMessageFactCheck) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageFactCheck#3c78fb02 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: field message_id: %w", err)
+		}
+		u.MessageID = value
+	}
+	{
+		if err := u.FactCheck.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: field fact_check: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageFactCheck) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageFactCheck#3c78fb02 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateMessageFactCheck")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("message_id")
+	b.PutInt53(u.MessageID)
+	b.Comma()
+	b.FieldStart("fact_check")
+	if err := u.FactCheck.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageFactCheck#3c78fb02: field fact_check: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageFactCheck) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageFactCheck#3c78fb02 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateMessageFactCheck"); err != nil {
+				return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: field message_id: %w", err)
+			}
+			u.MessageID = value
+		case "fact_check":
+			if err := u.FactCheck.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateMessageFactCheck#3c78fb02: field fact_check: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateMessageFactCheck) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetMessageID returns value of MessageID field.
+func (u *UpdateMessageFactCheck) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.MessageID
+}
+
+// GetFactCheck returns value of FactCheck field.
+func (u *UpdateMessageFactCheck) GetFactCheck() (value FactCheck) {
+	if u == nil {
+		return
+	}
+	return u.FactCheck
+}
+
 // UpdateMessageLiveLocationViewed represents TL type `updateMessageLiveLocationViewed#b2058595`.
 type UpdateMessageLiveLocationViewed struct {
 	// Identifier of the chat with the live location message
@@ -16775,6 +17009,207 @@ func (u *UpdateFileRemovedFromDownloads) GetCounts() (value DownloadedFileCounts
 	return u.Counts
 }
 
+// UpdateApplicationVerificationRequired represents TL type `updateApplicationVerificationRequired#32079e05`.
+type UpdateApplicationVerificationRequired struct {
+	// Unique identifier for the verification process
+	VerificationID int64
+	// Unique nonce for the classic Play Integrity verification (https://developer.android
+	// com/google/play/integrity/classic) for Android,
+	Nonce string
+}
+
+// UpdateApplicationVerificationRequiredTypeID is TL type id of UpdateApplicationVerificationRequired.
+const UpdateApplicationVerificationRequiredTypeID = 0x32079e05
+
+// construct implements constructor of UpdateClass.
+func (u UpdateApplicationVerificationRequired) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateApplicationVerificationRequired.
+var (
+	_ bin.Encoder     = &UpdateApplicationVerificationRequired{}
+	_ bin.Decoder     = &UpdateApplicationVerificationRequired{}
+	_ bin.BareEncoder = &UpdateApplicationVerificationRequired{}
+	_ bin.BareDecoder = &UpdateApplicationVerificationRequired{}
+
+	_ UpdateClass = &UpdateApplicationVerificationRequired{}
+)
+
+func (u *UpdateApplicationVerificationRequired) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.VerificationID == 0) {
+		return false
+	}
+	if !(u.Nonce == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateApplicationVerificationRequired) String() string {
+	if u == nil {
+		return "UpdateApplicationVerificationRequired(nil)"
+	}
+	type Alias UpdateApplicationVerificationRequired
+	return fmt.Sprintf("UpdateApplicationVerificationRequired%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateApplicationVerificationRequired) TypeID() uint32 {
+	return UpdateApplicationVerificationRequiredTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateApplicationVerificationRequired) TypeName() string {
+	return "updateApplicationVerificationRequired"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateApplicationVerificationRequired) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateApplicationVerificationRequired",
+		ID:   UpdateApplicationVerificationRequiredTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "VerificationID",
+			SchemaName: "verification_id",
+		},
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateApplicationVerificationRequired) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateApplicationVerificationRequired#32079e05 as nil")
+	}
+	b.PutID(UpdateApplicationVerificationRequiredTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateApplicationVerificationRequired) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateApplicationVerificationRequired#32079e05 as nil")
+	}
+	b.PutInt53(u.VerificationID)
+	b.PutString(u.Nonce)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateApplicationVerificationRequired) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateApplicationVerificationRequired#32079e05 to nil")
+	}
+	if err := b.ConsumeID(UpdateApplicationVerificationRequiredTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateApplicationVerificationRequired) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateApplicationVerificationRequired#32079e05 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field verification_id: %w", err)
+		}
+		u.VerificationID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field nonce: %w", err)
+		}
+		u.Nonce = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateApplicationVerificationRequired) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateApplicationVerificationRequired#32079e05 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateApplicationVerificationRequired")
+	b.Comma()
+	b.FieldStart("verification_id")
+	b.PutInt53(u.VerificationID)
+	b.Comma()
+	b.FieldStart("nonce")
+	b.PutString(u.Nonce)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateApplicationVerificationRequired) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateApplicationVerificationRequired#32079e05 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateApplicationVerificationRequired"); err != nil {
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: %w", err)
+			}
+		case "verification_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field verification_id: %w", err)
+			}
+			u.VerificationID = value
+		case "nonce":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field nonce: %w", err)
+			}
+			u.Nonce = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetVerificationID returns value of VerificationID field.
+func (u *UpdateApplicationVerificationRequired) GetVerificationID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.VerificationID
+}
+
+// GetNonce returns value of Nonce field.
+func (u *UpdateApplicationVerificationRequired) GetNonce() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Nonce
+}
+
 // UpdateCall represents TL type `updateCall#4fb3d0dd`.
 type UpdateCall struct {
 	// New data about a call
@@ -23758,6 +24193,254 @@ func (u *UpdateActiveEmojiReactions) GetEmojis() (value []string) {
 	return u.Emojis
 }
 
+// UpdateAvailableMessageEffects represents TL type `updateAvailableMessageEffects#a1cb72b9`.
+type UpdateAvailableMessageEffects struct {
+	// The new list of available message effects from emoji reactions
+	ReactionEffectIDs []int64
+	// The new list of available message effects from Premium stickers
+	StickerEffectIDs []int64
+}
+
+// UpdateAvailableMessageEffectsTypeID is TL type id of UpdateAvailableMessageEffects.
+const UpdateAvailableMessageEffectsTypeID = 0xa1cb72b9
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAvailableMessageEffects) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAvailableMessageEffects.
+var (
+	_ bin.Encoder     = &UpdateAvailableMessageEffects{}
+	_ bin.Decoder     = &UpdateAvailableMessageEffects{}
+	_ bin.BareEncoder = &UpdateAvailableMessageEffects{}
+	_ bin.BareDecoder = &UpdateAvailableMessageEffects{}
+
+	_ UpdateClass = &UpdateAvailableMessageEffects{}
+)
+
+func (u *UpdateAvailableMessageEffects) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ReactionEffectIDs == nil) {
+		return false
+	}
+	if !(u.StickerEffectIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAvailableMessageEffects) String() string {
+	if u == nil {
+		return "UpdateAvailableMessageEffects(nil)"
+	}
+	type Alias UpdateAvailableMessageEffects
+	return fmt.Sprintf("UpdateAvailableMessageEffects%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAvailableMessageEffects) TypeID() uint32 {
+	return UpdateAvailableMessageEffectsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAvailableMessageEffects) TypeName() string {
+	return "updateAvailableMessageEffects"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAvailableMessageEffects) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAvailableMessageEffects",
+		ID:   UpdateAvailableMessageEffectsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ReactionEffectIDs",
+			SchemaName: "reaction_effect_ids",
+		},
+		{
+			Name:       "StickerEffectIDs",
+			SchemaName: "sticker_effect_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAvailableMessageEffects) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAvailableMessageEffects#a1cb72b9 as nil")
+	}
+	b.PutID(UpdateAvailableMessageEffectsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAvailableMessageEffects) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAvailableMessageEffects#a1cb72b9 as nil")
+	}
+	b.PutInt(len(u.ReactionEffectIDs))
+	for _, v := range u.ReactionEffectIDs {
+		b.PutLong(v)
+	}
+	b.PutInt(len(u.StickerEffectIDs))
+	for _, v := range u.StickerEffectIDs {
+		b.PutLong(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAvailableMessageEffects) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAvailableMessageEffects#a1cb72b9 to nil")
+	}
+	if err := b.ConsumeID(UpdateAvailableMessageEffectsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAvailableMessageEffects) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAvailableMessageEffects#a1cb72b9 to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field reaction_effect_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.ReactionEffectIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field reaction_effect_ids: %w", err)
+			}
+			u.ReactionEffectIDs = append(u.ReactionEffectIDs, value)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field sticker_effect_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.StickerEffectIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field sticker_effect_ids: %w", err)
+			}
+			u.StickerEffectIDs = append(u.StickerEffectIDs, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateAvailableMessageEffects) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAvailableMessageEffects#a1cb72b9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateAvailableMessageEffects")
+	b.Comma()
+	b.FieldStart("reaction_effect_ids")
+	b.ArrStart()
+	for _, v := range u.ReactionEffectIDs {
+		b.PutLong(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("sticker_effect_ids")
+	b.ArrStart()
+	for _, v := range u.StickerEffectIDs {
+		b.PutLong(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateAvailableMessageEffects) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAvailableMessageEffects#a1cb72b9 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateAvailableMessageEffects"); err != nil {
+				return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: %w", err)
+			}
+		case "reaction_effect_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field reaction_effect_ids: %w", err)
+				}
+				u.ReactionEffectIDs = append(u.ReactionEffectIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field reaction_effect_ids: %w", err)
+			}
+		case "sticker_effect_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field sticker_effect_ids: %w", err)
+				}
+				u.StickerEffectIDs = append(u.StickerEffectIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateAvailableMessageEffects#a1cb72b9: field sticker_effect_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetReactionEffectIDs returns value of ReactionEffectIDs field.
+func (u *UpdateAvailableMessageEffects) GetReactionEffectIDs() (value []int64) {
+	if u == nil {
+		return
+	}
+	return u.ReactionEffectIDs
+}
+
+// GetStickerEffectIDs returns value of StickerEffectIDs field.
+func (u *UpdateAvailableMessageEffects) GetStickerEffectIDs() (value []int64) {
+	if u == nil {
+		return
+	}
+	return u.StickerEffectIDs
+}
+
 // UpdateDefaultReactionType represents TL type `updateDefaultReactionType#4b615105`.
 type UpdateDefaultReactionType struct {
 	// The new type of the default reaction
@@ -24135,12 +24818,182 @@ func (u *UpdateSavedMessagesTags) GetTags() (value SavedMessagesTags) {
 	return u.Tags
 }
 
-// UpdateChatRevenueAmount represents TL type `updateChatRevenueAmount#32f4a5e1`.
+// UpdateOwnedStarCount represents TL type `updateOwnedStarCount#de995b79`.
+type UpdateOwnedStarCount struct {
+	// The new number of Telegram stars owned
+	StarCount int64
+}
+
+// UpdateOwnedStarCountTypeID is TL type id of UpdateOwnedStarCount.
+const UpdateOwnedStarCountTypeID = 0xde995b79
+
+// construct implements constructor of UpdateClass.
+func (u UpdateOwnedStarCount) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateOwnedStarCount.
+var (
+	_ bin.Encoder     = &UpdateOwnedStarCount{}
+	_ bin.Decoder     = &UpdateOwnedStarCount{}
+	_ bin.BareEncoder = &UpdateOwnedStarCount{}
+	_ bin.BareDecoder = &UpdateOwnedStarCount{}
+
+	_ UpdateClass = &UpdateOwnedStarCount{}
+)
+
+func (u *UpdateOwnedStarCount) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.StarCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateOwnedStarCount) String() string {
+	if u == nil {
+		return "UpdateOwnedStarCount(nil)"
+	}
+	type Alias UpdateOwnedStarCount
+	return fmt.Sprintf("UpdateOwnedStarCount%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateOwnedStarCount) TypeID() uint32 {
+	return UpdateOwnedStarCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateOwnedStarCount) TypeName() string {
+	return "updateOwnedStarCount"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateOwnedStarCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateOwnedStarCount",
+		ID:   UpdateOwnedStarCountTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateOwnedStarCount) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateOwnedStarCount#de995b79 as nil")
+	}
+	b.PutID(UpdateOwnedStarCountTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateOwnedStarCount) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateOwnedStarCount#de995b79 as nil")
+	}
+	b.PutInt53(u.StarCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateOwnedStarCount) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateOwnedStarCount#de995b79 to nil")
+	}
+	if err := b.ConsumeID(UpdateOwnedStarCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateOwnedStarCount) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateOwnedStarCount#de995b79 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: field star_count: %w", err)
+		}
+		u.StarCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateOwnedStarCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateOwnedStarCount#de995b79 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateOwnedStarCount")
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(u.StarCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateOwnedStarCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateOwnedStarCount#de995b79 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateOwnedStarCount"); err != nil {
+				return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: %w", err)
+			}
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: field star_count: %w", err)
+			}
+			u.StarCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStarCount returns value of StarCount field.
+func (u *UpdateOwnedStarCount) GetStarCount() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.StarCount
+}
+
+// UpdateChatRevenueAmount represents TL type `updateChatRevenueAmount#c6c9bcc4`.
 type UpdateChatRevenueAmount struct {
+	// Identifier of the chat
+	ChatID int64
+	// New amount of earned revenue
+	RevenueAmount ChatRevenueAmount
 }
 
 // UpdateChatRevenueAmountTypeID is TL type id of UpdateChatRevenueAmount.
-const UpdateChatRevenueAmountTypeID = 0x32f4a5e1
+const UpdateChatRevenueAmountTypeID = 0xc6c9bcc4
 
 // construct implements constructor of UpdateClass.
 func (u UpdateChatRevenueAmount) construct() UpdateClass { return &u }
@@ -24158,6 +25011,12 @@ var (
 func (u *UpdateChatRevenueAmount) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.RevenueAmount.Zero()) {
+		return false
 	}
 
 	return true
@@ -24194,14 +25053,23 @@ func (u *UpdateChatRevenueAmount) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "RevenueAmount",
+			SchemaName: "revenue_amount",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateChatRevenueAmount) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatRevenueAmount#32f4a5e1 as nil")
+		return fmt.Errorf("can't encode updateChatRevenueAmount#c6c9bcc4 as nil")
 	}
 	b.PutID(UpdateChatRevenueAmountTypeID)
 	return u.EncodeBare(b)
@@ -24210,7 +25078,11 @@ func (u *UpdateChatRevenueAmount) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateChatRevenueAmount) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatRevenueAmount#32f4a5e1 as nil")
+		return fmt.Errorf("can't encode updateChatRevenueAmount#c6c9bcc4 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if err := u.RevenueAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatRevenueAmount#c6c9bcc4: field revenue_amount: %w", err)
 	}
 	return nil
 }
@@ -24218,10 +25090,10 @@ func (u *UpdateChatRevenueAmount) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateChatRevenueAmount) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatRevenueAmount#32f4a5e1 to nil")
+		return fmt.Errorf("can't decode updateChatRevenueAmount#c6c9bcc4 to nil")
 	}
 	if err := b.ConsumeID(UpdateChatRevenueAmountTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatRevenueAmount#32f4a5e1: %w", err)
+		return fmt.Errorf("unable to decode updateChatRevenueAmount#c6c9bcc4: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -24229,7 +25101,19 @@ func (u *UpdateChatRevenueAmount) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateChatRevenueAmount) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatRevenueAmount#32f4a5e1 to nil")
+		return fmt.Errorf("can't decode updateChatRevenueAmount#c6c9bcc4 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatRevenueAmount#c6c9bcc4: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		if err := u.RevenueAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatRevenueAmount#c6c9bcc4: field revenue_amount: %w", err)
+		}
 	}
 	return nil
 }
@@ -24237,10 +25121,18 @@ func (u *UpdateChatRevenueAmount) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateChatRevenueAmount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatRevenueAmount#32f4a5e1 as nil")
+		return fmt.Errorf("can't encode updateChatRevenueAmount#c6c9bcc4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateChatRevenueAmount")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("revenue_amount")
+	if err := u.RevenueAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatRevenueAmount#c6c9bcc4: field revenue_amount: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -24250,20 +25142,46 @@ func (u *UpdateChatRevenueAmount) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateChatRevenueAmount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatRevenueAmount#32f4a5e1 to nil")
+		return fmt.Errorf("can't decode updateChatRevenueAmount#c6c9bcc4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatRevenueAmount"); err != nil {
-				return fmt.Errorf("unable to decode updateChatRevenueAmount#32f4a5e1: %w", err)
+				return fmt.Errorf("unable to decode updateChatRevenueAmount#c6c9bcc4: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatRevenueAmount#c6c9bcc4: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "revenue_amount":
+			if err := u.RevenueAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateChatRevenueAmount#c6c9bcc4: field revenue_amount: %w", err)
 			}
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatRevenueAmount) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetRevenueAmount returns value of RevenueAmount field.
+func (u *UpdateChatRevenueAmount) GetRevenueAmount() (value ChatRevenueAmount) {
+	if u == nil {
+		return
+	}
+	return u.RevenueAmount
 }
 
 // UpdateSpeechRecognitionTrial represents TL type `updateSpeechRecognitionTrial#ff4efcc1`.
@@ -31231,6 +32149,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateMessageContentOpened: // updateMessageContentOpened#a55ea885
 //	case *tdapi.UpdateMessageMentionRead: // updateMessageMentionRead#f0f74d46
 //	case *tdapi.UpdateMessageUnreadReactions: // updateMessageUnreadReactions#12a7220a
+//	case *tdapi.UpdateMessageFactCheck: // updateMessageFactCheck#3c78fb02
 //	case *tdapi.UpdateMessageLiveLocationViewed: // updateMessageLiveLocationViewed#b2058595
 //	case *tdapi.UpdateNewChat: // updateNewChat#7bb98ccd
 //	case *tdapi.UpdateChatTitle: // updateChatTitle#f58b85a4
@@ -31298,6 +32217,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateFileAddedToDownloads: // updateFileAddedToDownloads#5ff5921a
 //	case *tdapi.UpdateFileDownload: // updateFileDownload#342f83ca
 //	case *tdapi.UpdateFileRemovedFromDownloads: // updateFileRemovedFromDownloads#6e7c14e8
+//	case *tdapi.UpdateApplicationVerificationRequired: // updateApplicationVerificationRequired#32079e05
 //	case *tdapi.UpdateCall: // updateCall#4fb3d0dd
 //	case *tdapi.UpdateGroupCall: // updateGroupCall#30324e00
 //	case *tdapi.UpdateGroupCallParticipant: // updateGroupCallParticipant#d0213cf9
@@ -31332,9 +32252,11 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateAttachmentMenuBots: // updateAttachmentMenuBots#b6b910c
 //	case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
 //	case *tdapi.UpdateActiveEmojiReactions: // updateActiveEmojiReactions#691ffcb7
+//	case *tdapi.UpdateAvailableMessageEffects: // updateAvailableMessageEffects#a1cb72b9
 //	case *tdapi.UpdateDefaultReactionType: // updateDefaultReactionType#4b615105
 //	case *tdapi.UpdateSavedMessagesTags: // updateSavedMessagesTags#7386424a
-//	case *tdapi.UpdateChatRevenueAmount: // updateChatRevenueAmount#32f4a5e1
+//	case *tdapi.UpdateOwnedStarCount: // updateOwnedStarCount#de995b79
+//	case *tdapi.UpdateChatRevenueAmount: // updateChatRevenueAmount#c6c9bcc4
 //	case *tdapi.UpdateSpeechRecognitionTrial: // updateSpeechRecognitionTrial#ff4efcc1
 //	case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
@@ -31473,6 +32395,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateMessageUnreadReactionsTypeID:
 		// Decoding updateMessageUnreadReactions#12a7220a.
 		v := UpdateMessageUnreadReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateMessageFactCheckTypeID:
+		// Decoding updateMessageFactCheck#3c78fb02.
+		v := UpdateMessageFactCheck{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -31946,6 +32875,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateApplicationVerificationRequiredTypeID:
+		// Decoding updateApplicationVerificationRequired#32079e05.
+		v := UpdateApplicationVerificationRequired{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateCallTypeID:
 		// Decoding updateCall#4fb3d0dd.
 		v := UpdateCall{}
@@ -32184,6 +33120,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateAvailableMessageEffectsTypeID:
+		// Decoding updateAvailableMessageEffects#a1cb72b9.
+		v := UpdateAvailableMessageEffects{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateDefaultReactionTypeTypeID:
 		// Decoding updateDefaultReactionType#4b615105.
 		v := UpdateDefaultReactionType{}
@@ -32198,8 +33141,15 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateOwnedStarCountTypeID:
+		// Decoding updateOwnedStarCount#de995b79.
+		v := UpdateOwnedStarCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateChatRevenueAmountTypeID:
-		// Decoding updateChatRevenueAmount#32f4a5e1.
+		// Decoding updateChatRevenueAmount#c6c9bcc4.
 		v := UpdateChatRevenueAmount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -32486,6 +33436,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateMessageUnreadReactions":
 		// Decoding updateMessageUnreadReactions#12a7220a.
 		v := UpdateMessageUnreadReactions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateMessageFactCheck":
+		// Decoding updateMessageFactCheck#3c78fb02.
+		v := UpdateMessageFactCheck{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -32959,6 +33916,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateApplicationVerificationRequired":
+		// Decoding updateApplicationVerificationRequired#32079e05.
+		v := UpdateApplicationVerificationRequired{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateCall":
 		// Decoding updateCall#4fb3d0dd.
 		v := UpdateCall{}
@@ -33197,6 +34161,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateAvailableMessageEffects":
+		// Decoding updateAvailableMessageEffects#a1cb72b9.
+		v := UpdateAvailableMessageEffects{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateDefaultReactionType":
 		// Decoding updateDefaultReactionType#4b615105.
 		v := UpdateDefaultReactionType{}
@@ -33211,8 +34182,15 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateOwnedStarCount":
+		// Decoding updateOwnedStarCount#de995b79.
+		v := UpdateOwnedStarCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateChatRevenueAmount":
-		// Decoding updateChatRevenueAmount#32f4a5e1.
+		// Decoding updateChatRevenueAmount#c6c9bcc4.
 		v := UpdateChatRevenueAmount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

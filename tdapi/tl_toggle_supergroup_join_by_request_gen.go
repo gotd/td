@@ -33,7 +33,7 @@ var (
 
 // ToggleSupergroupJoinByRequestRequest represents TL type `toggleSupergroupJoinByRequest#7ddf9fde`.
 type ToggleSupergroupJoinByRequestRequest struct {
-	// Identifier of the channel
+	// Identifier of the supergroup that isn't a broadcast group
 	SupergroupID int64
 	// New value of join_by_request
 	JoinByRequest bool

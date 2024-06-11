@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendBusinessMessageAlbumRequest represents TL type `sendBusinessMessageAlbum#b6f0461f`.
+// SendBusinessMessageAlbumRequest represents TL type `sendBusinessMessageAlbum#70bd4e6f`.
 type SendBusinessMessageAlbumRequest struct {
 	// Unique identifier of business connection on behalf of which to send the request
 	BusinessConnectionID string
@@ -43,12 +43,15 @@ type SendBusinessMessageAlbumRequest struct {
 	DisableNotification bool
 	// Pass true if the content of the message must be protected from forwarding and saving
 	ProtectContent bool
-	// Contents of messages to be sent. At most 10 messages can be added to an album
+	// Identifier of the effect to apply to the message
+	EffectID int64
+	// Contents of messages to be sent. At most 10 messages can be added to an album. All
+	// messages must have the same value of show_caption_above_media
 	InputMessageContents []InputMessageContentClass
 }
 
 // SendBusinessMessageAlbumRequestTypeID is TL type id of SendBusinessMessageAlbumRequest.
-const SendBusinessMessageAlbumRequestTypeID = 0xb6f0461f
+const SendBusinessMessageAlbumRequestTypeID = 0x70bd4e6f
 
 // Ensuring interfaces in compile-time for SendBusinessMessageAlbumRequest.
 var (
@@ -75,6 +78,9 @@ func (s *SendBusinessMessageAlbumRequest) Zero() bool {
 		return false
 	}
 	if !(s.ProtectContent == false) {
+		return false
+	}
+	if !(s.EffectID == 0) {
 		return false
 	}
 	if !(s.InputMessageContents == nil) {
@@ -137,6 +143,10 @@ func (s *SendBusinessMessageAlbumRequest) TypeInfo() tdp.Type {
 			SchemaName: "protect_content",
 		},
 		{
+			Name:       "EffectID",
+			SchemaName: "effect_id",
+		},
+		{
 			Name:       "InputMessageContents",
 			SchemaName: "input_message_contents",
 		},
@@ -147,7 +157,7 @@ func (s *SendBusinessMessageAlbumRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendBusinessMessageAlbumRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBusinessMessageAlbum#b6f0461f as nil")
+		return fmt.Errorf("can't encode sendBusinessMessageAlbum#70bd4e6f as nil")
 	}
 	b.PutID(SendBusinessMessageAlbumRequestTypeID)
 	return s.EncodeBare(b)
@@ -156,25 +166,26 @@ func (s *SendBusinessMessageAlbumRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendBusinessMessageAlbumRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBusinessMessageAlbum#b6f0461f as nil")
+		return fmt.Errorf("can't encode sendBusinessMessageAlbum#70bd4e6f as nil")
 	}
 	b.PutString(s.BusinessConnectionID)
 	b.PutInt53(s.ChatID)
 	if s.ReplyTo == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field reply_to is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field reply_to is nil")
 	}
 	if err := s.ReplyTo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field reply_to: %w", err)
 	}
 	b.PutBool(s.DisableNotification)
 	b.PutBool(s.ProtectContent)
+	b.PutLong(s.EffectID)
 	b.PutInt(len(s.InputMessageContents))
 	for idx, v := range s.InputMessageContents {
 		if v == nil {
-			return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field input_message_contents element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sendBusinessMessageAlbum#b6f0461f: field input_message_contents element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare sendBusinessMessageAlbum#70bd4e6f: field input_message_contents element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -183,10 +194,10 @@ func (s *SendBusinessMessageAlbumRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendBusinessMessageAlbumRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBusinessMessageAlbum#b6f0461f to nil")
+		return fmt.Errorf("can't decode sendBusinessMessageAlbum#70bd4e6f to nil")
 	}
 	if err := b.ConsumeID(SendBusinessMessageAlbumRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: %w", err)
+		return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -194,47 +205,54 @@ func (s *SendBusinessMessageAlbumRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendBusinessMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBusinessMessageAlbum#b6f0461f to nil")
+		return fmt.Errorf("can't decode sendBusinessMessageAlbum#70bd4e6f to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field business_connection_id: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field business_connection_id: %w", err)
 		}
 		s.BusinessConnectionID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := DecodeInputMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field reply_to: %w", err)
 		}
 		s.ReplyTo = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field disable_notification: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field disable_notification: %w", err)
 		}
 		s.DisableNotification = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field protect_content: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field protect_content: %w", err)
 		}
 		s.ProtectContent = value
 	}
 	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field effect_id: %w", err)
+		}
+		s.EffectID = value
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field input_message_contents: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -243,7 +261,7 @@ func (s *SendBusinessMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field input_message_contents: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents: %w", err)
 			}
 			s.InputMessageContents = append(s.InputMessageContents, value)
 		}
@@ -254,7 +272,7 @@ func (s *SendBusinessMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendBusinessMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBusinessMessageAlbum#b6f0461f as nil")
+		return fmt.Errorf("can't encode sendBusinessMessageAlbum#70bd4e6f as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendBusinessMessageAlbum")
@@ -267,10 +285,10 @@ func (s *SendBusinessMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.Comma()
 	b.FieldStart("reply_to")
 	if s.ReplyTo == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field reply_to is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field reply_to is nil")
 	}
 	if err := s.ReplyTo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field reply_to: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("disable_notification")
@@ -279,14 +297,17 @@ func (s *SendBusinessMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("protect_content")
 	b.PutBool(s.ProtectContent)
 	b.Comma()
+	b.FieldStart("effect_id")
+	b.PutLong(s.EffectID)
+	b.Comma()
 	b.FieldStart("input_message_contents")
 	b.ArrStart()
 	for idx, v := range s.InputMessageContents {
 		if v == nil {
-			return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field input_message_contents element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode sendBusinessMessageAlbum#b6f0461f: field input_message_contents element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -301,55 +322,61 @@ func (s *SendBusinessMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendBusinessMessageAlbumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBusinessMessageAlbum#b6f0461f to nil")
+		return fmt.Errorf("can't decode sendBusinessMessageAlbum#70bd4e6f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendBusinessMessageAlbum"); err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: %w", err)
 			}
 		case "business_connection_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field business_connection_id: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field business_connection_id: %w", err)
 			}
 			s.BusinessConnectionID = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "reply_to":
 			value, err := DecodeTDLibJSONInputMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field reply_to: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field reply_to: %w", err)
 			}
 			s.ReplyTo = value
 		case "disable_notification":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field disable_notification: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field disable_notification: %w", err)
 			}
 			s.DisableNotification = value
 		case "protect_content":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field protect_content: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field protect_content: %w", err)
 			}
 			s.ProtectContent = value
+		case "effect_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field effect_id: %w", err)
+			}
+			s.EffectID = value
 		case "input_message_contents":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputMessageContent(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field input_message_contents: %w", err)
+					return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents: %w", err)
 				}
 				s.InputMessageContents = append(s.InputMessageContents, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#b6f0461f: field input_message_contents: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessageAlbum#70bd4e6f: field input_message_contents: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -398,6 +425,14 @@ func (s *SendBusinessMessageAlbumRequest) GetProtectContent() (value bool) {
 	return s.ProtectContent
 }
 
+// GetEffectID returns value of EffectID field.
+func (s *SendBusinessMessageAlbumRequest) GetEffectID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.EffectID
+}
+
 // GetInputMessageContents returns value of InputMessageContents field.
 func (s *SendBusinessMessageAlbumRequest) GetInputMessageContents() (value []InputMessageContentClass) {
 	if s == nil {
@@ -406,7 +441,7 @@ func (s *SendBusinessMessageAlbumRequest) GetInputMessageContents() (value []Inp
 	return s.InputMessageContents
 }
 
-// SendBusinessMessageAlbum invokes method sendBusinessMessageAlbum#b6f0461f returning error if any.
+// SendBusinessMessageAlbum invokes method sendBusinessMessageAlbum#70bd4e6f returning error if any.
 func (c *Client) SendBusinessMessageAlbum(ctx context.Context, request *SendBusinessMessageAlbumRequest) (*BusinessMessages, error) {
 	var result BusinessMessages
 
