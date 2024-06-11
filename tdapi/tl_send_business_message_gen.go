@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendBusinessMessageRequest represents TL type `sendBusinessMessage#ec64b993`.
+// SendBusinessMessageRequest represents TL type `sendBusinessMessage#987b403`.
 type SendBusinessMessageRequest struct {
 	// Unique identifier of business connection on behalf of which to send the request
 	BusinessConnectionID string
@@ -43,6 +43,8 @@ type SendBusinessMessageRequest struct {
 	DisableNotification bool
 	// Pass true if the content of the message must be protected from forwarding and saving
 	ProtectContent bool
+	// Identifier of the effect to apply to the message
+	EffectID int64
 	// Markup for replying to the message; pass null if none
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent
@@ -50,7 +52,7 @@ type SendBusinessMessageRequest struct {
 }
 
 // SendBusinessMessageRequestTypeID is TL type id of SendBusinessMessageRequest.
-const SendBusinessMessageRequestTypeID = 0xec64b993
+const SendBusinessMessageRequestTypeID = 0x987b403
 
 // Ensuring interfaces in compile-time for SendBusinessMessageRequest.
 var (
@@ -77,6 +79,9 @@ func (s *SendBusinessMessageRequest) Zero() bool {
 		return false
 	}
 	if !(s.ProtectContent == false) {
+		return false
+	}
+	if !(s.EffectID == 0) {
 		return false
 	}
 	if !(s.ReplyMarkup == nil) {
@@ -142,6 +147,10 @@ func (s *SendBusinessMessageRequest) TypeInfo() tdp.Type {
 			SchemaName: "protect_content",
 		},
 		{
+			Name:       "EffectID",
+			SchemaName: "effect_id",
+		},
+		{
 			Name:       "ReplyMarkup",
 			SchemaName: "reply_markup",
 		},
@@ -156,7 +165,7 @@ func (s *SendBusinessMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendBusinessMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBusinessMessage#ec64b993 as nil")
+		return fmt.Errorf("can't encode sendBusinessMessage#987b403 as nil")
 	}
 	b.PutID(SendBusinessMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -165,29 +174,30 @@ func (s *SendBusinessMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendBusinessMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBusinessMessage#ec64b993 as nil")
+		return fmt.Errorf("can't encode sendBusinessMessage#987b403 as nil")
 	}
 	b.PutString(s.BusinessConnectionID)
 	b.PutInt53(s.ChatID)
 	if s.ReplyTo == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_to is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_to is nil")
 	}
 	if err := s.ReplyTo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_to: %w", err)
 	}
 	b.PutBool(s.DisableNotification)
 	b.PutBool(s.ProtectContent)
+	b.PutLong(s.EffectID)
 	if s.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_markup is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_markup is nil")
 	}
 	if err := s.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_markup: %w", err)
 	}
 	if s.InputMessageContent == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field input_message_content is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field input_message_content is nil")
 	}
 	if err := s.InputMessageContent.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field input_message_content: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field input_message_content: %w", err)
 	}
 	return nil
 }
@@ -195,10 +205,10 @@ func (s *SendBusinessMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendBusinessMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBusinessMessage#ec64b993 to nil")
+		return fmt.Errorf("can't decode sendBusinessMessage#987b403 to nil")
 	}
 	if err := b.ConsumeID(SendBusinessMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: %w", err)
+		return fmt.Errorf("unable to decode sendBusinessMessage#987b403: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -206,54 +216,61 @@ func (s *SendBusinessMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendBusinessMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBusinessMessage#ec64b993 to nil")
+		return fmt.Errorf("can't decode sendBusinessMessage#987b403 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field business_connection_id: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field business_connection_id: %w", err)
 		}
 		s.BusinessConnectionID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := DecodeInputMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field reply_to: %w", err)
 		}
 		s.ReplyTo = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field disable_notification: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field disable_notification: %w", err)
 		}
 		s.DisableNotification = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field protect_content: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field protect_content: %w", err)
 		}
 		s.ProtectContent = value
 	}
 	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field effect_id: %w", err)
+		}
+		s.EffectID = value
+	}
+	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field reply_markup: %w", err)
 		}
 		s.ReplyMarkup = value
 	}
 	{
 		value, err := DecodeInputMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field input_message_content: %w", err)
+			return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field input_message_content: %w", err)
 		}
 		s.InputMessageContent = value
 	}
@@ -263,7 +280,7 @@ func (s *SendBusinessMessageRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendBusinessMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBusinessMessage#ec64b993 as nil")
+		return fmt.Errorf("can't encode sendBusinessMessage#987b403 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendBusinessMessage")
@@ -276,10 +293,10 @@ func (s *SendBusinessMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("reply_to")
 	if s.ReplyTo == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_to is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_to is nil")
 	}
 	if err := s.ReplyTo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_to: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("disable_notification")
@@ -288,20 +305,23 @@ func (s *SendBusinessMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("protect_content")
 	b.PutBool(s.ProtectContent)
 	b.Comma()
+	b.FieldStart("effect_id")
+	b.PutLong(s.EffectID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if s.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_markup is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_markup is nil")
 	}
 	if err := s.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("input_message_content")
 	if s.InputMessageContent == nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field input_message_content is nil")
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field input_message_content is nil")
 	}
 	if err := s.InputMessageContent.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendBusinessMessage#ec64b993: field input_message_content: %w", err)
+		return fmt.Errorf("unable to encode sendBusinessMessage#987b403: field input_message_content: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -312,55 +332,61 @@ func (s *SendBusinessMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendBusinessMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBusinessMessage#ec64b993 to nil")
+		return fmt.Errorf("can't decode sendBusinessMessage#987b403 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendBusinessMessage"); err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: %w", err)
 			}
 		case "business_connection_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field business_connection_id: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field business_connection_id: %w", err)
 			}
 			s.BusinessConnectionID = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "reply_to":
 			value, err := DecodeTDLibJSONInputMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field reply_to: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field reply_to: %w", err)
 			}
 			s.ReplyTo = value
 		case "disable_notification":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field disable_notification: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field disable_notification: %w", err)
 			}
 			s.DisableNotification = value
 		case "protect_content":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field protect_content: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field protect_content: %w", err)
 			}
 			s.ProtectContent = value
+		case "effect_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field effect_id: %w", err)
+			}
+			s.EffectID = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field reply_markup: %w", err)
 			}
 			s.ReplyMarkup = value
 		case "input_message_content":
 			value, err := DecodeTDLibJSONInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBusinessMessage#ec64b993: field input_message_content: %w", err)
+				return fmt.Errorf("unable to decode sendBusinessMessage#987b403: field input_message_content: %w", err)
 			}
 			s.InputMessageContent = value
 		default:
@@ -410,6 +436,14 @@ func (s *SendBusinessMessageRequest) GetProtectContent() (value bool) {
 	return s.ProtectContent
 }
 
+// GetEffectID returns value of EffectID field.
+func (s *SendBusinessMessageRequest) GetEffectID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.EffectID
+}
+
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (s *SendBusinessMessageRequest) GetReplyMarkup() (value ReplyMarkupClass) {
 	if s == nil {
@@ -426,7 +460,7 @@ func (s *SendBusinessMessageRequest) GetInputMessageContent() (value InputMessag
 	return s.InputMessageContent
 }
 
-// SendBusinessMessage invokes method sendBusinessMessage#ec64b993 returning error if any.
+// SendBusinessMessage invokes method sendBusinessMessage#987b403 returning error if any.
 func (c *Client) SendBusinessMessage(ctx context.Context, request *SendBusinessMessageRequest) (*BusinessMessage, error) {
 	var result BusinessMessage
 

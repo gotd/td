@@ -33,8 +33,8 @@ var (
 
 // SendPhoneNumberFirebaseSMSRequest represents TL type `sendPhoneNumberFirebaseSms#f9c7084`.
 type SendPhoneNumberFirebaseSMSRequest struct {
-	// SafetyNet Attestation API token for the Android application, or secret from push
-	// notification for the iOS application
+	// Play Integrity API or SafetyNet Attestation API token for the Android application, or
+	// secret from push notification for the iOS application
 	Token string
 }
 

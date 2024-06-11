@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditInlineMessageCaptionRequest represents TL type `editInlineMessageCaption#d2a446b7`.
+// EditInlineMessageCaptionRequest represents TL type `editInlineMessageCaption#540744f8`.
 type EditInlineMessageCaptionRequest struct {
 	// Inline message identifier
 	InlineMessageID string
@@ -40,10 +40,13 @@ type EditInlineMessageCaptionRequest struct {
 	// New message content caption; pass null to remove caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
+	// Pass true to show the caption above the media; otherwise, caption will be shown below
+	// the media. Can be true only for animation, photo, and video messages
+	ShowCaptionAboveMedia bool
 }
 
 // EditInlineMessageCaptionRequestTypeID is TL type id of EditInlineMessageCaptionRequest.
-const EditInlineMessageCaptionRequestTypeID = 0xd2a446b7
+const EditInlineMessageCaptionRequestTypeID = 0x540744f8
 
 // Ensuring interfaces in compile-time for EditInlineMessageCaptionRequest.
 var (
@@ -64,6 +67,9 @@ func (e *EditInlineMessageCaptionRequest) Zero() bool {
 		return false
 	}
 	if !(e.Caption.Zero()) {
+		return false
+	}
+	if !(e.ShowCaptionAboveMedia == false) {
 		return false
 	}
 
@@ -114,6 +120,10 @@ func (e *EditInlineMessageCaptionRequest) TypeInfo() tdp.Type {
 			Name:       "Caption",
 			SchemaName: "caption",
 		},
+		{
+			Name:       "ShowCaptionAboveMedia",
+			SchemaName: "show_caption_above_media",
+		},
 	}
 	return typ
 }
@@ -121,7 +131,7 @@ func (e *EditInlineMessageCaptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditInlineMessageCaptionRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editInlineMessageCaption#d2a446b7 as nil")
+		return fmt.Errorf("can't encode editInlineMessageCaption#540744f8 as nil")
 	}
 	b.PutID(EditInlineMessageCaptionRequestTypeID)
 	return e.EncodeBare(b)
@@ -130,28 +140,29 @@ func (e *EditInlineMessageCaptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditInlineMessageCaptionRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editInlineMessageCaption#d2a446b7 as nil")
+		return fmt.Errorf("can't encode editInlineMessageCaption#540744f8 as nil")
 	}
 	b.PutString(e.InlineMessageID)
 	if e.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field reply_markup is nil")
+		return fmt.Errorf("unable to encode editInlineMessageCaption#540744f8: field reply_markup is nil")
 	}
 	if err := e.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode editInlineMessageCaption#540744f8: field reply_markup: %w", err)
 	}
 	if err := e.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field caption: %w", err)
+		return fmt.Errorf("unable to encode editInlineMessageCaption#540744f8: field caption: %w", err)
 	}
+	b.PutBool(e.ShowCaptionAboveMedia)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (e *EditInlineMessageCaptionRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editInlineMessageCaption#d2a446b7 to nil")
+		return fmt.Errorf("can't decode editInlineMessageCaption#540744f8 to nil")
 	}
 	if err := b.ConsumeID(EditInlineMessageCaptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: %w", err)
+		return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -159,26 +170,33 @@ func (e *EditInlineMessageCaptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditInlineMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editInlineMessageCaption#d2a446b7 to nil")
+		return fmt.Errorf("can't decode editInlineMessageCaption#540744f8 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field inline_message_id: %w", err)
+			return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field inline_message_id: %w", err)
 		}
 		e.InlineMessageID = value
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field reply_markup: %w", err)
 		}
 		e.ReplyMarkup = value
 	}
 	{
 		if err := e.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field caption: %w", err)
+			return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field caption: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field show_caption_above_media: %w", err)
+		}
+		e.ShowCaptionAboveMedia = value
 	}
 	return nil
 }
@@ -186,7 +204,7 @@ func (e *EditInlineMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editInlineMessageCaption#d2a446b7 as nil")
+		return fmt.Errorf("can't encode editInlineMessageCaption#540744f8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("editInlineMessageCaption")
@@ -196,16 +214,19 @@ func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field reply_markup is nil")
+		return fmt.Errorf("unable to encode editInlineMessageCaption#540744f8: field reply_markup is nil")
 	}
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode editInlineMessageCaption#540744f8: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field caption: %w", err)
+		return fmt.Errorf("unable to encode editInlineMessageCaption#540744f8: field caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("show_caption_above_media")
+	b.PutBool(e.ShowCaptionAboveMedia)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -215,31 +236,37 @@ func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditInlineMessageCaptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editInlineMessageCaption#d2a446b7 to nil")
+		return fmt.Errorf("can't decode editInlineMessageCaption#540744f8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editInlineMessageCaption"); err != nil {
-				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: %w", err)
+				return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: %w", err)
 			}
 		case "inline_message_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field inline_message_id: %w", err)
+				return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field inline_message_id: %w", err)
 			}
 			e.InlineMessageID = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field reply_markup: %w", err)
 			}
 			e.ReplyMarkup = value
 		case "caption":
 			if err := e.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field caption: %w", err)
+				return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field caption: %w", err)
 			}
+		case "show_caption_above_media":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageCaption#540744f8: field show_caption_above_media: %w", err)
+			}
+			e.ShowCaptionAboveMedia = value
 		default:
 			return b.Skip()
 		}
@@ -271,7 +298,15 @@ func (e *EditInlineMessageCaptionRequest) GetCaption() (value FormattedText) {
 	return e.Caption
 }
 
-// EditInlineMessageCaption invokes method editInlineMessageCaption#d2a446b7 returning error if any.
+// GetShowCaptionAboveMedia returns value of ShowCaptionAboveMedia field.
+func (e *EditInlineMessageCaptionRequest) GetShowCaptionAboveMedia() (value bool) {
+	if e == nil {
+		return
+	}
+	return e.ShowCaptionAboveMedia
+}
+
+// EditInlineMessageCaption invokes method editInlineMessageCaption#540744f8 returning error if any.
 func (c *Client) EditInlineMessageCaption(ctx context.Context, request *EditInlineMessageCaptionRequest) error {
 	var ok Ok
 

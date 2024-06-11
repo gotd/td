@@ -33,7 +33,7 @@ var (
 
 // ToggleSupergroupJoinToSendMessagesRequest represents TL type `toggleSupergroupJoinToSendMessages#f5268e0e`.
 type ToggleSupergroupJoinToSendMessagesRequest struct {
-	// Identifier of the supergroup
+	// Identifier of the supergroup that isn't a broadcast group
 	SupergroupID int64
 	// New value of join_to_send_messages
 	JoinToSendMessages bool

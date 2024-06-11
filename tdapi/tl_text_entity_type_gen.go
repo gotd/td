@@ -2293,6 +2293,137 @@ func (t *TextEntityTypeBlockQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// TextEntityTypeExpandableBlockQuote represents TL type `textEntityTypeExpandableBlockQuote#22e0c65`.
+type TextEntityTypeExpandableBlockQuote struct {
+}
+
+// TextEntityTypeExpandableBlockQuoteTypeID is TL type id of TextEntityTypeExpandableBlockQuote.
+const TextEntityTypeExpandableBlockQuoteTypeID = 0x22e0c65
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeExpandableBlockQuote) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeExpandableBlockQuote.
+var (
+	_ bin.Encoder     = &TextEntityTypeExpandableBlockQuote{}
+	_ bin.Decoder     = &TextEntityTypeExpandableBlockQuote{}
+	_ bin.BareEncoder = &TextEntityTypeExpandableBlockQuote{}
+	_ bin.BareDecoder = &TextEntityTypeExpandableBlockQuote{}
+
+	_ TextEntityTypeClass = &TextEntityTypeExpandableBlockQuote{}
+)
+
+func (t *TextEntityTypeExpandableBlockQuote) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeExpandableBlockQuote) String() string {
+	if t == nil {
+		return "TextEntityTypeExpandableBlockQuote(nil)"
+	}
+	type Alias TextEntityTypeExpandableBlockQuote
+	return fmt.Sprintf("TextEntityTypeExpandableBlockQuote%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextEntityTypeExpandableBlockQuote) TypeID() uint32 {
+	return TextEntityTypeExpandableBlockQuoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextEntityTypeExpandableBlockQuote) TypeName() string {
+	return "textEntityTypeExpandableBlockQuote"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextEntityTypeExpandableBlockQuote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textEntityTypeExpandableBlockQuote",
+		ID:   TextEntityTypeExpandableBlockQuoteTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextEntityTypeExpandableBlockQuote) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeExpandableBlockQuote#22e0c65 as nil")
+	}
+	b.PutID(TextEntityTypeExpandableBlockQuoteTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeExpandableBlockQuote) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeExpandableBlockQuote#22e0c65 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextEntityTypeExpandableBlockQuote) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeExpandableBlockQuote#22e0c65 to nil")
+	}
+	if err := b.ConsumeID(TextEntityTypeExpandableBlockQuoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode textEntityTypeExpandableBlockQuote#22e0c65: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeExpandableBlockQuote) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeExpandableBlockQuote#22e0c65 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeExpandableBlockQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeExpandableBlockQuote#22e0c65 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeExpandableBlockQuote")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeExpandableBlockQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeExpandableBlockQuote#22e0c65 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("textEntityTypeExpandableBlockQuote"); err != nil {
+				return fmt.Errorf("unable to decode textEntityTypeExpandableBlockQuote#22e0c65: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // TextEntityTypeTextURL represents TL type `textEntityTypeTextUrl#1a912463`.
 type TextEntityTypeTextURL struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
@@ -2988,6 +3119,7 @@ const TextEntityTypeClassName = "TextEntityType"
 //	case *tdapi.TextEntityTypePre: // textEntityTypePre#62491c8e
 //	case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
 //	case *tdapi.TextEntityTypeBlockQuote: // textEntityTypeBlockQuote#c42830c8
+//	case *tdapi.TextEntityTypeExpandableBlockQuote: // textEntityTypeExpandableBlockQuote#22e0c65
 //	case *tdapi.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
 //	case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#a25cd5af
 //	case *tdapi.TextEntityTypeCustomEmoji: // textEntityTypeCustomEmoji#66ceacc5
@@ -3138,6 +3270,13 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 	case TextEntityTypeBlockQuoteTypeID:
 		// Decoding textEntityTypeBlockQuote#c42830c8.
 		v := TextEntityTypeBlockQuote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case TextEntityTypeExpandableBlockQuoteTypeID:
+		// Decoding textEntityTypeExpandableBlockQuote#22e0c65.
+		v := TextEntityTypeExpandableBlockQuote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
@@ -3297,6 +3436,13 @@ func DecodeTDLibJSONTextEntityType(buf tdjson.Decoder) (TextEntityTypeClass, err
 	case "textEntityTypeBlockQuote":
 		// Decoding textEntityTypeBlockQuote#c42830c8.
 		v := TextEntityTypeBlockQuote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case "textEntityTypeExpandableBlockQuote":
+		// Decoding textEntityTypeExpandableBlockQuote#22e0c65.
+		v := TextEntityTypeExpandableBlockQuote{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}

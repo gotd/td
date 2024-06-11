@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditMessageCaptionRequest represents TL type `editMessageCaption#44d2f92e`.
+// EditMessageCaptionRequest represents TL type `editMessageCaption#87977241`.
 type EditMessageCaptionRequest struct {
 	// The chat the message belongs to
 	ChatID int64
@@ -42,10 +42,13 @@ type EditMessageCaptionRequest struct {
 	// New message content caption; 0-getOption("message_caption_length_max") characters;
 	// pass null to remove caption
 	Caption FormattedText
+	// Pass true to show the caption above the media; otherwise, caption will be shown below
+	// the media. Can be true only for animation, photo, and video messages
+	ShowCaptionAboveMedia bool
 }
 
 // EditMessageCaptionRequestTypeID is TL type id of EditMessageCaptionRequest.
-const EditMessageCaptionRequestTypeID = 0x44d2f92e
+const EditMessageCaptionRequestTypeID = 0x87977241
 
 // Ensuring interfaces in compile-time for EditMessageCaptionRequest.
 var (
@@ -69,6 +72,9 @@ func (e *EditMessageCaptionRequest) Zero() bool {
 		return false
 	}
 	if !(e.Caption.Zero()) {
+		return false
+	}
+	if !(e.ShowCaptionAboveMedia == false) {
 		return false
 	}
 
@@ -123,6 +129,10 @@ func (e *EditMessageCaptionRequest) TypeInfo() tdp.Type {
 			Name:       "Caption",
 			SchemaName: "caption",
 		},
+		{
+			Name:       "ShowCaptionAboveMedia",
+			SchemaName: "show_caption_above_media",
+		},
 	}
 	return typ
 }
@@ -130,7 +140,7 @@ func (e *EditMessageCaptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditMessageCaptionRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editMessageCaption#44d2f92e as nil")
+		return fmt.Errorf("can't encode editMessageCaption#87977241 as nil")
 	}
 	b.PutID(EditMessageCaptionRequestTypeID)
 	return e.EncodeBare(b)
@@ -139,29 +149,30 @@ func (e *EditMessageCaptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditMessageCaptionRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editMessageCaption#44d2f92e as nil")
+		return fmt.Errorf("can't encode editMessageCaption#87977241 as nil")
 	}
 	b.PutInt53(e.ChatID)
 	b.PutInt53(e.MessageID)
 	if e.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup is nil")
+		return fmt.Errorf("unable to encode editMessageCaption#87977241: field reply_markup is nil")
 	}
 	if err := e.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode editMessageCaption#87977241: field reply_markup: %w", err)
 	}
 	if err := e.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field caption: %w", err)
+		return fmt.Errorf("unable to encode editMessageCaption#87977241: field caption: %w", err)
 	}
+	b.PutBool(e.ShowCaptionAboveMedia)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (e *EditMessageCaptionRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editMessageCaption#44d2f92e to nil")
+		return fmt.Errorf("can't decode editMessageCaption#87977241 to nil")
 	}
 	if err := b.ConsumeID(EditMessageCaptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: %w", err)
+		return fmt.Errorf("unable to decode editMessageCaption#87977241: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -169,33 +180,40 @@ func (e *EditMessageCaptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editMessageCaption#44d2f92e to nil")
+		return fmt.Errorf("can't decode editMessageCaption#87977241 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode editMessageCaption#87977241: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field message_id: %w", err)
+			return fmt.Errorf("unable to decode editMessageCaption#87977241: field message_id: %w", err)
 		}
 		e.MessageID = value
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode editMessageCaption#87977241: field reply_markup: %w", err)
 		}
 		e.ReplyMarkup = value
 	}
 	{
 		if err := e.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field caption: %w", err)
+			return fmt.Errorf("unable to decode editMessageCaption#87977241: field caption: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode editMessageCaption#87977241: field show_caption_above_media: %w", err)
+		}
+		e.ShowCaptionAboveMedia = value
 	}
 	return nil
 }
@@ -203,7 +221,7 @@ func (e *EditMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editMessageCaption#44d2f92e as nil")
+		return fmt.Errorf("can't encode editMessageCaption#87977241 as nil")
 	}
 	b.ObjStart()
 	b.PutID("editMessageCaption")
@@ -216,16 +234,19 @@ func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup is nil")
+		return fmt.Errorf("unable to encode editMessageCaption#87977241: field reply_markup is nil")
 	}
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode editMessageCaption#87977241: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field caption: %w", err)
+		return fmt.Errorf("unable to encode editMessageCaption#87977241: field caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("show_caption_above_media")
+	b.PutBool(e.ShowCaptionAboveMedia)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -235,37 +256,43 @@ func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditMessageCaptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editMessageCaption#44d2f92e to nil")
+		return fmt.Errorf("can't decode editMessageCaption#87977241 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editMessageCaption"); err != nil {
-				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: %w", err)
+				return fmt.Errorf("unable to decode editMessageCaption#87977241: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode editMessageCaption#87977241: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field message_id: %w", err)
+				return fmt.Errorf("unable to decode editMessageCaption#87977241: field message_id: %w", err)
 			}
 			e.MessageID = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode editMessageCaption#87977241: field reply_markup: %w", err)
 			}
 			e.ReplyMarkup = value
 		case "caption":
 			if err := e.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field caption: %w", err)
+				return fmt.Errorf("unable to decode editMessageCaption#87977241: field caption: %w", err)
 			}
+		case "show_caption_above_media":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageCaption#87977241: field show_caption_above_media: %w", err)
+			}
+			e.ShowCaptionAboveMedia = value
 		default:
 			return b.Skip()
 		}
@@ -305,7 +332,15 @@ func (e *EditMessageCaptionRequest) GetCaption() (value FormattedText) {
 	return e.Caption
 }
 
-// EditMessageCaption invokes method editMessageCaption#44d2f92e returning error if any.
+// GetShowCaptionAboveMedia returns value of ShowCaptionAboveMedia field.
+func (e *EditMessageCaptionRequest) GetShowCaptionAboveMedia() (value bool) {
+	if e == nil {
+		return
+	}
+	return e.ShowCaptionAboveMedia
+}
+
+// EditMessageCaption invokes method editMessageCaption#87977241 returning error if any.
 func (c *Client) EditMessageCaption(ctx context.Context, request *EditMessageCaptionRequest) (*Message, error) {
 	var result Message
 

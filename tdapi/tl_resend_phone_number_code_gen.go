@@ -31,12 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ResendPhoneNumberCodeRequest represents TL type `resendPhoneNumberCode#2dc1f7c8`.
+// ResendPhoneNumberCodeRequest represents TL type `resendPhoneNumberCode#6bcea427`.
 type ResendPhoneNumberCodeRequest struct {
+	// Reason of code resending; pass null if unknown
+	Reason ResendCodeReasonClass
 }
 
 // ResendPhoneNumberCodeRequestTypeID is TL type id of ResendPhoneNumberCodeRequest.
-const ResendPhoneNumberCodeRequestTypeID = 0x2dc1f7c8
+const ResendPhoneNumberCodeRequestTypeID = 0x6bcea427
 
 // Ensuring interfaces in compile-time for ResendPhoneNumberCodeRequest.
 var (
@@ -49,6 +51,9 @@ var (
 func (r *ResendPhoneNumberCodeRequest) Zero() bool {
 	if r == nil {
 		return true
+	}
+	if !(r.Reason == nil) {
+		return false
 	}
 
 	return true
@@ -85,14 +90,19 @@ func (r *ResendPhoneNumberCodeRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (r *ResendPhoneNumberCodeRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendPhoneNumberCode#2dc1f7c8 as nil")
+		return fmt.Errorf("can't encode resendPhoneNumberCode#6bcea427 as nil")
 	}
 	b.PutID(ResendPhoneNumberCodeRequestTypeID)
 	return r.EncodeBare(b)
@@ -101,7 +111,13 @@ func (r *ResendPhoneNumberCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ResendPhoneNumberCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendPhoneNumberCode#2dc1f7c8 as nil")
+		return fmt.Errorf("can't encode resendPhoneNumberCode#6bcea427 as nil")
+	}
+	if r.Reason == nil {
+		return fmt.Errorf("unable to encode resendPhoneNumberCode#6bcea427: field reason is nil")
+	}
+	if err := r.Reason.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode resendPhoneNumberCode#6bcea427: field reason: %w", err)
 	}
 	return nil
 }
@@ -109,10 +125,10 @@ func (r *ResendPhoneNumberCodeRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ResendPhoneNumberCodeRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendPhoneNumberCode#2dc1f7c8 to nil")
+		return fmt.Errorf("can't decode resendPhoneNumberCode#6bcea427 to nil")
 	}
 	if err := b.ConsumeID(ResendPhoneNumberCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode resendPhoneNumberCode#2dc1f7c8: %w", err)
+		return fmt.Errorf("unable to decode resendPhoneNumberCode#6bcea427: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -120,7 +136,14 @@ func (r *ResendPhoneNumberCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ResendPhoneNumberCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendPhoneNumberCode#2dc1f7c8 to nil")
+		return fmt.Errorf("can't decode resendPhoneNumberCode#6bcea427 to nil")
+	}
+	{
+		value, err := DecodeResendCodeReason(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode resendPhoneNumberCode#6bcea427: field reason: %w", err)
+		}
+		r.Reason = value
 	}
 	return nil
 }
@@ -128,10 +151,18 @@ func (r *ResendPhoneNumberCodeRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ResendPhoneNumberCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendPhoneNumberCode#2dc1f7c8 as nil")
+		return fmt.Errorf("can't encode resendPhoneNumberCode#6bcea427 as nil")
 	}
 	b.ObjStart()
 	b.PutID("resendPhoneNumberCode")
+	b.Comma()
+	b.FieldStart("reason")
+	if r.Reason == nil {
+		return fmt.Errorf("unable to encode resendPhoneNumberCode#6bcea427: field reason is nil")
+	}
+	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode resendPhoneNumberCode#6bcea427: field reason: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -141,15 +172,21 @@ func (r *ResendPhoneNumberCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ResendPhoneNumberCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendPhoneNumberCode#2dc1f7c8 to nil")
+		return fmt.Errorf("can't decode resendPhoneNumberCode#6bcea427 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("resendPhoneNumberCode"); err != nil {
-				return fmt.Errorf("unable to decode resendPhoneNumberCode#2dc1f7c8: %w", err)
+				return fmt.Errorf("unable to decode resendPhoneNumberCode#6bcea427: %w", err)
 			}
+		case "reason":
+			value, err := DecodeTDLibJSONResendCodeReason(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode resendPhoneNumberCode#6bcea427: field reason: %w", err)
+			}
+			r.Reason = value
 		default:
 			return b.Skip()
 		}
@@ -157,11 +194,21 @@ func (r *ResendPhoneNumberCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// ResendPhoneNumberCode invokes method resendPhoneNumberCode#2dc1f7c8 returning error if any.
-func (c *Client) ResendPhoneNumberCode(ctx context.Context) (*AuthenticationCodeInfo, error) {
+// GetReason returns value of Reason field.
+func (r *ResendPhoneNumberCodeRequest) GetReason() (value ResendCodeReasonClass) {
+	if r == nil {
+		return
+	}
+	return r.Reason
+}
+
+// ResendPhoneNumberCode invokes method resendPhoneNumberCode#6bcea427 returning error if any.
+func (c *Client) ResendPhoneNumberCode(ctx context.Context, reason ResendCodeReasonClass) (*AuthenticationCodeInfo, error) {
 	var result AuthenticationCodeInfo
 
-	request := &ResendPhoneNumberCodeRequest{}
+	request := &ResendPhoneNumberCodeRequest{
+		Reason: reason,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

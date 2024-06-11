@@ -41,7 +41,8 @@ type SendMessageAlbumRequest struct {
 	ReplyTo InputMessageReplyToClass
 	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
-	// Contents of messages to be sent. At most 10 messages can be added to an album
+	// Contents of messages to be sent. At most 10 messages can be added to an album. All
+	// messages must have the same value of show_caption_above_media
 	InputMessageContents []InputMessageContentClass
 }
 

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageCopyOptions represents TL type `messageCopyOptions#48076039`.
+// MessageCopyOptions represents TL type `messageCopyOptions#405c03ba`.
 type MessageCopyOptions struct {
 	// True, if content of the message needs to be copied without reference to the original
 	// sender. Always true if the message is forwarded to a secret chat or is local
@@ -42,10 +42,14 @@ type MessageCopyOptions struct {
 	// New message caption; pass null to copy message without caption. Ignored if
 	// replace_caption is false
 	NewCaption FormattedText
+	// True, if new caption must be shown above the animation; otherwise, new caption must be
+	// shown below the animation; not supported in secret chats. Ignored if replace_caption
+	// is false
+	NewShowCaptionAboveMedia bool
 }
 
 // MessageCopyOptionsTypeID is TL type id of MessageCopyOptions.
-const MessageCopyOptionsTypeID = 0x48076039
+const MessageCopyOptionsTypeID = 0x405c03ba
 
 // Ensuring interfaces in compile-time for MessageCopyOptions.
 var (
@@ -66,6 +70,9 @@ func (m *MessageCopyOptions) Zero() bool {
 		return false
 	}
 	if !(m.NewCaption.Zero()) {
+		return false
+	}
+	if !(m.NewShowCaptionAboveMedia == false) {
 		return false
 	}
 
@@ -116,6 +123,10 @@ func (m *MessageCopyOptions) TypeInfo() tdp.Type {
 			Name:       "NewCaption",
 			SchemaName: "new_caption",
 		},
+		{
+			Name:       "NewShowCaptionAboveMedia",
+			SchemaName: "new_show_caption_above_media",
+		},
 	}
 	return typ
 }
@@ -123,7 +134,7 @@ func (m *MessageCopyOptions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageCopyOptions) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageCopyOptions#48076039 as nil")
+		return fmt.Errorf("can't encode messageCopyOptions#405c03ba as nil")
 	}
 	b.PutID(MessageCopyOptionsTypeID)
 	return m.EncodeBare(b)
@@ -132,23 +143,24 @@ func (m *MessageCopyOptions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageCopyOptions) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageCopyOptions#48076039 as nil")
+		return fmt.Errorf("can't encode messageCopyOptions#405c03ba as nil")
 	}
 	b.PutBool(m.SendCopy)
 	b.PutBool(m.ReplaceCaption)
 	if err := m.NewCaption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageCopyOptions#48076039: field new_caption: %w", err)
+		return fmt.Errorf("unable to encode messageCopyOptions#405c03ba: field new_caption: %w", err)
 	}
+	b.PutBool(m.NewShowCaptionAboveMedia)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageCopyOptions) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageCopyOptions#48076039 to nil")
+		return fmt.Errorf("can't decode messageCopyOptions#405c03ba to nil")
 	}
 	if err := b.ConsumeID(MessageCopyOptionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageCopyOptions#48076039: %w", err)
+		return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -156,26 +168,33 @@ func (m *MessageCopyOptions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageCopyOptions) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageCopyOptions#48076039 to nil")
+		return fmt.Errorf("can't decode messageCopyOptions#405c03ba to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageCopyOptions#48076039: field send_copy: %w", err)
+			return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field send_copy: %w", err)
 		}
 		m.SendCopy = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageCopyOptions#48076039: field replace_caption: %w", err)
+			return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field replace_caption: %w", err)
 		}
 		m.ReplaceCaption = value
 	}
 	{
 		if err := m.NewCaption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageCopyOptions#48076039: field new_caption: %w", err)
+			return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field new_caption: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field new_show_caption_above_media: %w", err)
+		}
+		m.NewShowCaptionAboveMedia = value
 	}
 	return nil
 }
@@ -183,7 +202,7 @@ func (m *MessageCopyOptions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageCopyOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageCopyOptions#48076039 as nil")
+		return fmt.Errorf("can't encode messageCopyOptions#405c03ba as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageCopyOptions")
@@ -196,8 +215,11 @@ func (m *MessageCopyOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("new_caption")
 	if err := m.NewCaption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageCopyOptions#48076039: field new_caption: %w", err)
+		return fmt.Errorf("unable to encode messageCopyOptions#405c03ba: field new_caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("new_show_caption_above_media")
+	b.PutBool(m.NewShowCaptionAboveMedia)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -207,31 +229,37 @@ func (m *MessageCopyOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageCopyOptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageCopyOptions#48076039 to nil")
+		return fmt.Errorf("can't decode messageCopyOptions#405c03ba to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageCopyOptions"); err != nil {
-				return fmt.Errorf("unable to decode messageCopyOptions#48076039: %w", err)
+				return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: %w", err)
 			}
 		case "send_copy":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageCopyOptions#48076039: field send_copy: %w", err)
+				return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field send_copy: %w", err)
 			}
 			m.SendCopy = value
 		case "replace_caption":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageCopyOptions#48076039: field replace_caption: %w", err)
+				return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field replace_caption: %w", err)
 			}
 			m.ReplaceCaption = value
 		case "new_caption":
 			if err := m.NewCaption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageCopyOptions#48076039: field new_caption: %w", err)
+				return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field new_caption: %w", err)
 			}
+		case "new_show_caption_above_media":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageCopyOptions#405c03ba: field new_show_caption_above_media: %w", err)
+			}
+			m.NewShowCaptionAboveMedia = value
 		default:
 			return b.Skip()
 		}
@@ -261,4 +289,12 @@ func (m *MessageCopyOptions) GetNewCaption() (value FormattedText) {
 		return
 	}
 	return m.NewCaption
+}
+
+// GetNewShowCaptionAboveMedia returns value of NewShowCaptionAboveMedia field.
+func (m *MessageCopyOptions) GetNewShowCaptionAboveMedia() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.NewShowCaptionAboveMedia
 }
