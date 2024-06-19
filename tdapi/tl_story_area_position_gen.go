@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryAreaPosition represents TL type `storyAreaPosition#6389679`.
+// StoryAreaPosition represents TL type `storyAreaPosition#a49fec6c`.
 type StoryAreaPosition struct {
 	// The abscissa of the rectangle's center, as a percentage of the media width
 	XPercentage float64
@@ -43,10 +43,12 @@ type StoryAreaPosition struct {
 	HeightPercentage float64
 	// Clockwise rotation angle of the rectangle, in degrees; 0-360
 	RotationAngle float64
+	// The radius of the rectangle corner rounding, as a percentage of the media width
+	CornerRadiusPercentage float64
 }
 
 // StoryAreaPositionTypeID is TL type id of StoryAreaPosition.
-const StoryAreaPositionTypeID = 0x6389679
+const StoryAreaPositionTypeID = 0xa49fec6c
 
 // Ensuring interfaces in compile-time for StoryAreaPosition.
 var (
@@ -73,6 +75,9 @@ func (s *StoryAreaPosition) Zero() bool {
 		return false
 	}
 	if !(s.RotationAngle == 0) {
+		return false
+	}
+	if !(s.CornerRadiusPercentage == 0) {
 		return false
 	}
 
@@ -131,6 +136,10 @@ func (s *StoryAreaPosition) TypeInfo() tdp.Type {
 			Name:       "RotationAngle",
 			SchemaName: "rotation_angle",
 		},
+		{
+			Name:       "CornerRadiusPercentage",
+			SchemaName: "corner_radius_percentage",
+		},
 	}
 	return typ
 }
@@ -138,7 +147,7 @@ func (s *StoryAreaPosition) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StoryAreaPosition) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyAreaPosition#6389679 as nil")
+		return fmt.Errorf("can't encode storyAreaPosition#a49fec6c as nil")
 	}
 	b.PutID(StoryAreaPositionTypeID)
 	return s.EncodeBare(b)
@@ -147,23 +156,24 @@ func (s *StoryAreaPosition) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryAreaPosition) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyAreaPosition#6389679 as nil")
+		return fmt.Errorf("can't encode storyAreaPosition#a49fec6c as nil")
 	}
 	b.PutDouble(s.XPercentage)
 	b.PutDouble(s.YPercentage)
 	b.PutDouble(s.WidthPercentage)
 	b.PutDouble(s.HeightPercentage)
 	b.PutDouble(s.RotationAngle)
+	b.PutDouble(s.CornerRadiusPercentage)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StoryAreaPosition) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyAreaPosition#6389679 to nil")
+		return fmt.Errorf("can't decode storyAreaPosition#a49fec6c to nil")
 	}
 	if err := b.ConsumeID(StoryAreaPositionTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyAreaPosition#6389679: %w", err)
+		return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -171,42 +181,49 @@ func (s *StoryAreaPosition) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryAreaPosition) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyAreaPosition#6389679 to nil")
+		return fmt.Errorf("can't decode storyAreaPosition#a49fec6c to nil")
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyAreaPosition#6389679: field x_percentage: %w", err)
+			return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field x_percentage: %w", err)
 		}
 		s.XPercentage = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyAreaPosition#6389679: field y_percentage: %w", err)
+			return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field y_percentage: %w", err)
 		}
 		s.YPercentage = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyAreaPosition#6389679: field width_percentage: %w", err)
+			return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field width_percentage: %w", err)
 		}
 		s.WidthPercentage = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyAreaPosition#6389679: field height_percentage: %w", err)
+			return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field height_percentage: %w", err)
 		}
 		s.HeightPercentage = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyAreaPosition#6389679: field rotation_angle: %w", err)
+			return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field rotation_angle: %w", err)
 		}
 		s.RotationAngle = value
+	}
+	{
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field corner_radius_percentage: %w", err)
+		}
+		s.CornerRadiusPercentage = value
 	}
 	return nil
 }
@@ -214,7 +231,7 @@ func (s *StoryAreaPosition) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StoryAreaPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyAreaPosition#6389679 as nil")
+		return fmt.Errorf("can't encode storyAreaPosition#a49fec6c as nil")
 	}
 	b.ObjStart()
 	b.PutID("storyAreaPosition")
@@ -234,6 +251,9 @@ func (s *StoryAreaPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("rotation_angle")
 	b.PutDouble(s.RotationAngle)
 	b.Comma()
+	b.FieldStart("corner_radius_percentage")
+	b.PutDouble(s.CornerRadiusPercentage)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -242,45 +262,51 @@ func (s *StoryAreaPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StoryAreaPosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyAreaPosition#6389679 to nil")
+		return fmt.Errorf("can't decode storyAreaPosition#a49fec6c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storyAreaPosition"); err != nil {
-				return fmt.Errorf("unable to decode storyAreaPosition#6389679: %w", err)
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: %w", err)
 			}
 		case "x_percentage":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyAreaPosition#6389679: field x_percentage: %w", err)
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field x_percentage: %w", err)
 			}
 			s.XPercentage = value
 		case "y_percentage":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyAreaPosition#6389679: field y_percentage: %w", err)
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field y_percentage: %w", err)
 			}
 			s.YPercentage = value
 		case "width_percentage":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyAreaPosition#6389679: field width_percentage: %w", err)
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field width_percentage: %w", err)
 			}
 			s.WidthPercentage = value
 		case "height_percentage":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyAreaPosition#6389679: field height_percentage: %w", err)
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field height_percentage: %w", err)
 			}
 			s.HeightPercentage = value
 		case "rotation_angle":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyAreaPosition#6389679: field rotation_angle: %w", err)
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field rotation_angle: %w", err)
 			}
 			s.RotationAngle = value
+		case "corner_radius_percentage":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaPosition#a49fec6c: field corner_radius_percentage: %w", err)
+			}
+			s.CornerRadiusPercentage = value
 		default:
 			return b.Skip()
 		}
@@ -326,4 +352,12 @@ func (s *StoryAreaPosition) GetRotationAngle() (value float64) {
 		return
 	}
 	return s.RotationAngle
+}
+
+// GetCornerRadiusPercentage returns value of CornerRadiusPercentage field.
+func (s *StoryAreaPosition) GetCornerRadiusPercentage() (value float64) {
+	if s == nil {
+		return
+	}
+	return s.CornerRadiusPercentage
 }

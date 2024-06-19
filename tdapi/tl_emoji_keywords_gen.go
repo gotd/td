@@ -33,7 +33,7 @@ var (
 
 // EmojiKeywords represents TL type `emojiKeywords#de023f4`.
 type EmojiKeywords struct {
-	// List of emoji with their keywords
+	// List of emojis with their keywords
 	EmojiKeywords []EmojiKeyword
 }
 

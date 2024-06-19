@@ -35,7 +35,7 @@ var (
 type GetStickersRequest struct {
 	// Type of the stickers to return
 	StickerType StickerTypeClass
-	// Search query; a space-separated list of emoji or a keyword prefix. If empty, returns
+	// Search query; a space-separated list of emojis or a keyword prefix. If empty, returns
 	// all known installed stickers
 	Query string
 	// The maximum number of stickers to be returned

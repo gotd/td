@@ -25184,6 +25184,216 @@ func (u *UpdateChatRevenueAmount) GetRevenueAmount() (value ChatRevenueAmount) {
 	return u.RevenueAmount
 }
 
+// UpdateStarRevenueStatus represents TL type `updateStarRevenueStatus#ef4bfccb`.
+type UpdateStarRevenueStatus struct {
+	// Identifier of the owner of the Telegram stars
+	OwnerID MessageSenderClass
+	// New Telegram star revenue status
+	Status StarRevenueStatus
+}
+
+// UpdateStarRevenueStatusTypeID is TL type id of UpdateStarRevenueStatus.
+const UpdateStarRevenueStatusTypeID = 0xef4bfccb
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStarRevenueStatus) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStarRevenueStatus.
+var (
+	_ bin.Encoder     = &UpdateStarRevenueStatus{}
+	_ bin.Decoder     = &UpdateStarRevenueStatus{}
+	_ bin.BareEncoder = &UpdateStarRevenueStatus{}
+	_ bin.BareDecoder = &UpdateStarRevenueStatus{}
+
+	_ UpdateClass = &UpdateStarRevenueStatus{}
+)
+
+func (u *UpdateStarRevenueStatus) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.OwnerID == nil) {
+		return false
+	}
+	if !(u.Status.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateStarRevenueStatus) String() string {
+	if u == nil {
+		return "UpdateStarRevenueStatus(nil)"
+	}
+	type Alias UpdateStarRevenueStatus
+	return fmt.Sprintf("UpdateStarRevenueStatus%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateStarRevenueStatus) TypeID() uint32 {
+	return UpdateStarRevenueStatusTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateStarRevenueStatus) TypeName() string {
+	return "updateStarRevenueStatus"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStarRevenueStatus) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStarRevenueStatus",
+		ID:   UpdateStarRevenueStatusTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OwnerID",
+			SchemaName: "owner_id",
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateStarRevenueStatus) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarRevenueStatus#ef4bfccb as nil")
+	}
+	b.PutID(UpdateStarRevenueStatusTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateStarRevenueStatus) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarRevenueStatus#ef4bfccb as nil")
+	}
+	if u.OwnerID == nil {
+		return fmt.Errorf("unable to encode updateStarRevenueStatus#ef4bfccb: field owner_id is nil")
+	}
+	if err := u.OwnerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStarRevenueStatus#ef4bfccb: field owner_id: %w", err)
+	}
+	if err := u.Status.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStarRevenueStatus#ef4bfccb: field status: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateStarRevenueStatus) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarRevenueStatus#ef4bfccb to nil")
+	}
+	if err := b.ConsumeID(UpdateStarRevenueStatusTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateStarRevenueStatus#ef4bfccb: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateStarRevenueStatus) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarRevenueStatus#ef4bfccb to nil")
+	}
+	{
+		value, err := DecodeMessageSender(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStarRevenueStatus#ef4bfccb: field owner_id: %w", err)
+		}
+		u.OwnerID = value
+	}
+	{
+		if err := u.Status.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateStarRevenueStatus#ef4bfccb: field status: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateStarRevenueStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarRevenueStatus#ef4bfccb as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateStarRevenueStatus")
+	b.Comma()
+	b.FieldStart("owner_id")
+	if u.OwnerID == nil {
+		return fmt.Errorf("unable to encode updateStarRevenueStatus#ef4bfccb: field owner_id is nil")
+	}
+	if err := u.OwnerID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateStarRevenueStatus#ef4bfccb: field owner_id: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("status")
+	if err := u.Status.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateStarRevenueStatus#ef4bfccb: field status: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateStarRevenueStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarRevenueStatus#ef4bfccb to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateStarRevenueStatus"); err != nil {
+				return fmt.Errorf("unable to decode updateStarRevenueStatus#ef4bfccb: %w", err)
+			}
+		case "owner_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStarRevenueStatus#ef4bfccb: field owner_id: %w", err)
+			}
+			u.OwnerID = value
+		case "status":
+			if err := u.Status.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateStarRevenueStatus#ef4bfccb: field status: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOwnerID returns value of OwnerID field.
+func (u *UpdateStarRevenueStatus) GetOwnerID() (value MessageSenderClass) {
+	if u == nil {
+		return
+	}
+	return u.OwnerID
+}
+
+// GetStatus returns value of Status field.
+func (u *UpdateStarRevenueStatus) GetStatus() (value StarRevenueStatus) {
+	if u == nil {
+		return
+	}
+	return u.Status
+}
+
 // UpdateSpeechRecognitionTrial represents TL type `updateSpeechRecognitionTrial#ff4efcc1`.
 type UpdateSpeechRecognitionTrial struct {
 	// The maximum allowed duration of media for speech recognition without Telegram Premium
@@ -29070,6 +29280,352 @@ func (u *UpdateNewInlineCallbackQuery) GetPayload() (value CallbackQueryPayloadC
 	return u.Payload
 }
 
+// UpdateNewBusinessCallbackQuery represents TL type `updateNewBusinessCallbackQuery#14125364`.
+type UpdateNewBusinessCallbackQuery struct {
+	// Unique query identifier
+	ID int64
+	// Identifier of the user who sent the query
+	SenderUserID int64
+	// Unique identifier of the business connection
+	ConnectionID string
+	// The message from the business account from which the query originated
+	Message BusinessMessage
+	// An identifier uniquely corresponding to the chat a message was sent to
+	ChatInstance int64
+	// Query payload
+	Payload CallbackQueryPayloadClass
+}
+
+// UpdateNewBusinessCallbackQueryTypeID is TL type id of UpdateNewBusinessCallbackQuery.
+const UpdateNewBusinessCallbackQueryTypeID = 0x14125364
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewBusinessCallbackQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewBusinessCallbackQuery.
+var (
+	_ bin.Encoder     = &UpdateNewBusinessCallbackQuery{}
+	_ bin.Decoder     = &UpdateNewBusinessCallbackQuery{}
+	_ bin.BareEncoder = &UpdateNewBusinessCallbackQuery{}
+	_ bin.BareDecoder = &UpdateNewBusinessCallbackQuery{}
+
+	_ UpdateClass = &UpdateNewBusinessCallbackQuery{}
+)
+
+func (u *UpdateNewBusinessCallbackQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.SenderUserID == 0) {
+		return false
+	}
+	if !(u.ConnectionID == "") {
+		return false
+	}
+	if !(u.Message.Zero()) {
+		return false
+	}
+	if !(u.ChatInstance == 0) {
+		return false
+	}
+	if !(u.Payload == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateNewBusinessCallbackQuery) String() string {
+	if u == nil {
+		return "UpdateNewBusinessCallbackQuery(nil)"
+	}
+	type Alias UpdateNewBusinessCallbackQuery
+	return fmt.Sprintf("UpdateNewBusinessCallbackQuery%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateNewBusinessCallbackQuery) TypeID() uint32 {
+	return UpdateNewBusinessCallbackQueryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateNewBusinessCallbackQuery) TypeName() string {
+	return "updateNewBusinessCallbackQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewBusinessCallbackQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewBusinessCallbackQuery",
+		ID:   UpdateNewBusinessCallbackQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "SenderUserID",
+			SchemaName: "sender_user_id",
+		},
+		{
+			Name:       "ConnectionID",
+			SchemaName: "connection_id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "ChatInstance",
+			SchemaName: "chat_instance",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateNewBusinessCallbackQuery) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBusinessCallbackQuery#14125364 as nil")
+	}
+	b.PutID(UpdateNewBusinessCallbackQueryTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateNewBusinessCallbackQuery) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBusinessCallbackQuery#14125364 as nil")
+	}
+	b.PutLong(u.ID)
+	b.PutInt53(u.SenderUserID)
+	b.PutString(u.ConnectionID)
+	if err := u.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBusinessCallbackQuery#14125364: field message: %w", err)
+	}
+	b.PutLong(u.ChatInstance)
+	if u.Payload == nil {
+		return fmt.Errorf("unable to encode updateNewBusinessCallbackQuery#14125364: field payload is nil")
+	}
+	if err := u.Payload.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBusinessCallbackQuery#14125364: field payload: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateNewBusinessCallbackQuery) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBusinessCallbackQuery#14125364 to nil")
+	}
+	if err := b.ConsumeID(UpdateNewBusinessCallbackQueryTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateNewBusinessCallbackQuery) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBusinessCallbackQuery#14125364 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field id: %w", err)
+		}
+		u.ID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field sender_user_id: %w", err)
+		}
+		u.SenderUserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field connection_id: %w", err)
+		}
+		u.ConnectionID = value
+	}
+	{
+		if err := u.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field message: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field chat_instance: %w", err)
+		}
+		u.ChatInstance = value
+	}
+	{
+		value, err := DecodeCallbackQueryPayload(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field payload: %w", err)
+		}
+		u.Payload = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewBusinessCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBusinessCallbackQuery#14125364 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateNewBusinessCallbackQuery")
+	b.Comma()
+	b.FieldStart("id")
+	b.PutLong(u.ID)
+	b.Comma()
+	b.FieldStart("sender_user_id")
+	b.PutInt53(u.SenderUserID)
+	b.Comma()
+	b.FieldStart("connection_id")
+	b.PutString(u.ConnectionID)
+	b.Comma()
+	b.FieldStart("message")
+	if err := u.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBusinessCallbackQuery#14125364: field message: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("chat_instance")
+	b.PutLong(u.ChatInstance)
+	b.Comma()
+	b.FieldStart("payload")
+	if u.Payload == nil {
+		return fmt.Errorf("unable to encode updateNewBusinessCallbackQuery#14125364: field payload is nil")
+	}
+	if err := u.Payload.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBusinessCallbackQuery#14125364: field payload: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewBusinessCallbackQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBusinessCallbackQuery#14125364 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateNewBusinessCallbackQuery"); err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field id: %w", err)
+			}
+			u.ID = value
+		case "sender_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field sender_user_id: %w", err)
+			}
+			u.SenderUserID = value
+		case "connection_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field connection_id: %w", err)
+			}
+			u.ConnectionID = value
+		case "message":
+			if err := u.Message.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field message: %w", err)
+			}
+		case "chat_instance":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field chat_instance: %w", err)
+			}
+			u.ChatInstance = value
+		case "payload":
+			value, err := DecodeTDLibJSONCallbackQueryPayload(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewBusinessCallbackQuery#14125364: field payload: %w", err)
+			}
+			u.Payload = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetID returns value of ID field.
+func (u *UpdateNewBusinessCallbackQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ID
+}
+
+// GetSenderUserID returns value of SenderUserID field.
+func (u *UpdateNewBusinessCallbackQuery) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.SenderUserID
+}
+
+// GetConnectionID returns value of ConnectionID field.
+func (u *UpdateNewBusinessCallbackQuery) GetConnectionID() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ConnectionID
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateNewBusinessCallbackQuery) GetMessage() (value BusinessMessage) {
+	if u == nil {
+		return
+	}
+	return u.Message
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateNewBusinessCallbackQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatInstance
+}
+
+// GetPayload returns value of Payload field.
+func (u *UpdateNewBusinessCallbackQuery) GetPayload() (value CallbackQueryPayloadClass) {
+	if u == nil {
+		return
+	}
+	return u.Payload
+}
+
 // UpdateNewShippingQuery represents TL type `updateNewShippingQuery#29584672`.
 type UpdateNewShippingQuery struct {
 	// Unique query identifier
@@ -32257,6 +32813,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateSavedMessagesTags: // updateSavedMessagesTags#7386424a
 //	case *tdapi.UpdateOwnedStarCount: // updateOwnedStarCount#de995b79
 //	case *tdapi.UpdateChatRevenueAmount: // updateChatRevenueAmount#c6c9bcc4
+//	case *tdapi.UpdateStarRevenueStatus: // updateStarRevenueStatus#ef4bfccb
 //	case *tdapi.UpdateSpeechRecognitionTrial: // updateSpeechRecognitionTrial#ff4efcc1
 //	case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
@@ -32273,6 +32830,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateNewChosenInlineResult: // updateNewChosenInlineResult#cb4c4f5d
 //	case *tdapi.UpdateNewCallbackQuery: // updateNewCallbackQuery#8964d05e
 //	case *tdapi.UpdateNewInlineCallbackQuery: // updateNewInlineCallbackQuery#ecf934ba
+//	case *tdapi.UpdateNewBusinessCallbackQuery: // updateNewBusinessCallbackQuery#14125364
 //	case *tdapi.UpdateNewShippingQuery: // updateNewShippingQuery#29584672
 //	case *tdapi.UpdateNewPreCheckoutQuery: // updateNewPreCheckoutQuery#2a3871c9
 //	case *tdapi.UpdateNewCustomEvent: // updateNewCustomEvent#76dd6a0c
@@ -33155,6 +33713,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateStarRevenueStatusTypeID:
+		// Decoding updateStarRevenueStatus#ef4bfccb.
+		v := UpdateStarRevenueStatus{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateSpeechRecognitionTrialTypeID:
 		// Decoding updateSpeechRecognitionTrial#ff4efcc1.
 		v := UpdateSpeechRecognitionTrial{}
@@ -33263,6 +33828,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateNewInlineCallbackQueryTypeID:
 		// Decoding updateNewInlineCallbackQuery#ecf934ba.
 		v := UpdateNewInlineCallbackQuery{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateNewBusinessCallbackQueryTypeID:
+		// Decoding updateNewBusinessCallbackQuery#14125364.
+		v := UpdateNewBusinessCallbackQuery{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -34196,6 +34768,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateStarRevenueStatus":
+		// Decoding updateStarRevenueStatus#ef4bfccb.
+		v := UpdateStarRevenueStatus{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateSpeechRecognitionTrial":
 		// Decoding updateSpeechRecognitionTrial#ff4efcc1.
 		v := UpdateSpeechRecognitionTrial{}
@@ -34304,6 +34883,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateNewInlineCallbackQuery":
 		// Decoding updateNewInlineCallbackQuery#ecf934ba.
 		v := UpdateNewInlineCallbackQuery{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateNewBusinessCallbackQuery":
+		// Decoding updateNewBusinessCallbackQuery#14125364.
+		v := UpdateNewBusinessCallbackQuery{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

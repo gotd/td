@@ -31,17 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetStarTransactionsRequest represents TL type `getStarTransactions#f0c6dd98`.
+// GetStarTransactionsRequest represents TL type `getStarTransactions#eb1e109d`.
 type GetStarTransactionsRequest struct {
+	// Identifier of the owner of the Telegram stars; can be the identifier of the current
+	// user, identifier of an owned bot,
+	OwnerID MessageSenderClass
+	// Direction of the transactions to receive; pass null to get all transactions
+	Direction StarTransactionDirectionClass
 	// Offset of the first transaction to return as received from the previous request; use
 	// empty string to get the first chunk of results
 	Offset string
-	// Direction of the transactions to receive; pass null to get all transactions
-	Direction StarTransactionDirectionClass
+	// The maximum number of transactions to return
+	Limit int32
 }
 
 // GetStarTransactionsRequestTypeID is TL type id of GetStarTransactionsRequest.
-const GetStarTransactionsRequestTypeID = 0xf0c6dd98
+const GetStarTransactionsRequestTypeID = 0xeb1e109d
 
 // Ensuring interfaces in compile-time for GetStarTransactionsRequest.
 var (
@@ -55,10 +60,16 @@ func (g *GetStarTransactionsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Offset == "") {
+	if !(g.OwnerID == nil) {
 		return false
 	}
 	if !(g.Direction == nil) {
+		return false
+	}
+	if !(g.Offset == "") {
+		return false
+	}
+	if !(g.Limit == 0) {
 		return false
 	}
 
@@ -98,12 +109,20 @@ func (g *GetStarTransactionsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Offset",
-			SchemaName: "offset",
+			Name:       "OwnerID",
+			SchemaName: "owner_id",
 		},
 		{
 			Name:       "Direction",
 			SchemaName: "direction",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
 		},
 	}
 	return typ
@@ -112,7 +131,7 @@ func (g *GetStarTransactionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetStarTransactionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStarTransactions#f0c6dd98 as nil")
+		return fmt.Errorf("can't encode getStarTransactions#eb1e109d as nil")
 	}
 	b.PutID(GetStarTransactionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,25 +140,32 @@ func (g *GetStarTransactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetStarTransactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStarTransactions#f0c6dd98 as nil")
+		return fmt.Errorf("can't encode getStarTransactions#eb1e109d as nil")
 	}
-	b.PutString(g.Offset)
+	if g.OwnerID == nil {
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field owner_id is nil")
+	}
+	if err := g.OwnerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field owner_id: %w", err)
+	}
 	if g.Direction == nil {
-		return fmt.Errorf("unable to encode getStarTransactions#f0c6dd98: field direction is nil")
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field direction is nil")
 	}
 	if err := g.Direction.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getStarTransactions#f0c6dd98: field direction: %w", err)
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field direction: %w", err)
 	}
+	b.PutString(g.Offset)
+	b.PutInt32(g.Limit)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetStarTransactionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStarTransactions#f0c6dd98 to nil")
+		return fmt.Errorf("can't decode getStarTransactions#eb1e109d to nil")
 	}
 	if err := b.ConsumeID(GetStarTransactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getStarTransactions#f0c6dd98: %w", err)
+		return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -147,21 +173,35 @@ func (g *GetStarTransactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetStarTransactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStarTransactions#f0c6dd98 to nil")
+		return fmt.Errorf("can't decode getStarTransactions#eb1e109d to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getStarTransactions#f0c6dd98: field offset: %w", err)
+			return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field owner_id: %w", err)
 		}
-		g.Offset = value
+		g.OwnerID = value
 	}
 	{
 		value, err := DecodeStarTransactionDirection(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getStarTransactions#f0c6dd98: field direction: %w", err)
+			return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field direction: %w", err)
 		}
 		g.Direction = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field offset: %w", err)
+		}
+		g.Offset = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field limit: %w", err)
+		}
+		g.Limit = value
 	}
 	return nil
 }
@@ -169,21 +209,32 @@ func (g *GetStarTransactionsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetStarTransactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStarTransactions#f0c6dd98 as nil")
+		return fmt.Errorf("can't encode getStarTransactions#eb1e109d as nil")
 	}
 	b.ObjStart()
 	b.PutID("getStarTransactions")
 	b.Comma()
-	b.FieldStart("offset")
-	b.PutString(g.Offset)
+	b.FieldStart("owner_id")
+	if g.OwnerID == nil {
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field owner_id is nil")
+	}
+	if err := g.OwnerID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field owner_id: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("direction")
 	if g.Direction == nil {
-		return fmt.Errorf("unable to encode getStarTransactions#f0c6dd98: field direction is nil")
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field direction is nil")
 	}
 	if err := g.Direction.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getStarTransactions#f0c6dd98: field direction: %w", err)
+		return fmt.Errorf("unable to encode getStarTransactions#eb1e109d: field direction: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("offset")
+	b.PutString(g.Offset)
+	b.Comma()
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -193,27 +244,39 @@ func (g *GetStarTransactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetStarTransactionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStarTransactions#f0c6dd98 to nil")
+		return fmt.Errorf("can't decode getStarTransactions#eb1e109d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getStarTransactions"); err != nil {
-				return fmt.Errorf("unable to decode getStarTransactions#f0c6dd98: %w", err)
+				return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: %w", err)
 			}
-		case "offset":
-			value, err := b.String()
+		case "owner_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getStarTransactions#f0c6dd98: field offset: %w", err)
+				return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field owner_id: %w", err)
 			}
-			g.Offset = value
+			g.OwnerID = value
 		case "direction":
 			value, err := DecodeTDLibJSONStarTransactionDirection(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getStarTransactions#f0c6dd98: field direction: %w", err)
+				return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field direction: %w", err)
 			}
 			g.Direction = value
+		case "offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field offset: %w", err)
+			}
+			g.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStarTransactions#eb1e109d: field limit: %w", err)
+			}
+			g.Limit = value
 		default:
 			return b.Skip()
 		}
@@ -221,12 +284,12 @@ func (g *GetStarTransactionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetOffset returns value of Offset field.
-func (g *GetStarTransactionsRequest) GetOffset() (value string) {
+// GetOwnerID returns value of OwnerID field.
+func (g *GetStarTransactionsRequest) GetOwnerID() (value MessageSenderClass) {
 	if g == nil {
 		return
 	}
-	return g.Offset
+	return g.OwnerID
 }
 
 // GetDirection returns value of Direction field.
@@ -237,7 +300,23 @@ func (g *GetStarTransactionsRequest) GetDirection() (value StarTransactionDirect
 	return g.Direction
 }
 
-// GetStarTransactions invokes method getStarTransactions#f0c6dd98 returning error if any.
+// GetOffset returns value of Offset field.
+func (g *GetStarTransactionsRequest) GetOffset() (value string) {
+	if g == nil {
+		return
+	}
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *GetStarTransactionsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
+	return g.Limit
+}
+
+// GetStarTransactions invokes method getStarTransactions#eb1e109d returning error if any.
 func (c *Client) GetStarTransactions(ctx context.Context, request *GetStarTransactionsRequest) (*StarTransactions, error) {
 	var result StarTransactions
 

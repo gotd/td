@@ -231,18 +231,18 @@ func (c *ChatRevenueTransactionTypeEarnings) GetEndDate() (value int32) {
 	return c.EndDate
 }
 
-// ChatRevenueTransactionTypeWithdrawal represents TL type `chatRevenueTransactionTypeWithdrawal#6c72a9de`.
+// ChatRevenueTransactionTypeWithdrawal represents TL type `chatRevenueTransactionTypeWithdrawal#f138deb`.
 type ChatRevenueTransactionTypeWithdrawal struct {
 	// Point in time (Unix timestamp) when the earnings withdrawal started
 	WithdrawalDate int32
 	// Name of the payment provider
 	Provider string
 	// State of the withdrawal
-	State ChatRevenueWithdrawalStateClass
+	State RevenueWithdrawalStateClass
 }
 
 // ChatRevenueTransactionTypeWithdrawalTypeID is TL type id of ChatRevenueTransactionTypeWithdrawal.
-const ChatRevenueTransactionTypeWithdrawalTypeID = 0x6c72a9de
+const ChatRevenueTransactionTypeWithdrawalTypeID = 0xf138deb
 
 // construct implements constructor of ChatRevenueTransactionTypeClass.
 func (c ChatRevenueTransactionTypeWithdrawal) construct() ChatRevenueTransactionTypeClass { return &c }
@@ -325,7 +325,7 @@ func (c *ChatRevenueTransactionTypeWithdrawal) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatRevenueTransactionTypeWithdrawal) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatRevenueTransactionTypeWithdrawal#6c72a9de as nil")
+		return fmt.Errorf("can't encode chatRevenueTransactionTypeWithdrawal#f138deb as nil")
 	}
 	b.PutID(ChatRevenueTransactionTypeWithdrawalTypeID)
 	return c.EncodeBare(b)
@@ -334,15 +334,15 @@ func (c *ChatRevenueTransactionTypeWithdrawal) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatRevenueTransactionTypeWithdrawal) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatRevenueTransactionTypeWithdrawal#6c72a9de as nil")
+		return fmt.Errorf("can't encode chatRevenueTransactionTypeWithdrawal#f138deb as nil")
 	}
 	b.PutInt32(c.WithdrawalDate)
 	b.PutString(c.Provider)
 	if c.State == nil {
-		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#6c72a9de: field state is nil")
+		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#f138deb: field state is nil")
 	}
 	if err := c.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#6c72a9de: field state: %w", err)
+		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#f138deb: field state: %w", err)
 	}
 	return nil
 }
@@ -350,10 +350,10 @@ func (c *ChatRevenueTransactionTypeWithdrawal) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatRevenueTransactionTypeWithdrawal) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatRevenueTransactionTypeWithdrawal#6c72a9de to nil")
+		return fmt.Errorf("can't decode chatRevenueTransactionTypeWithdrawal#f138deb to nil")
 	}
 	if err := b.ConsumeID(ChatRevenueTransactionTypeWithdrawalTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: %w", err)
+		return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -361,26 +361,26 @@ func (c *ChatRevenueTransactionTypeWithdrawal) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatRevenueTransactionTypeWithdrawal) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatRevenueTransactionTypeWithdrawal#6c72a9de to nil")
+		return fmt.Errorf("can't decode chatRevenueTransactionTypeWithdrawal#f138deb to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: field withdrawal_date: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: field withdrawal_date: %w", err)
 		}
 		c.WithdrawalDate = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: field provider: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: field provider: %w", err)
 		}
 		c.Provider = value
 	}
 	{
-		value, err := DecodeChatRevenueWithdrawalState(b)
+		value, err := DecodeRevenueWithdrawalState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: field state: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: field state: %w", err)
 		}
 		c.State = value
 	}
@@ -390,7 +390,7 @@ func (c *ChatRevenueTransactionTypeWithdrawal) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatRevenueTransactionTypeWithdrawal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatRevenueTransactionTypeWithdrawal#6c72a9de as nil")
+		return fmt.Errorf("can't encode chatRevenueTransactionTypeWithdrawal#f138deb as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatRevenueTransactionTypeWithdrawal")
@@ -403,10 +403,10 @@ func (c *ChatRevenueTransactionTypeWithdrawal) EncodeTDLibJSON(b tdjson.Encoder)
 	b.Comma()
 	b.FieldStart("state")
 	if c.State == nil {
-		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#6c72a9de: field state is nil")
+		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#f138deb: field state is nil")
 	}
 	if err := c.State.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#6c72a9de: field state: %w", err)
+		return fmt.Errorf("unable to encode chatRevenueTransactionTypeWithdrawal#f138deb: field state: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -417,31 +417,31 @@ func (c *ChatRevenueTransactionTypeWithdrawal) EncodeTDLibJSON(b tdjson.Encoder)
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatRevenueTransactionTypeWithdrawal) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatRevenueTransactionTypeWithdrawal#6c72a9de to nil")
+		return fmt.Errorf("can't decode chatRevenueTransactionTypeWithdrawal#f138deb to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatRevenueTransactionTypeWithdrawal"); err != nil {
-				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: %w", err)
 			}
 		case "withdrawal_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: field withdrawal_date: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: field withdrawal_date: %w", err)
 			}
 			c.WithdrawalDate = value
 		case "provider":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: field provider: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: field provider: %w", err)
 			}
 			c.Provider = value
 		case "state":
-			value, err := DecodeTDLibJSONChatRevenueWithdrawalState(b)
+			value, err := DecodeTDLibJSONRevenueWithdrawalState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#6c72a9de: field state: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueTransactionTypeWithdrawal#f138deb: field state: %w", err)
 			}
 			c.State = value
 		default:
@@ -468,7 +468,7 @@ func (c *ChatRevenueTransactionTypeWithdrawal) GetProvider() (value string) {
 }
 
 // GetState returns value of State field.
-func (c *ChatRevenueTransactionTypeWithdrawal) GetState() (value ChatRevenueWithdrawalStateClass) {
+func (c *ChatRevenueTransactionTypeWithdrawal) GetState() (value RevenueWithdrawalStateClass) {
 	if c == nil {
 		return
 	}
@@ -688,7 +688,7 @@ const ChatRevenueTransactionTypeClassName = "ChatRevenueTransactionType"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.ChatRevenueTransactionTypeEarnings: // chatRevenueTransactionTypeEarnings#e81ca488
-//	case *tdapi.ChatRevenueTransactionTypeWithdrawal: // chatRevenueTransactionTypeWithdrawal#6c72a9de
+//	case *tdapi.ChatRevenueTransactionTypeWithdrawal: // chatRevenueTransactionTypeWithdrawal#f138deb
 //	case *tdapi.ChatRevenueTransactionTypeRefund: // chatRevenueTransactionTypeRefund#1206b847
 //	default: panic(v)
 //	}
@@ -729,7 +729,7 @@ func DecodeChatRevenueTransactionType(buf *bin.Buffer) (ChatRevenueTransactionTy
 		}
 		return &v, nil
 	case ChatRevenueTransactionTypeWithdrawalTypeID:
-		// Decoding chatRevenueTransactionTypeWithdrawal#6c72a9de.
+		// Decoding chatRevenueTransactionTypeWithdrawal#f138deb.
 		v := ChatRevenueTransactionTypeWithdrawal{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatRevenueTransactionTypeClass: %w", err)
@@ -762,7 +762,7 @@ func DecodeTDLibJSONChatRevenueTransactionType(buf tdjson.Decoder) (ChatRevenueT
 		}
 		return &v, nil
 	case "chatRevenueTransactionTypeWithdrawal":
-		// Decoding chatRevenueTransactionTypeWithdrawal#6c72a9de.
+		// Decoding chatRevenueTransactionTypeWithdrawal#f138deb.
 		v := ChatRevenueTransactionTypeWithdrawal{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatRevenueTransactionTypeClass: %w", err)
