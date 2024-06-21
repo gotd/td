@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryAreaTypeLocation represents TL type `storyAreaTypeLocation#9ebe1186`.
+// StoryAreaTypeLocation represents TL type `storyAreaTypeLocation#a8b3caa3`.
 type StoryAreaTypeLocation struct {
 	// The location
 	Location Location
+	// Address of the location; may be null if unknown
+	Address LocationAddress
 }
 
 // StoryAreaTypeLocationTypeID is TL type id of StoryAreaTypeLocation.
-const StoryAreaTypeLocationTypeID = 0x9ebe1186
+const StoryAreaTypeLocationTypeID = 0xa8b3caa3
 
 // construct implements constructor of StoryAreaTypeClass.
 func (s StoryAreaTypeLocation) construct() StoryAreaTypeClass { return &s }
@@ -58,6 +60,9 @@ func (s *StoryAreaTypeLocation) Zero() bool {
 		return true
 	}
 	if !(s.Location.Zero()) {
+		return false
+	}
+	if !(s.Address.Zero()) {
 		return false
 	}
 
@@ -100,6 +105,10 @@ func (s *StoryAreaTypeLocation) TypeInfo() tdp.Type {
 			Name:       "Location",
 			SchemaName: "location",
 		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
 	}
 	return typ
 }
@@ -107,7 +116,7 @@ func (s *StoryAreaTypeLocation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StoryAreaTypeLocation) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyAreaTypeLocation#9ebe1186 as nil")
+		return fmt.Errorf("can't encode storyAreaTypeLocation#a8b3caa3 as nil")
 	}
 	b.PutID(StoryAreaTypeLocationTypeID)
 	return s.EncodeBare(b)
@@ -116,10 +125,13 @@ func (s *StoryAreaTypeLocation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryAreaTypeLocation) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyAreaTypeLocation#9ebe1186 as nil")
+		return fmt.Errorf("can't encode storyAreaTypeLocation#a8b3caa3 as nil")
 	}
 	if err := s.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyAreaTypeLocation#9ebe1186: field location: %w", err)
+		return fmt.Errorf("unable to encode storyAreaTypeLocation#a8b3caa3: field location: %w", err)
+	}
+	if err := s.Address.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyAreaTypeLocation#a8b3caa3: field address: %w", err)
 	}
 	return nil
 }
@@ -127,10 +139,10 @@ func (s *StoryAreaTypeLocation) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryAreaTypeLocation) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyAreaTypeLocation#9ebe1186 to nil")
+		return fmt.Errorf("can't decode storyAreaTypeLocation#a8b3caa3 to nil")
 	}
 	if err := b.ConsumeID(StoryAreaTypeLocationTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyAreaTypeLocation#9ebe1186: %w", err)
+		return fmt.Errorf("unable to decode storyAreaTypeLocation#a8b3caa3: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -138,11 +150,16 @@ func (s *StoryAreaTypeLocation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryAreaTypeLocation) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyAreaTypeLocation#9ebe1186 to nil")
+		return fmt.Errorf("can't decode storyAreaTypeLocation#a8b3caa3 to nil")
 	}
 	{
 		if err := s.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyAreaTypeLocation#9ebe1186: field location: %w", err)
+			return fmt.Errorf("unable to decode storyAreaTypeLocation#a8b3caa3: field location: %w", err)
+		}
+	}
+	{
+		if err := s.Address.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeLocation#a8b3caa3: field address: %w", err)
 		}
 	}
 	return nil
@@ -151,14 +168,19 @@ func (s *StoryAreaTypeLocation) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StoryAreaTypeLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyAreaTypeLocation#9ebe1186 as nil")
+		return fmt.Errorf("can't encode storyAreaTypeLocation#a8b3caa3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("storyAreaTypeLocation")
 	b.Comma()
 	b.FieldStart("location")
 	if err := s.Location.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode storyAreaTypeLocation#9ebe1186: field location: %w", err)
+		return fmt.Errorf("unable to encode storyAreaTypeLocation#a8b3caa3: field location: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("address")
+	if err := s.Address.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode storyAreaTypeLocation#a8b3caa3: field address: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -169,18 +191,22 @@ func (s *StoryAreaTypeLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StoryAreaTypeLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyAreaTypeLocation#9ebe1186 to nil")
+		return fmt.Errorf("can't decode storyAreaTypeLocation#a8b3caa3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storyAreaTypeLocation"); err != nil {
-				return fmt.Errorf("unable to decode storyAreaTypeLocation#9ebe1186: %w", err)
+				return fmt.Errorf("unable to decode storyAreaTypeLocation#a8b3caa3: %w", err)
 			}
 		case "location":
 			if err := s.Location.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode storyAreaTypeLocation#9ebe1186: field location: %w", err)
+				return fmt.Errorf("unable to decode storyAreaTypeLocation#a8b3caa3: field location: %w", err)
+			}
+		case "address":
+			if err := s.Address.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeLocation#a8b3caa3: field address: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -195,6 +221,14 @@ func (s *StoryAreaTypeLocation) GetLocation() (value Location) {
 		return
 	}
 	return s.Location
+}
+
+// GetAddress returns value of Address field.
+func (s *StoryAreaTypeLocation) GetAddress() (value LocationAddress) {
+	if s == nil {
+		return
+	}
+	return s.Address
 }
 
 // StoryAreaTypeVenue represents TL type `storyAreaTypeVenue#18ae4d06`.
@@ -841,6 +875,172 @@ func (s *StoryAreaTypeMessage) GetMessageID() (value int64) {
 	return s.MessageID
 }
 
+// StoryAreaTypeLink represents TL type `storyAreaTypeLink#f8626185`.
+type StoryAreaTypeLink struct {
+	// HTTP or tg:// URL to be opened when the area is clicked
+	URL string
+}
+
+// StoryAreaTypeLinkTypeID is TL type id of StoryAreaTypeLink.
+const StoryAreaTypeLinkTypeID = 0xf8626185
+
+// construct implements constructor of StoryAreaTypeClass.
+func (s StoryAreaTypeLink) construct() StoryAreaTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for StoryAreaTypeLink.
+var (
+	_ bin.Encoder     = &StoryAreaTypeLink{}
+	_ bin.Decoder     = &StoryAreaTypeLink{}
+	_ bin.BareEncoder = &StoryAreaTypeLink{}
+	_ bin.BareDecoder = &StoryAreaTypeLink{}
+
+	_ StoryAreaTypeClass = &StoryAreaTypeLink{}
+)
+
+func (s *StoryAreaTypeLink) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StoryAreaTypeLink) String() string {
+	if s == nil {
+		return "StoryAreaTypeLink(nil)"
+	}
+	type Alias StoryAreaTypeLink
+	return fmt.Sprintf("StoryAreaTypeLink%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StoryAreaTypeLink) TypeID() uint32 {
+	return StoryAreaTypeLinkTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StoryAreaTypeLink) TypeName() string {
+	return "storyAreaTypeLink"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StoryAreaTypeLink) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storyAreaTypeLink",
+		ID:   StoryAreaTypeLinkTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StoryAreaTypeLink) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeLink#f8626185 as nil")
+	}
+	b.PutID(StoryAreaTypeLinkTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StoryAreaTypeLink) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeLink#f8626185 as nil")
+	}
+	b.PutString(s.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StoryAreaTypeLink) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeLink#f8626185 to nil")
+	}
+	if err := b.ConsumeID(StoryAreaTypeLinkTypeID); err != nil {
+		return fmt.Errorf("unable to decode storyAreaTypeLink#f8626185: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StoryAreaTypeLink) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeLink#f8626185 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeLink#f8626185: field url: %w", err)
+		}
+		s.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StoryAreaTypeLink) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeLink#f8626185 as nil")
+	}
+	b.ObjStart()
+	b.PutID("storyAreaTypeLink")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(s.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StoryAreaTypeLink) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeLink#f8626185 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("storyAreaTypeLink"); err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeLink#f8626185: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeLink#f8626185: field url: %w", err)
+			}
+			s.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (s *StoryAreaTypeLink) GetURL() (value string) {
+	if s == nil {
+		return
+	}
+	return s.URL
+}
+
 // StoryAreaTypeClassName is schema name of StoryAreaTypeClass.
 const StoryAreaTypeClassName = "StoryAreaType"
 
@@ -853,10 +1053,11 @@ const StoryAreaTypeClassName = "StoryAreaType"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.StoryAreaTypeLocation: // storyAreaTypeLocation#9ebe1186
+//	case *tdapi.StoryAreaTypeLocation: // storyAreaTypeLocation#a8b3caa3
 //	case *tdapi.StoryAreaTypeVenue: // storyAreaTypeVenue#18ae4d06
 //	case *tdapi.StoryAreaTypeSuggestedReaction: // storyAreaTypeSuggestedReaction#f95f927c
 //	case *tdapi.StoryAreaTypeMessage: // storyAreaTypeMessage#bfef76b4
+//	case *tdapi.StoryAreaTypeLink: // storyAreaTypeLink#f8626185
 //	default: panic(v)
 //	}
 type StoryAreaTypeClass interface {
@@ -889,7 +1090,7 @@ func DecodeStoryAreaType(buf *bin.Buffer) (StoryAreaTypeClass, error) {
 	}
 	switch id {
 	case StoryAreaTypeLocationTypeID:
-		// Decoding storyAreaTypeLocation#9ebe1186.
+		// Decoding storyAreaTypeLocation#a8b3caa3.
 		v := StoryAreaTypeLocation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
@@ -916,6 +1117,13 @@ func DecodeStoryAreaType(buf *bin.Buffer) (StoryAreaTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
 		}
 		return &v, nil
+	case StoryAreaTypeLinkTypeID:
+		// Decoding storyAreaTypeLink#f8626185.
+		v := StoryAreaTypeLink{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -929,7 +1137,7 @@ func DecodeTDLibJSONStoryAreaType(buf tdjson.Decoder) (StoryAreaTypeClass, error
 	}
 	switch id {
 	case "storyAreaTypeLocation":
-		// Decoding storyAreaTypeLocation#9ebe1186.
+		// Decoding storyAreaTypeLocation#a8b3caa3.
 		v := StoryAreaTypeLocation{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
@@ -952,6 +1160,13 @@ func DecodeTDLibJSONStoryAreaType(buf tdjson.Decoder) (StoryAreaTypeClass, error
 	case "storyAreaTypeMessage":
 		// Decoding storyAreaTypeMessage#bfef76b4.
 		v := StoryAreaTypeMessage{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
+	case "storyAreaTypeLink":
+		// Decoding storyAreaTypeLink#f8626185.
+		v := StoryAreaTypeLink{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
 		}

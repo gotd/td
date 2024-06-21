@@ -33,7 +33,7 @@ var (
 
 // ChatMemberStatusCreator represents TL type `chatMemberStatusCreator#f6764afe`.
 type ChatMemberStatusCreator struct {
-	// A custom title of the owner; 0-16 characters without emojis; applicable to supergroups
+	// A custom title of the owner; 0-16 characters without emoji; applicable to supergroups
 	// only
 	CustomTitle string
 	// True, if the creator isn't shown in the chat member list and sends messages
@@ -269,7 +269,7 @@ func (c *ChatMemberStatusCreator) GetIsMember() (value bool) {
 
 // ChatMemberStatusAdministrator represents TL type `chatMemberStatusAdministrator#fbd3841d`.
 type ChatMemberStatusAdministrator struct {
-	// A custom title of the administrator; 0-16 characters without emojis; applicable to
+	// A custom title of the administrator; 0-16 characters without emoji; applicable to
 	// supergroups only
 	CustomTitle string
 	// True, if the current user can edit the administrator privileges for the called user

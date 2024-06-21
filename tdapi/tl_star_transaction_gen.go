@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarTransaction represents TL type `starTransaction#cfd79750`.
+// StarTransaction represents TL type `starTransaction#ce1084a8`.
 type StarTransaction struct {
 	// Unique identifier of the transaction
 	ID string
@@ -41,12 +41,12 @@ type StarTransaction struct {
 	IsRefund bool
 	// Point in time (Unix timestamp) when the transaction was completed
 	Date int32
-	// Source of the transaction, or its recipient for outgoing transactions
-	Source StarTransactionSourceClass
+	// Source of the incoming transaction, or its recipient for outgoing transactions
+	Partner StarTransactionPartnerClass
 }
 
 // StarTransactionTypeID is TL type id of StarTransaction.
-const StarTransactionTypeID = 0xcfd79750
+const StarTransactionTypeID = 0xce1084a8
 
 // Ensuring interfaces in compile-time for StarTransaction.
 var (
@@ -72,7 +72,7 @@ func (s *StarTransaction) Zero() bool {
 	if !(s.Date == 0) {
 		return false
 	}
-	if !(s.Source == nil) {
+	if !(s.Partner == nil) {
 		return false
 	}
 
@@ -128,8 +128,8 @@ func (s *StarTransaction) TypeInfo() tdp.Type {
 			SchemaName: "date",
 		},
 		{
-			Name:       "Source",
-			SchemaName: "source",
+			Name:       "Partner",
+			SchemaName: "partner",
 		},
 	}
 	return typ
@@ -138,7 +138,7 @@ func (s *StarTransaction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarTransaction) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransaction#cfd79750 as nil")
+		return fmt.Errorf("can't encode starTransaction#ce1084a8 as nil")
 	}
 	b.PutID(StarTransactionTypeID)
 	return s.EncodeBare(b)
@@ -147,17 +147,17 @@ func (s *StarTransaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarTransaction) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransaction#cfd79750 as nil")
+		return fmt.Errorf("can't encode starTransaction#ce1084a8 as nil")
 	}
 	b.PutString(s.ID)
 	b.PutInt53(s.StarCount)
 	b.PutBool(s.IsRefund)
 	b.PutInt32(s.Date)
-	if s.Source == nil {
-		return fmt.Errorf("unable to encode starTransaction#cfd79750: field source is nil")
+	if s.Partner == nil {
+		return fmt.Errorf("unable to encode starTransaction#ce1084a8: field partner is nil")
 	}
-	if err := s.Source.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starTransaction#cfd79750: field source: %w", err)
+	if err := s.Partner.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starTransaction#ce1084a8: field partner: %w", err)
 	}
 	return nil
 }
@@ -165,10 +165,10 @@ func (s *StarTransaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarTransaction) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransaction#cfd79750 to nil")
+		return fmt.Errorf("can't decode starTransaction#ce1084a8 to nil")
 	}
 	if err := b.ConsumeID(StarTransactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode starTransaction#cfd79750: %w", err)
+		return fmt.Errorf("unable to decode starTransaction#ce1084a8: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -176,42 +176,42 @@ func (s *StarTransaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarTransaction) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransaction#cfd79750 to nil")
+		return fmt.Errorf("can't decode starTransaction#ce1084a8 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransaction#cfd79750: field id: %w", err)
+			return fmt.Errorf("unable to decode starTransaction#ce1084a8: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransaction#cfd79750: field star_count: %w", err)
+			return fmt.Errorf("unable to decode starTransaction#ce1084a8: field star_count: %w", err)
 		}
 		s.StarCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransaction#cfd79750: field is_refund: %w", err)
+			return fmt.Errorf("unable to decode starTransaction#ce1084a8: field is_refund: %w", err)
 		}
 		s.IsRefund = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransaction#cfd79750: field date: %w", err)
+			return fmt.Errorf("unable to decode starTransaction#ce1084a8: field date: %w", err)
 		}
 		s.Date = value
 	}
 	{
-		value, err := DecodeStarTransactionSource(b)
+		value, err := DecodeStarTransactionPartner(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransaction#cfd79750: field source: %w", err)
+			return fmt.Errorf("unable to decode starTransaction#ce1084a8: field partner: %w", err)
 		}
-		s.Source = value
+		s.Partner = value
 	}
 	return nil
 }
@@ -219,7 +219,7 @@ func (s *StarTransaction) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarTransaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransaction#cfd79750 as nil")
+		return fmt.Errorf("can't encode starTransaction#ce1084a8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("starTransaction")
@@ -236,12 +236,12 @@ func (s *StarTransaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("date")
 	b.PutInt32(s.Date)
 	b.Comma()
-	b.FieldStart("source")
-	if s.Source == nil {
-		return fmt.Errorf("unable to encode starTransaction#cfd79750: field source is nil")
+	b.FieldStart("partner")
+	if s.Partner == nil {
+		return fmt.Errorf("unable to encode starTransaction#ce1084a8: field partner is nil")
 	}
-	if err := s.Source.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode starTransaction#cfd79750: field source: %w", err)
+	if err := s.Partner.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starTransaction#ce1084a8: field partner: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -252,45 +252,45 @@ func (s *StarTransaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarTransaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransaction#cfd79750 to nil")
+		return fmt.Errorf("can't decode starTransaction#ce1084a8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starTransaction"); err != nil {
-				return fmt.Errorf("unable to decode starTransaction#cfd79750: %w", err)
+				return fmt.Errorf("unable to decode starTransaction#ce1084a8: %w", err)
 			}
 		case "id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransaction#cfd79750: field id: %w", err)
+				return fmt.Errorf("unable to decode starTransaction#ce1084a8: field id: %w", err)
 			}
 			s.ID = value
 		case "star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransaction#cfd79750: field star_count: %w", err)
+				return fmt.Errorf("unable to decode starTransaction#ce1084a8: field star_count: %w", err)
 			}
 			s.StarCount = value
 		case "is_refund":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransaction#cfd79750: field is_refund: %w", err)
+				return fmt.Errorf("unable to decode starTransaction#ce1084a8: field is_refund: %w", err)
 			}
 			s.IsRefund = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransaction#cfd79750: field date: %w", err)
+				return fmt.Errorf("unable to decode starTransaction#ce1084a8: field date: %w", err)
 			}
 			s.Date = value
-		case "source":
-			value, err := DecodeTDLibJSONStarTransactionSource(b)
+		case "partner":
+			value, err := DecodeTDLibJSONStarTransactionPartner(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransaction#cfd79750: field source: %w", err)
+				return fmt.Errorf("unable to decode starTransaction#ce1084a8: field partner: %w", err)
 			}
-			s.Source = value
+			s.Partner = value
 		default:
 			return b.Skip()
 		}
@@ -330,10 +330,10 @@ func (s *StarTransaction) GetDate() (value int32) {
 	return s.Date
 }
 
-// GetSource returns value of Source field.
-func (s *StarTransaction) GetSource() (value StarTransactionSourceClass) {
+// GetPartner returns value of Partner field.
+func (s *StarTransaction) GetPartner() (value StarTransactionPartnerClass) {
 	if s == nil {
 		return
 	}
-	return s.Source
+	return s.Partner
 }

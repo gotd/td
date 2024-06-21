@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DraftMessage represents TL type `draftMessage#f67c6a5c`.
+// DraftMessage represents TL type `draftMessage#4313276d`.
 type DraftMessage struct {
 	// Information about the message to be replied; must be of the type
 	// inputMessageReplyToMessage; may be null if none
@@ -41,10 +41,12 @@ type DraftMessage struct {
 	// Content of the message draft; must be of the type inputMessageText,
 	// inputMessageVideoNote, or inputMessageVoiceNote
 	InputMessageText InputMessageContentClass
+	// Identifier of the effect to apply to the message when it is sent; 0 if none
+	EffectID int64
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.
-const DraftMessageTypeID = 0xf67c6a5c
+const DraftMessageTypeID = 0x4313276d
 
 // Ensuring interfaces in compile-time for DraftMessage.
 var (
@@ -65,6 +67,9 @@ func (d *DraftMessage) Zero() bool {
 		return false
 	}
 	if !(d.InputMessageText == nil) {
+		return false
+	}
+	if !(d.EffectID == 0) {
 		return false
 	}
 
@@ -115,6 +120,10 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 			Name:       "InputMessageText",
 			SchemaName: "input_message_text",
 		},
+		{
+			Name:       "EffectID",
+			SchemaName: "effect_id",
+		},
 	}
 	return typ
 }
@@ -122,7 +131,7 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#f67c6a5c as nil")
+		return fmt.Errorf("can't encode draftMessage#4313276d as nil")
 	}
 	b.PutID(DraftMessageTypeID)
 	return d.EncodeBare(b)
@@ -131,31 +140,32 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#f67c6a5c as nil")
+		return fmt.Errorf("can't encode draftMessage#4313276d as nil")
 	}
 	if d.ReplyTo == nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to is nil")
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field reply_to is nil")
 	}
 	if err := d.ReplyTo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field reply_to: %w", err)
 	}
 	b.PutInt32(d.Date)
 	if d.InputMessageText == nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text is nil")
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field input_message_text is nil")
 	}
 	if err := d.InputMessageText.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field input_message_text: %w", err)
 	}
+	b.PutLong(d.EffectID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#f67c6a5c to nil")
+		return fmt.Errorf("can't decode draftMessage#4313276d to nil")
 	}
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode draftMessage#f67c6a5c: %w", err)
+		return fmt.Errorf("unable to decode draftMessage#4313276d: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -163,28 +173,35 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#f67c6a5c to nil")
+		return fmt.Errorf("can't decode draftMessage#4313276d to nil")
 	}
 	{
 		value, err := DecodeInputMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#4313276d: field reply_to: %w", err)
 		}
 		d.ReplyTo = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field date: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#4313276d: field date: %w", err)
 		}
 		d.Date = value
 	}
 	{
 		value, err := DecodeInputMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field input_message_text: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#4313276d: field input_message_text: %w", err)
 		}
 		d.InputMessageText = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode draftMessage#4313276d: field effect_id: %w", err)
+		}
+		d.EffectID = value
 	}
 	return nil
 }
@@ -192,17 +209,17 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#f67c6a5c as nil")
+		return fmt.Errorf("can't encode draftMessage#4313276d as nil")
 	}
 	b.ObjStart()
 	b.PutID("draftMessage")
 	b.Comma()
 	b.FieldStart("reply_to")
 	if d.ReplyTo == nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to is nil")
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field reply_to is nil")
 	}
 	if err := d.ReplyTo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field reply_to: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("date")
@@ -210,11 +227,14 @@ func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("input_message_text")
 	if d.InputMessageText == nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text is nil")
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field input_message_text is nil")
 	}
 	if err := d.InputMessageText.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#4313276d: field input_message_text: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("effect_id")
+	b.PutLong(d.EffectID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -224,33 +244,39 @@ func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#f67c6a5c to nil")
+		return fmt.Errorf("can't decode draftMessage#4313276d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("draftMessage"); err != nil {
-				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#4313276d: %w", err)
 			}
 		case "reply_to":
 			value, err := DecodeTDLibJSONInputMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field reply_to: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#4313276d: field reply_to: %w", err)
 			}
 			d.ReplyTo = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field date: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#4313276d: field date: %w", err)
 			}
 			d.Date = value
 		case "input_message_text":
 			value, err := DecodeTDLibJSONInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field input_message_text: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#4313276d: field input_message_text: %w", err)
 			}
 			d.InputMessageText = value
+		case "effect_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode draftMessage#4313276d: field effect_id: %w", err)
+			}
+			d.EffectID = value
 		default:
 			return b.Skip()
 		}
@@ -280,4 +306,12 @@ func (d *DraftMessage) GetInputMessageText() (value InputMessageContentClass) {
 		return
 	}
 	return d.InputMessageText
+}
+
+// GetEffectID returns value of EffectID field.
+func (d *DraftMessage) GetEffectID() (value int64) {
+	if d == nil {
+		return
+	}
+	return d.EffectID
 }

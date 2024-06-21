@@ -33,7 +33,7 @@ var (
 
 // EmojiCategorySourceSearch represents TL type `emojiCategorySourceSearch#5e126d32`.
 type EmojiCategorySourceSearch struct {
-	// List of emojis for search for
+	// List of emojis to search for
 	Emojis []string
 }
 

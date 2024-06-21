@@ -372,7 +372,7 @@ type CallStateReady struct {
 	Config string
 	// Call encryption key
 	EncryptionKey []byte
-	// Encryption key emojis fingerprint
+	// Encryption key fingerprint represented as 4 emoji
 	Emojis []string
 	// True, if peer-to-peer connection is allowed by users privacy settings
 	AllowP2P bool

@@ -35,7 +35,7 @@ var (
 type SearchStickersRequest struct {
 	// Type of the stickers to return
 	StickerType StickerTypeClass
-	// Space-separated list of emoji to search for; must be non-empty
+	// Space-separated list of emojis to search for; must be non-empty
 	Emojis string
 	// The maximum number of stickers to be returned; 0-100
 	Limit int32
