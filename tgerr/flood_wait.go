@@ -7,8 +7,14 @@ import (
 	"github.com/gotd/td/clock"
 )
 
+// ErrPremiumFloodWait is error type of "FLOOD_PREMIUM_WAIT" error.
+const ErrPremiumFloodWait = "FLOOD_PREMIUM_WAIT"
+
 // ErrFloodWait is error type of "FLOOD_WAIT" error.
 const ErrFloodWait = "FLOOD_WAIT"
+
+// FloodWaitErrors is a list of errors that are considered as flood wait.
+var FloodWaitErrors = []string{ErrFloodWait, ErrPremiumFloodWait}
 
 // AsFloodWait returns wait duration and true boolean if err is
 // the "FLOOD_WAIT" error.
@@ -16,8 +22,10 @@ const ErrFloodWait = "FLOOD_WAIT"
 // Client should wait for that duration before issuing new requests with
 // same method.
 func AsFloodWait(err error) (d time.Duration, ok bool) {
-	if rpcErr, ok := AsType(err, ErrFloodWait); ok {
-		return time.Second * time.Duration(rpcErr.Argument), true
+	for _, e := range FloodWaitErrors {
+		if rpcErr, ok := AsType(err, e); ok {
+			return time.Second * time.Duration(rpcErr.Argument), true
+		}
 	}
 	return 0, false
 }
