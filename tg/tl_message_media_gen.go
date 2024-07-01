@@ -4431,6 +4431,190 @@ func (m *MessageMediaGiveawayResults) GetUntilDate() (value int) {
 	return m.UntilDate
 }
 
+// MessageMediaPaidMedia represents TL type `messageMediaPaidMedia#a8852491`.
+//
+// See https://core.telegram.org/constructor/messageMediaPaidMedia for reference.
+type MessageMediaPaidMedia struct {
+	// StarsAmount field of MessageMediaPaidMedia.
+	StarsAmount int64
+	// ExtendedMedia field of MessageMediaPaidMedia.
+	ExtendedMedia []MessageExtendedMediaClass
+}
+
+// MessageMediaPaidMediaTypeID is TL type id of MessageMediaPaidMedia.
+const MessageMediaPaidMediaTypeID = 0xa8852491
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaPaidMedia) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaPaidMedia.
+var (
+	_ bin.Encoder     = &MessageMediaPaidMedia{}
+	_ bin.Decoder     = &MessageMediaPaidMedia{}
+	_ bin.BareEncoder = &MessageMediaPaidMedia{}
+	_ bin.BareDecoder = &MessageMediaPaidMedia{}
+
+	_ MessageMediaClass = &MessageMediaPaidMedia{}
+)
+
+func (m *MessageMediaPaidMedia) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.StarsAmount == 0) {
+		return false
+	}
+	if !(m.ExtendedMedia == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageMediaPaidMedia) String() string {
+	if m == nil {
+		return "MessageMediaPaidMedia(nil)"
+	}
+	type Alias MessageMediaPaidMedia
+	return fmt.Sprintf("MessageMediaPaidMedia%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaPaidMedia from given interface.
+func (m *MessageMediaPaidMedia) FillFrom(from interface {
+	GetStarsAmount() (value int64)
+	GetExtendedMedia() (value []MessageExtendedMediaClass)
+}) {
+	m.StarsAmount = from.GetStarsAmount()
+	m.ExtendedMedia = from.GetExtendedMedia()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageMediaPaidMedia) TypeID() uint32 {
+	return MessageMediaPaidMediaTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageMediaPaidMedia) TypeName() string {
+	return "messageMediaPaidMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaPaidMedia) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaPaidMedia",
+		ID:   MessageMediaPaidMediaTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarsAmount",
+			SchemaName: "stars_amount",
+		},
+		{
+			Name:       "ExtendedMedia",
+			SchemaName: "extended_media",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageMediaPaidMedia) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaPaidMedia#a8852491 as nil")
+	}
+	b.PutID(MessageMediaPaidMediaTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaPaidMedia) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaPaidMedia#a8852491 as nil")
+	}
+	b.PutLong(m.StarsAmount)
+	b.PutVectorHeader(len(m.ExtendedMedia))
+	for idx, v := range m.ExtendedMedia {
+		if v == nil {
+			return fmt.Errorf("unable to encode messageMediaPaidMedia#a8852491: field extended_media element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageMediaPaidMedia#a8852491: field extended_media element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageMediaPaidMedia) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaPaidMedia#a8852491 to nil")
+	}
+	if err := b.ConsumeID(MessageMediaPaidMediaTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageMediaPaidMedia#a8852491: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaPaidMedia) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaPaidMedia#a8852491 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaPaidMedia#a8852491: field stars_amount: %w", err)
+		}
+		m.StarsAmount = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaPaidMedia#a8852491: field extended_media: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.ExtendedMedia = make([]MessageExtendedMediaClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageExtendedMedia(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageMediaPaidMedia#a8852491: field extended_media: %w", err)
+			}
+			m.ExtendedMedia = append(m.ExtendedMedia, value)
+		}
+	}
+	return nil
+}
+
+// GetStarsAmount returns value of StarsAmount field.
+func (m *MessageMediaPaidMedia) GetStarsAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.StarsAmount
+}
+
+// GetExtendedMedia returns value of ExtendedMedia field.
+func (m *MessageMediaPaidMedia) GetExtendedMedia() (value []MessageExtendedMediaClass) {
+	if m == nil {
+		return
+	}
+	return m.ExtendedMedia
+}
+
+// MapExtendedMedia returns field ExtendedMedia wrapped in MessageExtendedMediaClassArray helper.
+func (m *MessageMediaPaidMedia) MapExtendedMedia() (value MessageExtendedMediaClassArray) {
+	return MessageExtendedMediaClassArray(m.ExtendedMedia)
+}
+
 // MessageMediaClassName is schema name of MessageMediaClass.
 const MessageMediaClassName = "MessageMedia"
 
@@ -4461,6 +4645,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaStory: // messageMediaStory#68cb6283
 //	case *tg.MessageMediaGiveaway: // messageMediaGiveaway#daad85b0
 //	case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#c6991068
+//	case *tg.MessageMediaPaidMedia: // messageMediaPaidMedia#a8852491
 //	default: panic(v)
 //	}
 type MessageMediaClass interface {
@@ -4597,6 +4782,13 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 	case MessageMediaGiveawayResultsTypeID:
 		// Decoding messageMediaGiveawayResults#c6991068.
 		v := MessageMediaGiveawayResults{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
+		}
+		return &v, nil
+	case MessageMediaPaidMediaTypeID:
+		// Decoding messageMediaPaidMedia#a8852491.
+		v := MessageMediaPaidMedia{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
 		}

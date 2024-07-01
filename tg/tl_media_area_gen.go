@@ -538,7 +538,7 @@ func (i *InputMediaAreaVenue) GetResultID() (value string) {
 	return i.ResultID
 }
 
-// MediaAreaGeoPoint represents TL type `mediaAreaGeoPoint#df8b3b22`.
+// MediaAreaGeoPoint represents TL type `mediaAreaGeoPoint#cad5452d`.
 // Represents a geolocation tag attached to a story¹.
 //
 // Links:
@@ -546,15 +546,21 @@ func (i *InputMediaAreaVenue) GetResultID() (value string) {
 //
 // See https://core.telegram.org/constructor/mediaAreaGeoPoint for reference.
 type MediaAreaGeoPoint struct {
+	// Flags field of MediaAreaGeoPoint.
+	Flags bin.Fields
 	// The size and position of the media area corresponding to the location sticker on top
 	// of the story media.
 	Coordinates MediaAreaCoordinates
 	// Coordinates of the geolocation tag.
 	Geo GeoPointClass
+	// Address field of MediaAreaGeoPoint.
+	//
+	// Use SetAddress and GetAddress helpers.
+	Address GeoPointAddress
 }
 
 // MediaAreaGeoPointTypeID is TL type id of MediaAreaGeoPoint.
-const MediaAreaGeoPointTypeID = 0xdf8b3b22
+const MediaAreaGeoPointTypeID = 0xcad5452d
 
 // construct implements constructor of MediaAreaClass.
 func (m MediaAreaGeoPoint) construct() MediaAreaClass { return &m }
@@ -573,10 +579,16 @@ func (m *MediaAreaGeoPoint) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
 	if !(m.Coordinates.Zero()) {
 		return false
 	}
 	if !(m.Geo == nil) {
+		return false
+	}
+	if !(m.Address.Zero()) {
 		return false
 	}
 
@@ -596,9 +608,14 @@ func (m *MediaAreaGeoPoint) String() string {
 func (m *MediaAreaGeoPoint) FillFrom(from interface {
 	GetCoordinates() (value MediaAreaCoordinates)
 	GetGeo() (value GeoPointClass)
+	GetAddress() (value GeoPointAddress, ok bool)
 }) {
 	m.Coordinates = from.GetCoordinates()
 	m.Geo = from.GetGeo()
+	if val, ok := from.GetAddress(); ok {
+		m.Address = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -632,14 +649,26 @@ func (m *MediaAreaGeoPoint) TypeInfo() tdp.Type {
 			Name:       "Geo",
 			SchemaName: "geo",
 		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+			Null:       !m.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MediaAreaGeoPoint) SetFlags() {
+	if !(m.Address.Zero()) {
+		m.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MediaAreaGeoPoint) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mediaAreaGeoPoint#df8b3b22 as nil")
+		return fmt.Errorf("can't encode mediaAreaGeoPoint#cad5452d as nil")
 	}
 	b.PutID(MediaAreaGeoPointTypeID)
 	return m.EncodeBare(b)
@@ -648,16 +677,25 @@ func (m *MediaAreaGeoPoint) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MediaAreaGeoPoint) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mediaAreaGeoPoint#df8b3b22 as nil")
+		return fmt.Errorf("can't encode mediaAreaGeoPoint#cad5452d as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaGeoPoint#cad5452d: field flags: %w", err)
 	}
 	if err := m.Coordinates.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode mediaAreaGeoPoint#df8b3b22: field coordinates: %w", err)
+		return fmt.Errorf("unable to encode mediaAreaGeoPoint#cad5452d: field coordinates: %w", err)
 	}
 	if m.Geo == nil {
-		return fmt.Errorf("unable to encode mediaAreaGeoPoint#df8b3b22: field geo is nil")
+		return fmt.Errorf("unable to encode mediaAreaGeoPoint#cad5452d: field geo is nil")
 	}
 	if err := m.Geo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode mediaAreaGeoPoint#df8b3b22: field geo: %w", err)
+		return fmt.Errorf("unable to encode mediaAreaGeoPoint#cad5452d: field geo: %w", err)
+	}
+	if m.Flags.Has(0) {
+		if err := m.Address.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode mediaAreaGeoPoint#cad5452d: field address: %w", err)
+		}
 	}
 	return nil
 }
@@ -665,10 +703,10 @@ func (m *MediaAreaGeoPoint) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MediaAreaGeoPoint) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mediaAreaGeoPoint#df8b3b22 to nil")
+		return fmt.Errorf("can't decode mediaAreaGeoPoint#cad5452d to nil")
 	}
 	if err := b.ConsumeID(MediaAreaGeoPointTypeID); err != nil {
-		return fmt.Errorf("unable to decode mediaAreaGeoPoint#df8b3b22: %w", err)
+		return fmt.Errorf("unable to decode mediaAreaGeoPoint#cad5452d: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -676,19 +714,29 @@ func (m *MediaAreaGeoPoint) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MediaAreaGeoPoint) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mediaAreaGeoPoint#df8b3b22 to nil")
+		return fmt.Errorf("can't decode mediaAreaGeoPoint#cad5452d to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaGeoPoint#cad5452d: field flags: %w", err)
+		}
 	}
 	{
 		if err := m.Coordinates.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode mediaAreaGeoPoint#df8b3b22: field coordinates: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaGeoPoint#cad5452d: field coordinates: %w", err)
 		}
 	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode mediaAreaGeoPoint#df8b3b22: field geo: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaGeoPoint#cad5452d: field geo: %w", err)
 		}
 		m.Geo = value
+	}
+	if m.Flags.Has(0) {
+		if err := m.Address.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaGeoPoint#cad5452d: field address: %w", err)
+		}
 	}
 	return nil
 }
@@ -707,6 +755,24 @@ func (m *MediaAreaGeoPoint) GetGeo() (value GeoPointClass) {
 		return
 	}
 	return m.Geo
+}
+
+// SetAddress sets value of Address conditional field.
+func (m *MediaAreaGeoPoint) SetAddress(value GeoPointAddress) {
+	m.Flags.Set(0)
+	m.Address = value
+}
+
+// GetAddress returns value of Address conditional field and
+// boolean which is true if field was set.
+func (m *MediaAreaGeoPoint) GetAddress() (value GeoPointAddress, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Address, true
 }
 
 // MediaAreaSuggestedReaction represents TL type `mediaAreaSuggestedReaction#14455871`.
@@ -1355,6 +1421,167 @@ func (i *InputMediaAreaChannelPost) GetMsgID() (value int) {
 	return i.MsgID
 }
 
+// MediaAreaURL represents TL type `mediaAreaUrl#37381085`.
+//
+// See https://core.telegram.org/constructor/mediaAreaUrl for reference.
+type MediaAreaURL struct {
+	// Coordinates field of MediaAreaURL.
+	Coordinates MediaAreaCoordinates
+	// URL field of MediaAreaURL.
+	URL string
+}
+
+// MediaAreaURLTypeID is TL type id of MediaAreaURL.
+const MediaAreaURLTypeID = 0x37381085
+
+// construct implements constructor of MediaAreaClass.
+func (m MediaAreaURL) construct() MediaAreaClass { return &m }
+
+// Ensuring interfaces in compile-time for MediaAreaURL.
+var (
+	_ bin.Encoder     = &MediaAreaURL{}
+	_ bin.Decoder     = &MediaAreaURL{}
+	_ bin.BareEncoder = &MediaAreaURL{}
+	_ bin.BareDecoder = &MediaAreaURL{}
+
+	_ MediaAreaClass = &MediaAreaURL{}
+)
+
+func (m *MediaAreaURL) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Coordinates.Zero()) {
+		return false
+	}
+	if !(m.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MediaAreaURL) String() string {
+	if m == nil {
+		return "MediaAreaURL(nil)"
+	}
+	type Alias MediaAreaURL
+	return fmt.Sprintf("MediaAreaURL%+v", Alias(*m))
+}
+
+// FillFrom fills MediaAreaURL from given interface.
+func (m *MediaAreaURL) FillFrom(from interface {
+	GetCoordinates() (value MediaAreaCoordinates)
+	GetURL() (value string)
+}) {
+	m.Coordinates = from.GetCoordinates()
+	m.URL = from.GetURL()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MediaAreaURL) TypeID() uint32 {
+	return MediaAreaURLTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MediaAreaURL) TypeName() string {
+	return "mediaAreaUrl"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MediaAreaURL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "mediaAreaUrl",
+		ID:   MediaAreaURLTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Coordinates",
+			SchemaName: "coordinates",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MediaAreaURL) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaUrl#37381085 as nil")
+	}
+	b.PutID(MediaAreaURLTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MediaAreaURL) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaUrl#37381085 as nil")
+	}
+	if err := m.Coordinates.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaUrl#37381085: field coordinates: %w", err)
+	}
+	b.PutString(m.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MediaAreaURL) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaUrl#37381085 to nil")
+	}
+	if err := b.ConsumeID(MediaAreaURLTypeID); err != nil {
+		return fmt.Errorf("unable to decode mediaAreaUrl#37381085: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MediaAreaURL) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaUrl#37381085 to nil")
+	}
+	{
+		if err := m.Coordinates.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaUrl#37381085: field coordinates: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaUrl#37381085: field url: %w", err)
+		}
+		m.URL = value
+	}
+	return nil
+}
+
+// GetCoordinates returns value of Coordinates field.
+func (m *MediaAreaURL) GetCoordinates() (value MediaAreaCoordinates) {
+	if m == nil {
+		return
+	}
+	return m.Coordinates
+}
+
+// GetURL returns value of URL field.
+func (m *MediaAreaURL) GetURL() (value string) {
+	if m == nil {
+		return
+	}
+	return m.URL
+}
+
 // MediaAreaClassName is schema name of MediaAreaClass.
 const MediaAreaClassName = "MediaArea"
 
@@ -1371,10 +1598,11 @@ const MediaAreaClassName = "MediaArea"
 //	switch v := g.(type) {
 //	case *tg.MediaAreaVenue: // mediaAreaVenue#be82db9c
 //	case *tg.InputMediaAreaVenue: // inputMediaAreaVenue#b282217f
-//	case *tg.MediaAreaGeoPoint: // mediaAreaGeoPoint#df8b3b22
+//	case *tg.MediaAreaGeoPoint: // mediaAreaGeoPoint#cad5452d
 //	case *tg.MediaAreaSuggestedReaction: // mediaAreaSuggestedReaction#14455871
 //	case *tg.MediaAreaChannelPost: // mediaAreaChannelPost#770416af
 //	case *tg.InputMediaAreaChannelPost: // inputMediaAreaChannelPost#2271f2bf
+//	case *tg.MediaAreaURL: // mediaAreaUrl#37381085
 //	default: panic(v)
 //	}
 type MediaAreaClass interface {
@@ -1422,7 +1650,7 @@ func DecodeMediaArea(buf *bin.Buffer) (MediaAreaClass, error) {
 		}
 		return &v, nil
 	case MediaAreaGeoPointTypeID:
-		// Decoding mediaAreaGeoPoint#df8b3b22.
+		// Decoding mediaAreaGeoPoint#cad5452d.
 		v := MediaAreaGeoPoint{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
@@ -1445,6 +1673,13 @@ func DecodeMediaArea(buf *bin.Buffer) (MediaAreaClass, error) {
 	case InputMediaAreaChannelPostTypeID:
 		// Decoding inputMediaAreaChannelPost#2271f2bf.
 		v := InputMediaAreaChannelPost{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
+		}
+		return &v, nil
+	case MediaAreaURLTypeID:
+		// Decoding mediaAreaUrl#37381085.
+		v := MediaAreaURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
 		}

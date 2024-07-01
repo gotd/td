@@ -1154,6 +1154,8 @@ type ChannelFull struct {
 	RestrictedSponsored bool
 	// CanViewRevenue field of ChannelFull.
 	CanViewRevenue bool
+	// PaidMediaAllowed field of ChannelFull.
+	PaidMediaAllowed bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1422,6 +1424,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.CanViewRevenue == false) {
 		return false
 	}
+	if !(c.PaidMediaAllowed == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1576,6 +1581,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetViewForumAsMessages() (value bool)
 	GetRestrictedSponsored() (value bool)
 	GetCanViewRevenue() (value bool)
+	GetPaidMediaAllowed() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1634,6 +1640,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.ViewForumAsMessages = from.GetViewForumAsMessages()
 	c.RestrictedSponsored = from.GetRestrictedSponsored()
 	c.CanViewRevenue = from.GetCanViewRevenue()
+	c.PaidMediaAllowed = from.GetPaidMediaAllowed()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1875,6 +1882,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "CanViewRevenue",
 			SchemaName: "can_view_revenue",
 			Null:       !c.Flags2.Has(12),
+		},
+		{
+			Name:       "PaidMediaAllowed",
+			SchemaName: "paid_media_allowed",
+			Null:       !c.Flags2.Has(14),
 		},
 		{
 			Name:       "ID",
@@ -2125,6 +2137,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.CanViewRevenue == false) {
 		c.Flags2.Set(12)
+	}
+	if !(c.PaidMediaAllowed == false) {
+		c.Flags2.Set(14)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2451,6 +2466,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.ViewForumAsMessages = c.Flags2.Has(6)
 	c.RestrictedSponsored = c.Flags2.Has(11)
 	c.CanViewRevenue = c.Flags2.Has(12)
+	c.PaidMediaAllowed = c.Flags2.Has(14)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3063,6 +3079,25 @@ func (c *ChannelFull) GetCanViewRevenue() (value bool) {
 		return
 	}
 	return c.Flags2.Has(12)
+}
+
+// SetPaidMediaAllowed sets value of PaidMediaAllowed conditional field.
+func (c *ChannelFull) SetPaidMediaAllowed(value bool) {
+	if value {
+		c.Flags2.Set(14)
+		c.PaidMediaAllowed = true
+	} else {
+		c.Flags2.Unset(14)
+		c.PaidMediaAllowed = false
+	}
+}
+
+// GetPaidMediaAllowed returns value of PaidMediaAllowed conditional field.
+func (c *ChannelFull) GetPaidMediaAllowed() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(14)
 }
 
 // GetID returns value of ID field.
