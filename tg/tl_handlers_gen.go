@@ -1475,3 +1475,23 @@ func (u UpdateDispatcher) OnStarsBalance(handler StarsBalanceHandler) {
 		return handler(ctx, e, update.(*UpdateStarsBalance))
 	}
 }
+
+// BusinessBotCallbackQueryHandler is a BusinessBotCallbackQuery event handler.
+type BusinessBotCallbackQueryHandler func(ctx context.Context, e Entities, update *UpdateBusinessBotCallbackQuery) error
+
+// OnBusinessBotCallbackQuery sets BusinessBotCallbackQuery handler.
+func (u UpdateDispatcher) OnBusinessBotCallbackQuery(handler BusinessBotCallbackQueryHandler) {
+	u.handlers[UpdateBusinessBotCallbackQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBusinessBotCallbackQuery))
+	}
+}
+
+// StarsRevenueStatusHandler is a StarsRevenueStatus event handler.
+type StarsRevenueStatusHandler func(ctx context.Context, e Entities, update *UpdateStarsRevenueStatus) error
+
+// OnStarsRevenueStatus sets StarsRevenueStatus handler.
+func (u UpdateDispatcher) OnStarsRevenueStatus(handler StarsRevenueStatusHandler) {
+	u.handlers[UpdateStarsRevenueStatusTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStarsRevenueStatus))
+	}
+}

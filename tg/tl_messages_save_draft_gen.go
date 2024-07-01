@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSaveDraftRequest represents TL type `messages.saveDraft#7ff3b806`.
+// MessagesSaveDraftRequest represents TL type `messages.saveDraft#d372c5ce`.
 // Save a message draft¹ associated to a chat.
 //
 // Links:
@@ -69,10 +69,14 @@ type MessagesSaveDraftRequest struct {
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass
+	// Effect field of MessagesSaveDraftRequest.
+	//
+	// Use SetEffect and GetEffect helpers.
+	Effect int64
 }
 
 // MessagesSaveDraftRequestTypeID is TL type id of MessagesSaveDraftRequest.
-const MessagesSaveDraftRequestTypeID = 0x7ff3b806
+const MessagesSaveDraftRequestTypeID = 0xd372c5ce
 
 // Ensuring interfaces in compile-time for MessagesSaveDraftRequest.
 var (
@@ -110,6 +114,9 @@ func (s *MessagesSaveDraftRequest) Zero() bool {
 	if !(s.Media == nil) {
 		return false
 	}
+	if !(s.Effect == 0) {
+		return false
+	}
 
 	return true
 }
@@ -132,6 +139,7 @@ func (s *MessagesSaveDraftRequest) FillFrom(from interface {
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetMedia() (value InputMediaClass, ok bool)
+	GetEffect() (value int64, ok bool)
 }) {
 	s.NoWebpage = from.GetNoWebpage()
 	s.InvertMedia = from.GetInvertMedia()
@@ -147,6 +155,10 @@ func (s *MessagesSaveDraftRequest) FillFrom(from interface {
 
 	if val, ok := from.GetMedia(); ok {
 		s.Media = val
+	}
+
+	if val, ok := from.GetEffect(); ok {
+		s.Effect = val
 	}
 
 }
@@ -207,6 +219,11 @@ func (s *MessagesSaveDraftRequest) TypeInfo() tdp.Type {
 			SchemaName: "media",
 			Null:       !s.Flags.Has(5),
 		},
+		{
+			Name:       "Effect",
+			SchemaName: "effect",
+			Null:       !s.Flags.Has(7),
+		},
 	}
 	return typ
 }
@@ -228,12 +245,15 @@ func (s *MessagesSaveDraftRequest) SetFlags() {
 	if !(s.Media == nil) {
 		s.Flags.Set(5)
 	}
+	if !(s.Effect == 0) {
+		s.Flags.Set(7)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.saveDraft#7ff3b806 as nil")
+		return fmt.Errorf("can't encode messages.saveDraft#d372c5ce as nil")
 	}
 	b.PutID(MessagesSaveDraftRequestTypeID)
 	return s.EncodeBare(b)
@@ -242,45 +262,48 @@ func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSaveDraftRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.saveDraft#7ff3b806 as nil")
+		return fmt.Errorf("can't encode messages.saveDraft#d372c5ce as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field flags: %w", err)
 	}
 	if s.Flags.Has(4) {
 		if s.ReplyTo == nil {
-			return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field reply_to is nil")
+			return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field reply_to is nil")
 		}
 		if err := s.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field reply_to: %w", err)
 		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field peer is nil")
+		return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field peer: %w", err)
 	}
 	b.PutString(s.Message)
 	if s.Flags.Has(3) {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if s.Flags.Has(5) {
 		if s.Media == nil {
-			return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field media is nil")
+			return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field media is nil")
 		}
 		if err := s.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.saveDraft#7ff3b806: field media: %w", err)
+			return fmt.Errorf("unable to encode messages.saveDraft#d372c5ce: field media: %w", err)
 		}
+	}
+	if s.Flags.Has(7) {
+		b.PutLong(s.Effect)
 	}
 	return nil
 }
@@ -288,10 +311,10 @@ func (s *MessagesSaveDraftRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSaveDraftRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.saveDraft#7ff3b806 to nil")
+		return fmt.Errorf("can't decode messages.saveDraft#d372c5ce to nil")
 	}
 	if err := b.ConsumeID(MessagesSaveDraftRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: %w", err)
+		return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -299,11 +322,11 @@ func (s *MessagesSaveDraftRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSaveDraftRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.saveDraft#7ff3b806 to nil")
+		return fmt.Errorf("can't decode messages.saveDraft#d372c5ce to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field flags: %w", err)
 		}
 	}
 	s.NoWebpage = s.Flags.Has(1)
@@ -311,28 +334,28 @@ func (s *MessagesSaveDraftRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(4) {
 		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field reply_to: %w", err)
 		}
 		s.ReplyTo = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field message: %w", err)
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field message: %w", err)
 		}
 		s.Message = value
 	}
 	if s.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field entities: %w", err)
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -341,7 +364,7 @@ func (s *MessagesSaveDraftRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field entities: %w", err)
+				return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -349,9 +372,16 @@ func (s *MessagesSaveDraftRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(5) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.saveDraft#7ff3b806: field media: %w", err)
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field media: %w", err)
 		}
 		s.Media = value
+	}
+	if s.Flags.Has(7) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.saveDraft#d372c5ce: field effect: %w", err)
+		}
+		s.Effect = value
 	}
 	return nil
 }
@@ -464,6 +494,24 @@ func (s *MessagesSaveDraftRequest) GetMedia() (value InputMediaClass, ok bool) {
 	return s.Media, true
 }
 
+// SetEffect sets value of Effect conditional field.
+func (s *MessagesSaveDraftRequest) SetEffect(value int64) {
+	s.Flags.Set(7)
+	s.Effect = value
+}
+
+// GetEffect returns value of Effect conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSaveDraftRequest) GetEffect() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(7) {
+		return value, false
+	}
+	return s.Effect, true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !s.Flags.Has(3) {
@@ -472,7 +520,7 @@ func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray,
 	return MessageEntityClassArray(s.Entities), true
 }
 
-// MessagesSaveDraft invokes method messages.saveDraft#7ff3b806 returning error if any.
+// MessagesSaveDraft invokes method messages.saveDraft#d372c5ce returning error if any.
 // Save a message draft¹ associated to a chat.
 //
 // Links:

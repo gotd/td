@@ -194,6 +194,19 @@ func (s MediaAreaClassArray) AsInputMediaAreaChannelPost() (to InputMediaAreaCha
 	return to
 }
 
+// AsMediaAreaURL returns copy with only MediaAreaURL constructors.
+func (s MediaAreaClassArray) AsMediaAreaURL() (to MediaAreaURLArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MediaAreaURL)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MediaAreaVenueArray is adapter for slice of MediaAreaVenue.
 type MediaAreaVenueArray []MediaAreaVenue
 
@@ -674,6 +687,88 @@ func (s *InputMediaAreaChannelPostArray) PopFirst() (v InputMediaAreaChannelPost
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputMediaAreaChannelPostArray) Pop() (v InputMediaAreaChannelPost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MediaAreaURLArray is adapter for slice of MediaAreaURL.
+type MediaAreaURLArray []MediaAreaURL
+
+// Sort sorts slice of MediaAreaURL.
+func (s MediaAreaURLArray) Sort(less func(a, b MediaAreaURL) bool) MediaAreaURLArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MediaAreaURL.
+func (s MediaAreaURLArray) SortStable(less func(a, b MediaAreaURL) bool) MediaAreaURLArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MediaAreaURL.
+func (s MediaAreaURLArray) Retain(keep func(x MediaAreaURL) bool) MediaAreaURLArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MediaAreaURLArray) First() (v MediaAreaURL, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MediaAreaURLArray) Last() (v MediaAreaURL, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MediaAreaURLArray) PopFirst() (v MediaAreaURL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MediaAreaURL
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MediaAreaURLArray) Pop() (v MediaAreaURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -31,11 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MediaAreaCoordinates represents TL type `mediaAreaCoordinates#3d1ea4e`.
+// MediaAreaCoordinates represents TL type `mediaAreaCoordinates#cfc9e002`.
 // Coordinates and size of a clicable rectangular area on top of a story.
 //
 // See https://core.telegram.org/constructor/mediaAreaCoordinates for reference.
 type MediaAreaCoordinates struct {
+	// Flags field of MediaAreaCoordinates.
+	Flags bin.Fields
 	// The abscissa of the rectangle's center, as a percentage of the media width (0-100).
 	X float64
 	// The ordinate of the rectangle's center, as a percentage of the media height (0-100).
@@ -46,10 +48,14 @@ type MediaAreaCoordinates struct {
 	H float64
 	// Clockwise rotation angle of the rectangle, in degrees (0-360).
 	Rotation float64
+	// Radius field of MediaAreaCoordinates.
+	//
+	// Use SetRadius and GetRadius helpers.
+	Radius float64
 }
 
 // MediaAreaCoordinatesTypeID is TL type id of MediaAreaCoordinates.
-const MediaAreaCoordinatesTypeID = 0x3d1ea4e
+const MediaAreaCoordinatesTypeID = 0xcfc9e002
 
 // Ensuring interfaces in compile-time for MediaAreaCoordinates.
 var (
@@ -62,6 +68,9 @@ var (
 func (m *MediaAreaCoordinates) Zero() bool {
 	if m == nil {
 		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
 	}
 	if !(m.X == 0) {
 		return false
@@ -76,6 +85,9 @@ func (m *MediaAreaCoordinates) Zero() bool {
 		return false
 	}
 	if !(m.Rotation == 0) {
+		return false
+	}
+	if !(m.Radius == 0) {
 		return false
 	}
 
@@ -98,12 +110,17 @@ func (m *MediaAreaCoordinates) FillFrom(from interface {
 	GetW() (value float64)
 	GetH() (value float64)
 	GetRotation() (value float64)
+	GetRadius() (value float64, ok bool)
 }) {
 	m.X = from.GetX()
 	m.Y = from.GetY()
 	m.W = from.GetW()
 	m.H = from.GetH()
 	m.Rotation = from.GetRotation()
+	if val, ok := from.GetRadius(); ok {
+		m.Radius = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -149,14 +166,26 @@ func (m *MediaAreaCoordinates) TypeInfo() tdp.Type {
 			Name:       "Rotation",
 			SchemaName: "rotation",
 		},
+		{
+			Name:       "Radius",
+			SchemaName: "radius",
+			Null:       !m.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MediaAreaCoordinates) SetFlags() {
+	if !(m.Radius == 0) {
+		m.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MediaAreaCoordinates) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mediaAreaCoordinates#3d1ea4e as nil")
+		return fmt.Errorf("can't encode mediaAreaCoordinates#cfc9e002 as nil")
 	}
 	b.PutID(MediaAreaCoordinatesTypeID)
 	return m.EncodeBare(b)
@@ -165,23 +194,30 @@ func (m *MediaAreaCoordinates) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MediaAreaCoordinates) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mediaAreaCoordinates#3d1ea4e as nil")
+		return fmt.Errorf("can't encode mediaAreaCoordinates#cfc9e002 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaCoordinates#cfc9e002: field flags: %w", err)
 	}
 	b.PutDouble(m.X)
 	b.PutDouble(m.Y)
 	b.PutDouble(m.W)
 	b.PutDouble(m.H)
 	b.PutDouble(m.Rotation)
+	if m.Flags.Has(0) {
+		b.PutDouble(m.Radius)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MediaAreaCoordinates) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mediaAreaCoordinates#3d1ea4e to nil")
+		return fmt.Errorf("can't decode mediaAreaCoordinates#cfc9e002 to nil")
 	}
 	if err := b.ConsumeID(MediaAreaCoordinatesTypeID); err != nil {
-		return fmt.Errorf("unable to decode mediaAreaCoordinates#3d1ea4e: %w", err)
+		return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -189,42 +225,54 @@ func (m *MediaAreaCoordinates) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MediaAreaCoordinates) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mediaAreaCoordinates#3d1ea4e to nil")
+		return fmt.Errorf("can't decode mediaAreaCoordinates#cfc9e002 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode mediaAreaCoordinates#3d1ea4e: field x: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field x: %w", err)
 		}
 		m.X = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode mediaAreaCoordinates#3d1ea4e: field y: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field y: %w", err)
 		}
 		m.Y = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode mediaAreaCoordinates#3d1ea4e: field w: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field w: %w", err)
 		}
 		m.W = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode mediaAreaCoordinates#3d1ea4e: field h: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field h: %w", err)
 		}
 		m.H = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode mediaAreaCoordinates#3d1ea4e: field rotation: %w", err)
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field rotation: %w", err)
 		}
 		m.Rotation = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaCoordinates#cfc9e002: field radius: %w", err)
+		}
+		m.Radius = value
 	}
 	return nil
 }
@@ -267,4 +315,22 @@ func (m *MediaAreaCoordinates) GetRotation() (value float64) {
 		return
 	}
 	return m.Rotation
+}
+
+// SetRadius sets value of Radius conditional field.
+func (m *MediaAreaCoordinates) SetRadius(value float64) {
+	m.Flags.Set(0)
+	m.Radius = value
+}
+
+// GetRadius returns value of Radius conditional field and
+// boolean which is true if field was set.
+func (m *MediaAreaCoordinates) GetRadius() (value float64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Radius, true
 }

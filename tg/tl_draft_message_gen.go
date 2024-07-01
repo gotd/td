@@ -208,7 +208,7 @@ func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
 	return d.Date, true
 }
 
-// DraftMessage represents TL type `draftMessage#3fccf7ef`.
+// DraftMessage represents TL type `draftMessage#2d65321f`.
 // Represents a message draft¹.
 //
 // Links:
@@ -246,10 +246,14 @@ type DraftMessage struct {
 	Media InputMediaClass
 	// Date of last update of the draft.
 	Date int
+	// Effect field of DraftMessage.
+	//
+	// Use SetEffect and GetEffect helpers.
+	Effect int64
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.
-const DraftMessageTypeID = 0x3fccf7ef
+const DraftMessageTypeID = 0x2d65321f
 
 // construct implements constructor of DraftMessageClass.
 func (d DraftMessage) construct() DraftMessageClass { return &d }
@@ -292,6 +296,9 @@ func (d *DraftMessage) Zero() bool {
 	if !(d.Date == 0) {
 		return false
 	}
+	if !(d.Effect == 0) {
+		return false
+	}
 
 	return true
 }
@@ -314,6 +321,7 @@ func (d *DraftMessage) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetMedia() (value InputMediaClass, ok bool)
 	GetDate() (value int)
+	GetEffect() (value int64, ok bool)
 }) {
 	d.NoWebpage = from.GetNoWebpage()
 	d.InvertMedia = from.GetInvertMedia()
@@ -331,6 +339,10 @@ func (d *DraftMessage) FillFrom(from interface {
 	}
 
 	d.Date = from.GetDate()
+	if val, ok := from.GetEffect(); ok {
+		d.Effect = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -389,6 +401,11 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 			Name:       "Date",
 			SchemaName: "date",
 		},
+		{
+			Name:       "Effect",
+			SchemaName: "effect",
+			Null:       !d.Flags.Has(7),
+		},
 	}
 	return typ
 }
@@ -410,12 +427,15 @@ func (d *DraftMessage) SetFlags() {
 	if !(d.Media == nil) {
 		d.Flags.Set(5)
 	}
+	if !(d.Effect == 0) {
+		d.Flags.Set(7)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#3fccf7ef as nil")
+		return fmt.Errorf("can't encode draftMessage#2d65321f as nil")
 	}
 	b.PutID(DraftMessageTypeID)
 	return d.EncodeBare(b)
@@ -424,18 +444,18 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#3fccf7ef as nil")
+		return fmt.Errorf("can't encode draftMessage#2d65321f as nil")
 	}
 	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field flags: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#2d65321f: field flags: %w", err)
 	}
 	if d.Flags.Has(4) {
 		if d.ReplyTo == nil {
-			return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field reply_to is nil")
+			return fmt.Errorf("unable to encode draftMessage#2d65321f: field reply_to is nil")
 		}
 		if err := d.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode draftMessage#2d65321f: field reply_to: %w", err)
 		}
 	}
 	b.PutString(d.Message)
@@ -443,32 +463,35 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(d.Entities))
 		for idx, v := range d.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode draftMessage#2d65321f: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode draftMessage#2d65321f: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if d.Flags.Has(5) {
 		if d.Media == nil {
-			return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field media is nil")
+			return fmt.Errorf("unable to encode draftMessage#2d65321f: field media is nil")
 		}
 		if err := d.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode draftMessage#3fccf7ef: field media: %w", err)
+			return fmt.Errorf("unable to encode draftMessage#2d65321f: field media: %w", err)
 		}
 	}
 	b.PutInt(d.Date)
+	if d.Flags.Has(7) {
+		b.PutLong(d.Effect)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#3fccf7ef to nil")
+		return fmt.Errorf("can't decode draftMessage#2d65321f to nil")
 	}
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode draftMessage#3fccf7ef: %w", err)
+		return fmt.Errorf("unable to decode draftMessage#2d65321f: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -476,11 +499,11 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#3fccf7ef to nil")
+		return fmt.Errorf("can't decode draftMessage#2d65321f to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field flags: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field flags: %w", err)
 		}
 	}
 	d.NoWebpage = d.Flags.Has(1)
@@ -488,21 +511,21 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(4) {
 		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field reply_to: %w", err)
 		}
 		d.ReplyTo = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field message: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field message: %w", err)
 		}
 		d.Message = value
 	}
 	if d.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field entities: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -511,7 +534,7 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field entities: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#2d65321f: field entities: %w", err)
 			}
 			d.Entities = append(d.Entities, value)
 		}
@@ -519,16 +542,23 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(5) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field media: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field media: %w", err)
 		}
 		d.Media = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#3fccf7ef: field date: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field date: %w", err)
 		}
 		d.Date = value
+	}
+	if d.Flags.Has(7) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode draftMessage#2d65321f: field effect: %w", err)
+		}
+		d.Effect = value
 	}
 	return nil
 }
@@ -641,6 +671,24 @@ func (d *DraftMessage) GetDate() (value int) {
 	return d.Date
 }
 
+// SetEffect sets value of Effect conditional field.
+func (d *DraftMessage) SetEffect(value int64) {
+	d.Flags.Set(7)
+	d.Effect = value
+}
+
+// GetEffect returns value of Effect conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessage) GetEffect() (value int64, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(7) {
+		return value, false
+	}
+	return d.Effect, true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !d.Flags.Has(3) {
@@ -664,7 +712,7 @@ const DraftMessageClassName = "DraftMessage"
 //	}
 //	switch v := g.(type) {
 //	case *tg.DraftMessageEmpty: // draftMessageEmpty#1b0c841a
-//	case *tg.DraftMessage: // draftMessage#3fccf7ef
+//	case *tg.DraftMessage: // draftMessage#2d65321f
 //	default: panic(v)
 //	}
 type DraftMessageClass interface {
@@ -714,7 +762,7 @@ func DecodeDraftMessage(buf *bin.Buffer) (DraftMessageClass, error) {
 		}
 		return &v, nil
 	case DraftMessageTypeID:
-		// Decoding draftMessage#3fccf7ef.
+		// Decoding draftMessage#2d65321f.
 		v := DraftMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DraftMessageClass: %w", err)

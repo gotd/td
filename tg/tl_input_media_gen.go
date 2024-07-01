@@ -4503,6 +4503,190 @@ func (i *InputMediaWebPage) GetURL() (value string) {
 	return i.URL
 }
 
+// InputMediaPaidMedia represents TL type `inputMediaPaidMedia#aa661fc3`.
+//
+// See https://core.telegram.org/constructor/inputMediaPaidMedia for reference.
+type InputMediaPaidMedia struct {
+	// StarsAmount field of InputMediaPaidMedia.
+	StarsAmount int64
+	// ExtendedMedia field of InputMediaPaidMedia.
+	ExtendedMedia []InputMediaClass
+}
+
+// InputMediaPaidMediaTypeID is TL type id of InputMediaPaidMedia.
+const InputMediaPaidMediaTypeID = 0xaa661fc3
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaPaidMedia) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaPaidMedia.
+var (
+	_ bin.Encoder     = &InputMediaPaidMedia{}
+	_ bin.Decoder     = &InputMediaPaidMedia{}
+	_ bin.BareEncoder = &InputMediaPaidMedia{}
+	_ bin.BareDecoder = &InputMediaPaidMedia{}
+
+	_ InputMediaClass = &InputMediaPaidMedia{}
+)
+
+func (i *InputMediaPaidMedia) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.StarsAmount == 0) {
+		return false
+	}
+	if !(i.ExtendedMedia == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMediaPaidMedia) String() string {
+	if i == nil {
+		return "InputMediaPaidMedia(nil)"
+	}
+	type Alias InputMediaPaidMedia
+	return fmt.Sprintf("InputMediaPaidMedia%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaPaidMedia from given interface.
+func (i *InputMediaPaidMedia) FillFrom(from interface {
+	GetStarsAmount() (value int64)
+	GetExtendedMedia() (value []InputMediaClass)
+}) {
+	i.StarsAmount = from.GetStarsAmount()
+	i.ExtendedMedia = from.GetExtendedMedia()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMediaPaidMedia) TypeID() uint32 {
+	return InputMediaPaidMediaTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMediaPaidMedia) TypeName() string {
+	return "inputMediaPaidMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaPaidMedia) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaPaidMedia",
+		ID:   InputMediaPaidMediaTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarsAmount",
+			SchemaName: "stars_amount",
+		},
+		{
+			Name:       "ExtendedMedia",
+			SchemaName: "extended_media",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaPaidMedia) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaPaidMedia#aa661fc3 as nil")
+	}
+	b.PutID(InputMediaPaidMediaTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaPaidMedia) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaPaidMedia#aa661fc3 as nil")
+	}
+	b.PutLong(i.StarsAmount)
+	b.PutVectorHeader(len(i.ExtendedMedia))
+	for idx, v := range i.ExtendedMedia {
+		if v == nil {
+			return fmt.Errorf("unable to encode inputMediaPaidMedia#aa661fc3: field extended_media element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputMediaPaidMedia#aa661fc3: field extended_media element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMediaPaidMedia) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaPaidMedia#aa661fc3 to nil")
+	}
+	if err := b.ConsumeID(InputMediaPaidMediaTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaPaidMedia#aa661fc3: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaPaidMedia) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaPaidMedia#aa661fc3 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaPaidMedia#aa661fc3: field stars_amount: %w", err)
+		}
+		i.StarsAmount = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaPaidMedia#aa661fc3: field extended_media: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.ExtendedMedia = make([]InputMediaClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputMedia(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMediaPaidMedia#aa661fc3: field extended_media: %w", err)
+			}
+			i.ExtendedMedia = append(i.ExtendedMedia, value)
+		}
+	}
+	return nil
+}
+
+// GetStarsAmount returns value of StarsAmount field.
+func (i *InputMediaPaidMedia) GetStarsAmount() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.StarsAmount
+}
+
+// GetExtendedMedia returns value of ExtendedMedia field.
+func (i *InputMediaPaidMedia) GetExtendedMedia() (value []InputMediaClass) {
+	if i == nil {
+		return
+	}
+	return i.ExtendedMedia
+}
+
+// MapExtendedMedia returns field ExtendedMedia wrapped in InputMediaClassArray helper.
+func (i *InputMediaPaidMedia) MapExtendedMedia() (value InputMediaClassArray) {
+	return InputMediaClassArray(i.ExtendedMedia)
+}
+
 // InputMediaClassName is schema name of InputMediaClass.
 const InputMediaClassName = "InputMedia"
 
@@ -4534,6 +4718,7 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
 //	case *tg.InputMediaStory: // inputMediaStory#89fdd778
 //	case *tg.InputMediaWebPage: // inputMediaWebPage#c21b8849
+//	case *tg.InputMediaPaidMedia: // inputMediaPaidMedia#aa661fc3
 //	default: panic(v)
 //	}
 type InputMediaClass interface {
@@ -4677,6 +4862,13 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 	case InputMediaWebPageTypeID:
 		// Decoding inputMediaWebPage#c21b8849.
 		v := InputMediaWebPage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+		}
+		return &v, nil
+	case InputMediaPaidMediaTypeID:
+		// Decoding inputMediaPaidMedia#aa661fc3.
+		v := InputMediaPaidMedia{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
 		}
