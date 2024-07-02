@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SupergroupFullInfo represents TL type `supergroupFullInfo#d262590a`.
+// SupergroupFullInfo represents TL type `supergroupFullInfo#c02dd0a6`.
 type SupergroupFullInfo struct {
 	// Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as
 	// in chat.photo
@@ -84,6 +84,8 @@ type SupergroupFullInfo struct {
 	// True, if aggressive anti-spam checks are enabled in the supergroup. The value of this
 	// field is only available to chat administrators
 	HasAggressiveAntiSpamEnabled bool
+	// True, if paid media can be sent and forwarded to the channel chat; for channels only
+	HasPaidMediaAllowed bool
 	// True, if the supergroup or channel has pinned stories
 	HasPinnedStories bool
 	// Number of times the current user boosted the supergroup or channel
@@ -112,7 +114,7 @@ type SupergroupFullInfo struct {
 }
 
 // SupergroupFullInfoTypeID is TL type id of SupergroupFullInfo.
-const SupergroupFullInfoTypeID = 0xd262590a
+const SupergroupFullInfoTypeID = 0xc02dd0a6
 
 // Ensuring interfaces in compile-time for SupergroupFullInfo.
 var (
@@ -184,6 +186,9 @@ func (s *SupergroupFullInfo) Zero() bool {
 		return false
 	}
 	if !(s.HasAggressiveAntiSpamEnabled == false) {
+		return false
+	}
+	if !(s.HasPaidMediaAllowed == false) {
 		return false
 	}
 	if !(s.HasPinnedStories == false) {
@@ -333,6 +338,10 @@ func (s *SupergroupFullInfo) TypeInfo() tdp.Type {
 			SchemaName: "has_aggressive_anti_spam_enabled",
 		},
 		{
+			Name:       "HasPaidMediaAllowed",
+			SchemaName: "has_paid_media_allowed",
+		},
+		{
 			Name:       "HasPinnedStories",
 			SchemaName: "has_pinned_stories",
 		},
@@ -379,7 +388,7 @@ func (s *SupergroupFullInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SupergroupFullInfo) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode supergroupFullInfo#d262590a as nil")
+		return fmt.Errorf("can't encode supergroupFullInfo#c02dd0a6 as nil")
 	}
 	b.PutID(SupergroupFullInfoTypeID)
 	return s.EncodeBare(b)
@@ -388,10 +397,10 @@ func (s *SupergroupFullInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SupergroupFullInfo) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode supergroupFullInfo#d262590a as nil")
+		return fmt.Errorf("can't encode supergroupFullInfo#c02dd0a6 as nil")
 	}
 	if err := s.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field photo: %w", err)
+		return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field photo: %w", err)
 	}
 	b.PutString(s.Description)
 	b.PutInt32(s.MemberCount)
@@ -412,21 +421,22 @@ func (s *SupergroupFullInfo) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(s.IsAllHistoryAvailable)
 	b.PutBool(s.CanHaveSponsoredMessages)
 	b.PutBool(s.HasAggressiveAntiSpamEnabled)
+	b.PutBool(s.HasPaidMediaAllowed)
 	b.PutBool(s.HasPinnedStories)
 	b.PutInt32(s.MyBoostCount)
 	b.PutInt32(s.UnrestrictBoostCount)
 	b.PutLong(s.StickerSetID)
 	b.PutLong(s.CustomEmojiStickerSetID)
 	if err := s.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field location: %w", err)
+		return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field location: %w", err)
 	}
 	if err := s.InviteLink.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field invite_link: %w", err)
 	}
 	b.PutInt(len(s.BotCommands))
 	for idx, v := range s.BotCommands {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare supergroupFullInfo#d262590a: field bot_commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare supergroupFullInfo#c02dd0a6: field bot_commands element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt53(s.UpgradedFromBasicGroupID)
@@ -437,10 +447,10 @@ func (s *SupergroupFullInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SupergroupFullInfo) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode supergroupFullInfo#d262590a to nil")
+		return fmt.Errorf("can't decode supergroupFullInfo#c02dd0a6 to nil")
 	}
 	if err := b.ConsumeID(SupergroupFullInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: %w", err)
+		return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -448,195 +458,202 @@ func (s *SupergroupFullInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode supergroupFullInfo#d262590a to nil")
+		return fmt.Errorf("can't decode supergroupFullInfo#c02dd0a6 to nil")
 	}
 	{
 		if err := s.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field photo: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field photo: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field description: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field description: %w", err)
 		}
 		s.Description = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field member_count: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field member_count: %w", err)
 		}
 		s.MemberCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field administrator_count: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field administrator_count: %w", err)
 		}
 		s.AdministratorCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field restricted_count: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field restricted_count: %w", err)
 		}
 		s.RestrictedCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field banned_count: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field banned_count: %w", err)
 		}
 		s.BannedCount = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field linked_chat_id: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field linked_chat_id: %w", err)
 		}
 		s.LinkedChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field slow_mode_delay: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field slow_mode_delay: %w", err)
 		}
 		s.SlowModeDelay = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field slow_mode_delay_expires_in: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field slow_mode_delay_expires_in: %w", err)
 		}
 		s.SlowModeDelayExpiresIn = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_get_members: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_get_members: %w", err)
 		}
 		s.CanGetMembers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field has_hidden_members: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_hidden_members: %w", err)
 		}
 		s.HasHiddenMembers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_hide_members: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_hide_members: %w", err)
 		}
 		s.CanHideMembers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_set_sticker_set: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_set_sticker_set: %w", err)
 		}
 		s.CanSetStickerSet = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_set_location: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_set_location: %w", err)
 		}
 		s.CanSetLocation = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_get_statistics: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_get_statistics: %w", err)
 		}
 		s.CanGetStatistics = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_get_revenue_statistics: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_get_revenue_statistics: %w", err)
 		}
 		s.CanGetRevenueStatistics = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_toggle_aggressive_anti_spam: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_toggle_aggressive_anti_spam: %w", err)
 		}
 		s.CanToggleAggressiveAntiSpam = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field is_all_history_available: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field is_all_history_available: %w", err)
 		}
 		s.IsAllHistoryAvailable = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_have_sponsored_messages: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_have_sponsored_messages: %w", err)
 		}
 		s.CanHaveSponsoredMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field has_aggressive_anti_spam_enabled: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_aggressive_anti_spam_enabled: %w", err)
 		}
 		s.HasAggressiveAntiSpamEnabled = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field has_pinned_stories: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_paid_media_allowed: %w", err)
+		}
+		s.HasPaidMediaAllowed = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_pinned_stories: %w", err)
 		}
 		s.HasPinnedStories = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field my_boost_count: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field my_boost_count: %w", err)
 		}
 		s.MyBoostCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field unrestrict_boost_count: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field unrestrict_boost_count: %w", err)
 		}
 		s.UnrestrictBoostCount = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field sticker_set_id: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field sticker_set_id: %w", err)
 		}
 		s.StickerSetID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field custom_emoji_sticker_set_id: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field custom_emoji_sticker_set_id: %w", err)
 		}
 		s.CustomEmojiStickerSetID = value
 	}
 	{
 		if err := s.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field location: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field location: %w", err)
 		}
 	}
 	{
 		if err := s.InviteLink.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field invite_link: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field bot_commands: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field bot_commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -645,7 +662,7 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommands
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare supergroupFullInfo#d262590a: field bot_commands: %w", err)
+				return fmt.Errorf("unable to decode bare supergroupFullInfo#c02dd0a6: field bot_commands: %w", err)
 			}
 			s.BotCommands = append(s.BotCommands, value)
 		}
@@ -653,14 +670,14 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field upgraded_from_basic_group_id: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field upgraded_from_basic_group_id: %w", err)
 		}
 		s.UpgradedFromBasicGroupID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field upgraded_from_max_message_id: %w", err)
+			return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field upgraded_from_max_message_id: %w", err)
 		}
 		s.UpgradedFromMaxMessageID = value
 	}
@@ -670,14 +687,14 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode supergroupFullInfo#d262590a as nil")
+		return fmt.Errorf("can't encode supergroupFullInfo#c02dd0a6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("supergroupFullInfo")
 	b.Comma()
 	b.FieldStart("photo")
 	if err := s.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field photo: %w", err)
+		return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("description")
@@ -737,6 +754,9 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("has_aggressive_anti_spam_enabled")
 	b.PutBool(s.HasAggressiveAntiSpamEnabled)
 	b.Comma()
+	b.FieldStart("has_paid_media_allowed")
+	b.PutBool(s.HasPaidMediaAllowed)
+	b.Comma()
 	b.FieldStart("has_pinned_stories")
 	b.PutBool(s.HasPinnedStories)
 	b.Comma()
@@ -754,19 +774,19 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("location")
 	if err := s.Location.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field location: %w", err)
+		return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field location: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("invite_link")
 	if err := s.InviteLink.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field invite_link: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("bot_commands")
 	b.ArrStart()
 	for idx, v := range s.BotCommands {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode supergroupFullInfo#d262590a: field bot_commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode supergroupFullInfo#c02dd0a6: field bot_commands element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -787,192 +807,198 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SupergroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode supergroupFullInfo#d262590a to nil")
+		return fmt.Errorf("can't decode supergroupFullInfo#c02dd0a6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupFullInfo"); err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: %w", err)
 			}
 		case "photo":
 			if err := s.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field photo: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field photo: %w", err)
 			}
 		case "description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field description: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field description: %w", err)
 			}
 			s.Description = value
 		case "member_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field member_count: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field member_count: %w", err)
 			}
 			s.MemberCount = value
 		case "administrator_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field administrator_count: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field administrator_count: %w", err)
 			}
 			s.AdministratorCount = value
 		case "restricted_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field restricted_count: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field restricted_count: %w", err)
 			}
 			s.RestrictedCount = value
 		case "banned_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field banned_count: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field banned_count: %w", err)
 			}
 			s.BannedCount = value
 		case "linked_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field linked_chat_id: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field linked_chat_id: %w", err)
 			}
 			s.LinkedChatID = value
 		case "slow_mode_delay":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field slow_mode_delay: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field slow_mode_delay: %w", err)
 			}
 			s.SlowModeDelay = value
 		case "slow_mode_delay_expires_in":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field slow_mode_delay_expires_in: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field slow_mode_delay_expires_in: %w", err)
 			}
 			s.SlowModeDelayExpiresIn = value
 		case "can_get_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_get_members: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_get_members: %w", err)
 			}
 			s.CanGetMembers = value
 		case "has_hidden_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field has_hidden_members: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_hidden_members: %w", err)
 			}
 			s.HasHiddenMembers = value
 		case "can_hide_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_hide_members: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_hide_members: %w", err)
 			}
 			s.CanHideMembers = value
 		case "can_set_sticker_set":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_set_sticker_set: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_set_sticker_set: %w", err)
 			}
 			s.CanSetStickerSet = value
 		case "can_set_location":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_set_location: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_set_location: %w", err)
 			}
 			s.CanSetLocation = value
 		case "can_get_statistics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_get_statistics: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_get_statistics: %w", err)
 			}
 			s.CanGetStatistics = value
 		case "can_get_revenue_statistics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_get_revenue_statistics: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_get_revenue_statistics: %w", err)
 			}
 			s.CanGetRevenueStatistics = value
 		case "can_toggle_aggressive_anti_spam":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_toggle_aggressive_anti_spam: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_toggle_aggressive_anti_spam: %w", err)
 			}
 			s.CanToggleAggressiveAntiSpam = value
 		case "is_all_history_available":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field is_all_history_available: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field is_all_history_available: %w", err)
 			}
 			s.IsAllHistoryAvailable = value
 		case "can_have_sponsored_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field can_have_sponsored_messages: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field can_have_sponsored_messages: %w", err)
 			}
 			s.CanHaveSponsoredMessages = value
 		case "has_aggressive_anti_spam_enabled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field has_aggressive_anti_spam_enabled: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_aggressive_anti_spam_enabled: %w", err)
 			}
 			s.HasAggressiveAntiSpamEnabled = value
+		case "has_paid_media_allowed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_paid_media_allowed: %w", err)
+			}
+			s.HasPaidMediaAllowed = value
 		case "has_pinned_stories":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field has_pinned_stories: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field has_pinned_stories: %w", err)
 			}
 			s.HasPinnedStories = value
 		case "my_boost_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field my_boost_count: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field my_boost_count: %w", err)
 			}
 			s.MyBoostCount = value
 		case "unrestrict_boost_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field unrestrict_boost_count: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field unrestrict_boost_count: %w", err)
 			}
 			s.UnrestrictBoostCount = value
 		case "sticker_set_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field sticker_set_id: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field sticker_set_id: %w", err)
 			}
 			s.StickerSetID = value
 		case "custom_emoji_sticker_set_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field custom_emoji_sticker_set_id: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field custom_emoji_sticker_set_id: %w", err)
 			}
 			s.CustomEmojiStickerSetID = value
 		case "location":
 			if err := s.Location.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field location: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field location: %w", err)
 			}
 		case "invite_link":
 			if err := s.InviteLink.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field invite_link: %w", err)
 			}
 		case "bot_commands":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value BotCommands
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field bot_commands: %w", err)
+					return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field bot_commands: %w", err)
 				}
 				s.BotCommands = append(s.BotCommands, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field bot_commands: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field bot_commands: %w", err)
 			}
 		case "upgraded_from_basic_group_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field upgraded_from_basic_group_id: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field upgraded_from_basic_group_id: %w", err)
 			}
 			s.UpgradedFromBasicGroupID = value
 		case "upgraded_from_max_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroupFullInfo#d262590a: field upgraded_from_max_message_id: %w", err)
+				return fmt.Errorf("unable to decode supergroupFullInfo#c02dd0a6: field upgraded_from_max_message_id: %w", err)
 			}
 			s.UpgradedFromMaxMessageID = value
 		default:
@@ -1140,6 +1166,14 @@ func (s *SupergroupFullInfo) GetHasAggressiveAntiSpamEnabled() (value bool) {
 		return
 	}
 	return s.HasAggressiveAntiSpamEnabled
+}
+
+// GetHasPaidMediaAllowed returns value of HasPaidMediaAllowed field.
+func (s *SupergroupFullInfo) GetHasPaidMediaAllowed() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.HasPaidMediaAllowed
 }
 
 // GetHasPinnedStories returns value of HasPinnedStories field.
