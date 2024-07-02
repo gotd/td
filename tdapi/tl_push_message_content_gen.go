@@ -1996,6 +1996,206 @@ func (p *PushMessageContentLocation) GetIsPinned() (value bool) {
 	return p.IsPinned
 }
 
+// PushMessageContentPaidMedia represents TL type `pushMessageContentPaidMedia#b556e74a`.
+type PushMessageContentPaidMedia struct {
+	// Number of stars needed to buy access to the media in the message; 0 for pinned message
+	StarCount int64
+	// True, if the message is a pinned message with the specified content
+	IsPinned bool
+}
+
+// PushMessageContentPaidMediaTypeID is TL type id of PushMessageContentPaidMedia.
+const PushMessageContentPaidMediaTypeID = 0xb556e74a
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentPaidMedia) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentPaidMedia.
+var (
+	_ bin.Encoder     = &PushMessageContentPaidMedia{}
+	_ bin.Decoder     = &PushMessageContentPaidMedia{}
+	_ bin.BareEncoder = &PushMessageContentPaidMedia{}
+	_ bin.BareDecoder = &PushMessageContentPaidMedia{}
+
+	_ PushMessageContentClass = &PushMessageContentPaidMedia{}
+)
+
+func (p *PushMessageContentPaidMedia) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.StarCount == 0) {
+		return false
+	}
+	if !(p.IsPinned == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentPaidMedia) String() string {
+	if p == nil {
+		return "PushMessageContentPaidMedia(nil)"
+	}
+	type Alias PushMessageContentPaidMedia
+	return fmt.Sprintf("PushMessageContentPaidMedia%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentPaidMedia) TypeID() uint32 {
+	return PushMessageContentPaidMediaTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentPaidMedia) TypeName() string {
+	return "pushMessageContentPaidMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentPaidMedia) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentPaidMedia",
+		ID:   PushMessageContentPaidMediaTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+		{
+			Name:       "IsPinned",
+			SchemaName: "is_pinned",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentPaidMedia) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPaidMedia#b556e74a as nil")
+	}
+	b.PutID(PushMessageContentPaidMediaTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentPaidMedia) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPaidMedia#b556e74a as nil")
+	}
+	b.PutInt53(p.StarCount)
+	b.PutBool(p.IsPinned)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentPaidMedia) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPaidMedia#b556e74a to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentPaidMediaTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentPaidMedia#b556e74a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentPaidMedia) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPaidMedia#b556e74a to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentPaidMedia#b556e74a: field star_count: %w", err)
+		}
+		p.StarCount = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentPaidMedia#b556e74a: field is_pinned: %w", err)
+		}
+		p.IsPinned = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentPaidMedia) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPaidMedia#b556e74a as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentPaidMedia")
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(p.StarCount)
+	b.Comma()
+	b.FieldStart("is_pinned")
+	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentPaidMedia) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPaidMedia#b556e74a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentPaidMedia"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPaidMedia#b556e74a: %w", err)
+			}
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPaidMedia#b556e74a: field star_count: %w", err)
+			}
+			p.StarCount = value
+		case "is_pinned":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPaidMedia#b556e74a: field is_pinned: %w", err)
+			}
+			p.IsPinned = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStarCount returns value of StarCount field.
+func (p *PushMessageContentPaidMedia) GetStarCount() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.StarCount
+}
+
+// GetIsPinned returns value of IsPinned field.
+func (p *PushMessageContentPaidMedia) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsPinned
+}
+
 // PushMessageContentPhoto represents TL type `pushMessageContentPhoto#861dc52`.
 type PushMessageContentPhoto struct {
 	// Message content; may be null
@@ -6578,6 +6778,7 @@ const PushMessageContentClassName = "PushMessageContent"
 //	case *tdapi.PushMessageContentGameScore: // pushMessageContentGameScore#35b8cd88
 //	case *tdapi.PushMessageContentInvoice: // pushMessageContentInvoice#98c88bbc
 //	case *tdapi.PushMessageContentLocation: // pushMessageContentLocation#b33a97b3
+//	case *tdapi.PushMessageContentPaidMedia: // pushMessageContentPaidMedia#b556e74a
 //	case *tdapi.PushMessageContentPhoto: // pushMessageContentPhoto#861dc52
 //	case *tdapi.PushMessageContentPoll: // pushMessageContentPoll#fd5a743a
 //	case *tdapi.PushMessageContentPremiumGiftCode: // pushMessageContentPremiumGiftCode#18a15025
@@ -6699,6 +6900,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 	case PushMessageContentLocationTypeID:
 		// Decoding pushMessageContentLocation#b33a97b3.
 		v := PushMessageContentLocation{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentPaidMediaTypeID:
+		// Decoding pushMessageContentPaidMedia#b556e74a.
+		v := PushMessageContentPaidMedia{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
@@ -6949,6 +7157,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentLocation":
 		// Decoding pushMessageContentLocation#b33a97b3.
 		v := PushMessageContentLocation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentPaidMedia":
+		// Decoding pushMessageContentPaidMedia#b556e74a.
+		v := PushMessageContentPaidMedia{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

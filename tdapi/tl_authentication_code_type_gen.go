@@ -1427,19 +1427,16 @@ func (a *AuthenticationCodeTypeFragment) GetLength() (value int32) {
 	return a.Length
 }
 
-// AuthenticationCodeTypeFirebaseAndroid represents TL type `authenticationCodeTypeFirebaseAndroid#e5a1fe7d`.
+// AuthenticationCodeTypeFirebaseAndroid represents TL type `authenticationCodeTypeFirebaseAndroid#6f9bb51e`.
 type AuthenticationCodeTypeFirebaseAndroid struct {
-	// True, if Play Integrity API must be used for device verification. Otherwise, SafetyNet
-	// Attestation API must be used
-	UsePlayIntegrity bool
-	// Nonce to pass to the Play Integrity API or the SafetyNet Attestation API
-	Nonce []byte
+	// Parameters to be used for device verification
+	DeviceVerificationParameters FirebaseDeviceVerificationParametersClass
 	// Length of the code
 	Length int32
 }
 
 // AuthenticationCodeTypeFirebaseAndroidTypeID is TL type id of AuthenticationCodeTypeFirebaseAndroid.
-const AuthenticationCodeTypeFirebaseAndroidTypeID = 0xe5a1fe7d
+const AuthenticationCodeTypeFirebaseAndroidTypeID = 0x6f9bb51e
 
 // construct implements constructor of AuthenticationCodeTypeClass.
 func (a AuthenticationCodeTypeFirebaseAndroid) construct() AuthenticationCodeTypeClass { return &a }
@@ -1458,10 +1455,7 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.UsePlayIntegrity == false) {
-		return false
-	}
-	if !(a.Nonce == nil) {
+	if !(a.DeviceVerificationParameters == nil) {
 		return false
 	}
 	if !(a.Length == 0) {
@@ -1504,12 +1498,8 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UsePlayIntegrity",
-			SchemaName: "use_play_integrity",
-		},
-		{
-			Name:       "Nonce",
-			SchemaName: "nonce",
+			Name:       "DeviceVerificationParameters",
+			SchemaName: "device_verification_parameters",
 		},
 		{
 			Name:       "Length",
@@ -1522,7 +1512,7 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthenticationCodeTypeFirebaseAndroid) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#e5a1fe7d as nil")
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#6f9bb51e as nil")
 	}
 	b.PutID(AuthenticationCodeTypeFirebaseAndroidTypeID)
 	return a.EncodeBare(b)
@@ -1531,10 +1521,14 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthenticationCodeTypeFirebaseAndroid) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#e5a1fe7d as nil")
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#6f9bb51e as nil")
 	}
-	b.PutBool(a.UsePlayIntegrity)
-	b.PutBytes(a.Nonce)
+	if a.DeviceVerificationParameters == nil {
+		return fmt.Errorf("unable to encode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field device_verification_parameters is nil")
+	}
+	if err := a.DeviceVerificationParameters.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field device_verification_parameters: %w", err)
+	}
 	b.PutInt32(a.Length)
 	return nil
 }
@@ -1542,10 +1536,10 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (a *AuthenticationCodeTypeFirebaseAndroid) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d to nil")
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#6f9bb51e to nil")
 	}
 	if err := b.ConsumeID(AuthenticationCodeTypeFirebaseAndroidTypeID); err != nil {
-		return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: %w", err)
+		return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#6f9bb51e: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -1553,26 +1547,19 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthenticationCodeTypeFirebaseAndroid) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d to nil")
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#6f9bb51e to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeFirebaseDeviceVerificationParameters(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: field use_play_integrity: %w", err)
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field device_verification_parameters: %w", err)
 		}
-		a.UsePlayIntegrity = value
-	}
-	{
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: field nonce: %w", err)
-		}
-		a.Nonce = value
+		a.DeviceVerificationParameters = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: field length: %w", err)
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field length: %w", err)
 		}
 		a.Length = value
 	}
@@ -1582,16 +1569,18 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) DecodeBare(b *bin.Buffer) error 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AuthenticationCodeTypeFirebaseAndroid) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#e5a1fe7d as nil")
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#6f9bb51e as nil")
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeTypeFirebaseAndroid")
 	b.Comma()
-	b.FieldStart("use_play_integrity")
-	b.PutBool(a.UsePlayIntegrity)
-	b.Comma()
-	b.FieldStart("nonce")
-	b.PutBytes(a.Nonce)
+	b.FieldStart("device_verification_parameters")
+	if a.DeviceVerificationParameters == nil {
+		return fmt.Errorf("unable to encode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field device_verification_parameters is nil")
+	}
+	if err := a.DeviceVerificationParameters.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field device_verification_parameters: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(a.Length)
@@ -1604,31 +1593,25 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) EncodeTDLibJSON(b tdjson.Encoder
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AuthenticationCodeTypeFirebaseAndroid) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d to nil")
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#6f9bb51e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("authenticationCodeTypeFirebaseAndroid"); err != nil {
-				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: %w", err)
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#6f9bb51e: %w", err)
 			}
-		case "use_play_integrity":
-			value, err := b.Bool()
+		case "device_verification_parameters":
+			value, err := DecodeTDLibJSONFirebaseDeviceVerificationParameters(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: field use_play_integrity: %w", err)
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field device_verification_parameters: %w", err)
 			}
-			a.UsePlayIntegrity = value
-		case "nonce":
-			value, err := b.Bytes()
-			if err != nil {
-				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: field nonce: %w", err)
-			}
-			a.Nonce = value
+			a.DeviceVerificationParameters = value
 		case "length":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#e5a1fe7d: field length: %w", err)
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#6f9bb51e: field length: %w", err)
 			}
 			a.Length = value
 		default:
@@ -1638,20 +1621,12 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
-// GetUsePlayIntegrity returns value of UsePlayIntegrity field.
-func (a *AuthenticationCodeTypeFirebaseAndroid) GetUsePlayIntegrity() (value bool) {
+// GetDeviceVerificationParameters returns value of DeviceVerificationParameters field.
+func (a *AuthenticationCodeTypeFirebaseAndroid) GetDeviceVerificationParameters() (value FirebaseDeviceVerificationParametersClass) {
 	if a == nil {
 		return
 	}
-	return a.UsePlayIntegrity
-}
-
-// GetNonce returns value of Nonce field.
-func (a *AuthenticationCodeTypeFirebaseAndroid) GetNonce() (value []byte) {
-	if a == nil {
-		return
-	}
-	return a.Nonce
+	return a.DeviceVerificationParameters
 }
 
 // GetLength returns value of Length field.
@@ -1918,7 +1893,7 @@ const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 //	case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
 //	case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
 //	case *tdapi.AuthenticationCodeTypeFragment: // authenticationCodeTypeFragment#810f74cd
-//	case *tdapi.AuthenticationCodeTypeFirebaseAndroid: // authenticationCodeTypeFirebaseAndroid#e5a1fe7d
+//	case *tdapi.AuthenticationCodeTypeFirebaseAndroid: // authenticationCodeTypeFirebaseAndroid#6f9bb51e
 //	case *tdapi.AuthenticationCodeTypeFirebaseIos: // authenticationCodeTypeFirebaseIos#ff55aa93
 //	default: panic(v)
 //	}
@@ -2008,7 +1983,7 @@ func DecodeAuthenticationCodeType(buf *bin.Buffer) (AuthenticationCodeTypeClass,
 		}
 		return &v, nil
 	case AuthenticationCodeTypeFirebaseAndroidTypeID:
-		// Decoding authenticationCodeTypeFirebaseAndroid#e5a1fe7d.
+		// Decoding authenticationCodeTypeFirebaseAndroid#6f9bb51e.
 		v := AuthenticationCodeTypeFirebaseAndroid{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
@@ -2090,7 +2065,7 @@ func DecodeTDLibJSONAuthenticationCodeType(buf tdjson.Decoder) (AuthenticationCo
 		}
 		return &v, nil
 	case "authenticationCodeTypeFirebaseAndroid":
-		// Decoding authenticationCodeTypeFirebaseAndroid#e5a1fe7d.
+		// Decoding authenticationCodeTypeFirebaseAndroid#6f9bb51e.
 		v := AuthenticationCodeTypeFirebaseAndroid{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
