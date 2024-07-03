@@ -44,7 +44,7 @@ func createClientHello(b *bin.Buffer, sessionID [32]byte, domain string, key [32
 		s := stack[lastIdx]
 		stack = stack[:lastIdx]
 
-		length := b.Len() - s + 2
+		length := b.Len() - (s + 2)
 		binary.BigEndian.PutUint16(b.Buf[s:], uint16(length))
 	}
 
