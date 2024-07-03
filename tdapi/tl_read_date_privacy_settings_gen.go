@@ -35,7 +35,7 @@ var (
 type ReadDatePrivacySettings struct {
 	// True, if message read date is shown to other users in private chats. If false and the
 	// current user isn't a Telegram Premium user, then they will not be able to see other's
-	// message read date.
+	// message read date
 	ShowReadDate bool
 }
 
