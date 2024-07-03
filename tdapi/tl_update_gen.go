@@ -17009,17 +17009,19 @@ func (u *UpdateFileRemovedFromDownloads) GetCounts() (value DownloadedFileCounts
 	return u.Counts
 }
 
-// UpdateApplicationVerificationRequired represents TL type `updateApplicationVerificationRequired#32079e05`.
+// UpdateApplicationVerificationRequired represents TL type `updateApplicationVerificationRequired#c59c61d7`.
 type UpdateApplicationVerificationRequired struct {
 	// Unique identifier for the verification process
 	VerificationID int64
-	// Unique nonce for the classic Play Integrity verification (https://developer.android
-	// com/google/play/integrity/classic) for Android,
+	// Unique base64url-encoded nonce for the classic Play Integrity verification
+	// (https://developer.android.com/google/play/integrity/classic) for Android,
 	Nonce string
+	// Cloud project number to pass to the Play Integrity API on Android
+	CloudProjectNumber int64
 }
 
 // UpdateApplicationVerificationRequiredTypeID is TL type id of UpdateApplicationVerificationRequired.
-const UpdateApplicationVerificationRequiredTypeID = 0x32079e05
+const UpdateApplicationVerificationRequiredTypeID = 0xc59c61d7
 
 // construct implements constructor of UpdateClass.
 func (u UpdateApplicationVerificationRequired) construct() UpdateClass { return &u }
@@ -17042,6 +17044,9 @@ func (u *UpdateApplicationVerificationRequired) Zero() bool {
 		return false
 	}
 	if !(u.Nonce == "") {
+		return false
+	}
+	if !(u.CloudProjectNumber == 0) {
 		return false
 	}
 
@@ -17088,6 +17093,10 @@ func (u *UpdateApplicationVerificationRequired) TypeInfo() tdp.Type {
 			Name:       "Nonce",
 			SchemaName: "nonce",
 		},
+		{
+			Name:       "CloudProjectNumber",
+			SchemaName: "cloud_project_number",
+		},
 	}
 	return typ
 }
@@ -17095,7 +17104,7 @@ func (u *UpdateApplicationVerificationRequired) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateApplicationVerificationRequired) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateApplicationVerificationRequired#32079e05 as nil")
+		return fmt.Errorf("can't encode updateApplicationVerificationRequired#c59c61d7 as nil")
 	}
 	b.PutID(UpdateApplicationVerificationRequiredTypeID)
 	return u.EncodeBare(b)
@@ -17104,20 +17113,21 @@ func (u *UpdateApplicationVerificationRequired) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateApplicationVerificationRequired) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateApplicationVerificationRequired#32079e05 as nil")
+		return fmt.Errorf("can't encode updateApplicationVerificationRequired#c59c61d7 as nil")
 	}
 	b.PutInt53(u.VerificationID)
 	b.PutString(u.Nonce)
+	b.PutLong(u.CloudProjectNumber)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateApplicationVerificationRequired) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateApplicationVerificationRequired#32079e05 to nil")
+		return fmt.Errorf("can't decode updateApplicationVerificationRequired#c59c61d7 to nil")
 	}
 	if err := b.ConsumeID(UpdateApplicationVerificationRequiredTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: %w", err)
+		return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -17125,21 +17135,28 @@ func (u *UpdateApplicationVerificationRequired) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateApplicationVerificationRequired) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateApplicationVerificationRequired#32079e05 to nil")
+		return fmt.Errorf("can't decode updateApplicationVerificationRequired#c59c61d7 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field verification_id: %w", err)
+			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: field verification_id: %w", err)
 		}
 		u.VerificationID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field nonce: %w", err)
+			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: field nonce: %w", err)
 		}
 		u.Nonce = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: field cloud_project_number: %w", err)
+		}
+		u.CloudProjectNumber = value
 	}
 	return nil
 }
@@ -17147,7 +17164,7 @@ func (u *UpdateApplicationVerificationRequired) DecodeBare(b *bin.Buffer) error 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateApplicationVerificationRequired) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateApplicationVerificationRequired#32079e05 as nil")
+		return fmt.Errorf("can't encode updateApplicationVerificationRequired#c59c61d7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateApplicationVerificationRequired")
@@ -17158,6 +17175,9 @@ func (u *UpdateApplicationVerificationRequired) EncodeTDLibJSON(b tdjson.Encoder
 	b.FieldStart("nonce")
 	b.PutString(u.Nonce)
 	b.Comma()
+	b.FieldStart("cloud_project_number")
+	b.PutLong(u.CloudProjectNumber)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -17166,27 +17186,33 @@ func (u *UpdateApplicationVerificationRequired) EncodeTDLibJSON(b tdjson.Encoder
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateApplicationVerificationRequired) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateApplicationVerificationRequired#32079e05 to nil")
+		return fmt.Errorf("can't decode updateApplicationVerificationRequired#c59c61d7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateApplicationVerificationRequired"); err != nil {
-				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: %w", err)
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: %w", err)
 			}
 		case "verification_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field verification_id: %w", err)
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: field verification_id: %w", err)
 			}
 			u.VerificationID = value
 		case "nonce":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#32079e05: field nonce: %w", err)
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: field nonce: %w", err)
 			}
 			u.Nonce = value
+		case "cloud_project_number":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateApplicationVerificationRequired#c59c61d7: field cloud_project_number: %w", err)
+			}
+			u.CloudProjectNumber = value
 		default:
 			return b.Skip()
 		}
@@ -17208,6 +17234,14 @@ func (u *UpdateApplicationVerificationRequired) GetNonce() (value string) {
 		return
 	}
 	return u.Nonce
+}
+
+// GetCloudProjectNumber returns value of CloudProjectNumber field.
+func (u *UpdateApplicationVerificationRequired) GetCloudProjectNumber() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.CloudProjectNumber
 }
 
 // UpdateCall represents TL type `updateCall#4fb3d0dd`.
@@ -32773,7 +32807,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateFileAddedToDownloads: // updateFileAddedToDownloads#5ff5921a
 //	case *tdapi.UpdateFileDownload: // updateFileDownload#342f83ca
 //	case *tdapi.UpdateFileRemovedFromDownloads: // updateFileRemovedFromDownloads#6e7c14e8
-//	case *tdapi.UpdateApplicationVerificationRequired: // updateApplicationVerificationRequired#32079e05
+//	case *tdapi.UpdateApplicationVerificationRequired: // updateApplicationVerificationRequired#c59c61d7
 //	case *tdapi.UpdateCall: // updateCall#4fb3d0dd
 //	case *tdapi.UpdateGroupCall: // updateGroupCall#30324e00
 //	case *tdapi.UpdateGroupCallParticipant: // updateGroupCallParticipant#d0213cf9
@@ -33434,7 +33468,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateApplicationVerificationRequiredTypeID:
-		// Decoding updateApplicationVerificationRequired#32079e05.
+		// Decoding updateApplicationVerificationRequired#c59c61d7.
 		v := UpdateApplicationVerificationRequired{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -34489,7 +34523,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateApplicationVerificationRequired":
-		// Decoding updateApplicationVerificationRequired#32079e05.
+		// Decoding updateApplicationVerificationRequired#c59c61d7.
 		v := UpdateApplicationVerificationRequired{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

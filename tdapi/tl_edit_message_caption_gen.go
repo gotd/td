@@ -42,8 +42,8 @@ type EditMessageCaptionRequest struct {
 	// New message content caption; 0-getOption("message_caption_length_max") characters;
 	// pass null to remove caption
 	Caption FormattedText
-	// Pass true to show the caption above the media; otherwise, caption will be shown below
-	// the media. Can be true only for animation, photo, and video messages
+	// Pass true to show the caption above the media; otherwise, the caption will be shown
+	// below the media. Can be true only for animation, photo, and video messages
 	ShowCaptionAboveMedia bool
 }
 

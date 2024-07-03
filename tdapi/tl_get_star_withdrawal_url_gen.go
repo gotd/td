@@ -34,8 +34,7 @@ var (
 // GetStarWithdrawalURLRequest represents TL type `getStarWithdrawalUrl#a9d23712`.
 type GetStarWithdrawalURLRequest struct {
 	// Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or
-	// identifier of a channel chat with supergroupFullInfo.can_get_revenue_statistics ==
-	// true
+	// identifier of an owned channel chat
 	OwnerID MessageSenderClass
 	// The number of Telegram stars to withdraw. Must be at least
 	// getOption("star_withdrawal_count_min")

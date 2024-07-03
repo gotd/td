@@ -165,7 +165,7 @@ func (r *ResendCodeReasonUserRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 // ResendCodeReasonVerificationFailed represents TL type `resendCodeReasonVerificationFailed#1f952dc1`.
 type ResendCodeReasonVerificationFailed struct {
 	// Cause of the verification failure, for example, PLAY_SERVICES_NOT_AVAILABLE,
-	// APNS_RECEIVE_TIMEOUT, APNS_INIT_FAILED, etc.
+	// APNS_RECEIVE_TIMEOUT, or APNS_INIT_FAILED
 	ErrorMessage string
 }
 
