@@ -2925,8 +2925,8 @@ func (t *TextEntityTypeCustomEmoji) GetCustomEmojiID() (value int64) {
 // TextEntityTypeMediaTimestamp represents TL type `textEntityTypeMediaTimestamp#9236da10`.
 type TextEntityTypeMediaTimestamp struct {
 	// Timestamp from which a video/audio/video note/voice note/story playing must start, in
-	// seconds. The media can be in the content or the web page preview of the current
-	// message, or in the same places in the replied message
+	// seconds. The media can be in the content or the link preview of the current message,
+	// or in the same places in the replied message
 	MediaTimestamp int32
 }
 

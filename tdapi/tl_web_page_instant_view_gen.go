@@ -33,7 +33,7 @@ var (
 
 // WebPageInstantView represents TL type `webPageInstantView#2c0ec99c`.
 type WebPageInstantView struct {
-	// Content of the web page
+	// Content of the instant view page
 	PageBlocks []PageBlockClass
 	// Number of the instant view views; 0 if unknown
 	ViewCount int32
@@ -42,7 +42,7 @@ type WebPageInstantView struct {
 	// True, if the instant view must be shown from right to left
 	IsRtl bool
 	// True, if the instant view contains the full page. A network request might be needed to
-	// get the full web page instant view
+	// get the full instant view
 	IsFull bool
 	// An internal link to be opened to leave feedback about the instant view
 	FeedbackLink InternalLinkTypeClass

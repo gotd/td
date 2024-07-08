@@ -43,8 +43,8 @@ type MessageLinkInfo struct {
 	// If found, the linked message; may be null
 	Message Message
 	// Timestamp from which the video/audio/video note/voice note/story playing must start,
-	// in seconds; 0 if not specified. The media can be in the message content or in its web
-	// page preview
+	// in seconds; 0 if not specified. The media can be in the message content or in its link
+	// preview
 	MediaTimestamp int32
 	// True, if the whole media album to which the message belongs is linked
 	ForAlbum bool
