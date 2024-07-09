@@ -216,3 +216,22 @@ func (m *Manager) ResolveDeeplink(ctx context.Context, u string) (Peer, error) {
 
 	return m.ResolveDomain(ctx, domain)
 }
+
+func (m *Manager) ResolveDeeplinkJoin(ctx context.Context, u string) (tg.ChatInviteClass, error) {
+	link, err := deeplink.Expect(u, deeplink.Join)
+	if err != nil {
+		return nil, err
+	}
+	domain := link.Args.Get("domain")
+
+	if err := validateDomain(domain); err != nil {
+		return nil, errors.Wrap(err, "validate domain")
+	}
+
+	inviteInfo, err := m.api.MessagesCheckChatInvite(ctx, link.Args.Get("invite"))
+	if err != nil {
+		return nil, errors.Wrap(err, "check invite")
+	}
+
+	return inviteInfo, nil
+}
