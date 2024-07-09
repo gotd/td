@@ -38,8 +38,7 @@ type GetMessageLinkRequest struct {
 	// Identifier of the message
 	MessageID int64
 	// If not 0, timestamp from which the video/audio/video note/voice note/story playing
-	// must start, in seconds. The media can be in the message content or in its web page
-	// preview
+	// must start, in seconds. The media can be in the message content or in its link preview
 	MediaTimestamp int32
 	// Pass true to create a link for the whole media album
 	ForAlbum bool

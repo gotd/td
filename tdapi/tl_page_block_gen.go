@@ -3928,7 +3928,7 @@ func (p *PageBlockCover) GetCover() (value PageBlockClass) {
 
 // PageBlockEmbedded represents TL type `pageBlockEmbedded#8c369d9d`.
 type PageBlockEmbedded struct {
-	// Web page URL, if available
+	// URL of the embedded page, if available
 	URL string
 	// HTML-markup of the embedded page
 	HTML string
@@ -4332,7 +4332,7 @@ func (p *PageBlockEmbedded) GetAllowScrolling() (value bool) {
 
 // PageBlockEmbeddedPost represents TL type `pageBlockEmbeddedPost#bc57cdf5`.
 type PageBlockEmbeddedPost struct {
-	// Web page URL
+	// URL of the embedded post
 	URL string
 	// Post author
 	Author string

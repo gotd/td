@@ -79,7 +79,7 @@ type Message struct {
 	// getMessageViewers
 	CanGetViewers bool
 	// True, if media timestamp links can be generated for media timestamp entities in the
-	// message text, caption or web page description through getMessageLink
+	// message text, caption or link preview description through getMessageLink
 	CanGetMediaTimestampLinks bool
 	// True, if reactions on the message can be reported through reportMessageReactions
 	CanReportReactions bool
