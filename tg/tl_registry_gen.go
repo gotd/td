@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 183
+const Layer = 184
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -191,6 +191,7 @@ func TypesMap() map[uint32]string {
 		MessageActionGiveawayResultsTypeID:                       "messageActionGiveawayResults#2a9fadc5",
 		MessageActionBoostApplyTypeID:                            "messageActionBoostApply#cc02aa6d",
 		MessageActionRequestedPeerSentMeTypeID:                   "messageActionRequestedPeerSentMe#93b31848",
+		MessageActionPaymentRefundedTypeID:                       "messageActionPaymentRefunded#41b3e202",
 		DialogTypeID:                                             "dialog#d58a08c6",
 		DialogFolderTypeID:                                       "dialogFolder#71bd134c",
 		PhotoEmptyTypeID:                                         "photoEmpty#2331b22d",
@@ -2178,6 +2179,7 @@ func NamesMap() map[string]uint32 {
 		"messageActionGiveawayResults":                       MessageActionGiveawayResultsTypeID,
 		"messageActionBoostApply":                            MessageActionBoostApplyTypeID,
 		"messageActionRequestedPeerSentMe":                   MessageActionRequestedPeerSentMeTypeID,
+		"messageActionPaymentRefunded":                       MessageActionPaymentRefundedTypeID,
 		"dialog":                                             DialogTypeID,
 		"dialogFolder":                                       DialogFolderTypeID,
 		"photoEmpty":                                         PhotoEmptyTypeID,
@@ -4165,6 +4167,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessageActionGiveawayResultsTypeID:                       func() bin.Object { return &MessageActionGiveawayResults{} },
 		MessageActionBoostApplyTypeID:                            func() bin.Object { return &MessageActionBoostApply{} },
 		MessageActionRequestedPeerSentMeTypeID:                   func() bin.Object { return &MessageActionRequestedPeerSentMe{} },
+		MessageActionPaymentRefundedTypeID:                       func() bin.Object { return &MessageActionPaymentRefunded{} },
 		DialogTypeID:                                             func() bin.Object { return &Dialog{} },
 		DialogFolderTypeID:                                       func() bin.Object { return &DialogFolder{} },
 		PhotoEmptyTypeID:                                         func() bin.Object { return &PhotoEmpty{} },
@@ -6711,6 +6714,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 			MessageActionGiveawayResultsTypeID,
 			MessageActionBoostApplyTypeID,
 			MessageActionRequestedPeerSentMeTypeID,
+			MessageActionPaymentRefundedTypeID,
 		},
 		MessageClassName: {
 			MessageEmptyTypeID,
