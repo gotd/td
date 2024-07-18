@@ -8011,6 +8011,292 @@ func (m *MessageActionRequestedPeerSentMe) MapPeers() (value RequestedPeerClassA
 	return RequestedPeerClassArray(m.Peers)
 }
 
+// MessageActionPaymentRefunded represents TL type `messageActionPaymentRefunded#41b3e202`.
+//
+// See https://core.telegram.org/constructor/messageActionPaymentRefunded for reference.
+type MessageActionPaymentRefunded struct {
+	// Flags field of MessageActionPaymentRefunded.
+	Flags bin.Fields
+	// Peer field of MessageActionPaymentRefunded.
+	Peer PeerClass
+	// Currency field of MessageActionPaymentRefunded.
+	Currency string
+	// TotalAmount field of MessageActionPaymentRefunded.
+	TotalAmount int64
+	// Payload field of MessageActionPaymentRefunded.
+	//
+	// Use SetPayload and GetPayload helpers.
+	Payload []byte
+	// Charge field of MessageActionPaymentRefunded.
+	Charge PaymentCharge
+}
+
+// MessageActionPaymentRefundedTypeID is TL type id of MessageActionPaymentRefunded.
+const MessageActionPaymentRefundedTypeID = 0x41b3e202
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPaymentRefunded) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPaymentRefunded.
+var (
+	_ bin.Encoder     = &MessageActionPaymentRefunded{}
+	_ bin.Decoder     = &MessageActionPaymentRefunded{}
+	_ bin.BareEncoder = &MessageActionPaymentRefunded{}
+	_ bin.BareDecoder = &MessageActionPaymentRefunded{}
+
+	_ MessageActionClass = &MessageActionPaymentRefunded{}
+)
+
+func (m *MessageActionPaymentRefunded) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Peer == nil) {
+		return false
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.TotalAmount == 0) {
+		return false
+	}
+	if !(m.Payload == nil) {
+		return false
+	}
+	if !(m.Charge.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionPaymentRefunded) String() string {
+	if m == nil {
+		return "MessageActionPaymentRefunded(nil)"
+	}
+	type Alias MessageActionPaymentRefunded
+	return fmt.Sprintf("MessageActionPaymentRefunded%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPaymentRefunded from given interface.
+func (m *MessageActionPaymentRefunded) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+	GetPayload() (value []byte, ok bool)
+	GetCharge() (value PaymentCharge)
+}) {
+	m.Peer = from.GetPeer()
+	m.Currency = from.GetCurrency()
+	m.TotalAmount = from.GetTotalAmount()
+	if val, ok := from.GetPayload(); ok {
+		m.Payload = val
+	}
+
+	m.Charge = from.GetCharge()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionPaymentRefunded) TypeID() uint32 {
+	return MessageActionPaymentRefundedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionPaymentRefunded) TypeName() string {
+	return "messageActionPaymentRefunded"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPaymentRefunded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPaymentRefunded",
+		ID:   MessageActionPaymentRefundedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Charge",
+			SchemaName: "charge",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionPaymentRefunded) SetFlags() {
+	if !(m.Payload == nil) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionPaymentRefunded) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPaymentRefunded#41b3e202 as nil")
+	}
+	b.PutID(MessageActionPaymentRefundedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionPaymentRefunded) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPaymentRefunded#41b3e202 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPaymentRefunded#41b3e202: field flags: %w", err)
+	}
+	if m.Peer == nil {
+		return fmt.Errorf("unable to encode messageActionPaymentRefunded#41b3e202: field peer is nil")
+	}
+	if err := m.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPaymentRefunded#41b3e202: field peer: %w", err)
+	}
+	b.PutString(m.Currency)
+	b.PutLong(m.TotalAmount)
+	if m.Flags.Has(0) {
+		b.PutBytes(m.Payload)
+	}
+	if err := m.Charge.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPaymentRefunded#41b3e202: field charge: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionPaymentRefunded) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPaymentRefunded#41b3e202 to nil")
+	}
+	if err := b.ConsumeID(MessageActionPaymentRefundedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionPaymentRefunded) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPaymentRefunded#41b3e202 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: field peer: %w", err)
+		}
+		m.Peer = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: field currency: %w", err)
+		}
+		m.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: field total_amount: %w", err)
+		}
+		m.TotalAmount = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: field payload: %w", err)
+		}
+		m.Payload = value
+	}
+	{
+		if err := m.Charge.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentRefunded#41b3e202: field charge: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (m *MessageActionPaymentRefunded) GetPeer() (value PeerClass) {
+	if m == nil {
+		return
+	}
+	return m.Peer
+}
+
+// GetCurrency returns value of Currency field.
+func (m *MessageActionPaymentRefunded) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (m *MessageActionPaymentRefunded) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.TotalAmount
+}
+
+// SetPayload sets value of Payload conditional field.
+func (m *MessageActionPaymentRefunded) SetPayload(value []byte) {
+	m.Flags.Set(0)
+	m.Payload = value
+}
+
+// GetPayload returns value of Payload conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionPaymentRefunded) GetPayload() (value []byte, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Payload, true
+}
+
+// GetCharge returns value of Charge field.
+func (m *MessageActionPaymentRefunded) GetCharge() (value PaymentCharge) {
+	if m == nil {
+		return
+	}
+	return m.Charge
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -8068,6 +8354,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionGiveawayResults: // messageActionGiveawayResults#2a9fadc5
 //	case *tg.MessageActionBoostApply: // messageActionBoostApply#cc02aa6d
 //	case *tg.MessageActionRequestedPeerSentMe: // messageActionRequestedPeerSentMe#93b31848
+//	case *tg.MessageActionPaymentRefunded: // messageActionPaymentRefunded#41b3e202
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -8393,6 +8680,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionRequestedPeerSentMeTypeID:
 		// Decoding messageActionRequestedPeerSentMe#93b31848.
 		v := MessageActionRequestedPeerSentMe{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionPaymentRefundedTypeID:
+		// Decoding messageActionPaymentRefunded#41b3e202.
+		v := MessageActionPaymentRefunded{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
