@@ -33,7 +33,8 @@ var (
 
 // CanSendStoryRequest represents TL type `canSendStory#b6e0216b`.
 type CanSendStoryRequest struct {
-	// Chat identifier
+	// Chat identifier. Pass Saved Messages chat identifier when posting a story on behalf of
+	// the current user
 	ChatID int64
 }
 
