@@ -33,7 +33,8 @@ var (
 
 // SendStoryRequest represents TL type `sendStory#e6ab3302`.
 type SendStoryRequest struct {
-	// Identifier of the chat that will post the story
+	// Identifier of the chat that will post the story. Pass Saved Messages chat identifier
+	// when posting a story on behalf of the current user
 	ChatID int64
 	// Content of the story
 	Content InputStoryContentClass
@@ -49,7 +50,8 @@ type SendStoryRequest struct {
 	// Period after which the story is moved to archive, in seconds; must be one of 6 * 3600,
 	// 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise
 	ActivePeriod int32
-	// Full identifier of the original story, which content was used to create the story
+	// Full identifier of the original story, which content was used to create the story;
+	// pass null if the story isn't repost of another story
 	FromStoryFullID StoryFullID
 	// Pass true to keep the story accessible after expiration
 	IsPostedToChatPage bool
