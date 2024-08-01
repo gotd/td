@@ -6975,6 +6975,23 @@ func (s *ServerDispatcher) OnMessagesGetFactCheck(f func(ctx context.Context, re
 	s.handlers[MessagesGetFactCheckRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesRequestMainWebView(f func(ctx context.Context, request *MessagesRequestMainWebViewRequest) (*WebViewResultURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesRequestMainWebViewRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesRequestMainWebViewRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9177,6 +9194,133 @@ func (s *ServerDispatcher) OnBotsInvokeWebViewCustomMethod(f func(ctx context.Co
 	s.handlers[BotsInvokeWebViewCustomMethodRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnBotsGetPopularAppBots(f func(ctx context.Context, request *BotsGetPopularAppBotsRequest) (*BotsPopularAppBots, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetPopularAppBotsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[BotsGetPopularAppBotsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsAddPreviewMedia(f func(ctx context.Context, request *BotsAddPreviewMediaRequest) (*BotPreviewMedia, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsAddPreviewMediaRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[BotsAddPreviewMediaRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsEditPreviewMedia(f func(ctx context.Context, request *BotsEditPreviewMediaRequest) (*BotPreviewMedia, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsEditPreviewMediaRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[BotsEditPreviewMediaRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsDeletePreviewMedia(f func(ctx context.Context, request *BotsDeletePreviewMediaRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsDeletePreviewMediaRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsDeletePreviewMediaRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsReorderPreviewMedias(f func(ctx context.Context, request *BotsReorderPreviewMediasRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsReorderPreviewMediasRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsReorderPreviewMediasRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsGetPreviewInfo(f func(ctx context.Context, request *BotsGetPreviewInfoRequest) (*BotsPreviewInfo, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetPreviewInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[BotsGetPreviewInfoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsGetPreviewMedias(f func(ctx context.Context, bot InputUserClass) ([]BotPreviewMedia, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetPreviewMediasRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Bot)
+		if err != nil {
+			return nil, err
+		}
+		return &BotPreviewMediaVector{Elems: response}, nil
+	}
+
+	s.handlers[BotsGetPreviewMediasRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (PaymentsPaymentFormClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentFormRequest
@@ -9608,6 +9752,23 @@ func (s *ServerDispatcher) OnPaymentsGetStarsTransactionsByID(f func(ctx context
 	}
 
 	s.handlers[PaymentsGetStarsTransactionsByIDRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetStarsGiftOptions(f func(ctx context.Context, request *PaymentsGetStarsGiftOptionsRequest) ([]StarsGiftOption, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetStarsGiftOptionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &StarsGiftOptionVector{Elems: response}, nil
+	}
+
+	s.handlers[PaymentsGetStarsGiftOptionsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

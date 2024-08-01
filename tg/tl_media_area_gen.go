@@ -1582,6 +1582,221 @@ func (m *MediaAreaURL) GetURL() (value string) {
 	return m.URL
 }
 
+// MediaAreaWeather represents TL type `mediaAreaWeather#49a6549c`.
+//
+// See https://core.telegram.org/constructor/mediaAreaWeather for reference.
+type MediaAreaWeather struct {
+	// Coordinates field of MediaAreaWeather.
+	Coordinates MediaAreaCoordinates
+	// Emoji field of MediaAreaWeather.
+	Emoji string
+	// TemperatureC field of MediaAreaWeather.
+	TemperatureC float64
+	// Color field of MediaAreaWeather.
+	Color int
+}
+
+// MediaAreaWeatherTypeID is TL type id of MediaAreaWeather.
+const MediaAreaWeatherTypeID = 0x49a6549c
+
+// construct implements constructor of MediaAreaClass.
+func (m MediaAreaWeather) construct() MediaAreaClass { return &m }
+
+// Ensuring interfaces in compile-time for MediaAreaWeather.
+var (
+	_ bin.Encoder     = &MediaAreaWeather{}
+	_ bin.Decoder     = &MediaAreaWeather{}
+	_ bin.BareEncoder = &MediaAreaWeather{}
+	_ bin.BareDecoder = &MediaAreaWeather{}
+
+	_ MediaAreaClass = &MediaAreaWeather{}
+)
+
+func (m *MediaAreaWeather) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Coordinates.Zero()) {
+		return false
+	}
+	if !(m.Emoji == "") {
+		return false
+	}
+	if !(m.TemperatureC == 0) {
+		return false
+	}
+	if !(m.Color == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MediaAreaWeather) String() string {
+	if m == nil {
+		return "MediaAreaWeather(nil)"
+	}
+	type Alias MediaAreaWeather
+	return fmt.Sprintf("MediaAreaWeather%+v", Alias(*m))
+}
+
+// FillFrom fills MediaAreaWeather from given interface.
+func (m *MediaAreaWeather) FillFrom(from interface {
+	GetCoordinates() (value MediaAreaCoordinates)
+	GetEmoji() (value string)
+	GetTemperatureC() (value float64)
+	GetColor() (value int)
+}) {
+	m.Coordinates = from.GetCoordinates()
+	m.Emoji = from.GetEmoji()
+	m.TemperatureC = from.GetTemperatureC()
+	m.Color = from.GetColor()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MediaAreaWeather) TypeID() uint32 {
+	return MediaAreaWeatherTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MediaAreaWeather) TypeName() string {
+	return "mediaAreaWeather"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MediaAreaWeather) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "mediaAreaWeather",
+		ID:   MediaAreaWeatherTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Coordinates",
+			SchemaName: "coordinates",
+		},
+		{
+			Name:       "Emoji",
+			SchemaName: "emoji",
+		},
+		{
+			Name:       "TemperatureC",
+			SchemaName: "temperature_c",
+		},
+		{
+			Name:       "Color",
+			SchemaName: "color",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MediaAreaWeather) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaWeather#49a6549c as nil")
+	}
+	b.PutID(MediaAreaWeatherTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MediaAreaWeather) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaWeather#49a6549c as nil")
+	}
+	if err := m.Coordinates.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaWeather#49a6549c: field coordinates: %w", err)
+	}
+	b.PutString(m.Emoji)
+	b.PutDouble(m.TemperatureC)
+	b.PutInt(m.Color)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MediaAreaWeather) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaWeather#49a6549c to nil")
+	}
+	if err := b.ConsumeID(MediaAreaWeatherTypeID); err != nil {
+		return fmt.Errorf("unable to decode mediaAreaWeather#49a6549c: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MediaAreaWeather) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaWeather#49a6549c to nil")
+	}
+	{
+		if err := m.Coordinates.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaWeather#49a6549c: field coordinates: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaWeather#49a6549c: field emoji: %w", err)
+		}
+		m.Emoji = value
+	}
+	{
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaWeather#49a6549c: field temperature_c: %w", err)
+		}
+		m.TemperatureC = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaWeather#49a6549c: field color: %w", err)
+		}
+		m.Color = value
+	}
+	return nil
+}
+
+// GetCoordinates returns value of Coordinates field.
+func (m *MediaAreaWeather) GetCoordinates() (value MediaAreaCoordinates) {
+	if m == nil {
+		return
+	}
+	return m.Coordinates
+}
+
+// GetEmoji returns value of Emoji field.
+func (m *MediaAreaWeather) GetEmoji() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Emoji
+}
+
+// GetTemperatureC returns value of TemperatureC field.
+func (m *MediaAreaWeather) GetTemperatureC() (value float64) {
+	if m == nil {
+		return
+	}
+	return m.TemperatureC
+}
+
+// GetColor returns value of Color field.
+func (m *MediaAreaWeather) GetColor() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Color
+}
+
 // MediaAreaClassName is schema name of MediaAreaClass.
 const MediaAreaClassName = "MediaArea"
 
@@ -1603,6 +1818,7 @@ const MediaAreaClassName = "MediaArea"
 //	case *tg.MediaAreaChannelPost: // mediaAreaChannelPost#770416af
 //	case *tg.InputMediaAreaChannelPost: // inputMediaAreaChannelPost#2271f2bf
 //	case *tg.MediaAreaURL: // mediaAreaUrl#37381085
+//	case *tg.MediaAreaWeather: // mediaAreaWeather#49a6549c
 //	default: panic(v)
 //	}
 type MediaAreaClass interface {
@@ -1680,6 +1896,13 @@ func DecodeMediaArea(buf *bin.Buffer) (MediaAreaClass, error) {
 	case MediaAreaURLTypeID:
 		// Decoding mediaAreaUrl#37381085.
 		v := MediaAreaURL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
+		}
+		return &v, nil
+	case MediaAreaWeatherTypeID:
+		// Decoding mediaAreaWeather#49a6549c.
+		v := MediaAreaWeather{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
 		}

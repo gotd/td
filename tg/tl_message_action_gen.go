@@ -8297,6 +8297,356 @@ func (m *MessageActionPaymentRefunded) GetCharge() (value PaymentCharge) {
 	return m.Charge
 }
 
+// MessageActionGiftStars represents TL type `messageActionGiftStars#45d5b021`.
+//
+// See https://core.telegram.org/constructor/messageActionGiftStars for reference.
+type MessageActionGiftStars struct {
+	// Flags field of MessageActionGiftStars.
+	Flags bin.Fields
+	// Currency field of MessageActionGiftStars.
+	Currency string
+	// Amount field of MessageActionGiftStars.
+	Amount int64
+	// Stars field of MessageActionGiftStars.
+	Stars int64
+	// CryptoCurrency field of MessageActionGiftStars.
+	//
+	// Use SetCryptoCurrency and GetCryptoCurrency helpers.
+	CryptoCurrency string
+	// CryptoAmount field of MessageActionGiftStars.
+	//
+	// Use SetCryptoAmount and GetCryptoAmount helpers.
+	CryptoAmount int64
+	// TransactionID field of MessageActionGiftStars.
+	//
+	// Use SetTransactionID and GetTransactionID helpers.
+	TransactionID string
+}
+
+// MessageActionGiftStarsTypeID is TL type id of MessageActionGiftStars.
+const MessageActionGiftStarsTypeID = 0x45d5b021
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGiftStars) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGiftStars.
+var (
+	_ bin.Encoder     = &MessageActionGiftStars{}
+	_ bin.Decoder     = &MessageActionGiftStars{}
+	_ bin.BareEncoder = &MessageActionGiftStars{}
+	_ bin.BareDecoder = &MessageActionGiftStars{}
+
+	_ MessageActionClass = &MessageActionGiftStars{}
+)
+
+func (m *MessageActionGiftStars) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.Amount == 0) {
+		return false
+	}
+	if !(m.Stars == 0) {
+		return false
+	}
+	if !(m.CryptoCurrency == "") {
+		return false
+	}
+	if !(m.CryptoAmount == 0) {
+		return false
+	}
+	if !(m.TransactionID == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionGiftStars) String() string {
+	if m == nil {
+		return "MessageActionGiftStars(nil)"
+	}
+	type Alias MessageActionGiftStars
+	return fmt.Sprintf("MessageActionGiftStars%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionGiftStars from given interface.
+func (m *MessageActionGiftStars) FillFrom(from interface {
+	GetCurrency() (value string)
+	GetAmount() (value int64)
+	GetStars() (value int64)
+	GetCryptoCurrency() (value string, ok bool)
+	GetCryptoAmount() (value int64, ok bool)
+	GetTransactionID() (value string, ok bool)
+}) {
+	m.Currency = from.GetCurrency()
+	m.Amount = from.GetAmount()
+	m.Stars = from.GetStars()
+	if val, ok := from.GetCryptoCurrency(); ok {
+		m.CryptoCurrency = val
+	}
+
+	if val, ok := from.GetCryptoAmount(); ok {
+		m.CryptoAmount = val
+	}
+
+	if val, ok := from.GetTransactionID(); ok {
+		m.TransactionID = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionGiftStars) TypeID() uint32 {
+	return MessageActionGiftStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionGiftStars) TypeName() string {
+	return "messageActionGiftStars"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGiftStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGiftStars",
+		ID:   MessageActionGiftStarsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+		},
+		{
+			Name:       "CryptoCurrency",
+			SchemaName: "crypto_currency",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "CryptoAmount",
+			SchemaName: "crypto_amount",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "TransactionID",
+			SchemaName: "transaction_id",
+			Null:       !m.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionGiftStars) SetFlags() {
+	if !(m.CryptoCurrency == "") {
+		m.Flags.Set(0)
+	}
+	if !(m.CryptoAmount == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.TransactionID == "") {
+		m.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGiftStars) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftStars#45d5b021 as nil")
+	}
+	b.PutID(MessageActionGiftStarsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionGiftStars) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftStars#45d5b021 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionGiftStars#45d5b021: field flags: %w", err)
+	}
+	b.PutString(m.Currency)
+	b.PutLong(m.Amount)
+	b.PutLong(m.Stars)
+	if m.Flags.Has(0) {
+		b.PutString(m.CryptoCurrency)
+	}
+	if m.Flags.Has(0) {
+		b.PutLong(m.CryptoAmount)
+	}
+	if m.Flags.Has(1) {
+		b.PutString(m.TransactionID)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGiftStars) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftStars#45d5b021 to nil")
+	}
+	if err := b.ConsumeID(MessageActionGiftStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionGiftStars) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftStars#45d5b021 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field currency: %w", err)
+		}
+		m.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field amount: %w", err)
+		}
+		m.Amount = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field stars: %w", err)
+		}
+		m.Stars = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field crypto_currency: %w", err)
+		}
+		m.CryptoCurrency = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field crypto_amount: %w", err)
+		}
+		m.CryptoAmount = value
+	}
+	if m.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftStars#45d5b021: field transaction_id: %w", err)
+		}
+		m.TransactionID = value
+	}
+	return nil
+}
+
+// GetCurrency returns value of Currency field.
+func (m *MessageActionGiftStars) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (m *MessageActionGiftStars) GetAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Amount
+}
+
+// GetStars returns value of Stars field.
+func (m *MessageActionGiftStars) GetStars() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Stars
+}
+
+// SetCryptoCurrency sets value of CryptoCurrency conditional field.
+func (m *MessageActionGiftStars) SetCryptoCurrency(value string) {
+	m.Flags.Set(0)
+	m.CryptoCurrency = value
+}
+
+// GetCryptoCurrency returns value of CryptoCurrency conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftStars) GetCryptoCurrency() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.CryptoCurrency, true
+}
+
+// SetCryptoAmount sets value of CryptoAmount conditional field.
+func (m *MessageActionGiftStars) SetCryptoAmount(value int64) {
+	m.Flags.Set(0)
+	m.CryptoAmount = value
+}
+
+// GetCryptoAmount returns value of CryptoAmount conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftStars) GetCryptoAmount() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.CryptoAmount, true
+}
+
+// SetTransactionID sets value of TransactionID conditional field.
+func (m *MessageActionGiftStars) SetTransactionID(value string) {
+	m.Flags.Set(1)
+	m.TransactionID = value
+}
+
+// GetTransactionID returns value of TransactionID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftStars) GetTransactionID() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.TransactionID, true
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -8355,6 +8705,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionBoostApply: // messageActionBoostApply#cc02aa6d
 //	case *tg.MessageActionRequestedPeerSentMe: // messageActionRequestedPeerSentMe#93b31848
 //	case *tg.MessageActionPaymentRefunded: // messageActionPaymentRefunded#41b3e202
+//	case *tg.MessageActionGiftStars: // messageActionGiftStars#45d5b021
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -8687,6 +9038,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionPaymentRefundedTypeID:
 		// Decoding messageActionPaymentRefunded#41b3e202.
 		v := MessageActionPaymentRefunded{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGiftStarsTypeID:
+		// Decoding messageActionGiftStars#45d5b021.
+		v := MessageActionGiftStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

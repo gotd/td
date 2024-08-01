@@ -57,6 +57,8 @@ type ContactsGetTopPeersRequest struct {
 	Groups bool
 	// Most frequently visited channels
 	Channels bool
+	// BotsApp field of ContactsGetTopPeersRequest.
+	BotsApp bool
 	// Offset for pagination¹
 	//
 	// Links:
@@ -116,6 +118,9 @@ func (g *ContactsGetTopPeersRequest) Zero() bool {
 	if !(g.Channels == false) {
 		return false
 	}
+	if !(g.BotsApp == false) {
+		return false
+	}
 	if !(g.Offset == 0) {
 		return false
 	}
@@ -148,6 +153,7 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 	GetForwardChats() (value bool)
 	GetGroups() (value bool)
 	GetChannels() (value bool)
+	GetBotsApp() (value bool)
 	GetOffset() (value int)
 	GetLimit() (value int)
 	GetHash() (value int64)
@@ -160,6 +166,7 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 	g.ForwardChats = from.GetForwardChats()
 	g.Groups = from.GetGroups()
 	g.Channels = from.GetChannels()
+	g.BotsApp = from.GetBotsApp()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 	g.Hash = from.GetHash()
@@ -229,6 +236,11 @@ func (g *ContactsGetTopPeersRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(15),
 		},
 		{
+			Name:       "BotsApp",
+			SchemaName: "bots_app",
+			Null:       !g.Flags.Has(16),
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -269,6 +281,9 @@ func (g *ContactsGetTopPeersRequest) SetFlags() {
 	}
 	if !(g.Channels == false) {
 		g.Flags.Set(15)
+	}
+	if !(g.BotsApp == false) {
+		g.Flags.Set(16)
 	}
 }
 
@@ -325,6 +340,7 @@ func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 	g.ForwardChats = g.Flags.Has(5)
 	g.Groups = g.Flags.Has(10)
 	g.Channels = g.Flags.Has(15)
+	g.BotsApp = g.Flags.Has(16)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -499,6 +515,25 @@ func (g *ContactsGetTopPeersRequest) GetChannels() (value bool) {
 		return
 	}
 	return g.Flags.Has(15)
+}
+
+// SetBotsApp sets value of BotsApp conditional field.
+func (g *ContactsGetTopPeersRequest) SetBotsApp(value bool) {
+	if value {
+		g.Flags.Set(16)
+		g.BotsApp = true
+	} else {
+		g.Flags.Unset(16)
+		g.BotsApp = false
+	}
+}
+
+// GetBotsApp returns value of BotsApp conditional field.
+func (g *ContactsGetTopPeersRequest) GetBotsApp() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(16)
 }
 
 // GetOffset returns value of Offset field.

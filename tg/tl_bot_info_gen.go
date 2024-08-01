@@ -41,6 +41,8 @@ type BotInfo struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// HasPreviewMedias field of BotInfo.
+	HasPreviewMedias bool
 	// ID of the bot
 	//
 	// Use SetUserID and GetUserID helpers.
@@ -85,6 +87,9 @@ func (b *BotInfo) Zero() bool {
 	if !(b.Flags.Zero()) {
 		return false
 	}
+	if !(b.HasPreviewMedias == false) {
+		return false
+	}
 	if !(b.UserID == 0) {
 		return false
 	}
@@ -118,6 +123,7 @@ func (b *BotInfo) String() string {
 
 // FillFrom fills BotInfo from given interface.
 func (b *BotInfo) FillFrom(from interface {
+	GetHasPreviewMedias() (value bool)
 	GetUserID() (value int64, ok bool)
 	GetDescription() (value string, ok bool)
 	GetDescriptionPhoto() (value PhotoClass, ok bool)
@@ -125,6 +131,7 @@ func (b *BotInfo) FillFrom(from interface {
 	GetCommands() (value []BotCommand, ok bool)
 	GetMenuButton() (value BotMenuButtonClass, ok bool)
 }) {
+	b.HasPreviewMedias = from.GetHasPreviewMedias()
 	if val, ok := from.GetUserID(); ok {
 		b.UserID = val
 	}
@@ -175,6 +182,11 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "HasPreviewMedias",
+			SchemaName: "has_preview_medias",
+			Null:       !b.Flags.Has(6),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 			Null:       !b.Flags.Has(0),
@@ -210,6 +222,9 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (b *BotInfo) SetFlags() {
+	if !(b.HasPreviewMedias == false) {
+		b.Flags.Set(6)
+	}
 	if !(b.UserID == 0) {
 		b.Flags.Set(0)
 	}
@@ -310,6 +325,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode botInfo#8f300b57: field flags: %w", err)
 		}
 	}
+	b.HasPreviewMedias = b.Flags.Has(6)
 	if b.Flags.Has(0) {
 		value, err := buf.Long()
 		if err != nil {
@@ -363,6 +379,25 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		b.MenuButton = value
 	}
 	return nil
+}
+
+// SetHasPreviewMedias sets value of HasPreviewMedias conditional field.
+func (b *BotInfo) SetHasPreviewMedias(value bool) {
+	if value {
+		b.Flags.Set(6)
+		b.HasPreviewMedias = true
+	} else {
+		b.Flags.Unset(6)
+		b.HasPreviewMedias = false
+	}
+}
+
+// GetHasPreviewMedias returns value of HasPreviewMedias conditional field.
+func (b *BotInfo) GetHasPreviewMedias() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(6)
 }
 
 // SetUserID sets value of UserID conditional field.
