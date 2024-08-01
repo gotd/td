@@ -35,7 +35,8 @@ var (
 type ReportChatRequest struct {
 	// Chat identifier
 	ChatID int64
-	// Identifiers of reported messages; may be empty to report the whole chat
+	// Identifiers of reported messages; may be empty to report the whole chat. Use
+	// messageProperties.can_be_reported to check whether the message can be reported
 	MessageIDs []int64
 	// The reason for reporting the chat
 	Reason ReportReasonClass

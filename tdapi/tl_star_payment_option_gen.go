@@ -37,7 +37,7 @@ type StarPaymentOption struct {
 	Currency string
 	// The amount to pay, in the smallest units of the currency
 	Amount int64
-	// Number of Telegram stars that will be purchased
+	// Number of Telegram Stars that will be purchased
 	StarCount int64
 	// Identifier of the store product associated with the option; may be empty if none
 	StoreProductID string

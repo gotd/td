@@ -35,7 +35,7 @@ var (
 type GetLoginURLInfoRequest struct {
 	// Chat identifier of the message with the button
 	ChatID int64
-	// Message identifier of the message with the button
+	// Message identifier of the message with the button. The message must not be scheduled
 	MessageID int64
 	// Button identifier
 	ButtonID int64

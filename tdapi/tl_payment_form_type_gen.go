@@ -504,7 +504,7 @@ func (p *PaymentFormTypeRegular) GetNeedPassword() (value bool) {
 
 // PaymentFormTypeStars represents TL type `paymentFormTypeStars#56b9d3d`.
 type PaymentFormTypeStars struct {
-	// Number of Telegram stars that will be paid
+	// Number of Telegram Stars that will be paid
 	StarCount int64
 }
 

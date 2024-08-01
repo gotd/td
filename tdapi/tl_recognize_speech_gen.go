@@ -35,7 +35,8 @@ var (
 type RecognizeSpeechRequest struct {
 	// Identifier of the chat to which the message belongs
 	ChatID int64
-	// Identifier of the message
+	// Identifier of the message. Use messageProperties.can_recognize_speech to check whether
+	// the message is suitable
 	MessageID int64
 }
 

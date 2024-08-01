@@ -41,7 +41,7 @@ type SendPaymentFormRequest struct {
 	OrderInfoID string
 	// Identifier of a chosen shipping option, if applicable
 	ShippingOptionID string
-	// The credentials chosen by user for payment; pass null for a payment in Telegram stars
+	// The credentials chosen by user for payment; pass null for a payment in Telegram Stars
 	Credentials InputCredentialsClass
 	// Chosen by the user amount of tip in the smallest units of the currency
 	TipAmount int64

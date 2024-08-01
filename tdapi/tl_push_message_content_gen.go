@@ -1998,7 +1998,8 @@ func (p *PushMessageContentLocation) GetIsPinned() (value bool) {
 
 // PushMessageContentPaidMedia represents TL type `pushMessageContentPaidMedia#b556e74a`.
 type PushMessageContentPaidMedia struct {
-	// Number of stars needed to buy access to the media in the message; 0 for pinned message
+	// Number of Telegram Stars needed to buy access to the media in the message; 0 for
+	// pinned message
 	StarCount int64
 	// True, if the message is a pinned message with the specified content
 	IsPinned bool

@@ -880,8 +880,8 @@ type InputStoryAreaTypeMessage struct {
 	// Identifier of the chat with the message. Currently, the chat must be a supergroup or a
 	// channel chat
 	ChatID int64
-	// Identifier of the message. Only successfully sent non-scheduled messages can be
-	// specified
+	// Identifier of the message. Use messageProperties.can_be_shared_in_story to check
+	// whether the message is suitable
 	MessageID int64
 }
 
@@ -1243,6 +1243,240 @@ func (i *InputStoryAreaTypeLink) GetURL() (value string) {
 	return i.URL
 }
 
+// InputStoryAreaTypeWeather represents TL type `inputStoryAreaTypeWeather#b7b7de9d`.
+type InputStoryAreaTypeWeather struct {
+	// Temperature, in degree Celsius
+	Temperature float64
+	// Emoji representing the weather
+	Emoji string
+	// A color of the area background in the ARGB format
+	BackgroundColor int32
+}
+
+// InputStoryAreaTypeWeatherTypeID is TL type id of InputStoryAreaTypeWeather.
+const InputStoryAreaTypeWeatherTypeID = 0xb7b7de9d
+
+// construct implements constructor of InputStoryAreaTypeClass.
+func (i InputStoryAreaTypeWeather) construct() InputStoryAreaTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStoryAreaTypeWeather.
+var (
+	_ bin.Encoder     = &InputStoryAreaTypeWeather{}
+	_ bin.Decoder     = &InputStoryAreaTypeWeather{}
+	_ bin.BareEncoder = &InputStoryAreaTypeWeather{}
+	_ bin.BareDecoder = &InputStoryAreaTypeWeather{}
+
+	_ InputStoryAreaTypeClass = &InputStoryAreaTypeWeather{}
+)
+
+func (i *InputStoryAreaTypeWeather) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Temperature == 0) {
+		return false
+	}
+	if !(i.Emoji == "") {
+		return false
+	}
+	if !(i.BackgroundColor == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStoryAreaTypeWeather) String() string {
+	if i == nil {
+		return "InputStoryAreaTypeWeather(nil)"
+	}
+	type Alias InputStoryAreaTypeWeather
+	return fmt.Sprintf("InputStoryAreaTypeWeather%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStoryAreaTypeWeather) TypeID() uint32 {
+	return InputStoryAreaTypeWeatherTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStoryAreaTypeWeather) TypeName() string {
+	return "inputStoryAreaTypeWeather"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStoryAreaTypeWeather) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStoryAreaTypeWeather",
+		ID:   InputStoryAreaTypeWeatherTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Temperature",
+			SchemaName: "temperature",
+		},
+		{
+			Name:       "Emoji",
+			SchemaName: "emoji",
+		},
+		{
+			Name:       "BackgroundColor",
+			SchemaName: "background_color",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStoryAreaTypeWeather) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStoryAreaTypeWeather#b7b7de9d as nil")
+	}
+	b.PutID(InputStoryAreaTypeWeatherTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStoryAreaTypeWeather) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStoryAreaTypeWeather#b7b7de9d as nil")
+	}
+	b.PutDouble(i.Temperature)
+	b.PutString(i.Emoji)
+	b.PutInt32(i.BackgroundColor)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStoryAreaTypeWeather) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStoryAreaTypeWeather#b7b7de9d to nil")
+	}
+	if err := b.ConsumeID(InputStoryAreaTypeWeatherTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStoryAreaTypeWeather) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStoryAreaTypeWeather#b7b7de9d to nil")
+	}
+	{
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: field temperature: %w", err)
+		}
+		i.Temperature = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: field emoji: %w", err)
+		}
+		i.Emoji = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: field background_color: %w", err)
+		}
+		i.BackgroundColor = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputStoryAreaTypeWeather) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStoryAreaTypeWeather#b7b7de9d as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputStoryAreaTypeWeather")
+	b.Comma()
+	b.FieldStart("temperature")
+	b.PutDouble(i.Temperature)
+	b.Comma()
+	b.FieldStart("emoji")
+	b.PutString(i.Emoji)
+	b.Comma()
+	b.FieldStart("background_color")
+	b.PutInt32(i.BackgroundColor)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputStoryAreaTypeWeather) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStoryAreaTypeWeather#b7b7de9d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inputStoryAreaTypeWeather"); err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: %w", err)
+			}
+		case "temperature":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: field temperature: %w", err)
+			}
+			i.Temperature = value
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: field emoji: %w", err)
+			}
+			i.Emoji = value
+		case "background_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeWeather#b7b7de9d: field background_color: %w", err)
+			}
+			i.BackgroundColor = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTemperature returns value of Temperature field.
+func (i *InputStoryAreaTypeWeather) GetTemperature() (value float64) {
+	if i == nil {
+		return
+	}
+	return i.Temperature
+}
+
+// GetEmoji returns value of Emoji field.
+func (i *InputStoryAreaTypeWeather) GetEmoji() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Emoji
+}
+
+// GetBackgroundColor returns value of BackgroundColor field.
+func (i *InputStoryAreaTypeWeather) GetBackgroundColor() (value int32) {
+	if i == nil {
+		return
+	}
+	return i.BackgroundColor
+}
+
 // InputStoryAreaTypeClassName is schema name of InputStoryAreaTypeClass.
 const InputStoryAreaTypeClassName = "InputStoryAreaType"
 
@@ -1261,6 +1495,7 @@ const InputStoryAreaTypeClassName = "InputStoryAreaType"
 //	case *tdapi.InputStoryAreaTypeSuggestedReaction: // inputStoryAreaTypeSuggestedReaction#7d4751d3
 //	case *tdapi.InputStoryAreaTypeMessage: // inputStoryAreaTypeMessage#f01be457
 //	case *tdapi.InputStoryAreaTypeLink: // inputStoryAreaTypeLink#53f31b48
+//	case *tdapi.InputStoryAreaTypeWeather: // inputStoryAreaTypeWeather#b7b7de9d
 //	default: panic(v)
 //	}
 type InputStoryAreaTypeClass interface {
@@ -1334,6 +1569,13 @@ func DecodeInputStoryAreaType(buf *bin.Buffer) (InputStoryAreaTypeClass, error) 
 			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
 		}
 		return &v, nil
+	case InputStoryAreaTypeWeatherTypeID:
+		// Decoding inputStoryAreaTypeWeather#b7b7de9d.
+		v := InputStoryAreaTypeWeather{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1384,6 +1626,13 @@ func DecodeTDLibJSONInputStoryAreaType(buf tdjson.Decoder) (InputStoryAreaTypeCl
 	case "inputStoryAreaTypeLink":
 		// Decoding inputStoryAreaTypeLink#53f31b48.
 		v := InputStoryAreaTypeLink{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
+	case "inputStoryAreaTypeWeather":
+		// Decoding inputStoryAreaTypeWeather#b7b7de9d.
+		v := InputStoryAreaTypeWeather{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
 		}

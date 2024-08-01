@@ -35,7 +35,8 @@ var (
 type ReportSupergroupSpamRequest struct {
 	// Supergroup identifier
 	SupergroupID int64
-	// Identifiers of messages to report
+	// Identifiers of messages to report. Use messageProperties.can_be_reported to check
+	// whether the message can be reported
 	MessageIDs []int64
 }
 

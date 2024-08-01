@@ -35,7 +35,8 @@ var (
 type EditMessageLiveLocationRequest struct {
 	// The chat the message belongs to
 	ChatID int64
-	// Identifier of the message
+	// Identifier of the message. Use messageProperties.can_be_edited to check whether the
+	// message can be edited
 	MessageID int64
 	// The new message reply markup; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass

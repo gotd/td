@@ -24854,7 +24854,7 @@ func (u *UpdateSavedMessagesTags) GetTags() (value SavedMessagesTags) {
 
 // UpdateOwnedStarCount represents TL type `updateOwnedStarCount#de995b79`.
 type UpdateOwnedStarCount struct {
-	// The new number of Telegram stars owned
+	// The new number of Telegram Stars owned
 	StarCount int64
 }
 
@@ -25220,9 +25220,9 @@ func (u *UpdateChatRevenueAmount) GetRevenueAmount() (value ChatRevenueAmount) {
 
 // UpdateStarRevenueStatus represents TL type `updateStarRevenueStatus#ef4bfccb`.
 type UpdateStarRevenueStatus struct {
-	// Identifier of the owner of the Telegram stars
+	// Identifier of the owner of the Telegram Stars
 	OwnerID MessageSenderClass
-	// New Telegram star revenue status
+	// New Telegram Star revenue status
 	Status StarRevenueStatus
 }
 

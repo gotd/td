@@ -293,7 +293,7 @@ func (u *UserTypeDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// UserTypeBot represents TL type `userTypeBot#ae30a83a`.
+// UserTypeBot represents TL type `userTypeBot#8ba3cc26`.
 type UserTypeBot struct {
 	// True, if the bot is owned by the current user and can be edited using the methods
 	// toggleBotUsernameIsActive, reorderBotActiveUsernames, setBotProfilePhoto, setBotName,
@@ -305,6 +305,8 @@ type UserTypeBot struct {
 	// those addressed to the bot. In private and channel chats a bot can always read all
 	// messages
 	CanReadAllGroupMessages bool
+	// True, if the bot has the main Web App
+	HasMainWebApp bool
 	// True, if the bot supports inline queries
 	IsInline bool
 	// Placeholder for inline queries (displayed on the application input field)
@@ -316,10 +318,12 @@ type UserTypeBot struct {
 	CanConnectToBusiness bool
 	// True, if the bot can be added to attachment or side menu
 	CanBeAddedToAttachmentMenu bool
+	// The number of recently active users of the bot
+	ActiveUserCount int32
 }
 
 // UserTypeBotTypeID is TL type id of UserTypeBot.
-const UserTypeBotTypeID = 0xae30a83a
+const UserTypeBotTypeID = 0x8ba3cc26
 
 // construct implements constructor of UserTypeClass.
 func (u UserTypeBot) construct() UserTypeClass { return &u }
@@ -347,6 +351,9 @@ func (u *UserTypeBot) Zero() bool {
 	if !(u.CanReadAllGroupMessages == false) {
 		return false
 	}
+	if !(u.HasMainWebApp == false) {
+		return false
+	}
 	if !(u.IsInline == false) {
 		return false
 	}
@@ -360,6 +367,9 @@ func (u *UserTypeBot) Zero() bool {
 		return false
 	}
 	if !(u.CanBeAddedToAttachmentMenu == false) {
+		return false
+	}
+	if !(u.ActiveUserCount == 0) {
 		return false
 	}
 
@@ -411,6 +421,10 @@ func (u *UserTypeBot) TypeInfo() tdp.Type {
 			SchemaName: "can_read_all_group_messages",
 		},
 		{
+			Name:       "HasMainWebApp",
+			SchemaName: "has_main_web_app",
+		},
+		{
 			Name:       "IsInline",
 			SchemaName: "is_inline",
 		},
@@ -430,6 +444,10 @@ func (u *UserTypeBot) TypeInfo() tdp.Type {
 			Name:       "CanBeAddedToAttachmentMenu",
 			SchemaName: "can_be_added_to_attachment_menu",
 		},
+		{
+			Name:       "ActiveUserCount",
+			SchemaName: "active_user_count",
+		},
 	}
 	return typ
 }
@@ -437,7 +455,7 @@ func (u *UserTypeBot) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserTypeBot) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userTypeBot#ae30a83a as nil")
+		return fmt.Errorf("can't encode userTypeBot#8ba3cc26 as nil")
 	}
 	b.PutID(UserTypeBotTypeID)
 	return u.EncodeBare(b)
@@ -446,26 +464,28 @@ func (u *UserTypeBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserTypeBot) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userTypeBot#ae30a83a as nil")
+		return fmt.Errorf("can't encode userTypeBot#8ba3cc26 as nil")
 	}
 	b.PutBool(u.CanBeEdited)
 	b.PutBool(u.CanJoinGroups)
 	b.PutBool(u.CanReadAllGroupMessages)
+	b.PutBool(u.HasMainWebApp)
 	b.PutBool(u.IsInline)
 	b.PutString(u.InlineQueryPlaceholder)
 	b.PutBool(u.NeedLocation)
 	b.PutBool(u.CanConnectToBusiness)
 	b.PutBool(u.CanBeAddedToAttachmentMenu)
+	b.PutInt32(u.ActiveUserCount)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserTypeBot) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userTypeBot#ae30a83a to nil")
+		return fmt.Errorf("can't decode userTypeBot#8ba3cc26 to nil")
 	}
 	if err := b.ConsumeID(UserTypeBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode userTypeBot#ae30a83a: %w", err)
+		return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -473,63 +493,77 @@ func (u *UserTypeBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserTypeBot) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userTypeBot#ae30a83a to nil")
+		return fmt.Errorf("can't decode userTypeBot#8ba3cc26 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_be_edited: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_be_edited: %w", err)
 		}
 		u.CanBeEdited = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_join_groups: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_join_groups: %w", err)
 		}
 		u.CanJoinGroups = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_read_all_group_messages: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_read_all_group_messages: %w", err)
 		}
 		u.CanReadAllGroupMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field is_inline: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field has_main_web_app: %w", err)
+		}
+		u.HasMainWebApp = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field is_inline: %w", err)
 		}
 		u.IsInline = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field inline_query_placeholder: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field inline_query_placeholder: %w", err)
 		}
 		u.InlineQueryPlaceholder = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field need_location: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field need_location: %w", err)
 		}
 		u.NeedLocation = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_connect_to_business: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_connect_to_business: %w", err)
 		}
 		u.CanConnectToBusiness = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_be_added_to_attachment_menu: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_be_added_to_attachment_menu: %w", err)
 		}
 		u.CanBeAddedToAttachmentMenu = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field active_user_count: %w", err)
+		}
+		u.ActiveUserCount = value
 	}
 	return nil
 }
@@ -537,7 +571,7 @@ func (u *UserTypeBot) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userTypeBot#ae30a83a as nil")
+		return fmt.Errorf("can't encode userTypeBot#8ba3cc26 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userTypeBot")
@@ -550,6 +584,9 @@ func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("can_read_all_group_messages")
 	b.PutBool(u.CanReadAllGroupMessages)
+	b.Comma()
+	b.FieldStart("has_main_web_app")
+	b.PutBool(u.HasMainWebApp)
 	b.Comma()
 	b.FieldStart("is_inline")
 	b.PutBool(u.IsInline)
@@ -566,6 +603,9 @@ func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("can_be_added_to_attachment_menu")
 	b.PutBool(u.CanBeAddedToAttachmentMenu)
 	b.Comma()
+	b.FieldStart("active_user_count")
+	b.PutInt32(u.ActiveUserCount)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -574,63 +614,75 @@ func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserTypeBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userTypeBot#ae30a83a to nil")
+		return fmt.Errorf("can't decode userTypeBot#8ba3cc26 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userTypeBot"); err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: %w", err)
 			}
 		case "can_be_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_be_edited: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_be_edited: %w", err)
 			}
 			u.CanBeEdited = value
 		case "can_join_groups":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_join_groups: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_join_groups: %w", err)
 			}
 			u.CanJoinGroups = value
 		case "can_read_all_group_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_read_all_group_messages: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_read_all_group_messages: %w", err)
 			}
 			u.CanReadAllGroupMessages = value
+		case "has_main_web_app":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field has_main_web_app: %w", err)
+			}
+			u.HasMainWebApp = value
 		case "is_inline":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field is_inline: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field is_inline: %w", err)
 			}
 			u.IsInline = value
 		case "inline_query_placeholder":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field inline_query_placeholder: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field inline_query_placeholder: %w", err)
 			}
 			u.InlineQueryPlaceholder = value
 		case "need_location":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field need_location: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field need_location: %w", err)
 			}
 			u.NeedLocation = value
 		case "can_connect_to_business":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_connect_to_business: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_connect_to_business: %w", err)
 			}
 			u.CanConnectToBusiness = value
 		case "can_be_added_to_attachment_menu":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#ae30a83a: field can_be_added_to_attachment_menu: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field can_be_added_to_attachment_menu: %w", err)
 			}
 			u.CanBeAddedToAttachmentMenu = value
+		case "active_user_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#8ba3cc26: field active_user_count: %w", err)
+			}
+			u.ActiveUserCount = value
 		default:
 			return b.Skip()
 		}
@@ -660,6 +712,14 @@ func (u *UserTypeBot) GetCanReadAllGroupMessages() (value bool) {
 		return
 	}
 	return u.CanReadAllGroupMessages
+}
+
+// GetHasMainWebApp returns value of HasMainWebApp field.
+func (u *UserTypeBot) GetHasMainWebApp() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.HasMainWebApp
 }
 
 // GetIsInline returns value of IsInline field.
@@ -700,6 +760,14 @@ func (u *UserTypeBot) GetCanBeAddedToAttachmentMenu() (value bool) {
 		return
 	}
 	return u.CanBeAddedToAttachmentMenu
+}
+
+// GetActiveUserCount returns value of ActiveUserCount field.
+func (u *UserTypeBot) GetActiveUserCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.ActiveUserCount
 }
 
 // UserTypeUnknown represents TL type `userTypeUnknown#d4d0613d`.
@@ -847,7 +915,7 @@ const UserTypeClassName = "UserType"
 //	switch v := g.(type) {
 //	case *tdapi.UserTypeRegular: // userTypeRegular#dc51699b
 //	case *tdapi.UserTypeDeleted: // userTypeDeleted#94403d24
-//	case *tdapi.UserTypeBot: // userTypeBot#ae30a83a
+//	case *tdapi.UserTypeBot: // userTypeBot#8ba3cc26
 //	case *tdapi.UserTypeUnknown: // userTypeUnknown#d4d0613d
 //	default: panic(v)
 //	}
@@ -895,7 +963,7 @@ func DecodeUserType(buf *bin.Buffer) (UserTypeClass, error) {
 		}
 		return &v, nil
 	case UserTypeBotTypeID:
-		// Decoding userTypeBot#ae30a83a.
+		// Decoding userTypeBot#8ba3cc26.
 		v := UserTypeBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)
@@ -935,7 +1003,7 @@ func DecodeTDLibJSONUserType(buf tdjson.Decoder) (UserTypeClass, error) {
 		}
 		return &v, nil
 	case "userTypeBot":
-		// Decoding userTypeBot#ae30a83a.
+		// Decoding userTypeBot#8ba3cc26.
 		v := UserTypeBot{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)

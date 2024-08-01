@@ -35,7 +35,8 @@ var (
 type EditMessageSchedulingStateRequest struct {
 	// The chat the message belongs to
 	ChatID int64
-	// Identifier of the message
+	// Identifier of the message. Use messageProperties.can_edit_scheduling_state to check
+	// whether the message is suitable
 	MessageID int64
 	// The new message scheduling state; pass null to send the message immediately
 	SchedulingState MessageSchedulingStateClass

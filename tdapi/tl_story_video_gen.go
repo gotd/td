@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryVideo represents TL type `storyVideo#8588ba3`.
+// StoryVideo represents TL type `storyVideo#562b0a45`.
 type StoryVideo struct {
 	// Duration of the video, in seconds
 	Duration float64
@@ -50,12 +50,14 @@ type StoryVideo struct {
 	Thumbnail Thumbnail
 	// Size of file prefix, which is supposed to be preloaded, in bytes
 	PreloadPrefixSize int32
+	// Timestamp of the frame used as video thumbnail
+	CoverFrameTimestamp float64
 	// File containing the video
 	Video File
 }
 
 // StoryVideoTypeID is TL type id of StoryVideo.
-const StoryVideoTypeID = 0x8588ba3
+const StoryVideoTypeID = 0x562b0a45
 
 // Ensuring interfaces in compile-time for StoryVideo.
 var (
@@ -91,6 +93,9 @@ func (s *StoryVideo) Zero() bool {
 		return false
 	}
 	if !(s.PreloadPrefixSize == 0) {
+		return false
+	}
+	if !(s.CoverFrameTimestamp == 0) {
 		return false
 	}
 	if !(s.Video.Zero()) {
@@ -165,6 +170,10 @@ func (s *StoryVideo) TypeInfo() tdp.Type {
 			SchemaName: "preload_prefix_size",
 		},
 		{
+			Name:       "CoverFrameTimestamp",
+			SchemaName: "cover_frame_timestamp",
+		},
+		{
 			Name:       "Video",
 			SchemaName: "video",
 		},
@@ -175,7 +184,7 @@ func (s *StoryVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StoryVideo) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyVideo#8588ba3 as nil")
+		return fmt.Errorf("can't encode storyVideo#562b0a45 as nil")
 	}
 	b.PutID(StoryVideoTypeID)
 	return s.EncodeBare(b)
@@ -184,7 +193,7 @@ func (s *StoryVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryVideo) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyVideo#8588ba3 as nil")
+		return fmt.Errorf("can't encode storyVideo#562b0a45 as nil")
 	}
 	b.PutDouble(s.Duration)
 	b.PutInt32(s.Width)
@@ -192,14 +201,15 @@ func (s *StoryVideo) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(s.HasStickers)
 	b.PutBool(s.IsAnimation)
 	if err := s.Minithumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyVideo#8588ba3: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode storyVideo#562b0a45: field minithumbnail: %w", err)
 	}
 	if err := s.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyVideo#8588ba3: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode storyVideo#562b0a45: field thumbnail: %w", err)
 	}
 	b.PutInt32(s.PreloadPrefixSize)
+	b.PutDouble(s.CoverFrameTimestamp)
 	if err := s.Video.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyVideo#8588ba3: field video: %w", err)
+		return fmt.Errorf("unable to encode storyVideo#562b0a45: field video: %w", err)
 	}
 	return nil
 }
@@ -207,10 +217,10 @@ func (s *StoryVideo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryVideo) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyVideo#8588ba3 to nil")
+		return fmt.Errorf("can't decode storyVideo#562b0a45 to nil")
 	}
 	if err := b.ConsumeID(StoryVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyVideo#8588ba3: %w", err)
+		return fmt.Errorf("unable to decode storyVideo#562b0a45: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -218,63 +228,70 @@ func (s *StoryVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryVideo) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyVideo#8588ba3 to nil")
+		return fmt.Errorf("can't decode storyVideo#562b0a45 to nil")
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field duration: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field duration: %w", err)
 		}
 		s.Duration = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field width: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field width: %w", err)
 		}
 		s.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field height: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field height: %w", err)
 		}
 		s.Height = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field has_stickers: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field has_stickers: %w", err)
 		}
 		s.HasStickers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field is_animation: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field is_animation: %w", err)
 		}
 		s.IsAnimation = value
 	}
 	{
 		if err := s.Minithumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field minithumbnail: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field minithumbnail: %w", err)
 		}
 	}
 	{
 		if err := s.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field thumbnail: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field preload_prefix_size: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field preload_prefix_size: %w", err)
 		}
 		s.PreloadPrefixSize = value
 	}
 	{
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field cover_frame_timestamp: %w", err)
+		}
+		s.CoverFrameTimestamp = value
+	}
+	{
 		if err := s.Video.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyVideo#8588ba3: field video: %w", err)
+			return fmt.Errorf("unable to decode storyVideo#562b0a45: field video: %w", err)
 		}
 	}
 	return nil
@@ -283,7 +300,7 @@ func (s *StoryVideo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StoryVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyVideo#8588ba3 as nil")
+		return fmt.Errorf("can't encode storyVideo#562b0a45 as nil")
 	}
 	b.ObjStart()
 	b.PutID("storyVideo")
@@ -305,20 +322,23 @@ func (s *StoryVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := s.Minithumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode storyVideo#8588ba3: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode storyVideo#562b0a45: field minithumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode storyVideo#8588ba3: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode storyVideo#562b0a45: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("preload_prefix_size")
 	b.PutInt32(s.PreloadPrefixSize)
 	b.Comma()
+	b.FieldStart("cover_frame_timestamp")
+	b.PutDouble(s.CoverFrameTimestamp)
+	b.Comma()
 	b.FieldStart("video")
 	if err := s.Video.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode storyVideo#8588ba3: field video: %w", err)
+		return fmt.Errorf("unable to encode storyVideo#562b0a45: field video: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -329,62 +349,68 @@ func (s *StoryVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StoryVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyVideo#8588ba3 to nil")
+		return fmt.Errorf("can't decode storyVideo#562b0a45 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storyVideo"); err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: %w", err)
 			}
 		case "duration":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field duration: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field duration: %w", err)
 			}
 			s.Duration = value
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field width: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field width: %w", err)
 			}
 			s.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field height: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field height: %w", err)
 			}
 			s.Height = value
 		case "has_stickers":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field has_stickers: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field has_stickers: %w", err)
 			}
 			s.HasStickers = value
 		case "is_animation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field is_animation: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field is_animation: %w", err)
 			}
 			s.IsAnimation = value
 		case "minithumbnail":
 			if err := s.Minithumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field minithumbnail: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field minithumbnail: %w", err)
 			}
 		case "thumbnail":
 			if err := s.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field thumbnail: %w", err)
 			}
 		case "preload_prefix_size":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field preload_prefix_size: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field preload_prefix_size: %w", err)
 			}
 			s.PreloadPrefixSize = value
+		case "cover_frame_timestamp":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field cover_frame_timestamp: %w", err)
+			}
+			s.CoverFrameTimestamp = value
 		case "video":
 			if err := s.Video.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode storyVideo#8588ba3: field video: %w", err)
+				return fmt.Errorf("unable to decode storyVideo#562b0a45: field video: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -455,6 +481,14 @@ func (s *StoryVideo) GetPreloadPrefixSize() (value int32) {
 		return
 	}
 	return s.PreloadPrefixSize
+}
+
+// GetCoverFrameTimestamp returns value of CoverFrameTimestamp field.
+func (s *StoryVideo) GetCoverFrameTimestamp() (value float64) {
+	if s == nil {
+		return
+	}
+	return s.CoverFrameTimestamp
 }
 
 // GetVideo returns value of Video field.

@@ -35,7 +35,8 @@ var (
 type GetCallbackQueryAnswerRequest struct {
 	// Identifier of the chat with the message
 	ChatID int64
-	// Identifier of the message from which the query originated
+	// Identifier of the message from which the query originated. The message must not be
+	// scheduled
 	MessageID int64
 	// Query payload
 	Payload CallbackQueryPayloadClass

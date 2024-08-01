@@ -1372,7 +1372,7 @@ func (i *InputMessageDocument) GetCaption() (value FormattedText) {
 
 // InputMessagePaidMedia represents TL type `inputMessagePaidMedia#36f9c23c`.
 type InputMessagePaidMedia struct {
-	// The number of stars that must be paid to see the media;
+	// The number of Telegram Stars that must be paid to see the media;
 	// 1-getOption("paid_media_message_star_count_max")
 	StarCount int64
 	// The content of the paid media
@@ -5866,8 +5866,8 @@ func (i *InputMessageStory) GetStoryID() (value int32) {
 type InputMessageForwarded struct {
 	// Identifier for the chat this forwarded message came from
 	FromChatID int64
-	// Identifier of the message to forward. A message can be forwarded only if message
-	// can_be_forwarded
+	// Identifier of the message to forward. A message can be forwarded only if
+	// messageProperties.can_be_forwarded
 	MessageID int64
 	// True, if a game message is being shared from a launched game; applies only to game
 	// messages

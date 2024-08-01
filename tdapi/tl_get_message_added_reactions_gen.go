@@ -35,7 +35,8 @@ var (
 type GetMessageAddedReactionsRequest struct {
 	// Identifier of the chat to which the message belongs
 	ChatID int64
-	// Identifier of the message
+	// Identifier of the message. Use messageProperties.can_get_added_reactions to check
+	// whether added reactions can be received for the message
 	MessageID int64
 	// Type of the reactions to return; pass null to return all added reactions
 	ReactionType ReactionTypeClass

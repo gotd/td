@@ -33,7 +33,7 @@ var (
 
 // GetStarRevenueStatisticsRequest represents TL type `getStarRevenueStatistics#f07b4517`.
 type GetStarRevenueStatisticsRequest struct {
-	// Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or
+	// Identifier of the owner of the Telegram Stars; can be identifier of an owned bot, or
 	// identifier of a channel chat with supergroupFullInfo.can_get_star_revenue_statistics
 	// == true
 	OwnerID MessageSenderClass

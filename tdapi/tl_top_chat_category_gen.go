@@ -686,6 +686,137 @@ func (t *TopChatCategoryInlineBots) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// TopChatCategoryWebAppBots represents TL type `topChatCategoryWebAppBots#5f6d6fd`.
+type TopChatCategoryWebAppBots struct {
+}
+
+// TopChatCategoryWebAppBotsTypeID is TL type id of TopChatCategoryWebAppBots.
+const TopChatCategoryWebAppBotsTypeID = 0x5f6d6fd
+
+// construct implements constructor of TopChatCategoryClass.
+func (t TopChatCategoryWebAppBots) construct() TopChatCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopChatCategoryWebAppBots.
+var (
+	_ bin.Encoder     = &TopChatCategoryWebAppBots{}
+	_ bin.Decoder     = &TopChatCategoryWebAppBots{}
+	_ bin.BareEncoder = &TopChatCategoryWebAppBots{}
+	_ bin.BareDecoder = &TopChatCategoryWebAppBots{}
+
+	_ TopChatCategoryClass = &TopChatCategoryWebAppBots{}
+)
+
+func (t *TopChatCategoryWebAppBots) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TopChatCategoryWebAppBots) String() string {
+	if t == nil {
+		return "TopChatCategoryWebAppBots(nil)"
+	}
+	type Alias TopChatCategoryWebAppBots
+	return fmt.Sprintf("TopChatCategoryWebAppBots%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TopChatCategoryWebAppBots) TypeID() uint32 {
+	return TopChatCategoryWebAppBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TopChatCategoryWebAppBots) TypeName() string {
+	return "topChatCategoryWebAppBots"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopChatCategoryWebAppBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topChatCategoryWebAppBots",
+		ID:   TopChatCategoryWebAppBotsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TopChatCategoryWebAppBots) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryWebAppBots#5f6d6fd as nil")
+	}
+	b.PutID(TopChatCategoryWebAppBotsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopChatCategoryWebAppBots) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryWebAppBots#5f6d6fd as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TopChatCategoryWebAppBots) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topChatCategoryWebAppBots#5f6d6fd to nil")
+	}
+	if err := b.ConsumeID(TopChatCategoryWebAppBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode topChatCategoryWebAppBots#5f6d6fd: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopChatCategoryWebAppBots) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topChatCategoryWebAppBots#5f6d6fd to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryWebAppBots) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryWebAppBots#5f6d6fd as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryWebAppBots")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryWebAppBots) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topChatCategoryWebAppBots#5f6d6fd to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("topChatCategoryWebAppBots"); err != nil {
+				return fmt.Errorf("unable to decode topChatCategoryWebAppBots#5f6d6fd: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // TopChatCategoryCalls represents TL type `topChatCategoryCalls#153b50dd`.
 type TopChatCategoryCalls struct {
 }
@@ -965,6 +1096,7 @@ const TopChatCategoryClassName = "TopChatCategory"
 //	case *tdapi.TopChatCategoryGroups: // topChatCategoryGroups#5b32d08e
 //	case *tdapi.TopChatCategoryChannels: // topChatCategoryChannels#e22600e3
 //	case *tdapi.TopChatCategoryInlineBots: // topChatCategoryInlineBots#1678eb7c
+//	case *tdapi.TopChatCategoryWebAppBots: // topChatCategoryWebAppBots#5f6d6fd
 //	case *tdapi.TopChatCategoryCalls: // topChatCategoryCalls#153b50dd
 //	case *tdapi.TopChatCategoryForwardChats: // topChatCategoryForwardChats#6515b7d5
 //	default: panic(v)
@@ -1033,6 +1165,13 @@ func DecodeTopChatCategory(buf *bin.Buffer) (TopChatCategoryClass, error) {
 			return nil, fmt.Errorf("unable to decode TopChatCategoryClass: %w", err)
 		}
 		return &v, nil
+	case TopChatCategoryWebAppBotsTypeID:
+		// Decoding topChatCategoryWebAppBots#5f6d6fd.
+		v := TopChatCategoryWebAppBots{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TopChatCategoryClass: %w", err)
+		}
+		return &v, nil
 	case TopChatCategoryCallsTypeID:
 		// Decoding topChatCategoryCalls#153b50dd.
 		v := TopChatCategoryCalls{}
@@ -1090,6 +1229,13 @@ func DecodeTDLibJSONTopChatCategory(buf tdjson.Decoder) (TopChatCategoryClass, e
 	case "topChatCategoryInlineBots":
 		// Decoding topChatCategoryInlineBots#1678eb7c.
 		v := TopChatCategoryInlineBots{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TopChatCategoryClass: %w", err)
+		}
+		return &v, nil
+	case "topChatCategoryWebAppBots":
+		// Decoding topChatCategoryWebAppBots#5f6d6fd.
+		v := TopChatCategoryWebAppBots{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TopChatCategoryClass: %w", err)
 		}

@@ -266,7 +266,7 @@ func (i *InputStoryContentPhoto) GetAddedStickerFileIDs() (value []int32) {
 	return i.AddedStickerFileIDs
 }
 
-// InputStoryContentVideo represents TL type `inputStoryContentVideo#d7383f99`.
+// InputStoryContentVideo represents TL type `inputStoryContentVideo#cc1e4239`.
 type InputStoryContentVideo struct {
 	// Video to be sent. The video size must be 720x1280. The video must be streamable and
 	// stored in MPEG4 format, after encoding with x265 codec and key frames added each
@@ -276,12 +276,14 @@ type InputStoryContentVideo struct {
 	AddedStickerFileIDs []int32
 	// Precise duration of the video, in seconds; 0-60
 	Duration float64
+	// Timestamp of the frame, which will be used as video thumbnail
+	CoverFrameTimestamp float64
 	// True, if the video has no sound
 	IsAnimation bool
 }
 
 // InputStoryContentVideoTypeID is TL type id of InputStoryContentVideo.
-const InputStoryContentVideoTypeID = 0xd7383f99
+const InputStoryContentVideoTypeID = 0xcc1e4239
 
 // construct implements constructor of InputStoryContentClass.
 func (i InputStoryContentVideo) construct() InputStoryContentClass { return &i }
@@ -307,6 +309,9 @@ func (i *InputStoryContentVideo) Zero() bool {
 		return false
 	}
 	if !(i.Duration == 0) {
+		return false
+	}
+	if !(i.CoverFrameTimestamp == 0) {
 		return false
 	}
 	if !(i.IsAnimation == false) {
@@ -361,6 +366,10 @@ func (i *InputStoryContentVideo) TypeInfo() tdp.Type {
 			SchemaName: "duration",
 		},
 		{
+			Name:       "CoverFrameTimestamp",
+			SchemaName: "cover_frame_timestamp",
+		},
+		{
 			Name:       "IsAnimation",
 			SchemaName: "is_animation",
 		},
@@ -371,7 +380,7 @@ func (i *InputStoryContentVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputStoryContentVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStoryContentVideo#d7383f99 as nil")
+		return fmt.Errorf("can't encode inputStoryContentVideo#cc1e4239 as nil")
 	}
 	b.PutID(InputStoryContentVideoTypeID)
 	return i.EncodeBare(b)
@@ -380,19 +389,20 @@ func (i *InputStoryContentVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStoryContentVideo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStoryContentVideo#d7383f99 as nil")
+		return fmt.Errorf("can't encode inputStoryContentVideo#cc1e4239 as nil")
 	}
 	if i.Video == nil {
-		return fmt.Errorf("unable to encode inputStoryContentVideo#d7383f99: field video is nil")
+		return fmt.Errorf("unable to encode inputStoryContentVideo#cc1e4239: field video is nil")
 	}
 	if err := i.Video.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStoryContentVideo#d7383f99: field video: %w", err)
+		return fmt.Errorf("unable to encode inputStoryContentVideo#cc1e4239: field video: %w", err)
 	}
 	b.PutInt(len(i.AddedStickerFileIDs))
 	for _, v := range i.AddedStickerFileIDs {
 		b.PutInt32(v)
 	}
 	b.PutDouble(i.Duration)
+	b.PutDouble(i.CoverFrameTimestamp)
 	b.PutBool(i.IsAnimation)
 	return nil
 }
@@ -400,10 +410,10 @@ func (i *InputStoryContentVideo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputStoryContentVideo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStoryContentVideo#d7383f99 to nil")
+		return fmt.Errorf("can't decode inputStoryContentVideo#cc1e4239 to nil")
 	}
 	if err := b.ConsumeID(InputStoryContentVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: %w", err)
+		return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -411,19 +421,19 @@ func (i *InputStoryContentVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStoryContentVideo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStoryContentVideo#d7383f99 to nil")
+		return fmt.Errorf("can't decode inputStoryContentVideo#cc1e4239 to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field video: %w", err)
+			return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field video: %w", err)
 		}
 		i.Video = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field added_sticker_file_ids: %w", err)
+			return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field added_sticker_file_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -432,7 +442,7 @@ func (i *InputStoryContentVideo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field added_sticker_file_ids: %w", err)
 			}
 			i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 		}
@@ -440,14 +450,21 @@ func (i *InputStoryContentVideo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field duration: %w", err)
+			return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field duration: %w", err)
 		}
 		i.Duration = value
 	}
 	{
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field cover_frame_timestamp: %w", err)
+		}
+		i.CoverFrameTimestamp = value
+	}
+	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field is_animation: %w", err)
+			return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field is_animation: %w", err)
 		}
 		i.IsAnimation = value
 	}
@@ -457,17 +474,17 @@ func (i *InputStoryContentVideo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputStoryContentVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStoryContentVideo#d7383f99 as nil")
+		return fmt.Errorf("can't encode inputStoryContentVideo#cc1e4239 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputStoryContentVideo")
 	b.Comma()
 	b.FieldStart("video")
 	if i.Video == nil {
-		return fmt.Errorf("unable to encode inputStoryContentVideo#d7383f99: field video is nil")
+		return fmt.Errorf("unable to encode inputStoryContentVideo#cc1e4239: field video is nil")
 	}
 	if err := i.Video.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputStoryContentVideo#d7383f99: field video: %w", err)
+		return fmt.Errorf("unable to encode inputStoryContentVideo#cc1e4239: field video: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("added_sticker_file_ids")
@@ -482,6 +499,9 @@ func (i *InputStoryContentVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("duration")
 	b.PutDouble(i.Duration)
 	b.Comma()
+	b.FieldStart("cover_frame_timestamp")
+	b.PutDouble(i.CoverFrameTimestamp)
+	b.Comma()
 	b.FieldStart("is_animation")
 	b.PutBool(i.IsAnimation)
 	b.Comma()
@@ -493,42 +513,48 @@ func (i *InputStoryContentVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputStoryContentVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStoryContentVideo#d7383f99 to nil")
+		return fmt.Errorf("can't decode inputStoryContentVideo#cc1e4239 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputStoryContentVideo"); err != nil {
-				return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: %w", err)
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: %w", err)
 			}
 		case "video":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field video: %w", err)
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field video: %w", err)
 			}
 			i.Video = value
 		case "added_sticker_file_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field added_sticker_file_ids: %w", err)
+					return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field added_sticker_file_ids: %w", err)
 				}
 				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field added_sticker_file_ids: %w", err)
 			}
 		case "duration":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field duration: %w", err)
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field duration: %w", err)
 			}
 			i.Duration = value
+		case "cover_frame_timestamp":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field cover_frame_timestamp: %w", err)
+			}
+			i.CoverFrameTimestamp = value
 		case "is_animation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputStoryContentVideo#d7383f99: field is_animation: %w", err)
+				return fmt.Errorf("unable to decode inputStoryContentVideo#cc1e4239: field is_animation: %w", err)
 			}
 			i.IsAnimation = value
 		default:
@@ -562,6 +588,14 @@ func (i *InputStoryContentVideo) GetDuration() (value float64) {
 	return i.Duration
 }
 
+// GetCoverFrameTimestamp returns value of CoverFrameTimestamp field.
+func (i *InputStoryContentVideo) GetCoverFrameTimestamp() (value float64) {
+	if i == nil {
+		return
+	}
+	return i.CoverFrameTimestamp
+}
+
 // GetIsAnimation returns value of IsAnimation field.
 func (i *InputStoryContentVideo) GetIsAnimation() (value bool) {
 	if i == nil {
@@ -583,7 +617,7 @@ const InputStoryContentClassName = "InputStoryContent"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.InputStoryContentPhoto: // inputStoryContentPhoto#3286fbe0
-//	case *tdapi.InputStoryContentVideo: // inputStoryContentVideo#d7383f99
+//	case *tdapi.InputStoryContentVideo: // inputStoryContentVideo#cc1e4239
 //	default: panic(v)
 //	}
 type InputStoryContentClass interface {
@@ -626,7 +660,7 @@ func DecodeInputStoryContent(buf *bin.Buffer) (InputStoryContentClass, error) {
 		}
 		return &v, nil
 	case InputStoryContentVideoTypeID:
-		// Decoding inputStoryContentVideo#d7383f99.
+		// Decoding inputStoryContentVideo#cc1e4239.
 		v := InputStoryContentVideo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStoryContentClass: %w", err)
@@ -652,7 +686,7 @@ func DecodeTDLibJSONInputStoryContent(buf tdjson.Decoder) (InputStoryContentClas
 		}
 		return &v, nil
 	case "inputStoryContentVideo":
-		// Decoding inputStoryContentVideo#d7383f99.
+		// Decoding inputStoryContentVideo#cc1e4239.
 		v := InputStoryContentVideo{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStoryContentClass: %w", err)
