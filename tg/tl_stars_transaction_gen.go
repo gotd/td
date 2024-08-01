@@ -43,6 +43,8 @@ type StarsTransaction struct {
 	Pending bool
 	// Failed field of StarsTransaction.
 	Failed bool
+	// Gift field of StarsTransaction.
+	Gift bool
 	// ID field of StarsTransaction.
 	ID string
 	// Stars field of StarsTransaction.
@@ -112,6 +114,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.Failed == false) {
 		return false
 	}
+	if !(s.Gift == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -166,6 +171,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetRefund() (value bool)
 	GetPending() (value bool)
 	GetFailed() (value bool)
+	GetGift() (value bool)
 	GetID() (value string)
 	GetStars() (value int64)
 	GetDate() (value int)
@@ -182,6 +188,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.Refund = from.GetRefund()
 	s.Pending = from.GetPending()
 	s.Failed = from.GetFailed()
+	s.Gift = from.GetGift()
 	s.ID = from.GetID()
 	s.Stars = from.GetStars()
 	s.Date = from.GetDate()
@@ -259,6 +266,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(6),
 		},
 		{
+			Name:       "Gift",
+			SchemaName: "gift",
+			Null:       !s.Flags.Has(10),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -328,6 +340,9 @@ func (s *StarsTransaction) SetFlags() {
 	}
 	if !(s.Failed == false) {
 		s.Flags.Set(6)
+	}
+	if !(s.Gift == false) {
+		s.Flags.Set(10)
 	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
@@ -446,6 +461,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.Refund = s.Flags.Has(3)
 	s.Pending = s.Flags.Has(4)
 	s.Failed = s.Flags.Has(6)
+	s.Gift = s.Flags.Has(10)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -598,6 +614,25 @@ func (s *StarsTransaction) GetFailed() (value bool) {
 		return
 	}
 	return s.Flags.Has(6)
+}
+
+// SetGift sets value of Gift conditional field.
+func (s *StarsTransaction) SetGift(value bool) {
+	if value {
+		s.Flags.Set(10)
+		s.Gift = true
+	} else {
+		s.Flags.Unset(10)
+		s.Gift = false
+	}
+}
+
+// GetGift returns value of Gift conditional field.
+func (s *StarsTransaction) GetGift() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(10)
 }
 
 // GetID returns value of ID field.

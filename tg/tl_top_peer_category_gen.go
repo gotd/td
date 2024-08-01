@@ -847,6 +847,107 @@ func (t *TopPeerCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// TopPeerCategoryBotsApp represents TL type `topPeerCategoryBotsApp#fd9e7bec`.
+//
+// See https://core.telegram.org/constructor/topPeerCategoryBotsApp for reference.
+type TopPeerCategoryBotsApp struct {
+}
+
+// TopPeerCategoryBotsAppTypeID is TL type id of TopPeerCategoryBotsApp.
+const TopPeerCategoryBotsAppTypeID = 0xfd9e7bec
+
+// construct implements constructor of TopPeerCategoryClass.
+func (t TopPeerCategoryBotsApp) construct() TopPeerCategoryClass { return &t }
+
+// Ensuring interfaces in compile-time for TopPeerCategoryBotsApp.
+var (
+	_ bin.Encoder     = &TopPeerCategoryBotsApp{}
+	_ bin.Decoder     = &TopPeerCategoryBotsApp{}
+	_ bin.BareEncoder = &TopPeerCategoryBotsApp{}
+	_ bin.BareDecoder = &TopPeerCategoryBotsApp{}
+
+	_ TopPeerCategoryClass = &TopPeerCategoryBotsApp{}
+)
+
+func (t *TopPeerCategoryBotsApp) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryBotsApp) String() string {
+	if t == nil {
+		return "TopPeerCategoryBotsApp(nil)"
+	}
+	type Alias TopPeerCategoryBotsApp
+	return fmt.Sprintf("TopPeerCategoryBotsApp%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TopPeerCategoryBotsApp) TypeID() uint32 {
+	return TopPeerCategoryBotsAppTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TopPeerCategoryBotsApp) TypeName() string {
+	return "topPeerCategoryBotsApp"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryBotsApp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryBotsApp",
+		ID:   TopPeerCategoryBotsAppTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TopPeerCategoryBotsApp) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryBotsApp#fd9e7bec as nil")
+	}
+	b.PutID(TopPeerCategoryBotsAppTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryBotsApp) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryBotsApp#fd9e7bec as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TopPeerCategoryBotsApp) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryBotsApp#fd9e7bec to nil")
+	}
+	if err := b.ConsumeID(TopPeerCategoryBotsAppTypeID); err != nil {
+		return fmt.Errorf("unable to decode topPeerCategoryBotsApp#fd9e7bec: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryBotsApp) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryBotsApp#fd9e7bec to nil")
+	}
+	return nil
+}
+
 // TopPeerCategoryClassName is schema name of TopPeerCategoryClass.
 const TopPeerCategoryClassName = "TopPeerCategory"
 
@@ -869,6 +970,7 @@ const TopPeerCategoryClassName = "TopPeerCategory"
 //	case *tg.TopPeerCategoryPhoneCalls: // topPeerCategoryPhoneCalls#1e76a78c
 //	case *tg.TopPeerCategoryForwardUsers: // topPeerCategoryForwardUsers#a8406ca9
 //	case *tg.TopPeerCategoryForwardChats: // topPeerCategoryForwardChats#fbeec0f0
+//	case *tg.TopPeerCategoryBotsApp: // topPeerCategoryBotsApp#fd9e7bec
 //	default: panic(v)
 //	}
 type TopPeerCategoryClass interface {
@@ -949,6 +1051,13 @@ func DecodeTopPeerCategory(buf *bin.Buffer) (TopPeerCategoryClass, error) {
 	case TopPeerCategoryForwardChatsTypeID:
 		// Decoding topPeerCategoryForwardChats#fbeec0f0.
 		v := TopPeerCategoryForwardChats{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
+		}
+		return &v, nil
+	case TopPeerCategoryBotsAppTypeID:
+		// Decoding topPeerCategoryBotsApp#fd9e7bec.
+		v := TopPeerCategoryBotsApp{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", err)
 		}
