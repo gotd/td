@@ -33,7 +33,7 @@ var (
 
 // GetStarTransactionsRequest represents TL type `getStarTransactions#eb1e109d`.
 type GetStarTransactionsRequest struct {
-	// Identifier of the owner of the Telegram stars; can be the identifier of the current
+	// Identifier of the owner of the Telegram Stars; can be the identifier of the current
 	// user, identifier of an owned bot,
 	OwnerID MessageSenderClass
 	// Direction of the transactions to receive; pass null to get all transactions

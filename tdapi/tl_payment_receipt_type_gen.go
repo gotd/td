@@ -369,7 +369,7 @@ func (p *PaymentReceiptTypeRegular) GetTipAmount() (value int64) {
 
 // PaymentReceiptTypeStars represents TL type `paymentReceiptTypeStars#1194074c`.
 type PaymentReceiptTypeStars struct {
-	// Number of Telegram stars that were paid
+	// Number of Telegram Stars that were paid
 	StarCount int64
 	// Unique identifier of the transaction that can be used to dispute it
 	TransactionID string

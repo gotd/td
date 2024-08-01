@@ -35,7 +35,7 @@ var (
 type ReportSupergroupAntiSpamFalsePositiveRequest struct {
 	// Supergroup identifier
 	SupergroupID int64
-	// Identifier of the erroneously deleted message
+	// Identifier of the erroneously deleted message from chatEventMessageDeleted
 	MessageID int64
 }
 

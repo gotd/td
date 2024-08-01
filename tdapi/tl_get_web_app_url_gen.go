@@ -36,12 +36,11 @@ type GetWebAppURLRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
 	// The URL from a keyboardButtonTypeWebApp button, inlineQueryResultsButtonTypeWebApp
-	// button, an internalLinkTypeSideMenuBot link, or an empty when the bot is opened from
-	// the side menu
+	// button, or an empty string when the bot is opened from the side menu
 	URL string
 	// Preferred Web App theme; pass null to use the default theme
 	Theme ThemeParameters
-	// Short name of the application; 0-64 English letters, digits, and underscores
+	// Short name of the current application; 0-64 English letters, digits, and underscores
 	ApplicationName string
 }
 

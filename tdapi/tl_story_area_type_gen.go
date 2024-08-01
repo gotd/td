@@ -1041,6 +1041,240 @@ func (s *StoryAreaTypeLink) GetURL() (value string) {
 	return s.URL
 }
 
+// StoryAreaTypeWeather represents TL type `storyAreaTypeWeather#a6587dbe`.
+type StoryAreaTypeWeather struct {
+	// Temperature, in degree Celsius
+	Temperature float64
+	// Emoji representing the weather
+	Emoji string
+	// A color of the area background in the ARGB format
+	BackgroundColor int32
+}
+
+// StoryAreaTypeWeatherTypeID is TL type id of StoryAreaTypeWeather.
+const StoryAreaTypeWeatherTypeID = 0xa6587dbe
+
+// construct implements constructor of StoryAreaTypeClass.
+func (s StoryAreaTypeWeather) construct() StoryAreaTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for StoryAreaTypeWeather.
+var (
+	_ bin.Encoder     = &StoryAreaTypeWeather{}
+	_ bin.Decoder     = &StoryAreaTypeWeather{}
+	_ bin.BareEncoder = &StoryAreaTypeWeather{}
+	_ bin.BareDecoder = &StoryAreaTypeWeather{}
+
+	_ StoryAreaTypeClass = &StoryAreaTypeWeather{}
+)
+
+func (s *StoryAreaTypeWeather) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Temperature == 0) {
+		return false
+	}
+	if !(s.Emoji == "") {
+		return false
+	}
+	if !(s.BackgroundColor == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StoryAreaTypeWeather) String() string {
+	if s == nil {
+		return "StoryAreaTypeWeather(nil)"
+	}
+	type Alias StoryAreaTypeWeather
+	return fmt.Sprintf("StoryAreaTypeWeather%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StoryAreaTypeWeather) TypeID() uint32 {
+	return StoryAreaTypeWeatherTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StoryAreaTypeWeather) TypeName() string {
+	return "storyAreaTypeWeather"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StoryAreaTypeWeather) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storyAreaTypeWeather",
+		ID:   StoryAreaTypeWeatherTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Temperature",
+			SchemaName: "temperature",
+		},
+		{
+			Name:       "Emoji",
+			SchemaName: "emoji",
+		},
+		{
+			Name:       "BackgroundColor",
+			SchemaName: "background_color",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StoryAreaTypeWeather) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeWeather#a6587dbe as nil")
+	}
+	b.PutID(StoryAreaTypeWeatherTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StoryAreaTypeWeather) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeWeather#a6587dbe as nil")
+	}
+	b.PutDouble(s.Temperature)
+	b.PutString(s.Emoji)
+	b.PutInt32(s.BackgroundColor)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StoryAreaTypeWeather) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeWeather#a6587dbe to nil")
+	}
+	if err := b.ConsumeID(StoryAreaTypeWeatherTypeID); err != nil {
+		return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StoryAreaTypeWeather) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeWeather#a6587dbe to nil")
+	}
+	{
+		value, err := b.Double()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: field temperature: %w", err)
+		}
+		s.Temperature = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: field emoji: %w", err)
+		}
+		s.Emoji = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: field background_color: %w", err)
+		}
+		s.BackgroundColor = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StoryAreaTypeWeather) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeWeather#a6587dbe as nil")
+	}
+	b.ObjStart()
+	b.PutID("storyAreaTypeWeather")
+	b.Comma()
+	b.FieldStart("temperature")
+	b.PutDouble(s.Temperature)
+	b.Comma()
+	b.FieldStart("emoji")
+	b.PutString(s.Emoji)
+	b.Comma()
+	b.FieldStart("background_color")
+	b.PutInt32(s.BackgroundColor)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StoryAreaTypeWeather) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeWeather#a6587dbe to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("storyAreaTypeWeather"); err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: %w", err)
+			}
+		case "temperature":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: field temperature: %w", err)
+			}
+			s.Temperature = value
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: field emoji: %w", err)
+			}
+			s.Emoji = value
+		case "background_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeWeather#a6587dbe: field background_color: %w", err)
+			}
+			s.BackgroundColor = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTemperature returns value of Temperature field.
+func (s *StoryAreaTypeWeather) GetTemperature() (value float64) {
+	if s == nil {
+		return
+	}
+	return s.Temperature
+}
+
+// GetEmoji returns value of Emoji field.
+func (s *StoryAreaTypeWeather) GetEmoji() (value string) {
+	if s == nil {
+		return
+	}
+	return s.Emoji
+}
+
+// GetBackgroundColor returns value of BackgroundColor field.
+func (s *StoryAreaTypeWeather) GetBackgroundColor() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.BackgroundColor
+}
+
 // StoryAreaTypeClassName is schema name of StoryAreaTypeClass.
 const StoryAreaTypeClassName = "StoryAreaType"
 
@@ -1058,6 +1292,7 @@ const StoryAreaTypeClassName = "StoryAreaType"
 //	case *tdapi.StoryAreaTypeSuggestedReaction: // storyAreaTypeSuggestedReaction#f95f927c
 //	case *tdapi.StoryAreaTypeMessage: // storyAreaTypeMessage#bfef76b4
 //	case *tdapi.StoryAreaTypeLink: // storyAreaTypeLink#f8626185
+//	case *tdapi.StoryAreaTypeWeather: // storyAreaTypeWeather#a6587dbe
 //	default: panic(v)
 //	}
 type StoryAreaTypeClass interface {
@@ -1124,6 +1359,13 @@ func DecodeStoryAreaType(buf *bin.Buffer) (StoryAreaTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
 		}
 		return &v, nil
+	case StoryAreaTypeWeatherTypeID:
+		// Decoding storyAreaTypeWeather#a6587dbe.
+		v := StoryAreaTypeWeather{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1167,6 +1409,13 @@ func DecodeTDLibJSONStoryAreaType(buf tdjson.Decoder) (StoryAreaTypeClass, error
 	case "storyAreaTypeLink":
 		// Decoding storyAreaTypeLink#f8626185.
 		v := StoryAreaTypeLink{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
+	case "storyAreaTypeWeather":
+		// Decoding storyAreaTypeWeather#a6587dbe.
+		v := StoryAreaTypeWeather{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
 		}

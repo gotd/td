@@ -33,9 +33,9 @@ var (
 
 // StarTransactions represents TL type `starTransactions#306a010e`.
 type StarTransactions struct {
-	// The amount of owned Telegram stars
+	// The amount of owned Telegram Stars
 	StarCount int64
-	// List of transactions with Telegram stars
+	// List of transactions with Telegram Stars
 	Transactions []StarTransaction
 	// The offset for the next request. If empty, then there are no more results
 	NextOffset string

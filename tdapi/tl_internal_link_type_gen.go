@@ -3460,6 +3460,240 @@ func (i *InternalLinkTypeLanguageSettings) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
+// InternalLinkTypeMainWebApp represents TL type `internalLinkTypeMainWebApp#9c942666`.
+type InternalLinkTypeMainWebApp struct {
+	// Username of the bot
+	BotUsername string
+	// Start parameter to be passed to getMainWebApp
+	StartParameter string
+	// True, if the Web App must be opened in the compact mode instead of the full-size mode
+	IsCompact bool
+}
+
+// InternalLinkTypeMainWebAppTypeID is TL type id of InternalLinkTypeMainWebApp.
+const InternalLinkTypeMainWebAppTypeID = 0x9c942666
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeMainWebApp) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeMainWebApp.
+var (
+	_ bin.Encoder     = &InternalLinkTypeMainWebApp{}
+	_ bin.Decoder     = &InternalLinkTypeMainWebApp{}
+	_ bin.BareEncoder = &InternalLinkTypeMainWebApp{}
+	_ bin.BareDecoder = &InternalLinkTypeMainWebApp{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeMainWebApp{}
+)
+
+func (i *InternalLinkTypeMainWebApp) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.BotUsername == "") {
+		return false
+	}
+	if !(i.StartParameter == "") {
+		return false
+	}
+	if !(i.IsCompact == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeMainWebApp) String() string {
+	if i == nil {
+		return "InternalLinkTypeMainWebApp(nil)"
+	}
+	type Alias InternalLinkTypeMainWebApp
+	return fmt.Sprintf("InternalLinkTypeMainWebApp%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeMainWebApp) TypeID() uint32 {
+	return InternalLinkTypeMainWebAppTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeMainWebApp) TypeName() string {
+	return "internalLinkTypeMainWebApp"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeMainWebApp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeMainWebApp",
+		ID:   InternalLinkTypeMainWebAppTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotUsername",
+			SchemaName: "bot_username",
+		},
+		{
+			Name:       "StartParameter",
+			SchemaName: "start_parameter",
+		},
+		{
+			Name:       "IsCompact",
+			SchemaName: "is_compact",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeMainWebApp) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#9c942666 as nil")
+	}
+	b.PutID(InternalLinkTypeMainWebAppTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeMainWebApp) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#9c942666 as nil")
+	}
+	b.PutString(i.BotUsername)
+	b.PutString(i.StartParameter)
+	b.PutBool(i.IsCompact)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeMainWebApp) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#9c942666 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeMainWebAppTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeMainWebApp) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#9c942666 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field bot_username: %w", err)
+		}
+		i.BotUsername = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field start_parameter: %w", err)
+		}
+		i.StartParameter = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field is_compact: %w", err)
+		}
+		i.IsCompact = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeMainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#9c942666 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeMainWebApp")
+	b.Comma()
+	b.FieldStart("bot_username")
+	b.PutString(i.BotUsername)
+	b.Comma()
+	b.FieldStart("start_parameter")
+	b.PutString(i.StartParameter)
+	b.Comma()
+	b.FieldStart("is_compact")
+	b.PutBool(i.IsCompact)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeMainWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#9c942666 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeMainWebApp"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: %w", err)
+			}
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "start_parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field start_parameter: %w", err)
+			}
+			i.StartParameter = value
+		case "is_compact":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field is_compact: %w", err)
+			}
+			i.IsCompact = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetBotUsername returns value of BotUsername field.
+func (i *InternalLinkTypeMainWebApp) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
+	return i.BotUsername
+}
+
+// GetStartParameter returns value of StartParameter field.
+func (i *InternalLinkTypeMainWebApp) GetStartParameter() (value string) {
+	if i == nil {
+		return
+	}
+	return i.StartParameter
+}
+
+// GetIsCompact returns value of IsCompact field.
+func (i *InternalLinkTypeMainWebApp) GetIsCompact() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.IsCompact
+}
+
 // InternalLinkTypeMessage represents TL type `internalLinkTypeMessage#3a535c52`.
 type InternalLinkTypeMessage struct {
 	// URL to be passed to getMessageLinkInfo
@@ -5204,16 +5438,19 @@ func (i *InternalLinkTypeProxy) GetType() (value ProxyTypeClass) {
 	return i.Type
 }
 
-// InternalLinkTypePublicChat represents TL type `internalLinkTypePublicChat#e5226d5e`.
+// InternalLinkTypePublicChat represents TL type `internalLinkTypePublicChat#697a2d00`.
 type InternalLinkTypePublicChat struct {
 	// Username of the chat
 	ChatUsername string
 	// Draft text for message to send in the chat
 	DraftText string
+	// True, if chat profile information screen must be opened; otherwise, the chat itself
+	// must be opened
+	OpenProfile bool
 }
 
 // InternalLinkTypePublicChatTypeID is TL type id of InternalLinkTypePublicChat.
-const InternalLinkTypePublicChatTypeID = 0xe5226d5e
+const InternalLinkTypePublicChatTypeID = 0x697a2d00
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypePublicChat) construct() InternalLinkTypeClass { return &i }
@@ -5236,6 +5473,9 @@ func (i *InternalLinkTypePublicChat) Zero() bool {
 		return false
 	}
 	if !(i.DraftText == "") {
+		return false
+	}
+	if !(i.OpenProfile == false) {
 		return false
 	}
 
@@ -5282,6 +5522,10 @@ func (i *InternalLinkTypePublicChat) TypeInfo() tdp.Type {
 			Name:       "DraftText",
 			SchemaName: "draft_text",
 		},
+		{
+			Name:       "OpenProfile",
+			SchemaName: "open_profile",
+		},
 	}
 	return typ
 }
@@ -5289,7 +5533,7 @@ func (i *InternalLinkTypePublicChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypePublicChat) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypePublicChat#e5226d5e as nil")
+		return fmt.Errorf("can't encode internalLinkTypePublicChat#697a2d00 as nil")
 	}
 	b.PutID(InternalLinkTypePublicChatTypeID)
 	return i.EncodeBare(b)
@@ -5298,20 +5542,21 @@ func (i *InternalLinkTypePublicChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypePublicChat) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypePublicChat#e5226d5e as nil")
+		return fmt.Errorf("can't encode internalLinkTypePublicChat#697a2d00 as nil")
 	}
 	b.PutString(i.ChatUsername)
 	b.PutString(i.DraftText)
+	b.PutBool(i.OpenProfile)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypePublicChat) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypePublicChat#e5226d5e to nil")
+		return fmt.Errorf("can't decode internalLinkTypePublicChat#697a2d00 to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypePublicChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypePublicChat#e5226d5e: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -5319,21 +5564,28 @@ func (i *InternalLinkTypePublicChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypePublicChat) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypePublicChat#e5226d5e to nil")
+		return fmt.Errorf("can't decode internalLinkTypePublicChat#697a2d00 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypePublicChat#e5226d5e: field chat_username: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: field chat_username: %w", err)
 		}
 		i.ChatUsername = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypePublicChat#e5226d5e: field draft_text: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: field draft_text: %w", err)
 		}
 		i.DraftText = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: field open_profile: %w", err)
+		}
+		i.OpenProfile = value
 	}
 	return nil
 }
@@ -5341,7 +5593,7 @@ func (i *InternalLinkTypePublicChat) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypePublicChat#e5226d5e as nil")
+		return fmt.Errorf("can't encode internalLinkTypePublicChat#697a2d00 as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypePublicChat")
@@ -5352,6 +5604,9 @@ func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("draft_text")
 	b.PutString(i.DraftText)
 	b.Comma()
+	b.FieldStart("open_profile")
+	b.PutBool(i.OpenProfile)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -5360,27 +5615,33 @@ func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypePublicChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypePublicChat#e5226d5e to nil")
+		return fmt.Errorf("can't decode internalLinkTypePublicChat#697a2d00 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypePublicChat"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypePublicChat#e5226d5e: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: %w", err)
 			}
 		case "chat_username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypePublicChat#e5226d5e: field chat_username: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: field chat_username: %w", err)
 			}
 			i.ChatUsername = value
 		case "draft_text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypePublicChat#e5226d5e: field draft_text: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: field draft_text: %w", err)
 			}
 			i.DraftText = value
+		case "open_profile":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePublicChat#697a2d00: field open_profile: %w", err)
+			}
+			i.OpenProfile = value
 		default:
 			return b.Skip()
 		}
@@ -5402,6 +5663,14 @@ func (i *InternalLinkTypePublicChat) GetDraftText() (value string) {
 		return
 	}
 	return i.DraftText
+}
+
+// GetOpenProfile returns value of OpenProfile field.
+func (i *InternalLinkTypePublicChat) GetOpenProfile() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.OpenProfile
 }
 
 // InternalLinkTypeQrCodeAuthentication represents TL type `internalLinkTypeQrCodeAuthentication#bf121924`.
@@ -5795,240 +6064,6 @@ func (i *InternalLinkTypeSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
-}
-
-// InternalLinkTypeSideMenuBot represents TL type `internalLinkTypeSideMenuBot#c45f0c16`.
-type InternalLinkTypeSideMenuBot struct {
-	// Username of the bot
-	BotUsername string
-	// URL to be passed to getWebAppUrl
-	URL string
-	// True, if the Web App must be opened in a compact mode instead of a full-size mode
-	IsCompact bool
-}
-
-// InternalLinkTypeSideMenuBotTypeID is TL type id of InternalLinkTypeSideMenuBot.
-const InternalLinkTypeSideMenuBotTypeID = 0xc45f0c16
-
-// construct implements constructor of InternalLinkTypeClass.
-func (i InternalLinkTypeSideMenuBot) construct() InternalLinkTypeClass { return &i }
-
-// Ensuring interfaces in compile-time for InternalLinkTypeSideMenuBot.
-var (
-	_ bin.Encoder     = &InternalLinkTypeSideMenuBot{}
-	_ bin.Decoder     = &InternalLinkTypeSideMenuBot{}
-	_ bin.BareEncoder = &InternalLinkTypeSideMenuBot{}
-	_ bin.BareDecoder = &InternalLinkTypeSideMenuBot{}
-
-	_ InternalLinkTypeClass = &InternalLinkTypeSideMenuBot{}
-)
-
-func (i *InternalLinkTypeSideMenuBot) Zero() bool {
-	if i == nil {
-		return true
-	}
-	if !(i.BotUsername == "") {
-		return false
-	}
-	if !(i.URL == "") {
-		return false
-	}
-	if !(i.IsCompact == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (i *InternalLinkTypeSideMenuBot) String() string {
-	if i == nil {
-		return "InternalLinkTypeSideMenuBot(nil)"
-	}
-	type Alias InternalLinkTypeSideMenuBot
-	return fmt.Sprintf("InternalLinkTypeSideMenuBot%+v", Alias(*i))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*InternalLinkTypeSideMenuBot) TypeID() uint32 {
-	return InternalLinkTypeSideMenuBotTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*InternalLinkTypeSideMenuBot) TypeName() string {
-	return "internalLinkTypeSideMenuBot"
-}
-
-// TypeInfo returns info about TL type.
-func (i *InternalLinkTypeSideMenuBot) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "internalLinkTypeSideMenuBot",
-		ID:   InternalLinkTypeSideMenuBotTypeID,
-	}
-	if i == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "BotUsername",
-			SchemaName: "bot_username",
-		},
-		{
-			Name:       "URL",
-			SchemaName: "url",
-		},
-		{
-			Name:       "IsCompact",
-			SchemaName: "is_compact",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (i *InternalLinkTypeSideMenuBot) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeSideMenuBot#c45f0c16 as nil")
-	}
-	b.PutID(InternalLinkTypeSideMenuBotTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *InternalLinkTypeSideMenuBot) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeSideMenuBot#c45f0c16 as nil")
-	}
-	b.PutString(i.BotUsername)
-	b.PutString(i.URL)
-	b.PutBool(i.IsCompact)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (i *InternalLinkTypeSideMenuBot) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeSideMenuBot#c45f0c16 to nil")
-	}
-	if err := b.ConsumeID(InternalLinkTypeSideMenuBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InternalLinkTypeSideMenuBot) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeSideMenuBot#c45f0c16 to nil")
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: field bot_username: %w", err)
-		}
-		i.BotUsername = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: field url: %w", err)
-		}
-		i.URL = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: field is_compact: %w", err)
-		}
-		i.IsCompact = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (i *InternalLinkTypeSideMenuBot) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeSideMenuBot#c45f0c16 as nil")
-	}
-	b.ObjStart()
-	b.PutID("internalLinkTypeSideMenuBot")
-	b.Comma()
-	b.FieldStart("bot_username")
-	b.PutString(i.BotUsername)
-	b.Comma()
-	b.FieldStart("url")
-	b.PutString(i.URL)
-	b.Comma()
-	b.FieldStart("is_compact")
-	b.PutBool(i.IsCompact)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (i *InternalLinkTypeSideMenuBot) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeSideMenuBot#c45f0c16 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("internalLinkTypeSideMenuBot"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: %w", err)
-			}
-		case "bot_username":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: field bot_username: %w", err)
-			}
-			i.BotUsername = value
-		case "url":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: field url: %w", err)
-			}
-			i.URL = value
-		case "is_compact":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#c45f0c16: field is_compact: %w", err)
-			}
-			i.IsCompact = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetBotUsername returns value of BotUsername field.
-func (i *InternalLinkTypeSideMenuBot) GetBotUsername() (value string) {
-	if i == nil {
-		return
-	}
-	return i.BotUsername
-}
-
-// GetURL returns value of URL field.
-func (i *InternalLinkTypeSideMenuBot) GetURL() (value string) {
-	if i == nil {
-		return
-	}
-	return i.URL
-}
-
-// GetIsCompact returns value of IsCompact field.
-func (i *InternalLinkTypeSideMenuBot) GetIsCompact() (value bool) {
-	if i == nil {
-		return
-	}
-	return i.IsCompact
 }
 
 // InternalLinkTypeStickerSet represents TL type `internalLinkTypeStickerSet#a1464fa2`.
@@ -7025,16 +7060,19 @@ func (i *InternalLinkTypeUnsupportedProxy) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
-// InternalLinkTypeUserPhoneNumber represents TL type `internalLinkTypeUserPhoneNumber#77c08091`.
+// InternalLinkTypeUserPhoneNumber represents TL type `internalLinkTypeUserPhoneNumber#104bbb08`.
 type InternalLinkTypeUserPhoneNumber struct {
 	// Phone number of the user
 	PhoneNumber string
 	// Draft text for message to send in the chat
 	DraftText string
+	// True, if user's profile information screen must be opened; otherwise, the chat itself
+	// must be opened
+	OpenProfile bool
 }
 
 // InternalLinkTypeUserPhoneNumberTypeID is TL type id of InternalLinkTypeUserPhoneNumber.
-const InternalLinkTypeUserPhoneNumberTypeID = 0x77c08091
+const InternalLinkTypeUserPhoneNumberTypeID = 0x104bbb08
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypeUserPhoneNumber) construct() InternalLinkTypeClass { return &i }
@@ -7057,6 +7095,9 @@ func (i *InternalLinkTypeUserPhoneNumber) Zero() bool {
 		return false
 	}
 	if !(i.DraftText == "") {
+		return false
+	}
+	if !(i.OpenProfile == false) {
 		return false
 	}
 
@@ -7103,6 +7144,10 @@ func (i *InternalLinkTypeUserPhoneNumber) TypeInfo() tdp.Type {
 			Name:       "DraftText",
 			SchemaName: "draft_text",
 		},
+		{
+			Name:       "OpenProfile",
+			SchemaName: "open_profile",
+		},
 	}
 	return typ
 }
@@ -7110,7 +7155,7 @@ func (i *InternalLinkTypeUserPhoneNumber) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypeUserPhoneNumber) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#77c08091 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#104bbb08 as nil")
 	}
 	b.PutID(InternalLinkTypeUserPhoneNumberTypeID)
 	return i.EncodeBare(b)
@@ -7119,20 +7164,21 @@ func (i *InternalLinkTypeUserPhoneNumber) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypeUserPhoneNumber) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#77c08091 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#104bbb08 as nil")
 	}
 	b.PutString(i.PhoneNumber)
 	b.PutString(i.DraftText)
+	b.PutBool(i.OpenProfile)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypeUserPhoneNumber) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#77c08091 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#104bbb08 to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypeUserPhoneNumberTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#77c08091: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -7140,21 +7186,28 @@ func (i *InternalLinkTypeUserPhoneNumber) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypeUserPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#77c08091 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#104bbb08 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#77c08091: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: field phone_number: %w", err)
 		}
 		i.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#77c08091: field draft_text: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: field draft_text: %w", err)
 		}
 		i.DraftText = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: field open_profile: %w", err)
+		}
+		i.OpenProfile = value
 	}
 	return nil
 }
@@ -7162,7 +7215,7 @@ func (i *InternalLinkTypeUserPhoneNumber) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypeUserPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#77c08091 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#104bbb08 as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeUserPhoneNumber")
@@ -7173,6 +7226,9 @@ func (i *InternalLinkTypeUserPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("draft_text")
 	b.PutString(i.DraftText)
 	b.Comma()
+	b.FieldStart("open_profile")
+	b.PutBool(i.OpenProfile)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -7181,27 +7237,33 @@ func (i *InternalLinkTypeUserPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypeUserPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#77c08091 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#104bbb08 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypeUserPhoneNumber"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#77c08091: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: %w", err)
 			}
 		case "phone_number":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#77c08091: field phone_number: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: field phone_number: %w", err)
 			}
 			i.PhoneNumber = value
 		case "draft_text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#77c08091: field draft_text: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: field draft_text: %w", err)
 			}
 			i.DraftText = value
+		case "open_profile":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#104bbb08: field open_profile: %w", err)
+			}
+			i.OpenProfile = value
 		default:
 			return b.Skip()
 		}
@@ -7223,6 +7285,14 @@ func (i *InternalLinkTypeUserPhoneNumber) GetDraftText() (value string) {
 		return
 	}
 	return i.DraftText
+}
+
+// GetOpenProfile returns value of OpenProfile field.
+func (i *InternalLinkTypeUserPhoneNumber) GetOpenProfile() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.OpenProfile
 }
 
 // InternalLinkTypeUserToken represents TL type `internalLinkTypeUserToken#a8d7db59`.
@@ -7635,7 +7705,7 @@ type InternalLinkTypeWebApp struct {
 	WebAppShortName string
 	// Start parameter to be passed to getWebAppLinkUrl
 	StartParameter string
-	// True, if the Web App must be opened in a compact mode instead of a full-size mode
+	// True, if the Web App must be opened in the compact mode instead of the full-size mode
 	IsCompact bool
 }
 
@@ -7927,6 +7997,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeInvoice: // internalLinkTypeInvoice#f34c6dac
 //	case *tdapi.InternalLinkTypeLanguagePack: // internalLinkTypeLanguagePack#a9870d6c
 //	case *tdapi.InternalLinkTypeLanguageSettings: // internalLinkTypeLanguageSettings#b019e6e6
+//	case *tdapi.InternalLinkTypeMainWebApp: // internalLinkTypeMainWebApp#9c942666
 //	case *tdapi.InternalLinkTypeMessage: // internalLinkTypeMessage#3a535c52
 //	case *tdapi.InternalLinkTypeMessageDraft: // internalLinkTypeMessageDraft#276fbad5
 //	case *tdapi.InternalLinkTypePassportDataRequest: // internalLinkTypePassportDataRequest#c50fce81
@@ -7936,18 +8007,17 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypePremiumGiftCode: // internalLinkTypePremiumGiftCode#de5c9892
 //	case *tdapi.InternalLinkTypePrivacyAndSecuritySettings: // internalLinkTypePrivacyAndSecuritySettings#ad5f6acf
 //	case *tdapi.InternalLinkTypeProxy: // internalLinkTypeProxy#b1b12cea
-//	case *tdapi.InternalLinkTypePublicChat: // internalLinkTypePublicChat#e5226d5e
+//	case *tdapi.InternalLinkTypePublicChat: // internalLinkTypePublicChat#697a2d00
 //	case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
 //	case *tdapi.InternalLinkTypeRestorePurchases: // internalLinkTypeRestorePurchases#24203483
 //	case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
-//	case *tdapi.InternalLinkTypeSideMenuBot: // internalLinkTypeSideMenuBot#c45f0c16
 //	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#a1464fa2
 //	case *tdapi.InternalLinkTypeStory: // internalLinkTypeStory#57bce647
 //	case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
 //	case *tdapi.InternalLinkTypeThemeSettings: // internalLinkTypeThemeSettings#c14d3916
 //	case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
 //	case *tdapi.InternalLinkTypeUnsupportedProxy: // internalLinkTypeUnsupportedProxy#de399f09
-//	case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#77c08091
+//	case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#104bbb08
 //	case *tdapi.InternalLinkTypeUserToken: // internalLinkTypeUserToken#a8d7db59
 //	case *tdapi.InternalLinkTypeVideoChat: // internalLinkTypeVideoChat#8796f8b4
 //	case *tdapi.InternalLinkTypeWebApp: // internalLinkTypeWebApp#4c68bb0d
@@ -8122,6 +8192,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case InternalLinkTypeMainWebAppTypeID:
+		// Decoding internalLinkTypeMainWebApp#9c942666.
+		v := InternalLinkTypeMainWebApp{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case InternalLinkTypeMessageTypeID:
 		// Decoding internalLinkTypeMessage#3a535c52.
 		v := InternalLinkTypeMessage{}
@@ -8186,7 +8263,7 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypePublicChatTypeID:
-		// Decoding internalLinkTypePublicChat#e5226d5e.
+		// Decoding internalLinkTypePublicChat#697a2d00.
 		v := InternalLinkTypePublicChat{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -8209,13 +8286,6 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeSettingsTypeID:
 		// Decoding internalLinkTypeSettings#177545b4.
 		v := InternalLinkTypeSettings{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
-		}
-		return &v, nil
-	case InternalLinkTypeSideMenuBotTypeID:
-		// Decoding internalLinkTypeSideMenuBot#c45f0c16.
-		v := InternalLinkTypeSideMenuBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -8263,7 +8333,7 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypeUserPhoneNumberTypeID:
-		// Decoding internalLinkTypeUserPhoneNumber#77c08091.
+		// Decoding internalLinkTypeUserPhoneNumber#104bbb08.
 		v := InternalLinkTypeUserPhoneNumber{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -8442,6 +8512,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case "internalLinkTypeMainWebApp":
+		// Decoding internalLinkTypeMainWebApp#9c942666.
+		v := InternalLinkTypeMainWebApp{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case "internalLinkTypeMessage":
 		// Decoding internalLinkTypeMessage#3a535c52.
 		v := InternalLinkTypeMessage{}
@@ -8506,7 +8583,7 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypePublicChat":
-		// Decoding internalLinkTypePublicChat#e5226d5e.
+		// Decoding internalLinkTypePublicChat#697a2d00.
 		v := InternalLinkTypePublicChat{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -8529,13 +8606,6 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeSettings":
 		// Decoding internalLinkTypeSettings#177545b4.
 		v := InternalLinkTypeSettings{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
-		}
-		return &v, nil
-	case "internalLinkTypeSideMenuBot":
-		// Decoding internalLinkTypeSideMenuBot#c45f0c16.
-		v := InternalLinkTypeSideMenuBot{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -8583,7 +8653,7 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypeUserPhoneNumber":
-		// Decoding internalLinkTypeUserPhoneNumber#77c08091.
+		// Decoding internalLinkTypeUserPhoneNumber#104bbb08.
 		v := InternalLinkTypeUserPhoneNumber{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)

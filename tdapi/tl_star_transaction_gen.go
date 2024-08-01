@@ -35,7 +35,7 @@ var (
 type StarTransaction struct {
 	// Unique identifier of the transaction
 	ID string
-	// The amount of added owned Telegram stars; negative for outgoing transactions
+	// The amount of added owned Telegram Stars; negative for outgoing transactions
 	StarCount int64
 	// True, if the transaction is a refund of a previous transaction
 	IsRefund bool

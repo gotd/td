@@ -33,13 +33,13 @@ var (
 
 // StarRevenueStatus represents TL type `starRevenueStatus#e85bd5fb`.
 type StarRevenueStatus struct {
-	// Total number of the stars earned
+	// Total number of Telegram Stars earned
 	TotalCount int64
-	// The number of Telegram stars that aren't withdrawn yet
+	// The number of Telegram Stars that aren't withdrawn yet
 	CurrentCount int64
-	// The number of Telegram stars that are available for withdrawal
+	// The number of Telegram Stars that are available for withdrawal
 	AvailableCount int64
-	// True, if Telegram stars can be withdrawn now or later
+	// True, if Telegram Stars can be withdrawn now or later
 	WithdrawalEnabled bool
 	// Time left before the next withdrawal can be started, in seconds; 0 if withdrawal can
 	// be started now

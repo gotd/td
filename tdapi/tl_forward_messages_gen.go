@@ -42,7 +42,7 @@ type ForwardMessagesRequest struct {
 	FromChatID int64
 	// Identifiers of the messages to forward. Message identifiers must be in a strictly
 	// increasing order. At most 100 messages can be forwarded simultaneously. A message can
-	// be forwarded only if message.can_be_forwarded
+	// be forwarded only if messageProperties.can_be_forwarded
 	MessageIDs []int64
 	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions

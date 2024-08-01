@@ -1943,18 +1943,360 @@ func (l *LinkPreviewTypeDocument) GetAuthor() (value string) {
 	return l.Author
 }
 
-// LinkPreviewTypeEmbeddedAudioPlayer represents TL type `linkPreviewTypeEmbeddedAudioPlayer#2bb06106`.
+// LinkPreviewTypeEmbeddedAnimationPlayer represents TL type `linkPreviewTypeEmbeddedAnimationPlayer#c45fddca`.
+type LinkPreviewTypeEmbeddedAnimationPlayer struct {
+	// URL of the external animation player
+	URL string
+	// Thumbnail of the animation; may be null if unknown
+	Thumbnail Photo
+	// Duration of the animation, in seconds
+	Duration int32
+	// Author of the animation
+	Author string
+	// Expected width of the embedded player
+	Width int32
+	// Expected height of the embedded player
+	Height int32
+}
+
+// LinkPreviewTypeEmbeddedAnimationPlayerTypeID is TL type id of LinkPreviewTypeEmbeddedAnimationPlayer.
+const LinkPreviewTypeEmbeddedAnimationPlayerTypeID = 0xc45fddca
+
+// construct implements constructor of LinkPreviewTypeClass.
+func (l LinkPreviewTypeEmbeddedAnimationPlayer) construct() LinkPreviewTypeClass { return &l }
+
+// Ensuring interfaces in compile-time for LinkPreviewTypeEmbeddedAnimationPlayer.
+var (
+	_ bin.Encoder     = &LinkPreviewTypeEmbeddedAnimationPlayer{}
+	_ bin.Decoder     = &LinkPreviewTypeEmbeddedAnimationPlayer{}
+	_ bin.BareEncoder = &LinkPreviewTypeEmbeddedAnimationPlayer{}
+	_ bin.BareDecoder = &LinkPreviewTypeEmbeddedAnimationPlayer{}
+
+	_ LinkPreviewTypeClass = &LinkPreviewTypeEmbeddedAnimationPlayer{}
+)
+
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.URL == "") {
+		return false
+	}
+	if !(l.Thumbnail.Zero()) {
+		return false
+	}
+	if !(l.Duration == 0) {
+		return false
+	}
+	if !(l.Author == "") {
+		return false
+	}
+	if !(l.Width == 0) {
+		return false
+	}
+	if !(l.Height == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) String() string {
+	if l == nil {
+		return "LinkPreviewTypeEmbeddedAnimationPlayer(nil)"
+	}
+	type Alias LinkPreviewTypeEmbeddedAnimationPlayer
+	return fmt.Sprintf("LinkPreviewTypeEmbeddedAnimationPlayer%+v", Alias(*l))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*LinkPreviewTypeEmbeddedAnimationPlayer) TypeID() uint32 {
+	return LinkPreviewTypeEmbeddedAnimationPlayerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*LinkPreviewTypeEmbeddedAnimationPlayer) TypeName() string {
+	return "linkPreviewTypeEmbeddedAnimationPlayer"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "linkPreviewTypeEmbeddedAnimationPlayer",
+		ID:   LinkPreviewTypeEmbeddedAnimationPlayerTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Thumbnail",
+			SchemaName: "thumbnail",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "Author",
+			SchemaName: "author",
+		},
+		{
+			Name:       "Width",
+			SchemaName: "width",
+		},
+		{
+			Name:       "Height",
+			SchemaName: "height",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) Encode(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca as nil")
+	}
+	b.PutID(LinkPreviewTypeEmbeddedAnimationPlayerTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca as nil")
+	}
+	b.PutString(l.URL)
+	if err := l.Thumbnail.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field thumbnail: %w", err)
+	}
+	b.PutInt32(l.Duration)
+	b.PutString(l.Author)
+	b.PutInt32(l.Width)
+	b.PutInt32(l.Height)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) Decode(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca to nil")
+	}
+	if err := b.ConsumeID(LinkPreviewTypeEmbeddedAnimationPlayerTypeID); err != nil {
+		return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: %w", err)
+	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field url: %w", err)
+		}
+		l.URL = value
+	}
+	{
+		if err := l.Thumbnail.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field thumbnail: %w", err)
+		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field duration: %w", err)
+		}
+		l.Duration = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field author: %w", err)
+		}
+		l.Author = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field width: %w", err)
+		}
+		l.Width = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field height: %w", err)
+		}
+		l.Height = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca as nil")
+	}
+	b.ObjStart()
+	b.PutID("linkPreviewTypeEmbeddedAnimationPlayer")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(l.URL)
+	b.Comma()
+	b.FieldStart("thumbnail")
+	if err := l.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field thumbnail: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("duration")
+	b.PutInt32(l.Duration)
+	b.Comma()
+	b.FieldStart("author")
+	b.PutString(l.Author)
+	b.Comma()
+	b.FieldStart("width")
+	b.PutInt32(l.Width)
+	b.Comma()
+	b.FieldStart("height")
+	b.PutInt32(l.Height)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("linkPreviewTypeEmbeddedAnimationPlayer"); err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field url: %w", err)
+			}
+			l.URL = value
+		case "thumbnail":
+			if err := l.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field thumbnail: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field duration: %w", err)
+			}
+			l.Duration = value
+		case "author":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field author: %w", err)
+			}
+			l.Author = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field width: %w", err)
+			}
+			l.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAnimationPlayer#c45fddca: field height: %w", err)
+			}
+			l.Height = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) GetURL() (value string) {
+	if l == nil {
+		return
+	}
+	return l.URL
+}
+
+// GetThumbnail returns value of Thumbnail field.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) GetThumbnail() (value Photo) {
+	if l == nil {
+		return
+	}
+	return l.Thumbnail
+}
+
+// GetDuration returns value of Duration field.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) GetDuration() (value int32) {
+	if l == nil {
+		return
+	}
+	return l.Duration
+}
+
+// GetAuthor returns value of Author field.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) GetAuthor() (value string) {
+	if l == nil {
+		return
+	}
+	return l.Author
+}
+
+// GetWidth returns value of Width field.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) GetWidth() (value int32) {
+	if l == nil {
+		return
+	}
+	return l.Width
+}
+
+// GetHeight returns value of Height field.
+func (l *LinkPreviewTypeEmbeddedAnimationPlayer) GetHeight() (value int32) {
+	if l == nil {
+		return
+	}
+	return l.Height
+}
+
+// LinkPreviewTypeEmbeddedAudioPlayer represents TL type `linkPreviewTypeEmbeddedAudioPlayer#31e0dae6`.
 type LinkPreviewTypeEmbeddedAudioPlayer struct {
 	// URL of the external audio player
 	URL string
+	// Thumbnail of the audio; may be null if unknown
+	Thumbnail Photo
 	// Duration of the audio, in seconds
 	Duration int32
 	// Author of the audio
 	Author string
+	// Expected width of the embedded player
+	Width int32
+	// Expected height of the embedded player
+	Height int32
 }
 
 // LinkPreviewTypeEmbeddedAudioPlayerTypeID is TL type id of LinkPreviewTypeEmbeddedAudioPlayer.
-const LinkPreviewTypeEmbeddedAudioPlayerTypeID = 0x2bb06106
+const LinkPreviewTypeEmbeddedAudioPlayerTypeID = 0x31e0dae6
 
 // construct implements constructor of LinkPreviewTypeClass.
 func (l LinkPreviewTypeEmbeddedAudioPlayer) construct() LinkPreviewTypeClass { return &l }
@@ -1976,10 +2318,19 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) Zero() bool {
 	if !(l.URL == "") {
 		return false
 	}
+	if !(l.Thumbnail.Zero()) {
+		return false
+	}
 	if !(l.Duration == 0) {
 		return false
 	}
 	if !(l.Author == "") {
+		return false
+	}
+	if !(l.Width == 0) {
+		return false
+	}
+	if !(l.Height == 0) {
 		return false
 	}
 
@@ -2023,12 +2374,24 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) TypeInfo() tdp.Type {
 			SchemaName: "url",
 		},
 		{
+			Name:       "Thumbnail",
+			SchemaName: "thumbnail",
+		},
+		{
 			Name:       "Duration",
 			SchemaName: "duration",
 		},
 		{
 			Name:       "Author",
 			SchemaName: "author",
+		},
+		{
+			Name:       "Width",
+			SchemaName: "width",
+		},
+		{
+			Name:       "Height",
+			SchemaName: "height",
 		},
 	}
 	return typ
@@ -2037,7 +2400,7 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LinkPreviewTypeEmbeddedAudioPlayer) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAudioPlayer#2bb06106 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6 as nil")
 	}
 	b.PutID(LinkPreviewTypeEmbeddedAudioPlayerTypeID)
 	return l.EncodeBare(b)
@@ -2046,21 +2409,26 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LinkPreviewTypeEmbeddedAudioPlayer) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAudioPlayer#2bb06106 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6 as nil")
 	}
 	b.PutString(l.URL)
+	if err := l.Thumbnail.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field thumbnail: %w", err)
+	}
 	b.PutInt32(l.Duration)
 	b.PutString(l.Author)
+	b.PutInt32(l.Width)
+	b.PutInt32(l.Height)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (l *LinkPreviewTypeEmbeddedAudioPlayer) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6 to nil")
 	}
 	if err := b.ConsumeID(LinkPreviewTypeEmbeddedAudioPlayerTypeID); err != nil {
-		return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: %w", err)
+		return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -2068,28 +2436,47 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LinkPreviewTypeEmbeddedAudioPlayer) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: field url: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field url: %w", err)
 		}
 		l.URL = value
 	}
 	{
+		if err := l.Thumbnail.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field thumbnail: %w", err)
+		}
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: field duration: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field duration: %w", err)
 		}
 		l.Duration = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: field author: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field author: %w", err)
 		}
 		l.Author = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field width: %w", err)
+		}
+		l.Width = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field height: %w", err)
+		}
+		l.Height = value
 	}
 	return nil
 }
@@ -2097,7 +2484,7 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LinkPreviewTypeEmbeddedAudioPlayer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAudioPlayer#2bb06106 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("linkPreviewTypeEmbeddedAudioPlayer")
@@ -2105,11 +2492,22 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) EncodeTDLibJSON(b tdjson.Encoder) e
 	b.FieldStart("url")
 	b.PutString(l.URL)
 	b.Comma()
+	b.FieldStart("thumbnail")
+	if err := l.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field thumbnail: %w", err)
+	}
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(l.Duration)
 	b.Comma()
 	b.FieldStart("author")
 	b.PutString(l.Author)
+	b.Comma()
+	b.FieldStart("width")
+	b.PutInt32(l.Width)
+	b.Comma()
+	b.FieldStart("height")
+	b.PutInt32(l.Height)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -2119,33 +2517,49 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LinkPreviewTypeEmbeddedAudioPlayer) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("linkPreviewTypeEmbeddedAudioPlayer"); err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: field url: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field url: %w", err)
 			}
 			l.URL = value
+		case "thumbnail":
+			if err := l.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field thumbnail: %w", err)
+			}
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: field duration: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field duration: %w", err)
 			}
 			l.Duration = value
 		case "author":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#2bb06106: field author: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field author: %w", err)
 			}
 			l.Author = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field width: %w", err)
+			}
+			l.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedAudioPlayer#31e0dae6: field height: %w", err)
+			}
+			l.Height = value
 		default:
 			return b.Skip()
 		}
@@ -2159,6 +2573,14 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) GetURL() (value string) {
 		return
 	}
 	return l.URL
+}
+
+// GetThumbnail returns value of Thumbnail field.
+func (l *LinkPreviewTypeEmbeddedAudioPlayer) GetThumbnail() (value Photo) {
+	if l == nil {
+		return
+	}
+	return l.Thumbnail
 }
 
 // GetDuration returns value of Duration field.
@@ -2177,22 +2599,40 @@ func (l *LinkPreviewTypeEmbeddedAudioPlayer) GetAuthor() (value string) {
 	return l.Author
 }
 
-// LinkPreviewTypeEmbeddedVideoPlayer represents TL type `linkPreviewTypeEmbeddedVideoPlayer#fd4c9719`.
+// GetWidth returns value of Width field.
+func (l *LinkPreviewTypeEmbeddedAudioPlayer) GetWidth() (value int32) {
+	if l == nil {
+		return
+	}
+	return l.Width
+}
+
+// GetHeight returns value of Height field.
+func (l *LinkPreviewTypeEmbeddedAudioPlayer) GetHeight() (value int32) {
+	if l == nil {
+		return
+	}
+	return l.Height
+}
+
+// LinkPreviewTypeEmbeddedVideoPlayer represents TL type `linkPreviewTypeEmbeddedVideoPlayer#6ee015a3`.
 type LinkPreviewTypeEmbeddedVideoPlayer struct {
 	// URL of the external video player
 	URL string
+	// Thumbnail of the video; may be null if unknown
+	Thumbnail Photo
 	// Duration of the video, in seconds
 	Duration int32
 	// Author of the video
 	Author string
-	// Expected width of the preview
+	// Expected width of the embedded player
 	Width int32
-	// Expected height of the preview
+	// Expected height of the embedded player
 	Height int32
 }
 
 // LinkPreviewTypeEmbeddedVideoPlayerTypeID is TL type id of LinkPreviewTypeEmbeddedVideoPlayer.
-const LinkPreviewTypeEmbeddedVideoPlayerTypeID = 0xfd4c9719
+const LinkPreviewTypeEmbeddedVideoPlayerTypeID = 0x6ee015a3
 
 // construct implements constructor of LinkPreviewTypeClass.
 func (l LinkPreviewTypeEmbeddedVideoPlayer) construct() LinkPreviewTypeClass { return &l }
@@ -2212,6 +2652,9 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) Zero() bool {
 		return true
 	}
 	if !(l.URL == "") {
+		return false
+	}
+	if !(l.Thumbnail.Zero()) {
 		return false
 	}
 	if !(l.Duration == 0) {
@@ -2267,6 +2710,10 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) TypeInfo() tdp.Type {
 			SchemaName: "url",
 		},
 		{
+			Name:       "Thumbnail",
+			SchemaName: "thumbnail",
+		},
+		{
 			Name:       "Duration",
 			SchemaName: "duration",
 		},
@@ -2289,7 +2736,7 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LinkPreviewTypeEmbeddedVideoPlayer) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3 as nil")
 	}
 	b.PutID(LinkPreviewTypeEmbeddedVideoPlayerTypeID)
 	return l.EncodeBare(b)
@@ -2298,9 +2745,12 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LinkPreviewTypeEmbeddedVideoPlayer) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3 as nil")
 	}
 	b.PutString(l.URL)
+	if err := l.Thumbnail.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field thumbnail: %w", err)
+	}
 	b.PutInt32(l.Duration)
 	b.PutString(l.Author)
 	b.PutInt32(l.Width)
@@ -2311,10 +2761,10 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *LinkPreviewTypeEmbeddedVideoPlayer) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3 to nil")
 	}
 	if err := b.ConsumeID(LinkPreviewTypeEmbeddedVideoPlayerTypeID); err != nil {
-		return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: %w", err)
+		return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -2322,40 +2772,45 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LinkPreviewTypeEmbeddedVideoPlayer) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field url: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field url: %w", err)
 		}
 		l.URL = value
 	}
 	{
+		if err := l.Thumbnail.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field thumbnail: %w", err)
+		}
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field duration: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field duration: %w", err)
 		}
 		l.Duration = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field author: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field author: %w", err)
 		}
 		l.Author = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field width: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field width: %w", err)
 		}
 		l.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field height: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field height: %w", err)
 		}
 		l.Height = value
 	}
@@ -2365,13 +2820,18 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LinkPreviewTypeEmbeddedVideoPlayer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("linkPreviewTypeEmbeddedVideoPlayer")
 	b.Comma()
 	b.FieldStart("url")
 	b.PutString(l.URL)
+	b.Comma()
+	b.FieldStart("thumbnail")
+	if err := l.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field thumbnail: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(l.Duration)
@@ -2393,43 +2853,47 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LinkPreviewTypeEmbeddedVideoPlayer) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("linkPreviewTypeEmbeddedVideoPlayer"); err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field url: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field url: %w", err)
 			}
 			l.URL = value
+		case "thumbnail":
+			if err := l.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field thumbnail: %w", err)
+			}
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field duration: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field duration: %w", err)
 			}
 			l.Duration = value
 		case "author":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field author: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field author: %w", err)
 			}
 			l.Author = value
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field width: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field width: %w", err)
 			}
 			l.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#fd4c9719: field height: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeEmbeddedVideoPlayer#6ee015a3: field height: %w", err)
 			}
 			l.Height = value
 		default:
@@ -2445,6 +2909,14 @@ func (l *LinkPreviewTypeEmbeddedVideoPlayer) GetURL() (value string) {
 		return
 	}
 	return l.URL
+}
+
+// GetThumbnail returns value of Thumbnail field.
+func (l *LinkPreviewTypeEmbeddedVideoPlayer) GetThumbnail() (value Photo) {
+	if l == nil {
+		return
+	}
+	return l.Thumbnail
 }
 
 // GetDuration returns value of Duration field.
@@ -5578,8 +6050,9 @@ const LinkPreviewTypeClassName = "LinkPreviewType"
 //	case *tdapi.LinkPreviewTypeChannelBoost: // linkPreviewTypeChannelBoost#c6f40456
 //	case *tdapi.LinkPreviewTypeChat: // linkPreviewTypeChat#ae2fa122
 //	case *tdapi.LinkPreviewTypeDocument: // linkPreviewTypeDocument#53b02747
-//	case *tdapi.LinkPreviewTypeEmbeddedAudioPlayer: // linkPreviewTypeEmbeddedAudioPlayer#2bb06106
-//	case *tdapi.LinkPreviewTypeEmbeddedVideoPlayer: // linkPreviewTypeEmbeddedVideoPlayer#fd4c9719
+//	case *tdapi.LinkPreviewTypeEmbeddedAnimationPlayer: // linkPreviewTypeEmbeddedAnimationPlayer#c45fddca
+//	case *tdapi.LinkPreviewTypeEmbeddedAudioPlayer: // linkPreviewTypeEmbeddedAudioPlayer#31e0dae6
+//	case *tdapi.LinkPreviewTypeEmbeddedVideoPlayer: // linkPreviewTypeEmbeddedVideoPlayer#6ee015a3
 //	case *tdapi.LinkPreviewTypeInvoice: // linkPreviewTypeInvoice#d47f48da
 //	case *tdapi.LinkPreviewTypeMessage: // linkPreviewTypeMessage#19f4c19e
 //	case *tdapi.LinkPreviewTypePhoto: // linkPreviewTypePhoto#eeebbab0
@@ -5691,15 +6164,22 @@ func DecodeLinkPreviewType(buf *bin.Buffer) (LinkPreviewTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
 		}
 		return &v, nil
+	case LinkPreviewTypeEmbeddedAnimationPlayerTypeID:
+		// Decoding linkPreviewTypeEmbeddedAnimationPlayer#c45fddca.
+		v := LinkPreviewTypeEmbeddedAnimationPlayer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
+		}
+		return &v, nil
 	case LinkPreviewTypeEmbeddedAudioPlayerTypeID:
-		// Decoding linkPreviewTypeEmbeddedAudioPlayer#2bb06106.
+		// Decoding linkPreviewTypeEmbeddedAudioPlayer#31e0dae6.
 		v := LinkPreviewTypeEmbeddedAudioPlayer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
 		}
 		return &v, nil
 	case LinkPreviewTypeEmbeddedVideoPlayerTypeID:
-		// Decoding linkPreviewTypeEmbeddedVideoPlayer#fd4c9719.
+		// Decoding linkPreviewTypeEmbeddedVideoPlayer#6ee015a3.
 		v := LinkPreviewTypeEmbeddedVideoPlayer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
@@ -5899,15 +6379,22 @@ func DecodeTDLibJSONLinkPreviewType(buf tdjson.Decoder) (LinkPreviewTypeClass, e
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
 		}
 		return &v, nil
+	case "linkPreviewTypeEmbeddedAnimationPlayer":
+		// Decoding linkPreviewTypeEmbeddedAnimationPlayer#c45fddca.
+		v := LinkPreviewTypeEmbeddedAnimationPlayer{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
+		}
+		return &v, nil
 	case "linkPreviewTypeEmbeddedAudioPlayer":
-		// Decoding linkPreviewTypeEmbeddedAudioPlayer#2bb06106.
+		// Decoding linkPreviewTypeEmbeddedAudioPlayer#31e0dae6.
 		v := LinkPreviewTypeEmbeddedAudioPlayer{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
 		}
 		return &v, nil
 	case "linkPreviewTypeEmbeddedVideoPlayer":
-		// Decoding linkPreviewTypeEmbeddedVideoPlayer#fd4c9719.
+		// Decoding linkPreviewTypeEmbeddedVideoPlayer#6ee015a3.
 		v := LinkPreviewTypeEmbeddedVideoPlayer{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)

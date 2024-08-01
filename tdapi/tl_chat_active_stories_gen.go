@@ -45,7 +45,7 @@ type ChatActiveStories struct {
 	// Identifier of the last read active story
 	MaxReadStoryID int32
 	// Basic information about the stories; use getStory to get full information about the
-	// stories. The stories are in a chronological order (i.e., in order of increasing story
+	// stories. The stories are in chronological order (i.e., in order of increasing story
 	// identifiers)
 	Stories []StoryInfo
 }

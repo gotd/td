@@ -35,7 +35,8 @@ var (
 type StopPollRequest struct {
 	// Identifier of the chat to which the poll belongs
 	ChatID int64
-	// Identifier of the message containing the poll
+	// Identifier of the message containing the poll. Use messageProperties.can_be_edited to
+	// check whether the poll can be stopped
 	MessageID int64
 	// The new message reply markup; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass

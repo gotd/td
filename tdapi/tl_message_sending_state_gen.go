@@ -201,7 +201,8 @@ func (m *MessageSendingStatePending) GetSendingID() (value int32) {
 type MessageSendingStateFailed struct {
 	// The cause of the message sending failure
 	Error Error
-	// True, if the message can be re-sent
+	// True, if the message can be re-sent using resendMessages or
+	// readdQuickReplyShortcutMessages
 	CanRetry bool
 	// True, if the message can be re-sent only on behalf of a different sender
 	NeedAnotherSender bool

@@ -33,7 +33,7 @@ var (
 
 // GetStarAdAccountURLRequest represents TL type `getStarAdAccountUrl#73a9455d`.
 type GetStarAdAccountURLRequest struct {
-	// Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or
+	// Identifier of the owner of the Telegram Stars; can be identifier of an owned bot, or
 	// identifier of an owned channel chat
 	OwnerID MessageSenderClass
 }

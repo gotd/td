@@ -972,7 +972,7 @@ func (m *MessageDocument) GetCaption() (value FormattedText) {
 
 // MessagePaidMedia represents TL type `messagePaidMedia#3e5fd7c2`.
 type MessagePaidMedia struct {
-	// Number of stars needed to buy access to the media in the message
+	// Number of Telegram Stars needed to buy access to the media in the message
 	StarCount int64
 	// Information about the media
 	Media []PaidMediaClass
@@ -11304,7 +11304,7 @@ func (m *MessagePaymentSuccessfulBot) GetProviderPaymentChargeID() (value string
 
 // MessagePaymentRefunded represents TL type `messagePaymentRefunded#11bcb8f3`.
 type MessagePaymentRefunded struct {
-	// Identifier of the previous owner of the Telegram stars that refunds them
+	// Identifier of the previous owner of the Telegram Stars that refunds them
 	OwnerID MessageSenderClass
 	// Currency for the price of the product
 	Currency string
@@ -11648,10 +11648,13 @@ func (m *MessagePaymentRefunded) GetProviderPaymentChargeID() (value string) {
 	return m.ProviderPaymentChargeID
 }
 
-// MessageGiftedPremium represents TL type `messageGiftedPremium#78d1d0a`.
+// MessageGiftedPremium represents TL type `messageGiftedPremium#30dd808e`.
 type MessageGiftedPremium struct {
-	// The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous
+	// The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous or
+	// is outgoing
 	GifterUserID int64
+	// The identifier of a user that received Telegram Premium; 0 if the gift is incoming
+	ReceiverUserID int64
 	// Currency for the paid amount
 	Currency string
 	// The paid amount, in the smallest units of the currency
@@ -11667,7 +11670,7 @@ type MessageGiftedPremium struct {
 }
 
 // MessageGiftedPremiumTypeID is TL type id of MessageGiftedPremium.
-const MessageGiftedPremiumTypeID = 0x78d1d0a
+const MessageGiftedPremiumTypeID = 0x30dd808e
 
 // construct implements constructor of MessageContentClass.
 func (m MessageGiftedPremium) construct() MessageContentClass { return &m }
@@ -11687,6 +11690,9 @@ func (m *MessageGiftedPremium) Zero() bool {
 		return true
 	}
 	if !(m.GifterUserID == 0) {
+		return false
+	}
+	if !(m.ReceiverUserID == 0) {
 		return false
 	}
 	if !(m.Currency == "") {
@@ -11748,6 +11754,10 @@ func (m *MessageGiftedPremium) TypeInfo() tdp.Type {
 			SchemaName: "gifter_user_id",
 		},
 		{
+			Name:       "ReceiverUserID",
+			SchemaName: "receiver_user_id",
+		},
+		{
 			Name:       "Currency",
 			SchemaName: "currency",
 		},
@@ -11778,7 +11788,7 @@ func (m *MessageGiftedPremium) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageGiftedPremium) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#78d1d0a as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#30dd808e as nil")
 	}
 	b.PutID(MessageGiftedPremiumTypeID)
 	return m.EncodeBare(b)
@@ -11787,16 +11797,17 @@ func (m *MessageGiftedPremium) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageGiftedPremium) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#78d1d0a as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#30dd808e as nil")
 	}
 	b.PutInt53(m.GifterUserID)
+	b.PutInt53(m.ReceiverUserID)
 	b.PutString(m.Currency)
 	b.PutInt53(m.Amount)
 	b.PutString(m.Cryptocurrency)
 	b.PutLong(m.CryptocurrencyAmount)
 	b.PutInt32(m.MonthCount)
 	if err := m.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageGiftedPremium#78d1d0a: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiftedPremium#30dd808e: field sticker: %w", err)
 	}
 	return nil
 }
@@ -11804,10 +11815,10 @@ func (m *MessageGiftedPremium) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageGiftedPremium) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#78d1d0a to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#30dd808e to nil")
 	}
 	if err := b.ConsumeID(MessageGiftedPremiumTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: %w", err)
+		return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -11815,53 +11826,60 @@ func (m *MessageGiftedPremium) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageGiftedPremium) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#78d1d0a to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#30dd808e to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field gifter_user_id: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field gifter_user_id: %w", err)
 		}
 		m.GifterUserID = value
 	}
 	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field receiver_user_id: %w", err)
+		}
+		m.ReceiverUserID = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field amount: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field amount: %w", err)
 		}
 		m.Amount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency: %w", err)
 		}
 		m.Cryptocurrency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency_amount: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency_amount: %w", err)
 		}
 		m.CryptocurrencyAmount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field month_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field month_count: %w", err)
 		}
 		m.MonthCount = value
 	}
 	{
 		if err := m.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field sticker: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -11870,13 +11888,16 @@ func (m *MessageGiftedPremium) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#78d1d0a as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#30dd808e as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageGiftedPremium")
 	b.Comma()
 	b.FieldStart("gifter_user_id")
 	b.PutInt53(m.GifterUserID)
+	b.Comma()
+	b.FieldStart("receiver_user_id")
+	b.PutInt53(m.ReceiverUserID)
 	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
@@ -11895,7 +11916,7 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageGiftedPremium#78d1d0a: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiftedPremium#30dd808e: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -11906,54 +11927,60 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageGiftedPremium) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#78d1d0a to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#30dd808e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageGiftedPremium"); err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: %w", err)
 			}
 		case "gifter_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field gifter_user_id: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field gifter_user_id: %w", err)
 			}
 			m.GifterUserID = value
+		case "receiver_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field receiver_user_id: %w", err)
+			}
+			m.ReceiverUserID = value
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field currency: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field currency: %w", err)
 			}
 			m.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field amount: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field amount: %w", err)
 			}
 			m.Amount = value
 		case "cryptocurrency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency: %w", err)
 			}
 			m.Cryptocurrency = value
 		case "cryptocurrency_amount":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency_amount: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency_amount: %w", err)
 			}
 			m.CryptocurrencyAmount = value
 		case "month_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field month_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field month_count: %w", err)
 			}
 			m.MonthCount = value
 		case "sticker":
 			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field sticker: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -11968,6 +11995,14 @@ func (m *MessageGiftedPremium) GetGifterUserID() (value int64) {
 		return
 	}
 	return m.GifterUserID
+}
+
+// GetReceiverUserID returns value of ReceiverUserID field.
+func (m *MessageGiftedPremium) GetReceiverUserID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.ReceiverUserID
 }
 
 // GetCurrency returns value of Currency field.
@@ -13666,6 +13701,445 @@ func (m *MessagePremiumGiveawayWinners) GetUnclaimedPrizeCount() (value int32) {
 		return
 	}
 	return m.UnclaimedPrizeCount
+}
+
+// MessageGiftedStars represents TL type `messageGiftedStars#41bdbea7`.
+type MessageGiftedStars struct {
+	// The identifier of a user that gifted Telegram Stars; 0 if the gift was anonymous or is
+	// outgoing
+	GifterUserID int64
+	// The identifier of a user that received Telegram Stars; 0 if the gift is incoming
+	ReceiverUserID int64
+	// Currency for the paid amount
+	Currency string
+	// The paid amount, in the smallest units of the currency
+	Amount int64
+	// Cryptocurrency used to pay for the gift; may be empty if none
+	Cryptocurrency string
+	// The paid amount, in the smallest units of the cryptocurrency; 0 if none
+	CryptocurrencyAmount int64
+	// Number of Telegram Stars that were gifted
+	StarCount int64
+	// Identifier of the transaction for Telegram Stars purchase; for receiver only
+	TransactionID string
+	// A sticker to be shown in the message; may be null if unknown
+	Sticker Sticker
+}
+
+// MessageGiftedStarsTypeID is TL type id of MessageGiftedStars.
+const MessageGiftedStarsTypeID = 0x41bdbea7
+
+// construct implements constructor of MessageContentClass.
+func (m MessageGiftedStars) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageGiftedStars.
+var (
+	_ bin.Encoder     = &MessageGiftedStars{}
+	_ bin.Decoder     = &MessageGiftedStars{}
+	_ bin.BareEncoder = &MessageGiftedStars{}
+	_ bin.BareDecoder = &MessageGiftedStars{}
+
+	_ MessageContentClass = &MessageGiftedStars{}
+)
+
+func (m *MessageGiftedStars) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.GifterUserID == 0) {
+		return false
+	}
+	if !(m.ReceiverUserID == 0) {
+		return false
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.Amount == 0) {
+		return false
+	}
+	if !(m.Cryptocurrency == "") {
+		return false
+	}
+	if !(m.CryptocurrencyAmount == 0) {
+		return false
+	}
+	if !(m.StarCount == 0) {
+		return false
+	}
+	if !(m.TransactionID == "") {
+		return false
+	}
+	if !(m.Sticker.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageGiftedStars) String() string {
+	if m == nil {
+		return "MessageGiftedStars(nil)"
+	}
+	type Alias MessageGiftedStars
+	return fmt.Sprintf("MessageGiftedStars%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageGiftedStars) TypeID() uint32 {
+	return MessageGiftedStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageGiftedStars) TypeName() string {
+	return "messageGiftedStars"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageGiftedStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageGiftedStars",
+		ID:   MessageGiftedStarsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GifterUserID",
+			SchemaName: "gifter_user_id",
+		},
+		{
+			Name:       "ReceiverUserID",
+			SchemaName: "receiver_user_id",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "Cryptocurrency",
+			SchemaName: "cryptocurrency",
+		},
+		{
+			Name:       "CryptocurrencyAmount",
+			SchemaName: "cryptocurrency_amount",
+		},
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+		{
+			Name:       "TransactionID",
+			SchemaName: "transaction_id",
+		},
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageGiftedStars) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageGiftedStars#41bdbea7 as nil")
+	}
+	b.PutID(MessageGiftedStarsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageGiftedStars) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageGiftedStars#41bdbea7 as nil")
+	}
+	b.PutInt53(m.GifterUserID)
+	b.PutInt53(m.ReceiverUserID)
+	b.PutString(m.Currency)
+	b.PutInt53(m.Amount)
+	b.PutString(m.Cryptocurrency)
+	b.PutLong(m.CryptocurrencyAmount)
+	b.PutInt53(m.StarCount)
+	b.PutString(m.TransactionID)
+	if err := m.Sticker.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiftedStars#41bdbea7: field sticker: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageGiftedStars) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageGiftedStars#41bdbea7 to nil")
+	}
+	if err := b.ConsumeID(MessageGiftedStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageGiftedStars) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageGiftedStars#41bdbea7 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field gifter_user_id: %w", err)
+		}
+		m.GifterUserID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field receiver_user_id: %w", err)
+		}
+		m.ReceiverUserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field currency: %w", err)
+		}
+		m.Currency = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field amount: %w", err)
+		}
+		m.Amount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field cryptocurrency: %w", err)
+		}
+		m.Cryptocurrency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field cryptocurrency_amount: %w", err)
+		}
+		m.CryptocurrencyAmount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field star_count: %w", err)
+		}
+		m.StarCount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field transaction_id: %w", err)
+		}
+		m.TransactionID = value
+	}
+	{
+		if err := m.Sticker.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field sticker: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageGiftedStars) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageGiftedStars#41bdbea7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageGiftedStars")
+	b.Comma()
+	b.FieldStart("gifter_user_id")
+	b.PutInt53(m.GifterUserID)
+	b.Comma()
+	b.FieldStart("receiver_user_id")
+	b.PutInt53(m.ReceiverUserID)
+	b.Comma()
+	b.FieldStart("currency")
+	b.PutString(m.Currency)
+	b.Comma()
+	b.FieldStart("amount")
+	b.PutInt53(m.Amount)
+	b.Comma()
+	b.FieldStart("cryptocurrency")
+	b.PutString(m.Cryptocurrency)
+	b.Comma()
+	b.FieldStart("cryptocurrency_amount")
+	b.PutLong(m.CryptocurrencyAmount)
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(m.StarCount)
+	b.Comma()
+	b.FieldStart("transaction_id")
+	b.PutString(m.TransactionID)
+	b.Comma()
+	b.FieldStart("sticker")
+	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiftedStars#41bdbea7: field sticker: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageGiftedStars) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageGiftedStars#41bdbea7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageGiftedStars"); err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: %w", err)
+			}
+		case "gifter_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field gifter_user_id: %w", err)
+			}
+			m.GifterUserID = value
+		case "receiver_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field receiver_user_id: %w", err)
+			}
+			m.ReceiverUserID = value
+		case "currency":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field currency: %w", err)
+			}
+			m.Currency = value
+		case "amount":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field amount: %w", err)
+			}
+			m.Amount = value
+		case "cryptocurrency":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field cryptocurrency: %w", err)
+			}
+			m.Cryptocurrency = value
+		case "cryptocurrency_amount":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field cryptocurrency_amount: %w", err)
+			}
+			m.CryptocurrencyAmount = value
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field star_count: %w", err)
+			}
+			m.StarCount = value
+		case "transaction_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field transaction_id: %w", err)
+			}
+			m.TransactionID = value
+		case "sticker":
+			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageGiftedStars#41bdbea7: field sticker: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetGifterUserID returns value of GifterUserID field.
+func (m *MessageGiftedStars) GetGifterUserID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.GifterUserID
+}
+
+// GetReceiverUserID returns value of ReceiverUserID field.
+func (m *MessageGiftedStars) GetReceiverUserID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.ReceiverUserID
+}
+
+// GetCurrency returns value of Currency field.
+func (m *MessageGiftedStars) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (m *MessageGiftedStars) GetAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Amount
+}
+
+// GetCryptocurrency returns value of Cryptocurrency field.
+func (m *MessageGiftedStars) GetCryptocurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Cryptocurrency
+}
+
+// GetCryptocurrencyAmount returns value of CryptocurrencyAmount field.
+func (m *MessageGiftedStars) GetCryptocurrencyAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.CryptocurrencyAmount
+}
+
+// GetStarCount returns value of StarCount field.
+func (m *MessageGiftedStars) GetStarCount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.StarCount
+}
+
+// GetTransactionID returns value of TransactionID field.
+func (m *MessageGiftedStars) GetTransactionID() (value string) {
+	if m == nil {
+		return
+	}
+	return m.TransactionID
+}
+
+// GetSticker returns value of Sticker field.
+func (m *MessageGiftedStars) GetSticker() (value Sticker) {
+	if m == nil {
+		return
+	}
+	return m.Sticker
 }
 
 // MessageContactRegistered represents TL type `messageContactRegistered#a678fcff`.
@@ -15649,12 +16123,13 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessagePaymentSuccessful: // messagePaymentSuccessful#53d93cdc
 //	case *tdapi.MessagePaymentSuccessfulBot: // messagePaymentSuccessfulBot#68e13eb9
 //	case *tdapi.MessagePaymentRefunded: // messagePaymentRefunded#11bcb8f3
-//	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#78d1d0a
+//	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#30dd808e
 //	case *tdapi.MessagePremiumGiftCode: // messagePremiumGiftCode#26bd1bf3
 //	case *tdapi.MessagePremiumGiveawayCreated: // messagePremiumGiveawayCreated#270f2c44
 //	case *tdapi.MessagePremiumGiveaway: // messagePremiumGiveaway#4aa0d0b0
 //	case *tdapi.MessagePremiumGiveawayCompleted: // messagePremiumGiveawayCompleted#80533949
 //	case *tdapi.MessagePremiumGiveawayWinners: // messagePremiumGiveawayWinners#815d5f31
+//	case *tdapi.MessageGiftedStars: // messageGiftedStars#41bdbea7
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //	case *tdapi.MessageUsersShared: // messageUsersShared#7f1f4a22
 //	case *tdapi.MessageChatShared: // messageChatShared#aec6d961
@@ -16082,7 +16557,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageGiftedPremiumTypeID:
-		// Decoding messageGiftedPremium#78d1d0a.
+		// Decoding messageGiftedPremium#30dd808e.
 		v := MessageGiftedPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -16119,6 +16594,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessagePremiumGiveawayWinnersTypeID:
 		// Decoding messagePremiumGiveawayWinners#815d5f31.
 		v := MessagePremiumGiveawayWinners{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageGiftedStarsTypeID:
+		// Decoding messageGiftedStars#41bdbea7.
+		v := MessageGiftedStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -16591,7 +17073,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageGiftedPremium":
-		// Decoding messageGiftedPremium#78d1d0a.
+		// Decoding messageGiftedPremium#30dd808e.
 		v := MessageGiftedPremium{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -16628,6 +17110,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messagePremiumGiveawayWinners":
 		// Decoding messagePremiumGiveawayWinners#815d5f31.
 		v := MessagePremiumGiveawayWinners{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageGiftedStars":
+		// Decoding messageGiftedStars#41bdbea7.
+		v := MessageGiftedStars{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

@@ -41,7 +41,7 @@ type MessageThreadInfo struct {
 	ReplyInfo MessageReplyInfo
 	// Approximate number of unread messages in the message thread
 	UnreadMessageCount int32
-	// The messages from which the thread starts. The messages are returned in a reverse
+	// The messages from which the thread starts. The messages are returned in reverse
 	// chronological order (i.e., in order of decreasing message_id)
 	Messages []Message
 	// A draft of a message in the message thread; may be null if none

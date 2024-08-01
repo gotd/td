@@ -667,7 +667,7 @@ type TelegramPaymentPurposeStars struct {
 	Currency string
 	// Paid amount, in the smallest units of the currency
 	Amount int64
-	// Number of bought stars
+	// Number of bought Telegram Stars
 	StarCount int64
 }
 
@@ -895,6 +895,274 @@ func (t *TelegramPaymentPurposeStars) GetStarCount() (value int64) {
 	return t.StarCount
 }
 
+// TelegramPaymentPurposeGiftedStars represents TL type `telegramPaymentPurposeGiftedStars#91b68a36`.
+type TelegramPaymentPurposeGiftedStars struct {
+	// Identifier of the user to which Telegram Stars are gifted
+	UserID int64
+	// ISO 4217 currency code of the payment currency
+	Currency string
+	// Paid amount, in the smallest units of the currency
+	Amount int64
+	// Number of bought Telegram Stars
+	StarCount int64
+}
+
+// TelegramPaymentPurposeGiftedStarsTypeID is TL type id of TelegramPaymentPurposeGiftedStars.
+const TelegramPaymentPurposeGiftedStarsTypeID = 0x91b68a36
+
+// construct implements constructor of TelegramPaymentPurposeClass.
+func (t TelegramPaymentPurposeGiftedStars) construct() TelegramPaymentPurposeClass { return &t }
+
+// Ensuring interfaces in compile-time for TelegramPaymentPurposeGiftedStars.
+var (
+	_ bin.Encoder     = &TelegramPaymentPurposeGiftedStars{}
+	_ bin.Decoder     = &TelegramPaymentPurposeGiftedStars{}
+	_ bin.BareEncoder = &TelegramPaymentPurposeGiftedStars{}
+	_ bin.BareDecoder = &TelegramPaymentPurposeGiftedStars{}
+
+	_ TelegramPaymentPurposeClass = &TelegramPaymentPurposeGiftedStars{}
+)
+
+func (t *TelegramPaymentPurposeGiftedStars) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.UserID == 0) {
+		return false
+	}
+	if !(t.Currency == "") {
+		return false
+	}
+	if !(t.Amount == 0) {
+		return false
+	}
+	if !(t.StarCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TelegramPaymentPurposeGiftedStars) String() string {
+	if t == nil {
+		return "TelegramPaymentPurposeGiftedStars(nil)"
+	}
+	type Alias TelegramPaymentPurposeGiftedStars
+	return fmt.Sprintf("TelegramPaymentPurposeGiftedStars%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TelegramPaymentPurposeGiftedStars) TypeID() uint32 {
+	return TelegramPaymentPurposeGiftedStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TelegramPaymentPurposeGiftedStars) TypeName() string {
+	return "telegramPaymentPurposeGiftedStars"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TelegramPaymentPurposeGiftedStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "telegramPaymentPurposeGiftedStars",
+		ID:   TelegramPaymentPurposeGiftedStarsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TelegramPaymentPurposeGiftedStars) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode telegramPaymentPurposeGiftedStars#91b68a36 as nil")
+	}
+	b.PutID(TelegramPaymentPurposeGiftedStarsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TelegramPaymentPurposeGiftedStars) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode telegramPaymentPurposeGiftedStars#91b68a36 as nil")
+	}
+	b.PutInt53(t.UserID)
+	b.PutString(t.Currency)
+	b.PutInt53(t.Amount)
+	b.PutInt53(t.StarCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TelegramPaymentPurposeGiftedStars) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode telegramPaymentPurposeGiftedStars#91b68a36 to nil")
+	}
+	if err := b.ConsumeID(TelegramPaymentPurposeGiftedStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TelegramPaymentPurposeGiftedStars) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode telegramPaymentPurposeGiftedStars#91b68a36 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field user_id: %w", err)
+		}
+		t.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field currency: %w", err)
+		}
+		t.Currency = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field amount: %w", err)
+		}
+		t.Amount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field star_count: %w", err)
+		}
+		t.StarCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TelegramPaymentPurposeGiftedStars) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode telegramPaymentPurposeGiftedStars#91b68a36 as nil")
+	}
+	b.ObjStart()
+	b.PutID("telegramPaymentPurposeGiftedStars")
+	b.Comma()
+	b.FieldStart("user_id")
+	b.PutInt53(t.UserID)
+	b.Comma()
+	b.FieldStart("currency")
+	b.PutString(t.Currency)
+	b.Comma()
+	b.FieldStart("amount")
+	b.PutInt53(t.Amount)
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(t.StarCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TelegramPaymentPurposeGiftedStars) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode telegramPaymentPurposeGiftedStars#91b68a36 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("telegramPaymentPurposeGiftedStars"); err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field user_id: %w", err)
+			}
+			t.UserID = value
+		case "currency":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field currency: %w", err)
+			}
+			t.Currency = value
+		case "amount":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field amount: %w", err)
+			}
+			t.Amount = value
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeGiftedStars#91b68a36: field star_count: %w", err)
+			}
+			t.StarCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetUserID returns value of UserID field.
+func (t *TelegramPaymentPurposeGiftedStars) GetUserID() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.UserID
+}
+
+// GetCurrency returns value of Currency field.
+func (t *TelegramPaymentPurposeGiftedStars) GetCurrency() (value string) {
+	if t == nil {
+		return
+	}
+	return t.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (t *TelegramPaymentPurposeGiftedStars) GetAmount() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.Amount
+}
+
+// GetStarCount returns value of StarCount field.
+func (t *TelegramPaymentPurposeGiftedStars) GetStarCount() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.StarCount
+}
+
 // TelegramPaymentPurposeClassName is schema name of TelegramPaymentPurposeClass.
 const TelegramPaymentPurposeClassName = "TelegramPaymentPurpose"
 
@@ -910,6 +1178,7 @@ const TelegramPaymentPurposeClassName = "TelegramPaymentPurpose"
 //	case *tdapi.TelegramPaymentPurposePremiumGiftCodes: // telegramPaymentPurposePremiumGiftCodes#91009cc
 //	case *tdapi.TelegramPaymentPurposePremiumGiveaway: // telegramPaymentPurposePremiumGiveaway#bfd4a227
 //	case *tdapi.TelegramPaymentPurposeStars: // telegramPaymentPurposeStars#e273ee52
+//	case *tdapi.TelegramPaymentPurposeGiftedStars: // telegramPaymentPurposeGiftedStars#91b68a36
 //	default: panic(v)
 //	}
 type TelegramPaymentPurposeClass interface {
@@ -967,6 +1236,13 @@ func DecodeTelegramPaymentPurpose(buf *bin.Buffer) (TelegramPaymentPurposeClass,
 			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
 		}
 		return &v, nil
+	case TelegramPaymentPurposeGiftedStarsTypeID:
+		// Decoding telegramPaymentPurposeGiftedStars#91b68a36.
+		v := TelegramPaymentPurposeGiftedStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -996,6 +1272,13 @@ func DecodeTDLibJSONTelegramPaymentPurpose(buf tdjson.Decoder) (TelegramPaymentP
 	case "telegramPaymentPurposeStars":
 		// Decoding telegramPaymentPurposeStars#e273ee52.
 		v := TelegramPaymentPurposeStars{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case "telegramPaymentPurposeGiftedStars":
+		// Decoding telegramPaymentPurposeGiftedStars#91b68a36.
+		v := TelegramPaymentPurposeGiftedStars{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
 		}

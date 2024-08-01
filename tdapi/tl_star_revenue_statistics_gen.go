@@ -35,9 +35,9 @@ var (
 type StarRevenueStatistics struct {
 	// A graph containing amount of revenue in a given day
 	RevenueByDayGraph StatisticalGraphClass
-	// Telegram star revenue status
+	// Telegram Star revenue status
 	Status StarRevenueStatus
-	// Current conversion rate of a Telegram star to USD
+	// Current conversion rate of a Telegram Star to USD
 	UsdRate float64
 }
 
