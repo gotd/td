@@ -2,6 +2,7 @@ package html
 
 import (
 	"io"
+	"strconv"
 	"strings"
 
 	"github.com/go-faster/errors"
@@ -45,6 +46,7 @@ const (
 	strong     = "strong"
 	span       = "span"
 	tgSpoiler  = "tg-spoiler"
+	tgEmoji    = "tg-emoji"
 	blockquote = "blockquote"
 )
 
@@ -79,6 +81,8 @@ func (p *htmlParser) tag(tn []byte) string {
 		return span
 	case tgSpoiler:
 		return tgSpoiler
+	case tgEmoji:
+		return tgEmoji
 	case blockquote:
 		return blockquote
 	default:
@@ -157,6 +161,10 @@ func (p *htmlParser) startTag() error {
 		}
 	case tgSpoiler:
 		e.format = entity.Spoiler()
+	case tgEmoji:
+		if id, err := strconv.ParseInt(p.attr["emoji-id"], 10, 64); err == nil {
+			e.format = entity.CustomEmoji(id)
+		}
 	case blockquote:
 		_, collapsed := p.attr["expandable"]
 		e.format = entity.Blockquote(collapsed)
