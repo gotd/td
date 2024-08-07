@@ -107,6 +107,8 @@ func TestHTML(t *testing.T) {
 				entities: getEntities(entity.Pre("python"))},
 			{html: "<b>&lt;</b>", msg: "<", entities: getEntities(entity.Bold())},
 			{html: `<span class="tg-spoiler">spoiler</span>`, msg: "spoiler", entities: getEntities(entity.Spoiler())},
+			{html: "<blockquote expandable>quote</blockquote>", msg: "quote", entities: getEntities(entity.Blockquote(true))},
+			{html: "<blockquote>quote</blockquote>", msg: "quote", entities: getEntities(entity.Blockquote(false))},
 		}
 		t.Run("Common", runTests(tests, false))
 	}

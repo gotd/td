@@ -36,15 +36,16 @@ func (p *htmlParser) fillAttrs() {
 }
 
 const (
-	pre       = "pre"
-	code      = "code"
-	em        = "em"
-	ins       = "ins"
-	strike    = "strike"
-	del       = "del"
-	strong    = "strong"
-	span      = "span"
-	tgSpoiler = "tg-spoiler"
+	pre        = "pre"
+	code       = "code"
+	em         = "em"
+	ins        = "ins"
+	strike     = "strike"
+	del        = "del"
+	strong     = "strong"
+	span       = "span"
+	tgSpoiler  = "tg-spoiler"
+	blockquote = "blockquote"
 )
 
 func (p *htmlParser) tag(tn []byte) string {
@@ -78,6 +79,8 @@ func (p *htmlParser) tag(tn []byte) string {
 		return span
 	case tgSpoiler:
 		return tgSpoiler
+	case blockquote:
+		return blockquote
 	default:
 		return string(tn)
 	}
@@ -154,6 +157,9 @@ func (p *htmlParser) startTag() error {
 		}
 	case tgSpoiler:
 		e.format = entity.Spoiler()
+	case blockquote:
+		_, collapsed := p.attr["expandable"]
+		e.format = entity.Blockquote(collapsed)
 	}
 
 	p.stack.push(e)
