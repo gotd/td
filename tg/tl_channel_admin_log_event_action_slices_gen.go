@@ -714,6 +714,19 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChange
 	return to
 }
 
+// AsChannelAdminLogEventActionToggleSignatureProfiles returns copy with only ChannelAdminLogEventActionToggleSignatureProfiles constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionToggleSignatureProfiles() (to ChannelAdminLogEventActionToggleSignatureProfilesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionToggleSignatureProfiles)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -4474,6 +4487,88 @@ func (s *ChannelAdminLogEventActionChangeEmojiStickerSetArray) PopFirst() (v Cha
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionChangeEmojiStickerSetArray) Pop() (v ChannelAdminLogEventActionChangeEmojiStickerSet, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionToggleSignatureProfilesArray is adapter for slice of ChannelAdminLogEventActionToggleSignatureProfiles.
+type ChannelAdminLogEventActionToggleSignatureProfilesArray []ChannelAdminLogEventActionToggleSignatureProfiles
+
+// Sort sorts slice of ChannelAdminLogEventActionToggleSignatureProfiles.
+func (s ChannelAdminLogEventActionToggleSignatureProfilesArray) Sort(less func(a, b ChannelAdminLogEventActionToggleSignatureProfiles) bool) ChannelAdminLogEventActionToggleSignatureProfilesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionToggleSignatureProfiles.
+func (s ChannelAdminLogEventActionToggleSignatureProfilesArray) SortStable(less func(a, b ChannelAdminLogEventActionToggleSignatureProfiles) bool) ChannelAdminLogEventActionToggleSignatureProfilesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionToggleSignatureProfiles.
+func (s ChannelAdminLogEventActionToggleSignatureProfilesArray) Retain(keep func(x ChannelAdminLogEventActionToggleSignatureProfiles) bool) ChannelAdminLogEventActionToggleSignatureProfilesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionToggleSignatureProfilesArray) First() (v ChannelAdminLogEventActionToggleSignatureProfiles, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionToggleSignatureProfilesArray) Last() (v ChannelAdminLogEventActionToggleSignatureProfiles, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionToggleSignatureProfilesArray) PopFirst() (v ChannelAdminLogEventActionToggleSignatureProfiles, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionToggleSignatureProfiles
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionToggleSignatureProfilesArray) Pop() (v ChannelAdminLogEventActionToggleSignatureProfiles, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

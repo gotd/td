@@ -1158,6 +1158,8 @@ type ChannelFull struct {
 	PaidMediaAllowed bool
 	// CanViewStarsRevenue field of ChannelFull.
 	CanViewStarsRevenue bool
+	// PaidReactionsAvailable field of ChannelFull.
+	PaidReactionsAvailable bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1432,6 +1434,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.CanViewStarsRevenue == false) {
 		return false
 	}
+	if !(c.PaidReactionsAvailable == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1588,6 +1593,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetCanViewRevenue() (value bool)
 	GetPaidMediaAllowed() (value bool)
 	GetCanViewStarsRevenue() (value bool)
+	GetPaidReactionsAvailable() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1648,6 +1654,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.CanViewRevenue = from.GetCanViewRevenue()
 	c.PaidMediaAllowed = from.GetPaidMediaAllowed()
 	c.CanViewStarsRevenue = from.GetCanViewStarsRevenue()
+	c.PaidReactionsAvailable = from.GetPaidReactionsAvailable()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1899,6 +1906,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "CanViewStarsRevenue",
 			SchemaName: "can_view_stars_revenue",
 			Null:       !c.Flags2.Has(15),
+		},
+		{
+			Name:       "PaidReactionsAvailable",
+			SchemaName: "paid_reactions_available",
+			Null:       !c.Flags2.Has(16),
 		},
 		{
 			Name:       "ID",
@@ -2155,6 +2167,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.CanViewStarsRevenue == false) {
 		c.Flags2.Set(15)
+	}
+	if !(c.PaidReactionsAvailable == false) {
+		c.Flags2.Set(16)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2483,6 +2498,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.CanViewRevenue = c.Flags2.Has(12)
 	c.PaidMediaAllowed = c.Flags2.Has(14)
 	c.CanViewStarsRevenue = c.Flags2.Has(15)
+	c.PaidReactionsAvailable = c.Flags2.Has(16)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3133,6 +3149,25 @@ func (c *ChannelFull) GetCanViewStarsRevenue() (value bool) {
 		return
 	}
 	return c.Flags2.Has(15)
+}
+
+// SetPaidReactionsAvailable sets value of PaidReactionsAvailable conditional field.
+func (c *ChannelFull) SetPaidReactionsAvailable(value bool) {
+	if value {
+		c.Flags2.Set(16)
+		c.PaidReactionsAvailable = true
+	} else {
+		c.Flags2.Unset(16)
+		c.PaidReactionsAvailable = false
+	}
+}
+
+// GetPaidReactionsAvailable returns value of PaidReactionsAvailable conditional field.
+func (c *ChannelFull) GetPaidReactionsAvailable() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(16)
 }
 
 // GetID returns value of ID field.

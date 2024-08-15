@@ -31,19 +31,25 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelParticipant represents TL type `channelParticipant#c00c07c0`.
+// ChannelParticipant represents TL type `channelParticipant#cb397619`.
 // Channel/supergroup participant
 //
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
+	// Flags field of ChannelParticipant.
+	Flags bin.Fields
 	// Participant user ID
 	UserID int64
 	// Date joined
 	Date int
+	// SubscriptionUntilDate field of ChannelParticipant.
+	//
+	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
+	SubscriptionUntilDate int
 }
 
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
-const ChannelParticipantTypeID = 0xc00c07c0
+const ChannelParticipantTypeID = 0xcb397619
 
 // construct implements constructor of ChannelParticipantClass.
 func (c ChannelParticipant) construct() ChannelParticipantClass { return &c }
@@ -62,10 +68,16 @@ func (c *ChannelParticipant) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
 	if !(c.UserID == 0) {
 		return false
 	}
 	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.SubscriptionUntilDate == 0) {
 		return false
 	}
 
@@ -85,9 +97,14 @@ func (c *ChannelParticipant) String() string {
 func (c *ChannelParticipant) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetDate() (value int)
+	GetSubscriptionUntilDate() (value int, ok bool)
 }) {
 	c.UserID = from.GetUserID()
 	c.Date = from.GetDate()
+	if val, ok := from.GetSubscriptionUntilDate(); ok {
+		c.SubscriptionUntilDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -121,14 +138,26 @@ func (c *ChannelParticipant) TypeInfo() tdp.Type {
 			Name:       "Date",
 			SchemaName: "date",
 		},
+		{
+			Name:       "SubscriptionUntilDate",
+			SchemaName: "subscription_until_date",
+			Null:       !c.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelParticipant) SetFlags() {
+	if !(c.SubscriptionUntilDate == 0) {
+		c.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipant) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipant#c00c07c0 as nil")
+		return fmt.Errorf("can't encode channelParticipant#cb397619 as nil")
 	}
 	b.PutID(ChannelParticipantTypeID)
 	return c.EncodeBare(b)
@@ -137,20 +166,27 @@ func (c *ChannelParticipant) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelParticipant) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipant#c00c07c0 as nil")
+		return fmt.Errorf("can't encode channelParticipant#cb397619 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelParticipant#cb397619: field flags: %w", err)
 	}
 	b.PutLong(c.UserID)
 	b.PutInt(c.Date)
+	if c.Flags.Has(0) {
+		b.PutInt(c.SubscriptionUntilDate)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChannelParticipant) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipant#c00c07c0 to nil")
+		return fmt.Errorf("can't decode channelParticipant#cb397619 to nil")
 	}
 	if err := b.ConsumeID(ChannelParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelParticipant#c00c07c0: %w", err)
+		return fmt.Errorf("unable to decode channelParticipant#cb397619: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -158,21 +194,33 @@ func (c *ChannelParticipant) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelParticipant) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipant#c00c07c0 to nil")
+		return fmt.Errorf("can't decode channelParticipant#cb397619 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelParticipant#cb397619: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipant#c00c07c0: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipant#cb397619: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipant#c00c07c0: field date: %w", err)
+			return fmt.Errorf("unable to decode channelParticipant#cb397619: field date: %w", err)
 		}
 		c.Date = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipant#cb397619: field subscription_until_date: %w", err)
+		}
+		c.SubscriptionUntilDate = value
 	}
 	return nil
 }
@@ -193,7 +241,25 @@ func (c *ChannelParticipant) GetDate() (value int) {
 	return c.Date
 }
 
-// ChannelParticipantSelf represents TL type `channelParticipantSelf#35a8bfa7`.
+// SetSubscriptionUntilDate sets value of SubscriptionUntilDate conditional field.
+func (c *ChannelParticipant) SetSubscriptionUntilDate(value int) {
+	c.Flags.Set(0)
+	c.SubscriptionUntilDate = value
+}
+
+// GetSubscriptionUntilDate returns value of SubscriptionUntilDate conditional field and
+// boolean which is true if field was set.
+func (c *ChannelParticipant) GetSubscriptionUntilDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.SubscriptionUntilDate, true
+}
+
+// ChannelParticipantSelf represents TL type `channelParticipantSelf#4f607bef`.
 // Myself
 //
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
@@ -211,10 +277,14 @@ type ChannelParticipantSelf struct {
 	InviterID int64
 	// When did I join the channel/supergroup
 	Date int
+	// SubscriptionUntilDate field of ChannelParticipantSelf.
+	//
+	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
+	SubscriptionUntilDate int
 }
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
-const ChannelParticipantSelfTypeID = 0x35a8bfa7
+const ChannelParticipantSelfTypeID = 0x4f607bef
 
 // construct implements constructor of ChannelParticipantClass.
 func (c ChannelParticipantSelf) construct() ChannelParticipantClass { return &c }
@@ -248,6 +318,9 @@ func (c *ChannelParticipantSelf) Zero() bool {
 	if !(c.Date == 0) {
 		return false
 	}
+	if !(c.SubscriptionUntilDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -267,11 +340,16 @@ func (c *ChannelParticipantSelf) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetInviterID() (value int64)
 	GetDate() (value int)
+	GetSubscriptionUntilDate() (value int, ok bool)
 }) {
 	c.ViaRequest = from.GetViaRequest()
 	c.UserID = from.GetUserID()
 	c.InviterID = from.GetInviterID()
 	c.Date = from.GetDate()
+	if val, ok := from.GetSubscriptionUntilDate(); ok {
+		c.SubscriptionUntilDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -314,6 +392,11 @@ func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
 			Name:       "Date",
 			SchemaName: "date",
 		},
+		{
+			Name:       "SubscriptionUntilDate",
+			SchemaName: "subscription_until_date",
+			Null:       !c.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -323,12 +406,15 @@ func (c *ChannelParticipantSelf) SetFlags() {
 	if !(c.ViaRequest == false) {
 		c.Flags.Set(0)
 	}
+	if !(c.SubscriptionUntilDate == 0) {
+		c.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantSelf#35a8bfa7 as nil")
+		return fmt.Errorf("can't encode channelParticipantSelf#4f607bef as nil")
 	}
 	b.PutID(ChannelParticipantSelfTypeID)
 	return c.EncodeBare(b)
@@ -337,25 +423,28 @@ func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelParticipantSelf) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantSelf#35a8bfa7 as nil")
+		return fmt.Errorf("can't encode channelParticipantSelf#4f607bef as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelParticipantSelf#35a8bfa7: field flags: %w", err)
+		return fmt.Errorf("unable to encode channelParticipantSelf#4f607bef: field flags: %w", err)
 	}
 	b.PutLong(c.UserID)
 	b.PutLong(c.InviterID)
 	b.PutInt(c.Date)
+	if c.Flags.Has(1) {
+		b.PutInt(c.SubscriptionUntilDate)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantSelf) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantSelf#35a8bfa7 to nil")
+		return fmt.Errorf("can't decode channelParticipantSelf#4f607bef to nil")
 	}
 	if err := b.ConsumeID(ChannelParticipantSelfTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: %w", err)
+		return fmt.Errorf("unable to decode channelParticipantSelf#4f607bef: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -363,34 +452,41 @@ func (c *ChannelParticipantSelf) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelParticipantSelf) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantSelf#35a8bfa7 to nil")
+		return fmt.Errorf("can't decode channelParticipantSelf#4f607bef to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field flags: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#4f607bef: field flags: %w", err)
 		}
 	}
 	c.ViaRequest = c.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#4f607bef: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field inviter_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#4f607bef: field inviter_id: %w", err)
 		}
 		c.InviterID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field date: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#4f607bef: field date: %w", err)
 		}
 		c.Date = value
+	}
+	if c.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipantSelf#4f607bef: field subscription_until_date: %w", err)
+		}
+		c.SubscriptionUntilDate = value
 	}
 	return nil
 }
@@ -436,6 +532,24 @@ func (c *ChannelParticipantSelf) GetDate() (value int) {
 		return
 	}
 	return c.Date
+}
+
+// SetSubscriptionUntilDate sets value of SubscriptionUntilDate conditional field.
+func (c *ChannelParticipantSelf) SetSubscriptionUntilDate(value int) {
+	c.Flags.Set(1)
+	c.SubscriptionUntilDate = value
+}
+
+// GetSubscriptionUntilDate returns value of SubscriptionUntilDate conditional field and
+// boolean which is true if field was set.
+func (c *ChannelParticipantSelf) GetSubscriptionUntilDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.SubscriptionUntilDate, true
 }
 
 // ChannelParticipantCreator represents TL type `channelParticipantCreator#2fe601d3`.
@@ -1510,8 +1624,8 @@ const ChannelParticipantClassName = "ChannelParticipant"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.ChannelParticipant: // channelParticipant#c00c07c0
-//	case *tg.ChannelParticipantSelf: // channelParticipantSelf#35a8bfa7
+//	case *tg.ChannelParticipant: // channelParticipant#cb397619
+//	case *tg.ChannelParticipantSelf: // channelParticipantSelf#4f607bef
 //	case *tg.ChannelParticipantCreator: // channelParticipantCreator#2fe601d3
 //	case *tg.ChannelParticipantAdmin: // channelParticipantAdmin#34c3bb53
 //	case *tg.ChannelParticipantBanned: // channelParticipantBanned#6df8014e
@@ -1545,14 +1659,14 @@ func DecodeChannelParticipant(buf *bin.Buffer) (ChannelParticipantClass, error) 
 	}
 	switch id {
 	case ChannelParticipantTypeID:
-		// Decoding channelParticipant#c00c07c0.
+		// Decoding channelParticipant#cb397619.
 		v := ChannelParticipant{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelParticipantClass: %w", err)
 		}
 		return &v, nil
 	case ChannelParticipantSelfTypeID:
-		// Decoding channelParticipantSelf#35a8bfa7.
+		// Decoding channelParticipantSelf#4f607bef.
 		v := ChannelParticipantSelf{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelParticipantClass: %w", err)

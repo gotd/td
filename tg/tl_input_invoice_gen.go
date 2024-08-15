@@ -665,6 +665,140 @@ func (i *InputInvoiceStars) GetPurpose() (value InputStorePaymentPurposeClass) {
 	return i.Purpose
 }
 
+// InputInvoiceChatInviteSubscription represents TL type `inputInvoiceChatInviteSubscription#34e793f1`.
+//
+// See https://core.telegram.org/constructor/inputInvoiceChatInviteSubscription for reference.
+type InputInvoiceChatInviteSubscription struct {
+	// Hash field of InputInvoiceChatInviteSubscription.
+	Hash string
+}
+
+// InputInvoiceChatInviteSubscriptionTypeID is TL type id of InputInvoiceChatInviteSubscription.
+const InputInvoiceChatInviteSubscriptionTypeID = 0x34e793f1
+
+// construct implements constructor of InputInvoiceClass.
+func (i InputInvoiceChatInviteSubscription) construct() InputInvoiceClass { return &i }
+
+// Ensuring interfaces in compile-time for InputInvoiceChatInviteSubscription.
+var (
+	_ bin.Encoder     = &InputInvoiceChatInviteSubscription{}
+	_ bin.Decoder     = &InputInvoiceChatInviteSubscription{}
+	_ bin.BareEncoder = &InputInvoiceChatInviteSubscription{}
+	_ bin.BareDecoder = &InputInvoiceChatInviteSubscription{}
+
+	_ InputInvoiceClass = &InputInvoiceChatInviteSubscription{}
+)
+
+func (i *InputInvoiceChatInviteSubscription) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Hash == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputInvoiceChatInviteSubscription) String() string {
+	if i == nil {
+		return "InputInvoiceChatInviteSubscription(nil)"
+	}
+	type Alias InputInvoiceChatInviteSubscription
+	return fmt.Sprintf("InputInvoiceChatInviteSubscription%+v", Alias(*i))
+}
+
+// FillFrom fills InputInvoiceChatInviteSubscription from given interface.
+func (i *InputInvoiceChatInviteSubscription) FillFrom(from interface {
+	GetHash() (value string)
+}) {
+	i.Hash = from.GetHash()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputInvoiceChatInviteSubscription) TypeID() uint32 {
+	return InputInvoiceChatInviteSubscriptionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputInvoiceChatInviteSubscription) TypeName() string {
+	return "inputInvoiceChatInviteSubscription"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputInvoiceChatInviteSubscription) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputInvoiceChatInviteSubscription",
+		ID:   InputInvoiceChatInviteSubscriptionTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputInvoiceChatInviteSubscription) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceChatInviteSubscription#34e793f1 as nil")
+	}
+	b.PutID(InputInvoiceChatInviteSubscriptionTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputInvoiceChatInviteSubscription) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceChatInviteSubscription#34e793f1 as nil")
+	}
+	b.PutString(i.Hash)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputInvoiceChatInviteSubscription) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceChatInviteSubscription#34e793f1 to nil")
+	}
+	if err := b.ConsumeID(InputInvoiceChatInviteSubscriptionTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputInvoiceChatInviteSubscription#34e793f1: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputInvoiceChatInviteSubscription) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceChatInviteSubscription#34e793f1 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputInvoiceChatInviteSubscription#34e793f1: field hash: %w", err)
+		}
+		i.Hash = value
+	}
+	return nil
+}
+
+// GetHash returns value of Hash field.
+func (i *InputInvoiceChatInviteSubscription) GetHash() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Hash
+}
+
 // InputInvoiceClassName is schema name of InputInvoiceClass.
 const InputInvoiceClassName = "InputInvoice"
 
@@ -683,6 +817,7 @@ const InputInvoiceClassName = "InputInvoice"
 //	case *tg.InputInvoiceSlug: // inputInvoiceSlug#c326caef
 //	case *tg.InputInvoicePremiumGiftCode: // inputInvoicePremiumGiftCode#98986c0d
 //	case *tg.InputInvoiceStars: // inputInvoiceStars#65f00ce3
+//	case *tg.InputInvoiceChatInviteSubscription: // inputInvoiceChatInviteSubscription#34e793f1
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -735,6 +870,13 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 	case InputInvoiceStarsTypeID:
 		// Decoding inputInvoiceStars#65f00ce3.
 		v := InputInvoiceStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
+		}
+		return &v, nil
+	case InputInvoiceChatInviteSubscriptionTypeID:
+		// Decoding inputInvoiceChatInviteSubscription#34e793f1.
+		v := InputInvoiceChatInviteSubscription{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}

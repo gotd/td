@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatInviteExported represents TL type `chatInviteExported#ab4a819`.
+// ChatInviteExported represents TL type `chatInviteExported#a22cbd96`.
 // Exported chat invite
 //
 // See https://core.telegram.org/constructor/chatInviteExported for reference.
@@ -74,14 +74,22 @@ type ChatInviteExported struct {
 	//
 	// Use SetRequested and GetRequested helpers.
 	Requested int
+	// SubscriptionExpired field of ChatInviteExported.
+	//
+	// Use SetSubscriptionExpired and GetSubscriptionExpired helpers.
+	SubscriptionExpired int
 	// Custom description for the invite link, visible only to admins
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
+	// SubscriptionPricing field of ChatInviteExported.
+	//
+	// Use SetSubscriptionPricing and GetSubscriptionPricing helpers.
+	SubscriptionPricing StarsSubscriptionPricing
 }
 
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.
-const ChatInviteExportedTypeID = 0xab4a819
+const ChatInviteExportedTypeID = 0xa22cbd96
 
 // construct implements constructor of ExportedChatInviteClass.
 func (c ChatInviteExported) construct() ExportedChatInviteClass { return &c }
@@ -136,7 +144,13 @@ func (c *ChatInviteExported) Zero() bool {
 	if !(c.Requested == 0) {
 		return false
 	}
+	if !(c.SubscriptionExpired == 0) {
+		return false
+	}
 	if !(c.Title == "") {
+		return false
+	}
+	if !(c.SubscriptionPricing.Zero()) {
 		return false
 	}
 
@@ -165,7 +179,9 @@ func (c *ChatInviteExported) FillFrom(from interface {
 	GetUsageLimit() (value int, ok bool)
 	GetUsage() (value int, ok bool)
 	GetRequested() (value int, ok bool)
+	GetSubscriptionExpired() (value int, ok bool)
 	GetTitle() (value string, ok bool)
+	GetSubscriptionPricing() (value StarsSubscriptionPricing, ok bool)
 }) {
 	c.Revoked = from.GetRevoked()
 	c.Permanent = from.GetPermanent()
@@ -193,8 +209,16 @@ func (c *ChatInviteExported) FillFrom(from interface {
 		c.Requested = val
 	}
 
+	if val, ok := from.GetSubscriptionExpired(); ok {
+		c.SubscriptionExpired = val
+	}
+
 	if val, ok := from.GetTitle(); ok {
 		c.Title = val
+	}
+
+	if val, ok := from.GetSubscriptionPricing(); ok {
+		c.SubscriptionPricing = val
 	}
 
 }
@@ -275,9 +299,19 @@ func (c *ChatInviteExported) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(7),
 		},
 		{
+			Name:       "SubscriptionExpired",
+			SchemaName: "subscription_expired",
+			Null:       !c.Flags.Has(10),
+		},
+		{
 			Name:       "Title",
 			SchemaName: "title",
 			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "SubscriptionPricing",
+			SchemaName: "subscription_pricing",
+			Null:       !c.Flags.Has(9),
 		},
 	}
 	return typ
@@ -309,15 +343,21 @@ func (c *ChatInviteExported) SetFlags() {
 	if !(c.Requested == 0) {
 		c.Flags.Set(7)
 	}
+	if !(c.SubscriptionExpired == 0) {
+		c.Flags.Set(10)
+	}
 	if !(c.Title == "") {
 		c.Flags.Set(8)
+	}
+	if !(c.SubscriptionPricing.Zero()) {
+		c.Flags.Set(9)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteExported#ab4a819 as nil")
+		return fmt.Errorf("can't encode chatInviteExported#a22cbd96 as nil")
 	}
 	b.PutID(ChatInviteExportedTypeID)
 	return c.EncodeBare(b)
@@ -326,11 +366,11 @@ func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteExported#ab4a819 as nil")
+		return fmt.Errorf("can't encode chatInviteExported#a22cbd96 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteExported#ab4a819: field flags: %w", err)
+		return fmt.Errorf("unable to encode chatInviteExported#a22cbd96: field flags: %w", err)
 	}
 	b.PutString(c.Link)
 	b.PutLong(c.AdminID)
@@ -350,8 +390,16 @@ func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
 	if c.Flags.Has(7) {
 		b.PutInt(c.Requested)
 	}
+	if c.Flags.Has(10) {
+		b.PutInt(c.SubscriptionExpired)
+	}
 	if c.Flags.Has(8) {
 		b.PutString(c.Title)
+	}
+	if c.Flags.Has(9) {
+		if err := c.SubscriptionPricing.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode chatInviteExported#a22cbd96: field subscription_pricing: %w", err)
+		}
 	}
 	return nil
 }
@@ -359,10 +407,10 @@ func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatInviteExported) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteExported#ab4a819 to nil")
+		return fmt.Errorf("can't decode chatInviteExported#a22cbd96 to nil")
 	}
 	if err := b.ConsumeID(ChatInviteExportedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInviteExported#ab4a819: %w", err)
+		return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -370,11 +418,11 @@ func (c *ChatInviteExported) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatInviteExported) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteExported#ab4a819 to nil")
+		return fmt.Errorf("can't decode chatInviteExported#a22cbd96 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field flags: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field flags: %w", err)
 		}
 	}
 	c.Revoked = c.Flags.Has(0)
@@ -383,65 +431,77 @@ func (c *ChatInviteExported) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field link: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field link: %w", err)
 		}
 		c.Link = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field admin_id: %w", err)
 		}
 		c.AdminID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field date: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field date: %w", err)
 		}
 		c.Date = value
 	}
 	if c.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field start_date: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field start_date: %w", err)
 		}
 		c.StartDate = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field expire_date: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field expire_date: %w", err)
 		}
 		c.ExpireDate = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field usage_limit: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field usage_limit: %w", err)
 		}
 		c.UsageLimit = value
 	}
 	if c.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field usage: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field usage: %w", err)
 		}
 		c.Usage = value
 	}
 	if c.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field requested: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field requested: %w", err)
 		}
 		c.Requested = value
+	}
+	if c.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field subscription_expired: %w", err)
+		}
+		c.SubscriptionExpired = value
 	}
 	if c.Flags.Has(8) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteExported#ab4a819: field title: %w", err)
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field title: %w", err)
 		}
 		c.Title = value
+	}
+	if c.Flags.Has(9) {
+		if err := c.SubscriptionPricing.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatInviteExported#a22cbd96: field subscription_pricing: %w", err)
+		}
 	}
 	return nil
 }
@@ -617,6 +677,24 @@ func (c *ChatInviteExported) GetRequested() (value int, ok bool) {
 	return c.Requested, true
 }
 
+// SetSubscriptionExpired sets value of SubscriptionExpired conditional field.
+func (c *ChatInviteExported) SetSubscriptionExpired(value int) {
+	c.Flags.Set(10)
+	c.SubscriptionExpired = value
+}
+
+// GetSubscriptionExpired returns value of SubscriptionExpired conditional field and
+// boolean which is true if field was set.
+func (c *ChatInviteExported) GetSubscriptionExpired() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(10) {
+		return value, false
+	}
+	return c.SubscriptionExpired, true
+}
+
 // SetTitle sets value of Title conditional field.
 func (c *ChatInviteExported) SetTitle(value string) {
 	c.Flags.Set(8)
@@ -633,6 +711,24 @@ func (c *ChatInviteExported) GetTitle() (value string, ok bool) {
 		return value, false
 	}
 	return c.Title, true
+}
+
+// SetSubscriptionPricing sets value of SubscriptionPricing conditional field.
+func (c *ChatInviteExported) SetSubscriptionPricing(value StarsSubscriptionPricing) {
+	c.Flags.Set(9)
+	c.SubscriptionPricing = value
+}
+
+// GetSubscriptionPricing returns value of SubscriptionPricing conditional field and
+// boolean which is true if field was set.
+func (c *ChatInviteExported) GetSubscriptionPricing() (value StarsSubscriptionPricing, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(9) {
+		return value, false
+	}
+	return c.SubscriptionPricing, true
 }
 
 // ChatInvitePublicJoinRequests represents TL type `chatInvitePublicJoinRequests#ed107ab7`.
@@ -755,7 +851,7 @@ const ExportedChatInviteClassName = "ExportedChatInvite"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.ChatInviteExported: // chatInviteExported#ab4a819
+//	case *tg.ChatInviteExported: // chatInviteExported#a22cbd96
 //	case *tg.ChatInvitePublicJoinRequests: // chatInvitePublicJoinRequests#ed107ab7
 //	default: panic(v)
 //	}
@@ -786,7 +882,7 @@ func DecodeExportedChatInvite(buf *bin.Buffer) (ExportedChatInviteClass, error) 
 	}
 	switch id {
 	case ChatInviteExportedTypeID:
-		// Decoding chatInviteExported#ab4a819.
+		// Decoding chatInviteExported#a22cbd96.
 		v := ChatInviteExported{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ExportedChatInviteClass: %w", err)

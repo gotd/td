@@ -116,38 +116,6 @@ func (s *InputFileClassArray) Pop() (v InputFileClass, ok bool) {
 	return v, true
 }
 
-// SortByID sorts slice of InputFileClass by ID.
-func (s InputFileClassArray) SortByID() InputFileClassArray {
-	return s.Sort(func(a, b InputFileClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of InputFileClass by ID.
-func (s InputFileClassArray) SortStableByID() InputFileClassArray {
-	return s.SortStable(func(a, b InputFileClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillInputFileMap fills only InputFile constructors to given map.
-func (s InputFileClassArray) FillInputFileMap(to map[int64]*InputFile) {
-	for _, elem := range s {
-		value, ok := elem.(*InputFile)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// InputFileToMap collects only InputFile constructors to map.
-func (s InputFileClassArray) InputFileToMap() map[int64]*InputFile {
-	r := make(map[int64]*InputFile, len(s))
-	s.FillInputFileMap(r)
-	return r
-}
-
 // AsInputFile returns copy with only InputFile constructors.
 func (s InputFileClassArray) AsInputFile() (to InputFileArray) {
 	for _, elem := range s {
@@ -161,28 +129,23 @@ func (s InputFileClassArray) AsInputFile() (to InputFileArray) {
 	return to
 }
 
-// FillInputFileBigMap fills only InputFileBig constructors to given map.
-func (s InputFileClassArray) FillInputFileBigMap(to map[int64]*InputFileBig) {
+// AsInputFileBig returns copy with only InputFileBig constructors.
+func (s InputFileClassArray) AsInputFileBig() (to InputFileBigArray) {
 	for _, elem := range s {
 		value, ok := elem.(*InputFileBig)
 		if !ok {
 			continue
 		}
-		to[value.GetID()] = value
+		to = append(to, *value)
 	}
+
+	return to
 }
 
-// InputFileBigToMap collects only InputFileBig constructors to map.
-func (s InputFileClassArray) InputFileBigToMap() map[int64]*InputFileBig {
-	r := make(map[int64]*InputFileBig, len(s))
-	s.FillInputFileBigMap(r)
-	return r
-}
-
-// AsInputFileBig returns copy with only InputFileBig constructors.
-func (s InputFileClassArray) AsInputFileBig() (to InputFileBigArray) {
+// AsInputFileStoryDocument returns copy with only InputFileStoryDocument constructors.
+func (s InputFileClassArray) AsInputFileStoryDocument() (to InputFileStoryDocumentArray) {
 	for _, elem := range s {
-		value, ok := elem.(*InputFileBig)
+		value, ok := elem.(*InputFileStoryDocument)
 		if !ok {
 			continue
 		}
@@ -410,4 +373,86 @@ func (s InputFileBigArray) ToMap() map[int64]InputFileBig {
 	r := make(map[int64]InputFileBig, len(s))
 	s.FillMap(r)
 	return r
+}
+
+// InputFileStoryDocumentArray is adapter for slice of InputFileStoryDocument.
+type InputFileStoryDocumentArray []InputFileStoryDocument
+
+// Sort sorts slice of InputFileStoryDocument.
+func (s InputFileStoryDocumentArray) Sort(less func(a, b InputFileStoryDocument) bool) InputFileStoryDocumentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputFileStoryDocument.
+func (s InputFileStoryDocumentArray) SortStable(less func(a, b InputFileStoryDocument) bool) InputFileStoryDocumentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputFileStoryDocument.
+func (s InputFileStoryDocumentArray) Retain(keep func(x InputFileStoryDocument) bool) InputFileStoryDocumentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputFileStoryDocumentArray) First() (v InputFileStoryDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputFileStoryDocumentArray) Last() (v InputFileStoryDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputFileStoryDocumentArray) PopFirst() (v InputFileStoryDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputFileStoryDocument
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputFileStoryDocumentArray) Pop() (v InputFileStoryDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }
