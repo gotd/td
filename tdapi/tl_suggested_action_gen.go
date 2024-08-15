@@ -1709,6 +1709,137 @@ func (s *SuggestedActionExtendPremium) GetManagePremiumSubscriptionURL() (value 
 	return s.ManagePremiumSubscriptionURL
 }
 
+// SuggestedActionExtendStarSubscriptions represents TL type `suggestedActionExtendStarSubscriptions#fd32d556`.
+type SuggestedActionExtendStarSubscriptions struct {
+}
+
+// SuggestedActionExtendStarSubscriptionsTypeID is TL type id of SuggestedActionExtendStarSubscriptions.
+const SuggestedActionExtendStarSubscriptionsTypeID = 0xfd32d556
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionExtendStarSubscriptions) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionExtendStarSubscriptions.
+var (
+	_ bin.Encoder     = &SuggestedActionExtendStarSubscriptions{}
+	_ bin.Decoder     = &SuggestedActionExtendStarSubscriptions{}
+	_ bin.BareEncoder = &SuggestedActionExtendStarSubscriptions{}
+	_ bin.BareDecoder = &SuggestedActionExtendStarSubscriptions{}
+
+	_ SuggestedActionClass = &SuggestedActionExtendStarSubscriptions{}
+)
+
+func (s *SuggestedActionExtendStarSubscriptions) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionExtendStarSubscriptions) String() string {
+	if s == nil {
+		return "SuggestedActionExtendStarSubscriptions(nil)"
+	}
+	type Alias SuggestedActionExtendStarSubscriptions
+	return fmt.Sprintf("SuggestedActionExtendStarSubscriptions%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionExtendStarSubscriptions) TypeID() uint32 {
+	return SuggestedActionExtendStarSubscriptionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionExtendStarSubscriptions) TypeName() string {
+	return "suggestedActionExtendStarSubscriptions"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionExtendStarSubscriptions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionExtendStarSubscriptions",
+		ID:   SuggestedActionExtendStarSubscriptionsTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionExtendStarSubscriptions) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionExtendStarSubscriptions#fd32d556 as nil")
+	}
+	b.PutID(SuggestedActionExtendStarSubscriptionsTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionExtendStarSubscriptions) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionExtendStarSubscriptions#fd32d556 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionExtendStarSubscriptions) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionExtendStarSubscriptions#fd32d556 to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionExtendStarSubscriptionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionExtendStarSubscriptions#fd32d556: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionExtendStarSubscriptions) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionExtendStarSubscriptions#fd32d556 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionExtendStarSubscriptions) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionExtendStarSubscriptions#fd32d556 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionExtendStarSubscriptions")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionExtendStarSubscriptions) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionExtendStarSubscriptions#fd32d556 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionExtendStarSubscriptions"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionExtendStarSubscriptions#fd32d556: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SuggestedActionClassName is schema name of SuggestedActionClass.
 const SuggestedActionClassName = "SuggestedAction"
 
@@ -1733,6 +1864,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionGiftPremiumForChristmas: // suggestedActionGiftPremiumForChristmas#93b3ee6f
 //	case *tdapi.SuggestedActionSetBirthdate: // suggestedActionSetBirthdate#eabd9b02
 //	case *tdapi.SuggestedActionExtendPremium: // suggestedActionExtendPremium#de405cca
+//	case *tdapi.SuggestedActionExtendStarSubscriptions: // suggestedActionExtendStarSubscriptions#fd32d556
 //	default: panic(v)
 //	}
 type SuggestedActionClass interface {
@@ -1848,6 +1980,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionExtendStarSubscriptionsTypeID:
+		// Decoding suggestedActionExtendStarSubscriptions#fd32d556.
+		v := SuggestedActionExtendStarSubscriptions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1940,6 +2079,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionExtendPremium":
 		// Decoding suggestedActionExtendPremium#de405cca.
 		v := SuggestedActionExtendPremium{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionExtendStarSubscriptions":
+		// Decoding suggestedActionExtendStarSubscriptions#fd32d556.
+		v := SuggestedActionExtendStarSubscriptions{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

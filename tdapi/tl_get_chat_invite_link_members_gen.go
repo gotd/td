@@ -31,12 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatInviteLinkMembersRequest represents TL type `getChatInviteLinkMembers#c5b6199a`.
+// GetChatInviteLinkMembersRequest represents TL type `getChatInviteLinkMembers#6704ed3c`.
 type GetChatInviteLinkMembersRequest struct {
 	// Chat identifier
 	ChatID int64
 	// Invite link for which to return chat members
 	InviteLink string
+	// Pass true if the link is a subscription link and only members with expired
+	// subscription must be returned
+	OnlyWithExpiredSubscription bool
 	// A chat member from which to return next chat members; pass null to get results from
 	// the beginning
 	OffsetMember ChatInviteLinkMember
@@ -45,7 +48,7 @@ type GetChatInviteLinkMembersRequest struct {
 }
 
 // GetChatInviteLinkMembersRequestTypeID is TL type id of GetChatInviteLinkMembersRequest.
-const GetChatInviteLinkMembersRequestTypeID = 0xc5b6199a
+const GetChatInviteLinkMembersRequestTypeID = 0x6704ed3c
 
 // Ensuring interfaces in compile-time for GetChatInviteLinkMembersRequest.
 var (
@@ -63,6 +66,9 @@ func (g *GetChatInviteLinkMembersRequest) Zero() bool {
 		return false
 	}
 	if !(g.InviteLink == "") {
+		return false
+	}
+	if !(g.OnlyWithExpiredSubscription == false) {
 		return false
 	}
 	if !(g.OffsetMember.Zero()) {
@@ -116,6 +122,10 @@ func (g *GetChatInviteLinkMembersRequest) TypeInfo() tdp.Type {
 			SchemaName: "invite_link",
 		},
 		{
+			Name:       "OnlyWithExpiredSubscription",
+			SchemaName: "only_with_expired_subscription",
+		},
+		{
 			Name:       "OffsetMember",
 			SchemaName: "offset_member",
 		},
@@ -130,7 +140,7 @@ func (g *GetChatInviteLinkMembersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatInviteLinkMembersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatInviteLinkMembers#c5b6199a as nil")
+		return fmt.Errorf("can't encode getChatInviteLinkMembers#6704ed3c as nil")
 	}
 	b.PutID(GetChatInviteLinkMembersRequestTypeID)
 	return g.EncodeBare(b)
@@ -139,12 +149,13 @@ func (g *GetChatInviteLinkMembersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatInviteLinkMembersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatInviteLinkMembers#c5b6199a as nil")
+		return fmt.Errorf("can't encode getChatInviteLinkMembers#6704ed3c as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutString(g.InviteLink)
+	b.PutBool(g.OnlyWithExpiredSubscription)
 	if err := g.OffsetMember.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatInviteLinkMembers#c5b6199a: field offset_member: %w", err)
+		return fmt.Errorf("unable to encode getChatInviteLinkMembers#6704ed3c: field offset_member: %w", err)
 	}
 	b.PutInt32(g.Limit)
 	return nil
@@ -153,10 +164,10 @@ func (g *GetChatInviteLinkMembersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetChatInviteLinkMembersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatInviteLinkMembers#c5b6199a to nil")
+		return fmt.Errorf("can't decode getChatInviteLinkMembers#6704ed3c to nil")
 	}
 	if err := b.ConsumeID(GetChatInviteLinkMembersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: %w", err)
+		return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -164,31 +175,38 @@ func (g *GetChatInviteLinkMembersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatInviteLinkMembersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatInviteLinkMembers#c5b6199a to nil")
+		return fmt.Errorf("can't decode getChatInviteLinkMembers#6704ed3c to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field invite_link: %w", err)
 		}
 		g.InviteLink = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field only_with_expired_subscription: %w", err)
+		}
+		g.OnlyWithExpiredSubscription = value
+	}
+	{
 		if err := g.OffsetMember.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field offset_member: %w", err)
+			return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field offset_member: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field limit: %w", err)
+			return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -198,7 +216,7 @@ func (g *GetChatInviteLinkMembersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatInviteLinkMembers#c5b6199a as nil")
+		return fmt.Errorf("can't encode getChatInviteLinkMembers#6704ed3c as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatInviteLinkMembers")
@@ -209,9 +227,12 @@ func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("invite_link")
 	b.PutString(g.InviteLink)
 	b.Comma()
+	b.FieldStart("only_with_expired_subscription")
+	b.PutBool(g.OnlyWithExpiredSubscription)
+	b.Comma()
 	b.FieldStart("offset_member")
 	if err := g.OffsetMember.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatInviteLinkMembers#c5b6199a: field offset_member: %w", err)
+		return fmt.Errorf("unable to encode getChatInviteLinkMembers#6704ed3c: field offset_member: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("limit")
@@ -225,35 +246,41 @@ func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatInviteLinkMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatInviteLinkMembers#c5b6199a to nil")
+		return fmt.Errorf("can't decode getChatInviteLinkMembers#6704ed3c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatInviteLinkMembers"); err != nil {
-				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: %w", err)
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "invite_link":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field invite_link: %w", err)
 			}
 			g.InviteLink = value
+		case "only_with_expired_subscription":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field only_with_expired_subscription: %w", err)
+			}
+			g.OnlyWithExpiredSubscription = value
 		case "offset_member":
 			if err := g.OffsetMember.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field offset_member: %w", err)
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field offset_member: %w", err)
 			}
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field limit: %w", err)
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#6704ed3c: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -279,6 +306,14 @@ func (g *GetChatInviteLinkMembersRequest) GetInviteLink() (value string) {
 	return g.InviteLink
 }
 
+// GetOnlyWithExpiredSubscription returns value of OnlyWithExpiredSubscription field.
+func (g *GetChatInviteLinkMembersRequest) GetOnlyWithExpiredSubscription() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.OnlyWithExpiredSubscription
+}
+
 // GetOffsetMember returns value of OffsetMember field.
 func (g *GetChatInviteLinkMembersRequest) GetOffsetMember() (value ChatInviteLinkMember) {
 	if g == nil {
@@ -295,7 +330,7 @@ func (g *GetChatInviteLinkMembersRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetChatInviteLinkMembers invokes method getChatInviteLinkMembers#c5b6199a returning error if any.
+// GetChatInviteLinkMembers invokes method getChatInviteLinkMembers#6704ed3c returning error if any.
 func (c *Client) GetChatInviteLinkMembers(ctx context.Context, request *GetChatInviteLinkMembersRequest) (*ChatInviteLinkMembers, error) {
 	var result ChatInviteLinkMembers
 

@@ -1573,6 +1573,207 @@ func (i *InternalLinkTypeBusinessChat) GetLinkName() (value string) {
 	return i.LinkName
 }
 
+// InternalLinkTypeBuyStars represents TL type `internalLinkTypeBuyStars#a94cc347`.
+type InternalLinkTypeBuyStars struct {
+	// The number of Telegram Stars that must be owned by the user
+	StarCount int64
+	// Purpose of Telegram Star purchase. Arbitrary string specified by the server, for
+	// example, "subs" if the Telegram Stars are required to extend channel subscriptions
+	Purpose string
+}
+
+// InternalLinkTypeBuyStarsTypeID is TL type id of InternalLinkTypeBuyStars.
+const InternalLinkTypeBuyStarsTypeID = 0xa94cc347
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeBuyStars) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeBuyStars.
+var (
+	_ bin.Encoder     = &InternalLinkTypeBuyStars{}
+	_ bin.Decoder     = &InternalLinkTypeBuyStars{}
+	_ bin.BareEncoder = &InternalLinkTypeBuyStars{}
+	_ bin.BareDecoder = &InternalLinkTypeBuyStars{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeBuyStars{}
+)
+
+func (i *InternalLinkTypeBuyStars) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.StarCount == 0) {
+		return false
+	}
+	if !(i.Purpose == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeBuyStars) String() string {
+	if i == nil {
+		return "InternalLinkTypeBuyStars(nil)"
+	}
+	type Alias InternalLinkTypeBuyStars
+	return fmt.Sprintf("InternalLinkTypeBuyStars%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeBuyStars) TypeID() uint32 {
+	return InternalLinkTypeBuyStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeBuyStars) TypeName() string {
+	return "internalLinkTypeBuyStars"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeBuyStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeBuyStars",
+		ID:   InternalLinkTypeBuyStarsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeBuyStars) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeBuyStars#a94cc347 as nil")
+	}
+	b.PutID(InternalLinkTypeBuyStarsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeBuyStars) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeBuyStars#a94cc347 as nil")
+	}
+	b.PutInt53(i.StarCount)
+	b.PutString(i.Purpose)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeBuyStars) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBuyStars#a94cc347 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeBuyStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeBuyStars#a94cc347: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeBuyStars) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBuyStars#a94cc347 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeBuyStars#a94cc347: field star_count: %w", err)
+		}
+		i.StarCount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeBuyStars#a94cc347: field purpose: %w", err)
+		}
+		i.Purpose = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeBuyStars) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeBuyStars#a94cc347 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeBuyStars")
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(i.StarCount)
+	b.Comma()
+	b.FieldStart("purpose")
+	b.PutString(i.Purpose)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeBuyStars) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBuyStars#a94cc347 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeBuyStars"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBuyStars#a94cc347: %w", err)
+			}
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBuyStars#a94cc347: field star_count: %w", err)
+			}
+			i.StarCount = value
+		case "purpose":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBuyStars#a94cc347: field purpose: %w", err)
+			}
+			i.Purpose = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStarCount returns value of StarCount field.
+func (i *InternalLinkTypeBuyStars) GetStarCount() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.StarCount
+}
+
+// GetPurpose returns value of Purpose field.
+func (i *InternalLinkTypeBuyStars) GetPurpose() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Purpose
+}
+
 // InternalLinkTypeChangePhoneNumber represents TL type `internalLinkTypeChangePhoneNumber#f0275b01`.
 type InternalLinkTypeChangePhoneNumber struct {
 }
@@ -7985,6 +8186,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#3f985fed
 //	case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#ca0d8cce
 //	case *tdapi.InternalLinkTypeBusinessChat: // internalLinkTypeBusinessChat#a03ae9d7
+//	case *tdapi.InternalLinkTypeBuyStars: // internalLinkTypeBuyStars#a94cc347
 //	case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
 //	case *tdapi.InternalLinkTypeChatBoost: // internalLinkTypeChatBoost#d549fd40
 //	case *tdapi.InternalLinkTypeChatFolderInvite: // internalLinkTypeChatFolderInvite#89b2493e
@@ -8104,6 +8306,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeBusinessChatTypeID:
 		// Decoding internalLinkTypeBusinessChat#a03ae9d7.
 		v := InternalLinkTypeBusinessChat{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeBuyStarsTypeID:
+		// Decoding internalLinkTypeBuyStars#a94cc347.
+		v := InternalLinkTypeBuyStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -8424,6 +8633,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeBusinessChat":
 		// Decoding internalLinkTypeBusinessChat#a03ae9d7.
 		v := InternalLinkTypeBusinessChat{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeBuyStars":
+		// Decoding internalLinkTypeBuyStars#a94cc347.
+		v := InternalLinkTypeBuyStars{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

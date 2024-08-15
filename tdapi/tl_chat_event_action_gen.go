@@ -6754,6 +6754,172 @@ func (c *ChatEventSignMessagesToggled) GetSignMessages() (value bool) {
 	return c.SignMessages
 }
 
+// ChatEventShowMessageSenderToggled represents TL type `chatEventShowMessageSenderToggled#d0a747e3`.
+type ChatEventShowMessageSenderToggled struct {
+	// New value of show_message_sender
+	ShowMessageSender bool
+}
+
+// ChatEventShowMessageSenderToggledTypeID is TL type id of ChatEventShowMessageSenderToggled.
+const ChatEventShowMessageSenderToggledTypeID = 0xd0a747e3
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventShowMessageSenderToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventShowMessageSenderToggled.
+var (
+	_ bin.Encoder     = &ChatEventShowMessageSenderToggled{}
+	_ bin.Decoder     = &ChatEventShowMessageSenderToggled{}
+	_ bin.BareEncoder = &ChatEventShowMessageSenderToggled{}
+	_ bin.BareDecoder = &ChatEventShowMessageSenderToggled{}
+
+	_ ChatEventActionClass = &ChatEventShowMessageSenderToggled{}
+)
+
+func (c *ChatEventShowMessageSenderToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.ShowMessageSender == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventShowMessageSenderToggled) String() string {
+	if c == nil {
+		return "ChatEventShowMessageSenderToggled(nil)"
+	}
+	type Alias ChatEventShowMessageSenderToggled
+	return fmt.Sprintf("ChatEventShowMessageSenderToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventShowMessageSenderToggled) TypeID() uint32 {
+	return ChatEventShowMessageSenderToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventShowMessageSenderToggled) TypeName() string {
+	return "chatEventShowMessageSenderToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventShowMessageSenderToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventShowMessageSenderToggled",
+		ID:   ChatEventShowMessageSenderToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShowMessageSender",
+			SchemaName: "show_message_sender",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventShowMessageSenderToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventShowMessageSenderToggled#d0a747e3 as nil")
+	}
+	b.PutID(ChatEventShowMessageSenderToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventShowMessageSenderToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventShowMessageSenderToggled#d0a747e3 as nil")
+	}
+	b.PutBool(c.ShowMessageSender)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventShowMessageSenderToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventShowMessageSenderToggled#d0a747e3 to nil")
+	}
+	if err := b.ConsumeID(ChatEventShowMessageSenderToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventShowMessageSenderToggled#d0a747e3: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventShowMessageSenderToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventShowMessageSenderToggled#d0a747e3 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventShowMessageSenderToggled#d0a747e3: field show_message_sender: %w", err)
+		}
+		c.ShowMessageSender = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventShowMessageSenderToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventShowMessageSenderToggled#d0a747e3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventShowMessageSenderToggled")
+	b.Comma()
+	b.FieldStart("show_message_sender")
+	b.PutBool(c.ShowMessageSender)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventShowMessageSenderToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventShowMessageSenderToggled#d0a747e3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventShowMessageSenderToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventShowMessageSenderToggled#d0a747e3: %w", err)
+			}
+		case "show_message_sender":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventShowMessageSenderToggled#d0a747e3: field show_message_sender: %w", err)
+			}
+			c.ShowMessageSender = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetShowMessageSender returns value of ShowMessageSender field.
+func (c *ChatEventShowMessageSenderToggled) GetShowMessageSender() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.ShowMessageSender
+}
+
 // ChatEventInviteLinkEdited represents TL type `chatEventInviteLinkEdited#e4920d62`.
 type ChatEventInviteLinkEdited struct {
 	// Previous information about the invite link
@@ -9482,6 +9648,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
 //	case *tdapi.ChatEventHasAggressiveAntiSpamEnabledToggled: // chatEventHasAggressiveAntiSpamEnabledToggled#f8875702
 //	case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
+//	case *tdapi.ChatEventShowMessageSenderToggled: // chatEventShowMessageSenderToggled#d0a747e3
 //	case *tdapi.ChatEventInviteLinkEdited: // chatEventInviteLinkEdited#e4920d62
 //	case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
 //	case *tdapi.ChatEventInviteLinkDeleted: // chatEventInviteLinkDeleted#acda6167
@@ -9762,6 +9929,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventSignMessagesToggledTypeID:
 		// Decoding chatEventSignMessagesToggled#b1b9281e.
 		v := ChatEventSignMessagesToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventShowMessageSenderToggledTypeID:
+		// Decoding chatEventShowMessageSenderToggled#d0a747e3.
+		v := ChatEventShowMessageSenderToggled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -10117,6 +10291,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventSignMessagesToggled":
 		// Decoding chatEventSignMessagesToggled#b1b9281e.
 		v := ChatEventSignMessagesToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventShowMessageSenderToggled":
+		// Decoding chatEventShowMessageSenderToggled#d0a747e3.
+		v := ChatEventShowMessageSenderToggled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

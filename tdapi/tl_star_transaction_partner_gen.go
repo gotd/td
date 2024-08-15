@@ -731,18 +731,16 @@ func (s *StarTransactionPartnerTelegramAds) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
-// StarTransactionPartnerBot represents TL type `starTransactionPartnerBot#298ce3d9`.
+// StarTransactionPartnerBot represents TL type `starTransactionPartnerBot#4ece3a40`.
 type StarTransactionPartnerBot struct {
-	// Identifier of the bot for the user, or the user for the bot
+	// Identifier of the bot
 	UserID int64
-	// Information about the bought product; may be null if not applicable
-	ProductInfo ProductInfo
-	// Invoice payload; for bots only
-	InvoicePayload []byte
+	// Purpose of the transaction
+	Purpose BotTransactionPurposeClass
 }
 
 // StarTransactionPartnerBotTypeID is TL type id of StarTransactionPartnerBot.
-const StarTransactionPartnerBotTypeID = 0x298ce3d9
+const StarTransactionPartnerBotTypeID = 0x4ece3a40
 
 // construct implements constructor of StarTransactionPartnerClass.
 func (s StarTransactionPartnerBot) construct() StarTransactionPartnerClass { return &s }
@@ -764,10 +762,7 @@ func (s *StarTransactionPartnerBot) Zero() bool {
 	if !(s.UserID == 0) {
 		return false
 	}
-	if !(s.ProductInfo.Zero()) {
-		return false
-	}
-	if !(s.InvoicePayload == nil) {
+	if !(s.Purpose == nil) {
 		return false
 	}
 
@@ -811,12 +806,8 @@ func (s *StarTransactionPartnerBot) TypeInfo() tdp.Type {
 			SchemaName: "user_id",
 		},
 		{
-			Name:       "ProductInfo",
-			SchemaName: "product_info",
-		},
-		{
-			Name:       "InvoicePayload",
-			SchemaName: "invoice_payload",
+			Name:       "Purpose",
+			SchemaName: "purpose",
 		},
 	}
 	return typ
@@ -825,7 +816,7 @@ func (s *StarTransactionPartnerBot) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarTransactionPartnerBot) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactionPartnerBot#298ce3d9 as nil")
+		return fmt.Errorf("can't encode starTransactionPartnerBot#4ece3a40 as nil")
 	}
 	b.PutID(StarTransactionPartnerBotTypeID)
 	return s.EncodeBare(b)
@@ -834,23 +825,25 @@ func (s *StarTransactionPartnerBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarTransactionPartnerBot) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactionPartnerBot#298ce3d9 as nil")
+		return fmt.Errorf("can't encode starTransactionPartnerBot#4ece3a40 as nil")
 	}
 	b.PutInt53(s.UserID)
-	if err := s.ProductInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starTransactionPartnerBot#298ce3d9: field product_info: %w", err)
+	if s.Purpose == nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerBot#4ece3a40: field purpose is nil")
 	}
-	b.PutBytes(s.InvoicePayload)
+	if err := s.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerBot#4ece3a40: field purpose: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarTransactionPartnerBot) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactionPartnerBot#298ce3d9 to nil")
+		return fmt.Errorf("can't decode starTransactionPartnerBot#4ece3a40 to nil")
 	}
 	if err := b.ConsumeID(StarTransactionPartnerBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: %w", err)
+		return fmt.Errorf("unable to decode starTransactionPartnerBot#4ece3a40: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -858,26 +851,21 @@ func (s *StarTransactionPartnerBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarTransactionPartnerBot) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactionPartnerBot#298ce3d9 to nil")
+		return fmt.Errorf("can't decode starTransactionPartnerBot#4ece3a40 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: field user_id: %w", err)
+			return fmt.Errorf("unable to decode starTransactionPartnerBot#4ece3a40: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
-		if err := s.ProductInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: field product_info: %w", err)
-		}
-	}
-	{
-		value, err := b.Bytes()
+		value, err := DecodeBotTransactionPurpose(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: field invoice_payload: %w", err)
+			return fmt.Errorf("unable to decode starTransactionPartnerBot#4ece3a40: field purpose: %w", err)
 		}
-		s.InvoicePayload = value
+		s.Purpose = value
 	}
 	return nil
 }
@@ -885,7 +873,7 @@ func (s *StarTransactionPartnerBot) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarTransactionPartnerBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactionPartnerBot#298ce3d9 as nil")
+		return fmt.Errorf("can't encode starTransactionPartnerBot#4ece3a40 as nil")
 	}
 	b.ObjStart()
 	b.PutID("starTransactionPartnerBot")
@@ -893,13 +881,13 @@ func (s *StarTransactionPartnerBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("user_id")
 	b.PutInt53(s.UserID)
 	b.Comma()
-	b.FieldStart("product_info")
-	if err := s.ProductInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode starTransactionPartnerBot#298ce3d9: field product_info: %w", err)
+	b.FieldStart("purpose")
+	if s.Purpose == nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerBot#4ece3a40: field purpose is nil")
 	}
-	b.Comma()
-	b.FieldStart("invoice_payload")
-	b.PutBytes(s.InvoicePayload)
+	if err := s.Purpose.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerBot#4ece3a40: field purpose: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -909,31 +897,27 @@ func (s *StarTransactionPartnerBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarTransactionPartnerBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactionPartnerBot#298ce3d9 to nil")
+		return fmt.Errorf("can't decode starTransactionPartnerBot#4ece3a40 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starTransactionPartnerBot"); err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: %w", err)
+				return fmt.Errorf("unable to decode starTransactionPartnerBot#4ece3a40: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: field user_id: %w", err)
+				return fmt.Errorf("unable to decode starTransactionPartnerBot#4ece3a40: field user_id: %w", err)
 			}
 			s.UserID = value
-		case "product_info":
-			if err := s.ProductInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: field product_info: %w", err)
-			}
-		case "invoice_payload":
-			value, err := b.Bytes()
+		case "purpose":
+			value, err := DecodeTDLibJSONBotTransactionPurpose(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerBot#298ce3d9: field invoice_payload: %w", err)
+				return fmt.Errorf("unable to decode starTransactionPartnerBot#4ece3a40: field purpose: %w", err)
 			}
-			s.InvoicePayload = value
+			s.Purpose = value
 		default:
 			return b.Skip()
 		}
@@ -949,35 +933,258 @@ func (s *StarTransactionPartnerBot) GetUserID() (value int64) {
 	return s.UserID
 }
 
-// GetProductInfo returns value of ProductInfo field.
-func (s *StarTransactionPartnerBot) GetProductInfo() (value ProductInfo) {
+// GetPurpose returns value of Purpose field.
+func (s *StarTransactionPartnerBot) GetPurpose() (value BotTransactionPurposeClass) {
 	if s == nil {
 		return
 	}
-	return s.ProductInfo
+	return s.Purpose
 }
 
-// GetInvoicePayload returns value of InvoicePayload field.
-func (s *StarTransactionPartnerBot) GetInvoicePayload() (value []byte) {
-	if s == nil {
-		return
-	}
-	return s.InvoicePayload
-}
-
-// StarTransactionPartnerChannel represents TL type `starTransactionPartnerChannel#44b29c29`.
-type StarTransactionPartnerChannel struct {
-	// Identifier of the chat
-	ChatID int64
-	// Identifier of the corresponding message with paid media; can be an identifier of a
-	// deleted message
-	PaidMediaMessageID int64
-	// Information about the bought media
+// StarTransactionPartnerBusiness represents TL type `starTransactionPartnerBusiness#7af9fb52`.
+type StarTransactionPartnerBusiness struct {
+	// Identifier of the business account user
+	UserID int64
+	// The bought media if the trancastion wasn't refunded
 	Media []PaidMediaClass
 }
 
+// StarTransactionPartnerBusinessTypeID is TL type id of StarTransactionPartnerBusiness.
+const StarTransactionPartnerBusinessTypeID = 0x7af9fb52
+
+// construct implements constructor of StarTransactionPartnerClass.
+func (s StarTransactionPartnerBusiness) construct() StarTransactionPartnerClass { return &s }
+
+// Ensuring interfaces in compile-time for StarTransactionPartnerBusiness.
+var (
+	_ bin.Encoder     = &StarTransactionPartnerBusiness{}
+	_ bin.Decoder     = &StarTransactionPartnerBusiness{}
+	_ bin.BareEncoder = &StarTransactionPartnerBusiness{}
+	_ bin.BareDecoder = &StarTransactionPartnerBusiness{}
+
+	_ StarTransactionPartnerClass = &StarTransactionPartnerBusiness{}
+)
+
+func (s *StarTransactionPartnerBusiness) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.UserID == 0) {
+		return false
+	}
+	if !(s.Media == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StarTransactionPartnerBusiness) String() string {
+	if s == nil {
+		return "StarTransactionPartnerBusiness(nil)"
+	}
+	type Alias StarTransactionPartnerBusiness
+	return fmt.Sprintf("StarTransactionPartnerBusiness%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StarTransactionPartnerBusiness) TypeID() uint32 {
+	return StarTransactionPartnerBusinessTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StarTransactionPartnerBusiness) TypeName() string {
+	return "starTransactionPartnerBusiness"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StarTransactionPartnerBusiness) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "starTransactionPartnerBusiness",
+		ID:   StarTransactionPartnerBusinessTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StarTransactionPartnerBusiness) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionPartnerBusiness#7af9fb52 as nil")
+	}
+	b.PutID(StarTransactionPartnerBusinessTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StarTransactionPartnerBusiness) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionPartnerBusiness#7af9fb52 as nil")
+	}
+	b.PutInt53(s.UserID)
+	b.PutInt(len(s.Media))
+	for idx, v := range s.Media {
+		if v == nil {
+			return fmt.Errorf("unable to encode starTransactionPartnerBusiness#7af9fb52: field media element with index %d is nil", idx)
+		}
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare starTransactionPartnerBusiness#7af9fb52: field media element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StarTransactionPartnerBusiness) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionPartnerBusiness#7af9fb52 to nil")
+	}
+	if err := b.ConsumeID(StarTransactionPartnerBusinessTypeID); err != nil {
+		return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StarTransactionPartnerBusiness) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionPartnerBusiness#7af9fb52 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: field user_id: %w", err)
+		}
+		s.UserID = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: field media: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Media = make([]PaidMediaClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodePaidMedia(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: field media: %w", err)
+			}
+			s.Media = append(s.Media, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StarTransactionPartnerBusiness) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionPartnerBusiness#7af9fb52 as nil")
+	}
+	b.ObjStart()
+	b.PutID("starTransactionPartnerBusiness")
+	b.Comma()
+	b.FieldStart("user_id")
+	b.PutInt53(s.UserID)
+	b.Comma()
+	b.FieldStart("media")
+	b.ArrStart()
+	for idx, v := range s.Media {
+		if v == nil {
+			return fmt.Errorf("unable to encode starTransactionPartnerBusiness#7af9fb52: field media element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode starTransactionPartnerBusiness#7af9fb52: field media element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StarTransactionPartnerBusiness) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionPartnerBusiness#7af9fb52 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("starTransactionPartnerBusiness"); err != nil {
+				return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "media":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := DecodeTDLibJSONPaidMedia(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: field media: %w", err)
+				}
+				s.Media = append(s.Media, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode starTransactionPartnerBusiness#7af9fb52: field media: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetUserID returns value of UserID field.
+func (s *StarTransactionPartnerBusiness) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.UserID
+}
+
+// GetMedia returns value of Media field.
+func (s *StarTransactionPartnerBusiness) GetMedia() (value []PaidMediaClass) {
+	if s == nil {
+		return
+	}
+	return s.Media
+}
+
+// StarTransactionPartnerChannel represents TL type `starTransactionPartnerChannel#7c04767e`.
+type StarTransactionPartnerChannel struct {
+	// Identifier of the chat
+	ChatID int64
+	// Purpose of the transaction
+	Purpose ChannelTransactionPurposeClass
+}
+
 // StarTransactionPartnerChannelTypeID is TL type id of StarTransactionPartnerChannel.
-const StarTransactionPartnerChannelTypeID = 0x44b29c29
+const StarTransactionPartnerChannelTypeID = 0x7c04767e
 
 // construct implements constructor of StarTransactionPartnerClass.
 func (s StarTransactionPartnerChannel) construct() StarTransactionPartnerClass { return &s }
@@ -999,10 +1206,7 @@ func (s *StarTransactionPartnerChannel) Zero() bool {
 	if !(s.ChatID == 0) {
 		return false
 	}
-	if !(s.PaidMediaMessageID == 0) {
-		return false
-	}
-	if !(s.Media == nil) {
+	if !(s.Purpose == nil) {
 		return false
 	}
 
@@ -1046,12 +1250,8 @@ func (s *StarTransactionPartnerChannel) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "PaidMediaMessageID",
-			SchemaName: "paid_media_message_id",
-		},
-		{
-			Name:       "Media",
-			SchemaName: "media",
+			Name:       "Purpose",
+			SchemaName: "purpose",
 		},
 	}
 	return typ
@@ -1060,7 +1260,7 @@ func (s *StarTransactionPartnerChannel) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarTransactionPartnerChannel) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactionPartnerChannel#44b29c29 as nil")
+		return fmt.Errorf("can't encode starTransactionPartnerChannel#7c04767e as nil")
 	}
 	b.PutID(StarTransactionPartnerChannelTypeID)
 	return s.EncodeBare(b)
@@ -1069,18 +1269,14 @@ func (s *StarTransactionPartnerChannel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarTransactionPartnerChannel) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactionPartnerChannel#44b29c29 as nil")
+		return fmt.Errorf("can't encode starTransactionPartnerChannel#7c04767e as nil")
 	}
 	b.PutInt53(s.ChatID)
-	b.PutInt53(s.PaidMediaMessageID)
-	b.PutInt(len(s.Media))
-	for idx, v := range s.Media {
-		if v == nil {
-			return fmt.Errorf("unable to encode starTransactionPartnerChannel#44b29c29: field media element with index %d is nil", idx)
-		}
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare starTransactionPartnerChannel#44b29c29: field media element with index %d: %w", idx, err)
-		}
+	if s.Purpose == nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerChannel#7c04767e: field purpose is nil")
+	}
+	if err := s.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerChannel#7c04767e: field purpose: %w", err)
 	}
 	return nil
 }
@@ -1088,10 +1284,10 @@ func (s *StarTransactionPartnerChannel) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarTransactionPartnerChannel) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactionPartnerChannel#44b29c29 to nil")
+		return fmt.Errorf("can't decode starTransactionPartnerChannel#7c04767e to nil")
 	}
 	if err := b.ConsumeID(StarTransactionPartnerChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: %w", err)
+		return fmt.Errorf("unable to decode starTransactionPartnerChannel#7c04767e: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -1099,38 +1295,21 @@ func (s *StarTransactionPartnerChannel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarTransactionPartnerChannel) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactionPartnerChannel#44b29c29 to nil")
+		return fmt.Errorf("can't decode starTransactionPartnerChannel#7c04767e to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode starTransactionPartnerChannel#7c04767e: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeChannelTransactionPurpose(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field paid_media_message_id: %w", err)
+			return fmt.Errorf("unable to decode starTransactionPartnerChannel#7c04767e: field purpose: %w", err)
 		}
-		s.PaidMediaMessageID = value
-	}
-	{
-		headerLen, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field media: %w", err)
-		}
-
-		if headerLen > 0 {
-			s.Media = make([]PaidMediaClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodePaidMedia(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field media: %w", err)
-			}
-			s.Media = append(s.Media, value)
-		}
+		s.Purpose = value
 	}
 	return nil
 }
@@ -1138,7 +1317,7 @@ func (s *StarTransactionPartnerChannel) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarTransactionPartnerChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactionPartnerChannel#44b29c29 as nil")
+		return fmt.Errorf("can't encode starTransactionPartnerChannel#7c04767e as nil")
 	}
 	b.ObjStart()
 	b.PutID("starTransactionPartnerChannel")
@@ -1146,22 +1325,13 @@ func (s *StarTransactionPartnerChannel) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
 	b.Comma()
-	b.FieldStart("paid_media_message_id")
-	b.PutInt53(s.PaidMediaMessageID)
-	b.Comma()
-	b.FieldStart("media")
-	b.ArrStart()
-	for idx, v := range s.Media {
-		if v == nil {
-			return fmt.Errorf("unable to encode starTransactionPartnerChannel#44b29c29: field media element with index %d is nil", idx)
-		}
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode starTransactionPartnerChannel#44b29c29: field media element with index %d: %w", idx, err)
-		}
-		b.Comma()
+	b.FieldStart("purpose")
+	if s.Purpose == nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerChannel#7c04767e: field purpose is nil")
 	}
-	b.StripComma()
-	b.ArrEnd()
+	if err := s.Purpose.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionPartnerChannel#7c04767e: field purpose: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -1171,38 +1341,27 @@ func (s *StarTransactionPartnerChannel) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarTransactionPartnerChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactionPartnerChannel#44b29c29 to nil")
+		return fmt.Errorf("can't decode starTransactionPartnerChannel#7c04767e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starTransactionPartnerChannel"); err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: %w", err)
+				return fmt.Errorf("unable to decode starTransactionPartnerChannel#7c04767e: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode starTransactionPartnerChannel#7c04767e: field chat_id: %w", err)
 			}
 			s.ChatID = value
-		case "paid_media_message_id":
-			value, err := b.Int53()
+		case "purpose":
+			value, err := DecodeTDLibJSONChannelTransactionPurpose(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field paid_media_message_id: %w", err)
+				return fmt.Errorf("unable to decode starTransactionPartnerChannel#7c04767e: field purpose: %w", err)
 			}
-			s.PaidMediaMessageID = value
-		case "media":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := DecodeTDLibJSONPaidMedia(b)
-				if err != nil {
-					return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field media: %w", err)
-				}
-				s.Media = append(s.Media, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode starTransactionPartnerChannel#44b29c29: field media: %w", err)
-			}
+			s.Purpose = value
 		default:
 			return b.Skip()
 		}
@@ -1218,20 +1377,12 @@ func (s *StarTransactionPartnerChannel) GetChatID() (value int64) {
 	return s.ChatID
 }
 
-// GetPaidMediaMessageID returns value of PaidMediaMessageID field.
-func (s *StarTransactionPartnerChannel) GetPaidMediaMessageID() (value int64) {
+// GetPurpose returns value of Purpose field.
+func (s *StarTransactionPartnerChannel) GetPurpose() (value ChannelTransactionPurposeClass) {
 	if s == nil {
 		return
 	}
-	return s.PaidMediaMessageID
-}
-
-// GetMedia returns value of Media field.
-func (s *StarTransactionPartnerChannel) GetMedia() (value []PaidMediaClass) {
-	if s == nil {
-		return
-	}
-	return s.Media
+	return s.Purpose
 }
 
 // StarTransactionPartnerUser represents TL type `starTransactionPartnerUser#2cf89d66`.
@@ -1582,8 +1733,9 @@ const StarTransactionPartnerClassName = "StarTransactionPartner"
 //	case *tdapi.StarTransactionPartnerGooglePlay: // starTransactionPartnerGooglePlay#f229f2a0
 //	case *tdapi.StarTransactionPartnerFragment: // starTransactionPartnerFragment#da1849b5
 //	case *tdapi.StarTransactionPartnerTelegramAds: // starTransactionPartnerTelegramAds#91f9c6b
-//	case *tdapi.StarTransactionPartnerBot: // starTransactionPartnerBot#298ce3d9
-//	case *tdapi.StarTransactionPartnerChannel: // starTransactionPartnerChannel#44b29c29
+//	case *tdapi.StarTransactionPartnerBot: // starTransactionPartnerBot#4ece3a40
+//	case *tdapi.StarTransactionPartnerBusiness: // starTransactionPartnerBusiness#7af9fb52
+//	case *tdapi.StarTransactionPartnerChannel: // starTransactionPartnerChannel#7c04767e
 //	case *tdapi.StarTransactionPartnerUser: // starTransactionPartnerUser#2cf89d66
 //	case *tdapi.StarTransactionPartnerUnsupported: // starTransactionPartnerUnsupported#c4b20d73
 //	default: panic(v)
@@ -1653,14 +1805,21 @@ func DecodeStarTransactionPartner(buf *bin.Buffer) (StarTransactionPartnerClass,
 		}
 		return &v, nil
 	case StarTransactionPartnerBotTypeID:
-		// Decoding starTransactionPartnerBot#298ce3d9.
+		// Decoding starTransactionPartnerBot#4ece3a40.
 		v := StarTransactionPartnerBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
 		}
 		return &v, nil
+	case StarTransactionPartnerBusinessTypeID:
+		// Decoding starTransactionPartnerBusiness#7af9fb52.
+		v := StarTransactionPartnerBusiness{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
+		}
+		return &v, nil
 	case StarTransactionPartnerChannelTypeID:
-		// Decoding starTransactionPartnerChannel#44b29c29.
+		// Decoding starTransactionPartnerChannel#7c04767e.
 		v := StarTransactionPartnerChannel{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
@@ -1728,14 +1887,21 @@ func DecodeTDLibJSONStarTransactionPartner(buf tdjson.Decoder) (StarTransactionP
 		}
 		return &v, nil
 	case "starTransactionPartnerBot":
-		// Decoding starTransactionPartnerBot#298ce3d9.
+		// Decoding starTransactionPartnerBot#4ece3a40.
 		v := StarTransactionPartnerBot{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
 		}
 		return &v, nil
+	case "starTransactionPartnerBusiness":
+		// Decoding starTransactionPartnerBusiness#7af9fb52.
+		v := StarTransactionPartnerBusiness{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
+		}
+		return &v, nil
 	case "starTransactionPartnerChannel":
-		// Decoding starTransactionPartnerChannel#44b29c29.
+		// Decoding starTransactionPartnerChannel#7c04767e.
 		v := StarTransactionPartnerChannel{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)

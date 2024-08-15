@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Supergroup represents TL type `supergroup#39a14289`.
+// Supergroup represents TL type `supergroup#ca7c2ce`.
 type Supergroup struct {
 	// Supergroup or channel identifier
 	ID int64
@@ -54,9 +54,12 @@ type Supergroup struct {
 	// True, if the supergroup is connected to a location, i.e. the supergroup is a
 	// location-based supergroup
 	HasLocation bool
-	// True, if messages sent to the channel need to contain information about the sender.
-	// This field is only applicable to channels
+	// True, if messages sent to the channel contains name of the sender. This field is only
+	// applicable to channels
 	SignMessages bool
+	// True, if messages sent to the channel have information about the sender user. This
+	// field is only applicable to channels
+	ShowMessageSender bool
 	// True, if users need to join the supergroup before they can send messages. Always true
 	// for channels and non-discussion supergroups
 	JoinToSendMessages bool
@@ -75,6 +78,9 @@ type Supergroup struct {
 	IsForum bool
 	// True, if the supergroup or channel is verified
 	IsVerified bool
+	// True, if content of media messages in the supergroup or channel chat must be hidden
+	// with 18+ spoiler
+	HasSensitiveContent bool
 	// If non-empty, contains a human-readable description of the reason why access to this
 	// supergroup or channel must be restricted
 	RestrictionReason string
@@ -91,7 +97,7 @@ type Supergroup struct {
 }
 
 // SupergroupTypeID is TL type id of Supergroup.
-const SupergroupTypeID = 0x39a14289
+const SupergroupTypeID = 0xca7c2ce
 
 // Ensuring interfaces in compile-time for Supergroup.
 var (
@@ -132,6 +138,9 @@ func (s *Supergroup) Zero() bool {
 	if !(s.SignMessages == false) {
 		return false
 	}
+	if !(s.ShowMessageSender == false) {
+		return false
+	}
 	if !(s.JoinToSendMessages == false) {
 		return false
 	}
@@ -151,6 +160,9 @@ func (s *Supergroup) Zero() bool {
 		return false
 	}
 	if !(s.IsVerified == false) {
+		return false
+	}
+	if !(s.HasSensitiveContent == false) {
 		return false
 	}
 	if !(s.RestrictionReason == "") {
@@ -241,6 +253,10 @@ func (s *Supergroup) TypeInfo() tdp.Type {
 			SchemaName: "sign_messages",
 		},
 		{
+			Name:       "ShowMessageSender",
+			SchemaName: "show_message_sender",
+		},
+		{
 			Name:       "JoinToSendMessages",
 			SchemaName: "join_to_send_messages",
 		},
@@ -269,6 +285,10 @@ func (s *Supergroup) TypeInfo() tdp.Type {
 			SchemaName: "is_verified",
 		},
 		{
+			Name:       "HasSensitiveContent",
+			SchemaName: "has_sensitive_content",
+		},
+		{
 			Name:       "RestrictionReason",
 			SchemaName: "restriction_reason",
 		},
@@ -295,7 +315,7 @@ func (s *Supergroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Supergroup) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode supergroup#39a14289 as nil")
+		return fmt.Errorf("can't encode supergroup#ca7c2ce as nil")
 	}
 	b.PutID(SupergroupTypeID)
 	return s.EncodeBare(b)
@@ -304,24 +324,25 @@ func (s *Supergroup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Supergroup) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode supergroup#39a14289 as nil")
+		return fmt.Errorf("can't encode supergroup#ca7c2ce as nil")
 	}
 	b.PutInt53(s.ID)
 	if err := s.Usernames.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode supergroup#39a14289: field usernames: %w", err)
+		return fmt.Errorf("unable to encode supergroup#ca7c2ce: field usernames: %w", err)
 	}
 	b.PutInt32(s.Date)
 	if s.Status == nil {
-		return fmt.Errorf("unable to encode supergroup#39a14289: field status is nil")
+		return fmt.Errorf("unable to encode supergroup#ca7c2ce: field status is nil")
 	}
 	if err := s.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode supergroup#39a14289: field status: %w", err)
+		return fmt.Errorf("unable to encode supergroup#ca7c2ce: field status: %w", err)
 	}
 	b.PutInt32(s.MemberCount)
 	b.PutInt32(s.BoostLevel)
 	b.PutBool(s.HasLinkedChat)
 	b.PutBool(s.HasLocation)
 	b.PutBool(s.SignMessages)
+	b.PutBool(s.ShowMessageSender)
 	b.PutBool(s.JoinToSendMessages)
 	b.PutBool(s.JoinByRequest)
 	b.PutBool(s.IsSlowModeEnabled)
@@ -329,6 +350,7 @@ func (s *Supergroup) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(s.IsBroadcastGroup)
 	b.PutBool(s.IsForum)
 	b.PutBool(s.IsVerified)
+	b.PutBool(s.HasSensitiveContent)
 	b.PutString(s.RestrictionReason)
 	b.PutBool(s.IsScam)
 	b.PutBool(s.IsFake)
@@ -340,10 +362,10 @@ func (s *Supergroup) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *Supergroup) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode supergroup#39a14289 to nil")
+		return fmt.Errorf("can't decode supergroup#ca7c2ce to nil")
 	}
 	if err := b.ConsumeID(SupergroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode supergroup#39a14289: %w", err)
+		return fmt.Errorf("unable to decode supergroup#ca7c2ce: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -351,150 +373,164 @@ func (s *Supergroup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Supergroup) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode supergroup#39a14289 to nil")
+		return fmt.Errorf("can't decode supergroup#ca7c2ce to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field id: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		if err := s.Usernames.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field usernames: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field usernames: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field date: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field date: %w", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := DecodeChatMemberStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field status: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field status: %w", err)
 		}
 		s.Status = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field member_count: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field member_count: %w", err)
 		}
 		s.MemberCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field boost_level: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field boost_level: %w", err)
 		}
 		s.BoostLevel = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field has_linked_chat: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_linked_chat: %w", err)
 		}
 		s.HasLinkedChat = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field has_location: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_location: %w", err)
 		}
 		s.HasLocation = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field sign_messages: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field sign_messages: %w", err)
 		}
 		s.SignMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field join_to_send_messages: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field show_message_sender: %w", err)
+		}
+		s.ShowMessageSender = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field join_to_send_messages: %w", err)
 		}
 		s.JoinToSendMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field join_by_request: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field join_by_request: %w", err)
 		}
 		s.JoinByRequest = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_slow_mode_enabled: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_slow_mode_enabled: %w", err)
 		}
 		s.IsSlowModeEnabled = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_channel: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_channel: %w", err)
 		}
 		s.IsChannel = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_broadcast_group: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_broadcast_group: %w", err)
 		}
 		s.IsBroadcastGroup = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_forum: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_forum: %w", err)
 		}
 		s.IsForum = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_verified: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_verified: %w", err)
 		}
 		s.IsVerified = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_sensitive_content: %w", err)
+		}
+		s.HasSensitiveContent = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field restriction_reason: %w", err)
 		}
 		s.RestrictionReason = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_scam: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_scam: %w", err)
 		}
 		s.IsScam = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field is_fake: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_fake: %w", err)
 		}
 		s.IsFake = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field has_active_stories: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_active_stories: %w", err)
 		}
 		s.HasActiveStories = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode supergroup#39a14289: field has_unread_active_stories: %w", err)
+			return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_unread_active_stories: %w", err)
 		}
 		s.HasUnreadActiveStories = value
 	}
@@ -504,7 +540,7 @@ func (s *Supergroup) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode supergroup#39a14289 as nil")
+		return fmt.Errorf("can't encode supergroup#ca7c2ce as nil")
 	}
 	b.ObjStart()
 	b.PutID("supergroup")
@@ -514,7 +550,7 @@ func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("usernames")
 	if err := s.Usernames.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode supergroup#39a14289: field usernames: %w", err)
+		return fmt.Errorf("unable to encode supergroup#ca7c2ce: field usernames: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("date")
@@ -522,10 +558,10 @@ func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("status")
 	if s.Status == nil {
-		return fmt.Errorf("unable to encode supergroup#39a14289: field status is nil")
+		return fmt.Errorf("unable to encode supergroup#ca7c2ce: field status is nil")
 	}
 	if err := s.Status.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode supergroup#39a14289: field status: %w", err)
+		return fmt.Errorf("unable to encode supergroup#ca7c2ce: field status: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("member_count")
@@ -542,6 +578,9 @@ func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sign_messages")
 	b.PutBool(s.SignMessages)
+	b.Comma()
+	b.FieldStart("show_message_sender")
+	b.PutBool(s.ShowMessageSender)
 	b.Comma()
 	b.FieldStart("join_to_send_messages")
 	b.PutBool(s.JoinToSendMessages)
@@ -563,6 +602,9 @@ func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("is_verified")
 	b.PutBool(s.IsVerified)
+	b.Comma()
+	b.FieldStart("has_sensitive_content")
+	b.PutBool(s.HasSensitiveContent)
 	b.Comma()
 	b.FieldStart("restriction_reason")
 	b.PutString(s.RestrictionReason)
@@ -587,137 +629,149 @@ func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Supergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode supergroup#39a14289 to nil")
+		return fmt.Errorf("can't decode supergroup#ca7c2ce to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroup"); err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: %w", err)
 			}
 		case "id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field id: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field id: %w", err)
 			}
 			s.ID = value
 		case "usernames":
 			if err := s.Usernames.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field usernames: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field usernames: %w", err)
 			}
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field date: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field date: %w", err)
 			}
 			s.Date = value
 		case "status":
 			value, err := DecodeTDLibJSONChatMemberStatus(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field status: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field status: %w", err)
 			}
 			s.Status = value
 		case "member_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field member_count: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field member_count: %w", err)
 			}
 			s.MemberCount = value
 		case "boost_level":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field boost_level: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field boost_level: %w", err)
 			}
 			s.BoostLevel = value
 		case "has_linked_chat":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field has_linked_chat: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_linked_chat: %w", err)
 			}
 			s.HasLinkedChat = value
 		case "has_location":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field has_location: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_location: %w", err)
 			}
 			s.HasLocation = value
 		case "sign_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field sign_messages: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field sign_messages: %w", err)
 			}
 			s.SignMessages = value
+		case "show_message_sender":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field show_message_sender: %w", err)
+			}
+			s.ShowMessageSender = value
 		case "join_to_send_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field join_to_send_messages: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field join_to_send_messages: %w", err)
 			}
 			s.JoinToSendMessages = value
 		case "join_by_request":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field join_by_request: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field join_by_request: %w", err)
 			}
 			s.JoinByRequest = value
 		case "is_slow_mode_enabled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_slow_mode_enabled: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_slow_mode_enabled: %w", err)
 			}
 			s.IsSlowModeEnabled = value
 		case "is_channel":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_channel: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_channel: %w", err)
 			}
 			s.IsChannel = value
 		case "is_broadcast_group":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_broadcast_group: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_broadcast_group: %w", err)
 			}
 			s.IsBroadcastGroup = value
 		case "is_forum":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_forum: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_forum: %w", err)
 			}
 			s.IsForum = value
 		case "is_verified":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_verified: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_verified: %w", err)
 			}
 			s.IsVerified = value
+		case "has_sensitive_content":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_sensitive_content: %w", err)
+			}
+			s.HasSensitiveContent = value
 		case "restriction_reason":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field restriction_reason: %w", err)
 			}
 			s.RestrictionReason = value
 		case "is_scam":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_scam: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_scam: %w", err)
 			}
 			s.IsScam = value
 		case "is_fake":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field is_fake: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field is_fake: %w", err)
 			}
 			s.IsFake = value
 		case "has_active_stories":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field has_active_stories: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_active_stories: %w", err)
 			}
 			s.HasActiveStories = value
 		case "has_unread_active_stories":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode supergroup#39a14289: field has_unread_active_stories: %w", err)
+				return fmt.Errorf("unable to decode supergroup#ca7c2ce: field has_unread_active_stories: %w", err)
 			}
 			s.HasUnreadActiveStories = value
 		default:
@@ -799,6 +853,14 @@ func (s *Supergroup) GetSignMessages() (value bool) {
 	return s.SignMessages
 }
 
+// GetShowMessageSender returns value of ShowMessageSender field.
+func (s *Supergroup) GetShowMessageSender() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.ShowMessageSender
+}
+
 // GetJoinToSendMessages returns value of JoinToSendMessages field.
 func (s *Supergroup) GetJoinToSendMessages() (value bool) {
 	if s == nil {
@@ -853,6 +915,14 @@ func (s *Supergroup) GetIsVerified() (value bool) {
 		return
 	}
 	return s.IsVerified
+}
+
+// GetHasSensitiveContent returns value of HasSensitiveContent field.
+func (s *Supergroup) GetHasSensitiveContent() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.HasSensitiveContent
 }
 
 // GetRestrictionReason returns value of RestrictionReason field.

@@ -37,7 +37,7 @@ type RemoveMessageReactionRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// Type of the reaction to remove
+	// Type of the reaction to remove. The paid reaction can't be removed
 	ReactionType ReactionTypeClass
 }
 

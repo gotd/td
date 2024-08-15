@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageProperties represents TL type `messageProperties#5ae4cb28`.
+// MessageProperties represents TL type `messageProperties#11deeec2`.
 type MessageProperties struct {
 	// True, if the message can be deleted only for the current user while other users will
 	// continue to see it using the method deleteMessages with revoke == false
@@ -62,8 +62,6 @@ type MessageProperties struct {
 	CanBeSharedInStory bool
 	// True, if scheduling state of the message can be edited
 	CanEditSchedulingState bool
-	// True, if the list of added reactions is available using getMessageAddedReactions
-	CanGetAddedReactions bool
 	// True, if code for message embedding can be received using getMessageEmbeddingCode
 	CanGetEmbeddingCode bool
 	// True, if a link can be generated for the message using getMessageLink
@@ -97,7 +95,7 @@ type MessageProperties struct {
 }
 
 // MessagePropertiesTypeID is TL type id of MessageProperties.
-const MessagePropertiesTypeID = 0x5ae4cb28
+const MessagePropertiesTypeID = 0x11deeec2
 
 // Ensuring interfaces in compile-time for MessageProperties.
 var (
@@ -142,9 +140,6 @@ func (m *MessageProperties) Zero() bool {
 		return false
 	}
 	if !(m.CanEditSchedulingState == false) {
-		return false
-	}
-	if !(m.CanGetAddedReactions == false) {
 		return false
 	}
 	if !(m.CanGetEmbeddingCode == false) {
@@ -267,10 +262,6 @@ func (m *MessageProperties) TypeInfo() tdp.Type {
 			SchemaName: "can_edit_scheduling_state",
 		},
 		{
-			Name:       "CanGetAddedReactions",
-			SchemaName: "can_get_added_reactions",
-		},
-		{
 			Name:       "CanGetEmbeddingCode",
 			SchemaName: "can_get_embedding_code",
 		},
@@ -329,7 +320,7 @@ func (m *MessageProperties) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageProperties) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageProperties#5ae4cb28 as nil")
+		return fmt.Errorf("can't encode messageProperties#11deeec2 as nil")
 	}
 	b.PutID(MessagePropertiesTypeID)
 	return m.EncodeBare(b)
@@ -338,7 +329,7 @@ func (m *MessageProperties) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageProperties) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageProperties#5ae4cb28 as nil")
+		return fmt.Errorf("can't encode messageProperties#11deeec2 as nil")
 	}
 	b.PutBool(m.CanBeDeletedOnlyForSelf)
 	b.PutBool(m.CanBeDeletedForAllUsers)
@@ -351,7 +342,6 @@ func (m *MessageProperties) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(m.CanBeSaved)
 	b.PutBool(m.CanBeSharedInStory)
 	b.PutBool(m.CanEditSchedulingState)
-	b.PutBool(m.CanGetAddedReactions)
 	b.PutBool(m.CanGetEmbeddingCode)
 	b.PutBool(m.CanGetLink)
 	b.PutBool(m.CanGetMediaTimestampLinks)
@@ -371,10 +361,10 @@ func (m *MessageProperties) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageProperties) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageProperties#5ae4cb28 to nil")
+		return fmt.Errorf("can't decode messageProperties#11deeec2 to nil")
 	}
 	if err := b.ConsumeID(MessagePropertiesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageProperties#5ae4cb28: %w", err)
+		return fmt.Errorf("unable to decode messageProperties#11deeec2: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -382,180 +372,173 @@ func (m *MessageProperties) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageProperties) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageProperties#5ae4cb28 to nil")
+		return fmt.Errorf("can't decode messageProperties#11deeec2 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_deleted_only_for_self: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_deleted_only_for_self: %w", err)
 		}
 		m.CanBeDeletedOnlyForSelf = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_deleted_for_all_users: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_deleted_for_all_users: %w", err)
 		}
 		m.CanBeDeletedForAllUsers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_edited: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_edited: %w", err)
 		}
 		m.CanBeEdited = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_forwarded: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_forwarded: %w", err)
 		}
 		m.CanBeForwarded = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_paid: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_paid: %w", err)
 		}
 		m.CanBePaid = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_pinned: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_pinned: %w", err)
 		}
 		m.CanBePinned = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_replied: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_replied: %w", err)
 		}
 		m.CanBeReplied = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_replied_in_another_chat: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_replied_in_another_chat: %w", err)
 		}
 		m.CanBeRepliedInAnotherChat = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_saved: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_saved: %w", err)
 		}
 		m.CanBeSaved = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_shared_in_story: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_shared_in_story: %w", err)
 		}
 		m.CanBeSharedInStory = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_edit_scheduling_state: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_edit_scheduling_state: %w", err)
 		}
 		m.CanEditSchedulingState = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_added_reactions: %w", err)
-		}
-		m.CanGetAddedReactions = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_embedding_code: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_embedding_code: %w", err)
 		}
 		m.CanGetEmbeddingCode = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_link: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_link: %w", err)
 		}
 		m.CanGetLink = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_media_timestamp_links: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_media_timestamp_links: %w", err)
 		}
 		m.CanGetMediaTimestampLinks = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_message_thread: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_message_thread: %w", err)
 		}
 		m.CanGetMessageThread = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_read_date: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_read_date: %w", err)
 		}
 		m.CanGetReadDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_statistics: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_statistics: %w", err)
 		}
 		m.CanGetStatistics = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_viewers: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_viewers: %w", err)
 		}
 		m.CanGetViewers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_recognize_speech: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_recognize_speech: %w", err)
 		}
 		m.CanRecognizeSpeech = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_report_chat: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_report_chat: %w", err)
 		}
 		m.CanReportChat = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_report_reactions: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_report_reactions: %w", err)
 		}
 		m.CanReportReactions = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_report_supergroup_spam: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_report_supergroup_spam: %w", err)
 		}
 		m.CanReportSupergroupSpam = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_set_fact_check: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_set_fact_check: %w", err)
 		}
 		m.CanSetFactCheck = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field need_show_statistics: %w", err)
+			return fmt.Errorf("unable to decode messageProperties#11deeec2: field need_show_statistics: %w", err)
 		}
 		m.NeedShowStatistics = value
 	}
@@ -565,7 +548,7 @@ func (m *MessageProperties) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageProperties) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageProperties#5ae4cb28 as nil")
+		return fmt.Errorf("can't encode messageProperties#11deeec2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageProperties")
@@ -602,9 +585,6 @@ func (m *MessageProperties) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("can_edit_scheduling_state")
 	b.PutBool(m.CanEditSchedulingState)
-	b.Comma()
-	b.FieldStart("can_get_added_reactions")
-	b.PutBool(m.CanGetAddedReactions)
 	b.Comma()
 	b.FieldStart("can_get_embedding_code")
 	b.PutBool(m.CanGetEmbeddingCode)
@@ -653,163 +633,157 @@ func (m *MessageProperties) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageProperties) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageProperties#5ae4cb28 to nil")
+		return fmt.Errorf("can't decode messageProperties#11deeec2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageProperties"); err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: %w", err)
 			}
 		case "can_be_deleted_only_for_self":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_deleted_only_for_self: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_deleted_only_for_self: %w", err)
 			}
 			m.CanBeDeletedOnlyForSelf = value
 		case "can_be_deleted_for_all_users":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_deleted_for_all_users: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_deleted_for_all_users: %w", err)
 			}
 			m.CanBeDeletedForAllUsers = value
 		case "can_be_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_edited: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_edited: %w", err)
 			}
 			m.CanBeEdited = value
 		case "can_be_forwarded":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_forwarded: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_forwarded: %w", err)
 			}
 			m.CanBeForwarded = value
 		case "can_be_paid":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_paid: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_paid: %w", err)
 			}
 			m.CanBePaid = value
 		case "can_be_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_pinned: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_pinned: %w", err)
 			}
 			m.CanBePinned = value
 		case "can_be_replied":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_replied: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_replied: %w", err)
 			}
 			m.CanBeReplied = value
 		case "can_be_replied_in_another_chat":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_replied_in_another_chat: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_replied_in_another_chat: %w", err)
 			}
 			m.CanBeRepliedInAnotherChat = value
 		case "can_be_saved":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_saved: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_saved: %w", err)
 			}
 			m.CanBeSaved = value
 		case "can_be_shared_in_story":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_be_shared_in_story: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_be_shared_in_story: %w", err)
 			}
 			m.CanBeSharedInStory = value
 		case "can_edit_scheduling_state":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_edit_scheduling_state: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_edit_scheduling_state: %w", err)
 			}
 			m.CanEditSchedulingState = value
-		case "can_get_added_reactions":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_added_reactions: %w", err)
-			}
-			m.CanGetAddedReactions = value
 		case "can_get_embedding_code":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_embedding_code: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_embedding_code: %w", err)
 			}
 			m.CanGetEmbeddingCode = value
 		case "can_get_link":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_link: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_link: %w", err)
 			}
 			m.CanGetLink = value
 		case "can_get_media_timestamp_links":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_media_timestamp_links: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_media_timestamp_links: %w", err)
 			}
 			m.CanGetMediaTimestampLinks = value
 		case "can_get_message_thread":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_message_thread: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_message_thread: %w", err)
 			}
 			m.CanGetMessageThread = value
 		case "can_get_read_date":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_read_date: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_read_date: %w", err)
 			}
 			m.CanGetReadDate = value
 		case "can_get_statistics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_statistics: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_statistics: %w", err)
 			}
 			m.CanGetStatistics = value
 		case "can_get_viewers":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_get_viewers: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_get_viewers: %w", err)
 			}
 			m.CanGetViewers = value
 		case "can_recognize_speech":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_recognize_speech: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_recognize_speech: %w", err)
 			}
 			m.CanRecognizeSpeech = value
 		case "can_report_chat":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_report_chat: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_report_chat: %w", err)
 			}
 			m.CanReportChat = value
 		case "can_report_reactions":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_report_reactions: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_report_reactions: %w", err)
 			}
 			m.CanReportReactions = value
 		case "can_report_supergroup_spam":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_report_supergroup_spam: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_report_supergroup_spam: %w", err)
 			}
 			m.CanReportSupergroupSpam = value
 		case "can_set_fact_check":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field can_set_fact_check: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field can_set_fact_check: %w", err)
 			}
 			m.CanSetFactCheck = value
 		case "need_show_statistics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProperties#5ae4cb28: field need_show_statistics: %w", err)
+				return fmt.Errorf("unable to decode messageProperties#11deeec2: field need_show_statistics: %w", err)
 			}
 			m.NeedShowStatistics = value
 		default:
@@ -905,14 +879,6 @@ func (m *MessageProperties) GetCanEditSchedulingState() (value bool) {
 		return
 	}
 	return m.CanEditSchedulingState
-}
-
-// GetCanGetAddedReactions returns value of CanGetAddedReactions field.
-func (m *MessageProperties) GetCanGetAddedReactions() (value bool) {
-	if m == nil {
-		return
-	}
-	return m.CanGetAddedReactions
 }
 
 // GetCanGetEmbeddingCode returns value of CanGetEmbeddingCode field.

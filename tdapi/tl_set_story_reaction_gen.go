@@ -37,8 +37,8 @@ type SetStoryReactionRequest struct {
 	StorySenderChatID int64
 	// The identifier of the story
 	StoryID int32
-	// Type of the reaction to set; pass null to remove the reaction.
-	// `reactionTypeCustomEmoji` reactions can be used only by Telegram Premium users
+	// Type of the reaction to set; pass null to remove the reaction. Custom emoji reactions
+	// can be used only by Telegram Premium users. Paid reactions can't be set
 	ReactionType ReactionTypeClass
 	// Pass true if the reaction needs to be added to recent reactions
 	UpdateRecentReactions bool

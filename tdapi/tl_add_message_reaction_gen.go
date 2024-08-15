@@ -37,7 +37,8 @@ type AddMessageReactionRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// Type of the reaction to add
+	// Type of the reaction to add. Use addPaidMessageReaction instead to add the paid
+	// reaction
 	ReactionType ReactionTypeClass
 	// Pass true if the reaction is added with a big animation
 	IsBig bool
