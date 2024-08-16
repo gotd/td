@@ -6992,6 +6992,44 @@ func (s *ServerDispatcher) OnMessagesRequestMainWebView(f func(ctx context.Conte
 	s.handlers[MessagesRequestMainWebViewRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSendPaidReaction(f func(ctx context.Context, request *MessagesSendPaidReactionRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSendPaidReactionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSendPaidReactionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesTogglePaidReactionPrivacy(f func(ctx context.Context, request *MessagesTogglePaidReactionPrivacyRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesTogglePaidReactionPrivacyRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesTogglePaidReactionPrivacyRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9769,6 +9807,65 @@ func (s *ServerDispatcher) OnPaymentsGetStarsGiftOptions(f func(ctx context.Cont
 	}
 
 	s.handlers[PaymentsGetStarsGiftOptionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetStarsSubscriptions(f func(ctx context.Context, request *PaymentsGetStarsSubscriptionsRequest) (*PaymentsStarsStatus, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetStarsSubscriptionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetStarsSubscriptionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsChangeStarsSubscription(f func(ctx context.Context, request *PaymentsChangeStarsSubscriptionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsChangeStarsSubscriptionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsChangeStarsSubscriptionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsFulfillStarsSubscription(f func(ctx context.Context, request *PaymentsFulfillStarsSubscriptionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsFulfillStarsSubscriptionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsFulfillStarsSubscriptionRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

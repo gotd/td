@@ -258,9 +258,16 @@ func testFiles(p dcs.Protocol) func(t *testing.T) {
 						return err
 					}
 
+					vf, ok := f.(interface {
+						GetID() (value int64)
+					})
+					if !ok {
+						return errors.Errorf("%T", f)
+					}
+
 					var b bytes.Buffer
 					_, err = dwn.Download(raw, &tg.InputFileLocation{
-						VolumeID: f.GetID(),
+						VolumeID: vf.GetID(),
 						LocalID:  10,
 					}).WithVerify(true).Stream(ctx, &b)
 					if err != nil {

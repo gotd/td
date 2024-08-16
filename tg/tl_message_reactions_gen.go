@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageReactions represents TL type `messageReactions#4f2b9479`.
+// MessageReactions represents TL type `messageReactions#a339f0b`.
 // Message reactions »¹
 //
 // Links:
@@ -67,10 +67,14 @@ type MessageReactions struct {
 	//
 	// Use SetRecentReactions and GetRecentReactions helpers.
 	RecentReactions []MessagePeerReaction
+	// TopReactors field of MessageReactions.
+	//
+	// Use SetTopReactors and GetTopReactors helpers.
+	TopReactors []MessageReactor
 }
 
 // MessageReactionsTypeID is TL type id of MessageReactions.
-const MessageReactionsTypeID = 0x4f2b9479
+const MessageReactionsTypeID = 0xa339f0b
 
 // Ensuring interfaces in compile-time for MessageReactions.
 var (
@@ -102,6 +106,9 @@ func (m *MessageReactions) Zero() bool {
 	if !(m.RecentReactions == nil) {
 		return false
 	}
+	if !(m.TopReactors == nil) {
+		return false
+	}
 
 	return true
 }
@@ -122,6 +129,7 @@ func (m *MessageReactions) FillFrom(from interface {
 	GetReactionsAsTags() (value bool)
 	GetResults() (value []ReactionCount)
 	GetRecentReactions() (value []MessagePeerReaction, ok bool)
+	GetTopReactors() (value []MessageReactor, ok bool)
 }) {
 	m.Min = from.GetMin()
 	m.CanSeeList = from.GetCanSeeList()
@@ -129,6 +137,10 @@ func (m *MessageReactions) FillFrom(from interface {
 	m.Results = from.GetResults()
 	if val, ok := from.GetRecentReactions(); ok {
 		m.RecentReactions = val
+	}
+
+	if val, ok := from.GetTopReactors(); ok {
+		m.TopReactors = val
 	}
 
 }
@@ -180,6 +192,11 @@ func (m *MessageReactions) TypeInfo() tdp.Type {
 			SchemaName: "recent_reactions",
 			Null:       !m.Flags.Has(1),
 		},
+		{
+			Name:       "TopReactors",
+			SchemaName: "top_reactors",
+			Null:       !m.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -198,12 +215,15 @@ func (m *MessageReactions) SetFlags() {
 	if !(m.RecentReactions == nil) {
 		m.Flags.Set(1)
 	}
+	if !(m.TopReactors == nil) {
+		m.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageReactions) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReactions#4f2b9479 as nil")
+		return fmt.Errorf("can't encode messageReactions#a339f0b as nil")
 	}
 	b.PutID(MessageReactionsTypeID)
 	return m.EncodeBare(b)
@@ -212,23 +232,31 @@ func (m *MessageReactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReactions) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReactions#4f2b9479 as nil")
+		return fmt.Errorf("can't encode messageReactions#a339f0b as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageReactions#4f2b9479: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageReactions#a339f0b: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(m.Results))
 	for idx, v := range m.Results {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageReactions#4f2b9479: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messageReactions#a339f0b: field results element with index %d: %w", idx, err)
 		}
 	}
 	if m.Flags.Has(1) {
 		b.PutVectorHeader(len(m.RecentReactions))
 		for idx, v := range m.RecentReactions {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messageReactions#4f2b9479: field recent_reactions element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messageReactions#a339f0b: field recent_reactions element with index %d: %w", idx, err)
+			}
+		}
+	}
+	if m.Flags.Has(4) {
+		b.PutVectorHeader(len(m.TopReactors))
+		for idx, v := range m.TopReactors {
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode messageReactions#a339f0b: field top_reactors element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -238,10 +266,10 @@ func (m *MessageReactions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageReactions) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReactions#4f2b9479 to nil")
+		return fmt.Errorf("can't decode messageReactions#a339f0b to nil")
 	}
 	if err := b.ConsumeID(MessageReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReactions#4f2b9479: %w", err)
+		return fmt.Errorf("unable to decode messageReactions#a339f0b: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -249,11 +277,11 @@ func (m *MessageReactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReactions#4f2b9479 to nil")
+		return fmt.Errorf("can't decode messageReactions#a339f0b to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReactions#4f2b9479: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageReactions#a339f0b: field flags: %w", err)
 		}
 	}
 	m.Min = m.Flags.Has(0)
@@ -262,7 +290,7 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReactions#4f2b9479: field results: %w", err)
+			return fmt.Errorf("unable to decode messageReactions#a339f0b: field results: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -271,7 +299,7 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ReactionCount
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messageReactions#4f2b9479: field results: %w", err)
+				return fmt.Errorf("unable to decode messageReactions#a339f0b: field results: %w", err)
 			}
 			m.Results = append(m.Results, value)
 		}
@@ -279,7 +307,7 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReactions#4f2b9479: field recent_reactions: %w", err)
+			return fmt.Errorf("unable to decode messageReactions#a339f0b: field recent_reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -288,9 +316,26 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessagePeerReaction
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messageReactions#4f2b9479: field recent_reactions: %w", err)
+				return fmt.Errorf("unable to decode messageReactions#a339f0b: field recent_reactions: %w", err)
 			}
 			m.RecentReactions = append(m.RecentReactions, value)
+		}
+	}
+	if m.Flags.Has(4) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageReactions#a339f0b: field top_reactors: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.TopReactors = make([]MessageReactor, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value MessageReactor
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode messageReactions#a339f0b: field top_reactors: %w", err)
+			}
+			m.TopReactors = append(m.TopReactors, value)
 		}
 	}
 	return nil
@@ -377,4 +422,22 @@ func (m *MessageReactions) GetRecentReactions() (value []MessagePeerReaction, ok
 		return value, false
 	}
 	return m.RecentReactions, true
+}
+
+// SetTopReactors sets value of TopReactors conditional field.
+func (m *MessageReactions) SetTopReactors(value []MessageReactor) {
+	m.Flags.Set(4)
+	m.TopReactors = value
+}
+
+// GetTopReactors returns value of TopReactors conditional field and
+// boolean which is true if field was set.
+func (m *MessageReactions) GetTopReactors() (value []MessageReactor, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.TopReactors, true
 }

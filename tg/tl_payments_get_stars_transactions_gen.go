@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetStarsTransactionsRequest represents TL type `payments.getStarsTransactions#97938d5a`.
+// PaymentsGetStarsTransactionsRequest represents TL type `payments.getStarsTransactions#69da4557`.
 //
 // See https://core.telegram.org/method/payments.getStarsTransactions for reference.
 type PaymentsGetStarsTransactionsRequest struct {
@@ -43,6 +43,10 @@ type PaymentsGetStarsTransactionsRequest struct {
 	Outbound bool
 	// Ascending field of PaymentsGetStarsTransactionsRequest.
 	Ascending bool
+	// SubscriptionID field of PaymentsGetStarsTransactionsRequest.
+	//
+	// Use SetSubscriptionID and GetSubscriptionID helpers.
+	SubscriptionID string
 	// Peer field of PaymentsGetStarsTransactionsRequest.
 	Peer InputPeerClass
 	// Offset field of PaymentsGetStarsTransactionsRequest.
@@ -52,7 +56,7 @@ type PaymentsGetStarsTransactionsRequest struct {
 }
 
 // PaymentsGetStarsTransactionsRequestTypeID is TL type id of PaymentsGetStarsTransactionsRequest.
-const PaymentsGetStarsTransactionsRequestTypeID = 0x97938d5a
+const PaymentsGetStarsTransactionsRequestTypeID = 0x69da4557
 
 // Ensuring interfaces in compile-time for PaymentsGetStarsTransactionsRequest.
 var (
@@ -76,6 +80,9 @@ func (g *PaymentsGetStarsTransactionsRequest) Zero() bool {
 		return false
 	}
 	if !(g.Ascending == false) {
+		return false
+	}
+	if !(g.SubscriptionID == "") {
 		return false
 	}
 	if !(g.Peer == nil) {
@@ -105,6 +112,7 @@ func (g *PaymentsGetStarsTransactionsRequest) FillFrom(from interface {
 	GetInbound() (value bool)
 	GetOutbound() (value bool)
 	GetAscending() (value bool)
+	GetSubscriptionID() (value string, ok bool)
 	GetPeer() (value InputPeerClass)
 	GetOffset() (value string)
 	GetLimit() (value int)
@@ -112,6 +120,10 @@ func (g *PaymentsGetStarsTransactionsRequest) FillFrom(from interface {
 	g.Inbound = from.GetInbound()
 	g.Outbound = from.GetOutbound()
 	g.Ascending = from.GetAscending()
+	if val, ok := from.GetSubscriptionID(); ok {
+		g.SubscriptionID = val
+	}
+
 	g.Peer = from.GetPeer()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
@@ -156,6 +168,11 @@ func (g *PaymentsGetStarsTransactionsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(2),
 		},
 		{
+			Name:       "SubscriptionID",
+			SchemaName: "subscription_id",
+			Null:       !g.Flags.Has(3),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -182,12 +199,15 @@ func (g *PaymentsGetStarsTransactionsRequest) SetFlags() {
 	if !(g.Ascending == false) {
 		g.Flags.Set(2)
 	}
+	if !(g.SubscriptionID == "") {
+		g.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *PaymentsGetStarsTransactionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsTransactions#97938d5a as nil")
+		return fmt.Errorf("can't encode payments.getStarsTransactions#69da4557 as nil")
 	}
 	b.PutID(PaymentsGetStarsTransactionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -196,17 +216,20 @@ func (g *PaymentsGetStarsTransactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetStarsTransactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsTransactions#97938d5a as nil")
+		return fmt.Errorf("can't encode payments.getStarsTransactions#69da4557 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarsTransactions#97938d5a: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarsTransactions#69da4557: field flags: %w", err)
+	}
+	if g.Flags.Has(3) {
+		b.PutString(g.SubscriptionID)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getStarsTransactions#97938d5a: field peer is nil")
+		return fmt.Errorf("unable to encode payments.getStarsTransactions#69da4557: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarsTransactions#97938d5a: field peer: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarsTransactions#69da4557: field peer: %w", err)
 	}
 	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
@@ -216,10 +239,10 @@ func (g *PaymentsGetStarsTransactionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetStarsTransactionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsTransactions#97938d5a to nil")
+		return fmt.Errorf("can't decode payments.getStarsTransactions#69da4557 to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetStarsTransactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getStarsTransactions#97938d5a: %w", err)
+		return fmt.Errorf("unable to decode payments.getStarsTransactions#69da4557: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -227,34 +250,41 @@ func (g *PaymentsGetStarsTransactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetStarsTransactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsTransactions#97938d5a to nil")
+		return fmt.Errorf("can't decode payments.getStarsTransactions#69da4557 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsTransactions#97938d5a: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsTransactions#69da4557: field flags: %w", err)
 		}
 	}
 	g.Inbound = g.Flags.Has(0)
 	g.Outbound = g.Flags.Has(1)
 	g.Ascending = g.Flags.Has(2)
+	if g.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.getStarsTransactions#69da4557: field subscription_id: %w", err)
+		}
+		g.SubscriptionID = value
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsTransactions#97938d5a: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsTransactions#69da4557: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsTransactions#97938d5a: field offset: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsTransactions#69da4557: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsTransactions#97938d5a: field limit: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsTransactions#69da4557: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -318,6 +348,24 @@ func (g *PaymentsGetStarsTransactionsRequest) GetAscending() (value bool) {
 	return g.Flags.Has(2)
 }
 
+// SetSubscriptionID sets value of SubscriptionID conditional field.
+func (g *PaymentsGetStarsTransactionsRequest) SetSubscriptionID(value string) {
+	g.Flags.Set(3)
+	g.SubscriptionID = value
+}
+
+// GetSubscriptionID returns value of SubscriptionID conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGetStarsTransactionsRequest) GetSubscriptionID() (value string, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(3) {
+		return value, false
+	}
+	return g.SubscriptionID, true
+}
+
 // GetPeer returns value of Peer field.
 func (g *PaymentsGetStarsTransactionsRequest) GetPeer() (value InputPeerClass) {
 	if g == nil {
@@ -342,7 +390,7 @@ func (g *PaymentsGetStarsTransactionsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// PaymentsGetStarsTransactions invokes method payments.getStarsTransactions#97938d5a returning error if any.
+// PaymentsGetStarsTransactions invokes method payments.getStarsTransactions#69da4557 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getStarsTransactions for reference.
 func (c *Client) PaymentsGetStarsTransactions(ctx context.Context, request *PaymentsGetStarsTransactionsRequest) (*PaymentsStarsStatus, error) {

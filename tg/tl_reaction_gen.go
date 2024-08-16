@@ -409,6 +409,107 @@ func (r *ReactionCustomEmoji) GetDocumentID() (value int64) {
 	return r.DocumentID
 }
 
+// ReactionPaid represents TL type `reactionPaid#523da4eb`.
+//
+// See https://core.telegram.org/constructor/reactionPaid for reference.
+type ReactionPaid struct {
+}
+
+// ReactionPaidTypeID is TL type id of ReactionPaid.
+const ReactionPaidTypeID = 0x523da4eb
+
+// construct implements constructor of ReactionClass.
+func (r ReactionPaid) construct() ReactionClass { return &r }
+
+// Ensuring interfaces in compile-time for ReactionPaid.
+var (
+	_ bin.Encoder     = &ReactionPaid{}
+	_ bin.Decoder     = &ReactionPaid{}
+	_ bin.BareEncoder = &ReactionPaid{}
+	_ bin.BareDecoder = &ReactionPaid{}
+
+	_ ReactionClass = &ReactionPaid{}
+)
+
+func (r *ReactionPaid) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (r *ReactionPaid) String() string {
+	if r == nil {
+		return "ReactionPaid(nil)"
+	}
+	type Alias ReactionPaid
+	return fmt.Sprintf("ReactionPaid%+v", Alias(*r))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ReactionPaid) TypeID() uint32 {
+	return ReactionPaidTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ReactionPaid) TypeName() string {
+	return "reactionPaid"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReactionPaid) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "reactionPaid",
+		ID:   ReactionPaidTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (r *ReactionPaid) Encode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode reactionPaid#523da4eb as nil")
+	}
+	b.PutID(ReactionPaidTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReactionPaid) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode reactionPaid#523da4eb as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (r *ReactionPaid) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reactionPaid#523da4eb to nil")
+	}
+	if err := b.ConsumeID(ReactionPaidTypeID); err != nil {
+		return fmt.Errorf("unable to decode reactionPaid#523da4eb: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReactionPaid) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reactionPaid#523da4eb to nil")
+	}
+	return nil
+}
+
 // ReactionClassName is schema name of ReactionClass.
 const ReactionClassName = "Reaction"
 
@@ -426,6 +527,7 @@ const ReactionClassName = "Reaction"
 //	case *tg.ReactionEmpty: // reactionEmpty#79f5d419
 //	case *tg.ReactionEmoji: // reactionEmoji#1b2286b8
 //	case *tg.ReactionCustomEmoji: // reactionCustomEmoji#8935fc73
+//	case *tg.ReactionPaid: // reactionPaid#523da4eb
 //	default: panic(v)
 //	}
 type ReactionClass interface {
@@ -471,6 +573,13 @@ func DecodeReaction(buf *bin.Buffer) (ReactionClass, error) {
 	case ReactionCustomEmojiTypeID:
 		// Decoding reactionCustomEmoji#8935fc73.
 		v := ReactionCustomEmoji{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ReactionClass: %w", err)
+		}
+		return &v, nil
+	case ReactionPaidTypeID:
+		// Decoding reactionPaid#523da4eb.
+		v := ReactionPaid{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReactionClass: %w", err)
 		}

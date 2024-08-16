@@ -447,6 +447,145 @@ func (i *InputFileBig) GetName() (value string) {
 	return i.Name
 }
 
+// InputFileStoryDocument represents TL type `inputFileStoryDocument#62dc8b48`.
+//
+// See https://core.telegram.org/constructor/inputFileStoryDocument for reference.
+type InputFileStoryDocument struct {
+	// ID field of InputFileStoryDocument.
+	ID InputDocumentClass
+}
+
+// InputFileStoryDocumentTypeID is TL type id of InputFileStoryDocument.
+const InputFileStoryDocumentTypeID = 0x62dc8b48
+
+// construct implements constructor of InputFileClass.
+func (i InputFileStoryDocument) construct() InputFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputFileStoryDocument.
+var (
+	_ bin.Encoder     = &InputFileStoryDocument{}
+	_ bin.Decoder     = &InputFileStoryDocument{}
+	_ bin.BareEncoder = &InputFileStoryDocument{}
+	_ bin.BareDecoder = &InputFileStoryDocument{}
+
+	_ InputFileClass = &InputFileStoryDocument{}
+)
+
+func (i *InputFileStoryDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputFileStoryDocument) String() string {
+	if i == nil {
+		return "InputFileStoryDocument(nil)"
+	}
+	type Alias InputFileStoryDocument
+	return fmt.Sprintf("InputFileStoryDocument%+v", Alias(*i))
+}
+
+// FillFrom fills InputFileStoryDocument from given interface.
+func (i *InputFileStoryDocument) FillFrom(from interface {
+	GetID() (value InputDocumentClass)
+}) {
+	i.ID = from.GetID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputFileStoryDocument) TypeID() uint32 {
+	return InputFileStoryDocumentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputFileStoryDocument) TypeName() string {
+	return "inputFileStoryDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputFileStoryDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputFileStoryDocument",
+		ID:   InputFileStoryDocumentTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputFileStoryDocument) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileStoryDocument#62dc8b48 as nil")
+	}
+	b.PutID(InputFileStoryDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputFileStoryDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileStoryDocument#62dc8b48 as nil")
+	}
+	if i.ID == nil {
+		return fmt.Errorf("unable to encode inputFileStoryDocument#62dc8b48: field id is nil")
+	}
+	if err := i.ID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputFileStoryDocument#62dc8b48: field id: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputFileStoryDocument) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputFileStoryDocument#62dc8b48 to nil")
+	}
+	if err := b.ConsumeID(InputFileStoryDocumentTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputFileStoryDocument#62dc8b48: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputFileStoryDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputFileStoryDocument#62dc8b48 to nil")
+	}
+	{
+		value, err := DecodeInputDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputFileStoryDocument#62dc8b48: field id: %w", err)
+		}
+		i.ID = value
+	}
+	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputFileStoryDocument) GetID() (value InputDocumentClass) {
+	if i == nil {
+		return
+	}
+	return i.ID
+}
+
 // InputFileClassName is schema name of InputFileClass.
 const InputFileClassName = "InputFile"
 
@@ -463,6 +602,7 @@ const InputFileClassName = "InputFile"
 //	switch v := g.(type) {
 //	case *tg.InputFile: // inputFile#f52ff27f
 //	case *tg.InputFileBig: // inputFileBig#fa4f0bb5
+//	case *tg.InputFileStoryDocument: // inputFileStoryDocument#62dc8b48
 //	default: panic(v)
 //	}
 type InputFileClass interface {
@@ -482,15 +622,6 @@ type InputFileClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-
-	// Random file identifier created by the client
-	GetID() (value int64)
-
-	// Number of parts saved
-	GetParts() (value int)
-
-	// Full name of the file
-	GetName() (value string)
 }
 
 // DecodeInputFile implements binary de-serialization for InputFileClass.
@@ -510,6 +641,13 @@ func DecodeInputFile(buf *bin.Buffer) (InputFileClass, error) {
 	case InputFileBigTypeID:
 		// Decoding inputFileBig#fa4f0bb5.
 		v := InputFileBig{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputFileClass: %w", err)
+		}
+		return &v, nil
+	case InputFileStoryDocumentTypeID:
+		// Decoding inputFileStoryDocument#62dc8b48.
+		v := InputFileStoryDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileClass: %w", err)
 		}

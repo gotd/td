@@ -31,19 +31,23 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsToggleSignaturesRequest represents TL type `channels.toggleSignatures#1f69b606`.
+// ChannelsToggleSignaturesRequest represents TL type `channels.toggleSignatures#418d549c`.
 // Enable/disable message signatures in channels
 //
 // See https://core.telegram.org/method/channels.toggleSignatures for reference.
 type ChannelsToggleSignaturesRequest struct {
+	// Flags field of ChannelsToggleSignaturesRequest.
+	Flags bin.Fields
+	// SignaturesEnabled field of ChannelsToggleSignaturesRequest.
+	SignaturesEnabled bool
+	// ProfilesEnabled field of ChannelsToggleSignaturesRequest.
+	ProfilesEnabled bool
 	// Channel
 	Channel InputChannelClass
-	// Value
-	Enabled bool
 }
 
 // ChannelsToggleSignaturesRequestTypeID is TL type id of ChannelsToggleSignaturesRequest.
-const ChannelsToggleSignaturesRequestTypeID = 0x1f69b606
+const ChannelsToggleSignaturesRequestTypeID = 0x418d549c
 
 // Ensuring interfaces in compile-time for ChannelsToggleSignaturesRequest.
 var (
@@ -57,10 +61,16 @@ func (t *ChannelsToggleSignaturesRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.Channel == nil) {
+	if !(t.Flags.Zero()) {
 		return false
 	}
-	if !(t.Enabled == false) {
+	if !(t.SignaturesEnabled == false) {
+		return false
+	}
+	if !(t.ProfilesEnabled == false) {
+		return false
+	}
+	if !(t.Channel == nil) {
 		return false
 	}
 
@@ -78,11 +88,13 @@ func (t *ChannelsToggleSignaturesRequest) String() string {
 
 // FillFrom fills ChannelsToggleSignaturesRequest from given interface.
 func (t *ChannelsToggleSignaturesRequest) FillFrom(from interface {
+	GetSignaturesEnabled() (value bool)
+	GetProfilesEnabled() (value bool)
 	GetChannel() (value InputChannelClass)
-	GetEnabled() (value bool)
 }) {
+	t.SignaturesEnabled = from.GetSignaturesEnabled()
+	t.ProfilesEnabled = from.GetProfilesEnabled()
 	t.Channel = from.GetChannel()
-	t.Enabled = from.GetEnabled()
 }
 
 // TypeID returns type id in TL schema.
@@ -109,21 +121,37 @@ func (t *ChannelsToggleSignaturesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Channel",
-			SchemaName: "channel",
+			Name:       "SignaturesEnabled",
+			SchemaName: "signatures_enabled",
+			Null:       !t.Flags.Has(0),
 		},
 		{
-			Name:       "Enabled",
-			SchemaName: "enabled",
+			Name:       "ProfilesEnabled",
+			SchemaName: "profiles_enabled",
+			Null:       !t.Flags.Has(1),
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *ChannelsToggleSignaturesRequest) SetFlags() {
+	if !(t.SignaturesEnabled == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.ProfilesEnabled == false) {
+		t.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleSignatures#1f69b606 as nil")
+		return fmt.Errorf("can't encode channels.toggleSignatures#418d549c as nil")
 	}
 	b.PutID(ChannelsToggleSignaturesRequestTypeID)
 	return t.EncodeBare(b)
@@ -132,25 +160,28 @@ func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ChannelsToggleSignaturesRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleSignatures#1f69b606 as nil")
+		return fmt.Errorf("can't encode channels.toggleSignatures#418d549c as nil")
+	}
+	t.SetFlags()
+	if err := t.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.toggleSignatures#418d549c: field flags: %w", err)
 	}
 	if t.Channel == nil {
-		return fmt.Errorf("unable to encode channels.toggleSignatures#1f69b606: field channel is nil")
+		return fmt.Errorf("unable to encode channels.toggleSignatures#418d549c: field channel is nil")
 	}
 	if err := t.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.toggleSignatures#1f69b606: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.toggleSignatures#418d549c: field channel: %w", err)
 	}
-	b.PutBool(t.Enabled)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleSignatures#1f69b606 to nil")
+		return fmt.Errorf("can't decode channels.toggleSignatures#418d549c to nil")
 	}
 	if err := b.ConsumeID(ChannelsToggleSignaturesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: %w", err)
+		return fmt.Errorf("unable to decode channels.toggleSignatures#418d549c: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -158,23 +189,61 @@ func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ChannelsToggleSignaturesRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleSignatures#1f69b606 to nil")
+		return fmt.Errorf("can't decode channels.toggleSignatures#418d549c to nil")
 	}
+	{
+		if err := t.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.toggleSignatures#418d549c: field flags: %w", err)
+		}
+	}
+	t.SignaturesEnabled = t.Flags.Has(0)
+	t.ProfilesEnabled = t.Flags.Has(1)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.toggleSignatures#418d549c: field channel: %w", err)
 		}
 		t.Channel = value
 	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: field enabled: %w", err)
-		}
-		t.Enabled = value
-	}
 	return nil
+}
+
+// SetSignaturesEnabled sets value of SignaturesEnabled conditional field.
+func (t *ChannelsToggleSignaturesRequest) SetSignaturesEnabled(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.SignaturesEnabled = true
+	} else {
+		t.Flags.Unset(0)
+		t.SignaturesEnabled = false
+	}
+}
+
+// GetSignaturesEnabled returns value of SignaturesEnabled conditional field.
+func (t *ChannelsToggleSignaturesRequest) GetSignaturesEnabled() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(0)
+}
+
+// SetProfilesEnabled sets value of ProfilesEnabled conditional field.
+func (t *ChannelsToggleSignaturesRequest) SetProfilesEnabled(value bool) {
+	if value {
+		t.Flags.Set(1)
+		t.ProfilesEnabled = true
+	} else {
+		t.Flags.Unset(1)
+		t.ProfilesEnabled = false
+	}
+}
+
+// GetProfilesEnabled returns value of ProfilesEnabled conditional field.
+func (t *ChannelsToggleSignaturesRequest) GetProfilesEnabled() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(1)
 }
 
 // GetChannel returns value of Channel field.
@@ -185,20 +254,12 @@ func (t *ChannelsToggleSignaturesRequest) GetChannel() (value InputChannelClass)
 	return t.Channel
 }
 
-// GetEnabled returns value of Enabled field.
-func (t *ChannelsToggleSignaturesRequest) GetEnabled() (value bool) {
-	if t == nil {
-		return
-	}
-	return t.Enabled
-}
-
 // GetChannelAsNotEmpty returns mapped value of Channel field.
 func (t *ChannelsToggleSignaturesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
 	return t.Channel.AsNotEmpty()
 }
 
-// ChannelsToggleSignatures invokes method channels.toggleSignatures#1f69b606 returning error if any.
+// ChannelsToggleSignatures invokes method channels.toggleSignatures#418d549c returning error if any.
 // Enable/disable message signatures in channels
 //
 // Possible errors:

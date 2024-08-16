@@ -61,8 +61,8 @@ func (b Broadcast) SetDiscussionGroup(ctx context.Context, p tg.InputChannelClas
 // ToggleSignatures enable/disable message signatures in channels.
 func (b Broadcast) ToggleSignatures(ctx context.Context, enabled bool) error {
 	if _, err := b.m.api.ChannelsToggleSignatures(ctx, &tg.ChannelsToggleSignaturesRequest{
-		Channel: b.InputChannel(),
-		Enabled: enabled,
+		Channel:           b.InputChannel(),
+		SignaturesEnabled: enabled,
 	}); err != nil {
 		return errors.Wrap(err, "toggle signatures")
 	}
