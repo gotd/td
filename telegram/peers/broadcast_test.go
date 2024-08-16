@@ -51,14 +51,14 @@ func TestBroadcast_ToggleSignatures(t *testing.T) {
 	a.True(ok)
 
 	mock.ExpectCall(&tg.ChannelsToggleSignaturesRequest{
-		Channel: s.InputChannel(),
-		Enabled: true,
+		Channel:           s.InputChannel(),
+		SignaturesEnabled: true,
 	}).ThenRPCErr(getTestError())
 	a.Error(s.ToggleSignatures(ctx, true))
 
 	mock.ExpectCall(&tg.ChannelsToggleSignaturesRequest{
-		Channel: s.InputChannel(),
-		Enabled: true,
+		Channel:           s.InputChannel(),
+		SignaturesEnabled: true,
 	}).ThenResult(&tg.Updates{})
 	a.NoError(s.ToggleSignatures(ctx, true))
 }
