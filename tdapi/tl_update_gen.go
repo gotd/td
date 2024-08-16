@@ -24852,6 +24852,200 @@ func (u *UpdateSavedMessagesTags) GetTags() (value SavedMessagesTags) {
 	return u.Tags
 }
 
+// UpdateActiveLiveLocationMessages represents TL type `updateActiveLiveLocationMessages#a20b9b1f`.
+type UpdateActiveLiveLocationMessages struct {
+	// The list of messages with active live locations
+	Messages []Message
+}
+
+// UpdateActiveLiveLocationMessagesTypeID is TL type id of UpdateActiveLiveLocationMessages.
+const UpdateActiveLiveLocationMessagesTypeID = 0xa20b9b1f
+
+// construct implements constructor of UpdateClass.
+func (u UpdateActiveLiveLocationMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateActiveLiveLocationMessages.
+var (
+	_ bin.Encoder     = &UpdateActiveLiveLocationMessages{}
+	_ bin.Decoder     = &UpdateActiveLiveLocationMessages{}
+	_ bin.BareEncoder = &UpdateActiveLiveLocationMessages{}
+	_ bin.BareDecoder = &UpdateActiveLiveLocationMessages{}
+
+	_ UpdateClass = &UpdateActiveLiveLocationMessages{}
+)
+
+func (u *UpdateActiveLiveLocationMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateActiveLiveLocationMessages) String() string {
+	if u == nil {
+		return "UpdateActiveLiveLocationMessages(nil)"
+	}
+	type Alias UpdateActiveLiveLocationMessages
+	return fmt.Sprintf("UpdateActiveLiveLocationMessages%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateActiveLiveLocationMessages) TypeID() uint32 {
+	return UpdateActiveLiveLocationMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateActiveLiveLocationMessages) TypeName() string {
+	return "updateActiveLiveLocationMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateActiveLiveLocationMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateActiveLiveLocationMessages",
+		ID:   UpdateActiveLiveLocationMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateActiveLiveLocationMessages) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateActiveLiveLocationMessages#a20b9b1f as nil")
+	}
+	b.PutID(UpdateActiveLiveLocationMessagesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateActiveLiveLocationMessages) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateActiveLiveLocationMessages#a20b9b1f as nil")
+	}
+	b.PutInt(len(u.Messages))
+	for idx, v := range u.Messages {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateActiveLiveLocationMessages#a20b9b1f: field messages element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateActiveLiveLocationMessages) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateActiveLiveLocationMessages#a20b9b1f to nil")
+	}
+	if err := b.ConsumeID(UpdateActiveLiveLocationMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateActiveLiveLocationMessages#a20b9b1f: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateActiveLiveLocationMessages) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateActiveLiveLocationMessages#a20b9b1f to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateActiveLiveLocationMessages#a20b9b1f: field messages: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Messages = make([]Message, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value Message
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateActiveLiveLocationMessages#a20b9b1f: field messages: %w", err)
+			}
+			u.Messages = append(u.Messages, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateActiveLiveLocationMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateActiveLiveLocationMessages#a20b9b1f as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateActiveLiveLocationMessages")
+	b.Comma()
+	b.FieldStart("messages")
+	b.ArrStart()
+	for idx, v := range u.Messages {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateActiveLiveLocationMessages#a20b9b1f: field messages element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateActiveLiveLocationMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateActiveLiveLocationMessages#a20b9b1f to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateActiveLiveLocationMessages"); err != nil {
+				return fmt.Errorf("unable to decode updateActiveLiveLocationMessages#a20b9b1f: %w", err)
+			}
+		case "messages":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value Message
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateActiveLiveLocationMessages#a20b9b1f: field messages: %w", err)
+				}
+				u.Messages = append(u.Messages, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateActiveLiveLocationMessages#a20b9b1f: field messages: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateActiveLiveLocationMessages) GetMessages() (value []Message) {
+	if u == nil {
+		return
+	}
+	return u.Messages
+}
+
 // UpdateOwnedStarCount represents TL type `updateOwnedStarCount#de995b79`.
 type UpdateOwnedStarCount struct {
 	// The new number of Telegram Stars owned
@@ -32845,6 +33039,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateAvailableMessageEffects: // updateAvailableMessageEffects#a1cb72b9
 //	case *tdapi.UpdateDefaultReactionType: // updateDefaultReactionType#4b615105
 //	case *tdapi.UpdateSavedMessagesTags: // updateSavedMessagesTags#7386424a
+//	case *tdapi.UpdateActiveLiveLocationMessages: // updateActiveLiveLocationMessages#a20b9b1f
 //	case *tdapi.UpdateOwnedStarCount: // updateOwnedStarCount#de995b79
 //	case *tdapi.UpdateChatRevenueAmount: // updateChatRevenueAmount#c6c9bcc4
 //	case *tdapi.UpdateStarRevenueStatus: // updateStarRevenueStatus#ef4bfccb
@@ -33729,6 +33924,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateSavedMessagesTagsTypeID:
 		// Decoding updateSavedMessagesTags#7386424a.
 		v := UpdateSavedMessagesTags{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateActiveLiveLocationMessagesTypeID:
+		// Decoding updateActiveLiveLocationMessages#a20b9b1f.
+		v := UpdateActiveLiveLocationMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -34784,6 +34986,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateSavedMessagesTags":
 		// Decoding updateSavedMessagesTags#7386424a.
 		v := UpdateSavedMessagesTags{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateActiveLiveLocationMessages":
+		// Decoding updateActiveLiveLocationMessages#a20b9b1f.
+		v := UpdateActiveLiveLocationMessages{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -1163,6 +1163,172 @@ func (t *TelegramPaymentPurposeGiftedStars) GetStarCount() (value int64) {
 	return t.StarCount
 }
 
+// TelegramPaymentPurposeJoinChat represents TL type `telegramPaymentPurposeJoinChat#8ddd6788`.
+type TelegramPaymentPurposeJoinChat struct {
+	// Invite link to use
+	InviteLink string
+}
+
+// TelegramPaymentPurposeJoinChatTypeID is TL type id of TelegramPaymentPurposeJoinChat.
+const TelegramPaymentPurposeJoinChatTypeID = 0x8ddd6788
+
+// construct implements constructor of TelegramPaymentPurposeClass.
+func (t TelegramPaymentPurposeJoinChat) construct() TelegramPaymentPurposeClass { return &t }
+
+// Ensuring interfaces in compile-time for TelegramPaymentPurposeJoinChat.
+var (
+	_ bin.Encoder     = &TelegramPaymentPurposeJoinChat{}
+	_ bin.Decoder     = &TelegramPaymentPurposeJoinChat{}
+	_ bin.BareEncoder = &TelegramPaymentPurposeJoinChat{}
+	_ bin.BareDecoder = &TelegramPaymentPurposeJoinChat{}
+
+	_ TelegramPaymentPurposeClass = &TelegramPaymentPurposeJoinChat{}
+)
+
+func (t *TelegramPaymentPurposeJoinChat) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.InviteLink == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TelegramPaymentPurposeJoinChat) String() string {
+	if t == nil {
+		return "TelegramPaymentPurposeJoinChat(nil)"
+	}
+	type Alias TelegramPaymentPurposeJoinChat
+	return fmt.Sprintf("TelegramPaymentPurposeJoinChat%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TelegramPaymentPurposeJoinChat) TypeID() uint32 {
+	return TelegramPaymentPurposeJoinChatTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TelegramPaymentPurposeJoinChat) TypeName() string {
+	return "telegramPaymentPurposeJoinChat"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TelegramPaymentPurposeJoinChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "telegramPaymentPurposeJoinChat",
+		ID:   TelegramPaymentPurposeJoinChatTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "InviteLink",
+			SchemaName: "invite_link",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TelegramPaymentPurposeJoinChat) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode telegramPaymentPurposeJoinChat#8ddd6788 as nil")
+	}
+	b.PutID(TelegramPaymentPurposeJoinChatTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TelegramPaymentPurposeJoinChat) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode telegramPaymentPurposeJoinChat#8ddd6788 as nil")
+	}
+	b.PutString(t.InviteLink)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TelegramPaymentPurposeJoinChat) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode telegramPaymentPurposeJoinChat#8ddd6788 to nil")
+	}
+	if err := b.ConsumeID(TelegramPaymentPurposeJoinChatTypeID); err != nil {
+		return fmt.Errorf("unable to decode telegramPaymentPurposeJoinChat#8ddd6788: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TelegramPaymentPurposeJoinChat) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode telegramPaymentPurposeJoinChat#8ddd6788 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode telegramPaymentPurposeJoinChat#8ddd6788: field invite_link: %w", err)
+		}
+		t.InviteLink = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TelegramPaymentPurposeJoinChat) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode telegramPaymentPurposeJoinChat#8ddd6788 as nil")
+	}
+	b.ObjStart()
+	b.PutID("telegramPaymentPurposeJoinChat")
+	b.Comma()
+	b.FieldStart("invite_link")
+	b.PutString(t.InviteLink)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TelegramPaymentPurposeJoinChat) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode telegramPaymentPurposeJoinChat#8ddd6788 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("telegramPaymentPurposeJoinChat"); err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeJoinChat#8ddd6788: %w", err)
+			}
+		case "invite_link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposeJoinChat#8ddd6788: field invite_link: %w", err)
+			}
+			t.InviteLink = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetInviteLink returns value of InviteLink field.
+func (t *TelegramPaymentPurposeJoinChat) GetInviteLink() (value string) {
+	if t == nil {
+		return
+	}
+	return t.InviteLink
+}
+
 // TelegramPaymentPurposeClassName is schema name of TelegramPaymentPurposeClass.
 const TelegramPaymentPurposeClassName = "TelegramPaymentPurpose"
 
@@ -1179,6 +1345,7 @@ const TelegramPaymentPurposeClassName = "TelegramPaymentPurpose"
 //	case *tdapi.TelegramPaymentPurposePremiumGiveaway: // telegramPaymentPurposePremiumGiveaway#bfd4a227
 //	case *tdapi.TelegramPaymentPurposeStars: // telegramPaymentPurposeStars#e273ee52
 //	case *tdapi.TelegramPaymentPurposeGiftedStars: // telegramPaymentPurposeGiftedStars#91b68a36
+//	case *tdapi.TelegramPaymentPurposeJoinChat: // telegramPaymentPurposeJoinChat#8ddd6788
 //	default: panic(v)
 //	}
 type TelegramPaymentPurposeClass interface {
@@ -1201,11 +1368,6 @@ type TelegramPaymentPurposeClass interface {
 
 	EncodeTDLibJSON(b tdjson.Encoder) error
 	DecodeTDLibJSON(b tdjson.Decoder) error
-
-	// ISO 4217 currency code of the payment currency
-	GetCurrency() (value string)
-	// Paid amount, in the smallest units of the currency
-	GetAmount() (value int64)
 }
 
 // DecodeTelegramPaymentPurpose implements binary de-serialization for TelegramPaymentPurposeClass.
@@ -1239,6 +1401,13 @@ func DecodeTelegramPaymentPurpose(buf *bin.Buffer) (TelegramPaymentPurposeClass,
 	case TelegramPaymentPurposeGiftedStarsTypeID:
 		// Decoding telegramPaymentPurposeGiftedStars#91b68a36.
 		v := TelegramPaymentPurposeGiftedStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case TelegramPaymentPurposeJoinChatTypeID:
+		// Decoding telegramPaymentPurposeJoinChat#8ddd6788.
+		v := TelegramPaymentPurposeJoinChat{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
 		}
@@ -1279,6 +1448,13 @@ func DecodeTDLibJSONTelegramPaymentPurpose(buf tdjson.Decoder) (TelegramPaymentP
 	case "telegramPaymentPurposeGiftedStars":
 		// Decoding telegramPaymentPurposeGiftedStars#91b68a36.
 		v := TelegramPaymentPurposeGiftedStars{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case "telegramPaymentPurposeJoinChat":
+		// Decoding telegramPaymentPurposeJoinChat#8ddd6788.
+		v := TelegramPaymentPurposeJoinChat{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
 		}

@@ -502,12 +502,15 @@ func (c *ChatMemberStatusAdministrator) GetRights() (value ChatAdministratorRigh
 	return c.Rights
 }
 
-// ChatMemberStatusMember represents TL type `chatMemberStatusMember#32597455`.
+// ChatMemberStatusMember represents TL type `chatMemberStatusMember#fe0cec16`.
 type ChatMemberStatusMember struct {
+	// Point in time (Unix timestamp) when the user will be removed from the chat because of
+	// the expired subscription; 0 if never. Ignored in setChatMemberStatus
+	MemberUntilDate int32
 }
 
 // ChatMemberStatusMemberTypeID is TL type id of ChatMemberStatusMember.
-const ChatMemberStatusMemberTypeID = 0x32597455
+const ChatMemberStatusMemberTypeID = 0xfe0cec16
 
 // construct implements constructor of ChatMemberStatusClass.
 func (c ChatMemberStatusMember) construct() ChatMemberStatusClass { return &c }
@@ -525,6 +528,9 @@ var (
 func (c *ChatMemberStatusMember) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.MemberUntilDate == 0) {
+		return false
 	}
 
 	return true
@@ -561,14 +567,19 @@ func (c *ChatMemberStatusMember) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MemberUntilDate",
+			SchemaName: "member_until_date",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (c *ChatMemberStatusMember) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMemberStatusMember#32597455 as nil")
+		return fmt.Errorf("can't encode chatMemberStatusMember#fe0cec16 as nil")
 	}
 	b.PutID(ChatMemberStatusMemberTypeID)
 	return c.EncodeBare(b)
@@ -577,18 +588,19 @@ func (c *ChatMemberStatusMember) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatMemberStatusMember) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMemberStatusMember#32597455 as nil")
+		return fmt.Errorf("can't encode chatMemberStatusMember#fe0cec16 as nil")
 	}
+	b.PutInt32(c.MemberUntilDate)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatMemberStatusMember) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMemberStatusMember#32597455 to nil")
+		return fmt.Errorf("can't decode chatMemberStatusMember#fe0cec16 to nil")
 	}
 	if err := b.ConsumeID(ChatMemberStatusMemberTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatMemberStatusMember#32597455: %w", err)
+		return fmt.Errorf("unable to decode chatMemberStatusMember#fe0cec16: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -596,7 +608,14 @@ func (c *ChatMemberStatusMember) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatMemberStatusMember) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMemberStatusMember#32597455 to nil")
+		return fmt.Errorf("can't decode chatMemberStatusMember#fe0cec16 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatMemberStatusMember#fe0cec16: field member_until_date: %w", err)
+		}
+		c.MemberUntilDate = value
 	}
 	return nil
 }
@@ -604,10 +623,13 @@ func (c *ChatMemberStatusMember) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatMemberStatusMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMemberStatusMember#32597455 as nil")
+		return fmt.Errorf("can't encode chatMemberStatusMember#fe0cec16 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusMember")
+	b.Comma()
+	b.FieldStart("member_until_date")
+	b.PutInt32(c.MemberUntilDate)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -617,20 +639,34 @@ func (c *ChatMemberStatusMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatMemberStatusMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMemberStatusMember#32597455 to nil")
+		return fmt.Errorf("can't decode chatMemberStatusMember#fe0cec16 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatMemberStatusMember"); err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusMember#32597455: %w", err)
+				return fmt.Errorf("unable to decode chatMemberStatusMember#fe0cec16: %w", err)
 			}
+		case "member_until_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatMemberStatusMember#fe0cec16: field member_until_date: %w", err)
+			}
+			c.MemberUntilDate = value
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetMemberUntilDate returns value of MemberUntilDate field.
+func (c *ChatMemberStatusMember) GetMemberUntilDate() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MemberUntilDate
 }
 
 // ChatMemberStatusRestricted represents TL type `chatMemberStatusRestricted#630774a6`.
@@ -1182,7 +1218,7 @@ const ChatMemberStatusClassName = "ChatMemberStatus"
 //	switch v := g.(type) {
 //	case *tdapi.ChatMemberStatusCreator: // chatMemberStatusCreator#f6764afe
 //	case *tdapi.ChatMemberStatusAdministrator: // chatMemberStatusAdministrator#fbd3841d
-//	case *tdapi.ChatMemberStatusMember: // chatMemberStatusMember#32597455
+//	case *tdapi.ChatMemberStatusMember: // chatMemberStatusMember#fe0cec16
 //	case *tdapi.ChatMemberStatusRestricted: // chatMemberStatusRestricted#630774a6
 //	case *tdapi.ChatMemberStatusLeft: // chatMemberStatusLeft#ffa74425
 //	case *tdapi.ChatMemberStatusBanned: // chatMemberStatusBanned#9d714eb6
@@ -1232,7 +1268,7 @@ func DecodeChatMemberStatus(buf *bin.Buffer) (ChatMemberStatusClass, error) {
 		}
 		return &v, nil
 	case ChatMemberStatusMemberTypeID:
-		// Decoding chatMemberStatusMember#32597455.
+		// Decoding chatMemberStatusMember#fe0cec16.
 		v := ChatMemberStatusMember{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatMemberStatusClass: %w", err)
@@ -1286,7 +1322,7 @@ func DecodeTDLibJSONChatMemberStatus(buf tdjson.Decoder) (ChatMemberStatusClass,
 		}
 		return &v, nil
 	case "chatMemberStatusMember":
-		// Decoding chatMemberStatusMember#32597455.
+		// Decoding chatMemberStatusMember#fe0cec16.
 		v := ChatMemberStatusMember{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatMemberStatusClass: %w", err)

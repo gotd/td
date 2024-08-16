@@ -33,7 +33,7 @@ var (
 
 // SetDefaultReactionTypeRequest represents TL type `setDefaultReactionType#65038a3d`.
 type SetDefaultReactionTypeRequest struct {
-	// New type of the default reaction
+	// New type of the default reaction. The paid reaction can't be set as default
 	ReactionType ReactionTypeClass
 }
 

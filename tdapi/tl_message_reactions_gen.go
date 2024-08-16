@@ -31,16 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageReactions represents TL type `messageReactions#91986cd8`.
+// MessageReactions represents TL type `messageReactions#9d558cb`.
 type MessageReactions struct {
 	// List of added reactions
 	Reactions []MessageReaction
 	// True, if the reactions are tags and Telegram Premium users can filter messages by them
 	AreTags bool
+	// Information about top users that added the paid reaction
+	PaidReactors []PaidReactor
+	// True, if the list of added reactions is available using getMessageAddedReactions
+	CanGetAddedReactions bool
 }
 
 // MessageReactionsTypeID is TL type id of MessageReactions.
-const MessageReactionsTypeID = 0x91986cd8
+const MessageReactionsTypeID = 0x9d558cb
 
 // Ensuring interfaces in compile-time for MessageReactions.
 var (
@@ -58,6 +62,12 @@ func (m *MessageReactions) Zero() bool {
 		return false
 	}
 	if !(m.AreTags == false) {
+		return false
+	}
+	if !(m.PaidReactors == nil) {
+		return false
+	}
+	if !(m.CanGetAddedReactions == false) {
 		return false
 	}
 
@@ -104,6 +114,14 @@ func (m *MessageReactions) TypeInfo() tdp.Type {
 			Name:       "AreTags",
 			SchemaName: "are_tags",
 		},
+		{
+			Name:       "PaidReactors",
+			SchemaName: "paid_reactors",
+		},
+		{
+			Name:       "CanGetAddedReactions",
+			SchemaName: "can_get_added_reactions",
+		},
 	}
 	return typ
 }
@@ -111,7 +129,7 @@ func (m *MessageReactions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReactions) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReactions#91986cd8 as nil")
+		return fmt.Errorf("can't encode messageReactions#9d558cb as nil")
 	}
 	b.PutID(MessageReactionsTypeID)
 	return m.EncodeBare(b)
@@ -120,25 +138,32 @@ func (m *MessageReactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReactions) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReactions#91986cd8 as nil")
+		return fmt.Errorf("can't encode messageReactions#9d558cb as nil")
 	}
 	b.PutInt(len(m.Reactions))
 	for idx, v := range m.Reactions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare messageReactions#91986cd8: field reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare messageReactions#9d558cb: field reactions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutBool(m.AreTags)
+	b.PutInt(len(m.PaidReactors))
+	for idx, v := range m.PaidReactors {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare messageReactions#9d558cb: field paid_reactors element with index %d: %w", idx, err)
+		}
+	}
+	b.PutBool(m.CanGetAddedReactions)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageReactions) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReactions#91986cd8 to nil")
+		return fmt.Errorf("can't decode messageReactions#9d558cb to nil")
 	}
 	if err := b.ConsumeID(MessageReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReactions#91986cd8: %w", err)
+		return fmt.Errorf("unable to decode messageReactions#9d558cb: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -146,12 +171,12 @@ func (m *MessageReactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReactions#91986cd8 to nil")
+		return fmt.Errorf("can't decode messageReactions#9d558cb to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReactions#91986cd8: field reactions: %w", err)
+			return fmt.Errorf("unable to decode messageReactions#9d558cb: field reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -160,7 +185,7 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value MessageReaction
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare messageReactions#91986cd8: field reactions: %w", err)
+				return fmt.Errorf("unable to decode bare messageReactions#9d558cb: field reactions: %w", err)
 			}
 			m.Reactions = append(m.Reactions, value)
 		}
@@ -168,9 +193,33 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReactions#91986cd8: field are_tags: %w", err)
+			return fmt.Errorf("unable to decode messageReactions#9d558cb: field are_tags: %w", err)
 		}
 		m.AreTags = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageReactions#9d558cb: field paid_reactors: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.PaidReactors = make([]PaidReactor, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value PaidReactor
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare messageReactions#9d558cb: field paid_reactors: %w", err)
+			}
+			m.PaidReactors = append(m.PaidReactors, value)
+		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageReactions#9d558cb: field can_get_added_reactions: %w", err)
+		}
+		m.CanGetAddedReactions = value
 	}
 	return nil
 }
@@ -178,7 +227,7 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReactions#91986cd8 as nil")
+		return fmt.Errorf("can't encode messageReactions#9d558cb as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageReactions")
@@ -187,7 +236,7 @@ func (m *MessageReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range m.Reactions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode messageReactions#91986cd8: field reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messageReactions#9d558cb: field reactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -197,6 +246,20 @@ func (m *MessageReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("are_tags")
 	b.PutBool(m.AreTags)
 	b.Comma()
+	b.FieldStart("paid_reactors")
+	b.ArrStart()
+	for idx, v := range m.PaidReactors {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode messageReactions#9d558cb: field paid_reactors element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("can_get_added_reactions")
+	b.PutBool(m.CanGetAddedReactions)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -205,32 +268,49 @@ func (m *MessageReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReactions#91986cd8 to nil")
+		return fmt.Errorf("can't decode messageReactions#9d558cb to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageReactions"); err != nil {
-				return fmt.Errorf("unable to decode messageReactions#91986cd8: %w", err)
+				return fmt.Errorf("unable to decode messageReactions#9d558cb: %w", err)
 			}
 		case "reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value MessageReaction
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode messageReactions#91986cd8: field reactions: %w", err)
+					return fmt.Errorf("unable to decode messageReactions#9d558cb: field reactions: %w", err)
 				}
 				m.Reactions = append(m.Reactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageReactions#91986cd8: field reactions: %w", err)
+				return fmt.Errorf("unable to decode messageReactions#9d558cb: field reactions: %w", err)
 			}
 		case "are_tags":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReactions#91986cd8: field are_tags: %w", err)
+				return fmt.Errorf("unable to decode messageReactions#9d558cb: field are_tags: %w", err)
 			}
 			m.AreTags = value
+		case "paid_reactors":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value PaidReactor
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode messageReactions#9d558cb: field paid_reactors: %w", err)
+				}
+				m.PaidReactors = append(m.PaidReactors, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode messageReactions#9d558cb: field paid_reactors: %w", err)
+			}
+		case "can_get_added_reactions":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageReactions#9d558cb: field can_get_added_reactions: %w", err)
+			}
+			m.CanGetAddedReactions = value
 		default:
 			return b.Skip()
 		}
@@ -252,4 +332,20 @@ func (m *MessageReactions) GetAreTags() (value bool) {
 		return
 	}
 	return m.AreTags
+}
+
+// GetPaidReactors returns value of PaidReactors field.
+func (m *MessageReactions) GetPaidReactors() (value []PaidReactor) {
+	if m == nil {
+		return
+	}
+	return m.PaidReactors
+}
+
+// GetCanGetAddedReactions returns value of CanGetAddedReactions field.
+func (m *MessageReactions) GetCanGetAddedReactions() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.CanGetAddedReactions
 }

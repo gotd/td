@@ -41,7 +41,8 @@ type SponsoredMessage struct {
 	// True, if the message can be reported to Telegram moderators through
 	// reportChatSponsoredMessage
 	CanBeReported bool
-	// Content of the message. Currently, can be only of the type messageText
+	// Content of the message. Currently, can be only of the types messageText,
+	// messageAnimation, messagePhoto, or messageVideo
 	Content MessageContentClass
 	// Information about the sponsor of the message
 	Sponsor MessageSponsor

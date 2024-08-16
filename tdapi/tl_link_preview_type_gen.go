@@ -1167,14 +1167,16 @@ func (l *LinkPreviewTypeAudio) GetAuthor() (value string) {
 	return l.Author
 }
 
-// LinkPreviewTypeBackground represents TL type `linkPreviewTypeBackground#6dc50386`.
+// LinkPreviewTypeBackground represents TL type `linkPreviewTypeBackground#3a48a1e0`.
 type LinkPreviewTypeBackground struct {
 	// Document with the background; may be null for filled backgrounds
 	Document Document
+	// Type of the background; may be null if unknown
+	BackgroundType BackgroundTypeClass
 }
 
 // LinkPreviewTypeBackgroundTypeID is TL type id of LinkPreviewTypeBackground.
-const LinkPreviewTypeBackgroundTypeID = 0x6dc50386
+const LinkPreviewTypeBackgroundTypeID = 0x3a48a1e0
 
 // construct implements constructor of LinkPreviewTypeClass.
 func (l LinkPreviewTypeBackground) construct() LinkPreviewTypeClass { return &l }
@@ -1194,6 +1196,9 @@ func (l *LinkPreviewTypeBackground) Zero() bool {
 		return true
 	}
 	if !(l.Document.Zero()) {
+		return false
+	}
+	if !(l.BackgroundType == nil) {
 		return false
 	}
 
@@ -1236,6 +1241,10 @@ func (l *LinkPreviewTypeBackground) TypeInfo() tdp.Type {
 			Name:       "Document",
 			SchemaName: "document",
 		},
+		{
+			Name:       "BackgroundType",
+			SchemaName: "background_type",
+		},
 	}
 	return typ
 }
@@ -1243,7 +1252,7 @@ func (l *LinkPreviewTypeBackground) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LinkPreviewTypeBackground) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeBackground#6dc50386 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeBackground#3a48a1e0 as nil")
 	}
 	b.PutID(LinkPreviewTypeBackgroundTypeID)
 	return l.EncodeBare(b)
@@ -1252,10 +1261,16 @@ func (l *LinkPreviewTypeBackground) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LinkPreviewTypeBackground) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeBackground#6dc50386 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeBackground#3a48a1e0 as nil")
 	}
 	if err := l.Document.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode linkPreviewTypeBackground#6dc50386: field document: %w", err)
+		return fmt.Errorf("unable to encode linkPreviewTypeBackground#3a48a1e0: field document: %w", err)
+	}
+	if l.BackgroundType == nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeBackground#3a48a1e0: field background_type is nil")
+	}
+	if err := l.BackgroundType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeBackground#3a48a1e0: field background_type: %w", err)
 	}
 	return nil
 }
@@ -1263,10 +1278,10 @@ func (l *LinkPreviewTypeBackground) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *LinkPreviewTypeBackground) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeBackground#6dc50386 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeBackground#3a48a1e0 to nil")
 	}
 	if err := b.ConsumeID(LinkPreviewTypeBackgroundTypeID); err != nil {
-		return fmt.Errorf("unable to decode linkPreviewTypeBackground#6dc50386: %w", err)
+		return fmt.Errorf("unable to decode linkPreviewTypeBackground#3a48a1e0: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -1274,12 +1289,19 @@ func (l *LinkPreviewTypeBackground) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LinkPreviewTypeBackground) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeBackground#6dc50386 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeBackground#3a48a1e0 to nil")
 	}
 	{
 		if err := l.Document.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode linkPreviewTypeBackground#6dc50386: field document: %w", err)
+			return fmt.Errorf("unable to decode linkPreviewTypeBackground#3a48a1e0: field document: %w", err)
 		}
+	}
+	{
+		value, err := DecodeBackgroundType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreviewTypeBackground#3a48a1e0: field background_type: %w", err)
+		}
+		l.BackgroundType = value
 	}
 	return nil
 }
@@ -1287,14 +1309,22 @@ func (l *LinkPreviewTypeBackground) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LinkPreviewTypeBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreviewTypeBackground#6dc50386 as nil")
+		return fmt.Errorf("can't encode linkPreviewTypeBackground#3a48a1e0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("linkPreviewTypeBackground")
 	b.Comma()
 	b.FieldStart("document")
 	if err := l.Document.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode linkPreviewTypeBackground#6dc50386: field document: %w", err)
+		return fmt.Errorf("unable to encode linkPreviewTypeBackground#3a48a1e0: field document: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("background_type")
+	if l.BackgroundType == nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeBackground#3a48a1e0: field background_type is nil")
+	}
+	if err := l.BackgroundType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode linkPreviewTypeBackground#3a48a1e0: field background_type: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -1305,19 +1335,25 @@ func (l *LinkPreviewTypeBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LinkPreviewTypeBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreviewTypeBackground#6dc50386 to nil")
+		return fmt.Errorf("can't decode linkPreviewTypeBackground#3a48a1e0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("linkPreviewTypeBackground"); err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeBackground#6dc50386: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeBackground#3a48a1e0: %w", err)
 			}
 		case "document":
 			if err := l.Document.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode linkPreviewTypeBackground#6dc50386: field document: %w", err)
+				return fmt.Errorf("unable to decode linkPreviewTypeBackground#3a48a1e0: field document: %w", err)
 			}
+		case "background_type":
+			value, err := DecodeTDLibJSONBackgroundType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreviewTypeBackground#3a48a1e0: field background_type: %w", err)
+			}
+			l.BackgroundType = value
 		default:
 			return b.Skip()
 		}
@@ -1331,6 +1367,14 @@ func (l *LinkPreviewTypeBackground) GetDocument() (value Document) {
 		return
 	}
 	return l.Document
+}
+
+// GetBackgroundType returns value of BackgroundType field.
+func (l *LinkPreviewTypeBackground) GetBackgroundType() (value BackgroundTypeClass) {
+	if l == nil {
+		return
+	}
+	return l.BackgroundType
 }
 
 // LinkPreviewTypeChannelBoost represents TL type `linkPreviewTypeChannelBoost#c6f40456`.
@@ -3677,7 +3721,7 @@ func (l *LinkPreviewTypeShareableChatFolder) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // LinkPreviewTypeSticker represents TL type `linkPreviewTypeSticker#245f4d25`.
 type LinkPreviewTypeSticker struct {
-	// The sticker
+	// The sticker. It can be an arbitrary WEBP image and can have dimensions bigger than 512
 	Sticker Sticker
 }
 
@@ -6046,7 +6090,7 @@ const LinkPreviewTypeClassName = "LinkPreviewType"
 //	case *tdapi.LinkPreviewTypeApp: // linkPreviewTypeApp#b5192746
 //	case *tdapi.LinkPreviewTypeArticle: // linkPreviewTypeArticle#965e4e27
 //	case *tdapi.LinkPreviewTypeAudio: // linkPreviewTypeAudio#572c6b78
-//	case *tdapi.LinkPreviewTypeBackground: // linkPreviewTypeBackground#6dc50386
+//	case *tdapi.LinkPreviewTypeBackground: // linkPreviewTypeBackground#3a48a1e0
 //	case *tdapi.LinkPreviewTypeChannelBoost: // linkPreviewTypeChannelBoost#c6f40456
 //	case *tdapi.LinkPreviewTypeChat: // linkPreviewTypeChat#ae2fa122
 //	case *tdapi.LinkPreviewTypeDocument: // linkPreviewTypeDocument#53b02747
@@ -6137,7 +6181,7 @@ func DecodeLinkPreviewType(buf *bin.Buffer) (LinkPreviewTypeClass, error) {
 		}
 		return &v, nil
 	case LinkPreviewTypeBackgroundTypeID:
-		// Decoding linkPreviewTypeBackground#6dc50386.
+		// Decoding linkPreviewTypeBackground#3a48a1e0.
 		v := LinkPreviewTypeBackground{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)
@@ -6352,7 +6396,7 @@ func DecodeTDLibJSONLinkPreviewType(buf tdjson.Decoder) (LinkPreviewTypeClass, e
 		}
 		return &v, nil
 	case "linkPreviewTypeBackground":
-		// Decoding linkPreviewTypeBackground#6dc50386.
+		// Decoding linkPreviewTypeBackground#3a48a1e0.
 		v := LinkPreviewTypeBackground{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LinkPreviewTypeClass: %w", err)

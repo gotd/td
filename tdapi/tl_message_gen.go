@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Message represents TL type `message#dc764ddc`.
+// Message represents TL type `message#a9c04bbc`.
 type Message struct {
 	// Message identifier; unique for the chat to which the message belongs
 	ID int64
@@ -110,6 +110,8 @@ type Message struct {
 	MediaAlbumID int64
 	// Unique identifier of the effect added to the message; 0 if none
 	EffectID int64
+	// True, if media content of the message must be hidden with 18+ spoiler
+	HasSensitiveContent bool
 	// If non-empty, contains a human-readable description of the reason why access to this
 	// message must be restricted
 	RestrictionReason string
@@ -120,7 +122,7 @@ type Message struct {
 }
 
 // MessageTypeID is TL type id of Message.
-const MessageTypeID = 0xdc764ddc
+const MessageTypeID = 0xa9c04bbc
 
 // Ensuring interfaces in compile-time for Message.
 var (
@@ -228,6 +230,9 @@ func (m *Message) Zero() bool {
 		return false
 	}
 	if !(m.EffectID == 0) {
+		return false
+	}
+	if !(m.HasSensitiveContent == false) {
 		return false
 	}
 	if !(m.RestrictionReason == "") {
@@ -404,6 +409,10 @@ func (m *Message) TypeInfo() tdp.Type {
 			SchemaName: "effect_id",
 		},
 		{
+			Name:       "HasSensitiveContent",
+			SchemaName: "has_sensitive_content",
+		},
+		{
 			Name:       "RestrictionReason",
 			SchemaName: "restriction_reason",
 		},
@@ -422,7 +431,7 @@ func (m *Message) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#dc764ddc as nil")
+		return fmt.Errorf("can't encode message#a9c04bbc as nil")
 	}
 	b.PutID(MessageTypeID)
 	return m.EncodeBare(b)
@@ -431,27 +440,27 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#dc764ddc as nil")
+		return fmt.Errorf("can't encode message#a9c04bbc as nil")
 	}
 	b.PutInt53(m.ID)
 	if m.SenderID == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sender_id is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sender_id is nil")
 	}
 	if err := m.SenderID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sender_id: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sender_id: %w", err)
 	}
 	b.PutInt53(m.ChatID)
 	if m.SendingState == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sending_state is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sending_state is nil")
 	}
 	if err := m.SendingState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sending_state: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sending_state: %w", err)
 	}
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field scheduling_state: %w", err)
 	}
 	b.PutBool(m.IsOutgoing)
 	b.PutBool(m.IsPinned)
@@ -464,36 +473,36 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(m.Date)
 	b.PutInt32(m.EditDate)
 	if err := m.ForwardInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field forward_info: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field forward_info: %w", err)
 	}
 	if err := m.ImportInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field import_info: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field import_info: %w", err)
 	}
 	if err := m.InteractionInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field interaction_info: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field interaction_info: %w", err)
 	}
 	b.PutInt(len(m.UnreadReactions))
 	for idx, v := range m.UnreadReactions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare message#dc764ddc: field unread_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare message#a9c04bbc: field unread_reactions element with index %d: %w", idx, err)
 		}
 	}
 	if err := m.FactCheck.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field fact_check: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field fact_check: %w", err)
 	}
 	if m.ReplyTo == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_to is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_to is nil")
 	}
 	if err := m.ReplyTo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_to: %w", err)
 	}
 	b.PutInt53(m.MessageThreadID)
 	b.PutInt53(m.SavedMessagesTopicID)
 	if m.SelfDestructType == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field self_destruct_type is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field self_destruct_type is nil")
 	}
 	if err := m.SelfDestructType.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field self_destruct_type: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field self_destruct_type: %w", err)
 	}
 	b.PutDouble(m.SelfDestructIn)
 	b.PutDouble(m.AutoDeleteIn)
@@ -503,18 +512,19 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	b.PutString(m.AuthorSignature)
 	b.PutLong(m.MediaAlbumID)
 	b.PutLong(m.EffectID)
+	b.PutBool(m.HasSensitiveContent)
 	b.PutString(m.RestrictionReason)
 	if m.Content == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field content is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field content is nil")
 	}
 	if err := m.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field content: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field content: %w", err)
 	}
 	if m.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_markup is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_markup is nil")
 	}
 	if err := m.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_markup: %w", err)
 	}
 	return nil
 }
@@ -522,10 +532,10 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#dc764ddc to nil")
+		return fmt.Errorf("can't decode message#a9c04bbc to nil")
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#dc764ddc: %w", err)
+		return fmt.Errorf("unable to decode message#a9c04bbc: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -533,132 +543,132 @@ func (m *Message) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#dc764ddc to nil")
+		return fmt.Errorf("can't decode message#a9c04bbc to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field id: %w", err)
 		}
 		m.ID = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field sender_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field sender_id: %w", err)
 		}
 		m.SenderID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
 	{
 		value, err := DecodeMessageSendingState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field sending_state: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field sending_state: %w", err)
 		}
 		m.SendingState = value
 	}
 	{
 		value, err := DecodeMessageSchedulingState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field scheduling_state: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field scheduling_state: %w", err)
 		}
 		m.SchedulingState = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field is_outgoing: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field is_outgoing: %w", err)
 		}
 		m.IsOutgoing = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field is_pinned: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field is_pinned: %w", err)
 		}
 		m.IsPinned = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field is_from_offline: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field is_from_offline: %w", err)
 		}
 		m.IsFromOffline = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field can_be_saved: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field can_be_saved: %w", err)
 		}
 		m.CanBeSaved = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field has_timestamped_media: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field has_timestamped_media: %w", err)
 		}
 		m.HasTimestampedMedia = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field is_channel_post: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field is_channel_post: %w", err)
 		}
 		m.IsChannelPost = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field is_topic_message: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field is_topic_message: %w", err)
 		}
 		m.IsTopicMessage = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field contains_unread_mention: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field contains_unread_mention: %w", err)
 		}
 		m.ContainsUnreadMention = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field date: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field edit_date: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field edit_date: %w", err)
 		}
 		m.EditDate = value
 	}
 	{
 		if err := m.ForwardInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field forward_info: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field forward_info: %w", err)
 		}
 	}
 	{
 		if err := m.ImportInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field import_info: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field import_info: %w", err)
 		}
 	}
 	{
 		if err := m.InteractionInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field interaction_info: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field interaction_info: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field unread_reactions: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field unread_reactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -667,118 +677,125 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value UnreadReaction
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare message#dc764ddc: field unread_reactions: %w", err)
+				return fmt.Errorf("unable to decode bare message#a9c04bbc: field unread_reactions: %w", err)
 			}
 			m.UnreadReactions = append(m.UnreadReactions, value)
 		}
 	}
 	{
 		if err := m.FactCheck.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field fact_check: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field fact_check: %w", err)
 		}
 	}
 	{
 		value, err := DecodeMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field reply_to: %w", err)
 		}
 		m.ReplyTo = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field message_thread_id: %w", err)
 		}
 		m.MessageThreadID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field saved_messages_topic_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field saved_messages_topic_id: %w", err)
 		}
 		m.SavedMessagesTopicID = value
 	}
 	{
 		value, err := DecodeMessageSelfDestructType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field self_destruct_type: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field self_destruct_type: %w", err)
 		}
 		m.SelfDestructType = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field self_destruct_in: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field self_destruct_in: %w", err)
 		}
 		m.SelfDestructIn = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field auto_delete_in: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field auto_delete_in: %w", err)
 		}
 		m.AutoDeleteIn = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field via_bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field via_bot_user_id: %w", err)
 		}
 		m.ViaBotUserID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field sender_business_bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field sender_business_bot_user_id: %w", err)
 		}
 		m.SenderBusinessBotUserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field sender_boost_count: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field sender_boost_count: %w", err)
 		}
 		m.SenderBoostCount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field author_signature: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field author_signature: %w", err)
 		}
 		m.AuthorSignature = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field media_album_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field media_album_id: %w", err)
 		}
 		m.MediaAlbumID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field effect_id: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field effect_id: %w", err)
 		}
 		m.EffectID = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#a9c04bbc: field has_sensitive_content: %w", err)
+		}
+		m.HasSensitiveContent = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field restriction_reason: %w", err)
 		}
 		m.RestrictionReason = value
 	}
 	{
 		value, err := DecodeMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field content: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field content: %w", err)
 		}
 		m.Content = value
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#dc764ddc: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode message#a9c04bbc: field reply_markup: %w", err)
 		}
 		m.ReplyMarkup = value
 	}
@@ -788,7 +805,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#dc764ddc as nil")
+		return fmt.Errorf("can't encode message#a9c04bbc as nil")
 	}
 	b.ObjStart()
 	b.PutID("message")
@@ -798,10 +815,10 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sender_id")
 	if m.SenderID == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sender_id is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sender_id is nil")
 	}
 	if err := m.SenderID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sender_id: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sender_id: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("chat_id")
@@ -809,18 +826,18 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sending_state")
 	if m.SendingState == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sending_state is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sending_state is nil")
 	}
 	if err := m.SendingState.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field sending_state: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field sending_state: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("scheduling_state")
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field scheduling_state: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("is_outgoing")
@@ -855,24 +872,24 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("forward_info")
 	if err := m.ForwardInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field forward_info: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field forward_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("import_info")
 	if err := m.ImportInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field import_info: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field import_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("interaction_info")
 	if err := m.InteractionInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field interaction_info: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field interaction_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("unread_reactions")
 	b.ArrStart()
 	for idx, v := range m.UnreadReactions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode message#dc764ddc: field unread_reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode message#a9c04bbc: field unread_reactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -881,15 +898,15 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("fact_check")
 	if err := m.FactCheck.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field fact_check: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field fact_check: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("reply_to")
 	if m.ReplyTo == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_to is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_to is nil")
 	}
 	if err := m.ReplyTo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_to: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("message_thread_id")
@@ -900,10 +917,10 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("self_destruct_type")
 	if m.SelfDestructType == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field self_destruct_type is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field self_destruct_type is nil")
 	}
 	if err := m.SelfDestructType.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field self_destruct_type: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field self_destruct_type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("self_destruct_in")
@@ -930,23 +947,26 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("effect_id")
 	b.PutLong(m.EffectID)
 	b.Comma()
+	b.FieldStart("has_sensitive_content")
+	b.PutBool(m.HasSensitiveContent)
+	b.Comma()
 	b.FieldStart("restriction_reason")
 	b.PutString(m.RestrictionReason)
 	b.Comma()
 	b.FieldStart("content")
 	if m.Content == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field content is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field content is nil")
 	}
 	if err := m.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field content: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field content: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("reply_markup")
 	if m.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_markup is nil")
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_markup is nil")
 	}
 	if err := m.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#dc764ddc: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode message#a9c04bbc: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -957,220 +977,226 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#dc764ddc to nil")
+		return fmt.Errorf("can't decode message#a9c04bbc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("message"); err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: %w", err)
 			}
 		case "id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field id: %w", err)
 			}
 			m.ID = value
 		case "sender_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field sender_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field sender_id: %w", err)
 			}
 			m.SenderID = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field chat_id: %w", err)
 			}
 			m.ChatID = value
 		case "sending_state":
 			value, err := DecodeTDLibJSONMessageSendingState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field sending_state: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field sending_state: %w", err)
 			}
 			m.SendingState = value
 		case "scheduling_state":
 			value, err := DecodeTDLibJSONMessageSchedulingState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field scheduling_state: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field scheduling_state: %w", err)
 			}
 			m.SchedulingState = value
 		case "is_outgoing":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field is_outgoing: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field is_outgoing: %w", err)
 			}
 			m.IsOutgoing = value
 		case "is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field is_pinned: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field is_pinned: %w", err)
 			}
 			m.IsPinned = value
 		case "is_from_offline":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field is_from_offline: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field is_from_offline: %w", err)
 			}
 			m.IsFromOffline = value
 		case "can_be_saved":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field can_be_saved: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field can_be_saved: %w", err)
 			}
 			m.CanBeSaved = value
 		case "has_timestamped_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field has_timestamped_media: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field has_timestamped_media: %w", err)
 			}
 			m.HasTimestampedMedia = value
 		case "is_channel_post":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field is_channel_post: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field is_channel_post: %w", err)
 			}
 			m.IsChannelPost = value
 		case "is_topic_message":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field is_topic_message: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field is_topic_message: %w", err)
 			}
 			m.IsTopicMessage = value
 		case "contains_unread_mention":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field contains_unread_mention: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field contains_unread_mention: %w", err)
 			}
 			m.ContainsUnreadMention = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field date: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field date: %w", err)
 			}
 			m.Date = value
 		case "edit_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field edit_date: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field edit_date: %w", err)
 			}
 			m.EditDate = value
 		case "forward_info":
 			if err := m.ForwardInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field forward_info: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field forward_info: %w", err)
 			}
 		case "import_info":
 			if err := m.ImportInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field import_info: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field import_info: %w", err)
 			}
 		case "interaction_info":
 			if err := m.InteractionInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field interaction_info: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field interaction_info: %w", err)
 			}
 		case "unread_reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value UnreadReaction
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode message#dc764ddc: field unread_reactions: %w", err)
+					return fmt.Errorf("unable to decode message#a9c04bbc: field unread_reactions: %w", err)
 				}
 				m.UnreadReactions = append(m.UnreadReactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field unread_reactions: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field unread_reactions: %w", err)
 			}
 		case "fact_check":
 			if err := m.FactCheck.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field fact_check: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field fact_check: %w", err)
 			}
 		case "reply_to":
 			value, err := DecodeTDLibJSONMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field reply_to: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field reply_to: %w", err)
 			}
 			m.ReplyTo = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field message_thread_id: %w", err)
 			}
 			m.MessageThreadID = value
 		case "saved_messages_topic_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field saved_messages_topic_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field saved_messages_topic_id: %w", err)
 			}
 			m.SavedMessagesTopicID = value
 		case "self_destruct_type":
 			value, err := DecodeTDLibJSONMessageSelfDestructType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field self_destruct_type: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field self_destruct_type: %w", err)
 			}
 			m.SelfDestructType = value
 		case "self_destruct_in":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field self_destruct_in: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field self_destruct_in: %w", err)
 			}
 			m.SelfDestructIn = value
 		case "auto_delete_in":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field auto_delete_in: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field auto_delete_in: %w", err)
 			}
 			m.AutoDeleteIn = value
 		case "via_bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field via_bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field via_bot_user_id: %w", err)
 			}
 			m.ViaBotUserID = value
 		case "sender_business_bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field sender_business_bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field sender_business_bot_user_id: %w", err)
 			}
 			m.SenderBusinessBotUserID = value
 		case "sender_boost_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field sender_boost_count: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field sender_boost_count: %w", err)
 			}
 			m.SenderBoostCount = value
 		case "author_signature":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field author_signature: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field author_signature: %w", err)
 			}
 			m.AuthorSignature = value
 		case "media_album_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field media_album_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field media_album_id: %w", err)
 			}
 			m.MediaAlbumID = value
 		case "effect_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field effect_id: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field effect_id: %w", err)
 			}
 			m.EffectID = value
+		case "has_sensitive_content":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#a9c04bbc: field has_sensitive_content: %w", err)
+			}
+			m.HasSensitiveContent = value
 		case "restriction_reason":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field restriction_reason: %w", err)
 			}
 			m.RestrictionReason = value
 		case "content":
 			value, err := DecodeTDLibJSONMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field content: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field content: %w", err)
 			}
 			m.Content = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#dc764ddc: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode message#a9c04bbc: field reply_markup: %w", err)
 			}
 			m.ReplyMarkup = value
 		default:
@@ -1434,6 +1460,14 @@ func (m *Message) GetEffectID() (value int64) {
 		return
 	}
 	return m.EffectID
+}
+
+// GetHasSensitiveContent returns value of HasSensitiveContent field.
+func (m *Message) GetHasSensitiveContent() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.HasSensitiveContent
 }
 
 // GetRestrictionReason returns value of RestrictionReason field.
