@@ -8,8 +8,10 @@ import (
 
 // Downloader is Telegram file downloader.
 type Downloader struct {
-	partSize int
-	pool     *bin.Pool
+	partSize    int
+	pool        *bin.Pool
+	progressbar bool
+	fileSize    int64
 }
 
 const defaultPartSize = 512 * 1024 // 512 kb
@@ -26,6 +28,16 @@ func NewDownloader() *Downloader {
 func (d *Downloader) WithPartSize(partSize int) *Downloader {
 	d.partSize = partSize
 	d.pool = bin.NewPool(partSize)
+	return d
+}
+
+func (d *Downloader) WithFileSize(fileSize int64) *Downloader {
+	d.fileSize = fileSize
+	return d
+}
+
+func (d *Downloader) WithProgressBar(progressbar bool) *Downloader {
+	d.progressbar = progressbar
 	return d
 }
 

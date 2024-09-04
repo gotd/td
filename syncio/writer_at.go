@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
+	"github.com/schollz/progressbar/v3"
 )
 
 // WriterAt is synchronized io.WriterAt.
@@ -21,6 +22,31 @@ func NewWriterAt(w io.WriterAt) *WriterAt {
 // WriteAt implements io.WriterAt.
 func (s *WriterAt) WriteAt(p []byte, off int64) (n int, err error) {
 	s.mux.Lock()
+	n, err = s.w.WriteAt(p, off)
+	s.mux.Unlock()
+
+	return
+}
+
+// WriterAtBar is synchronized io.WriterAt.
+type WriterAtBar struct {
+	w   io.WriterAt
+	bar *progressbar.ProgressBar
+	mux sync.Mutex
+}
+
+// NewWriterAtBar creates new WriterAtBar.
+func NewWriterAtBar(w io.WriterAt, bar *progressbar.ProgressBar) *WriterAtBar {
+	return &WriterAtBar{
+		w:   w,
+		bar: bar,
+	}
+}
+
+// WriteAt implements io.WriterAtBar.
+func (s *WriterAtBar) WriteAt(p []byte, off int64) (n int, err error) {
+	s.mux.Lock()
+	s.bar.Write(p)
 	n, err = s.w.WriteAt(p, off)
 	s.mux.Unlock()
 
