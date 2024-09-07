@@ -139,6 +139,8 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum
 	Forums bool
+	// SubExtend field of ChannelAdminLogEventsFilter.
+	SubExtend bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -213,6 +215,9 @@ func (c *ChannelAdminLogEventsFilter) Zero() bool {
 	if !(c.Forums == false) {
 		return false
 	}
+	if !(c.SubExtend == false) {
+		return false
+	}
 
 	return true
 }
@@ -246,6 +251,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	GetInvites() (value bool)
 	GetSend() (value bool)
 	GetForums() (value bool)
+	GetSubExtend() (value bool)
 }) {
 	c.Join = from.GetJoin()
 	c.Leave = from.GetLeave()
@@ -265,6 +271,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	c.Invites = from.GetInvites()
 	c.Send = from.GetSend()
 	c.Forums = from.GetForums()
+	c.SubExtend = from.GetSubExtend()
 }
 
 // TypeID returns type id in TL schema.
@@ -380,6 +387,11 @@ func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
 			SchemaName: "forums",
 			Null:       !c.Flags.Has(17),
 		},
+		{
+			Name:       "SubExtend",
+			SchemaName: "sub_extend",
+			Null:       !c.Flags.Has(18),
+		},
 	}
 	return typ
 }
@@ -439,6 +451,9 @@ func (c *ChannelAdminLogEventsFilter) SetFlags() {
 	}
 	if !(c.Forums == false) {
 		c.Flags.Set(17)
+	}
+	if !(c.SubExtend == false) {
+		c.Flags.Set(18)
 	}
 }
 
@@ -502,6 +517,7 @@ func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
 	c.Invites = c.Flags.Has(15)
 	c.Send = c.Flags.Has(16)
 	c.Forums = c.Flags.Has(17)
+	c.SubExtend = c.Flags.Has(18)
 	return nil
 }
 
@@ -845,4 +861,23 @@ func (c *ChannelAdminLogEventsFilter) GetForums() (value bool) {
 		return
 	}
 	return c.Flags.Has(17)
+}
+
+// SetSubExtend sets value of SubExtend conditional field.
+func (c *ChannelAdminLogEventsFilter) SetSubExtend(value bool) {
+	if value {
+		c.Flags.Set(18)
+		c.SubExtend = true
+	} else {
+		c.Flags.Unset(18)
+		c.SubExtend = false
+	}
+}
+
+// GetSubExtend returns value of SubExtend conditional field.
+func (c *ChannelAdminLogEventsFilter) GetSubExtend() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(18)
 }

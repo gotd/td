@@ -532,6 +532,19 @@ func (s MessageActionClassArray) AsMessageActionGiftCode() (to MessageActionGift
 	return to
 }
 
+// AsMessageActionGiveawayLaunch returns copy with only MessageActionGiveawayLaunch constructors.
+func (s MessageActionClassArray) AsMessageActionGiveawayLaunch() (to MessageActionGiveawayLaunchArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionGiveawayLaunch)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AsMessageActionGiveawayResults returns copy with only MessageActionGiveawayResults constructors.
 func (s MessageActionClassArray) AsMessageActionGiveawayResults() (to MessageActionGiveawayResultsArray) {
 	for _, elem := range s {
@@ -588,6 +601,19 @@ func (s MessageActionClassArray) AsMessageActionPaymentRefunded() (to MessageAct
 func (s MessageActionClassArray) AsMessageActionGiftStars() (to MessageActionGiftStarsArray) {
 	for _, elem := range s {
 		value, ok := elem.(*MessageActionGiftStars)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionPrizeStars returns copy with only MessageActionPrizeStars constructors.
+func (s MessageActionClassArray) AsMessageActionPrizeStars() (to MessageActionPrizeStarsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionPrizeStars)
 		if !ok {
 			continue
 		}
@@ -3221,6 +3247,88 @@ func (s *MessageActionGiftCodeArray) Pop() (v MessageActionGiftCode, ok bool) {
 	return v, true
 }
 
+// MessageActionGiveawayLaunchArray is adapter for slice of MessageActionGiveawayLaunch.
+type MessageActionGiveawayLaunchArray []MessageActionGiveawayLaunch
+
+// Sort sorts slice of MessageActionGiveawayLaunch.
+func (s MessageActionGiveawayLaunchArray) Sort(less func(a, b MessageActionGiveawayLaunch) bool) MessageActionGiveawayLaunchArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionGiveawayLaunch.
+func (s MessageActionGiveawayLaunchArray) SortStable(less func(a, b MessageActionGiveawayLaunch) bool) MessageActionGiveawayLaunchArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionGiveawayLaunch.
+func (s MessageActionGiveawayLaunchArray) Retain(keep func(x MessageActionGiveawayLaunch) bool) MessageActionGiveawayLaunchArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionGiveawayLaunchArray) First() (v MessageActionGiveawayLaunch, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionGiveawayLaunchArray) Last() (v MessageActionGiveawayLaunch, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionGiveawayLaunchArray) PopFirst() (v MessageActionGiveawayLaunch, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionGiveawayLaunch
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionGiveawayLaunchArray) Pop() (v MessageActionGiveawayLaunch, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
 // MessageActionGiveawayResultsArray is adapter for slice of MessageActionGiveawayResults.
 type MessageActionGiveawayResultsArray []MessageActionGiveawayResults
 
@@ -3619,6 +3727,88 @@ func (s *MessageActionGiftStarsArray) PopFirst() (v MessageActionGiftStars, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionGiftStarsArray) Pop() (v MessageActionGiftStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionPrizeStarsArray is adapter for slice of MessageActionPrizeStars.
+type MessageActionPrizeStarsArray []MessageActionPrizeStars
+
+// Sort sorts slice of MessageActionPrizeStars.
+func (s MessageActionPrizeStarsArray) Sort(less func(a, b MessageActionPrizeStars) bool) MessageActionPrizeStarsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionPrizeStars.
+func (s MessageActionPrizeStarsArray) SortStable(less func(a, b MessageActionPrizeStars) bool) MessageActionPrizeStarsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionPrizeStars.
+func (s MessageActionPrizeStarsArray) Retain(keep func(x MessageActionPrizeStars) bool) MessageActionPrizeStarsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionPrizeStarsArray) First() (v MessageActionPrizeStars, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionPrizeStarsArray) Last() (v MessageActionPrizeStars, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionPrizeStarsArray) PopFirst() (v MessageActionPrizeStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionPrizeStars
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionPrizeStarsArray) Pop() (v MessageActionPrizeStars, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

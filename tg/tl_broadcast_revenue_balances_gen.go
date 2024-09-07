@@ -31,10 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BroadcastRevenueBalances represents TL type `broadcastRevenueBalances#8438f1c6`.
+// BroadcastRevenueBalances represents TL type `broadcastRevenueBalances#c3ff71e7`.
 //
 // See https://core.telegram.org/constructor/broadcastRevenueBalances for reference.
 type BroadcastRevenueBalances struct {
+	// Flags field of BroadcastRevenueBalances.
+	Flags bin.Fields
+	// WithdrawalEnabled field of BroadcastRevenueBalances.
+	WithdrawalEnabled bool
 	// CurrentBalance field of BroadcastRevenueBalances.
 	CurrentBalance int64
 	// AvailableBalance field of BroadcastRevenueBalances.
@@ -44,7 +48,7 @@ type BroadcastRevenueBalances struct {
 }
 
 // BroadcastRevenueBalancesTypeID is TL type id of BroadcastRevenueBalances.
-const BroadcastRevenueBalancesTypeID = 0x8438f1c6
+const BroadcastRevenueBalancesTypeID = 0xc3ff71e7
 
 // Ensuring interfaces in compile-time for BroadcastRevenueBalances.
 var (
@@ -57,6 +61,12 @@ var (
 func (b *BroadcastRevenueBalances) Zero() bool {
 	if b == nil {
 		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.WithdrawalEnabled == false) {
+		return false
 	}
 	if !(b.CurrentBalance == 0) {
 		return false
@@ -82,10 +92,12 @@ func (b *BroadcastRevenueBalances) String() string {
 
 // FillFrom fills BroadcastRevenueBalances from given interface.
 func (b *BroadcastRevenueBalances) FillFrom(from interface {
+	GetWithdrawalEnabled() (value bool)
 	GetCurrentBalance() (value int64)
 	GetAvailableBalance() (value int64)
 	GetOverallRevenue() (value int64)
 }) {
+	b.WithdrawalEnabled = from.GetWithdrawalEnabled()
 	b.CurrentBalance = from.GetCurrentBalance()
 	b.AvailableBalance = from.GetAvailableBalance()
 	b.OverallRevenue = from.GetOverallRevenue()
@@ -115,6 +127,11 @@ func (b *BroadcastRevenueBalances) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "WithdrawalEnabled",
+			SchemaName: "withdrawal_enabled",
+			Null:       !b.Flags.Has(0),
+		},
+		{
 			Name:       "CurrentBalance",
 			SchemaName: "current_balance",
 		},
@@ -130,10 +147,17 @@ func (b *BroadcastRevenueBalances) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BroadcastRevenueBalances) SetFlags() {
+	if !(b.WithdrawalEnabled == false) {
+		b.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BroadcastRevenueBalances) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode broadcastRevenueBalances#8438f1c6 as nil")
+		return fmt.Errorf("can't encode broadcastRevenueBalances#c3ff71e7 as nil")
 	}
 	buf.PutID(BroadcastRevenueBalancesTypeID)
 	return b.EncodeBare(buf)
@@ -142,7 +166,11 @@ func (b *BroadcastRevenueBalances) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BroadcastRevenueBalances) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode broadcastRevenueBalances#8438f1c6 as nil")
+		return fmt.Errorf("can't encode broadcastRevenueBalances#c3ff71e7 as nil")
+	}
+	b.SetFlags()
+	if err := b.Flags.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode broadcastRevenueBalances#c3ff71e7: field flags: %w", err)
 	}
 	buf.PutLong(b.CurrentBalance)
 	buf.PutLong(b.AvailableBalance)
@@ -153,10 +181,10 @@ func (b *BroadcastRevenueBalances) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BroadcastRevenueBalances) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode broadcastRevenueBalances#8438f1c6 to nil")
+		return fmt.Errorf("can't decode broadcastRevenueBalances#c3ff71e7 to nil")
 	}
 	if err := buf.ConsumeID(BroadcastRevenueBalancesTypeID); err != nil {
-		return fmt.Errorf("unable to decode broadcastRevenueBalances#8438f1c6: %w", err)
+		return fmt.Errorf("unable to decode broadcastRevenueBalances#c3ff71e7: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -164,30 +192,55 @@ func (b *BroadcastRevenueBalances) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BroadcastRevenueBalances) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode broadcastRevenueBalances#8438f1c6 to nil")
+		return fmt.Errorf("can't decode broadcastRevenueBalances#c3ff71e7 to nil")
 	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode broadcastRevenueBalances#c3ff71e7: field flags: %w", err)
+		}
+	}
+	b.WithdrawalEnabled = b.Flags.Has(0)
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode broadcastRevenueBalances#8438f1c6: field current_balance: %w", err)
+			return fmt.Errorf("unable to decode broadcastRevenueBalances#c3ff71e7: field current_balance: %w", err)
 		}
 		b.CurrentBalance = value
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode broadcastRevenueBalances#8438f1c6: field available_balance: %w", err)
+			return fmt.Errorf("unable to decode broadcastRevenueBalances#c3ff71e7: field available_balance: %w", err)
 		}
 		b.AvailableBalance = value
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode broadcastRevenueBalances#8438f1c6: field overall_revenue: %w", err)
+			return fmt.Errorf("unable to decode broadcastRevenueBalances#c3ff71e7: field overall_revenue: %w", err)
 		}
 		b.OverallRevenue = value
 	}
 	return nil
+}
+
+// SetWithdrawalEnabled sets value of WithdrawalEnabled conditional field.
+func (b *BroadcastRevenueBalances) SetWithdrawalEnabled(value bool) {
+	if value {
+		b.Flags.Set(0)
+		b.WithdrawalEnabled = true
+	} else {
+		b.Flags.Unset(0)
+		b.WithdrawalEnabled = false
+	}
+}
+
+// GetWithdrawalEnabled returns value of WithdrawalEnabled conditional field.
+func (b *BroadcastRevenueBalances) GetWithdrawalEnabled() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(0)
 }
 
 // GetCurrentBalance returns value of CurrentBalance field.

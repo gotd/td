@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Boost represents TL type `boost#2a1c8c71`.
+// Boost represents TL type `boost#4b3e14d6`.
 // Info about one or more boosts¹ applied by a specific user.
 //
 // Links:
@@ -90,10 +90,14 @@ type Boost struct {
 	//
 	// Use SetMultiplier and GetMultiplier helpers.
 	Multiplier int
+	// Stars field of Boost.
+	//
+	// Use SetStars and GetStars helpers.
+	Stars int64
 }
 
 // BoostTypeID is TL type id of Boost.
-const BoostTypeID = 0x2a1c8c71
+const BoostTypeID = 0x4b3e14d6
 
 // Ensuring interfaces in compile-time for Boost.
 var (
@@ -140,6 +144,9 @@ func (b *Boost) Zero() bool {
 	if !(b.Multiplier == 0) {
 		return false
 	}
+	if !(b.Stars == 0) {
+		return false
+	}
 
 	return true
 }
@@ -165,6 +172,7 @@ func (b *Boost) FillFrom(from interface {
 	GetExpires() (value int)
 	GetUsedGiftSlug() (value string, ok bool)
 	GetMultiplier() (value int, ok bool)
+	GetStars() (value int64, ok bool)
 }) {
 	b.Gift = from.GetGift()
 	b.Giveaway = from.GetGiveaway()
@@ -186,6 +194,10 @@ func (b *Boost) FillFrom(from interface {
 
 	if val, ok := from.GetMultiplier(); ok {
 		b.Multiplier = val
+	}
+
+	if val, ok := from.GetStars(); ok {
+		b.Stars = val
 	}
 
 }
@@ -260,6 +272,11 @@ func (b *Boost) TypeInfo() tdp.Type {
 			SchemaName: "multiplier",
 			Null:       !b.Flags.Has(5),
 		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+			Null:       !b.Flags.Has(6),
+		},
 	}
 	return typ
 }
@@ -287,12 +304,15 @@ func (b *Boost) SetFlags() {
 	if !(b.Multiplier == 0) {
 		b.Flags.Set(5)
 	}
+	if !(b.Stars == 0) {
+		b.Flags.Set(6)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (b *Boost) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boost#2a1c8c71 as nil")
+		return fmt.Errorf("can't encode boost#4b3e14d6 as nil")
 	}
 	buf.PutID(BoostTypeID)
 	return b.EncodeBare(buf)
@@ -301,11 +321,11 @@ func (b *Boost) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *Boost) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boost#2a1c8c71 as nil")
+		return fmt.Errorf("can't encode boost#4b3e14d6 as nil")
 	}
 	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode boost#2a1c8c71: field flags: %w", err)
+		return fmt.Errorf("unable to encode boost#4b3e14d6: field flags: %w", err)
 	}
 	buf.PutString(b.ID)
 	if b.Flags.Has(0) {
@@ -322,16 +342,19 @@ func (b *Boost) EncodeBare(buf *bin.Buffer) error {
 	if b.Flags.Has(5) {
 		buf.PutInt(b.Multiplier)
 	}
+	if b.Flags.Has(6) {
+		buf.PutLong(b.Stars)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *Boost) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boost#2a1c8c71 to nil")
+		return fmt.Errorf("can't decode boost#4b3e14d6 to nil")
 	}
 	if err := buf.ConsumeID(BoostTypeID); err != nil {
-		return fmt.Errorf("unable to decode boost#2a1c8c71: %w", err)
+		return fmt.Errorf("unable to decode boost#4b3e14d6: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -339,11 +362,11 @@ func (b *Boost) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *Boost) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boost#2a1c8c71 to nil")
+		return fmt.Errorf("can't decode boost#4b3e14d6 to nil")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field flags: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field flags: %w", err)
 		}
 	}
 	b.Gift = b.Flags.Has(1)
@@ -352,51 +375,58 @@ func (b *Boost) DecodeBare(buf *bin.Buffer) error {
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field id: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field id: %w", err)
 		}
 		b.ID = value
 	}
 	if b.Flags.Has(0) {
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field user_id: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
 	if b.Flags.Has(2) {
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field giveaway_msg_id: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field giveaway_msg_id: %w", err)
 		}
 		b.GiveawayMsgID = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field date: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field date: %w", err)
 		}
 		b.Date = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field expires: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field expires: %w", err)
 		}
 		b.Expires = value
 	}
 	if b.Flags.Has(4) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field used_gift_slug: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field used_gift_slug: %w", err)
 		}
 		b.UsedGiftSlug = value
 	}
 	if b.Flags.Has(5) {
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode boost#2a1c8c71: field multiplier: %w", err)
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field multiplier: %w", err)
 		}
 		b.Multiplier = value
+	}
+	if b.Flags.Has(6) {
+		value, err := buf.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode boost#4b3e14d6: field stars: %w", err)
+		}
+		b.Stars = value
 	}
 	return nil
 }
@@ -552,4 +582,22 @@ func (b *Boost) GetMultiplier() (value int, ok bool) {
 		return value, false
 	}
 	return b.Multiplier, true
+}
+
+// SetStars sets value of Stars conditional field.
+func (b *Boost) SetStars(value int64) {
+	b.Flags.Set(6)
+	b.Stars = value
+}
+
+// GetStars returns value of Stars conditional field and
+// boolean which is true if field was set.
+func (b *Boost) GetStars() (value int64, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(6) {
+		return value, false
+	}
+	return b.Stars, true
 }

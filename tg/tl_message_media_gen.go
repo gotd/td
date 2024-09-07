@@ -3475,7 +3475,7 @@ func (m *MessageMediaStory) GetStory() (value StoryItemClass, ok bool) {
 	return m.Story, true
 }
 
-// MessageMediaGiveaway represents TL type `messageMediaGiveaway#daad85b0`.
+// MessageMediaGiveaway represents TL type `messageMediaGiveaway#aa073beb`.
 // Contains info about a giveaway, see here »¹ for more info.
 //
 // Links:
@@ -3519,13 +3519,19 @@ type MessageMediaGiveaway struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/premium
+	//
+	// Use SetMonths and GetMonths helpers.
 	Months int
+	// Stars field of MessageMediaGiveaway.
+	//
+	// Use SetStars and GetStars helpers.
+	Stars int64
 	// The end date of the giveaway.
 	UntilDate int
 }
 
 // MessageMediaGiveawayTypeID is TL type id of MessageMediaGiveaway.
-const MessageMediaGiveawayTypeID = 0xdaad85b0
+const MessageMediaGiveawayTypeID = 0xaa073beb
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaGiveaway) construct() MessageMediaClass { return &m }
@@ -3568,6 +3574,9 @@ func (m *MessageMediaGiveaway) Zero() bool {
 	if !(m.Months == 0) {
 		return false
 	}
+	if !(m.Stars == 0) {
+		return false
+	}
 	if !(m.UntilDate == 0) {
 		return false
 	}
@@ -3592,7 +3601,8 @@ func (m *MessageMediaGiveaway) FillFrom(from interface {
 	GetCountriesISO2() (value []string, ok bool)
 	GetPrizeDescription() (value string, ok bool)
 	GetQuantity() (value int)
-	GetMonths() (value int)
+	GetMonths() (value int, ok bool)
+	GetStars() (value int64, ok bool)
 	GetUntilDate() (value int)
 }) {
 	m.OnlyNewSubscribers = from.GetOnlyNewSubscribers()
@@ -3607,7 +3617,14 @@ func (m *MessageMediaGiveaway) FillFrom(from interface {
 	}
 
 	m.Quantity = from.GetQuantity()
-	m.Months = from.GetMonths()
+	if val, ok := from.GetMonths(); ok {
+		m.Months = val
+	}
+
+	if val, ok := from.GetStars(); ok {
+		m.Stars = val
+	}
+
 	m.UntilDate = from.GetUntilDate()
 }
 
@@ -3665,6 +3682,12 @@ func (m *MessageMediaGiveaway) TypeInfo() tdp.Type {
 		{
 			Name:       "Months",
 			SchemaName: "months",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+			Null:       !m.Flags.Has(5),
 		},
 		{
 			Name:       "UntilDate",
@@ -3688,12 +3711,18 @@ func (m *MessageMediaGiveaway) SetFlags() {
 	if !(m.PrizeDescription == "") {
 		m.Flags.Set(3)
 	}
+	if !(m.Months == 0) {
+		m.Flags.Set(4)
+	}
+	if !(m.Stars == 0) {
+		m.Flags.Set(5)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaGiveaway) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaGiveaway#daad85b0 as nil")
+		return fmt.Errorf("can't encode messageMediaGiveaway#aa073beb as nil")
 	}
 	b.PutID(MessageMediaGiveawayTypeID)
 	return m.EncodeBare(b)
@@ -3702,11 +3731,11 @@ func (m *MessageMediaGiveaway) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaGiveaway) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaGiveaway#daad85b0 as nil")
+		return fmt.Errorf("can't encode messageMediaGiveaway#aa073beb as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaGiveaway#daad85b0: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageMediaGiveaway#aa073beb: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(m.Channels))
 	for _, v := range m.Channels {
@@ -3722,7 +3751,12 @@ func (m *MessageMediaGiveaway) EncodeBare(b *bin.Buffer) error {
 		b.PutString(m.PrizeDescription)
 	}
 	b.PutInt(m.Quantity)
-	b.PutInt(m.Months)
+	if m.Flags.Has(4) {
+		b.PutInt(m.Months)
+	}
+	if m.Flags.Has(5) {
+		b.PutLong(m.Stars)
+	}
 	b.PutInt(m.UntilDate)
 	return nil
 }
@@ -3730,10 +3764,10 @@ func (m *MessageMediaGiveaway) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageMediaGiveaway) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaGiveaway#daad85b0 to nil")
+		return fmt.Errorf("can't decode messageMediaGiveaway#aa073beb to nil")
 	}
 	if err := b.ConsumeID(MessageMediaGiveawayTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: %w", err)
+		return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -3741,11 +3775,11 @@ func (m *MessageMediaGiveaway) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaGiveaway#daad85b0 to nil")
+		return fmt.Errorf("can't decode messageMediaGiveaway#aa073beb to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field flags: %w", err)
 		}
 	}
 	m.OnlyNewSubscribers = m.Flags.Has(0)
@@ -3753,7 +3787,7 @@ func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field channels: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field channels: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -3762,7 +3796,7 @@ func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field channels: %w", err)
+				return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field channels: %w", err)
 			}
 			m.Channels = append(m.Channels, value)
 		}
@@ -3770,7 +3804,7 @@ func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field countries_iso2: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field countries_iso2: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -3779,7 +3813,7 @@ func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field countries_iso2: %w", err)
+				return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field countries_iso2: %w", err)
 			}
 			m.CountriesISO2 = append(m.CountriesISO2, value)
 		}
@@ -3787,28 +3821,35 @@ func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field prize_description: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field prize_description: %w", err)
 		}
 		m.PrizeDescription = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field quantity: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field quantity: %w", err)
 		}
 		m.Quantity = value
 	}
-	{
+	if m.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field months: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field months: %w", err)
 		}
 		m.Months = value
+	}
+	if m.Flags.Has(5) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field stars: %w", err)
+		}
+		m.Stars = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveaway#daad85b0: field until_date: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveaway#aa073beb: field until_date: %w", err)
 		}
 		m.UntilDate = value
 	}
@@ -3905,12 +3946,40 @@ func (m *MessageMediaGiveaway) GetQuantity() (value int) {
 	return m.Quantity
 }
 
-// GetMonths returns value of Months field.
-func (m *MessageMediaGiveaway) GetMonths() (value int) {
+// SetMonths sets value of Months conditional field.
+func (m *MessageMediaGiveaway) SetMonths(value int) {
+	m.Flags.Set(4)
+	m.Months = value
+}
+
+// GetMonths returns value of Months conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGiveaway) GetMonths() (value int, ok bool) {
 	if m == nil {
 		return
 	}
-	return m.Months
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.Months, true
+}
+
+// SetStars sets value of Stars conditional field.
+func (m *MessageMediaGiveaway) SetStars(value int64) {
+	m.Flags.Set(5)
+	m.Stars = value
+}
+
+// GetStars returns value of Stars conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGiveaway) GetStars() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(5) {
+		return value, false
+	}
+	return m.Stars, true
 }
 
 // GetUntilDate returns value of UntilDate field.
@@ -3921,7 +3990,7 @@ func (m *MessageMediaGiveaway) GetUntilDate() (value int) {
 	return m.UntilDate
 }
 
-// MessageMediaGiveawayResults represents TL type `messageMediaGiveawayResults#c6991068`.
+// MessageMediaGiveawayResults represents TL type `messageMediaGiveawayResults#ceaa3ea1`.
 // A giveaway¹ with public winners has finished, this constructor contains info about
 // the winners.
 //
@@ -3962,7 +4031,13 @@ type MessageMediaGiveawayResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/premium
+	//
+	// Use SetMonths and GetMonths helpers.
 	Months int
+	// Stars field of MessageMediaGiveawayResults.
+	//
+	// Use SetStars and GetStars helpers.
+	Stars int64
 	// Can contain a textual description of additional giveaway prizes.
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
@@ -3973,7 +4048,7 @@ type MessageMediaGiveawayResults struct {
 }
 
 // MessageMediaGiveawayResultsTypeID is TL type id of MessageMediaGiveawayResults.
-const MessageMediaGiveawayResultsTypeID = 0xc6991068
+const MessageMediaGiveawayResultsTypeID = 0xceaa3ea1
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaGiveawayResults) construct() MessageMediaClass { return &m }
@@ -4022,6 +4097,9 @@ func (m *MessageMediaGiveawayResults) Zero() bool {
 	if !(m.Months == 0) {
 		return false
 	}
+	if !(m.Stars == 0) {
+		return false
+	}
 	if !(m.PrizeDescription == "") {
 		return false
 	}
@@ -4051,7 +4129,8 @@ func (m *MessageMediaGiveawayResults) FillFrom(from interface {
 	GetWinnersCount() (value int)
 	GetUnclaimedCount() (value int)
 	GetWinners() (value []int64)
-	GetMonths() (value int)
+	GetMonths() (value int, ok bool)
+	GetStars() (value int64, ok bool)
 	GetPrizeDescription() (value string, ok bool)
 	GetUntilDate() (value int)
 }) {
@@ -4066,7 +4145,14 @@ func (m *MessageMediaGiveawayResults) FillFrom(from interface {
 	m.WinnersCount = from.GetWinnersCount()
 	m.UnclaimedCount = from.GetUnclaimedCount()
 	m.Winners = from.GetWinners()
-	m.Months = from.GetMonths()
+	if val, ok := from.GetMonths(); ok {
+		m.Months = val
+	}
+
+	if val, ok := from.GetStars(); ok {
+		m.Stars = val
+	}
+
 	if val, ok := from.GetPrizeDescription(); ok {
 		m.PrizeDescription = val
 	}
@@ -4135,6 +4221,12 @@ func (m *MessageMediaGiveawayResults) TypeInfo() tdp.Type {
 		{
 			Name:       "Months",
 			SchemaName: "months",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+			Null:       !m.Flags.Has(5),
 		},
 		{
 			Name:       "PrizeDescription",
@@ -4160,6 +4252,12 @@ func (m *MessageMediaGiveawayResults) SetFlags() {
 	if !(m.AdditionalPeersCount == 0) {
 		m.Flags.Set(3)
 	}
+	if !(m.Months == 0) {
+		m.Flags.Set(4)
+	}
+	if !(m.Stars == 0) {
+		m.Flags.Set(5)
+	}
 	if !(m.PrizeDescription == "") {
 		m.Flags.Set(1)
 	}
@@ -4168,7 +4266,7 @@ func (m *MessageMediaGiveawayResults) SetFlags() {
 // Encode implements bin.Encoder.
 func (m *MessageMediaGiveawayResults) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaGiveawayResults#c6991068 as nil")
+		return fmt.Errorf("can't encode messageMediaGiveawayResults#ceaa3ea1 as nil")
 	}
 	b.PutID(MessageMediaGiveawayResultsTypeID)
 	return m.EncodeBare(b)
@@ -4177,11 +4275,11 @@ func (m *MessageMediaGiveawayResults) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaGiveawayResults) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaGiveawayResults#c6991068 as nil")
+		return fmt.Errorf("can't encode messageMediaGiveawayResults#ceaa3ea1 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaGiveawayResults#c6991068: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageMediaGiveawayResults#ceaa3ea1: field flags: %w", err)
 	}
 	b.PutLong(m.ChannelID)
 	if m.Flags.Has(3) {
@@ -4194,7 +4292,12 @@ func (m *MessageMediaGiveawayResults) EncodeBare(b *bin.Buffer) error {
 	for _, v := range m.Winners {
 		b.PutLong(v)
 	}
-	b.PutInt(m.Months)
+	if m.Flags.Has(4) {
+		b.PutInt(m.Months)
+	}
+	if m.Flags.Has(5) {
+		b.PutLong(m.Stars)
+	}
 	if m.Flags.Has(1) {
 		b.PutString(m.PrizeDescription)
 	}
@@ -4205,10 +4308,10 @@ func (m *MessageMediaGiveawayResults) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageMediaGiveawayResults) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaGiveawayResults#c6991068 to nil")
+		return fmt.Errorf("can't decode messageMediaGiveawayResults#ceaa3ea1 to nil")
 	}
 	if err := b.ConsumeID(MessageMediaGiveawayResultsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: %w", err)
+		return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -4216,11 +4319,11 @@ func (m *MessageMediaGiveawayResults) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaGiveawayResults) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaGiveawayResults#c6991068 to nil")
+		return fmt.Errorf("can't decode messageMediaGiveawayResults#ceaa3ea1 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field flags: %w", err)
 		}
 	}
 	m.OnlyNewSubscribers = m.Flags.Has(0)
@@ -4228,42 +4331,42 @@ func (m *MessageMediaGiveawayResults) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field channel_id: %w", err)
 		}
 		m.ChannelID = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field additional_peers_count: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field additional_peers_count: %w", err)
 		}
 		m.AdditionalPeersCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field launch_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field launch_msg_id: %w", err)
 		}
 		m.LaunchMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field winners_count: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field winners_count: %w", err)
 		}
 		m.WinnersCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field unclaimed_count: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field unclaimed_count: %w", err)
 		}
 		m.UnclaimedCount = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field winners: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field winners: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -4272,29 +4375,36 @@ func (m *MessageMediaGiveawayResults) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field winners: %w", err)
+				return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field winners: %w", err)
 			}
 			m.Winners = append(m.Winners, value)
 		}
 	}
-	{
+	if m.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field months: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field months: %w", err)
 		}
 		m.Months = value
+	}
+	if m.Flags.Has(5) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field stars: %w", err)
+		}
+		m.Stars = value
 	}
 	if m.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field prize_description: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field prize_description: %w", err)
 		}
 		m.PrizeDescription = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaGiveawayResults#c6991068: field until_date: %w", err)
+			return fmt.Errorf("unable to decode messageMediaGiveawayResults#ceaa3ea1: field until_date: %w", err)
 		}
 		m.UntilDate = value
 	}
@@ -4397,12 +4507,40 @@ func (m *MessageMediaGiveawayResults) GetWinners() (value []int64) {
 	return m.Winners
 }
 
-// GetMonths returns value of Months field.
-func (m *MessageMediaGiveawayResults) GetMonths() (value int) {
+// SetMonths sets value of Months conditional field.
+func (m *MessageMediaGiveawayResults) SetMonths(value int) {
+	m.Flags.Set(4)
+	m.Months = value
+}
+
+// GetMonths returns value of Months conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGiveawayResults) GetMonths() (value int, ok bool) {
 	if m == nil {
 		return
 	}
-	return m.Months
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.Months, true
+}
+
+// SetStars sets value of Stars conditional field.
+func (m *MessageMediaGiveawayResults) SetStars(value int64) {
+	m.Flags.Set(5)
+	m.Stars = value
+}
+
+// GetStars returns value of Stars conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGiveawayResults) GetStars() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(5) {
+		return value, false
+	}
+	return m.Stars, true
 }
 
 // SetPrizeDescription sets value of PrizeDescription conditional field.
@@ -4643,8 +4781,8 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
 //	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
 //	case *tg.MessageMediaStory: // messageMediaStory#68cb6283
-//	case *tg.MessageMediaGiveaway: // messageMediaGiveaway#daad85b0
-//	case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#c6991068
+//	case *tg.MessageMediaGiveaway: // messageMediaGiveaway#aa073beb
+//	case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#ceaa3ea1
 //	case *tg.MessageMediaPaidMedia: // messageMediaPaidMedia#a8852491
 //	default: panic(v)
 //	}
@@ -4773,14 +4911,14 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaGiveawayTypeID:
-		// Decoding messageMediaGiveaway#daad85b0.
+		// Decoding messageMediaGiveaway#aa073beb.
 		v := MessageMediaGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
 		}
 		return &v, nil
 	case MessageMediaGiveawayResultsTypeID:
-		// Decoding messageMediaGiveawayResults#c6991068.
+		// Decoding messageMediaGiveawayResults#ceaa3ea1.
 		v := MessageMediaGiveawayResults{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)

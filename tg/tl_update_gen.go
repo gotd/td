@@ -27986,6 +27986,328 @@ func (u *UpdateStarsRevenueStatus) GetStatus() (value StarsRevenueStatus) {
 	return u.Status
 }
 
+// UpdateBotPurchasedPaidMedia represents TL type `updateBotPurchasedPaidMedia#283bd312`.
+//
+// See https://core.telegram.org/constructor/updateBotPurchasedPaidMedia for reference.
+type UpdateBotPurchasedPaidMedia struct {
+	// UserID field of UpdateBotPurchasedPaidMedia.
+	UserID int64
+	// Payload field of UpdateBotPurchasedPaidMedia.
+	Payload string
+	// Qts field of UpdateBotPurchasedPaidMedia.
+	Qts int
+}
+
+// UpdateBotPurchasedPaidMediaTypeID is TL type id of UpdateBotPurchasedPaidMedia.
+const UpdateBotPurchasedPaidMediaTypeID = 0x283bd312
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotPurchasedPaidMedia) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotPurchasedPaidMedia.
+var (
+	_ bin.Encoder     = &UpdateBotPurchasedPaidMedia{}
+	_ bin.Decoder     = &UpdateBotPurchasedPaidMedia{}
+	_ bin.BareEncoder = &UpdateBotPurchasedPaidMedia{}
+	_ bin.BareDecoder = &UpdateBotPurchasedPaidMedia{}
+
+	_ UpdateClass = &UpdateBotPurchasedPaidMedia{}
+)
+
+func (u *UpdateBotPurchasedPaidMedia) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Payload == "") {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotPurchasedPaidMedia) String() string {
+	if u == nil {
+		return "UpdateBotPurchasedPaidMedia(nil)"
+	}
+	type Alias UpdateBotPurchasedPaidMedia
+	return fmt.Sprintf("UpdateBotPurchasedPaidMedia%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotPurchasedPaidMedia from given interface.
+func (u *UpdateBotPurchasedPaidMedia) FillFrom(from interface {
+	GetUserID() (value int64)
+	GetPayload() (value string)
+	GetQts() (value int)
+}) {
+	u.UserID = from.GetUserID()
+	u.Payload = from.GetPayload()
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotPurchasedPaidMedia) TypeID() uint32 {
+	return UpdateBotPurchasedPaidMediaTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotPurchasedPaidMedia) TypeName() string {
+	return "updateBotPurchasedPaidMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotPurchasedPaidMedia) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotPurchasedPaidMedia",
+		ID:   UpdateBotPurchasedPaidMediaTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotPurchasedPaidMedia) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotPurchasedPaidMedia#283bd312 as nil")
+	}
+	b.PutID(UpdateBotPurchasedPaidMediaTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotPurchasedPaidMedia) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotPurchasedPaidMedia#283bd312 as nil")
+	}
+	b.PutLong(u.UserID)
+	b.PutString(u.Payload)
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotPurchasedPaidMedia) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotPurchasedPaidMedia#283bd312 to nil")
+	}
+	if err := b.ConsumeID(UpdateBotPurchasedPaidMediaTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotPurchasedPaidMedia#283bd312: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotPurchasedPaidMedia) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotPurchasedPaidMedia#283bd312 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotPurchasedPaidMedia#283bd312: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotPurchasedPaidMedia#283bd312: field payload: %w", err)
+		}
+		u.Payload = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotPurchasedPaidMedia#283bd312: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotPurchasedPaidMedia) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetPayload returns value of Payload field.
+func (u *UpdateBotPurchasedPaidMedia) GetPayload() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Payload
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotPurchasedPaidMedia) GetQts() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Qts
+}
+
+// UpdatePaidReactionPrivacy represents TL type `updatePaidReactionPrivacy#51ca7aec`.
+//
+// See https://core.telegram.org/constructor/updatePaidReactionPrivacy for reference.
+type UpdatePaidReactionPrivacy struct {
+	// Private field of UpdatePaidReactionPrivacy.
+	Private bool
+}
+
+// UpdatePaidReactionPrivacyTypeID is TL type id of UpdatePaidReactionPrivacy.
+const UpdatePaidReactionPrivacyTypeID = 0x51ca7aec
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePaidReactionPrivacy) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePaidReactionPrivacy.
+var (
+	_ bin.Encoder     = &UpdatePaidReactionPrivacy{}
+	_ bin.Decoder     = &UpdatePaidReactionPrivacy{}
+	_ bin.BareEncoder = &UpdatePaidReactionPrivacy{}
+	_ bin.BareDecoder = &UpdatePaidReactionPrivacy{}
+
+	_ UpdateClass = &UpdatePaidReactionPrivacy{}
+)
+
+func (u *UpdatePaidReactionPrivacy) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Private == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePaidReactionPrivacy) String() string {
+	if u == nil {
+		return "UpdatePaidReactionPrivacy(nil)"
+	}
+	type Alias UpdatePaidReactionPrivacy
+	return fmt.Sprintf("UpdatePaidReactionPrivacy%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePaidReactionPrivacy from given interface.
+func (u *UpdatePaidReactionPrivacy) FillFrom(from interface {
+	GetPrivate() (value bool)
+}) {
+	u.Private = from.GetPrivate()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdatePaidReactionPrivacy) TypeID() uint32 {
+	return UpdatePaidReactionPrivacyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdatePaidReactionPrivacy) TypeName() string {
+	return "updatePaidReactionPrivacy"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePaidReactionPrivacy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePaidReactionPrivacy",
+		ID:   UpdatePaidReactionPrivacyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Private",
+			SchemaName: "private",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePaidReactionPrivacy) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePaidReactionPrivacy#51ca7aec as nil")
+	}
+	b.PutID(UpdatePaidReactionPrivacyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatePaidReactionPrivacy) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePaidReactionPrivacy#51ca7aec as nil")
+	}
+	b.PutBool(u.Private)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePaidReactionPrivacy) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePaidReactionPrivacy#51ca7aec to nil")
+	}
+	if err := b.ConsumeID(UpdatePaidReactionPrivacyTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePaidReactionPrivacy#51ca7aec: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatePaidReactionPrivacy) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePaidReactionPrivacy#51ca7aec to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePaidReactionPrivacy#51ca7aec: field private: %w", err)
+		}
+		u.Private = value
+	}
+	return nil
+}
+
+// GetPrivate returns value of Private field.
+func (u *UpdatePaidReactionPrivacy) GetPrivate() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Private
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -28139,6 +28461,8 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStarsBalance: // updateStarsBalance#fb85198
 //	case *tg.UpdateBusinessBotCallbackQuery: // updateBusinessBotCallbackQuery#1ea2fda7
 //	case *tg.UpdateStarsRevenueStatus: // updateStarsRevenueStatus#a584b019
+//	case *tg.UpdateBotPurchasedPaidMedia: // updateBotPurchasedPaidMedia#283bd312
+//	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#51ca7aec
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -29136,6 +29460,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateStarsRevenueStatusTypeID:
 		// Decoding updateStarsRevenueStatus#a584b019.
 		v := UpdateStarsRevenueStatus{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotPurchasedPaidMediaTypeID:
+		// Decoding updateBotPurchasedPaidMedia#283bd312.
+		v := UpdateBotPurchasedPaidMedia{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdatePaidReactionPrivacyTypeID:
+		// Decoding updatePaidReactionPrivacy#51ca7aec.
+		v := UpdatePaidReactionPrivacy{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -1709,6 +1709,578 @@ func (i *InputStorePaymentStarsGift) GetAmount() (value int64) {
 	return i.Amount
 }
 
+// InputStorePaymentStarsGiveaway represents TL type `inputStorePaymentStarsGiveaway#751f08fa`.
+//
+// See https://core.telegram.org/constructor/inputStorePaymentStarsGiveaway for reference.
+type InputStorePaymentStarsGiveaway struct {
+	// Flags field of InputStorePaymentStarsGiveaway.
+	Flags bin.Fields
+	// OnlyNewSubscribers field of InputStorePaymentStarsGiveaway.
+	OnlyNewSubscribers bool
+	// WinnersAreVisible field of InputStorePaymentStarsGiveaway.
+	WinnersAreVisible bool
+	// Stars field of InputStorePaymentStarsGiveaway.
+	Stars int64
+	// BoostPeer field of InputStorePaymentStarsGiveaway.
+	BoostPeer InputPeerClass
+	// AdditionalPeers field of InputStorePaymentStarsGiveaway.
+	//
+	// Use SetAdditionalPeers and GetAdditionalPeers helpers.
+	AdditionalPeers []InputPeerClass
+	// CountriesISO2 field of InputStorePaymentStarsGiveaway.
+	//
+	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
+	CountriesISO2 []string
+	// PrizeDescription field of InputStorePaymentStarsGiveaway.
+	//
+	// Use SetPrizeDescription and GetPrizeDescription helpers.
+	PrizeDescription string
+	// RandomID field of InputStorePaymentStarsGiveaway.
+	RandomID int64
+	// UntilDate field of InputStorePaymentStarsGiveaway.
+	UntilDate int
+	// Currency field of InputStorePaymentStarsGiveaway.
+	Currency string
+	// Amount field of InputStorePaymentStarsGiveaway.
+	Amount int64
+	// Users field of InputStorePaymentStarsGiveaway.
+	Users int
+}
+
+// InputStorePaymentStarsGiveawayTypeID is TL type id of InputStorePaymentStarsGiveaway.
+const InputStorePaymentStarsGiveawayTypeID = 0x751f08fa
+
+// construct implements constructor of InputStorePaymentPurposeClass.
+func (i InputStorePaymentStarsGiveaway) construct() InputStorePaymentPurposeClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStorePaymentStarsGiveaway.
+var (
+	_ bin.Encoder     = &InputStorePaymentStarsGiveaway{}
+	_ bin.Decoder     = &InputStorePaymentStarsGiveaway{}
+	_ bin.BareEncoder = &InputStorePaymentStarsGiveaway{}
+	_ bin.BareDecoder = &InputStorePaymentStarsGiveaway{}
+
+	_ InputStorePaymentPurposeClass = &InputStorePaymentStarsGiveaway{}
+)
+
+func (i *InputStorePaymentStarsGiveaway) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.OnlyNewSubscribers == false) {
+		return false
+	}
+	if !(i.WinnersAreVisible == false) {
+		return false
+	}
+	if !(i.Stars == 0) {
+		return false
+	}
+	if !(i.BoostPeer == nil) {
+		return false
+	}
+	if !(i.AdditionalPeers == nil) {
+		return false
+	}
+	if !(i.CountriesISO2 == nil) {
+		return false
+	}
+	if !(i.PrizeDescription == "") {
+		return false
+	}
+	if !(i.RandomID == 0) {
+		return false
+	}
+	if !(i.UntilDate == 0) {
+		return false
+	}
+	if !(i.Currency == "") {
+		return false
+	}
+	if !(i.Amount == 0) {
+		return false
+	}
+	if !(i.Users == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStorePaymentStarsGiveaway) String() string {
+	if i == nil {
+		return "InputStorePaymentStarsGiveaway(nil)"
+	}
+	type Alias InputStorePaymentStarsGiveaway
+	return fmt.Sprintf("InputStorePaymentStarsGiveaway%+v", Alias(*i))
+}
+
+// FillFrom fills InputStorePaymentStarsGiveaway from given interface.
+func (i *InputStorePaymentStarsGiveaway) FillFrom(from interface {
+	GetOnlyNewSubscribers() (value bool)
+	GetWinnersAreVisible() (value bool)
+	GetStars() (value int64)
+	GetBoostPeer() (value InputPeerClass)
+	GetAdditionalPeers() (value []InputPeerClass, ok bool)
+	GetCountriesISO2() (value []string, ok bool)
+	GetPrizeDescription() (value string, ok bool)
+	GetRandomID() (value int64)
+	GetUntilDate() (value int)
+	GetCurrency() (value string)
+	GetAmount() (value int64)
+	GetUsers() (value int)
+}) {
+	i.OnlyNewSubscribers = from.GetOnlyNewSubscribers()
+	i.WinnersAreVisible = from.GetWinnersAreVisible()
+	i.Stars = from.GetStars()
+	i.BoostPeer = from.GetBoostPeer()
+	if val, ok := from.GetAdditionalPeers(); ok {
+		i.AdditionalPeers = val
+	}
+
+	if val, ok := from.GetCountriesISO2(); ok {
+		i.CountriesISO2 = val
+	}
+
+	if val, ok := from.GetPrizeDescription(); ok {
+		i.PrizeDescription = val
+	}
+
+	i.RandomID = from.GetRandomID()
+	i.UntilDate = from.GetUntilDate()
+	i.Currency = from.GetCurrency()
+	i.Amount = from.GetAmount()
+	i.Users = from.GetUsers()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStorePaymentStarsGiveaway) TypeID() uint32 {
+	return InputStorePaymentStarsGiveawayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStorePaymentStarsGiveaway) TypeName() string {
+	return "inputStorePaymentStarsGiveaway"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStorePaymentStarsGiveaway) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStorePaymentStarsGiveaway",
+		ID:   InputStorePaymentStarsGiveawayTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OnlyNewSubscribers",
+			SchemaName: "only_new_subscribers",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "WinnersAreVisible",
+			SchemaName: "winners_are_visible",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+		},
+		{
+			Name:       "BoostPeer",
+			SchemaName: "boost_peer",
+		},
+		{
+			Name:       "AdditionalPeers",
+			SchemaName: "additional_peers",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "CountriesISO2",
+			SchemaName: "countries_iso2",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "PrizeDescription",
+			SchemaName: "prize_description",
+			Null:       !i.Flags.Has(4),
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "UntilDate",
+			SchemaName: "until_date",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputStorePaymentStarsGiveaway) SetFlags() {
+	if !(i.OnlyNewSubscribers == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.WinnersAreVisible == false) {
+		i.Flags.Set(3)
+	}
+	if !(i.AdditionalPeers == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.CountriesISO2 == nil) {
+		i.Flags.Set(2)
+	}
+	if !(i.PrizeDescription == "") {
+		i.Flags.Set(4)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStorePaymentStarsGiveaway) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStorePaymentStarsGiveaway#751f08fa as nil")
+	}
+	b.PutID(InputStorePaymentStarsGiveawayTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStorePaymentStarsGiveaway) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStorePaymentStarsGiveaway#751f08fa as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputStorePaymentStarsGiveaway#751f08fa: field flags: %w", err)
+	}
+	b.PutLong(i.Stars)
+	if i.BoostPeer == nil {
+		return fmt.Errorf("unable to encode inputStorePaymentStarsGiveaway#751f08fa: field boost_peer is nil")
+	}
+	if err := i.BoostPeer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputStorePaymentStarsGiveaway#751f08fa: field boost_peer: %w", err)
+	}
+	if i.Flags.Has(1) {
+		b.PutVectorHeader(len(i.AdditionalPeers))
+		for idx, v := range i.AdditionalPeers {
+			if v == nil {
+				return fmt.Errorf("unable to encode inputStorePaymentStarsGiveaway#751f08fa: field additional_peers element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode inputStorePaymentStarsGiveaway#751f08fa: field additional_peers element with index %d: %w", idx, err)
+			}
+		}
+	}
+	if i.Flags.Has(2) {
+		b.PutVectorHeader(len(i.CountriesISO2))
+		for _, v := range i.CountriesISO2 {
+			b.PutString(v)
+		}
+	}
+	if i.Flags.Has(4) {
+		b.PutString(i.PrizeDescription)
+	}
+	b.PutLong(i.RandomID)
+	b.PutInt(i.UntilDate)
+	b.PutString(i.Currency)
+	b.PutLong(i.Amount)
+	b.PutInt(i.Users)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStorePaymentStarsGiveaway) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStorePaymentStarsGiveaway#751f08fa to nil")
+	}
+	if err := b.ConsumeID(InputStorePaymentStarsGiveawayTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStorePaymentStarsGiveaway) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStorePaymentStarsGiveaway#751f08fa to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field flags: %w", err)
+		}
+	}
+	i.OnlyNewSubscribers = i.Flags.Has(0)
+	i.WinnersAreVisible = i.Flags.Has(3)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field stars: %w", err)
+		}
+		i.Stars = value
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field boost_peer: %w", err)
+		}
+		i.BoostPeer = value
+	}
+	if i.Flags.Has(1) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field additional_peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.AdditionalPeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field additional_peers: %w", err)
+			}
+			i.AdditionalPeers = append(i.AdditionalPeers, value)
+		}
+	}
+	if i.Flags.Has(2) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field countries_iso2: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.CountriesISO2 = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field countries_iso2: %w", err)
+			}
+			i.CountriesISO2 = append(i.CountriesISO2, value)
+		}
+	}
+	if i.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field prize_description: %w", err)
+		}
+		i.PrizeDescription = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field random_id: %w", err)
+		}
+		i.RandomID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field until_date: %w", err)
+		}
+		i.UntilDate = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field currency: %w", err)
+		}
+		i.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field amount: %w", err)
+		}
+		i.Amount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentStarsGiveaway#751f08fa: field users: %w", err)
+		}
+		i.Users = value
+	}
+	return nil
+}
+
+// SetOnlyNewSubscribers sets value of OnlyNewSubscribers conditional field.
+func (i *InputStorePaymentStarsGiveaway) SetOnlyNewSubscribers(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.OnlyNewSubscribers = true
+	} else {
+		i.Flags.Unset(0)
+		i.OnlyNewSubscribers = false
+	}
+}
+
+// GetOnlyNewSubscribers returns value of OnlyNewSubscribers conditional field.
+func (i *InputStorePaymentStarsGiveaway) GetOnlyNewSubscribers() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(0)
+}
+
+// SetWinnersAreVisible sets value of WinnersAreVisible conditional field.
+func (i *InputStorePaymentStarsGiveaway) SetWinnersAreVisible(value bool) {
+	if value {
+		i.Flags.Set(3)
+		i.WinnersAreVisible = true
+	} else {
+		i.Flags.Unset(3)
+		i.WinnersAreVisible = false
+	}
+}
+
+// GetWinnersAreVisible returns value of WinnersAreVisible conditional field.
+func (i *InputStorePaymentStarsGiveaway) GetWinnersAreVisible() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(3)
+}
+
+// GetStars returns value of Stars field.
+func (i *InputStorePaymentStarsGiveaway) GetStars() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.Stars
+}
+
+// GetBoostPeer returns value of BoostPeer field.
+func (i *InputStorePaymentStarsGiveaway) GetBoostPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
+	return i.BoostPeer
+}
+
+// SetAdditionalPeers sets value of AdditionalPeers conditional field.
+func (i *InputStorePaymentStarsGiveaway) SetAdditionalPeers(value []InputPeerClass) {
+	i.Flags.Set(1)
+	i.AdditionalPeers = value
+}
+
+// GetAdditionalPeers returns value of AdditionalPeers conditional field and
+// boolean which is true if field was set.
+func (i *InputStorePaymentStarsGiveaway) GetAdditionalPeers() (value []InputPeerClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.AdditionalPeers, true
+}
+
+// SetCountriesISO2 sets value of CountriesISO2 conditional field.
+func (i *InputStorePaymentStarsGiveaway) SetCountriesISO2(value []string) {
+	i.Flags.Set(2)
+	i.CountriesISO2 = value
+}
+
+// GetCountriesISO2 returns value of CountriesISO2 conditional field and
+// boolean which is true if field was set.
+func (i *InputStorePaymentStarsGiveaway) GetCountriesISO2() (value []string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.CountriesISO2, true
+}
+
+// SetPrizeDescription sets value of PrizeDescription conditional field.
+func (i *InputStorePaymentStarsGiveaway) SetPrizeDescription(value string) {
+	i.Flags.Set(4)
+	i.PrizeDescription = value
+}
+
+// GetPrizeDescription returns value of PrizeDescription conditional field and
+// boolean which is true if field was set.
+func (i *InputStorePaymentStarsGiveaway) GetPrizeDescription() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(4) {
+		return value, false
+	}
+	return i.PrizeDescription, true
+}
+
+// GetRandomID returns value of RandomID field.
+func (i *InputStorePaymentStarsGiveaway) GetRandomID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.RandomID
+}
+
+// GetUntilDate returns value of UntilDate field.
+func (i *InputStorePaymentStarsGiveaway) GetUntilDate() (value int) {
+	if i == nil {
+		return
+	}
+	return i.UntilDate
+}
+
+// GetCurrency returns value of Currency field.
+func (i *InputStorePaymentStarsGiveaway) GetCurrency() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (i *InputStorePaymentStarsGiveaway) GetAmount() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.Amount
+}
+
+// GetUsers returns value of Users field.
+func (i *InputStorePaymentStarsGiveaway) GetUsers() (value int) {
+	if i == nil {
+		return
+	}
+	return i.Users
+}
+
+// MapAdditionalPeers returns field AdditionalPeers wrapped in InputPeerClassArray helper.
+func (i *InputStorePaymentStarsGiveaway) MapAdditionalPeers() (value InputPeerClassArray, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return InputPeerClassArray(i.AdditionalPeers), true
+}
+
 // InputStorePaymentPurposeClassName is schema name of InputStorePaymentPurposeClass.
 const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 
@@ -1729,6 +2301,7 @@ const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 //	case *tg.InputStorePaymentPremiumGiveaway: // inputStorePaymentPremiumGiveaway#160544ca
 //	case *tg.InputStorePaymentStarsTopup: // inputStorePaymentStarsTopup#dddd0f56
 //	case *tg.InputStorePaymentStarsGift: // inputStorePaymentStarsGift#1d741ef7
+//	case *tg.InputStorePaymentStarsGiveaway: // inputStorePaymentStarsGiveaway#751f08fa
 //	default: panic(v)
 //	}
 type InputStorePaymentPurposeClass interface {
@@ -1795,6 +2368,13 @@ func DecodeInputStorePaymentPurpose(buf *bin.Buffer) (InputStorePaymentPurposeCl
 	case InputStorePaymentStarsGiftTypeID:
 		// Decoding inputStorePaymentStarsGift#1d741ef7.
 		v := InputStorePaymentStarsGift{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStorePaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case InputStorePaymentStarsGiveawayTypeID:
+		// Decoding inputStorePaymentStarsGiveaway#751f08fa.
+		v := InputStorePaymentStarsGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStorePaymentPurposeClass: %w", err)
 		}
