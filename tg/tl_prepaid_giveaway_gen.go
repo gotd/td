@@ -58,12 +58,17 @@ type PrepaidGiveaway struct {
 // PrepaidGiveawayTypeID is TL type id of PrepaidGiveaway.
 const PrepaidGiveawayTypeID = 0xb2539d54
 
+// construct implements constructor of PrepaidGiveawayClass.
+func (p PrepaidGiveaway) construct() PrepaidGiveawayClass { return &p }
+
 // Ensuring interfaces in compile-time for PrepaidGiveaway.
 var (
 	_ bin.Encoder     = &PrepaidGiveaway{}
 	_ bin.Decoder     = &PrepaidGiveaway{}
 	_ bin.BareEncoder = &PrepaidGiveaway{}
 	_ bin.BareDecoder = &PrepaidGiveaway{}
+
+	_ PrepaidGiveawayClass = &PrepaidGiveaway{}
 )
 
 func (p *PrepaidGiveaway) Zero() bool {
@@ -249,4 +254,347 @@ func (p *PrepaidGiveaway) GetDate() (value int) {
 		return
 	}
 	return p.Date
+}
+
+// PrepaidStarsGiveaway represents TL type `prepaidStarsGiveaway#9a9d77e0`.
+//
+// See https://core.telegram.org/constructor/prepaidStarsGiveaway for reference.
+type PrepaidStarsGiveaway struct {
+	// ID field of PrepaidStarsGiveaway.
+	ID int64
+	// Stars field of PrepaidStarsGiveaway.
+	Stars int64
+	// Quantity field of PrepaidStarsGiveaway.
+	Quantity int
+	// Boosts field of PrepaidStarsGiveaway.
+	Boosts int
+	// Date field of PrepaidStarsGiveaway.
+	Date int
+}
+
+// PrepaidStarsGiveawayTypeID is TL type id of PrepaidStarsGiveaway.
+const PrepaidStarsGiveawayTypeID = 0x9a9d77e0
+
+// construct implements constructor of PrepaidGiveawayClass.
+func (p PrepaidStarsGiveaway) construct() PrepaidGiveawayClass { return &p }
+
+// Ensuring interfaces in compile-time for PrepaidStarsGiveaway.
+var (
+	_ bin.Encoder     = &PrepaidStarsGiveaway{}
+	_ bin.Decoder     = &PrepaidStarsGiveaway{}
+	_ bin.BareEncoder = &PrepaidStarsGiveaway{}
+	_ bin.BareDecoder = &PrepaidStarsGiveaway{}
+
+	_ PrepaidGiveawayClass = &PrepaidStarsGiveaway{}
+)
+
+func (p *PrepaidStarsGiveaway) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.Stars == 0) {
+		return false
+	}
+	if !(p.Quantity == 0) {
+		return false
+	}
+	if !(p.Boosts == 0) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrepaidStarsGiveaway) String() string {
+	if p == nil {
+		return "PrepaidStarsGiveaway(nil)"
+	}
+	type Alias PrepaidStarsGiveaway
+	return fmt.Sprintf("PrepaidStarsGiveaway%+v", Alias(*p))
+}
+
+// FillFrom fills PrepaidStarsGiveaway from given interface.
+func (p *PrepaidStarsGiveaway) FillFrom(from interface {
+	GetID() (value int64)
+	GetStars() (value int64)
+	GetQuantity() (value int)
+	GetBoosts() (value int)
+	GetDate() (value int)
+}) {
+	p.ID = from.GetID()
+	p.Stars = from.GetStars()
+	p.Quantity = from.GetQuantity()
+	p.Boosts = from.GetBoosts()
+	p.Date = from.GetDate()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrepaidStarsGiveaway) TypeID() uint32 {
+	return PrepaidStarsGiveawayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrepaidStarsGiveaway) TypeName() string {
+	return "prepaidStarsGiveaway"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrepaidStarsGiveaway) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "prepaidStarsGiveaway",
+		ID:   PrepaidStarsGiveawayTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+		},
+		{
+			Name:       "Quantity",
+			SchemaName: "quantity",
+		},
+		{
+			Name:       "Boosts",
+			SchemaName: "boosts",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrepaidStarsGiveaway) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode prepaidStarsGiveaway#9a9d77e0 as nil")
+	}
+	b.PutID(PrepaidStarsGiveawayTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrepaidStarsGiveaway) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode prepaidStarsGiveaway#9a9d77e0 as nil")
+	}
+	b.PutLong(p.ID)
+	b.PutLong(p.Stars)
+	b.PutInt(p.Quantity)
+	b.PutInt(p.Boosts)
+	b.PutInt(p.Date)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrepaidStarsGiveaway) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode prepaidStarsGiveaway#9a9d77e0 to nil")
+	}
+	if err := b.ConsumeID(PrepaidStarsGiveawayTypeID); err != nil {
+		return fmt.Errorf("unable to decode prepaidStarsGiveaway#9a9d77e0: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrepaidStarsGiveaway) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode prepaidStarsGiveaway#9a9d77e0 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode prepaidStarsGiveaway#9a9d77e0: field id: %w", err)
+		}
+		p.ID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode prepaidStarsGiveaway#9a9d77e0: field stars: %w", err)
+		}
+		p.Stars = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode prepaidStarsGiveaway#9a9d77e0: field quantity: %w", err)
+		}
+		p.Quantity = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode prepaidStarsGiveaway#9a9d77e0: field boosts: %w", err)
+		}
+		p.Boosts = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode prepaidStarsGiveaway#9a9d77e0: field date: %w", err)
+		}
+		p.Date = value
+	}
+	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PrepaidStarsGiveaway) GetID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.ID
+}
+
+// GetStars returns value of Stars field.
+func (p *PrepaidStarsGiveaway) GetStars() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.Stars
+}
+
+// GetQuantity returns value of Quantity field.
+func (p *PrepaidStarsGiveaway) GetQuantity() (value int) {
+	if p == nil {
+		return
+	}
+	return p.Quantity
+}
+
+// GetBoosts returns value of Boosts field.
+func (p *PrepaidStarsGiveaway) GetBoosts() (value int) {
+	if p == nil {
+		return
+	}
+	return p.Boosts
+}
+
+// GetDate returns value of Date field.
+func (p *PrepaidStarsGiveaway) GetDate() (value int) {
+	if p == nil {
+		return
+	}
+	return p.Date
+}
+
+// PrepaidGiveawayClassName is schema name of PrepaidGiveawayClass.
+const PrepaidGiveawayClassName = "PrepaidGiveaway"
+
+// PrepaidGiveawayClass represents PrepaidGiveaway generic type.
+//
+// See https://core.telegram.org/type/PrepaidGiveaway for reference.
+//
+// Example:
+//
+//	g, err := tg.DecodePrepaidGiveaway(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PrepaidGiveaway: // prepaidGiveaway#b2539d54
+//	case *tg.PrepaidStarsGiveaway: // prepaidStarsGiveaway#9a9d77e0
+//	default: panic(v)
+//	}
+type PrepaidGiveawayClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() PrepaidGiveawayClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// Prepaid giveaway ID.
+	GetID() (value int64)
+
+	// Number of given away Telegram Premium¹ subscriptions.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	GetQuantity() (value int)
+
+	// Payment date.
+	GetDate() (value int)
+}
+
+// DecodePrepaidGiveaway implements binary de-serialization for PrepaidGiveawayClass.
+func DecodePrepaidGiveaway(buf *bin.Buffer) (PrepaidGiveawayClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case PrepaidGiveawayTypeID:
+		// Decoding prepaidGiveaway#b2539d54.
+		v := PrepaidGiveaway{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrepaidGiveawayClass: %w", err)
+		}
+		return &v, nil
+	case PrepaidStarsGiveawayTypeID:
+		// Decoding prepaidStarsGiveaway#9a9d77e0.
+		v := PrepaidStarsGiveaway{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrepaidGiveawayClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PrepaidGiveawayClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// PrepaidGiveaway boxes the PrepaidGiveawayClass providing a helper.
+type PrepaidGiveawayBox struct {
+	PrepaidGiveaway PrepaidGiveawayClass
+}
+
+// Decode implements bin.Decoder for PrepaidGiveawayBox.
+func (b *PrepaidGiveawayBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PrepaidGiveawayBox to nil")
+	}
+	v, err := DecodePrepaidGiveaway(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PrepaidGiveaway = v
+	return nil
+}
+
+// Encode implements bin.Encode for PrepaidGiveawayBox.
+func (b *PrepaidGiveawayBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PrepaidGiveaway == nil {
+		return fmt.Errorf("unable to encode PrepaidGiveawayClass as nil")
+	}
+	return b.PrepaidGiveaway.Encode(buf)
 }

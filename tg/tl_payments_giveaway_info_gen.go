@@ -415,7 +415,7 @@ func (g *PaymentsGiveawayInfo) GetDisallowedCountry() (value string, ok bool) {
 	return g.DisallowedCountry, true
 }
 
-// PaymentsGiveawayInfoResults represents TL type `payments.giveawayInfoResults#cd5570`.
+// PaymentsGiveawayInfoResults represents TL type `payments.giveawayInfoResults#e175e66f`.
 // A giveaway¹ has ended.
 //
 // Links:
@@ -443,6 +443,10 @@ type PaymentsGiveawayInfoResults struct {
 	//
 	// Use SetGiftCodeSlug and GetGiftCodeSlug helpers.
 	GiftCodeSlug string
+	// StarsPrize field of PaymentsGiveawayInfoResults.
+	//
+	// Use SetStarsPrize and GetStarsPrize helpers.
+	StarsPrize int64
 	// End date of the giveaway. May be bigger than the end date specified in parameters of
 	// the giveaway.
 	FinishDate int
@@ -452,11 +456,13 @@ type PaymentsGiveawayInfoResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/links#premium-giftcode-links
+	//
+	// Use SetActivatedCount and GetActivatedCount helpers.
 	ActivatedCount int
 }
 
 // PaymentsGiveawayInfoResultsTypeID is TL type id of PaymentsGiveawayInfoResults.
-const PaymentsGiveawayInfoResultsTypeID = 0xcd5570
+const PaymentsGiveawayInfoResultsTypeID = 0xe175e66f
 
 // construct implements constructor of PaymentsGiveawayInfoClass.
 func (g PaymentsGiveawayInfoResults) construct() PaymentsGiveawayInfoClass { return &g }
@@ -490,6 +496,9 @@ func (g *PaymentsGiveawayInfoResults) Zero() bool {
 	if !(g.GiftCodeSlug == "") {
 		return false
 	}
+	if !(g.StarsPrize == 0) {
+		return false
+	}
 	if !(g.FinishDate == 0) {
 		return false
 	}
@@ -518,9 +527,10 @@ func (g *PaymentsGiveawayInfoResults) FillFrom(from interface {
 	GetRefunded() (value bool)
 	GetStartDate() (value int)
 	GetGiftCodeSlug() (value string, ok bool)
+	GetStarsPrize() (value int64, ok bool)
 	GetFinishDate() (value int)
 	GetWinnersCount() (value int)
-	GetActivatedCount() (value int)
+	GetActivatedCount() (value int, ok bool)
 }) {
 	g.Winner = from.GetWinner()
 	g.Refunded = from.GetRefunded()
@@ -529,9 +539,16 @@ func (g *PaymentsGiveawayInfoResults) FillFrom(from interface {
 		g.GiftCodeSlug = val
 	}
 
+	if val, ok := from.GetStarsPrize(); ok {
+		g.StarsPrize = val
+	}
+
 	g.FinishDate = from.GetFinishDate()
 	g.WinnersCount = from.GetWinnersCount()
-	g.ActivatedCount = from.GetActivatedCount()
+	if val, ok := from.GetActivatedCount(); ok {
+		g.ActivatedCount = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -574,7 +591,12 @@ func (g *PaymentsGiveawayInfoResults) TypeInfo() tdp.Type {
 		{
 			Name:       "GiftCodeSlug",
 			SchemaName: "gift_code_slug",
-			Null:       !g.Flags.Has(0),
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "StarsPrize",
+			SchemaName: "stars_prize",
+			Null:       !g.Flags.Has(4),
 		},
 		{
 			Name:       "FinishDate",
@@ -587,6 +609,7 @@ func (g *PaymentsGiveawayInfoResults) TypeInfo() tdp.Type {
 		{
 			Name:       "ActivatedCount",
 			SchemaName: "activated_count",
+			Null:       !g.Flags.Has(2),
 		},
 	}
 	return typ
@@ -601,14 +624,20 @@ func (g *PaymentsGiveawayInfoResults) SetFlags() {
 		g.Flags.Set(1)
 	}
 	if !(g.GiftCodeSlug == "") {
-		g.Flags.Set(0)
+		g.Flags.Set(3)
+	}
+	if !(g.StarsPrize == 0) {
+		g.Flags.Set(4)
+	}
+	if !(g.ActivatedCount == 0) {
+		g.Flags.Set(2)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (g *PaymentsGiveawayInfoResults) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.giveawayInfoResults#cd5570 as nil")
+		return fmt.Errorf("can't encode payments.giveawayInfoResults#e175e66f as nil")
 	}
 	b.PutID(PaymentsGiveawayInfoResultsTypeID)
 	return g.EncodeBare(b)
@@ -617,29 +646,34 @@ func (g *PaymentsGiveawayInfoResults) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGiveawayInfoResults) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.giveawayInfoResults#cd5570 as nil")
+		return fmt.Errorf("can't encode payments.giveawayInfoResults#e175e66f as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.giveawayInfoResults#cd5570: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.giveawayInfoResults#e175e66f: field flags: %w", err)
 	}
 	b.PutInt(g.StartDate)
-	if g.Flags.Has(0) {
+	if g.Flags.Has(3) {
 		b.PutString(g.GiftCodeSlug)
+	}
+	if g.Flags.Has(4) {
+		b.PutLong(g.StarsPrize)
 	}
 	b.PutInt(g.FinishDate)
 	b.PutInt(g.WinnersCount)
-	b.PutInt(g.ActivatedCount)
+	if g.Flags.Has(2) {
+		b.PutInt(g.ActivatedCount)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *PaymentsGiveawayInfoResults) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.giveawayInfoResults#cd5570 to nil")
+		return fmt.Errorf("can't decode payments.giveawayInfoResults#e175e66f to nil")
 	}
 	if err := b.ConsumeID(PaymentsGiveawayInfoResultsTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: %w", err)
+		return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -647,11 +681,11 @@ func (g *PaymentsGiveawayInfoResults) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGiveawayInfoResults) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.giveawayInfoResults#cd5570 to nil")
+		return fmt.Errorf("can't decode payments.giveawayInfoResults#e175e66f to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field flags: %w", err)
 		}
 	}
 	g.Winner = g.Flags.Has(0)
@@ -659,35 +693,42 @@ func (g *PaymentsGiveawayInfoResults) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: field start_date: %w", err)
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field start_date: %w", err)
 		}
 		g.StartDate = value
 	}
-	if g.Flags.Has(0) {
+	if g.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: field gift_code_slug: %w", err)
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field gift_code_slug: %w", err)
 		}
 		g.GiftCodeSlug = value
+	}
+	if g.Flags.Has(4) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field stars_prize: %w", err)
+		}
+		g.StarsPrize = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: field finish_date: %w", err)
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field finish_date: %w", err)
 		}
 		g.FinishDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: field winners_count: %w", err)
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field winners_count: %w", err)
 		}
 		g.WinnersCount = value
 	}
-	{
+	if g.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.giveawayInfoResults#cd5570: field activated_count: %w", err)
+			return fmt.Errorf("unable to decode payments.giveawayInfoResults#e175e66f: field activated_count: %w", err)
 		}
 		g.ActivatedCount = value
 	}
@@ -742,7 +783,7 @@ func (g *PaymentsGiveawayInfoResults) GetStartDate() (value int) {
 
 // SetGiftCodeSlug sets value of GiftCodeSlug conditional field.
 func (g *PaymentsGiveawayInfoResults) SetGiftCodeSlug(value string) {
-	g.Flags.Set(0)
+	g.Flags.Set(3)
 	g.GiftCodeSlug = value
 }
 
@@ -752,10 +793,28 @@ func (g *PaymentsGiveawayInfoResults) GetGiftCodeSlug() (value string, ok bool) 
 	if g == nil {
 		return
 	}
-	if !g.Flags.Has(0) {
+	if !g.Flags.Has(3) {
 		return value, false
 	}
 	return g.GiftCodeSlug, true
+}
+
+// SetStarsPrize sets value of StarsPrize conditional field.
+func (g *PaymentsGiveawayInfoResults) SetStarsPrize(value int64) {
+	g.Flags.Set(4)
+	g.StarsPrize = value
+}
+
+// GetStarsPrize returns value of StarsPrize conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGiveawayInfoResults) GetStarsPrize() (value int64, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(4) {
+		return value, false
+	}
+	return g.StarsPrize, true
 }
 
 // GetFinishDate returns value of FinishDate field.
@@ -774,12 +833,22 @@ func (g *PaymentsGiveawayInfoResults) GetWinnersCount() (value int) {
 	return g.WinnersCount
 }
 
-// GetActivatedCount returns value of ActivatedCount field.
-func (g *PaymentsGiveawayInfoResults) GetActivatedCount() (value int) {
+// SetActivatedCount sets value of ActivatedCount conditional field.
+func (g *PaymentsGiveawayInfoResults) SetActivatedCount(value int) {
+	g.Flags.Set(2)
+	g.ActivatedCount = value
+}
+
+// GetActivatedCount returns value of ActivatedCount conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGiveawayInfoResults) GetActivatedCount() (value int, ok bool) {
 	if g == nil {
 		return
 	}
-	return g.ActivatedCount
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.ActivatedCount, true
 }
 
 // PaymentsGiveawayInfoClassName is schema name of PaymentsGiveawayInfoClass.
@@ -797,7 +866,7 @@ const PaymentsGiveawayInfoClassName = "payments.GiveawayInfo"
 //	}
 //	switch v := g.(type) {
 //	case *tg.PaymentsGiveawayInfo: // payments.giveawayInfo#4367daa0
-//	case *tg.PaymentsGiveawayInfoResults: // payments.giveawayInfoResults#cd5570
+//	case *tg.PaymentsGiveawayInfoResults: // payments.giveawayInfoResults#e175e66f
 //	default: panic(v)
 //	}
 type PaymentsGiveawayInfoClass interface {
@@ -837,7 +906,7 @@ func DecodePaymentsGiveawayInfo(buf *bin.Buffer) (PaymentsGiveawayInfoClass, err
 		}
 		return &v, nil
 	case PaymentsGiveawayInfoResultsTypeID:
-		// Decoding payments.giveawayInfoResults#cd5570.
+		// Decoding payments.giveawayInfoResults#e175e66f.
 		v := PaymentsGiveawayInfoResults{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentsGiveawayInfoClass: %w", err)

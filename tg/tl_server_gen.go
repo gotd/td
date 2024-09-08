@@ -7030,6 +7030,23 @@ func (s *ServerDispatcher) OnMessagesTogglePaidReactionPrivacy(f func(ctx contex
 	s.handlers[MessagesTogglePaidReactionPrivacyRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetPaidReactionPrivacy(f func(ctx context.Context) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetPaidReactionPrivacyRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesGetPaidReactionPrivacyRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9866,6 +9883,23 @@ func (s *ServerDispatcher) OnPaymentsFulfillStarsSubscription(f func(ctx context
 	}
 
 	s.handlers[PaymentsFulfillStarsSubscriptionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetStarsGiveawayOptions(f func(ctx context.Context) ([]StarsGiveawayOption, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetStarsGiveawayOptionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &StarsGiveawayOptionVector{Elems: response}, nil
+	}
+
+	s.handlers[PaymentsGetStarsGiveawayOptionsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

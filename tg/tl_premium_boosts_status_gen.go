@@ -82,7 +82,7 @@ type PremiumBoostsStatus struct {
 	//  1) https://core.telegram.org/api/giveaways
 	//
 	// Use SetPrepaidGiveaways and GetPrepaidGiveaways helpers.
-	PrepaidGiveaways []PrepaidGiveaway
+	PrepaidGiveaways []PrepaidGiveawayClass
 	// Indicates which of our boost slots¹ we've assigned to this peer (populated if
 	// my_boost is set).
 	//
@@ -164,7 +164,7 @@ func (b *PremiumBoostsStatus) FillFrom(from interface {
 	GetNextLevelBoosts() (value int, ok bool)
 	GetPremiumAudience() (value StatsPercentValue, ok bool)
 	GetBoostURL() (value string)
-	GetPrepaidGiveaways() (value []PrepaidGiveaway, ok bool)
+	GetPrepaidGiveaways() (value []PrepaidGiveawayClass, ok bool)
 	GetMyBoostSlots() (value []int, ok bool)
 }) {
 	b.MyBoost = from.GetMyBoost()
@@ -325,6 +325,9 @@ func (b *PremiumBoostsStatus) EncodeBare(buf *bin.Buffer) error {
 	if b.Flags.Has(3) {
 		buf.PutVectorHeader(len(b.PrepaidGiveaways))
 		for idx, v := range b.PrepaidGiveaways {
+			if v == nil {
+				return fmt.Errorf("unable to encode premium.boostsStatus#4959427a: field prepaid_giveaways element with index %d is nil", idx)
+			}
 			if err := v.Encode(buf); err != nil {
 				return fmt.Errorf("unable to encode premium.boostsStatus#4959427a: field prepaid_giveaways element with index %d: %w", idx, err)
 			}
@@ -415,11 +418,11 @@ func (b *PremiumBoostsStatus) DecodeBare(buf *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			b.PrepaidGiveaways = make([]PrepaidGiveaway, 0, headerLen%bin.PreallocateLimit)
+			b.PrepaidGiveaways = make([]PrepaidGiveawayClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value PrepaidGiveaway
-			if err := value.Decode(buf); err != nil {
+			value, err := DecodePrepaidGiveaway(buf)
+			if err != nil {
 				return fmt.Errorf("unable to decode premium.boostsStatus#4959427a: field prepaid_giveaways: %w", err)
 			}
 			b.PrepaidGiveaways = append(b.PrepaidGiveaways, value)
@@ -551,14 +554,14 @@ func (b *PremiumBoostsStatus) GetBoostURL() (value string) {
 }
 
 // SetPrepaidGiveaways sets value of PrepaidGiveaways conditional field.
-func (b *PremiumBoostsStatus) SetPrepaidGiveaways(value []PrepaidGiveaway) {
+func (b *PremiumBoostsStatus) SetPrepaidGiveaways(value []PrepaidGiveawayClass) {
 	b.Flags.Set(3)
 	b.PrepaidGiveaways = value
 }
 
 // GetPrepaidGiveaways returns value of PrepaidGiveaways conditional field and
 // boolean which is true if field was set.
-func (b *PremiumBoostsStatus) GetPrepaidGiveaways() (value []PrepaidGiveaway, ok bool) {
+func (b *PremiumBoostsStatus) GetPrepaidGiveaways() (value []PrepaidGiveawayClass, ok bool) {
 	if b == nil {
 		return
 	}
@@ -584,4 +587,12 @@ func (b *PremiumBoostsStatus) GetMyBoostSlots() (value []int, ok bool) {
 		return value, false
 	}
 	return b.MyBoostSlots, true
+}
+
+// MapPrepaidGiveaways returns field PrepaidGiveaways wrapped in PrepaidGiveawayClassArray helper.
+func (b *PremiumBoostsStatus) MapPrepaidGiveaways() (value PrepaidGiveawayClassArray, ok bool) {
+	if !b.Flags.Has(3) {
+		return value, false
+	}
+	return PrepaidGiveawayClassArray(b.PrepaidGiveaways), true
 }

@@ -1495,3 +1495,23 @@ func (u UpdateDispatcher) OnStarsRevenueStatus(handler StarsRevenueStatusHandler
 		return handler(ctx, e, update.(*UpdateStarsRevenueStatus))
 	}
 }
+
+// BotPurchasedPaidMediaHandler is a BotPurchasedPaidMedia event handler.
+type BotPurchasedPaidMediaHandler func(ctx context.Context, e Entities, update *UpdateBotPurchasedPaidMedia) error
+
+// OnBotPurchasedPaidMedia sets BotPurchasedPaidMedia handler.
+func (u UpdateDispatcher) OnBotPurchasedPaidMedia(handler BotPurchasedPaidMediaHandler) {
+	u.handlers[UpdateBotPurchasedPaidMediaTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotPurchasedPaidMedia))
+	}
+}
+
+// PaidReactionPrivacyHandler is a PaidReactionPrivacy event handler.
+type PaidReactionPrivacyHandler func(ctx context.Context, e Entities, update *UpdatePaidReactionPrivacy) error
+
+// OnPaidReactionPrivacy sets PaidReactionPrivacy handler.
+func (u UpdateDispatcher) OnPaidReactionPrivacy(handler PaidReactionPrivacyHandler) {
+	u.handlers[UpdatePaidReactionPrivacyTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePaidReactionPrivacy))
+	}
+}

@@ -33,3 +33,423 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// PrepaidGiveawayClassArray is adapter for slice of PrepaidGiveawayClass.
+type PrepaidGiveawayClassArray []PrepaidGiveawayClass
+
+// Sort sorts slice of PrepaidGiveawayClass.
+func (s PrepaidGiveawayClassArray) Sort(less func(a, b PrepaidGiveawayClass) bool) PrepaidGiveawayClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrepaidGiveawayClass.
+func (s PrepaidGiveawayClassArray) SortStable(less func(a, b PrepaidGiveawayClass) bool) PrepaidGiveawayClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrepaidGiveawayClass.
+func (s PrepaidGiveawayClassArray) Retain(keep func(x PrepaidGiveawayClass) bool) PrepaidGiveawayClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrepaidGiveawayClassArray) First() (v PrepaidGiveawayClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrepaidGiveawayClassArray) Last() (v PrepaidGiveawayClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrepaidGiveawayClassArray) PopFirst() (v PrepaidGiveawayClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrepaidGiveawayClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrepaidGiveawayClassArray) Pop() (v PrepaidGiveawayClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of PrepaidGiveawayClass by ID.
+func (s PrepaidGiveawayClassArray) SortByID() PrepaidGiveawayClassArray {
+	return s.Sort(func(a, b PrepaidGiveawayClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of PrepaidGiveawayClass by ID.
+func (s PrepaidGiveawayClassArray) SortStableByID() PrepaidGiveawayClassArray {
+	return s.SortStable(func(a, b PrepaidGiveawayClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of PrepaidGiveawayClass by Date.
+func (s PrepaidGiveawayClassArray) SortByDate() PrepaidGiveawayClassArray {
+	return s.Sort(func(a, b PrepaidGiveawayClass) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PrepaidGiveawayClass by Date.
+func (s PrepaidGiveawayClassArray) SortStableByDate() PrepaidGiveawayClassArray {
+	return s.SortStable(func(a, b PrepaidGiveawayClass) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillPrepaidGiveawayMap fills only PrepaidGiveaway constructors to given map.
+func (s PrepaidGiveawayClassArray) FillPrepaidGiveawayMap(to map[int64]*PrepaidGiveaway) {
+	for _, elem := range s {
+		value, ok := elem.(*PrepaidGiveaway)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// PrepaidGiveawayToMap collects only PrepaidGiveaway constructors to map.
+func (s PrepaidGiveawayClassArray) PrepaidGiveawayToMap() map[int64]*PrepaidGiveaway {
+	r := make(map[int64]*PrepaidGiveaway, len(s))
+	s.FillPrepaidGiveawayMap(r)
+	return r
+}
+
+// AsPrepaidGiveaway returns copy with only PrepaidGiveaway constructors.
+func (s PrepaidGiveawayClassArray) AsPrepaidGiveaway() (to PrepaidGiveawayArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PrepaidGiveaway)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// FillPrepaidStarsGiveawayMap fills only PrepaidStarsGiveaway constructors to given map.
+func (s PrepaidGiveawayClassArray) FillPrepaidStarsGiveawayMap(to map[int64]*PrepaidStarsGiveaway) {
+	for _, elem := range s {
+		value, ok := elem.(*PrepaidStarsGiveaway)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// PrepaidStarsGiveawayToMap collects only PrepaidStarsGiveaway constructors to map.
+func (s PrepaidGiveawayClassArray) PrepaidStarsGiveawayToMap() map[int64]*PrepaidStarsGiveaway {
+	r := make(map[int64]*PrepaidStarsGiveaway, len(s))
+	s.FillPrepaidStarsGiveawayMap(r)
+	return r
+}
+
+// AsPrepaidStarsGiveaway returns copy with only PrepaidStarsGiveaway constructors.
+func (s PrepaidGiveawayClassArray) AsPrepaidStarsGiveaway() (to PrepaidStarsGiveawayArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PrepaidStarsGiveaway)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PrepaidGiveawayArray is adapter for slice of PrepaidGiveaway.
+type PrepaidGiveawayArray []PrepaidGiveaway
+
+// Sort sorts slice of PrepaidGiveaway.
+func (s PrepaidGiveawayArray) Sort(less func(a, b PrepaidGiveaway) bool) PrepaidGiveawayArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrepaidGiveaway.
+func (s PrepaidGiveawayArray) SortStable(less func(a, b PrepaidGiveaway) bool) PrepaidGiveawayArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrepaidGiveaway.
+func (s PrepaidGiveawayArray) Retain(keep func(x PrepaidGiveaway) bool) PrepaidGiveawayArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrepaidGiveawayArray) First() (v PrepaidGiveaway, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrepaidGiveawayArray) Last() (v PrepaidGiveaway, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrepaidGiveawayArray) PopFirst() (v PrepaidGiveaway, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrepaidGiveaway
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrepaidGiveawayArray) Pop() (v PrepaidGiveaway, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of PrepaidGiveaway by ID.
+func (s PrepaidGiveawayArray) SortByID() PrepaidGiveawayArray {
+	return s.Sort(func(a, b PrepaidGiveaway) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of PrepaidGiveaway by ID.
+func (s PrepaidGiveawayArray) SortStableByID() PrepaidGiveawayArray {
+	return s.SortStable(func(a, b PrepaidGiveaway) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of PrepaidGiveaway by Date.
+func (s PrepaidGiveawayArray) SortByDate() PrepaidGiveawayArray {
+	return s.Sort(func(a, b PrepaidGiveaway) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PrepaidGiveaway by Date.
+func (s PrepaidGiveawayArray) SortStableByDate() PrepaidGiveawayArray {
+	return s.SortStable(func(a, b PrepaidGiveaway) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s PrepaidGiveawayArray) FillMap(to map[int64]PrepaidGiveaway) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s PrepaidGiveawayArray) ToMap() map[int64]PrepaidGiveaway {
+	r := make(map[int64]PrepaidGiveaway, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// PrepaidStarsGiveawayArray is adapter for slice of PrepaidStarsGiveaway.
+type PrepaidStarsGiveawayArray []PrepaidStarsGiveaway
+
+// Sort sorts slice of PrepaidStarsGiveaway.
+func (s PrepaidStarsGiveawayArray) Sort(less func(a, b PrepaidStarsGiveaway) bool) PrepaidStarsGiveawayArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrepaidStarsGiveaway.
+func (s PrepaidStarsGiveawayArray) SortStable(less func(a, b PrepaidStarsGiveaway) bool) PrepaidStarsGiveawayArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrepaidStarsGiveaway.
+func (s PrepaidStarsGiveawayArray) Retain(keep func(x PrepaidStarsGiveaway) bool) PrepaidStarsGiveawayArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrepaidStarsGiveawayArray) First() (v PrepaidStarsGiveaway, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrepaidStarsGiveawayArray) Last() (v PrepaidStarsGiveaway, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrepaidStarsGiveawayArray) PopFirst() (v PrepaidStarsGiveaway, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrepaidStarsGiveaway
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrepaidStarsGiveawayArray) Pop() (v PrepaidStarsGiveaway, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of PrepaidStarsGiveaway by ID.
+func (s PrepaidStarsGiveawayArray) SortByID() PrepaidStarsGiveawayArray {
+	return s.Sort(func(a, b PrepaidStarsGiveaway) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of PrepaidStarsGiveaway by ID.
+func (s PrepaidStarsGiveawayArray) SortStableByID() PrepaidStarsGiveawayArray {
+	return s.SortStable(func(a, b PrepaidStarsGiveaway) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of PrepaidStarsGiveaway by Date.
+func (s PrepaidStarsGiveawayArray) SortByDate() PrepaidStarsGiveawayArray {
+	return s.Sort(func(a, b PrepaidStarsGiveaway) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PrepaidStarsGiveaway by Date.
+func (s PrepaidStarsGiveawayArray) SortStableByDate() PrepaidStarsGiveawayArray {
+	return s.SortStable(func(a, b PrepaidStarsGiveaway) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s PrepaidStarsGiveawayArray) FillMap(to map[int64]PrepaidStarsGiveaway) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s PrepaidStarsGiveawayArray) ToMap() map[int64]PrepaidStarsGiveaway {
+	r := make(map[int64]PrepaidStarsGiveaway, len(s))
+	s.FillMap(r)
+	return r
+}
