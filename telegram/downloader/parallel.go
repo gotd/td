@@ -2,13 +2,12 @@ package downloader
 
 import (
 	"context"
-	"fmt"
 	"io"
-	"os"
 	"sync"
 	"time"
 
 	"github.com/go-faster/errors"
+	"github.com/k0kubun/go-ansi"
 	"github.com/schollz/progressbar/v3"
 
 	"github.com/gotd/td/syncio"
@@ -86,17 +85,25 @@ func (d *Downloader) parallel(
 		bar := progressbar.NewOptions64(
 			d.fileSize,
 			progressbar.OptionSetDescription("Downloading"),
-			progressbar.OptionSetWriter(os.Stderr),
+			progressbar.OptionSetWriter(ansi.NewAnsiStdout()),
+			// progressbar.OptionSetWriter(os.Stderr),
 			progressbar.OptionShowBytes(true),
 			progressbar.OptionSetWidth(10),
 			progressbar.OptionThrottle(65*time.Millisecond),
 			progressbar.OptionShowCount(),
 			progressbar.OptionEnableColorCodes(true),
-			progressbar.OptionOnCompletion(func() {
-				fmt.Fprint(os.Stderr, "\n")
-			}),
-			progressbar.OptionSpinnerType(14),
+			// progressbar.OptionOnCompletion(func() {
+			// 	fmt.Fprint(os.Stderr, "\n")
+			// }),
+			progressbar.OptionSpinnerType(36),
 			progressbar.OptionSetRenderBlankState(true),
+			progressbar.OptionSetTheme(progressbar.Theme{
+				Saucer:        "[green]=[reset]",
+				SaucerHead:    "[green]>[reset]",
+				SaucerPadding: " ",
+				BarStart:      "[",
+				BarEnd:        "]",
+			}),
 		)
 
 		defer bar.Close()
