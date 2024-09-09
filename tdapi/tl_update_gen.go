@@ -32909,6 +32909,206 @@ func (u *UpdateMessageReactions) GetReactions() (value []MessageReaction) {
 	return u.Reactions
 }
 
+// UpdatePaidMediaPurchased represents TL type `updatePaidMediaPurchased#a410e65b`.
+type UpdatePaidMediaPurchased struct {
+	// User identifier
+	UserID int64
+	// Bot-specified payload for the paid media
+	Payload string
+}
+
+// UpdatePaidMediaPurchasedTypeID is TL type id of UpdatePaidMediaPurchased.
+const UpdatePaidMediaPurchasedTypeID = 0xa410e65b
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePaidMediaPurchased) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePaidMediaPurchased.
+var (
+	_ bin.Encoder     = &UpdatePaidMediaPurchased{}
+	_ bin.Decoder     = &UpdatePaidMediaPurchased{}
+	_ bin.BareEncoder = &UpdatePaidMediaPurchased{}
+	_ bin.BareDecoder = &UpdatePaidMediaPurchased{}
+
+	_ UpdateClass = &UpdatePaidMediaPurchased{}
+)
+
+func (u *UpdatePaidMediaPurchased) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Payload == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePaidMediaPurchased) String() string {
+	if u == nil {
+		return "UpdatePaidMediaPurchased(nil)"
+	}
+	type Alias UpdatePaidMediaPurchased
+	return fmt.Sprintf("UpdatePaidMediaPurchased%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdatePaidMediaPurchased) TypeID() uint32 {
+	return UpdatePaidMediaPurchasedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdatePaidMediaPurchased) TypeName() string {
+	return "updatePaidMediaPurchased"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePaidMediaPurchased) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePaidMediaPurchased",
+		ID:   UpdatePaidMediaPurchasedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePaidMediaPurchased) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePaidMediaPurchased#a410e65b as nil")
+	}
+	b.PutID(UpdatePaidMediaPurchasedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatePaidMediaPurchased) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePaidMediaPurchased#a410e65b as nil")
+	}
+	b.PutInt53(u.UserID)
+	b.PutString(u.Payload)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePaidMediaPurchased) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePaidMediaPurchased#a410e65b to nil")
+	}
+	if err := b.ConsumeID(UpdatePaidMediaPurchasedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePaidMediaPurchased#a410e65b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatePaidMediaPurchased) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePaidMediaPurchased#a410e65b to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePaidMediaPurchased#a410e65b: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePaidMediaPurchased#a410e65b: field payload: %w", err)
+		}
+		u.Payload = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdatePaidMediaPurchased) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePaidMediaPurchased#a410e65b as nil")
+	}
+	b.ObjStart()
+	b.PutID("updatePaidMediaPurchased")
+	b.Comma()
+	b.FieldStart("user_id")
+	b.PutInt53(u.UserID)
+	b.Comma()
+	b.FieldStart("payload")
+	b.PutString(u.Payload)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdatePaidMediaPurchased) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePaidMediaPurchased#a410e65b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updatePaidMediaPurchased"); err != nil {
+				return fmt.Errorf("unable to decode updatePaidMediaPurchased#a410e65b: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updatePaidMediaPurchased#a410e65b: field user_id: %w", err)
+			}
+			u.UserID = value
+		case "payload":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updatePaidMediaPurchased#a410e65b: field payload: %w", err)
+			}
+			u.Payload = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdatePaidMediaPurchased) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetPayload returns value of Payload field.
+func (u *UpdatePaidMediaPurchased) GetPayload() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Payload
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -33071,6 +33271,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatBoost: // updateChatBoost#50727e24
 //	case *tdapi.UpdateMessageReaction: // updateMessageReaction#f46c854a
 //	case *tdapi.UpdateMessageReactions: // updateMessageReactions#bd5618e9
+//	case *tdapi.UpdatePaidMediaPurchased: // updatePaidMediaPurchased#a410e65b
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -34152,6 +34353,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdatePaidMediaPurchasedTypeID:
+		// Decoding updatePaidMediaPurchased#a410e65b.
+		v := UpdatePaidMediaPurchased{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode UpdateClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -35210,6 +35418,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateMessageReactions":
 		// Decoding updateMessageReactions#bd5618e9.
 		v := UpdateMessageReactions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updatePaidMediaPurchased":
+		// Decoding updatePaidMediaPurchased#a410e65b.
+		v := UpdatePaidMediaPurchased{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

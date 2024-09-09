@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatRevenueAmount represents TL type `chatRevenueAmount#4f3bb29f`.
+// ChatRevenueAmount represents TL type `chatRevenueAmount#a648ce58`.
 type ChatRevenueAmount struct {
 	// Cryptocurrency in which revenue is calculated
 	Cryptocurrency string
@@ -43,10 +43,12 @@ type ChatRevenueAmount struct {
 	// Amount of the cryptocurrency available for withdrawal, in the smallest units of the
 	// cryptocurrency
 	AvailableAmount int64
+	// True, if Telegram Stars can be withdrawn now or later
+	WithdrawalEnabled bool
 }
 
 // ChatRevenueAmountTypeID is TL type id of ChatRevenueAmount.
-const ChatRevenueAmountTypeID = 0x4f3bb29f
+const ChatRevenueAmountTypeID = 0xa648ce58
 
 // Ensuring interfaces in compile-time for ChatRevenueAmount.
 var (
@@ -70,6 +72,9 @@ func (c *ChatRevenueAmount) Zero() bool {
 		return false
 	}
 	if !(c.AvailableAmount == 0) {
+		return false
+	}
+	if !(c.WithdrawalEnabled == false) {
 		return false
 	}
 
@@ -124,6 +129,10 @@ func (c *ChatRevenueAmount) TypeInfo() tdp.Type {
 			Name:       "AvailableAmount",
 			SchemaName: "available_amount",
 		},
+		{
+			Name:       "WithdrawalEnabled",
+			SchemaName: "withdrawal_enabled",
+		},
 	}
 	return typ
 }
@@ -131,7 +140,7 @@ func (c *ChatRevenueAmount) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatRevenueAmount) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatRevenueAmount#4f3bb29f as nil")
+		return fmt.Errorf("can't encode chatRevenueAmount#a648ce58 as nil")
 	}
 	b.PutID(ChatRevenueAmountTypeID)
 	return c.EncodeBare(b)
@@ -140,22 +149,23 @@ func (c *ChatRevenueAmount) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatRevenueAmount) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatRevenueAmount#4f3bb29f as nil")
+		return fmt.Errorf("can't encode chatRevenueAmount#a648ce58 as nil")
 	}
 	b.PutString(c.Cryptocurrency)
 	b.PutLong(c.TotalAmount)
 	b.PutLong(c.BalanceAmount)
 	b.PutLong(c.AvailableAmount)
+	b.PutBool(c.WithdrawalEnabled)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatRevenueAmount) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatRevenueAmount#4f3bb29f to nil")
+		return fmt.Errorf("can't decode chatRevenueAmount#a648ce58 to nil")
 	}
 	if err := b.ConsumeID(ChatRevenueAmountTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: %w", err)
+		return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -163,35 +173,42 @@ func (c *ChatRevenueAmount) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatRevenueAmount) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatRevenueAmount#4f3bb29f to nil")
+		return fmt.Errorf("can't decode chatRevenueAmount#a648ce58 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field cryptocurrency: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field cryptocurrency: %w", err)
 		}
 		c.Cryptocurrency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field total_amount: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field total_amount: %w", err)
 		}
 		c.TotalAmount = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field balance_amount: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field balance_amount: %w", err)
 		}
 		c.BalanceAmount = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field available_amount: %w", err)
+			return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field available_amount: %w", err)
 		}
 		c.AvailableAmount = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field withdrawal_enabled: %w", err)
+		}
+		c.WithdrawalEnabled = value
 	}
 	return nil
 }
@@ -199,7 +216,7 @@ func (c *ChatRevenueAmount) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatRevenueAmount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatRevenueAmount#4f3bb29f as nil")
+		return fmt.Errorf("can't encode chatRevenueAmount#a648ce58 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatRevenueAmount")
@@ -216,6 +233,9 @@ func (c *ChatRevenueAmount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("available_amount")
 	b.PutLong(c.AvailableAmount)
 	b.Comma()
+	b.FieldStart("withdrawal_enabled")
+	b.PutBool(c.WithdrawalEnabled)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -224,39 +244,45 @@ func (c *ChatRevenueAmount) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatRevenueAmount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatRevenueAmount#4f3bb29f to nil")
+		return fmt.Errorf("can't decode chatRevenueAmount#a648ce58 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatRevenueAmount"); err != nil {
-				return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: %w", err)
 			}
 		case "cryptocurrency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field cryptocurrency: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field cryptocurrency: %w", err)
 			}
 			c.Cryptocurrency = value
 		case "total_amount":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field total_amount: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field total_amount: %w", err)
 			}
 			c.TotalAmount = value
 		case "balance_amount":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field balance_amount: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field balance_amount: %w", err)
 			}
 			c.BalanceAmount = value
 		case "available_amount":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatRevenueAmount#4f3bb29f: field available_amount: %w", err)
+				return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field available_amount: %w", err)
 			}
 			c.AvailableAmount = value
+		case "withdrawal_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatRevenueAmount#a648ce58: field withdrawal_enabled: %w", err)
+			}
+			c.WithdrawalEnabled = value
 		default:
 			return b.Skip()
 		}
@@ -294,4 +320,12 @@ func (c *ChatRevenueAmount) GetAvailableAmount() (value int64) {
 		return
 	}
 	return c.AvailableAmount
+}
+
+// GetWithdrawalEnabled returns value of WithdrawalEnabled field.
+func (c *ChatRevenueAmount) GetWithdrawalEnabled() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.WithdrawalEnabled
 }

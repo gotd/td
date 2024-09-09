@@ -760,10 +760,10 @@ func (s *StorePaymentPurposePremiumGiftCodes) GetUserIDs() (value []int64) {
 	return s.UserIDs
 }
 
-// StorePaymentPurposePremiumGiveaway represents TL type `storePaymentPurposePremiumGiveaway#504790d9`.
+// StorePaymentPurposePremiumGiveaway represents TL type `storePaymentPurposePremiumGiveaway#4da47aaa`.
 type StorePaymentPurposePremiumGiveaway struct {
 	// Giveaway parameters
-	Parameters PremiumGiveawayParameters
+	Parameters GiveawayParameters
 	// ISO 4217 currency code of the payment currency
 	Currency string
 	// Paid amount, in the smallest units of the currency
@@ -771,7 +771,7 @@ type StorePaymentPurposePremiumGiveaway struct {
 }
 
 // StorePaymentPurposePremiumGiveawayTypeID is TL type id of StorePaymentPurposePremiumGiveaway.
-const StorePaymentPurposePremiumGiveawayTypeID = 0x504790d9
+const StorePaymentPurposePremiumGiveawayTypeID = 0x4da47aaa
 
 // construct implements constructor of StorePaymentPurposeClass.
 func (s StorePaymentPurposePremiumGiveaway) construct() StorePaymentPurposeClass { return &s }
@@ -854,7 +854,7 @@ func (s *StorePaymentPurposePremiumGiveaway) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StorePaymentPurposePremiumGiveaway) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storePaymentPurposePremiumGiveaway#504790d9 as nil")
+		return fmt.Errorf("can't encode storePaymentPurposePremiumGiveaway#4da47aaa as nil")
 	}
 	b.PutID(StorePaymentPurposePremiumGiveawayTypeID)
 	return s.EncodeBare(b)
@@ -863,10 +863,10 @@ func (s *StorePaymentPurposePremiumGiveaway) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StorePaymentPurposePremiumGiveaway) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storePaymentPurposePremiumGiveaway#504790d9 as nil")
+		return fmt.Errorf("can't encode storePaymentPurposePremiumGiveaway#4da47aaa as nil")
 	}
 	if err := s.Parameters.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storePaymentPurposePremiumGiveaway#504790d9: field parameters: %w", err)
+		return fmt.Errorf("unable to encode storePaymentPurposePremiumGiveaway#4da47aaa: field parameters: %w", err)
 	}
 	b.PutString(s.Currency)
 	b.PutInt53(s.Amount)
@@ -876,10 +876,10 @@ func (s *StorePaymentPurposePremiumGiveaway) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StorePaymentPurposePremiumGiveaway) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storePaymentPurposePremiumGiveaway#504790d9 to nil")
+		return fmt.Errorf("can't decode storePaymentPurposePremiumGiveaway#4da47aaa to nil")
 	}
 	if err := b.ConsumeID(StorePaymentPurposePremiumGiveawayTypeID); err != nil {
-		return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: %w", err)
+		return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -887,24 +887,24 @@ func (s *StorePaymentPurposePremiumGiveaway) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StorePaymentPurposePremiumGiveaway) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storePaymentPurposePremiumGiveaway#504790d9 to nil")
+		return fmt.Errorf("can't decode storePaymentPurposePremiumGiveaway#4da47aaa to nil")
 	}
 	{
 		if err := s.Parameters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: field parameters: %w", err)
+			return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: field parameters: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: field currency: %w", err)
+			return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: field currency: %w", err)
 		}
 		s.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: field amount: %w", err)
+			return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: field amount: %w", err)
 		}
 		s.Amount = value
 	}
@@ -914,14 +914,14 @@ func (s *StorePaymentPurposePremiumGiveaway) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StorePaymentPurposePremiumGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storePaymentPurposePremiumGiveaway#504790d9 as nil")
+		return fmt.Errorf("can't encode storePaymentPurposePremiumGiveaway#4da47aaa as nil")
 	}
 	b.ObjStart()
 	b.PutID("storePaymentPurposePremiumGiveaway")
 	b.Comma()
 	b.FieldStart("parameters")
 	if err := s.Parameters.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode storePaymentPurposePremiumGiveaway#504790d9: field parameters: %w", err)
+		return fmt.Errorf("unable to encode storePaymentPurposePremiumGiveaway#4da47aaa: field parameters: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("currency")
@@ -938,29 +938,29 @@ func (s *StorePaymentPurposePremiumGiveaway) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StorePaymentPurposePremiumGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storePaymentPurposePremiumGiveaway#504790d9 to nil")
+		return fmt.Errorf("can't decode storePaymentPurposePremiumGiveaway#4da47aaa to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storePaymentPurposePremiumGiveaway"); err != nil {
-				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: %w", err)
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: %w", err)
 			}
 		case "parameters":
 			if err := s.Parameters.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: field parameters: %w", err)
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: field parameters: %w", err)
 			}
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: field currency: %w", err)
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: field currency: %w", err)
 			}
 			s.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#504790d9: field amount: %w", err)
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumGiveaway#4da47aaa: field amount: %w", err)
 			}
 			s.Amount = value
 		default:
@@ -971,7 +971,7 @@ func (s *StorePaymentPurposePremiumGiveaway) DecodeTDLibJSON(b tdjson.Decoder) e
 }
 
 // GetParameters returns value of Parameters field.
-func (s *StorePaymentPurposePremiumGiveaway) GetParameters() (value PremiumGiveawayParameters) {
+func (s *StorePaymentPurposePremiumGiveaway) GetParameters() (value GiveawayParameters) {
 	if s == nil {
 		return
 	}
@@ -992,6 +992,308 @@ func (s *StorePaymentPurposePremiumGiveaway) GetAmount() (value int64) {
 		return
 	}
 	return s.Amount
+}
+
+// StorePaymentPurposeStarGiveaway represents TL type `storePaymentPurposeStarGiveaway#c96d899`.
+type StorePaymentPurposeStarGiveaway struct {
+	// Giveaway parameters
+	Parameters GiveawayParameters
+	// ISO 4217 currency code of the payment currency
+	Currency string
+	// Paid amount, in the smallest units of the currency
+	Amount int64
+	// The number of users to receive Telegram Stars
+	WinnerCount int32
+	// The number of Telegram Stars to be distributed through the giveaway
+	StarCount int64
+}
+
+// StorePaymentPurposeStarGiveawayTypeID is TL type id of StorePaymentPurposeStarGiveaway.
+const StorePaymentPurposeStarGiveawayTypeID = 0xc96d899
+
+// construct implements constructor of StorePaymentPurposeClass.
+func (s StorePaymentPurposeStarGiveaway) construct() StorePaymentPurposeClass { return &s }
+
+// Ensuring interfaces in compile-time for StorePaymentPurposeStarGiveaway.
+var (
+	_ bin.Encoder     = &StorePaymentPurposeStarGiveaway{}
+	_ bin.Decoder     = &StorePaymentPurposeStarGiveaway{}
+	_ bin.BareEncoder = &StorePaymentPurposeStarGiveaway{}
+	_ bin.BareDecoder = &StorePaymentPurposeStarGiveaway{}
+
+	_ StorePaymentPurposeClass = &StorePaymentPurposeStarGiveaway{}
+)
+
+func (s *StorePaymentPurposeStarGiveaway) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Parameters.Zero()) {
+		return false
+	}
+	if !(s.Currency == "") {
+		return false
+	}
+	if !(s.Amount == 0) {
+		return false
+	}
+	if !(s.WinnerCount == 0) {
+		return false
+	}
+	if !(s.StarCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StorePaymentPurposeStarGiveaway) String() string {
+	if s == nil {
+		return "StorePaymentPurposeStarGiveaway(nil)"
+	}
+	type Alias StorePaymentPurposeStarGiveaway
+	return fmt.Sprintf("StorePaymentPurposeStarGiveaway%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StorePaymentPurposeStarGiveaway) TypeID() uint32 {
+	return StorePaymentPurposeStarGiveawayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StorePaymentPurposeStarGiveaway) TypeName() string {
+	return "storePaymentPurposeStarGiveaway"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StorePaymentPurposeStarGiveaway) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storePaymentPurposeStarGiveaway",
+		ID:   StorePaymentPurposeStarGiveawayTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Parameters",
+			SchemaName: "parameters",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "WinnerCount",
+			SchemaName: "winner_count",
+		},
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StorePaymentPurposeStarGiveaway) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storePaymentPurposeStarGiveaway#c96d899 as nil")
+	}
+	b.PutID(StorePaymentPurposeStarGiveawayTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StorePaymentPurposeStarGiveaway) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storePaymentPurposeStarGiveaway#c96d899 as nil")
+	}
+	if err := s.Parameters.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storePaymentPurposeStarGiveaway#c96d899: field parameters: %w", err)
+	}
+	b.PutString(s.Currency)
+	b.PutInt53(s.Amount)
+	b.PutInt32(s.WinnerCount)
+	b.PutInt53(s.StarCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StorePaymentPurposeStarGiveaway) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storePaymentPurposeStarGiveaway#c96d899 to nil")
+	}
+	if err := b.ConsumeID(StorePaymentPurposeStarGiveawayTypeID); err != nil {
+		return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StorePaymentPurposeStarGiveaway) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storePaymentPurposeStarGiveaway#c96d899 to nil")
+	}
+	{
+		if err := s.Parameters.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field parameters: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field currency: %w", err)
+		}
+		s.Currency = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field amount: %w", err)
+		}
+		s.Amount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field winner_count: %w", err)
+		}
+		s.WinnerCount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field star_count: %w", err)
+		}
+		s.StarCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StorePaymentPurposeStarGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storePaymentPurposeStarGiveaway#c96d899 as nil")
+	}
+	b.ObjStart()
+	b.PutID("storePaymentPurposeStarGiveaway")
+	b.Comma()
+	b.FieldStart("parameters")
+	if err := s.Parameters.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode storePaymentPurposeStarGiveaway#c96d899: field parameters: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("currency")
+	b.PutString(s.Currency)
+	b.Comma()
+	b.FieldStart("amount")
+	b.PutInt53(s.Amount)
+	b.Comma()
+	b.FieldStart("winner_count")
+	b.PutInt32(s.WinnerCount)
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(s.StarCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StorePaymentPurposeStarGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storePaymentPurposeStarGiveaway#c96d899 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("storePaymentPurposeStarGiveaway"); err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: %w", err)
+			}
+		case "parameters":
+			if err := s.Parameters.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field parameters: %w", err)
+			}
+		case "currency":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field currency: %w", err)
+			}
+			s.Currency = value
+		case "amount":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field amount: %w", err)
+			}
+			s.Amount = value
+		case "winner_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field winner_count: %w", err)
+			}
+			s.WinnerCount = value
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposeStarGiveaway#c96d899: field star_count: %w", err)
+			}
+			s.StarCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetParameters returns value of Parameters field.
+func (s *StorePaymentPurposeStarGiveaway) GetParameters() (value GiveawayParameters) {
+	if s == nil {
+		return
+	}
+	return s.Parameters
+}
+
+// GetCurrency returns value of Currency field.
+func (s *StorePaymentPurposeStarGiveaway) GetCurrency() (value string) {
+	if s == nil {
+		return
+	}
+	return s.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (s *StorePaymentPurposeStarGiveaway) GetAmount() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.Amount
+}
+
+// GetWinnerCount returns value of WinnerCount field.
+func (s *StorePaymentPurposeStarGiveaway) GetWinnerCount() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.WinnerCount
+}
+
+// GetStarCount returns value of StarCount field.
+func (s *StorePaymentPurposeStarGiveaway) GetStarCount() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.StarCount
 }
 
 // StorePaymentPurposeStars represents TL type `storePaymentPurposeStars#9480cf14`.
@@ -1511,7 +1813,8 @@ const StorePaymentPurposeClassName = "StorePaymentPurpose"
 //	case *tdapi.StorePaymentPurposePremiumSubscription: // storePaymentPurposePremiumSubscription#4b558114
 //	case *tdapi.StorePaymentPurposeGiftedPremium: // storePaymentPurposeGiftedPremium#7240c0d1
 //	case *tdapi.StorePaymentPurposePremiumGiftCodes: // storePaymentPurposePremiumGiftCodes#9e11cf42
-//	case *tdapi.StorePaymentPurposePremiumGiveaway: // storePaymentPurposePremiumGiveaway#504790d9
+//	case *tdapi.StorePaymentPurposePremiumGiveaway: // storePaymentPurposePremiumGiveaway#4da47aaa
+//	case *tdapi.StorePaymentPurposeStarGiveaway: // storePaymentPurposeStarGiveaway#c96d899
 //	case *tdapi.StorePaymentPurposeStars: // storePaymentPurposeStars#9480cf14
 //	case *tdapi.StorePaymentPurposeGiftedStars: // storePaymentPurposeGiftedStars#3544a624
 //	default: panic(v)
@@ -1567,8 +1870,15 @@ func DecodeStorePaymentPurpose(buf *bin.Buffer) (StorePaymentPurposeClass, error
 		}
 		return &v, nil
 	case StorePaymentPurposePremiumGiveawayTypeID:
-		// Decoding storePaymentPurposePremiumGiveaway#504790d9.
+		// Decoding storePaymentPurposePremiumGiveaway#4da47aaa.
 		v := StorePaymentPurposePremiumGiveaway{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StorePaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case StorePaymentPurposeStarGiveawayTypeID:
+		// Decoding storePaymentPurposeStarGiveaway#c96d899.
+		v := StorePaymentPurposeStarGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StorePaymentPurposeClass: %w", err)
 		}
@@ -1621,8 +1931,15 @@ func DecodeTDLibJSONStorePaymentPurpose(buf tdjson.Decoder) (StorePaymentPurpose
 		}
 		return &v, nil
 	case "storePaymentPurposePremiumGiveaway":
-		// Decoding storePaymentPurposePremiumGiveaway#504790d9.
+		// Decoding storePaymentPurposePremiumGiveaway#4da47aaa.
 		v := StorePaymentPurposePremiumGiveaway{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StorePaymentPurposeClass: %w", err)
+		}
+		return &v, nil
+	case "storePaymentPurposeStarGiveaway":
+		// Decoding storePaymentPurposeStarGiveaway#c96d899.
+		v := StorePaymentPurposeStarGiveaway{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StorePaymentPurposeClass: %w", err)
 		}

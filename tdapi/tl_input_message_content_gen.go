@@ -1370,7 +1370,7 @@ func (i *InputMessageDocument) GetCaption() (value FormattedText) {
 	return i.Caption
 }
 
-// InputMessagePaidMedia represents TL type `inputMessagePaidMedia#36f9c23c`.
+// InputMessagePaidMedia represents TL type `inputMessagePaidMedia#370c4490`.
 type InputMessagePaidMedia struct {
 	// The number of Telegram Stars that must be paid to see the media;
 	// 1-getOption("paid_media_message_star_count_max")
@@ -1383,10 +1383,12 @@ type InputMessagePaidMedia struct {
 	// True, if the caption must be shown above the video; otherwise, the caption must be
 	// shown below the video; not supported in secret chats
 	ShowCaptionAboveMedia bool
+	// Bot-provided data for the paid media; bots only
+	Payload string
 }
 
 // InputMessagePaidMediaTypeID is TL type id of InputMessagePaidMedia.
-const InputMessagePaidMediaTypeID = 0x36f9c23c
+const InputMessagePaidMediaTypeID = 0x370c4490
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessagePaidMedia) construct() InputMessageContentClass { return &i }
@@ -1415,6 +1417,9 @@ func (i *InputMessagePaidMedia) Zero() bool {
 		return false
 	}
 	if !(i.ShowCaptionAboveMedia == false) {
+		return false
+	}
+	if !(i.Payload == "") {
 		return false
 	}
 
@@ -1469,6 +1474,10 @@ func (i *InputMessagePaidMedia) TypeInfo() tdp.Type {
 			Name:       "ShowCaptionAboveMedia",
 			SchemaName: "show_caption_above_media",
 		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
 	}
 	return typ
 }
@@ -1476,7 +1485,7 @@ func (i *InputMessagePaidMedia) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagePaidMedia) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePaidMedia#36f9c23c as nil")
+		return fmt.Errorf("can't encode inputMessagePaidMedia#370c4490 as nil")
 	}
 	b.PutID(InputMessagePaidMediaTypeID)
 	return i.EncodeBare(b)
@@ -1485,29 +1494,30 @@ func (i *InputMessagePaidMedia) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagePaidMedia) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePaidMedia#36f9c23c as nil")
+		return fmt.Errorf("can't encode inputMessagePaidMedia#370c4490 as nil")
 	}
 	b.PutInt53(i.StarCount)
 	b.PutInt(len(i.PaidMedia))
 	for idx, v := range i.PaidMedia {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare inputMessagePaidMedia#36f9c23c: field paid_media element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare inputMessagePaidMedia#370c4490: field paid_media element with index %d: %w", idx, err)
 		}
 	}
 	if err := i.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePaidMedia#36f9c23c: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePaidMedia#370c4490: field caption: %w", err)
 	}
 	b.PutBool(i.ShowCaptionAboveMedia)
+	b.PutString(i.Payload)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMessagePaidMedia) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePaidMedia#36f9c23c to nil")
+		return fmt.Errorf("can't decode inputMessagePaidMedia#370c4490 to nil")
 	}
 	if err := b.ConsumeID(InputMessagePaidMediaTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: %w", err)
+		return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1515,19 +1525,19 @@ func (i *InputMessagePaidMedia) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagePaidMedia) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePaidMedia#36f9c23c to nil")
+		return fmt.Errorf("can't decode inputMessagePaidMedia#370c4490 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field star_count: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field star_count: %w", err)
 		}
 		i.StarCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field paid_media: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field paid_media: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1536,22 +1546,29 @@ func (i *InputMessagePaidMedia) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputPaidMedia
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare inputMessagePaidMedia#36f9c23c: field paid_media: %w", err)
+				return fmt.Errorf("unable to decode bare inputMessagePaidMedia#370c4490: field paid_media: %w", err)
 			}
 			i.PaidMedia = append(i.PaidMedia, value)
 		}
 	}
 	{
 		if err := i.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field caption: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field caption: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field show_caption_above_media: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field show_caption_above_media: %w", err)
 		}
 		i.ShowCaptionAboveMedia = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field payload: %w", err)
+		}
+		i.Payload = value
 	}
 	return nil
 }
@@ -1559,7 +1576,7 @@ func (i *InputMessagePaidMedia) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessagePaidMedia) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePaidMedia#36f9c23c as nil")
+		return fmt.Errorf("can't encode inputMessagePaidMedia#370c4490 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessagePaidMedia")
@@ -1571,7 +1588,7 @@ func (i *InputMessagePaidMedia) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range i.PaidMedia {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode inputMessagePaidMedia#36f9c23c: field paid_media element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode inputMessagePaidMedia#370c4490: field paid_media element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -1580,11 +1597,14 @@ func (i *InputMessagePaidMedia) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("caption")
 	if err := i.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePaidMedia#36f9c23c: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePaidMedia#370c4490: field caption: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("show_caption_above_media")
 	b.PutBool(i.ShowCaptionAboveMedia)
+	b.Comma()
+	b.FieldStart("payload")
+	b.PutString(i.Payload)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -1594,42 +1614,48 @@ func (i *InputMessagePaidMedia) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessagePaidMedia) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePaidMedia#36f9c23c to nil")
+		return fmt.Errorf("can't decode inputMessagePaidMedia#370c4490 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessagePaidMedia"); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: %w", err)
 			}
 		case "star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field star_count: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field star_count: %w", err)
 			}
 			i.StarCount = value
 		case "paid_media":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value InputPaidMedia
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field paid_media: %w", err)
+					return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field paid_media: %w", err)
 				}
 				i.PaidMedia = append(i.PaidMedia, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field paid_media: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field paid_media: %w", err)
 			}
 		case "caption":
 			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field caption: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field caption: %w", err)
 			}
 		case "show_caption_above_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePaidMedia#36f9c23c: field show_caption_above_media: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field show_caption_above_media: %w", err)
 			}
 			i.ShowCaptionAboveMedia = value
+		case "payload":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePaidMedia#370c4490: field payload: %w", err)
+			}
+			i.Payload = value
 		default:
 			return b.Skip()
 		}
@@ -1667,6 +1693,14 @@ func (i *InputMessagePaidMedia) GetShowCaptionAboveMedia() (value bool) {
 		return
 	}
 	return i.ShowCaptionAboveMedia
+}
+
+// GetPayload returns value of Payload field.
+func (i *InputMessagePaidMedia) GetPayload() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Payload
 }
 
 // InputMessagePhoto represents TL type `inputMessagePhoto#bc78dbcc`.
@@ -6149,7 +6183,7 @@ const InputMessageContentClassName = "InputMessageContent"
 //	case *tdapi.InputMessageAnimation: // inputMessageAnimation#19fe563
 //	case *tdapi.InputMessageAudio: // inputMessageAudio#daa400b2
 //	case *tdapi.InputMessageDocument: // inputMessageDocument#615b72b9
-//	case *tdapi.InputMessagePaidMedia: // inputMessagePaidMedia#36f9c23c
+//	case *tdapi.InputMessagePaidMedia: // inputMessagePaidMedia#370c4490
 //	case *tdapi.InputMessagePhoto: // inputMessagePhoto#bc78dbcc
 //	case *tdapi.InputMessageSticker: // inputMessageSticker#3ff1b6f9
 //	case *tdapi.InputMessageVideo: // inputMessageVideo#1a64cc26
@@ -6224,7 +6258,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessagePaidMediaTypeID:
-		// Decoding inputMessagePaidMedia#36f9c23c.
+		// Decoding inputMessagePaidMedia#370c4490.
 		v := InputMessagePaidMedia{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -6369,7 +6403,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessagePaidMedia":
-		// Decoding inputMessagePaidMedia#36f9c23c.
+		// Decoding inputMessagePaidMedia#370c4490.
 		v := InputMessagePaidMedia{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
