@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PremiumGiftCodePaymentOption represents TL type `premiumGiftCodePaymentOption#e2f40fef`.
+// PremiumGiftCodePaymentOption represents TL type `premiumGiftCodePaymentOption#e5fe2de`.
 type PremiumGiftCodePaymentOption struct {
 	// ISO 4217 currency code for Telegram Premium gift code payment
 	Currency string
 	// The amount to pay, in the smallest units of the currency
 	Amount int64
 	// Number of users which will be able to activate the gift codes
-	UserCount int32
+	WinnerCount int32
 	// Number of months the Telegram Premium subscription will be active
 	MonthCount int32
 	// Identifier of the store product associated with the option; may be empty if none
@@ -48,7 +48,7 @@ type PremiumGiftCodePaymentOption struct {
 }
 
 // PremiumGiftCodePaymentOptionTypeID is TL type id of PremiumGiftCodePaymentOption.
-const PremiumGiftCodePaymentOptionTypeID = 0xe2f40fef
+const PremiumGiftCodePaymentOptionTypeID = 0xe5fe2de
 
 // Ensuring interfaces in compile-time for PremiumGiftCodePaymentOption.
 var (
@@ -68,7 +68,7 @@ func (p *PremiumGiftCodePaymentOption) Zero() bool {
 	if !(p.Amount == 0) {
 		return false
 	}
-	if !(p.UserCount == 0) {
+	if !(p.WinnerCount == 0) {
 		return false
 	}
 	if !(p.MonthCount == 0) {
@@ -125,8 +125,8 @@ func (p *PremiumGiftCodePaymentOption) TypeInfo() tdp.Type {
 			SchemaName: "amount",
 		},
 		{
-			Name:       "UserCount",
-			SchemaName: "user_count",
+			Name:       "WinnerCount",
+			SchemaName: "winner_count",
 		},
 		{
 			Name:       "MonthCount",
@@ -147,7 +147,7 @@ func (p *PremiumGiftCodePaymentOption) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PremiumGiftCodePaymentOption) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumGiftCodePaymentOption#e2f40fef as nil")
+		return fmt.Errorf("can't encode premiumGiftCodePaymentOption#e5fe2de as nil")
 	}
 	b.PutID(PremiumGiftCodePaymentOptionTypeID)
 	return p.EncodeBare(b)
@@ -156,11 +156,11 @@ func (p *PremiumGiftCodePaymentOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PremiumGiftCodePaymentOption) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumGiftCodePaymentOption#e2f40fef as nil")
+		return fmt.Errorf("can't encode premiumGiftCodePaymentOption#e5fe2de as nil")
 	}
 	b.PutString(p.Currency)
 	b.PutInt53(p.Amount)
-	b.PutInt32(p.UserCount)
+	b.PutInt32(p.WinnerCount)
 	b.PutInt32(p.MonthCount)
 	b.PutString(p.StoreProductID)
 	b.PutInt32(p.StoreProductQuantity)
@@ -170,10 +170,10 @@ func (p *PremiumGiftCodePaymentOption) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PremiumGiftCodePaymentOption) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumGiftCodePaymentOption#e2f40fef to nil")
+		return fmt.Errorf("can't decode premiumGiftCodePaymentOption#e5fe2de to nil")
 	}
 	if err := b.ConsumeID(PremiumGiftCodePaymentOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: %w", err)
+		return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -181,47 +181,47 @@ func (p *PremiumGiftCodePaymentOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PremiumGiftCodePaymentOption) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumGiftCodePaymentOption#e2f40fef to nil")
+		return fmt.Errorf("can't decode premiumGiftCodePaymentOption#e5fe2de to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field currency: %w", err)
+			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field currency: %w", err)
 		}
 		p.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field amount: %w", err)
+			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field amount: %w", err)
 		}
 		p.Amount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field user_count: %w", err)
+			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field winner_count: %w", err)
 		}
-		p.UserCount = value
+		p.WinnerCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field month_count: %w", err)
+			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field month_count: %w", err)
 		}
 		p.MonthCount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field store_product_id: %w", err)
+			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field store_product_id: %w", err)
 		}
 		p.StoreProductID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field store_product_quantity: %w", err)
+			return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field store_product_quantity: %w", err)
 		}
 		p.StoreProductQuantity = value
 	}
@@ -231,7 +231,7 @@ func (p *PremiumGiftCodePaymentOption) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PremiumGiftCodePaymentOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumGiftCodePaymentOption#e2f40fef as nil")
+		return fmt.Errorf("can't encode premiumGiftCodePaymentOption#e5fe2de as nil")
 	}
 	b.ObjStart()
 	b.PutID("premiumGiftCodePaymentOption")
@@ -242,8 +242,8 @@ func (p *PremiumGiftCodePaymentOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("amount")
 	b.PutInt53(p.Amount)
 	b.Comma()
-	b.FieldStart("user_count")
-	b.PutInt32(p.UserCount)
+	b.FieldStart("winner_count")
+	b.PutInt32(p.WinnerCount)
 	b.Comma()
 	b.FieldStart("month_count")
 	b.PutInt32(p.MonthCount)
@@ -262,49 +262,49 @@ func (p *PremiumGiftCodePaymentOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PremiumGiftCodePaymentOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumGiftCodePaymentOption#e2f40fef to nil")
+		return fmt.Errorf("can't decode premiumGiftCodePaymentOption#e5fe2de to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("premiumGiftCodePaymentOption"); err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: %w", err)
 			}
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field currency: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field currency: %w", err)
 			}
 			p.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field amount: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field amount: %w", err)
 			}
 			p.Amount = value
-		case "user_count":
+		case "winner_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field user_count: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field winner_count: %w", err)
 			}
-			p.UserCount = value
+			p.WinnerCount = value
 		case "month_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field month_count: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field month_count: %w", err)
 			}
 			p.MonthCount = value
 		case "store_product_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field store_product_id: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field store_product_id: %w", err)
 			}
 			p.StoreProductID = value
 		case "store_product_quantity":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e2f40fef: field store_product_quantity: %w", err)
+				return fmt.Errorf("unable to decode premiumGiftCodePaymentOption#e5fe2de: field store_product_quantity: %w", err)
 			}
 			p.StoreProductQuantity = value
 		default:
@@ -330,12 +330,12 @@ func (p *PremiumGiftCodePaymentOption) GetAmount() (value int64) {
 	return p.Amount
 }
 
-// GetUserCount returns value of UserCount field.
-func (p *PremiumGiftCodePaymentOption) GetUserCount() (value int32) {
+// GetWinnerCount returns value of WinnerCount field.
+func (p *PremiumGiftCodePaymentOption) GetWinnerCount() (value int32) {
 	if p == nil {
 		return
 	}
-	return p.UserCount
+	return p.WinnerCount
 }
 
 // GetMonthCount returns value of MonthCount field.

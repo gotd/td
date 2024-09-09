@@ -2320,6 +2320,260 @@ func (c *ChatEventMemberRestricted) GetNewStatus() (value ChatMemberStatusClass)
 	return c.NewStatus
 }
 
+// ChatEventMemberSubscriptionExtended represents TL type `chatEventMemberSubscriptionExtended#bbfab002`.
+type ChatEventMemberSubscriptionExtended struct {
+	// Affected chat member user identifier
+	UserID int64
+	// Previous status of the chat member
+	OldStatus ChatMemberStatusClass
+	// New status of the chat member
+	NewStatus ChatMemberStatusClass
+}
+
+// ChatEventMemberSubscriptionExtendedTypeID is TL type id of ChatEventMemberSubscriptionExtended.
+const ChatEventMemberSubscriptionExtendedTypeID = 0xbbfab002
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventMemberSubscriptionExtended) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventMemberSubscriptionExtended.
+var (
+	_ bin.Encoder     = &ChatEventMemberSubscriptionExtended{}
+	_ bin.Decoder     = &ChatEventMemberSubscriptionExtended{}
+	_ bin.BareEncoder = &ChatEventMemberSubscriptionExtended{}
+	_ bin.BareDecoder = &ChatEventMemberSubscriptionExtended{}
+
+	_ ChatEventActionClass = &ChatEventMemberSubscriptionExtended{}
+)
+
+func (c *ChatEventMemberSubscriptionExtended) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.OldStatus == nil) {
+		return false
+	}
+	if !(c.NewStatus == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventMemberSubscriptionExtended) String() string {
+	if c == nil {
+		return "ChatEventMemberSubscriptionExtended(nil)"
+	}
+	type Alias ChatEventMemberSubscriptionExtended
+	return fmt.Sprintf("ChatEventMemberSubscriptionExtended%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventMemberSubscriptionExtended) TypeID() uint32 {
+	return ChatEventMemberSubscriptionExtendedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventMemberSubscriptionExtended) TypeName() string {
+	return "chatEventMemberSubscriptionExtended"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventMemberSubscriptionExtended) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventMemberSubscriptionExtended",
+		ID:   ChatEventMemberSubscriptionExtendedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "OldStatus",
+			SchemaName: "old_status",
+		},
+		{
+			Name:       "NewStatus",
+			SchemaName: "new_status",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventMemberSubscriptionExtended) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberSubscriptionExtended#bbfab002 as nil")
+	}
+	b.PutID(ChatEventMemberSubscriptionExtendedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventMemberSubscriptionExtended) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberSubscriptionExtended#bbfab002 as nil")
+	}
+	b.PutInt53(c.UserID)
+	if c.OldStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field old_status is nil")
+	}
+	if err := c.OldStatus.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field old_status: %w", err)
+	}
+	if c.NewStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field new_status is nil")
+	}
+	if err := c.NewStatus.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field new_status: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventMemberSubscriptionExtended) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMemberSubscriptionExtended#bbfab002 to nil")
+	}
+	if err := b.ConsumeID(ChatEventMemberSubscriptionExtendedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventMemberSubscriptionExtended) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMemberSubscriptionExtended#bbfab002 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: field user_id: %w", err)
+		}
+		c.UserID = value
+	}
+	{
+		value, err := DecodeChatMemberStatus(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: field old_status: %w", err)
+		}
+		c.OldStatus = value
+	}
+	{
+		value, err := DecodeChatMemberStatus(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: field new_status: %w", err)
+		}
+		c.NewStatus = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventMemberSubscriptionExtended) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberSubscriptionExtended#bbfab002 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberSubscriptionExtended")
+	b.Comma()
+	b.FieldStart("user_id")
+	b.PutInt53(c.UserID)
+	b.Comma()
+	b.FieldStart("old_status")
+	if c.OldStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field old_status is nil")
+	}
+	if err := c.OldStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field old_status: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_status")
+	if c.NewStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field new_status is nil")
+	}
+	if err := c.NewStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberSubscriptionExtended#bbfab002: field new_status: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventMemberSubscriptionExtended) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMemberSubscriptionExtended#bbfab002 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventMemberSubscriptionExtended"); err != nil {
+				return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: field user_id: %w", err)
+			}
+			c.UserID = value
+		case "old_status":
+			value, err := DecodeTDLibJSONChatMemberStatus(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: field old_status: %w", err)
+			}
+			c.OldStatus = value
+		case "new_status":
+			value, err := DecodeTDLibJSONChatMemberStatus(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMemberSubscriptionExtended#bbfab002: field new_status: %w", err)
+			}
+			c.NewStatus = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChatEventMemberSubscriptionExtended) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.UserID
+}
+
+// GetOldStatus returns value of OldStatus field.
+func (c *ChatEventMemberSubscriptionExtended) GetOldStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
+	return c.OldStatus
+}
+
+// GetNewStatus returns value of NewStatus field.
+func (c *ChatEventMemberSubscriptionExtended) GetNewStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
+	return c.NewStatus
+}
+
 // ChatEventAvailableReactionsChanged represents TL type `chatEventAvailableReactionsChanged#97b8e0bf`.
 type ChatEventAvailableReactionsChanged struct {
 	// Previous chat available reactions
@@ -9626,6 +9880,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
 //	case *tdapi.ChatEventMemberPromoted: // chatEventMemberPromoted#1f4f6861
 //	case *tdapi.ChatEventMemberRestricted: // chatEventMemberRestricted#5f951e05
+//	case *tdapi.ChatEventMemberSubscriptionExtended: // chatEventMemberSubscriptionExtended#bbfab002
 //	case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#97b8e0bf
 //	case *tdapi.ChatEventBackgroundChanged: // chatEventBackgroundChanged#b6ed6d38
 //	case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
@@ -9775,6 +10030,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventMemberRestrictedTypeID:
 		// Decoding chatEventMemberRestricted#5f951e05.
 		v := ChatEventMemberRestricted{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventMemberSubscriptionExtendedTypeID:
+		// Decoding chatEventMemberSubscriptionExtended#bbfab002.
+		v := ChatEventMemberSubscriptionExtended{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -10137,6 +10399,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventMemberRestricted":
 		// Decoding chatEventMemberRestricted#5f951e05.
 		v := ChatEventMemberRestricted{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventMemberSubscriptionExtended":
+		// Decoding chatEventMemberSubscriptionExtended#bbfab002.
+		v := ChatEventMemberSubscriptionExtended{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

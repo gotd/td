@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// LinkPreview represents TL type `linkPreview#52a366d6`.
+// LinkPreview represents TL type `linkPreview#6714d1f2`.
 type LinkPreview struct {
 	// Original URL of the link
 	URL string
@@ -43,6 +43,8 @@ type LinkPreview struct {
 	Title string
 	// Describes a link preview
 	Description FormattedText
+	// Author of the content
+	Author string
 	// Type of the link preview
 	Type LinkPreviewTypeClass
 	// True, if size of media in the preview can be changed
@@ -64,7 +66,7 @@ type LinkPreview struct {
 }
 
 // LinkPreviewTypeID is TL type id of LinkPreview.
-const LinkPreviewTypeID = 0x52a366d6
+const LinkPreviewTypeID = 0x6714d1f2
 
 // Ensuring interfaces in compile-time for LinkPreview.
 var (
@@ -91,6 +93,9 @@ func (l *LinkPreview) Zero() bool {
 		return false
 	}
 	if !(l.Description.Zero()) {
+		return false
+	}
+	if !(l.Author == "") {
 		return false
 	}
 	if !(l.Type == nil) {
@@ -171,6 +176,10 @@ func (l *LinkPreview) TypeInfo() tdp.Type {
 			SchemaName: "description",
 		},
 		{
+			Name:       "Author",
+			SchemaName: "author",
+		},
+		{
 			Name:       "Type",
 			SchemaName: "type",
 		},
@@ -205,7 +214,7 @@ func (l *LinkPreview) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LinkPreview) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreview#52a366d6 as nil")
+		return fmt.Errorf("can't encode linkPreview#6714d1f2 as nil")
 	}
 	b.PutID(LinkPreviewTypeID)
 	return l.EncodeBare(b)
@@ -214,20 +223,21 @@ func (l *LinkPreview) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LinkPreview) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreview#52a366d6 as nil")
+		return fmt.Errorf("can't encode linkPreview#6714d1f2 as nil")
 	}
 	b.PutString(l.URL)
 	b.PutString(l.DisplayURL)
 	b.PutString(l.SiteName)
 	b.PutString(l.Title)
 	if err := l.Description.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode linkPreview#52a366d6: field description: %w", err)
+		return fmt.Errorf("unable to encode linkPreview#6714d1f2: field description: %w", err)
 	}
+	b.PutString(l.Author)
 	if l.Type == nil {
-		return fmt.Errorf("unable to encode linkPreview#52a366d6: field type is nil")
+		return fmt.Errorf("unable to encode linkPreview#6714d1f2: field type is nil")
 	}
 	if err := l.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode linkPreview#52a366d6: field type: %w", err)
+		return fmt.Errorf("unable to encode linkPreview#6714d1f2: field type: %w", err)
 	}
 	b.PutBool(l.HasLargeMedia)
 	b.PutBool(l.ShowLargeMedia)
@@ -241,10 +251,10 @@ func (l *LinkPreview) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *LinkPreview) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreview#52a366d6 to nil")
+		return fmt.Errorf("can't decode linkPreview#6714d1f2 to nil")
 	}
 	if err := b.ConsumeID(LinkPreviewTypeID); err != nil {
-		return fmt.Errorf("unable to decode linkPreview#52a366d6: %w", err)
+		return fmt.Errorf("unable to decode linkPreview#6714d1f2: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -252,87 +262,94 @@ func (l *LinkPreview) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LinkPreview) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreview#52a366d6 to nil")
+		return fmt.Errorf("can't decode linkPreview#6714d1f2 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field url: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field url: %w", err)
 		}
 		l.URL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field display_url: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field display_url: %w", err)
 		}
 		l.DisplayURL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field site_name: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field site_name: %w", err)
 		}
 		l.SiteName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field title: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field title: %w", err)
 		}
 		l.Title = value
 	}
 	{
 		if err := l.Description.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field description: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field description: %w", err)
 		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field author: %w", err)
+		}
+		l.Author = value
 	}
 	{
 		value, err := DecodeLinkPreviewType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field type: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field type: %w", err)
 		}
 		l.Type = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field has_large_media: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field has_large_media: %w", err)
 		}
 		l.HasLargeMedia = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field show_large_media: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field show_large_media: %w", err)
 		}
 		l.ShowLargeMedia = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field show_media_above_description: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field show_media_above_description: %w", err)
 		}
 		l.ShowMediaAboveDescription = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field skip_confirmation: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field skip_confirmation: %w", err)
 		}
 		l.SkipConfirmation = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field show_above_text: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field show_above_text: %w", err)
 		}
 		l.ShowAboveText = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode linkPreview#52a366d6: field instant_view_version: %w", err)
+			return fmt.Errorf("unable to decode linkPreview#6714d1f2: field instant_view_version: %w", err)
 		}
 		l.InstantViewVersion = value
 	}
@@ -342,7 +359,7 @@ func (l *LinkPreview) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LinkPreview) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode linkPreview#52a366d6 as nil")
+		return fmt.Errorf("can't encode linkPreview#6714d1f2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("linkPreview")
@@ -361,15 +378,18 @@ func (l *LinkPreview) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("description")
 	if err := l.Description.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode linkPreview#52a366d6: field description: %w", err)
+		return fmt.Errorf("unable to encode linkPreview#6714d1f2: field description: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("author")
+	b.PutString(l.Author)
 	b.Comma()
 	b.FieldStart("type")
 	if l.Type == nil {
-		return fmt.Errorf("unable to encode linkPreview#52a366d6: field type is nil")
+		return fmt.Errorf("unable to encode linkPreview#6714d1f2: field type is nil")
 	}
 	if err := l.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode linkPreview#52a366d6: field type: %w", err)
+		return fmt.Errorf("unable to encode linkPreview#6714d1f2: field type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("has_large_media")
@@ -398,83 +418,89 @@ func (l *LinkPreview) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LinkPreview) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode linkPreview#52a366d6 to nil")
+		return fmt.Errorf("can't decode linkPreview#6714d1f2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("linkPreview"); err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field url: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field url: %w", err)
 			}
 			l.URL = value
 		case "display_url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field display_url: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field display_url: %w", err)
 			}
 			l.DisplayURL = value
 		case "site_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field site_name: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field site_name: %w", err)
 			}
 			l.SiteName = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field title: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field title: %w", err)
 			}
 			l.Title = value
 		case "description":
 			if err := l.Description.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field description: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field description: %w", err)
 			}
+		case "author":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field author: %w", err)
+			}
+			l.Author = value
 		case "type":
 			value, err := DecodeTDLibJSONLinkPreviewType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field type: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field type: %w", err)
 			}
 			l.Type = value
 		case "has_large_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field has_large_media: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field has_large_media: %w", err)
 			}
 			l.HasLargeMedia = value
 		case "show_large_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field show_large_media: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field show_large_media: %w", err)
 			}
 			l.ShowLargeMedia = value
 		case "show_media_above_description":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field show_media_above_description: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field show_media_above_description: %w", err)
 			}
 			l.ShowMediaAboveDescription = value
 		case "skip_confirmation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field skip_confirmation: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field skip_confirmation: %w", err)
 			}
 			l.SkipConfirmation = value
 		case "show_above_text":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field show_above_text: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field show_above_text: %w", err)
 			}
 			l.ShowAboveText = value
 		case "instant_view_version":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode linkPreview#52a366d6: field instant_view_version: %w", err)
+				return fmt.Errorf("unable to decode linkPreview#6714d1f2: field instant_view_version: %w", err)
 			}
 			l.InstantViewVersion = value
 		default:
@@ -522,6 +548,14 @@ func (l *LinkPreview) GetDescription() (value FormattedText) {
 		return
 	}
 	return l.Description
+}
+
+// GetAuthor returns value of Author field.
+func (l *LinkPreview) GetAuthor() (value string) {
+	if l == nil {
+		return
+	}
+	return l.Author
 }
 
 // GetType returns value of Type field.

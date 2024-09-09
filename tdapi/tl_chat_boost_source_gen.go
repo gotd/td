@@ -232,23 +232,25 @@ func (c *ChatBoostSourceGiftCode) GetGiftCode() (value string) {
 	return c.GiftCode
 }
 
-// ChatBoostSourceGiveaway represents TL type `chatBoostSourceGiveaway#90d1c70`.
+// ChatBoostSourceGiveaway represents TL type `chatBoostSourceGiveaway#7254949a`.
 type ChatBoostSourceGiveaway struct {
 	// Identifier of a user that won in the giveaway; 0 if none
 	UserID int64
 	// The created Telegram Premium gift code if it was used by the user or can be claimed by
-	// the current user; an empty string otherwise
+	// the current user; an empty string otherwise; for Telegram Premium giveways only
 	GiftCode string
+	// Number of Telegram Stars distributed among winners of the giveaway
+	StarCount int64
 	// Identifier of the corresponding giveaway message; can be an identifier of a deleted
 	// message
 	GiveawayMessageID int64
-	// True, if the winner for the corresponding Telegram Premium subscription wasn't chosen,
-	// because there were not enough participants
+	// True, if the winner for the corresponding giveaway prize wasn't chosen, because there
+	// were not enough participants
 	IsUnclaimed bool
 }
 
 // ChatBoostSourceGiveawayTypeID is TL type id of ChatBoostSourceGiveaway.
-const ChatBoostSourceGiveawayTypeID = 0x90d1c70
+const ChatBoostSourceGiveawayTypeID = 0x7254949a
 
 // construct implements constructor of ChatBoostSourceClass.
 func (c ChatBoostSourceGiveaway) construct() ChatBoostSourceClass { return &c }
@@ -271,6 +273,9 @@ func (c *ChatBoostSourceGiveaway) Zero() bool {
 		return false
 	}
 	if !(c.GiftCode == "") {
+		return false
+	}
+	if !(c.StarCount == 0) {
 		return false
 	}
 	if !(c.GiveawayMessageID == 0) {
@@ -324,6 +329,10 @@ func (c *ChatBoostSourceGiveaway) TypeInfo() tdp.Type {
 			SchemaName: "gift_code",
 		},
 		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+		{
 			Name:       "GiveawayMessageID",
 			SchemaName: "giveaway_message_id",
 		},
@@ -338,7 +347,7 @@ func (c *ChatBoostSourceGiveaway) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatBoostSourceGiveaway) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostSourceGiveaway#90d1c70 as nil")
+		return fmt.Errorf("can't encode chatBoostSourceGiveaway#7254949a as nil")
 	}
 	b.PutID(ChatBoostSourceGiveawayTypeID)
 	return c.EncodeBare(b)
@@ -347,10 +356,11 @@ func (c *ChatBoostSourceGiveaway) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatBoostSourceGiveaway) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostSourceGiveaway#90d1c70 as nil")
+		return fmt.Errorf("can't encode chatBoostSourceGiveaway#7254949a as nil")
 	}
 	b.PutInt53(c.UserID)
 	b.PutString(c.GiftCode)
+	b.PutInt53(c.StarCount)
 	b.PutInt53(c.GiveawayMessageID)
 	b.PutBool(c.IsUnclaimed)
 	return nil
@@ -359,10 +369,10 @@ func (c *ChatBoostSourceGiveaway) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatBoostSourceGiveaway) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostSourceGiveaway#90d1c70 to nil")
+		return fmt.Errorf("can't decode chatBoostSourceGiveaway#7254949a to nil")
 	}
 	if err := b.ConsumeID(ChatBoostSourceGiveawayTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: %w", err)
+		return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -370,33 +380,40 @@ func (c *ChatBoostSourceGiveaway) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatBoostSourceGiveaway) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostSourceGiveaway#90d1c70 to nil")
+		return fmt.Errorf("can't decode chatBoostSourceGiveaway#7254949a to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field gift_code: %w", err)
+			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field gift_code: %w", err)
 		}
 		c.GiftCode = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field giveaway_message_id: %w", err)
+			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field star_count: %w", err)
+		}
+		c.StarCount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field giveaway_message_id: %w", err)
 		}
 		c.GiveawayMessageID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field is_unclaimed: %w", err)
+			return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field is_unclaimed: %w", err)
 		}
 		c.IsUnclaimed = value
 	}
@@ -406,7 +423,7 @@ func (c *ChatBoostSourceGiveaway) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatBoostSourceGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostSourceGiveaway#90d1c70 as nil")
+		return fmt.Errorf("can't encode chatBoostSourceGiveaway#7254949a as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatBoostSourceGiveaway")
@@ -416,6 +433,9 @@ func (c *ChatBoostSourceGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("gift_code")
 	b.PutString(c.GiftCode)
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(c.StarCount)
 	b.Comma()
 	b.FieldStart("giveaway_message_id")
 	b.PutInt53(c.GiveawayMessageID)
@@ -431,37 +451,43 @@ func (c *ChatBoostSourceGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatBoostSourceGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostSourceGiveaway#90d1c70 to nil")
+		return fmt.Errorf("can't decode chatBoostSourceGiveaway#7254949a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatBoostSourceGiveaway"); err != nil {
-				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: %w", err)
+				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field user_id: %w", err)
+				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "gift_code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field gift_code: %w", err)
+				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field gift_code: %w", err)
 			}
 			c.GiftCode = value
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field star_count: %w", err)
+			}
+			c.StarCount = value
 		case "giveaway_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field giveaway_message_id: %w", err)
+				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field giveaway_message_id: %w", err)
 			}
 			c.GiveawayMessageID = value
 		case "is_unclaimed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#90d1c70: field is_unclaimed: %w", err)
+				return fmt.Errorf("unable to decode chatBoostSourceGiveaway#7254949a: field is_unclaimed: %w", err)
 			}
 			c.IsUnclaimed = value
 		default:
@@ -485,6 +511,14 @@ func (c *ChatBoostSourceGiveaway) GetGiftCode() (value string) {
 		return
 	}
 	return c.GiftCode
+}
+
+// GetStarCount returns value of StarCount field.
+func (c *ChatBoostSourceGiveaway) GetStarCount() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.StarCount
 }
 
 // GetGiveawayMessageID returns value of GiveawayMessageID field.
@@ -682,7 +716,7 @@ const ChatBoostSourceClassName = "ChatBoostSource"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.ChatBoostSourceGiftCode: // chatBoostSourceGiftCode#fa2412ba
-//	case *tdapi.ChatBoostSourceGiveaway: // chatBoostSourceGiveaway#90d1c70
+//	case *tdapi.ChatBoostSourceGiveaway: // chatBoostSourceGiveaway#7254949a
 //	case *tdapi.ChatBoostSourcePremium: // chatBoostSourcePremium#ed4eb
 //	default: panic(v)
 //	}
@@ -726,7 +760,7 @@ func DecodeChatBoostSource(buf *bin.Buffer) (ChatBoostSourceClass, error) {
 		}
 		return &v, nil
 	case ChatBoostSourceGiveawayTypeID:
-		// Decoding chatBoostSourceGiveaway#90d1c70.
+		// Decoding chatBoostSourceGiveaway#7254949a.
 		v := ChatBoostSourceGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatBoostSourceClass: %w", err)
@@ -759,7 +793,7 @@ func DecodeTDLibJSONChatBoostSource(buf tdjson.Decoder) (ChatBoostSourceClass, e
 		}
 		return &v, nil
 	case "chatBoostSourceGiveaway":
-		// Decoding chatBoostSourceGiveaway#90d1c70.
+		// Decoding chatBoostSourceGiveaway#7254949a.
 		v := ChatBoostSourceGiveaway{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatBoostSourceClass: %w", err)
