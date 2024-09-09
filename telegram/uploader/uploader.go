@@ -83,6 +83,11 @@ func (u *Uploader) Upload(ctx context.Context, upload *Upload) (tg.InputFileClas
 		return nil, err
 	}
 
+	if upload.totalBytes == -1 {
+		upload.big = true
+		upload.totalParts = -1
+	}
+
 	if !upload.big {
 		return u.uploadSmall(ctx, upload)
 	}

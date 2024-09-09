@@ -3,9 +3,7 @@ package uploader
 import (
 	"context"
 	"io"
-
 	"github.com/go-faster/errors"
-
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/syncio"
 	"github.com/gotd/td/tdsync"
@@ -53,13 +51,21 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 	r := syncio.NewReader(upload.from)
 	g.Go(func(ctx context.Context) error {
 		last := false
+		totalSize := 0
 
 		for {
 			buf := u.pool.GetSize(u.partSize)
 
 			n, err := io.ReadFull(r, buf.Buf)
+			if n > 0 {
+				totalSize += n
+			}
 			switch {
 			case errors.Is(err, io.ErrUnexpectedEOF):
+				if upload.totalParts == -1 {
+					tps := (totalSize + u.partSize - 1) / u.partSize
+					upload.totalParts = int(tps)
+				}
 				last = true
 			case errors.Is(err, io.EOF):
 				u.pool.Put(buf)
