@@ -3,10 +3,7 @@ package uploader
 import (
 	"context"
 	"io"
-	"math"
-
 	"github.com/go-faster/errors"
-
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/syncio"
 	"github.com/gotd/td/tdsync"
@@ -66,7 +63,8 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 			switch {
 			case errors.Is(err, io.ErrUnexpectedEOF):
 				if upload.totalParts == -1 {
-					upload.totalParts = int(math.Ceil(float64(totalSize) / float64(u.partSize)))
+					tps := (totalSize + u.partSize - 1) / u.partSize
+					upload.totalParts = int(tps)
 				}
 				last = true
 			case errors.Is(err, io.EOF):
