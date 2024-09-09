@@ -12536,112 +12536,134 @@ func (m *MessagePremiumGiftCode) GetCode() (value string) {
 	return m.Code
 }
 
-// MessagePremiumGiveawayCreated represents TL type `messagePremiumGiveawayCreated#270f2c44`.
-type MessagePremiumGiveawayCreated struct {
+// MessageGiveawayCreated represents TL type `messageGiveawayCreated#39f3639f`.
+type MessageGiveawayCreated struct {
+	// Number of Telegram Stars that will be shared by winners of the giveaway; 0 for
+	// Telegram Premium giveaways
+	StarCount int64
 }
 
-// MessagePremiumGiveawayCreatedTypeID is TL type id of MessagePremiumGiveawayCreated.
-const MessagePremiumGiveawayCreatedTypeID = 0x270f2c44
+// MessageGiveawayCreatedTypeID is TL type id of MessageGiveawayCreated.
+const MessageGiveawayCreatedTypeID = 0x39f3639f
 
 // construct implements constructor of MessageContentClass.
-func (m MessagePremiumGiveawayCreated) construct() MessageContentClass { return &m }
+func (m MessageGiveawayCreated) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessagePremiumGiveawayCreated.
+// Ensuring interfaces in compile-time for MessageGiveawayCreated.
 var (
-	_ bin.Encoder     = &MessagePremiumGiveawayCreated{}
-	_ bin.Decoder     = &MessagePremiumGiveawayCreated{}
-	_ bin.BareEncoder = &MessagePremiumGiveawayCreated{}
-	_ bin.BareDecoder = &MessagePremiumGiveawayCreated{}
+	_ bin.Encoder     = &MessageGiveawayCreated{}
+	_ bin.Decoder     = &MessageGiveawayCreated{}
+	_ bin.BareEncoder = &MessageGiveawayCreated{}
+	_ bin.BareDecoder = &MessageGiveawayCreated{}
 
-	_ MessageContentClass = &MessagePremiumGiveawayCreated{}
+	_ MessageContentClass = &MessageGiveawayCreated{}
 )
 
-func (m *MessagePremiumGiveawayCreated) Zero() bool {
+func (m *MessageGiveawayCreated) Zero() bool {
 	if m == nil {
 		return true
+	}
+	if !(m.StarCount == 0) {
+		return false
 	}
 
 	return true
 }
 
 // String implements fmt.Stringer.
-func (m *MessagePremiumGiveawayCreated) String() string {
+func (m *MessageGiveawayCreated) String() string {
 	if m == nil {
-		return "MessagePremiumGiveawayCreated(nil)"
+		return "MessageGiveawayCreated(nil)"
 	}
-	type Alias MessagePremiumGiveawayCreated
-	return fmt.Sprintf("MessagePremiumGiveawayCreated%+v", Alias(*m))
+	type Alias MessageGiveawayCreated
+	return fmt.Sprintf("MessageGiveawayCreated%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessagePremiumGiveawayCreated) TypeID() uint32 {
-	return MessagePremiumGiveawayCreatedTypeID
+func (*MessageGiveawayCreated) TypeID() uint32 {
+	return MessageGiveawayCreatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessagePremiumGiveawayCreated) TypeName() string {
-	return "messagePremiumGiveawayCreated"
+func (*MessageGiveawayCreated) TypeName() string {
+	return "messageGiveawayCreated"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessagePremiumGiveawayCreated) TypeInfo() tdp.Type {
+func (m *MessageGiveawayCreated) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messagePremiumGiveawayCreated",
-		ID:   MessagePremiumGiveawayCreatedTypeID,
+		Name: "messageGiveawayCreated",
+		ID:   MessageGiveawayCreatedTypeID,
 	}
 	if m == nil {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (m *MessagePremiumGiveawayCreated) Encode(b *bin.Buffer) error {
+func (m *MessageGiveawayCreated) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayCreated#270f2c44 as nil")
+		return fmt.Errorf("can't encode messageGiveawayCreated#39f3639f as nil")
 	}
-	b.PutID(MessagePremiumGiveawayCreatedTypeID)
+	b.PutID(MessageGiveawayCreatedTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessagePremiumGiveawayCreated) EncodeBare(b *bin.Buffer) error {
+func (m *MessageGiveawayCreated) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayCreated#270f2c44 as nil")
+		return fmt.Errorf("can't encode messageGiveawayCreated#39f3639f as nil")
 	}
+	b.PutInt53(m.StarCount)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessagePremiumGiveawayCreated) Decode(b *bin.Buffer) error {
+func (m *MessageGiveawayCreated) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayCreated#270f2c44 to nil")
+		return fmt.Errorf("can't decode messageGiveawayCreated#39f3639f to nil")
 	}
-	if err := b.ConsumeID(MessagePremiumGiveawayCreatedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePremiumGiveawayCreated#270f2c44: %w", err)
+	if err := b.ConsumeID(MessageGiveawayCreatedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageGiveawayCreated#39f3639f: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessagePremiumGiveawayCreated) DecodeBare(b *bin.Buffer) error {
+func (m *MessageGiveawayCreated) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayCreated#270f2c44 to nil")
+		return fmt.Errorf("can't decode messageGiveawayCreated#39f3639f to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayCreated#39f3639f: field star_count: %w", err)
+		}
+		m.StarCount = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessagePremiumGiveawayCreated) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageGiveawayCreated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayCreated#270f2c44 as nil")
+		return fmt.Errorf("can't encode messageGiveawayCreated#39f3639f as nil")
 	}
 	b.ObjStart()
-	b.PutID("messagePremiumGiveawayCreated")
+	b.PutID("messageGiveawayCreated")
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(m.StarCount)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -12649,17 +12671,23 @@ func (m *MessagePremiumGiveawayCreated) EncodeTDLibJSON(b tdjson.Encoder) error 
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessagePremiumGiveawayCreated) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageGiveawayCreated) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayCreated#270f2c44 to nil")
+		return fmt.Errorf("can't decode messageGiveawayCreated#39f3639f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messagePremiumGiveawayCreated"); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayCreated#270f2c44: %w", err)
+			if err := b.ConsumeID("messageGiveawayCreated"); err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayCreated#39f3639f: %w", err)
 			}
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayCreated#39f3639f: field star_count: %w", err)
+			}
+			m.StarCount = value
 		default:
 			return b.Skip()
 		}
@@ -12667,36 +12695,43 @@ func (m *MessagePremiumGiveawayCreated) DecodeTDLibJSON(b tdjson.Decoder) error 
 	})
 }
 
-// MessagePremiumGiveaway represents TL type `messagePremiumGiveaway#4aa0d0b0`.
-type MessagePremiumGiveaway struct {
+// GetStarCount returns value of StarCount field.
+func (m *MessageGiveawayCreated) GetStarCount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.StarCount
+}
+
+// MessageGiveaway represents TL type `messageGiveaway#eb61daa8`.
+type MessageGiveaway struct {
 	// Giveaway parameters
-	Parameters PremiumGiveawayParameters
+	Parameters GiveawayParameters
 	// Number of users which will receive Telegram Premium subscription gift codes
 	WinnerCount int32
-	// Number of months the Telegram Premium subscription will be active after code
-	// activation
-	MonthCount int32
+	// Prize of the giveaway
+	Prize GiveawayPrizeClass
 	// A sticker to be shown in the message; may be null if unknown
 	Sticker Sticker
 }
 
-// MessagePremiumGiveawayTypeID is TL type id of MessagePremiumGiveaway.
-const MessagePremiumGiveawayTypeID = 0x4aa0d0b0
+// MessageGiveawayTypeID is TL type id of MessageGiveaway.
+const MessageGiveawayTypeID = 0xeb61daa8
 
 // construct implements constructor of MessageContentClass.
-func (m MessagePremiumGiveaway) construct() MessageContentClass { return &m }
+func (m MessageGiveaway) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessagePremiumGiveaway.
+// Ensuring interfaces in compile-time for MessageGiveaway.
 var (
-	_ bin.Encoder     = &MessagePremiumGiveaway{}
-	_ bin.Decoder     = &MessagePremiumGiveaway{}
-	_ bin.BareEncoder = &MessagePremiumGiveaway{}
-	_ bin.BareDecoder = &MessagePremiumGiveaway{}
+	_ bin.Encoder     = &MessageGiveaway{}
+	_ bin.Decoder     = &MessageGiveaway{}
+	_ bin.BareEncoder = &MessageGiveaway{}
+	_ bin.BareDecoder = &MessageGiveaway{}
 
-	_ MessageContentClass = &MessagePremiumGiveaway{}
+	_ MessageContentClass = &MessageGiveaway{}
 )
 
-func (m *MessagePremiumGiveaway) Zero() bool {
+func (m *MessageGiveaway) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -12706,7 +12741,7 @@ func (m *MessagePremiumGiveaway) Zero() bool {
 	if !(m.WinnerCount == 0) {
 		return false
 	}
-	if !(m.MonthCount == 0) {
+	if !(m.Prize == nil) {
 		return false
 	}
 	if !(m.Sticker.Zero()) {
@@ -12717,31 +12752,31 @@ func (m *MessagePremiumGiveaway) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessagePremiumGiveaway) String() string {
+func (m *MessageGiveaway) String() string {
 	if m == nil {
-		return "MessagePremiumGiveaway(nil)"
+		return "MessageGiveaway(nil)"
 	}
-	type Alias MessagePremiumGiveaway
-	return fmt.Sprintf("MessagePremiumGiveaway%+v", Alias(*m))
+	type Alias MessageGiveaway
+	return fmt.Sprintf("MessageGiveaway%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessagePremiumGiveaway) TypeID() uint32 {
-	return MessagePremiumGiveawayTypeID
+func (*MessageGiveaway) TypeID() uint32 {
+	return MessageGiveawayTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessagePremiumGiveaway) TypeName() string {
-	return "messagePremiumGiveaway"
+func (*MessageGiveaway) TypeName() string {
+	return "messageGiveaway"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessagePremiumGiveaway) TypeInfo() tdp.Type {
+func (m *MessageGiveaway) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messagePremiumGiveaway",
-		ID:   MessagePremiumGiveawayTypeID,
+		Name: "messageGiveaway",
+		ID:   MessageGiveawayTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -12757,8 +12792,8 @@ func (m *MessagePremiumGiveaway) TypeInfo() tdp.Type {
 			SchemaName: "winner_count",
 		},
 		{
-			Name:       "MonthCount",
-			SchemaName: "month_count",
+			Name:       "Prize",
+			SchemaName: "prize",
 		},
 		{
 			Name:       "Sticker",
@@ -12769,95 +12804,105 @@ func (m *MessagePremiumGiveaway) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessagePremiumGiveaway) Encode(b *bin.Buffer) error {
+func (m *MessageGiveaway) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveaway#4aa0d0b0 as nil")
+		return fmt.Errorf("can't encode messageGiveaway#eb61daa8 as nil")
 	}
-	b.PutID(MessagePremiumGiveawayTypeID)
+	b.PutID(MessageGiveawayTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessagePremiumGiveaway) EncodeBare(b *bin.Buffer) error {
+func (m *MessageGiveaway) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveaway#4aa0d0b0 as nil")
+		return fmt.Errorf("can't encode messageGiveaway#eb61daa8 as nil")
 	}
 	if err := m.Parameters.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiveaway#4aa0d0b0: field parameters: %w", err)
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field parameters: %w", err)
 	}
 	b.PutInt32(m.WinnerCount)
-	b.PutInt32(m.MonthCount)
+	if m.Prize == nil {
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field prize is nil")
+	}
+	if err := m.Prize.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field prize: %w", err)
+	}
 	if err := m.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiveaway#4aa0d0b0: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field sticker: %w", err)
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessagePremiumGiveaway) Decode(b *bin.Buffer) error {
+func (m *MessageGiveaway) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveaway#4aa0d0b0 to nil")
+		return fmt.Errorf("can't decode messageGiveaway#eb61daa8 to nil")
 	}
-	if err := b.ConsumeID(MessagePremiumGiveawayTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: %w", err)
+	if err := b.ConsumeID(MessageGiveawayTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessagePremiumGiveaway) DecodeBare(b *bin.Buffer) error {
+func (m *MessageGiveaway) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveaway#4aa0d0b0 to nil")
+		return fmt.Errorf("can't decode messageGiveaway#eb61daa8 to nil")
 	}
 	{
 		if err := m.Parameters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field parameters: %w", err)
+			return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field parameters: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field winner_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field winner_count: %w", err)
 		}
 		m.WinnerCount = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := DecodeGiveawayPrize(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field month_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field prize: %w", err)
 		}
-		m.MonthCount = value
+		m.Prize = value
 	}
 	{
 		if err := m.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field sticker: %w", err)
+			return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field sticker: %w", err)
 		}
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessagePremiumGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveaway#4aa0d0b0 as nil")
+		return fmt.Errorf("can't encode messageGiveaway#eb61daa8 as nil")
 	}
 	b.ObjStart()
-	b.PutID("messagePremiumGiveaway")
+	b.PutID("messageGiveaway")
 	b.Comma()
 	b.FieldStart("parameters")
 	if err := m.Parameters.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiveaway#4aa0d0b0: field parameters: %w", err)
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field parameters: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("winner_count")
 	b.PutInt32(m.WinnerCount)
 	b.Comma()
-	b.FieldStart("month_count")
-	b.PutInt32(m.MonthCount)
+	b.FieldStart("prize")
+	if m.Prize == nil {
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field prize is nil")
+	}
+	if err := m.Prize.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field prize: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiveaway#4aa0d0b0: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiveaway#eb61daa8: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -12866,36 +12911,36 @@ func (m *MessagePremiumGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessagePremiumGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveaway#4aa0d0b0 to nil")
+		return fmt.Errorf("can't decode messageGiveaway#eb61daa8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messagePremiumGiveaway"); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: %w", err)
+			if err := b.ConsumeID("messageGiveaway"); err != nil {
+				return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: %w", err)
 			}
 		case "parameters":
 			if err := m.Parameters.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field parameters: %w", err)
+				return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field parameters: %w", err)
 			}
 		case "winner_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field winner_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field winner_count: %w", err)
 			}
 			m.WinnerCount = value
-		case "month_count":
-			value, err := b.Int32()
+		case "prize":
+			value, err := DecodeTDLibJSONGiveawayPrize(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field month_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field prize: %w", err)
 			}
-			m.MonthCount = value
+			m.Prize = value
 		case "sticker":
 			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveaway#4aa0d0b0: field sticker: %w", err)
+				return fmt.Errorf("unable to decode messageGiveaway#eb61daa8: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -12905,7 +12950,7 @@ func (m *MessagePremiumGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetParameters returns value of Parameters field.
-func (m *MessagePremiumGiveaway) GetParameters() (value PremiumGiveawayParameters) {
+func (m *MessageGiveaway) GetParameters() (value GiveawayParameters) {
 	if m == nil {
 		return
 	}
@@ -12913,56 +12958,58 @@ func (m *MessagePremiumGiveaway) GetParameters() (value PremiumGiveawayParameter
 }
 
 // GetWinnerCount returns value of WinnerCount field.
-func (m *MessagePremiumGiveaway) GetWinnerCount() (value int32) {
+func (m *MessageGiveaway) GetWinnerCount() (value int32) {
 	if m == nil {
 		return
 	}
 	return m.WinnerCount
 }
 
-// GetMonthCount returns value of MonthCount field.
-func (m *MessagePremiumGiveaway) GetMonthCount() (value int32) {
+// GetPrize returns value of Prize field.
+func (m *MessageGiveaway) GetPrize() (value GiveawayPrizeClass) {
 	if m == nil {
 		return
 	}
-	return m.MonthCount
+	return m.Prize
 }
 
 // GetSticker returns value of Sticker field.
-func (m *MessagePremiumGiveaway) GetSticker() (value Sticker) {
+func (m *MessageGiveaway) GetSticker() (value Sticker) {
 	if m == nil {
 		return
 	}
 	return m.Sticker
 }
 
-// MessagePremiumGiveawayCompleted represents TL type `messagePremiumGiveawayCompleted#80533949`.
-type MessagePremiumGiveawayCompleted struct {
+// MessageGiveawayCompleted represents TL type `messageGiveawayCompleted#e424c8f7`.
+type MessageGiveawayCompleted struct {
 	// Identifier of the message with the giveaway; can be 0 if the message was deleted
 	GiveawayMessageID int64
 	// Number of winners in the giveaway
 	WinnerCount int32
-	// Number of undistributed prizes
+	// True, if the giveaway is a Telegram Star giveaway
+	IsStarGiveaway bool
+	// Number of undistributed prizes; for Telegram Premium giveaways only
 	UnclaimedPrizeCount int32
 }
 
-// MessagePremiumGiveawayCompletedTypeID is TL type id of MessagePremiumGiveawayCompleted.
-const MessagePremiumGiveawayCompletedTypeID = 0x80533949
+// MessageGiveawayCompletedTypeID is TL type id of MessageGiveawayCompleted.
+const MessageGiveawayCompletedTypeID = 0xe424c8f7
 
 // construct implements constructor of MessageContentClass.
-func (m MessagePremiumGiveawayCompleted) construct() MessageContentClass { return &m }
+func (m MessageGiveawayCompleted) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessagePremiumGiveawayCompleted.
+// Ensuring interfaces in compile-time for MessageGiveawayCompleted.
 var (
-	_ bin.Encoder     = &MessagePremiumGiveawayCompleted{}
-	_ bin.Decoder     = &MessagePremiumGiveawayCompleted{}
-	_ bin.BareEncoder = &MessagePremiumGiveawayCompleted{}
-	_ bin.BareDecoder = &MessagePremiumGiveawayCompleted{}
+	_ bin.Encoder     = &MessageGiveawayCompleted{}
+	_ bin.Decoder     = &MessageGiveawayCompleted{}
+	_ bin.BareEncoder = &MessageGiveawayCompleted{}
+	_ bin.BareDecoder = &MessageGiveawayCompleted{}
 
-	_ MessageContentClass = &MessagePremiumGiveawayCompleted{}
+	_ MessageContentClass = &MessageGiveawayCompleted{}
 )
 
-func (m *MessagePremiumGiveawayCompleted) Zero() bool {
+func (m *MessageGiveawayCompleted) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -12970,6 +13017,9 @@ func (m *MessagePremiumGiveawayCompleted) Zero() bool {
 		return false
 	}
 	if !(m.WinnerCount == 0) {
+		return false
+	}
+	if !(m.IsStarGiveaway == false) {
 		return false
 	}
 	if !(m.UnclaimedPrizeCount == 0) {
@@ -12980,31 +13030,31 @@ func (m *MessagePremiumGiveawayCompleted) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessagePremiumGiveawayCompleted) String() string {
+func (m *MessageGiveawayCompleted) String() string {
 	if m == nil {
-		return "MessagePremiumGiveawayCompleted(nil)"
+		return "MessageGiveawayCompleted(nil)"
 	}
-	type Alias MessagePremiumGiveawayCompleted
-	return fmt.Sprintf("MessagePremiumGiveawayCompleted%+v", Alias(*m))
+	type Alias MessageGiveawayCompleted
+	return fmt.Sprintf("MessageGiveawayCompleted%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessagePremiumGiveawayCompleted) TypeID() uint32 {
-	return MessagePremiumGiveawayCompletedTypeID
+func (*MessageGiveawayCompleted) TypeID() uint32 {
+	return MessageGiveawayCompletedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessagePremiumGiveawayCompleted) TypeName() string {
-	return "messagePremiumGiveawayCompleted"
+func (*MessageGiveawayCompleted) TypeName() string {
+	return "messageGiveawayCompleted"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessagePremiumGiveawayCompleted) TypeInfo() tdp.Type {
+func (m *MessageGiveawayCompleted) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messagePremiumGiveawayCompleted",
-		ID:   MessagePremiumGiveawayCompletedTypeID,
+		Name: "messageGiveawayCompleted",
+		ID:   MessageGiveawayCompletedTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -13020,6 +13070,10 @@ func (m *MessagePremiumGiveawayCompleted) TypeInfo() tdp.Type {
 			SchemaName: "winner_count",
 		},
 		{
+			Name:       "IsStarGiveaway",
+			SchemaName: "is_star_giveaway",
+		},
+		{
 			Name:       "UnclaimedPrizeCount",
 			SchemaName: "unclaimed_prize_count",
 		},
@@ -13028,59 +13082,67 @@ func (m *MessagePremiumGiveawayCompleted) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessagePremiumGiveawayCompleted) Encode(b *bin.Buffer) error {
+func (m *MessageGiveawayCompleted) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayCompleted#80533949 as nil")
+		return fmt.Errorf("can't encode messageGiveawayCompleted#e424c8f7 as nil")
 	}
-	b.PutID(MessagePremiumGiveawayCompletedTypeID)
+	b.PutID(MessageGiveawayCompletedTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessagePremiumGiveawayCompleted) EncodeBare(b *bin.Buffer) error {
+func (m *MessageGiveawayCompleted) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayCompleted#80533949 as nil")
+		return fmt.Errorf("can't encode messageGiveawayCompleted#e424c8f7 as nil")
 	}
 	b.PutInt53(m.GiveawayMessageID)
 	b.PutInt32(m.WinnerCount)
+	b.PutBool(m.IsStarGiveaway)
 	b.PutInt32(m.UnclaimedPrizeCount)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessagePremiumGiveawayCompleted) Decode(b *bin.Buffer) error {
+func (m *MessageGiveawayCompleted) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayCompleted#80533949 to nil")
+		return fmt.Errorf("can't decode messageGiveawayCompleted#e424c8f7 to nil")
 	}
-	if err := b.ConsumeID(MessagePremiumGiveawayCompletedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: %w", err)
+	if err := b.ConsumeID(MessageGiveawayCompletedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessagePremiumGiveawayCompleted) DecodeBare(b *bin.Buffer) error {
+func (m *MessageGiveawayCompleted) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayCompleted#80533949 to nil")
+		return fmt.Errorf("can't decode messageGiveawayCompleted#e424c8f7 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field giveaway_message_id: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field giveaway_message_id: %w", err)
 		}
 		m.GiveawayMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field winner_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field winner_count: %w", err)
 		}
 		m.WinnerCount = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field is_star_giveaway: %w", err)
+		}
+		m.IsStarGiveaway = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field unclaimed_prize_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field unclaimed_prize_count: %w", err)
 		}
 		m.UnclaimedPrizeCount = value
 	}
@@ -13088,18 +13150,21 @@ func (m *MessagePremiumGiveawayCompleted) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessagePremiumGiveawayCompleted) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageGiveawayCompleted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayCompleted#80533949 as nil")
+		return fmt.Errorf("can't encode messageGiveawayCompleted#e424c8f7 as nil")
 	}
 	b.ObjStart()
-	b.PutID("messagePremiumGiveawayCompleted")
+	b.PutID("messageGiveawayCompleted")
 	b.Comma()
 	b.FieldStart("giveaway_message_id")
 	b.PutInt53(m.GiveawayMessageID)
 	b.Comma()
 	b.FieldStart("winner_count")
 	b.PutInt32(m.WinnerCount)
+	b.Comma()
+	b.FieldStart("is_star_giveaway")
+	b.PutBool(m.IsStarGiveaway)
 	b.Comma()
 	b.FieldStart("unclaimed_prize_count")
 	b.PutInt32(m.UnclaimedPrizeCount)
@@ -13110,33 +13175,39 @@ func (m *MessagePremiumGiveawayCompleted) EncodeTDLibJSON(b tdjson.Encoder) erro
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessagePremiumGiveawayCompleted) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageGiveawayCompleted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayCompleted#80533949 to nil")
+		return fmt.Errorf("can't decode messageGiveawayCompleted#e424c8f7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messagePremiumGiveawayCompleted"); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: %w", err)
+			if err := b.ConsumeID("messageGiveawayCompleted"); err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: %w", err)
 			}
 		case "giveaway_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field giveaway_message_id: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field giveaway_message_id: %w", err)
 			}
 			m.GiveawayMessageID = value
 		case "winner_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field winner_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field winner_count: %w", err)
 			}
 			m.WinnerCount = value
+		case "is_star_giveaway":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field is_star_giveaway: %w", err)
+			}
+			m.IsStarGiveaway = value
 		case "unclaimed_prize_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field unclaimed_prize_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayCompleted#e424c8f7: field unclaimed_prize_count: %w", err)
 			}
 			m.UnclaimedPrizeCount = value
 		default:
@@ -13147,7 +13218,7 @@ func (m *MessagePremiumGiveawayCompleted) DecodeTDLibJSON(b tdjson.Decoder) erro
 }
 
 // GetGiveawayMessageID returns value of GiveawayMessageID field.
-func (m *MessagePremiumGiveawayCompleted) GetGiveawayMessageID() (value int64) {
+func (m *MessageGiveawayCompleted) GetGiveawayMessageID() (value int64) {
 	if m == nil {
 		return
 	}
@@ -13155,25 +13226,33 @@ func (m *MessagePremiumGiveawayCompleted) GetGiveawayMessageID() (value int64) {
 }
 
 // GetWinnerCount returns value of WinnerCount field.
-func (m *MessagePremiumGiveawayCompleted) GetWinnerCount() (value int32) {
+func (m *MessageGiveawayCompleted) GetWinnerCount() (value int32) {
 	if m == nil {
 		return
 	}
 	return m.WinnerCount
 }
 
+// GetIsStarGiveaway returns value of IsStarGiveaway field.
+func (m *MessageGiveawayCompleted) GetIsStarGiveaway() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.IsStarGiveaway
+}
+
 // GetUnclaimedPrizeCount returns value of UnclaimedPrizeCount field.
-func (m *MessagePremiumGiveawayCompleted) GetUnclaimedPrizeCount() (value int32) {
+func (m *MessageGiveawayCompleted) GetUnclaimedPrizeCount() (value int32) {
 	if m == nil {
 		return
 	}
 	return m.UnclaimedPrizeCount
 }
 
-// MessagePremiumGiveawayWinners represents TL type `messagePremiumGiveawayWinners#815d5f31`.
-type MessagePremiumGiveawayWinners struct {
-	// Identifier of the channel chat, which was automatically boosted by the winners of the
-	// giveaway for duration of the Premium subscription
+// MessageGiveawayWinners represents TL type `messageGiveawayWinners#1d99a27a`.
+type MessageGiveawayWinners struct {
+	// Identifier of the supergroup or channel chat, which was automatically boosted by the
+	// winners of the giveaway
 	BoostedChatID int64
 	// Identifier of the message with the giveaway in the boosted chat
 	GiveawayMessageID int64
@@ -13186,36 +13265,35 @@ type MessagePremiumGiveawayWinners struct {
 	OnlyNewMembers bool
 	// True, if the giveaway was canceled and was fully refunded
 	WasRefunded bool
-	// Number of months the Telegram Premium subscription will be active after code
-	// activation
-	MonthCount int32
+	// Prize of the giveaway
+	Prize GiveawayPrizeClass
 	// Additional description of the giveaway prize
 	PrizeDescription string
 	// Total number of winners in the giveaway
 	WinnerCount int32
 	// Up to 100 user identifiers of the winners of the giveaway
 	WinnerUserIDs []int64
-	// Number of undistributed prizes
+	// Number of undistributed prizes; for Telegram Premium giveaways only
 	UnclaimedPrizeCount int32
 }
 
-// MessagePremiumGiveawayWinnersTypeID is TL type id of MessagePremiumGiveawayWinners.
-const MessagePremiumGiveawayWinnersTypeID = 0x815d5f31
+// MessageGiveawayWinnersTypeID is TL type id of MessageGiveawayWinners.
+const MessageGiveawayWinnersTypeID = 0x1d99a27a
 
 // construct implements constructor of MessageContentClass.
-func (m MessagePremiumGiveawayWinners) construct() MessageContentClass { return &m }
+func (m MessageGiveawayWinners) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessagePremiumGiveawayWinners.
+// Ensuring interfaces in compile-time for MessageGiveawayWinners.
 var (
-	_ bin.Encoder     = &MessagePremiumGiveawayWinners{}
-	_ bin.Decoder     = &MessagePremiumGiveawayWinners{}
-	_ bin.BareEncoder = &MessagePremiumGiveawayWinners{}
-	_ bin.BareDecoder = &MessagePremiumGiveawayWinners{}
+	_ bin.Encoder     = &MessageGiveawayWinners{}
+	_ bin.Decoder     = &MessageGiveawayWinners{}
+	_ bin.BareEncoder = &MessageGiveawayWinners{}
+	_ bin.BareDecoder = &MessageGiveawayWinners{}
 
-	_ MessageContentClass = &MessagePremiumGiveawayWinners{}
+	_ MessageContentClass = &MessageGiveawayWinners{}
 )
 
-func (m *MessagePremiumGiveawayWinners) Zero() bool {
+func (m *MessageGiveawayWinners) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -13237,7 +13315,7 @@ func (m *MessagePremiumGiveawayWinners) Zero() bool {
 	if !(m.WasRefunded == false) {
 		return false
 	}
-	if !(m.MonthCount == 0) {
+	if !(m.Prize == nil) {
 		return false
 	}
 	if !(m.PrizeDescription == "") {
@@ -13257,31 +13335,31 @@ func (m *MessagePremiumGiveawayWinners) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessagePremiumGiveawayWinners) String() string {
+func (m *MessageGiveawayWinners) String() string {
 	if m == nil {
-		return "MessagePremiumGiveawayWinners(nil)"
+		return "MessageGiveawayWinners(nil)"
 	}
-	type Alias MessagePremiumGiveawayWinners
-	return fmt.Sprintf("MessagePremiumGiveawayWinners%+v", Alias(*m))
+	type Alias MessageGiveawayWinners
+	return fmt.Sprintf("MessageGiveawayWinners%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessagePremiumGiveawayWinners) TypeID() uint32 {
-	return MessagePremiumGiveawayWinnersTypeID
+func (*MessageGiveawayWinners) TypeID() uint32 {
+	return MessageGiveawayWinnersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessagePremiumGiveawayWinners) TypeName() string {
-	return "messagePremiumGiveawayWinners"
+func (*MessageGiveawayWinners) TypeName() string {
+	return "messageGiveawayWinners"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessagePremiumGiveawayWinners) TypeInfo() tdp.Type {
+func (m *MessageGiveawayWinners) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messagePremiumGiveawayWinners",
-		ID:   MessagePremiumGiveawayWinnersTypeID,
+		Name: "messageGiveawayWinners",
+		ID:   MessageGiveawayWinnersTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -13313,8 +13391,8 @@ func (m *MessagePremiumGiveawayWinners) TypeInfo() tdp.Type {
 			SchemaName: "was_refunded",
 		},
 		{
-			Name:       "MonthCount",
-			SchemaName: "month_count",
+			Name:       "Prize",
+			SchemaName: "prize",
 		},
 		{
 			Name:       "PrizeDescription",
@@ -13337,18 +13415,18 @@ func (m *MessagePremiumGiveawayWinners) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessagePremiumGiveawayWinners) Encode(b *bin.Buffer) error {
+func (m *MessageGiveawayWinners) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayWinners#815d5f31 as nil")
+		return fmt.Errorf("can't encode messageGiveawayWinners#1d99a27a as nil")
 	}
-	b.PutID(MessagePremiumGiveawayWinnersTypeID)
+	b.PutID(MessageGiveawayWinnersTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessagePremiumGiveawayWinners) EncodeBare(b *bin.Buffer) error {
+func (m *MessageGiveawayWinners) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayWinners#815d5f31 as nil")
+		return fmt.Errorf("can't encode messageGiveawayWinners#1d99a27a as nil")
 	}
 	b.PutInt53(m.BoostedChatID)
 	b.PutInt53(m.GiveawayMessageID)
@@ -13356,7 +13434,12 @@ func (m *MessagePremiumGiveawayWinners) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(m.ActualWinnersSelectionDate)
 	b.PutBool(m.OnlyNewMembers)
 	b.PutBool(m.WasRefunded)
-	b.PutInt32(m.MonthCount)
+	if m.Prize == nil {
+		return fmt.Errorf("unable to encode messageGiveawayWinners#1d99a27a: field prize is nil")
+	}
+	if err := m.Prize.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiveawayWinners#1d99a27a: field prize: %w", err)
+	}
 	b.PutString(m.PrizeDescription)
 	b.PutInt32(m.WinnerCount)
 	b.PutInt(len(m.WinnerUserIDs))
@@ -13368,88 +13451,88 @@ func (m *MessagePremiumGiveawayWinners) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (m *MessagePremiumGiveawayWinners) Decode(b *bin.Buffer) error {
+func (m *MessageGiveawayWinners) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayWinners#815d5f31 to nil")
+		return fmt.Errorf("can't decode messageGiveawayWinners#1d99a27a to nil")
 	}
-	if err := b.ConsumeID(MessagePremiumGiveawayWinnersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: %w", err)
+	if err := b.ConsumeID(MessageGiveawayWinnersTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessagePremiumGiveawayWinners) DecodeBare(b *bin.Buffer) error {
+func (m *MessageGiveawayWinners) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayWinners#815d5f31 to nil")
+		return fmt.Errorf("can't decode messageGiveawayWinners#1d99a27a to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field boosted_chat_id: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field boosted_chat_id: %w", err)
 		}
 		m.BoostedChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field giveaway_message_id: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field giveaway_message_id: %w", err)
 		}
 		m.GiveawayMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field additional_chat_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field additional_chat_count: %w", err)
 		}
 		m.AdditionalChatCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field actual_winners_selection_date: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field actual_winners_selection_date: %w", err)
 		}
 		m.ActualWinnersSelectionDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field only_new_members: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field only_new_members: %w", err)
 		}
 		m.OnlyNewMembers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field was_refunded: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field was_refunded: %w", err)
 		}
 		m.WasRefunded = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := DecodeGiveawayPrize(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field month_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field prize: %w", err)
 		}
-		m.MonthCount = value
+		m.Prize = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field prize_description: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field prize_description: %w", err)
 		}
 		m.PrizeDescription = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field winner_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field winner_count: %w", err)
 		}
 		m.WinnerCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field winner_user_ids: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field winner_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -13458,7 +13541,7 @@ func (m *MessagePremiumGiveawayWinners) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field winner_user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field winner_user_ids: %w", err)
 			}
 			m.WinnerUserIDs = append(m.WinnerUserIDs, value)
 		}
@@ -13466,7 +13549,7 @@ func (m *MessagePremiumGiveawayWinners) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field unclaimed_prize_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field unclaimed_prize_count: %w", err)
 		}
 		m.UnclaimedPrizeCount = value
 	}
@@ -13474,12 +13557,12 @@ func (m *MessagePremiumGiveawayWinners) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessagePremiumGiveawayWinners) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageGiveawayWinners) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiveawayWinners#815d5f31 as nil")
+		return fmt.Errorf("can't encode messageGiveawayWinners#1d99a27a as nil")
 	}
 	b.ObjStart()
-	b.PutID("messagePremiumGiveawayWinners")
+	b.PutID("messageGiveawayWinners")
 	b.Comma()
 	b.FieldStart("boosted_chat_id")
 	b.PutInt53(m.BoostedChatID)
@@ -13499,8 +13582,13 @@ func (m *MessagePremiumGiveawayWinners) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.FieldStart("was_refunded")
 	b.PutBool(m.WasRefunded)
 	b.Comma()
-	b.FieldStart("month_count")
-	b.PutInt32(m.MonthCount)
+	b.FieldStart("prize")
+	if m.Prize == nil {
+		return fmt.Errorf("unable to encode messageGiveawayWinners#1d99a27a: field prize is nil")
+	}
+	if err := m.Prize.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiveawayWinners#1d99a27a: field prize: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("prize_description")
 	b.PutString(m.PrizeDescription)
@@ -13526,86 +13614,86 @@ func (m *MessagePremiumGiveawayWinners) EncodeTDLibJSON(b tdjson.Encoder) error 
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessagePremiumGiveawayWinners) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageGiveawayWinners) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiveawayWinners#815d5f31 to nil")
+		return fmt.Errorf("can't decode messageGiveawayWinners#1d99a27a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messagePremiumGiveawayWinners"); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: %w", err)
+			if err := b.ConsumeID("messageGiveawayWinners"); err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: %w", err)
 			}
 		case "boosted_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field boosted_chat_id: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field boosted_chat_id: %w", err)
 			}
 			m.BoostedChatID = value
 		case "giveaway_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field giveaway_message_id: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field giveaway_message_id: %w", err)
 			}
 			m.GiveawayMessageID = value
 		case "additional_chat_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field additional_chat_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field additional_chat_count: %w", err)
 			}
 			m.AdditionalChatCount = value
 		case "actual_winners_selection_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field actual_winners_selection_date: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field actual_winners_selection_date: %w", err)
 			}
 			m.ActualWinnersSelectionDate = value
 		case "only_new_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field only_new_members: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field only_new_members: %w", err)
 			}
 			m.OnlyNewMembers = value
 		case "was_refunded":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field was_refunded: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field was_refunded: %w", err)
 			}
 			m.WasRefunded = value
-		case "month_count":
-			value, err := b.Int32()
+		case "prize":
+			value, err := DecodeTDLibJSONGiveawayPrize(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field month_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field prize: %w", err)
 			}
-			m.MonthCount = value
+			m.Prize = value
 		case "prize_description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field prize_description: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field prize_description: %w", err)
 			}
 			m.PrizeDescription = value
 		case "winner_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field winner_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field winner_count: %w", err)
 			}
 			m.WinnerCount = value
 		case "winner_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field winner_user_ids: %w", err)
+					return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field winner_user_ids: %w", err)
 				}
 				m.WinnerUserIDs = append(m.WinnerUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field winner_user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field winner_user_ids: %w", err)
 			}
 		case "unclaimed_prize_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiveawayWinners#815d5f31: field unclaimed_prize_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiveawayWinners#1d99a27a: field unclaimed_prize_count: %w", err)
 			}
 			m.UnclaimedPrizeCount = value
 		default:
@@ -13616,7 +13704,7 @@ func (m *MessagePremiumGiveawayWinners) DecodeTDLibJSON(b tdjson.Decoder) error 
 }
 
 // GetBoostedChatID returns value of BoostedChatID field.
-func (m *MessagePremiumGiveawayWinners) GetBoostedChatID() (value int64) {
+func (m *MessageGiveawayWinners) GetBoostedChatID() (value int64) {
 	if m == nil {
 		return
 	}
@@ -13624,7 +13712,7 @@ func (m *MessagePremiumGiveawayWinners) GetBoostedChatID() (value int64) {
 }
 
 // GetGiveawayMessageID returns value of GiveawayMessageID field.
-func (m *MessagePremiumGiveawayWinners) GetGiveawayMessageID() (value int64) {
+func (m *MessageGiveawayWinners) GetGiveawayMessageID() (value int64) {
 	if m == nil {
 		return
 	}
@@ -13632,7 +13720,7 @@ func (m *MessagePremiumGiveawayWinners) GetGiveawayMessageID() (value int64) {
 }
 
 // GetAdditionalChatCount returns value of AdditionalChatCount field.
-func (m *MessagePremiumGiveawayWinners) GetAdditionalChatCount() (value int32) {
+func (m *MessageGiveawayWinners) GetAdditionalChatCount() (value int32) {
 	if m == nil {
 		return
 	}
@@ -13640,7 +13728,7 @@ func (m *MessagePremiumGiveawayWinners) GetAdditionalChatCount() (value int32) {
 }
 
 // GetActualWinnersSelectionDate returns value of ActualWinnersSelectionDate field.
-func (m *MessagePremiumGiveawayWinners) GetActualWinnersSelectionDate() (value int32) {
+func (m *MessageGiveawayWinners) GetActualWinnersSelectionDate() (value int32) {
 	if m == nil {
 		return
 	}
@@ -13648,7 +13736,7 @@ func (m *MessagePremiumGiveawayWinners) GetActualWinnersSelectionDate() (value i
 }
 
 // GetOnlyNewMembers returns value of OnlyNewMembers field.
-func (m *MessagePremiumGiveawayWinners) GetOnlyNewMembers() (value bool) {
+func (m *MessageGiveawayWinners) GetOnlyNewMembers() (value bool) {
 	if m == nil {
 		return
 	}
@@ -13656,23 +13744,23 @@ func (m *MessagePremiumGiveawayWinners) GetOnlyNewMembers() (value bool) {
 }
 
 // GetWasRefunded returns value of WasRefunded field.
-func (m *MessagePremiumGiveawayWinners) GetWasRefunded() (value bool) {
+func (m *MessageGiveawayWinners) GetWasRefunded() (value bool) {
 	if m == nil {
 		return
 	}
 	return m.WasRefunded
 }
 
-// GetMonthCount returns value of MonthCount field.
-func (m *MessagePremiumGiveawayWinners) GetMonthCount() (value int32) {
+// GetPrize returns value of Prize field.
+func (m *MessageGiveawayWinners) GetPrize() (value GiveawayPrizeClass) {
 	if m == nil {
 		return
 	}
-	return m.MonthCount
+	return m.Prize
 }
 
 // GetPrizeDescription returns value of PrizeDescription field.
-func (m *MessagePremiumGiveawayWinners) GetPrizeDescription() (value string) {
+func (m *MessageGiveawayWinners) GetPrizeDescription() (value string) {
 	if m == nil {
 		return
 	}
@@ -13680,7 +13768,7 @@ func (m *MessagePremiumGiveawayWinners) GetPrizeDescription() (value string) {
 }
 
 // GetWinnerCount returns value of WinnerCount field.
-func (m *MessagePremiumGiveawayWinners) GetWinnerCount() (value int32) {
+func (m *MessageGiveawayWinners) GetWinnerCount() (value int32) {
 	if m == nil {
 		return
 	}
@@ -13688,7 +13776,7 @@ func (m *MessagePremiumGiveawayWinners) GetWinnerCount() (value int32) {
 }
 
 // GetWinnerUserIDs returns value of WinnerUserIDs field.
-func (m *MessagePremiumGiveawayWinners) GetWinnerUserIDs() (value []int64) {
+func (m *MessageGiveawayWinners) GetWinnerUserIDs() (value []int64) {
 	if m == nil {
 		return
 	}
@@ -13696,7 +13784,7 @@ func (m *MessagePremiumGiveawayWinners) GetWinnerUserIDs() (value []int64) {
 }
 
 // GetUnclaimedPrizeCount returns value of UnclaimedPrizeCount field.
-func (m *MessagePremiumGiveawayWinners) GetUnclaimedPrizeCount() (value int32) {
+func (m *MessageGiveawayWinners) GetUnclaimedPrizeCount() (value int32) {
 	if m == nil {
 		return
 	}
@@ -14136,6 +14224,345 @@ func (m *MessageGiftedStars) GetTransactionID() (value string) {
 
 // GetSticker returns value of Sticker field.
 func (m *MessageGiftedStars) GetSticker() (value Sticker) {
+	if m == nil {
+		return
+	}
+	return m.Sticker
+}
+
+// MessageGiveawayPrizeStars represents TL type `messageGiveawayPrizeStars#aa0f5de3`.
+type MessageGiveawayPrizeStars struct {
+	// Number of Telegram Stars that were received
+	StarCount int64
+	// Identifier of the transaction for Telegram Stars credit
+	TransactionID string
+	// Identifier of the supergroup or channel chat, which was automatically boosted by the
+	// winners of the giveaway
+	BoostedChatID int64
+	// Identifier of the message with the giveaway in the boosted chat; can be 0 if the
+	// message was deleted
+	GiveawayMessageID int64
+	// True, if the corresponding winner wasn't chosen and the Telegram Stars were received
+	// by the owner of the boosted chat
+	IsUnclaimed bool
+	// A sticker to be shown in the message; may be null if unknown
+	Sticker Sticker
+}
+
+// MessageGiveawayPrizeStarsTypeID is TL type id of MessageGiveawayPrizeStars.
+const MessageGiveawayPrizeStarsTypeID = 0xaa0f5de3
+
+// construct implements constructor of MessageContentClass.
+func (m MessageGiveawayPrizeStars) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageGiveawayPrizeStars.
+var (
+	_ bin.Encoder     = &MessageGiveawayPrizeStars{}
+	_ bin.Decoder     = &MessageGiveawayPrizeStars{}
+	_ bin.BareEncoder = &MessageGiveawayPrizeStars{}
+	_ bin.BareDecoder = &MessageGiveawayPrizeStars{}
+
+	_ MessageContentClass = &MessageGiveawayPrizeStars{}
+)
+
+func (m *MessageGiveawayPrizeStars) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.StarCount == 0) {
+		return false
+	}
+	if !(m.TransactionID == "") {
+		return false
+	}
+	if !(m.BoostedChatID == 0) {
+		return false
+	}
+	if !(m.GiveawayMessageID == 0) {
+		return false
+	}
+	if !(m.IsUnclaimed == false) {
+		return false
+	}
+	if !(m.Sticker.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageGiveawayPrizeStars) String() string {
+	if m == nil {
+		return "MessageGiveawayPrizeStars(nil)"
+	}
+	type Alias MessageGiveawayPrizeStars
+	return fmt.Sprintf("MessageGiveawayPrizeStars%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageGiveawayPrizeStars) TypeID() uint32 {
+	return MessageGiveawayPrizeStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageGiveawayPrizeStars) TypeName() string {
+	return "messageGiveawayPrizeStars"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageGiveawayPrizeStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageGiveawayPrizeStars",
+		ID:   MessageGiveawayPrizeStarsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StarCount",
+			SchemaName: "star_count",
+		},
+		{
+			Name:       "TransactionID",
+			SchemaName: "transaction_id",
+		},
+		{
+			Name:       "BoostedChatID",
+			SchemaName: "boosted_chat_id",
+		},
+		{
+			Name:       "GiveawayMessageID",
+			SchemaName: "giveaway_message_id",
+		},
+		{
+			Name:       "IsUnclaimed",
+			SchemaName: "is_unclaimed",
+		},
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageGiveawayPrizeStars) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageGiveawayPrizeStars#aa0f5de3 as nil")
+	}
+	b.PutID(MessageGiveawayPrizeStarsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageGiveawayPrizeStars) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageGiveawayPrizeStars#aa0f5de3 as nil")
+	}
+	b.PutInt53(m.StarCount)
+	b.PutString(m.TransactionID)
+	b.PutInt53(m.BoostedChatID)
+	b.PutInt53(m.GiveawayMessageID)
+	b.PutBool(m.IsUnclaimed)
+	if err := m.Sticker.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiveawayPrizeStars#aa0f5de3: field sticker: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageGiveawayPrizeStars) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageGiveawayPrizeStars#aa0f5de3 to nil")
+	}
+	if err := b.ConsumeID(MessageGiveawayPrizeStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageGiveawayPrizeStars) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageGiveawayPrizeStars#aa0f5de3 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field star_count: %w", err)
+		}
+		m.StarCount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field transaction_id: %w", err)
+		}
+		m.TransactionID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field boosted_chat_id: %w", err)
+		}
+		m.BoostedChatID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field giveaway_message_id: %w", err)
+		}
+		m.GiveawayMessageID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field is_unclaimed: %w", err)
+		}
+		m.IsUnclaimed = value
+	}
+	{
+		if err := m.Sticker.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field sticker: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageGiveawayPrizeStars) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageGiveawayPrizeStars#aa0f5de3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageGiveawayPrizeStars")
+	b.Comma()
+	b.FieldStart("star_count")
+	b.PutInt53(m.StarCount)
+	b.Comma()
+	b.FieldStart("transaction_id")
+	b.PutString(m.TransactionID)
+	b.Comma()
+	b.FieldStart("boosted_chat_id")
+	b.PutInt53(m.BoostedChatID)
+	b.Comma()
+	b.FieldStart("giveaway_message_id")
+	b.PutInt53(m.GiveawayMessageID)
+	b.Comma()
+	b.FieldStart("is_unclaimed")
+	b.PutBool(m.IsUnclaimed)
+	b.Comma()
+	b.FieldStart("sticker")
+	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiveawayPrizeStars#aa0f5de3: field sticker: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageGiveawayPrizeStars) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageGiveawayPrizeStars#aa0f5de3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageGiveawayPrizeStars"); err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: %w", err)
+			}
+		case "star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field star_count: %w", err)
+			}
+			m.StarCount = value
+		case "transaction_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field transaction_id: %w", err)
+			}
+			m.TransactionID = value
+		case "boosted_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field boosted_chat_id: %w", err)
+			}
+			m.BoostedChatID = value
+		case "giveaway_message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field giveaway_message_id: %w", err)
+			}
+			m.GiveawayMessageID = value
+		case "is_unclaimed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field is_unclaimed: %w", err)
+			}
+			m.IsUnclaimed = value
+		case "sticker":
+			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageGiveawayPrizeStars#aa0f5de3: field sticker: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStarCount returns value of StarCount field.
+func (m *MessageGiveawayPrizeStars) GetStarCount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.StarCount
+}
+
+// GetTransactionID returns value of TransactionID field.
+func (m *MessageGiveawayPrizeStars) GetTransactionID() (value string) {
+	if m == nil {
+		return
+	}
+	return m.TransactionID
+}
+
+// GetBoostedChatID returns value of BoostedChatID field.
+func (m *MessageGiveawayPrizeStars) GetBoostedChatID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.BoostedChatID
+}
+
+// GetGiveawayMessageID returns value of GiveawayMessageID field.
+func (m *MessageGiveawayPrizeStars) GetGiveawayMessageID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.GiveawayMessageID
+}
+
+// GetIsUnclaimed returns value of IsUnclaimed field.
+func (m *MessageGiveawayPrizeStars) GetIsUnclaimed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.IsUnclaimed
+}
+
+// GetSticker returns value of Sticker field.
+func (m *MessageGiveawayPrizeStars) GetSticker() (value Sticker) {
 	if m == nil {
 		return
 	}
@@ -16125,11 +16552,12 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessagePaymentRefunded: // messagePaymentRefunded#11bcb8f3
 //	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#30dd808e
 //	case *tdapi.MessagePremiumGiftCode: // messagePremiumGiftCode#26bd1bf3
-//	case *tdapi.MessagePremiumGiveawayCreated: // messagePremiumGiveawayCreated#270f2c44
-//	case *tdapi.MessagePremiumGiveaway: // messagePremiumGiveaway#4aa0d0b0
-//	case *tdapi.MessagePremiumGiveawayCompleted: // messagePremiumGiveawayCompleted#80533949
-//	case *tdapi.MessagePremiumGiveawayWinners: // messagePremiumGiveawayWinners#815d5f31
+//	case *tdapi.MessageGiveawayCreated: // messageGiveawayCreated#39f3639f
+//	case *tdapi.MessageGiveaway: // messageGiveaway#eb61daa8
+//	case *tdapi.MessageGiveawayCompleted: // messageGiveawayCompleted#e424c8f7
+//	case *tdapi.MessageGiveawayWinners: // messageGiveawayWinners#1d99a27a
 //	case *tdapi.MessageGiftedStars: // messageGiftedStars#41bdbea7
+//	case *tdapi.MessageGiveawayPrizeStars: // messageGiveawayPrizeStars#aa0f5de3
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //	case *tdapi.MessageUsersShared: // messageUsersShared#7f1f4a22
 //	case *tdapi.MessageChatShared: // messageChatShared#aec6d961
@@ -16570,30 +16998,30 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessagePremiumGiveawayCreatedTypeID:
-		// Decoding messagePremiumGiveawayCreated#270f2c44.
-		v := MessagePremiumGiveawayCreated{}
+	case MessageGiveawayCreatedTypeID:
+		// Decoding messageGiveawayCreated#39f3639f.
+		v := MessageGiveawayCreated{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessagePremiumGiveawayTypeID:
-		// Decoding messagePremiumGiveaway#4aa0d0b0.
-		v := MessagePremiumGiveaway{}
+	case MessageGiveawayTypeID:
+		// Decoding messageGiveaway#eb61daa8.
+		v := MessageGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessagePremiumGiveawayCompletedTypeID:
-		// Decoding messagePremiumGiveawayCompleted#80533949.
-		v := MessagePremiumGiveawayCompleted{}
+	case MessageGiveawayCompletedTypeID:
+		// Decoding messageGiveawayCompleted#e424c8f7.
+		v := MessageGiveawayCompleted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessagePremiumGiveawayWinnersTypeID:
-		// Decoding messagePremiumGiveawayWinners#815d5f31.
-		v := MessagePremiumGiveawayWinners{}
+	case MessageGiveawayWinnersTypeID:
+		// Decoding messageGiveawayWinners#1d99a27a.
+		v := MessageGiveawayWinners{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -16601,6 +17029,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageGiftedStarsTypeID:
 		// Decoding messageGiftedStars#41bdbea7.
 		v := MessageGiftedStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageGiveawayPrizeStarsTypeID:
+		// Decoding messageGiveawayPrizeStars#aa0f5de3.
+		v := MessageGiveawayPrizeStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -17086,30 +17521,30 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messagePremiumGiveawayCreated":
-		// Decoding messagePremiumGiveawayCreated#270f2c44.
-		v := MessagePremiumGiveawayCreated{}
+	case "messageGiveawayCreated":
+		// Decoding messageGiveawayCreated#39f3639f.
+		v := MessageGiveawayCreated{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messagePremiumGiveaway":
-		// Decoding messagePremiumGiveaway#4aa0d0b0.
-		v := MessagePremiumGiveaway{}
+	case "messageGiveaway":
+		// Decoding messageGiveaway#eb61daa8.
+		v := MessageGiveaway{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messagePremiumGiveawayCompleted":
-		// Decoding messagePremiumGiveawayCompleted#80533949.
-		v := MessagePremiumGiveawayCompleted{}
+	case "messageGiveawayCompleted":
+		// Decoding messageGiveawayCompleted#e424c8f7.
+		v := MessageGiveawayCompleted{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messagePremiumGiveawayWinners":
-		// Decoding messagePremiumGiveawayWinners#815d5f31.
-		v := MessagePremiumGiveawayWinners{}
+	case "messageGiveawayWinners":
+		// Decoding messageGiveawayWinners#1d99a27a.
+		v := MessageGiveawayWinners{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -17117,6 +17552,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageGiftedStars":
 		// Decoding messageGiftedStars#41bdbea7.
 		v := MessageGiftedStars{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageGiveawayPrizeStars":
+		// Decoding messageGiveawayPrizeStars#aa0f5de3.
+		v := MessageGiveawayPrizeStars{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotTransactionPurposePaidMedia represents TL type `botTransactionPurposePaidMedia#9593b72f`.
+// BotTransactionPurposePaidMedia represents TL type `botTransactionPurposePaidMedia#62952496`.
 type BotTransactionPurposePaidMedia struct {
 	// The bought media if the trancastion wasn't refunded
 	Media []PaidMediaClass
+	// Bot-provided payload; for bots only
+	Payload string
 }
 
 // BotTransactionPurposePaidMediaTypeID is TL type id of BotTransactionPurposePaidMedia.
-const BotTransactionPurposePaidMediaTypeID = 0x9593b72f
+const BotTransactionPurposePaidMediaTypeID = 0x62952496
 
 // construct implements constructor of BotTransactionPurposeClass.
 func (b BotTransactionPurposePaidMedia) construct() BotTransactionPurposeClass { return &b }
@@ -58,6 +60,9 @@ func (b *BotTransactionPurposePaidMedia) Zero() bool {
 		return true
 	}
 	if !(b.Media == nil) {
+		return false
+	}
+	if !(b.Payload == "") {
 		return false
 	}
 
@@ -100,6 +105,10 @@ func (b *BotTransactionPurposePaidMedia) TypeInfo() tdp.Type {
 			Name:       "Media",
 			SchemaName: "media",
 		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
 	}
 	return typ
 }
@@ -107,7 +116,7 @@ func (b *BotTransactionPurposePaidMedia) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotTransactionPurposePaidMedia) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botTransactionPurposePaidMedia#9593b72f as nil")
+		return fmt.Errorf("can't encode botTransactionPurposePaidMedia#62952496 as nil")
 	}
 	buf.PutID(BotTransactionPurposePaidMediaTypeID)
 	return b.EncodeBare(buf)
@@ -116,27 +125,28 @@ func (b *BotTransactionPurposePaidMedia) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotTransactionPurposePaidMedia) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botTransactionPurposePaidMedia#9593b72f as nil")
+		return fmt.Errorf("can't encode botTransactionPurposePaidMedia#62952496 as nil")
 	}
 	buf.PutInt(len(b.Media))
 	for idx, v := range b.Media {
 		if v == nil {
-			return fmt.Errorf("unable to encode botTransactionPurposePaidMedia#9593b72f: field media element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode botTransactionPurposePaidMedia#62952496: field media element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(buf); err != nil {
-			return fmt.Errorf("unable to encode bare botTransactionPurposePaidMedia#9593b72f: field media element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare botTransactionPurposePaidMedia#62952496: field media element with index %d: %w", idx, err)
 		}
 	}
+	buf.PutString(b.Payload)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *BotTransactionPurposePaidMedia) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botTransactionPurposePaidMedia#9593b72f to nil")
+		return fmt.Errorf("can't decode botTransactionPurposePaidMedia#62952496 to nil")
 	}
 	if err := buf.ConsumeID(BotTransactionPurposePaidMediaTypeID); err != nil {
-		return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#9593b72f: %w", err)
+		return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -144,12 +154,12 @@ func (b *BotTransactionPurposePaidMedia) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotTransactionPurposePaidMedia) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botTransactionPurposePaidMedia#9593b72f to nil")
+		return fmt.Errorf("can't decode botTransactionPurposePaidMedia#62952496 to nil")
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#9593b72f: field media: %w", err)
+			return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: field media: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -158,10 +168,17 @@ func (b *BotTransactionPurposePaidMedia) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePaidMedia(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#9593b72f: field media: %w", err)
+				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: field media: %w", err)
 			}
 			b.Media = append(b.Media, value)
 		}
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: field payload: %w", err)
+		}
+		b.Payload = value
 	}
 	return nil
 }
@@ -169,7 +186,7 @@ func (b *BotTransactionPurposePaidMedia) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BotTransactionPurposePaidMedia) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botTransactionPurposePaidMedia#9593b72f as nil")
+		return fmt.Errorf("can't encode botTransactionPurposePaidMedia#62952496 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("botTransactionPurposePaidMedia")
@@ -178,15 +195,18 @@ func (b *BotTransactionPurposePaidMedia) EncodeTDLibJSON(buf tdjson.Encoder) err
 	buf.ArrStart()
 	for idx, v := range b.Media {
 		if v == nil {
-			return fmt.Errorf("unable to encode botTransactionPurposePaidMedia#9593b72f: field media element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode botTransactionPurposePaidMedia#62952496: field media element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(buf); err != nil {
-			return fmt.Errorf("unable to encode botTransactionPurposePaidMedia#9593b72f: field media element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode botTransactionPurposePaidMedia#62952496: field media element with index %d: %w", idx, err)
 		}
 		buf.Comma()
 	}
 	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
+	buf.FieldStart("payload")
+	buf.PutString(b.Payload)
 	buf.Comma()
 	buf.StripComma()
 	buf.ObjEnd()
@@ -196,26 +216,32 @@ func (b *BotTransactionPurposePaidMedia) EncodeTDLibJSON(buf tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BotTransactionPurposePaidMedia) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botTransactionPurposePaidMedia#9593b72f to nil")
+		return fmt.Errorf("can't decode botTransactionPurposePaidMedia#62952496 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("botTransactionPurposePaidMedia"); err != nil {
-				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#9593b72f: %w", err)
+				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: %w", err)
 			}
 		case "media":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPaidMedia(buf)
 				if err != nil {
-					return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#9593b72f: field media: %w", err)
+					return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: field media: %w", err)
 				}
 				b.Media = append(b.Media, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#9593b72f: field media: %w", err)
+				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: field media: %w", err)
 			}
+		case "payload":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode botTransactionPurposePaidMedia#62952496: field payload: %w", err)
+			}
+			b.Payload = value
 		default:
 			return buf.Skip()
 		}
@@ -229,6 +255,14 @@ func (b *BotTransactionPurposePaidMedia) GetMedia() (value []PaidMediaClass) {
 		return
 	}
 	return b.Media
+}
+
+// GetPayload returns value of Payload field.
+func (b *BotTransactionPurposePaidMedia) GetPayload() (value string) {
+	if b == nil {
+		return
+	}
+	return b.Payload
 }
 
 // BotTransactionPurposeInvoicePayment represents TL type `botTransactionPurposeInvoicePayment#699860ac`.
@@ -443,7 +477,7 @@ const BotTransactionPurposeClassName = "BotTransactionPurpose"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.BotTransactionPurposePaidMedia: // botTransactionPurposePaidMedia#9593b72f
+//	case *tdapi.BotTransactionPurposePaidMedia: // botTransactionPurposePaidMedia#62952496
 //	case *tdapi.BotTransactionPurposeInvoicePayment: // botTransactionPurposeInvoicePayment#699860ac
 //	default: panic(v)
 //	}
@@ -477,7 +511,7 @@ func DecodeBotTransactionPurpose(buf *bin.Buffer) (BotTransactionPurposeClass, e
 	}
 	switch id {
 	case BotTransactionPurposePaidMediaTypeID:
-		// Decoding botTransactionPurposePaidMedia#9593b72f.
+		// Decoding botTransactionPurposePaidMedia#62952496.
 		v := BotTransactionPurposePaidMedia{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", err)
@@ -503,7 +537,7 @@ func DecodeTDLibJSONBotTransactionPurpose(buf tdjson.Decoder) (BotTransactionPur
 	}
 	switch id {
 	case "botTransactionPurposePaidMedia":
-		// Decoding botTransactionPurposePaidMedia#9593b72f.
+		// Decoding botTransactionPurposePaidMedia#62952496.
 		v := BotTransactionPurposePaidMedia{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", err)

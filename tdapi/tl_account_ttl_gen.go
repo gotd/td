@@ -33,7 +33,7 @@ var (
 
 // AccountTTL represents TL type `accountTtl#4ef23284`.
 type AccountTTL struct {
-	// Number of days of inactivity before the account will be flagged for deletion; 30-366
+	// Number of days of inactivity before the account will be flagged for deletion; 30-730
 	// days
 	Days int32
 }
