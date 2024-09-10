@@ -38,7 +38,7 @@ type GetChatPostedToChatPageStoriesRequest struct {
 	// Identifier of the story starting from which stories must be returned; use 0 to get
 	// results from pinned and the newest story
 	FromStoryID int32
-	// The maximum number of stories to be returned
+	// The maximum number of stories to be returned.
 	Limit int32
 }
 
