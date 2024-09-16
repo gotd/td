@@ -60,6 +60,8 @@ func (u *Uploader) FromFS(ctx context.Context, filesystem fs.FS, path string) (_
 // FromReader uploads file from given io.Reader.
 // NB: totally stream should not exceed the limit for
 // small files (10 MB as docs says, may be a bit bigger).
+// Support For Big Files
+// https://core.telegram.org/api/files#streamed-uploads
 func (u *Uploader) FromReader(ctx context.Context, name string, f io.Reader) (tg.InputFileClass, error) {
 	return u.Upload(ctx, NewUpload(name, f, -1))
 }

@@ -53,14 +53,22 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 	r := syncio.NewReader(upload.from)
 	g.Go(func(ctx context.Context) error {
 		last := false
+		totalStreamSize := 0
 
 		for {
 			buf := u.pool.GetSize(u.partSize)
 
 			n, err := io.ReadFull(r, buf.Buf)
+			if n > 0 {
+				totalStreamSize += n
+			}
 			switch {
 			case errors.Is(err, io.ErrUnexpectedEOF):
 				last = true
+				if upload.totalParts == -1 {
+					totalParts := (totalStreamSize + u.partSize - 1) / u.partSize
+					upload.totalParts = int(totalParts)
+				}
 			case errors.Is(err, io.EOF):
 				u.pool.Put(buf)
 
