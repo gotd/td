@@ -32,7 +32,7 @@ var (
 )
 
 // StickersRenameStickerSetRequest represents TL type `stickers.renameStickerSet#124b1c00`.
-// Renames a stickerset, bots only.
+// Renames a stickerset.
 //
 // See https://core.telegram.org/method/stickers.renameStickerSet for reference.
 type StickersRenameStickerSetRequest struct {
@@ -194,7 +194,7 @@ func (r *StickersRenameStickerSetRequest) GetTitle() (value string) {
 }
 
 // StickersRenameStickerSet invokes method stickers.renameStickerSet#124b1c00 returning error if any.
-// Renames a stickerset, bots only.
+// Renames a stickerset.
 //
 // Possible errors:
 //

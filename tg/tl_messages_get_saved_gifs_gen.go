@@ -32,11 +32,11 @@ var (
 )
 
 // MessagesGetSavedGifsRequest represents TL type `messages.getSavedGifs#5cf09635`.
-// Get saved GIFs
+// Get saved GIFs.
 //
 // See https://core.telegram.org/method/messages.getSavedGifs for reference.
 type MessagesGetSavedGifsRequest struct {
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
@@ -165,7 +165,7 @@ func (g *MessagesGetSavedGifsRequest) GetHash() (value int64) {
 }
 
 // MessagesGetSavedGifs invokes method messages.getSavedGifs#5cf09635 returning error if any.
-// Get saved GIFs
+// Get saved GIFs.
 //
 // See https://core.telegram.org/method/messages.getSavedGifs for reference.
 func (c *Client) MessagesGetSavedGifs(ctx context.Context, hash int64) (MessagesSavedGifsClass, error) {

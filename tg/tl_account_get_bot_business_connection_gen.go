@@ -32,10 +32,35 @@ var (
 )
 
 // AccountGetBotBusinessConnectionRequest represents TL type `account.getBotBusinessConnection#76a86270`.
+// Bots may invoke this method to re-fetch the updateBotBusinessConnect¹ constructor
+// associated with a specific business connection_id, see here »² for more info on
+// connected business bots.
+// This is needed for example for freshly logged in bots that are receiving some
+// updateBotNewBusinessMessage³, etc. updates because some users have already connected
+// to the bot before it could login.
+// In this case, the bot is receiving messages from the business connection, but it
+// hasn't cached the associated updateBotBusinessConnect⁴ with info about the
+// connection (can it reply to messages? etc.) yet, and cannot receive the old ones
+// because they were sent when the bot wasn't logged into the session yet.
+// This method can be used to fetch info about a not-yet-cached business connection, and
+// should not be invoked if the info is already cached or to fetch changes, as eventual
+// changes will automatically be sent as new updateBotBusinessConnect⁵ updates to the
+// bot using the usual update delivery methods »⁶.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateBotBusinessConnect
+//  2. https://core.telegram.org/api/business#connected-bots
+//  3. https://core.telegram.org/constructor/updateBotNewBusinessMessage
+//  4. https://core.telegram.org/constructor/updateBotBusinessConnect
+//  5. https://core.telegram.org/constructor/updateBotBusinessConnect
+//  6. https://core.telegram.org/api/updates
 //
 // See https://core.telegram.org/method/account.getBotBusinessConnection for reference.
 type AccountGetBotBusinessConnectionRequest struct {
-	// ConnectionID field of AccountGetBotBusinessConnectionRequest.
+	// Business connection ID »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	ConnectionID string
 }
 
@@ -161,8 +186,35 @@ func (g *AccountGetBotBusinessConnectionRequest) GetConnectionID() (value string
 }
 
 // AccountGetBotBusinessConnection invokes method account.getBotBusinessConnection#76a86270 returning error if any.
+// Bots may invoke this method to re-fetch the updateBotBusinessConnect¹ constructor
+// associated with a specific business connection_id, see here »² for more info on
+// connected business bots.
+// This is needed for example for freshly logged in bots that are receiving some
+// updateBotNewBusinessMessage³, etc. updates because some users have already connected
+// to the bot before it could login.
+// In this case, the bot is receiving messages from the business connection, but it
+// hasn't cached the associated updateBotBusinessConnect⁴ with info about the
+// connection (can it reply to messages? etc.) yet, and cannot receive the old ones
+// because they were sent when the bot wasn't logged into the session yet.
+// This method can be used to fetch info about a not-yet-cached business connection, and
+// should not be invoked if the info is already cached or to fetch changes, as eventual
+// changes will automatically be sent as new updateBotBusinessConnect⁵ updates to the
+// bot using the usual update delivery methods »⁶.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateBotBusinessConnect
+//  2. https://core.telegram.org/api/business#connected-bots
+//  3. https://core.telegram.org/constructor/updateBotNewBusinessMessage
+//  4. https://core.telegram.org/constructor/updateBotBusinessConnect
+//  5. https://core.telegram.org/constructor/updateBotBusinessConnect
+//  6. https://core.telegram.org/api/updates
+//
+// Possible errors:
+//
+//	400 CONNECTION_ID_INVALID: The specified connection ID is invalid.
 //
 // See https://core.telegram.org/method/account.getBotBusinessConnection for reference.
+// Can be used by bots.
 func (c *Client) AccountGetBotBusinessConnection(ctx context.Context, connectionid string) (UpdatesClass, error) {
 	var result UpdatesBox
 

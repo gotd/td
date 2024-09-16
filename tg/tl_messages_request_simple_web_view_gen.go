@@ -50,14 +50,12 @@ type MessagesRequestSimpleWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
 	FromSwitchWebview bool
-	// Set this flag if opening the Mini App from the installed side menu entry »¹ or from
-	// a Mini App link »².
+	// Set this flag if opening the Mini App from the installed side menu entry »¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/bots/attach
-	//  2) https://core.telegram.org/api/links#mini-app-links
 	FromSideMenu bool
-	// Compact field of MessagesRequestSimpleWebViewRequest.
+	// Deprecated.
 	Compact bool
 	// Bot that owns the mini app
 	Bot InputUserClass
@@ -65,10 +63,7 @@ type MessagesRequestSimpleWebViewRequest struct {
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// Start parameter, if opening from a Mini App link »¹.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/links#mini-app-links
+	// Deprecated.
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
@@ -486,6 +481,11 @@ func (r *MessagesRequestSimpleWebViewRequest) GetPlatform() (value string) {
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/webapps
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//	400 URL_INVALID: Invalid URL provided.
 //
 // See https://core.telegram.org/method/messages.requestSimpleWebView for reference.
 func (c *Client) MessagesRequestSimpleWebView(ctx context.Context, request *MessagesRequestSimpleWebViewRequest) (*WebViewResultURL, error) {

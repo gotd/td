@@ -247,6 +247,7 @@ func (i *BotsInvokeWebViewCustomMethodRequest) GetParams() (value DataJSON) {
 // Possible errors:
 //
 //	400 BOT_INVALID: This is not a valid bot.
+//	400 DATA_JSON_INVALID: The provided JSON data is invalid.
 //
 // See https://core.telegram.org/method/bots.invokeWebViewCustomMethod for reference.
 func (c *Client) BotsInvokeWebViewCustomMethod(ctx context.Context, request *BotsInvokeWebViewCustomMethodRequest) (*DataJSON, error) {

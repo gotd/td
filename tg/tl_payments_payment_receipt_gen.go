@@ -660,32 +660,42 @@ func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassArray) {
 }
 
 // PaymentsPaymentReceiptStars represents TL type `payments.paymentReceiptStars#dabbf83a`.
+// Receipt for payment made using Telegram Stars¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/payments.paymentReceiptStars for reference.
 type PaymentsPaymentReceiptStars struct {
-	// Flags field of PaymentsPaymentReceiptStars.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Date field of PaymentsPaymentReceiptStars.
+	// Date of generation
 	Date int
-	// BotID field of PaymentsPaymentReceiptStars.
+	// Bot ID
 	BotID int64
-	// Title field of PaymentsPaymentReceiptStars.
+	// Title
 	Title string
-	// Description field of PaymentsPaymentReceiptStars.
+	// Description
 	Description string
-	// Photo field of PaymentsPaymentReceiptStars.
+	// Product photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// Invoice field of PaymentsPaymentReceiptStars.
+	// Invoice
 	Invoice Invoice
-	// Currency field of PaymentsPaymentReceiptStars.
+	// Currency, always XTR.
 	Currency string
-	// TotalAmount field of PaymentsPaymentReceiptStars.
+	// Amount of Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	TotalAmount int64
-	// TransactionID field of PaymentsPaymentReceiptStars.
+	// Transaction ID
 	TransactionID string
-	// Users field of PaymentsPaymentReceiptStars.
+	// Info about users mentioned in the other fields.
 	Users []UserClass
 }
 

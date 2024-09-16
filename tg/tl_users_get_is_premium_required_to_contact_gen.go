@@ -32,10 +32,16 @@ var (
 )
 
 // UsersGetIsPremiumRequiredToContactRequest represents TL type `users.getIsPremiumRequiredToContact#a622aa10`.
+// Check whether we can write to the specified user (this method can only be called by
+// non-Premium¹ users), see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
 //
 // See https://core.telegram.org/method/users.getIsPremiumRequiredToContact for reference.
 type UsersGetIsPremiumRequiredToContactRequest struct {
-	// ID field of UsersGetIsPremiumRequiredToContactRequest.
+	// Users to fetch info about.
 	ID []InputUserClass
 }
 
@@ -184,6 +190,12 @@ func (g *UsersGetIsPremiumRequiredToContactRequest) MapID() (value InputUserClas
 }
 
 // UsersGetIsPremiumRequiredToContact invokes method users.getIsPremiumRequiredToContact#a622aa10 returning error if any.
+// Check whether we can write to the specified user (this method can only be called by
+// non-Premium¹ users), see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
 //
 // See https://core.telegram.org/method/users.getIsPremiumRequiredToContact for reference.
 func (c *Client) UsersGetIsPremiumRequiredToContact(ctx context.Context, id []InputUserClass) ([]bool, error) {

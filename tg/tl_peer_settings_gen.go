@@ -74,9 +74,21 @@ type PeerSettings struct {
 	//  1) https://core.telegram.org/api/invites#join-requests
 	//  2) https://core.telegram.org/api/invites#join-requests
 	RequestChatBroadcast bool
-	// BusinessBotPaused field of PeerSettings.
+	// This flag is set if both business_bot_id and business_bot_manage_url are set and all
+	// connected business bots »¹ were paused in this chat using account
+	// toggleConnectedBotPaused »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
+	//  2) https://core.telegram.org/method/account.toggleConnectedBotPaused
 	BusinessBotPaused bool
-	// BusinessBotCanReply field of PeerSettings.
+	// This flag is set if both business_bot_id and business_bot_manage_url are set and
+	// connected business bots »¹ can reply to messages in this chat, as specified by the
+	// settings during initial configuration².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
+	//  2) https://core.telegram.org/api/business#connected-bots
 	BusinessBotCanReply bool
 	// Distance in meters between us and this peer
 	//
@@ -96,11 +108,19 @@ type PeerSettings struct {
 	//
 	// Use SetRequestChatDate and GetRequestChatDate helpers.
 	RequestChatDate int
-	// BusinessBotID field of PeerSettings.
+	// Contains the ID of the business bot »¹ managing this chat, used to display info
+	// about the bot in the action bar.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	//
 	// Use SetBusinessBotID and GetBusinessBotID helpers.
 	BusinessBotID int64
-	// BusinessBotManageURL field of PeerSettings.
+	// Contains a deep link »¹, used to open a management menu in the business bot. This
+	// flag is set if and only if business_bot_id is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links
 	//
 	// Use SetBusinessBotManageURL and GetBusinessBotManageURL helpers.
 	BusinessBotManageURL string

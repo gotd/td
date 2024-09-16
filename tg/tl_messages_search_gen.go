@@ -63,7 +63,11 @@ type MessagesSearchRequest struct {
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID InputPeerClass
-	// SavedReaction field of MessagesSearchRequest.
+	// You may search for saved messages tagged »¹ with one or more reactions using this
+	// flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages#tags
 	//
 	// Use SetSavedReaction and GetSavedReaction helpers.
 	SavedReaction []ReactionClass

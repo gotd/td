@@ -278,8 +278,11 @@ func (r *ChannelsReorderPinnedForumTopicsRequest) GetChannelAsNotEmpty() (NotEmp
 // ChannelsReorderPinnedForumTopics invokes method channels.reorderPinnedForumTopics#2950a18f returning error if any.
 // Reorder pinned forum topics
 //
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//
 // See https://core.telegram.org/method/channels.reorderPinnedForumTopics for reference.
-// Can be used by bots.
 func (c *Client) ChannelsReorderPinnedForumTopics(ctx context.Context, request *ChannelsReorderPinnedForumTopicsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

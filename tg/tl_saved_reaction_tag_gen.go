@@ -32,18 +32,28 @@ var (
 )
 
 // SavedReactionTag represents TL type `savedReactionTag#cb6ff828`.
+// Info about a saved message reaction tag »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/constructor/savedReactionTag for reference.
 type SavedReactionTag struct {
-	// Flags field of SavedReactionTag.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Reaction field of SavedReactionTag.
+	// Reaction¹ associated to the tag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	Reaction ReactionClass
-	// Title field of SavedReactionTag.
+	// Custom tag name assigned by the user (max 12 UTF-8 chars).
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Count field of SavedReactionTag.
+	// Number of messages tagged with this tag.
 	Count int
 }
 

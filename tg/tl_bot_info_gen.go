@@ -41,7 +41,11 @@ type BotInfo struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HasPreviewMedias field of BotInfo.
+	// If set, the bot has some preview medias for the configured Main Mini App, see here
+	// »¹ for more info on Main Mini App preview medias.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 	HasPreviewMedias bool
 	// ID of the bot
 	//

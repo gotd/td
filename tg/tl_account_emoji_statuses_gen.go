@@ -144,7 +144,7 @@ func (e *AccountEmojiStatusesNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/account.emojiStatuses for reference.
 type AccountEmojiStatuses struct {
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

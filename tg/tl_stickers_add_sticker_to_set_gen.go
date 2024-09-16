@@ -32,8 +32,8 @@ var (
 )
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
-// Add a sticker to a stickerset, bots only. The sticker set must have been created by
-// the bot.
+// Add a sticker to a stickerset. The sticker set must have been created by the current
+// user/bot.
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
@@ -195,12 +195,11 @@ func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem
 }
 
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
-// Add a sticker to a stickerset, bots only. The sticker set must have been created by
-// the bot.
+// Add a sticker to a stickerset. The sticker set must have been created by the current
+// user/bot.
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: Only bots can call this method, please use @stickers if you're a user.
 //	400 STICKERPACK_STICKERS_TOO_MUCH: There are too many stickers in this stickerpack, you can't add any more.
 //	406 STICKERSET_INVALID: The provided sticker set is invalid.
 //	400 STICKERS_TOO_MUCH: There are too many stickers in this stickerpack, you can't add any more.

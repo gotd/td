@@ -32,7 +32,20 @@ var (
 )
 
 // PrivacyKeyStatusTimestamp represents TL type `privacyKeyStatusTimestamp#bc2eab30`.
-// Whether we can see the last online timestamp of this user
+// Whether we can see the last online timestamp of this user.
+// Note that if we decide to hide our exact last online timestamp to someone (i.e., users
+// A, B, C, or all users) and we do not have a Premium¹ subscription, we won't be able
+// to see the exact last online timestamp of those users (A, B, C, or all users), even if
+// those users do share it with us.
+// If those users do share their exact online status with us, but we can't see it due to
+// the reason mentioned above, the by_me flag of userStatusRecently¹,
+// userStatusLastWeek², userStatusLastMonth³ will be set.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/constructor/userStatusRecently
+//  3. https://core.telegram.org/constructor/userStatusLastWeek
+//  4. https://core.telegram.org/constructor/userStatusLastMonth
 //
 // See https://core.telegram.org/constructor/privacyKeyStatusTimestamp for reference.
 type PrivacyKeyStatusTimestamp struct {
@@ -1055,6 +1068,7 @@ func (p *PrivacyKeyAbout) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeyBirthday represents TL type `privacyKeyBirthday#2000a518`.
+// Whether the user can see our birthday.
 //
 // See https://core.telegram.org/constructor/privacyKeyBirthday for reference.
 type PrivacyKeyBirthday struct {

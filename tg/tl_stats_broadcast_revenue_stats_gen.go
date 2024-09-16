@@ -32,16 +32,25 @@ var (
 )
 
 // StatsBroadcastRevenueStats represents TL type `stats.broadcastRevenueStats#5407e297`.
+// Channel revenue ad statistics, see here »¹ for more info.
+// Note that all balances and currency amounts and graph values are in the smallest unit
+// of the chosen cryptocurrency (currently nanotons for TONs, so to obtain a value in USD
+// divide the chosen amount by 10^9, and then divide by usd_rate).
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/constructor/stats.broadcastRevenueStats for reference.
 type StatsBroadcastRevenueStats struct {
-	// TopHoursGraph field of StatsBroadcastRevenueStats.
+	// Ad impressions graph
 	TopHoursGraph StatsGraphClass
-	// RevenueGraph field of StatsBroadcastRevenueStats.
+	// Ad revenue graph (in the smallest unit of the cryptocurrency in which revenue is
+	// calculated)
 	RevenueGraph StatsGraphClass
-	// Balances field of StatsBroadcastRevenueStats.
+	// Current balance, current withdrawable balance and overall revenue
 	Balances BroadcastRevenueBalances
-	// UsdRate field of StatsBroadcastRevenueStats.
+	// Current conversion rate of the cryptocurrency (not in the smallest unit) in which
+	// revenue is calculated to USD
 	UsdRate float64
 }
 

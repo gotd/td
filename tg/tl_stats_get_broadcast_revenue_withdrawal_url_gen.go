@@ -32,12 +32,19 @@ var (
 )
 
 // StatsGetBroadcastRevenueWithdrawalURLRequest represents TL type `stats.getBroadcastRevenueWithdrawalUrl#2a65ef73`.
+// Withdraw funds from a channel's ad revenue balance »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueWithdrawalUrl for reference.
 type StatsGetBroadcastRevenueWithdrawalURLRequest struct {
-	// Channel field of StatsGetBroadcastRevenueWithdrawalURLRequest.
+	// The channel
 	Channel InputChannelClass
-	// Password field of StatsGetBroadcastRevenueWithdrawalURLRequest.
+	// 2FA password, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp#using-the-2fa-password
 	Password InputCheckPasswordSRPClass
 }
 
@@ -208,6 +215,16 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetPasswordAsNotEmpty() (
 }
 
 // StatsGetBroadcastRevenueWithdrawalURL invokes method stats.getBroadcastRevenueWithdrawalUrl#2a65ef73 returning error if any.
+// Withdraw funds from a channel's ad revenue balance »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
+//
+// Possible errors:
+//
+//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
+//	400 PASSWORD_MISSING: You must enable 2FA before executing this operation.
+//	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueWithdrawalUrl for reference.
 func (c *Client) StatsGetBroadcastRevenueWithdrawalURL(ctx context.Context, request *StatsGetBroadcastRevenueWithdrawalURLRequest) (*StatsBroadcastRevenueWithdrawalURL, error) {

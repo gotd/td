@@ -32,16 +32,43 @@ var (
 )
 
 // BusinessWorkHours represents TL type `businessWorkHours#8c92b098`.
+// Specifies a set of Telegram Business opening hours¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/constructor/businessWorkHours for reference.
 type BusinessWorkHours struct {
-	// Flags field of BusinessWorkHours.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OpenNow field of BusinessWorkHours.
+	// Ignored if set while invoking account.updateBusinessWorkHours¹, only returned by the
+	// server in userFull².business_work_hours, indicating whether the business is currently
+	// open according to the current time and the values in weekly_open and timezone.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.updateBusinessWorkHours
+	//  2) https://core.telegram.org/constructor/userFull
 	OpenNow bool
-	// TimezoneID field of BusinessWorkHours.
+	// An ID of one of the timezones returned by help.getTimezonesList¹.    The timezone ID
+	// is contained timezone².id, a human-readable, localized name of the timezone is
+	// available in timezone³.name and the timezone⁴.utc_offset field contains the UTC
+	// offset in seconds, which may be displayed in hh:mm format by the client together with
+	// the human-readable name (i.e. $name UTC -01:00).
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getTimezonesList
+	//  2) https://core.telegram.org/constructor/timezone
+	//  3) https://core.telegram.org/constructor/timezone
+	//  4) https://core.telegram.org/constructor/timezone
 	TimezoneID string
-	// WeeklyOpen field of BusinessWorkHours.
+	// A list of time intervals (max 28) represented by businessWeeklyOpen »¹, indicating
+	// the opening hours of their business.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/businessWeeklyOpen
 	WeeklyOpen []BusinessWeeklyOpen
 }
 

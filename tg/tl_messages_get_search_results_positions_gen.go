@@ -349,6 +349,10 @@ func (g *MessagesGetSearchResultsPositionsRequest) GetLimit() (value int) {
 // Returns the results in reverse chronological order (i.e., in order of decreasing
 // message_id).
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.getSearchResultsPositions for reference.
 func (c *Client) MessagesGetSearchResultsPositions(ctx context.Context, request *MessagesGetSearchResultsPositionsRequest) (*MessagesSearchResultsPositions, error) {
 	var result MessagesSearchResultsPositions

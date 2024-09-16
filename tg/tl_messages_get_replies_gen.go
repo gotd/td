@@ -66,7 +66,7 @@ type MessagesGetRepliesRequest struct {
 	// If a positive value was transferred, the method will return only messages with ID
 	// bigger than min_id
 	MinID int
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

@@ -32,12 +32,21 @@ var (
 )
 
 // MessagesEditQuickReplyShortcutRequest represents TL type `messages.editQuickReplyShortcut#5c003cef`.
+// Rename a quick reply shortcut¹.
+// This will emit an updateQuickReplies² update to other logged-in sessions.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2. https://core.telegram.org/constructor/updateQuickReplies
 //
 // See https://core.telegram.org/method/messages.editQuickReplyShortcut for reference.
 type MessagesEditQuickReplyShortcutRequest struct {
-	// ShortcutID field of MessagesEditQuickReplyShortcutRequest.
+	// Shortcut ID¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	ShortcutID int
-	// Shortcut field of MessagesEditQuickReplyShortcutRequest.
+	// New shortcut name.
 	Shortcut string
 }
 
@@ -188,6 +197,17 @@ func (e *MessagesEditQuickReplyShortcutRequest) GetShortcut() (value string) {
 }
 
 // MessagesEditQuickReplyShortcut invokes method messages.editQuickReplyShortcut#5c003cef returning error if any.
+// Rename a quick reply shortcut¹.
+// This will emit an updateQuickReplies² update to other logged-in sessions.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2. https://core.telegram.org/constructor/updateQuickReplies
+//
+// Possible errors:
+//
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//	400 SHORTCUT_INVALID: The specified shortcut is invalid.
 //
 // See https://core.telegram.org/method/messages.editQuickReplyShortcut for reference.
 func (c *Client) MessagesEditQuickReplyShortcut(ctx context.Context, request *MessagesEditQuickReplyShortcutRequest) (bool, error) {

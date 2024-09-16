@@ -49,7 +49,10 @@ type UpdatesChannelDifferenceEmpty struct {
 	//  1) https://core.telegram.org/api/updates
 	Pts int
 	// Clients are supposed to refetch the channel difference after timeout seconds have
-	// elapsed
+	// elapsed, if the user is currently viewing the chat, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#subscribing-to-updates-of-channels-supergroups
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int
@@ -696,7 +699,10 @@ type UpdatesChannelDifference struct {
 	//  1) https://core.telegram.org/api/updates
 	Pts int
 	// Clients are supposed to refetch the channel difference after timeout seconds have
-	// elapsed
+	// elapsed, if the user is currently viewing the chat, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#subscribing-to-updates-of-channels-supergroups
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int
@@ -1162,7 +1168,10 @@ type UpdatesChannelDifferenceClass interface {
 	GetFinal() (value bool)
 
 	// Clients are supposed to refetch the channel difference after timeout seconds have
-	// elapsed
+	// elapsed, if the user is currently viewing the chat, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#subscribing-to-updates-of-channels-supergroups
 	GetTimeout() (value int, ok bool)
 
 	// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.

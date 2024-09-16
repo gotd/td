@@ -36,7 +36,12 @@ var (
 //
 // See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
-	// Textual representation of the answer
+	// Textual representation of the answer (only Premium¹ users can use custom emoji
+	// entities² here).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/api/custom-emoji
 	Text TextWithEntities
 	// The param that has to be passed to messages.sendVote¹.
 	//

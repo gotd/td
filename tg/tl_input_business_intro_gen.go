@@ -32,16 +32,26 @@ var (
 )
 
 // InputBusinessIntro represents TL type `inputBusinessIntro#9c469cd`.
+// Telegram Business introduction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/constructor/inputBusinessIntro for reference.
 type InputBusinessIntro struct {
-	// Flags field of InputBusinessIntro.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of InputBusinessIntro.
+	// Title of the introduction message
 	Title string
-	// Description field of InputBusinessIntro.
+	// Profile introduction
 	Description string
-	// Sticker field of InputBusinessIntro.
+	// Optional introduction sticker¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	//
 	// Use SetSticker and GetSticker helpers.
 	Sticker InputDocumentClass

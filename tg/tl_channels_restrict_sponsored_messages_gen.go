@@ -32,12 +32,19 @@ var (
 )
 
 // ChannelsRestrictSponsoredMessagesRequest represents TL type `channels.restrictSponsoredMessages#9ae91519`.
+// Disable ads on the specified channel, for all users.
+// Available only after reaching at least the boost level »¹ specified in the
+// channel_restrict_sponsored_level_min »² config parameter.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
+//  2. https://core.telegram.org/api/config#channel-restrict-sponsored-level-min
 //
 // See https://core.telegram.org/method/channels.restrictSponsoredMessages for reference.
 type ChannelsRestrictSponsoredMessagesRequest struct {
-	// Channel field of ChannelsRestrictSponsoredMessagesRequest.
+	// The channel.
 	Channel InputChannelClass
-	// Restricted field of ChannelsRestrictSponsoredMessagesRequest.
+	// Whether to disable or re-enable ads.
 	Restricted bool
 }
 
@@ -198,6 +205,17 @@ func (r *ChannelsRestrictSponsoredMessagesRequest) GetChannelAsNotEmpty() (NotEm
 }
 
 // ChannelsRestrictSponsoredMessages invokes method channels.restrictSponsoredMessages#9ae91519 returning error if any.
+// Disable ads on the specified channel, for all users.
+// Available only after reaching at least the boost level »¹ specified in the
+// channel_restrict_sponsored_level_min »² config parameter.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
+//  2. https://core.telegram.org/api/config#channel-restrict-sponsored-level-min
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.restrictSponsoredMessages for reference.
 func (c *Client) ChannelsRestrictSponsoredMessages(ctx context.Context, request *ChannelsRestrictSponsoredMessagesRequest) (UpdatesClass, error) {

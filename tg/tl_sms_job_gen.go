@@ -32,14 +32,15 @@ var (
 )
 
 // SMSJob represents TL type `smsJob#e6a1eeb8`.
+// Info about an SMS job.
 //
 // See https://core.telegram.org/constructor/smsJob for reference.
 type SMSJob struct {
-	// JobID field of SMSJob.
+	// Job ID
 	JobID string
-	// PhoneNumber field of SMSJob.
+	// Destination phone number
 	PhoneNumber string
-	// Text field of SMSJob.
+	// Text
 	Text string
 }
 

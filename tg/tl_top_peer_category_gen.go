@@ -848,6 +848,10 @@ func (t *TopPeerCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 }
 
 // TopPeerCategoryBotsApp represents TL type `topPeerCategoryBotsApp#fd9e7bec`.
+// Most frequently used Main Mini Bot Apps¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
 //
 // See https://core.telegram.org/constructor/topPeerCategoryBotsApp for reference.
 type TopPeerCategoryBotsApp struct {

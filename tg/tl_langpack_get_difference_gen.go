@@ -36,9 +36,13 @@ var (
 //
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 type LangpackGetDifferenceRequest struct {
-	// Language pack
+	// Platform identifier (i.e. android, tdesktop, etc).
 	LangPack string
-	// Language code
+	// Either an ISO 639-1 language code or a language pack name obtained from a language
+	// pack link¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#language-pack-links
 	LangCode string
 	// Previous localization pack version
 	FromVersion int

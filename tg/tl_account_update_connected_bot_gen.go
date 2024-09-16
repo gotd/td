@@ -32,18 +32,30 @@ var (
 )
 
 // AccountUpdateConnectedBotRequest represents TL type `account.updateConnectedBot#43d8521d`.
+// Connect a business bot »¹ to the current account, or to change the current
+// connection settings.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 type AccountUpdateConnectedBotRequest struct {
-	// Flags field of AccountUpdateConnectedBotRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CanReply field of AccountUpdateConnectedBotRequest.
+	// Whether the bot can reply to messages it receives from us, on behalf of us using the
+	// business connection¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	CanReply bool
-	// Deleted field of AccountUpdateConnectedBotRequest.
+	// Whether to fully disconnect the bot from the current account.
 	Deleted bool
-	// Bot field of AccountUpdateConnectedBotRequest.
+	// The bot to connect or disconnect
 	Bot InputUserClass
-	// Recipients field of AccountUpdateConnectedBotRequest.
+	// Configuration for the business connection
 	Recipients InputBusinessBotRecipients
 }
 
@@ -281,6 +293,17 @@ func (u *AccountUpdateConnectedBotRequest) GetRecipients() (value InputBusinessB
 }
 
 // AccountUpdateConnectedBot invokes method account.updateConnectedBot#43d8521d returning error if any.
+// Connect a business bot »¹ to the current account, or to change the current
+// connection settings.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
+//
+// Possible errors:
+//
+//	400 BOT_BUSINESS_MISSING: The specified bot is not a business bot (the user.bot_business flag is not set).
+//	400 BUSINESS_RECIPIENTS_EMPTY: You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with any peer.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 func (c *Client) AccountUpdateConnectedBot(ctx context.Context, request *AccountUpdateConnectedBotRequest) (UpdatesClass, error) {

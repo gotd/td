@@ -32,12 +32,19 @@ var (
 )
 
 // SponsoredMessageReportOption represents TL type `sponsoredMessageReportOption#430d3150`.
+// A report option for a sponsored message »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/constructor/sponsoredMessageReportOption for reference.
 type SponsoredMessageReportOption struct {
-	// Text field of SponsoredMessageReportOption.
+	// Localized description of the option.
 	Text string
-	// Option field of SponsoredMessageReportOption.
+	// Option identifier to pass to channels.reportSponsoredMessage¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/channels.reportSponsoredMessage
 	Option []byte
 }
 

@@ -32,12 +32,13 @@ var (
 )
 
 // SMSJobsEligibleToJoin represents TL type `smsjobs.eligibleToJoin#dc8b44cf`.
+// SMS jobs eligibility
 //
 // See https://core.telegram.org/constructor/smsjobs.eligibleToJoin for reference.
 type SMSJobsEligibleToJoin struct {
-	// TermsURL field of SMSJobsEligibleToJoin.
+	// Terms of service URL
 	TermsURL string
-	// MonthlySentSMS field of SMSJobsEligibleToJoin.
+	// Monthly sent SMSes
 	MonthlySentSMS int
 }
 

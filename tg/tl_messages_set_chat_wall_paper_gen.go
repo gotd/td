@@ -444,7 +444,6 @@ func (s *MessagesSetChatWallPaperRequest) GetID() (value int, ok bool) {
 //	400 WALLPAPER_NOT_FOUND: The specified wallpaper could not be found.
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
-// Can be used by bots.
 func (c *Client) MessagesSetChatWallPaper(ctx context.Context, request *MessagesSetChatWallPaperRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

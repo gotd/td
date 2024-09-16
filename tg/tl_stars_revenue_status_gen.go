@@ -32,20 +32,31 @@ var (
 )
 
 // StarsRevenueStatus represents TL type `starsRevenueStatus#79342946`.
+// Describes Telegram Star revenue balances »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsRevenueStatus for reference.
 type StarsRevenueStatus struct {
-	// Flags field of StarsRevenueStatus.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// WithdrawalEnabled field of StarsRevenueStatus.
+	// If set, the user may withdraw¹ up to available_balance stars.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#withdrawing-revenue
 	WithdrawalEnabled bool
-	// CurrentBalance field of StarsRevenueStatus.
+	// Amount of not-yet-withdrawn Telegram Stars.
 	CurrentBalance int64
-	// AvailableBalance field of StarsRevenueStatus.
+	// Amount of withdrawable Telegram Stars.
 	AvailableBalance int64
-	// OverallRevenue field of StarsRevenueStatus.
+	// Total amount of earned Telegram Stars.
 	OverallRevenue int64
-	// NextWithdrawalAt field of StarsRevenueStatus.
+	// Unixtime indicating when will withdrawal be available to the user. If not set,
+	// withdrawal can be started now.
 	//
 	// Use SetNextWithdrawalAt and GetNextWithdrawalAt helpers.
 	NextWithdrawalAt int

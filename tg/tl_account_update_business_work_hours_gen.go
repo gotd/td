@@ -32,12 +32,26 @@ var (
 )
 
 // AccountUpdateBusinessWorkHoursRequest represents TL type `account.updateBusinessWorkHours#4b00e066`.
+// Specify a set of Telegram Business opening hours¹.
+// This info will be contained in userFull².business_work_hours.
+// To remove all opening hours, invoke the method without setting the business_work_hours
+// field.
+// Note that the opening hours specified by the user must be appropriately validated and
+// transformed before invoking the method, as specified here »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#opening-hours
+//  2. https://core.telegram.org/constructor/userFull
+//  3. https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/method/account.updateBusinessWorkHours for reference.
 type AccountUpdateBusinessWorkHoursRequest struct {
-	// Flags field of AccountUpdateBusinessWorkHoursRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BusinessWorkHours field of AccountUpdateBusinessWorkHoursRequest.
+	// Opening hours (optional, if not set removes all opening hours).
 	//
 	// Use SetBusinessWorkHours and GetBusinessWorkHours helpers.
 	BusinessWorkHours BusinessWorkHours
@@ -200,6 +214,23 @@ func (u *AccountUpdateBusinessWorkHoursRequest) GetBusinessWorkHours() (value Bu
 }
 
 // AccountUpdateBusinessWorkHours invokes method account.updateBusinessWorkHours#4b00e066 returning error if any.
+// Specify a set of Telegram Business opening hours¹.
+// This info will be contained in userFull².business_work_hours.
+// To remove all opening hours, invoke the method without setting the business_work_hours
+// field.
+// Note that the opening hours specified by the user must be appropriately validated and
+// transformed before invoking the method, as specified here »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#opening-hours
+//  2. https://core.telegram.org/constructor/userFull
+//  3. https://core.telegram.org/api/business#opening-hours
+//
+// Possible errors:
+//
+//	400 BUSINESS_WORK_HOURS_EMPTY: No work hours were specified.
+//	400 BUSINESS_WORK_HOURS_PERIOD_INVALID: The specified work hours are invalid, see here » for the exact requirements.
+//	400 TIMEZONE_INVALID: The specified timezone does not exist.
 //
 // See https://core.telegram.org/method/account.updateBusinessWorkHours for reference.
 func (c *Client) AccountUpdateBusinessWorkHours(ctx context.Context, request *AccountUpdateBusinessWorkHoursRequest) (bool, error) {

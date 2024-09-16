@@ -232,9 +232,9 @@ func (t *BotsToggleUsernameRequest) GetActive() (value bool) {
 // Possible errors:
 //
 //	400 BOT_INVALID: This is not a valid bot.
+//	400 USERNAME_NOT_MODIFIED: The username was not modified.
 //
 // See https://core.telegram.org/method/bots.toggleUsername for reference.
-// Can be used by bots.
 func (c *Client) BotsToggleUsername(ctx context.Context, request *BotsToggleUsernameRequest) (bool, error) {
 	var result BoolBox
 

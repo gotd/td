@@ -32,10 +32,15 @@ var (
 )
 
 // FragmentGetCollectibleInfoRequest represents TL type `fragment.getCollectibleInfo#be1e85ba`.
+// Fetch information about a fragment collectible, see here »¹ for more info on the
+// full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/fragment#fetching-info-about-fragment-collectibles
 //
 // See https://core.telegram.org/method/fragment.getCollectibleInfo for reference.
 type FragmentGetCollectibleInfoRequest struct {
-	// Collectible field of FragmentGetCollectibleInfoRequest.
+	// Collectible to fetch info about.
 	Collectible InputCollectibleClass
 }
 
@@ -166,6 +171,16 @@ func (g *FragmentGetCollectibleInfoRequest) GetCollectible() (value InputCollect
 }
 
 // FragmentGetCollectibleInfo invokes method fragment.getCollectibleInfo#be1e85ba returning error if any.
+// Fetch information about a fragment collectible, see here »¹ for more info on the
+// full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/fragment#fetching-info-about-fragment-collectibles
+//
+// Possible errors:
+//
+//	400 COLLECTIBLE_INVALID: The specified collectible is invalid.
+//	400 COLLECTIBLE_NOT_FOUND: The specified collectible could not be found.
 //
 // See https://core.telegram.org/method/fragment.getCollectibleInfo for reference.
 func (c *Client) FragmentGetCollectibleInfo(ctx context.Context, collectible InputCollectibleClass) (*FragmentCollectibleInfo, error) {

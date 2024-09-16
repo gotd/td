@@ -32,7 +32,8 @@ var (
 )
 
 // PremiumGetBoostsListRequest represents TL type `premium.getBoostsList#60f67660`.
-// Obtains info about the boosts that were applied to a certain channel (admins only)
+// Obtains info about the boosts that were applied to a certain channel or supergroup
+// (admins only)
 //
 // See https://core.telegram.org/method/premium.getBoostsList for reference.
 type PremiumGetBoostsListRequest struct {
@@ -42,12 +43,12 @@ type PremiumGetBoostsListRequest struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to return only info about boosts received from gift codes and giveaways
-	// created by the channel »¹
+	// created by the channel/supergroup »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways
 	Gifts bool
-	// The channel
+	// The channel/supergroup
 	Peer InputPeerClass
 	// Offset for pagination, obtained from premium.boostsList¹.next_offset
 	//
@@ -287,7 +288,8 @@ func (g *PremiumGetBoostsListRequest) GetLimit() (value int) {
 }
 
 // PremiumGetBoostsList invokes method premium.getBoostsList#60f67660 returning error if any.
-// Obtains info about the boosts that were applied to a certain channel (admins only)
+// Obtains info about the boosts that were applied to a certain channel or supergroup
+// (admins only)
 //
 // Possible errors:
 //

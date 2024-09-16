@@ -32,17 +32,19 @@ var (
 )
 
 // ChannelsUpdateEmojiStatusRequest represents TL type `channels.updateEmojiStatus#f0d3e6a8`.
-// Set an emoji status¹ for a channel.
+// Set an emoji status¹ for a channel or supergroup.
 //
 // Links:
 //  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/channels.updateEmojiStatus for reference.
 type ChannelsUpdateEmojiStatusRequest struct {
-	// The channel, must have at least channel_emoji_status_level_min boosts¹.
+	// The channel/supergroup, must have at least
+	// channel_emoji_status_level_min¹/group_emoji_status_level_min² boosts.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/config#channel-emoji-status-level-min
+	//  2) https://core.telegram.org/api/config#group-emoji-status-level-min
 	Channel InputChannelClass
 	// Emoji status¹ to set
 	//
@@ -218,7 +220,7 @@ func (u *ChannelsUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 }
 
 // ChannelsUpdateEmojiStatus invokes method channels.updateEmojiStatus#f0d3e6a8 returning error if any.
-// Set an emoji status¹ for a channel.
+// Set an emoji status¹ for a channel or supergroup.
 //
 // Links:
 //  1. https://core.telegram.org/api/emoji-status

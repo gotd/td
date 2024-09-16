@@ -55,7 +55,10 @@ type AuthRequestFirebaseSMSRequest struct {
 	//
 	// Use SetSafetyNetToken and GetSafetyNetToken helpers.
 	SafetyNetToken string
-	// PlayIntegrityToken field of AuthRequestFirebaseSMSRequest.
+	// On Android, an object obtained as described in the auth documentation »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth
 	//
 	// Use SetPlayIntegrityToken and GetPlayIntegrityToken helpers.
 	PlayIntegrityToken string
@@ -364,6 +367,7 @@ func (r *AuthRequestFirebaseSMSRequest) GetIosPushSecret() (value string, ok boo
 //
 // Possible errors:
 //
+//	400 PHONE_CODE_EMPTY: phone_code is missing.
 //	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/auth.requestFirebaseSms for reference.

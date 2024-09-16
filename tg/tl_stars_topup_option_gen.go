@@ -32,22 +32,38 @@ var (
 )
 
 // StarsTopupOption represents TL type `starsTopupOption#bd915c0`.
+// Telegram Stars topup option¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTopupOption for reference.
 type StarsTopupOption struct {
-	// Flags field of StarsTopupOption.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Extended field of StarsTopupOption.
+	// If set, the option must only be shown in the full list of topup options.
 	Extended bool
-	// Stars field of StarsTopupOption.
+	// Amount of Telegram stars.
 	Stars int64
-	// StoreProduct field of StarsTopupOption.
+	// Identifier of the store product associated with the option, official apps only.
 	//
 	// Use SetStoreProduct and GetStoreProduct helpers.
 	StoreProduct string
-	// Currency field of StarsTopupOption.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of StarsTopupOption.
+	// Price of the product in the smallest units of the currency (integer, not float/double)
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

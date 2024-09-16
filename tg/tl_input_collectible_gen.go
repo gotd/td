@@ -32,10 +32,14 @@ var (
 )
 
 // InputCollectibleUsername represents TL type `inputCollectibleUsername#e39460a9`.
+// Represents a username fragment collectible¹
+//
+// Links:
+//  1. https://core.telegram.org/api/fragment
 //
 // See https://core.telegram.org/constructor/inputCollectibleUsername for reference.
 type InputCollectibleUsername struct {
-	// Username field of InputCollectibleUsername.
+	// Username
 	Username string
 }
 
@@ -166,10 +170,14 @@ func (i *InputCollectibleUsername) GetUsername() (value string) {
 }
 
 // InputCollectiblePhone represents TL type `inputCollectiblePhone#a2e214a4`.
+// Represents a phone number fragment collectible¹
+//
+// Links:
+//  1. https://core.telegram.org/api/fragment
 //
 // See https://core.telegram.org/constructor/inputCollectiblePhone for reference.
 type InputCollectiblePhone struct {
-	// Phone field of InputCollectiblePhone.
+	// Phone number
 	Phone string
 }
 

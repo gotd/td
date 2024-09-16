@@ -35,7 +35,7 @@ var (
 // The list of emoji categories¹ hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-categories
+//  1. https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/constructor/messages.emojiGroupsNotModified for reference.
 type MessagesEmojiGroupsNotModified struct {
@@ -140,11 +140,11 @@ func (e *MessagesEmojiGroupsNotModified) DecodeBare(b *bin.Buffer) error {
 // Represents a list of emoji categories¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-categories
+//  1. https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/constructor/messages.emojiGroups for reference.
 type MessagesEmojiGroups struct {
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
@@ -152,7 +152,7 @@ type MessagesEmojiGroups struct {
 	// A list of emoji categories¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/custom-emoji#emoji-categories
+	//  1) https://core.telegram.org/api/emoji-categories
 	Groups []EmojiGroupClass
 }
 

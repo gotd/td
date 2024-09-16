@@ -138,7 +138,6 @@ func (e *ContactsExportContactTokenRequest) DecodeBare(b *bin.Buffer) error {
 //  1. https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/method/contacts.exportContactToken for reference.
-// Can be used by bots.
 func (c *Client) ContactsExportContactToken(ctx context.Context) (*ExportedContactToken, error) {
 	var result ExportedContactToken
 

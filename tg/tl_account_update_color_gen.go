@@ -303,6 +303,7 @@ func (u *AccountUpdateColorRequest) GetBackgroundEmojiID() (value int64, ok bool
 // Possible errors:
 //
 //	400 COLOR_INVALID: The specified color palette ID was invalid.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.updateColor for reference.
 func (c *Client) AccountUpdateColor(ctx context.Context, request *AccountUpdateColorRequest) (bool, error) {

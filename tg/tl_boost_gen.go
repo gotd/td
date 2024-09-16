@@ -44,14 +44,14 @@ type Boost struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether this boost was applied because the channel directly gifted a subscription to
-	// the user¹.
+	// Whether this boost was applied because the channel/supergroup directly gifted a
+	// subscription to the user¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways
 	Gift bool
 	// Whether this boost was applied because the user was chosen in a giveaway started by
-	// the channel¹.
+	// the channel/supergroup¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways

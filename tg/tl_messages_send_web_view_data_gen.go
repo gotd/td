@@ -264,6 +264,10 @@ func (s *MessagesSendWebViewDataRequest) GetData() (value string) {
 // Links:
 //  1. https://core.telegram.org/api/bots/webapps
 //
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 func (c *Client) MessagesSendWebViewData(ctx context.Context, request *MessagesSendWebViewDataRequest) (UpdatesClass, error) {
 	var result UpdatesBox

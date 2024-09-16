@@ -32,12 +32,22 @@ var (
 )
 
 // BotsGetPreviewInfoRequest represents TL type `bots.getPreviewInfo#423ab3ad`.
+// Bot owners only, fetch main mini app preview information, see here »¹ for more info.
+// Note: technically non-owners may also invoke this method, but it will always behave
+// exactly as bots.getPreviewMedias¹, returning only previews for the current language
+// and an empty lang_codes array, regardless of the passed lang_code, so please only use
+// bots.getPreviewMedias² if you're not the owner of the bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/method/bots.getPreviewMedias
+//  3. https://core.telegram.org/method/bots.getPreviewMedias
 //
 // See https://core.telegram.org/method/bots.getPreviewInfo for reference.
 type BotsGetPreviewInfoRequest struct {
-	// Bot field of BotsGetPreviewInfoRequest.
+	// The bot that owns the Main Mini App.
 	Bot InputUserClass
-	// LangCode field of BotsGetPreviewInfoRequest.
+	// Fetch previews for the specified ISO 639-1 language code.
 	LangCode string
 }
 
@@ -193,6 +203,20 @@ func (g *BotsGetPreviewInfoRequest) GetLangCode() (value string) {
 }
 
 // BotsGetPreviewInfo invokes method bots.getPreviewInfo#423ab3ad returning error if any.
+// Bot owners only, fetch main mini app preview information, see here »¹ for more info.
+// Note: technically non-owners may also invoke this method, but it will always behave
+// exactly as bots.getPreviewMedias¹, returning only previews for the current language
+// and an empty lang_codes array, regardless of the passed lang_code, so please only use
+// bots.getPreviewMedias² if you're not the owner of the bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/method/bots.getPreviewMedias
+//  3. https://core.telegram.org/method/bots.getPreviewMedias
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.getPreviewInfo for reference.
 func (c *Client) BotsGetPreviewInfo(ctx context.Context, request *BotsGetPreviewInfoRequest) (*BotsPreviewInfo, error) {

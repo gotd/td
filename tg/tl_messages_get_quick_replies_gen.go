@@ -32,10 +32,18 @@ var (
 )
 
 // MessagesGetQuickRepliesRequest represents TL type `messages.getQuickReplies#d483f2a8`.
+// Fetch basic info about all existing quick reply shortcuts¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.getQuickReplies for reference.
 type MessagesGetQuickRepliesRequest struct {
-	// Hash field of MessagesGetQuickRepliesRequest.
+	// Hash for pagination, generated as specified here »¹ (not the usual algorithm used
+	// for hash generation.)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	Hash int64
 }
 
@@ -161,6 +169,10 @@ func (g *MessagesGetQuickRepliesRequest) GetHash() (value int64) {
 }
 
 // MessagesGetQuickReplies invokes method messages.getQuickReplies#d483f2a8 returning error if any.
+// Fetch basic info about all existing quick reply shortcuts¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.getQuickReplies for reference.
 func (c *Client) MessagesGetQuickReplies(ctx context.Context, hash int64) (MessagesQuickRepliesClass, error) {

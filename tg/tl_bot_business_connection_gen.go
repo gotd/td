@@ -32,22 +32,39 @@ var (
 )
 
 // BotBusinessConnection represents TL type `botBusinessConnection#896433b4`.
+// Contains info about a bot business connection¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/botBusinessConnection for reference.
 type BotBusinessConnection struct {
-	// Flags field of BotBusinessConnection.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CanReply field of BotBusinessConnection.
+	// Whether the bot can reply on behalf of the user to messages it receives through the
+	// business connection
 	CanReply bool
-	// Disabled field of BotBusinessConnection.
+	// Whether this business connection is currently disabled
 	Disabled bool
-	// ConnectionID field of BotBusinessConnection.
+	// Business connection ID, used to identify messages coming from the connection and to
+	// reply to them as specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	ConnectionID string
-	// UserID field of BotBusinessConnection.
+	// ID of the user that the bot is connected to via this connection.
 	UserID int64
-	// DCID field of BotBusinessConnection.
+	// ID of the datacenter where to send queries wrapped in a invokeWithBusinessConnection¹
+	// as specified here »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/invokeWithBusinessConnection
+	//  2) https://core.telegram.org/api/business#connected-bots
 	DCID int
-	// Date field of BotBusinessConnection.
+	// When was the connection created.
 	Date int
 }
 

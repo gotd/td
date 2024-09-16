@@ -38,7 +38,7 @@ var (
 type AccountGetThemesRequest struct {
 	// Theme format, a string that identifies the theming engines supported by the client
 	Format string
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

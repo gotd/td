@@ -203,6 +203,7 @@ func (t *AccountToggleUsernameRequest) GetActive() (value bool) {
 //
 //	400 USERNAMES_ACTIVE_TOO_MUCH: The maximum number of active usernames was reached.
 //	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USERNAME_NOT_MODIFIED: The username was not modified.
 //
 // See https://core.telegram.org/method/account.toggleUsername for reference.
 func (c *Client) AccountToggleUsername(ctx context.Context, request *AccountToggleUsernameRequest) (bool, error) {

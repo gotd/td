@@ -32,18 +32,28 @@ var (
 )
 
 // MessagesGetQuickReplyMessagesRequest represents TL type `messages.getQuickReplyMessages#94a495c3`.
+// Fetch (a subset or all) messages in a quick reply shortcut »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.getQuickReplyMessages for reference.
 type MessagesGetQuickReplyMessagesRequest struct {
-	// Flags field of MessagesGetQuickReplyMessagesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ShortcutID field of MessagesGetQuickReplyMessagesRequest.
+	// Quick reply shortcut ID.
 	ShortcutID int
-	// ID field of MessagesGetQuickReplyMessagesRequest.
+	// IDs of the messages to fetch, if empty fetches all of them.
 	//
 	// Use SetID and GetID helpers.
 	ID []int
-	// Hash field of MessagesGetQuickReplyMessagesRequest.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -267,6 +277,14 @@ func (g *MessagesGetQuickReplyMessagesRequest) GetHash() (value int64) {
 }
 
 // MessagesGetQuickReplyMessages invokes method messages.getQuickReplyMessages#94a495c3 returning error if any.
+// Fetch (a subset or all) messages in a quick reply shortcut »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//
+// Possible errors:
+//
+//	400 SHORTCUT_INVALID: The specified shortcut is invalid.
 //
 // See https://core.telegram.org/method/messages.getQuickReplyMessages for reference.
 func (c *Client) MessagesGetQuickReplyMessages(ctx context.Context, request *MessagesGetQuickReplyMessagesRequest) (MessagesMessagesClass, error) {

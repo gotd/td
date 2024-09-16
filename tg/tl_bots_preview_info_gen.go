@@ -32,12 +32,23 @@ var (
 )
 
 // BotsPreviewInfo represents TL type `bots.previewInfo#ca71d64`.
+// Contains info about Main Mini App previews, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/constructor/bots.previewInfo for reference.
 type BotsPreviewInfo struct {
-	// Media field of BotsPreviewInfo.
+	// All preview medias for the language code passed to bots.getPreviewInfo¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/bots.getPreviewInfo
 	Media []BotPreviewMedia
-	// LangCodes field of BotsPreviewInfo.
+	// All available language codes for which preview medias were uploaded (regardless of the
+	// language code passed to bots.getPreviewInfo¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/bots.getPreviewInfo
 	LangCodes []string
 }
 

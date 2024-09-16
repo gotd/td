@@ -436,7 +436,8 @@ func (i *InputStorePaymentGiftPremium) GetAmount() (value int64) {
 
 // InputStorePaymentPremiumGiftCode represents TL type `inputStorePaymentPremiumGiftCode#a3805f3f`.
 // Used to gift Telegram Premium¹ subscriptions only to some specific subscribers of a
-// channel or to some of our contacts, see here »² for more info on giveaways and gifts.
+// channel/supergroup or to some of our contacts, see here »² for more info on
+// giveaways and gifts.
 //
 // Links:
 //  1. https://core.telegram.org/api/premium
@@ -454,10 +455,10 @@ type InputStorePaymentPremiumGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/api/premium
 	Users []InputUserClass
-	// If set, the gifts will be sent on behalf of a channel we are an admin of, which will
-	// also assign some boosts¹ to it. Otherwise, the gift will be sent directly from the
-	// currently logged in users, and we will gain some extra boost slots². See here »³
-	// for more info on giveaways and gifts.
+	// If set, the gifts will be sent on behalf of a channel/supergroup we are an admin of,
+	// which will also assign some boosts¹ to it. Otherwise, the gift will be sent directly
+	// from the currently logged in user, and we will gain some extra boost slots². See here
+	// »³ for more info on giveaways and gifts.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/boost
@@ -768,8 +769,8 @@ type InputStorePaymentPremiumGiveaway struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/messageMediaGiveawayResults
 	WinnersAreVisible bool
-	// The channel starting the giveaway, that the user must join to participate, that will
-	// receive the giveaway boosts¹; see here »² for more info on giveaways.
+	// The channel/supergroup starting the giveaway, that the user must join to participate,
+	// that will receive the giveaway boosts¹; see here »² for more info on giveaways.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/boost
@@ -1302,14 +1303,27 @@ func (i *InputStorePaymentPremiumGiveaway) MapAdditionalPeers() (value InputPeer
 }
 
 // InputStorePaymentStarsTopup represents TL type `inputStorePaymentStarsTopup#dddd0f56`.
+// Used to top up the Telegram Stars balance¹ of the current account.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsTopup for reference.
 type InputStorePaymentStarsTopup struct {
-	// Stars field of InputStorePaymentStarsTopup.
+	// Amount of stars to topup
 	Stars int64
-	// Currency field of InputStorePaymentStarsTopup.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of InputStorePaymentStarsTopup.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 
@@ -1490,16 +1504,29 @@ func (i *InputStorePaymentStarsTopup) GetAmount() (value int64) {
 }
 
 // InputStorePaymentStarsGift represents TL type `inputStorePaymentStarsGift#1d741ef7`.
+// Used to gift Telegram Stars¹ to a friend.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsGift for reference.
 type InputStorePaymentStarsGift struct {
-	// UserID field of InputStorePaymentStarsGift.
+	// The user to which the stars should be gifted.
 	UserID InputUserClass
-	// Stars field of InputStorePaymentStarsGift.
+	// Amount of stars to gift
 	Stars int64
-	// Currency field of InputStorePaymentStarsGift.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of InputStorePaymentStarsGift.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

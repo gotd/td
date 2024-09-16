@@ -41,7 +41,7 @@ var (
 type MessagesSearchCustomEmojiRequest struct {
 	// The emoji
 	Emoticon string
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
@@ -205,7 +205,6 @@ func (s *MessagesSearchCustomEmojiRequest) GetHash() (value int64) {
 //	400 EMOTICON_EMPTY: The emoji is empty.
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
-// Can be used by bots.
 func (c *Client) MessagesSearchCustomEmoji(ctx context.Context, request *MessagesSearchCustomEmojiRequest) (EmojiListClass, error) {
 	var result EmojiListBox
 

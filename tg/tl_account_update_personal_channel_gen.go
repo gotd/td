@@ -32,10 +32,21 @@ var (
 )
 
 // AccountUpdatePersonalChannelRequest represents TL type `account.updatePersonalChannel#d94305e0`.
+// Associate (or remove) a personal channel »¹, that will be listed on our personal
+// profile page »².
+// Changing it will emit an updateUser¹ update.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/profile#personal-channel
+//  3. https://core.telegram.org/constructor/updateUser
 //
 // See https://core.telegram.org/method/account.updatePersonalChannel for reference.
 type AccountUpdatePersonalChannelRequest struct {
-	// Channel field of AccountUpdatePersonalChannelRequest.
+	// The channel, pass inputChannelEmpty¹ to remove it.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputChannelEmpty
 	Channel InputChannelClass
 }
 
@@ -171,6 +182,14 @@ func (u *AccountUpdatePersonalChannelRequest) GetChannelAsNotEmpty() (NotEmptyIn
 }
 
 // AccountUpdatePersonalChannel invokes method account.updatePersonalChannel#d94305e0 returning error if any.
+// Associate (or remove) a personal channel »¹, that will be listed on our personal
+// profile page »².
+// Changing it will emit an updateUser¹ update.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/profile#personal-channel
+//  3. https://core.telegram.org/constructor/updateUser
 //
 // See https://core.telegram.org/method/account.updatePersonalChannel for reference.
 func (c *Client) AccountUpdatePersonalChannel(ctx context.Context, channel InputChannelClass) (bool, error) {

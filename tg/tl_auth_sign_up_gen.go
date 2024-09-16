@@ -36,9 +36,13 @@ var (
 //
 // See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
-	// Flags field of AuthSignUpRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NoJoinedNotifications field of AuthSignUpRequest.
+	// If set, users on Telegram that have already added phone_number to their contacts will
+	// not receive signup notifications about this user.
 	NoJoinedNotifications bool
 	// Phone number in the international format
 	PhoneNumber string

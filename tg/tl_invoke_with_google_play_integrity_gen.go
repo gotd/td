@@ -32,14 +32,15 @@ var (
 )
 
 // InvokeWithGooglePlayIntegrityRequest represents TL type `invokeWithGooglePlayIntegrity#1df92984`.
+// Official clients only, invoke with Google Play Integrity token.
 //
 // See https://core.telegram.org/constructor/invokeWithGooglePlayIntegrity for reference.
 type InvokeWithGooglePlayIntegrityRequest struct {
-	// Nonce field of InvokeWithGooglePlayIntegrityRequest.
+	// Nonce.
 	Nonce string
-	// Token field of InvokeWithGooglePlayIntegrityRequest.
+	// Token.
 	Token string
-	// Query field of InvokeWithGooglePlayIntegrityRequest.
+	// Query.
 	Query bin.Object
 }
 

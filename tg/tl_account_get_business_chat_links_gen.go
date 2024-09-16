@@ -32,6 +32,10 @@ var (
 )
 
 // AccountGetBusinessChatLinksRequest represents TL type `account.getBusinessChatLinks#6f70dde1`.
+// List all created business chat deep links »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/method/account.getBusinessChatLinks for reference.
 type AccountGetBusinessChatLinksRequest struct {
@@ -128,6 +132,10 @@ func (g *AccountGetBusinessChatLinksRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountGetBusinessChatLinks invokes method account.getBusinessChatLinks#6f70dde1 returning error if any.
+// List all created business chat deep links »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/method/account.getBusinessChatLinks for reference.
 func (c *Client) AccountGetBusinessChatLinks(ctx context.Context) (*AccountBusinessChatLinks, error) {

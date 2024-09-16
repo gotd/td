@@ -32,16 +32,20 @@ var (
 )
 
 // MessagesQuickReplies represents TL type `messages.quickReplies#c68d6695`.
+// Info about quick reply shortcuts »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/messages.quickReplies for reference.
 type MessagesQuickReplies struct {
-	// QuickReplies field of MessagesQuickReplies.
+	// Quick reply shortcuts.
 	QuickReplies []QuickReply
-	// Messages field of MessagesQuickReplies.
+	// Messages mentioned in quick_replies.
 	Messages []MessageClass
-	// Chats field of MessagesQuickReplies.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of MessagesQuickReplies.
+	// Mentioned users
 	Users []UserClass
 }
 
@@ -331,6 +335,10 @@ func (q *MessagesQuickReplies) MapUsers() (value UserClassArray) {
 }
 
 // MessagesQuickRepliesNotModified represents TL type `messages.quickRepliesNotModified#5f91eb5b`.
+// Info about quick reply shortcuts »¹ hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/messages.quickRepliesNotModified for reference.
 type MessagesQuickRepliesNotModified struct {

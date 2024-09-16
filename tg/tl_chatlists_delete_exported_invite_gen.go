@@ -206,7 +206,6 @@ func (d *ChatlistsDeleteExportedInviteRequest) GetSlug() (value string) {
 //	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //
 // See https://core.telegram.org/method/chatlists.deleteExportedInvite for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsDeleteExportedInvite(ctx context.Context, request *ChatlistsDeleteExportedInviteRequest) (bool, error) {
 	var result BoolBox
 

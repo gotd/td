@@ -172,6 +172,7 @@ func (c *PaymentsCheckGiftCodeRequest) GetSlug() (value string) {
 //
 // Possible errors:
 //
+//	400 GIFT_SLUG_EXPIRED: The specified gift slug has expired.
 //	400 GIFT_SLUG_INVALID: The specified slug is invalid.
 //
 // See https://core.telegram.org/method/payments.checkGiftCode for reference.

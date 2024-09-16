@@ -32,26 +32,37 @@ var (
 )
 
 // BusinessBotRecipients represents TL type `businessBotRecipients#b88cf373`.
+// Specifies the private chats that a connected business bot »¹ may receive messages
+// and interact with.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/businessBotRecipients for reference.
 type BusinessBotRecipients struct {
-	// Flags field of BusinessBotRecipients.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ExistingChats field of BusinessBotRecipients.
+	// Selects all existing private chats.
 	ExistingChats bool
-	// NewChats field of BusinessBotRecipients.
+	// Selects all new private chats.
 	NewChats bool
-	// Contacts field of BusinessBotRecipients.
+	// Selects all private chats with contacts.
 	Contacts bool
-	// NonContacts field of BusinessBotRecipients.
+	// Selects all private chats with non-contacts.
 	NonContacts bool
-	// ExcludeSelected field of BusinessBotRecipients.
+	// If set, then all private chats except the ones selected by existing_chats, new_chats,
+	// contacts, non_contacts and users are chosen. Note that if this flag is set, any values
+	// passed in exclude_users will be merged and moved into users by the server, thus
+	// exclude_users will always be empty.
 	ExcludeSelected bool
-	// Users field of BusinessBotRecipients.
+	// Explicitly selected private chats.
 	//
 	// Use SetUsers and GetUsers helpers.
 	Users []int64
-	// ExcludeUsers field of BusinessBotRecipients.
+	// Identifiers of private chats that are always excluded.
 	//
 	// Use SetExcludeUsers and GetExcludeUsers helpers.
 	ExcludeUsers []int64

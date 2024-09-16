@@ -32,22 +32,35 @@ var (
 )
 
 // BusinessRecipients represents TL type `businessRecipients#21108ff7`.
+// Specifies the chats that can receive Telegram Business away »¹ and greeting »²
+// messages.
+// If exclude_selected is set, specifies all chats that cannot receive Telegram Business
+// away »¹ and greeting »² messages.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#away-messages
+//  2. https://core.telegram.org/api/business#greeting-messages
+//  3. https://core.telegram.org/api/business#away-messages
+//  4. https://core.telegram.org/api/business#greeting-messages
 //
 // See https://core.telegram.org/constructor/businessRecipients for reference.
 type BusinessRecipients struct {
-	// Flags field of BusinessRecipients.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ExistingChats field of BusinessRecipients.
+	// All existing private chats.
 	ExistingChats bool
-	// NewChats field of BusinessRecipients.
+	// All new private chats.
 	NewChats bool
-	// Contacts field of BusinessRecipients.
+	// All private chats with contacts.
 	Contacts bool
-	// NonContacts field of BusinessRecipients.
+	// All private chats with non-contacts.
 	NonContacts bool
-	// ExcludeSelected field of BusinessRecipients.
+	// If set, inverts the selection.
 	ExcludeSelected bool
-	// Users field of BusinessRecipients.
+	// Only private chats with the specified users.
 	//
 	// Use SetUsers and GetUsers helpers.
 	Users []int64

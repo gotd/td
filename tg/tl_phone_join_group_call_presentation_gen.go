@@ -193,6 +193,7 @@ func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
 //
 // Possible errors:
 //
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	403 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
 //
 // See https://core.telegram.org/method/phone.joinGroupCallPresentation for reference.

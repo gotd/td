@@ -171,6 +171,10 @@ func (c *PaymentsCanPurchasePremiumRequest) GetPurpose() (value InputStorePaymen
 // Checks whether Telegram Premium purchase is possible. Must be called before in-store
 // Premium purchase, official apps only.
 //
+// Possible errors:
+//
+//	406 PREMIUM_CURRENTLY_UNAVAILABLE: You cannot currently purchase a Premium subscription.
+//
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
 func (c *Client) PaymentsCanPurchasePremium(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error) {
 	var result BoolBox

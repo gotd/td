@@ -1740,10 +1740,11 @@ type BotInlineMessageMediaInvoice struct {
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// Three-letter ISO 4217 currency¹ code
+	// Three-letter ISO 4217 currency¹ code, or XTR for Telegram Stars².
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	//  2) https://core.telegram.org/api/stars
 	Currency string
 	// Total price in the smallest units of the currency (integer, not float/double). For
 	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in

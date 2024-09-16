@@ -408,9 +408,18 @@ func (u *UserStatusOffline) GetWasOnline() (value int) {
 //
 // See https://core.telegram.org/constructor/userStatusRecently for reference.
 type UserStatusRecently struct {
-	// Flags field of UserStatusRecently.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ByMe field of UserStatusRecently.
+	// If set, the exact user status of this user is actually available to us, but to view it
+	// we must first purchase a Premium¹ subscription, or allow this user to see our exact
+	// last online status. See here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/constructor/privacyKeyStatusTimestamp
 	ByMe bool
 }
 
@@ -569,9 +578,18 @@ func (u *UserStatusRecently) GetByMe() (value bool) {
 //
 // See https://core.telegram.org/constructor/userStatusLastWeek for reference.
 type UserStatusLastWeek struct {
-	// Flags field of UserStatusLastWeek.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ByMe field of UserStatusLastWeek.
+	// If set, the exact user status of this user is actually available to us, but to view it
+	// we must first purchase a Premium¹ subscription, or allow this user to see our exact
+	// last online status. See here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/constructor/privacyKeyStatusTimestamp
 	ByMe bool
 }
 
@@ -730,9 +748,18 @@ func (u *UserStatusLastWeek) GetByMe() (value bool) {
 //
 // See https://core.telegram.org/constructor/userStatusLastMonth for reference.
 type UserStatusLastMonth struct {
-	// Flags field of UserStatusLastMonth.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ByMe field of UserStatusLastMonth.
+	// If set, the exact user status of this user is actually available to us, but to view it
+	// we must first purchase a Premium¹ subscription, or allow this user to see our exact
+	// last online status. See here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/constructor/privacyKeyStatusTimestamp
 	ByMe bool
 }
 

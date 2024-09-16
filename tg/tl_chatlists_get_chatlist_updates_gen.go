@@ -183,7 +183,6 @@ func (g *ChatlistsGetChatlistUpdatesRequest) GetChatlist() (value InputChatlistD
 //	400 INPUT_CHATLIST_INVALID: The specified folder is invalid.
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsGetChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsChatlistUpdates, error) {
 	var result ChatlistsChatlistUpdates
 

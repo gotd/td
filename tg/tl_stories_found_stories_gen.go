@@ -32,22 +32,29 @@ var (
 )
 
 // StoriesFoundStories represents TL type `stories.foundStories#e2de7737`.
+// Stories found using global story search »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#searching-stories
 //
 // See https://core.telegram.org/constructor/stories.foundStories for reference.
 type StoriesFoundStories struct {
-	// Flags field of StoriesFoundStories.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of StoriesFoundStories.
+	// Total number of results found for the query.
 	Count int
-	// Stories field of StoriesFoundStories.
+	// Matching stories.
 	Stories []FoundStory
-	// NextOffset field of StoriesFoundStories.
+	// Offset used to fetch the next page, if not set this is the final page.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Chats field of StoriesFoundStories.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of StoriesFoundStories.
+	// Mentioned users
 	Users []UserClass
 }
 

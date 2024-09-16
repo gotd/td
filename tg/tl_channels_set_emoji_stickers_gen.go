@@ -32,12 +32,20 @@ var (
 )
 
 // ChannelsSetEmojiStickersRequest represents TL type `channels.setEmojiStickers#3cd930b7`.
+// Set a custom emoji stickerset¹ for supergroups. Only usable after reaching at least
+// the boost level »² specified in the group_emoji_stickers_level_min »³ config
+// parameter.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
+//  2. https://core.telegram.org/api/boost
+//  3. https://core.telegram.org/api/config#group-emoji-stickers-level-min
 //
 // See https://core.telegram.org/method/channels.setEmojiStickers for reference.
 type ChannelsSetEmojiStickersRequest struct {
-	// Channel field of ChannelsSetEmojiStickersRequest.
+	// The supergroup
 	Channel InputChannelClass
-	// Stickerset field of ChannelsSetEmojiStickersRequest.
+	// The custom emoji stickerset to associate to the supergroup
 	Stickerset InputStickerSetClass
 }
 
@@ -203,6 +211,18 @@ func (s *ChannelsSetEmojiStickersRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 }
 
 // ChannelsSetEmojiStickers invokes method channels.setEmojiStickers#3cd930b7 returning error if any.
+// Set a custom emoji stickerset¹ for supergroups. Only usable after reaching at least
+// the boost level »² specified in the group_emoji_stickers_level_min »³ config
+// parameter.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
+//  2. https://core.telegram.org/api/boost
+//  3. https://core.telegram.org/api/config#group-emoji-stickers-level-min
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.setEmojiStickers for reference.
 func (c *Client) ChannelsSetEmojiStickers(ctx context.Context, request *ChannelsSetEmojiStickersRequest) (bool, error) {

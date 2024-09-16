@@ -2095,10 +2095,11 @@ type MessageMediaInvoice struct {
 	//
 	// Use SetReceiptMsgID and GetReceiptMsgID helpers.
 	ReceiptMsgID int
-	// Three-letter ISO 4217 currency¹ code
+	// Three-letter ISO 4217 currency¹ code, or XTR for Telegram Stars².
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	//  2) https://core.telegram.org/api/stars
 	Currency string
 	// Total price in the smallest units of the currency (integer, not float/double). For
 	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
@@ -2110,7 +2111,7 @@ type MessageMediaInvoice struct {
 	TotalAmount int64
 	// Unique bot deep-linking parameter that can be used to generate this invoice
 	StartParam string
-	// Extended media
+	// Deprecated
 	//
 	// Use SetExtendedMedia and GetExtendedMedia helpers.
 	ExtendedMedia MessageExtendedMediaClass
@@ -4009,8 +4010,8 @@ type MessageMediaGiveawayResults struct {
 	OnlyNewSubscribers bool
 	// If set, the giveaway was canceled and was fully refunded.
 	Refunded bool
-	// ID of the channel that was automatically boosted¹ by the winners of the giveaway for
-	// duration of the Premium subscription.
+	// ID of the channel/supergroup that was automatically boosted¹ by the winners of the
+	// giveaway for duration of the Premium subscription.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/boost
@@ -4570,12 +4571,23 @@ func (m *MessageMediaGiveawayResults) GetUntilDate() (value int) {
 }
 
 // MessageMediaPaidMedia represents TL type `messageMediaPaidMedia#a8852491`.
+// Paid media, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/messageMediaPaidMedia for reference.
 type MessageMediaPaidMedia struct {
-	// StarsAmount field of MessageMediaPaidMedia.
+	// The price of the media in Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	StarsAmount int64
-	// ExtendedMedia field of MessageMediaPaidMedia.
+	// Either the paid-for media, or super low resolution media previews if the media wasn't
+	// purchased yet, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-media#viewing-paid-media
 	ExtendedMedia []MessageExtendedMediaClass
 }
 

@@ -41,7 +41,11 @@ type MessagesSearchGlobalRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BroadcastsOnly field of MessagesSearchGlobalRequest.
+	// If set, only returns results from channels (used in the global channel search tab
+	// »¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/search#global-search
 	BroadcastsOnly bool
 	// Peer folder ID, for more info click here¹
 	//
@@ -487,6 +491,7 @@ func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
 // Possible errors:
 //
 //	400 FOLDER_ID_INVALID: Invalid folder ID.
+//	400 INPUT_FILTER_INVALID: The specified filter is invalid.
 //	400 SEARCH_QUERY_EMPTY: The search query is empty.
 //
 // See https://core.telegram.org/method/messages.searchGlobal for reference.

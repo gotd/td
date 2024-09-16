@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesSavedReactionTagsNotModified represents TL type `messages.savedReactionTagsNotModified#889b59ef`.
+// The list of reaction tag »¹ names assigned by the user hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/constructor/messages.savedReactionTagsNotModified for reference.
 type MessagesSavedReactionTagsNotModified struct {
@@ -133,12 +137,19 @@ func (s *MessagesSavedReactionTagsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesSavedReactionTags represents TL type `messages.savedReactionTags#3259950a`.
+// List of reaction tag »¹ names assigned by the user.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/constructor/messages.savedReactionTags for reference.
 type MessagesSavedReactionTags struct {
-	// Tags field of MessagesSavedReactionTags.
+	// Saved reaction tags.
 	Tags []SavedReactionTag
-	// Hash field of MessagesSavedReactionTags.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 

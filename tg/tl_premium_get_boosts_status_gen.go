@@ -32,7 +32,7 @@ var (
 )
 
 // PremiumGetBoostsStatusRequest represents TL type `premium.getBoostsStatus#42f1f61`.
-// Gets the current number of boosts¹ of a channel.
+// Gets the current number of boosts¹ of a channel/supergroup.
 //
 // Links:
 //  1. https://core.telegram.org/api/boost
@@ -170,7 +170,7 @@ func (g *PremiumGetBoostsStatusRequest) GetPeer() (value InputPeerClass) {
 }
 
 // PremiumGetBoostsStatus invokes method premium.getBoostsStatus#42f1f61 returning error if any.
-// Gets the current number of boosts¹ of a channel.
+// Gets the current number of boosts¹ of a channel/supergroup.
 //
 // Links:
 //  1. https://core.telegram.org/api/boost

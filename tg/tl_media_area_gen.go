@@ -546,14 +546,17 @@ func (i *InputMediaAreaVenue) GetResultID() (value string) {
 //
 // See https://core.telegram.org/constructor/mediaAreaGeoPoint for reference.
 type MediaAreaGeoPoint struct {
-	// Flags field of MediaAreaGeoPoint.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The size and position of the media area corresponding to the location sticker on top
 	// of the story media.
 	Coordinates MediaAreaCoordinates
 	// Coordinates of the geolocation tag.
 	Geo GeoPointClass
-	// Address field of MediaAreaGeoPoint.
+	// Optional textual representation of the address.
 	//
 	// Use SetAddress and GetAddress helpers.
 	Address GeoPointAddress
@@ -1422,12 +1425,17 @@ func (i *InputMediaAreaChannelPost) GetMsgID() (value int) {
 }
 
 // MediaAreaURL represents TL type `mediaAreaUrl#37381085`.
+// Represents a URL media area¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#urls
 //
 // See https://core.telegram.org/constructor/mediaAreaUrl for reference.
 type MediaAreaURL struct {
-	// Coordinates field of MediaAreaURL.
+	// The size and location of the media area corresponding to the URL button on top of the
+	// story media.
 	Coordinates MediaAreaCoordinates
-	// URL field of MediaAreaURL.
+	// URL to open when clicked.
 	URL string
 }
 
@@ -1583,16 +1591,24 @@ func (m *MediaAreaURL) GetURL() (value string) {
 }
 
 // MediaAreaWeather represents TL type `mediaAreaWeather#49a6549c`.
+// Represents a weather widget »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#weather
 //
 // See https://core.telegram.org/constructor/mediaAreaWeather for reference.
 type MediaAreaWeather struct {
-	// Coordinates field of MediaAreaWeather.
+	// The size and location of the media area corresponding to the widget on top of the
+	// story media.
 	Coordinates MediaAreaCoordinates
-	// Emoji field of MediaAreaWeather.
+	// Weather emoji, should be rendered as an animated emoji¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/animated-emojis
 	Emoji string
-	// TemperatureC field of MediaAreaWeather.
+	// Temperature in degrees Celsius.
 	TemperatureC float64
-	// Color field of MediaAreaWeather.
+	// ARGB background color.
 	Color int
 }
 

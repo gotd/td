@@ -32,12 +32,30 @@ var (
 )
 
 // MessagesGetOutboxReadDateRequest represents TL type `messages.getOutboxReadDate#8c4bfe5d`.
+// Get the exact read date of one of our messages, sent to a private chat with another
+// user.
+// Can be only done for private outgoing messages not older than appConfig
+// pm_read_date_expire_period »¹.
+// If the peer's userFull¹.read_dates_private flag is set, we will not be able to fetch
+// the exact read date of messages we send to them, and a USER_PRIVACY_RESTRICTED RPC
+// error will be emitted.
+// The exact read date of messages might still be unavailable for other reasons, see here
+// »² for more info.
+// To set userFull³.read_dates_private for ourselves invoke account
+// setGlobalPrivacySettings⁴, setting the settings.hide_read_marks flag.
+//
+// Links:
+//  1. https://core.telegram.org/api/config#pm-read-date-expire-period
+//  2. https://core.telegram.org/constructor/userFull
+//  3. https://core.telegram.org/constructor/globalPrivacySettings
+//  4. https://core.telegram.org/constructor/userFull
+//  5. https://core.telegram.org/method/account.setGlobalPrivacySettings
 //
 // See https://core.telegram.org/method/messages.getOutboxReadDate for reference.
 type MessagesGetOutboxReadDateRequest struct {
-	// Peer field of MessagesGetOutboxReadDateRequest.
+	// The user to whom we sent the message.
 	Peer InputPeerClass
-	// MsgID field of MessagesGetOutboxReadDateRequest.
+	// The message ID.
 	MsgID int
 }
 
@@ -193,6 +211,33 @@ func (g *MessagesGetOutboxReadDateRequest) GetMsgID() (value int) {
 }
 
 // MessagesGetOutboxReadDate invokes method messages.getOutboxReadDate#8c4bfe5d returning error if any.
+// Get the exact read date of one of our messages, sent to a private chat with another
+// user.
+// Can be only done for private outgoing messages not older than appConfig
+// pm_read_date_expire_period »¹.
+// If the peer's userFull¹.read_dates_private flag is set, we will not be able to fetch
+// the exact read date of messages we send to them, and a USER_PRIVACY_RESTRICTED RPC
+// error will be emitted.
+// The exact read date of messages might still be unavailable for other reasons, see here
+// »² for more info.
+// To set userFull³.read_dates_private for ourselves invoke account
+// setGlobalPrivacySettings⁴, setting the settings.hide_read_marks flag.
+//
+// Links:
+//  1. https://core.telegram.org/api/config#pm-read-date-expire-period
+//  2. https://core.telegram.org/constructor/userFull
+//  3. https://core.telegram.org/constructor/globalPrivacySettings
+//  4. https://core.telegram.org/constructor/userFull
+//  5. https://core.telegram.org/method/account.setGlobalPrivacySettings
+//
+// Possible errors:
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 MESSAGE_NOT_READ_YET: The specified message wasn't read yet.
+//	400 MESSAGE_TOO_OLD: The message is too old, the requested information is not available.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	403 USER_PRIVACY_RESTRICTED: The user's privacy settings do not allow you to do this.
+//	403 YOUR_PRIVACY_RESTRICTED: You cannot fetch the read date of this message because you have disallowed other users to do so for your messages; to fix, allow other users to see your exact last online date OR purchase a Telegram Premium subscription.
 //
 // See https://core.telegram.org/method/messages.getOutboxReadDate for reference.
 func (c *Client) MessagesGetOutboxReadDate(ctx context.Context, request *MessagesGetOutboxReadDateRequest) (*OutboxReadDate, error) {

@@ -1529,7 +1529,7 @@ type UpdateNewAuthorization struct {
 	// Links:
 	//  1) https://core.telegram.org/api/auth#confirming-login
 	Unconfirmed bool
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
@@ -5264,8 +5264,22 @@ func (u *UpdateChannelTooLong) GetPts() (value int, ok bool) {
 }
 
 // UpdateChannel represents TL type `updateChannel#635b4c09`.
-// A new channel or supergroup is available, or info about an existing channel has
-// changed and must be refeteched.
+// Channel/supergroup (channel¹ and/or channelFull²) information was updated.
+// This update can only be received through getDifference or in
+// updates¹/updatesCombined² constructors, so it will always come bundled with the
+// updated channel³, that should be applied as usual »⁴, without re-fetching the info
+// manually.
+// However, full peer information will not come bundled in updates, so the full peer
+// cache (channelFull¹) must be invalidated for channel_id when receiving this update.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/channel
+//  2. https://core.telegram.org/constructor/channelFull
+//  3. https://core.telegram.org/constructor/updates
+//  4. https://core.telegram.org/constructor/updatesCombined
+//  5. https://core.telegram.org/constructor/channel
+//  6. https://core.telegram.org/api/peers
+//  7. https://core.telegram.org/constructor/channelFull
 //
 // See https://core.telegram.org/constructor/updateChannel for reference.
 type UpdateChannel struct {
@@ -9627,10 +9641,11 @@ func (u *UpdateRecentStickers) DecodeBare(b *bin.Buffer) error {
 
 // UpdateConfig represents TL type `updateConfig#a229dd06`.
 // The server-side configuration has changed; the client should re-fetch the config using
-// help.getConfig¹
+// help.getConfig¹ and help.getAppConfig².
 //
 // Links:
 //  1. https://core.telegram.org/method/help.getConfig
+//  2. https://core.telegram.org/method/help.getAppConfig
 //
 // See https://core.telegram.org/constructor/updateConfig for reference.
 type UpdateConfig struct {
@@ -11136,10 +11151,11 @@ type UpdateBotPrecheckoutQuery struct {
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
 	ShippingOptionID string
-	// Three-letter ISO 4217 currency¹ code
+	// Three-letter ISO 4217 currency¹ code, or XTR for Telegram Stars².
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	//  2) https://core.telegram.org/api/stars
 	Currency string
 	// Total amount in the smallest units of the currency (integer, not float/double). For
 	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
@@ -17109,7 +17125,22 @@ func (u *UpdatePinnedChannelMessages) GetPtsCount() (value int) {
 }
 
 // UpdateChat represents TL type `updateChat#f89a6a4e`.
-// A new chat is available
+// Chat (chat¹ and/or chatFull²) information was updated.
+// This update can only be received through getDifference or in
+// updates¹/updatesCombined² constructors, so it will always come bundled with the
+// updated chat³, that should be applied as usual »⁴, without re-fetching the info
+// manually.
+// However, full peer information will not come bundled in updates, so the full peer
+// cache (chatFull¹) must be invalidated for chat_id when receiving this update.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/chat
+//  2. https://core.telegram.org/constructor/chatFull
+//  3. https://core.telegram.org/constructor/updates
+//  4. https://core.telegram.org/constructor/updatesCombined
+//  5. https://core.telegram.org/constructor/chat
+//  6. https://core.telegram.org/api/peers
+//  7. https://core.telegram.org/constructor/chatFull
 //
 // See https://core.telegram.org/constructor/updateChat for reference.
 type UpdateChat struct {
@@ -21653,15 +21684,21 @@ func (u *UpdateMoveStickerSetToTop) GetStickerset() (value int64) {
 }
 
 // UpdateMessageExtendedMedia represents TL type `updateMessageExtendedMedia#d5a41724`.
-// Extended media update
+// You bought a paid media »¹: this update contains the revealed media.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/updateMessageExtendedMedia for reference.
 type UpdateMessageExtendedMedia struct {
-	// Peer
+	// Peer where the paid media was posted
 	Peer PeerClass
-	// Message ID
+	// ID of the message containing the paid media
 	MsgID int
-	// Extended media
+	// Revealed media, contains only messageExtendedMedia¹ constructors.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageExtendedMedia
 	ExtendedMedia []MessageExtendedMediaClass
 }
 
@@ -22311,10 +22348,22 @@ func (u *UpdateChannelPinnedTopics) GetOrder() (value []int, ok bool) {
 }
 
 // UpdateUser represents TL type `updateUser#20529438`.
-// User information was updated, it must be refetched using users.getFullUser¹.
+// User (user¹ and/or userFull²) information was updated.
+// This update can only be received through getDifference or in
+// updates¹/updatesCombined² constructors, so it will always come bundled with the
+// updated user³, that should be applied as usual »⁴, without re-fetching the info
+// manually.
+// However, full peer information will not come bundled in updates, so the full peer
+// cache (userFull¹) must be invalidated for user_id when receiving this update.
 //
 // Links:
-//  1. https://core.telegram.org/method/users.getFullUser
+//  1. https://core.telegram.org/constructor/user
+//  2. https://core.telegram.org/constructor/userFull
+//  3. https://core.telegram.org/constructor/updates
+//  4. https://core.telegram.org/constructor/updatesCombined
+//  5. https://core.telegram.org/constructor/user
+//  6. https://core.telegram.org/api/peers
+//  7. https://core.telegram.org/constructor/userFull
 //
 // See https://core.telegram.org/constructor/updateUser for reference.
 type UpdateUser struct {
@@ -23412,7 +23461,7 @@ func (u *UpdateSentStoryReaction) GetReaction() (value ReactionClass) {
 }
 
 // UpdateBotChatBoost represents TL type `updateBotChatBoost#904dd49c`.
-// A channel boost¹ has changed (bots only)
+// A channel/supergroup boost¹ has changed (bots only)
 //
 // Links:
 //  1. https://core.telegram.org/api/boost
@@ -25070,6 +25119,12 @@ func (u *UpdatePinnedSavedDialogs) MapOrder() (value DialogPeerClassArray, ok bo
 }
 
 // UpdateSavedReactionTags represents TL type `updateSavedReactionTags#39c67432`.
+// The list of reaction tag »¹ names assigned by the user has changed and should be
+// refetched using messages.getSavedReactionTags »².
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages#tags
+//  2. https://core.telegram.org/method/messages.getSavedReactionTags
 //
 // See https://core.telegram.org/constructor/updateSavedReactionTags for reference.
 type UpdateSavedReactionTags struct {
@@ -25171,10 +25226,11 @@ func (u *UpdateSavedReactionTags) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateSMSJob represents TL type `updateSmsJob#f16269d4`.
+// A new SMS job was received
 //
 // See https://core.telegram.org/constructor/updateSmsJob for reference.
 type UpdateSMSJob struct {
-	// JobID field of UpdateSMSJob.
+	// SMS job ID
 	JobID string
 }
 
@@ -25305,10 +25361,14 @@ func (u *UpdateSMSJob) GetJobID() (value string) {
 }
 
 // UpdateQuickReplies represents TL type `updateQuickReplies#f9470ab2`.
+// Info about or the order of quick reply shortcuts »¹ was changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/updateQuickReplies for reference.
 type UpdateQuickReplies struct {
-	// QuickReplies field of UpdateQuickReplies.
+	// New quick reply shortcut order and information.
 	QuickReplies []QuickReply
 }
 
@@ -25454,10 +25514,14 @@ func (u *UpdateQuickReplies) GetQuickReplies() (value []QuickReply) {
 }
 
 // UpdateNewQuickReply represents TL type `updateNewQuickReply#f53da717`.
+// A new quick reply shortcut »¹ was created.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/updateNewQuickReply for reference.
 type UpdateNewQuickReply struct {
-	// QuickReply field of UpdateNewQuickReply.
+	// Quick reply shortcut.
 	QuickReply QuickReply
 }
 
@@ -25588,10 +25652,17 @@ func (u *UpdateNewQuickReply) GetQuickReply() (value QuickReply) {
 }
 
 // UpdateDeleteQuickReply represents TL type `updateDeleteQuickReply#53e6f1ec`.
+// A quick reply shortcut »¹ was deleted. This will not emit
+// updateDeleteQuickReplyMessages² updates, even if all the messages in the shortcut are
+// also deleted by this update.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2. https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
 //
 // See https://core.telegram.org/constructor/updateDeleteQuickReply for reference.
 type UpdateDeleteQuickReply struct {
-	// ShortcutID field of UpdateDeleteQuickReply.
+	// ID of the quick reply shortcut that was deleted.
 	ShortcutID int
 }
 
@@ -25722,10 +25793,18 @@ func (u *UpdateDeleteQuickReply) GetShortcutID() (value int) {
 }
 
 // UpdateQuickReplyMessage represents TL type `updateQuickReplyMessage#3e050d0f`.
+// A new message was added to a quick reply shortcut »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/updateQuickReplyMessage for reference.
 type UpdateQuickReplyMessage struct {
-	// Message field of UpdateQuickReplyMessage.
+	// The message that was added (the message¹.quick_reply_shortcut_id field will contain
+	// the shortcut ID).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/message
 	Message MessageClass
 }
 
@@ -25861,12 +25940,16 @@ func (u *UpdateQuickReplyMessage) GetMessage() (value MessageClass) {
 }
 
 // UpdateDeleteQuickReplyMessages represents TL type `updateDeleteQuickReplyMessages#566fe7cd`.
+// One or more messages in a quick reply shortcut »¹ were deleted.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/updateDeleteQuickReplyMessages for reference.
 type UpdateDeleteQuickReplyMessages struct {
-	// ShortcutID field of UpdateDeleteQuickReplyMessages.
+	// Quick reply shortcut ID.
 	ShortcutID int
-	// Messages field of UpdateDeleteQuickReplyMessages.
+	// IDs of the deleted messages.
 	Messages []int
 }
 
@@ -26035,12 +26118,23 @@ func (u *UpdateDeleteQuickReplyMessages) GetMessages() (value []int) {
 }
 
 // UpdateBotBusinessConnect represents TL type `updateBotBusinessConnect#8ae5c97a`.
+// Connecting or disconnecting a business bot¹ or changing the connection settings will
+// emit an updateBotBusinessConnect² update to the bot, with the new settings and a
+// connection_id that will be used by the bot to handle updates from and send messages as
+// the user.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
+//  2. https://core.telegram.org/constructor/updateBotBusinessConnect
 //
 // See https://core.telegram.org/constructor/updateBotBusinessConnect for reference.
 type UpdateBotBusinessConnect struct {
-	// Connection field of UpdateBotBusinessConnect.
+	// Business connection settings
 	Connection BotBusinessConnection
-	// Qts field of UpdateBotBusinessConnect.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -26196,20 +26290,30 @@ func (u *UpdateBotBusinessConnect) GetQts() (value int) {
 }
 
 // UpdateBotNewBusinessMessage represents TL type `updateBotNewBusinessMessage#9ddb347c`.
+// A message was received via a connected business chat »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/updateBotNewBusinessMessage for reference.
 type UpdateBotNewBusinessMessage struct {
-	// Flags field of UpdateBotNewBusinessMessage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ConnectionID field of UpdateBotNewBusinessMessage.
+	// Connection ID.
 	ConnectionID string
-	// Message field of UpdateBotNewBusinessMessage.
+	// New message.
 	Message MessageClass
-	// ReplyToMessage field of UpdateBotNewBusinessMessage.
+	// The message that message is replying to.
 	//
 	// Use SetReplyToMessage and GetReplyToMessage helpers.
 	ReplyToMessage MessageClass
-	// Qts field of UpdateBotNewBusinessMessage.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -26460,20 +26564,30 @@ func (u *UpdateBotNewBusinessMessage) GetQts() (value int) {
 }
 
 // UpdateBotEditBusinessMessage represents TL type `updateBotEditBusinessMessage#7df587c`.
+// A message was edited in a connected business chat »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/updateBotEditBusinessMessage for reference.
 type UpdateBotEditBusinessMessage struct {
-	// Flags field of UpdateBotEditBusinessMessage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ConnectionID field of UpdateBotEditBusinessMessage.
+	// Business connection ID
 	ConnectionID string
-	// Message field of UpdateBotEditBusinessMessage.
+	// New message.
 	Message MessageClass
-	// ReplyToMessage field of UpdateBotEditBusinessMessage.
+	// The message that message is replying to.
 	//
 	// Use SetReplyToMessage and GetReplyToMessage helpers.
 	ReplyToMessage MessageClass
-	// Qts field of UpdateBotEditBusinessMessage.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -26724,16 +26838,26 @@ func (u *UpdateBotEditBusinessMessage) GetQts() (value int) {
 }
 
 // UpdateBotDeleteBusinessMessage represents TL type `updateBotDeleteBusinessMessage#a02a982e`.
+// A message was deleted in a connected business chat »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/updateBotDeleteBusinessMessage for reference.
 type UpdateBotDeleteBusinessMessage struct {
-	// ConnectionID field of UpdateBotDeleteBusinessMessage.
+	// Business connection ID.
 	ConnectionID string
-	// Peer field of UpdateBotDeleteBusinessMessage.
+	// Peer¹ where the messages were deleted.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	Peer PeerClass
-	// Messages field of UpdateBotDeleteBusinessMessage.
+	// IDs of the messages that were deleted.
 	Messages []int
-	// Qts field of UpdateBotDeleteBusinessMessage.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -26957,14 +27081,24 @@ func (u *UpdateBotDeleteBusinessMessage) GetQts() (value int) {
 }
 
 // UpdateNewStoryReaction represents TL type `updateNewStoryReaction#1824e40b`.
+// Represents a new reaction to a story¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions#notifications-about-reactions
 //
 // See https://core.telegram.org/constructor/updateNewStoryReaction for reference.
 type UpdateNewStoryReaction struct {
-	// StoryID field of UpdateNewStoryReaction.
+	// Story ID¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	StoryID int
-	// Peer field of UpdateNewStoryReaction.
+	// The peer where the story was posted.
 	Peer PeerClass
-	// Reaction field of UpdateNewStoryReaction.
+	// The reaction¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	Reaction ReactionClass
 }
 
@@ -27155,12 +27289,16 @@ func (u *UpdateNewStoryReaction) GetReaction() (value ReactionClass) {
 }
 
 // UpdateBroadcastRevenueTransactions represents TL type `updateBroadcastRevenueTransactions#dfd961f5`.
+// A new channel ad revenue transaction was made, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue#revenue-statistics
 //
 // See https://core.telegram.org/constructor/updateBroadcastRevenueTransactions for reference.
 type UpdateBroadcastRevenueTransactions struct {
-	// Peer field of UpdateBroadcastRevenueTransactions.
+	// Channel
 	Peer PeerClass
-	// Balances field of UpdateBroadcastRevenueTransactions.
+	// New ad revenue balance.
 	Balances BroadcastRevenueBalances
 }
 
@@ -27321,10 +27459,14 @@ func (u *UpdateBroadcastRevenueTransactions) GetBalances() (value BroadcastReven
 }
 
 // UpdateStarsBalance represents TL type `updateStarsBalance#fb85198`.
+// The current account's Telegram Stars balance »¹ has changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/updateStarsBalance for reference.
 type UpdateStarsBalance struct {
-	// Balance field of UpdateStarsBalance.
+	// New balance.
 	Balance int64
 }
 
@@ -27455,26 +27597,39 @@ func (u *UpdateStarsBalance) GetBalance() (value int64) {
 }
 
 // UpdateBusinessBotCallbackQuery represents TL type `updateBusinessBotCallbackQuery#1ea2fda7`.
+// A callback button sent via a business connection¹ was pressed, and the button data
+// was sent to the bot that created the button.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/updateBusinessBotCallbackQuery for reference.
 type UpdateBusinessBotCallbackQuery struct {
-	// Flags field of UpdateBusinessBotCallbackQuery.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// QueryID field of UpdateBusinessBotCallbackQuery.
+	// Query ID
 	QueryID int64
-	// UserID field of UpdateBusinessBotCallbackQuery.
+	// ID of the user that pressed the button
 	UserID int64
-	// ConnectionID field of UpdateBusinessBotCallbackQuery.
+	// Business connection ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	ConnectionID string
-	// Message field of UpdateBusinessBotCallbackQuery.
+	// Message that contains the keyboard (also contains info about the chat where the
+	// message was sent).
 	Message MessageClass
-	// ReplyToMessage field of UpdateBusinessBotCallbackQuery.
+	// The message that message is replying to.
 	//
 	// Use SetReplyToMessage and GetReplyToMessage helpers.
 	ReplyToMessage MessageClass
-	// ChatInstance field of UpdateBusinessBotCallbackQuery.
+	// Global identifier, uniquely corresponding to the chat to which the message with the
+	// callback button was sent. Useful for high scores in games.
 	ChatInstance int64
-	// Data field of UpdateBusinessBotCallbackQuery.
+	// Callback data
 	//
 	// Use SetData and GetData helpers.
 	Data []byte
@@ -27821,12 +27976,16 @@ func (u *UpdateBusinessBotCallbackQuery) GetData() (value []byte, ok bool) {
 }
 
 // UpdateStarsRevenueStatus represents TL type `updateStarsRevenueStatus#a584b019`.
+// The Telegram Star balance of a channel/bot we own has changed »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#revenue-statistics
 //
 // See https://core.telegram.org/constructor/updateStarsRevenueStatus for reference.
 type UpdateStarsRevenueStatus struct {
-	// Peer field of UpdateStarsRevenueStatus.
+	// Channel/bot
 	Peer PeerClass
-	// Status field of UpdateStarsRevenueStatus.
+	// New Telegram Star balance.
 	Status StarsRevenueStatus
 }
 

@@ -352,6 +352,7 @@ func (g *MessagesGetSearchResultsCalendarRequest) GetOffsetDate() (value int) {
 // Possible errors:
 //
 //	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getSearchResultsCalendar for reference.
 func (c *Client) MessagesGetSearchResultsCalendar(ctx context.Context, request *MessagesGetSearchResultsCalendarRequest) (*MessagesSearchResultsCalendar, error) {

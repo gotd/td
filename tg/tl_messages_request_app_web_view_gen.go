@@ -55,7 +55,12 @@ type MessagesRequestAppWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#direct-mini-app-links
 	WriteAllowed bool
-	// Compact field of MessagesRequestAppWebViewRequest.
+	// If set, requests to open the mini app in compact mode (as opposed to fullview mode).
+	// Must be set if the mode parameter of the direct Mini App deep link¹ is equal to
+	// compact.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#direct-mini-app-links
 	Compact bool
 	// If the client has clicked on the link in a Telegram chat, pass the chat's peer
 	// information; otherwise pass the bot's peer information, instead.

@@ -220,6 +220,7 @@ func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
 //
 // Possible errors:
 //
+//	400 BOT_INVALID: This is not a valid bot.
 //	400 PUBLIC_KEY_REQUIRED: A public key is required.
 //
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.

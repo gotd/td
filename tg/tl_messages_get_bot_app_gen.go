@@ -44,7 +44,7 @@ type MessagesGetBotAppRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#direct-mini-app-links
 	App InputBotAppClass
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
@@ -210,7 +210,9 @@ func (g *MessagesGetBotAppRequest) GetHash() (value int64) {
 //
 // Possible errors:
 //
+//	400 BOT_APP_BOT_INVALID: The bot_id passed in the inputBotAppShortName constructor is invalid.
 //	400 BOT_APP_INVALID: The specified bot app is invalid.
+//	400 BOT_APP_SHORTNAME_INVALID: The specified bot app short name is invalid.
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 func (c *Client) MessagesGetBotApp(ctx context.Context, request *MessagesGetBotAppRequest) (*MessagesBotApp, error) {

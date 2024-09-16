@@ -32,6 +32,7 @@ var (
 )
 
 // ReactionNotificationsFromContacts represents TL type `reactionNotificationsFromContacts#bac3a61a`.
+// Receive notifications about reactions made only by our contacts.
 //
 // See https://core.telegram.org/constructor/reactionNotificationsFromContacts for reference.
 type ReactionNotificationsFromContacts struct {
@@ -133,6 +134,7 @@ func (r *ReactionNotificationsFromContacts) DecodeBare(b *bin.Buffer) error {
 }
 
 // ReactionNotificationsFromAll represents TL type `reactionNotificationsFromAll#4b9e22a0`.
+// Receive notifications about reactions made by any user.
 //
 // See https://core.telegram.org/constructor/reactionNotificationsFromAll for reference.
 type ReactionNotificationsFromAll struct {

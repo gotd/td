@@ -40,7 +40,10 @@ var (
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
-	// Flags field of AuthResendCodeRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The phone number
 	PhoneNumber string
@@ -49,7 +52,12 @@ type AuthResendCodeRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
-	// Reason field of AuthResendCodeRequest.
+	// Official clients only, used if the device integrity verification failed, and no secret
+	// could be obtained to invoke auth.requestFirebaseSms¹: in this case, the device
+	// integrity verification failure reason must be passed here.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.requestFirebaseSms
 	//
 	// Use SetReason and GetReason helpers.
 	Reason string

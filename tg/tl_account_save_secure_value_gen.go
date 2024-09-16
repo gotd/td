@@ -208,6 +208,7 @@ func (s *AccountSaveSecureValueRequest) GetSecureSecretID() (value int64) {
 // Possible errors:
 //
 //	400 PASSWORD_REQUIRED: A 2FA password must be configured to use Telegram Passport.
+//	400 SECURE_SECRET_REQUIRED: A secure secret is required.
 //
 // See https://core.telegram.org/method/account.saveSecureValue for reference.
 func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {

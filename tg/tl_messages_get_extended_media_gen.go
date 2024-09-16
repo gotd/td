@@ -32,13 +32,20 @@ var (
 )
 
 // MessagesGetExtendedMediaRequest represents TL type `messages.getExtendedMedia#84f80814`.
-// Get information about extended media
+// Fetch updated information about paid media, see here »¹ for the full flow.
+// This method will return an array of updateMessageExtendedMedia¹ updates, only for
+// messages containing already bought paid media.
+// No information will be returned for messages containing not yet bought paid media.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
+//  2. https://core.telegram.org/constructor/updateMessageExtendedMedia
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 type MessagesGetExtendedMediaRequest struct {
-	// Peer
+	// Peer with visible paid media messages.
 	Peer InputPeerClass
-	// Message IDs
+	// IDs of currently visible messages containing paid media.
 	ID []int
 }
 
@@ -207,7 +214,14 @@ func (g *MessagesGetExtendedMediaRequest) GetID() (value []int) {
 }
 
 // MessagesGetExtendedMedia invokes method messages.getExtendedMedia#84f80814 returning error if any.
-// Get information about extended media
+// Fetch updated information about paid media, see here »¹ for the full flow.
+// This method will return an array of updateMessageExtendedMedia¹ updates, only for
+// messages containing already bought paid media.
+// No information will be returned for messages containing not yet bought paid media.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
+//  2. https://core.telegram.org/constructor/updateMessageExtendedMedia
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 func (c *Client) MessagesGetExtendedMedia(ctx context.Context, request *MessagesGetExtendedMediaRequest) (UpdatesClass, error) {

@@ -199,6 +199,7 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 // Possible errors:
 //
 //	400 EMAIL_INVALID: The specified email is invalid.
+//	400 EMAIL_NOT_ALLOWED: The specified email cannot be used to complete the operation.
 //	400 EMAIL_NOT_SETUP: In order to change the login email with emailVerifyPurposeLoginChange, an existing login email must already be set using emailVerifyPurposeLoginSetup.
 //	400 PHONE_HASH_EXPIRED: An invalid or expired phone_code_hash was provided.
 //	400 PHONE_NUMBER_INVALID: The phone number is invalid.

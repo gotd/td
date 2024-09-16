@@ -32,14 +32,25 @@ var (
 )
 
 // MessagesUpdateSavedReactionTagRequest represents TL type `messages.updateSavedReactionTag#60297dec`.
+// Update the description of a saved message tag »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/method/messages.updateSavedReactionTag for reference.
 type MessagesUpdateSavedReactionTagRequest struct {
-	// Flags field of MessagesUpdateSavedReactionTagRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Reaction field of MessagesUpdateSavedReactionTagRequest.
+	// Reaction¹ associated to the tag
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	Reaction ReactionClass
-	// Title field of MessagesUpdateSavedReactionTagRequest.
+	// Tag description, max 12 UTF-8 characters; to remove the description call the method
+	// without setting this flag.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
@@ -232,6 +243,15 @@ func (u *MessagesUpdateSavedReactionTagRequest) GetTitle() (value string, ok boo
 }
 
 // MessagesUpdateSavedReactionTag invokes method messages.updateSavedReactionTag#60297dec returning error if any.
+// Update the description of a saved message tag »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages#tags
+//
+// Possible errors:
+//
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//	400 REACTION_INVALID: The specified reaction is invalid.
 //
 // See https://core.telegram.org/method/messages.updateSavedReactionTag for reference.
 func (c *Client) MessagesUpdateSavedReactionTag(ctx context.Context, request *MessagesUpdateSavedReactionTagRequest) (bool, error) {

@@ -32,7 +32,7 @@ var (
 )
 
 // StickersChangeStickerRequest represents TL type `stickers.changeSticker#f5537ebc`.
-// Update the keywords, emojis or mask coordinates¹ of a sticker, bots only.
+// Update the keywords, emojis or mask coordinates¹ of a sticker.
 //
 // Links:
 //  1. https://core.telegram.org/api/stickers#mask-stickers
@@ -344,14 +344,13 @@ func (c *StickersChangeStickerRequest) GetStickerAsNotEmpty() (*InputDocument, b
 }
 
 // StickersChangeSticker invokes method stickers.changeSticker#f5537ebc returning error if any.
-// Update the keywords, emojis or mask coordinates¹ of a sticker, bots only.
+// Update the keywords, emojis or mask coordinates¹ of a sticker.
 //
 // Links:
 //  1. https://core.telegram.org/api/stickers#mask-stickers
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: Only bots can call this method, please use @stickers if you're a user.
 //	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.changeSticker for reference.

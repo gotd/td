@@ -3582,9 +3582,12 @@ func (m *MessageEntityCustomEmoji) GetDocumentID() (value int64) {
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
-	// Flags field of MessageEntityBlockquote.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Collapsed field of MessageEntityBlockquote.
+	// Whether the quote is collapsed by default.
 	Collapsed bool
 	// Offset of message entity within message (in UTF-16 code units¹)
 	//

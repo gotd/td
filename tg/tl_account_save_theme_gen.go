@@ -196,6 +196,10 @@ func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
 // AccountSaveTheme invokes method account.saveTheme#f257106c returning error if any.
 // Save a theme
 //
+// Possible errors:
+//
+//	400 THEME_INVALID: Invalid theme provided.
+//
 // See https://core.telegram.org/method/account.saveTheme for reference.
 func (c *Client) AccountSaveTheme(ctx context.Context, request *AccountSaveThemeRequest) (bool, error) {
 	var result BoolBox

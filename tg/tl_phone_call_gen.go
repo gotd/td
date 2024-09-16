@@ -1288,11 +1288,11 @@ type PhoneCall struct {
 	KeyFingerprint int64
 	// Call protocol info to be passed to libtgvoip
 	Protocol PhoneCallProtocol
-	// List of endpoints the user can connect to to exchange call data
+	// List of endpoints the user can connect to exchange call data
 	Connections []PhoneConnectionClass
 	// When was the call actually started
 	StartDate int
-	// CustomParameters field of PhoneCall.
+	// Custom JSON-encoded call parameters to be passed to tgcalls.
 	//
 	// Use SetCustomParameters and GetCustomParameters helpers.
 	CustomParameters DataJSON

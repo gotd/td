@@ -43,7 +43,7 @@ type MessagesGetRecentStickersRequest struct {
 	Flags bin.Fields
 	// Get stickers recently attached to photo or video files
 	Attached bool
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

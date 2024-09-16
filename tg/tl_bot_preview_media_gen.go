@@ -32,12 +32,16 @@ var (
 )
 
 // BotPreviewMedia represents TL type `botPreviewMedia#23e91ba3`.
+// Represents a Main Mini App preview media, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/constructor/botPreviewMedia for reference.
 type BotPreviewMedia struct {
-	// Date field of BotPreviewMedia.
+	// When was this media last updated.
 	Date int
-	// Media field of BotPreviewMedia.
+	// The actual photo/video.
 	Media MessageMediaClass
 }
 

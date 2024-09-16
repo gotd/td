@@ -2898,7 +2898,7 @@ type KeyboardButtonRequestPeer struct {
 	// option for the user to create and immediately use one or more (up to max_quantity)
 	// peers of the specified type, if needed.
 	PeerType RequestPeerTypeClass
-	// Maximum number of peers that can be chosne.
+	// Maximum number of peers that can be chosen.
 	MaxQuantity int
 }
 
@@ -3109,24 +3109,38 @@ func (k *KeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
 }
 
 // InputKeyboardButtonRequestPeer represents TL type `inputKeyboardButtonRequestPeer#c9662d05`.
+// Prompts the user to select and share one or more peers with the bot using messages
+// sendBotRequestedPeer¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.sendBotRequestedPeer
 //
 // See https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer for reference.
 type InputKeyboardButtonRequestPeer struct {
-	// Flags field of InputKeyboardButtonRequestPeer.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NameRequested field of InputKeyboardButtonRequestPeer.
+	// Set this flag to request the peer's name.
 	NameRequested bool
-	// UsernameRequested field of InputKeyboardButtonRequestPeer.
+	// Set this flag to request the peer's @username (if any).
 	UsernameRequested bool
-	// PhotoRequested field of InputKeyboardButtonRequestPeer.
+	// Set this flag to request the peer's photo (if any).
 	PhotoRequested bool
-	// Text field of InputKeyboardButtonRequestPeer.
+	// Button text
 	Text string
-	// ButtonID field of InputKeyboardButtonRequestPeer.
+	// Button ID, to be passed to messages.sendBotRequestedPeer¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendBotRequestedPeer
 	ButtonID int
-	// PeerType field of InputKeyboardButtonRequestPeer.
+	// Filtering criteria to use for the peer selection list shown to the user. The list
+	// should display all existing peers of the specified type, and should also offer an
+	// option for the user to create and immediately use one or more (up to max_quantity)
+	// peers of the specified type, if needed.
 	PeerType RequestPeerTypeClass
-	// MaxQuantity field of InputKeyboardButtonRequestPeer.
+	// Maximum number of peers that can be chosen.
 	MaxQuantity int
 }
 

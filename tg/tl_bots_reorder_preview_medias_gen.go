@@ -32,14 +32,21 @@ var (
 )
 
 // BotsReorderPreviewMediasRequest represents TL type `bots.reorderPreviewMedias#b627f3aa`.
+// Reorder a main mini app previews, see here »¹ for more info.
+// Only owners of bots with a configured Main Mini App can use this method, see see here
+// »¹ for more info on how to check if you can invoke this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/method/bots.reorderPreviewMedias for reference.
 type BotsReorderPreviewMediasRequest struct {
-	// Bot field of BotsReorderPreviewMediasRequest.
+	// The bot that owns the Main Mini App.
 	Bot InputUserClass
-	// LangCode field of BotsReorderPreviewMediasRequest.
+	// ISO 639-1 language code, indicating the localization of the previews to reorder.
 	LangCode string
-	// Order field of BotsReorderPreviewMediasRequest.
+	// New order of the previews.
 	Order []InputMediaClass
 }
 
@@ -243,6 +250,17 @@ func (r *BotsReorderPreviewMediasRequest) MapOrder() (value InputMediaClassArray
 }
 
 // BotsReorderPreviewMedias invokes method bots.reorderPreviewMedias#b627f3aa returning error if any.
+// Reorder a main mini app previews, see here »¹ for more info.
+// Only owners of bots with a configured Main Mini App can use this method, see see here
+// »¹ for more info on how to check if you can invoke this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.reorderPreviewMedias for reference.
 func (c *Client) BotsReorderPreviewMedias(ctx context.Context, request *BotsReorderPreviewMediasRequest) (bool, error) {

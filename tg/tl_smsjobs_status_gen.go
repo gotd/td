@@ -32,28 +32,32 @@ var (
 )
 
 // SMSJobsStatus represents TL type `smsjobs.status#2aee9191`.
+// Status
 //
 // See https://core.telegram.org/constructor/smsjobs.status for reference.
 type SMSJobsStatus struct {
-	// Flags field of SMSJobsStatus.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AllowInternational field of SMSJobsStatus.
+	// Allow international numbers
 	AllowInternational bool
-	// RecentSent field of SMSJobsStatus.
+	// Recently sent
 	RecentSent int
-	// RecentSince field of SMSJobsStatus.
+	// Since
 	RecentSince int
-	// RecentRemains field of SMSJobsStatus.
+	// Remaining
 	RecentRemains int
-	// TotalSent field of SMSJobsStatus.
+	// Total sent
 	TotalSent int
-	// TotalSince field of SMSJobsStatus.
+	// Total since
 	TotalSince int
-	// LastGiftSlug field of SMSJobsStatus.
+	// Last gift deep link
 	//
 	// Use SetLastGiftSlug and GetLastGiftSlug helpers.
 	LastGiftSlug string
-	// TermsURL field of SMSJobsStatus.
+	// Terms of service URL
 	TermsURL string
 }
 

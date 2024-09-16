@@ -36,9 +36,16 @@ var (
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 type MessagesUploadMediaRequest struct {
-	// Flags field of MessagesUploadMediaRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BusinessConnectionID field of MessagesUploadMediaRequest.
+	// Whether the media will be used only in the specified business connection »¹, and not
+	// directly by the bot.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	//
 	// Use SetBusinessConnectionID and GetBusinessConnectionID helpers.
 	BusinessConnectionID string

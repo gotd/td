@@ -32,10 +32,17 @@ var (
 )
 
 // MessagesGetAvailableEffectsRequest represents TL type `messages.getAvailableEffects#dea20a39`.
+// Fetch the full list of usable animated message effects »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/method/messages.getAvailableEffects for reference.
 type MessagesGetAvailableEffectsRequest struct {
-	// Hash field of MessagesGetAvailableEffectsRequest.
+	// Hash used for caching, for more info click here¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 
@@ -161,6 +168,10 @@ func (g *MessagesGetAvailableEffectsRequest) GetHash() (value int) {
 }
 
 // MessagesGetAvailableEffects invokes method messages.getAvailableEffects#dea20a39 returning error if any.
+// Fetch the full list of usable animated message effects »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/method/messages.getAvailableEffects for reference.
 func (c *Client) MessagesGetAvailableEffects(ctx context.Context, hash int) (MessagesAvailableEffectsClass, error) {

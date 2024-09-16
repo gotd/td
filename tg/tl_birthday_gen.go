@@ -32,16 +32,26 @@ var (
 )
 
 // Birthday represents TL type `birthday#6c8e1e06`.
+// Birthday¹ information for a user.
+// Also used to invite users to gift Telegram Premium subscriptions »¹ to other users
+// with birthdays within a +1/-1 day time range, related to the current day.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#birthday
+//  2. https://core.telegram.org/api/premium#gifting-telegram-premium
 //
 // See https://core.telegram.org/constructor/birthday for reference.
 type Birthday struct {
-	// Flags field of Birthday.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Day field of Birthday.
+	// Birth day
 	Day int
-	// Month field of Birthday.
+	// Birth month
 	Month int
-	// Year field of Birthday.
+	// (Optional) birth year.
 	//
 	// Use SetYear and GetYear helpers.
 	Year int

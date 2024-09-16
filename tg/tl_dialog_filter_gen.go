@@ -89,7 +89,7 @@ type DialogFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	ID int
-	// Folder¹ name
+	// Folder¹ name (max 12 UTF-8 chars)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
@@ -98,7 +98,10 @@ type DialogFilter struct {
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
-	// Color field of DialogFilter.
+	// A color ID for the folder tag associated to this folder, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#folder-tags
 	//
 	// Use SetColor and GetColor helpers.
 	Color int
@@ -905,13 +908,16 @@ type DialogFilterChatlist struct {
 	HasMyInvites bool
 	// ID of the folder
 	ID int
-	// Name of the folder
+	// Name of the folder (max 12 UTF-8 chars)
 	Title string
 	// Emoji to use as icon for the folder.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
-	// Color field of DialogFilterChatlist.
+	// A color ID for the folder tag associated to this folder, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#folder-tags
 	//
 	// Use SetColor and GetColor helpers.
 	Color int

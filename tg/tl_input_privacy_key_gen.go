@@ -32,7 +32,20 @@ var (
 )
 
 // InputPrivacyKeyStatusTimestamp represents TL type `inputPrivacyKeyStatusTimestamp#4f96cb18`.
-// Whether people will be able to see your exact last online timestamp
+// Whether people will be able to see our exact last online timestamp.
+// Note that if we decide to hide our exact last online timestamp to someone (i.e., users
+// A, B, C, or all users) and we do not have a Premium¹ subscription, we won't be able
+// to see the exact last online timestamp of those users (A, B, C, or all users), even if
+// those users do share it with us.
+// If those users do share their exact online status with us, but we can't see it due to
+// the reason mentioned above, the by_me flag of userStatusRecently¹,
+// userStatusLastWeek², userStatusLastMonth³ will be set.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/constructor/userStatusRecently
+//  3. https://core.telegram.org/constructor/userStatusLastWeek
+//  4. https://core.telegram.org/constructor/userStatusLastMonth
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyStatusTimestamp for reference.
 type InputPrivacyKeyStatusTimestamp struct {
@@ -851,7 +864,10 @@ func (i *InputPrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyVoiceMessages represents TL type `inputPrivacyKeyVoiceMessages#aee69d68`.
-// Whether people can send you voice messages
+// Whether people can send you voice messages or round videos (Premium¹ users only).
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyVoiceMessages for reference.
 type InputPrivacyKeyVoiceMessages struct {
@@ -1055,6 +1071,7 @@ func (i *InputPrivacyKeyAbout) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyBirthday represents TL type `inputPrivacyKeyBirthday#d65a11cc`.
+// Whether the user can see our birthday.
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyBirthday for reference.
 type InputPrivacyKeyBirthday struct {

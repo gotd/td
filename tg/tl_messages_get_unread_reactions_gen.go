@@ -385,6 +385,10 @@ func (g *MessagesGetUnreadReactionsRequest) GetMinID() (value int) {
 // MessagesGetUnreadReactions invokes method messages.getUnreadReactions#3223495b returning error if any.
 // Get unread reactions to messages you sent
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.
 func (c *Client) MessagesGetUnreadReactions(ctx context.Context, request *MessagesGetUnreadReactionsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox

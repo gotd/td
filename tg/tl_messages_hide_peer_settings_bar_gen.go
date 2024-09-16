@@ -181,6 +181,10 @@ func (h *MessagesHidePeerSettingsBarRequest) GetPeer() (value InputPeerClass) {
 //  1. https://core.telegram.org/api/action-bar
 //  2. https://core.telegram.org/api/action-bar
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.hidePeerSettingsBar for reference.
 func (c *Client) MessagesHidePeerSettingsBar(ctx context.Context, peer InputPeerClass) (bool, error) {
 	var result BoolBox

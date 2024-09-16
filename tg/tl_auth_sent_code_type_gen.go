@@ -1494,11 +1494,11 @@ type AuthSentCodeTypeFirebaseSMS struct {
 	//
 	// Use SetNonce and GetNonce helpers.
 	Nonce []byte
-	// PlayIntegrityProjectID field of AuthSentCodeTypeFirebaseSMS.
+	// Google Play Integrity project ID
 	//
 	// Use SetPlayIntegrityProjectID and GetPlayIntegrityProjectID helpers.
 	PlayIntegrityProjectID int64
-	// PlayIntegrityNonce field of AuthSentCodeTypeFirebaseSMS.
+	// Play Integrity API nonce
 	//
 	// Use SetPlayIntegrityNonce and GetPlayIntegrityNonce helpers.
 	PlayIntegrityNonce []byte
@@ -1883,12 +1883,18 @@ func (s *AuthSentCodeTypeFirebaseSMS) GetLength() (value int) {
 }
 
 // AuthSentCodeTypeSMSWord represents TL type `auth.sentCodeTypeSmsWord#a416ac81`.
+// The code was sent via SMS as a secret word, starting with the letter specified in
+// beginning
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSmsWord for reference.
 type AuthSentCodeTypeSMSWord struct {
-	// Flags field of AuthSentCodeTypeSMSWord.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Beginning field of AuthSentCodeTypeSMSWord.
+	// If set, the secret word in the sent SMS (which may contain multiple words) starts with
+	// this letter.
 	//
 	// Use SetBeginning and GetBeginning helpers.
 	Beginning string
@@ -2056,12 +2062,17 @@ func (s *AuthSentCodeTypeSMSWord) GetBeginning() (value string, ok bool) {
 }
 
 // AuthSentCodeTypeSMSPhrase represents TL type `auth.sentCodeTypeSmsPhrase#b37794af`.
+// The code was sent via SMS as a secret phrase starting with the word specified in
+// beginning
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSmsPhrase for reference.
 type AuthSentCodeTypeSMSPhrase struct {
-	// Flags field of AuthSentCodeTypeSMSPhrase.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Beginning field of AuthSentCodeTypeSMSPhrase.
+	// If set, the secret phrase (and the SMS) starts with this word.
 	//
 	// Use SetBeginning and GetBeginning helpers.
 	Beginning string

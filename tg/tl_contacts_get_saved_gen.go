@@ -139,6 +139,7 @@ func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
 //
 // Possible errors:
 //
+//	400 TAKEOUT_INVALID: The specified takeout ID is invalid.
 //	403 TAKEOUT_REQUIRED: A takeout¹ session needs to be initialized first, see here » for more info².
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.

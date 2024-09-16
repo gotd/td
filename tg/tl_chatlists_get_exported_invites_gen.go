@@ -170,8 +170,11 @@ func (g *ChatlistsGetExportedInvitesRequest) GetChatlist() (value InputChatlistD
 // Links:
 //  1. https://core.telegram.org/api/links#chat-folder-links
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//
 // See https://core.telegram.org/method/chatlists.getExportedInvites for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsGetExportedInvites(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsExportedInvites, error) {
 	var result ChatlistsExportedInvites
 

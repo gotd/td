@@ -32,14 +32,23 @@ var (
 )
 
 // ChannelsReportSponsoredMessageRequest represents TL type `channels.reportSponsoredMessage#af8ff6b9`.
+// Report a sponsored message »¹, see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/sponsored-messages
+//  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/method/channels.reportSponsoredMessage for reference.
 type ChannelsReportSponsoredMessageRequest struct {
-	// Channel field of ChannelsReportSponsoredMessageRequest.
+	// The channel where the sponsored message can be seen.
 	Channel InputChannelClass
-	// RandomID field of ChannelsReportSponsoredMessageRequest.
+	// ID of the sponsored message.
 	RandomID []byte
-	// Option field of ChannelsReportSponsoredMessageRequest.
+	// Chosen report option, initially an empty string, see here »¹ for more info on the
+	// full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 	Option []byte
 }
 
@@ -225,6 +234,17 @@ func (r *ChannelsReportSponsoredMessageRequest) GetChannelAsNotEmpty() (NotEmpty
 }
 
 // ChannelsReportSponsoredMessage invokes method channels.reportSponsoredMessage#af8ff6b9 returning error if any.
+// Report a sponsored message »¹, see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/sponsored-messages
+//  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
+//
+// Possible errors:
+//
+//	400 AD_EXPIRED: The ad has expired (too old or not found).
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/channels.reportSponsoredMessage for reference.
 func (c *Client) ChannelsReportSponsoredMessage(ctx context.Context, request *ChannelsReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error) {

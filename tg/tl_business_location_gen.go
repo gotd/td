@@ -32,16 +32,23 @@ var (
 )
 
 // BusinessLocation represents TL type `businessLocation#ac5c1af7`.
+// Represents the location of a Telegram Business »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#location
 //
 // See https://core.telegram.org/constructor/businessLocation for reference.
 type BusinessLocation struct {
-	// Flags field of BusinessLocation.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// GeoPoint field of BusinessLocation.
+	// Geographical coordinates (optional).
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
 	GeoPoint GeoPointClass
-	// Address field of BusinessLocation.
+	// Textual description of the address (mandatory).
 	Address string
 }
 

@@ -246,6 +246,7 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 //
 //	400 BOOST_PEER_INVALID: The specified boost_peer is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 SLUG_INVALID: The specified invoice slug is invalid.
 //	400 UNTIL_DATE_INVALID: Invalid until date provided.
 //

@@ -230,6 +230,7 @@ func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
 //
 // Possible errors:
 //
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	403 PUBLIC_CHANNEL_MISSING: You can only export group call invite links for public chats or channels.
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.

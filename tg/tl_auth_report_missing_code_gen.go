@@ -32,14 +32,21 @@ var (
 )
 
 // AuthReportMissingCodeRequest represents TL type `auth.reportMissingCode#cb9deff6`.
+// Official apps only, reports that the SMS authentication code wasn't delivered.
 //
 // See https://core.telegram.org/method/auth.reportMissingCode for reference.
 type AuthReportMissingCodeRequest struct {
-	// PhoneNumber field of AuthReportMissingCodeRequest.
+	// Phone number where we were supposed to receive the code
 	PhoneNumber string
-	// PhoneCodeHash field of AuthReportMissingCodeRequest.
+	// The phone code hash obtained from auth.sendCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
-	// Mnc field of AuthReportMissingCodeRequest.
+	// MNC¹ of the current network operator.
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Mobile_country_code
 	Mnc string
 }
 
@@ -215,6 +222,11 @@ func (r *AuthReportMissingCodeRequest) GetMnc() (value string) {
 }
 
 // AuthReportMissingCode invokes method auth.reportMissingCode#cb9deff6 returning error if any.
+// Official apps only, reports that the SMS authentication code wasn't delivered.
+//
+// Possible errors:
+//
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/auth.reportMissingCode for reference.
 func (c *Client) AuthReportMissingCode(ctx context.Context, request *AuthReportMissingCodeRequest) (bool, error) {

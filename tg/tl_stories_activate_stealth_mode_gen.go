@@ -250,6 +250,10 @@ func (a *StoriesActivateStealthModeRequest) GetFuture() (value bool) {
 //  2. https://core.telegram.org/api/stories#stealth-mode
 //  3. https://core.telegram.org/constructor/updateStoriesStealthMode
 //
+// Possible errors:
+//
+//	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//
 // See https://core.telegram.org/method/stories.activateStealthMode for reference.
 func (c *Client) StoriesActivateStealthMode(ctx context.Context, request *StoriesActivateStealthModeRequest) (UpdatesClass, error) {
 	var result UpdatesBox

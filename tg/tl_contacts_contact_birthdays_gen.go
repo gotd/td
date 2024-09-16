@@ -32,12 +32,13 @@ var (
 )
 
 // ContactsContactBirthdays represents TL type `contacts.contactBirthdays#114ff30d`.
+// Birthday information of our contacts.
 //
 // See https://core.telegram.org/constructor/contacts.contactBirthdays for reference.
 type ContactsContactBirthdays struct {
-	// Contacts field of ContactsContactBirthdays.
+	// Birthday info
 	Contacts []ContactBirthday
-	// Users field of ContactsContactBirthdays.
+	// User information
 	Users []UserClass
 }
 

@@ -51,7 +51,11 @@ type HelpPeerColorOption struct {
 	ColorID int
 	// Light mode palette. Will be empty for IDs 0 to 6 inclusive, in which case a palette
 	// containing a single color from the following colors should be used: red, orange,
-	// violet, green, cyan, blue, pink for indexes 0 to 6.
+	// violet, green, cyan, blue, pink for indexes 0 to 6 (i.e. the same colors used for
+	// randomized fallback message accent colors¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColors and GetColors helpers.
 	Colors HelpPeerColorSetClass
@@ -68,7 +72,11 @@ type HelpPeerColorOption struct {
 	//
 	// Use SetChannelMinLevel and GetChannelMinLevel helpers.
 	ChannelMinLevel int
-	// GroupMinLevel field of HelpPeerColorOption.
+	// Supergroups can use this palette only after reaching at least the boost level¹
+	// specified in this field.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetGroupMinLevel and GetGroupMinLevel helpers.
 	GroupMinLevel int

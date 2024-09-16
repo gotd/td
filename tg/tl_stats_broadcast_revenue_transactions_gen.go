@@ -32,12 +32,16 @@ var (
 )
 
 // StatsBroadcastRevenueTransactions represents TL type `stats.broadcastRevenueTransactions#87158466`.
+// Channel ad revenue transactions »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/constructor/stats.broadcastRevenueTransactions for reference.
 type StatsBroadcastRevenueTransactions struct {
-	// Count field of StatsBroadcastRevenueTransactions.
+	// Total number of transactions.
 	Count int
-	// Transactions field of StatsBroadcastRevenueTransactions.
+	// Transactions
 	Transactions []BroadcastRevenueTransactionClass
 }
 

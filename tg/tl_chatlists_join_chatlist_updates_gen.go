@@ -231,7 +231,6 @@ func (j *ChatlistsJoinChatlistUpdatesRequest) MapPeers() (value InputPeerClassAr
 //	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsJoinChatlistUpdates(ctx context.Context, request *ChatlistsJoinChatlistUpdatesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

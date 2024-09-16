@@ -32,12 +32,19 @@ var (
 )
 
 // AccountUpdateBusinessAwayMessageRequest represents TL type `account.updateBusinessAwayMessage#a26a7fa5`.
+// Set a list of Telegram Business away messages¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/method/account.updateBusinessAwayMessage for reference.
 type AccountUpdateBusinessAwayMessageRequest struct {
-	// Flags field of AccountUpdateBusinessAwayMessageRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Message field of AccountUpdateBusinessAwayMessageRequest.
+	// Away message configuration and contents.
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message InputBusinessAwayMessage
@@ -200,6 +207,10 @@ func (u *AccountUpdateBusinessAwayMessageRequest) GetMessage() (value InputBusin
 }
 
 // AccountUpdateBusinessAwayMessage invokes method account.updateBusinessAwayMessage#a26a7fa5 returning error if any.
+// Set a list of Telegram Business away messages¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/method/account.updateBusinessAwayMessage for reference.
 func (c *Client) AccountUpdateBusinessAwayMessage(ctx context.Context, request *AccountUpdateBusinessAwayMessageRequest) (bool, error) {

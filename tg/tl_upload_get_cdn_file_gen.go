@@ -224,6 +224,10 @@ func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
 // Links:
 //  1. https://core.telegram.org/cdn
 //
+// Possible errors:
+//
+//	400 FILE_TOKEN_INVALID: The master DC did not accept the file_token (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.
+//
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 func (c *Client) UploadGetCDNFile(ctx context.Context, request *UploadGetCDNFileRequest) (UploadCDNFileClass, error) {
 	var result UploadCDNFileBox
