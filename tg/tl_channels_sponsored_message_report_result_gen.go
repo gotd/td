@@ -32,12 +32,18 @@ var (
 )
 
 // ChannelsSponsoredMessageReportResultChooseOption represents TL type `channels.sponsoredMessageReportResultChooseOption#846f9e42`.
+// The user must choose a report option from the localized options available in options,
+// and after selection, channels.reportSponsoredMessage¹ must be invoked again, passing
+// the option's option field to the option param of the method.
+//
+// Links:
+//  1. https://core.telegram.org/method/channels.reportSponsoredMessage
 //
 // See https://core.telegram.org/constructor/channels.sponsoredMessageReportResultChooseOption for reference.
 type ChannelsSponsoredMessageReportResultChooseOption struct {
-	// Title field of ChannelsSponsoredMessageReportResultChooseOption.
+	// Title of the option selection popup.
 	Title string
-	// Options field of ChannelsSponsoredMessageReportResultChooseOption.
+	// Localized list of options.
 	Options []SponsoredMessageReportOption
 }
 
@@ -210,6 +216,7 @@ func (s *ChannelsSponsoredMessageReportResultChooseOption) GetOptions() (value [
 }
 
 // ChannelsSponsoredMessageReportResultAdsHidden represents TL type `channels.sponsoredMessageReportResultAdsHidden#3e3bcf2f`.
+// Sponsored messages were hidden for the user in all chats.
 //
 // See https://core.telegram.org/constructor/channels.sponsoredMessageReportResultAdsHidden for reference.
 type ChannelsSponsoredMessageReportResultAdsHidden struct {
@@ -313,6 +320,7 @@ func (s *ChannelsSponsoredMessageReportResultAdsHidden) DecodeBare(b *bin.Buffer
 }
 
 // ChannelsSponsoredMessageReportResultReported represents TL type `channels.sponsoredMessageReportResultReported#ad798849`.
+// The sponsored message was reported successfully.
 //
 // See https://core.telegram.org/constructor/channels.sponsoredMessageReportResultReported for reference.
 type ChannelsSponsoredMessageReportResultReported struct {

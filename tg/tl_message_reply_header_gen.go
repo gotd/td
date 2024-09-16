@@ -714,7 +714,7 @@ func (m *MessageReplyHeader) MapQuoteEntities() (value MessageEntityClassArray, 
 //
 // See https://core.telegram.org/constructor/messageReplyStoryHeader for reference.
 type MessageReplyStoryHeader struct {
-	// Peer field of MessageReplyStoryHeader.
+	// Sender of the story.
 	Peer PeerClass
 	// Story ID
 	StoryID int

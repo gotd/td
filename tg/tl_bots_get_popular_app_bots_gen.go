@@ -32,12 +32,24 @@ var (
 )
 
 // BotsGetPopularAppBotsRequest represents TL type `bots.getPopularAppBots#c2510192`.
+// Fetch popular Main Mini Apps¹, to be used in the apps tab of global search »².
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
+//  2. https://core.telegram.org/api/search#apps-tab
 //
 // See https://core.telegram.org/method/bots.getPopularAppBots for reference.
 type BotsGetPopularAppBotsRequest struct {
-	// Offset field of BotsGetPopularAppBotsRequest.
+	// Offset for pagination¹, initially an empty string, then re-use the next_offset
+	// returned by the previous query.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset string
-	// Limit field of BotsGetPopularAppBotsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -188,6 +200,11 @@ func (g *BotsGetPopularAppBotsRequest) GetLimit() (value int) {
 }
 
 // BotsGetPopularAppBots invokes method bots.getPopularAppBots#c2510192 returning error if any.
+// Fetch popular Main Mini Apps¹, to be used in the apps tab of global search »².
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
+//  2. https://core.telegram.org/api/search#apps-tab
 //
 // See https://core.telegram.org/method/bots.getPopularAppBots for reference.
 func (c *Client) BotsGetPopularAppBots(ctx context.Context, request *BotsGetPopularAppBotsRequest) (*BotsPopularAppBots, error) {

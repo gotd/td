@@ -32,12 +32,18 @@ var (
 )
 
 // MessagesInvitedUsers represents TL type `messages.invitedUsers#7f5defa6`.
+// Contains info about successfully or unsuccessfully invited »¹ users.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#direct-invites
 //
 // See https://core.telegram.org/constructor/messages.invitedUsers for reference.
 type MessagesInvitedUsers struct {
-	// Updates field of MessagesInvitedUsers.
+	// List of updates about successfully invited users (and eventually info about the
+	// created group)
 	Updates UpdatesClass
-	// MissingInvitees field of MessagesInvitedUsers.
+	// A list of users that could not be invited, along with the reason why they couldn't be
+	// invited.
 	MissingInvitees []MissingInvitee
 }
 

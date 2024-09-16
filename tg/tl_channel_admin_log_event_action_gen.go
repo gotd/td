@@ -7396,12 +7396,16 @@ func (c *ChannelAdminLogEventActionChangeEmojiStatus) GetNewValue() (value Emoji
 }
 
 // ChannelAdminLogEventActionChangeEmojiStickerSet represents TL type `channelAdminLogEventActionChangeEmojiStickerSet#46d840ab`.
+// The supergroup's custom emoji stickerset¹ was changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost#setting-a-custom-emoji-stickerset-for-supergroups
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStickerSet for reference.
 type ChannelAdminLogEventActionChangeEmojiStickerSet struct {
-	// PrevStickerset field of ChannelAdminLogEventActionChangeEmojiStickerSet.
+	// Old value
 	PrevStickerset InputStickerSetClass
-	// NewStickerset field of ChannelAdminLogEventActionChangeEmojiStickerSet.
+	// New value
 	NewStickerset InputStickerSetClass
 }
 

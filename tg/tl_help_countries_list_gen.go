@@ -140,7 +140,7 @@ func (c *HelpCountriesListNotModified) DecodeBare(b *bin.Buffer) error {
 type HelpCountriesList struct {
 	// Name, ISO code, localized name and phone codes/patterns of all available countries
 	Countries []HelpCountry
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

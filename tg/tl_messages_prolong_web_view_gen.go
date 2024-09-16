@@ -408,6 +408,10 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // Indicate to the server (from the user side) that the user is still using a web app.
 // If the method returns a QUERY_ID_INVALID error, the webview must be closed.
 //
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 func (c *Client) MessagesProlongWebView(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error) {
 	var result BoolBox

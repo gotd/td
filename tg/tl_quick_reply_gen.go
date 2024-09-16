@@ -32,16 +32,20 @@ var (
 )
 
 // QuickReply represents TL type `quickReply#697102b`.
+// A quick reply shortcut¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/quickReply for reference.
 type QuickReply struct {
-	// ShortcutID field of QuickReply.
+	// Unique shortcut ID.
 	ShortcutID int
-	// Shortcut field of QuickReply.
+	// Shortcut name.
 	Shortcut string
-	// TopMessage field of QuickReply.
+	// ID of the last message in the shortcut.
 	TopMessage int
-	// Count field of QuickReply.
+	// Total number of messages in the shortcut.
 	Count int
 }
 

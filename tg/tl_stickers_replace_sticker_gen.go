@@ -32,12 +32,16 @@ var (
 )
 
 // StickersReplaceStickerRequest represents TL type `stickers.replaceSticker#4696459a`.
+// Replace a sticker in a stickerset »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/method/stickers.replaceSticker for reference.
 type StickersReplaceStickerRequest struct {
-	// Sticker field of StickersReplaceStickerRequest.
+	// Old sticker document.
 	Sticker InputDocumentClass
-	// NewSticker field of StickersReplaceStickerRequest.
+	// New sticker.
 	NewSticker InputStickerSetItem
 }
 
@@ -198,8 +202,17 @@ func (r *StickersReplaceStickerRequest) GetStickerAsNotEmpty() (*InputDocument, 
 }
 
 // StickersReplaceSticker invokes method stickers.replaceSticker#4696459a returning error if any.
+// Replace a sticker in a stickerset »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
+//
+// Possible errors:
+//
+//	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.replaceSticker for reference.
+// Can be used by bots.
 func (c *Client) StickersReplaceSticker(ctx context.Context, request *StickersReplaceStickerRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

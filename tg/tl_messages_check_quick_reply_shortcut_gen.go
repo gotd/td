@@ -32,10 +32,16 @@ var (
 )
 
 // MessagesCheckQuickReplyShortcutRequest represents TL type `messages.checkQuickReplyShortcut#f1d0fbd3`.
+// Before offering the user the choice to add a message to a quick reply shortcut¹, to
+// make sure that none of the limits specified here »² were reached.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.checkQuickReplyShortcut for reference.
 type MessagesCheckQuickReplyShortcutRequest struct {
-	// Shortcut field of MessagesCheckQuickReplyShortcutRequest.
+	// Shorcut name (not ID!).
 	Shortcut string
 }
 
@@ -161,6 +167,16 @@ func (c *MessagesCheckQuickReplyShortcutRequest) GetShortcut() (value string) {
 }
 
 // MessagesCheckQuickReplyShortcut invokes method messages.checkQuickReplyShortcut#f1d0fbd3 returning error if any.
+// Before offering the user the choice to add a message to a quick reply shortcut¹, to
+// make sure that none of the limits specified here »² were reached.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2. https://core.telegram.org/api/business#quick-reply-shortcuts
+//
+// Possible errors:
+//
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/messages.checkQuickReplyShortcut for reference.
 func (c *Client) MessagesCheckQuickReplyShortcut(ctx context.Context, shortcut string) (bool, error) {

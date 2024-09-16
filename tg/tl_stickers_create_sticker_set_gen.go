@@ -32,7 +32,7 @@ var (
 )
 
 // StickersCreateStickerSetRequest represents TL type `stickers.createStickerSet#9021ab67`.
-// Create a stickerset, bots only.
+// Create a stickerset.
 //
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
 type StickersCreateStickerSetRequest struct {
@@ -515,7 +515,7 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 }
 
 // StickersCreateStickerSet invokes method stickers.createStickerSet#9021ab67 returning error if any.
-// Create a stickerset, bots only.
+// Create a stickerset.
 //
 // Possible errors:
 //

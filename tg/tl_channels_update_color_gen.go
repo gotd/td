@@ -45,7 +45,12 @@ type ChannelsUpdateColorRequest struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to change the accent color emoji pattern of the profile page; otherwise, the
-	// accent color and emoji pattern of messages will be changed.
+	// accent color and emoji pattern of messages will be changed. Channels can change both
+	// message and profile palettes; supergroups can only change the profile palette, of
+	// course after reaching the appropriate boost level¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	ForProfile bool
 	// Channel whose accent color should be changed.
 	Channel InputChannelClass

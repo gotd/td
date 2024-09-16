@@ -32,22 +32,39 @@ var (
 )
 
 // FactCheck represents TL type `factCheck#b89bfccf`.
+// Represents a fact-check »¹ created by an independent fact-checker.
+//
+// Links:
+//  1. https://core.telegram.org/api/factcheck
 //
 // See https://core.telegram.org/constructor/factCheck for reference.
 type FactCheck struct {
-	// Flags field of FactCheck.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NeedCheck field of FactCheck.
+	// If set, the country/text fields will not be set, and the fact check must be fetched
+	// manually by the client (if it isn't already cached with the key specified in hash)
+	// using bundled messages.getFactCheck¹ requests, when the message with the factcheck
+	// scrolls into view.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getFactCheck
 	NeedCheck bool
-	// Country field of FactCheck.
+	// A two-letter ISO 3166-1 alpha-2 country code of the country for which the fact-check
+	// should be shown.
 	//
 	// Use SetCountry and GetCountry helpers.
 	Country string
-	// Text field of FactCheck.
+	// The fact-check.
 	//
 	// Use SetText and GetText helpers.
 	Text TextWithEntities
-	// Hash field of FactCheck.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 

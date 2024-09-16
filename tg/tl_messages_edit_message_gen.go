@@ -76,7 +76,10 @@ type MessagesEditMessageRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// QuickReplyShortcutID field of MessagesEditMessageRequest.
+	// If specified, edits a quick reply shortcut message, instead »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	//
 	// Use SetQuickReplyShortcutID and GetQuickReplyShortcutID helpers.
 	QuickReplyShortcutID int
@@ -633,7 +636,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
-//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	403 INLINE_BOT_REQUIRED: Only the inline bot can edit message.
@@ -658,6 +661,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 WEBPAGE_NOT_FOUND: A preview for the specified webpage url could not be generated.
 //
 // See https://core.telegram.org/method/messages.editMessage for reference.
 // Can be used by bots.

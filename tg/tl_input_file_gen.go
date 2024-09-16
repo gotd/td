@@ -448,10 +448,15 @@ func (i *InputFileBig) GetName() (value string) {
 }
 
 // InputFileStoryDocument represents TL type `inputFileStoryDocument#62dc8b48`.
+// Used to edit the thumbnail/static preview of a story, see here »¹ for more info on
+// the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#editing-stories
 //
 // See https://core.telegram.org/constructor/inputFileStoryDocument for reference.
 type InputFileStoryDocument struct {
-	// ID field of InputFileStoryDocument.
+	// The old story video.
 	ID InputDocumentClass
 }
 

@@ -518,8 +518,12 @@ func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bo
 // Possible errors:
 //
 //	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
+//	400 RAISE_HAND_FORBIDDEN: You cannot raise your hand.
 //	400 USER_VOLUME_INVALID: The specified user volume is invalid.
+//	400 VIDEO_PAUSE_FORBIDDEN: You cannot pause the video stream.
+//	400 VIDEO_STOP_FORBIDDEN: You cannot stop the video stream.
 //
 // See https://core.telegram.org/method/phone.editGroupCallParticipant for reference.
 func (c *Client) PhoneEditGroupCallParticipant(ctx context.Context, request *PhoneEditGroupCallParticipantRequest) (UpdatesClass, error) {

@@ -32,18 +32,31 @@ var (
 )
 
 // BusinessAwayMessage represents TL type `businessAwayMessage#ef156a5c`.
+// Describes a Telegram Business away message¹, automatically sent to users writing to
+// us when we're offline, during closing hours, while we're on vacation, or in some other
+// custom time period when we cannot immediately answer to the user.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/constructor/businessAwayMessage for reference.
 type BusinessAwayMessage struct {
-	// Flags field of BusinessAwayMessage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OfflineOnly field of BusinessAwayMessage.
+	// If set, the messages will not be sent if the account was online in the last 10 minutes.
 	OfflineOnly bool
-	// ShortcutID field of BusinessAwayMessage.
+	// ID of a quick reply shorcut, containing the away messages to send, see here » for
+	// more info¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	ShortcutID int
-	// Schedule field of BusinessAwayMessage.
+	// Specifies when should the away messages be sent.
 	Schedule BusinessAwayMessageScheduleClass
-	// Recipients field of BusinessAwayMessage.
+	// Allowed recipients for the away messages.
 	Recipients BusinessRecipients
 }
 

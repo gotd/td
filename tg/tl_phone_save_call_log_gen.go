@@ -196,6 +196,10 @@ func (s *PhoneSaveCallLogRequest) GetFile() (value InputFileClass) {
 // PhoneSaveCallLog invokes method phone.saveCallLog#41248786 returning error if any.
 // Save phone call debug information
 //
+// Possible errors:
+//
+//	400 CALL_PEER_INVALID: The provided call peer object is invalid.
+//
 // See https://core.telegram.org/method/phone.saveCallLog for reference.
 func (c *Client) PhoneSaveCallLog(ctx context.Context, request *PhoneSaveCallLogRequest) (bool, error) {
 	var result BoolBox

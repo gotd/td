@@ -254,7 +254,7 @@ func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswor
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
-//	400 PASSWORD_MISSING: You must enable 2FA in order to transfer ownership of a channel.
+//	400 PASSWORD_MISSING: You must enable 2FA before executing this operation.
 //	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.
 //	400 SESSION_TOO_FRESH_%d: This session was created less than 24 hours ago, try again in %d seconds.
 //	400 SRP_ID_INVALID: Invalid SRP ID provided.

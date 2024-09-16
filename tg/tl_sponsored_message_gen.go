@@ -46,24 +46,28 @@ type SponsoredMessage struct {
 	Flags bin.Fields
 	// Whether the message needs to be labeled as "recommended" instead of "sponsored"
 	Recommended bool
-	// CanReport field of SponsoredMessage.
+	// Whether this message can be reported as specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 	CanReport bool
 	// Message ID
 	RandomID []byte
-	// URL field of SponsoredMessage.
+	// Contains the URL to open when the user clicks on the sponsored message.
 	URL string
-	// Title field of SponsoredMessage.
+	// Contains the title of the sponsored message.
 	Title string
 	// Sponsored message
 	Message string
-	// Message entities for styled text¹
+	// Message entities for styled text¹ in message.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Photo field of SponsoredMessage.
+	// If set, contains a custom profile photo bubble that should be displayed for the
+	// sponsored message, like for messages sent in groups.
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass
@@ -71,11 +75,15 @@ type SponsoredMessage struct {
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media MessageMediaClass
-	// Color field of SponsoredMessage.
+	// If set, the sponsored message should use the message accent color »¹ specified in
+	// color.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
 	Color PeerColor
-	// Text of the sponsored message button.
+	// Label of the sponsored message button.
 	ButtonText string
 	// If set, contains additional information about the sponsor to be shown along with the
 	// message.

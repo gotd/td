@@ -32,12 +32,19 @@ var (
 )
 
 // PaymentsStarsStatus represents TL type `payments.starsStatus#bbfa316c`.
+// Info about the current Telegram Star balance and transaction history »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // See https://core.telegram.org/constructor/payments.starsStatus for reference.
 type PaymentsStarsStatus struct {
-	// Flags field of PaymentsStarsStatus.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Balance field of PaymentsStarsStatus.
+	// Current Telegram Star balance.
 	Balance int64
 	// Subscriptions field of PaymentsStarsStatus.
 	//
@@ -51,17 +58,21 @@ type PaymentsStarsStatus struct {
 	//
 	// Use SetSubscriptionsMissingBalance and GetSubscriptionsMissingBalance helpers.
 	SubscriptionsMissingBalance int64
-	// History field of PaymentsStarsStatus.
+	// List of Telegram Star transactions (partial if next_offset is set).
 	//
 	// Use SetHistory and GetHistory helpers.
 	History []StarsTransaction
-	// NextOffset field of PaymentsStarsStatus.
+	// Offset to use to fetch more transactions from the transaction history using payments
+	// getStarsTransactions¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getStarsTransactions
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Chats field of PaymentsStarsStatus.
+	// Chats mentioned in history.
 	Chats []ChatClass
-	// Users field of PaymentsStarsStatus.
+	// Users mentioned in history.
 	Users []UserClass
 }
 

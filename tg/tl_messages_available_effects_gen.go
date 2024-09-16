@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesAvailableEffectsNotModified represents TL type `messages.availableEffectsNotModified#d1ed9a5b`.
+// The full list of usable animated message effects »¹ hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/constructor/messages.availableEffectsNotModified for reference.
 type MessagesAvailableEffectsNotModified struct {
@@ -133,14 +137,21 @@ func (a *MessagesAvailableEffectsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesAvailableEffects represents TL type `messages.availableEffects#bddb616e`.
+// The full list of usable animated message effects »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/constructor/messages.availableEffects for reference.
 type MessagesAvailableEffects struct {
-	// Hash field of MessagesAvailableEffects.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Effects field of MessagesAvailableEffects.
+	// Message effects
 	Effects []AvailableEffect
-	// Documents field of MessagesAvailableEffects.
+	// Documents specified in the effects constructors.
 	Documents []DocumentClass
 }
 

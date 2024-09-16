@@ -36,12 +36,13 @@ var (
 //
 // See https://core.telegram.org/method/langpack.getLangPack for reference.
 type LangpackGetLangPackRequest struct {
-	// Language pack name, usually obtained from a language pack link¹
+	// Platform identifier (i.e. android, tdesktop, etc).
+	LangPack string
+	// Either an ISO 639-1 language code or a language pack name obtained from a language
+	// pack link¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/links#language-pack-links
-	LangPack string
-	// Language code
 	LangCode string
 }
 
@@ -196,6 +197,7 @@ func (g *LangpackGetLangPackRequest) GetLangCode() (value string) {
 //
 // Possible errors:
 //
+//	400 LANGUAGE_INVALID: The specified lang_code is invalid.
 //	400 LANG_CODE_NOT_SUPPORTED: The specified language code is not supported.
 //	400 LANG_PACK_INVALID: The provided language pack is invalid.
 //

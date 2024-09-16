@@ -32,7 +32,10 @@ var (
 )
 
 // MessageExtendedMediaPreview represents TL type `messageExtendedMediaPreview#ad628cc8`.
-// Extended media preview
+// Paid media preview for not yet purchased paid media, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/messageExtendedMediaPreview for reference.
 type MessageExtendedMediaPreview struct {
@@ -49,11 +52,14 @@ type MessageExtendedMediaPreview struct {
 	//
 	// Use SetH and GetH helpers.
 	H int
-	// Thumbnail
+	// Extremely low resolution thumbnail¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#stripped-thumbnails
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb PhotoSizeClass
-	// Video duration
+	// Video duration for videos.
 	//
 	// Use SetVideoDuration and GetVideoDuration helpers.
 	VideoDuration int
@@ -358,11 +364,14 @@ func (m *MessageExtendedMediaPreview) GetVideoDuration() (value int, ok bool) {
 }
 
 // MessageExtendedMedia represents TL type `messageExtendedMedia#ee479c64`.
-// Extended media
+// Already purchased paid media, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/messageExtendedMedia for reference.
 type MessageExtendedMedia struct {
-	// Media
+	// The media we purchased.
 	Media MessageMediaClass
 }
 

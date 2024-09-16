@@ -32,6 +32,7 @@ var (
 )
 
 // HelpTimezonesListNotModified represents TL type `help.timezonesListNotModified#970708cc`.
+// The timezone list has not changed.
 //
 // See https://core.telegram.org/constructor/help.timezonesListNotModified for reference.
 type HelpTimezonesListNotModified struct {
@@ -133,12 +134,20 @@ func (t *HelpTimezonesListNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // HelpTimezonesList represents TL type `help.timezonesList#7b74ed71`.
+// Timezone information that may be used elsewhere in the API, such as to set Telegram
+// Business opening hours »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/constructor/help.timezonesList for reference.
 type HelpTimezonesList struct {
-	// Timezones field of HelpTimezonesList.
+	// Timezones
 	Timezones []Timezone
-	// Hash field of HelpTimezonesList.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

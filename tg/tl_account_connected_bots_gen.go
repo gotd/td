@@ -32,12 +32,16 @@ var (
 )
 
 // AccountConnectedBots represents TL type `account.connectedBots#17d7f87b`.
+// Info about currently connected business bots¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/account.connectedBots for reference.
 type AccountConnectedBots struct {
-	// ConnectedBots field of AccountConnectedBots.
+	// Info about the connected bots
 	ConnectedBots []ConnectedBot
-	// Users field of AccountConnectedBots.
+	// Bot information
 	Users []UserClass
 }
 

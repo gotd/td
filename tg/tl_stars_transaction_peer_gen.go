@@ -32,6 +32,11 @@ var (
 )
 
 // StarsTransactionPeerUnsupported represents TL type `starsTransactionPeerUnsupported#95f2bfe4`.
+// Describes a Telegram Star¹ transaction that cannot be described using the current
+// layer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerUnsupported for reference.
 type StarsTransactionPeerUnsupported struct {
@@ -133,6 +138,11 @@ func (s *StarsTransactionPeerUnsupported) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarsTransactionPeerAppStore represents TL type `starsTransactionPeerAppStore#b457b375`.
+// Describes a Telegram Star¹ transaction with the App Store, used when purchasing
+// Telegram Stars through the App Store.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerAppStore for reference.
 type StarsTransactionPeerAppStore struct {
@@ -234,6 +244,11 @@ func (s *StarsTransactionPeerAppStore) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarsTransactionPeerPlayMarket represents TL type `starsTransactionPeerPlayMarket#7b560a0b`.
+// Describes a Telegram Star¹ transaction with the Play Store, used when purchasing
+// Telegram Stars through the Play Store.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerPlayMarket for reference.
 type StarsTransactionPeerPlayMarket struct {
@@ -335,6 +350,14 @@ func (s *StarsTransactionPeerPlayMarket) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarsTransactionPeerPremiumBot represents TL type `starsTransactionPeerPremiumBot#250dbaf8`.
+// Describes a Telegram Star¹ transaction made using @PremiumBot² (i.e. using the
+// inputInvoiceStars³ flow described here »⁴).
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://t.me/premiumbot
+//  3. https://core.telegram.org/constructor/inputInvoiceStars
+//  4. https://core.telegram.org/api/stars#buying-or-gifting-stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerPremiumBot for reference.
 type StarsTransactionPeerPremiumBot struct {
@@ -436,6 +459,13 @@ func (s *StarsTransactionPeerPremiumBot) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarsTransactionPeerFragment represents TL type `starsTransactionPeerFragment#e92fd902`.
+// Describes a Telegram Star¹ transaction with Fragment², used when purchasing Telegram
+// Stars through Fragment³.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://fragment.com
+//  3. https://fragment.com
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerFragment for reference.
 type StarsTransactionPeerFragment struct {
@@ -537,10 +567,14 @@ func (s *StarsTransactionPeerFragment) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarsTransactionPeer represents TL type `starsTransactionPeer#d80da15d`.
+// Describes a Telegram Star¹ transaction with another peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeer for reference.
 type StarsTransactionPeer struct {
-	// Peer field of StarsTransactionPeer.
+	// The peer.
 	Peer PeerClass
 }
 
@@ -676,6 +710,12 @@ func (s *StarsTransactionPeer) GetPeer() (value PeerClass) {
 }
 
 // StarsTransactionPeerAds represents TL type `starsTransactionPeerAds#60682812`.
+// Describes a Telegram Star¹ transaction used to pay for Telegram ads as specified here
+// »².
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/api/stars#paying-for-ads
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerAds for reference.
 type StarsTransactionPeerAds struct {

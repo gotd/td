@@ -32,12 +32,21 @@ var (
 )
 
 // InvokeWithBusinessConnectionRequest represents TL type `invokeWithBusinessConnection#dd289f8e`.
+// Invoke a method using a Telegram Business Bot connection, see here » for more info,
+// including a list of the methods that can be wrapped in this constructor¹.
+// Make sure to always send queries wrapped in a invokeWithBusinessConnection to the
+// datacenter ID, specified in the dc_id field of the botBusinessConnection¹ that is
+// being used.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
+//  2. https://core.telegram.org/constructor/botBusinessConnection
 //
 // See https://core.telegram.org/constructor/invokeWithBusinessConnection for reference.
 type InvokeWithBusinessConnectionRequest struct {
-	// ConnectionID field of InvokeWithBusinessConnectionRequest.
+	// Business connection ID.
 	ConnectionID string
-	// Query field of InvokeWithBusinessConnectionRequest.
+	// The actual query.
 	Query bin.Object
 }
 

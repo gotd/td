@@ -214,10 +214,10 @@ func (t *ChannelsToggleAntiSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //
 // Possible errors:
 //
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //
 // See https://core.telegram.org/method/channels.toggleAntiSpam for reference.
-// Can be used by bots.
 func (c *Client) ChannelsToggleAntiSpam(ctx context.Context, request *ChannelsToggleAntiSpamRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

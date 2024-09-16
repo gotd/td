@@ -221,7 +221,6 @@ func (g *ChannelsGetForumTopicsByIDRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 //	400 TOPICS_EMPTY: You specified no topic IDs.
 //
 // See https://core.telegram.org/method/channels.getForumTopicsByID for reference.
-// Can be used by bots.
 func (c *Client) ChannelsGetForumTopicsByID(ctx context.Context, request *ChannelsGetForumTopicsByIDRequest) (*MessagesForumTopics, error) {
 	var result MessagesForumTopics
 

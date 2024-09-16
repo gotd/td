@@ -32,10 +32,14 @@ var (
 )
 
 // AccountCreateBusinessChatLinkRequest represents TL type `account.createBusinessChatLink#8851e68e`.
+// Create a business chat deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/method/account.createBusinessChatLink for reference.
 type AccountCreateBusinessChatLinkRequest struct {
-	// Link field of AccountCreateBusinessChatLinkRequest.
+	// Info about the link to create.
 	Link InputBusinessChatLink
 }
 
@@ -161,6 +165,15 @@ func (c *AccountCreateBusinessChatLinkRequest) GetLink() (value InputBusinessCha
 }
 
 // AccountCreateBusinessChatLink invokes method account.createBusinessChatLink#8851e68e returning error if any.
+// Create a business chat deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-chat-links
+//
+// Possible errors:
+//
+//	400 CHATLINKS_TOO_MUCH: Too many business chat links were created, please delete some older links.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.createBusinessChatLink for reference.
 func (c *Client) AccountCreateBusinessChatLink(ctx context.Context, link InputBusinessChatLink) (*BusinessChatLink, error) {

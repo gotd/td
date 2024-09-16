@@ -32,7 +32,7 @@ var (
 )
 
 // StickersDeleteStickerSetRequest represents TL type `stickers.deleteStickerSet#87704394`.
-// Deletes a stickerset we created, bots only.
+// Deletes a stickerset we created.
 //
 // See https://core.telegram.org/method/stickers.deleteStickerSet for reference.
 type StickersDeleteStickerSetRequest struct {
@@ -167,11 +167,10 @@ func (d *StickersDeleteStickerSetRequest) GetStickerset() (value InputStickerSet
 }
 
 // StickersDeleteStickerSet invokes method stickers.deleteStickerSet#87704394 returning error if any.
-// Deletes a stickerset we created, bots only.
+// Deletes a stickerset we created.
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: Only bots can call this method, please use @stickers if you're a user.
 //	400 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/stickers.deleteStickerSet for reference.

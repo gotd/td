@@ -138,7 +138,7 @@ func (a *MessagesAllStickersNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/messages.allStickers for reference.
 type MessagesAllStickers struct {
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

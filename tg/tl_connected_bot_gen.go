@@ -32,16 +32,27 @@ var (
 )
 
 // ConnectedBot represents TL type `connectedBot#bd068601`.
+// Contains info about a connected business bot »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/connectedBot for reference.
 type ConnectedBot struct {
-	// Flags field of ConnectedBot.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CanReply field of ConnectedBot.
+	// Whether the the bot can reply to messages it receives through the connection
 	CanReply bool
-	// BotID field of ConnectedBot.
+	// ID of the connected bot
 	BotID int64
-	// Recipients field of ConnectedBot.
+	// Specifies the private chats that a connected business bot »¹ may receive messages
+	// and interact with.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	Recipients BusinessBotRecipients
 }
 

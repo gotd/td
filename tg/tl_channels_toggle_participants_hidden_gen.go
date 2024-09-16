@@ -215,12 +215,12 @@ func (t *ChannelsToggleParticipantsHiddenRequest) GetChannelAsNotEmpty() (NotEmp
 //
 // Possible errors:
 //
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
-// Can be used by bots.
 func (c *Client) ChannelsToggleParticipantsHidden(ctx context.Context, request *ChannelsToggleParticipantsHiddenRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

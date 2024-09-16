@@ -32,6 +32,15 @@ var (
 )
 
 // ContactsGetBirthdaysRequest represents TL type `contacts.getBirthdays#daeda864`.
+// Fetch all users with birthdays that fall within +1/-1 days, relative to the current
+// day: this method should be invoked by clients every 6-8 hours, and if the result is
+// non-empty, it should be used to appropriately update locally cached birthday
+// information in user¹.birthday.
+// See here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/user
+//  2. https://core.telegram.org/api/profile#birthday
 //
 // See https://core.telegram.org/method/contacts.getBirthdays for reference.
 type ContactsGetBirthdaysRequest struct {
@@ -128,6 +137,15 @@ func (g *ContactsGetBirthdaysRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // ContactsGetBirthdays invokes method contacts.getBirthdays#daeda864 returning error if any.
+// Fetch all users with birthdays that fall within +1/-1 days, relative to the current
+// day: this method should be invoked by clients every 6-8 hours, and if the result is
+// non-empty, it should be used to appropriately update locally cached birthday
+// information in user¹.birthday.
+// See here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/user
+//  2. https://core.telegram.org/api/profile#birthday
 //
 // See https://core.telegram.org/method/contacts.getBirthdays for reference.
 func (c *Client) ContactsGetBirthdays(ctx context.Context) (*ContactsContactBirthdays, error) {

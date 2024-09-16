@@ -32,12 +32,17 @@ var (
 )
 
 // AccountToggleConnectedBotPausedRequest represents TL type `account.toggleConnectedBotPaused#646e1097`.
+// Pause or unpause a specific chat, temporarily disconnecting it from all business bots
+// »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/method/account.toggleConnectedBotPaused for reference.
 type AccountToggleConnectedBotPausedRequest struct {
-	// Peer field of AccountToggleConnectedBotPausedRequest.
+	// The chat to pause
 	Peer InputPeerClass
-	// Paused field of AccountToggleConnectedBotPausedRequest.
+	// Whether to pause or unpause the chat
 	Paused bool
 }
 
@@ -193,6 +198,15 @@ func (t *AccountToggleConnectedBotPausedRequest) GetPaused() (value bool) {
 }
 
 // AccountToggleConnectedBotPaused invokes method account.toggleConnectedBotPaused#646e1097 returning error if any.
+// Pause or unpause a specific chat, temporarily disconnecting it from all business bots
+// »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#connected-bots
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/account.toggleConnectedBotPaused for reference.
 func (c *Client) AccountToggleConnectedBotPaused(ctx context.Context, request *AccountToggleConnectedBotPausedRequest) (bool, error) {

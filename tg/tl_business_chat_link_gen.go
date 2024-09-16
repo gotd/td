@@ -32,24 +32,38 @@ var (
 )
 
 // BusinessChatLink represents TL type `businessChatLink#b4ae666f`.
+// Contains info about a business chat deep link »¹ created by the current account.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/constructor/businessChatLink for reference.
 type BusinessChatLink struct {
-	// Flags field of BusinessChatLink.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Link field of BusinessChatLink.
+	// Business chat deep link¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#business-chat-links
 	Link string
-	// Message field of BusinessChatLink.
+	// Message to pre-fill in the message input field.
 	Message string
-	// Entities field of BusinessChatLink.
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Title field of BusinessChatLink.
+	// Human-readable name of the link, to simplify management in the UI (only visible to the
+	// creator of the link).
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Views field of BusinessChatLink.
+	// Number of times the link was resolved (clicked/scanned/etc...).
 	Views int
 }
 

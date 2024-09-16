@@ -32,22 +32,29 @@ var (
 )
 
 // GeoPointAddress represents TL type `geoPointAddress#de4c5d93`.
+// Address optionally associated to a geoPoint¹.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/geoPoint
 //
 // See https://core.telegram.org/constructor/geoPointAddress for reference.
 type GeoPointAddress struct {
-	// Flags field of GeoPointAddress.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CountryISO2 field of GeoPointAddress.
+	// Two-letter ISO 3166-1 alpha-2 country code
 	CountryISO2 string
-	// State field of GeoPointAddress.
+	// State
 	//
 	// Use SetState and GetState helpers.
 	State string
-	// City field of GeoPointAddress.
+	// City
 	//
 	// Use SetCity and GetCity helpers.
 	City string
-	// Street field of GeoPointAddress.
+	// Street
 	//
 	// Use SetStreet and GetStreet helpers.
 	Street string

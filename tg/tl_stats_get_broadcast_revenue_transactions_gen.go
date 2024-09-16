@@ -32,14 +32,24 @@ var (
 )
 
 // StatsGetBroadcastRevenueTransactionsRequest represents TL type `stats.getBroadcastRevenueTransactions#69280f`.
+// Fetch channel ad revenue transaction history »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueTransactions for reference.
 type StatsGetBroadcastRevenueTransactionsRequest struct {
-	// Channel field of StatsGetBroadcastRevenueTransactionsRequest.
+	// The channel
 	Channel InputChannelClass
-	// Offset field of StatsGetBroadcastRevenueTransactionsRequest.
+	// Offset for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset int
-	// Limit field of StatsGetBroadcastRevenueTransactionsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -225,6 +235,14 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) GetChannelAsNotEmpty() (No
 }
 
 // StatsGetBroadcastRevenueTransactions invokes method stats.getBroadcastRevenueTransactions#69280f returning error if any.
+// Fetch channel ad revenue transaction history »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueTransactions for reference.
 func (c *Client) StatsGetBroadcastRevenueTransactions(ctx context.Context, request *StatsGetBroadcastRevenueTransactionsRequest) (*StatsBroadcastRevenueTransactions, error) {

@@ -32,14 +32,15 @@ var (
 )
 
 // InputInvoiceMessage represents TL type `inputInvoiceMessage#c5b56859`.
-// An invoice contained in a messageMediaInvoice¹ message.
+// An invoice contained in a messageMediaInvoice¹ message or paid media »².
 //
 // Links:
 //  1. https://core.telegram.org/constructor/messageMediaInvoice
+//  2. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/inputInvoiceMessage for reference.
 type InputInvoiceMessage struct {
-	// Chat where the invoice was sent
+	// Chat where the invoice/paid media was sent
 	Peer InputPeerClass
 	// Message ID
 	MsgID int
@@ -342,8 +343,8 @@ func (i *InputInvoiceSlug) GetSlug() (value string) {
 }
 
 // InputInvoicePremiumGiftCode represents TL type `inputInvoicePremiumGiftCode#98986c0d`.
-// Used if the user wishes to start a channel giveaway¹ or send some giftcodes² to
-// members of a channel, in exchange for boosts³.
+// Used if the user wishes to start a channel/supergroup giveaway¹ or send some
+// giftcodes² to members of a channel/supergroup, in exchange for boosts³.
 //
 // Links:
 //  1. https://core.telegram.org/api/giveaways
@@ -527,10 +528,19 @@ func (i *InputInvoicePremiumGiftCode) GetOption() (value PremiumGiftCodeOption) 
 }
 
 // InputInvoiceStars represents TL type `inputInvoiceStars#65f00ce3`.
+// Used to top up the Telegram Stars¹ balance of the current account or someone else's
+// account.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/inputInvoiceStars for reference.
 type InputInvoiceStars struct {
-	// Purpose field of InputInvoiceStars.
+	// Either an inputStorePaymentStarsTopup¹ or an inputStorePaymentStarsGift².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputStorePaymentStarsTopup
+	//  2) https://core.telegram.org/constructor/inputStorePaymentStarsGift
 	Purpose InputStorePaymentPurposeClass
 }
 

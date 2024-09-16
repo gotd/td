@@ -32,14 +32,21 @@ var (
 )
 
 // StatsGetBroadcastRevenueStatsRequest represents TL type `stats.getBroadcastRevenueStats#75dfb671`.
+// Get channel ad revenue statistics »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueStats for reference.
 type StatsGetBroadcastRevenueStatsRequest struct {
-	// Flags field of StatsGetBroadcastRevenueStatsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Dark field of StatsGetBroadcastRevenueStatsRequest.
+	// Whether to enable dark theme for graph colors
 	Dark bool
-	// Channel field of StatsGetBroadcastRevenueStatsRequest.
+	// The channel
 	Channel InputChannelClass
 }
 
@@ -224,6 +231,15 @@ func (g *StatsGetBroadcastRevenueStatsRequest) GetChannelAsNotEmpty() (NotEmptyI
 }
 
 // StatsGetBroadcastRevenueStats invokes method stats.getBroadcastRevenueStats#75dfb671 returning error if any.
+// Get channel ad revenue statistics »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueStats for reference.
 func (c *Client) StatsGetBroadcastRevenueStats(ctx context.Context, request *StatsGetBroadcastRevenueStatsRequest) (*StatsBroadcastRevenueStats, error) {

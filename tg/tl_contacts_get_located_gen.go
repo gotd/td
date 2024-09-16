@@ -291,6 +291,7 @@ func (g *ContactsGetLocatedRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, boo
 //
 // Possible errors:
 //
+//	406 BUSINESS_ADDRESS_ACTIVE: The user is currently advertising a Business Location, the location may only be changed (or removed) using account.updateBusinessLocation ».  .
 //	400 GEO_POINT_INVALID: Invalid geoposition provided.
 //	406 USERPIC_PRIVACY_REQUIRED: You need to disable privacy settings for your profile picture in order to make your geolocation public.
 //	406 USERPIC_UPLOAD_REQUIRED: You must have a profile picture to publish your geolocation.

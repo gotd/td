@@ -2812,7 +2812,7 @@ type InputMediaInvoice struct {
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// Extended media
+	// Deprecated
 	//
 	// Use SetExtendedMedia and GetExtendedMedia helpers.
 	ExtendedMedia InputMediaClass
@@ -4504,14 +4504,21 @@ func (i *InputMediaWebPage) GetURL() (value string) {
 }
 
 // InputMediaPaidMedia represents TL type `inputMediaPaidMedia#c4103386`.
+// Paid media, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/inputMediaPaidMedia for reference.
 type InputMediaPaidMedia struct {
 	// Flags field of InputMediaPaidMedia.
 	Flags bin.Fields
-	// StarsAmount field of InputMediaPaidMedia.
+	// The price of the media in Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	StarsAmount int64
-	// ExtendedMedia field of InputMediaPaidMedia.
+	// Photos or videos.
 	ExtendedMedia []InputMediaClass
 	// Payload field of InputMediaPaidMedia.
 	//

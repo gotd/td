@@ -32,16 +32,28 @@ var (
 )
 
 // AccountUpdateBusinessLocationRequest represents TL type `account.updateBusinessLocation#9e6b131a`.
+// Businesses »¹ may advertise their location using this method, see here »² for more
+// info.
+// To remove business location information invoke the method without setting any of the
+// parameters.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#location
+//  2. https://core.telegram.org/api/business#location
 //
 // See https://core.telegram.org/method/account.updateBusinessLocation for reference.
 type AccountUpdateBusinessLocationRequest struct {
-	// Flags field of AccountUpdateBusinessLocationRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// GeoPoint field of AccountUpdateBusinessLocationRequest.
+	// Optional, contains a set of geographical coordinates.
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
 	GeoPoint InputGeoPointClass
-	// Address field of AccountUpdateBusinessLocationRequest.
+	// Mandatory when setting/updating the location, contains a textual description of the
+	// address (max 96 UTF-8 chars).
 	//
 	// Use SetAddress and GetAddress helpers.
 	Address string
@@ -262,6 +274,14 @@ func (u *AccountUpdateBusinessLocationRequest) GetGeoPointAsNotEmpty() (*InputGe
 }
 
 // AccountUpdateBusinessLocation invokes method account.updateBusinessLocation#9e6b131a returning error if any.
+// Businesses »¹ may advertise their location using this method, see here »² for more
+// info.
+// To remove business location information invoke the method without setting any of the
+// parameters.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#location
+//  2. https://core.telegram.org/api/business#location
 //
 // See https://core.telegram.org/method/account.updateBusinessLocation for reference.
 func (c *Client) AccountUpdateBusinessLocation(ctx context.Context, request *AccountUpdateBusinessLocationRequest) (bool, error) {

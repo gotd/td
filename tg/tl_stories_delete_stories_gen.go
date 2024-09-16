@@ -218,6 +218,7 @@ func (d *StoriesDeleteStoriesRequest) GetID() (value []int) {
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_ID_EMPTY: You specified no story IDs.
 //
 // See https://core.telegram.org/method/stories.deleteStories for reference.
 func (c *Client) StoriesDeleteStories(ctx context.Context, request *StoriesDeleteStoriesRequest) ([]int, error) {

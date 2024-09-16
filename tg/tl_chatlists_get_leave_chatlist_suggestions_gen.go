@@ -180,7 +180,6 @@ func (g *ChatlistsGetLeaveChatlistSuggestionsRequest) GetChatlist() (value Input
 //	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //
 // See https://core.telegram.org/method/chatlists.getLeaveChatlistSuggestions for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsGetLeaveChatlistSuggestions(ctx context.Context, chatlist InputChatlistDialogFilter) ([]PeerClass, error) {
 	var result PeerClassVector
 

@@ -32,12 +32,16 @@ var (
 )
 
 // FoundStory represents TL type `foundStory#e87acbc0`.
+// A story found using global story search »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#searching-stories
 //
 // See https://core.telegram.org/constructor/foundStory for reference.
 type FoundStory struct {
-	// Peer field of FoundStory.
+	// The peer that posted the story.
 	Peer PeerClass
-	// Story field of FoundStory.
+	// The story.
 	Story StoryItemClass
 }
 

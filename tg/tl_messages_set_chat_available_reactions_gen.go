@@ -40,13 +40,23 @@ var (
 //
 // See https://core.telegram.org/method/messages.setChatAvailableReactions for reference.
 type MessagesSetChatAvailableReactionsRequest struct {
-	// Flags field of MessagesSetChatAvailableReactionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Group where to apply changes
 	Peer InputPeerClass
 	// Allowed reaction emojis
 	AvailableReactions ChatReactionsClass
-	// ReactionsLimit field of MessagesSetChatAvailableReactionsRequest.
+	// This flag may be used to impose a custom limit of unique reactions (i.e. a
+	// customizable version of appConfig.reactions_uniq_max¹); this field and the other info
+	// set by the method will then be available to users in channelFull² and chatFull³.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#reactions-uniq-max
+	//  2) https://core.telegram.org/constructor/channelFull
+	//  3) https://core.telegram.org/constructor/chatFull
 	//
 	// Use SetReactionsLimit and GetReactionsLimit helpers.
 	ReactionsLimit int

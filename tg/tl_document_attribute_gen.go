@@ -596,7 +596,8 @@ type DocumentAttributeVideo struct {
 	//
 	// Use SetPreloadPrefixSize and GetPreloadPrefixSize helpers.
 	PreloadPrefixSize int
-	// VideoStartTs field of DocumentAttributeVideo.
+	// Floating point UNIX timestamp in seconds, indicating the frame of the video that
+	// should be used as static preview and thumbnail.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64

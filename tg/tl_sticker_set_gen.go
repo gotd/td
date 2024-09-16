@@ -54,12 +54,13 @@ type StickerSet struct {
 	// color when used in messages, the accent color if used as emoji status, white on chat
 	// photos, or another appropriate color based on context.
 	TextColor bool
-	// If set, this custom emoji stickerset can be used in channel emoji statuses¹.
+	// If set, this custom emoji stickerset can be used in channel/supergroup emoji
+	// statuses¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/emoji-status
 	ChannelEmojiStatus bool
-	// Creator field of StickerSet.
+	// Whether we created this stickerset
 	Creator bool
 	// When was this stickerset installed
 	//

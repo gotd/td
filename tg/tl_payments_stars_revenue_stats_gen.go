@@ -32,14 +32,19 @@ var (
 )
 
 // PaymentsStarsRevenueStats represents TL type `payments.starsRevenueStats#c92bb73b`.
+// Star revenue statistics, see here »¹ for more info.
+// Note that all balances and currency amounts and graph values are in Stars.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/payments.starsRevenueStats for reference.
 type PaymentsStarsRevenueStats struct {
-	// RevenueGraph field of PaymentsStarsRevenueStats.
+	// Star revenue graph (number of earned stars)
 	RevenueGraph StatsGraphClass
-	// Status field of PaymentsStarsRevenueStats.
+	// Current balance, current withdrawable balance and overall earned Telegram Stars
 	Status StarsRevenueStatus
-	// UsdRate field of PaymentsStarsRevenueStats.
+	// Current conversion rate of Telegram Stars to USD
 	UsdRate float64
 }
 

@@ -52,7 +52,11 @@ type Poll struct {
 	// Whether this is a quiz (with wrong and correct answers, results shown in the return
 	// type)
 	Quiz bool
-	// The question of the poll
+	// The question of the poll (only Premium¹ users can use custom emoji entities² here).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/api/custom-emoji
 	Question TextWithEntities
 	// The possible answers, vote using messages.sendVote¹.
 	//

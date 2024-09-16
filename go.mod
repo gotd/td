@@ -8,7 +8,7 @@ require (
 	github.com/go-faster/jx v1.1.0
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.21.0
-	github.com/gotd/getdoc v0.42.0
+	github.com/gotd/getdoc v0.43.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
@@ -31,7 +31,7 @@ require (
 )
 
 require (
-	github.com/PuerkitoBio/goquery v1.9.1 // indirect
+	github.com/PuerkitoBio/goquery v1.9.2 // indirect
 	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect

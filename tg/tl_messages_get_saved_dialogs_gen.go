@@ -64,7 +64,7 @@ type MessagesGetSavedDialogsRequest struct {
 	OffsetPeer InputPeerClass
 	// Number of list elements to be returned
 	Limit int
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

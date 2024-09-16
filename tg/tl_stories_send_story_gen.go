@@ -778,6 +778,7 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 //
 // Possible errors:
 //
+//	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MEDIA_FILE_INVALID: The specified media file is invalid.

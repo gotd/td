@@ -292,6 +292,7 @@ func (s *StoriesSendReactionRequest) GetReaction() (value ReactionClass) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 REACTION_INVALID: The specified reaction is invalid.
 //	400 STORY_ID_EMPTY: You specified no story IDs.
+//	400 STORY_ID_INVALID: The specified story ID is invalid.
 //
 // See https://core.telegram.org/method/stories.sendReaction for reference.
 func (c *Client) StoriesSendReaction(ctx context.Context, request *StoriesSendReactionRequest) (UpdatesClass, error) {

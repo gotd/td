@@ -32,14 +32,19 @@ var (
 )
 
 // BroadcastRevenueTransactionProceeds represents TL type `broadcastRevenueTransactionProceeds#557e2cc4`.
+// Describes earnings from sponsored messages in a channel in some time frame, see here
+// »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/constructor/broadcastRevenueTransactionProceeds for reference.
 type BroadcastRevenueTransactionProceeds struct {
-	// Amount field of BroadcastRevenueTransactionProceeds.
+	// Amount in the smallest unit of the cryptocurrency.
 	Amount int64
-	// FromDate field of BroadcastRevenueTransactionProceeds.
+	// Start unixtime for the timeframe.
 	FromDate int
-	// ToDate field of BroadcastRevenueTransactionProceeds.
+	// End unixtime for the timeframe.
 	ToDate int
 }
 
@@ -220,26 +225,36 @@ func (b *BroadcastRevenueTransactionProceeds) GetToDate() (value int) {
 }
 
 // BroadcastRevenueTransactionWithdrawal represents TL type `broadcastRevenueTransactionWithdrawal#5a590978`.
+// Describes a withdrawal of ad earnings »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue#withdrawing-revenue
 //
 // See https://core.telegram.org/constructor/broadcastRevenueTransactionWithdrawal for reference.
 type BroadcastRevenueTransactionWithdrawal struct {
-	// Flags field of BroadcastRevenueTransactionWithdrawal.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pending field of BroadcastRevenueTransactionWithdrawal.
+	// Whether the withdrawal is currently pending
 	Pending bool
-	// Failed field of BroadcastRevenueTransactionWithdrawal.
+	// Whether the withdrawal has failed
 	Failed bool
-	// Amount field of BroadcastRevenueTransactionWithdrawal.
+	// Amount withdrawn
 	Amount int64
-	// Date field of BroadcastRevenueTransactionWithdrawal.
+	// Withdrawal date
 	Date int
-	// Provider field of BroadcastRevenueTransactionWithdrawal.
+	// Payment provider name
 	Provider string
-	// TransactionDate field of BroadcastRevenueTransactionWithdrawal.
+	// If neither pending nor failed are set, the transaction was completed successfully, and
+	// this field will contain the point in time (Unix timestamp) when the withdrawal was
+	// completed successfully.
 	//
 	// Use SetTransactionDate and GetTransactionDate helpers.
 	TransactionDate int
-	// TransactionURL field of BroadcastRevenueTransactionWithdrawal.
+	// If neither pending nor failed are set, the transaction was completed successfully, and
+	// this field will contain a URL where the withdrawal transaction can be viewed.
 	//
 	// Use SetTransactionURL and GetTransactionURL helpers.
 	TransactionURL string
@@ -594,14 +609,18 @@ func (b *BroadcastRevenueTransactionWithdrawal) GetTransactionURL() (value strin
 }
 
 // BroadcastRevenueTransactionRefund represents TL type `broadcastRevenueTransactionRefund#42d30d2e`.
+// Describes a refund for failed withdrawal of ad earnings »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue#withdrawing-revenue
 //
 // See https://core.telegram.org/constructor/broadcastRevenueTransactionRefund for reference.
 type BroadcastRevenueTransactionRefund struct {
-	// Amount field of BroadcastRevenueTransactionRefund.
+	// Amount refunded.
 	Amount int64
-	// Date field of BroadcastRevenueTransactionRefund.
+	// Date of refund.
 	Date int
-	// Provider field of BroadcastRevenueTransactionRefund.
+	// Payment provider name.
 	Provider string
 }
 
@@ -818,7 +837,7 @@ type BroadcastRevenueTransactionClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Amount field of BroadcastRevenueTransactionProceeds.
+	// Amount in the smallest unit of the cryptocurrency.
 	GetAmount() (value int64)
 }
 

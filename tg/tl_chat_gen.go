@@ -167,7 +167,17 @@ func (c *ChatEmpty) GetID() (value int64) {
 }
 
 // Chat represents TL type `chat#41cbf256`.
-// Info about a group
+// Info about a group.
+// When updating the local peer database¹, all fields from the newly received
+// constructor take priority over the old constructor cached locally (including by
+// removing fields that aren't set in the new constructor).
+// See here »¹ for an implementation of the logic to use when updating the local user
+// peer database².
+//
+// Links:
+//  1. https://core.telegram.org/api/peers
+//  2. https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L5152
+//  3. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/chat for reference.
 type Chat struct {
@@ -194,7 +204,10 @@ type Chat struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// ID of the group
+	// ID of the group, see here »¹ for more info
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#peer-id
 	ID int64
 	// Title
 	Title string
@@ -1001,6 +1014,18 @@ func (c *ChatForbidden) GetTitle() (value string) {
 
 // Channel represents TL type `channel#fe4478bd`.
 // Channel/supergroup info
+// When updating the local peer database¹, all fields from the newly received
+// constructor take priority over the old constructor cached locally (including by
+// removing fields that aren't set in the new constructor).
+// The only exception to the above rule is when the min flag is set, in which case only
+// the following fields must be applied over any locally stored version:
+// See here »¹ for an implementation of the logic to use when updating the local user
+// peer database².
+//
+// Links:
+//  1. https://core.telegram.org/api/peers
+//  2. https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L8329
+//  3. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/channel for reference.
 type Channel struct {
@@ -1017,9 +1042,14 @@ type Channel struct {
 	Broadcast bool
 	// Is this channel verified by telegram?
 	Verified bool
-	// Is this a supergroup?
+	// Is this a supergroup? Changes to this flag should invalidate the local channelFull¹
+	// cache for this channel/supergroup ID, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
 	Megagroup bool
-	// Whether viewing/writing in this channel for a reason (see restriction_reason
+	// Whether viewing/writing in this channel for a reason (see restriction_reason)
 	Restricted bool
 	// Whether signatures are enabled (channels)
 	Signatures bool
@@ -1028,28 +1058,54 @@ type Channel struct {
 	// Links:
 	//  1) https://core.telegram.org/api/min
 	Min bool
-	// This channel/supergroup is probably a scam
+	// This channel/supergroup is probably a scam Changes to this flag should invalidate the
+	// local channelFull¹ cache for this channel/supergroup ID, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
 	Scam bool
-	// Whether this channel has a private join link
+	// Whether this channel has a linked discussion group »¹ (or this supergroup is a
+	// channel's discussion group). The actual ID of the linked channel/supergroup is
+	// contained in channelFull².linked_chat_id. Changes to this flag should invalidate the
+	// local channelFull³ cache for this channel/supergroup ID, see here »⁴ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/discussion
+	//  2) https://core.telegram.org/constructor/channelFull
+	//  3) https://core.telegram.org/constructor/channelFull
+	//  4) https://core.telegram.org/api/peers#full-info-database
 	HasLink bool
 	// Whether this chanel has a geoposition
 	HasGeo bool
-	// Whether slow mode is enabled for groups to prevent flood in chat
+	// Whether slow mode is enabled for groups to prevent flood in chat. Changes to this flag
+	// should invalidate the local channelFull¹ cache for this channel/supergroup ID, see
+	// here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
 	SlowmodeEnabled bool
 	// Whether a group call or livestream is currently active
 	CallActive bool
 	// Whether there's anyone in the group call or livestream
 	CallNotEmpty bool
 	// If set, this supergroup/channel¹ was reported by many users as a fake or scam: be
-	// careful when interacting with it.
+	// careful when interacting with it. Changes to this flag should invalidate the local
+	// channelFull² cache for this channel/supergroup ID, see here »³ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org/constructor/channelFull
+	//  3) https://core.telegram.org/api/peers#full-info-database
 	Fake bool
-	// Whether this supergroup¹ is a gigagroup
+	// Whether this supergroup¹ is a gigagroupChanges to this flag should invalidate the
+	// local channelFull² cache for this channel/supergroup ID, see here »³ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org/constructor/channelFull
+	//  3) https://core.telegram.org/api/peers#full-info-database
 	Gigagroup bool
 	// Whether this channel or group is protected¹, thus does not allow forwarding messages
 	// from it
@@ -1058,23 +1114,33 @@ type Channel struct {
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
 	// Whether a user needs to join the supergroup before they can send messages: can be
-	// false only for discussion groups »¹, toggle using channels.toggleJoinToSend²
+	// false only for discussion groups »¹, toggle using channels.toggleJoinToSend²Changes
+	// to this flag should invalidate the local channelFull³ cache for this
+	// channel/supergroup ID, see here »⁴ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//  2) https://core.telegram.org/method/channels.toggleJoinToSend
+	//  3) https://core.telegram.org/constructor/channelFull
+	//  4) https://core.telegram.org/api/peers#full-info-database
 	JoinToSend bool
 	// Whether a user's join request will have to be approved by administrators¹, toggle
-	// using channels.toggleJoinToSend²
+	// using channels.toggleJoinToSend²Changes to this flag should invalidate the local
+	// channelFull³ cache for this channel/supergroup ID, see here »⁴ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/invites#join-requests
 	//  2) https://core.telegram.org/method/channels.toggleJoinRequest
+	//  3) https://core.telegram.org/constructor/channelFull
+	//  4) https://core.telegram.org/api/peers#full-info-database
 	JoinRequest bool
-	// Whether this supergroup is a forum¹
+	// Whether this supergroup is a forum¹. Changes to this flag should invalidate the local
+	// channelFull² cache for this channel/supergroup ID, see here »³ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/forum
+	//  2) https://core.telegram.org/constructor/channelFull
+	//  3) https://core.telegram.org/api/peers#full-info-database
 	Forum bool
 	// Flags, see TL conditional fields¹
 	//
@@ -1097,15 +1163,21 @@ type Channel struct {
 	StoriesUnavailable bool
 	// SignatureProfiles field of Channel.
 	SignatureProfiles bool
-	// ID of the channel
+	// ID of the channel, see here »¹ for more info
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#peer-id
 	ID int64
-	// Access hash
+	// Access hash, see here »¹ for more info
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#access-hash
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
 	AccessHash int64
 	// Title
 	Title string
-	// Username
+	// Main active username.
 	//
 	// Use SetUsername and GetUsername helpers.
 	Username string
@@ -1114,7 +1186,13 @@ type Channel struct {
 	// Date when the user joined the supergroup/channel, or if the user isn't a member, its
 	// creation date
 	Date int
-	// Contains the reason why access to this channel must be restricted.
+	// Contains the reason why access to this channel must be restricted. Changes to this
+	// flag should invalidate the local channelFull¹ cache for this channel/supergroup ID,
+	// see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason
@@ -1175,10 +1253,13 @@ type Channel struct {
 	//
 	// Use SetEmojiStatus and GetEmojiStatus helpers.
 	EmojiStatus EmojiStatusClass
-	// Boost level¹
+	// Boost level¹. Changes to this flag should invalidate the local channelFull² cache
+	// for this channel/supergroup ID, see here »³ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/boost
+	//  2) https://core.telegram.org/constructor/channelFull
+	//  3) https://core.telegram.org/api/peers#full-info-database
 	//
 	// Use SetLevel and GetLevel helpers.
 	Level int
@@ -3292,7 +3373,10 @@ type NotEmptyChat interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// ID of the group
+	// ID of the group, see here »¹ for more info
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#peer-id
 	GetID() (value int64)
 
 	// Title
@@ -3419,7 +3503,10 @@ type FullChat interface {
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	GetNoforwards() (value bool)
 
-	// ID of the group
+	// ID of the group, see here »¹ for more info
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#peer-id
 	GetID() (value int64)
 
 	// Title

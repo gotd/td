@@ -96,11 +96,17 @@ type MessagesSendMediaRequest struct {
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
-	// QuickReplyShortcut field of MessagesSendMediaRequest.
+	// Add the message to the specified quick reply shortcut »¹, instead.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	//
 	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
 	QuickReplyShortcut InputQuickReplyShortcutClass
-	// Effect field of MessagesSendMediaRequest.
+	// Specifies a message effect »¹ to use for the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/effects
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
@@ -885,16 +891,18 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //
 // Possible errors:
 //
+//	400 BOT_GAMES_DISABLED: Games can't be sent to channels.
 //	400 BOT_PAYMENTS_DISABLED: Please enable bot payments in botfather before calling this method.
 //	400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN: You can't forward polls with public voters.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
+//	400 BUTTON_POS_INVALID: The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
-//	403 CHAT_GUEST_SEND_FORBIDDEN: You join the discussion group before commenting, see here » for more info.
+//	403 CHAT_GUEST_SEND_FORBIDDEN: You join the discussion group before commenting, see here » for more info.
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_SEND_AUDIOS_FORBIDDEN: You can't send audio messages in this chat.
 //	403 CHAT_SEND_DOCS_FORBIDDEN: You can't send documents in this chat.
@@ -903,6 +911,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
 //	403 CHAT_SEND_PLAIN_FORBIDDEN: You can't send non-media (text) messages in this chat.
 //	403 CHAT_SEND_POLL_FORBIDDEN: You can't send polls in this chat.
+//	403 CHAT_SEND_ROUNDVIDEOS_FORBIDDEN: You can't send round videos to this chat.
 //	403 CHAT_SEND_STICKERS_FORBIDDEN: You can't send stickers in this chat.
 //	403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
 //	403 CHAT_SEND_VOICES_FORBIDDEN: You can't send voice recordings in this chat.
@@ -910,7 +919,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 EMOTICON_INVALID: The specified emoji is invalid.
-//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 EXTERNAL_URL_INVALID: External URL invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
@@ -918,6 +927,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
 //	400 GAME_BOT_INVALID: Bots can't send another bot's game.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
+//	400 INPUT_FILE_INVALID: The specified InputFile is invalid.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MD5_CHECKSUM_INVALID: The MD5 checksums do not match.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
@@ -936,19 +946,24 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
 //	400 POLL_QUESTION_INVALID: One of the poll questions is not acceptable.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUIZ_CORRECT_ANSWERS_EMPTY: No correct quiz answer was specified.
 //	400 QUIZ_CORRECT_ANSWERS_TOO_MUCH: You specified too many correct answers in a quiz, quizzes can only have one right answer!
 //	400 QUIZ_CORRECT_ANSWER_INVALID: An invalid value was provided to the correct_answers field.
 //	400 QUIZ_MULTIPLE_INVALID: Quizzes can't have the multiple_choice flag set!
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 REPLY_MARKUP_BUY_EMPTY: Reply markup for buy button empty.
+//	400 REPLY_MARKUP_GAME_EMPTY: A game message is being edited, but the newly provided keyboard doesn't have a keyboardButtonGame button.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
+//	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	400 STORY_ID_INVALID: The specified story ID is invalid.
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 TTL_MEDIA_INVALID: Invalid media Time To Live was provided.

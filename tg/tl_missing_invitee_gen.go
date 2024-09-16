@@ -32,16 +32,37 @@ var (
 )
 
 // MissingInvitee represents TL type `missingInvitee#628c9224`.
+// Info about why a specific user could not be invited »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#direct-invites
 //
 // See https://core.telegram.org/constructor/missingInvitee for reference.
 type MissingInvitee struct {
-	// Flags field of MissingInvitee.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PremiumWouldAllowInvite field of MissingInvitee.
+	// If set, we could not add the user only because the current account needs to purchase a
+	// Telegram Premium¹ subscription to complete the operation.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	PremiumWouldAllowInvite bool
-	// PremiumRequiredForPm field of MissingInvitee.
+	// If set, we could not add the user because of their privacy settings, and additionally,
+	// the current account needs to purchase a Telegram Premium¹ subscription to directly
+	// share an invite link with the user via a private message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	PremiumRequiredForPm bool
-	// UserID field of MissingInvitee.
+	// ID of the user. If neither of the flags below are set, we could not add the user
+	// because of their privacy settings, and we can create and directly share an invite
+	// link¹ with them using a normal message, instead.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#invite-links
 	UserID int64
 }
 

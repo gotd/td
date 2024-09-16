@@ -212,8 +212,11 @@ func (r *ChannelsReportAntiSpamFalsePositiveRequest) GetChannelAsNotEmpty() (Not
 // Links:
 //  1. https://core.telegram.org/api/antispam
 //
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//
 // See https://core.telegram.org/method/channels.reportAntiSpamFalsePositive for reference.
-// Can be used by bots.
 func (c *Client) ChannelsReportAntiSpamFalsePositive(ctx context.Context, request *ChannelsReportAntiSpamFalsePositiveRequest) (bool, error) {
 	var result BoolBox
 

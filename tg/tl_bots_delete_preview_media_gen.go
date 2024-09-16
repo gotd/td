@@ -32,14 +32,24 @@ var (
 )
 
 // BotsDeletePreviewMediaRequest represents TL type `bots.deletePreviewMedia#2d0135b3`.
+// Delete a main mini app preview, see here »¹ for more info.
+// Only owners of bots with a configured Main Mini App can use this method, see see here
+// »¹ for more info on how to check if you can invoke this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/method/bots.deletePreviewMedia for reference.
 type BotsDeletePreviewMediaRequest struct {
-	// Bot field of BotsDeletePreviewMediaRequest.
+	// The bot that owns the Main Mini App.
 	Bot InputUserClass
-	// LangCode field of BotsDeletePreviewMediaRequest.
+	// ISO 639-1 language code, indicating the localization of the preview to delete.
 	LangCode string
-	// Media field of BotsDeletePreviewMediaRequest.
+	// The photo/video preview to delete, previously fetched as specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 	Media []InputMediaClass
 }
 
@@ -243,6 +253,17 @@ func (d *BotsDeletePreviewMediaRequest) MapMedia() (value InputMediaClassArray) 
 }
 
 // BotsDeletePreviewMedia invokes method bots.deletePreviewMedia#2d0135b3 returning error if any.
+// Delete a main mini app preview, see here »¹ for more info.
+// Only owners of bots with a configured Main Mini App can use this method, see see here
+// »¹ for more info on how to check if you can invoke this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.deletePreviewMedia for reference.
 func (c *Client) BotsDeletePreviewMedia(ctx context.Context, request *BotsDeletePreviewMediaRequest) (bool, error) {

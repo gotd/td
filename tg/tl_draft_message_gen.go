@@ -246,7 +246,10 @@ type DraftMessage struct {
 	Media InputMediaClass
 	// Date of last update of the draft.
 	Date int
-	// Effect field of DraftMessage.
+	// A message effect that should be played as specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/effects
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64

@@ -59,10 +59,11 @@ type Invoice struct {
 	EmailToProvider bool
 	// Whether this is a recurring payment
 	Recurring bool
-	// Three-letter ISO 4217 currency¹ code
+	// Three-letter ISO 4217 currency¹ code, or XTR for Telegram Stars².
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	//  2) https://core.telegram.org/api/stars
 	Currency string
 	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery
 	// cost, delivery tax, bonus, etc.)

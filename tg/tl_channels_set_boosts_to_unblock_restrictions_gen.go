@@ -32,12 +32,22 @@ var (
 )
 
 // ChannelsSetBoostsToUnblockRestrictionsRequest represents TL type `channels.setBoostsToUnblockRestrictions#ad399cee`.
+// Admins with ban_users admin rights »¹ may allow users that apply a certain number of
+// booosts »² to the group to bypass slow mode »³ and other »⁴ supergroup
+// restrictions, see here »⁵ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/chatAdminRights
+//  2. https://core.telegram.org/api/boost
+//  3. https://core.telegram.org/method/channels.toggleSlowMode
+//  4. https://core.telegram.org/api/rights#default-rights
+//  5. https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
 //
 // See https://core.telegram.org/method/channels.setBoostsToUnblockRestrictions for reference.
 type ChannelsSetBoostsToUnblockRestrictionsRequest struct {
-	// Channel field of ChannelsSetBoostsToUnblockRestrictionsRequest.
+	// The supergroup.
 	Channel InputChannelClass
-	// Boosts field of ChannelsSetBoostsToUnblockRestrictionsRequest.
+	// The number of required boosts (1-8, 0 to disable).
 	Boosts int
 }
 
@@ -198,6 +208,20 @@ func (s *ChannelsSetBoostsToUnblockRestrictionsRequest) GetChannelAsNotEmpty() (
 }
 
 // ChannelsSetBoostsToUnblockRestrictions invokes method channels.setBoostsToUnblockRestrictions#ad399cee returning error if any.
+// Admins with ban_users admin rights »¹ may allow users that apply a certain number of
+// booosts »² to the group to bypass slow mode »³ and other »⁴ supergroup
+// restrictions, see here »⁵ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/chatAdminRights
+//  2. https://core.telegram.org/api/boost
+//  3. https://core.telegram.org/method/channels.toggleSlowMode
+//  4. https://core.telegram.org/api/rights#default-rights
+//  5. https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.setBoostsToUnblockRestrictions for reference.
 func (c *Client) ChannelsSetBoostsToUnblockRestrictions(ctx context.Context, request *ChannelsSetBoostsToUnblockRestrictionsRequest) (UpdatesClass, error) {

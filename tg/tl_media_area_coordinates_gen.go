@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/mediaAreaCoordinates for reference.
 type MediaAreaCoordinates struct {
-	// Flags field of MediaAreaCoordinates.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The abscissa of the rectangle's center, as a percentage of the media width (0-100).
 	X float64
@@ -48,7 +51,7 @@ type MediaAreaCoordinates struct {
 	H float64
 	// Clockwise rotation angle of the rectangle, in degrees (0-360).
 	Rotation float64
-	// Radius field of MediaAreaCoordinates.
+	// The radius of the rectangle corner rounding, as a percentage of the media width.
 	//
 	// Use SetRadius and GetRadius helpers.
 	Radius float64

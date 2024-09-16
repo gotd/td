@@ -33,9 +33,13 @@ var (
 
 // ChatFull represents TL type `chatFull#2633421b`.
 // Full info about a basic group¹.
+// When updating the local peer database »¹, all fields from the newly received
+// constructor take priority over the old constructor cached locally (including by
+// removing fields that aren't set in the new constructor).
 //
 // Links:
 //  1. https://core.telegram.org/api/channel#basic-groups
+//  2. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
@@ -128,7 +132,11 @@ type ChatFull struct {
 	//
 	// Use SetAvailableReactions and GetAvailableReactions helpers.
 	AvailableReactions ChatReactionsClass
-	// ReactionsLimit field of ChatFull.
+	// This flag may be used to impose a custom limit of unique reactions (i.e. a
+	// customizable version of appConfig.reactions_uniq_max¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#reactions-uniq-max
 	//
 	// Use SetReactionsLimit and GetReactionsLimit helpers.
 	ReactionsLimit int
@@ -1077,11 +1085,15 @@ func (c *ChatFull) GetReactionsLimit() (value int, ok bool) {
 
 // ChannelFull represents TL type `channelFull#bbab348d`.
 // Full info about a channel¹, supergroup² or gigagroup³.
+// When updating the local peer database »¹, all fields from the newly received
+// constructor take priority over the old constructor cached locally (including by
+// removing fields that aren't set in the new constructor).
 //
 // Links:
 //  1. https://core.telegram.org/api/channel#channels
 //  2. https://core.telegram.org/api/channel#supergroups
 //  3. https://core.telegram.org/api/channel#gigagroups
+//  4. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
@@ -1150,13 +1162,26 @@ type ChannelFull struct {
 	//  1) https://core.telegram.org/api/forum
 	//  2) https://core.telegram.org/method/channels.toggleViewForumAsMessages
 	ViewForumAsMessages bool
-	// RestrictedSponsored field of ChannelFull.
+	// Whether ads on this channel were disabled as specified here »¹ (this flag is only
+	// visible to the owner of the channel).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost#disable-ads-on-the-channel
 	RestrictedSponsored bool
-	// CanViewRevenue field of ChannelFull.
+	// If set, this user can view ad revenue statistics »¹ for this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/revenue#revenue-statistics
 	CanViewRevenue bool
-	// PaidMediaAllowed field of ChannelFull.
+	// Whether the current user can send or forward paid media »¹ to this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-media
 	PaidMediaAllowed bool
-	// CanViewStarsRevenue field of ChannelFull.
+	// If set, this user can view Telegram Star revenue statistics »¹ for this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#revenue-statistics
 	CanViewStarsRevenue bool
 	// PaidReactionsAvailable field of ChannelFull.
 	PaidReactionsAvailable bool
@@ -1242,7 +1267,8 @@ type ChannelFull struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// ID of the linked discussion chat¹ for channels
+	// ID of the linked discussion chat¹ for channels (and vice versa, the ID of the linked
+	// channel for discussion chats).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
@@ -1322,7 +1348,11 @@ type ChannelFull struct {
 	//
 	// Use SetAvailableReactions and GetAvailableReactions helpers.
 	AvailableReactions ChatReactionsClass
-	// ReactionsLimit field of ChannelFull.
+	// This flag may be used to impose a custom limit of unique reactions (i.e. a
+	// customizable version of appConfig.reactions_uniq_max¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#reactions-uniq-max
 	//
 	// Use SetReactionsLimit and GetReactionsLimit helpers.
 	ReactionsLimit int
@@ -1340,15 +1370,30 @@ type ChannelFull struct {
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass
-	// BoostsApplied field of ChannelFull.
+	// The number of boosts¹ the current user has applied to the current supergroup.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetBoostsApplied and GetBoostsApplied helpers.
 	BoostsApplied int
-	// BoostsUnrestrict field of ChannelFull.
+	// The number of boosts¹ this supergroup requires to bypass slowmode and other
+	// restrictions, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
+	//  2) https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
 	//
 	// Use SetBoostsUnrestrict and GetBoostsUnrestrict helpers.
 	BoostsUnrestrict int
-	// Emojiset field of ChannelFull.
+	// Custom emoji stickerset¹ associated to the current supergroup, set using channels
+	// setEmojiStickers² after reaching the appropriate boost level, see here »³ for more
+	// info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
+	//  2) https://core.telegram.org/method/channels.setEmojiStickers
+	//  3) https://core.telegram.org/api/boost#setting-a-custom-emoji-stickerset-for-supergroups
 	//
 	// Use SetEmojiset and GetEmojiset helpers.
 	Emojiset StickerSet
@@ -3923,7 +3968,11 @@ type ChatFullClass interface {
 	//  1) https://core.telegram.org/api/reactions
 	GetAvailableReactions() (value ChatReactionsClass, ok bool)
 
-	// ReactionsLimit field of ChatFull.
+	// This flag may be used to impose a custom limit of unique reactions (i.e. a
+	// customizable version of appConfig.reactions_uniq_max¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#reactions-uniq-max
 	GetReactionsLimit() (value int, ok bool)
 }
 

@@ -32,22 +32,32 @@ var (
 )
 
 // AccountResolvedBusinessChatLinks represents TL type `account.resolvedBusinessChatLinks#9a23af21`.
+// Contains info about a single resolved business chat deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/constructor/account.resolvedBusinessChatLinks for reference.
 type AccountResolvedBusinessChatLinks struct {
-	// Flags field of AccountResolvedBusinessChatLinks.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of AccountResolvedBusinessChatLinks.
+	// Destination peer
 	Peer PeerClass
-	// Message field of AccountResolvedBusinessChatLinks.
+	// Message to pre-fill in the message input field.
 	Message string
-	// Entities field of AccountResolvedBusinessChatLinks.
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Chats field of AccountResolvedBusinessChatLinks.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of AccountResolvedBusinessChatLinks.
+	// Mentioned users
 	Users []UserClass
 }
 

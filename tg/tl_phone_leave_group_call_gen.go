@@ -191,6 +191,10 @@ func (l *PhoneLeaveGroupCallRequest) GetSource() (value int) {
 // PhoneLeaveGroupCall invokes method phone.leaveGroupCall#500377f9 returning error if any.
 // Leave a group call
 //
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 func (c *Client) PhoneLeaveGroupCall(ctx context.Context, request *PhoneLeaveGroupCallRequest) (UpdatesClass, error) {
 	var result UpdatesBox

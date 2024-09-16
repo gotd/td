@@ -32,14 +32,15 @@ var (
 )
 
 // InvokeWithApnsSecretRequest represents TL type `invokeWithApnsSecret#dae54f8`.
+// Official clients only, invoke with Apple push verification.
 //
 // See https://core.telegram.org/constructor/invokeWithApnsSecret for reference.
 type InvokeWithApnsSecretRequest struct {
-	// Nonce field of InvokeWithApnsSecretRequest.
+	// Nonce.
 	Nonce string
-	// Secret field of InvokeWithApnsSecretRequest.
+	// Secret.
 	Secret string
-	// Query field of InvokeWithApnsSecretRequest.
+	// Query.
 	Query bin.Object
 }
 

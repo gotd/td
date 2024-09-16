@@ -1921,10 +1921,11 @@ type MessageActionPaymentSentMe struct {
 	RecurringInit bool
 	// Whether this payment is part of a recurring payment
 	RecurringUsed bool
-	// Three-letter ISO 4217 currency¹ code
+	// Three-letter ISO 4217 currency¹ code, or XTR for Telegram Stars².
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	//  2) https://core.telegram.org/api/stars
 	Currency string
 	// Price of the product in the smallest units of the currency (integer, not float/double)
 	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
@@ -2333,10 +2334,11 @@ type MessageActionPaymentSent struct {
 	RecurringInit bool
 	// Whether this payment is part of a recurring payment
 	RecurringUsed bool
-	// Three-letter ISO 4217 currency¹ code
+	// Three-letter ISO 4217 currency¹ code, or XTR for Telegram Stars².
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
+	//  2) https://core.telegram.org/api/stars
 	Currency string
 	// Price of the product in the smallest units of the currency (integer, not float/double)
 	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
@@ -6453,8 +6455,8 @@ func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
 }
 
 // MessageActionRequestedPeer represents TL type `messageActionRequestedPeer#31518e9b`.
-// Contains info about one or more peers that the user shared with the bot after clicking
-// on a keyboardButtonRequestPeer¹ button.
+// Contains info about one or more peers that the we (the user) shared with the bot after
+// clicking on a keyboardButtonRequestPeer¹ button (service message sent by the user).
 //
 // Links:
 //  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
@@ -6906,8 +6908,8 @@ type MessageActionGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, this gift code was received from a giveaway »¹ started by a channel we're
-	// subscribed to.
+	// If set, this gift code was received from a giveaway »¹ started by a
+	// channel/supergroup we're subscribed to.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways
@@ -6917,9 +6919,9 @@ type MessageActionGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#premium-giftcode-links
 	Unclaimed bool
-	// Identifier of the channel that created the gift code either directly or through a
-	// giveaway¹: if we import this giftcode link, we will also automatically boost² this
-	// channel.
+	// Identifier of the channel/supergroup that created the gift code either directly or
+	// through a giveaway¹: if we import this giftcode link, we will also automatically
+	// boost² this channel/supergroup.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways
@@ -7819,10 +7821,17 @@ func (m *MessageActionGiveawayResults) GetUnclaimedCount() (value int) {
 }
 
 // MessageActionBoostApply represents TL type `messageActionBoostApply#cc02aa6d`.
+// Some boosts »¹ were applied to the channel or supergroup.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/messageActionBoostApply for reference.
 type MessageActionBoostApply struct {
-	// Boosts field of MessageActionBoostApply.
+	// Number of applied boosts¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	Boosts int
 }
 
@@ -7953,12 +7962,21 @@ func (m *MessageActionBoostApply) GetBoosts() (value int) {
 }
 
 // MessageActionRequestedPeerSentMe represents TL type `messageActionRequestedPeerSentMe#93b31848`.
+// Contains info about one or more peers that the a user shared with the me (the bot)
+// after clicking on a keyboardButtonRequestPeer¹ button (service message received by
+// the bot).
+//
+// Links:
+//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // See https://core.telegram.org/constructor/messageActionRequestedPeerSentMe for reference.
 type MessageActionRequestedPeerSentMe struct {
-	// ButtonID field of MessageActionRequestedPeerSentMe.
+	// button_id contained in the keyboardButtonRequestPeer¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	ButtonID int
-	// Peers field of MessageActionRequestedPeerSentMe.
+	// Info about the shared peers.
 	Peers []RequestedPeerClass
 }
 
@@ -8137,22 +8155,32 @@ func (m *MessageActionRequestedPeerSentMe) MapPeers() (value RequestedPeerClassA
 }
 
 // MessageActionPaymentRefunded represents TL type `messageActionPaymentRefunded#41b3e202`.
+// Describes a payment refund (service message received by both users and bots).
 //
 // See https://core.telegram.org/constructor/messageActionPaymentRefunded for reference.
 type MessageActionPaymentRefunded struct {
-	// Flags field of MessageActionPaymentRefunded.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessageActionPaymentRefunded.
+	// Identifier of the peer that returned the funds.
 	Peer PeerClass
-	// Currency field of MessageActionPaymentRefunded.
+	// Currency, XTR for Telegram Stars.
 	Currency string
-	// TotalAmount field of MessageActionPaymentRefunded.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
-	// Payload field of MessageActionPaymentRefunded.
+	// Bot specified invoice payload (only received by bots).
 	//
 	// Use SetPayload and GetPayload helpers.
 	Payload []byte
-	// Charge field of MessageActionPaymentRefunded.
+	// Provider payment identifier
 	Charge PaymentCharge
 }
 
@@ -8423,26 +8451,43 @@ func (m *MessageActionPaymentRefunded) GetCharge() (value PaymentCharge) {
 }
 
 // MessageActionGiftStars represents TL type `messageActionGiftStars#45d5b021`.
+// You gifted or were gifted some Telegram Stars¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/messageActionGiftStars for reference.
 type MessageActionGiftStars struct {
-	// Flags field of MessageActionGiftStars.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Currency field of MessageActionGiftStars.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of MessageActionGiftStars.
+	// Price of the gift in the smallest units of the currency (integer, not float/double).
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	// Stars field of MessageActionGiftStars.
+	// Amount of gifted stars
 	Stars int64
-	// CryptoCurrency field of MessageActionGiftStars.
+	// If the gift was bought using a cryptocurrency, the cryptocurrency name.
 	//
 	// Use SetCryptoCurrency and GetCryptoCurrency helpers.
 	CryptoCurrency string
-	// CryptoAmount field of MessageActionGiftStars.
+	// If the gift was bought using a cryptocurrency, price of the gift in the smallest units
+	// of a cryptocurrency.
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64
-	// TransactionID field of MessageActionGiftStars.
+	// Identifier of the transaction, only visible to the receiver of the gift.
 	//
 	// Use SetTransactionID and GetTransactionID helpers.
 	TransactionID string

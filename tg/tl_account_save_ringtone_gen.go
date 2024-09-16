@@ -226,6 +226,10 @@ func (s *AccountSaveRingtoneRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
 //  2. https://core.telegram.org/constructor/account.savedRingtoneConverted
 //  3. https://core.telegram.org/constructor/document
 //
+// Possible errors:
+//
+//	400 RINGTONE_INVALID: The specified ringtone is invalid.
+//
 // See https://core.telegram.org/method/account.saveRingtone for reference.
 func (c *Client) AccountSaveRingtone(ctx context.Context, request *AccountSaveRingtoneRequest) (AccountSavedRingtoneClass, error) {
 	var result AccountSavedRingtoneBox

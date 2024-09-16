@@ -32,16 +32,30 @@ var (
 )
 
 // BotsPopularAppBots represents TL type `bots.popularAppBots#1991b13b`.
+// Popular Main Mini Apps¹, to be used in the apps tab of global search »².
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
+//  2. https://core.telegram.org/api/search#apps-tab
 //
 // See https://core.telegram.org/constructor/bots.popularAppBots for reference.
 type BotsPopularAppBots struct {
-	// Flags field of BotsPopularAppBots.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NextOffset field of BotsPopularAppBots.
+	// Offset for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Users field of BotsPopularAppBots.
+	// The bots associated to each Main Mini App, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	Users []UserClass
 }
 

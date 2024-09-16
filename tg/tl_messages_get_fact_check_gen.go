@@ -32,12 +32,19 @@ var (
 )
 
 // MessagesGetFactCheckRequest represents TL type `messages.getFactCheck#b9cdc5ee`.
+// Fetch one or more factchecks, see here »¹ for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/factcheck
 //
 // See https://core.telegram.org/method/messages.getFactCheck for reference.
 type MessagesGetFactCheckRequest struct {
-	// Peer field of MessagesGetFactCheckRequest.
+	// Peer where the messages were sent.
 	Peer InputPeerClass
-	// MsgID field of MessagesGetFactCheckRequest.
+	// Messages that have associated factCheck¹ constructors with the need_check flag set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/factCheck
 	MsgID []int
 }
 
@@ -206,6 +213,14 @@ func (g *MessagesGetFactCheckRequest) GetMsgID() (value []int) {
 }
 
 // MessagesGetFactCheck invokes method messages.getFactCheck#b9cdc5ee returning error if any.
+// Fetch one or more factchecks, see here »¹ for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/factcheck
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getFactCheck for reference.
 func (c *Client) MessagesGetFactCheck(ctx context.Context, request *MessagesGetFactCheckRequest) ([]FactCheck, error) {

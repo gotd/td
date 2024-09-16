@@ -201,6 +201,10 @@ func (u *MessagesUploadEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputE
 // MessagesUploadEncryptedFile invokes method messages.uploadEncryptedFile#5057c497 returning error if any.
 // Upload encrypted file and associate it to a secret chat
 //
+// Possible errors:
+//
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 func (c *Client) MessagesUploadEncryptedFile(ctx context.Context, request *MessagesUploadEncryptedFileRequest) (EncryptedFileClass, error) {
 	var result EncryptedFileBox

@@ -32,12 +32,19 @@ var (
 )
 
 // AccountUpdateBusinessIntroRequest represents TL type `account.updateBusinessIntro#a614d034`.
+// Set or remove the Telegram Business introduction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/method/account.updateBusinessIntro for reference.
 type AccountUpdateBusinessIntroRequest struct {
-	// Flags field of AccountUpdateBusinessIntroRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Intro field of AccountUpdateBusinessIntroRequest.
+	// Telegram Business introduction, to remove it call the method without setting this flag.
 	//
 	// Use SetIntro and GetIntro helpers.
 	Intro InputBusinessIntro
@@ -200,6 +207,10 @@ func (u *AccountUpdateBusinessIntroRequest) GetIntro() (value InputBusinessIntro
 }
 
 // AccountUpdateBusinessIntro invokes method account.updateBusinessIntro#a614d034 returning error if any.
+// Set or remove the Telegram Business introduction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/method/account.updateBusinessIntro for reference.
 func (c *Client) AccountUpdateBusinessIntro(ctx context.Context, request *AccountUpdateBusinessIntroRequest) (bool, error) {

@@ -41,10 +41,15 @@ var (
 type MessagesGetWebPageRequest struct {
 	// URL of IV page to fetch
 	URL string
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹. Note: the usual hash generation
+	// algorithm cannot be used in this case, please re-use the webPage².hash field returned
+	// by a previous call to the method, or pass 0 if this is the first call or if the
+	// previous call did not return a webPage³.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
+	//  2) https://core.telegram.org/constructor/webPage
+	//  3) https://core.telegram.org/constructor/webPage
 	Hash int
 }
 

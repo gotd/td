@@ -288,9 +288,13 @@ type Message struct {
 	// If set, any eventual webpage preview will be shown on top of the message instead of at
 	// the bottom.
 	InvertMedia bool
-	// Flags2 field of Message.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
-	// Offline field of Message.
+	// If set, the message was sent because of a scheduled action by the message sender, for
+	// example, as away, or a greeting service message.
 	Offline bool
 	// ID of the message
 	ID int
@@ -298,7 +302,19 @@ type Message struct {
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// FromBoostsApplied field of Message.
+	// Supergroups only, contains the number of boosts¹ this user has given the current
+	// supergroup, and should be shown in the UI in the header of the message. Only present
+	// for incoming messages from non-anonymous supergroup members that have boosted the
+	// supergroup. Note that this counter should be locally overridden for non-anonymous
+	// outgoing messages, according to the current value of channelFull².boosts_applied, to
+	// ensure the value is correct even for messages sent by the current user before a
+	// supergroup was boosted (or after a boost has expired or the number of boosts has
+	// changed); do not update this value for incoming messages from other users, even if
+	// their boosts have changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
+	//  2) https://core.telegram.org/constructor/channelFull
 	//
 	// Use SetFromBoostsApplied and GetFromBoostsApplied helpers.
 	FromBoostsApplied int
@@ -321,7 +337,11 @@ type Message struct {
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
 	ViaBotID int64
-	// ViaBusinessBotID field of Message.
+	// Whether the message was sent by the business bot¹ specified in via_bot_id on behalf
+	// of the user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	//
 	// Use SetViaBusinessBotID and GetViaBusinessBotID helpers.
 	ViaBusinessBotID int64
@@ -393,15 +413,25 @@ type Message struct {
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
-	// QuickReplyShortcutID field of Message.
+	// If set, this message is a quick reply shortcut message »¹ (note that quick reply
+	// shortcut messages sent to a private chat will not have this field set).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	//
 	// Use SetQuickReplyShortcutID and GetQuickReplyShortcutID helpers.
 	QuickReplyShortcutID int
-	// Effect field of Message.
+	// A message effect that should be played as specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/effects
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
-	// Factcheck field of Message.
+	// Represents a fact-check »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/factcheck
 	//
 	// Use SetFactcheck and GetFactcheck helpers.
 	Factcheck FactCheck

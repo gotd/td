@@ -36,13 +36,17 @@ var (
 //
 // See https://core.telegram.org/method/contacts.getContacts for reference.
 type ContactsGetContactsRequest struct {
-	// If there already is a full contact list on the client, a hash¹ of a the list of
-	// contact IDs in ascending order may be passed in this parameter. If the contact set was
-	// not changed, (contacts.contactsNotModified)² will be returned.
+	// Hash used for caching, for more info click here¹.Note that the hash is computed using
+	// the usual algorithm², passing to the algorithm first the previously returned contacts
+	// contacts³.saved_count field, then max 100000 sorted user IDs from the contact list,
+	// including the ID of the currently logged in user if it is saved as a contact. Example:
+	// tdlib implementation⁴.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	//  2) https://core.telegram.org/constructor/contacts.contactsNotModified
+	//  2) https://core.telegram.org/api/offsets#hash-generation
+	//  3) https://core.telegram.org/constructor/contacts.contacts
+	//  4) https://github.com/tdlib/td/blob/63c7d0301825b78c30dc7307f1f1466be049eb79/td/telegram/UserManager.cpp#L5754
 	Hash int64
 }
 

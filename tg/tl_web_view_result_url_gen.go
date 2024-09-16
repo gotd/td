@@ -36,11 +36,20 @@ var (
 //
 // See https://core.telegram.org/constructor/webViewResultUrl for reference.
 type WebViewResultURL struct {
-	// Flags field of WebViewResultURL.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Fullsize field of WebViewResultURL.
+	// If set, the app must be opened in fullsize mode instead of compact mode.
 	Fullsize bool
-	// Webview session ID
+	// Webview session ID (only returned by inline button mini apps¹, menu button mini
+	// apps², attachment menu mini apps³).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#inline-button-mini-apps
+	//  2) https://core.telegram.org/api/bots/webapps#menu-button-mini-apps
+	//  3) https://core.telegram.org/api/bots/webapps#attachment-menu-mini-apps
 	//
 	// Use SetQueryID and GetQueryID helpers.
 	QueryID int64

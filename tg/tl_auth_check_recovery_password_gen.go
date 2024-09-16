@@ -178,6 +178,7 @@ func (c *AuthCheckRecoveryPasswordRequest) GetCode() (value string) {
 //
 // Possible errors:
 //
+//	400 CODE_EMPTY: The provided code is empty.
 //	400 PASSWORD_RECOVERY_EXPIRED: The recovery code has expired.
 //
 // See https://core.telegram.org/method/auth.checkRecoveryPassword for reference.

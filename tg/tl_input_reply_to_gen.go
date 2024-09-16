@@ -478,7 +478,7 @@ func (i *InputReplyToMessage) MapQuoteEntities() (value MessageEntityClassArray,
 //
 // See https://core.telegram.org/constructor/inputReplyToStory for reference.
 type InputReplyToStory struct {
-	// Peer field of InputReplyToStory.
+	// Sender of the story
 	Peer InputPeerClass
 	// ID of the story to reply to.
 	StoryID int

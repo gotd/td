@@ -68,7 +68,8 @@ type CodeSettings struct {
 	AllowMissedCall bool
 	// Whether Firebase auth is supported
 	AllowFirebase bool
-	// UnknownNumber field of CodeSettings.
+	// Set this flag if there is a SIM card in the current device, but it is not possible to
+	// check whether the specified phone number matches the SIM's phone number.
 	UnknownNumber bool
 	// Previously stored future auth tokens, see the documentation for more info »¹
 	//

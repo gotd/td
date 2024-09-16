@@ -32,6 +32,13 @@ var (
 )
 
 // BroadcastRevenueBalances represents TL type `broadcastRevenueBalances#c3ff71e7`.
+// Describes channel ad revenue balances »¹.
+// Note that all balances are in the smallest unit of the chosen cryptocurrency
+// (currently nanotons for TONs, so to obtain a value in USD divide the chosen amount by
+// 10^9, and then divide by usd_rate).
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue
 //
 // See https://core.telegram.org/constructor/broadcastRevenueBalances for reference.
 type BroadcastRevenueBalances struct {
@@ -39,11 +46,12 @@ type BroadcastRevenueBalances struct {
 	Flags bin.Fields
 	// WithdrawalEnabled field of BroadcastRevenueBalances.
 	WithdrawalEnabled bool
-	// CurrentBalance field of BroadcastRevenueBalances.
+	// Amount of not-yet-withdrawn cryptocurrency.
 	CurrentBalance int64
-	// AvailableBalance field of BroadcastRevenueBalances.
+	// Amount of withdrawable cryptocurrency, out of the currently available balance
+	// (available_balance <= current_balance).
 	AvailableBalance int64
-	// OverallRevenue field of BroadcastRevenueBalances.
+	// Total amount of earned cryptocurrency.
 	OverallRevenue int64
 }
 

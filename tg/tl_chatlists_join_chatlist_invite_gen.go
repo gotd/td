@@ -235,7 +235,6 @@ func (j *ChatlistsJoinChatlistInviteRequest) MapPeers() (value InputPeerClassArr
 //	400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistInvite for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsJoinChatlistInvite(ctx context.Context, request *ChatlistsJoinChatlistInviteRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

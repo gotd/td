@@ -262,6 +262,10 @@ func (t *MessagesToggleBotInAttachMenuRequest) GetEnabled() (value bool) {
 // Links:
 //  1. https://core.telegram.org/api/bots/attach
 //
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 func (c *Client) MessagesToggleBotInAttachMenu(ctx context.Context, request *MessagesToggleBotInAttachMenuRequest) (bool, error) {
 	var result BoolBox

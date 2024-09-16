@@ -32,16 +32,32 @@ var (
 )
 
 // BusinessIntro represents TL type `businessIntro#5a0a066d`.
+// Telegram Business introduction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/constructor/businessIntro for reference.
 type BusinessIntro struct {
-	// Flags field of BusinessIntro.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of BusinessIntro.
+	// Title of the introduction message (max intro_title_length_limit »¹ UTF-8 characters).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#intro-title-length-limit
 	Title string
-	// Description field of BusinessIntro.
+	// Profile introduction (max intro_description_length_limit »¹ UTF-8 characters).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#intro-description-length-limit
 	Description string
-	// Sticker field of BusinessIntro.
+	// Optional introduction sticker¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	//
 	// Use SetSticker and GetSticker helpers.
 	Sticker DocumentClass

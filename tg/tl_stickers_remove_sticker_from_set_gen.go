@@ -32,8 +32,8 @@ var (
 )
 
 // StickersRemoveStickerFromSetRequest represents TL type `stickers.removeStickerFromSet#f7760f51`.
-// Remove a sticker from the set where it belongs, bots only. The sticker set must have
-// been created by the bot.
+// Remove a sticker from the set where it belongs. The sticker set must have been created
+// by the current user/bot.
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 type StickersRemoveStickerFromSetRequest struct {
@@ -173,12 +173,11 @@ func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocu
 }
 
 // StickersRemoveStickerFromSet invokes method stickers.removeStickerFromSet#f7760f51 returning error if any.
-// Remove a sticker from the set where it belongs, bots only. The sticker set must have
-// been created by the bot.
+// Remove a sticker from the set where it belongs. The sticker set must have been created
+// by the current user/bot.
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: Only bots can call this method, please use @stickers if you're a user.
 //	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.

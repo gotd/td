@@ -32,10 +32,14 @@ var (
 )
 
 // MessagesToggleDialogFilterTagsRequest represents TL type `messages.toggleDialogFilterTags#fd2dda49`.
+// Enable or disable folder tags »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/folders#folder-tags
 //
 // See https://core.telegram.org/method/messages.toggleDialogFilterTags for reference.
 type MessagesToggleDialogFilterTagsRequest struct {
-	// Enabled field of MessagesToggleDialogFilterTagsRequest.
+	// Enable or disable folder tags.
 	Enabled bool
 }
 
@@ -161,6 +165,14 @@ func (t *MessagesToggleDialogFilterTagsRequest) GetEnabled() (value bool) {
 }
 
 // MessagesToggleDialogFilterTags invokes method messages.toggleDialogFilterTags#fd2dda49 returning error if any.
+// Enable or disable folder tags »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/folders#folder-tags
+//
+// Possible errors:
+//
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/messages.toggleDialogFilterTags for reference.
 func (c *Client) MessagesToggleDialogFilterTags(ctx context.Context, enabled bool) (bool, error) {

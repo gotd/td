@@ -38,7 +38,9 @@ var (
 type MessagesGetScheduledHistoryRequest struct {
 	// Peer
 	Peer InputPeerClass
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹. To generate the hash, populate the
+	// ids array with the id, date and edit_date (in this order) of the previously returned
+	// messages (in order, i.e. ids = [id1, date1, edit_date1, id2, date2, edit_date2, ...]).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

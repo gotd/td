@@ -32,14 +32,21 @@ var (
 )
 
 // PaymentsSendStarsFormRequest represents TL type `payments.sendStarsForm#2bb731d`.
+// Make a payment using Telegram Stars, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#using-stars
 //
 // See https://core.telegram.org/method/payments.sendStarsForm for reference.
 type PaymentsSendStarsFormRequest struct {
-	// Flags field of PaymentsSendStarsFormRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// FormID field of PaymentsSendStarsFormRequest.
+	// Payment form ID
 	FormID int64
-	// Invoice field of PaymentsSendStarsFormRequest.
+	// Invoice
 	Invoice InputInvoiceClass
 }
 
@@ -211,6 +218,16 @@ func (s *PaymentsSendStarsFormRequest) GetInvoice() (value InputInvoiceClass) {
 }
 
 // PaymentsSendStarsForm invokes method payments.sendStarsForm#2bb731d returning error if any.
+// Make a payment using Telegram Stars, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#using-stars
+//
+// Possible errors:
+//
+//	400 BALANCE_TOO_LOW: The transaction cannot be completed because the current Telegram Stars balance is too low.
+//	400 FORM_EXPIRED: The form was generated more than 10 minutes ago and has expired, please re-generate it using payments.getPaymentForm and pass the new form_id.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.sendStarsForm for reference.
 func (c *Client) PaymentsSendStarsForm(ctx context.Context, request *PaymentsSendStarsFormRequest) (PaymentsPaymentResultClass, error) {

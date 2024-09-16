@@ -144,7 +144,7 @@ func (r *MessagesReactionsNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/messages.reactions for reference.
 type MessagesReactions struct {
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

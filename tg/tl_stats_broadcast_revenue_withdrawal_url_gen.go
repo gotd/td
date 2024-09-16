@@ -32,10 +32,15 @@ var (
 )
 
 // StatsBroadcastRevenueWithdrawalURL represents TL type `stats.broadcastRevenueWithdrawalUrl#ec659737`.
+// Contains the URL to use to withdraw channel ad revenue¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/revenue#withdrawing-revenue
 //
 // See https://core.telegram.org/constructor/stats.broadcastRevenueWithdrawalUrl for reference.
 type StatsBroadcastRevenueWithdrawalURL struct {
-	// URL field of StatsBroadcastRevenueWithdrawalURL.
+	// A unique URL to a Fragment page where the user will be able to specify and submit the
+	// address of the TON wallet where the funds will be sent.
 	URL string
 }
 

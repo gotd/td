@@ -32,12 +32,16 @@ var (
 )
 
 // SMSJobsUpdateSettingsRequest represents TL type `smsjobs.updateSettings#93fa0bf`.
+// Update SMS job settings (official clients only).
 //
 // See https://core.telegram.org/method/smsjobs.updateSettings for reference.
 type SMSJobsUpdateSettingsRequest struct {
-	// Flags field of SMSJobsUpdateSettingsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AllowInternational field of SMSJobsUpdateSettingsRequest.
+	// Allow international numbers?
 	AllowInternational bool
 }
 
@@ -187,6 +191,11 @@ func (u *SMSJobsUpdateSettingsRequest) GetAllowInternational() (value bool) {
 }
 
 // SMSJobsUpdateSettings invokes method smsjobs.updateSettings#93fa0bf returning error if any.
+// Update SMS job settings (official clients only).
+//
+// Possible errors:
+//
+//	400 NOT_JOINED: The current user hasn't joined the Peer-to-Peer Login Program.
 //
 // See https://core.telegram.org/method/smsjobs.updateSettings for reference.
 func (c *Client) SMSJobsUpdateSettings(ctx context.Context, request *SMSJobsUpdateSettingsRequest) (bool, error) {

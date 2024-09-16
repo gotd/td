@@ -1157,6 +1157,12 @@ func (i *InputPrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyValueAllowPremium represents TL type `inputPrivacyValueAllowPremium#77cdc9f1`.
+// Allow only users with a Premium subscription »¹, currently only usable for
+// inputPrivacyKeyChatInvite².
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/constructor/inputPrivacyKeyChatInvite
 //
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowPremium for reference.
 type InputPrivacyValueAllowPremium struct {

@@ -291,6 +291,7 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok b
 // Possible errors:
 //
 //	400 ERROR_TEXT_EMPTY: The provided error message is empty.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 // Can be used by bots.

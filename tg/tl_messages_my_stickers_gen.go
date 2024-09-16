@@ -32,12 +32,16 @@ var (
 )
 
 // MessagesMyStickers represents TL type `messages.myStickers#faff629d`.
+// The list of stickersets owned by the current account »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/constructor/messages.myStickers for reference.
 type MessagesMyStickers struct {
-	// Count field of MessagesMyStickers.
+	// Total number of owned stickersets.
 	Count int
-	// Sets field of MessagesMyStickers.
+	// Stickersets
 	Sets []StickerSetCoveredClass
 }
 

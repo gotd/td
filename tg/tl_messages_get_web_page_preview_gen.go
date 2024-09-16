@@ -264,7 +264,7 @@ func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityCla
 //
 // Possible errors:
 //
-//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 MESSAGE_EMPTY: The provided message is empty.
 //
 // See https://core.telegram.org/method/messages.getWebPagePreview for reference.

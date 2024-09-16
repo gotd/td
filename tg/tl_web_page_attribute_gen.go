@@ -531,16 +531,32 @@ func (w *WebPageAttributeStory) GetStory() (value StoryItemClass, ok bool) {
 }
 
 // WebPageAttributeStickerSet represents TL type `webPageAttributeStickerSet#50cc03d3`.
+// Contains info about a stickerset »¹, for a webPage² preview of a stickerset deep
+// link »³ (the webPage⁴ will have a type of telegram_stickerset).
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
+//  2. https://core.telegram.org/constructor/webPage
+//  3. https://core.telegram.org/api/links#stickerset-links
+//  4. https://core.telegram.org/constructor/webPage
 //
 // See https://core.telegram.org/constructor/webPageAttributeStickerSet for reference.
 type WebPageAttributeStickerSet struct {
-	// Flags field of WebPageAttributeStickerSet.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Emojis field of WebPageAttributeStickerSet.
+	// Whether this i s a custom emoji stickerset¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
-	// TextColor field of WebPageAttributeStickerSet.
+	// Whether the color of this TGS custom emoji stickerset should be changed to the text
+	// color when used in messages, the accent color if used as emoji status, white on chat
+	// photos, or another appropriate color based on context.
 	TextColor bool
-	// Stickers field of WebPageAttributeStickerSet.
+	// A subset of the stickerset in the stickerset.
 	Stickers []DocumentClass
 }
 

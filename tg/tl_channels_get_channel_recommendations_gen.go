@@ -37,9 +37,13 @@ var (
 //
 // See https://core.telegram.org/method/channels.getChannelRecommendations for reference.
 type ChannelsGetChannelRecommendationsRequest struct {
-	// Flags field of ChannelsGetChannelRecommendationsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// The method will return channels related to the passed channel.
+	// The method will return channels related to the passed channel. If not set, the method
+	// will returns channels related to channels the user has joined.
 	//
 	// Use SetChannel and GetChannel helpers.
 	Channel InputChannelClass
@@ -222,6 +226,7 @@ func (g *ChannelsGetChannelRecommendationsRequest) GetChannelAsNotEmpty() (NotEm
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/channels.getChannelRecommendations for reference.
 func (c *Client) ChannelsGetChannelRecommendations(ctx context.Context, request *ChannelsGetChannelRecommendationsRequest) (MessagesChatsClass, error) {

@@ -33,6 +33,12 @@ var (
 
 // UserFull represents TL type `userFull#cc997720`.
 // Extended user info
+// When updating the local peer database »¹, all fields from the newly received
+// constructor take priority over the old constructor cached locally (including by
+// removing fields that aren't set in the new constructor).
+//
+// Links:
+//  1. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/userFull for reference.
 type UserFull struct {
@@ -81,13 +87,37 @@ type UserFull struct {
 	//  1) https://core.telegram.org/method/messages.setChatWallPaper
 	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat-or-channel
 	WallpaperOverridden bool
-	// ContactRequirePremium field of UserFull.
+	// If set, we cannot write to this user: subscribe to Telegram Premium¹ to get
+	// permission to write to this user. To set this flag for ourselves invoke account
+	// setGlobalPrivacySettings², setting the settings.new_noncontact_peers_require_premium
+	// flag, see here »³ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/method/account.setGlobalPrivacySettings
+	//  3) https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
 	ContactRequirePremium bool
-	// ReadDatesPrivate field of UserFull.
+	// If set, we cannot fetch the exact read date of messages we send to this user using
+	// messages.getOutboxReadDate¹.  The exact read date of messages might still be
+	// unavailable for other reasons, see here »² for more info.  To set this flag for
+	// ourselves invoke account.setGlobalPrivacySettings³, setting the settings
+	// hide_read_marks flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getOutboxReadDate
+	//  2) https://core.telegram.org/method/messages.getOutboxReadDate
+	//  3) https://core.telegram.org/method/account.setGlobalPrivacySettings
 	ReadDatesPrivate bool
-	// Flags2 field of UserFull.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
-	// SponsoredEnabled field of UserFull.
+	// Whether ads were re-enabled for the current account (only accessible to the currently
+	// logged-in user), see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#re-enable-ads
 	SponsoredEnabled bool
 	// User ID
 	ID int64
@@ -181,35 +211,62 @@ type UserFull struct {
 	//
 	// Use SetStories and GetStories helpers.
 	Stories PeerStories
-	// BusinessWorkHours field of UserFull.
+	// Telegram Business working hours »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#opening-hours
 	//
 	// Use SetBusinessWorkHours and GetBusinessWorkHours helpers.
 	BusinessWorkHours BusinessWorkHours
-	// BusinessLocation field of UserFull.
+	// Telegram Business location »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#location
 	//
 	// Use SetBusinessLocation and GetBusinessLocation helpers.
 	BusinessLocation BusinessLocation
-	// BusinessGreetingMessage field of UserFull.
+	// Telegram Business greeting message »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#greeting-messages
 	//
 	// Use SetBusinessGreetingMessage and GetBusinessGreetingMessage helpers.
 	BusinessGreetingMessage BusinessGreetingMessage
-	// BusinessAwayMessage field of UserFull.
+	// Telegram Business away message »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#away-messages
 	//
 	// Use SetBusinessAwayMessage and GetBusinessAwayMessage helpers.
 	BusinessAwayMessage BusinessAwayMessage
-	// BusinessIntro field of UserFull.
+	// Specifies a custom Telegram Business profile introduction »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#business-introduction
 	//
 	// Use SetBusinessIntro and GetBusinessIntro helpers.
 	BusinessIntro BusinessIntro
-	// Birthday field of UserFull.
+	// Contains info about the user's birthday »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/profile#birthday
 	//
 	// Use SetBirthday and GetBirthday helpers.
 	Birthday Birthday
-	// PersonalChannelID field of UserFull.
+	// ID of the associated personal channel »¹, that should be shown in the profile page².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org/api/profile#personal-channel
 	//
 	// Use SetPersonalChannelID and GetPersonalChannelID helpers.
 	PersonalChannelID int64
-	// PersonalChannelMessage field of UserFull.
+	// ID of the latest message of the associated personal channel »¹, that should be
+	// previewed in the profile page².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org/api/profile#personal-channel
 	//
 	// Use SetPersonalChannelMessage and GetPersonalChannelMessage helpers.
 	PersonalChannelMessage int

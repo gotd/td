@@ -212,6 +212,7 @@ func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
 //
 // Possible errors:
 //
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
 //
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.

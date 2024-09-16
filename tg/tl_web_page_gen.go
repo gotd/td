@@ -484,13 +484,16 @@ type WebPage struct {
 	URL string
 	// Webpage URL to be displayed to the user
 	DisplayURL string
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or
-	// something else
+	// something else, see here »¹ for a full list.
+	//
+	// Links:
+	//  1) https://github.com/telegramdesktop/tdesktop/blob/4f7a124f3e85f3f61d862b94fb5a45236976f38f/Telegram/SourceFiles/data/data_web_page.cpp#L127
 	//
 	// Use SetType and GetType helpers.
 	Type string

@@ -803,26 +803,34 @@ func (p *PaymentsPaymentForm) MapUsers() (value UserClassArray) {
 }
 
 // PaymentsPaymentFormStars represents TL type `payments.paymentFormStars#7bf6b15c`.
+// Represents a payment form, for payments to be using Telegram Stars, see here »¹ for
+// more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/payments.paymentFormStars for reference.
 type PaymentsPaymentFormStars struct {
-	// Flags field of PaymentsPaymentFormStars.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// FormID field of PaymentsPaymentFormStars.
+	// Form ID.
 	FormID int64
-	// BotID field of PaymentsPaymentFormStars.
+	// Bot ID.
 	BotID int64
-	// Title field of PaymentsPaymentFormStars.
+	// Form title
 	Title string
-	// Description field of PaymentsPaymentFormStars.
+	// Description
 	Description string
-	// Photo field of PaymentsPaymentFormStars.
+	// Product photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// Invoice field of PaymentsPaymentFormStars.
+	// Invoice
 	Invoice Invoice
-	// Users field of PaymentsPaymentFormStars.
+	// Info about users mentioned in the other fields.
 	Users []UserClass
 }
 

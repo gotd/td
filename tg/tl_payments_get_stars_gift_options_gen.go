@@ -32,12 +32,20 @@ var (
 )
 
 // PaymentsGetStarsGiftOptionsRequest represents TL type `payments.getStarsGiftOptions#d3c96bc8`.
+// Obtain a list of Telegram Stars gift options »¹ as starsGiftOption² constructors.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  2. https://core.telegram.org/constructor/starsGiftOption
 //
 // See https://core.telegram.org/method/payments.getStarsGiftOptions for reference.
 type PaymentsGetStarsGiftOptionsRequest struct {
-	// Flags field of PaymentsGetStarsGiftOptionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// UserID field of PaymentsGetStarsGiftOptionsRequest.
+	// Receiver of the gift (optional).
 	//
 	// Use SetUserID and GetUserID helpers.
 	UserID InputUserClass
@@ -205,6 +213,11 @@ func (g *PaymentsGetStarsGiftOptionsRequest) GetUserID() (value InputUserClass, 
 }
 
 // PaymentsGetStarsGiftOptions invokes method payments.getStarsGiftOptions#d3c96bc8 returning error if any.
+// Obtain a list of Telegram Stars gift options »¹ as starsGiftOption² constructors.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  2. https://core.telegram.org/constructor/starsGiftOption
 //
 // See https://core.telegram.org/method/payments.getStarsGiftOptions for reference.
 func (c *Client) PaymentsGetStarsGiftOptions(ctx context.Context, request *PaymentsGetStarsGiftOptionsRequest) ([]StarsGiftOption, error) {

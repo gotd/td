@@ -220,6 +220,7 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 INVITE_FORBIDDEN_WITH_JOINAS: If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
 //	400 USER_ALREADY_INVITED: You have already invited this user.
+//	403 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 func (c *Client) PhoneInviteToGroupCall(ctx context.Context, request *PhoneInviteToGroupCallRequest) (UpdatesClass, error) {

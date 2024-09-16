@@ -57,7 +57,10 @@ type ContactsGetTopPeersRequest struct {
 	Groups bool
 	// Most frequently visited channels
 	Channels bool
-	// BotsApp field of ContactsGetTopPeersRequest.
+	// Most frequently used Main Mini Bot Apps¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	BotsApp bool
 	// Offset for pagination¹
 	//
@@ -69,7 +72,7 @@ type ContactsGetTopPeersRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash for pagination, for more info click here¹
+	// Hash used for caching, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

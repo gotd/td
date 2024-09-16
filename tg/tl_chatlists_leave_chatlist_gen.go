@@ -220,8 +220,11 @@ func (l *ChatlistsLeaveChatlistRequest) MapPeers() (value InputPeerClassArray) {
 // Links:
 //  1. https://core.telegram.org/api/links#chat-folder-links
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//
 // See https://core.telegram.org/method/chatlists.leaveChatlist for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsLeaveChatlist(ctx context.Context, request *ChatlistsLeaveChatlistRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

@@ -468,7 +468,7 @@ type StoryItem struct {
 	ID int
 	// When was the story posted.
 	Date int
-	// FromID field of StoryItem.
+	// Sender of the story.
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass

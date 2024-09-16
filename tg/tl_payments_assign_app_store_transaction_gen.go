@@ -198,6 +198,10 @@ func (a *PaymentsAssignAppStoreTransactionRequest) GetPurpose() (value InputStor
 // Informs server about a purchase made through the App Store: for official applications
 // only.
 //
+// Possible errors:
+//
+//	400 RECEIPT_EMPTY: The specified receipt is empty.
+//
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
 func (c *Client) PaymentsAssignAppStoreTransaction(ctx context.Context, request *PaymentsAssignAppStoreTransactionRequest) (UpdatesClass, error) {
 	var result UpdatesBox

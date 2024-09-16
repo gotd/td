@@ -39,13 +39,16 @@ var (
 //
 // See https://core.telegram.org/constructor/stories.stories for reference.
 type StoriesStories struct {
-	// Flags field of StoriesStories.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Total number of stories that can be fetched
 	Count int
 	// Stories
 	Stories []StoryItemClass
-	// PinnedToTop field of StoriesStories.
+	// IDs of pinned stories.
 	//
 	// Use SetPinnedToTop and GetPinnedToTop helpers.
 	PinnedToTop []int

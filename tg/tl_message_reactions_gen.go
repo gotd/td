@@ -59,7 +59,11 @@ type MessageReactions struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getMessageReactionsList
 	CanSeeList bool
-	// ReactionsAsTags field of MessageReactions.
+	// If set or if there are no reactions, all present and future reactions should be
+	// treated as message tags, see here » for more info¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages#tags
 	ReactionsAsTags bool
 	// Reactions
 	Results []ReactionCount

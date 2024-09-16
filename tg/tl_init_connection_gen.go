@@ -54,16 +54,20 @@ type InitConnectionRequest struct {
 	AppVersion string
 	// Code for the language used on the device's OS, ISO 639-1 standard
 	SystemLangCode string
-	// Language pack to use
+	// Platform identifier (i.e. android, tdesktop, etc).
 	LangPack string
-	// Code for the language used on the client, ISO 639-1 standard
+	// Either an ISO 639-1 language code or a language pack name obtained from a language
+	// pack link¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#language-pack-links
 	LangCode string
 	// Info about an MTProto proxy
 	//
 	// Use SetProxy and GetProxy helpers.
 	Proxy InputClientProxy
 	// Additional initConnection parameters. For now, only the tz_offset field is supported,
-	// for specifying timezone offset in seconds.
+	// for specifying the timezone offset in seconds.
 	//
 	// Use SetParams and GetParams helpers.
 	Params JSONValueClass

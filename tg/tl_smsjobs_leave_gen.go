@@ -32,6 +32,7 @@ var (
 )
 
 // SMSJobsLeaveRequest represents TL type `smsjobs.leave#9898ad73`.
+// Disable SMS jobs (official clients only).
 //
 // See https://core.telegram.org/method/smsjobs.leave for reference.
 type SMSJobsLeaveRequest struct {
@@ -128,6 +129,11 @@ func (l *SMSJobsLeaveRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // SMSJobsLeave invokes method smsjobs.leave#9898ad73 returning error if any.
+// Disable SMS jobs (official clients only).
+//
+// Possible errors:
+//
+//	400 NOT_JOINED: The current user hasn't joined the Peer-to-Peer Login Program.
 //
 // See https://core.telegram.org/method/smsjobs.leave for reference.
 func (c *Client) SMSJobsLeave(ctx context.Context) (bool, error) {

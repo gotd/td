@@ -289,6 +289,10 @@ func (s *MessagesSendBotRequestedPeerRequest) MapRequestedPeers() (value InputPe
 // Links:
 //  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 func (c *Client) MessagesSendBotRequestedPeer(ctx context.Context, request *MessagesSendBotRequestedPeerRequest) (UpdatesClass, error) {
 	var result UpdatesBox

@@ -44,16 +44,17 @@ type PremiumBoostsStatus struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether we're currently boosting this channel, my_boost_slots will also be set.
+	// Whether we're currently boosting this channel/supergroup, my_boost_slots will also be
+	// set.
 	MyBoost bool
-	// The current boost level of the channel.
+	// The current boost level of the channel/supergroup.
 	Level int
 	// The number of boosts acquired so far in the current level.
 	CurrentLevelBoosts int
 	// Total number of boosts acquired so far.
 	Boosts int
 	// The number of boosts acquired from created Telegram Premium gift codes¹ and
-	// giveaways²; only returned to channel admins.
+	// giveaways²; only returned to channel/supergroup admins.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways
@@ -66,8 +67,9 @@ type PremiumBoostsStatus struct {
 	//
 	// Use SetNextLevelBoosts and GetNextLevelBoosts helpers.
 	NextLevelBoosts int
-	// Only returned to channel admins: contains the approximated number of Premium users
-	// subscribed to the channel, related to the total number of subscribers.
+	// Only returned to channel/supergroup admins: contains the approximated number of
+	// Premium users subscribed to the channel/supergroup, related to the total number of
+	// subscribers.
 	//
 	// Use SetPremiumAudience and GetPremiumAudience helpers.
 	PremiumAudience StatsPercentValue
@@ -76,7 +78,8 @@ type PremiumBoostsStatus struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#boost-links
 	BoostURL string
-	// A list of prepaid giveaways¹ available for the chat; only returned to channel admins.
+	// A list of prepaid giveaways¹ available for the chat; only returned to
+	// channel/supergroup admins.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/giveaways

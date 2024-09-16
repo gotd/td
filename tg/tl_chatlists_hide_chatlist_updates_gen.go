@@ -176,7 +176,6 @@ func (h *ChatlistsHideChatlistUpdatesRequest) GetChatlist() (value InputChatlist
 //	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //
 // See https://core.telegram.org/method/chatlists.hideChatlistUpdates for reference.
-// Can be used by bots.
 func (c *Client) ChatlistsHideChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (bool, error) {
 	var result BoolBox
 

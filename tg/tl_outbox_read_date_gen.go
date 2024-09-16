@@ -32,10 +32,11 @@ var (
 )
 
 // OutboxReadDate represents TL type `outboxReadDate#3bb842ac`.
+// Exact read date of a private message we sent to another user.
 //
 // See https://core.telegram.org/constructor/outboxReadDate for reference.
 type OutboxReadDate struct {
-	// Date field of OutboxReadDate.
+	// UNIX timestamp with the read date.
 	Date int
 }
 

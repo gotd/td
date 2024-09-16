@@ -32,12 +32,22 @@ var (
 )
 
 // MessagesGetMyStickersRequest represents TL type `messages.getMyStickers#d0b5e1fc`.
+// Fetch all stickersets »¹ owned by the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/method/messages.getMyStickers for reference.
 type MessagesGetMyStickersRequest struct {
-	// OffsetID field of MessagesGetMyStickersRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int64
-	// Limit field of MessagesGetMyStickersRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -188,6 +198,10 @@ func (g *MessagesGetMyStickersRequest) GetLimit() (value int) {
 }
 
 // MessagesGetMyStickers invokes method messages.getMyStickers#d0b5e1fc returning error if any.
+// Fetch all stickersets »¹ owned by the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/method/messages.getMyStickers for reference.
 func (c *Client) MessagesGetMyStickers(ctx context.Context, request *MessagesGetMyStickersRequest) (*MessagesMyStickers, error) {

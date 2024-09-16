@@ -32,14 +32,24 @@ var (
 )
 
 // BotsAddPreviewMediaRequest represents TL type `bots.addPreviewMedia#17aeb75a`.
+// Add a main mini app preview, see here »¹ for more info.
+// Only owners of bots with a configured Main Mini App can use this method, see see here
+// »¹ for more info on how to check if you can invoke this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/method/bots.addPreviewMedia for reference.
 type BotsAddPreviewMediaRequest struct {
-	// Bot field of BotsAddPreviewMediaRequest.
+	// The bot that owns the Main Mini App.
 	Bot InputUserClass
-	// LangCode field of BotsAddPreviewMediaRequest.
+	// ISO 639-1 language code, indicating the localization of the preview to add.
 	LangCode string
-	// Media field of BotsAddPreviewMediaRequest.
+	// The photo/video preview, uploaded using messages.uploadMedia¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.uploadMedia
 	Media InputMediaClass
 }
 
@@ -225,6 +235,17 @@ func (a *BotsAddPreviewMediaRequest) GetMedia() (value InputMediaClass) {
 }
 
 // BotsAddPreviewMedia invokes method bots.addPreviewMedia#17aeb75a returning error if any.
+// Add a main mini app preview, see here »¹ for more info.
+// Only owners of bots with a configured Main Mini App can use this method, see see here
+// »¹ for more info on how to check if you can invoke this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.addPreviewMedia for reference.
 func (c *Client) BotsAddPreviewMedia(ctx context.Context, request *BotsAddPreviewMediaRequest) (*BotPreviewMedia, error) {

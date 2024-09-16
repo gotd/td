@@ -36,7 +36,7 @@ var (
 //
 // See https://core.telegram.org/method/langpack.getLanguages for reference.
 type LangpackGetLanguagesRequest struct {
-	// Language pack
+	// Platform identifier (i.e. android, tdesktop, etc).
 	LangPack string
 }
 

@@ -167,7 +167,17 @@ func (u *UserEmpty) GetID() (value int64) {
 }
 
 // User represents TL type `user#83314fca`.
-// Indicates info about a certain user
+// Indicates info about a certain user.
+// Unless specified otherwise, when updating the local peer database¹, all fields from
+// the newly received constructor take priority over the old constructor cached locally
+// (including by removing fields that aren't set in the new constructor).
+// See here »¹ for an implementation of the logic to use when updating the local user
+// peer database².
+//
+// Links:
+//  1. https://core.telegram.org/api/peers
+//  2. https://github.com/tdlib/td/blob/cb164927417f22811c74cd8678ed4a5ab7cb80ba/td/telegram/UserManager.cpp#L2267
+//  3. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/user for reference.
 type User struct {
@@ -178,13 +188,31 @@ type User struct {
 	Flags bin.Fields
 	// Whether this user indicates the currently logged in user
 	Self bool
-	// Whether this user is a contact
+	// Whether this user is a contact When updating the local peer database¹, do not apply
+	// changes to this field if the min flag is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	Contact bool
-	// Whether this user is a mutual contact
+	// Whether this user is a mutual contact. When updating the local peer database¹, do not
+	// apply changes to this field if the min flag is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	MutualContact bool
-	// Whether the account of this user was deleted
+	// Whether the account of this user was deleted. Changes to this flag should invalidate
+	// the local userFull¹ cache for this user ID, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/userFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
 	Deleted bool
-	// Is this user a bot?
+	// Is this user a bot? Changes to this flag should invalidate the local userFull¹ cache
+	// for this user ID, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/userFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
 	Bot bool
 	// Can the bot see all messages in groups?
 	BotChatHistory bool
@@ -205,7 +233,8 @@ type User struct {
 	Support bool
 	// This may be a scam user
 	Scam bool
-	// If set, the profile picture for this user should be refetched
+	// If set and min is set, the value of photo can be used to update the local database,
+	// see the documentation of that flag for more info.
 	ApplyMinPhoto bool
 	// If set, this user was reported by many users as a fake or scam user: be careful when
 	// interacting with them.
@@ -215,12 +244,24 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/attach
 	BotAttachMenu bool
-	// Whether this user is a Telegram Premium user
+	// Whether this user is a Telegram Premium user Changes to this flag should invalidate
+	// the local userFull¹ cache for this user ID, see here »² for more info. Changes to
+	// this flag if the self flag is set should also trigger the following calls, to refresh
+	// the respective caches: - The help.getConfig³ cache - The messages.getTopReactions⁴
+	// cache if the bot flag is not set
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/userFull
+	//  2) https://core.telegram.org/api/peers#full-info-database
+	//  3) https://core.telegram.org/method/help.getConfig
+	//  4) https://core.telegram.org/method/messages.getTopReactions
 	Premium bool
-	// Whether we installed the attachment menu web app¹ offered by this bot
+	// Whether we installed the attachment menu web app¹ offered by this bot. When updating
+	// the local peer database², do not apply changes to this field if the min flag is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/bots/attach
+	//  2) https://core.telegram.org/api/peers
 	AttachMenuEnabled bool
 	// Flags, see TL conditional fields¹
 	//
@@ -228,60 +269,159 @@ type User struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
 	// Whether we can edit the profile picture, name, about text and description of this bot
-	// because we own it.
+	// because we own it. When updating the local peer database¹, do not apply changes to
+	// this field if the min flag is set. Changes to this flag (if min is not set) should
+	// invalidate the local userFull² cache for this user ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
+	//  2) https://core.telegram.org/constructor/userFull
 	BotCanEdit bool
-	// Whether we marked this user as a close friend, see here » for more info¹
+	// Whether we marked this user as a close friend, see here » for more info¹. When
+	// updating the local peer database², do not apply changes to this field if the min flag
+	// is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/privacy
+	//  2) https://core.telegram.org/api/peers
 	CloseFriend bool
-	// Whether we have hidden »¹ all active stories of this user.
+	// Whether we have hidden »¹ all active stories of this user. When updating the local
+	// peer database², do not apply changes to this field if the min flag is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stories#hiding-stories-of-other-users
+	//  2) https://core.telegram.org/api/peers
 	StoriesHidden bool
 	// No stories from this user are visible.
 	StoriesUnavailable bool
-	// ContactRequirePremium field of User.
+	// If set, we can only write to this user if they have already sent some messages to us,
+	// if we are subscribed to Telegram Premium¹, or if they're a mutual contact (user²
+	// mutual_contact).  All the secondary conditions listed above must be checked separately
+	// to verify whether we can still write to the user, even if this flag is set (i.e. a
+	// mutual contact will have this flag set even if we can still write to them, and so on..
+	// ); to avoid doing these extra checks if we haven't yet cached all the required
+	// information (for example while displaying the chat list in the sharing UI) the users
+	// getIsPremiumRequiredToContact³ method may be invoked instead, passing the list of
+	// users currently visible in the UI, returning a list of booleans that directly specify
+	// whether we can or cannot write to each user; alternatively, the userFull⁴
+	// contact_require_premium flag contains the same (fully checked, i.e. it's not just a
+	// copy of this flag) info returned by users.getIsPremiumRequiredToContact⁵. To set
+	// this flag for ourselves invoke account.setGlobalPrivacySettings⁶, setting the
+	// settings.new_noncontact_peers_require_premium flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/constructor/user
+	//  3) https://core.telegram.org/method/users.getIsPremiumRequiredToContact
+	//  4) https://core.telegram.org/constructor/userFull
+	//  5) https://core.telegram.org/method/users.getIsPremiumRequiredToContact
+	//  6) https://core.telegram.org/method/account.setGlobalPrivacySettings
 	ContactRequirePremium bool
-	// BotBusiness field of User.
+	// Whether this bot can be connected to a user as specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/business#connected-bots
 	BotBusiness bool
-	// BotHasMainApp field of User.
+	// If set, this bot has configured a Main Mini App »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	BotHasMainApp bool
-	// ID of the user
+	// ID of the user, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#peer-id
 	ID int64
-	// Access hash of the user
+	// Access hash of the user, see here »¹ for more info. If this flag is set, when
+	// updating the local peer database², generate a virtual flag called min_access_hash,
+	// which is: - Set to true if min is set AND - The phone flag is not set OR - The phone
+	// flag is set and the associated phone number string is non-empty - Set to false
+	// otherwise. Then, apply both access_hash and min_access_hash to the local database if:
+	// - min_access_hash is false OR - min_access_hash is true AND - There is no locally
+	// cached object for this user OR - There is no access_hash in the local cache OR - The
+	// cached object's min_access_hash is also true If the final merged object stored to the
+	// database has the min_access_hash field set to true, the related access_hash is only
+	// suitable to use in inputPeerPhotoFileLocation »³, to directly download the profile
+	// pictures⁴ of users, everywhere else a inputPeer*FromMessage constructor will have to
+	// be generated as specified here »⁵. Bots can also use min access hashes in some
+	// conditions, by passing 0 instead of the min access hash.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#access-hash
+	//  2) https://core.telegram.org/api/peers
+	//  3) https://core.telegram.org/constructor/inputPeerPhotoFileLocation
+	//  4) https://core.telegram.org/api/files
+	//  5) https://core.telegram.org/api/min
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
 	AccessHash int64
-	// First name
+	// First name. When updating the local peer database¹, apply changes to this field only
+	// if: - The min flag is not set OR - The min flag is set AND - The min flag of the
+	// locally cached user entry is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	//
 	// Use SetFirstName and GetFirstName helpers.
 	FirstName string
-	// Last name
+	// Last name. When updating the local peer database¹, apply changes to this field only
+	// if: - The min flag is not set OR - The min flag is set AND - The min flag of the
+	// locally cached user entry is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	//
 	// Use SetLastName and GetLastName helpers.
 	LastName string
-	// Username
+	// Main active username. When updating the local peer database¹, apply changes to this
+	// field only if: - The min flag is not set OR - The min flag is set AND - The min flag
+	// of the locally cached user entry is set. Changes to this flag should invalidate the
+	// local userFull² cache for this user ID if the above conditions are respected and the
+	// bot_can_edit flag is also set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
+	//  2) https://core.telegram.org/constructor/userFull
 	//
 	// Use SetUsername and GetUsername helpers.
 	Username string
-	// Phone number
+	// Phone number. When updating the local peer database¹, apply changes to this field
+	// only if: - The min flag is not set OR - The min flag is set AND - The min flag of the
+	// locally cached user entry is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	//
 	// Use SetPhone and GetPhone helpers.
 	Phone string
-	// Profile picture of user
+	// Profile picture of user. When updating the local peer database¹, apply changes to
+	// this field only if: - The min flag is not set OR - The min flag is set AND - The
+	// apply_min_photo flag is set OR - The min flag of the locally cached user entry is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo UserProfilePhotoClass
-	// Online status of user
+	// Online status of user. When updating the local peer database¹, apply changes to this
+	// field only if: - The min flag is not set OR - The min flag is set AND - The min flag
+	// of the locally cached user entry is set OR - The locally cached user entry is equal to
+	// userStatusEmpty².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
+	//  2) https://core.telegram.org/constructor/userStatusEmpty
 	//
 	// Use SetStatus and GetStatus helpers.
 	Status UserStatusClass
-	// Version of the bot_info field in userFull¹, incremented every time it changes
+	// Version of the bot_info field in userFull¹, incremented every time it changes.
+	// Changes to this flag should invalidate the local userFull² cache for this user ID,
+	// see here »³ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
+	//  2) https://core.telegram.org/constructor/userFull
+	//  3) https://core.telegram.org/api/peers#full-info-database
 	//
 	// Use SetBotInfoVersion and GetBotInfoVersion helpers.
 	BotInfoVersion int
@@ -304,14 +444,23 @@ type User struct {
 	//
 	// Use SetEmojiStatus and GetEmojiStatus helpers.
 	EmojiStatus EmojiStatusClass
-	// Additional usernames
+	// Additional usernames. When updating the local peer database¹, apply changes to this
+	// field only if: - The min flag is not set OR - The min flag is set AND - The min flag
+	// of the locally cached user entry is set. Changes to this flag (if the above conditions
+	// are respected) should invalidate the local userFull² cache for this user ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers
+	//  2) https://core.telegram.org/constructor/userFull
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username
-	// ID of the maximum read story¹.
+	// ID of the maximum read story¹.  When updating the local peer database², do not apply
+	// changes to this field if the min flag of the incoming constructor is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stories
+	//  2) https://core.telegram.org/api/peers
 	//
 	// Use SetStoriesMaxID and GetStoriesMaxID helpers.
 	StoriesMaxID int
@@ -329,7 +478,7 @@ type User struct {
 	//
 	// Use SetProfileColor and GetProfileColor helpers.
 	ProfileColor PeerColor
-	// BotActiveUsers field of User.
+	// Monthly Active Users (MAU) of this bot (may be absent for small bots).
 	//
 	// Use SetBotActiveUsers and GetBotActiveUsers helpers.
 	BotActiveUsers int

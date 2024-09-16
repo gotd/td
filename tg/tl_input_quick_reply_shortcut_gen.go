@@ -32,10 +32,14 @@ var (
 )
 
 // InputQuickReplyShortcut represents TL type `inputQuickReplyShortcut#24596d41`.
+// Selects a quick reply shortcut¹ by name.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/inputQuickReplyShortcut for reference.
 type InputQuickReplyShortcut struct {
-	// Shortcut field of InputQuickReplyShortcut.
+	// Shortcut name.
 	Shortcut string
 }
 
@@ -166,10 +170,14 @@ func (i *InputQuickReplyShortcut) GetShortcut() (value string) {
 }
 
 // InputQuickReplyShortcutID represents TL type `inputQuickReplyShortcutId#1190cf1`.
+// Selects a quick reply shortcut¹ by its numeric ID.
+//
+// Links:
+//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/inputQuickReplyShortcutId for reference.
 type InputQuickReplyShortcutID struct {
-	// ShortcutID field of InputQuickReplyShortcutID.
+	// Shortcut ID.
 	ShortcutID int
 }
 

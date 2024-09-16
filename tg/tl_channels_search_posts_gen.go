@@ -32,18 +32,35 @@ var (
 )
 
 // ChannelsSearchPostsRequest represents TL type `channels.searchPosts#d19f987b`.
+// Globally search for posts from public channels »¹ (including those we aren't a
+// member of) containing a specific hashtag.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 type ChannelsSearchPostsRequest struct {
-	// Hashtag field of ChannelsSearchPostsRequest.
+	// The hashtag to search, without the # character.
 	Hashtag string
-	// OffsetRate field of ChannelsSearchPostsRequest.
+	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messages.messagesSlice
 	OffsetRate int
-	// OffsetPeer field of ChannelsSearchPostsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetPeer InputPeerClass
-	// OffsetID field of ChannelsSearchPostsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Limit field of ChannelsSearchPostsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -274,6 +291,11 @@ func (s *ChannelsSearchPostsRequest) GetLimit() (value int) {
 }
 
 // ChannelsSearchPosts invokes method channels.searchPosts#d19f987b returning error if any.
+// Globally search for posts from public channels »¹ (including those we aren't a
+// member of) containing a specific hashtag.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 func (c *Client) ChannelsSearchPosts(ctx context.Context, request *ChannelsSearchPostsRequest) (MessagesMessagesClass, error) {

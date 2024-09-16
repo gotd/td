@@ -32,14 +32,16 @@ var (
 )
 
 // Timezone represents TL type `timezone#ff9289f5`.
+// Timezone information.
 //
 // See https://core.telegram.org/constructor/timezone for reference.
 type Timezone struct {
-	// ID field of Timezone.
+	// Unique timezone ID.
 	ID string
-	// Name field of Timezone.
+	// Human-readable and localized timezone name.
 	Name string
-	// UtcOffset field of Timezone.
+	// UTC offset in seconds, which may be displayed in hh:mm format by the client together
+	// with the human-readable name (i.e. $name UTC -01:00).
 	UtcOffset int
 }
 

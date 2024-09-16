@@ -62,7 +62,12 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//  3) https://core.telegram.org/method/channels.checkUsername
 	//  4) https://core.telegram.org/method/channels.updateUsername
 	CheckLimit bool
-	// ForPersonal field of ChannelsGetAdminedPublicChannelsRequest.
+	// Set this flag to only fetch the full list of channels that may be passed to account
+	// updatePersonalChannel¹ to display them on our profile page².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.updatePersonalChannel
+	//  2) https://core.telegram.org/api/profile#personal-channel
 	ForPersonal bool
 }
 
