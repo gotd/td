@@ -58,6 +58,14 @@ type Client struct {
 	// DO NOT change the order of members arbitrarily.
 	// Ref: https://pkg.go.dev/sync/atomic#pkg-note-BUG
 
+	// Connection factory fields.
+	connsCounter atomic.Int64
+	create       connConstructor        // immutable
+	resolver     dcs.Resolver           // immutable
+	onDead       func()                 // immutable
+	connBackoff  func() backoff.BackOff // immutable
+	defaultMode  manager.ConnMode       // immutable
+
 	// Migration state.
 	migrationTimeout time.Duration // immutable
 	migration        chan struct{}
@@ -86,13 +94,6 @@ type Client struct {
 	cfg     *manager.AtomicConfig
 	conn    clientConn
 	connMux sync.Mutex
-	// Connection factory fields.
-	create       connConstructor        // immutable
-	resolver     dcs.Resolver           // immutable
-	onDead       func()                 // immutable
-	connBackoff  func() backoff.BackOff // immutable
-	defaultMode  manager.ConnMode       // immutable
-	connsCounter atomic.Int64
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
