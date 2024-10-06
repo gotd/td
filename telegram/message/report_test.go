@@ -14,16 +14,16 @@ import (
 	"github.com/gotd/td/tgmock"
 )
 
-func expectSendReport(t *testing.T, reason tg.ReportReasonClass, mock *tgmock.Mock, id int, msg string) {
+func expectSendReport(t *testing.T, option []byte, mock *tgmock.Mock, id int, msg string) {
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesReportRequest)
 		require.True(t, ok)
 		require.Equal(t, &tg.InputPeerSelf{}, req.Peer)
-		require.Equal(t, reason, req.Reason)
+		require.Equal(t, option, req.Option)
 		require.NotZero(t, req.ID)
 		require.Equal(t, id, req.ID[0])
 		require.Equal(t, msg, req.Message)
-	}).ThenTrue()
+	}).ThenResult(&tg.ReportResultReported{})
 }
 
 func TestRequestBuilder_Report(t *testing.T) {
@@ -37,39 +37,11 @@ func TestRequestBuilder_Report(t *testing.T) {
 
 	report := sender.Self().Report(id).Message(msg)
 
-	var r bool
-	expectSendReport(t, &tg.InputReportReasonSpam{}, mock, id, msg)
-	r, err = report.Spam(ctx)
+	option := []byte{1, 2, 3}
+	expectSendReport(t, option, mock, id, msg)
+	r, err := report.Option(ctx, option)
 	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonViolence{}, mock, id, msg)
-	r, err = report.Violence(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonPornography{}, mock, id, msg)
-	r, err = report.Pornography(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonChildAbuse{}, mock, id, msg)
-	r, err = report.ChildAbuse(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonOther{}, mock, id, msg)
-	r, err = report.Other(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonCopyright{}, mock, id, msg)
-	r, err = report.Copyright(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonGeoIrrelevant{}, mock, id, msg)
-	r, err = report.GeoIrrelevant(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
-	expectSendReport(t, &tg.InputReportReasonFake{}, mock, id, msg)
-	r, err = report.Fake(ctx)
-	require.NoError(t, err)
-	require.True(t, r)
+	require.NotNil(t, r)
 }
 
 func TestRequestBuilder_ReportSpam(t *testing.T) {

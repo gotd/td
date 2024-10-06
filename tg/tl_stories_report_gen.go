@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesReportRequest represents TL type `stories.report#1923fa8c`.
+// StoriesReportRequest represents TL type `stories.report#19d8eb45`.
 // Report a story.
 //
 // See https://core.telegram.org/method/stories.report for reference.
@@ -40,14 +40,14 @@ type StoriesReportRequest struct {
 	Peer InputPeerClass
 	// IDs of the stories to report.
 	ID []int
-	// Why are these storeis being reported.
-	Reason ReportReasonClass
+	// Option field of StoriesReportRequest.
+	Option []byte
 	// Comment for report moderation
 	Message string
 }
 
 // StoriesReportRequestTypeID is TL type id of StoriesReportRequest.
-const StoriesReportRequestTypeID = 0x1923fa8c
+const StoriesReportRequestTypeID = 0x19d8eb45
 
 // Ensuring interfaces in compile-time for StoriesReportRequest.
 var (
@@ -67,7 +67,7 @@ func (r *StoriesReportRequest) Zero() bool {
 	if !(r.ID == nil) {
 		return false
 	}
-	if !(r.Reason == nil) {
+	if !(r.Option == nil) {
 		return false
 	}
 	if !(r.Message == "") {
@@ -90,12 +90,12 @@ func (r *StoriesReportRequest) String() string {
 func (r *StoriesReportRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetID() (value []int)
-	GetReason() (value ReportReasonClass)
+	GetOption() (value []byte)
 	GetMessage() (value string)
 }) {
 	r.Peer = from.GetPeer()
 	r.ID = from.GetID()
-	r.Reason = from.GetReason()
+	r.Option = from.GetOption()
 	r.Message = from.GetMessage()
 }
 
@@ -131,8 +131,8 @@ func (r *StoriesReportRequest) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
-			Name:       "Reason",
-			SchemaName: "reason",
+			Name:       "Option",
+			SchemaName: "option",
 		},
 		{
 			Name:       "Message",
@@ -145,7 +145,7 @@ func (r *StoriesReportRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *StoriesReportRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode stories.report#1923fa8c as nil")
+		return fmt.Errorf("can't encode stories.report#19d8eb45 as nil")
 	}
 	b.PutID(StoriesReportRequestTypeID)
 	return r.EncodeBare(b)
@@ -154,24 +154,19 @@ func (r *StoriesReportRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *StoriesReportRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode stories.report#1923fa8c as nil")
+		return fmt.Errorf("can't encode stories.report#19d8eb45 as nil")
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode stories.report#1923fa8c: field peer is nil")
+		return fmt.Errorf("unable to encode stories.report#19d8eb45: field peer is nil")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.report#1923fa8c: field peer: %w", err)
+		return fmt.Errorf("unable to encode stories.report#19d8eb45: field peer: %w", err)
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
 		b.PutInt(v)
 	}
-	if r.Reason == nil {
-		return fmt.Errorf("unable to encode stories.report#1923fa8c: field reason is nil")
-	}
-	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.report#1923fa8c: field reason: %w", err)
-	}
+	b.PutBytes(r.Option)
 	b.PutString(r.Message)
 	return nil
 }
@@ -179,10 +174,10 @@ func (r *StoriesReportRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *StoriesReportRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode stories.report#1923fa8c to nil")
+		return fmt.Errorf("can't decode stories.report#19d8eb45 to nil")
 	}
 	if err := b.ConsumeID(StoriesReportRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.report#1923fa8c: %w", err)
+		return fmt.Errorf("unable to decode stories.report#19d8eb45: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -190,19 +185,19 @@ func (r *StoriesReportRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *StoriesReportRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode stories.report#1923fa8c to nil")
+		return fmt.Errorf("can't decode stories.report#19d8eb45 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.report#1923fa8c: field peer: %w", err)
+			return fmt.Errorf("unable to decode stories.report#19d8eb45: field peer: %w", err)
 		}
 		r.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.report#1923fa8c: field id: %w", err)
+			return fmt.Errorf("unable to decode stories.report#19d8eb45: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -211,22 +206,22 @@ func (r *StoriesReportRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.report#1923fa8c: field id: %w", err)
+				return fmt.Errorf("unable to decode stories.report#19d8eb45: field id: %w", err)
 			}
 			r.ID = append(r.ID, value)
 		}
 	}
 	{
-		value, err := DecodeReportReason(b)
+		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.report#1923fa8c: field reason: %w", err)
+			return fmt.Errorf("unable to decode stories.report#19d8eb45: field option: %w", err)
 		}
-		r.Reason = value
+		r.Option = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.report#1923fa8c: field message: %w", err)
+			return fmt.Errorf("unable to decode stories.report#19d8eb45: field message: %w", err)
 		}
 		r.Message = value
 	}
@@ -249,12 +244,12 @@ func (r *StoriesReportRequest) GetID() (value []int) {
 	return r.ID
 }
 
-// GetReason returns value of Reason field.
-func (r *StoriesReportRequest) GetReason() (value ReportReasonClass) {
+// GetOption returns value of Option field.
+func (r *StoriesReportRequest) GetOption() (value []byte) {
 	if r == nil {
 		return
 	}
-	return r.Reason
+	return r.Option
 }
 
 // GetMessage returns value of Message field.
@@ -265,7 +260,7 @@ func (r *StoriesReportRequest) GetMessage() (value string) {
 	return r.Message
 }
 
-// StoriesReport invokes method stories.report#1923fa8c returning error if any.
+// StoriesReport invokes method stories.report#19d8eb45 returning error if any.
 // Report a story.
 //
 // Possible errors:
@@ -273,12 +268,11 @@ func (r *StoriesReportRequest) GetMessage() (value string) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.report for reference.
-func (c *Client) StoriesReport(ctx context.Context, request *StoriesReportRequest) (bool, error) {
-	var result BoolBox
+func (c *Client) StoriesReport(ctx context.Context, request *StoriesReportRequest) (ReportResultClass, error) {
+	var result ReportResultBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return result.ReportResult, nil
 }

@@ -3465,6 +3465,167 @@ func (i *InputKeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
 	return i.MaxQuantity
 }
 
+// KeyboardButtonCopy represents TL type `keyboardButtonCopy#75d2698e`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonCopy for reference.
+type KeyboardButtonCopy struct {
+	// Text field of KeyboardButtonCopy.
+	Text string
+	// CopyText field of KeyboardButtonCopy.
+	CopyText string
+}
+
+// KeyboardButtonCopyTypeID is TL type id of KeyboardButtonCopy.
+const KeyboardButtonCopyTypeID = 0x75d2698e
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonCopy) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonCopy.
+var (
+	_ bin.Encoder     = &KeyboardButtonCopy{}
+	_ bin.Decoder     = &KeyboardButtonCopy{}
+	_ bin.BareEncoder = &KeyboardButtonCopy{}
+	_ bin.BareDecoder = &KeyboardButtonCopy{}
+
+	_ KeyboardButtonClass = &KeyboardButtonCopy{}
+)
+
+func (k *KeyboardButtonCopy) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.CopyText == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonCopy) String() string {
+	if k == nil {
+		return "KeyboardButtonCopy(nil)"
+	}
+	type Alias KeyboardButtonCopy
+	return fmt.Sprintf("KeyboardButtonCopy%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonCopy from given interface.
+func (k *KeyboardButtonCopy) FillFrom(from interface {
+	GetText() (value string)
+	GetCopyText() (value string)
+}) {
+	k.Text = from.GetText()
+	k.CopyText = from.GetCopyText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonCopy) TypeID() uint32 {
+	return KeyboardButtonCopyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonCopy) TypeName() string {
+	return "keyboardButtonCopy"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonCopy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonCopy",
+		ID:   KeyboardButtonCopyTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "CopyText",
+			SchemaName: "copy_text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonCopy) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonCopy#75d2698e as nil")
+	}
+	b.PutID(KeyboardButtonCopyTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonCopy) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonCopy#75d2698e as nil")
+	}
+	b.PutString(k.Text)
+	b.PutString(k.CopyText)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonCopy) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonCopy#75d2698e to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonCopyTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonCopy#75d2698e: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonCopy) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonCopy#75d2698e to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonCopy#75d2698e: field text: %w", err)
+		}
+		k.Text = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonCopy#75d2698e: field copy_text: %w", err)
+		}
+		k.CopyText = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonCopy) GetText() (value string) {
+	if k == nil {
+		return
+	}
+	return k.Text
+}
+
+// GetCopyText returns value of CopyText field.
+func (k *KeyboardButtonCopy) GetCopyText() (value string) {
+	if k == nil {
+		return
+	}
+	return k.CopyText
+}
+
 // KeyboardButtonClassName is schema name of KeyboardButtonClass.
 const KeyboardButtonClassName = "KeyboardButton"
 
@@ -3496,6 +3657,7 @@ const KeyboardButtonClassName = "KeyboardButton"
 //	case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
 //	case *tg.KeyboardButtonRequestPeer: // keyboardButtonRequestPeer#53d7bfd8
 //	case *tg.InputKeyboardButtonRequestPeer: // inputKeyboardButtonRequestPeer#c9662d05
+//	case *tg.KeyboardButtonCopy: // keyboardButtonCopy#75d2698e
 //	default: panic(v)
 //	}
 type KeyboardButtonClass interface {
@@ -3642,6 +3804,13 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 	case InputKeyboardButtonRequestPeerTypeID:
 		// Decoding inputKeyboardButtonRequestPeer#c9662d05.
 		v := InputKeyboardButtonRequestPeer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case KeyboardButtonCopyTypeID:
+		// Decoding keyboardButtonCopy#75d2698e.
+		v := KeyboardButtonCopy{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}

@@ -623,6 +623,19 @@ func (s MessageActionClassArray) AsMessageActionPrizeStars() (to MessageActionPr
 	return to
 }
 
+// AsMessageActionStarGift returns copy with only MessageActionStarGift constructors.
+func (s MessageActionClassArray) AsMessageActionStarGift() (to MessageActionStarGiftArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionStarGift)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -3809,6 +3822,88 @@ func (s *MessageActionPrizeStarsArray) PopFirst() (v MessageActionPrizeStars, ok
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionPrizeStarsArray) Pop() (v MessageActionPrizeStars, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionStarGiftArray is adapter for slice of MessageActionStarGift.
+type MessageActionStarGiftArray []MessageActionStarGift
+
+// Sort sorts slice of MessageActionStarGift.
+func (s MessageActionStarGiftArray) Sort(less func(a, b MessageActionStarGift) bool) MessageActionStarGiftArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionStarGift.
+func (s MessageActionStarGiftArray) SortStable(less func(a, b MessageActionStarGift) bool) MessageActionStarGiftArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionStarGift.
+func (s MessageActionStarGiftArray) Retain(keep func(x MessageActionStarGift) bool) MessageActionStarGiftArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionStarGiftArray) First() (v MessageActionStarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionStarGiftArray) Last() (v MessageActionStarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftArray) PopFirst() (v MessageActionStarGift, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionStarGift
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftArray) Pop() (v MessageActionStarGift, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

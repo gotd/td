@@ -31,11 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsClickSponsoredMessageRequest represents TL type `channels.clickSponsoredMessage#18afbc93`.
+// ChannelsClickSponsoredMessageRequest represents TL type `channels.clickSponsoredMessage#1445d75`.
 // Informs the server that the user has either:
 //
 // See https://core.telegram.org/method/channels.clickSponsoredMessage for reference.
 type ChannelsClickSponsoredMessageRequest struct {
+	// Flags field of ChannelsClickSponsoredMessageRequest.
+	Flags bin.Fields
+	// Media field of ChannelsClickSponsoredMessageRequest.
+	Media bool
+	// Fullscreen field of ChannelsClickSponsoredMessageRequest.
+	Fullscreen bool
 	// Channel where the sponsored message was posted
 	Channel InputChannelClass
 	// Message ID
@@ -43,7 +49,7 @@ type ChannelsClickSponsoredMessageRequest struct {
 }
 
 // ChannelsClickSponsoredMessageRequestTypeID is TL type id of ChannelsClickSponsoredMessageRequest.
-const ChannelsClickSponsoredMessageRequestTypeID = 0x18afbc93
+const ChannelsClickSponsoredMessageRequestTypeID = 0x1445d75
 
 // Ensuring interfaces in compile-time for ChannelsClickSponsoredMessageRequest.
 var (
@@ -56,6 +62,15 @@ var (
 func (c *ChannelsClickSponsoredMessageRequest) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Media == false) {
+		return false
+	}
+	if !(c.Fullscreen == false) {
+		return false
 	}
 	if !(c.Channel == nil) {
 		return false
@@ -78,9 +93,13 @@ func (c *ChannelsClickSponsoredMessageRequest) String() string {
 
 // FillFrom fills ChannelsClickSponsoredMessageRequest from given interface.
 func (c *ChannelsClickSponsoredMessageRequest) FillFrom(from interface {
+	GetMedia() (value bool)
+	GetFullscreen() (value bool)
 	GetChannel() (value InputChannelClass)
 	GetRandomID() (value []byte)
 }) {
+	c.Media = from.GetMedia()
+	c.Fullscreen = from.GetFullscreen()
 	c.Channel = from.GetChannel()
 	c.RandomID = from.GetRandomID()
 }
@@ -109,6 +128,16 @@ func (c *ChannelsClickSponsoredMessageRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Fullscreen",
+			SchemaName: "fullscreen",
+			Null:       !c.Flags.Has(1),
+		},
+		{
 			Name:       "Channel",
 			SchemaName: "channel",
 		},
@@ -120,10 +149,20 @@ func (c *ChannelsClickSponsoredMessageRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelsClickSponsoredMessageRequest) SetFlags() {
+	if !(c.Media == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Fullscreen == false) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelsClickSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.clickSponsoredMessage#18afbc93 as nil")
+		return fmt.Errorf("can't encode channels.clickSponsoredMessage#1445d75 as nil")
 	}
 	b.PutID(ChannelsClickSponsoredMessageRequestTypeID)
 	return c.EncodeBare(b)
@@ -132,13 +171,17 @@ func (c *ChannelsClickSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsClickSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.clickSponsoredMessage#18afbc93 as nil")
+		return fmt.Errorf("can't encode channels.clickSponsoredMessage#1445d75 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.clickSponsoredMessage#1445d75: field flags: %w", err)
 	}
 	if c.Channel == nil {
-		return fmt.Errorf("unable to encode channels.clickSponsoredMessage#18afbc93: field channel is nil")
+		return fmt.Errorf("unable to encode channels.clickSponsoredMessage#1445d75: field channel is nil")
 	}
 	if err := c.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.clickSponsoredMessage#18afbc93: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.clickSponsoredMessage#1445d75: field channel: %w", err)
 	}
 	b.PutBytes(c.RandomID)
 	return nil
@@ -147,10 +190,10 @@ func (c *ChannelsClickSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelsClickSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.clickSponsoredMessage#18afbc93 to nil")
+		return fmt.Errorf("can't decode channels.clickSponsoredMessage#1445d75 to nil")
 	}
 	if err := b.ConsumeID(ChannelsClickSponsoredMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.clickSponsoredMessage#18afbc93: %w", err)
+		return fmt.Errorf("unable to decode channels.clickSponsoredMessage#1445d75: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -158,23 +201,68 @@ func (c *ChannelsClickSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsClickSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.clickSponsoredMessage#18afbc93 to nil")
+		return fmt.Errorf("can't decode channels.clickSponsoredMessage#1445d75 to nil")
 	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.clickSponsoredMessage#1445d75: field flags: %w", err)
+		}
+	}
+	c.Media = c.Flags.Has(0)
+	c.Fullscreen = c.Flags.Has(1)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.clickSponsoredMessage#18afbc93: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.clickSponsoredMessage#1445d75: field channel: %w", err)
 		}
 		c.Channel = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.clickSponsoredMessage#18afbc93: field random_id: %w", err)
+			return fmt.Errorf("unable to decode channels.clickSponsoredMessage#1445d75: field random_id: %w", err)
 		}
 		c.RandomID = value
 	}
 	return nil
+}
+
+// SetMedia sets value of Media conditional field.
+func (c *ChannelsClickSponsoredMessageRequest) SetMedia(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Media = true
+	} else {
+		c.Flags.Unset(0)
+		c.Media = false
+	}
+}
+
+// GetMedia returns value of Media conditional field.
+func (c *ChannelsClickSponsoredMessageRequest) GetMedia() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(0)
+}
+
+// SetFullscreen sets value of Fullscreen conditional field.
+func (c *ChannelsClickSponsoredMessageRequest) SetFullscreen(value bool) {
+	if value {
+		c.Flags.Set(1)
+		c.Fullscreen = true
+	} else {
+		c.Flags.Unset(1)
+		c.Fullscreen = false
+	}
+}
+
+// GetFullscreen returns value of Fullscreen conditional field.
+func (c *ChannelsClickSponsoredMessageRequest) GetFullscreen() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(1)
 }
 
 // GetChannel returns value of Channel field.
@@ -198,7 +286,7 @@ func (c *ChannelsClickSponsoredMessageRequest) GetChannelAsNotEmpty() (NotEmptyI
 	return c.Channel.AsNotEmpty()
 }
 
-// ChannelsClickSponsoredMessage invokes method channels.clickSponsoredMessage#18afbc93 returning error if any.
+// ChannelsClickSponsoredMessage invokes method channels.clickSponsoredMessage#1445d75 returning error if any.
 // Informs the server that the user has either:
 //
 // Possible errors:
