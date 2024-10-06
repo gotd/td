@@ -166,7 +166,7 @@ func (i *InputPaidMediaTypePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 type InputPaidMediaTypeVideo struct {
 	// Duration of the video, in seconds
 	Duration int32
-	// True, if the video is supposed to be streamed
+	// True, if the video is expected to be streamed
 	SupportsStreaming bool
 }
 

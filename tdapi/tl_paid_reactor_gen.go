@@ -38,7 +38,7 @@ type PaidReactor struct {
 	SenderID MessageSenderClass
 	// Number of Telegram Stars added
 	StarCount int32
-	// True, if the reactor is one of the most active reactors; can be false if the reactor
+	// True, if the reactor is one of the most active reactors; may be false if the reactor
 	// is the current user
 	IsTop bool
 	// True, if the paid reaction was added by the current user

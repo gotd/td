@@ -37,7 +37,7 @@ type GroupCall struct {
 	ID int32
 	// Group call title
 	Title string
-	// Point in time (Unix timestamp) when the group call is supposed to be started by an
+	// Point in time (Unix timestamp) when the group call is expected to be started by an
 	// administrator; 0 if it is already active or was ended
 	ScheduledStartDate int32
 	// True, if the group call is scheduled and the current user will receive a notification

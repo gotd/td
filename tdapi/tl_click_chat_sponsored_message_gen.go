@@ -31,16 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ClickChatSponsoredMessageRequest represents TL type `clickChatSponsoredMessage#d9c09feb`.
+// ClickChatSponsoredMessageRequest represents TL type `clickChatSponsoredMessage#39ef7a17`.
 type ClickChatSponsoredMessageRequest struct {
 	// Chat identifier of the sponsored message
 	ChatID int64
 	// Identifier of the sponsored message
 	MessageID int64
+	// Pass true if the media was clicked in the sponsored message
+	IsMediaClick bool
+	// Pass true if the user expanded the video from the sponsored message fullscreen before
+	// the click
+	FromFullscreen bool
 }
 
 // ClickChatSponsoredMessageRequestTypeID is TL type id of ClickChatSponsoredMessageRequest.
-const ClickChatSponsoredMessageRequestTypeID = 0xd9c09feb
+const ClickChatSponsoredMessageRequestTypeID = 0x39ef7a17
 
 // Ensuring interfaces in compile-time for ClickChatSponsoredMessageRequest.
 var (
@@ -58,6 +63,12 @@ func (c *ClickChatSponsoredMessageRequest) Zero() bool {
 		return false
 	}
 	if !(c.MessageID == 0) {
+		return false
+	}
+	if !(c.IsMediaClick == false) {
+		return false
+	}
+	if !(c.FromFullscreen == false) {
 		return false
 	}
 
@@ -104,6 +115,14 @@ func (c *ClickChatSponsoredMessageRequest) TypeInfo() tdp.Type {
 			Name:       "MessageID",
 			SchemaName: "message_id",
 		},
+		{
+			Name:       "IsMediaClick",
+			SchemaName: "is_media_click",
+		},
+		{
+			Name:       "FromFullscreen",
+			SchemaName: "from_fullscreen",
+		},
 	}
 	return typ
 }
@@ -111,7 +130,7 @@ func (c *ClickChatSponsoredMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ClickChatSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode clickChatSponsoredMessage#d9c09feb as nil")
+		return fmt.Errorf("can't encode clickChatSponsoredMessage#39ef7a17 as nil")
 	}
 	b.PutID(ClickChatSponsoredMessageRequestTypeID)
 	return c.EncodeBare(b)
@@ -120,20 +139,22 @@ func (c *ClickChatSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ClickChatSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode clickChatSponsoredMessage#d9c09feb as nil")
+		return fmt.Errorf("can't encode clickChatSponsoredMessage#39ef7a17 as nil")
 	}
 	b.PutInt53(c.ChatID)
 	b.PutInt53(c.MessageID)
+	b.PutBool(c.IsMediaClick)
+	b.PutBool(c.FromFullscreen)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ClickChatSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode clickChatSponsoredMessage#d9c09feb to nil")
+		return fmt.Errorf("can't decode clickChatSponsoredMessage#39ef7a17 to nil")
 	}
 	if err := b.ConsumeID(ClickChatSponsoredMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode clickChatSponsoredMessage#d9c09feb: %w", err)
+		return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -141,21 +162,35 @@ func (c *ClickChatSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ClickChatSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode clickChatSponsoredMessage#d9c09feb to nil")
+		return fmt.Errorf("can't decode clickChatSponsoredMessage#39ef7a17 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode clickChatSponsoredMessage#d9c09feb: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode clickChatSponsoredMessage#d9c09feb: field message_id: %w", err)
+			return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field message_id: %w", err)
 		}
 		c.MessageID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field is_media_click: %w", err)
+		}
+		c.IsMediaClick = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field from_fullscreen: %w", err)
+		}
+		c.FromFullscreen = value
 	}
 	return nil
 }
@@ -163,7 +198,7 @@ func (c *ClickChatSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ClickChatSponsoredMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode clickChatSponsoredMessage#d9c09feb as nil")
+		return fmt.Errorf("can't encode clickChatSponsoredMessage#39ef7a17 as nil")
 	}
 	b.ObjStart()
 	b.PutID("clickChatSponsoredMessage")
@@ -174,6 +209,12 @@ func (c *ClickChatSponsoredMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.FieldStart("message_id")
 	b.PutInt53(c.MessageID)
 	b.Comma()
+	b.FieldStart("is_media_click")
+	b.PutBool(c.IsMediaClick)
+	b.Comma()
+	b.FieldStart("from_fullscreen")
+	b.PutBool(c.FromFullscreen)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -182,27 +223,39 @@ func (c *ClickChatSponsoredMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ClickChatSponsoredMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode clickChatSponsoredMessage#d9c09feb to nil")
+		return fmt.Errorf("can't decode clickChatSponsoredMessage#39ef7a17 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("clickChatSponsoredMessage"); err != nil {
-				return fmt.Errorf("unable to decode clickChatSponsoredMessage#d9c09feb: %w", err)
+				return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode clickChatSponsoredMessage#d9c09feb: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field chat_id: %w", err)
 			}
 			c.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode clickChatSponsoredMessage#d9c09feb: field message_id: %w", err)
+				return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field message_id: %w", err)
 			}
 			c.MessageID = value
+		case "is_media_click":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field is_media_click: %w", err)
+			}
+			c.IsMediaClick = value
+		case "from_fullscreen":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode clickChatSponsoredMessage#39ef7a17: field from_fullscreen: %w", err)
+			}
+			c.FromFullscreen = value
 		default:
 			return b.Skip()
 		}
@@ -226,7 +279,23 @@ func (c *ClickChatSponsoredMessageRequest) GetMessageID() (value int64) {
 	return c.MessageID
 }
 
-// ClickChatSponsoredMessage invokes method clickChatSponsoredMessage#d9c09feb returning error if any.
+// GetIsMediaClick returns value of IsMediaClick field.
+func (c *ClickChatSponsoredMessageRequest) GetIsMediaClick() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsMediaClick
+}
+
+// GetFromFullscreen returns value of FromFullscreen field.
+func (c *ClickChatSponsoredMessageRequest) GetFromFullscreen() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.FromFullscreen
+}
+
+// ClickChatSponsoredMessage invokes method clickChatSponsoredMessage#39ef7a17 returning error if any.
 func (c *Client) ClickChatSponsoredMessage(ctx context.Context, request *ClickChatSponsoredMessageRequest) error {
 	var ok Ok
 

@@ -1380,8 +1380,8 @@ type InputMessagePaidMedia struct {
 	// Message caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
-	// True, if the caption must be shown above the video; otherwise, the caption must be
-	// shown below the video; not supported in secret chats
+	// True, if the caption must be shown above the media; otherwise, the caption must be
+	// shown below the media; not supported in secret chats
 	ShowCaptionAboveMedia bool
 	// Bot-provided data for the paid media; bots only
 	Payload string
@@ -2504,7 +2504,8 @@ func (i *InputMessageSticker) GetEmoji() (value string) {
 
 // InputMessageVideo represents TL type `inputMessageVideo#1a64cc26`.
 type InputMessageVideo struct {
-	// Video to be sent
+	// Video to be sent. The video is expected to be reencoded to MPEG4 format with H.264
+	// codec by the sender
 	Video InputFileClass
 	// Video thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
@@ -2516,7 +2517,7 @@ type InputMessageVideo struct {
 	Width int32
 	// Video height
 	Height int32
-	// True, if the video is supposed to be streamed
+	// True, if the video is expected to be streamed
 	SupportsStreaming bool
 	// Video caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters

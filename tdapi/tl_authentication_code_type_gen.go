@@ -1642,7 +1642,7 @@ type AuthenticationCodeTypeFirebaseIos struct {
 	// Receipt of successful application token validation to compare with receipt from push
 	// notification
 	Receipt string
-	// Time after the next authentication method is supposed to be used if verification push
+	// Time after the next authentication method is expected to be used if verification push
 	// notification isn't received, in seconds
 	PushTimeout int32
 	// Length of the code

@@ -531,14 +531,15 @@ func (i *InputFileLocal) GetPath() (value string) {
 
 // InputFileGenerated represents TL type `inputFileGenerated#b0862800`.
 type InputFileGenerated struct {
-	// Local path to a file from which the file is generated; may be empty if there is no
-	// such file
+	// Local path to a file from which the file is generated. The path doesn't have to be a
+	// valid path and is used by TDLib only to detect name and MIME type of the generated
+	// file
 	OriginalPath string
 	// String specifying the conversion applied to the original file; must be persistent
 	// across application restarts. Conversions beginning with '#' are reserved for internal
 	// TDLib usage
 	Conversion string
-	// Expected size of the generated file, in bytes; 0 if unknown
+	// Expected size of the generated file, in bytes; pass 0 if unknown
 	ExpectedSize int64
 }
 

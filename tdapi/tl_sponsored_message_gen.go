@@ -42,7 +42,8 @@ type SponsoredMessage struct {
 	// reportChatSponsoredMessage
 	CanBeReported bool
 	// Content of the message. Currently, can be only of the types messageText,
-	// messageAnimation, messagePhoto, or messageVideo
+	// messageAnimation, messagePhoto, or messageVideo. Video messages can be viewed
+	// fullscreen
 	Content MessageContentClass
 	// Information about the sponsor of the message
 	Sponsor MessageSponsor

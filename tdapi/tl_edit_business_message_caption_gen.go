@@ -45,7 +45,7 @@ type EditBusinessMessageCaptionRequest struct {
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 	// Pass true to show the caption above the media; otherwise, the caption will be shown
-	// below the media. Can be true only for animation, photo, and video messages
+	// below the media. May be true only for animation, photo, and video messages
 	ShowCaptionAboveMedia bool
 }
 
