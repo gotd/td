@@ -297,16 +297,16 @@ func (r *ReportChatSponsoredMessageResultFailed) DecodeTDLibJSON(b tdjson.Decode
 	})
 }
 
-// ReportChatSponsoredMessageResultOptionRequired represents TL type `reportChatSponsoredMessageResultOptionRequired#314c2d73`.
+// ReportChatSponsoredMessageResultOptionRequired represents TL type `reportChatSponsoredMessageResultOptionRequired#34fc24b2`.
 type ReportChatSponsoredMessageResultOptionRequired struct {
 	// Title for the option choice
 	Title string
 	// List of available options
-	Options []ReportChatSponsoredMessageOption
+	Options []ReportOption
 }
 
 // ReportChatSponsoredMessageResultOptionRequiredTypeID is TL type id of ReportChatSponsoredMessageResultOptionRequired.
-const ReportChatSponsoredMessageResultOptionRequiredTypeID = 0x314c2d73
+const ReportChatSponsoredMessageResultOptionRequiredTypeID = 0x34fc24b2
 
 // construct implements constructor of ReportChatSponsoredMessageResultClass.
 func (r ReportChatSponsoredMessageResultOptionRequired) construct() ReportChatSponsoredMessageResultClass {
@@ -384,7 +384,7 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReportChatSponsoredMessageResultOptionRequired) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChatSponsoredMessageResultOptionRequired#314c2d73 as nil")
+		return fmt.Errorf("can't encode reportChatSponsoredMessageResultOptionRequired#34fc24b2 as nil")
 	}
 	b.PutID(ReportChatSponsoredMessageResultOptionRequiredTypeID)
 	return r.EncodeBare(b)
@@ -393,13 +393,13 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) Encode(b *bin.Buffer) e
 // EncodeBare implements bin.BareEncoder.
 func (r *ReportChatSponsoredMessageResultOptionRequired) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChatSponsoredMessageResultOptionRequired#314c2d73 as nil")
+		return fmt.Errorf("can't encode reportChatSponsoredMessageResultOptionRequired#34fc24b2 as nil")
 	}
 	b.PutString(r.Title)
 	b.PutInt(len(r.Options))
 	for idx, v := range r.Options {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare reportChatSponsoredMessageResultOptionRequired#314c2d73: field options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare reportChatSponsoredMessageResultOptionRequired#34fc24b2: field options element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -408,10 +408,10 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) EncodeBare(b *bin.Buffe
 // Decode implements bin.Decoder.
 func (r *ReportChatSponsoredMessageResultOptionRequired) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChatSponsoredMessageResultOptionRequired#314c2d73 to nil")
+		return fmt.Errorf("can't decode reportChatSponsoredMessageResultOptionRequired#34fc24b2 to nil")
 	}
 	if err := b.ConsumeID(ReportChatSponsoredMessageResultOptionRequiredTypeID); err != nil {
-		return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: %w", err)
+		return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -419,28 +419,28 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) Decode(b *bin.Buffer) e
 // DecodeBare implements bin.BareDecoder.
 func (r *ReportChatSponsoredMessageResultOptionRequired) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChatSponsoredMessageResultOptionRequired#314c2d73 to nil")
+		return fmt.Errorf("can't decode reportChatSponsoredMessageResultOptionRequired#34fc24b2 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: field title: %w", err)
+			return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: field title: %w", err)
 		}
 		r.Title = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: field options: %w", err)
+			return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: field options: %w", err)
 		}
 
 		if headerLen > 0 {
-			r.Options = make([]ReportChatSponsoredMessageOption, 0, headerLen%bin.PreallocateLimit)
+			r.Options = make([]ReportOption, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value ReportChatSponsoredMessageOption
+			var value ReportOption
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare reportChatSponsoredMessageResultOptionRequired#314c2d73: field options: %w", err)
+				return fmt.Errorf("unable to decode bare reportChatSponsoredMessageResultOptionRequired#34fc24b2: field options: %w", err)
 			}
 			r.Options = append(r.Options, value)
 		}
@@ -451,7 +451,7 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) DecodeBare(b *bin.Buffe
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReportChatSponsoredMessageResultOptionRequired) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChatSponsoredMessageResultOptionRequired#314c2d73 as nil")
+		return fmt.Errorf("can't encode reportChatSponsoredMessageResultOptionRequired#34fc24b2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("reportChatSponsoredMessageResultOptionRequired")
@@ -463,7 +463,7 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) EncodeTDLibJSON(b tdjso
 	b.ArrStart()
 	for idx, v := range r.Options {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode reportChatSponsoredMessageResultOptionRequired#314c2d73: field options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode reportChatSponsoredMessageResultOptionRequired#34fc24b2: field options element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -478,31 +478,31 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) EncodeTDLibJSON(b tdjso
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReportChatSponsoredMessageResultOptionRequired) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChatSponsoredMessageResultOptionRequired#314c2d73 to nil")
+		return fmt.Errorf("can't decode reportChatSponsoredMessageResultOptionRequired#34fc24b2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reportChatSponsoredMessageResultOptionRequired"); err != nil {
-				return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: %w", err)
+				return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: field title: %w", err)
+				return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: field title: %w", err)
 			}
 			r.Title = value
 		case "options":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ReportChatSponsoredMessageOption
+				var value ReportOption
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: field options: %w", err)
+					return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: field options: %w", err)
 				}
 				r.Options = append(r.Options, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#314c2d73: field options: %w", err)
+				return fmt.Errorf("unable to decode reportChatSponsoredMessageResultOptionRequired#34fc24b2: field options: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -520,7 +520,7 @@ func (r *ReportChatSponsoredMessageResultOptionRequired) GetTitle() (value strin
 }
 
 // GetOptions returns value of Options field.
-func (r *ReportChatSponsoredMessageResultOptionRequired) GetOptions() (value []ReportChatSponsoredMessageOption) {
+func (r *ReportChatSponsoredMessageResultOptionRequired) GetOptions() (value []ReportOption) {
 	if r == nil {
 		return
 	}
@@ -807,7 +807,7 @@ const ReportChatSponsoredMessageResultClassName = "ReportChatSponsoredMessageRes
 //	switch v := g.(type) {
 //	case *tdapi.ReportChatSponsoredMessageResultOk: // reportChatSponsoredMessageResultOk#754f721f
 //	case *tdapi.ReportChatSponsoredMessageResultFailed: // reportChatSponsoredMessageResultFailed#7f1f9bc6
-//	case *tdapi.ReportChatSponsoredMessageResultOptionRequired: // reportChatSponsoredMessageResultOptionRequired#314c2d73
+//	case *tdapi.ReportChatSponsoredMessageResultOptionRequired: // reportChatSponsoredMessageResultOptionRequired#34fc24b2
 //	case *tdapi.ReportChatSponsoredMessageResultAdsHidden: // reportChatSponsoredMessageResultAdsHidden#e8eade1e
 //	case *tdapi.ReportChatSponsoredMessageResultPremiumRequired: // reportChatSponsoredMessageResultPremiumRequired#770c2ed0
 //	default: panic(v)
@@ -856,7 +856,7 @@ func DecodeReportChatSponsoredMessageResult(buf *bin.Buffer) (ReportChatSponsore
 		}
 		return &v, nil
 	case ReportChatSponsoredMessageResultOptionRequiredTypeID:
-		// Decoding reportChatSponsoredMessageResultOptionRequired#314c2d73.
+		// Decoding reportChatSponsoredMessageResultOptionRequired#34fc24b2.
 		v := ReportChatSponsoredMessageResultOptionRequired{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReportChatSponsoredMessageResultClass: %w", err)
@@ -903,7 +903,7 @@ func DecodeTDLibJSONReportChatSponsoredMessageResult(buf tdjson.Decoder) (Report
 		}
 		return &v, nil
 	case "reportChatSponsoredMessageResultOptionRequired":
-		// Decoding reportChatSponsoredMessageResultOptionRequired#314c2d73.
+		// Decoding reportChatSponsoredMessageResultOptionRequired#34fc24b2.
 		v := ReportChatSponsoredMessageResultOptionRequired{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReportChatSponsoredMessageResultClass: %w", err)

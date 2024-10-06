@@ -31,21 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReportChatRequest represents TL type `reportChat#d92c3a8a`.
+// ReportChatRequest represents TL type `reportChat#54f7972f`.
 type ReportChatRequest struct {
 	// Chat identifier
 	ChatID int64
-	// Identifiers of reported messages; may be empty to report the whole chat. Use
-	// messageProperties.can_be_reported to check whether the message can be reported
+	// Option identifier chosen by the user; leave empty for the initial request
+	OptionID []byte
+	// Identifiers of reported messages. Use messageProperties.can_report_chat to check
+	// whether the message can be reported
 	MessageIDs []int64
-	// The reason for reporting the chat
-	Reason ReportReasonClass
-	// Additional report details; 0-1024 characters
+	// Additional report details if asked by the server; 0-1024 characters; leave empty for
+	// the initial request
 	Text string
 }
 
 // ReportChatRequestTypeID is TL type id of ReportChatRequest.
-const ReportChatRequestTypeID = 0xd92c3a8a
+const ReportChatRequestTypeID = 0x54f7972f
 
 // Ensuring interfaces in compile-time for ReportChatRequest.
 var (
@@ -62,10 +63,10 @@ func (r *ReportChatRequest) Zero() bool {
 	if !(r.ChatID == 0) {
 		return false
 	}
-	if !(r.MessageIDs == nil) {
+	if !(r.OptionID == nil) {
 		return false
 	}
-	if !(r.Reason == nil) {
+	if !(r.MessageIDs == nil) {
 		return false
 	}
 	if !(r.Text == "") {
@@ -112,12 +113,12 @@ func (r *ReportChatRequest) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "MessageIDs",
-			SchemaName: "message_ids",
+			Name:       "OptionID",
+			SchemaName: "option_id",
 		},
 		{
-			Name:       "Reason",
-			SchemaName: "reason",
+			Name:       "MessageIDs",
+			SchemaName: "message_ids",
 		},
 		{
 			Name:       "Text",
@@ -130,7 +131,7 @@ func (r *ReportChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReportChatRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChat#d92c3a8a as nil")
+		return fmt.Errorf("can't encode reportChat#54f7972f as nil")
 	}
 	b.PutID(ReportChatRequestTypeID)
 	return r.EncodeBare(b)
@@ -139,18 +140,13 @@ func (r *ReportChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReportChatRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChat#d92c3a8a as nil")
+		return fmt.Errorf("can't encode reportChat#54f7972f as nil")
 	}
 	b.PutInt53(r.ChatID)
+	b.PutBytes(r.OptionID)
 	b.PutInt(len(r.MessageIDs))
 	for _, v := range r.MessageIDs {
 		b.PutInt53(v)
-	}
-	if r.Reason == nil {
-		return fmt.Errorf("unable to encode reportChat#d92c3a8a: field reason is nil")
-	}
-	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reportChat#d92c3a8a: field reason: %w", err)
 	}
 	b.PutString(r.Text)
 	return nil
@@ -159,10 +155,10 @@ func (r *ReportChatRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReportChatRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChat#d92c3a8a to nil")
+		return fmt.Errorf("can't decode reportChat#54f7972f to nil")
 	}
 	if err := b.ConsumeID(ReportChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode reportChat#d92c3a8a: %w", err)
+		return fmt.Errorf("unable to decode reportChat#54f7972f: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -170,19 +166,26 @@ func (r *ReportChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChat#d92c3a8a to nil")
+		return fmt.Errorf("can't decode reportChat#54f7972f to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChat#d92c3a8a: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode reportChat#54f7972f: field chat_id: %w", err)
 		}
 		r.ChatID = value
 	}
 	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode reportChat#54f7972f: field option_id: %w", err)
+		}
+		r.OptionID = value
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChat#d92c3a8a: field message_ids: %w", err)
+			return fmt.Errorf("unable to decode reportChat#54f7972f: field message_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -191,22 +194,15 @@ func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChat#d92c3a8a: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode reportChat#54f7972f: field message_ids: %w", err)
 			}
 			r.MessageIDs = append(r.MessageIDs, value)
 		}
 	}
 	{
-		value, err := DecodeReportReason(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode reportChat#d92c3a8a: field reason: %w", err)
-		}
-		r.Reason = value
-	}
-	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChat#d92c3a8a: field text: %w", err)
+			return fmt.Errorf("unable to decode reportChat#54f7972f: field text: %w", err)
 		}
 		r.Text = value
 	}
@@ -216,13 +212,16 @@ func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReportChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChat#d92c3a8a as nil")
+		return fmt.Errorf("can't encode reportChat#54f7972f as nil")
 	}
 	b.ObjStart()
 	b.PutID("reportChat")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(r.ChatID)
+	b.Comma()
+	b.FieldStart("option_id")
+	b.PutBytes(r.OptionID)
 	b.Comma()
 	b.FieldStart("message_ids")
 	b.ArrStart()
@@ -232,14 +231,6 @@ func (r *ReportChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.StripComma()
 	b.ArrEnd()
-	b.Comma()
-	b.FieldStart("reason")
-	if r.Reason == nil {
-		return fmt.Errorf("unable to encode reportChat#d92c3a8a: field reason is nil")
-	}
-	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reportChat#d92c3a8a: field reason: %w", err)
-	}
 	b.Comma()
 	b.FieldStart("text")
 	b.PutString(r.Text)
@@ -252,42 +243,42 @@ func (r *ReportChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReportChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChat#d92c3a8a to nil")
+		return fmt.Errorf("can't decode reportChat#54f7972f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reportChat"); err != nil {
-				return fmt.Errorf("unable to decode reportChat#d92c3a8a: %w", err)
+				return fmt.Errorf("unable to decode reportChat#54f7972f: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChat#d92c3a8a: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode reportChat#54f7972f: field chat_id: %w", err)
 			}
 			r.ChatID = value
+		case "option_id":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChat#54f7972f: field option_id: %w", err)
+			}
+			r.OptionID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode reportChat#d92c3a8a: field message_ids: %w", err)
+					return fmt.Errorf("unable to decode reportChat#54f7972f: field message_ids: %w", err)
 				}
 				r.MessageIDs = append(r.MessageIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode reportChat#d92c3a8a: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode reportChat#54f7972f: field message_ids: %w", err)
 			}
-		case "reason":
-			value, err := DecodeTDLibJSONReportReason(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode reportChat#d92c3a8a: field reason: %w", err)
-			}
-			r.Reason = value
 		case "text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChat#d92c3a8a: field text: %w", err)
+				return fmt.Errorf("unable to decode reportChat#54f7972f: field text: %w", err)
 			}
 			r.Text = value
 		default:
@@ -305,20 +296,20 @@ func (r *ReportChatRequest) GetChatID() (value int64) {
 	return r.ChatID
 }
 
+// GetOptionID returns value of OptionID field.
+func (r *ReportChatRequest) GetOptionID() (value []byte) {
+	if r == nil {
+		return
+	}
+	return r.OptionID
+}
+
 // GetMessageIDs returns value of MessageIDs field.
 func (r *ReportChatRequest) GetMessageIDs() (value []int64) {
 	if r == nil {
 		return
 	}
 	return r.MessageIDs
-}
-
-// GetReason returns value of Reason field.
-func (r *ReportChatRequest) GetReason() (value ReportReasonClass) {
-	if r == nil {
-		return
-	}
-	return r.Reason
 }
 
 // GetText returns value of Text field.
@@ -329,12 +320,12 @@ func (r *ReportChatRequest) GetText() (value string) {
 	return r.Text
 }
 
-// ReportChat invokes method reportChat#d92c3a8a returning error if any.
-func (c *Client) ReportChat(ctx context.Context, request *ReportChatRequest) error {
-	var ok Ok
+// ReportChat invokes method reportChat#54f7972f returning error if any.
+func (c *Client) ReportChat(ctx context.Context, request *ReportChatRequest) (ReportChatResultClass, error) {
+	var result ReportChatResultBox
 
-	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
-		return err
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
+		return nil, err
 	}
-	return nil
+	return result.ReportChatResult, nil
 }

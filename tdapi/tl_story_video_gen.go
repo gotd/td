@@ -48,7 +48,7 @@ type StoryVideo struct {
 	Minithumbnail Minithumbnail
 	// Video thumbnail in JPEG or MPEG4 format; may be null
 	Thumbnail Thumbnail
-	// Size of file prefix, which is supposed to be preloaded, in bytes
+	// Size of file prefix, which is expected to be preloaded, in bytes
 	PreloadPrefixSize int32
 	// Timestamp of the frame used as video thumbnail
 	CoverFrameTimestamp float64

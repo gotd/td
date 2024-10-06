@@ -37,7 +37,7 @@ type CreateVideoChatRequest struct {
 	ChatID int64
 	// Group call title; if empty, chat title will be used
 	Title string
-	// Point in time (Unix timestamp) when the group call is supposed to be started by an
+	// Point in time (Unix timestamp) when the group call is expected to be started by an
 	// administrator; 0 to start the video chat immediately. The date must be at least 10
 	// seconds and at most 8 days in the future
 	StartDate int32

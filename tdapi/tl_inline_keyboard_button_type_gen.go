@@ -1570,6 +1570,172 @@ func (i *InlineKeyboardButtonTypeUser) GetUserID() (value int64) {
 	return i.UserID
 }
 
+// InlineKeyboardButtonTypeCopyText represents TL type `inlineKeyboardButtonTypeCopyText#41b1306`.
+type InlineKeyboardButtonTypeCopyText struct {
+	// The text to copy to clipboard
+	Text string
+}
+
+// InlineKeyboardButtonTypeCopyTextTypeID is TL type id of InlineKeyboardButtonTypeCopyText.
+const InlineKeyboardButtonTypeCopyTextTypeID = 0x41b1306
+
+// construct implements constructor of InlineKeyboardButtonTypeClass.
+func (i InlineKeyboardButtonTypeCopyText) construct() InlineKeyboardButtonTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineKeyboardButtonTypeCopyText.
+var (
+	_ bin.Encoder     = &InlineKeyboardButtonTypeCopyText{}
+	_ bin.Decoder     = &InlineKeyboardButtonTypeCopyText{}
+	_ bin.BareEncoder = &InlineKeyboardButtonTypeCopyText{}
+	_ bin.BareDecoder = &InlineKeyboardButtonTypeCopyText{}
+
+	_ InlineKeyboardButtonTypeClass = &InlineKeyboardButtonTypeCopyText{}
+)
+
+func (i *InlineKeyboardButtonTypeCopyText) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Text == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InlineKeyboardButtonTypeCopyText) String() string {
+	if i == nil {
+		return "InlineKeyboardButtonTypeCopyText(nil)"
+	}
+	type Alias InlineKeyboardButtonTypeCopyText
+	return fmt.Sprintf("InlineKeyboardButtonTypeCopyText%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InlineKeyboardButtonTypeCopyText) TypeID() uint32 {
+	return InlineKeyboardButtonTypeCopyTextTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InlineKeyboardButtonTypeCopyText) TypeName() string {
+	return "inlineKeyboardButtonTypeCopyText"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineKeyboardButtonTypeCopyText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineKeyboardButtonTypeCopyText",
+		ID:   InlineKeyboardButtonTypeCopyTextTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InlineKeyboardButtonTypeCopyText) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeCopyText#41b1306 as nil")
+	}
+	b.PutID(InlineKeyboardButtonTypeCopyTextTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineKeyboardButtonTypeCopyText) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeCopyText#41b1306 as nil")
+	}
+	b.PutString(i.Text)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InlineKeyboardButtonTypeCopyText) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeCopyText#41b1306 to nil")
+	}
+	if err := b.ConsumeID(InlineKeyboardButtonTypeCopyTextTypeID); err != nil {
+		return fmt.Errorf("unable to decode inlineKeyboardButtonTypeCopyText#41b1306: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineKeyboardButtonTypeCopyText) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeCopyText#41b1306 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeCopyText#41b1306: field text: %w", err)
+		}
+		i.Text = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineKeyboardButtonTypeCopyText) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeCopyText#41b1306 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeCopyText")
+	b.Comma()
+	b.FieldStart("text")
+	b.PutString(i.Text)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineKeyboardButtonTypeCopyText) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeCopyText#41b1306 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inlineKeyboardButtonTypeCopyText"); err != nil {
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeCopyText#41b1306: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeCopyText#41b1306: field text: %w", err)
+			}
+			i.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetText returns value of Text field.
+func (i *InlineKeyboardButtonTypeCopyText) GetText() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Text
+}
+
 // InlineKeyboardButtonTypeClassName is schema name of InlineKeyboardButtonTypeClass.
 const InlineKeyboardButtonTypeClassName = "InlineKeyboardButtonType"
 
@@ -1591,6 +1757,7 @@ const InlineKeyboardButtonTypeClassName = "InlineKeyboardButtonType"
 //	case *tdapi.InlineKeyboardButtonTypeSwitchInline: // inlineKeyboardButtonTypeSwitchInline#207a9cf5
 //	case *tdapi.InlineKeyboardButtonTypeBuy: // inlineKeyboardButtonTypeBuy#511b3c70
 //	case *tdapi.InlineKeyboardButtonTypeUser: // inlineKeyboardButtonTypeUser#6d77e5a2
+//	case *tdapi.InlineKeyboardButtonTypeCopyText: // inlineKeyboardButtonTypeCopyText#41b1306
 //	default: panic(v)
 //	}
 type InlineKeyboardButtonTypeClass interface {
@@ -1685,6 +1852,13 @@ func DecodeInlineKeyboardButtonType(buf *bin.Buffer) (InlineKeyboardButtonTypeCl
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
 		}
 		return &v, nil
+	case InlineKeyboardButtonTypeCopyTextTypeID:
+		// Decoding inlineKeyboardButtonTypeCopyText#41b1306.
+		v := InlineKeyboardButtonTypeCopyText{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1756,6 +1930,13 @@ func DecodeTDLibJSONInlineKeyboardButtonType(buf tdjson.Decoder) (InlineKeyboard
 	case "inlineKeyboardButtonTypeUser":
 		// Decoding inlineKeyboardButtonTypeUser#6d77e5a2.
 		v := InlineKeyboardButtonTypeUser{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case "inlineKeyboardButtonTypeCopyText":
+		// Decoding inlineKeyboardButtonTypeCopyText#41b1306.
+		v := InlineKeyboardButtonTypeCopyText{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
 		}

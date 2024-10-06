@@ -42,9 +42,9 @@ type MessageCopyOptions struct {
 	// New message caption; pass null to copy message without caption. Ignored if
 	// replace_caption is false
 	NewCaption FormattedText
-	// True, if new caption must be shown above the animation; otherwise, new caption must be
-	// shown below the animation; not supported in secret chats. Ignored if replace_caption
-	// is false
+	// True, if new caption must be shown above the media; otherwise, new caption must be
+	// shown below the media; not supported in secret chats. Ignored if replace_caption is
+	// false
 	NewShowCaptionAboveMedia bool
 }
 

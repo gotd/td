@@ -201,7 +201,8 @@ func (s *StoryContentPhoto) GetPhoto() (value Photo) {
 type StoryContentVideo struct {
 	// The video in MPEG4 format
 	Video StoryVideo
-	// Alternative version of the video in MPEG4 format, encoded by x264 codec; may be null
+	// Alternative version of the video in MPEG4 format, encoded with H.264 codec; may be
+	// null
 	AlternativeVideo StoryVideo
 }
 

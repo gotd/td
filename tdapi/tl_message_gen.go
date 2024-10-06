@@ -51,7 +51,8 @@ type Message struct {
 	// True, if the message was sent because of a scheduled action by the message sender, for
 	// example, as away, or greeting service message
 	IsFromOffline bool
-	// True, if content of the message can be saved locally or copied
+	// True, if content of the message can be saved locally or copied using
+	// inputMessageForwarded or forwardMessages with copy options
 	CanBeSaved bool
 	// True, if media timestamp entities refers to a media in this message as opposed to a
 	// media in the replied message

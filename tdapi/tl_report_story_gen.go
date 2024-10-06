@@ -31,20 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReportStoryRequest represents TL type `reportStory#9b5f709b`.
+// ReportStoryRequest represents TL type `reportStory#78de7310`.
 type ReportStoryRequest struct {
 	// The identifier of the sender of the story to report
 	StorySenderChatID int64
 	// The identifier of the story to report
 	StoryID int32
-	// The reason for reporting the story
-	Reason ReportReasonClass
-	// Additional report details; 0-1024 characters
+	// Option identifier chosen by the user; leave empty for the initial request
+	OptionID []byte
+	// Additional report details; 0-1024 characters; leave empty for the initial request
 	Text string
 }
 
 // ReportStoryRequestTypeID is TL type id of ReportStoryRequest.
-const ReportStoryRequestTypeID = 0x9b5f709b
+const ReportStoryRequestTypeID = 0x78de7310
 
 // Ensuring interfaces in compile-time for ReportStoryRequest.
 var (
@@ -64,7 +64,7 @@ func (r *ReportStoryRequest) Zero() bool {
 	if !(r.StoryID == 0) {
 		return false
 	}
-	if !(r.Reason == nil) {
+	if !(r.OptionID == nil) {
 		return false
 	}
 	if !(r.Text == "") {
@@ -115,8 +115,8 @@ func (r *ReportStoryRequest) TypeInfo() tdp.Type {
 			SchemaName: "story_id",
 		},
 		{
-			Name:       "Reason",
-			SchemaName: "reason",
+			Name:       "OptionID",
+			SchemaName: "option_id",
 		},
 		{
 			Name:       "Text",
@@ -129,7 +129,7 @@ func (r *ReportStoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReportStoryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportStory#9b5f709b as nil")
+		return fmt.Errorf("can't encode reportStory#78de7310 as nil")
 	}
 	b.PutID(ReportStoryRequestTypeID)
 	return r.EncodeBare(b)
@@ -138,16 +138,11 @@ func (r *ReportStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReportStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportStory#9b5f709b as nil")
+		return fmt.Errorf("can't encode reportStory#78de7310 as nil")
 	}
 	b.PutInt53(r.StorySenderChatID)
 	b.PutInt32(r.StoryID)
-	if r.Reason == nil {
-		return fmt.Errorf("unable to encode reportStory#9b5f709b: field reason is nil")
-	}
-	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reportStory#9b5f709b: field reason: %w", err)
-	}
+	b.PutBytes(r.OptionID)
 	b.PutString(r.Text)
 	return nil
 }
@@ -155,10 +150,10 @@ func (r *ReportStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReportStoryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportStory#9b5f709b to nil")
+		return fmt.Errorf("can't decode reportStory#78de7310 to nil")
 	}
 	if err := b.ConsumeID(ReportStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode reportStory#9b5f709b: %w", err)
+		return fmt.Errorf("unable to decode reportStory#78de7310: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -166,33 +161,33 @@ func (r *ReportStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReportStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportStory#9b5f709b to nil")
+		return fmt.Errorf("can't decode reportStory#78de7310 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportStory#9b5f709b: field story_sender_chat_id: %w", err)
+			return fmt.Errorf("unable to decode reportStory#78de7310: field story_sender_chat_id: %w", err)
 		}
 		r.StorySenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportStory#9b5f709b: field story_id: %w", err)
+			return fmt.Errorf("unable to decode reportStory#78de7310: field story_id: %w", err)
 		}
 		r.StoryID = value
 	}
 	{
-		value, err := DecodeReportReason(b)
+		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportStory#9b5f709b: field reason: %w", err)
+			return fmt.Errorf("unable to decode reportStory#78de7310: field option_id: %w", err)
 		}
-		r.Reason = value
+		r.OptionID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportStory#9b5f709b: field text: %w", err)
+			return fmt.Errorf("unable to decode reportStory#78de7310: field text: %w", err)
 		}
 		r.Text = value
 	}
@@ -202,7 +197,7 @@ func (r *ReportStoryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReportStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportStory#9b5f709b as nil")
+		return fmt.Errorf("can't encode reportStory#78de7310 as nil")
 	}
 	b.ObjStart()
 	b.PutID("reportStory")
@@ -213,13 +208,8 @@ func (r *ReportStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("story_id")
 	b.PutInt32(r.StoryID)
 	b.Comma()
-	b.FieldStart("reason")
-	if r.Reason == nil {
-		return fmt.Errorf("unable to encode reportStory#9b5f709b: field reason is nil")
-	}
-	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reportStory#9b5f709b: field reason: %w", err)
-	}
+	b.FieldStart("option_id")
+	b.PutBytes(r.OptionID)
 	b.Comma()
 	b.FieldStart("text")
 	b.PutString(r.Text)
@@ -232,37 +222,37 @@ func (r *ReportStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReportStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportStory#9b5f709b to nil")
+		return fmt.Errorf("can't decode reportStory#78de7310 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reportStory"); err != nil {
-				return fmt.Errorf("unable to decode reportStory#9b5f709b: %w", err)
+				return fmt.Errorf("unable to decode reportStory#78de7310: %w", err)
 			}
 		case "story_sender_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportStory#9b5f709b: field story_sender_chat_id: %w", err)
+				return fmt.Errorf("unable to decode reportStory#78de7310: field story_sender_chat_id: %w", err)
 			}
 			r.StorySenderChatID = value
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportStory#9b5f709b: field story_id: %w", err)
+				return fmt.Errorf("unable to decode reportStory#78de7310: field story_id: %w", err)
 			}
 			r.StoryID = value
-		case "reason":
-			value, err := DecodeTDLibJSONReportReason(b)
+		case "option_id":
+			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportStory#9b5f709b: field reason: %w", err)
+				return fmt.Errorf("unable to decode reportStory#78de7310: field option_id: %w", err)
 			}
-			r.Reason = value
+			r.OptionID = value
 		case "text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportStory#9b5f709b: field text: %w", err)
+				return fmt.Errorf("unable to decode reportStory#78de7310: field text: %w", err)
 			}
 			r.Text = value
 		default:
@@ -288,12 +278,12 @@ func (r *ReportStoryRequest) GetStoryID() (value int32) {
 	return r.StoryID
 }
 
-// GetReason returns value of Reason field.
-func (r *ReportStoryRequest) GetReason() (value ReportReasonClass) {
+// GetOptionID returns value of OptionID field.
+func (r *ReportStoryRequest) GetOptionID() (value []byte) {
 	if r == nil {
 		return
 	}
-	return r.Reason
+	return r.OptionID
 }
 
 // GetText returns value of Text field.
@@ -304,12 +294,12 @@ func (r *ReportStoryRequest) GetText() (value string) {
 	return r.Text
 }
 
-// ReportStory invokes method reportStory#9b5f709b returning error if any.
-func (c *Client) ReportStory(ctx context.Context, request *ReportStoryRequest) error {
-	var ok Ok
+// ReportStory invokes method reportStory#78de7310 returning error if any.
+func (c *Client) ReportStory(ctx context.Context, request *ReportStoryRequest) (ReportStoryResultClass, error) {
+	var result ReportStoryResultBox
 
-	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
-		return err
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
+		return nil, err
 	}
-	return nil
+	return result.ReportStoryResult, nil
 }

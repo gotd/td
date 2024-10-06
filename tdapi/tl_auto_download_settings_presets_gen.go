@@ -33,11 +33,11 @@ var (
 
 // AutoDownloadSettingsPresets represents TL type `autoDownloadSettingsPresets#d1621d22`.
 type AutoDownloadSettingsPresets struct {
-	// Preset with lowest settings; supposed to be used by default when roaming
+	// Preset with lowest settings; expected to be used by default when roaming
 	Low AutoDownloadSettings
-	// Preset with medium settings; supposed to be used by default when using mobile data
+	// Preset with medium settings; expected to be used by default when using mobile data
 	Medium AutoDownloadSettings
-	// Preset with highest settings; supposed to be used by default when connected on Wi-Fi
+	// Preset with highest settings; expected to be used by default when connected on Wi-Fi
 	High AutoDownloadSettings
 }
 

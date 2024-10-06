@@ -284,7 +284,7 @@ type GiveawayInfoCompleted struct {
 	ActualWinnersSelectionDate int32
 	// True, if the giveaway was canceled and was fully refunded
 	WasRefunded bool
-	// True, if the cuurent user is a winner of the giveaway
+	// True, if the current user is a winner of the giveaway
 	IsWinner bool
 	// Number of winners in the giveaway
 	WinnerCount int32

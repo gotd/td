@@ -35,7 +35,7 @@ var (
 type GetSuggestedFileNameRequest struct {
 	// Identifier of the file
 	FileID int32
-	// Directory in which the file is supposed to be saved
+	// Directory in which the file is expected to be saved
 	Directory string
 }
 
