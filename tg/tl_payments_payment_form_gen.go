@@ -1173,6 +1173,167 @@ func (p *PaymentsPaymentFormStars) MapUsers() (value UserClassArray) {
 	return UserClassArray(p.Users)
 }
 
+// PaymentsPaymentFormStarGift represents TL type `payments.paymentFormStarGift#b425cfe1`.
+//
+// See https://core.telegram.org/constructor/payments.paymentFormStarGift for reference.
+type PaymentsPaymentFormStarGift struct {
+	// FormID field of PaymentsPaymentFormStarGift.
+	FormID int64
+	// Invoice field of PaymentsPaymentFormStarGift.
+	Invoice Invoice
+}
+
+// PaymentsPaymentFormStarGiftTypeID is TL type id of PaymentsPaymentFormStarGift.
+const PaymentsPaymentFormStarGiftTypeID = 0xb425cfe1
+
+// construct implements constructor of PaymentsPaymentFormClass.
+func (p PaymentsPaymentFormStarGift) construct() PaymentsPaymentFormClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentFormStarGift.
+var (
+	_ bin.Encoder     = &PaymentsPaymentFormStarGift{}
+	_ bin.Decoder     = &PaymentsPaymentFormStarGift{}
+	_ bin.BareEncoder = &PaymentsPaymentFormStarGift{}
+	_ bin.BareDecoder = &PaymentsPaymentFormStarGift{}
+
+	_ PaymentsPaymentFormClass = &PaymentsPaymentFormStarGift{}
+)
+
+func (p *PaymentsPaymentFormStarGift) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.FormID == 0) {
+		return false
+	}
+	if !(p.Invoice.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentFormStarGift) String() string {
+	if p == nil {
+		return "PaymentsPaymentFormStarGift(nil)"
+	}
+	type Alias PaymentsPaymentFormStarGift
+	return fmt.Sprintf("PaymentsPaymentFormStarGift%+v", Alias(*p))
+}
+
+// FillFrom fills PaymentsPaymentFormStarGift from given interface.
+func (p *PaymentsPaymentFormStarGift) FillFrom(from interface {
+	GetFormID() (value int64)
+	GetInvoice() (value Invoice)
+}) {
+	p.FormID = from.GetFormID()
+	p.Invoice = from.GetInvoice()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PaymentsPaymentFormStarGift) TypeID() uint32 {
+	return PaymentsPaymentFormStarGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PaymentsPaymentFormStarGift) TypeName() string {
+	return "payments.paymentFormStarGift"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentFormStarGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentFormStarGift",
+		ID:   PaymentsPaymentFormStarGiftTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FormID",
+			SchemaName: "form_id",
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PaymentsPaymentFormStarGift) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentFormStarGift#b425cfe1 as nil")
+	}
+	b.PutID(PaymentsPaymentFormStarGiftTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentFormStarGift) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentFormStarGift#b425cfe1 as nil")
+	}
+	b.PutLong(p.FormID)
+	if err := p.Invoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.paymentFormStarGift#b425cfe1: field invoice: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PaymentsPaymentFormStarGift) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentFormStarGift#b425cfe1 to nil")
+	}
+	if err := b.ConsumeID(PaymentsPaymentFormStarGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode payments.paymentFormStarGift#b425cfe1: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentFormStarGift) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentFormStarGift#b425cfe1 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStarGift#b425cfe1: field form_id: %w", err)
+		}
+		p.FormID = value
+	}
+	{
+		if err := p.Invoice.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.paymentFormStarGift#b425cfe1: field invoice: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetFormID returns value of FormID field.
+func (p *PaymentsPaymentFormStarGift) GetFormID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.FormID
+}
+
+// GetInvoice returns value of Invoice field.
+func (p *PaymentsPaymentFormStarGift) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
+	return p.Invoice
+}
+
 // PaymentsPaymentFormClassName is schema name of PaymentsPaymentFormClass.
 const PaymentsPaymentFormClassName = "payments.PaymentForm"
 
@@ -1189,6 +1350,7 @@ const PaymentsPaymentFormClassName = "payments.PaymentForm"
 //	switch v := g.(type) {
 //	case *tg.PaymentsPaymentForm: // payments.paymentForm#a0058751
 //	case *tg.PaymentsPaymentFormStars: // payments.paymentFormStars#7bf6b15c
+//	case *tg.PaymentsPaymentFormStarGift: // payments.paymentFormStarGift#b425cfe1
 //	default: panic(v)
 //	}
 type PaymentsPaymentFormClass interface {
@@ -1212,25 +1374,8 @@ type PaymentsPaymentFormClass interface {
 	// Form ID
 	GetFormID() (value int64)
 
-	// Bot ID
-	GetBotID() (value int64)
-
-	// Form title
-	GetTitle() (value string)
-
-	// Description
-	GetDescription() (value string)
-
-	// Product photo
-	GetPhoto() (value WebDocumentClass, ok bool)
-
 	// Invoice
 	GetInvoice() (value Invoice)
-
-	// Users
-	GetUsers() (value []UserClass)
-	// Users
-	MapUsers() (value UserClassArray)
 }
 
 // DecodePaymentsPaymentForm implements binary de-serialization for PaymentsPaymentFormClass.
@@ -1250,6 +1395,13 @@ func DecodePaymentsPaymentForm(buf *bin.Buffer) (PaymentsPaymentFormClass, error
 	case PaymentsPaymentFormStarsTypeID:
 		// Decoding payments.paymentFormStars#7bf6b15c.
 		v := PaymentsPaymentFormStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentsPaymentFormClass: %w", err)
+		}
+		return &v, nil
+	case PaymentsPaymentFormStarGiftTypeID:
+		// Decoding payments.paymentFormStarGift#b425cfe1.
+		v := PaymentsPaymentFormStarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentsPaymentFormClass: %w", err)
 		}

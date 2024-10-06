@@ -9090,6 +9090,338 @@ func (m *MessageActionPrizeStars) GetGiveawayMsgID() (value int) {
 	return m.GiveawayMsgID
 }
 
+// MessageActionStarGift represents TL type `messageActionStarGift#9bb3ef44`.
+//
+// See https://core.telegram.org/constructor/messageActionStarGift for reference.
+type MessageActionStarGift struct {
+	// Flags field of MessageActionStarGift.
+	Flags bin.Fields
+	// NameHidden field of MessageActionStarGift.
+	NameHidden bool
+	// Saved field of MessageActionStarGift.
+	Saved bool
+	// Converted field of MessageActionStarGift.
+	Converted bool
+	// Gift field of MessageActionStarGift.
+	Gift StarGift
+	// Message field of MessageActionStarGift.
+	//
+	// Use SetMessage and GetMessage helpers.
+	Message TextWithEntities
+	// ConvertStars field of MessageActionStarGift.
+	ConvertStars int64
+}
+
+// MessageActionStarGiftTypeID is TL type id of MessageActionStarGift.
+const MessageActionStarGiftTypeID = 0x9bb3ef44
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionStarGift) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionStarGift.
+var (
+	_ bin.Encoder     = &MessageActionStarGift{}
+	_ bin.Decoder     = &MessageActionStarGift{}
+	_ bin.BareEncoder = &MessageActionStarGift{}
+	_ bin.BareDecoder = &MessageActionStarGift{}
+
+	_ MessageActionClass = &MessageActionStarGift{}
+)
+
+func (m *MessageActionStarGift) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.NameHidden == false) {
+		return false
+	}
+	if !(m.Saved == false) {
+		return false
+	}
+	if !(m.Converted == false) {
+		return false
+	}
+	if !(m.Gift.Zero()) {
+		return false
+	}
+	if !(m.Message.Zero()) {
+		return false
+	}
+	if !(m.ConvertStars == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionStarGift) String() string {
+	if m == nil {
+		return "MessageActionStarGift(nil)"
+	}
+	type Alias MessageActionStarGift
+	return fmt.Sprintf("MessageActionStarGift%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionStarGift from given interface.
+func (m *MessageActionStarGift) FillFrom(from interface {
+	GetNameHidden() (value bool)
+	GetSaved() (value bool)
+	GetConverted() (value bool)
+	GetGift() (value StarGift)
+	GetMessage() (value TextWithEntities, ok bool)
+	GetConvertStars() (value int64)
+}) {
+	m.NameHidden = from.GetNameHidden()
+	m.Saved = from.GetSaved()
+	m.Converted = from.GetConverted()
+	m.Gift = from.GetGift()
+	if val, ok := from.GetMessage(); ok {
+		m.Message = val
+	}
+
+	m.ConvertStars = from.GetConvertStars()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionStarGift) TypeID() uint32 {
+	return MessageActionStarGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionStarGift) TypeName() string {
+	return "messageActionStarGift"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionStarGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionStarGift",
+		ID:   MessageActionStarGiftTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NameHidden",
+			SchemaName: "name_hidden",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Saved",
+			SchemaName: "saved",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "Converted",
+			SchemaName: "converted",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Gift",
+			SchemaName: "gift",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "ConvertStars",
+			SchemaName: "convert_stars",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionStarGift) SetFlags() {
+	if !(m.NameHidden == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.Saved == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.Converted == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.Message.Zero()) {
+		m.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionStarGift) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionStarGift#9bb3ef44 as nil")
+	}
+	b.PutID(MessageActionStarGiftTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionStarGift) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionStarGift#9bb3ef44 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionStarGift#9bb3ef44: field flags: %w", err)
+	}
+	if err := m.Gift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionStarGift#9bb3ef44: field gift: %w", err)
+	}
+	if m.Flags.Has(1) {
+		if err := m.Message.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionStarGift#9bb3ef44: field message: %w", err)
+		}
+	}
+	b.PutLong(m.ConvertStars)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionStarGift) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionStarGift#9bb3ef44 to nil")
+	}
+	if err := b.ConsumeID(MessageActionStarGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionStarGift#9bb3ef44: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionStarGift) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionStarGift#9bb3ef44 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGift#9bb3ef44: field flags: %w", err)
+		}
+	}
+	m.NameHidden = m.Flags.Has(0)
+	m.Saved = m.Flags.Has(2)
+	m.Converted = m.Flags.Has(3)
+	{
+		if err := m.Gift.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGift#9bb3ef44: field gift: %w", err)
+		}
+	}
+	if m.Flags.Has(1) {
+		if err := m.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGift#9bb3ef44: field message: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGift#9bb3ef44: field convert_stars: %w", err)
+		}
+		m.ConvertStars = value
+	}
+	return nil
+}
+
+// SetNameHidden sets value of NameHidden conditional field.
+func (m *MessageActionStarGift) SetNameHidden(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.NameHidden = true
+	} else {
+		m.Flags.Unset(0)
+		m.NameHidden = false
+	}
+}
+
+// GetNameHidden returns value of NameHidden conditional field.
+func (m *MessageActionStarGift) GetNameHidden() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetSaved sets value of Saved conditional field.
+func (m *MessageActionStarGift) SetSaved(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.Saved = true
+	} else {
+		m.Flags.Unset(2)
+		m.Saved = false
+	}
+}
+
+// GetSaved returns value of Saved conditional field.
+func (m *MessageActionStarGift) GetSaved() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
+}
+
+// SetConverted sets value of Converted conditional field.
+func (m *MessageActionStarGift) SetConverted(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.Converted = true
+	} else {
+		m.Flags.Unset(3)
+		m.Converted = false
+	}
+}
+
+// GetConverted returns value of Converted conditional field.
+func (m *MessageActionStarGift) GetConverted() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
+}
+
+// GetGift returns value of Gift field.
+func (m *MessageActionStarGift) GetGift() (value StarGift) {
+	if m == nil {
+		return
+	}
+	return m.Gift
+}
+
+// SetMessage sets value of Message conditional field.
+func (m *MessageActionStarGift) SetMessage(value TextWithEntities) {
+	m.Flags.Set(1)
+	m.Message = value
+}
+
+// GetMessage returns value of Message conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionStarGift) GetMessage() (value TextWithEntities, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.Message, true
+}
+
+// GetConvertStars returns value of ConvertStars field.
+func (m *MessageActionStarGift) GetConvertStars() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.ConvertStars
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -9150,6 +9482,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPaymentRefunded: // messageActionPaymentRefunded#41b3e202
 //	case *tg.MessageActionGiftStars: // messageActionGiftStars#45d5b021
 //	case *tg.MessageActionPrizeStars: // messageActionPrizeStars#b00c47a2
+//	case *tg.MessageActionStarGift: // messageActionStarGift#9bb3ef44
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -9496,6 +9829,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionPrizeStarsTypeID:
 		// Decoding messageActionPrizeStars#b00c47a2.
 		v := MessageActionPrizeStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionStarGiftTypeID:
+		// Decoding messageActionStarGift#9bb3ef44.
+		v := MessageActionStarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
