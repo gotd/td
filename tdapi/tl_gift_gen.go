@@ -43,7 +43,8 @@ type Gift struct {
 	// default. If the gift was paid with just bought Telegram Stars, then full value can be
 	// claimed
 	DefaultSellStarCount int64
-	// Number of remaining times the gift can be purchased by all users; 0 if not limited
+	// Number of remaining times the gift can be purchased by all users; 0 if not limited or
+	// the gift was sold out
 	RemainingCount int32
 	// Number of total times the gift can be purchased by all users; 0 if not limited
 	TotalCount int32
