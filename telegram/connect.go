@@ -61,23 +61,36 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	// Note that we currently have no timeout on connection, so this is
 	// potentially eternal.
 	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
-
-	return backoff.RetryNotify(func() error {
-		if err := c.runUntilRestart(ctx); err != nil {
-			if c.isPermanentError(err) {
-				return backoff.Permanent(err)
-			}
-			return err
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(ctx context.Context) error {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-c.ready.Ready():
+			// Reset backoff on successful connection.
+			b.Reset()
+			return nil
 		}
-
-		return nil
-	}, b, func(err error, timeout time.Duration) {
-		c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
-
-		c.connMux.Lock()
-		c.conn = c.createPrimaryConn(nil)
-		c.connMux.Unlock()
 	})
+	g.Go(func(ctx context.Context) error {
+		return backoff.RetryNotify(func() error {
+			if err := c.runUntilRestart(ctx); err != nil {
+				if c.isPermanentError(err) {
+					return backoff.Permanent(err)
+				}
+				return err
+			}
+
+			return nil
+		}, b, func(err error, timeout time.Duration) {
+			c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
+
+			c.connMux.Lock()
+			c.conn = c.createPrimaryConn(nil)
+			c.connMux.Unlock()
+		})
+	})
+	return g.Wait()
 }
 
 func (c *Client) onReady() {
