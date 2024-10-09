@@ -63,14 +63,13 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(func(ctx context.Context) error {
-		for {
-			select {
-			case <-ctx.Done():
-				return ctx.Err()
-			case <-c.ready.Ready():
-				// Reset backoff on successful connection.
-				b.Reset()
-			}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-c.ready.Ready():
+			// Reset backoff on successful connection.
+			b.Reset()
+			return nil
 		}
 	})
 	g.Go(func(ctx context.Context) error {
