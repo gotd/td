@@ -1,10 +1,12 @@
 module github.com/gotd/td/_tools
 
-go 1.16
+go 1.22.0
+
+toolchain go1.22.8
+
+require golang.org/x/tools v0.26.0
 
 require (
-	github.com/dvyukov/go-fuzz v0.0.0-20210103155950-6a8e9d1f2415
-	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
-	github.com/stephens2424/writerset v1.0.2 // indirect
-	golang.org/x/tools v0.26.0
+	golang.org/x/mod v0.21.0 // indirect
+	golang.org/x/sync v0.8.0 // indirect
 )
