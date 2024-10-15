@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 189
+const Layer = 190
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -181,13 +181,13 @@ func TypesMap() map[uint32]string {
 		MessageActionChatJoinedByRequestTypeID:                   "messageActionChatJoinedByRequest#ebbca3cb",
 		MessageActionWebViewDataSentMeTypeID:                     "messageActionWebViewDataSentMe#47dd8079",
 		MessageActionWebViewDataSentTypeID:                       "messageActionWebViewDataSent#b4c38cb5",
-		MessageActionGiftPremiumTypeID:                           "messageActionGiftPremium#c83d6aec",
+		MessageActionGiftPremiumTypeID:                           "messageActionGiftPremium#6c6274fa",
 		MessageActionTopicCreateTypeID:                           "messageActionTopicCreate#d999256",
 		MessageActionTopicEditTypeID:                             "messageActionTopicEdit#c0944820",
 		MessageActionSuggestProfilePhotoTypeID:                   "messageActionSuggestProfilePhoto#57de635e",
 		MessageActionRequestedPeerTypeID:                         "messageActionRequestedPeer#31518e9b",
 		MessageActionSetChatWallPaperTypeID:                      "messageActionSetChatWallPaper#5060a3f4",
-		MessageActionGiftCodeTypeID:                              "messageActionGiftCode#678c2e09",
+		MessageActionGiftCodeTypeID:                              "messageActionGiftCode#56d03994",
 		MessageActionGiveawayLaunchTypeID:                        "messageActionGiveawayLaunch#a80f51e4",
 		MessageActionGiveawayResultsTypeID:                       "messageActionGiveawayResults#87e2f155",
 		MessageActionBoostApplyTypeID:                            "messageActionBoostApply#cc02aa6d",
@@ -1159,7 +1159,7 @@ func TypesMap() map[uint32]string {
 		HelpPremiumPromoTypeID:                                                  "help.premiumPromo#5334759c",
 		InputStorePaymentPremiumSubscriptionTypeID:                              "inputStorePaymentPremiumSubscription#a6751e66",
 		InputStorePaymentGiftPremiumTypeID:                                      "inputStorePaymentGiftPremium#616f7fe8",
-		InputStorePaymentPremiumGiftCodeTypeID:                                  "inputStorePaymentPremiumGiftCode#a3805f3f",
+		InputStorePaymentPremiumGiftCodeTypeID:                                  "inputStorePaymentPremiumGiftCode#fb790393",
 		InputStorePaymentPremiumGiveawayTypeID:                                  "inputStorePaymentPremiumGiveaway#160544ca",
 		InputStorePaymentStarsTopupTypeID:                                       "inputStorePaymentStarsTopup#dddd0f56",
 		InputStorePaymentStarsGiftTypeID:                                        "inputStorePaymentStarsGift#1d741ef7",

@@ -434,7 +434,7 @@ func (i *InputStorePaymentGiftPremium) GetAmount() (value int64) {
 	return i.Amount
 }
 
-// InputStorePaymentPremiumGiftCode represents TL type `inputStorePaymentPremiumGiftCode#a3805f3f`.
+// InputStorePaymentPremiumGiftCode represents TL type `inputStorePaymentPremiumGiftCode#fb790393`.
 // Used to gift Telegram Premium¹ subscriptions only to some specific subscribers of a
 // channel/supergroup or to some of our contacts, see here »² for more info on
 // giveaways and gifts.
@@ -480,10 +480,14 @@ type InputStorePaymentPremiumGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
+	// Message field of InputStorePaymentPremiumGiftCode.
+	//
+	// Use SetMessage and GetMessage helpers.
+	Message TextWithEntities
 }
 
 // InputStorePaymentPremiumGiftCodeTypeID is TL type id of InputStorePaymentPremiumGiftCode.
-const InputStorePaymentPremiumGiftCodeTypeID = 0xa3805f3f
+const InputStorePaymentPremiumGiftCodeTypeID = 0xfb790393
 
 // construct implements constructor of InputStorePaymentPurposeClass.
 func (i InputStorePaymentPremiumGiftCode) construct() InputStorePaymentPurposeClass { return &i }
@@ -517,6 +521,9 @@ func (i *InputStorePaymentPremiumGiftCode) Zero() bool {
 	if !(i.Amount == 0) {
 		return false
 	}
+	if !(i.Message.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -536,6 +543,7 @@ func (i *InputStorePaymentPremiumGiftCode) FillFrom(from interface {
 	GetBoostPeer() (value InputPeerClass, ok bool)
 	GetCurrency() (value string)
 	GetAmount() (value int64)
+	GetMessage() (value TextWithEntities, ok bool)
 }) {
 	i.Users = from.GetUsers()
 	if val, ok := from.GetBoostPeer(); ok {
@@ -544,6 +552,10 @@ func (i *InputStorePaymentPremiumGiftCode) FillFrom(from interface {
 
 	i.Currency = from.GetCurrency()
 	i.Amount = from.GetAmount()
+	if val, ok := from.GetMessage(); ok {
+		i.Message = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -586,6 +598,11 @@ func (i *InputStorePaymentPremiumGiftCode) TypeInfo() tdp.Type {
 			Name:       "Amount",
 			SchemaName: "amount",
 		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !i.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -595,12 +612,15 @@ func (i *InputStorePaymentPremiumGiftCode) SetFlags() {
 	if !(i.BoostPeer == nil) {
 		i.Flags.Set(0)
 	}
+	if !(i.Message.Zero()) {
+		i.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputStorePaymentPremiumGiftCode) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStorePaymentPremiumGiftCode#a3805f3f as nil")
+		return fmt.Errorf("can't encode inputStorePaymentPremiumGiftCode#fb790393 as nil")
 	}
 	b.PutID(InputStorePaymentPremiumGiftCodeTypeID)
 	return i.EncodeBare(b)
@@ -609,41 +629,46 @@ func (i *InputStorePaymentPremiumGiftCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStorePaymentPremiumGiftCode) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStorePaymentPremiumGiftCode#a3805f3f as nil")
+		return fmt.Errorf("can't encode inputStorePaymentPremiumGiftCode#fb790393 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#a3805f3f: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#fb790393: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(i.Users))
 	for idx, v := range i.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#a3805f3f: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#fb790393: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#a3805f3f: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#fb790393: field users element with index %d: %w", idx, err)
 		}
 	}
 	if i.Flags.Has(0) {
 		if i.BoostPeer == nil {
-			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#a3805f3f: field boost_peer is nil")
+			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#fb790393: field boost_peer is nil")
 		}
 		if err := i.BoostPeer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#a3805f3f: field boost_peer: %w", err)
+			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#fb790393: field boost_peer: %w", err)
 		}
 	}
 	b.PutString(i.Currency)
 	b.PutLong(i.Amount)
+	if i.Flags.Has(1) {
+		if err := i.Message.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputStorePaymentPremiumGiftCode#fb790393: field message: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputStorePaymentPremiumGiftCode) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStorePaymentPremiumGiftCode#a3805f3f to nil")
+		return fmt.Errorf("can't decode inputStorePaymentPremiumGiftCode#fb790393 to nil")
 	}
 	if err := b.ConsumeID(InputStorePaymentPremiumGiftCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: %w", err)
+		return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -651,17 +676,17 @@ func (i *InputStorePaymentPremiumGiftCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStorePaymentPremiumGiftCode) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStorePaymentPremiumGiftCode#a3805f3f to nil")
+		return fmt.Errorf("can't decode inputStorePaymentPremiumGiftCode#fb790393 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field flags: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: field users: %w", err)
+			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -670,7 +695,7 @@ func (i *InputStorePaymentPremiumGiftCode) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: field users: %w", err)
+				return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field users: %w", err)
 			}
 			i.Users = append(i.Users, value)
 		}
@@ -678,23 +703,28 @@ func (i *InputStorePaymentPremiumGiftCode) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(0) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: field boost_peer: %w", err)
+			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field boost_peer: %w", err)
 		}
 		i.BoostPeer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: field currency: %w", err)
+			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field currency: %w", err)
 		}
 		i.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#a3805f3f: field amount: %w", err)
+			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field amount: %w", err)
 		}
 		i.Amount = value
+	}
+	if i.Flags.Has(1) {
+		if err := i.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputStorePaymentPremiumGiftCode#fb790393: field message: %w", err)
+		}
 	}
 	return nil
 }
@@ -739,6 +769,24 @@ func (i *InputStorePaymentPremiumGiftCode) GetAmount() (value int64) {
 		return
 	}
 	return i.Amount
+}
+
+// SetMessage sets value of Message conditional field.
+func (i *InputStorePaymentPremiumGiftCode) SetMessage(value TextWithEntities) {
+	i.Flags.Set(1)
+	i.Message = value
+}
+
+// GetMessage returns value of Message conditional field and
+// boolean which is true if field was set.
+func (i *InputStorePaymentPremiumGiftCode) GetMessage() (value TextWithEntities, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Message, true
 }
 
 // MapUsers returns field Users wrapped in InputUserClassArray helper.
@@ -2324,7 +2372,7 @@ const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 //	switch v := g.(type) {
 //	case *tg.InputStorePaymentPremiumSubscription: // inputStorePaymentPremiumSubscription#a6751e66
 //	case *tg.InputStorePaymentGiftPremium: // inputStorePaymentGiftPremium#616f7fe8
-//	case *tg.InputStorePaymentPremiumGiftCode: // inputStorePaymentPremiumGiftCode#a3805f3f
+//	case *tg.InputStorePaymentPremiumGiftCode: // inputStorePaymentPremiumGiftCode#fb790393
 //	case *tg.InputStorePaymentPremiumGiveaway: // inputStorePaymentPremiumGiveaway#160544ca
 //	case *tg.InputStorePaymentStarsTopup: // inputStorePaymentStarsTopup#dddd0f56
 //	case *tg.InputStorePaymentStarsGift: // inputStorePaymentStarsGift#1d741ef7
@@ -2372,7 +2420,7 @@ func DecodeInputStorePaymentPurpose(buf *bin.Buffer) (InputStorePaymentPurposeCl
 		}
 		return &v, nil
 	case InputStorePaymentPremiumGiftCodeTypeID:
-		// Decoding inputStorePaymentPremiumGiftCode#a3805f3f.
+		// Decoding inputStorePaymentPremiumGiftCode#fb790393.
 		v := InputStorePaymentPremiumGiftCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStorePaymentPurposeClass: %w", err)
