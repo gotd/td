@@ -33,9 +33,9 @@ var (
 
 // AttachmentMenuBotColor represents TL type `attachmentMenuBotColor#64235ebc`.
 type AttachmentMenuBotColor struct {
-	// Color in the RGB24 format for light themes
+	// Color in the RGB format for light themes
 	LightColor int32
-	// Color in the RGB24 format for dark themes
+	// Color in the RGB format for dark themes
 	DarkColor int32
 }
 
