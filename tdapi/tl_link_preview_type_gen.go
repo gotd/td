@@ -4577,7 +4577,7 @@ func (l *LinkPreviewTypeSupergroupBoost) GetPhoto() (value ChatPhoto) {
 type LinkPreviewTypeTheme struct {
 	// The list of files with theme description
 	Documents []Document
-	// Settings for the cloud theme
+	// Settings for the cloud theme; may be null if unknown
 	Settings ThemeSettings
 }
 
@@ -5833,7 +5833,7 @@ func (l *LinkPreviewTypeVoiceNote) GetVoiceNote() (value VoiceNote) {
 
 // LinkPreviewTypeWebApp represents TL type `linkPreviewTypeWebApp#a62eef8a`.
 type LinkPreviewTypeWebApp struct {
-	// Web App photo
+	// Web App photo; may be null if none
 	Photo Photo
 }
 
