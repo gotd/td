@@ -61,6 +61,8 @@ type MessagesSendMediaRequest struct {
 	// If set, any eventual webpage preview will be shown on top of the message instead of at
 	// the bottom.
 	InvertMedia bool
+	// AllowPaidFloodskip field of MessagesSendMediaRequest.
+	AllowPaidFloodskip bool
 	// Destination
 	Peer InputPeerClass
 	// If set, indicates that the message should be sent in reply to the specified message or
@@ -148,6 +150,9 @@ func (s *MessagesSendMediaRequest) Zero() bool {
 	if !(s.InvertMedia == false) {
 		return false
 	}
+	if !(s.AllowPaidFloodskip == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -202,6 +207,7 @@ func (s *MessagesSendMediaRequest) FillFrom(from interface {
 	GetNoforwards() (value bool)
 	GetUpdateStickersetsOrder() (value bool)
 	GetInvertMedia() (value bool)
+	GetAllowPaidFloodskip() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetReplyTo() (value InputReplyToClass, ok bool)
 	GetMedia() (value InputMediaClass)
@@ -220,6 +226,7 @@ func (s *MessagesSendMediaRequest) FillFrom(from interface {
 	s.Noforwards = from.GetNoforwards()
 	s.UpdateStickersetsOrder = from.GetUpdateStickersetsOrder()
 	s.InvertMedia = from.GetInvertMedia()
+	s.AllowPaidFloodskip = from.GetAllowPaidFloodskip()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyTo(); ok {
 		s.ReplyTo = val
@@ -308,6 +315,11 @@ func (s *MessagesSendMediaRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(16),
 		},
 		{
+			Name:       "AllowPaidFloodskip",
+			SchemaName: "allow_paid_floodskip",
+			Null:       !s.Flags.Has(19),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -381,6 +393,9 @@ func (s *MessagesSendMediaRequest) SetFlags() {
 	}
 	if !(s.InvertMedia == false) {
 		s.Flags.Set(16)
+	}
+	if !(s.AllowPaidFloodskip == false) {
+		s.Flags.Set(19)
 	}
 	if !(s.ReplyTo == nil) {
 		s.Flags.Set(0)
@@ -516,6 +531,7 @@ func (s *MessagesSendMediaRequest) DecodeBare(b *bin.Buffer) error {
 	s.Noforwards = s.Flags.Has(14)
 	s.UpdateStickersetsOrder = s.Flags.Has(15)
 	s.InvertMedia = s.Flags.Has(16)
+	s.AllowPaidFloodskip = s.Flags.Has(19)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -718,6 +734,25 @@ func (s *MessagesSendMediaRequest) GetInvertMedia() (value bool) {
 		return
 	}
 	return s.Flags.Has(16)
+}
+
+// SetAllowPaidFloodskip sets value of AllowPaidFloodskip conditional field.
+func (s *MessagesSendMediaRequest) SetAllowPaidFloodskip(value bool) {
+	if value {
+		s.Flags.Set(19)
+		s.AllowPaidFloodskip = true
+	} else {
+		s.Flags.Unset(19)
+		s.AllowPaidFloodskip = false
+	}
+}
+
+// GetAllowPaidFloodskip returns value of AllowPaidFloodskip conditional field.
+func (s *MessagesSendMediaRequest) GetAllowPaidFloodskip() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(19)
 }
 
 // GetPeer returns value of Peer field.

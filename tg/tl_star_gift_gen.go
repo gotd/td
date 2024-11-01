@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarGift represents TL type `starGift#aea174ee`.
+// StarGift represents TL type `starGift#49c577cd`.
 //
 // See https://core.telegram.org/constructor/starGift for reference.
 type StarGift struct {
@@ -39,6 +39,8 @@ type StarGift struct {
 	Flags bin.Fields
 	// Limited field of StarGift.
 	Limited bool
+	// SoldOut field of StarGift.
+	SoldOut bool
 	// ID field of StarGift.
 	ID int64
 	// Sticker field of StarGift.
@@ -55,10 +57,18 @@ type StarGift struct {
 	AvailabilityTotal int
 	// ConvertStars field of StarGift.
 	ConvertStars int64
+	// FirstSaleDate field of StarGift.
+	//
+	// Use SetFirstSaleDate and GetFirstSaleDate helpers.
+	FirstSaleDate int
+	// LastSaleDate field of StarGift.
+	//
+	// Use SetLastSaleDate and GetLastSaleDate helpers.
+	LastSaleDate int
 }
 
 // StarGiftTypeID is TL type id of StarGift.
-const StarGiftTypeID = 0xaea174ee
+const StarGiftTypeID = 0x49c577cd
 
 // Ensuring interfaces in compile-time for StarGift.
 var (
@@ -76,6 +86,9 @@ func (s *StarGift) Zero() bool {
 		return false
 	}
 	if !(s.Limited == false) {
+		return false
+	}
+	if !(s.SoldOut == false) {
 		return false
 	}
 	if !(s.ID == 0) {
@@ -96,6 +109,12 @@ func (s *StarGift) Zero() bool {
 	if !(s.ConvertStars == 0) {
 		return false
 	}
+	if !(s.FirstSaleDate == 0) {
+		return false
+	}
+	if !(s.LastSaleDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -112,14 +131,18 @@ func (s *StarGift) String() string {
 // FillFrom fills StarGift from given interface.
 func (s *StarGift) FillFrom(from interface {
 	GetLimited() (value bool)
+	GetSoldOut() (value bool)
 	GetID() (value int64)
 	GetSticker() (value DocumentClass)
 	GetStars() (value int64)
 	GetAvailabilityRemains() (value int, ok bool)
 	GetAvailabilityTotal() (value int, ok bool)
 	GetConvertStars() (value int64)
+	GetFirstSaleDate() (value int, ok bool)
+	GetLastSaleDate() (value int, ok bool)
 }) {
 	s.Limited = from.GetLimited()
+	s.SoldOut = from.GetSoldOut()
 	s.ID = from.GetID()
 	s.Sticker = from.GetSticker()
 	s.Stars = from.GetStars()
@@ -132,6 +155,14 @@ func (s *StarGift) FillFrom(from interface {
 	}
 
 	s.ConvertStars = from.GetConvertStars()
+	if val, ok := from.GetFirstSaleDate(); ok {
+		s.FirstSaleDate = val
+	}
+
+	if val, ok := from.GetLastSaleDate(); ok {
+		s.LastSaleDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -163,6 +194,11 @@ func (s *StarGift) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(0),
 		},
 		{
+			Name:       "SoldOut",
+			SchemaName: "sold_out",
+			Null:       !s.Flags.Has(1),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -188,6 +224,16 @@ func (s *StarGift) TypeInfo() tdp.Type {
 			Name:       "ConvertStars",
 			SchemaName: "convert_stars",
 		},
+		{
+			Name:       "FirstSaleDate",
+			SchemaName: "first_sale_date",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "LastSaleDate",
+			SchemaName: "last_sale_date",
+			Null:       !s.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -197,18 +243,27 @@ func (s *StarGift) SetFlags() {
 	if !(s.Limited == false) {
 		s.Flags.Set(0)
 	}
+	if !(s.SoldOut == false) {
+		s.Flags.Set(1)
+	}
 	if !(s.AvailabilityRemains == 0) {
 		s.Flags.Set(0)
 	}
 	if !(s.AvailabilityTotal == 0) {
 		s.Flags.Set(0)
 	}
+	if !(s.FirstSaleDate == 0) {
+		s.Flags.Set(1)
+	}
+	if !(s.LastSaleDate == 0) {
+		s.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StarGift) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGift#aea174ee as nil")
+		return fmt.Errorf("can't encode starGift#49c577cd as nil")
 	}
 	b.PutID(StarGiftTypeID)
 	return s.EncodeBare(b)
@@ -217,18 +272,18 @@ func (s *StarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGift) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGift#aea174ee as nil")
+		return fmt.Errorf("can't encode starGift#49c577cd as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGift#aea174ee: field flags: %w", err)
+		return fmt.Errorf("unable to encode starGift#49c577cd: field flags: %w", err)
 	}
 	b.PutLong(s.ID)
 	if s.Sticker == nil {
-		return fmt.Errorf("unable to encode starGift#aea174ee: field sticker is nil")
+		return fmt.Errorf("unable to encode starGift#49c577cd: field sticker is nil")
 	}
 	if err := s.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGift#aea174ee: field sticker: %w", err)
+		return fmt.Errorf("unable to encode starGift#49c577cd: field sticker: %w", err)
 	}
 	b.PutLong(s.Stars)
 	if s.Flags.Has(0) {
@@ -238,16 +293,22 @@ func (s *StarGift) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(s.AvailabilityTotal)
 	}
 	b.PutLong(s.ConvertStars)
+	if s.Flags.Has(1) {
+		b.PutInt(s.FirstSaleDate)
+	}
+	if s.Flags.Has(1) {
+		b.PutInt(s.LastSaleDate)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGift) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGift#aea174ee to nil")
+		return fmt.Errorf("can't decode starGift#49c577cd to nil")
 	}
 	if err := b.ConsumeID(StarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGift#aea174ee: %w", err)
+		return fmt.Errorf("unable to decode starGift#49c577cd: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -255,55 +316,70 @@ func (s *StarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGift) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGift#aea174ee to nil")
+		return fmt.Errorf("can't decode starGift#49c577cd to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field flags: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field flags: %w", err)
 		}
 	}
 	s.Limited = s.Flags.Has(0)
+	s.SoldOut = s.Flags.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field id: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field sticker: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field sticker: %w", err)
 		}
 		s.Sticker = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field stars: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field stars: %w", err)
 		}
 		s.Stars = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field availability_remains: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field availability_remains: %w", err)
 		}
 		s.AvailabilityRemains = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field availability_total: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field availability_total: %w", err)
 		}
 		s.AvailabilityTotal = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#aea174ee: field convert_stars: %w", err)
+			return fmt.Errorf("unable to decode starGift#49c577cd: field convert_stars: %w", err)
 		}
 		s.ConvertStars = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGift#49c577cd: field first_sale_date: %w", err)
+		}
+		s.FirstSaleDate = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGift#49c577cd: field last_sale_date: %w", err)
+		}
+		s.LastSaleDate = value
 	}
 	return nil
 }
@@ -325,6 +401,25 @@ func (s *StarGift) GetLimited() (value bool) {
 		return
 	}
 	return s.Flags.Has(0)
+}
+
+// SetSoldOut sets value of SoldOut conditional field.
+func (s *StarGift) SetSoldOut(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.SoldOut = true
+	} else {
+		s.Flags.Unset(1)
+		s.SoldOut = false
+	}
+}
+
+// GetSoldOut returns value of SoldOut conditional field.
+func (s *StarGift) GetSoldOut() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
 }
 
 // GetID returns value of ID field.
@@ -393,6 +488,42 @@ func (s *StarGift) GetConvertStars() (value int64) {
 		return
 	}
 	return s.ConvertStars
+}
+
+// SetFirstSaleDate sets value of FirstSaleDate conditional field.
+func (s *StarGift) SetFirstSaleDate(value int) {
+	s.Flags.Set(1)
+	s.FirstSaleDate = value
+}
+
+// GetFirstSaleDate returns value of FirstSaleDate conditional field and
+// boolean which is true if field was set.
+func (s *StarGift) GetFirstSaleDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.FirstSaleDate, true
+}
+
+// SetLastSaleDate sets value of LastSaleDate conditional field.
+func (s *StarGift) SetLastSaleDate(value int) {
+	s.Flags.Set(1)
+	s.LastSaleDate = value
+}
+
+// GetLastSaleDate returns value of LastSaleDate conditional field and
+// boolean which is true if field was set.
+func (s *StarGift) GetLastSaleDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.LastSaleDate, true
 }
 
 // GetStickerAsNotEmpty returns mapped value of Sticker field.

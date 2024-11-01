@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StatsGetBroadcastRevenueWithdrawalURLRequest represents TL type `stats.getBroadcastRevenueWithdrawalUrl#2a65ef73`.
+// StatsGetBroadcastRevenueWithdrawalURLRequest represents TL type `stats.getBroadcastRevenueWithdrawalUrl#9df4faad`.
 // Withdraw funds from a channel's ad revenue balance »¹.
 //
 // Links:
@@ -39,8 +39,8 @@ var (
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueWithdrawalUrl for reference.
 type StatsGetBroadcastRevenueWithdrawalURLRequest struct {
-	// The channel
-	Channel InputChannelClass
+	// Peer field of StatsGetBroadcastRevenueWithdrawalURLRequest.
+	Peer InputPeerClass
 	// 2FA password, see here »¹ for more info.
 	//
 	// Links:
@@ -49,7 +49,7 @@ type StatsGetBroadcastRevenueWithdrawalURLRequest struct {
 }
 
 // StatsGetBroadcastRevenueWithdrawalURLRequestTypeID is TL type id of StatsGetBroadcastRevenueWithdrawalURLRequest.
-const StatsGetBroadcastRevenueWithdrawalURLRequestTypeID = 0x2a65ef73
+const StatsGetBroadcastRevenueWithdrawalURLRequestTypeID = 0x9df4faad
 
 // Ensuring interfaces in compile-time for StatsGetBroadcastRevenueWithdrawalURLRequest.
 var (
@@ -63,7 +63,7 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Channel == nil) {
+	if !(g.Peer == nil) {
 		return false
 	}
 	if !(g.Password == nil) {
@@ -84,10 +84,10 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) String() string {
 
 // FillFrom fills StatsGetBroadcastRevenueWithdrawalURLRequest from given interface.
 func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) FillFrom(from interface {
-	GetChannel() (value InputChannelClass)
+	GetPeer() (value InputPeerClass)
 	GetPassword() (value InputCheckPasswordSRPClass)
 }) {
-	g.Channel = from.GetChannel()
+	g.Peer = from.GetPeer()
 	g.Password = from.GetPassword()
 }
 
@@ -115,8 +115,8 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Channel",
-			SchemaName: "channel",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "Password",
@@ -129,7 +129,7 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73 as nil")
+		return fmt.Errorf("can't encode stats.getBroadcastRevenueWithdrawalUrl#9df4faad as nil")
 	}
 	b.PutID(StatsGetBroadcastRevenueWithdrawalURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -138,19 +138,19 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) Encode(b *bin.Buffer) err
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73 as nil")
+		return fmt.Errorf("can't encode stats.getBroadcastRevenueWithdrawalUrl#9df4faad as nil")
 	}
-	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: field channel is nil")
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: field peer is nil")
 	}
-	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: field channel: %w", err)
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: field peer: %w", err)
 	}
 	if g.Password == nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: field password is nil")
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: field password is nil")
 	}
 	if err := g.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: field password: %w", err)
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: field password: %w", err)
 	}
 	return nil
 }
@@ -158,10 +158,10 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) EncodeBare(b *bin.Buffer)
 // Decode implements bin.Decoder.
 func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73 to nil")
+		return fmt.Errorf("can't decode stats.getBroadcastRevenueWithdrawalUrl#9df4faad to nil")
 	}
 	if err := b.ConsumeID(StatsGetBroadcastRevenueWithdrawalURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: %w", err)
+		return fmt.Errorf("unable to decode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -169,31 +169,31 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) Decode(b *bin.Buffer) err
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73 to nil")
+		return fmt.Errorf("can't decode stats.getBroadcastRevenueWithdrawalUrl#9df4faad to nil")
 	}
 	{
-		value, err := DecodeInputChannel(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: field channel: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: field peer: %w", err)
 		}
-		g.Channel = value
+		g.Peer = value
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueWithdrawalUrl#2a65ef73: field password: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueWithdrawalUrl#9df4faad: field password: %w", err)
 		}
 		g.Password = value
 	}
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetChannel() (value InputChannelClass) {
+// GetPeer returns value of Peer field.
+func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetPeer() (value InputPeerClass) {
 	if g == nil {
 		return
 	}
-	return g.Channel
+	return g.Peer
 }
 
 // GetPassword returns value of Password field.
@@ -204,17 +204,12 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetPassword() (value Inpu
 	return g.Password
 }
 
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
 // GetPasswordAsNotEmpty returns mapped value of Password field.
 func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
 	return g.Password.AsNotEmpty()
 }
 
-// StatsGetBroadcastRevenueWithdrawalURL invokes method stats.getBroadcastRevenueWithdrawalUrl#2a65ef73 returning error if any.
+// StatsGetBroadcastRevenueWithdrawalURL invokes method stats.getBroadcastRevenueWithdrawalUrl#9df4faad returning error if any.
 // Withdraw funds from a channel's ad revenue balance »¹.
 //
 // Links:

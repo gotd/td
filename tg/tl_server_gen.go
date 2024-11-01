@@ -7043,6 +7043,82 @@ func (s *ServerDispatcher) OnMessagesGetPaidReactionPrivacy(f func(ctx context.C
 	s.handlers[MessagesGetPaidReactionPrivacyRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesViewSponsoredMessage(f func(ctx context.Context, request *MessagesViewSponsoredMessageRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesViewSponsoredMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesViewSponsoredMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesClickSponsoredMessage(f func(ctx context.Context, request *MessagesClickSponsoredMessageRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesClickSponsoredMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesClickSponsoredMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesReportSponsoredMessage(f func(ctx context.Context, request *MessagesReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesReportSponsoredMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &ChannelsSponsoredMessageReportResultBox{SponsoredMessageReportResult: response}, nil
+	}
+
+	s.handlers[MessagesReportSponsoredMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetSponsoredMessages(f func(ctx context.Context, peer InputPeerClass) (MessagesSponsoredMessagesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSponsoredMessagesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Peer)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesSponsoredMessagesBox{SponsoredMessages: response}, nil
+	}
+
+	s.handlers[MessagesGetSponsoredMessagesRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -8395,44 +8471,6 @@ func (s *ServerDispatcher) OnChannelsConvertToGigagroup(f func(ctx context.Conte
 	s.handlers[ChannelsConvertToGigagroupRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsViewSponsoredMessage(f func(ctx context.Context, request *ChannelsViewSponsoredMessageRequest) (bool, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsViewSponsoredMessageRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
-	}
-
-	s.handlers[ChannelsViewSponsoredMessageRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnChannelsGetSponsoredMessages(f func(ctx context.Context, channel InputChannelClass) (MessagesSponsoredMessagesClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsGetSponsoredMessagesRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.Channel)
-		if err != nil {
-			return nil, err
-		}
-		return &MessagesSponsoredMessagesBox{SponsoredMessages: response}, nil
-	}
-
-	s.handlers[ChannelsGetSponsoredMessagesRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnChannelsGetSendAs(f func(ctx context.Context, peer InputPeerClass) (*ChannelsSendAsPeers, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsGetSendAsRequest
@@ -8755,27 +8793,6 @@ func (s *ServerDispatcher) OnChannelsToggleParticipantsHidden(f func(ctx context
 	s.handlers[ChannelsToggleParticipantsHiddenRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsClickSponsoredMessage(f func(ctx context.Context, request *ChannelsClickSponsoredMessageRequest) (bool, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsClickSponsoredMessageRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
-	}
-
-	s.handlers[ChannelsClickSponsoredMessageRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnChannelsUpdateColor(f func(ctx context.Context, request *ChannelsUpdateColorRequest) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsUpdateColorRequest
@@ -8880,23 +8897,6 @@ func (s *ServerDispatcher) OnChannelsSetEmojiStickers(f func(ctx context.Context
 	}
 
 	s.handlers[ChannelsSetEmojiStickersRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnChannelsReportSponsoredMessage(f func(ctx context.Context, request *ChannelsReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsReportSponsoredMessageRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		return &ChannelsSponsoredMessageReportResultBox{SponsoredMessageReportResult: response}, nil
-	}
-
-	s.handlers[ChannelsReportSponsoredMessageRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnChannelsRestrictSponsoredMessages(f func(ctx context.Context, request *ChannelsRestrictSponsoredMessagesRequest) (UpdatesClass, error)) {

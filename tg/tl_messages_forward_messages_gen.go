@@ -58,6 +58,8 @@ type MessagesForwardMessagesRequest struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
+	// AllowPaidFloodskip field of MessagesForwardMessagesRequest.
+	AllowPaidFloodskip bool
 	// Source of messages
 	FromPeer InputPeerClass
 	// IDs of messages
@@ -126,6 +128,9 @@ func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if !(f.Noforwards == false) {
 		return false
 	}
+	if !(f.AllowPaidFloodskip == false) {
+		return false
+	}
 	if !(f.FromPeer == nil) {
 		return false
 	}
@@ -171,6 +176,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetDropAuthor() (value bool)
 	GetDropMediaCaptions() (value bool)
 	GetNoforwards() (value bool)
+	GetAllowPaidFloodskip() (value bool)
 	GetFromPeer() (value InputPeerClass)
 	GetID() (value []int)
 	GetRandomID() (value []int64)
@@ -186,6 +192,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	f.DropAuthor = from.GetDropAuthor()
 	f.DropMediaCaptions = from.GetDropMediaCaptions()
 	f.Noforwards = from.GetNoforwards()
+	f.AllowPaidFloodskip = from.GetAllowPaidFloodskip()
 	f.FromPeer = from.GetFromPeer()
 	f.ID = from.GetID()
 	f.RandomID = from.GetRandomID()
@@ -262,6 +269,11 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 			Null:       !f.Flags.Has(14),
 		},
 		{
+			Name:       "AllowPaidFloodskip",
+			SchemaName: "allow_paid_floodskip",
+			Null:       !f.Flags.Has(19),
+		},
+		{
 			Name:       "FromPeer",
 			SchemaName: "from_peer",
 		},
@@ -320,6 +332,9 @@ func (f *MessagesForwardMessagesRequest) SetFlags() {
 	}
 	if !(f.Noforwards == false) {
 		f.Flags.Set(14)
+	}
+	if !(f.AllowPaidFloodskip == false) {
+		f.Flags.Set(19)
 	}
 	if !(f.TopMsgID == 0) {
 		f.Flags.Set(9)
@@ -425,6 +440,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	f.DropAuthor = f.Flags.Has(11)
 	f.DropMediaCaptions = f.Flags.Has(12)
 	f.Noforwards = f.Flags.Has(14)
+	f.AllowPaidFloodskip = f.Flags.Has(19)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -616,6 +632,25 @@ func (f *MessagesForwardMessagesRequest) GetNoforwards() (value bool) {
 		return
 	}
 	return f.Flags.Has(14)
+}
+
+// SetAllowPaidFloodskip sets value of AllowPaidFloodskip conditional field.
+func (f *MessagesForwardMessagesRequest) SetAllowPaidFloodskip(value bool) {
+	if value {
+		f.Flags.Set(19)
+		f.AllowPaidFloodskip = true
+	} else {
+		f.Flags.Unset(19)
+		f.AllowPaidFloodskip = false
+	}
+}
+
+// GetAllowPaidFloodskip returns value of AllowPaidFloodskip conditional field.
+func (f *MessagesForwardMessagesRequest) GetAllowPaidFloodskip() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.Flags.Has(19)
 }
 
 // GetFromPeer returns value of FromPeer field.

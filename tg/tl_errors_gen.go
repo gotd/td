@@ -43,7 +43,6 @@ const (
 	ErrAdminRankEmojiNotAllowed         = "ADMIN_RANK_EMOJI_NOT_ALLOWED"
 	ErrAdminRankInvalid                 = "ADMIN_RANK_INVALID"
 	ErrAdminRightsEmpty                 = "ADMIN_RIGHTS_EMPTY"
-	ErrAdExpired                        = "AD_EXPIRED"
 	ErrAlbumPhotosTooMany               = "ALBUM_PHOTOS_TOO_MANY"
 	ErrAnonymousReactionsDisabled       = "ANONYMOUS_REACTIONS_DISABLED"
 	ErrAPIIDInvalid                     = "API_ID_INVALID"
@@ -655,11 +654,6 @@ func IsAdminRankInvalid(err error) bool {
 // IsAdminRightsEmpty reports whether err is ADMIN_RIGHTS_EMPTY.
 func IsAdminRightsEmpty(err error) bool {
 	return tgerr.Is(err, ErrAdminRightsEmpty)
-}
-
-// IsAdExpired reports whether err is AD_EXPIRED.
-func IsAdExpired(err error) bool {
-	return tgerr.Is(err, ErrAdExpired)
 }
 
 // IsAlbumPhotosTooMany reports whether err is ALBUM_PHOTOS_TOO_MANY.
