@@ -33,35 +33,35 @@ var (
 
 // ThemeParameters represents TL type `themeParameters#ef8395af`.
 type ThemeParameters struct {
-	// A color of the background in the RGB24 format
+	// A color of the background in the RGB format
 	BackgroundColor int32
-	// A secondary color for the background in the RGB24 format
+	// A secondary color for the background in the RGB format
 	SecondaryBackgroundColor int32
-	// A color of the header background in the RGB24 format
+	// A color of the header background in the RGB format
 	HeaderBackgroundColor int32
-	// A color of the bottom bar background in the RGB24 format
+	// A color of the bottom bar background in the RGB format
 	BottomBarBackgroundColor int32
-	// A color of the section background in the RGB24 format
+	// A color of the section background in the RGB format
 	SectionBackgroundColor int32
-	// A color of the section separator in the RGB24 format
+	// A color of the section separator in the RGB format
 	SectionSeparatorColor int32
-	// A color of text in the RGB24 format
+	// A color of text in the RGB format
 	TextColor int32
-	// An accent color of the text in the RGB24 format
+	// An accent color of the text in the RGB format
 	AccentTextColor int32
-	// A color of text on the section headers in the RGB24 format
+	// A color of text on the section headers in the RGB format
 	SectionHeaderTextColor int32
-	// A color of the subtitle text in the RGB24 format
+	// A color of the subtitle text in the RGB format
 	SubtitleTextColor int32
-	// A color of the text for destructive actions in the RGB24 format
+	// A color of the text for destructive actions in the RGB format
 	DestructiveTextColor int32
-	// A color of hints in the RGB24 format
+	// A color of hints in the RGB format
 	HintColor int32
-	// A color of links in the RGB24 format
+	// A color of links in the RGB format
 	LinkColor int32
-	// A color of the buttons in the RGB24 format
+	// A color of the buttons in the RGB format
 	ButtonColor int32
-	// A color of text on the buttons in the RGB24 format
+	// A color of text on the buttons in the RGB format
 	ButtonTextColor int32
 }
 

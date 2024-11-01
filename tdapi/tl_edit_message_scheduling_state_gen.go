@@ -38,7 +38,8 @@ type EditMessageSchedulingStateRequest struct {
 	// Identifier of the message. Use messageProperties.can_edit_scheduling_state to check
 	// whether the message is suitable
 	MessageID int64
-	// The new message scheduling state; pass null to send the message immediately
+	// The new message scheduling state; pass null to send the message immediately. Must be
+	// null for messages in the state messageSchedulingStateSendWhenVideoProcessed
 	SchedulingState MessageSchedulingStateClass
 }
 

@@ -329,6 +329,174 @@ func (m *MessageSchedulingStateSendWhenOnline) DecodeTDLibJSON(b tdjson.Decoder)
 	})
 }
 
+// MessageSchedulingStateSendWhenVideoProcessed represents TL type `messageSchedulingStateSendWhenVideoProcessed#7d438bee`.
+type MessageSchedulingStateSendWhenVideoProcessed struct {
+	// Approximate point in time (Unix timestamp) when the message is expected to be sent
+	SendDate int32
+}
+
+// MessageSchedulingStateSendWhenVideoProcessedTypeID is TL type id of MessageSchedulingStateSendWhenVideoProcessed.
+const MessageSchedulingStateSendWhenVideoProcessedTypeID = 0x7d438bee
+
+// construct implements constructor of MessageSchedulingStateClass.
+func (m MessageSchedulingStateSendWhenVideoProcessed) construct() MessageSchedulingStateClass {
+	return &m
+}
+
+// Ensuring interfaces in compile-time for MessageSchedulingStateSendWhenVideoProcessed.
+var (
+	_ bin.Encoder     = &MessageSchedulingStateSendWhenVideoProcessed{}
+	_ bin.Decoder     = &MessageSchedulingStateSendWhenVideoProcessed{}
+	_ bin.BareEncoder = &MessageSchedulingStateSendWhenVideoProcessed{}
+	_ bin.BareDecoder = &MessageSchedulingStateSendWhenVideoProcessed{}
+
+	_ MessageSchedulingStateClass = &MessageSchedulingStateSendWhenVideoProcessed{}
+)
+
+func (m *MessageSchedulingStateSendWhenVideoProcessed) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.SendDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) String() string {
+	if m == nil {
+		return "MessageSchedulingStateSendWhenVideoProcessed(nil)"
+	}
+	type Alias MessageSchedulingStateSendWhenVideoProcessed
+	return fmt.Sprintf("MessageSchedulingStateSendWhenVideoProcessed%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageSchedulingStateSendWhenVideoProcessed) TypeID() uint32 {
+	return MessageSchedulingStateSendWhenVideoProcessedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageSchedulingStateSendWhenVideoProcessed) TypeName() string {
+	return "messageSchedulingStateSendWhenVideoProcessed"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageSchedulingStateSendWhenVideoProcessed",
+		ID:   MessageSchedulingStateSendWhenVideoProcessedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SendDate",
+			SchemaName: "send_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSchedulingStateSendWhenVideoProcessed#7d438bee as nil")
+	}
+	b.PutID(MessageSchedulingStateSendWhenVideoProcessedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSchedulingStateSendWhenVideoProcessed#7d438bee as nil")
+	}
+	b.PutInt32(m.SendDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSchedulingStateSendWhenVideoProcessed#7d438bee to nil")
+	}
+	if err := b.ConsumeID(MessageSchedulingStateSendWhenVideoProcessedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageSchedulingStateSendWhenVideoProcessed#7d438bee: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSchedulingStateSendWhenVideoProcessed#7d438bee to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageSchedulingStateSendWhenVideoProcessed#7d438bee: field send_date: %w", err)
+		}
+		m.SendDate = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSchedulingStateSendWhenVideoProcessed#7d438bee as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSchedulingStateSendWhenVideoProcessed")
+	b.Comma()
+	b.FieldStart("send_date")
+	b.PutInt32(m.SendDate)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSchedulingStateSendWhenVideoProcessed#7d438bee to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageSchedulingStateSendWhenVideoProcessed"); err != nil {
+				return fmt.Errorf("unable to decode messageSchedulingStateSendWhenVideoProcessed#7d438bee: %w", err)
+			}
+		case "send_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSchedulingStateSendWhenVideoProcessed#7d438bee: field send_date: %w", err)
+			}
+			m.SendDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetSendDate returns value of SendDate field.
+func (m *MessageSchedulingStateSendWhenVideoProcessed) GetSendDate() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.SendDate
+}
+
 // MessageSchedulingStateClassName is schema name of MessageSchedulingStateClass.
 const MessageSchedulingStateClassName = "MessageSchedulingState"
 
@@ -343,6 +511,7 @@ const MessageSchedulingStateClassName = "MessageSchedulingState"
 //	switch v := g.(type) {
 //	case *tdapi.MessageSchedulingStateSendAtDate: // messageSchedulingStateSendAtDate#a773ffe7
 //	case *tdapi.MessageSchedulingStateSendWhenOnline: // messageSchedulingStateSendWhenOnline#7cbfd808
+//	case *tdapi.MessageSchedulingStateSendWhenVideoProcessed: // messageSchedulingStateSendWhenVideoProcessed#7d438bee
 //	default: panic(v)
 //	}
 type MessageSchedulingStateClass interface {
@@ -388,6 +557,13 @@ func DecodeMessageSchedulingState(buf *bin.Buffer) (MessageSchedulingStateClass,
 			return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", err)
 		}
 		return &v, nil
+	case MessageSchedulingStateSendWhenVideoProcessedTypeID:
+		// Decoding messageSchedulingStateSendWhenVideoProcessed#7d438bee.
+		v := MessageSchedulingStateSendWhenVideoProcessed{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -410,6 +586,13 @@ func DecodeTDLibJSONMessageSchedulingState(buf tdjson.Decoder) (MessageSchedulin
 	case "messageSchedulingStateSendWhenOnline":
 		// Decoding messageSchedulingStateSendWhenOnline#7cbfd808.
 		v := MessageSchedulingStateSendWhenOnline{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", err)
+		}
+		return &v, nil
+	case "messageSchedulingStateSendWhenVideoProcessed":
+		// Decoding messageSchedulingStateSendWhenVideoProcessed#7d438bee.
+		v := MessageSchedulingStateSendWhenVideoProcessed{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", err)
 		}

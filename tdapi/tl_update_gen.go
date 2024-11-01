@@ -575,8 +575,8 @@ func (u *UpdateMessageSendAcknowledged) GetMessageID() (value int64) {
 
 // UpdateMessageSendSucceeded represents TL type `updateMessageSendSucceeded#6c399d7d`.
 type UpdateMessageSendSucceeded struct {
-	// The sent message. Usually only the message identifier, date, and content are changed,
-	// but almost all other fields can also change
+	// The sent message. Almost any field of the new message can be different from the
+	// corresponding field of the original message.
 	Message Message
 	// The previous temporary message identifier
 	OldMessageID int64
@@ -3156,6 +3156,206 @@ func (u *UpdateMessageLiveLocationViewed) GetChatID() (value int64) {
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageLiveLocationViewed) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.MessageID
+}
+
+// UpdateVideoPublished represents TL type `updateVideoPublished#eafc2052`.
+type UpdateVideoPublished struct {
+	// Identifier of the chat with the message
+	ChatID int64
+	// Identifier of the sent message
+	MessageID int64
+}
+
+// UpdateVideoPublishedTypeID is TL type id of UpdateVideoPublished.
+const UpdateVideoPublishedTypeID = 0xeafc2052
+
+// construct implements constructor of UpdateClass.
+func (u UpdateVideoPublished) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateVideoPublished.
+var (
+	_ bin.Encoder     = &UpdateVideoPublished{}
+	_ bin.Decoder     = &UpdateVideoPublished{}
+	_ bin.BareEncoder = &UpdateVideoPublished{}
+	_ bin.BareDecoder = &UpdateVideoPublished{}
+
+	_ UpdateClass = &UpdateVideoPublished{}
+)
+
+func (u *UpdateVideoPublished) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MessageID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateVideoPublished) String() string {
+	if u == nil {
+		return "UpdateVideoPublished(nil)"
+	}
+	type Alias UpdateVideoPublished
+	return fmt.Sprintf("UpdateVideoPublished%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateVideoPublished) TypeID() uint32 {
+	return UpdateVideoPublishedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateVideoPublished) TypeName() string {
+	return "updateVideoPublished"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateVideoPublished) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateVideoPublished",
+		ID:   UpdateVideoPublishedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageID",
+			SchemaName: "message_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateVideoPublished) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateVideoPublished#eafc2052 as nil")
+	}
+	b.PutID(UpdateVideoPublishedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateVideoPublished) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateVideoPublished#eafc2052 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt53(u.MessageID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateVideoPublished) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateVideoPublished#eafc2052 to nil")
+	}
+	if err := b.ConsumeID(UpdateVideoPublishedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateVideoPublished#eafc2052: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateVideoPublished) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateVideoPublished#eafc2052 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateVideoPublished#eafc2052: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateVideoPublished#eafc2052: field message_id: %w", err)
+		}
+		u.MessageID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateVideoPublished) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateVideoPublished#eafc2052 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateVideoPublished")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("message_id")
+	b.PutInt53(u.MessageID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateVideoPublished) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateVideoPublished#eafc2052 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateVideoPublished"); err != nil {
+				return fmt.Errorf("unable to decode updateVideoPublished#eafc2052: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateVideoPublished#eafc2052: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateVideoPublished#eafc2052: field message_id: %w", err)
+			}
+			u.MessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateVideoPublished) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetMessageID returns value of MessageID field.
+func (u *UpdateVideoPublished) GetMessageID() (value int64) {
 	if u == nil {
 		return
 	}
@@ -23317,200 +23517,6 @@ func (u *UpdateTermsOfService) GetTermsOfService() (value TermsOfService) {
 	return u.TermsOfService
 }
 
-// UpdateUsersNearby represents TL type `updateUsersNearby#97c8ab5`.
-type UpdateUsersNearby struct {
-	// The new list of users nearby
-	UsersNearby []ChatNearby
-}
-
-// UpdateUsersNearbyTypeID is TL type id of UpdateUsersNearby.
-const UpdateUsersNearbyTypeID = 0x97c8ab5
-
-// construct implements constructor of UpdateClass.
-func (u UpdateUsersNearby) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateUsersNearby.
-var (
-	_ bin.Encoder     = &UpdateUsersNearby{}
-	_ bin.Decoder     = &UpdateUsersNearby{}
-	_ bin.BareEncoder = &UpdateUsersNearby{}
-	_ bin.BareDecoder = &UpdateUsersNearby{}
-
-	_ UpdateClass = &UpdateUsersNearby{}
-)
-
-func (u *UpdateUsersNearby) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.UsersNearby == nil) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateUsersNearby) String() string {
-	if u == nil {
-		return "UpdateUsersNearby(nil)"
-	}
-	type Alias UpdateUsersNearby
-	return fmt.Sprintf("UpdateUsersNearby%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateUsersNearby) TypeID() uint32 {
-	return UpdateUsersNearbyTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateUsersNearby) TypeName() string {
-	return "updateUsersNearby"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateUsersNearby) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateUsersNearby",
-		ID:   UpdateUsersNearbyTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "UsersNearby",
-			SchemaName: "users_nearby",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateUsersNearby) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateUsersNearby#97c8ab5 as nil")
-	}
-	b.PutID(UpdateUsersNearbyTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateUsersNearby) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateUsersNearby#97c8ab5 as nil")
-	}
-	b.PutInt(len(u.UsersNearby))
-	for idx, v := range u.UsersNearby {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare updateUsersNearby#97c8ab5: field users_nearby element with index %d: %w", idx, err)
-		}
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateUsersNearby) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateUsersNearby#97c8ab5 to nil")
-	}
-	if err := b.ConsumeID(UpdateUsersNearbyTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateUsersNearby) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateUsersNearby#97c8ab5 to nil")
-	}
-	{
-		headerLen, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: field users_nearby: %w", err)
-		}
-
-		if headerLen > 0 {
-			u.UsersNearby = make([]ChatNearby, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value ChatNearby
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare updateUsersNearby#97c8ab5: field users_nearby: %w", err)
-			}
-			u.UsersNearby = append(u.UsersNearby, value)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateUsersNearby) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateUsersNearby#97c8ab5 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateUsersNearby")
-	b.Comma()
-	b.FieldStart("users_nearby")
-	b.ArrStart()
-	for idx, v := range u.UsersNearby {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode updateUsersNearby#97c8ab5: field users_nearby element with index %d: %w", idx, err)
-		}
-		b.Comma()
-	}
-	b.StripComma()
-	b.ArrEnd()
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateUsersNearby) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateUsersNearby#97c8ab5 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateUsersNearby"); err != nil {
-				return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: %w", err)
-			}
-		case "users_nearby":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ChatNearby
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: field users_nearby: %w", err)
-				}
-				u.UsersNearby = append(u.UsersNearby, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: field users_nearby: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetUsersNearby returns value of UsersNearby field.
-func (u *UpdateUsersNearby) GetUsersNearby() (value []ChatNearby) {
-	if u == nil {
-		return
-	}
-	return u.UsersNearby
-}
-
 // UpdateUnconfirmedSession represents TL type `updateUnconfirmedSession#fea6088c`.
 type UpdateUnconfirmedSession struct {
 	// The unconfirmed session; may be null if none
@@ -33135,6 +33141,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateMessageUnreadReactions: // updateMessageUnreadReactions#12a7220a
 //	case *tdapi.UpdateMessageFactCheck: // updateMessageFactCheck#3c78fb02
 //	case *tdapi.UpdateMessageLiveLocationViewed: // updateMessageLiveLocationViewed#b2058595
+//	case *tdapi.UpdateVideoPublished: // updateVideoPublished#eafc2052
 //	case *tdapi.UpdateNewChat: // updateNewChat#7bb98ccd
 //	case *tdapi.UpdateChatTitle: // updateChatTitle#f58b85a4
 //	case *tdapi.UpdateChatPhoto: // updateChatPhoto#eca5423f
@@ -33231,7 +33238,6 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateLanguagePackStrings: // updateLanguagePackStrings#af87919f
 //	case *tdapi.UpdateConnectionState: // updateConnectionState#57939e2e
 //	case *tdapi.UpdateTermsOfService: // updateTermsOfService#b23cc55e
-//	case *tdapi.UpdateUsersNearby: // updateUsersNearby#97c8ab5
 //	case *tdapi.UpdateUnconfirmedSession: // updateUnconfirmedSession#fea6088c
 //	case *tdapi.UpdateAttachmentMenuBots: // updateAttachmentMenuBots#b6b910c
 //	case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
@@ -33397,6 +33403,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateMessageLiveLocationViewedTypeID:
 		// Decoding updateMessageLiveLocationViewed#b2058595.
 		v := UpdateMessageLiveLocationViewed{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateVideoPublishedTypeID:
+		// Decoding updateVideoPublished#eafc2052.
+		v := UpdateVideoPublished{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -34073,13 +34086,6 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateUsersNearbyTypeID:
-		// Decoding updateUsersNearby#97c8ab5.
-		v := UpdateUsersNearby{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case UpdateUnconfirmedSessionTypeID:
 		// Decoding updateUnconfirmedSession#fea6088c.
 		v := UpdateUnconfirmedSession{}
@@ -34466,6 +34472,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateMessageLiveLocationViewed":
 		// Decoding updateMessageLiveLocationViewed#b2058595.
 		v := UpdateMessageLiveLocationViewed{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateVideoPublished":
+		// Decoding updateVideoPublished#eafc2052.
+		v := UpdateVideoPublished{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -35138,13 +35151,6 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateTermsOfService":
 		// Decoding updateTermsOfService#b23cc55e.
 		v := UpdateTermsOfService{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateUsersNearby":
-		// Decoding updateUsersNearby#97c8ab5.
-		v := UpdateUsersNearby{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

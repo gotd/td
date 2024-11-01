@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Gift represents TL type `gift#2acb4d76`.
+// Gift represents TL type `gift#9dc9b8a1`.
 type Gift struct {
 	// Unique identifier of the gift
 	ID int64
@@ -48,10 +48,16 @@ type Gift struct {
 	RemainingCount int32
 	// Number of total times the gift can be purchased by all users; 0 if not limited
 	TotalCount int32
+	// Point in time (Unix timestamp) when the gift was send for the first time; for sold out
+	// gifts only
+	FirstSendDate int32
+	// Point in time (Unix timestamp) when the gift was send for the last time; for sold out
+	// gifts only
+	LastSendDate int32
 }
 
 // GiftTypeID is TL type id of Gift.
-const GiftTypeID = 0x2acb4d76
+const GiftTypeID = 0x9dc9b8a1
 
 // Ensuring interfaces in compile-time for Gift.
 var (
@@ -81,6 +87,12 @@ func (g *Gift) Zero() bool {
 		return false
 	}
 	if !(g.TotalCount == 0) {
+		return false
+	}
+	if !(g.FirstSendDate == 0) {
+		return false
+	}
+	if !(g.LastSendDate == 0) {
 		return false
 	}
 
@@ -143,6 +155,14 @@ func (g *Gift) TypeInfo() tdp.Type {
 			Name:       "TotalCount",
 			SchemaName: "total_count",
 		},
+		{
+			Name:       "FirstSendDate",
+			SchemaName: "first_send_date",
+		},
+		{
+			Name:       "LastSendDate",
+			SchemaName: "last_send_date",
+		},
 	}
 	return typ
 }
@@ -150,7 +170,7 @@ func (g *Gift) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *Gift) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gift#2acb4d76 as nil")
+		return fmt.Errorf("can't encode gift#9dc9b8a1 as nil")
 	}
 	b.PutID(GiftTypeID)
 	return g.EncodeBare(b)
@@ -159,26 +179,28 @@ func (g *Gift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *Gift) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gift#2acb4d76 as nil")
+		return fmt.Errorf("can't encode gift#9dc9b8a1 as nil")
 	}
 	b.PutLong(g.ID)
 	if err := g.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode gift#2acb4d76: field sticker: %w", err)
+		return fmt.Errorf("unable to encode gift#9dc9b8a1: field sticker: %w", err)
 	}
 	b.PutInt53(g.StarCount)
 	b.PutInt53(g.DefaultSellStarCount)
 	b.PutInt32(g.RemainingCount)
 	b.PutInt32(g.TotalCount)
+	b.PutInt32(g.FirstSendDate)
+	b.PutInt32(g.LastSendDate)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *Gift) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gift#2acb4d76 to nil")
+		return fmt.Errorf("can't decode gift#9dc9b8a1 to nil")
 	}
 	if err := b.ConsumeID(GiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode gift#2acb4d76: %w", err)
+		return fmt.Errorf("unable to decode gift#9dc9b8a1: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -186,47 +208,61 @@ func (g *Gift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *Gift) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gift#2acb4d76 to nil")
+		return fmt.Errorf("can't decode gift#9dc9b8a1 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode gift#2acb4d76: field id: %w", err)
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field id: %w", err)
 		}
 		g.ID = value
 	}
 	{
 		if err := g.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode gift#2acb4d76: field sticker: %w", err)
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field sticker: %w", err)
 		}
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode gift#2acb4d76: field star_count: %w", err)
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field star_count: %w", err)
 		}
 		g.StarCount = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode gift#2acb4d76: field default_sell_star_count: %w", err)
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field default_sell_star_count: %w", err)
 		}
 		g.DefaultSellStarCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode gift#2acb4d76: field remaining_count: %w", err)
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field remaining_count: %w", err)
 		}
 		g.RemainingCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode gift#2acb4d76: field total_count: %w", err)
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field total_count: %w", err)
 		}
 		g.TotalCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field first_send_date: %w", err)
+		}
+		g.FirstSendDate = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode gift#9dc9b8a1: field last_send_date: %w", err)
+		}
+		g.LastSendDate = value
 	}
 	return nil
 }
@@ -234,7 +270,7 @@ func (g *Gift) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *Gift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gift#2acb4d76 as nil")
+		return fmt.Errorf("can't encode gift#9dc9b8a1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("gift")
@@ -244,7 +280,7 @@ func (g *Gift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := g.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode gift#2acb4d76: field sticker: %w", err)
+		return fmt.Errorf("unable to encode gift#9dc9b8a1: field sticker: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("star_count")
@@ -259,6 +295,12 @@ func (g *Gift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("total_count")
 	b.PutInt32(g.TotalCount)
 	b.Comma()
+	b.FieldStart("first_send_date")
+	b.PutInt32(g.FirstSendDate)
+	b.Comma()
+	b.FieldStart("last_send_date")
+	b.PutInt32(g.LastSendDate)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -267,49 +309,61 @@ func (g *Gift) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *Gift) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gift#2acb4d76 to nil")
+		return fmt.Errorf("can't decode gift#9dc9b8a1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("gift"); err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: field id: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field id: %w", err)
 			}
 			g.ID = value
 		case "sticker":
 			if err := g.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: field sticker: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field sticker: %w", err)
 			}
 		case "star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: field star_count: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field star_count: %w", err)
 			}
 			g.StarCount = value
 		case "default_sell_star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: field default_sell_star_count: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field default_sell_star_count: %w", err)
 			}
 			g.DefaultSellStarCount = value
 		case "remaining_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: field remaining_count: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field remaining_count: %w", err)
 			}
 			g.RemainingCount = value
 		case "total_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode gift#2acb4d76: field total_count: %w", err)
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field total_count: %w", err)
 			}
 			g.TotalCount = value
+		case "first_send_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field first_send_date: %w", err)
+			}
+			g.FirstSendDate = value
+		case "last_send_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode gift#9dc9b8a1: field last_send_date: %w", err)
+			}
+			g.LastSendDate = value
 		default:
 			return b.Skip()
 		}
@@ -363,4 +417,20 @@ func (g *Gift) GetTotalCount() (value int32) {
 		return
 	}
 	return g.TotalCount
+}
+
+// GetFirstSendDate returns value of FirstSendDate field.
+func (g *Gift) GetFirstSendDate() (value int32) {
+	if g == nil {
+		return
+	}
+	return g.FirstSendDate
+}
+
+// GetLastSendDate returns value of LastSendDate field.
+func (g *Gift) GetLastSendDate() (value int32) {
+	if g == nil {
+		return
+	}
+	return g.LastSendDate
 }

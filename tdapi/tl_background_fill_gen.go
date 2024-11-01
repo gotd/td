@@ -33,7 +33,7 @@ var (
 
 // BackgroundFillSolid represents TL type `backgroundFillSolid#3c3dbc1d`.
 type BackgroundFillSolid struct {
-	// A color of the background in the RGB24 format
+	// A color of the background in the RGB format
 	Color int32
 }
 
@@ -199,9 +199,9 @@ func (b *BackgroundFillSolid) GetColor() (value int32) {
 
 // BackgroundFillGradient represents TL type `backgroundFillGradient#925ff17f`.
 type BackgroundFillGradient struct {
-	// A top color of the background in the RGB24 format
+	// A top color of the background in the RGB format
 	TopColor int32
-	// A bottom color of the background in the RGB24 format
+	// A bottom color of the background in the RGB format
 	BottomColor int32
 	// Clockwise rotation angle of the gradient, in degrees; 0-359. Must always be divisible
 	// by 45
@@ -434,7 +434,7 @@ func (b *BackgroundFillGradient) GetRotationAngle() (value int32) {
 
 // BackgroundFillFreeformGradient represents TL type `backgroundFillFreeformGradient#fa31756a`.
 type BackgroundFillFreeformGradient struct {
-	// A list of 3 or 4 colors of the freeform gradient in the RGB24 format
+	// A list of 3 or 4 colors of the freeform gradient in the RGB format
 	Colors []int32
 }
 

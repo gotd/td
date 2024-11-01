@@ -35,7 +35,7 @@ var (
 type StarSubscriptions struct {
 	// The amount of owned Telegram Stars
 	StarCount int64
-	// List of subbscriptions for Telegram Stars
+	// List of subscriptions for Telegram Stars
 	Subscriptions []StarSubscription
 	// The number of Telegram Stars required to buy to extend subscriptions expiring soon
 	RequiredStarCount int64

@@ -3058,7 +3058,8 @@ func (i *InputMessageVideo) GetHasSpoiler() (value bool) {
 
 // InputMessageVideoNote represents TL type `inputMessageVideoNote#d56816dd`.
 type InputMessageVideoNote struct {
-	// Video note to be sent
+	// Video note to be sent. The video is expected to be encoded to MPEG4 format with H.264
+	// codec and have no data outside of the visible circle
 	VideoNote InputFileClass
 	// Video thumbnail; may be null if empty; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail

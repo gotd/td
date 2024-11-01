@@ -33,7 +33,7 @@ var (
 
 // BotTransactionPurposePaidMedia represents TL type `botTransactionPurposePaidMedia#62952496`.
 type BotTransactionPurposePaidMedia struct {
-	// The bought media if the trancastion wasn't refunded
+	// The bought media if the transaction wasn't refunded
 	Media []PaidMediaClass
 	// Bot-provided payload; for bots only
 	Payload string

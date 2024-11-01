@@ -11710,13 +11710,15 @@ func (m *MessagePaymentRefunded) GetProviderPaymentChargeID() (value string) {
 	return m.ProviderPaymentChargeID
 }
 
-// MessageGiftedPremium represents TL type `messageGiftedPremium#30dd808e`.
+// MessageGiftedPremium represents TL type `messageGiftedPremium#e4d0e07a`.
 type MessageGiftedPremium struct {
 	// The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous or
 	// is outgoing
 	GifterUserID int64
 	// The identifier of a user that received Telegram Premium; 0 if the gift is incoming
 	ReceiverUserID int64
+	// Message added to the gifted Telegram Premium by the sender
+	Text FormattedText
 	// Currency for the paid amount
 	Currency string
 	// The paid amount, in the smallest units of the currency
@@ -11732,7 +11734,7 @@ type MessageGiftedPremium struct {
 }
 
 // MessageGiftedPremiumTypeID is TL type id of MessageGiftedPremium.
-const MessageGiftedPremiumTypeID = 0x30dd808e
+const MessageGiftedPremiumTypeID = 0xe4d0e07a
 
 // construct implements constructor of MessageContentClass.
 func (m MessageGiftedPremium) construct() MessageContentClass { return &m }
@@ -11755,6 +11757,9 @@ func (m *MessageGiftedPremium) Zero() bool {
 		return false
 	}
 	if !(m.ReceiverUserID == 0) {
+		return false
+	}
+	if !(m.Text.Zero()) {
 		return false
 	}
 	if !(m.Currency == "") {
@@ -11820,6 +11825,10 @@ func (m *MessageGiftedPremium) TypeInfo() tdp.Type {
 			SchemaName: "receiver_user_id",
 		},
 		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
 			Name:       "Currency",
 			SchemaName: "currency",
 		},
@@ -11850,7 +11859,7 @@ func (m *MessageGiftedPremium) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageGiftedPremium) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#30dd808e as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#e4d0e07a as nil")
 	}
 	b.PutID(MessageGiftedPremiumTypeID)
 	return m.EncodeBare(b)
@@ -11859,17 +11868,20 @@ func (m *MessageGiftedPremium) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageGiftedPremium) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#30dd808e as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#e4d0e07a as nil")
 	}
 	b.PutInt53(m.GifterUserID)
 	b.PutInt53(m.ReceiverUserID)
+	if err := m.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiftedPremium#e4d0e07a: field text: %w", err)
+	}
 	b.PutString(m.Currency)
 	b.PutInt53(m.Amount)
 	b.PutString(m.Cryptocurrency)
 	b.PutLong(m.CryptocurrencyAmount)
 	b.PutInt32(m.MonthCount)
 	if err := m.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageGiftedPremium#30dd808e: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiftedPremium#e4d0e07a: field sticker: %w", err)
 	}
 	return nil
 }
@@ -11877,10 +11889,10 @@ func (m *MessageGiftedPremium) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageGiftedPremium) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#30dd808e to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#e4d0e07a to nil")
 	}
 	if err := b.ConsumeID(MessageGiftedPremiumTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: %w", err)
+		return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -11888,60 +11900,65 @@ func (m *MessageGiftedPremium) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageGiftedPremium) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#30dd808e to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#e4d0e07a to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field gifter_user_id: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field gifter_user_id: %w", err)
 		}
 		m.GifterUserID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field receiver_user_id: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field receiver_user_id: %w", err)
 		}
 		m.ReceiverUserID = value
 	}
 	{
+		if err := m.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field text: %w", err)
+		}
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field amount: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field amount: %w", err)
 		}
 		m.Amount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field cryptocurrency: %w", err)
 		}
 		m.Cryptocurrency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency_amount: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field cryptocurrency_amount: %w", err)
 		}
 		m.CryptocurrencyAmount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field month_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field month_count: %w", err)
 		}
 		m.MonthCount = value
 	}
 	{
 		if err := m.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field sticker: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -11950,7 +11967,7 @@ func (m *MessageGiftedPremium) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#30dd808e as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#e4d0e07a as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageGiftedPremium")
@@ -11960,6 +11977,11 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("receiver_user_id")
 	b.PutInt53(m.ReceiverUserID)
+	b.Comma()
+	b.FieldStart("text")
+	if err := m.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageGiftedPremium#e4d0e07a: field text: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
@@ -11978,7 +12000,7 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageGiftedPremium#30dd808e: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiftedPremium#e4d0e07a: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -11989,60 +12011,64 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageGiftedPremium) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#30dd808e to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#e4d0e07a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageGiftedPremium"); err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: %w", err)
 			}
 		case "gifter_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field gifter_user_id: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field gifter_user_id: %w", err)
 			}
 			m.GifterUserID = value
 		case "receiver_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field receiver_user_id: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field receiver_user_id: %w", err)
 			}
 			m.ReceiverUserID = value
+		case "text":
+			if err := m.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field text: %w", err)
+			}
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field currency: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field currency: %w", err)
 			}
 			m.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field amount: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field amount: %w", err)
 			}
 			m.Amount = value
 		case "cryptocurrency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field cryptocurrency: %w", err)
 			}
 			m.Cryptocurrency = value
 		case "cryptocurrency_amount":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field cryptocurrency_amount: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field cryptocurrency_amount: %w", err)
 			}
 			m.CryptocurrencyAmount = value
 		case "month_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field month_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field month_count: %w", err)
 			}
 			m.MonthCount = value
 		case "sticker":
 			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#30dd808e: field sticker: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#e4d0e07a: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -12065,6 +12091,14 @@ func (m *MessageGiftedPremium) GetReceiverUserID() (value int64) {
 		return
 	}
 	return m.ReceiverUserID
+}
+
+// GetText returns value of Text field.
+func (m *MessageGiftedPremium) GetText() (value FormattedText) {
+	if m == nil {
+		return
+	}
+	return m.Text
 }
 
 // GetCurrency returns value of Currency field.
@@ -12115,10 +12149,12 @@ func (m *MessageGiftedPremium) GetSticker() (value Sticker) {
 	return m.Sticker
 }
 
-// MessagePremiumGiftCode represents TL type `messagePremiumGiftCode#26bd1bf3`.
+// MessagePremiumGiftCode represents TL type `messagePremiumGiftCode#29d22e4e`.
 type MessagePremiumGiftCode struct {
 	// Identifier of a chat or a user that created the gift code; may be null if unknown
 	CreatorID MessageSenderClass
+	// Message added to the gift
+	Text FormattedText
 	// True, if the gift code was created for a giveaway
 	IsFromGiveaway bool
 	// True, if the winner for the corresponding Telegram Premium subscription wasn't chosen
@@ -12141,7 +12177,7 @@ type MessagePremiumGiftCode struct {
 }
 
 // MessagePremiumGiftCodeTypeID is TL type id of MessagePremiumGiftCode.
-const MessagePremiumGiftCodeTypeID = 0x26bd1bf3
+const MessagePremiumGiftCodeTypeID = 0x29d22e4e
 
 // construct implements constructor of MessageContentClass.
 func (m MessagePremiumGiftCode) construct() MessageContentClass { return &m }
@@ -12161,6 +12197,9 @@ func (m *MessagePremiumGiftCode) Zero() bool {
 		return true
 	}
 	if !(m.CreatorID == nil) {
+		return false
+	}
+	if !(m.Text.Zero()) {
 		return false
 	}
 	if !(m.IsFromGiveaway == false) {
@@ -12231,6 +12270,10 @@ func (m *MessagePremiumGiftCode) TypeInfo() tdp.Type {
 			SchemaName: "creator_id",
 		},
 		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
 			Name:       "IsFromGiveaway",
 			SchemaName: "is_from_giveaway",
 		},
@@ -12273,7 +12316,7 @@ func (m *MessagePremiumGiftCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessagePremiumGiftCode) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiftCode#26bd1bf3 as nil")
+		return fmt.Errorf("can't encode messagePremiumGiftCode#29d22e4e as nil")
 	}
 	b.PutID(MessagePremiumGiftCodeTypeID)
 	return m.EncodeBare(b)
@@ -12282,13 +12325,16 @@ func (m *MessagePremiumGiftCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagePremiumGiftCode) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiftCode#26bd1bf3 as nil")
+		return fmt.Errorf("can't encode messagePremiumGiftCode#29d22e4e as nil")
 	}
 	if m.CreatorID == nil {
-		return fmt.Errorf("unable to encode messagePremiumGiftCode#26bd1bf3: field creator_id is nil")
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field creator_id is nil")
 	}
 	if err := m.CreatorID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiftCode#26bd1bf3: field creator_id: %w", err)
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field creator_id: %w", err)
+	}
+	if err := m.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field text: %w", err)
 	}
 	b.PutBool(m.IsFromGiveaway)
 	b.PutBool(m.IsUnclaimed)
@@ -12298,7 +12344,7 @@ func (m *MessagePremiumGiftCode) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(m.CryptocurrencyAmount)
 	b.PutInt32(m.MonthCount)
 	if err := m.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiftCode#26bd1bf3: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field sticker: %w", err)
 	}
 	b.PutString(m.Code)
 	return nil
@@ -12307,10 +12353,10 @@ func (m *MessagePremiumGiftCode) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessagePremiumGiftCode) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiftCode#26bd1bf3 to nil")
+		return fmt.Errorf("can't decode messagePremiumGiftCode#29d22e4e to nil")
 	}
 	if err := b.ConsumeID(MessagePremiumGiftCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: %w", err)
+		return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -12318,73 +12364,78 @@ func (m *MessagePremiumGiftCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagePremiumGiftCode) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiftCode#26bd1bf3 to nil")
+		return fmt.Errorf("can't decode messagePremiumGiftCode#29d22e4e to nil")
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field creator_id: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field creator_id: %w", err)
 		}
 		m.CreatorID = value
 	}
 	{
+		if err := m.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field text: %w", err)
+		}
+	}
+	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field is_from_giveaway: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field is_from_giveaway: %w", err)
 		}
 		m.IsFromGiveaway = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field is_unclaimed: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field is_unclaimed: %w", err)
 		}
 		m.IsUnclaimed = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field currency: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field amount: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field amount: %w", err)
 		}
 		m.Amount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field cryptocurrency: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field cryptocurrency: %w", err)
 		}
 		m.Cryptocurrency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field cryptocurrency_amount: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field cryptocurrency_amount: %w", err)
 		}
 		m.CryptocurrencyAmount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field month_count: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field month_count: %w", err)
 		}
 		m.MonthCount = value
 	}
 	{
 		if err := m.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field sticker: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field sticker: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field code: %w", err)
+			return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field code: %w", err)
 		}
 		m.Code = value
 	}
@@ -12394,17 +12445,22 @@ func (m *MessagePremiumGiftCode) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessagePremiumGiftCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePremiumGiftCode#26bd1bf3 as nil")
+		return fmt.Errorf("can't encode messagePremiumGiftCode#29d22e4e as nil")
 	}
 	b.ObjStart()
 	b.PutID("messagePremiumGiftCode")
 	b.Comma()
 	b.FieldStart("creator_id")
 	if m.CreatorID == nil {
-		return fmt.Errorf("unable to encode messagePremiumGiftCode#26bd1bf3: field creator_id is nil")
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field creator_id is nil")
 	}
 	if err := m.CreatorID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiftCode#26bd1bf3: field creator_id: %w", err)
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field creator_id: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("text")
+	if err := m.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field text: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("is_from_giveaway")
@@ -12430,7 +12486,7 @@ func (m *MessagePremiumGiftCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messagePremiumGiftCode#26bd1bf3: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messagePremiumGiftCode#29d22e4e: field sticker: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("code")
@@ -12444,71 +12500,75 @@ func (m *MessagePremiumGiftCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessagePremiumGiftCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePremiumGiftCode#26bd1bf3 to nil")
+		return fmt.Errorf("can't decode messagePremiumGiftCode#29d22e4e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messagePremiumGiftCode"); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: %w", err)
 			}
 		case "creator_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field creator_id: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field creator_id: %w", err)
 			}
 			m.CreatorID = value
+		case "text":
+			if err := m.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field text: %w", err)
+			}
 		case "is_from_giveaway":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field is_from_giveaway: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field is_from_giveaway: %w", err)
 			}
 			m.IsFromGiveaway = value
 		case "is_unclaimed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field is_unclaimed: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field is_unclaimed: %w", err)
 			}
 			m.IsUnclaimed = value
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field currency: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field currency: %w", err)
 			}
 			m.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field amount: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field amount: %w", err)
 			}
 			m.Amount = value
 		case "cryptocurrency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field cryptocurrency: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field cryptocurrency: %w", err)
 			}
 			m.Cryptocurrency = value
 		case "cryptocurrency_amount":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field cryptocurrency_amount: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field cryptocurrency_amount: %w", err)
 			}
 			m.CryptocurrencyAmount = value
 		case "month_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field month_count: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field month_count: %w", err)
 			}
 			m.MonthCount = value
 		case "sticker":
 			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field sticker: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field sticker: %w", err)
 			}
 		case "code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePremiumGiftCode#26bd1bf3: field code: %w", err)
+				return fmt.Errorf("unable to decode messagePremiumGiftCode#29d22e4e: field code: %w", err)
 			}
 			m.Code = value
 		default:
@@ -12524,6 +12584,14 @@ func (m *MessagePremiumGiftCode) GetCreatorID() (value MessageSenderClass) {
 		return
 	}
 	return m.CreatorID
+}
+
+// GetText returns value of Text field.
+func (m *MessagePremiumGiftCode) GetText() (value FormattedText) {
+	if m == nil {
+		return
+	}
+	return m.Text
 }
 
 // GetIsFromGiveaway returns value of IsFromGiveaway field.
@@ -16950,8 +17018,8 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessagePaymentSuccessful: // messagePaymentSuccessful#53d93cdc
 //	case *tdapi.MessagePaymentSuccessfulBot: // messagePaymentSuccessfulBot#68e13eb9
 //	case *tdapi.MessagePaymentRefunded: // messagePaymentRefunded#11bcb8f3
-//	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#30dd808e
-//	case *tdapi.MessagePremiumGiftCode: // messagePremiumGiftCode#26bd1bf3
+//	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#e4d0e07a
+//	case *tdapi.MessagePremiumGiftCode: // messagePremiumGiftCode#29d22e4e
 //	case *tdapi.MessageGiveawayCreated: // messageGiveawayCreated#39f3639f
 //	case *tdapi.MessageGiveaway: // messageGiveaway#eb61daa8
 //	case *tdapi.MessageGiveawayCompleted: // messageGiveawayCompleted#e424c8f7
@@ -17386,14 +17454,14 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageGiftedPremiumTypeID:
-		// Decoding messageGiftedPremium#30dd808e.
+		// Decoding messageGiftedPremium#e4d0e07a.
 		v := MessageGiftedPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case MessagePremiumGiftCodeTypeID:
-		// Decoding messagePremiumGiftCode#26bd1bf3.
+		// Decoding messagePremiumGiftCode#29d22e4e.
 		v := MessagePremiumGiftCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -17916,14 +17984,14 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageGiftedPremium":
-		// Decoding messageGiftedPremium#30dd808e.
+		// Decoding messageGiftedPremium#e4d0e07a.
 		v := MessageGiftedPremium{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case "messagePremiumGiftCode":
-		// Decoding messagePremiumGiftCode#26bd1bf3.
+		// Decoding messagePremiumGiftCode#29d22e4e.
 		v := MessagePremiumGiftCode{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)

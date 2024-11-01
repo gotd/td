@@ -47,7 +47,7 @@ type ForwardMessagesRequest struct {
 	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
 	// Pass true to copy content of the messages without reference to the original sender.
-	// Always true if the messages are forwarded to a secret chat or are local
+	// Always true if the messages are forwarded to a secret chat or are local.
 	SendCopy bool
 	// Pass true to remove media captions of message copies. Ignored if send_copy is false
 	RemoveCaption bool

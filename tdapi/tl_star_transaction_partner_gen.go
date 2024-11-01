@@ -426,7 +426,8 @@ func (s *StarTransactionPartnerGooglePlay) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // StarTransactionPartnerFragment represents TL type `starTransactionPartnerFragment#da1849b5`.
 type StarTransactionPartnerFragment struct {
-	// State of the withdrawal; may be null for refunds from Fragment
+	// State of the withdrawal; may be null for refunds from Fragment or for Telegram Stars
+	// bought on Fragment
 	WithdrawalState RevenueWithdrawalStateClass
 }
 
@@ -731,6 +732,172 @@ func (s *StarTransactionPartnerTelegramAds) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
+// StarTransactionPartnerTelegramAPI represents TL type `starTransactionPartnerTelegramApi#543cc9fd`.
+type StarTransactionPartnerTelegramAPI struct {
+	// The number of billed requests
+	RequestCount int32
+}
+
+// StarTransactionPartnerTelegramAPITypeID is TL type id of StarTransactionPartnerTelegramAPI.
+const StarTransactionPartnerTelegramAPITypeID = 0x543cc9fd
+
+// construct implements constructor of StarTransactionPartnerClass.
+func (s StarTransactionPartnerTelegramAPI) construct() StarTransactionPartnerClass { return &s }
+
+// Ensuring interfaces in compile-time for StarTransactionPartnerTelegramAPI.
+var (
+	_ bin.Encoder     = &StarTransactionPartnerTelegramAPI{}
+	_ bin.Decoder     = &StarTransactionPartnerTelegramAPI{}
+	_ bin.BareEncoder = &StarTransactionPartnerTelegramAPI{}
+	_ bin.BareDecoder = &StarTransactionPartnerTelegramAPI{}
+
+	_ StarTransactionPartnerClass = &StarTransactionPartnerTelegramAPI{}
+)
+
+func (s *StarTransactionPartnerTelegramAPI) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.RequestCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StarTransactionPartnerTelegramAPI) String() string {
+	if s == nil {
+		return "StarTransactionPartnerTelegramAPI(nil)"
+	}
+	type Alias StarTransactionPartnerTelegramAPI
+	return fmt.Sprintf("StarTransactionPartnerTelegramAPI%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StarTransactionPartnerTelegramAPI) TypeID() uint32 {
+	return StarTransactionPartnerTelegramAPITypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StarTransactionPartnerTelegramAPI) TypeName() string {
+	return "starTransactionPartnerTelegramApi"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StarTransactionPartnerTelegramAPI) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "starTransactionPartnerTelegramApi",
+		ID:   StarTransactionPartnerTelegramAPITypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RequestCount",
+			SchemaName: "request_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StarTransactionPartnerTelegramAPI) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionPartnerTelegramApi#543cc9fd as nil")
+	}
+	b.PutID(StarTransactionPartnerTelegramAPITypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StarTransactionPartnerTelegramAPI) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionPartnerTelegramApi#543cc9fd as nil")
+	}
+	b.PutInt32(s.RequestCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StarTransactionPartnerTelegramAPI) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionPartnerTelegramApi#543cc9fd to nil")
+	}
+	if err := b.ConsumeID(StarTransactionPartnerTelegramAPITypeID); err != nil {
+		return fmt.Errorf("unable to decode starTransactionPartnerTelegramApi#543cc9fd: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StarTransactionPartnerTelegramAPI) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionPartnerTelegramApi#543cc9fd to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode starTransactionPartnerTelegramApi#543cc9fd: field request_count: %w", err)
+		}
+		s.RequestCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StarTransactionPartnerTelegramAPI) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionPartnerTelegramApi#543cc9fd as nil")
+	}
+	b.ObjStart()
+	b.PutID("starTransactionPartnerTelegramApi")
+	b.Comma()
+	b.FieldStart("request_count")
+	b.PutInt32(s.RequestCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StarTransactionPartnerTelegramAPI) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionPartnerTelegramApi#543cc9fd to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("starTransactionPartnerTelegramApi"); err != nil {
+				return fmt.Errorf("unable to decode starTransactionPartnerTelegramApi#543cc9fd: %w", err)
+			}
+		case "request_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode starTransactionPartnerTelegramApi#543cc9fd: field request_count: %w", err)
+			}
+			s.RequestCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetRequestCount returns value of RequestCount field.
+func (s *StarTransactionPartnerTelegramAPI) GetRequestCount() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.RequestCount
+}
+
 // StarTransactionPartnerBot represents TL type `starTransactionPartnerBot#4ece3a40`.
 type StarTransactionPartnerBot struct {
 	// Identifier of the bot
@@ -945,7 +1112,7 @@ func (s *StarTransactionPartnerBot) GetPurpose() (value BotTransactionPurposeCla
 type StarTransactionPartnerBusiness struct {
 	// Identifier of the business account user
 	UserID int64
-	// The bought media if the trancastion wasn't refunded
+	// The bought media if the transaction wasn't refunded
 	Media []PaidMediaClass
 }
 
@@ -1743,6 +1910,7 @@ const StarTransactionPartnerClassName = "StarTransactionPartner"
 //	case *tdapi.StarTransactionPartnerGooglePlay: // starTransactionPartnerGooglePlay#f229f2a0
 //	case *tdapi.StarTransactionPartnerFragment: // starTransactionPartnerFragment#da1849b5
 //	case *tdapi.StarTransactionPartnerTelegramAds: // starTransactionPartnerTelegramAds#91f9c6b
+//	case *tdapi.StarTransactionPartnerTelegramAPI: // starTransactionPartnerTelegramApi#543cc9fd
 //	case *tdapi.StarTransactionPartnerBot: // starTransactionPartnerBot#4ece3a40
 //	case *tdapi.StarTransactionPartnerBusiness: // starTransactionPartnerBusiness#7af9fb52
 //	case *tdapi.StarTransactionPartnerChat: // starTransactionPartnerChat#71db4d40
@@ -1810,6 +1978,13 @@ func DecodeStarTransactionPartner(buf *bin.Buffer) (StarTransactionPartnerClass,
 	case StarTransactionPartnerTelegramAdsTypeID:
 		// Decoding starTransactionPartnerTelegramAds#91f9c6b.
 		v := StarTransactionPartnerTelegramAds{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
+		}
+		return &v, nil
+	case StarTransactionPartnerTelegramAPITypeID:
+		// Decoding starTransactionPartnerTelegramApi#543cc9fd.
+		v := StarTransactionPartnerTelegramAPI{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
 		}
@@ -1892,6 +2067,13 @@ func DecodeTDLibJSONStarTransactionPartner(buf tdjson.Decoder) (StarTransactionP
 	case "starTransactionPartnerTelegramAds":
 		// Decoding starTransactionPartnerTelegramAds#91f9c6b.
 		v := StarTransactionPartnerTelegramAds{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
+		}
+		return &v, nil
+	case "starTransactionPartnerTelegramApi":
+		// Decoding starTransactionPartnerTelegramApi#543cc9fd.
+		v := StarTransactionPartnerTelegramAPI{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionPartnerClass: %w", err)
 		}

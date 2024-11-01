@@ -31,8 +31,11 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchPublicStoriesByTagRequest represents TL type `searchPublicStoriesByTag#aa501062`.
+// SearchPublicStoriesByTagRequest represents TL type `searchPublicStoriesByTag#a2ca6a03`.
 type SearchPublicStoriesByTagRequest struct {
+	// Identifier of the chat that posted the stories to search for; pass 0 to search stories
+	// in all chats
+	StorySenderChatID int64
 	// Hashtag or cashtag to search for
 	Tag string
 	// Offset of the first entry to return as received from the previous request; use empty
@@ -45,7 +48,7 @@ type SearchPublicStoriesByTagRequest struct {
 }
 
 // SearchPublicStoriesByTagRequestTypeID is TL type id of SearchPublicStoriesByTagRequest.
-const SearchPublicStoriesByTagRequestTypeID = 0xaa501062
+const SearchPublicStoriesByTagRequestTypeID = 0xa2ca6a03
 
 // Ensuring interfaces in compile-time for SearchPublicStoriesByTagRequest.
 var (
@@ -58,6 +61,9 @@ var (
 func (s *SearchPublicStoriesByTagRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.StorySenderChatID == 0) {
+		return false
 	}
 	if !(s.Tag == "") {
 		return false
@@ -105,6 +111,10 @@ func (s *SearchPublicStoriesByTagRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
 			Name:       "Tag",
 			SchemaName: "tag",
 		},
@@ -123,7 +133,7 @@ func (s *SearchPublicStoriesByTagRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchPublicStoriesByTagRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchPublicStoriesByTag#aa501062 as nil")
+		return fmt.Errorf("can't encode searchPublicStoriesByTag#a2ca6a03 as nil")
 	}
 	b.PutID(SearchPublicStoriesByTagRequestTypeID)
 	return s.EncodeBare(b)
@@ -132,8 +142,9 @@ func (s *SearchPublicStoriesByTagRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchPublicStoriesByTagRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchPublicStoriesByTag#aa501062 as nil")
+		return fmt.Errorf("can't encode searchPublicStoriesByTag#a2ca6a03 as nil")
 	}
+	b.PutInt53(s.StorySenderChatID)
 	b.PutString(s.Tag)
 	b.PutString(s.Offset)
 	b.PutInt32(s.Limit)
@@ -143,10 +154,10 @@ func (s *SearchPublicStoriesByTagRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchPublicStoriesByTagRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchPublicStoriesByTag#aa501062 to nil")
+		return fmt.Errorf("can't decode searchPublicStoriesByTag#a2ca6a03 to nil")
 	}
 	if err := b.ConsumeID(SearchPublicStoriesByTagRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: %w", err)
+		return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -154,26 +165,33 @@ func (s *SearchPublicStoriesByTagRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchPublicStoriesByTagRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchPublicStoriesByTag#aa501062 to nil")
+		return fmt.Errorf("can't decode searchPublicStoriesByTag#a2ca6a03 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field story_sender_chat_id: %w", err)
+		}
+		s.StorySenderChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: field tag: %w", err)
+			return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field tag: %w", err)
 		}
 		s.Tag = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: field offset: %w", err)
+			return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field offset: %w", err)
 		}
 		s.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: field limit: %w", err)
+			return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field limit: %w", err)
 		}
 		s.Limit = value
 	}
@@ -183,10 +201,13 @@ func (s *SearchPublicStoriesByTagRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchPublicStoriesByTagRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchPublicStoriesByTag#aa501062 as nil")
+		return fmt.Errorf("can't encode searchPublicStoriesByTag#a2ca6a03 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchPublicStoriesByTag")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(s.StorySenderChatID)
 	b.Comma()
 	b.FieldStart("tag")
 	b.PutString(s.Tag)
@@ -205,31 +226,37 @@ func (s *SearchPublicStoriesByTagRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchPublicStoriesByTagRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchPublicStoriesByTag#aa501062 to nil")
+		return fmt.Errorf("can't decode searchPublicStoriesByTag#a2ca6a03 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchPublicStoriesByTag"); err != nil {
-				return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: %w", err)
+				return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: %w", err)
 			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field story_sender_chat_id: %w", err)
+			}
+			s.StorySenderChatID = value
 		case "tag":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: field tag: %w", err)
+				return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field tag: %w", err)
 			}
 			s.Tag = value
 		case "offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: field offset: %w", err)
+				return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field offset: %w", err)
 			}
 			s.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchPublicStoriesByTag#aa501062: field limit: %w", err)
+				return fmt.Errorf("unable to decode searchPublicStoriesByTag#a2ca6a03: field limit: %w", err)
 			}
 			s.Limit = value
 		default:
@@ -237,6 +264,14 @@ func (s *SearchPublicStoriesByTagRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 		}
 		return nil
 	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (s *SearchPublicStoriesByTagRequest) GetStorySenderChatID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.StorySenderChatID
 }
 
 // GetTag returns value of Tag field.
@@ -263,7 +298,7 @@ func (s *SearchPublicStoriesByTagRequest) GetLimit() (value int32) {
 	return s.Limit
 }
 
-// SearchPublicStoriesByTag invokes method searchPublicStoriesByTag#aa501062 returning error if any.
+// SearchPublicStoriesByTag invokes method searchPublicStoriesByTag#a2ca6a03 returning error if any.
 func (c *Client) SearchPublicStoriesByTag(ctx context.Context, request *SearchPublicStoriesByTagRequest) (*FoundStories, error) {
 	var result FoundStories
 
