@@ -37,7 +37,7 @@ type SetMessageReactionsRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// Types of the reaction to set
+	// Types of the reaction to set; pass an empty list to remove the reactions
 	ReactionTypes []ReactionTypeClass
 	// Pass true if the reactions are added with a big animation
 	IsBig bool

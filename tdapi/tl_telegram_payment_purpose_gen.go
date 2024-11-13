@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// TelegramPaymentPurposePremiumGiftCodes represents TL type `telegramPaymentPurposePremiumGiftCodes#91009cc`.
+// TelegramPaymentPurposePremiumGiftCodes represents TL type `telegramPaymentPurposePremiumGiftCodes#b13f14a9`.
 type TelegramPaymentPurposePremiumGiftCodes struct {
 	// Identifier of the supergroup or channel chat, which will be automatically boosted by
 	// the users for duration of the Premium subscription and which is administered by the
@@ -45,10 +45,14 @@ type TelegramPaymentPurposePremiumGiftCodes struct {
 	UserIDs []int64
 	// Number of months the Telegram Premium subscription will be active for the users
 	MonthCount int32
+	// Text to show along with the gift codes; 0-getOption("gift_text_length_max") characters
+	// Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are
+	// allowed
+	Text FormattedText
 }
 
 // TelegramPaymentPurposePremiumGiftCodesTypeID is TL type id of TelegramPaymentPurposePremiumGiftCodes.
-const TelegramPaymentPurposePremiumGiftCodesTypeID = 0x91009cc
+const TelegramPaymentPurposePremiumGiftCodesTypeID = 0xb13f14a9
 
 // construct implements constructor of TelegramPaymentPurposeClass.
 func (t TelegramPaymentPurposePremiumGiftCodes) construct() TelegramPaymentPurposeClass { return &t }
@@ -80,6 +84,9 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) Zero() bool {
 		return false
 	}
 	if !(t.MonthCount == 0) {
+		return false
+	}
+	if !(t.Text.Zero()) {
 		return false
 	}
 
@@ -138,6 +145,10 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) TypeInfo() tdp.Type {
 			Name:       "MonthCount",
 			SchemaName: "month_count",
 		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
 	}
 	return typ
 }
@@ -145,7 +156,7 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TelegramPaymentPurposePremiumGiftCodes) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode telegramPaymentPurposePremiumGiftCodes#91009cc as nil")
+		return fmt.Errorf("can't encode telegramPaymentPurposePremiumGiftCodes#b13f14a9 as nil")
 	}
 	b.PutID(TelegramPaymentPurposePremiumGiftCodesTypeID)
 	return t.EncodeBare(b)
@@ -154,7 +165,7 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TelegramPaymentPurposePremiumGiftCodes) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode telegramPaymentPurposePremiumGiftCodes#91009cc as nil")
+		return fmt.Errorf("can't encode telegramPaymentPurposePremiumGiftCodes#b13f14a9 as nil")
 	}
 	b.PutInt53(t.BoostedChatID)
 	b.PutString(t.Currency)
@@ -164,16 +175,19 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) EncodeBare(b *bin.Buffer) error
 		b.PutInt53(v)
 	}
 	b.PutInt32(t.MonthCount)
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field text: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *TelegramPaymentPurposePremiumGiftCodes) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode telegramPaymentPurposePremiumGiftCodes#91009cc to nil")
+		return fmt.Errorf("can't decode telegramPaymentPurposePremiumGiftCodes#b13f14a9 to nil")
 	}
 	if err := b.ConsumeID(TelegramPaymentPurposePremiumGiftCodesTypeID); err != nil {
-		return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: %w", err)
+		return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -181,33 +195,33 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TelegramPaymentPurposePremiumGiftCodes) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode telegramPaymentPurposePremiumGiftCodes#91009cc to nil")
+		return fmt.Errorf("can't decode telegramPaymentPurposePremiumGiftCodes#b13f14a9 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field boosted_chat_id: %w", err)
+			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field boosted_chat_id: %w", err)
 		}
 		t.BoostedChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field currency: %w", err)
+			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field currency: %w", err)
 		}
 		t.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field amount: %w", err)
+			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field amount: %w", err)
 		}
 		t.Amount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -216,7 +230,7 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) DecodeBare(b *bin.Buffer) error
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field user_ids: %w", err)
 			}
 			t.UserIDs = append(t.UserIDs, value)
 		}
@@ -224,9 +238,14 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) DecodeBare(b *bin.Buffer) error
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field month_count: %w", err)
+			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field month_count: %w", err)
 		}
 		t.MonthCount = value
+	}
+	{
+		if err := t.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field text: %w", err)
+		}
 	}
 	return nil
 }
@@ -234,7 +253,7 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) DecodeBare(b *bin.Buffer) error
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *TelegramPaymentPurposePremiumGiftCodes) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode telegramPaymentPurposePremiumGiftCodes#91009cc as nil")
+		return fmt.Errorf("can't encode telegramPaymentPurposePremiumGiftCodes#b13f14a9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("telegramPaymentPurposePremiumGiftCodes")
@@ -260,6 +279,11 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) EncodeTDLibJSON(b tdjson.Encode
 	b.FieldStart("month_count")
 	b.PutInt32(t.MonthCount)
 	b.Comma()
+	b.FieldStart("text")
+	if err := t.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field text: %w", err)
+	}
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -268,50 +292,54 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) EncodeTDLibJSON(b tdjson.Encode
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *TelegramPaymentPurposePremiumGiftCodes) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode telegramPaymentPurposePremiumGiftCodes#91009cc to nil")
+		return fmt.Errorf("can't decode telegramPaymentPurposePremiumGiftCodes#b13f14a9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("telegramPaymentPurposePremiumGiftCodes"); err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: %w", err)
 			}
 		case "boosted_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field boosted_chat_id: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field boosted_chat_id: %w", err)
 			}
 			t.BoostedChatID = value
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field currency: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field currency: %w", err)
 			}
 			t.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field amount: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field amount: %w", err)
 			}
 			t.Amount = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field user_ids: %w", err)
 				}
 				t.UserIDs = append(t.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field user_ids: %w", err)
 			}
 		case "month_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#91009cc: field month_count: %w", err)
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field month_count: %w", err)
 			}
 			t.MonthCount = value
+		case "text":
+			if err := t.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode telegramPaymentPurposePremiumGiftCodes#b13f14a9: field text: %w", err)
+			}
 		default:
 			return b.Skip()
 		}
@@ -357,6 +385,14 @@ func (t *TelegramPaymentPurposePremiumGiftCodes) GetMonthCount() (value int32) {
 		return
 	}
 	return t.MonthCount
+}
+
+// GetText returns value of Text field.
+func (t *TelegramPaymentPurposePremiumGiftCodes) GetText() (value FormattedText) {
+	if t == nil {
+		return
+	}
+	return t.Text
 }
 
 // TelegramPaymentPurposePremiumGiveaway represents TL type `telegramPaymentPurposePremiumGiveaway#d2a7c33f`.
@@ -1643,7 +1679,7 @@ const TelegramPaymentPurposeClassName = "TelegramPaymentPurpose"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.TelegramPaymentPurposePremiumGiftCodes: // telegramPaymentPurposePremiumGiftCodes#91009cc
+//	case *tdapi.TelegramPaymentPurposePremiumGiftCodes: // telegramPaymentPurposePremiumGiftCodes#b13f14a9
 //	case *tdapi.TelegramPaymentPurposePremiumGiveaway: // telegramPaymentPurposePremiumGiveaway#d2a7c33f
 //	case *tdapi.TelegramPaymentPurposeStars: // telegramPaymentPurposeStars#e273ee52
 //	case *tdapi.TelegramPaymentPurposeGiftedStars: // telegramPaymentPurposeGiftedStars#91b68a36
@@ -1681,7 +1717,7 @@ func DecodeTelegramPaymentPurpose(buf *bin.Buffer) (TelegramPaymentPurposeClass,
 	}
 	switch id {
 	case TelegramPaymentPurposePremiumGiftCodesTypeID:
-		// Decoding telegramPaymentPurposePremiumGiftCodes#91009cc.
+		// Decoding telegramPaymentPurposePremiumGiftCodes#b13f14a9.
 		v := TelegramPaymentPurposePremiumGiftCodes{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)
@@ -1735,7 +1771,7 @@ func DecodeTDLibJSONTelegramPaymentPurpose(buf tdjson.Decoder) (TelegramPaymentP
 	}
 	switch id {
 	case "telegramPaymentPurposePremiumGiftCodes":
-		// Decoding telegramPaymentPurposePremiumGiftCodes#91009cc.
+		// Decoding telegramPaymentPurposePremiumGiftCodes#b13f14a9.
 		v := TelegramPaymentPurposePremiumGiftCodes{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TelegramPaymentPurposeClass: %w", err)

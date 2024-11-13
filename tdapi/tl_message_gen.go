@@ -64,9 +64,10 @@ type Message struct {
 	IsTopicMessage bool
 	// True, if the message contains an unread mention for the current user
 	ContainsUnreadMention bool
-	// Point in time (Unix timestamp) when the message was sent
+	// Point in time (Unix timestamp) when the message was sent; 0 for scheduled messages
 	Date int32
-	// Point in time (Unix timestamp) when the message was last edited
+	// Point in time (Unix timestamp) when the message was last edited; 0 for scheduled
+	// messages
 	EditDate int32
 	// Information about the initial message sender; may be null if none or unknown
 	ForwardInfo MessageForwardInfo

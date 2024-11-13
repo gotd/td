@@ -35,7 +35,8 @@ var (
 type InputInvoiceMessage struct {
 	// Chat identifier of the message
 	ChatID int64
-	// Message identifier
+	// Message identifier. Use messageProperties.can_be_paid to check whether the message can
+	// be used in the method
 	MessageID int64
 }
 

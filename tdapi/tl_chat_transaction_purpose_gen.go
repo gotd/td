@@ -36,7 +36,7 @@ type ChatTransactionPurposePaidMedia struct {
 	// Identifier of the corresponding message with paid media; can be 0 or an identifier of
 	// a deleted message
 	MessageID int64
-	// The bought media if the trancastion wasn't refunded
+	// The bought media if the transaction wasn't refunded
 	Media []PaidMediaClass
 }
 

@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchStickerSetRequest represents TL type `searchStickerSet#45049cee`.
+// SearchStickerSetRequest represents TL type `searchStickerSet#63eec702`.
 type SearchStickerSetRequest struct {
 	// Name of the sticker set
 	Name string
+	// Pass true to ignore local cache of sticker sets and always send a network request
+	IgnoreCache bool
 }
 
 // SearchStickerSetRequestTypeID is TL type id of SearchStickerSetRequest.
-const SearchStickerSetRequestTypeID = 0x45049cee
+const SearchStickerSetRequestTypeID = 0x63eec702
 
 // Ensuring interfaces in compile-time for SearchStickerSetRequest.
 var (
@@ -53,6 +55,9 @@ func (s *SearchStickerSetRequest) Zero() bool {
 		return true
 	}
 	if !(s.Name == "") {
+		return false
+	}
+	if !(s.IgnoreCache == false) {
 		return false
 	}
 
@@ -95,6 +100,10 @@ func (s *SearchStickerSetRequest) TypeInfo() tdp.Type {
 			Name:       "Name",
 			SchemaName: "name",
 		},
+		{
+			Name:       "IgnoreCache",
+			SchemaName: "ignore_cache",
+		},
 	}
 	return typ
 }
@@ -102,7 +111,7 @@ func (s *SearchStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchStickerSetRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchStickerSet#45049cee as nil")
+		return fmt.Errorf("can't encode searchStickerSet#63eec702 as nil")
 	}
 	b.PutID(SearchStickerSetRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,19 +120,20 @@ func (s *SearchStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchStickerSet#45049cee as nil")
+		return fmt.Errorf("can't encode searchStickerSet#63eec702 as nil")
 	}
 	b.PutString(s.Name)
+	b.PutBool(s.IgnoreCache)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SearchStickerSetRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchStickerSet#45049cee to nil")
+		return fmt.Errorf("can't decode searchStickerSet#63eec702 to nil")
 	}
 	if err := b.ConsumeID(SearchStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchStickerSet#45049cee: %w", err)
+		return fmt.Errorf("unable to decode searchStickerSet#63eec702: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -131,14 +141,21 @@ func (s *SearchStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchStickerSet#45049cee to nil")
+		return fmt.Errorf("can't decode searchStickerSet#63eec702 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchStickerSet#45049cee: field name: %w", err)
+			return fmt.Errorf("unable to decode searchStickerSet#63eec702: field name: %w", err)
 		}
 		s.Name = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode searchStickerSet#63eec702: field ignore_cache: %w", err)
+		}
+		s.IgnoreCache = value
 	}
 	return nil
 }
@@ -146,13 +163,16 @@ func (s *SearchStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchStickerSet#45049cee as nil")
+		return fmt.Errorf("can't encode searchStickerSet#63eec702 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchStickerSet")
 	b.Comma()
 	b.FieldStart("name")
 	b.PutString(s.Name)
+	b.Comma()
+	b.FieldStart("ignore_cache")
+	b.PutBool(s.IgnoreCache)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -162,21 +182,27 @@ func (s *SearchStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchStickerSet#45049cee to nil")
+		return fmt.Errorf("can't decode searchStickerSet#63eec702 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchStickerSet"); err != nil {
-				return fmt.Errorf("unable to decode searchStickerSet#45049cee: %w", err)
+				return fmt.Errorf("unable to decode searchStickerSet#63eec702: %w", err)
 			}
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchStickerSet#45049cee: field name: %w", err)
+				return fmt.Errorf("unable to decode searchStickerSet#63eec702: field name: %w", err)
 			}
 			s.Name = value
+		case "ignore_cache":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchStickerSet#63eec702: field ignore_cache: %w", err)
+			}
+			s.IgnoreCache = value
 		default:
 			return b.Skip()
 		}
@@ -192,13 +218,18 @@ func (s *SearchStickerSetRequest) GetName() (value string) {
 	return s.Name
 }
 
-// SearchStickerSet invokes method searchStickerSet#45049cee returning error if any.
-func (c *Client) SearchStickerSet(ctx context.Context, name string) (*StickerSet, error) {
+// GetIgnoreCache returns value of IgnoreCache field.
+func (s *SearchStickerSetRequest) GetIgnoreCache() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IgnoreCache
+}
+
+// SearchStickerSet invokes method searchStickerSet#63eec702 returning error if any.
+func (c *Client) SearchStickerSet(ctx context.Context, request *SearchStickerSetRequest) (*StickerSet, error) {
 	var result StickerSet
 
-	request := &SearchStickerSetRequest{
-		Name: name,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
