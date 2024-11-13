@@ -5430,7 +5430,7 @@ func (m *MessageActionWebViewDataSent) GetText() (value string) {
 	return m.Text
 }
 
-// MessageActionGiftPremium represents TL type `messageActionGiftPremium#c83d6aec`.
+// MessageActionGiftPremium represents TL type `messageActionGiftPremium#6c6274fa`.
 // Info about a gifted Telegram Premium subscription
 //
 // See https://core.telegram.org/constructor/messageActionGiftPremium for reference.
@@ -5464,10 +5464,14 @@ type MessageActionGiftPremium struct {
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64
+	// Message field of MessageActionGiftPremium.
+	//
+	// Use SetMessage and GetMessage helpers.
+	Message TextWithEntities
 }
 
 // MessageActionGiftPremiumTypeID is TL type id of MessageActionGiftPremium.
-const MessageActionGiftPremiumTypeID = 0xc83d6aec
+const MessageActionGiftPremiumTypeID = 0x6c6274fa
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionGiftPremium) construct() MessageActionClass { return &m }
@@ -5504,6 +5508,9 @@ func (m *MessageActionGiftPremium) Zero() bool {
 	if !(m.CryptoAmount == 0) {
 		return false
 	}
+	if !(m.Message.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -5524,6 +5531,7 @@ func (m *MessageActionGiftPremium) FillFrom(from interface {
 	GetMonths() (value int)
 	GetCryptoCurrency() (value string, ok bool)
 	GetCryptoAmount() (value int64, ok bool)
+	GetMessage() (value TextWithEntities, ok bool)
 }) {
 	m.Currency = from.GetCurrency()
 	m.Amount = from.GetAmount()
@@ -5534,6 +5542,10 @@ func (m *MessageActionGiftPremium) FillFrom(from interface {
 
 	if val, ok := from.GetCryptoAmount(); ok {
 		m.CryptoAmount = val
+	}
+
+	if val, ok := from.GetMessage(); ok {
+		m.Message = val
 	}
 
 }
@@ -5583,6 +5595,11 @@ func (m *MessageActionGiftPremium) TypeInfo() tdp.Type {
 			SchemaName: "crypto_amount",
 			Null:       !m.Flags.Has(0),
 		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !m.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -5595,12 +5612,15 @@ func (m *MessageActionGiftPremium) SetFlags() {
 	if !(m.CryptoAmount == 0) {
 		m.Flags.Set(0)
 	}
+	if !(m.Message.Zero()) {
+		m.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionGiftPremium) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionGiftPremium#c83d6aec as nil")
+		return fmt.Errorf("can't encode messageActionGiftPremium#6c6274fa as nil")
 	}
 	b.PutID(MessageActionGiftPremiumTypeID)
 	return m.EncodeBare(b)
@@ -5609,11 +5629,11 @@ func (m *MessageActionGiftPremium) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionGiftPremium) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionGiftPremium#c83d6aec as nil")
+		return fmt.Errorf("can't encode messageActionGiftPremium#6c6274fa as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionGiftPremium#c83d6aec: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionGiftPremium#6c6274fa: field flags: %w", err)
 	}
 	b.PutString(m.Currency)
 	b.PutLong(m.Amount)
@@ -5624,16 +5644,21 @@ func (m *MessageActionGiftPremium) EncodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(0) {
 		b.PutLong(m.CryptoAmount)
 	}
+	if m.Flags.Has(1) {
+		if err := m.Message.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionGiftPremium#6c6274fa: field message: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionGiftPremium) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionGiftPremium#c83d6aec to nil")
+		return fmt.Errorf("can't decode messageActionGiftPremium#6c6274fa to nil")
 	}
 	if err := b.ConsumeID(MessageActionGiftPremiumTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: %w", err)
+		return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -5641,47 +5666,52 @@ func (m *MessageActionGiftPremium) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionGiftPremium) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionGiftPremium#c83d6aec to nil")
+		return fmt.Errorf("can't decode messageActionGiftPremium#6c6274fa to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: field amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field amount: %w", err)
 		}
 		m.Amount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: field months: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field months: %w", err)
 		}
 		m.Months = value
 	}
 	if m.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: field crypto_currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field crypto_currency: %w", err)
 		}
 		m.CryptoCurrency = value
 	}
 	if m.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftPremium#c83d6aec: field crypto_amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field crypto_amount: %w", err)
 		}
 		m.CryptoAmount = value
+	}
+	if m.Flags.Has(1) {
+		if err := m.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftPremium#6c6274fa: field message: %w", err)
+		}
 	}
 	return nil
 }
@@ -5744,6 +5774,24 @@ func (m *MessageActionGiftPremium) GetCryptoAmount() (value int64, ok bool) {
 		return value, false
 	}
 	return m.CryptoAmount, true
+}
+
+// SetMessage sets value of Message conditional field.
+func (m *MessageActionGiftPremium) SetMessage(value TextWithEntities) {
+	m.Flags.Set(1)
+	m.Message = value
+}
+
+// GetMessage returns value of Message conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftPremium) GetMessage() (value TextWithEntities, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.Message, true
 }
 
 // MessageActionTopicCreate represents TL type `messageActionTopicCreate#d999256`.
@@ -6895,7 +6943,7 @@ func (m *MessageActionSetChatWallPaper) GetWallpaper() (value WallPaperClass) {
 	return m.Wallpaper
 }
 
-// MessageActionGiftCode represents TL type `messageActionGiftCode#678c2e09`.
+// MessageActionGiftCode represents TL type `messageActionGiftCode#56d03994`.
 // Contains a Telegram Premium giftcode link¹.
 //
 // Links:
@@ -6965,10 +7013,14 @@ type MessageActionGiftCode struct {
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64
+	// Message field of MessageActionGiftCode.
+	//
+	// Use SetMessage and GetMessage helpers.
+	Message TextWithEntities
 }
 
 // MessageActionGiftCodeTypeID is TL type id of MessageActionGiftCode.
-const MessageActionGiftCodeTypeID = 0x678c2e09
+const MessageActionGiftCodeTypeID = 0x56d03994
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionGiftCode) construct() MessageActionClass { return &m }
@@ -7017,6 +7069,9 @@ func (m *MessageActionGiftCode) Zero() bool {
 	if !(m.CryptoAmount == 0) {
 		return false
 	}
+	if !(m.Message.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -7041,6 +7096,7 @@ func (m *MessageActionGiftCode) FillFrom(from interface {
 	GetAmount() (value int64, ok bool)
 	GetCryptoCurrency() (value string, ok bool)
 	GetCryptoAmount() (value int64, ok bool)
+	GetMessage() (value TextWithEntities, ok bool)
 }) {
 	m.ViaGiveaway = from.GetViaGiveaway()
 	m.Unclaimed = from.GetUnclaimed()
@@ -7064,6 +7120,10 @@ func (m *MessageActionGiftCode) FillFrom(from interface {
 
 	if val, ok := from.GetCryptoAmount(); ok {
 		m.CryptoAmount = val
+	}
+
+	if val, ok := from.GetMessage(); ok {
+		m.Message = val
 	}
 
 }
@@ -7134,6 +7194,11 @@ func (m *MessageActionGiftCode) TypeInfo() tdp.Type {
 			SchemaName: "crypto_amount",
 			Null:       !m.Flags.Has(3),
 		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !m.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -7161,12 +7226,15 @@ func (m *MessageActionGiftCode) SetFlags() {
 	if !(m.CryptoAmount == 0) {
 		m.Flags.Set(3)
 	}
+	if !(m.Message.Zero()) {
+		m.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionGiftCode) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionGiftCode#678c2e09 as nil")
+		return fmt.Errorf("can't encode messageActionGiftCode#56d03994 as nil")
 	}
 	b.PutID(MessageActionGiftCodeTypeID)
 	return m.EncodeBare(b)
@@ -7175,18 +7243,18 @@ func (m *MessageActionGiftCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionGiftCode) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionGiftCode#678c2e09 as nil")
+		return fmt.Errorf("can't encode messageActionGiftCode#56d03994 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionGiftCode#678c2e09: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionGiftCode#56d03994: field flags: %w", err)
 	}
 	if m.Flags.Has(1) {
 		if m.BoostPeer == nil {
-			return fmt.Errorf("unable to encode messageActionGiftCode#678c2e09: field boost_peer is nil")
+			return fmt.Errorf("unable to encode messageActionGiftCode#56d03994: field boost_peer is nil")
 		}
 		if err := m.BoostPeer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionGiftCode#678c2e09: field boost_peer: %w", err)
+			return fmt.Errorf("unable to encode messageActionGiftCode#56d03994: field boost_peer: %w", err)
 		}
 	}
 	b.PutInt(m.Months)
@@ -7203,16 +7271,21 @@ func (m *MessageActionGiftCode) EncodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(3) {
 		b.PutLong(m.CryptoAmount)
 	}
+	if m.Flags.Has(4) {
+		if err := m.Message.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionGiftCode#56d03994: field message: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionGiftCode) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionGiftCode#678c2e09 to nil")
+		return fmt.Errorf("can't decode messageActionGiftCode#56d03994 to nil")
 	}
 	if err := b.ConsumeID(MessageActionGiftCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: %w", err)
+		return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -7220,11 +7293,11 @@ func (m *MessageActionGiftCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionGiftCode) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionGiftCode#678c2e09 to nil")
+		return fmt.Errorf("can't decode messageActionGiftCode#56d03994 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field flags: %w", err)
 		}
 	}
 	m.ViaGiveaway = m.Flags.Has(0)
@@ -7232,51 +7305,56 @@ func (m *MessageActionGiftCode) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(1) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field boost_peer: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field boost_peer: %w", err)
 		}
 		m.BoostPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field months: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field months: %w", err)
 		}
 		m.Months = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field slug: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field slug: %w", err)
 		}
 		m.Slug = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field amount: %w", err)
 		}
 		m.Amount = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field crypto_currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field crypto_currency: %w", err)
 		}
 		m.CryptoCurrency = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionGiftCode#678c2e09: field crypto_amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field crypto_amount: %w", err)
 		}
 		m.CryptoAmount = value
+	}
+	if m.Flags.Has(4) {
+		if err := m.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftCode#56d03994: field message: %w", err)
+		}
 	}
 	return nil
 }
@@ -7423,6 +7501,24 @@ func (m *MessageActionGiftCode) GetCryptoAmount() (value int64, ok bool) {
 		return value, false
 	}
 	return m.CryptoAmount, true
+}
+
+// SetMessage sets value of Message conditional field.
+func (m *MessageActionGiftCode) SetMessage(value TextWithEntities) {
+	m.Flags.Set(4)
+	m.Message = value
+}
+
+// GetMessage returns value of Message conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftCode) GetMessage() (value TextWithEntities, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.Message, true
 }
 
 // MessageActionGiveawayLaunch represents TL type `messageActionGiveawayLaunch#a80f51e4`.
@@ -9468,13 +9564,13 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
 //	case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
 //	case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
-//	case *tg.MessageActionGiftPremium: // messageActionGiftPremium#c83d6aec
+//	case *tg.MessageActionGiftPremium: // messageActionGiftPremium#6c6274fa
 //	case *tg.MessageActionTopicCreate: // messageActionTopicCreate#d999256
 //	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#c0944820
 //	case *tg.MessageActionSuggestProfilePhoto: // messageActionSuggestProfilePhoto#57de635e
 //	case *tg.MessageActionRequestedPeer: // messageActionRequestedPeer#31518e9b
 //	case *tg.MessageActionSetChatWallPaper: // messageActionSetChatWallPaper#5060a3f4
-//	case *tg.MessageActionGiftCode: // messageActionGiftCode#678c2e09
+//	case *tg.MessageActionGiftCode: // messageActionGiftCode#56d03994
 //	case *tg.MessageActionGiveawayLaunch: // messageActionGiveawayLaunch#a80f51e4
 //	case *tg.MessageActionGiveawayResults: // messageActionGiveawayResults#87e2f155
 //	case *tg.MessageActionBoostApply: // messageActionBoostApply#cc02aa6d
@@ -9736,7 +9832,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionGiftPremiumTypeID:
-		// Decoding messageActionGiftPremium#c83d6aec.
+		// Decoding messageActionGiftPremium#6c6274fa.
 		v := MessageActionGiftPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
@@ -9778,7 +9874,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionGiftCodeTypeID:
-		// Decoding messageActionGiftCode#678c2e09.
+		// Decoding messageActionGiftCode#56d03994.
 		v := MessageActionGiftCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)

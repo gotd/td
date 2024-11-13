@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesSearchPostsRequest represents TL type `stories.searchPosts#6cea116a`.
+// StoriesSearchPostsRequest represents TL type `stories.searchPosts#d1810907`.
 // Globally search for stories¹ using a hashtag or a location media area², see here
 // »³ for more info on the full flow.
 // Either hashtag or area must be set when invoking the method.
@@ -62,6 +62,10 @@ type StoriesSearchPostsRequest struct {
 	//
 	// Use SetArea and GetArea helpers.
 	Area MediaAreaClass
+	// Peer field of StoriesSearchPostsRequest.
+	//
+	// Use SetPeer and GetPeer helpers.
+	Peer InputPeerClass
 	// Offset for pagination¹: initially an empty string, then the next_offset from the
 	// previously returned stories.foundStories².
 	//
@@ -77,7 +81,7 @@ type StoriesSearchPostsRequest struct {
 }
 
 // StoriesSearchPostsRequestTypeID is TL type id of StoriesSearchPostsRequest.
-const StoriesSearchPostsRequestTypeID = 0x6cea116a
+const StoriesSearchPostsRequestTypeID = 0xd1810907
 
 // Ensuring interfaces in compile-time for StoriesSearchPostsRequest.
 var (
@@ -98,6 +102,9 @@ func (s *StoriesSearchPostsRequest) Zero() bool {
 		return false
 	}
 	if !(s.Area == nil) {
+		return false
+	}
+	if !(s.Peer == nil) {
 		return false
 	}
 	if !(s.Offset == "") {
@@ -123,6 +130,7 @@ func (s *StoriesSearchPostsRequest) String() string {
 func (s *StoriesSearchPostsRequest) FillFrom(from interface {
 	GetHashtag() (value string, ok bool)
 	GetArea() (value MediaAreaClass, ok bool)
+	GetPeer() (value InputPeerClass, ok bool)
 	GetOffset() (value string)
 	GetLimit() (value int)
 }) {
@@ -132,6 +140,10 @@ func (s *StoriesSearchPostsRequest) FillFrom(from interface {
 
 	if val, ok := from.GetArea(); ok {
 		s.Area = val
+	}
+
+	if val, ok := from.GetPeer(); ok {
+		s.Peer = val
 	}
 
 	s.Offset = from.GetOffset()
@@ -172,6 +184,11 @@ func (s *StoriesSearchPostsRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(1),
 		},
 		{
+			Name:       "Peer",
+			SchemaName: "peer",
+			Null:       !s.Flags.Has(2),
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -191,12 +208,15 @@ func (s *StoriesSearchPostsRequest) SetFlags() {
 	if !(s.Area == nil) {
 		s.Flags.Set(1)
 	}
+	if !(s.Peer == nil) {
+		s.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StoriesSearchPostsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.searchPosts#6cea116a as nil")
+		return fmt.Errorf("can't encode stories.searchPosts#d1810907 as nil")
 	}
 	b.PutID(StoriesSearchPostsRequestTypeID)
 	return s.EncodeBare(b)
@@ -205,21 +225,29 @@ func (s *StoriesSearchPostsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoriesSearchPostsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.searchPosts#6cea116a as nil")
+		return fmt.Errorf("can't encode stories.searchPosts#d1810907 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.searchPosts#6cea116a: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.searchPosts#d1810907: field flags: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutString(s.Hashtag)
 	}
 	if s.Flags.Has(1) {
 		if s.Area == nil {
-			return fmt.Errorf("unable to encode stories.searchPosts#6cea116a: field area is nil")
+			return fmt.Errorf("unable to encode stories.searchPosts#d1810907: field area is nil")
 		}
 		if err := s.Area.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.searchPosts#6cea116a: field area: %w", err)
+			return fmt.Errorf("unable to encode stories.searchPosts#d1810907: field area: %w", err)
+		}
+	}
+	if s.Flags.Has(2) {
+		if s.Peer == nil {
+			return fmt.Errorf("unable to encode stories.searchPosts#d1810907: field peer is nil")
+		}
+		if err := s.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode stories.searchPosts#d1810907: field peer: %w", err)
 		}
 	}
 	b.PutString(s.Offset)
@@ -230,10 +258,10 @@ func (s *StoriesSearchPostsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoriesSearchPostsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.searchPosts#6cea116a to nil")
+		return fmt.Errorf("can't decode stories.searchPosts#d1810907 to nil")
 	}
 	if err := b.ConsumeID(StoriesSearchPostsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.searchPosts#6cea116a: %w", err)
+		return fmt.Errorf("unable to decode stories.searchPosts#d1810907: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -241,38 +269,45 @@ func (s *StoriesSearchPostsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoriesSearchPostsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.searchPosts#6cea116a to nil")
+		return fmt.Errorf("can't decode stories.searchPosts#d1810907 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stories.searchPosts#6cea116a: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.searchPosts#d1810907: field flags: %w", err)
 		}
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.searchPosts#6cea116a: field hashtag: %w", err)
+			return fmt.Errorf("unable to decode stories.searchPosts#d1810907: field hashtag: %w", err)
 		}
 		s.Hashtag = value
 	}
 	if s.Flags.Has(1) {
 		value, err := DecodeMediaArea(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.searchPosts#6cea116a: field area: %w", err)
+			return fmt.Errorf("unable to decode stories.searchPosts#d1810907: field area: %w", err)
 		}
 		s.Area = value
+	}
+	if s.Flags.Has(2) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.searchPosts#d1810907: field peer: %w", err)
+		}
+		s.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.searchPosts#6cea116a: field offset: %w", err)
+			return fmt.Errorf("unable to decode stories.searchPosts#d1810907: field offset: %w", err)
 		}
 		s.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.searchPosts#6cea116a: field limit: %w", err)
+			return fmt.Errorf("unable to decode stories.searchPosts#d1810907: field limit: %w", err)
 		}
 		s.Limit = value
 	}
@@ -315,6 +350,24 @@ func (s *StoriesSearchPostsRequest) GetArea() (value MediaAreaClass, ok bool) {
 	return s.Area, true
 }
 
+// SetPeer sets value of Peer conditional field.
+func (s *StoriesSearchPostsRequest) SetPeer(value InputPeerClass) {
+	s.Flags.Set(2)
+	s.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (s *StoriesSearchPostsRequest) GetPeer() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.Peer, true
+}
+
 // GetOffset returns value of Offset field.
 func (s *StoriesSearchPostsRequest) GetOffset() (value string) {
 	if s == nil {
@@ -331,7 +384,7 @@ func (s *StoriesSearchPostsRequest) GetLimit() (value int) {
 	return s.Limit
 }
 
-// StoriesSearchPosts invokes method stories.searchPosts#6cea116a returning error if any.
+// StoriesSearchPosts invokes method stories.searchPosts#d1810907 returning error if any.
 // Globally search for stories¹ using a hashtag or a location media area², see here
 // »³ for more info on the full flow.
 // Either hashtag or area must be set when invoking the method.

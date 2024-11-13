@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StatsGetBroadcastRevenueTransactionsRequest represents TL type `stats.getBroadcastRevenueTransactions#69280f`.
+// StatsGetBroadcastRevenueTransactionsRequest represents TL type `stats.getBroadcastRevenueTransactions#70990b6d`.
 // Fetch channel ad revenue transaction history »¹.
 //
 // Links:
@@ -39,8 +39,8 @@ var (
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueTransactions for reference.
 type StatsGetBroadcastRevenueTransactionsRequest struct {
-	// The channel
-	Channel InputChannelClass
+	// Peer field of StatsGetBroadcastRevenueTransactionsRequest.
+	Peer InputPeerClass
 	// Offset for pagination¹
 	//
 	// Links:
@@ -54,7 +54,7 @@ type StatsGetBroadcastRevenueTransactionsRequest struct {
 }
 
 // StatsGetBroadcastRevenueTransactionsRequestTypeID is TL type id of StatsGetBroadcastRevenueTransactionsRequest.
-const StatsGetBroadcastRevenueTransactionsRequestTypeID = 0x69280f
+const StatsGetBroadcastRevenueTransactionsRequestTypeID = 0x70990b6d
 
 // Ensuring interfaces in compile-time for StatsGetBroadcastRevenueTransactionsRequest.
 var (
@@ -68,7 +68,7 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Channel == nil) {
+	if !(g.Peer == nil) {
 		return false
 	}
 	if !(g.Offset == 0) {
@@ -92,11 +92,11 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) String() string {
 
 // FillFrom fills StatsGetBroadcastRevenueTransactionsRequest from given interface.
 func (g *StatsGetBroadcastRevenueTransactionsRequest) FillFrom(from interface {
-	GetChannel() (value InputChannelClass)
+	GetPeer() (value InputPeerClass)
 	GetOffset() (value int)
 	GetLimit() (value int)
 }) {
-	g.Channel = from.GetChannel()
+	g.Peer = from.GetPeer()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 }
@@ -125,8 +125,8 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Channel",
-			SchemaName: "channel",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "Offset",
@@ -143,7 +143,7 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StatsGetBroadcastRevenueTransactionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastRevenueTransactions#69280f as nil")
+		return fmt.Errorf("can't encode stats.getBroadcastRevenueTransactions#70990b6d as nil")
 	}
 	b.PutID(StatsGetBroadcastRevenueTransactionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -152,13 +152,13 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) Encode(b *bin.Buffer) erro
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetBroadcastRevenueTransactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastRevenueTransactions#69280f as nil")
+		return fmt.Errorf("can't encode stats.getBroadcastRevenueTransactions#70990b6d as nil")
 	}
-	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueTransactions#69280f: field channel is nil")
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueTransactions#70990b6d: field peer is nil")
 	}
-	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueTransactions#69280f: field channel: %w", err)
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueTransactions#70990b6d: field peer: %w", err)
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -168,10 +168,10 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) EncodeBare(b *bin.Buffer) 
 // Decode implements bin.Decoder.
 func (g *StatsGetBroadcastRevenueTransactionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastRevenueTransactions#69280f to nil")
+		return fmt.Errorf("can't decode stats.getBroadcastRevenueTransactions#70990b6d to nil")
 	}
 	if err := b.ConsumeID(StatsGetBroadcastRevenueTransactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#69280f: %w", err)
+		return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#70990b6d: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -179,38 +179,38 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) Decode(b *bin.Buffer) erro
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetBroadcastRevenueTransactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastRevenueTransactions#69280f to nil")
+		return fmt.Errorf("can't decode stats.getBroadcastRevenueTransactions#70990b6d to nil")
 	}
 	{
-		value, err := DecodeInputChannel(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#69280f: field channel: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#70990b6d: field peer: %w", err)
 		}
-		g.Channel = value
+		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#69280f: field offset: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#70990b6d: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#69280f: field limit: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueTransactions#70990b6d: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *StatsGetBroadcastRevenueTransactionsRequest) GetChannel() (value InputChannelClass) {
+// GetPeer returns value of Peer field.
+func (g *StatsGetBroadcastRevenueTransactionsRequest) GetPeer() (value InputPeerClass) {
 	if g == nil {
 		return
 	}
-	return g.Channel
+	return g.Peer
 }
 
 // GetOffset returns value of Offset field.
@@ -229,12 +229,7 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetBroadcastRevenueTransactionsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// StatsGetBroadcastRevenueTransactions invokes method stats.getBroadcastRevenueTransactions#69280f returning error if any.
+// StatsGetBroadcastRevenueTransactions invokes method stats.getBroadcastRevenueTransactions#70990b6d returning error if any.
 // Fetch channel ad revenue transaction history »¹.
 //
 // Links:

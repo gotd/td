@@ -816,6 +816,107 @@ func (s *StarsTransactionPeerAds) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// StarsTransactionPeerAPI represents TL type `starsTransactionPeerAPI#f9677aad`.
+//
+// See https://core.telegram.org/constructor/starsTransactionPeerAPI for reference.
+type StarsTransactionPeerAPI struct {
+}
+
+// StarsTransactionPeerAPITypeID is TL type id of StarsTransactionPeerAPI.
+const StarsTransactionPeerAPITypeID = 0xf9677aad
+
+// construct implements constructor of StarsTransactionPeerClass.
+func (s StarsTransactionPeerAPI) construct() StarsTransactionPeerClass { return &s }
+
+// Ensuring interfaces in compile-time for StarsTransactionPeerAPI.
+var (
+	_ bin.Encoder     = &StarsTransactionPeerAPI{}
+	_ bin.Decoder     = &StarsTransactionPeerAPI{}
+	_ bin.BareEncoder = &StarsTransactionPeerAPI{}
+	_ bin.BareDecoder = &StarsTransactionPeerAPI{}
+
+	_ StarsTransactionPeerClass = &StarsTransactionPeerAPI{}
+)
+
+func (s *StarsTransactionPeerAPI) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StarsTransactionPeerAPI) String() string {
+	if s == nil {
+		return "StarsTransactionPeerAPI(nil)"
+	}
+	type Alias StarsTransactionPeerAPI
+	return fmt.Sprintf("StarsTransactionPeerAPI%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StarsTransactionPeerAPI) TypeID() uint32 {
+	return StarsTransactionPeerAPITypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StarsTransactionPeerAPI) TypeName() string {
+	return "starsTransactionPeerAPI"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StarsTransactionPeerAPI) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "starsTransactionPeerAPI",
+		ID:   StarsTransactionPeerAPITypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StarsTransactionPeerAPI) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starsTransactionPeerAPI#f9677aad as nil")
+	}
+	b.PutID(StarsTransactionPeerAPITypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StarsTransactionPeerAPI) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starsTransactionPeerAPI#f9677aad as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StarsTransactionPeerAPI) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starsTransactionPeerAPI#f9677aad to nil")
+	}
+	if err := b.ConsumeID(StarsTransactionPeerAPITypeID); err != nil {
+		return fmt.Errorf("unable to decode starsTransactionPeerAPI#f9677aad: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StarsTransactionPeerAPI) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starsTransactionPeerAPI#f9677aad to nil")
+	}
+	return nil
+}
+
 // StarsTransactionPeerClassName is schema name of StarsTransactionPeerClass.
 const StarsTransactionPeerClassName = "StarsTransactionPeer"
 
@@ -837,6 +938,7 @@ const StarsTransactionPeerClassName = "StarsTransactionPeer"
 //	case *tg.StarsTransactionPeerFragment: // starsTransactionPeerFragment#e92fd902
 //	case *tg.StarsTransactionPeer: // starsTransactionPeer#d80da15d
 //	case *tg.StarsTransactionPeerAds: // starsTransactionPeerAds#60682812
+//	case *tg.StarsTransactionPeerAPI: // starsTransactionPeerAPI#f9677aad
 //	default: panic(v)
 //	}
 type StarsTransactionPeerClass interface {
@@ -910,6 +1012,13 @@ func DecodeStarsTransactionPeer(buf *bin.Buffer) (StarsTransactionPeerClass, err
 	case StarsTransactionPeerAdsTypeID:
 		// Decoding starsTransactionPeerAds#60682812.
 		v := StarsTransactionPeerAds{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarsTransactionPeerClass: %w", err)
+		}
+		return &v, nil
+	case StarsTransactionPeerAPITypeID:
+		// Decoding starsTransactionPeerAPI#f9677aad.
+		v := StarsTransactionPeerAPI{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarsTransactionPeerClass: %w", err)
 		}

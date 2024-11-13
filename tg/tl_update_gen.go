@@ -13842,7 +13842,7 @@ func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
 	return u.Message
 }
 
-// UpdateDeleteScheduledMessages represents TL type `updateDeleteScheduledMessages#90866cee`.
+// UpdateDeleteScheduledMessages represents TL type `updateDeleteScheduledMessages#f2a71983`.
 // Some scheduled messages¹ were deleted from the schedule queue of a chat
 //
 // Links:
@@ -13850,14 +13850,20 @@ func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
 //
 // See https://core.telegram.org/constructor/updateDeleteScheduledMessages for reference.
 type UpdateDeleteScheduledMessages struct {
+	// Flags field of UpdateDeleteScheduledMessages.
+	Flags bin.Fields
 	// Peer
 	Peer PeerClass
 	// Deleted scheduled messages
 	Messages []int
+	// SentMessages field of UpdateDeleteScheduledMessages.
+	//
+	// Use SetSentMessages and GetSentMessages helpers.
+	SentMessages []int
 }
 
 // UpdateDeleteScheduledMessagesTypeID is TL type id of UpdateDeleteScheduledMessages.
-const UpdateDeleteScheduledMessagesTypeID = 0x90866cee
+const UpdateDeleteScheduledMessagesTypeID = 0xf2a71983
 
 // construct implements constructor of UpdateClass.
 func (u UpdateDeleteScheduledMessages) construct() UpdateClass { return &u }
@@ -13876,10 +13882,16 @@ func (u *UpdateDeleteScheduledMessages) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
 	if !(u.Peer == nil) {
 		return false
 	}
 	if !(u.Messages == nil) {
+		return false
+	}
+	if !(u.SentMessages == nil) {
 		return false
 	}
 
@@ -13899,9 +13911,14 @@ func (u *UpdateDeleteScheduledMessages) String() string {
 func (u *UpdateDeleteScheduledMessages) FillFrom(from interface {
 	GetPeer() (value PeerClass)
 	GetMessages() (value []int)
+	GetSentMessages() (value []int, ok bool)
 }) {
 	u.Peer = from.GetPeer()
 	u.Messages = from.GetMessages()
+	if val, ok := from.GetSentMessages(); ok {
+		u.SentMessages = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -13935,14 +13952,26 @@ func (u *UpdateDeleteScheduledMessages) TypeInfo() tdp.Type {
 			Name:       "Messages",
 			SchemaName: "messages",
 		},
+		{
+			Name:       "SentMessages",
+			SchemaName: "sent_messages",
+			Null:       !u.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateDeleteScheduledMessages) SetFlags() {
+	if !(u.SentMessages == nil) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteScheduledMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateDeleteScheduledMessages#90866cee as nil")
+		return fmt.Errorf("can't encode updateDeleteScheduledMessages#f2a71983 as nil")
 	}
 	b.PutID(UpdateDeleteScheduledMessagesTypeID)
 	return u.EncodeBare(b)
@@ -13951,17 +13980,27 @@ func (u *UpdateDeleteScheduledMessages) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateDeleteScheduledMessages) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateDeleteScheduledMessages#90866cee as nil")
+		return fmt.Errorf("can't encode updateDeleteScheduledMessages#f2a71983 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateDeleteScheduledMessages#f2a71983: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateDeleteScheduledMessages#90866cee: field peer is nil")
+		return fmt.Errorf("unable to encode updateDeleteScheduledMessages#f2a71983: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateDeleteScheduledMessages#90866cee: field peer: %w", err)
+		return fmt.Errorf("unable to encode updateDeleteScheduledMessages#f2a71983: field peer: %w", err)
 	}
 	b.PutVectorHeader(len(u.Messages))
 	for _, v := range u.Messages {
 		b.PutInt(v)
+	}
+	if u.Flags.Has(0) {
+		b.PutVectorHeader(len(u.SentMessages))
+		for _, v := range u.SentMessages {
+			b.PutInt(v)
+		}
 	}
 	return nil
 }
@@ -13969,10 +14008,10 @@ func (u *UpdateDeleteScheduledMessages) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateDeleteScheduledMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateDeleteScheduledMessages#90866cee to nil")
+		return fmt.Errorf("can't decode updateDeleteScheduledMessages#f2a71983 to nil")
 	}
 	if err := b.ConsumeID(UpdateDeleteScheduledMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateDeleteScheduledMessages#90866cee: %w", err)
+		return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -13980,19 +14019,24 @@ func (u *UpdateDeleteScheduledMessages) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateDeleteScheduledMessages) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateDeleteScheduledMessages#90866cee to nil")
+		return fmt.Errorf("can't decode updateDeleteScheduledMessages#f2a71983 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#90866cee: field peer: %w", err)
+			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#90866cee: field messages: %w", err)
+			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -14001,9 +14045,26 @@ func (u *UpdateDeleteScheduledMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateDeleteScheduledMessages#90866cee: field messages: %w", err)
+				return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: field messages: %w", err)
 			}
 			u.Messages = append(u.Messages, value)
+		}
+	}
+	if u.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: field sent_messages: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.SentMessages = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateDeleteScheduledMessages#f2a71983: field sent_messages: %w", err)
+			}
+			u.SentMessages = append(u.SentMessages, value)
 		}
 	}
 	return nil
@@ -14023,6 +14084,24 @@ func (u *UpdateDeleteScheduledMessages) GetMessages() (value []int) {
 		return
 	}
 	return u.Messages
+}
+
+// SetSentMessages sets value of SentMessages conditional field.
+func (u *UpdateDeleteScheduledMessages) SetSentMessages(value []int) {
+	u.Flags.Set(0)
+	u.SentMessages = value
+}
+
+// GetSentMessages returns value of SentMessages conditional field and
+// boolean which is true if field was set.
+func (u *UpdateDeleteScheduledMessages) GetSentMessages() (value []int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.SentMessages, true
 }
 
 // UpdateTheme represents TL type `updateTheme#8216fba3`.
@@ -28549,7 +28628,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdatePeerSettings: // updatePeerSettings#6a7e7366
 //	case *tg.UpdatePeerLocated: // updatePeerLocated#b4afcfb0
 //	case *tg.UpdateNewScheduledMessage: // updateNewScheduledMessage#39a51dfb
-//	case *tg.UpdateDeleteScheduledMessages: // updateDeleteScheduledMessages#90866cee
+//	case *tg.UpdateDeleteScheduledMessages: // updateDeleteScheduledMessages#f2a71983
 //	case *tg.UpdateTheme: // updateTheme#8216fba3
 //	case *tg.UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
 //	case *tg.UpdateLoginToken: // updateLoginToken#564fe691
@@ -29127,7 +29206,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateDeleteScheduledMessagesTypeID:
-		// Decoding updateDeleteScheduledMessages#90866cee.
+		// Decoding updateDeleteScheduledMessages#f2a71983.
 		v := UpdateDeleteScheduledMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

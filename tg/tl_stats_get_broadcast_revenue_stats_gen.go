@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StatsGetBroadcastRevenueStatsRequest represents TL type `stats.getBroadcastRevenueStats#75dfb671`.
+// StatsGetBroadcastRevenueStatsRequest represents TL type `stats.getBroadcastRevenueStats#f788ee19`.
 // Get channel ad revenue statistics »¹.
 //
 // Links:
@@ -46,12 +46,12 @@ type StatsGetBroadcastRevenueStatsRequest struct {
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
-	// The channel
-	Channel InputChannelClass
+	// Peer field of StatsGetBroadcastRevenueStatsRequest.
+	Peer InputPeerClass
 }
 
 // StatsGetBroadcastRevenueStatsRequestTypeID is TL type id of StatsGetBroadcastRevenueStatsRequest.
-const StatsGetBroadcastRevenueStatsRequestTypeID = 0x75dfb671
+const StatsGetBroadcastRevenueStatsRequestTypeID = 0xf788ee19
 
 // Ensuring interfaces in compile-time for StatsGetBroadcastRevenueStatsRequest.
 var (
@@ -71,7 +71,7 @@ func (g *StatsGetBroadcastRevenueStatsRequest) Zero() bool {
 	if !(g.Dark == false) {
 		return false
 	}
-	if !(g.Channel == nil) {
+	if !(g.Peer == nil) {
 		return false
 	}
 
@@ -90,10 +90,10 @@ func (g *StatsGetBroadcastRevenueStatsRequest) String() string {
 // FillFrom fills StatsGetBroadcastRevenueStatsRequest from given interface.
 func (g *StatsGetBroadcastRevenueStatsRequest) FillFrom(from interface {
 	GetDark() (value bool)
-	GetChannel() (value InputChannelClass)
+	GetPeer() (value InputPeerClass)
 }) {
 	g.Dark = from.GetDark()
-	g.Channel = from.GetChannel()
+	g.Peer = from.GetPeer()
 }
 
 // TypeID returns type id in TL schema.
@@ -125,8 +125,8 @@ func (g *StatsGetBroadcastRevenueStatsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
-			Name:       "Channel",
-			SchemaName: "channel",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 	}
 	return typ
@@ -142,7 +142,7 @@ func (g *StatsGetBroadcastRevenueStatsRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (g *StatsGetBroadcastRevenueStatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastRevenueStats#75dfb671 as nil")
+		return fmt.Errorf("can't encode stats.getBroadcastRevenueStats#f788ee19 as nil")
 	}
 	b.PutID(StatsGetBroadcastRevenueStatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -151,17 +151,17 @@ func (g *StatsGetBroadcastRevenueStatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetBroadcastRevenueStatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getBroadcastRevenueStats#75dfb671 as nil")
+		return fmt.Errorf("can't encode stats.getBroadcastRevenueStats#f788ee19 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueStats#75dfb671: field flags: %w", err)
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueStats#f788ee19: field flags: %w", err)
 	}
-	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueStats#75dfb671: field channel is nil")
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueStats#f788ee19: field peer is nil")
 	}
-	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getBroadcastRevenueStats#75dfb671: field channel: %w", err)
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stats.getBroadcastRevenueStats#f788ee19: field peer: %w", err)
 	}
 	return nil
 }
@@ -169,10 +169,10 @@ func (g *StatsGetBroadcastRevenueStatsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *StatsGetBroadcastRevenueStatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastRevenueStats#75dfb671 to nil")
+		return fmt.Errorf("can't decode stats.getBroadcastRevenueStats#f788ee19 to nil")
 	}
 	if err := b.ConsumeID(StatsGetBroadcastRevenueStatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getBroadcastRevenueStats#75dfb671: %w", err)
+		return fmt.Errorf("unable to decode stats.getBroadcastRevenueStats#f788ee19: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -180,20 +180,20 @@ func (g *StatsGetBroadcastRevenueStatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetBroadcastRevenueStatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getBroadcastRevenueStats#75dfb671 to nil")
+		return fmt.Errorf("can't decode stats.getBroadcastRevenueStats#f788ee19 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueStats#75dfb671: field flags: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueStats#f788ee19: field flags: %w", err)
 		}
 	}
 	g.Dark = g.Flags.Has(0)
 	{
-		value, err := DecodeInputChannel(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getBroadcastRevenueStats#75dfb671: field channel: %w", err)
+			return fmt.Errorf("unable to decode stats.getBroadcastRevenueStats#f788ee19: field peer: %w", err)
 		}
-		g.Channel = value
+		g.Peer = value
 	}
 	return nil
 }
@@ -217,20 +217,15 @@ func (g *StatsGetBroadcastRevenueStatsRequest) GetDark() (value bool) {
 	return g.Flags.Has(0)
 }
 
-// GetChannel returns value of Channel field.
-func (g *StatsGetBroadcastRevenueStatsRequest) GetChannel() (value InputChannelClass) {
+// GetPeer returns value of Peer field.
+func (g *StatsGetBroadcastRevenueStatsRequest) GetPeer() (value InputPeerClass) {
 	if g == nil {
 		return
 	}
-	return g.Channel
+	return g.Peer
 }
 
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetBroadcastRevenueStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// StatsGetBroadcastRevenueStats invokes method stats.getBroadcastRevenueStats#75dfb671 returning error if any.
+// StatsGetBroadcastRevenueStats invokes method stats.getBroadcastRevenueStats#f788ee19 returning error if any.
 // Get channel ad revenue statistics »¹.
 //
 // Links:
