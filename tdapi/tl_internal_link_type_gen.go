@@ -3661,18 +3661,18 @@ func (i *InternalLinkTypeLanguageSettings) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
-// InternalLinkTypeMainWebApp represents TL type `internalLinkTypeMainWebApp#9c942666`.
+// InternalLinkTypeMainWebApp represents TL type `internalLinkTypeMainWebApp#5ddf72e9`.
 type InternalLinkTypeMainWebApp struct {
 	// Username of the bot
 	BotUsername string
 	// Start parameter to be passed to getMainWebApp
 	StartParameter string
-	// True, if the Web App must be opened in the compact mode instead of the full-size mode
-	IsCompact bool
+	// The mode to be passed to getMainWebApp
+	Mode WebAppOpenModeClass
 }
 
 // InternalLinkTypeMainWebAppTypeID is TL type id of InternalLinkTypeMainWebApp.
-const InternalLinkTypeMainWebAppTypeID = 0x9c942666
+const InternalLinkTypeMainWebAppTypeID = 0x5ddf72e9
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypeMainWebApp) construct() InternalLinkTypeClass { return &i }
@@ -3697,7 +3697,7 @@ func (i *InternalLinkTypeMainWebApp) Zero() bool {
 	if !(i.StartParameter == "") {
 		return false
 	}
-	if !(i.IsCompact == false) {
+	if !(i.Mode == nil) {
 		return false
 	}
 
@@ -3745,8 +3745,8 @@ func (i *InternalLinkTypeMainWebApp) TypeInfo() tdp.Type {
 			SchemaName: "start_parameter",
 		},
 		{
-			Name:       "IsCompact",
-			SchemaName: "is_compact",
+			Name:       "Mode",
+			SchemaName: "mode",
 		},
 	}
 	return typ
@@ -3755,7 +3755,7 @@ func (i *InternalLinkTypeMainWebApp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypeMainWebApp) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#9c942666 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#5ddf72e9 as nil")
 	}
 	b.PutID(InternalLinkTypeMainWebAppTypeID)
 	return i.EncodeBare(b)
@@ -3764,21 +3764,26 @@ func (i *InternalLinkTypeMainWebApp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypeMainWebApp) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#9c942666 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#5ddf72e9 as nil")
 	}
 	b.PutString(i.BotUsername)
 	b.PutString(i.StartParameter)
-	b.PutBool(i.IsCompact)
+	if i.Mode == nil {
+		return fmt.Errorf("unable to encode internalLinkTypeMainWebApp#5ddf72e9: field mode is nil")
+	}
+	if err := i.Mode.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeMainWebApp#5ddf72e9: field mode: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypeMainWebApp) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#9c942666 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#5ddf72e9 to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypeMainWebAppTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3786,28 +3791,28 @@ func (i *InternalLinkTypeMainWebApp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypeMainWebApp) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#9c942666 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#5ddf72e9 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field bot_username: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: field bot_username: %w", err)
 		}
 		i.BotUsername = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field start_parameter: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: field start_parameter: %w", err)
 		}
 		i.StartParameter = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeWebAppOpenMode(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field is_compact: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: field mode: %w", err)
 		}
-		i.IsCompact = value
+		i.Mode = value
 	}
 	return nil
 }
@@ -3815,7 +3820,7 @@ func (i *InternalLinkTypeMainWebApp) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypeMainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#9c942666 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeMainWebApp#5ddf72e9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeMainWebApp")
@@ -3826,8 +3831,13 @@ func (i *InternalLinkTypeMainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
 	b.Comma()
-	b.FieldStart("is_compact")
-	b.PutBool(i.IsCompact)
+	b.FieldStart("mode")
+	if i.Mode == nil {
+		return fmt.Errorf("unable to encode internalLinkTypeMainWebApp#5ddf72e9: field mode is nil")
+	}
+	if err := i.Mode.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeMainWebApp#5ddf72e9: field mode: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -3837,33 +3847,33 @@ func (i *InternalLinkTypeMainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypeMainWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#9c942666 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeMainWebApp#5ddf72e9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypeMainWebApp"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: %w", err)
 			}
 		case "bot_username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field bot_username: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: field bot_username: %w", err)
 			}
 			i.BotUsername = value
 		case "start_parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field start_parameter: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: field start_parameter: %w", err)
 			}
 			i.StartParameter = value
-		case "is_compact":
-			value, err := b.Bool()
+		case "mode":
+			value, err := DecodeTDLibJSONWebAppOpenMode(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#9c942666: field is_compact: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeMainWebApp#5ddf72e9: field mode: %w", err)
 			}
-			i.IsCompact = value
+			i.Mode = value
 		default:
 			return b.Skip()
 		}
@@ -3887,12 +3897,12 @@ func (i *InternalLinkTypeMainWebApp) GetStartParameter() (value string) {
 	return i.StartParameter
 }
 
-// GetIsCompact returns value of IsCompact field.
-func (i *InternalLinkTypeMainWebApp) GetIsCompact() (value bool) {
+// GetMode returns value of Mode field.
+func (i *InternalLinkTypeMainWebApp) GetMode() (value WebAppOpenModeClass) {
 	if i == nil {
 		return
 	}
-	return i.IsCompact
+	return i.Mode
 }
 
 // InternalLinkTypeMessage represents TL type `internalLinkTypeMessage#3a535c52`.
@@ -7898,7 +7908,7 @@ func (i *InternalLinkTypeVideoChat) GetIsLiveStream() (value bool) {
 	return i.IsLiveStream
 }
 
-// InternalLinkTypeWebApp represents TL type `internalLinkTypeWebApp#4c68bb0d`.
+// InternalLinkTypeWebApp represents TL type `internalLinkTypeWebApp#7ae9552d`.
 type InternalLinkTypeWebApp struct {
 	// Username of the bot that owns the Web App
 	BotUsername string
@@ -7906,12 +7916,12 @@ type InternalLinkTypeWebApp struct {
 	WebAppShortName string
 	// Start parameter to be passed to getWebAppLinkUrl
 	StartParameter string
-	// True, if the Web App must be opened in the compact mode instead of the full-size mode
-	IsCompact bool
+	// The mode in which the Web App must be opened
+	Mode WebAppOpenModeClass
 }
 
 // InternalLinkTypeWebAppTypeID is TL type id of InternalLinkTypeWebApp.
-const InternalLinkTypeWebAppTypeID = 0x4c68bb0d
+const InternalLinkTypeWebAppTypeID = 0x7ae9552d
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypeWebApp) construct() InternalLinkTypeClass { return &i }
@@ -7939,7 +7949,7 @@ func (i *InternalLinkTypeWebApp) Zero() bool {
 	if !(i.StartParameter == "") {
 		return false
 	}
-	if !(i.IsCompact == false) {
+	if !(i.Mode == nil) {
 		return false
 	}
 
@@ -7991,8 +8001,8 @@ func (i *InternalLinkTypeWebApp) TypeInfo() tdp.Type {
 			SchemaName: "start_parameter",
 		},
 		{
-			Name:       "IsCompact",
-			SchemaName: "is_compact",
+			Name:       "Mode",
+			SchemaName: "mode",
 		},
 	}
 	return typ
@@ -8001,7 +8011,7 @@ func (i *InternalLinkTypeWebApp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypeWebApp) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeWebApp#4c68bb0d as nil")
+		return fmt.Errorf("can't encode internalLinkTypeWebApp#7ae9552d as nil")
 	}
 	b.PutID(InternalLinkTypeWebAppTypeID)
 	return i.EncodeBare(b)
@@ -8010,22 +8020,27 @@ func (i *InternalLinkTypeWebApp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypeWebApp) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeWebApp#4c68bb0d as nil")
+		return fmt.Errorf("can't encode internalLinkTypeWebApp#7ae9552d as nil")
 	}
 	b.PutString(i.BotUsername)
 	b.PutString(i.WebAppShortName)
 	b.PutString(i.StartParameter)
-	b.PutBool(i.IsCompact)
+	if i.Mode == nil {
+		return fmt.Errorf("unable to encode internalLinkTypeWebApp#7ae9552d: field mode is nil")
+	}
+	if err := i.Mode.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeWebApp#7ae9552d: field mode: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypeWebApp) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeWebApp#4c68bb0d to nil")
+		return fmt.Errorf("can't decode internalLinkTypeWebApp#7ae9552d to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypeWebAppTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -8033,35 +8048,35 @@ func (i *InternalLinkTypeWebApp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypeWebApp) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeWebApp#4c68bb0d to nil")
+		return fmt.Errorf("can't decode internalLinkTypeWebApp#7ae9552d to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field bot_username: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field bot_username: %w", err)
 		}
 		i.BotUsername = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field web_app_short_name: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field web_app_short_name: %w", err)
 		}
 		i.WebAppShortName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field start_parameter: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field start_parameter: %w", err)
 		}
 		i.StartParameter = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeWebAppOpenMode(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field is_compact: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field mode: %w", err)
 		}
-		i.IsCompact = value
+		i.Mode = value
 	}
 	return nil
 }
@@ -8069,7 +8084,7 @@ func (i *InternalLinkTypeWebApp) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypeWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeWebApp#4c68bb0d as nil")
+		return fmt.Errorf("can't encode internalLinkTypeWebApp#7ae9552d as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeWebApp")
@@ -8083,8 +8098,13 @@ func (i *InternalLinkTypeWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
 	b.Comma()
-	b.FieldStart("is_compact")
-	b.PutBool(i.IsCompact)
+	b.FieldStart("mode")
+	if i.Mode == nil {
+		return fmt.Errorf("unable to encode internalLinkTypeWebApp#7ae9552d: field mode is nil")
+	}
+	if err := i.Mode.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeWebApp#7ae9552d: field mode: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -8094,39 +8114,39 @@ func (i *InternalLinkTypeWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypeWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeWebApp#4c68bb0d to nil")
+		return fmt.Errorf("can't decode internalLinkTypeWebApp#7ae9552d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypeWebApp"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: %w", err)
 			}
 		case "bot_username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field bot_username: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field bot_username: %w", err)
 			}
 			i.BotUsername = value
 		case "web_app_short_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field web_app_short_name: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field web_app_short_name: %w", err)
 			}
 			i.WebAppShortName = value
 		case "start_parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field start_parameter: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field start_parameter: %w", err)
 			}
 			i.StartParameter = value
-		case "is_compact":
-			value, err := b.Bool()
+		case "mode":
+			value, err := DecodeTDLibJSONWebAppOpenMode(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeWebApp#4c68bb0d: field is_compact: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeWebApp#7ae9552d: field mode: %w", err)
 			}
-			i.IsCompact = value
+			i.Mode = value
 		default:
 			return b.Skip()
 		}
@@ -8158,12 +8178,12 @@ func (i *InternalLinkTypeWebApp) GetStartParameter() (value string) {
 	return i.StartParameter
 }
 
-// GetIsCompact returns value of IsCompact field.
-func (i *InternalLinkTypeWebApp) GetIsCompact() (value bool) {
+// GetMode returns value of Mode field.
+func (i *InternalLinkTypeWebApp) GetMode() (value WebAppOpenModeClass) {
 	if i == nil {
 		return
 	}
-	return i.IsCompact
+	return i.Mode
 }
 
 // InternalLinkTypeClassName is schema name of InternalLinkTypeClass.
@@ -8199,7 +8219,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeInvoice: // internalLinkTypeInvoice#f34c6dac
 //	case *tdapi.InternalLinkTypeLanguagePack: // internalLinkTypeLanguagePack#a9870d6c
 //	case *tdapi.InternalLinkTypeLanguageSettings: // internalLinkTypeLanguageSettings#b019e6e6
-//	case *tdapi.InternalLinkTypeMainWebApp: // internalLinkTypeMainWebApp#9c942666
+//	case *tdapi.InternalLinkTypeMainWebApp: // internalLinkTypeMainWebApp#5ddf72e9
 //	case *tdapi.InternalLinkTypeMessage: // internalLinkTypeMessage#3a535c52
 //	case *tdapi.InternalLinkTypeMessageDraft: // internalLinkTypeMessageDraft#276fbad5
 //	case *tdapi.InternalLinkTypePassportDataRequest: // internalLinkTypePassportDataRequest#c50fce81
@@ -8222,7 +8242,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#104bbb08
 //	case *tdapi.InternalLinkTypeUserToken: // internalLinkTypeUserToken#a8d7db59
 //	case *tdapi.InternalLinkTypeVideoChat: // internalLinkTypeVideoChat#8796f8b4
-//	case *tdapi.InternalLinkTypeWebApp: // internalLinkTypeWebApp#4c68bb0d
+//	case *tdapi.InternalLinkTypeWebApp: // internalLinkTypeWebApp#7ae9552d
 //	default: panic(v)
 //	}
 type InternalLinkTypeClass interface {
@@ -8402,7 +8422,7 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypeMainWebAppTypeID:
-		// Decoding internalLinkTypeMainWebApp#9c942666.
+		// Decoding internalLinkTypeMainWebApp#5ddf72e9.
 		v := InternalLinkTypeMainWebApp{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -8563,7 +8583,7 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypeWebAppTypeID:
-		// Decoding internalLinkTypeWebApp#4c68bb0d.
+		// Decoding internalLinkTypeWebApp#7ae9552d.
 		v := InternalLinkTypeWebApp{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -8729,7 +8749,7 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypeMainWebApp":
-		// Decoding internalLinkTypeMainWebApp#9c942666.
+		// Decoding internalLinkTypeMainWebApp#5ddf72e9.
 		v := InternalLinkTypeMainWebApp{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -8890,7 +8910,7 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypeWebApp":
-		// Decoding internalLinkTypeWebApp#4c68bb0d.
+		// Decoding internalLinkTypeWebApp#7ae9552d.
 		v := InternalLinkTypeWebApp{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)

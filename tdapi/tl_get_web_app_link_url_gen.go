@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetWebAppLinkURLRequest represents TL type `getWebAppLinkUrl#4f0ef3cc`.
+// GetWebAppLinkURLRequest represents TL type `getWebAppLinkUrl#60fe62c1`.
 type GetWebAppLinkURLRequest struct {
 	// Identifier of the chat in which the link was clicked; pass 0 if none
 	ChatID int64
@@ -41,16 +41,14 @@ type GetWebAppLinkURLRequest struct {
 	WebAppShortName string
 	// Start parameter from internalLinkTypeWebApp
 	StartParameter string
-	// Preferred Web App theme; pass null to use the default theme
-	Theme ThemeParameters
-	// Short name of the current application; 0-64 English letters, digits, and underscores
-	ApplicationName string
 	// Pass true if the current user allowed the bot to send them messages
 	AllowWriteAccess bool
+	// Parameters to use to open the Web App
+	Parameters WebAppOpenParameters
 }
 
 // GetWebAppLinkURLRequestTypeID is TL type id of GetWebAppLinkURLRequest.
-const GetWebAppLinkURLRequestTypeID = 0x4f0ef3cc
+const GetWebAppLinkURLRequestTypeID = 0x60fe62c1
 
 // Ensuring interfaces in compile-time for GetWebAppLinkURLRequest.
 var (
@@ -76,13 +74,10 @@ func (g *GetWebAppLinkURLRequest) Zero() bool {
 	if !(g.StartParameter == "") {
 		return false
 	}
-	if !(g.Theme.Zero()) {
-		return false
-	}
-	if !(g.ApplicationName == "") {
-		return false
-	}
 	if !(g.AllowWriteAccess == false) {
+		return false
+	}
+	if !(g.Parameters.Zero()) {
 		return false
 	}
 
@@ -138,16 +133,12 @@ func (g *GetWebAppLinkURLRequest) TypeInfo() tdp.Type {
 			SchemaName: "start_parameter",
 		},
 		{
-			Name:       "Theme",
-			SchemaName: "theme",
-		},
-		{
-			Name:       "ApplicationName",
-			SchemaName: "application_name",
-		},
-		{
 			Name:       "AllowWriteAccess",
 			SchemaName: "allow_write_access",
+		},
+		{
+			Name:       "Parameters",
+			SchemaName: "parameters",
 		},
 	}
 	return typ
@@ -156,7 +147,7 @@ func (g *GetWebAppLinkURLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetWebAppLinkURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebAppLinkUrl#4f0ef3cc as nil")
+		return fmt.Errorf("can't encode getWebAppLinkUrl#60fe62c1 as nil")
 	}
 	b.PutID(GetWebAppLinkURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -165,27 +156,26 @@ func (g *GetWebAppLinkURLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetWebAppLinkURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebAppLinkUrl#4f0ef3cc as nil")
+		return fmt.Errorf("can't encode getWebAppLinkUrl#60fe62c1 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.BotUserID)
 	b.PutString(g.WebAppShortName)
 	b.PutString(g.StartParameter)
-	if err := g.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getWebAppLinkUrl#4f0ef3cc: field theme: %w", err)
-	}
-	b.PutString(g.ApplicationName)
 	b.PutBool(g.AllowWriteAccess)
+	if err := g.Parameters.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getWebAppLinkUrl#60fe62c1: field parameters: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetWebAppLinkURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebAppLinkUrl#4f0ef3cc to nil")
+		return fmt.Errorf("can't decode getWebAppLinkUrl#60fe62c1 to nil")
 	}
 	if err := b.ConsumeID(GetWebAppLinkURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: %w", err)
+		return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -193,54 +183,47 @@ func (g *GetWebAppLinkURLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetWebAppLinkURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebAppLinkUrl#4f0ef3cc to nil")
+		return fmt.Errorf("can't decode getWebAppLinkUrl#60fe62c1 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field bot_user_id: %w", err)
 		}
 		g.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field web_app_short_name: %w", err)
+			return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field web_app_short_name: %w", err)
 		}
 		g.WebAppShortName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field start_parameter: %w", err)
+			return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field start_parameter: %w", err)
 		}
 		g.StartParameter = value
 	}
 	{
-		if err := g.Theme.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field theme: %w", err)
-		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field application_name: %w", err)
-		}
-		g.ApplicationName = value
-	}
-	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field allow_write_access: %w", err)
+			return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field allow_write_access: %w", err)
 		}
 		g.AllowWriteAccess = value
+	}
+	{
+		if err := g.Parameters.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field parameters: %w", err)
+		}
 	}
 	return nil
 }
@@ -248,7 +231,7 @@ func (g *GetWebAppLinkURLRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetWebAppLinkURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebAppLinkUrl#4f0ef3cc as nil")
+		return fmt.Errorf("can't encode getWebAppLinkUrl#60fe62c1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getWebAppLinkUrl")
@@ -265,16 +248,13 @@ func (g *GetWebAppLinkURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("start_parameter")
 	b.PutString(g.StartParameter)
 	b.Comma()
-	b.FieldStart("theme")
-	if err := g.Theme.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getWebAppLinkUrl#4f0ef3cc: field theme: %w", err)
-	}
-	b.Comma()
-	b.FieldStart("application_name")
-	b.PutString(g.ApplicationName)
-	b.Comma()
 	b.FieldStart("allow_write_access")
 	b.PutBool(g.AllowWriteAccess)
+	b.Comma()
+	b.FieldStart("parameters")
+	if err := g.Parameters.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getWebAppLinkUrl#60fe62c1: field parameters: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -284,55 +264,49 @@ func (g *GetWebAppLinkURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetWebAppLinkURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebAppLinkUrl#4f0ef3cc to nil")
+		return fmt.Errorf("can't decode getWebAppLinkUrl#60fe62c1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getWebAppLinkUrl"); err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: %w", err)
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field bot_user_id: %w", err)
 			}
 			g.BotUserID = value
 		case "web_app_short_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field web_app_short_name: %w", err)
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field web_app_short_name: %w", err)
 			}
 			g.WebAppShortName = value
 		case "start_parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field start_parameter: %w", err)
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field start_parameter: %w", err)
 			}
 			g.StartParameter = value
-		case "theme":
-			if err := g.Theme.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field theme: %w", err)
-			}
-		case "application_name":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field application_name: %w", err)
-			}
-			g.ApplicationName = value
 		case "allow_write_access":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppLinkUrl#4f0ef3cc: field allow_write_access: %w", err)
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field allow_write_access: %w", err)
 			}
 			g.AllowWriteAccess = value
+		case "parameters":
+			if err := g.Parameters.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getWebAppLinkUrl#60fe62c1: field parameters: %w", err)
+			}
 		default:
 			return b.Skip()
 		}
@@ -372,22 +346,6 @@ func (g *GetWebAppLinkURLRequest) GetStartParameter() (value string) {
 	return g.StartParameter
 }
 
-// GetTheme returns value of Theme field.
-func (g *GetWebAppLinkURLRequest) GetTheme() (value ThemeParameters) {
-	if g == nil {
-		return
-	}
-	return g.Theme
-}
-
-// GetApplicationName returns value of ApplicationName field.
-func (g *GetWebAppLinkURLRequest) GetApplicationName() (value string) {
-	if g == nil {
-		return
-	}
-	return g.ApplicationName
-}
-
 // GetAllowWriteAccess returns value of AllowWriteAccess field.
 func (g *GetWebAppLinkURLRequest) GetAllowWriteAccess() (value bool) {
 	if g == nil {
@@ -396,7 +354,15 @@ func (g *GetWebAppLinkURLRequest) GetAllowWriteAccess() (value bool) {
 	return g.AllowWriteAccess
 }
 
-// GetWebAppLinkURL invokes method getWebAppLinkUrl#4f0ef3cc returning error if any.
+// GetParameters returns value of Parameters field.
+func (g *GetWebAppLinkURLRequest) GetParameters() (value WebAppOpenParameters) {
+	if g == nil {
+		return
+	}
+	return g.Parameters
+}
+
+// GetWebAppLinkURL invokes method getWebAppLinkUrl#60fe62c1 returning error if any.
 func (c *Client) GetWebAppLinkURL(ctx context.Context, request *GetWebAppLinkURLRequest) (*HTTPURL, error) {
 	var result HTTPURL
 

@@ -31,31 +31,27 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarSubscription represents TL type `starSubscription#6caf0ade`.
+// StarSubscription represents TL type `starSubscription#3a3811f5`.
 type StarSubscription struct {
 	// Unique identifier of the subscription
 	ID string
-	// Identifier of the channel chat that is subscribed
+	// Identifier of the chat that is subscribed
 	ChatID int64
 	// Point in time (Unix timestamp) when the subscription will expire or expired
 	ExpirationDate int32
-	// True, if the subscription is active and the user can use the method
-	// reuseStarSubscription to join the subscribed chat again
-	CanReuse bool
 	// True, if the subscription was canceled
 	IsCanceled bool
 	// True, if the subscription expires soon and there are no enough Telegram Stars on the
 	// user's balance to extend it
 	IsExpiring bool
-	// The invite link that can be used to renew the subscription if it has been expired; may
-	// be empty, if the link isn't available anymore
-	InviteLink string
 	// The subscription plan
 	Pricing StarSubscriptionPricing
+	// Type of the subscription
+	Type StarSubscriptionTypeClass
 }
 
 // StarSubscriptionTypeID is TL type id of StarSubscription.
-const StarSubscriptionTypeID = 0x6caf0ade
+const StarSubscriptionTypeID = 0x3a3811f5
 
 // Ensuring interfaces in compile-time for StarSubscription.
 var (
@@ -78,19 +74,16 @@ func (s *StarSubscription) Zero() bool {
 	if !(s.ExpirationDate == 0) {
 		return false
 	}
-	if !(s.CanReuse == false) {
-		return false
-	}
 	if !(s.IsCanceled == false) {
 		return false
 	}
 	if !(s.IsExpiring == false) {
 		return false
 	}
-	if !(s.InviteLink == "") {
+	if !(s.Pricing.Zero()) {
 		return false
 	}
-	if !(s.Pricing.Zero()) {
+	if !(s.Type == nil) {
 		return false
 	}
 
@@ -142,10 +135,6 @@ func (s *StarSubscription) TypeInfo() tdp.Type {
 			SchemaName: "expiration_date",
 		},
 		{
-			Name:       "CanReuse",
-			SchemaName: "can_reuse",
-		},
-		{
 			Name:       "IsCanceled",
 			SchemaName: "is_canceled",
 		},
@@ -154,12 +143,12 @@ func (s *StarSubscription) TypeInfo() tdp.Type {
 			SchemaName: "is_expiring",
 		},
 		{
-			Name:       "InviteLink",
-			SchemaName: "invite_link",
-		},
-		{
 			Name:       "Pricing",
 			SchemaName: "pricing",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
 		},
 	}
 	return typ
@@ -168,7 +157,7 @@ func (s *StarSubscription) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarSubscription) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starSubscription#6caf0ade as nil")
+		return fmt.Errorf("can't encode starSubscription#3a3811f5 as nil")
 	}
 	b.PutID(StarSubscriptionTypeID)
 	return s.EncodeBare(b)
@@ -177,17 +166,21 @@ func (s *StarSubscription) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarSubscription) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starSubscription#6caf0ade as nil")
+		return fmt.Errorf("can't encode starSubscription#3a3811f5 as nil")
 	}
 	b.PutString(s.ID)
 	b.PutInt53(s.ChatID)
 	b.PutInt32(s.ExpirationDate)
-	b.PutBool(s.CanReuse)
 	b.PutBool(s.IsCanceled)
 	b.PutBool(s.IsExpiring)
-	b.PutString(s.InviteLink)
 	if err := s.Pricing.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starSubscription#6caf0ade: field pricing: %w", err)
+		return fmt.Errorf("unable to encode starSubscription#3a3811f5: field pricing: %w", err)
+	}
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode starSubscription#3a3811f5: field type is nil")
+	}
+	if err := s.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starSubscription#3a3811f5: field type: %w", err)
 	}
 	return nil
 }
@@ -195,10 +188,10 @@ func (s *StarSubscription) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarSubscription) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starSubscription#6caf0ade to nil")
+		return fmt.Errorf("can't decode starSubscription#3a3811f5 to nil")
 	}
 	if err := b.ConsumeID(StarSubscriptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode starSubscription#6caf0ade: %w", err)
+		return fmt.Errorf("unable to decode starSubscription#3a3811f5: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -206,61 +199,54 @@ func (s *StarSubscription) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarSubscription) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starSubscription#6caf0ade to nil")
+		return fmt.Errorf("can't decode starSubscription#3a3811f5 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field id: %w", err)
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field expiration_date: %w", err)
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field expiration_date: %w", err)
 		}
 		s.ExpirationDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field can_reuse: %w", err)
-		}
-		s.CanReuse = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field is_canceled: %w", err)
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field is_canceled: %w", err)
 		}
 		s.IsCanceled = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field is_expiring: %w", err)
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field is_expiring: %w", err)
 		}
 		s.IsExpiring = value
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field invite_link: %w", err)
+		if err := s.Pricing.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field pricing: %w", err)
 		}
-		s.InviteLink = value
 	}
 	{
-		if err := s.Pricing.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starSubscription#6caf0ade: field pricing: %w", err)
+		value, err := DecodeStarSubscriptionType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode starSubscription#3a3811f5: field type: %w", err)
 		}
+		s.Type = value
 	}
 	return nil
 }
@@ -268,7 +254,7 @@ func (s *StarSubscription) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarSubscription) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starSubscription#6caf0ade as nil")
+		return fmt.Errorf("can't encode starSubscription#3a3811f5 as nil")
 	}
 	b.ObjStart()
 	b.PutID("starSubscription")
@@ -282,21 +268,23 @@ func (s *StarSubscription) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("expiration_date")
 	b.PutInt32(s.ExpirationDate)
 	b.Comma()
-	b.FieldStart("can_reuse")
-	b.PutBool(s.CanReuse)
-	b.Comma()
 	b.FieldStart("is_canceled")
 	b.PutBool(s.IsCanceled)
 	b.Comma()
 	b.FieldStart("is_expiring")
 	b.PutBool(s.IsExpiring)
 	b.Comma()
-	b.FieldStart("invite_link")
-	b.PutString(s.InviteLink)
-	b.Comma()
 	b.FieldStart("pricing")
 	if err := s.Pricing.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode starSubscription#6caf0ade: field pricing: %w", err)
+		return fmt.Errorf("unable to encode starSubscription#3a3811f5: field pricing: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("type")
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode starSubscription#3a3811f5: field type is nil")
+	}
+	if err := s.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starSubscription#3a3811f5: field type: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -307,61 +295,55 @@ func (s *StarSubscription) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarSubscription) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starSubscription#6caf0ade to nil")
+		return fmt.Errorf("can't decode starSubscription#3a3811f5 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starSubscription"); err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: %w", err)
 			}
 		case "id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field id: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field id: %w", err)
 			}
 			s.ID = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "expiration_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field expiration_date: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field expiration_date: %w", err)
 			}
 			s.ExpirationDate = value
-		case "can_reuse":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field can_reuse: %w", err)
-			}
-			s.CanReuse = value
 		case "is_canceled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field is_canceled: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field is_canceled: %w", err)
 			}
 			s.IsCanceled = value
 		case "is_expiring":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field is_expiring: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field is_expiring: %w", err)
 			}
 			s.IsExpiring = value
-		case "invite_link":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field invite_link: %w", err)
-			}
-			s.InviteLink = value
 		case "pricing":
 			if err := s.Pricing.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode starSubscription#6caf0ade: field pricing: %w", err)
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field pricing: %w", err)
 			}
+		case "type":
+			value, err := DecodeTDLibJSONStarSubscriptionType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode starSubscription#3a3811f5: field type: %w", err)
+			}
+			s.Type = value
 		default:
 			return b.Skip()
 		}
@@ -393,14 +375,6 @@ func (s *StarSubscription) GetExpirationDate() (value int32) {
 	return s.ExpirationDate
 }
 
-// GetCanReuse returns value of CanReuse field.
-func (s *StarSubscription) GetCanReuse() (value bool) {
-	if s == nil {
-		return
-	}
-	return s.CanReuse
-}
-
 // GetIsCanceled returns value of IsCanceled field.
 func (s *StarSubscription) GetIsCanceled() (value bool) {
 	if s == nil {
@@ -417,18 +391,18 @@ func (s *StarSubscription) GetIsExpiring() (value bool) {
 	return s.IsExpiring
 }
 
-// GetInviteLink returns value of InviteLink field.
-func (s *StarSubscription) GetInviteLink() (value string) {
-	if s == nil {
-		return
-	}
-	return s.InviteLink
-}
-
 // GetPricing returns value of Pricing field.
 func (s *StarSubscription) GetPricing() (value StarSubscriptionPricing) {
 	if s == nil {
 		return
 	}
 	return s.Pricing
+}
+
+// GetType returns value of Type field.
+func (s *StarSubscription) GetType() (value StarSubscriptionTypeClass) {
+	if s == nil {
+		return
+	}
+	return s.Type
 }

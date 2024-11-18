@@ -31,17 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MainWebApp represents TL type `mainWebApp#4fb068f1`.
+// MainWebApp represents TL type `mainWebApp#73a7ac7a`.
 type MainWebApp struct {
 	// URL of the Web App to open
 	URL string
-	// True, if the Web App must always be opened in the compact mode instead of the
-	// full-size mode
-	IsCompact bool
+	// The mode in which the Web App must be opened
+	Mode WebAppOpenModeClass
 }
 
 // MainWebAppTypeID is TL type id of MainWebApp.
-const MainWebAppTypeID = 0x4fb068f1
+const MainWebAppTypeID = 0x73a7ac7a
 
 // Ensuring interfaces in compile-time for MainWebApp.
 var (
@@ -58,7 +57,7 @@ func (m *MainWebApp) Zero() bool {
 	if !(m.URL == "") {
 		return false
 	}
-	if !(m.IsCompact == false) {
+	if !(m.Mode == nil) {
 		return false
 	}
 
@@ -102,8 +101,8 @@ func (m *MainWebApp) TypeInfo() tdp.Type {
 			SchemaName: "url",
 		},
 		{
-			Name:       "IsCompact",
-			SchemaName: "is_compact",
+			Name:       "Mode",
+			SchemaName: "mode",
 		},
 	}
 	return typ
@@ -112,7 +111,7 @@ func (m *MainWebApp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MainWebApp) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mainWebApp#4fb068f1 as nil")
+		return fmt.Errorf("can't encode mainWebApp#73a7ac7a as nil")
 	}
 	b.PutID(MainWebAppTypeID)
 	return m.EncodeBare(b)
@@ -121,20 +120,25 @@ func (m *MainWebApp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MainWebApp) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mainWebApp#4fb068f1 as nil")
+		return fmt.Errorf("can't encode mainWebApp#73a7ac7a as nil")
 	}
 	b.PutString(m.URL)
-	b.PutBool(m.IsCompact)
+	if m.Mode == nil {
+		return fmt.Errorf("unable to encode mainWebApp#73a7ac7a: field mode is nil")
+	}
+	if err := m.Mode.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mainWebApp#73a7ac7a: field mode: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MainWebApp) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mainWebApp#4fb068f1 to nil")
+		return fmt.Errorf("can't decode mainWebApp#73a7ac7a to nil")
 	}
 	if err := b.ConsumeID(MainWebAppTypeID); err != nil {
-		return fmt.Errorf("unable to decode mainWebApp#4fb068f1: %w", err)
+		return fmt.Errorf("unable to decode mainWebApp#73a7ac7a: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -142,21 +146,21 @@ func (m *MainWebApp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MainWebApp) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mainWebApp#4fb068f1 to nil")
+		return fmt.Errorf("can't decode mainWebApp#73a7ac7a to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode mainWebApp#4fb068f1: field url: %w", err)
+			return fmt.Errorf("unable to decode mainWebApp#73a7ac7a: field url: %w", err)
 		}
 		m.URL = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeWebAppOpenMode(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode mainWebApp#4fb068f1: field is_compact: %w", err)
+			return fmt.Errorf("unable to decode mainWebApp#73a7ac7a: field mode: %w", err)
 		}
-		m.IsCompact = value
+		m.Mode = value
 	}
 	return nil
 }
@@ -164,7 +168,7 @@ func (m *MainWebApp) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode mainWebApp#4fb068f1 as nil")
+		return fmt.Errorf("can't encode mainWebApp#73a7ac7a as nil")
 	}
 	b.ObjStart()
 	b.PutID("mainWebApp")
@@ -172,8 +176,13 @@ func (m *MainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("url")
 	b.PutString(m.URL)
 	b.Comma()
-	b.FieldStart("is_compact")
-	b.PutBool(m.IsCompact)
+	b.FieldStart("mode")
+	if m.Mode == nil {
+		return fmt.Errorf("unable to encode mainWebApp#73a7ac7a: field mode is nil")
+	}
+	if err := m.Mode.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode mainWebApp#73a7ac7a: field mode: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -183,27 +192,27 @@ func (m *MainWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MainWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode mainWebApp#4fb068f1 to nil")
+		return fmt.Errorf("can't decode mainWebApp#73a7ac7a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("mainWebApp"); err != nil {
-				return fmt.Errorf("unable to decode mainWebApp#4fb068f1: %w", err)
+				return fmt.Errorf("unable to decode mainWebApp#73a7ac7a: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode mainWebApp#4fb068f1: field url: %w", err)
+				return fmt.Errorf("unable to decode mainWebApp#73a7ac7a: field url: %w", err)
 			}
 			m.URL = value
-		case "is_compact":
-			value, err := b.Bool()
+		case "mode":
+			value, err := DecodeTDLibJSONWebAppOpenMode(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode mainWebApp#4fb068f1: field is_compact: %w", err)
+				return fmt.Errorf("unable to decode mainWebApp#73a7ac7a: field mode: %w", err)
 			}
-			m.IsCompact = value
+			m.Mode = value
 		default:
 			return b.Skip()
 		}
@@ -219,10 +228,10 @@ func (m *MainWebApp) GetURL() (value string) {
 	return m.URL
 }
 
-// GetIsCompact returns value of IsCompact field.
-func (m *MainWebApp) GetIsCompact() (value bool) {
+// GetMode returns value of Mode field.
+func (m *MainWebApp) GetMode() (value WebAppOpenModeClass) {
 	if m == nil {
 		return
 	}
-	return m.IsCompact
+	return m.Mode
 }

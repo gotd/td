@@ -162,20 +162,14 @@ func (t *TargetChatCurrent) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// TargetChatChosen represents TL type `targetChatChosen#edaccad2`.
+// TargetChatChosen represents TL type `targetChatChosen#acf8d5a6`.
 type TargetChatChosen struct {
-	// True, if private chats with ordinary users are allowed
-	AllowUserChats bool
-	// True, if private chats with other bots are allowed
-	AllowBotChats bool
-	// True, if basic group and supergroup chats are allowed
-	AllowGroupChats bool
-	// True, if channel chats are allowed
-	AllowChannelChats bool
+	// Allowed types for the chat
+	Types TargetChatTypes
 }
 
 // TargetChatChosenTypeID is TL type id of TargetChatChosen.
-const TargetChatChosenTypeID = 0xedaccad2
+const TargetChatChosenTypeID = 0xacf8d5a6
 
 // construct implements constructor of TargetChatClass.
 func (t TargetChatChosen) construct() TargetChatClass { return &t }
@@ -194,16 +188,7 @@ func (t *TargetChatChosen) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.AllowUserChats == false) {
-		return false
-	}
-	if !(t.AllowBotChats == false) {
-		return false
-	}
-	if !(t.AllowGroupChats == false) {
-		return false
-	}
-	if !(t.AllowChannelChats == false) {
+	if !(t.Types.Zero()) {
 		return false
 	}
 
@@ -243,20 +228,8 @@ func (t *TargetChatChosen) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "AllowUserChats",
-			SchemaName: "allow_user_chats",
-		},
-		{
-			Name:       "AllowBotChats",
-			SchemaName: "allow_bot_chats",
-		},
-		{
-			Name:       "AllowGroupChats",
-			SchemaName: "allow_group_chats",
-		},
-		{
-			Name:       "AllowChannelChats",
-			SchemaName: "allow_channel_chats",
+			Name:       "Types",
+			SchemaName: "types",
 		},
 	}
 	return typ
@@ -265,7 +238,7 @@ func (t *TargetChatChosen) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TargetChatChosen) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode targetChatChosen#edaccad2 as nil")
+		return fmt.Errorf("can't encode targetChatChosen#acf8d5a6 as nil")
 	}
 	b.PutID(TargetChatChosenTypeID)
 	return t.EncodeBare(b)
@@ -274,22 +247,21 @@ func (t *TargetChatChosen) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TargetChatChosen) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode targetChatChosen#edaccad2 as nil")
+		return fmt.Errorf("can't encode targetChatChosen#acf8d5a6 as nil")
 	}
-	b.PutBool(t.AllowUserChats)
-	b.PutBool(t.AllowBotChats)
-	b.PutBool(t.AllowGroupChats)
-	b.PutBool(t.AllowChannelChats)
+	if err := t.Types.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode targetChatChosen#acf8d5a6: field types: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *TargetChatChosen) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode targetChatChosen#edaccad2 to nil")
+		return fmt.Errorf("can't decode targetChatChosen#acf8d5a6 to nil")
 	}
 	if err := b.ConsumeID(TargetChatChosenTypeID); err != nil {
-		return fmt.Errorf("unable to decode targetChatChosen#edaccad2: %w", err)
+		return fmt.Errorf("unable to decode targetChatChosen#acf8d5a6: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -297,35 +269,12 @@ func (t *TargetChatChosen) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TargetChatChosen) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode targetChatChosen#edaccad2 to nil")
+		return fmt.Errorf("can't decode targetChatChosen#acf8d5a6 to nil")
 	}
 	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_user_chats: %w", err)
+		if err := t.Types.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode targetChatChosen#acf8d5a6: field types: %w", err)
 		}
-		t.AllowUserChats = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_bot_chats: %w", err)
-		}
-		t.AllowBotChats = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_group_chats: %w", err)
-		}
-		t.AllowGroupChats = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_channel_chats: %w", err)
-		}
-		t.AllowChannelChats = value
 	}
 	return nil
 }
@@ -333,22 +282,15 @@ func (t *TargetChatChosen) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *TargetChatChosen) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode targetChatChosen#edaccad2 as nil")
+		return fmt.Errorf("can't encode targetChatChosen#acf8d5a6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("targetChatChosen")
 	b.Comma()
-	b.FieldStart("allow_user_chats")
-	b.PutBool(t.AllowUserChats)
-	b.Comma()
-	b.FieldStart("allow_bot_chats")
-	b.PutBool(t.AllowBotChats)
-	b.Comma()
-	b.FieldStart("allow_group_chats")
-	b.PutBool(t.AllowGroupChats)
-	b.Comma()
-	b.FieldStart("allow_channel_chats")
-	b.PutBool(t.AllowChannelChats)
+	b.FieldStart("types")
+	if err := t.Types.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode targetChatChosen#acf8d5a6: field types: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -358,39 +300,19 @@ func (t *TargetChatChosen) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *TargetChatChosen) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode targetChatChosen#edaccad2 to nil")
+		return fmt.Errorf("can't decode targetChatChosen#acf8d5a6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("targetChatChosen"); err != nil {
-				return fmt.Errorf("unable to decode targetChatChosen#edaccad2: %w", err)
+				return fmt.Errorf("unable to decode targetChatChosen#acf8d5a6: %w", err)
 			}
-		case "allow_user_chats":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_user_chats: %w", err)
+		case "types":
+			if err := t.Types.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode targetChatChosen#acf8d5a6: field types: %w", err)
 			}
-			t.AllowUserChats = value
-		case "allow_bot_chats":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_bot_chats: %w", err)
-			}
-			t.AllowBotChats = value
-		case "allow_group_chats":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_group_chats: %w", err)
-			}
-			t.AllowGroupChats = value
-		case "allow_channel_chats":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode targetChatChosen#edaccad2: field allow_channel_chats: %w", err)
-			}
-			t.AllowChannelChats = value
 		default:
 			return b.Skip()
 		}
@@ -398,36 +320,12 @@ func (t *TargetChatChosen) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetAllowUserChats returns value of AllowUserChats field.
-func (t *TargetChatChosen) GetAllowUserChats() (value bool) {
+// GetTypes returns value of Types field.
+func (t *TargetChatChosen) GetTypes() (value TargetChatTypes) {
 	if t == nil {
 		return
 	}
-	return t.AllowUserChats
-}
-
-// GetAllowBotChats returns value of AllowBotChats field.
-func (t *TargetChatChosen) GetAllowBotChats() (value bool) {
-	if t == nil {
-		return
-	}
-	return t.AllowBotChats
-}
-
-// GetAllowGroupChats returns value of AllowGroupChats field.
-func (t *TargetChatChosen) GetAllowGroupChats() (value bool) {
-	if t == nil {
-		return
-	}
-	return t.AllowGroupChats
-}
-
-// GetAllowChannelChats returns value of AllowChannelChats field.
-func (t *TargetChatChosen) GetAllowChannelChats() (value bool) {
-	if t == nil {
-		return
-	}
-	return t.AllowChannelChats
+	return t.Types
 }
 
 // TargetChatInternalLink represents TL type `targetChatInternalLink#dd788fe0`.
@@ -619,7 +517,7 @@ const TargetChatClassName = "TargetChat"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.TargetChatCurrent: // targetChatCurrent#e729d110
-//	case *tdapi.TargetChatChosen: // targetChatChosen#edaccad2
+//	case *tdapi.TargetChatChosen: // targetChatChosen#acf8d5a6
 //	case *tdapi.TargetChatInternalLink: // targetChatInternalLink#dd788fe0
 //	default: panic(v)
 //	}
@@ -660,7 +558,7 @@ func DecodeTargetChat(buf *bin.Buffer) (TargetChatClass, error) {
 		}
 		return &v, nil
 	case TargetChatChosenTypeID:
-		// Decoding targetChatChosen#edaccad2.
+		// Decoding targetChatChosen#acf8d5a6.
 		v := TargetChatChosen{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TargetChatClass: %w", err)
@@ -693,7 +591,7 @@ func DecodeTDLibJSONTargetChat(buf tdjson.Decoder) (TargetChatClass, error) {
 		}
 		return &v, nil
 	case "targetChatChosen":
-		// Decoding targetChatChosen#edaccad2.
+		// Decoding targetChatChosen#acf8d5a6.
 		v := TargetChatChosen{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TargetChatClass: %w", err)
