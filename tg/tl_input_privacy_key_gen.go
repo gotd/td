@@ -1172,6 +1172,107 @@ func (i *InputPrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyKeyStarGiftsAutoSave represents TL type `inputPrivacyKeyStarGiftsAutoSave#e1732341`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave for reference.
+type InputPrivacyKeyStarGiftsAutoSave struct {
+}
+
+// InputPrivacyKeyStarGiftsAutoSaveTypeID is TL type id of InputPrivacyKeyStarGiftsAutoSave.
+const InputPrivacyKeyStarGiftsAutoSaveTypeID = 0xe1732341
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyStarGiftsAutoSave) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyStarGiftsAutoSave.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyStarGiftsAutoSave{}
+	_ bin.Decoder     = &InputPrivacyKeyStarGiftsAutoSave{}
+	_ bin.BareEncoder = &InputPrivacyKeyStarGiftsAutoSave{}
+	_ bin.BareDecoder = &InputPrivacyKeyStarGiftsAutoSave{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyStarGiftsAutoSave{}
+)
+
+func (i *InputPrivacyKeyStarGiftsAutoSave) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyStarGiftsAutoSave) String() string {
+	if i == nil {
+		return "InputPrivacyKeyStarGiftsAutoSave(nil)"
+	}
+	type Alias InputPrivacyKeyStarGiftsAutoSave
+	return fmt.Sprintf("InputPrivacyKeyStarGiftsAutoSave%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyKeyStarGiftsAutoSave) TypeID() uint32 {
+	return InputPrivacyKeyStarGiftsAutoSaveTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyKeyStarGiftsAutoSave) TypeName() string {
+	return "inputPrivacyKeyStarGiftsAutoSave"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyStarGiftsAutoSave) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyStarGiftsAutoSave",
+		ID:   InputPrivacyKeyStarGiftsAutoSaveTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyKeyStarGiftsAutoSave) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyStarGiftsAutoSave#e1732341 as nil")
+	}
+	b.PutID(InputPrivacyKeyStarGiftsAutoSaveTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyStarGiftsAutoSave) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyStarGiftsAutoSave#e1732341 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyKeyStarGiftsAutoSave) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyStarGiftsAutoSave#e1732341 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyKeyStarGiftsAutoSaveTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyKeyStarGiftsAutoSave#e1732341: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyStarGiftsAutoSave) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyStarGiftsAutoSave#e1732341 to nil")
+	}
+	return nil
+}
+
 // InputPrivacyKeyClassName is schema name of InputPrivacyKeyClass.
 const InputPrivacyKeyClassName = "InputPrivacyKey"
 
@@ -1197,6 +1298,7 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 //	case *tg.InputPrivacyKeyVoiceMessages: // inputPrivacyKeyVoiceMessages#aee69d68
 //	case *tg.InputPrivacyKeyAbout: // inputPrivacyKeyAbout#3823cc40
 //	case *tg.InputPrivacyKeyBirthday: // inputPrivacyKeyBirthday#d65a11cc
+//	case *tg.InputPrivacyKeyStarGiftsAutoSave: // inputPrivacyKeyStarGiftsAutoSave#e1732341
 //	default: panic(v)
 //	}
 type InputPrivacyKeyClass interface {
@@ -1298,6 +1400,13 @@ func DecodeInputPrivacyKey(buf *bin.Buffer) (InputPrivacyKeyClass, error) {
 	case InputPrivacyKeyBirthdayTypeID:
 		// Decoding inputPrivacyKeyBirthday#d65a11cc.
 		v := InputPrivacyKeyBirthday{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyKeyStarGiftsAutoSaveTypeID:
+		// Decoding inputPrivacyKeyStarGiftsAutoSave#e1732341.
+		v := InputPrivacyKeyStarGiftsAutoSave{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
 		}

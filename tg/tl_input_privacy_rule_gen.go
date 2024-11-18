@@ -1263,6 +1263,208 @@ func (i *InputPrivacyValueAllowPremium) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyValueAllowBots represents TL type `inputPrivacyValueAllowBots#5a4fcce5`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowBots for reference.
+type InputPrivacyValueAllowBots struct {
+}
+
+// InputPrivacyValueAllowBotsTypeID is TL type id of InputPrivacyValueAllowBots.
+const InputPrivacyValueAllowBotsTypeID = 0x5a4fcce5
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowBots) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowBots.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowBots{}
+	_ bin.Decoder     = &InputPrivacyValueAllowBots{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowBots{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowBots{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowBots{}
+)
+
+func (i *InputPrivacyValueAllowBots) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowBots) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowBots(nil)"
+	}
+	type Alias InputPrivacyValueAllowBots
+	return fmt.Sprintf("InputPrivacyValueAllowBots%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyValueAllowBots) TypeID() uint32 {
+	return InputPrivacyValueAllowBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyValueAllowBots) TypeName() string {
+	return "inputPrivacyValueAllowBots"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowBots",
+		ID:   InputPrivacyValueAllowBotsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyValueAllowBots) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueAllowBots#5a4fcce5 as nil")
+	}
+	b.PutID(InputPrivacyValueAllowBotsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyValueAllowBots) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueAllowBots#5a4fcce5 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyValueAllowBots) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueAllowBots#5a4fcce5 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyValueAllowBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyValueAllowBots#5a4fcce5: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyValueAllowBots) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueAllowBots#5a4fcce5 to nil")
+	}
+	return nil
+}
+
+// InputPrivacyValueDisallowBots represents TL type `inputPrivacyValueDisallowBots#c4e57915`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueDisallowBots for reference.
+type InputPrivacyValueDisallowBots struct {
+}
+
+// InputPrivacyValueDisallowBotsTypeID is TL type id of InputPrivacyValueDisallowBots.
+const InputPrivacyValueDisallowBotsTypeID = 0xc4e57915
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueDisallowBots) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueDisallowBots.
+var (
+	_ bin.Encoder     = &InputPrivacyValueDisallowBots{}
+	_ bin.Decoder     = &InputPrivacyValueDisallowBots{}
+	_ bin.BareEncoder = &InputPrivacyValueDisallowBots{}
+	_ bin.BareDecoder = &InputPrivacyValueDisallowBots{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueDisallowBots{}
+)
+
+func (i *InputPrivacyValueDisallowBots) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueDisallowBots) String() string {
+	if i == nil {
+		return "InputPrivacyValueDisallowBots(nil)"
+	}
+	type Alias InputPrivacyValueDisallowBots
+	return fmt.Sprintf("InputPrivacyValueDisallowBots%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyValueDisallowBots) TypeID() uint32 {
+	return InputPrivacyValueDisallowBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyValueDisallowBots) TypeName() string {
+	return "inputPrivacyValueDisallowBots"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueDisallowBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueDisallowBots",
+		ID:   InputPrivacyValueDisallowBotsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyValueDisallowBots) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueDisallowBots#c4e57915 as nil")
+	}
+	b.PutID(InputPrivacyValueDisallowBotsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyValueDisallowBots) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueDisallowBots#c4e57915 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyValueDisallowBots) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueDisallowBots#c4e57915 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyValueDisallowBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyValueDisallowBots#c4e57915: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyValueDisallowBots) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueDisallowBots#c4e57915 to nil")
+	}
+	return nil
+}
+
 // InputPrivacyRuleClassName is schema name of InputPrivacyRuleClass.
 const InputPrivacyRuleClassName = "InputPrivacyRule"
 
@@ -1287,6 +1489,8 @@ const InputPrivacyRuleClassName = "InputPrivacyRule"
 //	case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
 //	case *tg.InputPrivacyValueAllowCloseFriends: // inputPrivacyValueAllowCloseFriends#2f453e49
 //	case *tg.InputPrivacyValueAllowPremium: // inputPrivacyValueAllowPremium#77cdc9f1
+//	case *tg.InputPrivacyValueAllowBots: // inputPrivacyValueAllowBots#5a4fcce5
+//	case *tg.InputPrivacyValueDisallowBots: // inputPrivacyValueDisallowBots#c4e57915
 //	default: panic(v)
 //	}
 type InputPrivacyRuleClass interface {
@@ -1381,6 +1585,20 @@ func DecodeInputPrivacyRule(buf *bin.Buffer) (InputPrivacyRuleClass, error) {
 	case InputPrivacyValueAllowPremiumTypeID:
 		// Decoding inputPrivacyValueAllowPremium#77cdc9f1.
 		v := InputPrivacyValueAllowPremium{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyValueAllowBotsTypeID:
+		// Decoding inputPrivacyValueAllowBots#5a4fcce5.
+		v := InputPrivacyValueAllowBots{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyValueDisallowBotsTypeID:
+		// Decoding inputPrivacyValueDisallowBots#c4e57915.
+		v := InputPrivacyValueDisallowBots{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
 		}

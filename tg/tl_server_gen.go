@@ -7119,6 +7119,40 @@ func (s *ServerDispatcher) OnMessagesGetSponsoredMessages(f func(ctx context.Con
 	s.handlers[MessagesGetSponsoredMessagesRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSavePreparedInlineMessage(f func(ctx context.Context, request *MessagesSavePreparedInlineMessageRequest) (*MessagesBotPreparedInlineMessage, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSavePreparedInlineMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesSavePreparedInlineMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetPreparedInlineMessage(f func(ctx context.Context, request *MessagesGetPreparedInlineMessageRequest) (*MessagesPreparedInlineMessage, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetPreparedInlineMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetPreparedInlineMessageRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9372,6 +9406,69 @@ func (s *ServerDispatcher) OnBotsGetPreviewMedias(f func(ctx context.Context, bo
 	s.handlers[BotsGetPreviewMediasRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnBotsUpdateUserEmojiStatus(f func(ctx context.Context, request *BotsUpdateUserEmojiStatusRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsUpdateUserEmojiStatusRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsUpdateUserEmojiStatusRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsToggleUserEmojiStatusPermission(f func(ctx context.Context, request *BotsToggleUserEmojiStatusPermissionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsToggleUserEmojiStatusPermissionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsToggleUserEmojiStatusPermissionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsCheckDownloadFileParams(f func(ctx context.Context, request *BotsCheckDownloadFileParamsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsCheckDownloadFileParamsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsCheckDownloadFileParamsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (PaymentsPaymentFormClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentFormRequest
@@ -9972,6 +10069,27 @@ func (s *ServerDispatcher) OnPaymentsConvertStarGift(f func(ctx context.Context,
 	}
 
 	s.handlers[PaymentsConvertStarGiftRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsBotCancelStarsSubscription(f func(ctx context.Context, request *PaymentsBotCancelStarsSubscriptionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsBotCancelStarsSubscriptionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsBotCancelStarsSubscriptionRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

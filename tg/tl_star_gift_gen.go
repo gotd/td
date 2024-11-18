@@ -41,6 +41,8 @@ type StarGift struct {
 	Limited bool
 	// SoldOut field of StarGift.
 	SoldOut bool
+	// Birthday field of StarGift.
+	Birthday bool
 	// ID field of StarGift.
 	ID int64
 	// Sticker field of StarGift.
@@ -91,6 +93,9 @@ func (s *StarGift) Zero() bool {
 	if !(s.SoldOut == false) {
 		return false
 	}
+	if !(s.Birthday == false) {
+		return false
+	}
 	if !(s.ID == 0) {
 		return false
 	}
@@ -132,6 +137,7 @@ func (s *StarGift) String() string {
 func (s *StarGift) FillFrom(from interface {
 	GetLimited() (value bool)
 	GetSoldOut() (value bool)
+	GetBirthday() (value bool)
 	GetID() (value int64)
 	GetSticker() (value DocumentClass)
 	GetStars() (value int64)
@@ -143,6 +149,7 @@ func (s *StarGift) FillFrom(from interface {
 }) {
 	s.Limited = from.GetLimited()
 	s.SoldOut = from.GetSoldOut()
+	s.Birthday = from.GetBirthday()
 	s.ID = from.GetID()
 	s.Sticker = from.GetSticker()
 	s.Stars = from.GetStars()
@@ -199,6 +206,11 @@ func (s *StarGift) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(1),
 		},
 		{
+			Name:       "Birthday",
+			SchemaName: "birthday",
+			Null:       !s.Flags.Has(2),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -245,6 +257,9 @@ func (s *StarGift) SetFlags() {
 	}
 	if !(s.SoldOut == false) {
 		s.Flags.Set(1)
+	}
+	if !(s.Birthday == false) {
+		s.Flags.Set(2)
 	}
 	if !(s.AvailabilityRemains == 0) {
 		s.Flags.Set(0)
@@ -325,6 +340,7 @@ func (s *StarGift) DecodeBare(b *bin.Buffer) error {
 	}
 	s.Limited = s.Flags.Has(0)
 	s.SoldOut = s.Flags.Has(1)
+	s.Birthday = s.Flags.Has(2)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -420,6 +436,25 @@ func (s *StarGift) GetSoldOut() (value bool) {
 		return
 	}
 	return s.Flags.Has(1)
+}
+
+// SetBirthday sets value of Birthday conditional field.
+func (s *StarGift) SetBirthday(value bool) {
+	if value {
+		s.Flags.Set(2)
+		s.Birthday = true
+	} else {
+		s.Flags.Unset(2)
+		s.Birthday = false
+	}
+}
+
+// GetBirthday returns value of Birthday conditional field.
+func (s *StarGift) GetBirthday() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(2)
 }
 
 // GetID returns value of ID field.
