@@ -57,6 +57,8 @@ type MessagesRequestSimpleWebViewRequest struct {
 	FromSideMenu bool
 	// Deprecated.
 	Compact bool
+	// Fullscreen field of MessagesRequestSimpleWebViewRequest.
+	Fullscreen bool
 	// Bot that owns the mini app
 	Bot InputUserClass
 	// Web app URL, if opening from a keyboard button or inline result
@@ -105,6 +107,9 @@ func (r *MessagesRequestSimpleWebViewRequest) Zero() bool {
 	if !(r.Compact == false) {
 		return false
 	}
+	if !(r.Fullscreen == false) {
+		return false
+	}
 	if !(r.Bot == nil) {
 		return false
 	}
@@ -138,6 +143,7 @@ func (r *MessagesRequestSimpleWebViewRequest) FillFrom(from interface {
 	GetFromSwitchWebview() (value bool)
 	GetFromSideMenu() (value bool)
 	GetCompact() (value bool)
+	GetFullscreen() (value bool)
 	GetBot() (value InputUserClass)
 	GetURL() (value string, ok bool)
 	GetStartParam() (value string, ok bool)
@@ -147,6 +153,7 @@ func (r *MessagesRequestSimpleWebViewRequest) FillFrom(from interface {
 	r.FromSwitchWebview = from.GetFromSwitchWebview()
 	r.FromSideMenu = from.GetFromSideMenu()
 	r.Compact = from.GetCompact()
+	r.Fullscreen = from.GetFullscreen()
 	r.Bot = from.GetBot()
 	if val, ok := from.GetURL(); ok {
 		r.URL = val
@@ -202,6 +209,11 @@ func (r *MessagesRequestSimpleWebViewRequest) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(7),
 		},
 		{
+			Name:       "Fullscreen",
+			SchemaName: "fullscreen",
+			Null:       !r.Flags.Has(8),
+		},
+		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},
@@ -238,6 +250,9 @@ func (r *MessagesRequestSimpleWebViewRequest) SetFlags() {
 	}
 	if !(r.Compact == false) {
 		r.Flags.Set(7)
+	}
+	if !(r.Fullscreen == false) {
+		r.Flags.Set(8)
 	}
 	if !(r.URL == "") {
 		r.Flags.Set(3)
@@ -313,6 +328,7 @@ func (r *MessagesRequestSimpleWebViewRequest) DecodeBare(b *bin.Buffer) error {
 	r.FromSwitchWebview = r.Flags.Has(1)
 	r.FromSideMenu = r.Flags.Has(2)
 	r.Compact = r.Flags.Has(7)
+	r.Fullscreen = r.Flags.Has(8)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -404,6 +420,25 @@ func (r *MessagesRequestSimpleWebViewRequest) GetCompact() (value bool) {
 		return
 	}
 	return r.Flags.Has(7)
+}
+
+// SetFullscreen sets value of Fullscreen conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) SetFullscreen(value bool) {
+	if value {
+		r.Flags.Set(8)
+		r.Fullscreen = true
+	} else {
+		r.Flags.Unset(8)
+		r.Fullscreen = false
+	}
+}
+
+// GetFullscreen returns value of Fullscreen conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) GetFullscreen() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(8)
 }
 
 // GetBot returns value of Bot field.

@@ -50,6 +50,8 @@ type MessagesRequestMainWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#main-mini-app-links
 	Compact bool
+	// Fullscreen field of MessagesRequestMainWebViewRequest.
+	Fullscreen bool
 	// Currently open chat, may be inputPeerEmpty¹ if no chat is currently open.
 	//
 	// Links:
@@ -96,6 +98,9 @@ func (r *MessagesRequestMainWebViewRequest) Zero() bool {
 	if !(r.Compact == false) {
 		return false
 	}
+	if !(r.Fullscreen == false) {
+		return false
+	}
 	if !(r.Peer == nil) {
 		return false
 	}
@@ -127,6 +132,7 @@ func (r *MessagesRequestMainWebViewRequest) String() string {
 // FillFrom fills MessagesRequestMainWebViewRequest from given interface.
 func (r *MessagesRequestMainWebViewRequest) FillFrom(from interface {
 	GetCompact() (value bool)
+	GetFullscreen() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetBot() (value InputUserClass)
 	GetStartParam() (value string, ok bool)
@@ -134,6 +140,7 @@ func (r *MessagesRequestMainWebViewRequest) FillFrom(from interface {
 	GetPlatform() (value string)
 }) {
 	r.Compact = from.GetCompact()
+	r.Fullscreen = from.GetFullscreen()
 	r.Peer = from.GetPeer()
 	r.Bot = from.GetBot()
 	if val, ok := from.GetStartParam(); ok {
@@ -176,6 +183,11 @@ func (r *MessagesRequestMainWebViewRequest) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(7),
 		},
 		{
+			Name:       "Fullscreen",
+			SchemaName: "fullscreen",
+			Null:       !r.Flags.Has(8),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -205,6 +217,9 @@ func (r *MessagesRequestMainWebViewRequest) TypeInfo() tdp.Type {
 func (r *MessagesRequestMainWebViewRequest) SetFlags() {
 	if !(r.Compact == false) {
 		r.Flags.Set(7)
+	}
+	if !(r.Fullscreen == false) {
+		r.Flags.Set(8)
 	}
 	if !(r.StartParam == "") {
 		r.Flags.Set(1)
@@ -278,6 +293,7 @@ func (r *MessagesRequestMainWebViewRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	r.Compact = r.Flags.Has(7)
+	r.Fullscreen = r.Flags.Has(8)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -331,6 +347,25 @@ func (r *MessagesRequestMainWebViewRequest) GetCompact() (value bool) {
 		return
 	}
 	return r.Flags.Has(7)
+}
+
+// SetFullscreen sets value of Fullscreen conditional field.
+func (r *MessagesRequestMainWebViewRequest) SetFullscreen(value bool) {
+	if value {
+		r.Flags.Set(8)
+		r.Fullscreen = true
+	} else {
+		r.Flags.Unset(8)
+		r.Fullscreen = false
+	}
+}
+
+// GetFullscreen returns value of Fullscreen conditional field.
+func (r *MessagesRequestMainWebViewRequest) GetFullscreen() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(8)
 }
 
 // GetPeer returns value of Peer field.

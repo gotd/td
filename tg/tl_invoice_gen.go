@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Invoice represents TL type `invoice#5db95a15`.
+// Invoice represents TL type `invoice#49ee584`.
 // Invoice
 //
 // See https://core.telegram.org/constructor/invoice for reference.
@@ -89,10 +89,14 @@ type Invoice struct {
 	//
 	// Use SetTermsURL and GetTermsURL helpers.
 	TermsURL string
+	// SubscriptionPeriod field of Invoice.
+	//
+	// Use SetSubscriptionPeriod and GetSubscriptionPeriod helpers.
+	SubscriptionPeriod int
 }
 
 // InvoiceTypeID is TL type id of Invoice.
-const InvoiceTypeID = 0x5db95a15
+const InvoiceTypeID = 0x49ee584
 
 // Ensuring interfaces in compile-time for Invoice.
 var (
@@ -151,6 +155,9 @@ func (i *Invoice) Zero() bool {
 	if !(i.TermsURL == "") {
 		return false
 	}
+	if !(i.SubscriptionPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -180,6 +187,7 @@ func (i *Invoice) FillFrom(from interface {
 	GetMaxTipAmount() (value int64, ok bool)
 	GetSuggestedTipAmounts() (value []int64, ok bool)
 	GetTermsURL() (value string, ok bool)
+	GetSubscriptionPeriod() (value int, ok bool)
 }) {
 	i.Test = from.GetTest()
 	i.NameRequested = from.GetNameRequested()
@@ -202,6 +210,10 @@ func (i *Invoice) FillFrom(from interface {
 
 	if val, ok := from.GetTermsURL(); ok {
 		i.TermsURL = val
+	}
+
+	if val, ok := from.GetSubscriptionPeriod(); ok {
+		i.SubscriptionPeriod = val
 	}
 
 }
@@ -297,6 +309,11 @@ func (i *Invoice) TypeInfo() tdp.Type {
 			SchemaName: "terms_url",
 			Null:       !i.Flags.Has(10),
 		},
+		{
+			Name:       "SubscriptionPeriod",
+			SchemaName: "subscription_period",
+			Null:       !i.Flags.Has(11),
+		},
 	}
 	return typ
 }
@@ -339,12 +356,15 @@ func (i *Invoice) SetFlags() {
 	if !(i.TermsURL == "") {
 		i.Flags.Set(10)
 	}
+	if !(i.SubscriptionPeriod == 0) {
+		i.Flags.Set(11)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#5db95a15 as nil")
+		return fmt.Errorf("can't encode invoice#49ee584 as nil")
 	}
 	b.PutID(InvoiceTypeID)
 	return i.EncodeBare(b)
@@ -353,17 +373,17 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#5db95a15 as nil")
+		return fmt.Errorf("can't encode invoice#49ee584 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invoice#5db95a15: field flags: %w", err)
+		return fmt.Errorf("unable to encode invoice#49ee584: field flags: %w", err)
 	}
 	b.PutString(i.Currency)
 	b.PutVectorHeader(len(i.Prices))
 	for idx, v := range i.Prices {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode invoice#5db95a15: field prices element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode invoice#49ee584: field prices element with index %d: %w", idx, err)
 		}
 	}
 	if i.Flags.Has(8) {
@@ -378,16 +398,19 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(10) {
 		b.PutString(i.TermsURL)
 	}
+	if i.Flags.Has(11) {
+		b.PutInt(i.SubscriptionPeriod)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *Invoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#5db95a15 to nil")
+		return fmt.Errorf("can't decode invoice#49ee584 to nil")
 	}
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode invoice#5db95a15: %w", err)
+		return fmt.Errorf("unable to decode invoice#49ee584: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -395,11 +418,11 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#5db95a15 to nil")
+		return fmt.Errorf("can't decode invoice#49ee584 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invoice#5db95a15: field flags: %w", err)
+			return fmt.Errorf("unable to decode invoice#49ee584: field flags: %w", err)
 		}
 	}
 	i.Test = i.Flags.Has(0)
@@ -414,14 +437,14 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#5db95a15: field currency: %w", err)
+			return fmt.Errorf("unable to decode invoice#49ee584: field currency: %w", err)
 		}
 		i.Currency = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#5db95a15: field prices: %w", err)
+			return fmt.Errorf("unable to decode invoice#49ee584: field prices: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -430,7 +453,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode invoice#5db95a15: field prices: %w", err)
+				return fmt.Errorf("unable to decode invoice#49ee584: field prices: %w", err)
 			}
 			i.Prices = append(i.Prices, value)
 		}
@@ -438,14 +461,14 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(8) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#5db95a15: field max_tip_amount: %w", err)
+			return fmt.Errorf("unable to decode invoice#49ee584: field max_tip_amount: %w", err)
 		}
 		i.MaxTipAmount = value
 	}
 	if i.Flags.Has(8) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#5db95a15: field suggested_tip_amounts: %w", err)
+			return fmt.Errorf("unable to decode invoice#49ee584: field suggested_tip_amounts: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -454,7 +477,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#5db95a15: field suggested_tip_amounts: %w", err)
+				return fmt.Errorf("unable to decode invoice#49ee584: field suggested_tip_amounts: %w", err)
 			}
 			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
 		}
@@ -462,9 +485,16 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(10) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#5db95a15: field terms_url: %w", err)
+			return fmt.Errorf("unable to decode invoice#49ee584: field terms_url: %w", err)
 		}
 		i.TermsURL = value
+	}
+	if i.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#49ee584: field subscription_period: %w", err)
+		}
+		i.SubscriptionPeriod = value
 	}
 	return nil
 }
@@ -708,4 +738,22 @@ func (i *Invoice) GetTermsURL() (value string, ok bool) {
 		return value, false
 	}
 	return i.TermsURL, true
+}
+
+// SetSubscriptionPeriod sets value of SubscriptionPeriod conditional field.
+func (i *Invoice) SetSubscriptionPeriod(value int) {
+	i.Flags.Set(11)
+	i.SubscriptionPeriod = value
+}
+
+// GetSubscriptionPeriod returns value of SubscriptionPeriod conditional field and
+// boolean which is true if field was set.
+func (i *Invoice) GetSubscriptionPeriod() (value int, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(11) {
+		return value, false
+	}
+	return i.SubscriptionPeriod, true
 }

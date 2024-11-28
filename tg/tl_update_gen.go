@@ -28546,6 +28546,248 @@ func (u *UpdatePaidReactionPrivacy) GetPrivate() (value bool) {
 	return u.Private
 }
 
+// UpdateBotSubscriptionExpire represents TL type `updateBotSubscriptionExpire#2d13c6ee`.
+//
+// See https://core.telegram.org/constructor/updateBotSubscriptionExpire for reference.
+type UpdateBotSubscriptionExpire struct {
+	// UserID field of UpdateBotSubscriptionExpire.
+	UserID int64
+	// Payload field of UpdateBotSubscriptionExpire.
+	Payload string
+	// InvoiceSlug field of UpdateBotSubscriptionExpire.
+	InvoiceSlug string
+	// UntilDate field of UpdateBotSubscriptionExpire.
+	UntilDate int
+	// Qts field of UpdateBotSubscriptionExpire.
+	Qts int
+}
+
+// UpdateBotSubscriptionExpireTypeID is TL type id of UpdateBotSubscriptionExpire.
+const UpdateBotSubscriptionExpireTypeID = 0x2d13c6ee
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotSubscriptionExpire) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotSubscriptionExpire.
+var (
+	_ bin.Encoder     = &UpdateBotSubscriptionExpire{}
+	_ bin.Decoder     = &UpdateBotSubscriptionExpire{}
+	_ bin.BareEncoder = &UpdateBotSubscriptionExpire{}
+	_ bin.BareDecoder = &UpdateBotSubscriptionExpire{}
+
+	_ UpdateClass = &UpdateBotSubscriptionExpire{}
+)
+
+func (u *UpdateBotSubscriptionExpire) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Payload == "") {
+		return false
+	}
+	if !(u.InvoiceSlug == "") {
+		return false
+	}
+	if !(u.UntilDate == 0) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotSubscriptionExpire) String() string {
+	if u == nil {
+		return "UpdateBotSubscriptionExpire(nil)"
+	}
+	type Alias UpdateBotSubscriptionExpire
+	return fmt.Sprintf("UpdateBotSubscriptionExpire%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotSubscriptionExpire from given interface.
+func (u *UpdateBotSubscriptionExpire) FillFrom(from interface {
+	GetUserID() (value int64)
+	GetPayload() (value string)
+	GetInvoiceSlug() (value string)
+	GetUntilDate() (value int)
+	GetQts() (value int)
+}) {
+	u.UserID = from.GetUserID()
+	u.Payload = from.GetPayload()
+	u.InvoiceSlug = from.GetInvoiceSlug()
+	u.UntilDate = from.GetUntilDate()
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotSubscriptionExpire) TypeID() uint32 {
+	return UpdateBotSubscriptionExpireTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotSubscriptionExpire) TypeName() string {
+	return "updateBotSubscriptionExpire"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotSubscriptionExpire) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotSubscriptionExpire",
+		ID:   UpdateBotSubscriptionExpireTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "InvoiceSlug",
+			SchemaName: "invoice_slug",
+		},
+		{
+			Name:       "UntilDate",
+			SchemaName: "until_date",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotSubscriptionExpire) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotSubscriptionExpire#2d13c6ee as nil")
+	}
+	b.PutID(UpdateBotSubscriptionExpireTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotSubscriptionExpire) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotSubscriptionExpire#2d13c6ee as nil")
+	}
+	b.PutLong(u.UserID)
+	b.PutString(u.Payload)
+	b.PutString(u.InvoiceSlug)
+	b.PutInt(u.UntilDate)
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotSubscriptionExpire) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotSubscriptionExpire#2d13c6ee to nil")
+	}
+	if err := b.ConsumeID(UpdateBotSubscriptionExpireTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotSubscriptionExpire#2d13c6ee: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotSubscriptionExpire) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotSubscriptionExpire#2d13c6ee to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotSubscriptionExpire#2d13c6ee: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotSubscriptionExpire#2d13c6ee: field payload: %w", err)
+		}
+		u.Payload = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotSubscriptionExpire#2d13c6ee: field invoice_slug: %w", err)
+		}
+		u.InvoiceSlug = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotSubscriptionExpire#2d13c6ee: field until_date: %w", err)
+		}
+		u.UntilDate = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotSubscriptionExpire#2d13c6ee: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotSubscriptionExpire) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetPayload returns value of Payload field.
+func (u *UpdateBotSubscriptionExpire) GetPayload() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Payload
+}
+
+// GetInvoiceSlug returns value of InvoiceSlug field.
+func (u *UpdateBotSubscriptionExpire) GetInvoiceSlug() (value string) {
+	if u == nil {
+		return
+	}
+	return u.InvoiceSlug
+}
+
+// GetUntilDate returns value of UntilDate field.
+func (u *UpdateBotSubscriptionExpire) GetUntilDate() (value int) {
+	if u == nil {
+		return
+	}
+	return u.UntilDate
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotSubscriptionExpire) GetQts() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Qts
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -28701,6 +28943,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStarsRevenueStatus: // updateStarsRevenueStatus#a584b019
 //	case *tg.UpdateBotPurchasedPaidMedia: // updateBotPurchasedPaidMedia#283bd312
 //	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#51ca7aec
+//	case *tg.UpdateBotSubscriptionExpire: // updateBotSubscriptionExpire#2d13c6ee
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -29712,6 +29955,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdatePaidReactionPrivacyTypeID:
 		// Decoding updatePaidReactionPrivacy#51ca7aec.
 		v := UpdatePaidReactionPrivacy{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotSubscriptionExpireTypeID:
+		// Decoding updateBotSubscriptionExpire#2d13c6ee.
+		v := UpdateBotSubscriptionExpire{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

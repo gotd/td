@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarsSubscription represents TL type `starsSubscription#538ecf18`.
+// StarsSubscription represents TL type `starsSubscription#2e6eab1a`.
 //
 // See https://core.telegram.org/constructor/starsSubscription for reference.
 type StarsSubscription struct {
@@ -43,6 +43,8 @@ type StarsSubscription struct {
 	CanRefulfill bool
 	// MissingBalance field of StarsSubscription.
 	MissingBalance bool
+	// BotCanceled field of StarsSubscription.
+	BotCanceled bool
 	// ID field of StarsSubscription.
 	ID string
 	// Peer field of StarsSubscription.
@@ -55,10 +57,22 @@ type StarsSubscription struct {
 	//
 	// Use SetChatInviteHash and GetChatInviteHash helpers.
 	ChatInviteHash string
+	// Title field of StarsSubscription.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
+	// Photo field of StarsSubscription.
+	//
+	// Use SetPhoto and GetPhoto helpers.
+	Photo WebDocumentClass
+	// InvoiceSlug field of StarsSubscription.
+	//
+	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
+	InvoiceSlug string
 }
 
 // StarsSubscriptionTypeID is TL type id of StarsSubscription.
-const StarsSubscriptionTypeID = 0x538ecf18
+const StarsSubscriptionTypeID = 0x2e6eab1a
 
 // Ensuring interfaces in compile-time for StarsSubscription.
 var (
@@ -84,6 +98,9 @@ func (s *StarsSubscription) Zero() bool {
 	if !(s.MissingBalance == false) {
 		return false
 	}
+	if !(s.BotCanceled == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -97,6 +114,15 @@ func (s *StarsSubscription) Zero() bool {
 		return false
 	}
 	if !(s.ChatInviteHash == "") {
+		return false
+	}
+	if !(s.Title == "") {
+		return false
+	}
+	if !(s.Photo == nil) {
+		return false
+	}
+	if !(s.InvoiceSlug == "") {
 		return false
 	}
 
@@ -117,21 +143,38 @@ func (s *StarsSubscription) FillFrom(from interface {
 	GetCanceled() (value bool)
 	GetCanRefulfill() (value bool)
 	GetMissingBalance() (value bool)
+	GetBotCanceled() (value bool)
 	GetID() (value string)
 	GetPeer() (value PeerClass)
 	GetUntilDate() (value int)
 	GetPricing() (value StarsSubscriptionPricing)
 	GetChatInviteHash() (value string, ok bool)
+	GetTitle() (value string, ok bool)
+	GetPhoto() (value WebDocumentClass, ok bool)
+	GetInvoiceSlug() (value string, ok bool)
 }) {
 	s.Canceled = from.GetCanceled()
 	s.CanRefulfill = from.GetCanRefulfill()
 	s.MissingBalance = from.GetMissingBalance()
+	s.BotCanceled = from.GetBotCanceled()
 	s.ID = from.GetID()
 	s.Peer = from.GetPeer()
 	s.UntilDate = from.GetUntilDate()
 	s.Pricing = from.GetPricing()
 	if val, ok := from.GetChatInviteHash(); ok {
 		s.ChatInviteHash = val
+	}
+
+	if val, ok := from.GetTitle(); ok {
+		s.Title = val
+	}
+
+	if val, ok := from.GetPhoto(); ok {
+		s.Photo = val
+	}
+
+	if val, ok := from.GetInvoiceSlug(); ok {
+		s.InvoiceSlug = val
 	}
 
 }
@@ -175,6 +218,11 @@ func (s *StarsSubscription) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(2),
 		},
 		{
+			Name:       "BotCanceled",
+			SchemaName: "bot_canceled",
+			Null:       !s.Flags.Has(7),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -195,6 +243,21 @@ func (s *StarsSubscription) TypeInfo() tdp.Type {
 			SchemaName: "chat_invite_hash",
 			Null:       !s.Flags.Has(3),
 		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !s.Flags.Has(4),
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "InvoiceSlug",
+			SchemaName: "invoice_slug",
+			Null:       !s.Flags.Has(6),
+		},
 	}
 	return typ
 }
@@ -210,15 +273,27 @@ func (s *StarsSubscription) SetFlags() {
 	if !(s.MissingBalance == false) {
 		s.Flags.Set(2)
 	}
+	if !(s.BotCanceled == false) {
+		s.Flags.Set(7)
+	}
 	if !(s.ChatInviteHash == "") {
 		s.Flags.Set(3)
+	}
+	if !(s.Title == "") {
+		s.Flags.Set(4)
+	}
+	if !(s.Photo == nil) {
+		s.Flags.Set(5)
+	}
+	if !(s.InvoiceSlug == "") {
+		s.Flags.Set(6)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StarsSubscription) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starsSubscription#538ecf18 as nil")
+		return fmt.Errorf("can't encode starsSubscription#2e6eab1a as nil")
 	}
 	b.PutID(StarsSubscriptionTypeID)
 	return s.EncodeBare(b)
@@ -227,25 +302,39 @@ func (s *StarsSubscription) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarsSubscription) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starsSubscription#538ecf18 as nil")
+		return fmt.Errorf("can't encode starsSubscription#2e6eab1a as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starsSubscription#538ecf18: field flags: %w", err)
+		return fmt.Errorf("unable to encode starsSubscription#2e6eab1a: field flags: %w", err)
 	}
 	b.PutString(s.ID)
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode starsSubscription#538ecf18: field peer is nil")
+		return fmt.Errorf("unable to encode starsSubscription#2e6eab1a: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starsSubscription#538ecf18: field peer: %w", err)
+		return fmt.Errorf("unable to encode starsSubscription#2e6eab1a: field peer: %w", err)
 	}
 	b.PutInt(s.UntilDate)
 	if err := s.Pricing.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starsSubscription#538ecf18: field pricing: %w", err)
+		return fmt.Errorf("unable to encode starsSubscription#2e6eab1a: field pricing: %w", err)
 	}
 	if s.Flags.Has(3) {
 		b.PutString(s.ChatInviteHash)
+	}
+	if s.Flags.Has(4) {
+		b.PutString(s.Title)
+	}
+	if s.Flags.Has(5) {
+		if s.Photo == nil {
+			return fmt.Errorf("unable to encode starsSubscription#2e6eab1a: field photo is nil")
+		}
+		if err := s.Photo.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode starsSubscription#2e6eab1a: field photo: %w", err)
+		}
+	}
+	if s.Flags.Has(6) {
+		b.PutString(s.InvoiceSlug)
 	}
 	return nil
 }
@@ -253,10 +342,10 @@ func (s *StarsSubscription) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarsSubscription) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starsSubscription#538ecf18 to nil")
+		return fmt.Errorf("can't decode starsSubscription#2e6eab1a to nil")
 	}
 	if err := b.ConsumeID(StarsSubscriptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode starsSubscription#538ecf18: %w", err)
+		return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -264,48 +353,70 @@ func (s *StarsSubscription) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarsSubscription) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starsSubscription#538ecf18 to nil")
+		return fmt.Errorf("can't decode starsSubscription#2e6eab1a to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starsSubscription#538ecf18: field flags: %w", err)
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field flags: %w", err)
 		}
 	}
 	s.Canceled = s.Flags.Has(0)
 	s.CanRefulfill = s.Flags.Has(1)
 	s.MissingBalance = s.Flags.Has(2)
+	s.BotCanceled = s.Flags.Has(7)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starsSubscription#538ecf18: field id: %w", err)
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starsSubscription#538ecf18: field peer: %w", err)
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starsSubscription#538ecf18: field until_date: %w", err)
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field until_date: %w", err)
 		}
 		s.UntilDate = value
 	}
 	{
 		if err := s.Pricing.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starsSubscription#538ecf18: field pricing: %w", err)
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field pricing: %w", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starsSubscription#538ecf18: field chat_invite_hash: %w", err)
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field chat_invite_hash: %w", err)
 		}
 		s.ChatInviteHash = value
+	}
+	if s.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field title: %w", err)
+		}
+		s.Title = value
+	}
+	if s.Flags.Has(5) {
+		value, err := DecodeWebDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field photo: %w", err)
+		}
+		s.Photo = value
+	}
+	if s.Flags.Has(6) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode starsSubscription#2e6eab1a: field invoice_slug: %w", err)
+		}
+		s.InvoiceSlug = value
 	}
 	return nil
 }
@@ -367,6 +478,25 @@ func (s *StarsSubscription) GetMissingBalance() (value bool) {
 	return s.Flags.Has(2)
 }
 
+// SetBotCanceled sets value of BotCanceled conditional field.
+func (s *StarsSubscription) SetBotCanceled(value bool) {
+	if value {
+		s.Flags.Set(7)
+		s.BotCanceled = true
+	} else {
+		s.Flags.Unset(7)
+		s.BotCanceled = false
+	}
+}
+
+// GetBotCanceled returns value of BotCanceled conditional field.
+func (s *StarsSubscription) GetBotCanceled() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(7)
+}
+
 // GetID returns value of ID field.
 func (s *StarsSubscription) GetID() (value string) {
 	if s == nil {
@@ -415,4 +545,58 @@ func (s *StarsSubscription) GetChatInviteHash() (value string, ok bool) {
 		return value, false
 	}
 	return s.ChatInviteHash, true
+}
+
+// SetTitle sets value of Title conditional field.
+func (s *StarsSubscription) SetTitle(value string) {
+	s.Flags.Set(4)
+	s.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (s *StarsSubscription) GetTitle() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return s.Title, true
+}
+
+// SetPhoto sets value of Photo conditional field.
+func (s *StarsSubscription) SetPhoto(value WebDocumentClass) {
+	s.Flags.Set(5)
+	s.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (s *StarsSubscription) GetPhoto() (value WebDocumentClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(5) {
+		return value, false
+	}
+	return s.Photo, true
+}
+
+// SetInvoiceSlug sets value of InvoiceSlug conditional field.
+func (s *StarsSubscription) SetInvoiceSlug(value string) {
+	s.Flags.Set(6)
+	s.InvoiceSlug = value
+}
+
+// GetInvoiceSlug returns value of InvoiceSlug conditional field and
+// boolean which is true if field was set.
+func (s *StarsSubscription) GetInvoiceSlug() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(6) {
+		return value, false
+	}
+	return s.InvoiceSlug, true
 }

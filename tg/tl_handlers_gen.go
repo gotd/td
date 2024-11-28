@@ -1515,3 +1515,13 @@ func (u UpdateDispatcher) OnPaidReactionPrivacy(handler PaidReactionPrivacyHandl
 		return handler(ctx, e, update.(*UpdatePaidReactionPrivacy))
 	}
 }
+
+// BotSubscriptionExpireHandler is a BotSubscriptionExpire event handler.
+type BotSubscriptionExpireHandler func(ctx context.Context, e Entities, update *UpdateBotSubscriptionExpire) error
+
+// OnBotSubscriptionExpire sets BotSubscriptionExpire handler.
+func (u UpdateDispatcher) OnBotSubscriptionExpire(handler BotSubscriptionExpireHandler) {
+	u.handlers[UpdateBotSubscriptionExpireTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotSubscriptionExpire))
+	}
+}

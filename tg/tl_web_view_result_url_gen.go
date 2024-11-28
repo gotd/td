@@ -43,6 +43,8 @@ type WebViewResultURL struct {
 	Flags bin.Fields
 	// If set, the app must be opened in fullsize mode instead of compact mode.
 	Fullsize bool
+	// Fullscreen field of WebViewResultURL.
+	Fullscreen bool
 	// Webview session ID (only returned by inline button mini apps¹, menu button mini
 	// apps², attachment menu mini apps³).
 	//
@@ -78,6 +80,9 @@ func (w *WebViewResultURL) Zero() bool {
 	if !(w.Fullsize == false) {
 		return false
 	}
+	if !(w.Fullscreen == false) {
+		return false
+	}
 	if !(w.QueryID == 0) {
 		return false
 	}
@@ -100,10 +105,12 @@ func (w *WebViewResultURL) String() string {
 // FillFrom fills WebViewResultURL from given interface.
 func (w *WebViewResultURL) FillFrom(from interface {
 	GetFullsize() (value bool)
+	GetFullscreen() (value bool)
 	GetQueryID() (value int64, ok bool)
 	GetURL() (value string)
 }) {
 	w.Fullsize = from.GetFullsize()
+	w.Fullscreen = from.GetFullscreen()
 	if val, ok := from.GetQueryID(); ok {
 		w.QueryID = val
 	}
@@ -140,6 +147,11 @@ func (w *WebViewResultURL) TypeInfo() tdp.Type {
 			Null:       !w.Flags.Has(1),
 		},
 		{
+			Name:       "Fullscreen",
+			SchemaName: "fullscreen",
+			Null:       !w.Flags.Has(2),
+		},
+		{
 			Name:       "QueryID",
 			SchemaName: "query_id",
 			Null:       !w.Flags.Has(0),
@@ -156,6 +168,9 @@ func (w *WebViewResultURL) TypeInfo() tdp.Type {
 func (w *WebViewResultURL) SetFlags() {
 	if !(w.Fullsize == false) {
 		w.Flags.Set(1)
+	}
+	if !(w.Fullscreen == false) {
+		w.Flags.Set(2)
 	}
 	if !(w.QueryID == 0) {
 		w.Flags.Set(0)
@@ -209,6 +224,7 @@ func (w *WebViewResultURL) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	w.Fullsize = w.Flags.Has(1)
+	w.Fullscreen = w.Flags.Has(2)
 	if w.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
@@ -243,6 +259,25 @@ func (w *WebViewResultURL) GetFullsize() (value bool) {
 		return
 	}
 	return w.Flags.Has(1)
+}
+
+// SetFullscreen sets value of Fullscreen conditional field.
+func (w *WebViewResultURL) SetFullscreen(value bool) {
+	if value {
+		w.Flags.Set(2)
+		w.Fullscreen = true
+	} else {
+		w.Flags.Unset(2)
+		w.Fullscreen = false
+	}
+}
+
+// GetFullscreen returns value of Fullscreen conditional field.
+func (w *WebViewResultURL) GetFullscreen() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(2)
 }
 
 // SetQueryID sets value of QueryID conditional field.

@@ -1169,6 +1169,107 @@ func (p *PrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PrivacyKeyStarGiftsAutoSave represents TL type `privacyKeyStarGiftsAutoSave#2ca4fdf8`.
+//
+// See https://core.telegram.org/constructor/privacyKeyStarGiftsAutoSave for reference.
+type PrivacyKeyStarGiftsAutoSave struct {
+}
+
+// PrivacyKeyStarGiftsAutoSaveTypeID is TL type id of PrivacyKeyStarGiftsAutoSave.
+const PrivacyKeyStarGiftsAutoSaveTypeID = 0x2ca4fdf8
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyStarGiftsAutoSave) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyStarGiftsAutoSave.
+var (
+	_ bin.Encoder     = &PrivacyKeyStarGiftsAutoSave{}
+	_ bin.Decoder     = &PrivacyKeyStarGiftsAutoSave{}
+	_ bin.BareEncoder = &PrivacyKeyStarGiftsAutoSave{}
+	_ bin.BareDecoder = &PrivacyKeyStarGiftsAutoSave{}
+
+	_ PrivacyKeyClass = &PrivacyKeyStarGiftsAutoSave{}
+)
+
+func (p *PrivacyKeyStarGiftsAutoSave) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyStarGiftsAutoSave) String() string {
+	if p == nil {
+		return "PrivacyKeyStarGiftsAutoSave(nil)"
+	}
+	type Alias PrivacyKeyStarGiftsAutoSave
+	return fmt.Sprintf("PrivacyKeyStarGiftsAutoSave%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrivacyKeyStarGiftsAutoSave) TypeID() uint32 {
+	return PrivacyKeyStarGiftsAutoSaveTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrivacyKeyStarGiftsAutoSave) TypeName() string {
+	return "privacyKeyStarGiftsAutoSave"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrivacyKeyStarGiftsAutoSave) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "privacyKeyStarGiftsAutoSave",
+		ID:   PrivacyKeyStarGiftsAutoSaveTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrivacyKeyStarGiftsAutoSave) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyStarGiftsAutoSave#2ca4fdf8 as nil")
+	}
+	b.PutID(PrivacyKeyStarGiftsAutoSaveTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyStarGiftsAutoSave) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyStarGiftsAutoSave#2ca4fdf8 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrivacyKeyStarGiftsAutoSave) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyStarGiftsAutoSave#2ca4fdf8 to nil")
+	}
+	if err := b.ConsumeID(PrivacyKeyStarGiftsAutoSaveTypeID); err != nil {
+		return fmt.Errorf("unable to decode privacyKeyStarGiftsAutoSave#2ca4fdf8: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyStarGiftsAutoSave) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyStarGiftsAutoSave#2ca4fdf8 to nil")
+	}
+	return nil
+}
+
 // PrivacyKeyClassName is schema name of PrivacyKeyClass.
 const PrivacyKeyClassName = "PrivacyKey"
 
@@ -1194,6 +1295,7 @@ const PrivacyKeyClassName = "PrivacyKey"
 //	case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
 //	case *tg.PrivacyKeyAbout: // privacyKeyAbout#a486b761
 //	case *tg.PrivacyKeyBirthday: // privacyKeyBirthday#2000a518
+//	case *tg.PrivacyKeyStarGiftsAutoSave: // privacyKeyStarGiftsAutoSave#2ca4fdf8
 //	default: panic(v)
 //	}
 type PrivacyKeyClass interface {
@@ -1295,6 +1397,13 @@ func DecodePrivacyKey(buf *bin.Buffer) (PrivacyKeyClass, error) {
 	case PrivacyKeyBirthdayTypeID:
 		// Decoding privacyKeyBirthday#2000a518.
 		v := PrivacyKeyBirthday{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case PrivacyKeyStarGiftsAutoSaveTypeID:
+		// Decoding privacyKeyStarGiftsAutoSave#2ca4fdf8.
+		v := PrivacyKeyStarGiftsAutoSave{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
 		}
