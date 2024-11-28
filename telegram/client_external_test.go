@@ -2,6 +2,8 @@ package telegram_test
 
 import (
 	"context"
+	"os"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -79,6 +81,10 @@ const dialog = `— Да?
 
 func TestExternalE2EUsersDialog(t *testing.T) {
 	testutil.SkipExternal(t)
+	if v, _ := strconv.ParseBool(os.Getenv("GOTD_E2E_DIALOGS_BROKEN")); v {
+		// TODO(ernado): enable when fixed
+		t.Skip("Dialogs are broken.")
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
