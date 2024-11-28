@@ -46,7 +46,7 @@ type StatsGetBroadcastRevenueStatsRequest struct {
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
-	// Peer field of StatsGetBroadcastRevenueStatsRequest.
+	// Get ad revenue stats for the specified channel or bot
 	Peer InputPeerClass
 }
 

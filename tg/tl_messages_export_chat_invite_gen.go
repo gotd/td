@@ -62,7 +62,11 @@ type MessagesExportChatInviteRequest struct {
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// SubscriptionPricing field of MessagesExportChatInviteRequest.
+	// For Telegram Star subscriptions »¹, contains the pricing of the subscription the
+	// user must activate to join the private channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionPricing and GetSubscriptionPricing helpers.
 	SubscriptionPricing StarsSubscriptionPricing

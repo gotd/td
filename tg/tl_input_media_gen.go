@@ -4511,7 +4511,10 @@ func (i *InputMediaWebPage) GetURL() (value string) {
 //
 // See https://core.telegram.org/constructor/inputMediaPaidMedia for reference.
 type InputMediaPaidMedia struct {
-	// Flags field of InputMediaPaidMedia.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The price of the media in Telegram Stars¹.
 	//
@@ -4520,7 +4523,12 @@ type InputMediaPaidMedia struct {
 	StarsAmount int64
 	// Photos or videos.
 	ExtendedMedia []InputMediaClass
-	// Payload field of InputMediaPaidMedia.
+	// Bots only, specifies a custom payload that will then be passed in
+	// updateBotPurchasedPaidMedia¹ when a payment is made (this field will not be visible
+	// to the user)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateBotPurchasedPaidMedia
 	//
 	// Use SetPayload and GetPayload helpers.
 	Payload string

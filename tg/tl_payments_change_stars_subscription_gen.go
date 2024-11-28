@@ -32,16 +32,26 @@ var (
 )
 
 // PaymentsChangeStarsSubscriptionRequest represents TL type `payments.changeStarsSubscription#c7770878`.
+// Activate or deactivate a Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.changeStarsSubscription for reference.
 type PaymentsChangeStarsSubscriptionRequest struct {
-	// Flags field of PaymentsChangeStarsSubscriptionRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of PaymentsChangeStarsSubscriptionRequest.
+	// Always pass inputPeerSelf¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPeerSelf
 	Peer InputPeerClass
-	// SubscriptionID field of PaymentsChangeStarsSubscriptionRequest.
+	// ID of the subscription.
 	SubscriptionID string
-	// Canceled field of PaymentsChangeStarsSubscriptionRequest.
+	// Whether to cancel or reactivate the subscription.
 	//
 	// Use SetCanceled and GetCanceled helpers.
 	Canceled bool
@@ -259,8 +269,13 @@ func (c *PaymentsChangeStarsSubscriptionRequest) GetCanceled() (value bool, ok b
 }
 
 // PaymentsChangeStarsSubscription invokes method payments.changeStarsSubscription#c7770878 returning error if any.
+// Activate or deactivate a Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.changeStarsSubscription for reference.
+// Can be used by bots.
 func (c *Client) PaymentsChangeStarsSubscription(ctx context.Context, request *PaymentsChangeStarsSubscriptionRequest) (bool, error) {
 	var result BoolBox
 

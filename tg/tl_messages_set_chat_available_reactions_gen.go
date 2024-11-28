@@ -51,7 +51,8 @@ type MessagesSetChatAvailableReactionsRequest struct {
 	AvailableReactions ChatReactionsClass
 	// This flag may be used to impose a custom limit of unique reactions (i.e. a
 	// customizable version of appConfig.reactions_uniq_max¹); this field and the other info
-	// set by the method will then be available to users in channelFull² and chatFull³.
+	// set by the method will then be available to users in channelFull² and chatFull³. If
+	// this flag is not set, the previously configured reactions_limit will not be altered.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/config#reactions-uniq-max
@@ -60,7 +61,13 @@ type MessagesSetChatAvailableReactionsRequest struct {
 	//
 	// Use SetReactionsLimit and GetReactionsLimit helpers.
 	ReactionsLimit int
-	// PaidEnabled field of MessagesSetChatAvailableReactionsRequest.
+	// If this flag is set and a Bool¹ is passed, the method will enable or disable paid
+	// message reactions »². If this flag is not set, the previously stored setting will
+	// not be changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/Bool
+	//  2) https://core.telegram.org/api/reactions#paid-reactions
 	//
 	// Use SetPaidEnabled and GetPaidEnabled helpers.
 	PaidEnabled bool

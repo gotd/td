@@ -32,16 +32,30 @@ var (
 )
 
 // PaymentsGetStarsSubscriptionsRequest represents TL type `payments.getStarsSubscriptions#32512c5`.
+// Obtain a list of active, expired or cancelled Telegram Star subscriptions »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.getStarsSubscriptions for reference.
 type PaymentsGetStarsSubscriptionsRequest struct {
-	// Flags field of PaymentsGetStarsSubscriptionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MissingBalance field of PaymentsGetStarsSubscriptionsRequest.
+	// Whether to return only expired subscriptions due to an excessively low Telegram Star
+	// balance.
 	MissingBalance bool
-	// Peer field of PaymentsGetStarsSubscriptionsRequest.
+	// Always pass inputPeerSelf¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPeerSelf
 	Peer InputPeerClass
-	// Offset field of PaymentsGetStarsSubscriptionsRequest.
+	// Offset for pagination, taken from payments.starsStatus¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/payments.starsStatus#subscriptions_next_offset
 	Offset string
 }
 
@@ -246,8 +260,13 @@ func (g *PaymentsGetStarsSubscriptionsRequest) GetOffset() (value string) {
 }
 
 // PaymentsGetStarsSubscriptions invokes method payments.getStarsSubscriptions#32512c5 returning error if any.
+// Obtain a list of active, expired or cancelled Telegram Star subscriptions »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.getStarsSubscriptions for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetStarsSubscriptions(ctx context.Context, request *PaymentsGetStarsSubscriptionsRequest) (*PaymentsStarsStatus, error) {
 	var result PaymentsStarsStatus
 

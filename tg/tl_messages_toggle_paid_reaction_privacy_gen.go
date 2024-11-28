@@ -32,14 +32,19 @@ var (
 )
 
 // MessagesTogglePaidReactionPrivacyRequest represents TL type `messages.togglePaidReactionPrivacy#849ad397`.
+// Changes the privacy of already sent paid reactions¹ on a specific message.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.togglePaidReactionPrivacy for reference.
 type MessagesTogglePaidReactionPrivacyRequest struct {
-	// Peer field of MessagesTogglePaidReactionPrivacyRequest.
+	// The channel
 	Peer InputPeerClass
-	// MsgID field of MessagesTogglePaidReactionPrivacyRequest.
+	// The ID of the message to which we sent the paid reactions
 	MsgID int
-	// Private field of MessagesTogglePaidReactionPrivacyRequest.
+	// If true, makes the current anonymous in the top sender leaderboard for this message;
+	// otherwise, does the opposite.
 	Private bool
 }
 
@@ -220,8 +225,13 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) GetPrivate() (value bool) {
 }
 
 // MessagesTogglePaidReactionPrivacy invokes method messages.togglePaidReactionPrivacy#849ad397 returning error if any.
+// Changes the privacy of already sent paid reactions¹ on a specific message.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.togglePaidReactionPrivacy for reference.
+// Can be used by bots.
 func (c *Client) MessagesTogglePaidReactionPrivacy(ctx context.Context, request *MessagesTogglePaidReactionPrivacyRequest) (bool, error) {
 	var result BoolBox
 

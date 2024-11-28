@@ -32,12 +32,18 @@ var (
 )
 
 // StarsSubscriptionPricing represents TL type `starsSubscriptionPricing#5416d58`.
+// Pricing of a Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/constructor/starsSubscriptionPricing for reference.
 type StarsSubscriptionPricing struct {
-	// Period field of StarsSubscriptionPricing.
+	// The user should pay amount stars every period seconds to gain and maintain access to
+	// the channel. Currently the only allowed subscription period is 30*24*60*60, i.e. the
+	// user will be debited amount stars every month.
 	Period int
-	// Amount field of StarsSubscriptionPricing.
+	// Price of the subscription in Telegram Stars.
 	Amount int64
 }
 

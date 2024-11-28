@@ -908,7 +908,7 @@ type MessageMediaDocument struct {
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// AltDocuments field of MessageMediaDocument.
+	// Videos only, contains alternative qualities of the video.
 	//
 	// Use SetAltDocuments and GetAltDocuments helpers.
 	AltDocuments []DocumentClass
@@ -3542,7 +3542,10 @@ type MessageMediaGiveaway struct {
 	//
 	// Use SetMonths and GetMonths helpers.
 	Months int
-	// Stars field of MessageMediaGiveaway.
+	// For Telegram Star giveaways¹, the total number of Telegram Stars being given away.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-giveaways
 	//
 	// Use SetStars and GetStars helpers.
 	Stars int64
@@ -4054,7 +4057,10 @@ type MessageMediaGiveawayResults struct {
 	//
 	// Use SetMonths and GetMonths helpers.
 	Months int
-	// Stars field of MessageMediaGiveawayResults.
+	// For Telegram Star giveaways¹, the total number of Telegram Stars being given away.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-giveaways
 	//
 	// Use SetStars and GetStars helpers.
 	Stars int64

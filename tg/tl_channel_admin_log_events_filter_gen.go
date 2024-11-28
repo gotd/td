@@ -139,7 +139,10 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum
 	Forums bool
-	// SubExtend field of ChannelAdminLogEventsFilter.
+	// Telegram Star subscription extension events »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend
 	SubExtend bool
 }
 

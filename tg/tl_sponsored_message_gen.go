@@ -71,7 +71,7 @@ type SponsoredMessage struct {
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass
-	// Media field of SponsoredMessage.
+	// If set, contains some media.
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media MessageMediaClass

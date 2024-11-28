@@ -480,7 +480,7 @@ type InputStorePaymentPremiumGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	// Message field of InputStorePaymentPremiumGiftCode.
+	// Message attached with the gift
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
@@ -1785,40 +1785,79 @@ func (i *InputStorePaymentStarsGift) GetAmount() (value int64) {
 }
 
 // InputStorePaymentStarsGiveaway represents TL type `inputStorePaymentStarsGiveaway#751f08fa`.
+// Used to pay for a star giveaway, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsGiveaway for reference.
 type InputStorePaymentStarsGiveaway struct {
-	// Flags field of InputStorePaymentStarsGiveaway.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OnlyNewSubscribers field of InputStorePaymentStarsGiveaway.
+	// If set, only new subscribers starting from the giveaway creation date will be able to
+	// participate to the giveaway.
 	OnlyNewSubscribers bool
-	// WinnersAreVisible field of InputStorePaymentStarsGiveaway.
+	// If set, giveaway winners are public and will be listed in a
+	// messageMediaGiveawayResults¹ message that will be automatically sent to the channel
+	// once the giveaway ends.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaGiveawayResults
 	WinnersAreVisible bool
-	// Stars field of InputStorePaymentStarsGiveaway.
+	// Total number of Telegram Stars being given away (each user will receive stars/users
+	// stars).
 	Stars int64
-	// BoostPeer field of InputStorePaymentStarsGiveaway.
+	// The channel/supergroup starting the giveaway, that the user must join to participate,
+	// that will receive the giveaway boosts¹; see here »² for more info on giveaways.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
+	//  2) https://core.telegram.org/api/giveaways
 	BoostPeer InputPeerClass
-	// AdditionalPeers field of InputStorePaymentStarsGiveaway.
+	// Additional channels that the user must join to participate to the giveaway can be
+	// specified here.
 	//
 	// Use SetAdditionalPeers and GetAdditionalPeers helpers.
 	AdditionalPeers []InputPeerClass
-	// CountriesISO2 field of InputStorePaymentStarsGiveaway.
+	// The set of users that can participate to the giveaway can be restricted by passing
+	// here an explicit whitelist of up to giveaway_countries_max¹ countries, specified as
+	// two-letter ISO 3166-1 alpha-2 country codes.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#giveaway-countries-max
 	//
 	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
 	CountriesISO2 []string
-	// PrizeDescription field of InputStorePaymentStarsGiveaway.
+	// Can contain a textual description of additional giveaway prizes.
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
-	// RandomID field of InputStorePaymentStarsGiveaway.
+	// Random ID to avoid resending the giveaway
 	RandomID int64
-	// UntilDate field of InputStorePaymentStarsGiveaway.
+	// The end date of the giveaway, must be at most giveaway_period_max¹ seconds in the
+	// future; see here »² for more info on giveaways.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#giveaway-period-max
+	//  2) https://core.telegram.org/api/giveaways
 	UntilDate int
-	// Currency field of InputStorePaymentStarsGiveaway.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of InputStorePaymentStarsGiveaway.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	// Users field of InputStorePaymentStarsGiveaway.
+	// Number of winners.
 	Users int
 }
 

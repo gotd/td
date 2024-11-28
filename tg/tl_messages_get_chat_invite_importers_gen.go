@@ -46,7 +46,11 @@ type MessagesGetChatInviteImportersRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/invites#join-requests
 	Requested bool
-	// SubscriptionExpired field of MessagesGetChatInviteImportersRequest.
+	// Set this flag if the link is a Telegram Star subscription link »¹ and only members
+	// with already expired subscription must be returned.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	SubscriptionExpired bool
 	// Chat
 	Peer InputPeerClass

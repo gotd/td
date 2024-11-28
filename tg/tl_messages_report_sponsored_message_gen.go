@@ -32,14 +32,23 @@ var (
 )
 
 // MessagesReportSponsoredMessageRequest represents TL type `messages.reportSponsoredMessage#1af3dbb8`.
+// Report a sponsored message »¹, see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/sponsored-messages
+//  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
 type MessagesReportSponsoredMessageRequest struct {
-	// Peer field of MessagesReportSponsoredMessageRequest.
+	// The channel/bot where the ad is located
 	Peer InputPeerClass
-	// RandomID field of MessagesReportSponsoredMessageRequest.
+	// The ad's unique ID.
 	RandomID []byte
-	// Option field of MessagesReportSponsoredMessageRequest.
+	// Chosen report option, initially an empty string, see here »¹ for more info on the
+	// full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 	Option []byte
 }
 
@@ -220,8 +229,14 @@ func (r *MessagesReportSponsoredMessageRequest) GetOption() (value []byte) {
 }
 
 // MessagesReportSponsoredMessage invokes method messages.reportSponsoredMessage#1af3dbb8 returning error if any.
+// Report a sponsored message »¹, see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/sponsored-messages
+//  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
+// Can be used by bots.
 func (c *Client) MessagesReportSponsoredMessage(ctx context.Context, request *MessagesReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error) {
 	var result ChannelsSponsoredMessageReportResultBox
 

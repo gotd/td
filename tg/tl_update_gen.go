@@ -13850,7 +13850,10 @@ func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
 //
 // See https://core.telegram.org/constructor/updateDeleteScheduledMessages for reference.
 type UpdateDeleteScheduledMessages struct {
-	// Flags field of UpdateDeleteScheduledMessages.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer
 	Peer PeerClass
@@ -28225,14 +28228,24 @@ func (u *UpdateStarsRevenueStatus) GetStatus() (value StarsRevenueStatus) {
 }
 
 // UpdateBotPurchasedPaidMedia represents TL type `updateBotPurchasedPaidMedia#283bd312`.
+// Bots only: a user has purchased a paid media¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/updateBotPurchasedPaidMedia for reference.
 type UpdateBotPurchasedPaidMedia struct {
-	// UserID field of UpdateBotPurchasedPaidMedia.
+	// The user that bought the media
 	UserID int64
-	// Payload field of UpdateBotPurchasedPaidMedia.
+	// Payload passed by the bot in inputMediaPaidMedia¹.payload
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputMediaPaidMedia
 	Payload string
-	// Qts field of UpdateBotPurchasedPaidMedia.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -28413,10 +28426,18 @@ func (u *UpdateBotPurchasedPaidMedia) GetQts() (value int) {
 }
 
 // UpdatePaidReactionPrivacy represents TL type `updatePaidReactionPrivacy#51ca7aec`.
+// Contains the current default paid reaction privacy, see here »¹ for more info.
+// Clients should invoke messages.getPaidReactionPrivacy¹ on startup to fetch the
+// current default reaction privacy because this update is only sent to currently online
+// sessions and cannot be fetched using getDifference on client startup.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions#paid-reactions
+//  2. https://core.telegram.org/method/messages.getPaidReactionPrivacy
 //
 // See https://core.telegram.org/constructor/updatePaidReactionPrivacy for reference.
 type UpdatePaidReactionPrivacy struct {
-	// Private field of UpdatePaidReactionPrivacy.
+	// Whether paid reaction privacy is enabled or disabled.
 	Private bool
 }
 

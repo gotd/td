@@ -36,11 +36,15 @@ var (
 //
 // See https://core.telegram.org/method/channels.toggleSignatures for reference.
 type ChannelsToggleSignaturesRequest struct {
-	// Flags field of ChannelsToggleSignaturesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// SignaturesEnabled field of ChannelsToggleSignaturesRequest.
+	// If set, enables message signatures.
 	SignaturesEnabled bool
-	// ProfilesEnabled field of ChannelsToggleSignaturesRequest.
+	// If set, messages from channel admins will link to their profiles, just like for group
+	// messages: can only be set if the signatures_enabled flag is set.
 	ProfilesEnabled bool
 	// Channel
 	Channel InputChannelClass

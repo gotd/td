@@ -410,6 +410,10 @@ func (r *ReactionCustomEmoji) GetDocumentID() (value int64) {
 }
 
 // ReactionPaid represents TL type `reactionPaid#523da4eb`.
+// Represents a paid Telegram Star reaction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/constructor/reactionPaid for reference.
 type ReactionPaid struct {

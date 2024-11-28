@@ -32,20 +32,30 @@ var (
 )
 
 // PaymentsUserStarGifts represents TL type `payments.userStarGifts#6b65b517`.
+// Gifts¹ displayed on a user's profile.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.userStarGifts for reference.
 type PaymentsUserStarGifts struct {
-	// Flags field of PaymentsUserStarGifts.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of PaymentsUserStarGifts.
+	// Total number of gifts displayed on the profile.
 	Count int
-	// Gifts field of PaymentsUserStarGifts.
+	// The gifts.
 	Gifts []UserStarGift
-	// NextOffset field of PaymentsUserStarGifts.
+	// Offset for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Users field of PaymentsUserStarGifts.
+	// Users mentioned in the gifts vector.
 	Users []UserClass
 }
 

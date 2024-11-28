@@ -5464,7 +5464,7 @@ type MessageActionGiftPremium struct {
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64
-	// Message field of MessageActionGiftPremium.
+	// Message attached with the gift
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
@@ -7013,7 +7013,7 @@ type MessageActionGiftCode struct {
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64
-	// Message field of MessageActionGiftCode.
+	// Message attached with the gift
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
@@ -7529,9 +7529,15 @@ func (m *MessageActionGiftCode) GetMessage() (value TextWithEntities, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageActionGiveawayLaunch for reference.
 type MessageActionGiveawayLaunch struct {
-	// Flags field of MessageActionGiveawayLaunch.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Stars field of MessageActionGiveawayLaunch.
+	// For Telegram Star giveaways¹, the total number of Telegram Stars being given away.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-giveaways
 	//
 	// Use SetStars and GetStars helpers.
 	Stars int64
@@ -7706,9 +7712,15 @@ func (m *MessageActionGiveawayLaunch) GetStars() (value int64, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageActionGiveawayResults for reference.
 type MessageActionGiveawayResults struct {
-	// Flags field of MessageActionGiveawayResults.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Stars field of MessageActionGiveawayResults.
+	// If set, this is a Telegram Star giveaway¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-giveaways
 	Stars bool
 	// Number of winners in the giveaway
 	WinnersCount int
@@ -8914,20 +8926,31 @@ func (m *MessageActionGiftStars) GetTransactionID() (value string, ok bool) {
 }
 
 // MessageActionPrizeStars represents TL type `messageActionPrizeStars#b00c47a2`.
+// You won some Telegram Stars¹ in a Telegram Star giveaway »².
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/messageActionPrizeStars for reference.
 type MessageActionPrizeStars struct {
-	// Flags field of MessageActionPrizeStars.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Unclaimed field of MessageActionPrizeStars.
 	Unclaimed bool
-	// Stars field of MessageActionPrizeStars.
+	// The number of Telegram Stars you won
 	Stars int64
-	// TransactionID field of MessageActionPrizeStars.
+	// ID of the telegram star transaction.
 	TransactionID string
-	// BoostPeer field of MessageActionPrizeStars.
+	// Identifier of the peer that was automatically boosted by the winners of the giveaway.
 	BoostPeer PeerClass
-	// GiveawayMsgID field of MessageActionPrizeStars.
+	// ID of the message containing the messageMediaGiveaway¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaGiveaway
 	GiveawayMsgID int
 }
 
@@ -9187,24 +9210,44 @@ func (m *MessageActionPrizeStars) GetGiveawayMsgID() (value int) {
 }
 
 // MessageActionStarGift represents TL type `messageActionStarGift#8557637`.
+// You received a gift, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/messageActionStarGift for reference.
 type MessageActionStarGift struct {
-	// Flags field of MessageActionStarGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NameHidden field of MessageActionStarGift.
+	// If set, the name of the sender of the gift will be hidden if the destination user
+	// decides to display the gift on their profile
 	NameHidden bool
-	// Saved field of MessageActionStarGift.
+	// Whether this gift was added to the destination user's profile (may be toggled using
+	// payments.saveStarGift¹ and fetched using payments.getUserStarGifts²)
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.saveStarGift
+	//  2) https://core.telegram.org/method/payments.getUserStarGifts
 	Saved bool
-	// Converted field of MessageActionStarGift.
+	// Whether this gift was converted to Telegram Stars¹ and cannot be displayed on the
+	// profile anymore.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	Converted bool
-	// Gift field of MessageActionStarGift.
+	// Info about the gift
 	Gift StarGift
-	// Message field of MessageActionStarGift.
+	// Additional message from the sender of the gift
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
-	// ConvertStars field of MessageActionStarGift.
+	// The receiver of this gift may convert it to this many Telegram Stars, instead of
+	// displaying it on their profile page.convert_stars will be equal to stars only if the
+	// gift was bought using recently bought Telegram Stars, otherwise it will be less than
+	// stars.
 	//
 	// Use SetConvertStars and GetConvertStars helpers.
 	ConvertStars int64

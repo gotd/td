@@ -32,7 +32,8 @@ var (
 )
 
 // PaymentsStarsStatus represents TL type `payments.starsStatus#bbfa316c`.
-// Info about the current Telegram Star balance and transaction history »¹.
+// Info about the current Telegram Star subscriptions, balance and transaction history
+// »¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/stars#balance-and-transaction-history
@@ -46,15 +47,29 @@ type PaymentsStarsStatus struct {
 	Flags bin.Fields
 	// Current Telegram Star balance.
 	Balance int64
-	// Subscriptions field of PaymentsStarsStatus.
+	// Info about current Telegram Star subscriptions, only returned when invoking payments
+	// getStarsTransactions¹ and payments.getStarsSubscriptions².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getStarsTransactions
+	//  2) https://core.telegram.org/method/payments.getStarsSubscriptions
 	//
 	// Use SetSubscriptions and GetSubscriptions helpers.
 	Subscriptions []StarsSubscription
-	// SubscriptionsNextOffset field of PaymentsStarsStatus.
+	// Offset for pagination of subscriptions: only usable with payments
+	// getStarsSubscriptions¹, returned when invoking payments.getStarsTransactions² and
+	// payments.getStarsSubscriptions³.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getStarsSubscriptions
+	//  2) https://core.telegram.org/method/payments.getStarsTransactions
+	//  3) https://core.telegram.org/method/payments.getStarsSubscriptions
 	//
 	// Use SetSubscriptionsNextOffset and GetSubscriptionsNextOffset helpers.
 	SubscriptionsNextOffset string
-	// SubscriptionsMissingBalance field of PaymentsStarsStatus.
+	// The number of Telegram Stars the user should buy to be able to extend expired
+	// subscriptions soon (i.e. the current balance is not enough to extend all expired
+	// subscriptions).
 	//
 	// Use SetSubscriptionsMissingBalance and GetSubscriptionsMissingBalance helpers.
 	SubscriptionsMissingBalance int64

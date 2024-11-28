@@ -334,11 +334,11 @@ type User struct {
 	ID int64
 	// Access hash of the user, see here »¹ for more info. If this flag is set, when
 	// updating the local peer database², generate a virtual flag called min_access_hash,
-	// which is: - Set to true if min is set AND - The phone flag is not set OR - The phone
+	// which is: - Set to true if min is set AND -- The phone flag is not set OR -- The phone
 	// flag is set and the associated phone number string is non-empty - Set to false
 	// otherwise. Then, apply both access_hash and min_access_hash to the local database if:
-	// - min_access_hash is false OR - min_access_hash is true AND - There is no locally
-	// cached object for this user OR - There is no access_hash in the local cache OR - The
+	// - min_access_hash is false OR - min_access_hash is true AND -- There is no locally
+	// cached object for this user OR -- There is no access_hash in the local cache OR -- The
 	// cached object's min_access_hash is also true If the final merged object stored to the
 	// database has the min_access_hash field set to true, the related access_hash is only
 	// suitable to use in inputPeerPhotoFileLocation »³, to directly download the profile
@@ -356,7 +356,7 @@ type User struct {
 	// Use SetAccessHash and GetAccessHash helpers.
 	AccessHash int64
 	// First name. When updating the local peer database¹, apply changes to this field only
-	// if: - The min flag is not set OR - The min flag is set AND - The min flag of the
+	// if: - The min flag is not set OR - The min flag is set AND -- The min flag of the
 	// locally cached user entry is set.
 	//
 	// Links:
@@ -365,7 +365,7 @@ type User struct {
 	// Use SetFirstName and GetFirstName helpers.
 	FirstName string
 	// Last name. When updating the local peer database¹, apply changes to this field only
-	// if: - The min flag is not set OR - The min flag is set AND - The min flag of the
+	// if: - The min flag is not set OR - The min flag is set AND -- The min flag of the
 	// locally cached user entry is set.
 	//
 	// Links:
@@ -374,7 +374,7 @@ type User struct {
 	// Use SetLastName and GetLastName helpers.
 	LastName string
 	// Main active username. When updating the local peer database¹, apply changes to this
-	// field only if: - The min flag is not set OR - The min flag is set AND - The min flag
+	// field only if: - The min flag is not set OR - The min flag is set AND -- The min flag
 	// of the locally cached user entry is set. Changes to this flag should invalidate the
 	// local userFull² cache for this user ID if the above conditions are respected and the
 	// bot_can_edit flag is also set.
@@ -386,7 +386,7 @@ type User struct {
 	// Use SetUsername and GetUsername helpers.
 	Username string
 	// Phone number. When updating the local peer database¹, apply changes to this field
-	// only if: - The min flag is not set OR - The min flag is set AND - The min flag of the
+	// only if: - The min flag is not set OR - The min flag is set AND -- The min flag of the
 	// locally cached user entry is set.
 	//
 	// Links:
@@ -395,8 +395,8 @@ type User struct {
 	// Use SetPhone and GetPhone helpers.
 	Phone string
 	// Profile picture of user. When updating the local peer database¹, apply changes to
-	// this field only if: - The min flag is not set OR - The min flag is set AND - The
-	// apply_min_photo flag is set OR - The min flag of the locally cached user entry is set.
+	// this field only if: - The min flag is not set OR - The min flag is set AND -- The
+	// apply_min_photo flag is set OR -- The min flag of the locally cached user entry is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers
@@ -404,9 +404,9 @@ type User struct {
 	// Use SetPhoto and GetPhoto helpers.
 	Photo UserProfilePhotoClass
 	// Online status of user. When updating the local peer database¹, apply changes to this
-	// field only if: - The min flag is not set OR - The min flag is set AND - The min flag
-	// of the locally cached user entry is set OR - The locally cached user entry is equal to
-	// userStatusEmpty².
+	// field only if: - The min flag is not set OR - The min flag is set AND -- The min flag
+	// of the locally cached user entry is set OR -- The locally cached user entry is equal
+	// to userStatusEmpty².
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers
@@ -445,7 +445,7 @@ type User struct {
 	// Use SetEmojiStatus and GetEmojiStatus helpers.
 	EmojiStatus EmojiStatusClass
 	// Additional usernames. When updating the local peer database¹, apply changes to this
-	// field only if: - The min flag is not set OR - The min flag is set AND - The min flag
+	// field only if: - The min flag is not set OR - The min flag is set AND -- The min flag
 	// of the locally cached user entry is set. Changes to this flag (if the above conditions
 	// are respected) should invalidate the local userFull² cache for this user ID.
 	//

@@ -32,32 +32,50 @@ var (
 )
 
 // UserStarGift represents TL type `userStarGift#eea49a6e`.
+// Represents a gift¹, displayed on a user's profile page.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/userStarGift for reference.
 type UserStarGift struct {
-	// Flags field of UserStarGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NameHidden field of UserStarGift.
+	// If set, from_id will not be visible to users (it will still be visible to the receiver
+	// of the gift).
 	NameHidden bool
-	// Unsaved field of UserStarGift.
+	// If set, indicates this is a gift sent by from_id, received by the current user and
+	// currently hidden from our profile page.
 	Unsaved bool
-	// FromID field of UserStarGift.
+	// Sender of the gift (may be empty for anonymous senders; will always be set if this
+	// gift was sent to us).
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID int64
-	// Date field of UserStarGift.
+	// When was this gift sent.
 	Date int
-	// Gift field of UserStarGift.
+	// The gift.
 	Gift StarGift
-	// Message field of UserStarGift.
+	// Message attached to the gift by the sender.
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
-	// MsgID field of UserStarGift.
+	// Only visible to the receiver of the gift, contains the ID of the messageService¹ with
+	// the messageActionStarGift² in the chat with from_id.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageService
+	//  2) https://core.telegram.org/constructor/messageActionStarGift
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
-	// ConvertStars field of UserStarGift.
+	// The receiver of this gift may convert it to this many Telegram Stars, instead of
+	// displaying it on their profile page.convert_stars will be equal to the buying price of
+	// the gift only if the gift was bought using recently bought Telegram Stars, otherwise
+	// it will be less than stars.
 	//
 	// Use SetConvertStars and GetConvertStars helpers.
 	ConvertStars int64

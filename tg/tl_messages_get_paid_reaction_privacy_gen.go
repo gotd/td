@@ -32,6 +32,12 @@ var (
 )
 
 // MessagesGetPaidReactionPrivacyRequest represents TL type `messages.getPaidReactionPrivacy#472455aa`.
+// Fetches an updatePaidReactionPrivacy¹ update with the current default paid reaction
+// privacy, see here »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updatePaidReactionPrivacy
+//  2. https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.getPaidReactionPrivacy for reference.
 type MessagesGetPaidReactionPrivacyRequest struct {
@@ -128,8 +134,15 @@ func (g *MessagesGetPaidReactionPrivacyRequest) DecodeBare(b *bin.Buffer) error 
 }
 
 // MessagesGetPaidReactionPrivacy invokes method messages.getPaidReactionPrivacy#472455aa returning error if any.
+// Fetches an updatePaidReactionPrivacy¹ update with the current default paid reaction
+// privacy, see here »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updatePaidReactionPrivacy
+//  2. https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.getPaidReactionPrivacy for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetPaidReactionPrivacy(ctx context.Context) (UpdatesClass, error) {
 	var result UpdatesBox
 

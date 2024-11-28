@@ -1161,7 +1161,8 @@ type Channel struct {
 	StoriesHiddenMin bool
 	// No stories from the channel are visible.
 	StoriesUnavailable bool
-	// SignatureProfiles field of Channel.
+	// If set, messages sent by admins to this channel will link to the admin's profile (just
+	// like with groups).
 	SignatureProfiles bool
 	// ID of the channel, see here »¹ for more info
 	//
@@ -1263,7 +1264,11 @@ type Channel struct {
 	//
 	// Use SetLevel and GetLevel helpers.
 	Level int
-	// SubscriptionUntilDate field of Channel.
+	// Expiration date of the Telegram Star subscription »¹ the current user has bought to
+	// gain access to this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
