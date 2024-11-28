@@ -156,6 +156,8 @@ func defaultBackoff(c clock.Clock) func() backoff.BackOff {
 		b := backoff.NewExponentialBackOff()
 		b.Clock = c
 		b.MaxElapsedTime = 0
+		b.MaxInterval = time.Second * 5
+		b.InitialInterval = time.Millisecond * 100
 		return b
 	}
 }
