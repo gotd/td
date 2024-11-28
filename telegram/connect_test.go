@@ -33,7 +33,7 @@ func (m fingerprintNotFoundConn) Ready() <-chan struct{} {
 
 func TestClient_reconnectUntilClosed(t *testing.T) {
 	client := Client{
-		connBackoff: func() backoff.BackOff {
+		newConnBackoff: func() backoff.BackOff {
 			return backoff.NewConstantBackOff(time.Nanosecond)
 		},
 		log: zap.NewNop(),

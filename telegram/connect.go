@@ -60,7 +60,10 @@ func (c *Client) isPermanentError(err error) bool {
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	// Note that we currently have no timeout on connection, so this is
 	// potentially eternal.
-	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
+	b := tdsync.SyncBackoff(backoff.WithContext(c.newConnBackoff(), ctx))
+	c.connMux.Lock()
+	c.connBackoff = b
+	c.connMux.Unlock()
 
 	return backoff.RetryNotify(func() error {
 		if err := c.runUntilRestart(ctx); err != nil {
@@ -83,6 +86,13 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 func (c *Client) onReady() {
 	c.log.Debug("Ready")
 	c.ready.Signal()
+
+	c.connMux.Lock()
+	if b := c.connBackoff; b != nil {
+		// Reconnect faster next time.
+		b.Reset()
+	}
+	c.connMux.Unlock()
 }
 
 func (c *Client) resetReady() {

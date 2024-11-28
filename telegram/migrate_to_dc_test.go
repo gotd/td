@@ -110,7 +110,7 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 		session: pool.NewSyncSession(pool.Session{
 			DC: 2,
 		}),
-		connBackoff:      defaultBackoff(clock.System),
+		newConnBackoff:   defaultBackoff(clock.System),
 		ctx:              context.Background(),
 		cancel:           func() {},
 		migrationTimeout: 10 * time.Second,
