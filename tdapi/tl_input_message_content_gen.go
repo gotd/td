@@ -2504,7 +2504,7 @@ func (i *InputMessageSticker) GetEmoji() (value string) {
 
 // InputMessageVideo represents TL type `inputMessageVideo#1a64cc26`.
 type InputMessageVideo struct {
-	// Video to be sent. The video is expected to be reencoded to MPEG4 format with H.264
+	// Video to be sent. The video is expected to be re-encoded to MPEG4 format with H.264
 	// codec by the sender
 	Video InputFileClass
 	// Video thumbnail; pass null to skip thumbnail uploading

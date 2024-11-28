@@ -668,6 +668,172 @@ func (p *PaymentFormTypeStars) GetStarCount() (value int64) {
 	return p.StarCount
 }
 
+// PaymentFormTypeStarSubscription represents TL type `paymentFormTypeStarSubscription#102deb5b`.
+type PaymentFormTypeStarSubscription struct {
+	// Information about subscription plan
+	Pricing StarSubscriptionPricing
+}
+
+// PaymentFormTypeStarSubscriptionTypeID is TL type id of PaymentFormTypeStarSubscription.
+const PaymentFormTypeStarSubscriptionTypeID = 0x102deb5b
+
+// construct implements constructor of PaymentFormTypeClass.
+func (p PaymentFormTypeStarSubscription) construct() PaymentFormTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentFormTypeStarSubscription.
+var (
+	_ bin.Encoder     = &PaymentFormTypeStarSubscription{}
+	_ bin.Decoder     = &PaymentFormTypeStarSubscription{}
+	_ bin.BareEncoder = &PaymentFormTypeStarSubscription{}
+	_ bin.BareDecoder = &PaymentFormTypeStarSubscription{}
+
+	_ PaymentFormTypeClass = &PaymentFormTypeStarSubscription{}
+)
+
+func (p *PaymentFormTypeStarSubscription) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Pricing.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PaymentFormTypeStarSubscription) String() string {
+	if p == nil {
+		return "PaymentFormTypeStarSubscription(nil)"
+	}
+	type Alias PaymentFormTypeStarSubscription
+	return fmt.Sprintf("PaymentFormTypeStarSubscription%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PaymentFormTypeStarSubscription) TypeID() uint32 {
+	return PaymentFormTypeStarSubscriptionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PaymentFormTypeStarSubscription) TypeName() string {
+	return "paymentFormTypeStarSubscription"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentFormTypeStarSubscription) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "paymentFormTypeStarSubscription",
+		ID:   PaymentFormTypeStarSubscriptionTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pricing",
+			SchemaName: "pricing",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PaymentFormTypeStarSubscription) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentFormTypeStarSubscription#102deb5b as nil")
+	}
+	b.PutID(PaymentFormTypeStarSubscriptionTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentFormTypeStarSubscription) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentFormTypeStarSubscription#102deb5b as nil")
+	}
+	if err := p.Pricing.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode paymentFormTypeStarSubscription#102deb5b: field pricing: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PaymentFormTypeStarSubscription) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentFormTypeStarSubscription#102deb5b to nil")
+	}
+	if err := b.ConsumeID(PaymentFormTypeStarSubscriptionTypeID); err != nil {
+		return fmt.Errorf("unable to decode paymentFormTypeStarSubscription#102deb5b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentFormTypeStarSubscription) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentFormTypeStarSubscription#102deb5b to nil")
+	}
+	{
+		if err := p.Pricing.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode paymentFormTypeStarSubscription#102deb5b: field pricing: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PaymentFormTypeStarSubscription) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentFormTypeStarSubscription#102deb5b as nil")
+	}
+	b.ObjStart()
+	b.PutID("paymentFormTypeStarSubscription")
+	b.Comma()
+	b.FieldStart("pricing")
+	if err := p.Pricing.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentFormTypeStarSubscription#102deb5b: field pricing: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PaymentFormTypeStarSubscription) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentFormTypeStarSubscription#102deb5b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("paymentFormTypeStarSubscription"); err != nil {
+				return fmt.Errorf("unable to decode paymentFormTypeStarSubscription#102deb5b: %w", err)
+			}
+		case "pricing":
+			if err := p.Pricing.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentFormTypeStarSubscription#102deb5b: field pricing: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetPricing returns value of Pricing field.
+func (p *PaymentFormTypeStarSubscription) GetPricing() (value StarSubscriptionPricing) {
+	if p == nil {
+		return
+	}
+	return p.Pricing
+}
+
 // PaymentFormTypeClassName is schema name of PaymentFormTypeClass.
 const PaymentFormTypeClassName = "PaymentFormType"
 
@@ -682,6 +848,7 @@ const PaymentFormTypeClassName = "PaymentFormType"
 //	switch v := g.(type) {
 //	case *tdapi.PaymentFormTypeRegular: // paymentFormTypeRegular#ba6d2f0f
 //	case *tdapi.PaymentFormTypeStars: // paymentFormTypeStars#56b9d3d
+//	case *tdapi.PaymentFormTypeStarSubscription: // paymentFormTypeStarSubscription#102deb5b
 //	default: panic(v)
 //	}
 type PaymentFormTypeClass interface {
@@ -727,6 +894,13 @@ func DecodePaymentFormType(buf *bin.Buffer) (PaymentFormTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode PaymentFormTypeClass: %w", err)
 		}
 		return &v, nil
+	case PaymentFormTypeStarSubscriptionTypeID:
+		// Decoding paymentFormTypeStarSubscription#102deb5b.
+		v := PaymentFormTypeStarSubscription{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentFormTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PaymentFormTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -749,6 +923,13 @@ func DecodeTDLibJSONPaymentFormType(buf tdjson.Decoder) (PaymentFormTypeClass, e
 	case "paymentFormTypeStars":
 		// Decoding paymentFormTypeStars#56b9d3d.
 		v := PaymentFormTypeStars{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PaymentFormTypeClass: %w", err)
+		}
+		return &v, nil
+	case "paymentFormTypeStarSubscription":
+		// Decoding paymentFormTypeStarSubscription#102deb5b.
+		v := PaymentFormTypeStarSubscription{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentFormTypeClass: %w", err)
 		}

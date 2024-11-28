@@ -1474,6 +1474,137 @@ func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) DecodeTDLibJSO
 	})
 }
 
+// UserPrivacySettingAutosaveGifts represents TL type `userPrivacySettingAutosaveGifts#709a69cd`.
+type UserPrivacySettingAutosaveGifts struct {
+}
+
+// UserPrivacySettingAutosaveGiftsTypeID is TL type id of UserPrivacySettingAutosaveGifts.
+const UserPrivacySettingAutosaveGiftsTypeID = 0x709a69cd
+
+// construct implements constructor of UserPrivacySettingClass.
+func (u UserPrivacySettingAutosaveGifts) construct() UserPrivacySettingClass { return &u }
+
+// Ensuring interfaces in compile-time for UserPrivacySettingAutosaveGifts.
+var (
+	_ bin.Encoder     = &UserPrivacySettingAutosaveGifts{}
+	_ bin.Decoder     = &UserPrivacySettingAutosaveGifts{}
+	_ bin.BareEncoder = &UserPrivacySettingAutosaveGifts{}
+	_ bin.BareDecoder = &UserPrivacySettingAutosaveGifts{}
+
+	_ UserPrivacySettingClass = &UserPrivacySettingAutosaveGifts{}
+)
+
+func (u *UserPrivacySettingAutosaveGifts) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingAutosaveGifts) String() string {
+	if u == nil {
+		return "UserPrivacySettingAutosaveGifts(nil)"
+	}
+	type Alias UserPrivacySettingAutosaveGifts
+	return fmt.Sprintf("UserPrivacySettingAutosaveGifts%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingAutosaveGifts) TypeID() uint32 {
+	return UserPrivacySettingAutosaveGiftsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingAutosaveGifts) TypeName() string {
+	return "userPrivacySettingAutosaveGifts"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingAutosaveGifts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingAutosaveGifts",
+		ID:   UserPrivacySettingAutosaveGiftsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingAutosaveGifts) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAutosaveGifts#709a69cd as nil")
+	}
+	b.PutID(UserPrivacySettingAutosaveGiftsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingAutosaveGifts) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAutosaveGifts#709a69cd as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingAutosaveGifts) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingAutosaveGifts#709a69cd to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingAutosaveGiftsTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingAutosaveGifts#709a69cd: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingAutosaveGifts) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingAutosaveGifts#709a69cd to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingAutosaveGifts) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAutosaveGifts#709a69cd as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingAutosaveGifts")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingAutosaveGifts) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingAutosaveGifts#709a69cd to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingAutosaveGifts"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingAutosaveGifts#709a69cd: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingClassName is schema name of UserPrivacySettingClass.
 const UserPrivacySettingClassName = "UserPrivacySetting"
 
@@ -1497,6 +1628,7 @@ const UserPrivacySettingClassName = "UserPrivacySetting"
 //	case *tdapi.UserPrivacySettingAllowPeerToPeerCalls: // userPrivacySettingAllowPeerToPeerCalls#1502b940
 //	case *tdapi.UserPrivacySettingAllowFindingByPhoneNumber: // userPrivacySettingAllowFindingByPhoneNumber#91ee6d51
 //	case *tdapi.UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages: // userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c
+//	case *tdapi.UserPrivacySettingAutosaveGifts: // userPrivacySettingAutosaveGifts#709a69cd
 //	default: panic(v)
 //	}
 type UserPrivacySettingClass interface {
@@ -1605,6 +1737,13 @@ func DecodeUserPrivacySetting(buf *bin.Buffer) (UserPrivacySettingClass, error) 
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}
 		return &v, nil
+	case UserPrivacySettingAutosaveGiftsTypeID:
+		// Decoding userPrivacySettingAutosaveGifts#709a69cd.
+		v := UserPrivacySettingAutosaveGifts{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1690,6 +1829,13 @@ func DecodeTDLibJSONUserPrivacySetting(buf tdjson.Decoder) (UserPrivacySettingCl
 	case "userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages":
 		// Decoding userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c.
 		v := UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
+	case "userPrivacySettingAutosaveGifts":
+		// Decoding userPrivacySettingAutosaveGifts#709a69cd.
+		v := UserPrivacySettingAutosaveGifts{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}

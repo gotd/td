@@ -50,8 +50,8 @@ type UserGift struct {
 	// Identifier of the message with the gift in the chat with the sender of the gift; can
 	// be 0 or an identifier of a deleted message; only for the gift receiver
 	MessageID int64
-	// Number of Telegram Stars that can be claimed by the receiver instead of the gift; only
-	// for the gift receiver
+	// Number of Telegram Stars that can be claimed by the receiver instead of the gift; 0 if
+	// the gift can't be sold by the current user
 	SellStarCount int64
 }
 

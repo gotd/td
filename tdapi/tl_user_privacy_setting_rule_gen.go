@@ -293,6 +293,137 @@ func (u *UserPrivacySettingRuleAllowContacts) DecodeTDLibJSON(b tdjson.Decoder) 
 	})
 }
 
+// UserPrivacySettingRuleAllowBots represents TL type `userPrivacySettingRuleAllowBots#53b2871d`.
+type UserPrivacySettingRuleAllowBots struct {
+}
+
+// UserPrivacySettingRuleAllowBotsTypeID is TL type id of UserPrivacySettingRuleAllowBots.
+const UserPrivacySettingRuleAllowBotsTypeID = 0x53b2871d
+
+// construct implements constructor of UserPrivacySettingRuleClass.
+func (u UserPrivacySettingRuleAllowBots) construct() UserPrivacySettingRuleClass { return &u }
+
+// Ensuring interfaces in compile-time for UserPrivacySettingRuleAllowBots.
+var (
+	_ bin.Encoder     = &UserPrivacySettingRuleAllowBots{}
+	_ bin.Decoder     = &UserPrivacySettingRuleAllowBots{}
+	_ bin.BareEncoder = &UserPrivacySettingRuleAllowBots{}
+	_ bin.BareDecoder = &UserPrivacySettingRuleAllowBots{}
+
+	_ UserPrivacySettingRuleClass = &UserPrivacySettingRuleAllowBots{}
+)
+
+func (u *UserPrivacySettingRuleAllowBots) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingRuleAllowBots) String() string {
+	if u == nil {
+		return "UserPrivacySettingRuleAllowBots(nil)"
+	}
+	type Alias UserPrivacySettingRuleAllowBots
+	return fmt.Sprintf("UserPrivacySettingRuleAllowBots%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingRuleAllowBots) TypeID() uint32 {
+	return UserPrivacySettingRuleAllowBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingRuleAllowBots) TypeName() string {
+	return "userPrivacySettingRuleAllowBots"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingRuleAllowBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingRuleAllowBots",
+		ID:   UserPrivacySettingRuleAllowBotsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingRuleAllowBots) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowBots#53b2871d as nil")
+	}
+	b.PutID(UserPrivacySettingRuleAllowBotsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingRuleAllowBots) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowBots#53b2871d as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingRuleAllowBots) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowBots#53b2871d to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingRuleAllowBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingRuleAllowBots#53b2871d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingRuleAllowBots) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowBots#53b2871d to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingRuleAllowBots) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowBots#53b2871d as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleAllowBots")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingRuleAllowBots) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowBots#53b2871d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingRuleAllowBots"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowBots#53b2871d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingRuleAllowPremiumUsers represents TL type `userPrivacySettingRuleAllowPremiumUsers#60ce8541`.
 type UserPrivacySettingRuleAllowPremiumUsers struct {
 }
@@ -1066,6 +1197,137 @@ func (u *UserPrivacySettingRuleRestrictContacts) DecodeTDLibJSON(b tdjson.Decode
 	})
 }
 
+// UserPrivacySettingRuleRestrictBots represents TL type `userPrivacySettingRuleRestrictBots#8e996e5d`.
+type UserPrivacySettingRuleRestrictBots struct {
+}
+
+// UserPrivacySettingRuleRestrictBotsTypeID is TL type id of UserPrivacySettingRuleRestrictBots.
+const UserPrivacySettingRuleRestrictBotsTypeID = 0x8e996e5d
+
+// construct implements constructor of UserPrivacySettingRuleClass.
+func (u UserPrivacySettingRuleRestrictBots) construct() UserPrivacySettingRuleClass { return &u }
+
+// Ensuring interfaces in compile-time for UserPrivacySettingRuleRestrictBots.
+var (
+	_ bin.Encoder     = &UserPrivacySettingRuleRestrictBots{}
+	_ bin.Decoder     = &UserPrivacySettingRuleRestrictBots{}
+	_ bin.BareEncoder = &UserPrivacySettingRuleRestrictBots{}
+	_ bin.BareDecoder = &UserPrivacySettingRuleRestrictBots{}
+
+	_ UserPrivacySettingRuleClass = &UserPrivacySettingRuleRestrictBots{}
+)
+
+func (u *UserPrivacySettingRuleRestrictBots) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingRuleRestrictBots) String() string {
+	if u == nil {
+		return "UserPrivacySettingRuleRestrictBots(nil)"
+	}
+	type Alias UserPrivacySettingRuleRestrictBots
+	return fmt.Sprintf("UserPrivacySettingRuleRestrictBots%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingRuleRestrictBots) TypeID() uint32 {
+	return UserPrivacySettingRuleRestrictBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingRuleRestrictBots) TypeName() string {
+	return "userPrivacySettingRuleRestrictBots"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingRuleRestrictBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingRuleRestrictBots",
+		ID:   UserPrivacySettingRuleRestrictBotsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingRuleRestrictBots) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictBots#8e996e5d as nil")
+	}
+	b.PutID(UserPrivacySettingRuleRestrictBotsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingRuleRestrictBots) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictBots#8e996e5d as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingRuleRestrictBots) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictBots#8e996e5d to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingRuleRestrictBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictBots#8e996e5d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingRuleRestrictBots) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictBots#8e996e5d to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingRuleRestrictBots) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictBots#8e996e5d as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleRestrictBots")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingRuleRestrictBots) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictBots#8e996e5d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingRuleRestrictBots"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictBots#8e996e5d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingRuleRestrictUsers represents TL type `userPrivacySettingRuleRestrictUsers#4d392a91`.
 type UserPrivacySettingRuleRestrictUsers struct {
 	// The user identifiers, total number of users in all rules must not exceed 1000
@@ -1460,11 +1722,13 @@ const UserPrivacySettingRuleClassName = "UserPrivacySettingRule"
 //	switch v := g.(type) {
 //	case *tdapi.UserPrivacySettingRuleAllowAll: // userPrivacySettingRuleAllowAll#8abf1c3f
 //	case *tdapi.UserPrivacySettingRuleAllowContacts: // userPrivacySettingRuleAllowContacts#8f2f2d10
+//	case *tdapi.UserPrivacySettingRuleAllowBots: // userPrivacySettingRuleAllowBots#53b2871d
 //	case *tdapi.UserPrivacySettingRuleAllowPremiumUsers: // userPrivacySettingRuleAllowPremiumUsers#60ce8541
 //	case *tdapi.UserPrivacySettingRuleAllowUsers: // userPrivacySettingRuleAllowUsers#d1570b70
 //	case *tdapi.UserPrivacySettingRuleAllowChatMembers: // userPrivacySettingRuleAllowChatMembers#f249b617
 //	case *tdapi.UserPrivacySettingRuleRestrictAll: // userPrivacySettingRuleRestrictAll#ac2a9550
 //	case *tdapi.UserPrivacySettingRuleRestrictContacts: // userPrivacySettingRuleRestrictContacts#3c1acd02
+//	case *tdapi.UserPrivacySettingRuleRestrictBots: // userPrivacySettingRuleRestrictBots#8e996e5d
 //	case *tdapi.UserPrivacySettingRuleRestrictUsers: // userPrivacySettingRuleRestrictUsers#4d392a91
 //	case *tdapi.UserPrivacySettingRuleRestrictChatMembers: // userPrivacySettingRuleRestrictChatMembers#fc00b920
 //	default: panic(v)
@@ -1512,6 +1776,13 @@ func DecodeUserPrivacySettingRule(buf *bin.Buffer) (UserPrivacySettingRuleClass,
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
 		}
 		return &v, nil
+	case UserPrivacySettingRuleAllowBotsTypeID:
+		// Decoding userPrivacySettingRuleAllowBots#53b2871d.
+		v := UserPrivacySettingRuleAllowBots{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
+		}
+		return &v, nil
 	case UserPrivacySettingRuleAllowPremiumUsersTypeID:
 		// Decoding userPrivacySettingRuleAllowPremiumUsers#60ce8541.
 		v := UserPrivacySettingRuleAllowPremiumUsers{}
@@ -1543,6 +1814,13 @@ func DecodeUserPrivacySettingRule(buf *bin.Buffer) (UserPrivacySettingRuleClass,
 	case UserPrivacySettingRuleRestrictContactsTypeID:
 		// Decoding userPrivacySettingRuleRestrictContacts#3c1acd02.
 		v := UserPrivacySettingRuleRestrictContacts{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
+		}
+		return &v, nil
+	case UserPrivacySettingRuleRestrictBotsTypeID:
+		// Decoding userPrivacySettingRuleRestrictBots#8e996e5d.
+		v := UserPrivacySettingRuleRestrictBots{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
 		}
@@ -1587,6 +1865,13 @@ func DecodeTDLibJSONUserPrivacySettingRule(buf tdjson.Decoder) (UserPrivacySetti
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
 		}
 		return &v, nil
+	case "userPrivacySettingRuleAllowBots":
+		// Decoding userPrivacySettingRuleAllowBots#53b2871d.
+		v := UserPrivacySettingRuleAllowBots{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
+		}
+		return &v, nil
 	case "userPrivacySettingRuleAllowPremiumUsers":
 		// Decoding userPrivacySettingRuleAllowPremiumUsers#60ce8541.
 		v := UserPrivacySettingRuleAllowPremiumUsers{}
@@ -1618,6 +1903,13 @@ func DecodeTDLibJSONUserPrivacySettingRule(buf tdjson.Decoder) (UserPrivacySetti
 	case "userPrivacySettingRuleRestrictContacts":
 		// Decoding userPrivacySettingRuleRestrictContacts#3c1acd02.
 		v := UserPrivacySettingRuleRestrictContacts{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
+		}
+		return &v, nil
+	case "userPrivacySettingRuleRestrictBots":
+		// Decoding userPrivacySettingRuleRestrictBots#8e996e5d.
+		v := UserPrivacySettingRuleRestrictBots{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
 		}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Sticker represents TL type `sticker#849ad6a1`.
+// Sticker represents TL type `sticker#d96f5d3f`.
 type Sticker struct {
 	// Unique sticker identifier within the set; 0 if none
 	ID int64
@@ -47,9 +47,6 @@ type Sticker struct {
 	Format StickerFormatClass
 	// Sticker's full type
 	FullType StickerFullTypeClass
-	// Sticker's outline represented as a list of closed vector paths; may be empty. The
-	// coordinate system origin is in the upper-left corner
-	Outline []ClosedVectorPath
 	// Sticker thumbnail in WEBP or JPEG format; may be null
 	Thumbnail Thumbnail
 	// File containing the sticker
@@ -57,7 +54,7 @@ type Sticker struct {
 }
 
 // StickerTypeID is TL type id of Sticker.
-const StickerTypeID = 0x849ad6a1
+const StickerTypeID = 0xd96f5d3f
 
 // Ensuring interfaces in compile-time for Sticker.
 var (
@@ -90,9 +87,6 @@ func (s *Sticker) Zero() bool {
 		return false
 	}
 	if !(s.FullType == nil) {
-		return false
-	}
-	if !(s.Outline == nil) {
 		return false
 	}
 	if !(s.Thumbnail.Zero()) {
@@ -166,10 +160,6 @@ func (s *Sticker) TypeInfo() tdp.Type {
 			SchemaName: "full_type",
 		},
 		{
-			Name:       "Outline",
-			SchemaName: "outline",
-		},
-		{
 			Name:       "Thumbnail",
 			SchemaName: "thumbnail",
 		},
@@ -184,7 +174,7 @@ func (s *Sticker) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Sticker) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sticker#849ad6a1 as nil")
+		return fmt.Errorf("can't encode sticker#d96f5d3f as nil")
 	}
 	b.PutID(StickerTypeID)
 	return s.EncodeBare(b)
@@ -193,7 +183,7 @@ func (s *Sticker) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Sticker) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sticker#849ad6a1 as nil")
+		return fmt.Errorf("can't encode sticker#d96f5d3f as nil")
 	}
 	b.PutLong(s.ID)
 	b.PutLong(s.SetID)
@@ -201,28 +191,22 @@ func (s *Sticker) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(s.Height)
 	b.PutString(s.Emoji)
 	if s.Format == nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field format is nil")
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field format is nil")
 	}
 	if err := s.Format.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field format: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field format: %w", err)
 	}
 	if s.FullType == nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field full_type is nil")
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field full_type is nil")
 	}
 	if err := s.FullType.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field full_type: %w", err)
-	}
-	b.PutInt(len(s.Outline))
-	for idx, v := range s.Outline {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sticker#849ad6a1: field outline element with index %d: %w", idx, err)
-		}
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field full_type: %w", err)
 	}
 	if err := s.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field thumbnail: %w", err)
 	}
 	if err := s.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field sticker: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field sticker: %w", err)
 	}
 	return nil
 }
@@ -230,10 +214,10 @@ func (s *Sticker) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *Sticker) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sticker#849ad6a1 to nil")
+		return fmt.Errorf("can't decode sticker#d96f5d3f to nil")
 	}
 	if err := b.ConsumeID(StickerTypeID); err != nil {
-		return fmt.Errorf("unable to decode sticker#849ad6a1: %w", err)
+		return fmt.Errorf("unable to decode sticker#d96f5d3f: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -241,82 +225,65 @@ func (s *Sticker) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Sticker) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sticker#849ad6a1 to nil")
+		return fmt.Errorf("can't decode sticker#d96f5d3f to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field id: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field set_id: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field set_id: %w", err)
 		}
 		s.SetID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field width: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field width: %w", err)
 		}
 		s.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field height: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field height: %w", err)
 		}
 		s.Height = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field emoji: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field emoji: %w", err)
 		}
 		s.Emoji = value
 	}
 	{
 		value, err := DecodeStickerFormat(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field format: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field format: %w", err)
 		}
 		s.Format = value
 	}
 	{
 		value, err := DecodeStickerFullType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field full_type: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field full_type: %w", err)
 		}
 		s.FullType = value
 	}
 	{
-		headerLen, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field outline: %w", err)
-		}
-
-		if headerLen > 0 {
-			s.Outline = make([]ClosedVectorPath, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value ClosedVectorPath
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare sticker#849ad6a1: field outline: %w", err)
-			}
-			s.Outline = append(s.Outline, value)
-		}
-	}
-	{
 		if err := s.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field thumbnail: %w", err)
 		}
 	}
 	{
 		if err := s.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sticker#849ad6a1: field sticker: %w", err)
+			return fmt.Errorf("unable to decode sticker#d96f5d3f: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -325,7 +292,7 @@ func (s *Sticker) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sticker#849ad6a1 as nil")
+		return fmt.Errorf("can't encode sticker#d96f5d3f as nil")
 	}
 	b.ObjStart()
 	b.PutID("sticker")
@@ -347,39 +314,28 @@ func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("format")
 	if s.Format == nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field format is nil")
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field format is nil")
 	}
 	if err := s.Format.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field format: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field format: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("full_type")
 	if s.FullType == nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field full_type is nil")
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field full_type is nil")
 	}
 	if err := s.FullType.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field full_type: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field full_type: %w", err)
 	}
-	b.Comma()
-	b.FieldStart("outline")
-	b.ArrStart()
-	for idx, v := range s.Outline {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode sticker#849ad6a1: field outline element with index %d: %w", idx, err)
-		}
-		b.Comma()
-	}
-	b.StripComma()
-	b.ArrEnd()
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := s.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#849ad6a1: field sticker: %w", err)
+		return fmt.Errorf("unable to encode sticker#d96f5d3f: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -390,75 +346,64 @@ func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Sticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sticker#849ad6a1 to nil")
+		return fmt.Errorf("can't decode sticker#d96f5d3f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sticker"); err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field id: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field id: %w", err)
 			}
 			s.ID = value
 		case "set_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field set_id: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field set_id: %w", err)
 			}
 			s.SetID = value
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field width: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field width: %w", err)
 			}
 			s.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field height: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field height: %w", err)
 			}
 			s.Height = value
 		case "emoji":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field emoji: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field emoji: %w", err)
 			}
 			s.Emoji = value
 		case "format":
 			value, err := DecodeTDLibJSONStickerFormat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field format: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field format: %w", err)
 			}
 			s.Format = value
 		case "full_type":
 			value, err := DecodeTDLibJSONStickerFullType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field full_type: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field full_type: %w", err)
 			}
 			s.FullType = value
-		case "outline":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ClosedVectorPath
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode sticker#849ad6a1: field outline: %w", err)
-				}
-				s.Outline = append(s.Outline, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field outline: %w", err)
-			}
 		case "thumbnail":
 			if err := s.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field thumbnail: %w", err)
 			}
 		case "sticker":
 			if err := s.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sticker#849ad6a1: field sticker: %w", err)
+				return fmt.Errorf("unable to decode sticker#d96f5d3f: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -521,14 +466,6 @@ func (s *Sticker) GetFullType() (value StickerFullTypeClass) {
 		return
 	}
 	return s.FullType
-}
-
-// GetOutline returns value of Outline field.
-func (s *Sticker) GetOutline() (value []ClosedVectorPath) {
-	if s == nil {
-		return
-	}
-	return s.Outline
 }
 
 // GetThumbnail returns value of Thumbnail field.

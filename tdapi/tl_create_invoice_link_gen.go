@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateInvoiceLinkRequest represents TL type `createInvoiceLink#cebe921`.
+// CreateInvoiceLinkRequest represents TL type `createInvoiceLink#cf70c867`.
 type CreateInvoiceLinkRequest struct {
+	// Unique identifier of business connection on behalf of which to send the request
+	BusinessConnectionID string
 	// Information about the invoice of the type inputMessageInvoice
 	Invoice InputMessageContentClass
 }
 
 // CreateInvoiceLinkRequestTypeID is TL type id of CreateInvoiceLinkRequest.
-const CreateInvoiceLinkRequestTypeID = 0xcebe921
+const CreateInvoiceLinkRequestTypeID = 0xcf70c867
 
 // Ensuring interfaces in compile-time for CreateInvoiceLinkRequest.
 var (
@@ -51,6 +53,9 @@ var (
 func (c *CreateInvoiceLinkRequest) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.BusinessConnectionID == "") {
+		return false
 	}
 	if !(c.Invoice == nil) {
 		return false
@@ -92,6 +97,10 @@ func (c *CreateInvoiceLinkRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BusinessConnectionID",
+			SchemaName: "business_connection_id",
+		},
+		{
 			Name:       "Invoice",
 			SchemaName: "invoice",
 		},
@@ -102,7 +111,7 @@ func (c *CreateInvoiceLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateInvoiceLinkRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createInvoiceLink#cebe921 as nil")
+		return fmt.Errorf("can't encode createInvoiceLink#cf70c867 as nil")
 	}
 	b.PutID(CreateInvoiceLinkRequestTypeID)
 	return c.EncodeBare(b)
@@ -111,13 +120,14 @@ func (c *CreateInvoiceLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateInvoiceLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createInvoiceLink#cebe921 as nil")
+		return fmt.Errorf("can't encode createInvoiceLink#cf70c867 as nil")
 	}
+	b.PutString(c.BusinessConnectionID)
 	if c.Invoice == nil {
-		return fmt.Errorf("unable to encode createInvoiceLink#cebe921: field invoice is nil")
+		return fmt.Errorf("unable to encode createInvoiceLink#cf70c867: field invoice is nil")
 	}
 	if err := c.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode createInvoiceLink#cebe921: field invoice: %w", err)
+		return fmt.Errorf("unable to encode createInvoiceLink#cf70c867: field invoice: %w", err)
 	}
 	return nil
 }
@@ -125,10 +135,10 @@ func (c *CreateInvoiceLinkRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *CreateInvoiceLinkRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createInvoiceLink#cebe921 to nil")
+		return fmt.Errorf("can't decode createInvoiceLink#cf70c867 to nil")
 	}
 	if err := b.ConsumeID(CreateInvoiceLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createInvoiceLink#cebe921: %w", err)
+		return fmt.Errorf("unable to decode createInvoiceLink#cf70c867: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -136,12 +146,19 @@ func (c *CreateInvoiceLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateInvoiceLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createInvoiceLink#cebe921 to nil")
+		return fmt.Errorf("can't decode createInvoiceLink#cf70c867 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode createInvoiceLink#cf70c867: field business_connection_id: %w", err)
+		}
+		c.BusinessConnectionID = value
 	}
 	{
 		value, err := DecodeInputMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode createInvoiceLink#cebe921: field invoice: %w", err)
+			return fmt.Errorf("unable to decode createInvoiceLink#cf70c867: field invoice: %w", err)
 		}
 		c.Invoice = value
 	}
@@ -151,17 +168,20 @@ func (c *CreateInvoiceLinkRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateInvoiceLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createInvoiceLink#cebe921 as nil")
+		return fmt.Errorf("can't encode createInvoiceLink#cf70c867 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createInvoiceLink")
 	b.Comma()
+	b.FieldStart("business_connection_id")
+	b.PutString(c.BusinessConnectionID)
+	b.Comma()
 	b.FieldStart("invoice")
 	if c.Invoice == nil {
-		return fmt.Errorf("unable to encode createInvoiceLink#cebe921: field invoice is nil")
+		return fmt.Errorf("unable to encode createInvoiceLink#cf70c867: field invoice is nil")
 	}
 	if err := c.Invoice.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode createInvoiceLink#cebe921: field invoice: %w", err)
+		return fmt.Errorf("unable to encode createInvoiceLink#cf70c867: field invoice: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -172,19 +192,25 @@ func (c *CreateInvoiceLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateInvoiceLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createInvoiceLink#cebe921 to nil")
+		return fmt.Errorf("can't decode createInvoiceLink#cf70c867 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createInvoiceLink"); err != nil {
-				return fmt.Errorf("unable to decode createInvoiceLink#cebe921: %w", err)
+				return fmt.Errorf("unable to decode createInvoiceLink#cf70c867: %w", err)
 			}
+		case "business_connection_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createInvoiceLink#cf70c867: field business_connection_id: %w", err)
+			}
+			c.BusinessConnectionID = value
 		case "invoice":
 			value, err := DecodeTDLibJSONInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode createInvoiceLink#cebe921: field invoice: %w", err)
+				return fmt.Errorf("unable to decode createInvoiceLink#cf70c867: field invoice: %w", err)
 			}
 			c.Invoice = value
 		default:
@@ -192,6 +218,14 @@ func (c *CreateInvoiceLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetBusinessConnectionID returns value of BusinessConnectionID field.
+func (c *CreateInvoiceLinkRequest) GetBusinessConnectionID() (value string) {
+	if c == nil {
+		return
+	}
+	return c.BusinessConnectionID
 }
 
 // GetInvoice returns value of Invoice field.
@@ -202,13 +236,10 @@ func (c *CreateInvoiceLinkRequest) GetInvoice() (value InputMessageContentClass)
 	return c.Invoice
 }
 
-// CreateInvoiceLink invokes method createInvoiceLink#cebe921 returning error if any.
-func (c *Client) CreateInvoiceLink(ctx context.Context, invoice InputMessageContentClass) (*HTTPURL, error) {
+// CreateInvoiceLink invokes method createInvoiceLink#cf70c867 returning error if any.
+func (c *Client) CreateInvoiceLink(ctx context.Context, request *CreateInvoiceLinkRequest) (*HTTPURL, error) {
 	var result HTTPURL
 
-	request := &CreateInvoiceLinkRequest{
-		Invoice: invoice,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -465,6 +465,240 @@ func (b *BotTransactionPurposeInvoicePayment) GetInvoicePayload() (value []byte)
 	return b.InvoicePayload
 }
 
+// BotTransactionPurposeSubscription represents TL type `botTransactionPurposeSubscription#e5796205`.
+type BotTransactionPurposeSubscription struct {
+	// The number of seconds between consecutive Telegram Star debiting
+	Period int32
+	// Information about the bought subscription; may be null if not applicable
+	ProductInfo ProductInfo
+	// Invoice payload; for bots only
+	InvoicePayload []byte
+}
+
+// BotTransactionPurposeSubscriptionTypeID is TL type id of BotTransactionPurposeSubscription.
+const BotTransactionPurposeSubscriptionTypeID = 0xe5796205
+
+// construct implements constructor of BotTransactionPurposeClass.
+func (b BotTransactionPurposeSubscription) construct() BotTransactionPurposeClass { return &b }
+
+// Ensuring interfaces in compile-time for BotTransactionPurposeSubscription.
+var (
+	_ bin.Encoder     = &BotTransactionPurposeSubscription{}
+	_ bin.Decoder     = &BotTransactionPurposeSubscription{}
+	_ bin.BareEncoder = &BotTransactionPurposeSubscription{}
+	_ bin.BareDecoder = &BotTransactionPurposeSubscription{}
+
+	_ BotTransactionPurposeClass = &BotTransactionPurposeSubscription{}
+)
+
+func (b *BotTransactionPurposeSubscription) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Period == 0) {
+		return false
+	}
+	if !(b.ProductInfo.Zero()) {
+		return false
+	}
+	if !(b.InvoicePayload == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (b *BotTransactionPurposeSubscription) String() string {
+	if b == nil {
+		return "BotTransactionPurposeSubscription(nil)"
+	}
+	type Alias BotTransactionPurposeSubscription
+	return fmt.Sprintf("BotTransactionPurposeSubscription%+v", Alias(*b))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*BotTransactionPurposeSubscription) TypeID() uint32 {
+	return BotTransactionPurposeSubscriptionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*BotTransactionPurposeSubscription) TypeName() string {
+	return "botTransactionPurposeSubscription"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotTransactionPurposeSubscription) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botTransactionPurposeSubscription",
+		ID:   BotTransactionPurposeSubscriptionTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+		{
+			Name:       "ProductInfo",
+			SchemaName: "product_info",
+		},
+		{
+			Name:       "InvoicePayload",
+			SchemaName: "invoice_payload",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (b *BotTransactionPurposeSubscription) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botTransactionPurposeSubscription#e5796205 as nil")
+	}
+	buf.PutID(BotTransactionPurposeSubscriptionTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotTransactionPurposeSubscription) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botTransactionPurposeSubscription#e5796205 as nil")
+	}
+	buf.PutInt32(b.Period)
+	if err := b.ProductInfo.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botTransactionPurposeSubscription#e5796205: field product_info: %w", err)
+	}
+	buf.PutBytes(b.InvoicePayload)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (b *BotTransactionPurposeSubscription) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botTransactionPurposeSubscription#e5796205 to nil")
+	}
+	if err := buf.ConsumeID(BotTransactionPurposeSubscriptionTypeID); err != nil {
+		return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotTransactionPurposeSubscription) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botTransactionPurposeSubscription#e5796205 to nil")
+	}
+	{
+		value, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: field period: %w", err)
+		}
+		b.Period = value
+	}
+	{
+		if err := b.ProductInfo.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: field product_info: %w", err)
+		}
+	}
+	{
+		value, err := buf.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: field invoice_payload: %w", err)
+		}
+		b.InvoicePayload = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotTransactionPurposeSubscription) EncodeTDLibJSON(buf tdjson.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botTransactionPurposeSubscription#e5796205 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botTransactionPurposeSubscription")
+	buf.Comma()
+	buf.FieldStart("period")
+	buf.PutInt32(b.Period)
+	buf.Comma()
+	buf.FieldStart("product_info")
+	if err := b.ProductInfo.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode botTransactionPurposeSubscription#e5796205: field product_info: %w", err)
+	}
+	buf.Comma()
+	buf.FieldStart("invoice_payload")
+	buf.PutBytes(b.InvoicePayload)
+	buf.Comma()
+	buf.StripComma()
+	buf.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotTransactionPurposeSubscription) DecodeTDLibJSON(buf tdjson.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botTransactionPurposeSubscription#e5796205 to nil")
+	}
+
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := buf.ConsumeID("botTransactionPurposeSubscription"); err != nil {
+				return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: %w", err)
+			}
+		case "period":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: field period: %w", err)
+			}
+			b.Period = value
+		case "product_info":
+			if err := b.ProductInfo.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: field product_info: %w", err)
+			}
+		case "invoice_payload":
+			value, err := buf.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode botTransactionPurposeSubscription#e5796205: field invoice_payload: %w", err)
+			}
+			b.InvoicePayload = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
+}
+
+// GetPeriod returns value of Period field.
+func (b *BotTransactionPurposeSubscription) GetPeriod() (value int32) {
+	if b == nil {
+		return
+	}
+	return b.Period
+}
+
+// GetProductInfo returns value of ProductInfo field.
+func (b *BotTransactionPurposeSubscription) GetProductInfo() (value ProductInfo) {
+	if b == nil {
+		return
+	}
+	return b.ProductInfo
+}
+
+// GetInvoicePayload returns value of InvoicePayload field.
+func (b *BotTransactionPurposeSubscription) GetInvoicePayload() (value []byte) {
+	if b == nil {
+		return
+	}
+	return b.InvoicePayload
+}
+
 // BotTransactionPurposeClassName is schema name of BotTransactionPurposeClass.
 const BotTransactionPurposeClassName = "BotTransactionPurpose"
 
@@ -479,6 +713,7 @@ const BotTransactionPurposeClassName = "BotTransactionPurpose"
 //	switch v := g.(type) {
 //	case *tdapi.BotTransactionPurposePaidMedia: // botTransactionPurposePaidMedia#62952496
 //	case *tdapi.BotTransactionPurposeInvoicePayment: // botTransactionPurposeInvoicePayment#699860ac
+//	case *tdapi.BotTransactionPurposeSubscription: // botTransactionPurposeSubscription#e5796205
 //	default: panic(v)
 //	}
 type BotTransactionPurposeClass interface {
@@ -524,6 +759,13 @@ func DecodeBotTransactionPurpose(buf *bin.Buffer) (BotTransactionPurposeClass, e
 			return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", err)
 		}
 		return &v, nil
+	case BotTransactionPurposeSubscriptionTypeID:
+		// Decoding botTransactionPurposeSubscription#e5796205.
+		v := BotTransactionPurposeSubscription{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -546,6 +788,13 @@ func DecodeTDLibJSONBotTransactionPurpose(buf tdjson.Decoder) (BotTransactionPur
 	case "botTransactionPurposeInvoicePayment":
 		// Decoding botTransactionPurposeInvoicePayment#699860ac.
 		v := BotTransactionPurposeInvoicePayment{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", err)
+		}
+		return &v, nil
+	case "botTransactionPurposeSubscription":
+		// Decoding botTransactionPurposeSubscription#e5796205.
+		v := BotTransactionPurposeSubscription{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotTransactionPurposeClass: %w", err)
 		}

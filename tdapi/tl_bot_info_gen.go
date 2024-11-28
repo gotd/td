@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotInfo represents TL type `botInfo#bfacb6ae`.
+// BotInfo represents TL type `botInfo#15e58682`.
 type BotInfo struct {
 	// The text that is shown on the bot's profile page and is sent together with the link
 	// when users share the bot
@@ -56,8 +56,18 @@ type BotInfo struct {
 	DefaultGroupAdministratorRights ChatAdministratorRights
 	// Default administrator rights for adding the bot to channels; may be null
 	DefaultChannelAdministratorRights ChatAdministratorRights
-	// True, if the bot's revenue statistics are available
+	// Default light background color for bot Web Apps; -1 if not specified
+	WebAppBackgroundLightColor int32
+	// Default dark background color for bot Web Apps; -1 if not specified
+	WebAppBackgroundDarkColor int32
+	// Default light header color for bot Web Apps; -1 if not specified
+	WebAppHeaderLightColor int32
+	// Default dark header color for bot Web Apps; -1 if not specified
+	WebAppHeaderDarkColor int32
+	// True, if the bot's revenue statistics are available to the current user
 	CanGetRevenueStatistics bool
+	// True, if the bot can manage emoji status of the current user
+	CanManageEmojiStatus bool
 	// True, if the bot has media previews
 	HasMediaPreviews bool
 	// The internal link, which can be used to edit bot commands; may be null
@@ -72,7 +82,7 @@ type BotInfo struct {
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
-const BotInfoTypeID = 0xbfacb6ae
+const BotInfoTypeID = 0x15e58682
 
 // Ensuring interfaces in compile-time for BotInfo.
 var (
@@ -113,7 +123,22 @@ func (b *BotInfo) Zero() bool {
 	if !(b.DefaultChannelAdministratorRights.Zero()) {
 		return false
 	}
+	if !(b.WebAppBackgroundLightColor == 0) {
+		return false
+	}
+	if !(b.WebAppBackgroundDarkColor == 0) {
+		return false
+	}
+	if !(b.WebAppHeaderLightColor == 0) {
+		return false
+	}
+	if !(b.WebAppHeaderDarkColor == 0) {
+		return false
+	}
 	if !(b.CanGetRevenueStatistics == false) {
+		return false
+	}
+	if !(b.CanManageEmojiStatus == false) {
 		return false
 	}
 	if !(b.HasMediaPreviews == false) {
@@ -204,8 +229,28 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 			SchemaName: "default_channel_administrator_rights",
 		},
 		{
+			Name:       "WebAppBackgroundLightColor",
+			SchemaName: "web_app_background_light_color",
+		},
+		{
+			Name:       "WebAppBackgroundDarkColor",
+			SchemaName: "web_app_background_dark_color",
+		},
+		{
+			Name:       "WebAppHeaderLightColor",
+			SchemaName: "web_app_header_light_color",
+		},
+		{
+			Name:       "WebAppHeaderDarkColor",
+			SchemaName: "web_app_header_dark_color",
+		},
+		{
 			Name:       "CanGetRevenueStatistics",
 			SchemaName: "can_get_revenue_statistics",
+		},
+		{
+			Name:       "CanManageEmojiStatus",
+			SchemaName: "can_manage_emoji_status",
 		},
 		{
 			Name:       "HasMediaPreviews",
@@ -234,7 +279,7 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#bfacb6ae as nil")
+		return fmt.Errorf("can't encode botInfo#15e58682 as nil")
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -243,57 +288,62 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#bfacb6ae as nil")
+		return fmt.Errorf("can't encode botInfo#15e58682 as nil")
 	}
 	buf.PutString(b.ShortDescription)
 	buf.PutString(b.Description)
 	if err := b.Photo.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field photo: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field photo: %w", err)
 	}
 	if err := b.Animation.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field animation: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field animation: %w", err)
 	}
 	if err := b.MenuButton.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field menu_button: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field menu_button: %w", err)
 	}
 	buf.PutInt(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.EncodeBare(buf); err != nil {
-			return fmt.Errorf("unable to encode bare botInfo#bfacb6ae: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare botInfo#15e58682: field commands element with index %d: %w", idx, err)
 		}
 	}
 	buf.PutString(b.PrivacyPolicyURL)
 	if err := b.DefaultGroupAdministratorRights.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field default_group_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field default_group_administrator_rights: %w", err)
 	}
 	if err := b.DefaultChannelAdministratorRights.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field default_channel_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field default_channel_administrator_rights: %w", err)
 	}
+	buf.PutInt32(b.WebAppBackgroundLightColor)
+	buf.PutInt32(b.WebAppBackgroundDarkColor)
+	buf.PutInt32(b.WebAppHeaderLightColor)
+	buf.PutInt32(b.WebAppHeaderDarkColor)
 	buf.PutBool(b.CanGetRevenueStatistics)
+	buf.PutBool(b.CanManageEmojiStatus)
 	buf.PutBool(b.HasMediaPreviews)
 	if b.EditCommandsLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_commands_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_commands_link is nil")
 	}
 	if err := b.EditCommandsLink.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_commands_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_commands_link: %w", err)
 	}
 	if b.EditDescriptionLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_link is nil")
 	}
 	if err := b.EditDescriptionLink.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_link: %w", err)
 	}
 	if b.EditDescriptionMediaLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_media_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_media_link is nil")
 	}
 	if err := b.EditDescriptionMediaLink.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_media_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_media_link: %w", err)
 	}
 	if b.EditSettingsLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_settings_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_settings_link is nil")
 	}
 	if err := b.EditSettingsLink.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_settings_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_settings_link: %w", err)
 	}
 	return nil
 }
@@ -301,10 +351,10 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#bfacb6ae to nil")
+		return fmt.Errorf("can't decode botInfo#15e58682 to nil")
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#bfacb6ae: %w", err)
+		return fmt.Errorf("unable to decode botInfo#15e58682: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -312,41 +362,41 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#bfacb6ae to nil")
+		return fmt.Errorf("can't decode botInfo#15e58682 to nil")
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field short_description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field short_description: %w", err)
 		}
 		b.ShortDescription = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field description: %w", err)
 		}
 		b.Description = value
 	}
 	{
 		if err := b.Photo.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field photo: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field photo: %w", err)
 		}
 	}
 	{
 		if err := b.Animation.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field animation: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field animation: %w", err)
 		}
 	}
 	{
 		if err := b.MenuButton.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field menu_button: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field menu_button: %w", err)
 		}
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field commands: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -355,7 +405,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.DecodeBare(buf); err != nil {
-				return fmt.Errorf("unable to decode bare botInfo#bfacb6ae: field commands: %w", err)
+				return fmt.Errorf("unable to decode bare botInfo#15e58682: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
@@ -363,59 +413,94 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field privacy_policy_url: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field privacy_policy_url: %w", err)
 		}
 		b.PrivacyPolicyURL = value
 	}
 	{
 		if err := b.DefaultGroupAdministratorRights.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field default_group_administrator_rights: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field default_group_administrator_rights: %w", err)
 		}
 	}
 	{
 		if err := b.DefaultChannelAdministratorRights.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field default_channel_administrator_rights: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field default_channel_administrator_rights: %w", err)
 		}
+	}
+	{
+		value, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_background_light_color: %w", err)
+		}
+		b.WebAppBackgroundLightColor = value
+	}
+	{
+		value, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_background_dark_color: %w", err)
+		}
+		b.WebAppBackgroundDarkColor = value
+	}
+	{
+		value, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_header_light_color: %w", err)
+		}
+		b.WebAppHeaderLightColor = value
+	}
+	{
+		value, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_header_dark_color: %w", err)
+		}
+		b.WebAppHeaderDarkColor = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field can_get_revenue_statistics: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field can_get_revenue_statistics: %w", err)
 		}
 		b.CanGetRevenueStatistics = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field has_media_previews: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field can_manage_emoji_status: %w", err)
+		}
+		b.CanManageEmojiStatus = value
+	}
+	{
+		value, err := buf.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#15e58682: field has_media_previews: %w", err)
 		}
 		b.HasMediaPreviews = value
 	}
 	{
 		value, err := DecodeInternalLinkType(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_commands_link: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field edit_commands_link: %w", err)
 		}
 		b.EditCommandsLink = value
 	}
 	{
 		value, err := DecodeInternalLinkType(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_description_link: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field edit_description_link: %w", err)
 		}
 		b.EditDescriptionLink = value
 	}
 	{
 		value, err := DecodeInternalLinkType(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_description_media_link: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field edit_description_media_link: %w", err)
 		}
 		b.EditDescriptionMediaLink = value
 	}
 	{
 		value, err := DecodeInternalLinkType(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_settings_link: %w", err)
+			return fmt.Errorf("unable to decode botInfo#15e58682: field edit_settings_link: %w", err)
 		}
 		b.EditSettingsLink = value
 	}
@@ -425,7 +510,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#bfacb6ae as nil")
+		return fmt.Errorf("can't encode botInfo#15e58682 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("botInfo")
@@ -438,24 +523,24 @@ func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.Comma()
 	buf.FieldStart("photo")
 	if err := b.Photo.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field photo: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field photo: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("animation")
 	if err := b.Animation.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field animation: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field animation: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("menu_button")
 	if err := b.MenuButton.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field menu_button: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field menu_button: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("commands")
 	buf.ArrStart()
 	for idx, v := range b.Commands {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#bfacb6ae: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode botInfo#15e58682: field commands element with index %d: %w", idx, err)
 		}
 		buf.Comma()
 	}
@@ -467,50 +552,65 @@ func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.Comma()
 	buf.FieldStart("default_group_administrator_rights")
 	if err := b.DefaultGroupAdministratorRights.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field default_group_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field default_group_administrator_rights: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("default_channel_administrator_rights")
 	if err := b.DefaultChannelAdministratorRights.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field default_channel_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field default_channel_administrator_rights: %w", err)
 	}
+	buf.Comma()
+	buf.FieldStart("web_app_background_light_color")
+	buf.PutInt32(b.WebAppBackgroundLightColor)
+	buf.Comma()
+	buf.FieldStart("web_app_background_dark_color")
+	buf.PutInt32(b.WebAppBackgroundDarkColor)
+	buf.Comma()
+	buf.FieldStart("web_app_header_light_color")
+	buf.PutInt32(b.WebAppHeaderLightColor)
+	buf.Comma()
+	buf.FieldStart("web_app_header_dark_color")
+	buf.PutInt32(b.WebAppHeaderDarkColor)
 	buf.Comma()
 	buf.FieldStart("can_get_revenue_statistics")
 	buf.PutBool(b.CanGetRevenueStatistics)
+	buf.Comma()
+	buf.FieldStart("can_manage_emoji_status")
+	buf.PutBool(b.CanManageEmojiStatus)
 	buf.Comma()
 	buf.FieldStart("has_media_previews")
 	buf.PutBool(b.HasMediaPreviews)
 	buf.Comma()
 	buf.FieldStart("edit_commands_link")
 	if b.EditCommandsLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_commands_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_commands_link is nil")
 	}
 	if err := b.EditCommandsLink.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_commands_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_commands_link: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("edit_description_link")
 	if b.EditDescriptionLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_link is nil")
 	}
 	if err := b.EditDescriptionLink.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_link: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("edit_description_media_link")
 	if b.EditDescriptionMediaLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_media_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_media_link is nil")
 	}
 	if err := b.EditDescriptionMediaLink.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_description_media_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_description_media_link: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("edit_settings_link")
 	if b.EditSettingsLink == nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_settings_link is nil")
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_settings_link is nil")
 	}
 	if err := b.EditSettingsLink.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#bfacb6ae: field edit_settings_link: %w", err)
+		return fmt.Errorf("unable to encode botInfo#15e58682: field edit_settings_link: %w", err)
 	}
 	buf.Comma()
 	buf.StripComma()
@@ -521,98 +621,128 @@ func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BotInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#bfacb6ae to nil")
+		return fmt.Errorf("can't decode botInfo#15e58682 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("botInfo"); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: %w", err)
 			}
 		case "short_description":
 			value, err := buf.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field short_description: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field short_description: %w", err)
 			}
 			b.ShortDescription = value
 		case "description":
 			value, err := buf.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field description: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field description: %w", err)
 			}
 			b.Description = value
 		case "photo":
 			if err := b.Photo.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field photo: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field photo: %w", err)
 			}
 		case "animation":
 			if err := b.Animation.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field animation: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field animation: %w", err)
 			}
 		case "menu_button":
 			if err := b.MenuButton.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field menu_button: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field menu_button: %w", err)
 			}
 		case "commands":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value BotCommand
 				if err := value.DecodeTDLibJSON(buf); err != nil {
-					return fmt.Errorf("unable to decode botInfo#bfacb6ae: field commands: %w", err)
+					return fmt.Errorf("unable to decode botInfo#15e58682: field commands: %w", err)
 				}
 				b.Commands = append(b.Commands, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field commands: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field commands: %w", err)
 			}
 		case "privacy_policy_url":
 			value, err := buf.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field privacy_policy_url: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field privacy_policy_url: %w", err)
 			}
 			b.PrivacyPolicyURL = value
 		case "default_group_administrator_rights":
 			if err := b.DefaultGroupAdministratorRights.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field default_group_administrator_rights: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field default_group_administrator_rights: %w", err)
 			}
 		case "default_channel_administrator_rights":
 			if err := b.DefaultChannelAdministratorRights.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field default_channel_administrator_rights: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field default_channel_administrator_rights: %w", err)
 			}
+		case "web_app_background_light_color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_background_light_color: %w", err)
+			}
+			b.WebAppBackgroundLightColor = value
+		case "web_app_background_dark_color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_background_dark_color: %w", err)
+			}
+			b.WebAppBackgroundDarkColor = value
+		case "web_app_header_light_color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_header_light_color: %w", err)
+			}
+			b.WebAppHeaderLightColor = value
+		case "web_app_header_dark_color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode botInfo#15e58682: field web_app_header_dark_color: %w", err)
+			}
+			b.WebAppHeaderDarkColor = value
 		case "can_get_revenue_statistics":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field can_get_revenue_statistics: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field can_get_revenue_statistics: %w", err)
 			}
 			b.CanGetRevenueStatistics = value
+		case "can_manage_emoji_status":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode botInfo#15e58682: field can_manage_emoji_status: %w", err)
+			}
+			b.CanManageEmojiStatus = value
 		case "has_media_previews":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field has_media_previews: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field has_media_previews: %w", err)
 			}
 			b.HasMediaPreviews = value
 		case "edit_commands_link":
 			value, err := DecodeTDLibJSONInternalLinkType(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_commands_link: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field edit_commands_link: %w", err)
 			}
 			b.EditCommandsLink = value
 		case "edit_description_link":
 			value, err := DecodeTDLibJSONInternalLinkType(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_description_link: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field edit_description_link: %w", err)
 			}
 			b.EditDescriptionLink = value
 		case "edit_description_media_link":
 			value, err := DecodeTDLibJSONInternalLinkType(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_description_media_link: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field edit_description_media_link: %w", err)
 			}
 			b.EditDescriptionMediaLink = value
 		case "edit_settings_link":
 			value, err := DecodeTDLibJSONInternalLinkType(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#bfacb6ae: field edit_settings_link: %w", err)
+				return fmt.Errorf("unable to decode botInfo#15e58682: field edit_settings_link: %w", err)
 			}
 			b.EditSettingsLink = value
 		default:
@@ -694,12 +824,52 @@ func (b *BotInfo) GetDefaultChannelAdministratorRights() (value ChatAdministrato
 	return b.DefaultChannelAdministratorRights
 }
 
+// GetWebAppBackgroundLightColor returns value of WebAppBackgroundLightColor field.
+func (b *BotInfo) GetWebAppBackgroundLightColor() (value int32) {
+	if b == nil {
+		return
+	}
+	return b.WebAppBackgroundLightColor
+}
+
+// GetWebAppBackgroundDarkColor returns value of WebAppBackgroundDarkColor field.
+func (b *BotInfo) GetWebAppBackgroundDarkColor() (value int32) {
+	if b == nil {
+		return
+	}
+	return b.WebAppBackgroundDarkColor
+}
+
+// GetWebAppHeaderLightColor returns value of WebAppHeaderLightColor field.
+func (b *BotInfo) GetWebAppHeaderLightColor() (value int32) {
+	if b == nil {
+		return
+	}
+	return b.WebAppHeaderLightColor
+}
+
+// GetWebAppHeaderDarkColor returns value of WebAppHeaderDarkColor field.
+func (b *BotInfo) GetWebAppHeaderDarkColor() (value int32) {
+	if b == nil {
+		return
+	}
+	return b.WebAppHeaderDarkColor
+}
+
 // GetCanGetRevenueStatistics returns value of CanGetRevenueStatistics field.
 func (b *BotInfo) GetCanGetRevenueStatistics() (value bool) {
 	if b == nil {
 		return
 	}
 	return b.CanGetRevenueStatistics
+}
+
+// GetCanManageEmojiStatus returns value of CanManageEmojiStatus field.
+func (b *BotInfo) GetCanManageEmojiStatus() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.CanManageEmojiStatus
 }
 
 // GetHasMediaPreviews returns value of HasMediaPreviews field.
