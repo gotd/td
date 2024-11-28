@@ -93,7 +93,7 @@ type Client struct {
 	session     *pool.SyncSession
 	cfg         *manager.AtomicConfig
 	conn        clientConn
-	connBackoff backoff.BackOff
+	connBackoff atomic.Pointer[backoff.BackOff]
 	connMux     sync.Mutex
 
 	// Restart signal channel.
