@@ -12,6 +12,7 @@ import (
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/auth"
+	"github.com/gotd/td/tgerr"
 )
 
 func (c *Client) runUntilRestart(ctx context.Context) error {
@@ -54,7 +55,17 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 }
 
 func (c *Client) isPermanentError(err error) bool {
-	return errors.Is(err, exchange.ErrKeyFingerprintNotFound)
+	// See https://github.com/gotd/td/issues/1458.
+	if errors.Is(err, exchange.ErrKeyFingerprintNotFound) {
+		return true
+	}
+	if tgerr.Is(err, "AUTH_KEY_UNREGISTERED", "SESSION_EXPIRED") {
+		return true
+	}
+	if auth.IsUnauthorized(err) {
+		return true
+	}
+	return false
 }
 
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
