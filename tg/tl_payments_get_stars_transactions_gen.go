@@ -52,7 +52,10 @@ type PaymentsGetStarsTransactionsRequest struct {
 	Outbound bool
 	// Return transactions in ascending order by date (instead of descending order by date).
 	Ascending bool
-	// SubscriptionID field of PaymentsGetStarsTransactionsRequest.
+	// If set, fetches only transactions for the specified Telegram Star subscription »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionID and GetSubscriptionID helpers.
 	SubscriptionID string

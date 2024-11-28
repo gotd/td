@@ -1183,7 +1183,10 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stars#revenue-statistics
 	CanViewStarsRevenue bool
-	// PaidReactionsAvailable field of ChannelFull.
+	// If set, users may send paid Telegram Star reactions »¹ to messages of this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	PaidReactionsAvailable bool
 	// ID of the channel
 	ID int64

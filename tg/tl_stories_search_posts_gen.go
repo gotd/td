@@ -62,7 +62,7 @@ type StoriesSearchPostsRequest struct {
 	//
 	// Use SetArea and GetArea helpers.
 	Area MediaAreaClass
-	// Peer field of StoriesSearchPostsRequest.
+	// If set, returns only stories posted by this peer.
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass

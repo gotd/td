@@ -40,7 +40,7 @@ type MessagesReportRequest struct {
 	Peer InputPeerClass
 	// IDs of messages to report
 	ID []int
-	// Option field of MessagesReportRequest.
+	// Menu option, intially empty
 	Option []byte
 	// Comment for report moderation
 	Message string

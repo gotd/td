@@ -52,7 +52,10 @@ type StarsTransaction struct {
 	Failed bool
 	// This transaction was a gift from the user in peer.peer.
 	Gift bool
-	// Reaction field of StarsTransaction.
+	// This transaction is a paid reaction »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	Reaction bool
 	// Transaction ID.
 	ID string
@@ -110,19 +113,40 @@ type StarsTransaction struct {
 	//
 	// Use SetExtendedMedia and GetExtendedMedia helpers.
 	ExtendedMedia []MessageMediaClass
-	// SubscriptionPeriod field of StarsTransaction.
+	// The number of seconds between consecutive Telegram Star debiting for Telegram Star
+	// subscriptions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionPeriod and GetSubscriptionPeriod helpers.
 	SubscriptionPeriod int
-	// GiveawayPostID field of StarsTransaction.
+	// ID of the message containing the messageMediaGiveaway¹, for incoming star giveaway
+	// prizes².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaGiveaway
+	//  2) https://core.telegram.org/api/giveaways#star-giveaways
 	//
 	// Use SetGiveawayPostID and GetGiveawayPostID helpers.
 	GiveawayPostID int
-	// Stargift field of StarsTransaction.
+	// This transaction indicates a purchase or a sale (conversion back to Stars) of a gift
+	// »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	//
 	// Use SetStargift and GetStargift helpers.
 	Stargift StarGift
-	// FloodskipNumber field of StarsTransaction.
+	// This transaction is payment for paid bot broadcasts¹.  Paid broadcasts are only
+	// allowed if the allow_paid_floodskip parameter of messages.sendMessage² and other
+	// message sending methods is set while trying to broadcast more than 30 messages per
+	// second to bot users. The integer value returned by this flag indicates the number of
+	// billed API calls.
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once
+	//  2) https://core.telegram.org/method/messages.sendMessage
 	//
 	// Use SetFloodskipNumber and GetFloodskipNumber helpers.
 	FloodskipNumber int

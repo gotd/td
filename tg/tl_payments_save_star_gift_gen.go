@@ -32,16 +32,27 @@ var (
 )
 
 // PaymentsSaveStarGiftRequest represents TL type `payments.saveStarGift#87acf08e`.
+// Display or remove a received gift »¹ from our profile.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.saveStarGift for reference.
 type PaymentsSaveStarGiftRequest struct {
-	// Flags field of PaymentsSaveStarGiftRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Unsave field of PaymentsSaveStarGiftRequest.
+	// If set, hides the gift from our profile.
 	Unsave bool
-	// UserID field of PaymentsSaveStarGiftRequest.
+	// ID of the user that sent us the gift.
 	UserID InputUserClass
-	// MsgID field of PaymentsSaveStarGiftRequest.
+	// The ID of the messageService¹ with the messageActionStarGift².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageService
+	//  2) https://core.telegram.org/constructor/messageActionStarGift
 	MsgID int
 }
 
@@ -246,8 +257,13 @@ func (s *PaymentsSaveStarGiftRequest) GetMsgID() (value int) {
 }
 
 // PaymentsSaveStarGift invokes method payments.saveStarGift#87acf08e returning error if any.
+// Display or remove a received gift »¹ from our profile.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.saveStarGift for reference.
+// Can be used by bots.
 func (c *Client) PaymentsSaveStarGift(ctx context.Context, request *PaymentsSaveStarGiftRequest) (bool, error) {
 	var result BoolBox
 

@@ -7573,10 +7573,11 @@ func (c *ChannelAdminLogEventActionChangeEmojiStickerSet) GetNewStickerset() (va
 }
 
 // ChannelAdminLogEventActionToggleSignatureProfiles represents TL type `channelAdminLogEventActionToggleSignatureProfiles#60a79c79`.
+// Channel signature profiles were enabled/disabled.
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatureProfiles for reference.
 type ChannelAdminLogEventActionToggleSignatureProfiles struct {
-	// NewValue field of ChannelAdminLogEventActionToggleSignatureProfiles.
+	// New value
 	NewValue bool
 }
 
@@ -7709,6 +7710,10 @@ func (c *ChannelAdminLogEventActionToggleSignatureProfiles) GetNewValue() (value
 }
 
 // ChannelAdminLogEventActionParticipantSubExtend represents TL type `channelAdminLogEventActionParticipantSubExtend#64642db3`.
+// A paid subscriber has extended their Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#star-subscriptions
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend for reference.
 type ChannelAdminLogEventActionParticipantSubExtend struct {

@@ -39,7 +39,7 @@ var (
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueWithdrawalUrl for reference.
 type StatsGetBroadcastRevenueWithdrawalURLRequest struct {
-	// Peer field of StatsGetBroadcastRevenueWithdrawalURLRequest.
+	// Get ad revenue withdrawal URL for the specified channel or bot
 	Peer InputPeerClass
 	// 2FA password, see here »¹ for more info.
 	//

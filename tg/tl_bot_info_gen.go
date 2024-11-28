@@ -71,7 +71,12 @@ type BotInfo struct {
 	//
 	// Use SetMenuButton and GetMenuButton helpers.
 	MenuButton BotMenuButtonClass
-	// PrivacyPolicyURL field of BotInfo.
+	// The HTTP link to the privacy policy of the bot. If not set, then the /privacy command
+	// must be used, if supported by the bot (i.e. if it's present in the commands vector).
+	// If it isn't supported, then https://telegram.org/privacy-tpa¹ must be opened, instead.
+	//
+	// Links:
+	//  1) https://telegram.org/privacy-tpa
 	//
 	// Use SetPrivacyPolicyURL and GetPrivacyPolicyURL helpers.
 	PrivacyPolicyURL string

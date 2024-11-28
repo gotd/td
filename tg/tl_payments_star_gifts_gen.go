@@ -32,6 +32,10 @@ var (
 )
 
 // PaymentsStarGiftsNotModified represents TL type `payments.starGiftsNotModified#a388a368`.
+// The list of available gifts »¹ hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.starGiftsNotModified for reference.
 type PaymentsStarGiftsNotModified struct {
@@ -133,12 +137,19 @@ func (s *PaymentsStarGiftsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // PaymentsStarGifts represents TL type `payments.starGifts#901689ea`.
+// Available gifts »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.starGifts for reference.
 type PaymentsStarGifts struct {
-	// Hash field of PaymentsStarGifts.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Gifts field of PaymentsStarGifts.
+	// List of available gifts.
 	Gifts []StarGift
 }
 

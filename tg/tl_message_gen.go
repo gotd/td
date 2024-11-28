@@ -296,7 +296,16 @@ type Message struct {
 	// If set, the message was sent because of a scheduled action by the message sender, for
 	// example, as away, or a greeting service message.
 	Offline bool
-	// VideoProcessingPending field of Message.
+	// The video contained in the message is currently being processed by the server (i.e. to
+	// generate alternative qualities, that will be contained in the final
+	// messageMediaDocument¹.alt_document), and will be sent once the video is processed,
+	// which will happen approximately at the specified date (i.e. messages with this flag
+	// set should be treated similarly to scheduled messages², but instead of the scheduled
+	// date, date contains the estimated conversion date).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaDocument
+	//  2) https://core.telegram.org/api/scheduled-messages
 	VideoProcessingPending bool
 	// ID of the message
 	ID int

@@ -3466,12 +3466,13 @@ func (i *InputKeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
 }
 
 // KeyboardButtonCopy represents TL type `keyboardButtonCopy#75d2698e`.
+// Clipboard button: when clicked, the attached text must be copied to the clipboard.
 //
 // See https://core.telegram.org/constructor/keyboardButtonCopy for reference.
 type KeyboardButtonCopy struct {
-	// Text field of KeyboardButtonCopy.
+	// Title of the button
 	Text string
-	// CopyText field of KeyboardButtonCopy.
+	// The text that will be copied to the clipboard
 	CopyText string
 }
 

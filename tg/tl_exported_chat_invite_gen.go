@@ -74,7 +74,12 @@ type ChatInviteExported struct {
 	//
 	// Use SetRequested and GetRequested helpers.
 	Requested int
-	// SubscriptionExpired field of ChatInviteExported.
+	// For Telegram Star subscriptions »¹, contains the number of chat members which have
+	// already joined the chat using the link, but have already left due to expiration of
+	// their subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionExpired and GetSubscriptionExpired helpers.
 	SubscriptionExpired int
@@ -82,7 +87,11 @@ type ChatInviteExported struct {
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// SubscriptionPricing field of ChatInviteExported.
+	// For Telegram Star subscriptions »¹, contains the pricing of the subscription the
+	// user must activate to join the private channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionPricing and GetSubscriptionPricing helpers.
 	SubscriptionPricing StarsSubscriptionPricing

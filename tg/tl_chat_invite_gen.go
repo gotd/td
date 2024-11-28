@@ -214,7 +214,13 @@ type ChatInvite struct {
 	// If set, this chat was reported by many users as a fake or scam: be careful when
 	// interacting with it.
 	Fake bool
-	// CanRefulfillSubscription field of ChatInvite.
+	// If set, indicates that the user has already paid for the associated Telegram Star
+	// subscriptions »¹ and it hasn't expired yet, so they may re-join the channel using
+	// messages.importChatInvite² without repeating the payment.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
+	//  2) https://core.telegram.org/method/messages.importChatInvite
 	CanRefulfillSubscription bool
 	// Chat/supergroup/channel title
 	Title string
@@ -235,11 +241,18 @@ type ChatInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/api/colors
 	Color int
-	// SubscriptionPricing field of ChatInvite.
+	// For Telegram Star subscriptions »¹, contains the pricing of the subscription the
+	// user must activate to join the private channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionPricing and GetSubscriptionPricing helpers.
 	SubscriptionPricing StarsSubscriptionPricing
-	// SubscriptionFormID field of ChatInvite.
+	// For Telegram Star subscriptions »¹, the ID of the payment form for the subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionFormID and GetSubscriptionFormID helpers.
 	SubscriptionFormID int64

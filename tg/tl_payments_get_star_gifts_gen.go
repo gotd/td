@@ -32,10 +32,17 @@ var (
 )
 
 // PaymentsGetStarGiftsRequest represents TL type `payments.getStarGifts#c4563590`.
+// Get a list of available gifts, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getStarGifts for reference.
 type PaymentsGetStarGiftsRequest struct {
-	// Hash field of PaymentsGetStarGiftsRequest.
+	// Hash used for caching, for more info click here¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 
@@ -161,8 +168,13 @@ func (g *PaymentsGetStarGiftsRequest) GetHash() (value int) {
 }
 
 // PaymentsGetStarGifts invokes method payments.getStarGifts#c4563590 returning error if any.
+// Get a list of available gifts, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getStarGifts for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetStarGifts(ctx context.Context, hash int) (PaymentsStarGiftsClass, error) {
 	var result PaymentsStarGiftsBox
 

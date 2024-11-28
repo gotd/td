@@ -1174,12 +1174,16 @@ func (p *PaymentsPaymentFormStars) MapUsers() (value UserClassArray) {
 }
 
 // PaymentsPaymentFormStarGift represents TL type `payments.paymentFormStarGift#b425cfe1`.
+// Represents a payment form for a gift, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.paymentFormStarGift for reference.
 type PaymentsPaymentFormStarGift struct {
-	// FormID field of PaymentsPaymentFormStarGift.
+	// Form ID.
 	FormID int64
-	// Invoice field of PaymentsPaymentFormStarGift.
+	// Invoice
 	Invoice Invoice
 }
 

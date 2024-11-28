@@ -71,7 +71,10 @@ type MessageReactions struct {
 	//
 	// Use SetRecentReactions and GetRecentReactions helpers.
 	RecentReactions []MessagePeerReaction
-	// TopReactors field of MessageReactions.
+	// Paid Telegram Star reactions leaderboard »¹ for this message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	//
 	// Use SetTopReactors and GetTopReactors helpers.
 	TopReactors []MessageReactor

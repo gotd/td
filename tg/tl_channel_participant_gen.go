@@ -36,13 +36,20 @@ var (
 //
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
-	// Flags field of ChannelParticipant.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Participant user ID
 	UserID int64
 	// Date joined
 	Date int
-	// SubscriptionUntilDate field of ChannelParticipant.
+	// If set, contains the expiration date of the current Telegram Star subscription period
+	// »¹ for the specified participant.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
@@ -277,7 +284,11 @@ type ChannelParticipantSelf struct {
 	InviterID int64
 	// When did I join the channel/supergroup
 	Date int
-	// SubscriptionUntilDate field of ChannelParticipantSelf.
+	// If set, contains the expiration date of the current Telegram Star subscription period
+	// »¹ for the specified participant.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int

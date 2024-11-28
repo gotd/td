@@ -32,38 +32,55 @@ var (
 )
 
 // StarGift represents TL type `starGift#49c577cd`.
+// Represents a star gift, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/starGift for reference.
 type StarGift struct {
-	// Flags field of StarGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Limited field of StarGift.
+	// Whether this is a limited-supply gift.
 	Limited bool
-	// SoldOut field of StarGift.
+	// Whether this gift sold out and cannot be bought anymore.
 	SoldOut bool
 	// Birthday field of StarGift.
 	Birthday bool
-	// ID field of StarGift.
+	// Identifier of the gift
 	ID int64
-	// Sticker field of StarGift.
+	// Sticker¹ that represents the gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	Sticker DocumentClass
-	// Stars field of StarGift.
+	// Price of the gift in Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	Stars int64
-	// AvailabilityRemains field of StarGift.
+	// For limited-supply gifts: the remaining number of gifts that may be bought.
 	//
 	// Use SetAvailabilityRemains and GetAvailabilityRemains helpers.
 	AvailabilityRemains int
-	// AvailabilityTotal field of StarGift.
+	// For limited-supply gifts: the total number of gifts that was available in the initial
+	// supply.
 	//
 	// Use SetAvailabilityTotal and GetAvailabilityTotal helpers.
 	AvailabilityTotal int
-	// ConvertStars field of StarGift.
+	// The receiver of this gift may convert it to this many Telegram Stars, instead of
+	// displaying it on their profile page.convert_stars will be equal to stars only if the
+	// gift was bought using recently bought Telegram Stars, otherwise it will be less than
+	// stars.
 	ConvertStars int64
-	// FirstSaleDate field of StarGift.
+	// For sold out gifts only: when was the gift first bought.
 	//
 	// Use SetFirstSaleDate and GetFirstSaleDate helpers.
 	FirstSaleDate int
-	// LastSaleDate field of StarGift.
+	// For sold out gifts only: when was the gift last bought.
 	//
 	// Use SetLastSaleDate and GetLastSaleDate helpers.
 	LastSaleDate int

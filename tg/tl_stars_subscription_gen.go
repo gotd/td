@@ -32,28 +32,41 @@ var (
 )
 
 // StarsSubscription represents TL type `starsSubscription#2e6eab1a`.
+// Represents a Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/constructor/starsSubscription for reference.
 type StarsSubscription struct {
-	// Flags field of StarsSubscription.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Canceled field of StarsSubscription.
+	// Whether this subscription was cancelled.
 	Canceled bool
-	// CanRefulfill field of StarsSubscription.
+	// Whether we left the associated private channel, but we can still rejoin it using
+	// payments.fulfillStarsSubscription¹ because the current subscription period hasn't
+	// expired yet.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.fulfillStarsSubscription
 	CanRefulfill bool
-	// MissingBalance field of StarsSubscription.
+	// Whether this subscription has expired because there are not enough stars on the user's
+	// balance to extend it.
 	MissingBalance bool
 	// BotCanceled field of StarsSubscription.
 	BotCanceled bool
-	// ID field of StarsSubscription.
+	// Subscription ID.
 	ID string
-	// Peer field of StarsSubscription.
+	// Identifier of the associated private chat.
 	Peer PeerClass
-	// UntilDate field of StarsSubscription.
+	// Expiration date of the current subscription period.
 	UntilDate int
-	// Pricing field of StarsSubscription.
+	// Pricing of the subscription in Telegram Stars.
 	Pricing StarsSubscriptionPricing
-	// ChatInviteHash field of StarsSubscription.
+	// Invitation link, used to renew the subscription after cancellation or expiration.
 	//
 	// Use SetChatInviteHash and GetChatInviteHash helpers.
 	ChatInviteHash string

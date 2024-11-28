@@ -257,18 +257,25 @@ func (p *PrepaidGiveaway) GetDate() (value int) {
 }
 
 // PrepaidStarsGiveaway represents TL type `prepaidStarsGiveaway#9a9d77e0`.
+// Contains info about a prepaid Telegram Star giveaway »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/prepaidStarsGiveaway for reference.
 type PrepaidStarsGiveaway struct {
-	// ID field of PrepaidStarsGiveaway.
+	// Prepaid giveaway ID.
 	ID int64
-	// Stars field of PrepaidStarsGiveaway.
+	// Number of given away Telegram Stars »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	Stars int64
-	// Quantity field of PrepaidStarsGiveaway.
+	// Number of giveaway winners
 	Quantity int
-	// Boosts field of PrepaidStarsGiveaway.
+	// Number of boosts the channel will gain by launching the giveaway.
 	Boosts int
-	// Date field of PrepaidStarsGiveaway.
+	// When was the giveaway paid for
 	Date int
 }
 

@@ -42,9 +42,15 @@ var (
 //
 // See https://core.telegram.org/constructor/broadcastRevenueBalances for reference.
 type BroadcastRevenueBalances struct {
-	// Flags field of BroadcastRevenueBalances.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// WithdrawalEnabled field of BroadcastRevenueBalances.
+	// If set, the available balance can be withdrawn »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/revenue#withdrawing-revenue
 	WithdrawalEnabled bool
 	// Amount of not-yet-withdrawn cryptocurrency.
 	CurrentBalance int64

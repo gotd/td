@@ -817,6 +817,12 @@ func (s *StarsTransactionPeerAds) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarsTransactionPeerAPI represents TL type `starsTransactionPeerAPI#f9677aad`.
+// Describes a Telegram Star¹ transaction used to pay for paid API usage, such as paid
+// bot broadcasts².
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerAPI for reference.
 type StarsTransactionPeerAPI struct {

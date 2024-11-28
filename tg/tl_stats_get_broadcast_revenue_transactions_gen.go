@@ -39,7 +39,7 @@ var (
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueTransactions for reference.
 type StatsGetBroadcastRevenueTransactionsRequest struct {
-	// Peer field of StatsGetBroadcastRevenueTransactionsRequest.
+	// Get ad revenue transactions for the specified channel or bot
 	Peer InputPeerClass
 	// Offset for pagination¹
 	//

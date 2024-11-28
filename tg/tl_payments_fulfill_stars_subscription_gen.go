@@ -32,12 +32,19 @@ var (
 )
 
 // PaymentsFulfillStarsSubscriptionRequest represents TL type `payments.fulfillStarsSubscription#cc5bebb3`.
+// Re-join a private channel associated to an active Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.fulfillStarsSubscription for reference.
 type PaymentsFulfillStarsSubscriptionRequest struct {
-	// Peer field of PaymentsFulfillStarsSubscriptionRequest.
+	// Always pass inputPeerSelf¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPeerSelf
 	Peer InputPeerClass
-	// SubscriptionID field of PaymentsFulfillStarsSubscriptionRequest.
+	// ID of the subscription.
 	SubscriptionID string
 }
 
@@ -193,8 +200,13 @@ func (f *PaymentsFulfillStarsSubscriptionRequest) GetSubscriptionID() (value str
 }
 
 // PaymentsFulfillStarsSubscription invokes method payments.fulfillStarsSubscription#cc5bebb3 returning error if any.
+// Re-join a private channel associated to an active Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.fulfillStarsSubscription for reference.
+// Can be used by bots.
 func (c *Client) PaymentsFulfillStarsSubscription(ctx context.Context, request *PaymentsFulfillStarsSubscriptionRequest) (bool, error) {
 	var result BoolBox
 

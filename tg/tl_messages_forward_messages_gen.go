@@ -58,7 +58,12 @@ type MessagesForwardMessagesRequest struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// AllowPaidFloodskip field of MessagesForwardMessagesRequest.
+	// Bots only: if set, allows sending up to 1000 messages per second, ignoring
+	// broadcasting limits¹ for a fee of 0.1 Telegram Stars per message. The relevant Stars
+	// will be withdrawn from the bot's balance.
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once
 	AllowPaidFloodskip bool
 	// Source of messages
 	FromPeer InputPeerClass

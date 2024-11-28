@@ -529,18 +529,21 @@ func (i *InputInvoicePremiumGiftCode) GetOption() (value PremiumGiftCodeOption) 
 
 // InputInvoiceStars represents TL type `inputInvoiceStars#65f00ce3`.
 // Used to top up the Telegram Stars¹ balance of the current account or someone else's
-// account.
+// account, or to start a Telegram Star giveaway »².
 //
 // Links:
 //  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/inputInvoiceStars for reference.
 type InputInvoiceStars struct {
-	// Either an inputStorePaymentStarsTopup¹ or an inputStorePaymentStarsGift².
+	// An inputStorePaymentStarsGiveaway¹, inputStorePaymentStarsTopup² or
+	// inputStorePaymentStarsGift³.
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/inputStorePaymentStarsTopup
-	//  2) https://core.telegram.org/constructor/inputStorePaymentStarsGift
+	//  1) https://core.telegram.org/constructor/inputStorePaymentStarsGiveaway
+	//  2) https://core.telegram.org/constructor/inputStorePaymentStarsTopup
+	//  3) https://core.telegram.org/constructor/inputStorePaymentStarsGift
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -676,10 +679,17 @@ func (i *InputInvoiceStars) GetPurpose() (value InputStorePaymentPurposeClass) {
 }
 
 // InputInvoiceChatInviteSubscription represents TL type `inputInvoiceChatInviteSubscription#34e793f1`.
+// Used to pay for a Telegram Star subscription »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#star-subscriptions
 //
 // See https://core.telegram.org/constructor/inputInvoiceChatInviteSubscription for reference.
 type InputInvoiceChatInviteSubscription struct {
-	// Hash field of InputInvoiceChatInviteSubscription.
+	// The invitation link of the Telegram Star subscription »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	Hash string
 }
 
@@ -810,18 +820,29 @@ func (i *InputInvoiceChatInviteSubscription) GetHash() (value string) {
 }
 
 // InputInvoiceStarGift represents TL type `inputInvoiceStarGift#25d8c1d8`.
+// Used to buy a Telegram Star Gift, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGift for reference.
 type InputInvoiceStarGift struct {
-	// Flags field of InputInvoiceStarGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HideName field of InputInvoiceStarGift.
+	// If set, your name will be hidden if the destination user decides to display the gift
+	// on their profile (they will still see that you sent the gift)
 	HideName bool
-	// UserID field of InputInvoiceStarGift.
+	// Identifier of the user that will receive the gift
 	UserID InputUserClass
-	// GiftID field of InputInvoiceStarGift.
+	// Identifier of the gift, from starGift¹.id
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
 	GiftID int64
-	// Message field of InputInvoiceStarGift.
+	// Optional message, attached with the gift
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities

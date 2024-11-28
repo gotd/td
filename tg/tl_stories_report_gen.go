@@ -40,7 +40,7 @@ type StoriesReportRequest struct {
 	Peer InputPeerClass
 	// IDs of the stories to report.
 	ID []int
-	// Option field of StoriesReportRequest.
+	// Menu option, intially empty
 	Option []byte
 	// Comment for report moderation
 	Message string

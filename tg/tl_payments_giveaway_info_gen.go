@@ -443,7 +443,12 @@ type PaymentsGiveawayInfoResults struct {
 	//
 	// Use SetGiftCodeSlug and GetGiftCodeSlug helpers.
 	GiftCodeSlug string
-	// StarsPrize field of PaymentsGiveawayInfoResults.
+	// If we're one of the winners of this Telegram Star giveaway¹, the number Telegram
+	// Stars² we won.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways#star-giveaways
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetStarsPrize and GetStarsPrize helpers.
 	StarsPrize int64

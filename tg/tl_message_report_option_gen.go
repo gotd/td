@@ -32,12 +32,17 @@ var (
 )
 
 // MessageReportOption represents TL type `messageReportOption#7903e3d9`.
+// Report menu option
 //
 // See https://core.telegram.org/constructor/messageReportOption for reference.
 type MessageReportOption struct {
-	// Text field of MessageReportOption.
+	// Option title
 	Text string
-	// Option field of MessageReportOption.
+	// Option identifier: if the user selects this option, re-invoke messages.report¹,
+	// passing this option to option
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.report
 	Option []byte
 }
 

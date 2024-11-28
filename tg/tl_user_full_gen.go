@@ -119,7 +119,10 @@ type UserFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/business#re-enable-ads
 	SponsoredEnabled bool
-	// CanViewRevenue field of UserFull.
+	// If set, this user can view ad revenue statistics »¹ for this bot.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/revenue#revenue-statistics
 	CanViewRevenue bool
 	// BotCanManageEmojiStatus field of UserFull.
 	BotCanManageEmojiStatus bool
@@ -274,7 +277,10 @@ type UserFull struct {
 	//
 	// Use SetPersonalChannelMessage and GetPersonalChannelMessage helpers.
 	PersonalChannelMessage int
-	// StargiftsCount field of UserFull.
+	// Number of gifts¹ the user has chosen to display on their profile
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts
 	//
 	// Use SetStargiftsCount and GetStargiftsCount helpers.
 	StargiftsCount int
