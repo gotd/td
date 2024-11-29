@@ -65,7 +65,7 @@ func (c *Client) isPermanentError(err error) bool {
 	if errors.Is(err, exchange.ErrKeyFingerprintNotFound) {
 		return true
 	}
-	if tgerr.Is(err, "AUTH_KEY_UNREGISTERED", "SESSION_EXPIRED") {
+	if tgerr.Is(err, "AUTH_KEY_UNREGISTERED", "SESSION_EXPIRED", "AUTH_KEY_DUPLICATED") {
 		return true
 	}
 	if auth.IsUnauthorized(err) {
