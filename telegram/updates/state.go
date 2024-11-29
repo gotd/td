@@ -10,8 +10,11 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 const (
@@ -137,6 +140,21 @@ func (s *internalState) Push(ctx context.Context, u tg.UpdatesClass) error {
 	}
 }
 
+// isFatalError returns true if error is fatal so we should stop updates handler.
+func isFatalError(err error) bool {
+	// See https://github.com/gotd/td/issues/1458.
+	if errors.Is(err, exchange.ErrKeyFingerprintNotFound) {
+		return true
+	}
+	if tgerr.Is(err, "AUTH_KEY_UNREGISTERED", "SESSION_EXPIRED") {
+		return true
+	}
+	if auth.IsUnauthorized(err) {
+		return true
+	}
+	return false
+}
+
 func (s *internalState) Run(ctx context.Context) error {
 	if s == nil {
 		return errors.New("invalid: nil internalState")
@@ -159,11 +177,17 @@ func (s *internalState) Run(ctx context.Context) error {
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdates(ctx, u.update); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
+				if isFatalError(err) {
+					return errors.Wrap(err, "fatal error")
+				}
 			}
 		case u := <-s.internalQueue:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdates(ctx, u.update); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
+				if isFatalError(err) {
+					return errors.Wrap(err, "fatal error")
+				}
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug("Pts gap timeout")
