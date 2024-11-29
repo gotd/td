@@ -100,6 +100,14 @@ type Options struct {
 	// OnTransfer is called during authorization transfer.
 	// See [AuthTransferHandler] for details.
 	OnTransfer AuthTransferHandler
+
+	// OnSelfError is called when client receives error calling Self() on connect.
+	// Return error to stop reconnection.
+	//
+	// NB: this method is called immediately after connection, so it's not expected to be
+	// non-nil error on first connection before auth, so it's safe to return nil until
+	// first successful auth.
+	OnSelfError func(ctx context.Context, err error) error
 }
 
 func (opt *Options) setDefaults() {
