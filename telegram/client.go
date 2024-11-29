@@ -134,6 +134,9 @@ type Client struct {
 
 	// onTransfer is called in transfer.
 	onTransfer AuthTransferHandler
+
+	// onSelfError is called on error calling Self().
+	onSelfError func(ctx context.Context, err error) error
 }
 
 // NewClient creates new unstarted client.
@@ -169,6 +172,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		noUpdatesMode:    opt.NoUpdates,
 		mw:               opt.Middlewares,
 		onTransfer:       opt.OnTransfer,
+		onSelfError:      opt.OnSelfError,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
