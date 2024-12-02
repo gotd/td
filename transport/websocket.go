@@ -6,7 +6,7 @@ import (
 	"net"
 	"net/http"
 
-	"nhooyr.io/websocket"
+	"github.com/coder/websocket"
 
 	"github.com/gotd/td/mtproxy/obfuscated2"
 	"github.com/gotd/td/proto/codec"

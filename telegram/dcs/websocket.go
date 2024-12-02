@@ -4,8 +4,8 @@ import (
 	"context"
 	"io"
 
+	"github.com/coder/websocket"
 	"github.com/go-faster/errors"
-	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/mtproxy"
