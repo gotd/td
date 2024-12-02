@@ -4,7 +4,7 @@ import (
 	"context"
 	"net"
 
-	"nhooyr.io/websocket"
+	"github.com/coder/websocket"
 )
 
 // NetConn creates opaque wrapper net.Conn for websocket.Conn.
