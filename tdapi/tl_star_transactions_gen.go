@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarTransactions represents TL type `starTransactions#306a010e`.
+// StarTransactions represents TL type `starTransactions#b5f5820b`.
 type StarTransactions struct {
 	// The amount of owned Telegram Stars
-	StarCount int64
+	StarAmount StarAmount
 	// List of transactions with Telegram Stars
 	Transactions []StarTransaction
 	// The offset for the next request. If empty, then there are no more results
@@ -42,7 +42,7 @@ type StarTransactions struct {
 }
 
 // StarTransactionsTypeID is TL type id of StarTransactions.
-const StarTransactionsTypeID = 0x306a010e
+const StarTransactionsTypeID = 0xb5f5820b
 
 // Ensuring interfaces in compile-time for StarTransactions.
 var (
@@ -56,7 +56,7 @@ func (s *StarTransactions) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.StarCount == 0) {
+	if !(s.StarAmount.Zero()) {
 		return false
 	}
 	if !(s.Transactions == nil) {
@@ -102,8 +102,8 @@ func (s *StarTransactions) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "StarCount",
-			SchemaName: "star_count",
+			Name:       "StarAmount",
+			SchemaName: "star_amount",
 		},
 		{
 			Name:       "Transactions",
@@ -120,7 +120,7 @@ func (s *StarTransactions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarTransactions) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactions#306a010e as nil")
+		return fmt.Errorf("can't encode starTransactions#b5f5820b as nil")
 	}
 	b.PutID(StarTransactionsTypeID)
 	return s.EncodeBare(b)
@@ -129,13 +129,15 @@ func (s *StarTransactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarTransactions) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactions#306a010e as nil")
+		return fmt.Errorf("can't encode starTransactions#b5f5820b as nil")
 	}
-	b.PutInt53(s.StarCount)
+	if err := s.StarAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactions#b5f5820b: field star_amount: %w", err)
+	}
 	b.PutInt(len(s.Transactions))
 	for idx, v := range s.Transactions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare starTransactions#306a010e: field transactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare starTransactions#b5f5820b: field transactions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(s.NextOffset)
@@ -145,10 +147,10 @@ func (s *StarTransactions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarTransactions) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactions#306a010e to nil")
+		return fmt.Errorf("can't decode starTransactions#b5f5820b to nil")
 	}
 	if err := b.ConsumeID(StarTransactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode starTransactions#306a010e: %w", err)
+		return fmt.Errorf("unable to decode starTransactions#b5f5820b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -156,19 +158,17 @@ func (s *StarTransactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarTransactions) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactions#306a010e to nil")
+		return fmt.Errorf("can't decode starTransactions#b5f5820b to nil")
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode starTransactions#306a010e: field star_count: %w", err)
+		if err := s.StarAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starTransactions#b5f5820b: field star_amount: %w", err)
 		}
-		s.StarCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransactions#306a010e: field transactions: %w", err)
+			return fmt.Errorf("unable to decode starTransactions#b5f5820b: field transactions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -177,7 +177,7 @@ func (s *StarTransactions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StarTransaction
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare starTransactions#306a010e: field transactions: %w", err)
+				return fmt.Errorf("unable to decode bare starTransactions#b5f5820b: field transactions: %w", err)
 			}
 			s.Transactions = append(s.Transactions, value)
 		}
@@ -185,7 +185,7 @@ func (s *StarTransactions) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starTransactions#306a010e: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode starTransactions#b5f5820b: field next_offset: %w", err)
 		}
 		s.NextOffset = value
 	}
@@ -195,19 +195,21 @@ func (s *StarTransactions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarTransactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starTransactions#306a010e as nil")
+		return fmt.Errorf("can't encode starTransactions#b5f5820b as nil")
 	}
 	b.ObjStart()
 	b.PutID("starTransactions")
 	b.Comma()
-	b.FieldStart("star_count")
-	b.PutInt53(s.StarCount)
+	b.FieldStart("star_amount")
+	if err := s.StarAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactions#b5f5820b: field star_amount: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("transactions")
 	b.ArrStart()
 	for idx, v := range s.Transactions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode starTransactions#306a010e: field transactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode starTransactions#b5f5820b: field transactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -225,36 +227,34 @@ func (s *StarTransactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarTransactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starTransactions#306a010e to nil")
+		return fmt.Errorf("can't decode starTransactions#b5f5820b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starTransactions"); err != nil {
-				return fmt.Errorf("unable to decode starTransactions#306a010e: %w", err)
+				return fmt.Errorf("unable to decode starTransactions#b5f5820b: %w", err)
 			}
-		case "star_count":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode starTransactions#306a010e: field star_count: %w", err)
+		case "star_amount":
+			if err := s.StarAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starTransactions#b5f5820b: field star_amount: %w", err)
 			}
-			s.StarCount = value
 		case "transactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value StarTransaction
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode starTransactions#306a010e: field transactions: %w", err)
+					return fmt.Errorf("unable to decode starTransactions#b5f5820b: field transactions: %w", err)
 				}
 				s.Transactions = append(s.Transactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode starTransactions#306a010e: field transactions: %w", err)
+				return fmt.Errorf("unable to decode starTransactions#b5f5820b: field transactions: %w", err)
 			}
 		case "next_offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode starTransactions#306a010e: field next_offset: %w", err)
+				return fmt.Errorf("unable to decode starTransactions#b5f5820b: field next_offset: %w", err)
 			}
 			s.NextOffset = value
 		default:
@@ -264,12 +264,12 @@ func (s *StarTransactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetStarCount returns value of StarCount field.
-func (s *StarTransactions) GetStarCount() (value int64) {
+// GetStarAmount returns value of StarAmount field.
+func (s *StarTransactions) GetStarAmount() (value StarAmount) {
 	if s == nil {
 		return
 	}
-	return s.StarCount
+	return s.StarAmount
 }
 
 // GetTransactions returns value of Transactions field.

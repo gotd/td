@@ -25052,14 +25052,14 @@ func (u *UpdateActiveLiveLocationMessages) GetMessages() (value []Message) {
 	return u.Messages
 }
 
-// UpdateOwnedStarCount represents TL type `updateOwnedStarCount#de995b79`.
+// UpdateOwnedStarCount represents TL type `updateOwnedStarCount#af7ebf88`.
 type UpdateOwnedStarCount struct {
-	// The new number of Telegram Stars owned
-	StarCount int64
+	// The new amount of owned Telegram Stars
+	StarAmount StarAmount
 }
 
 // UpdateOwnedStarCountTypeID is TL type id of UpdateOwnedStarCount.
-const UpdateOwnedStarCountTypeID = 0xde995b79
+const UpdateOwnedStarCountTypeID = 0xaf7ebf88
 
 // construct implements constructor of UpdateClass.
 func (u UpdateOwnedStarCount) construct() UpdateClass { return &u }
@@ -25078,7 +25078,7 @@ func (u *UpdateOwnedStarCount) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.StarCount == 0) {
+	if !(u.StarAmount.Zero()) {
 		return false
 	}
 
@@ -25118,8 +25118,8 @@ func (u *UpdateOwnedStarCount) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "StarCount",
-			SchemaName: "star_count",
+			Name:       "StarAmount",
+			SchemaName: "star_amount",
 		},
 	}
 	return typ
@@ -25128,7 +25128,7 @@ func (u *UpdateOwnedStarCount) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateOwnedStarCount) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateOwnedStarCount#de995b79 as nil")
+		return fmt.Errorf("can't encode updateOwnedStarCount#af7ebf88 as nil")
 	}
 	b.PutID(UpdateOwnedStarCountTypeID)
 	return u.EncodeBare(b)
@@ -25137,19 +25137,21 @@ func (u *UpdateOwnedStarCount) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateOwnedStarCount) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateOwnedStarCount#de995b79 as nil")
+		return fmt.Errorf("can't encode updateOwnedStarCount#af7ebf88 as nil")
 	}
-	b.PutInt53(u.StarCount)
+	if err := u.StarAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateOwnedStarCount#af7ebf88: field star_amount: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateOwnedStarCount) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateOwnedStarCount#de995b79 to nil")
+		return fmt.Errorf("can't decode updateOwnedStarCount#af7ebf88 to nil")
 	}
 	if err := b.ConsumeID(UpdateOwnedStarCountTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: %w", err)
+		return fmt.Errorf("unable to decode updateOwnedStarCount#af7ebf88: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -25157,14 +25159,12 @@ func (u *UpdateOwnedStarCount) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateOwnedStarCount) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateOwnedStarCount#de995b79 to nil")
+		return fmt.Errorf("can't decode updateOwnedStarCount#af7ebf88 to nil")
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: field star_count: %w", err)
+		if err := u.StarAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateOwnedStarCount#af7ebf88: field star_amount: %w", err)
 		}
-		u.StarCount = value
 	}
 	return nil
 }
@@ -25172,13 +25172,15 @@ func (u *UpdateOwnedStarCount) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateOwnedStarCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateOwnedStarCount#de995b79 as nil")
+		return fmt.Errorf("can't encode updateOwnedStarCount#af7ebf88 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateOwnedStarCount")
 	b.Comma()
-	b.FieldStart("star_count")
-	b.PutInt53(u.StarCount)
+	b.FieldStart("star_amount")
+	if err := u.StarAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateOwnedStarCount#af7ebf88: field star_amount: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -25188,21 +25190,19 @@ func (u *UpdateOwnedStarCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateOwnedStarCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateOwnedStarCount#de995b79 to nil")
+		return fmt.Errorf("can't decode updateOwnedStarCount#af7ebf88 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateOwnedStarCount"); err != nil {
-				return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: %w", err)
+				return fmt.Errorf("unable to decode updateOwnedStarCount#af7ebf88: %w", err)
 			}
-		case "star_count":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateOwnedStarCount#de995b79: field star_count: %w", err)
+		case "star_amount":
+			if err := u.StarAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateOwnedStarCount#af7ebf88: field star_amount: %w", err)
 			}
-			u.StarCount = value
 		default:
 			return b.Skip()
 		}
@@ -25210,12 +25210,12 @@ func (u *UpdateOwnedStarCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetStarCount returns value of StarCount field.
-func (u *UpdateOwnedStarCount) GetStarCount() (value int64) {
+// GetStarAmount returns value of StarAmount field.
+func (u *UpdateOwnedStarCount) GetStarAmount() (value StarAmount) {
 	if u == nil {
 		return
 	}
-	return u.StarCount
+	return u.StarAmount
 }
 
 // UpdateChatRevenueAmount represents TL type `updateChatRevenueAmount#c6c9bcc4`.
@@ -33246,7 +33246,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateDefaultReactionType: // updateDefaultReactionType#4b615105
 //	case *tdapi.UpdateSavedMessagesTags: // updateSavedMessagesTags#7386424a
 //	case *tdapi.UpdateActiveLiveLocationMessages: // updateActiveLiveLocationMessages#a20b9b1f
-//	case *tdapi.UpdateOwnedStarCount: // updateOwnedStarCount#de995b79
+//	case *tdapi.UpdateOwnedStarCount: // updateOwnedStarCount#af7ebf88
 //	case *tdapi.UpdateChatRevenueAmount: // updateChatRevenueAmount#c6c9bcc4
 //	case *tdapi.UpdateStarRevenueStatus: // updateStarRevenueStatus#ef4bfccb
 //	case *tdapi.UpdateSpeechRecognitionTrial: // updateSpeechRecognitionTrial#ff4efcc1
@@ -34143,7 +34143,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateOwnedStarCountTypeID:
-		// Decoding updateOwnedStarCount#de995b79.
+		// Decoding updateOwnedStarCount#af7ebf88.
 		v := UpdateOwnedStarCount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -35212,7 +35212,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateOwnedStarCount":
-		// Decoding updateOwnedStarCount#de995b79.
+		// Decoding updateOwnedStarCount#af7ebf88.
 		v := UpdateOwnedStarCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
