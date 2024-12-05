@@ -1472,6 +1472,530 @@ func (f *FileTypeSecure) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// FileTypeSelfDestructingPhoto represents TL type `fileTypeSelfDestructingPhoto#7bcf329b`.
+type FileTypeSelfDestructingPhoto struct {
+}
+
+// FileTypeSelfDestructingPhotoTypeID is TL type id of FileTypeSelfDestructingPhoto.
+const FileTypeSelfDestructingPhotoTypeID = 0x7bcf329b
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypeSelfDestructingPhoto) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypeSelfDestructingPhoto.
+var (
+	_ bin.Encoder     = &FileTypeSelfDestructingPhoto{}
+	_ bin.Decoder     = &FileTypeSelfDestructingPhoto{}
+	_ bin.BareEncoder = &FileTypeSelfDestructingPhoto{}
+	_ bin.BareDecoder = &FileTypeSelfDestructingPhoto{}
+
+	_ FileTypeClass = &FileTypeSelfDestructingPhoto{}
+)
+
+func (f *FileTypeSelfDestructingPhoto) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypeSelfDestructingPhoto) String() string {
+	if f == nil {
+		return "FileTypeSelfDestructingPhoto(nil)"
+	}
+	type Alias FileTypeSelfDestructingPhoto
+	return fmt.Sprintf("FileTypeSelfDestructingPhoto%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypeSelfDestructingPhoto) TypeID() uint32 {
+	return FileTypeSelfDestructingPhotoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypeSelfDestructingPhoto) TypeName() string {
+	return "fileTypeSelfDestructingPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypeSelfDestructingPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypeSelfDestructingPhoto",
+		ID:   FileTypeSelfDestructingPhotoTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypeSelfDestructingPhoto) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingPhoto#7bcf329b as nil")
+	}
+	b.PutID(FileTypeSelfDestructingPhotoTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypeSelfDestructingPhoto) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingPhoto#7bcf329b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypeSelfDestructingPhoto) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingPhoto#7bcf329b to nil")
+	}
+	if err := b.ConsumeID(FileTypeSelfDestructingPhotoTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypeSelfDestructingPhoto#7bcf329b: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypeSelfDestructingPhoto) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingPhoto#7bcf329b to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypeSelfDestructingPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingPhoto#7bcf329b as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSelfDestructingPhoto")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypeSelfDestructingPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingPhoto#7bcf329b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypeSelfDestructingPhoto"); err != nil {
+				return fmt.Errorf("unable to decode fileTypeSelfDestructingPhoto#7bcf329b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// FileTypeSelfDestructingVideo represents TL type `fileTypeSelfDestructingVideo#b70cc425`.
+type FileTypeSelfDestructingVideo struct {
+}
+
+// FileTypeSelfDestructingVideoTypeID is TL type id of FileTypeSelfDestructingVideo.
+const FileTypeSelfDestructingVideoTypeID = 0xb70cc425
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypeSelfDestructingVideo) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypeSelfDestructingVideo.
+var (
+	_ bin.Encoder     = &FileTypeSelfDestructingVideo{}
+	_ bin.Decoder     = &FileTypeSelfDestructingVideo{}
+	_ bin.BareEncoder = &FileTypeSelfDestructingVideo{}
+	_ bin.BareDecoder = &FileTypeSelfDestructingVideo{}
+
+	_ FileTypeClass = &FileTypeSelfDestructingVideo{}
+)
+
+func (f *FileTypeSelfDestructingVideo) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypeSelfDestructingVideo) String() string {
+	if f == nil {
+		return "FileTypeSelfDestructingVideo(nil)"
+	}
+	type Alias FileTypeSelfDestructingVideo
+	return fmt.Sprintf("FileTypeSelfDestructingVideo%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypeSelfDestructingVideo) TypeID() uint32 {
+	return FileTypeSelfDestructingVideoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypeSelfDestructingVideo) TypeName() string {
+	return "fileTypeSelfDestructingVideo"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypeSelfDestructingVideo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypeSelfDestructingVideo",
+		ID:   FileTypeSelfDestructingVideoTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypeSelfDestructingVideo) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVideo#b70cc425 as nil")
+	}
+	b.PutID(FileTypeSelfDestructingVideoTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypeSelfDestructingVideo) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVideo#b70cc425 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypeSelfDestructingVideo) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVideo#b70cc425 to nil")
+	}
+	if err := b.ConsumeID(FileTypeSelfDestructingVideoTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypeSelfDestructingVideo#b70cc425: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypeSelfDestructingVideo) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVideo#b70cc425 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypeSelfDestructingVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVideo#b70cc425 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSelfDestructingVideo")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypeSelfDestructingVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVideo#b70cc425 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypeSelfDestructingVideo"); err != nil {
+				return fmt.Errorf("unable to decode fileTypeSelfDestructingVideo#b70cc425: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// FileTypeSelfDestructingVideoNote represents TL type `fileTypeSelfDestructingVideoNote#592012c1`.
+type FileTypeSelfDestructingVideoNote struct {
+}
+
+// FileTypeSelfDestructingVideoNoteTypeID is TL type id of FileTypeSelfDestructingVideoNote.
+const FileTypeSelfDestructingVideoNoteTypeID = 0x592012c1
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypeSelfDestructingVideoNote) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypeSelfDestructingVideoNote.
+var (
+	_ bin.Encoder     = &FileTypeSelfDestructingVideoNote{}
+	_ bin.Decoder     = &FileTypeSelfDestructingVideoNote{}
+	_ bin.BareEncoder = &FileTypeSelfDestructingVideoNote{}
+	_ bin.BareDecoder = &FileTypeSelfDestructingVideoNote{}
+
+	_ FileTypeClass = &FileTypeSelfDestructingVideoNote{}
+)
+
+func (f *FileTypeSelfDestructingVideoNote) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypeSelfDestructingVideoNote) String() string {
+	if f == nil {
+		return "FileTypeSelfDestructingVideoNote(nil)"
+	}
+	type Alias FileTypeSelfDestructingVideoNote
+	return fmt.Sprintf("FileTypeSelfDestructingVideoNote%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypeSelfDestructingVideoNote) TypeID() uint32 {
+	return FileTypeSelfDestructingVideoNoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypeSelfDestructingVideoNote) TypeName() string {
+	return "fileTypeSelfDestructingVideoNote"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypeSelfDestructingVideoNote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypeSelfDestructingVideoNote",
+		ID:   FileTypeSelfDestructingVideoNoteTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypeSelfDestructingVideoNote) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVideoNote#592012c1 as nil")
+	}
+	b.PutID(FileTypeSelfDestructingVideoNoteTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypeSelfDestructingVideoNote) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVideoNote#592012c1 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypeSelfDestructingVideoNote) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVideoNote#592012c1 to nil")
+	}
+	if err := b.ConsumeID(FileTypeSelfDestructingVideoNoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypeSelfDestructingVideoNote#592012c1: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypeSelfDestructingVideoNote) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVideoNote#592012c1 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypeSelfDestructingVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVideoNote#592012c1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSelfDestructingVideoNote")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypeSelfDestructingVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVideoNote#592012c1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypeSelfDestructingVideoNote"); err != nil {
+				return fmt.Errorf("unable to decode fileTypeSelfDestructingVideoNote#592012c1: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// FileTypeSelfDestructingVoiceNote represents TL type `fileTypeSelfDestructingVoiceNote#64d0db1d`.
+type FileTypeSelfDestructingVoiceNote struct {
+}
+
+// FileTypeSelfDestructingVoiceNoteTypeID is TL type id of FileTypeSelfDestructingVoiceNote.
+const FileTypeSelfDestructingVoiceNoteTypeID = 0x64d0db1d
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypeSelfDestructingVoiceNote) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypeSelfDestructingVoiceNote.
+var (
+	_ bin.Encoder     = &FileTypeSelfDestructingVoiceNote{}
+	_ bin.Decoder     = &FileTypeSelfDestructingVoiceNote{}
+	_ bin.BareEncoder = &FileTypeSelfDestructingVoiceNote{}
+	_ bin.BareDecoder = &FileTypeSelfDestructingVoiceNote{}
+
+	_ FileTypeClass = &FileTypeSelfDestructingVoiceNote{}
+)
+
+func (f *FileTypeSelfDestructingVoiceNote) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypeSelfDestructingVoiceNote) String() string {
+	if f == nil {
+		return "FileTypeSelfDestructingVoiceNote(nil)"
+	}
+	type Alias FileTypeSelfDestructingVoiceNote
+	return fmt.Sprintf("FileTypeSelfDestructingVoiceNote%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypeSelfDestructingVoiceNote) TypeID() uint32 {
+	return FileTypeSelfDestructingVoiceNoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypeSelfDestructingVoiceNote) TypeName() string {
+	return "fileTypeSelfDestructingVoiceNote"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypeSelfDestructingVoiceNote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypeSelfDestructingVoiceNote",
+		ID:   FileTypeSelfDestructingVoiceNoteTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypeSelfDestructingVoiceNote) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVoiceNote#64d0db1d as nil")
+	}
+	b.PutID(FileTypeSelfDestructingVoiceNoteTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypeSelfDestructingVoiceNote) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVoiceNote#64d0db1d as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypeSelfDestructingVoiceNote) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVoiceNote#64d0db1d to nil")
+	}
+	if err := b.ConsumeID(FileTypeSelfDestructingVoiceNoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypeSelfDestructingVoiceNote#64d0db1d: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypeSelfDestructingVoiceNote) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVoiceNote#64d0db1d to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypeSelfDestructingVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSelfDestructingVoiceNote#64d0db1d as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSelfDestructingVoiceNote")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypeSelfDestructingVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeSelfDestructingVoiceNote#64d0db1d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypeSelfDestructingVoiceNote"); err != nil {
+				return fmt.Errorf("unable to decode fileTypeSelfDestructingVoiceNote#64d0db1d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // FileTypeSticker represents TL type `fileTypeSticker#1c537c69`.
 type FileTypeSticker struct {
 }
@@ -2543,6 +3067,10 @@ const FileTypeClassName = "FileType"
 //	case *tdapi.FileTypeSecret: // fileTypeSecret#906d14f7
 //	case *tdapi.FileTypeSecretThumbnail: // fileTypeSecretThumbnail#ac797636
 //	case *tdapi.FileTypeSecure: // fileTypeSecure#ab69bf26
+//	case *tdapi.FileTypeSelfDestructingPhoto: // fileTypeSelfDestructingPhoto#7bcf329b
+//	case *tdapi.FileTypeSelfDestructingVideo: // fileTypeSelfDestructingVideo#b70cc425
+//	case *tdapi.FileTypeSelfDestructingVideoNote: // fileTypeSelfDestructingVideoNote#592012c1
+//	case *tdapi.FileTypeSelfDestructingVoiceNote: // fileTypeSelfDestructingVoiceNote#64d0db1d
 //	case *tdapi.FileTypeSticker: // fileTypeSticker#1c537c69
 //	case *tdapi.FileTypeThumbnail: // fileTypeThumbnail#ff42215e
 //	case *tdapi.FileTypeUnknown: // fileTypeUnknown#8819ed50
@@ -2655,6 +3183,34 @@ func DecodeFileType(buf *bin.Buffer) (FileTypeClass, error) {
 	case FileTypeSecureTypeID:
 		// Decoding fileTypeSecure#ab69bf26.
 		v := FileTypeSecure{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case FileTypeSelfDestructingPhotoTypeID:
+		// Decoding fileTypeSelfDestructingPhoto#7bcf329b.
+		v := FileTypeSelfDestructingPhoto{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case FileTypeSelfDestructingVideoTypeID:
+		// Decoding fileTypeSelfDestructingVideo#b70cc425.
+		v := FileTypeSelfDestructingVideo{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case FileTypeSelfDestructingVideoNoteTypeID:
+		// Decoding fileTypeSelfDestructingVideoNote#592012c1.
+		v := FileTypeSelfDestructingVideoNote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case FileTypeSelfDestructingVoiceNoteTypeID:
+		// Decoding fileTypeSelfDestructingVoiceNote#64d0db1d.
+		v := FileTypeSelfDestructingVoiceNote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}
@@ -2800,6 +3356,34 @@ func DecodeTDLibJSONFileType(buf tdjson.Decoder) (FileTypeClass, error) {
 	case "fileTypeSecure":
 		// Decoding fileTypeSecure#ab69bf26.
 		v := FileTypeSecure{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case "fileTypeSelfDestructingPhoto":
+		// Decoding fileTypeSelfDestructingPhoto#7bcf329b.
+		v := FileTypeSelfDestructingPhoto{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case "fileTypeSelfDestructingVideo":
+		// Decoding fileTypeSelfDestructingVideo#b70cc425.
+		v := FileTypeSelfDestructingVideo{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case "fileTypeSelfDestructingVideoNote":
+		// Decoding fileTypeSelfDestructingVideoNote#592012c1.
+		v := FileTypeSelfDestructingVideoNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case "fileTypeSelfDestructingVoiceNote":
+		// Decoding fileTypeSelfDestructingVoiceNote#64d0db1d.
+		v := FileTypeSelfDestructingVoiceNote{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}

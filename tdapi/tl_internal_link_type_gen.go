@@ -1905,6 +1905,206 @@ func (i *InternalLinkTypeChangePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
+// InternalLinkTypeChatAffiliateProgram represents TL type `internalLinkTypeChatAffiliateProgram#25ac5024`.
+type InternalLinkTypeChatAffiliateProgram struct {
+	// Username to be passed to searchChatAffiliateProgram
+	Username string
+	// Referrer to be passed to searchChatAffiliateProgram
+	Referrer string
+}
+
+// InternalLinkTypeChatAffiliateProgramTypeID is TL type id of InternalLinkTypeChatAffiliateProgram.
+const InternalLinkTypeChatAffiliateProgramTypeID = 0x25ac5024
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeChatAffiliateProgram) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeChatAffiliateProgram.
+var (
+	_ bin.Encoder     = &InternalLinkTypeChatAffiliateProgram{}
+	_ bin.Decoder     = &InternalLinkTypeChatAffiliateProgram{}
+	_ bin.BareEncoder = &InternalLinkTypeChatAffiliateProgram{}
+	_ bin.BareDecoder = &InternalLinkTypeChatAffiliateProgram{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeChatAffiliateProgram{}
+)
+
+func (i *InternalLinkTypeChatAffiliateProgram) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Username == "") {
+		return false
+	}
+	if !(i.Referrer == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeChatAffiliateProgram) String() string {
+	if i == nil {
+		return "InternalLinkTypeChatAffiliateProgram(nil)"
+	}
+	type Alias InternalLinkTypeChatAffiliateProgram
+	return fmt.Sprintf("InternalLinkTypeChatAffiliateProgram%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeChatAffiliateProgram) TypeID() uint32 {
+	return InternalLinkTypeChatAffiliateProgramTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeChatAffiliateProgram) TypeName() string {
+	return "internalLinkTypeChatAffiliateProgram"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeChatAffiliateProgram) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeChatAffiliateProgram",
+		ID:   InternalLinkTypeChatAffiliateProgramTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+		{
+			Name:       "Referrer",
+			SchemaName: "referrer",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeChatAffiliateProgram) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeChatAffiliateProgram#25ac5024 as nil")
+	}
+	b.PutID(InternalLinkTypeChatAffiliateProgramTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeChatAffiliateProgram) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeChatAffiliateProgram#25ac5024 as nil")
+	}
+	b.PutString(i.Username)
+	b.PutString(i.Referrer)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeChatAffiliateProgram) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatAffiliateProgram#25ac5024 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeChatAffiliateProgramTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeChatAffiliateProgram#25ac5024: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeChatAffiliateProgram) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatAffiliateProgram#25ac5024 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeChatAffiliateProgram#25ac5024: field username: %w", err)
+		}
+		i.Username = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeChatAffiliateProgram#25ac5024: field referrer: %w", err)
+		}
+		i.Referrer = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeChatAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeChatAffiliateProgram#25ac5024 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeChatAffiliateProgram")
+	b.Comma()
+	b.FieldStart("username")
+	b.PutString(i.Username)
+	b.Comma()
+	b.FieldStart("referrer")
+	b.PutString(i.Referrer)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeChatAffiliateProgram) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatAffiliateProgram#25ac5024 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeChatAffiliateProgram"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChatAffiliateProgram#25ac5024: %w", err)
+			}
+		case "username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChatAffiliateProgram#25ac5024: field username: %w", err)
+			}
+			i.Username = value
+		case "referrer":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChatAffiliateProgram#25ac5024: field referrer: %w", err)
+			}
+			i.Referrer = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetUsername returns value of Username field.
+func (i *InternalLinkTypeChatAffiliateProgram) GetUsername() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Username
+}
+
+// GetReferrer returns value of Referrer field.
+func (i *InternalLinkTypeChatAffiliateProgram) GetReferrer() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Referrer
+}
+
 // InternalLinkTypeChatBoost represents TL type `internalLinkTypeChatBoost#d549fd40`.
 type InternalLinkTypeChatBoost struct {
 	// URL to be passed to getChatBoostLinkInfo
@@ -8208,6 +8408,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeBusinessChat: // internalLinkTypeBusinessChat#a03ae9d7
 //	case *tdapi.InternalLinkTypeBuyStars: // internalLinkTypeBuyStars#a94cc347
 //	case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
+//	case *tdapi.InternalLinkTypeChatAffiliateProgram: // internalLinkTypeChatAffiliateProgram#25ac5024
 //	case *tdapi.InternalLinkTypeChatBoost: // internalLinkTypeChatBoost#d549fd40
 //	case *tdapi.InternalLinkTypeChatFolderInvite: // internalLinkTypeChatFolderInvite#89b2493e
 //	case *tdapi.InternalLinkTypeChatFolderSettings: // internalLinkTypeChatFolderSettings#bfff055c
@@ -8340,6 +8541,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeChangePhoneNumberTypeID:
 		// Decoding internalLinkTypeChangePhoneNumber#f0275b01.
 		v := InternalLinkTypeChangePhoneNumber{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeChatAffiliateProgramTypeID:
+		// Decoding internalLinkTypeChatAffiliateProgram#25ac5024.
+		v := InternalLinkTypeChatAffiliateProgram{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -8667,6 +8875,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeChangePhoneNumber":
 		// Decoding internalLinkTypeChangePhoneNumber#f0275b01.
 		v := InternalLinkTypeChangePhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeChatAffiliateProgram":
+		// Decoding internalLinkTypeChatAffiliateProgram#25ac5024.
+		v := InternalLinkTypeChatAffiliateProgram{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

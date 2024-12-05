@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarRevenueStatus represents TL type `starRevenueStatus#e85bd5fb`.
+// StarRevenueStatus represents TL type `starRevenueStatus#779532e8`.
 type StarRevenueStatus struct {
-	// Total number of Telegram Stars earned
-	TotalCount int64
-	// The number of Telegram Stars that aren't withdrawn yet
-	CurrentCount int64
-	// The number of Telegram Stars that are available for withdrawal
-	AvailableCount int64
+	// Total amount of Telegram Stars earned
+	TotalAmount StarAmount
+	// The amount of Telegram Stars that aren't withdrawn yet
+	CurrentAmount StarAmount
+	// The amount of Telegram Stars that are available for withdrawal
+	AvailableAmount StarAmount
 	// True, if Telegram Stars can be withdrawn now or later
 	WithdrawalEnabled bool
 	// Time left before the next withdrawal can be started, in seconds; 0 if withdrawal can
@@ -47,7 +47,7 @@ type StarRevenueStatus struct {
 }
 
 // StarRevenueStatusTypeID is TL type id of StarRevenueStatus.
-const StarRevenueStatusTypeID = 0xe85bd5fb
+const StarRevenueStatusTypeID = 0x779532e8
 
 // Ensuring interfaces in compile-time for StarRevenueStatus.
 var (
@@ -61,13 +61,13 @@ func (s *StarRevenueStatus) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.TotalCount == 0) {
+	if !(s.TotalAmount.Zero()) {
 		return false
 	}
-	if !(s.CurrentCount == 0) {
+	if !(s.CurrentAmount.Zero()) {
 		return false
 	}
-	if !(s.AvailableCount == 0) {
+	if !(s.AvailableAmount.Zero()) {
 		return false
 	}
 	if !(s.WithdrawalEnabled == false) {
@@ -113,16 +113,16 @@ func (s *StarRevenueStatus) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "TotalCount",
-			SchemaName: "total_count",
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
 		},
 		{
-			Name:       "CurrentCount",
-			SchemaName: "current_count",
+			Name:       "CurrentAmount",
+			SchemaName: "current_amount",
 		},
 		{
-			Name:       "AvailableCount",
-			SchemaName: "available_count",
+			Name:       "AvailableAmount",
+			SchemaName: "available_amount",
 		},
 		{
 			Name:       "WithdrawalEnabled",
@@ -139,7 +139,7 @@ func (s *StarRevenueStatus) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarRevenueStatus) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starRevenueStatus#e85bd5fb as nil")
+		return fmt.Errorf("can't encode starRevenueStatus#779532e8 as nil")
 	}
 	b.PutID(StarRevenueStatusTypeID)
 	return s.EncodeBare(b)
@@ -148,11 +148,17 @@ func (s *StarRevenueStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarRevenueStatus) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starRevenueStatus#e85bd5fb as nil")
+		return fmt.Errorf("can't encode starRevenueStatus#779532e8 as nil")
 	}
-	b.PutInt53(s.TotalCount)
-	b.PutInt53(s.CurrentCount)
-	b.PutInt53(s.AvailableCount)
+	if err := s.TotalAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starRevenueStatus#779532e8: field total_amount: %w", err)
+	}
+	if err := s.CurrentAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starRevenueStatus#779532e8: field current_amount: %w", err)
+	}
+	if err := s.AvailableAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starRevenueStatus#779532e8: field available_amount: %w", err)
+	}
 	b.PutBool(s.WithdrawalEnabled)
 	b.PutInt32(s.NextWithdrawalIn)
 	return nil
@@ -161,10 +167,10 @@ func (s *StarRevenueStatus) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarRevenueStatus) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starRevenueStatus#e85bd5fb to nil")
+		return fmt.Errorf("can't decode starRevenueStatus#779532e8 to nil")
 	}
 	if err := b.ConsumeID(StarRevenueStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: %w", err)
+		return fmt.Errorf("unable to decode starRevenueStatus#779532e8: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -172,40 +178,34 @@ func (s *StarRevenueStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarRevenueStatus) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starRevenueStatus#e85bd5fb to nil")
+		return fmt.Errorf("can't decode starRevenueStatus#779532e8 to nil")
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field total_count: %w", err)
+		if err := s.TotalAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field total_amount: %w", err)
 		}
-		s.TotalCount = value
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field current_count: %w", err)
+		if err := s.CurrentAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field current_amount: %w", err)
 		}
-		s.CurrentCount = value
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field available_count: %w", err)
+		if err := s.AvailableAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field available_amount: %w", err)
 		}
-		s.AvailableCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field withdrawal_enabled: %w", err)
+			return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field withdrawal_enabled: %w", err)
 		}
 		s.WithdrawalEnabled = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field next_withdrawal_in: %w", err)
+			return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field next_withdrawal_in: %w", err)
 		}
 		s.NextWithdrawalIn = value
 	}
@@ -215,19 +215,25 @@ func (s *StarRevenueStatus) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarRevenueStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starRevenueStatus#e85bd5fb as nil")
+		return fmt.Errorf("can't encode starRevenueStatus#779532e8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("starRevenueStatus")
 	b.Comma()
-	b.FieldStart("total_count")
-	b.PutInt53(s.TotalCount)
+	b.FieldStart("total_amount")
+	if err := s.TotalAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starRevenueStatus#779532e8: field total_amount: %w", err)
+	}
 	b.Comma()
-	b.FieldStart("current_count")
-	b.PutInt53(s.CurrentCount)
+	b.FieldStart("current_amount")
+	if err := s.CurrentAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starRevenueStatus#779532e8: field current_amount: %w", err)
+	}
 	b.Comma()
-	b.FieldStart("available_count")
-	b.PutInt53(s.AvailableCount)
+	b.FieldStart("available_amount")
+	if err := s.AvailableAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starRevenueStatus#779532e8: field available_amount: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("withdrawal_enabled")
 	b.PutBool(s.WithdrawalEnabled)
@@ -243,43 +249,37 @@ func (s *StarRevenueStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarRevenueStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starRevenueStatus#e85bd5fb to nil")
+		return fmt.Errorf("can't decode starRevenueStatus#779532e8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starRevenueStatus"); err != nil {
-				return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: %w", err)
+				return fmt.Errorf("unable to decode starRevenueStatus#779532e8: %w", err)
 			}
-		case "total_count":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field total_count: %w", err)
+		case "total_amount":
+			if err := s.TotalAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field total_amount: %w", err)
 			}
-			s.TotalCount = value
-		case "current_count":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field current_count: %w", err)
+		case "current_amount":
+			if err := s.CurrentAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field current_amount: %w", err)
 			}
-			s.CurrentCount = value
-		case "available_count":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field available_count: %w", err)
+		case "available_amount":
+			if err := s.AvailableAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field available_amount: %w", err)
 			}
-			s.AvailableCount = value
 		case "withdrawal_enabled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field withdrawal_enabled: %w", err)
+				return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field withdrawal_enabled: %w", err)
 			}
 			s.WithdrawalEnabled = value
 		case "next_withdrawal_in":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode starRevenueStatus#e85bd5fb: field next_withdrawal_in: %w", err)
+				return fmt.Errorf("unable to decode starRevenueStatus#779532e8: field next_withdrawal_in: %w", err)
 			}
 			s.NextWithdrawalIn = value
 		default:
@@ -289,28 +289,28 @@ func (s *StarRevenueStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetTotalCount returns value of TotalCount field.
-func (s *StarRevenueStatus) GetTotalCount() (value int64) {
+// GetTotalAmount returns value of TotalAmount field.
+func (s *StarRevenueStatus) GetTotalAmount() (value StarAmount) {
 	if s == nil {
 		return
 	}
-	return s.TotalCount
+	return s.TotalAmount
 }
 
-// GetCurrentCount returns value of CurrentCount field.
-func (s *StarRevenueStatus) GetCurrentCount() (value int64) {
+// GetCurrentAmount returns value of CurrentAmount field.
+func (s *StarRevenueStatus) GetCurrentAmount() (value StarAmount) {
 	if s == nil {
 		return
 	}
-	return s.CurrentCount
+	return s.CurrentAmount
 }
 
-// GetAvailableCount returns value of AvailableCount field.
-func (s *StarRevenueStatus) GetAvailableCount() (value int64) {
+// GetAvailableAmount returns value of AvailableAmount field.
+func (s *StarRevenueStatus) GetAvailableAmount() (value StarAmount) {
 	if s == nil {
 		return
 	}
-	return s.AvailableCount
+	return s.AvailableAmount
 }
 
 // GetWithdrawalEnabled returns value of WithdrawalEnabled field.

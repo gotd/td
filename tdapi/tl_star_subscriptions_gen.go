@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarSubscriptions represents TL type `starSubscriptions#f7a7ae44`.
+// StarSubscriptions represents TL type `starSubscriptions#a2f27c8d`.
 type StarSubscriptions struct {
 	// The amount of owned Telegram Stars
-	StarCount int64
+	StarAmount StarAmount
 	// List of subscriptions for Telegram Stars
 	Subscriptions []StarSubscription
 	// The number of Telegram Stars required to buy to extend subscriptions expiring soon
@@ -44,7 +44,7 @@ type StarSubscriptions struct {
 }
 
 // StarSubscriptionsTypeID is TL type id of StarSubscriptions.
-const StarSubscriptionsTypeID = 0xf7a7ae44
+const StarSubscriptionsTypeID = 0xa2f27c8d
 
 // Ensuring interfaces in compile-time for StarSubscriptions.
 var (
@@ -58,7 +58,7 @@ func (s *StarSubscriptions) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.StarCount == 0) {
+	if !(s.StarAmount.Zero()) {
 		return false
 	}
 	if !(s.Subscriptions == nil) {
@@ -107,8 +107,8 @@ func (s *StarSubscriptions) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "StarCount",
-			SchemaName: "star_count",
+			Name:       "StarAmount",
+			SchemaName: "star_amount",
 		},
 		{
 			Name:       "Subscriptions",
@@ -129,7 +129,7 @@ func (s *StarSubscriptions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarSubscriptions) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starSubscriptions#f7a7ae44 as nil")
+		return fmt.Errorf("can't encode starSubscriptions#a2f27c8d as nil")
 	}
 	b.PutID(StarSubscriptionsTypeID)
 	return s.EncodeBare(b)
@@ -138,13 +138,15 @@ func (s *StarSubscriptions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarSubscriptions) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starSubscriptions#f7a7ae44 as nil")
+		return fmt.Errorf("can't encode starSubscriptions#a2f27c8d as nil")
 	}
-	b.PutInt53(s.StarCount)
+	if err := s.StarAmount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starSubscriptions#a2f27c8d: field star_amount: %w", err)
+	}
 	b.PutInt(len(s.Subscriptions))
 	for idx, v := range s.Subscriptions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare starSubscriptions#f7a7ae44: field subscriptions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare starSubscriptions#a2f27c8d: field subscriptions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt53(s.RequiredStarCount)
@@ -155,10 +157,10 @@ func (s *StarSubscriptions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarSubscriptions) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starSubscriptions#f7a7ae44 to nil")
+		return fmt.Errorf("can't decode starSubscriptions#a2f27c8d to nil")
 	}
 	if err := b.ConsumeID(StarSubscriptionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: %w", err)
+		return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -166,19 +168,17 @@ func (s *StarSubscriptions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarSubscriptions) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starSubscriptions#f7a7ae44 to nil")
+		return fmt.Errorf("can't decode starSubscriptions#a2f27c8d to nil")
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field star_count: %w", err)
+		if err := s.StarAmount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field star_amount: %w", err)
 		}
-		s.StarCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field subscriptions: %w", err)
+			return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field subscriptions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -187,7 +187,7 @@ func (s *StarSubscriptions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StarSubscription
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare starSubscriptions#f7a7ae44: field subscriptions: %w", err)
+				return fmt.Errorf("unable to decode bare starSubscriptions#a2f27c8d: field subscriptions: %w", err)
 			}
 			s.Subscriptions = append(s.Subscriptions, value)
 		}
@@ -195,14 +195,14 @@ func (s *StarSubscriptions) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field required_star_count: %w", err)
+			return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field required_star_count: %w", err)
 		}
 		s.RequiredStarCount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field next_offset: %w", err)
 		}
 		s.NextOffset = value
 	}
@@ -212,19 +212,21 @@ func (s *StarSubscriptions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StarSubscriptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starSubscriptions#f7a7ae44 as nil")
+		return fmt.Errorf("can't encode starSubscriptions#a2f27c8d as nil")
 	}
 	b.ObjStart()
 	b.PutID("starSubscriptions")
 	b.Comma()
-	b.FieldStart("star_count")
-	b.PutInt53(s.StarCount)
+	b.FieldStart("star_amount")
+	if err := s.StarAmount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starSubscriptions#a2f27c8d: field star_amount: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("subscriptions")
 	b.ArrStart()
 	for idx, v := range s.Subscriptions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode starSubscriptions#f7a7ae44: field subscriptions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode starSubscriptions#a2f27c8d: field subscriptions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -245,42 +247,40 @@ func (s *StarSubscriptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StarSubscriptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starSubscriptions#f7a7ae44 to nil")
+		return fmt.Errorf("can't decode starSubscriptions#a2f27c8d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("starSubscriptions"); err != nil {
-				return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: %w", err)
+				return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: %w", err)
 			}
-		case "star_count":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field star_count: %w", err)
+		case "star_amount":
+			if err := s.StarAmount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field star_amount: %w", err)
 			}
-			s.StarCount = value
 		case "subscriptions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value StarSubscription
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field subscriptions: %w", err)
+					return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field subscriptions: %w", err)
 				}
 				s.Subscriptions = append(s.Subscriptions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field subscriptions: %w", err)
+				return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field subscriptions: %w", err)
 			}
 		case "required_star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field required_star_count: %w", err)
+				return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field required_star_count: %w", err)
 			}
 			s.RequiredStarCount = value
 		case "next_offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode starSubscriptions#f7a7ae44: field next_offset: %w", err)
+				return fmt.Errorf("unable to decode starSubscriptions#a2f27c8d: field next_offset: %w", err)
 			}
 			s.NextOffset = value
 		default:
@@ -290,12 +290,12 @@ func (s *StarSubscriptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetStarCount returns value of StarCount field.
-func (s *StarSubscriptions) GetStarCount() (value int64) {
+// GetStarAmount returns value of StarAmount field.
+func (s *StarSubscriptions) GetStarAmount() (value StarAmount) {
 	if s == nil {
 		return
 	}
-	return s.StarCount
+	return s.StarAmount
 }
 
 // GetSubscriptions returns value of Subscriptions field.
