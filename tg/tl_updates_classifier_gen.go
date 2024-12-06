@@ -86,8 +86,6 @@ func IsQtsUpdate(u UpdateClass) (qts int, ok bool) {
 		return u.Qts, true
 	case *UpdateBotPurchasedPaidMedia:
 		return u.Qts, true
-	case *UpdateBotSubscriptionExpire:
-		return u.Qts, true
 	}
 
 	return

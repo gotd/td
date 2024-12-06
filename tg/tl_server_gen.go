@@ -2850,14 +2850,14 @@ func (s *ServerDispatcher) OnContactsSearch(f func(ctx context.Context, request 
 	s.handlers[ContactsSearchRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnContactsResolveUsername(f func(ctx context.Context, username string) (*ContactsResolvedPeer, error)) {
+func (s *ServerDispatcher) OnContactsResolveUsername(f func(ctx context.Context, request *ContactsResolveUsernameRequest) (*ContactsResolvedPeer, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ContactsResolveUsernameRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Username)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -7153,6 +7153,23 @@ func (s *ServerDispatcher) OnMessagesGetPreparedInlineMessage(f func(ctx context
 	s.handlers[MessagesGetPreparedInlineMessageRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSearchStickers(f func(ctx context.Context, request *MessagesSearchStickersRequest) (MessagesFoundStickersClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSearchStickersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesFoundStickersBox{FoundStickers: response}, nil
+	}
+
+	s.handlers[MessagesSearchStickersRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9469,6 +9486,40 @@ func (s *ServerDispatcher) OnBotsCheckDownloadFileParams(f func(ctx context.Cont
 	s.handlers[BotsCheckDownloadFileParamsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnBotsGetAdminedBots(f func(ctx context.Context) ([]UserClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetAdminedBotsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &UserClassVector{Elems: response}, nil
+	}
+
+	s.handlers[BotsGetAdminedBotsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsUpdateStarRefProgram(f func(ctx context.Context, request *BotsUpdateStarRefProgramRequest) (*StarRefProgram, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsUpdateStarRefProgramRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[BotsUpdateStarRefProgramRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (PaymentsPaymentFormClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentFormRequest
@@ -10090,6 +10141,91 @@ func (s *ServerDispatcher) OnPaymentsBotCancelStarsSubscription(f func(ctx conte
 	}
 
 	s.handlers[PaymentsBotCancelStarsSubscriptionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetConnectedStarRefBots(f func(ctx context.Context, request *PaymentsGetConnectedStarRefBotsRequest) (*PaymentsConnectedStarRefBots, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetConnectedStarRefBotsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetConnectedStarRefBotsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetConnectedStarRefBot(f func(ctx context.Context, request *PaymentsGetConnectedStarRefBotRequest) (*PaymentsConnectedStarRefBots, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetConnectedStarRefBotRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetConnectedStarRefBotRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetSuggestedStarRefBots(f func(ctx context.Context, request *PaymentsGetSuggestedStarRefBotsRequest) (*PaymentsSuggestedStarRefBots, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetSuggestedStarRefBotsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetSuggestedStarRefBotsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsConnectStarRefBot(f func(ctx context.Context, request *PaymentsConnectStarRefBotRequest) (*PaymentsConnectedStarRefBots, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsConnectStarRefBotRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsConnectStarRefBotRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsEditConnectedStarRefBot(f func(ctx context.Context, request *PaymentsEditConnectedStarRefBotRequest) (*PaymentsConnectedStarRefBots, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsEditConnectedStarRefBotRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsEditConnectedStarRefBotRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

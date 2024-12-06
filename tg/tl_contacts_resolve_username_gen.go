@@ -31,17 +31,23 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ContactsResolveUsernameRequest represents TL type `contacts.resolveUsername#f93ccba3`.
+// ContactsResolveUsernameRequest represents TL type `contacts.resolveUsername#725afbbc`.
 // Resolve a @username to get peer info
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 type ContactsResolveUsernameRequest struct {
+	// Flags field of ContactsResolveUsernameRequest.
+	Flags bin.Fields
 	// @username to resolve
 	Username string
+	// Referer field of ContactsResolveUsernameRequest.
+	//
+	// Use SetReferer and GetReferer helpers.
+	Referer string
 }
 
 // ContactsResolveUsernameRequestTypeID is TL type id of ContactsResolveUsernameRequest.
-const ContactsResolveUsernameRequestTypeID = 0xf93ccba3
+const ContactsResolveUsernameRequestTypeID = 0x725afbbc
 
 // Ensuring interfaces in compile-time for ContactsResolveUsernameRequest.
 var (
@@ -55,7 +61,13 @@ func (r *ContactsResolveUsernameRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
 	if !(r.Username == "") {
+		return false
+	}
+	if !(r.Referer == "") {
 		return false
 	}
 
@@ -74,8 +86,13 @@ func (r *ContactsResolveUsernameRequest) String() string {
 // FillFrom fills ContactsResolveUsernameRequest from given interface.
 func (r *ContactsResolveUsernameRequest) FillFrom(from interface {
 	GetUsername() (value string)
+	GetReferer() (value string, ok bool)
 }) {
 	r.Username = from.GetUsername()
+	if val, ok := from.GetReferer(); ok {
+		r.Referer = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -105,14 +122,26 @@ func (r *ContactsResolveUsernameRequest) TypeInfo() tdp.Type {
 			Name:       "Username",
 			SchemaName: "username",
 		},
+		{
+			Name:       "Referer",
+			SchemaName: "referer",
+			Null:       !r.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (r *ContactsResolveUsernameRequest) SetFlags() {
+	if !(r.Referer == "") {
+		r.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resolveUsername#f93ccba3 as nil")
+		return fmt.Errorf("can't encode contacts.resolveUsername#725afbbc as nil")
 	}
 	b.PutID(ContactsResolveUsernameRequestTypeID)
 	return r.EncodeBare(b)
@@ -121,19 +150,26 @@ func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ContactsResolveUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode contacts.resolveUsername#f93ccba3 as nil")
+		return fmt.Errorf("can't encode contacts.resolveUsername#725afbbc as nil")
+	}
+	r.SetFlags()
+	if err := r.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode contacts.resolveUsername#725afbbc: field flags: %w", err)
 	}
 	b.PutString(r.Username)
+	if r.Flags.Has(0) {
+		b.PutString(r.Referer)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resolveUsername#f93ccba3 to nil")
+		return fmt.Errorf("can't decode contacts.resolveUsername#725afbbc to nil")
 	}
 	if err := b.ConsumeID(ContactsResolveUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.resolveUsername#f93ccba3: %w", err)
+		return fmt.Errorf("unable to decode contacts.resolveUsername#725afbbc: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -141,14 +177,26 @@ func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ContactsResolveUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode contacts.resolveUsername#f93ccba3 to nil")
+		return fmt.Errorf("can't decode contacts.resolveUsername#725afbbc to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode contacts.resolveUsername#725afbbc: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.resolveUsername#f93ccba3: field username: %w", err)
+			return fmt.Errorf("unable to decode contacts.resolveUsername#725afbbc: field username: %w", err)
 		}
 		r.Username = value
+	}
+	if r.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode contacts.resolveUsername#725afbbc: field referer: %w", err)
+		}
+		r.Referer = value
 	}
 	return nil
 }
@@ -161,7 +209,25 @@ func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
 	return r.Username
 }
 
-// ContactsResolveUsername invokes method contacts.resolveUsername#f93ccba3 returning error if any.
+// SetReferer sets value of Referer conditional field.
+func (r *ContactsResolveUsernameRequest) SetReferer(value string) {
+	r.Flags.Set(0)
+	r.Referer = value
+}
+
+// GetReferer returns value of Referer conditional field and
+// boolean which is true if field was set.
+func (r *ContactsResolveUsernameRequest) GetReferer() (value string, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(0) {
+		return value, false
+	}
+	return r.Referer, true
+}
+
+// ContactsResolveUsername invokes method contacts.resolveUsername#725afbbc returning error if any.
 // Resolve a @username to get peer info
 //
 // Possible errors:
@@ -172,12 +238,9 @@ func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 // Can be used by bots.
-func (c *Client) ContactsResolveUsername(ctx context.Context, username string) (*ContactsResolvedPeer, error) {
+func (c *Client) ContactsResolveUsername(ctx context.Context, request *ContactsResolveUsernameRequest) (*ContactsResolvedPeer, error) {
 	var result ContactsResolvedPeer
 
-	request := &ContactsResolveUsernameRequest{
-		Username: username,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
