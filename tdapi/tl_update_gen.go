@@ -22378,7 +22378,7 @@ type UpdateAccentColors struct {
 	// (purple/violet), 3 (green), 4 (cyan), 5 (blue), 6 (pink) must always be supported
 	Colors []AccentColor
 	// The list of accent color identifiers, which can be set through setAccentColor and
-	// setChatAccentColor. The colors must be shown in the specififed order
+	// setChatAccentColor. The colors must be shown in the specified order
 	AvailableAccentColorIDs []int32
 }
 
@@ -22631,7 +22631,7 @@ type UpdateProfileAccentColors struct {
 	// Information about supported colors
 	Colors []ProfileAccentColor
 	// The list of accent color identifiers, which can be set through setProfileAccentColor
-	// and setChatProfileAccentColor. The colors must be shown in the specififed order
+	// and setChatProfileAccentColor. The colors must be shown in the specified order
 	AvailableAccentColorIDs []int32
 }
 

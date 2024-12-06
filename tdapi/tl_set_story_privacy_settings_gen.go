@@ -35,7 +35,7 @@ var (
 type SetStoryPrivacySettingsRequest struct {
 	// Identifier of the story
 	StoryID int32
-	// The new privacy settigs for the story
+	// The new privacy settings for the story
 	PrivacySettings StoryPrivacySettingsClass
 }
 
