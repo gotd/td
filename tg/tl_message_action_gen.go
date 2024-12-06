@@ -1907,7 +1907,7 @@ func (m *MessageActionGameScore) GetScore() (value int) {
 	return m.Score
 }
 
-// MessageActionPaymentSentMe represents TL type `messageActionPaymentSentMe#8f31b327`.
+// MessageActionPaymentSentMe represents TL type `messageActionPaymentSentMe#ffa00ccc`.
 // A user just sent a payment to me (a bot)
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSentMe for reference.
@@ -1947,10 +1947,14 @@ type MessageActionPaymentSentMe struct {
 	ShippingOptionID string
 	// Provider payment identifier
 	Charge PaymentCharge
+	// SubscriptionUntilDate field of MessageActionPaymentSentMe.
+	//
+	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
+	SubscriptionUntilDate int
 }
 
 // MessageActionPaymentSentMeTypeID is TL type id of MessageActionPaymentSentMe.
-const MessageActionPaymentSentMeTypeID = 0x8f31b327
+const MessageActionPaymentSentMeTypeID = 0xffa00ccc
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionPaymentSentMe) construct() MessageActionClass { return &m }
@@ -1996,6 +2000,9 @@ func (m *MessageActionPaymentSentMe) Zero() bool {
 	if !(m.Charge.Zero()) {
 		return false
 	}
+	if !(m.SubscriptionUntilDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -2019,6 +2026,7 @@ func (m *MessageActionPaymentSentMe) FillFrom(from interface {
 	GetInfo() (value PaymentRequestedInfo, ok bool)
 	GetShippingOptionID() (value string, ok bool)
 	GetCharge() (value PaymentCharge)
+	GetSubscriptionUntilDate() (value int, ok bool)
 }) {
 	m.RecurringInit = from.GetRecurringInit()
 	m.RecurringUsed = from.GetRecurringUsed()
@@ -2034,6 +2042,10 @@ func (m *MessageActionPaymentSentMe) FillFrom(from interface {
 	}
 
 	m.Charge = from.GetCharge()
+	if val, ok := from.GetSubscriptionUntilDate(); ok {
+		m.SubscriptionUntilDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -2095,6 +2107,11 @@ func (m *MessageActionPaymentSentMe) TypeInfo() tdp.Type {
 			Name:       "Charge",
 			SchemaName: "charge",
 		},
+		{
+			Name:       "SubscriptionUntilDate",
+			SchemaName: "subscription_until_date",
+			Null:       !m.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -2113,12 +2130,15 @@ func (m *MessageActionPaymentSentMe) SetFlags() {
 	if !(m.ShippingOptionID == "") {
 		m.Flags.Set(1)
 	}
+	if !(m.SubscriptionUntilDate == 0) {
+		m.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaymentSentMe#8f31b327 as nil")
+		return fmt.Errorf("can't encode messageActionPaymentSentMe#ffa00ccc as nil")
 	}
 	b.PutID(MessageActionPaymentSentMeTypeID)
 	return m.EncodeBare(b)
@@ -2127,25 +2147,28 @@ func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionPaymentSentMe) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaymentSentMe#8f31b327 as nil")
+		return fmt.Errorf("can't encode messageActionPaymentSentMe#ffa00ccc as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionPaymentSentMe#8f31b327: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionPaymentSentMe#ffa00ccc: field flags: %w", err)
 	}
 	b.PutString(m.Currency)
 	b.PutLong(m.TotalAmount)
 	b.PutBytes(m.Payload)
 	if m.Flags.Has(0) {
 		if err := m.Info.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionPaymentSentMe#8f31b327: field info: %w", err)
+			return fmt.Errorf("unable to encode messageActionPaymentSentMe#ffa00ccc: field info: %w", err)
 		}
 	}
 	if m.Flags.Has(1) {
 		b.PutString(m.ShippingOptionID)
 	}
 	if err := m.Charge.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionPaymentSentMe#8f31b327: field charge: %w", err)
+		return fmt.Errorf("unable to encode messageActionPaymentSentMe#ffa00ccc: field charge: %w", err)
+	}
+	if m.Flags.Has(4) {
+		b.PutInt(m.SubscriptionUntilDate)
 	}
 	return nil
 }
@@ -2153,10 +2176,10 @@ func (m *MessageActionPaymentSentMe) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageActionPaymentSentMe) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaymentSentMe#8f31b327 to nil")
+		return fmt.Errorf("can't decode messageActionPaymentSentMe#ffa00ccc to nil")
 	}
 	if err := b.ConsumeID(MessageActionPaymentSentMeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: %w", err)
+		return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -2164,11 +2187,11 @@ func (m *MessageActionPaymentSentMe) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionPaymentSentMe) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaymentSentMe#8f31b327 to nil")
+		return fmt.Errorf("can't decode messageActionPaymentSentMe#ffa00ccc to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field flags: %w", err)
 		}
 	}
 	m.RecurringInit = m.Flags.Has(2)
@@ -2176,40 +2199,47 @@ func (m *MessageActionPaymentSentMe) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field total_amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field total_amount: %w", err)
 		}
 		m.TotalAmount = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field payload: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field payload: %w", err)
 		}
 		m.Payload = value
 	}
 	if m.Flags.Has(0) {
 		if err := m.Info.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field info: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field info: %w", err)
 		}
 	}
 	if m.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field shipping_option_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field shipping_option_id: %w", err)
 		}
 		m.ShippingOptionID = value
 	}
 	{
 		if err := m.Charge.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field charge: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field charge: %w", err)
 		}
+	}
+	if m.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentSentMe#ffa00ccc: field subscription_until_date: %w", err)
+		}
+		m.SubscriptionUntilDate = value
 	}
 	return nil
 }
@@ -2320,7 +2350,25 @@ func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
 	return m.Charge
 }
 
-// MessageActionPaymentSent represents TL type `messageActionPaymentSent#96163f56`.
+// SetSubscriptionUntilDate sets value of SubscriptionUntilDate conditional field.
+func (m *MessageActionPaymentSentMe) SetSubscriptionUntilDate(value int) {
+	m.Flags.Set(4)
+	m.SubscriptionUntilDate = value
+}
+
+// GetSubscriptionUntilDate returns value of SubscriptionUntilDate conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionPaymentSentMe) GetSubscriptionUntilDate() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.SubscriptionUntilDate, true
+}
+
+// MessageActionPaymentSent represents TL type `messageActionPaymentSent#c624b16e`.
 // A payment was sent
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSent for reference.
@@ -2357,10 +2405,14 @@ type MessageActionPaymentSent struct {
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string
+	// SubscriptionUntilDate field of MessageActionPaymentSent.
+	//
+	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
+	SubscriptionUntilDate int
 }
 
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
-const MessageActionPaymentSentTypeID = 0x96163f56
+const MessageActionPaymentSentTypeID = 0xc624b16e
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionPaymentSent) construct() MessageActionClass { return &m }
@@ -2397,6 +2449,9 @@ func (m *MessageActionPaymentSent) Zero() bool {
 	if !(m.InvoiceSlug == "") {
 		return false
 	}
+	if !(m.SubscriptionUntilDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -2417,6 +2472,7 @@ func (m *MessageActionPaymentSent) FillFrom(from interface {
 	GetCurrency() (value string)
 	GetTotalAmount() (value int64)
 	GetInvoiceSlug() (value string, ok bool)
+	GetSubscriptionUntilDate() (value int, ok bool)
 }) {
 	m.RecurringInit = from.GetRecurringInit()
 	m.RecurringUsed = from.GetRecurringUsed()
@@ -2424,6 +2480,10 @@ func (m *MessageActionPaymentSent) FillFrom(from interface {
 	m.TotalAmount = from.GetTotalAmount()
 	if val, ok := from.GetInvoiceSlug(); ok {
 		m.InvoiceSlug = val
+	}
+
+	if val, ok := from.GetSubscriptionUntilDate(); ok {
+		m.SubscriptionUntilDate = val
 	}
 
 }
@@ -2474,6 +2534,11 @@ func (m *MessageActionPaymentSent) TypeInfo() tdp.Type {
 			SchemaName: "invoice_slug",
 			Null:       !m.Flags.Has(0),
 		},
+		{
+			Name:       "SubscriptionUntilDate",
+			SchemaName: "subscription_until_date",
+			Null:       !m.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -2489,12 +2554,15 @@ func (m *MessageActionPaymentSent) SetFlags() {
 	if !(m.InvoiceSlug == "") {
 		m.Flags.Set(0)
 	}
+	if !(m.SubscriptionUntilDate == 0) {
+		m.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaymentSent#96163f56 as nil")
+		return fmt.Errorf("can't encode messageActionPaymentSent#c624b16e as nil")
 	}
 	b.PutID(MessageActionPaymentSentTypeID)
 	return m.EncodeBare(b)
@@ -2503,16 +2571,19 @@ func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionPaymentSent) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaymentSent#96163f56 as nil")
+		return fmt.Errorf("can't encode messageActionPaymentSent#c624b16e as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionPaymentSent#96163f56: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionPaymentSent#c624b16e: field flags: %w", err)
 	}
 	b.PutString(m.Currency)
 	b.PutLong(m.TotalAmount)
 	if m.Flags.Has(0) {
 		b.PutString(m.InvoiceSlug)
+	}
+	if m.Flags.Has(4) {
+		b.PutInt(m.SubscriptionUntilDate)
 	}
 	return nil
 }
@@ -2520,10 +2591,10 @@ func (m *MessageActionPaymentSent) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageActionPaymentSent) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaymentSent#96163f56 to nil")
+		return fmt.Errorf("can't decode messageActionPaymentSent#c624b16e to nil")
 	}
 	if err := b.ConsumeID(MessageActionPaymentSentTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: %w", err)
+		return fmt.Errorf("unable to decode messageActionPaymentSent#c624b16e: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -2531,11 +2602,11 @@ func (m *MessageActionPaymentSent) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionPaymentSent) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaymentSent#96163f56 to nil")
+		return fmt.Errorf("can't decode messageActionPaymentSent#c624b16e to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSent#c624b16e: field flags: %w", err)
 		}
 	}
 	m.RecurringInit = m.Flags.Has(2)
@@ -2543,23 +2614,30 @@ func (m *MessageActionPaymentSent) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSent#c624b16e: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field total_amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSent#c624b16e: field total_amount: %w", err)
 		}
 		m.TotalAmount = value
 	}
 	if m.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field invoice_slug: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSent#c624b16e: field invoice_slug: %w", err)
 		}
 		m.InvoiceSlug = value
+	}
+	if m.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentSent#c624b16e: field subscription_until_date: %w", err)
+		}
+		m.SubscriptionUntilDate = value
 	}
 	return nil
 }
@@ -2634,6 +2712,24 @@ func (m *MessageActionPaymentSent) GetInvoiceSlug() (value string, ok bool) {
 		return value, false
 	}
 	return m.InvoiceSlug, true
+}
+
+// SetSubscriptionUntilDate sets value of SubscriptionUntilDate conditional field.
+func (m *MessageActionPaymentSent) SetSubscriptionUntilDate(value int) {
+	m.Flags.Set(4)
+	m.SubscriptionUntilDate = value
+}
+
+// GetSubscriptionUntilDate returns value of SubscriptionUntilDate conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionPaymentSent) GetSubscriptionUntilDate() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.SubscriptionUntilDate, true
 }
 
 // MessageActionPhoneCall represents TL type `messageActionPhoneCall#80e11a7f`.
@@ -9610,8 +9706,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPinMessage: // messageActionPinMessage#94bd38ed
 //	case *tg.MessageActionHistoryClear: // messageActionHistoryClear#9fbab604
 //	case *tg.MessageActionGameScore: // messageActionGameScore#92a72876
-//	case *tg.MessageActionPaymentSentMe: // messageActionPaymentSentMe#8f31b327
-//	case *tg.MessageActionPaymentSent: // messageActionPaymentSent#96163f56
+//	case *tg.MessageActionPaymentSentMe: // messageActionPaymentSentMe#ffa00ccc
+//	case *tg.MessageActionPaymentSent: // messageActionPaymentSent#c624b16e
 //	case *tg.MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
 //	case *tg.MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
 //	case *tg.MessageActionCustomAction: // messageActionCustomAction#fae69f56
@@ -9770,14 +9866,14 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionPaymentSentMeTypeID:
-		// Decoding messageActionPaymentSentMe#8f31b327.
+		// Decoding messageActionPaymentSentMe#ffa00ccc.
 		v := MessageActionPaymentSentMe{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
 		return &v, nil
 	case MessageActionPaymentSentTypeID:
-		// Decoding messageActionPaymentSent#96163f56.
+		// Decoding messageActionPaymentSent#c624b16e.
 		v := MessageActionPaymentSent{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)

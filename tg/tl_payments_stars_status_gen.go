@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsStarsStatus represents TL type `payments.starsStatus#bbfa316c`.
+// PaymentsStarsStatus represents TL type `payments.starsStatus#6c9ce8ed`.
 // Info about the current Telegram Star subscriptions, balance and transaction history
 // »¹.
 //
@@ -46,7 +46,7 @@ type PaymentsStarsStatus struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Current Telegram Star balance.
-	Balance int64
+	Balance StarsAmount
 	// Info about current Telegram Star subscriptions, only returned when invoking payments
 	// getStarsTransactions¹ and payments.getStarsSubscriptions².
 	//
@@ -92,7 +92,7 @@ type PaymentsStarsStatus struct {
 }
 
 // PaymentsStarsStatusTypeID is TL type id of PaymentsStarsStatus.
-const PaymentsStarsStatusTypeID = 0xbbfa316c
+const PaymentsStarsStatusTypeID = 0x6c9ce8ed
 
 // Ensuring interfaces in compile-time for PaymentsStarsStatus.
 var (
@@ -109,7 +109,7 @@ func (s *PaymentsStarsStatus) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
-	if !(s.Balance == 0) {
+	if !(s.Balance.Zero()) {
 		return false
 	}
 	if !(s.Subscriptions == nil) {
@@ -148,7 +148,7 @@ func (s *PaymentsStarsStatus) String() string {
 
 // FillFrom fills PaymentsStarsStatus from given interface.
 func (s *PaymentsStarsStatus) FillFrom(from interface {
-	GetBalance() (value int64)
+	GetBalance() (value StarsAmount)
 	GetSubscriptions() (value []StarsSubscription, ok bool)
 	GetSubscriptionsNextOffset() (value string, ok bool)
 	GetSubscriptionsMissingBalance() (value int64, ok bool)
@@ -268,7 +268,7 @@ func (s *PaymentsStarsStatus) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *PaymentsStarsStatus) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starsStatus#bbfa316c as nil")
+		return fmt.Errorf("can't encode payments.starsStatus#6c9ce8ed as nil")
 	}
 	b.PutID(PaymentsStarsStatusTypeID)
 	return s.EncodeBare(b)
@@ -277,18 +277,20 @@ func (s *PaymentsStarsStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsStarsStatus) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starsStatus#bbfa316c as nil")
+		return fmt.Errorf("can't encode payments.starsStatus#6c9ce8ed as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field flags: %w", err)
 	}
-	b.PutLong(s.Balance)
+	if err := s.Balance.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field balance: %w", err)
+	}
 	if s.Flags.Has(1) {
 		b.PutVectorHeader(len(s.Subscriptions))
 		for idx, v := range s.Subscriptions {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field subscriptions element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field subscriptions element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -302,7 +304,7 @@ func (s *PaymentsStarsStatus) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.History))
 		for idx, v := range s.History {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field history element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field history element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -312,19 +314,19 @@ func (s *PaymentsStarsStatus) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(s.Chats))
 	for idx, v := range s.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starsStatus#bbfa316c: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starsStatus#6c9ce8ed: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -333,10 +335,10 @@ func (s *PaymentsStarsStatus) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsStarsStatus) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starsStatus#bbfa316c to nil")
+		return fmt.Errorf("can't decode payments.starsStatus#6c9ce8ed to nil")
 	}
 	if err := b.ConsumeID(PaymentsStarsStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: %w", err)
+		return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -344,24 +346,22 @@ func (s *PaymentsStarsStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starsStatus#bbfa316c to nil")
+		return fmt.Errorf("can't decode payments.starsStatus#6c9ce8ed to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field flags: %w", err)
 		}
 	}
 	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field balance: %w", err)
+		if err := s.Balance.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field balance: %w", err)
 		}
-		s.Balance = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field subscriptions: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field subscriptions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -370,7 +370,7 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StarsSubscription
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field subscriptions: %w", err)
+				return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field subscriptions: %w", err)
 			}
 			s.Subscriptions = append(s.Subscriptions, value)
 		}
@@ -378,21 +378,21 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field subscriptions_next_offset: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field subscriptions_next_offset: %w", err)
 		}
 		s.SubscriptionsNextOffset = value
 	}
 	if s.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field subscriptions_missing_balance: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field subscriptions_missing_balance: %w", err)
 		}
 		s.SubscriptionsMissingBalance = value
 	}
 	if s.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field history: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field history: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -401,7 +401,7 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StarsTransaction
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field history: %w", err)
+				return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field history: %w", err)
 			}
 			s.History = append(s.History, value)
 		}
@@ -409,14 +409,14 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field next_offset: %w", err)
 		}
 		s.NextOffset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field chats: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -425,7 +425,7 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field chats: %w", err)
+				return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field chats: %w", err)
 			}
 			s.Chats = append(s.Chats, value)
 		}
@@ -433,7 +433,7 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field users: %w", err)
+			return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -442,7 +442,7 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.starsStatus#bbfa316c: field users: %w", err)
+				return fmt.Errorf("unable to decode payments.starsStatus#6c9ce8ed: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
 		}
@@ -451,7 +451,7 @@ func (s *PaymentsStarsStatus) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetBalance returns value of Balance field.
-func (s *PaymentsStarsStatus) GetBalance() (value int64) {
+func (s *PaymentsStarsStatus) GetBalance() (value StarsAmount) {
 	if s == nil {
 		return
 	}

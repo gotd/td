@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsBotCancelStarsSubscriptionRequest represents TL type `payments.botCancelStarsSubscription#57f9ece6`.
+// PaymentsBotCancelStarsSubscriptionRequest represents TL type `payments.botCancelStarsSubscription#6dfa0622`.
 //
 // See https://core.telegram.org/method/payments.botCancelStarsSubscription for reference.
 type PaymentsBotCancelStarsSubscriptionRequest struct {
@@ -41,18 +41,12 @@ type PaymentsBotCancelStarsSubscriptionRequest struct {
 	Restore bool
 	// UserID field of PaymentsBotCancelStarsSubscriptionRequest.
 	UserID InputUserClass
-	// InvoiceSlug field of PaymentsBotCancelStarsSubscriptionRequest.
-	//
-	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
-	InvoiceSlug string
 	// ChargeID field of PaymentsBotCancelStarsSubscriptionRequest.
-	//
-	// Use SetChargeID and GetChargeID helpers.
 	ChargeID string
 }
 
 // PaymentsBotCancelStarsSubscriptionRequestTypeID is TL type id of PaymentsBotCancelStarsSubscriptionRequest.
-const PaymentsBotCancelStarsSubscriptionRequestTypeID = 0x57f9ece6
+const PaymentsBotCancelStarsSubscriptionRequestTypeID = 0x6dfa0622
 
 // Ensuring interfaces in compile-time for PaymentsBotCancelStarsSubscriptionRequest.
 var (
@@ -75,9 +69,6 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) Zero() bool {
 	if !(b.UserID == nil) {
 		return false
 	}
-	if !(b.InvoiceSlug == "") {
-		return false
-	}
 	if !(b.ChargeID == "") {
 		return false
 	}
@@ -98,19 +89,11 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) String() string {
 func (b *PaymentsBotCancelStarsSubscriptionRequest) FillFrom(from interface {
 	GetRestore() (value bool)
 	GetUserID() (value InputUserClass)
-	GetInvoiceSlug() (value string, ok bool)
-	GetChargeID() (value string, ok bool)
+	GetChargeID() (value string)
 }) {
 	b.Restore = from.GetRestore()
 	b.UserID = from.GetUserID()
-	if val, ok := from.GetInvoiceSlug(); ok {
-		b.InvoiceSlug = val
-	}
-
-	if val, ok := from.GetChargeID(); ok {
-		b.ChargeID = val
-	}
-
+	b.ChargeID = from.GetChargeID()
 }
 
 // TypeID returns type id in TL schema.
@@ -146,14 +129,8 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) TypeInfo() tdp.Type {
 			SchemaName: "user_id",
 		},
 		{
-			Name:       "InvoiceSlug",
-			SchemaName: "invoice_slug",
-			Null:       !b.Flags.Has(1),
-		},
-		{
 			Name:       "ChargeID",
 			SchemaName: "charge_id",
-			Null:       !b.Flags.Has(2),
 		},
 	}
 	return typ
@@ -164,18 +141,12 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) SetFlags() {
 	if !(b.Restore == false) {
 		b.Flags.Set(0)
 	}
-	if !(b.InvoiceSlug == "") {
-		b.Flags.Set(1)
-	}
-	if !(b.ChargeID == "") {
-		b.Flags.Set(2)
-	}
 }
 
 // Encode implements bin.Encoder.
 func (b *PaymentsBotCancelStarsSubscriptionRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode payments.botCancelStarsSubscription#57f9ece6 as nil")
+		return fmt.Errorf("can't encode payments.botCancelStarsSubscription#6dfa0622 as nil")
 	}
 	buf.PutID(PaymentsBotCancelStarsSubscriptionRequestTypeID)
 	return b.EncodeBare(buf)
@@ -184,34 +155,29 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) Encode(buf *bin.Buffer) erro
 // EncodeBare implements bin.BareEncoder.
 func (b *PaymentsBotCancelStarsSubscriptionRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode payments.botCancelStarsSubscription#57f9ece6 as nil")
+		return fmt.Errorf("can't encode payments.botCancelStarsSubscription#6dfa0622 as nil")
 	}
 	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode payments.botCancelStarsSubscription#57f9ece6: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.botCancelStarsSubscription#6dfa0622: field flags: %w", err)
 	}
 	if b.UserID == nil {
-		return fmt.Errorf("unable to encode payments.botCancelStarsSubscription#57f9ece6: field user_id is nil")
+		return fmt.Errorf("unable to encode payments.botCancelStarsSubscription#6dfa0622: field user_id is nil")
 	}
 	if err := b.UserID.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode payments.botCancelStarsSubscription#57f9ece6: field user_id: %w", err)
+		return fmt.Errorf("unable to encode payments.botCancelStarsSubscription#6dfa0622: field user_id: %w", err)
 	}
-	if b.Flags.Has(1) {
-		buf.PutString(b.InvoiceSlug)
-	}
-	if b.Flags.Has(2) {
-		buf.PutString(b.ChargeID)
-	}
+	buf.PutString(b.ChargeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *PaymentsBotCancelStarsSubscriptionRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode payments.botCancelStarsSubscription#57f9ece6 to nil")
+		return fmt.Errorf("can't decode payments.botCancelStarsSubscription#6dfa0622 to nil")
 	}
 	if err := buf.ConsumeID(PaymentsBotCancelStarsSubscriptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#57f9ece6: %w", err)
+		return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#6dfa0622: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -219,32 +185,25 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) Decode(buf *bin.Buffer) erro
 // DecodeBare implements bin.BareDecoder.
 func (b *PaymentsBotCancelStarsSubscriptionRequest) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode payments.botCancelStarsSubscription#57f9ece6 to nil")
+		return fmt.Errorf("can't decode payments.botCancelStarsSubscription#6dfa0622 to nil")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#57f9ece6: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#6dfa0622: field flags: %w", err)
 		}
 	}
 	b.Restore = b.Flags.Has(0)
 	{
 		value, err := DecodeInputUser(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#57f9ece6: field user_id: %w", err)
+			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#6dfa0622: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
-	if b.Flags.Has(1) {
+	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#57f9ece6: field invoice_slug: %w", err)
-		}
-		b.InvoiceSlug = value
-	}
-	if b.Flags.Has(2) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#57f9ece6: field charge_id: %w", err)
+			return fmt.Errorf("unable to decode payments.botCancelStarsSubscription#6dfa0622: field charge_id: %w", err)
 		}
 		b.ChargeID = value
 	}
@@ -278,43 +237,15 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) GetUserID() (value InputUser
 	return b.UserID
 }
 
-// SetInvoiceSlug sets value of InvoiceSlug conditional field.
-func (b *PaymentsBotCancelStarsSubscriptionRequest) SetInvoiceSlug(value string) {
-	b.Flags.Set(1)
-	b.InvoiceSlug = value
-}
-
-// GetInvoiceSlug returns value of InvoiceSlug conditional field and
-// boolean which is true if field was set.
-func (b *PaymentsBotCancelStarsSubscriptionRequest) GetInvoiceSlug() (value string, ok bool) {
+// GetChargeID returns value of ChargeID field.
+func (b *PaymentsBotCancelStarsSubscriptionRequest) GetChargeID() (value string) {
 	if b == nil {
 		return
 	}
-	if !b.Flags.Has(1) {
-		return value, false
-	}
-	return b.InvoiceSlug, true
+	return b.ChargeID
 }
 
-// SetChargeID sets value of ChargeID conditional field.
-func (b *PaymentsBotCancelStarsSubscriptionRequest) SetChargeID(value string) {
-	b.Flags.Set(2)
-	b.ChargeID = value
-}
-
-// GetChargeID returns value of ChargeID conditional field and
-// boolean which is true if field was set.
-func (b *PaymentsBotCancelStarsSubscriptionRequest) GetChargeID() (value string, ok bool) {
-	if b == nil {
-		return
-	}
-	if !b.Flags.Has(2) {
-		return value, false
-	}
-	return b.ChargeID, true
-}
-
-// PaymentsBotCancelStarsSubscription invokes method payments.botCancelStarsSubscription#57f9ece6 returning error if any.
+// PaymentsBotCancelStarsSubscription invokes method payments.botCancelStarsSubscription#6dfa0622 returning error if any.
 //
 // See https://core.telegram.org/method/payments.botCancelStarsSubscription for reference.
 func (c *Client) PaymentsBotCancelStarsSubscription(ctx context.Context, request *PaymentsBotCancelStarsSubscriptionRequest) (bool, error) {
