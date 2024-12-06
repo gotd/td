@@ -29,7 +29,9 @@ type plainResolver struct {
 }
 
 func (p plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-	peer, err := p.raw.ContactsResolveUsername(ctx, domain)
+	peer, err := p.raw.ContactsResolveUsername(ctx, &tg.ContactsResolveUsernameRequest{
+		Username: domain,
+	})
 	if err != nil {
 		return nil, errors.Wrap(err, "resolve")
 	}

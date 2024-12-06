@@ -165,7 +165,9 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 	}
 
 	ch := m.sg.DoChan(domain, func() (interface{}, error) {
-		result, err := m.api.ContactsResolveUsername(ctx, domain)
+		result, err := m.api.ContactsResolveUsername(ctx, &tg.ContactsResolveUsernameRequest{
+			Username: domain,
+		})
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve")
 		}
