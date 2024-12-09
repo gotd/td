@@ -1,14 +1,16 @@
-package testutil
+package tgacc
 
 import (
 	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/testutil"
 )
 
 func TestExternalE2E(t *testing.T) {
-	SkipExternal(t)
+	testutil.SkipExternal(t)
 
 	manager, err := NewTestAccountManager()
 	require.NoError(t, err)

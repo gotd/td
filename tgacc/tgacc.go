@@ -1,4 +1,4 @@
-package testutil
+package tgacc
 
 import (
 	"context"
@@ -11,13 +11,13 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/testutil/tgacc"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgacc/oas"
 )
 
 // TestAccountManager is external test account manager.
 type TestAccountManager struct {
-	client *tgacc.Client
+	client *oas.Client
 }
 
 func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) {
@@ -30,7 +30,7 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 		return nil, errors.New("GITHUB_RUN_ID is empty")
 	}
 	attempt, _ := strconv.Atoi(os.Getenv("GITHUB_RUN_ATTEMPT"))
-	res, err := t.client.AcquireTelegramAccount(ctx, &tgacc.AcquireTelegramAccountReq{
+	res, err := t.client.AcquireTelegramAccount(ctx, &oas.AcquireTelegramAccountReq{
 		RepoOwner:  "gotd",
 		RepoName:   "td",
 		Job:        jobID,
@@ -57,8 +57,8 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 
 type ghSecuritySource struct{}
 
-func (s ghSecuritySource) TokenAuth(ctx context.Context, operationName tgacc.OperationName) (tgacc.TokenAuth, error) {
-	return tgacc.TokenAuth{
+func (s ghSecuritySource) TokenAuth(ctx context.Context, operationName oas.OperationName) (oas.TokenAuth, error) {
+	return oas.TokenAuth{
 		APIKey: os.Getenv("GITHUB_TOKEN"),
 	}, nil
 }
@@ -68,16 +68,16 @@ type TestAccount struct {
 	UserAuthenticator auth.UserAuthenticator
 
 	token  uuid.UUID
-	client *tgacc.Client
+	client *oas.Client
 }
 
 // Close releases telegram account.
 func (t TestAccount) Close() error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
-	return t.client.HeartbeatTelegramAccount(ctx, tgacc.HeartbeatTelegramAccountParams{
+	return t.client.HeartbeatTelegramAccount(ctx, oas.HeartbeatTelegramAccountParams{
 		Token:  t.token,
-		Forget: tgacc.NewOptBool(true),
+		Forget: oas.NewOptBool(true),
 	})
 }
 
@@ -86,7 +86,7 @@ func (t TestAccount) Close() error {
 type codeAuth struct {
 	phone  string
 	token  uuid.UUID
-	client *tgacc.Client
+	client *oas.Client
 }
 
 func (codeAuth) SignUp(ctx context.Context) (auth.UserInfo, error) {
@@ -111,7 +111,7 @@ func (a codeAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, 
 	bo.MaxInterval = time.Second
 
 	return backoff.RetryWithData(func() (string, error) {
-		res, err := a.client.ReceiveTelegramCode(ctx, tgacc.ReceiveTelegramCodeParams{
+		res, err := a.client.ReceiveTelegramCode(ctx, oas.ReceiveTelegramCodeParams{
 			Token: a.token,
 		})
 		if err != nil {
@@ -125,7 +125,7 @@ func (a codeAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, 
 }
 
 func NewTestAccountManager() (*TestAccountManager, error) {
-	client, err := tgacc.NewClient("https://bot.gotd.dev", ghSecuritySource{})
+	client, err := oas.NewClient("https://bot.gotd.dev", ghSecuritySource{})
 	if err != nil {
 		return nil, errors.Wrap(err, "create client")
 	}

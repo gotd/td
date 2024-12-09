@@ -12,7 +12,7 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/testutil"
+	"github.com/gotd/td/tgacc"
 )
 
 // Suite is struct which contains external E2E test parameters.
@@ -22,7 +22,7 @@ type Suite struct {
 	appHash string
 	dc      int
 	logger  *zap.Logger
-	manager *testutil.TestAccountManager
+	manager *tgacc.TestAccountManager
 	closers []func() error
 
 	rand io.Reader
@@ -45,7 +45,7 @@ func (s *Suite) Close() error {
 // NewSuite creates new Suite.
 func NewSuite(t *testing.T, config TestOptions) *Suite {
 	config.setDefaults()
-	manager, err := testutil.NewTestAccountManager()
+	manager, err := tgacc.NewTestAccountManager()
 	require.NoError(t, err)
 	s := &Suite{
 		TB:      t,
