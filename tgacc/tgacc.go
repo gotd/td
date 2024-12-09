@@ -48,6 +48,7 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 		UserAuthenticator: &codeAuth{
 			phone:  phone,
 			client: t.client,
+			token:  res.Token,
 		},
 
 		token:  res.Token,
