@@ -16,6 +16,7 @@ func (s *Suite) createFlow(ctx context.Context) (auth.Flow, error) {
 		if err != nil {
 			return auth.Flow{}, errors.Wrap(err, "acquire account")
 		}
+		s.closers = append(s.closers, account.Close)
 		return auth.NewFlow(account.UserAuthenticator, auth.SendCodeOptions{}), nil
 	}
 
