@@ -54,6 +54,8 @@ func NewSuite(t *testing.T, config TestOptions) *Suite {
 		dc:      config.DC,
 		logger:  config.Logger,
 		manager: manager,
+		rand:    config.Random,
+		used:    make(map[string]struct{}),
 	}
 	if managerEnabled, _ := strconv.ParseBool(os.Getenv("TEST_ACCOUNTS_BROKEN")); managerEnabled {
 		t.Log("External test accounts are used as per TEST_ACCOUNTS_BROKEN")
