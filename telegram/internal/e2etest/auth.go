@@ -2,6 +2,7 @@ package e2etest
 
 import (
 	"context"
+	"time"
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-faster/errors"
@@ -10,6 +11,15 @@ import (
 )
 
 func (s *Suite) createFlow(ctx context.Context) (auth.Flow, error) {
+	if s.manager != nil {
+		account, err := s.manager.Acquire(ctx)
+		if err != nil {
+			return auth.Flow{}, errors.Wrap(err, "acquire account")
+		}
+		s.closers = append(s.closers, account.Close)
+		return auth.NewFlow(account.UserAuthenticator, auth.SendCodeOptions{}), nil
+	}
+
 	var ua auth.UserAuthenticator
 	for {
 		ua = auth.Test(s.rand, s.dc)
@@ -51,7 +61,10 @@ func (s *Suite) Authenticate(ctx context.Context, client auth.FlowClient) error 
 
 // RetryAuthenticate authenticates client on test server.
 func (s *Suite) RetryAuthenticate(ctx context.Context, client auth.FlowClient) error {
-	bck := backoff.WithContext(backoff.NewExponentialBackOff(), ctx)
+	bc := backoff.NewExponentialBackOff()
+	bc.MaxElapsedTime = time.Minute
+	bc.MaxInterval = time.Second * 3
+	bck := backoff.WithContext(bc, ctx)
 	return backoff.Retry(func() error {
 		return s.Authenticate(ctx, client)
 	}, bck)

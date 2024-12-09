@@ -55,6 +55,9 @@ func TestSuite_Authenticate(t *testing.T) {
 	s := NewSuite(t, TestOptions{
 		Logger: logger,
 	})
+	if s.manager != nil {
+		t.Skip("Not testing external manager")
+	}
 
 	flow := &mockFlow{}
 	require.NoError(t, s.Authenticate(ctx, flow))

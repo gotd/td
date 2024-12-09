@@ -1,0 +1,6 @@
+generator:
+  features:
+    enable:
+      - "ogen/otel"
+    disable:
+      - "paths/server"
