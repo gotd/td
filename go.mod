@@ -1,7 +1,8 @@
 module github.com/gotd/td
 
-go 1.21
-toolchain go1.22.5
+go 1.22
+
+toolchain go1.23.3
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
