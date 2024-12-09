@@ -43,7 +43,7 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 
 	phone := string(res.AccountID)
 
-	return &TestAccount{
+	ta := &TestAccount{
 		Phone: phone,
 		UserAuthenticator: &codeAuth{
 			phone:  phone,
@@ -53,7 +53,9 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 
 		token:  res.Token,
 		client: t.client,
-	}, nil
+	}
+	go ta.heartBeats()
+	return ta, nil
 }
 
 type ghSecuritySource struct{}
@@ -68,12 +70,36 @@ type TestAccount struct {
 	Phone             string
 	UserAuthenticator auth.UserAuthenticator
 
-	token  uuid.UUID
-	client *oas.Client
+	token     uuid.UUID
+	client    *oas.Client
+	heartbeat chan struct{}
+}
+
+func (t TestAccount) heartBeats() {
+	ticker := time.NewTicker(time.Second * 10)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-t.heartbeat:
+			return
+		case <-ticker.C:
+			t.sendHeartBeat()
+		}
+	}
+}
+
+func (t TestAccount) sendHeartBeat() {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+	_ = t.client.HeartbeatTelegramAccount(ctx, oas.HeartbeatTelegramAccountParams{
+		Token: t.token,
+	})
 }
 
 // Close releases telegram account.
 func (t TestAccount) Close() error {
+	close(t.heartbeat)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	return t.client.HeartbeatTelegramAccount(ctx, oas.HeartbeatTelegramAccountParams{
