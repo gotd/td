@@ -44,7 +44,7 @@ jobs:
         env:
           GOTD_TEST_EXTERNAL: 1
           GOTD_MTPROXY_ADDR: "127.0.0.1:3128"
-          GOTD_E2E_DIALOGS_BROKEN: 1 # TODO(ernado): enable when fixed
+          TEST_ACCOUNTS_BROKEN: 1 # use external test accounts
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_JOB_ID: ${{ github.job }}
           GITHUB_RUN_ID: ${{ github.run_id }}

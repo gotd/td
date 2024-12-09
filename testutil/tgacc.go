@@ -45,7 +45,7 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 
 	return &TestAccount{
 		Phone: phone,
-		AuthFlow: &codeAuth{
+		UserAuthenticator: &codeAuth{
 			phone:  phone,
 			client: t.client,
 		},
@@ -64,8 +64,8 @@ func (s ghSecuritySource) TokenAuth(ctx context.Context, operationName tgacc.Ope
 }
 
 type TestAccount struct {
-	Phone    string
-	AuthFlow auth.UserAuthenticator
+	Phone             string
+	UserAuthenticator auth.UserAuthenticator
 
 	token  uuid.UUID
 	client *tgacc.Client
