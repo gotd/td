@@ -51,8 +51,9 @@ func (t *TestAccountManager) Acquire(ctx context.Context) (*TestAccount, error) 
 			token:  res.Token,
 		},
 
-		token:  res.Token,
-		client: t.client,
+		token:     res.Token,
+		client:    t.client,
+		heartbeat: make(chan struct{}),
 	}
 	go ta.heartBeats()
 	return ta, nil
