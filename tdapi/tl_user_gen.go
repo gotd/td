@@ -48,19 +48,17 @@ type User struct {
 	// Profile photo of the user; may be null
 	ProfilePhoto ProfilePhoto
 	// Identifier of the accent color for name, and backgrounds of profile photo, reply
-	// header, and link preview. For Telegram Premium users only
+	// header, and link preview
 	AccentColorID int32
 	// Identifier of a custom emoji to be shown on the reply header and link preview
-	// background; 0 if none. For Telegram Premium users only
+	// background; 0 if none
 	BackgroundCustomEmojiID int64
-	// Identifier of the accent color for the user's profile; -1 if none. For Telegram
-	// Premium users only
+	// Identifier of the accent color for the user's profile; -1 if none
 	ProfileAccentColorID int32
 	// Identifier of a custom emoji to be shown on the background of the user's profile; 0 if
-	// none. For Telegram Premium users only
+	// none
 	ProfileBackgroundCustomEmojiID int64
-	// Emoji status to be shown instead of the default Telegram Premium badge; may be null.
-	// For Telegram Premium users only
+	// Emoji status to be shown instead of the default Telegram Premium badge; may be null
 	EmojiStatus EmojiStatus
 	// The user is a contact of the current user
 	IsContact bool
