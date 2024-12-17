@@ -13843,7 +13843,7 @@ func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
 }
 
 // UpdateDeleteScheduledMessages represents TL type `updateDeleteScheduledMessages#f2a71983`.
-// Some scheduled messages¹ were deleted from the schedule queue of a chat
+// Some scheduled messages¹ were deleted (or sent) from the schedule queue of a chat
 //
 // Links:
 //  1. https://core.telegram.org/api/scheduled-messages
@@ -13859,7 +13859,14 @@ type UpdateDeleteScheduledMessages struct {
 	Peer PeerClass
 	// Deleted scheduled messages
 	Messages []int
-	// SentMessages field of UpdateDeleteScheduledMessages.
+	// If set, this update indicates that some scheduled messages were sent (not simply
+	// deleted from the schedule queue).  In this case, the messages field will contain the
+	// scheduled message IDs for the sent messages (initially returned in
+	// updateNewScheduledMessage¹), and sent_messages will contain the real message IDs for
+	// the sent messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateNewScheduledMessage
 	//
 	// Use SetSentMessages and GetSentMessages helpers.
 	SentMessages []int

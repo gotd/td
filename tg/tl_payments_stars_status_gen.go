@@ -56,14 +56,11 @@ type PaymentsStarsStatus struct {
 	//
 	// Use SetSubscriptions and GetSubscriptions helpers.
 	Subscriptions []StarsSubscription
-	// Offset for pagination of subscriptions: only usable with payments
-	// getStarsSubscriptions¹, returned when invoking payments.getStarsTransactions² and
-	// payments.getStarsSubscriptions³.
+	// Offset for pagination of subscriptions: only usable and returned when invoking
+	// payments.getStarsSubscriptions¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/payments.getStarsSubscriptions
-	//  2) https://core.telegram.org/method/payments.getStarsTransactions
-	//  3) https://core.telegram.org/method/payments.getStarsSubscriptions
 	//
 	// Use SetSubscriptionsNextOffset and GetSubscriptionsNextOffset helpers.
 	SubscriptionsNextOffset string
