@@ -44,7 +44,7 @@ type PaymentsGetStarsSubscriptionsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to return only expired subscriptions due to an excessively low Telegram Star
+	// Whether to return only subscriptions expired due to an excessively low Telegram Star
 	// balance.
 	MissingBalance bool
 	// Always pass inputPeerSelf¹.
@@ -52,10 +52,10 @@ type PaymentsGetStarsSubscriptionsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerSelf
 	Peer InputPeerClass
-	// Offset for pagination, taken from payments.starsStatus¹.
+	// Offset for pagination, taken from payments.starsStatus¹.subscriptions_next_offset.
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/payments.starsStatus#subscriptions_next_offset
+	//  1) https://core.telegram.org/constructor/payments.starsStatus
 	Offset string
 }
 

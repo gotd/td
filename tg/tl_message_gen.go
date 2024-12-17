@@ -301,11 +301,12 @@ type Message struct {
 	// messageMediaDocument¹.alt_document), and will be sent once the video is processed,
 	// which will happen approximately at the specified date (i.e. messages with this flag
 	// set should be treated similarly to scheduled messages², but instead of the scheduled
-	// date, date contains the estimated conversion date).
+	// date, date contains the estimated conversion date). See here »³ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messageMediaDocument
 	//  2) https://core.telegram.org/api/scheduled-messages
+	//  3) https://core.telegram.org/api/files#video-qualities
 	VideoProcessingPending bool
 	// ID of the message
 	ID int

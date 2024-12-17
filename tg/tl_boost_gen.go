@@ -90,7 +90,7 @@ type Boost struct {
 	//
 	// Use SetMultiplier and GetMultiplier helpers.
 	Multiplier int
-	// Stars field of Boost.
+	// Number of Telegram Stars distributed among the winners of the giveaway.
 	//
 	// Use SetStars and GetStars helpers.
 	Stars int64

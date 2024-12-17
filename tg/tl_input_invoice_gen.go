@@ -842,7 +842,11 @@ type InputInvoiceStarGift struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/starGift
 	GiftID int64
-	// Optional message, attached with the gift
+	// Optional message, attached with the gift. The maximum length for this field is
+	// specified in the stargifts_message_length_max client configuration value »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#stargifts-message-length-max
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
