@@ -60,4 +60,5 @@ jobs:
       - name: Send coverage
         uses: codecov/codecov-action@v5
         with:
-          file: profile.out
+          files: profile.out
+          fail_ci_if_error: true
