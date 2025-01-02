@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsConvertStarGiftRequest represents TL type `payments.convertStarGift#421e027`.
+// PaymentsConvertStarGiftRequest represents TL type `payments.convertStarGift#72770c83`.
 // Convert a received gift »¹ into Telegram Stars: this will permanently destroy the
 // gift, converting it into starGift².convert_stars Telegram Stars³, added to the
 // user's balance.
@@ -48,8 +48,6 @@ var (
 //
 // See https://core.telegram.org/method/payments.convertStarGift for reference.
 type PaymentsConvertStarGiftRequest struct {
-	// ID of the user that sent us the gift.
-	UserID InputUserClass
 	// The ID of the messageService¹ with the messageActionStarGift².
 	//
 	// Links:
@@ -59,7 +57,7 @@ type PaymentsConvertStarGiftRequest struct {
 }
 
 // PaymentsConvertStarGiftRequestTypeID is TL type id of PaymentsConvertStarGiftRequest.
-const PaymentsConvertStarGiftRequestTypeID = 0x421e027
+const PaymentsConvertStarGiftRequestTypeID = 0x72770c83
 
 // Ensuring interfaces in compile-time for PaymentsConvertStarGiftRequest.
 var (
@@ -72,9 +70,6 @@ var (
 func (c *PaymentsConvertStarGiftRequest) Zero() bool {
 	if c == nil {
 		return true
-	}
-	if !(c.UserID == nil) {
-		return false
 	}
 	if !(c.MsgID == 0) {
 		return false
@@ -94,10 +89,8 @@ func (c *PaymentsConvertStarGiftRequest) String() string {
 
 // FillFrom fills PaymentsConvertStarGiftRequest from given interface.
 func (c *PaymentsConvertStarGiftRequest) FillFrom(from interface {
-	GetUserID() (value InputUserClass)
 	GetMsgID() (value int)
 }) {
-	c.UserID = from.GetUserID()
 	c.MsgID = from.GetMsgID()
 }
 
@@ -125,10 +118,6 @@ func (c *PaymentsConvertStarGiftRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
-		},
-		{
 			Name:       "MsgID",
 			SchemaName: "msg_id",
 		},
@@ -139,7 +128,7 @@ func (c *PaymentsConvertStarGiftRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PaymentsConvertStarGiftRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.convertStarGift#421e027 as nil")
+		return fmt.Errorf("can't encode payments.convertStarGift#72770c83 as nil")
 	}
 	b.PutID(PaymentsConvertStarGiftRequestTypeID)
 	return c.EncodeBare(b)
@@ -148,13 +137,7 @@ func (c *PaymentsConvertStarGiftRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PaymentsConvertStarGiftRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.convertStarGift#421e027 as nil")
-	}
-	if c.UserID == nil {
-		return fmt.Errorf("unable to encode payments.convertStarGift#421e027: field user_id is nil")
-	}
-	if err := c.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.convertStarGift#421e027: field user_id: %w", err)
+		return fmt.Errorf("can't encode payments.convertStarGift#72770c83 as nil")
 	}
 	b.PutInt(c.MsgID)
 	return nil
@@ -163,10 +146,10 @@ func (c *PaymentsConvertStarGiftRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *PaymentsConvertStarGiftRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.convertStarGift#421e027 to nil")
+		return fmt.Errorf("can't decode payments.convertStarGift#72770c83 to nil")
 	}
 	if err := b.ConsumeID(PaymentsConvertStarGiftRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.convertStarGift#421e027: %w", err)
+		return fmt.Errorf("unable to decode payments.convertStarGift#72770c83: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -174,31 +157,16 @@ func (c *PaymentsConvertStarGiftRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PaymentsConvertStarGiftRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.convertStarGift#421e027 to nil")
-	}
-	{
-		value, err := DecodeInputUser(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.convertStarGift#421e027: field user_id: %w", err)
-		}
-		c.UserID = value
+		return fmt.Errorf("can't decode payments.convertStarGift#72770c83 to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.convertStarGift#421e027: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode payments.convertStarGift#72770c83: field msg_id: %w", err)
 		}
 		c.MsgID = value
 	}
 	return nil
-}
-
-// GetUserID returns value of UserID field.
-func (c *PaymentsConvertStarGiftRequest) GetUserID() (value InputUserClass) {
-	if c == nil {
-		return
-	}
-	return c.UserID
 }
 
 // GetMsgID returns value of MsgID field.
@@ -209,7 +177,7 @@ func (c *PaymentsConvertStarGiftRequest) GetMsgID() (value int) {
 	return c.MsgID
 }
 
-// PaymentsConvertStarGift invokes method payments.convertStarGift#421e027 returning error if any.
+// PaymentsConvertStarGift invokes method payments.convertStarGift#72770c83 returning error if any.
 // Convert a received gift »¹ into Telegram Stars: this will permanently destroy the
 // gift, converting it into starGift².convert_stars Telegram Stars³, added to the
 // user's balance.
@@ -226,9 +194,12 @@ func (c *PaymentsConvertStarGiftRequest) GetMsgID() (value int) {
 //
 // See https://core.telegram.org/method/payments.convertStarGift for reference.
 // Can be used by bots.
-func (c *Client) PaymentsConvertStarGift(ctx context.Context, request *PaymentsConvertStarGiftRequest) (bool, error) {
+func (c *Client) PaymentsConvertStarGift(ctx context.Context, msgid int) (bool, error) {
 	var result BoolBox
 
+	request := &PaymentsConvertStarGiftRequest{
+		MsgID: msgid,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

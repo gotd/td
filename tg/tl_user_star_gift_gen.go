@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UserStarGift represents TL type `userStarGift#eea49a6e`.
+// UserStarGift represents TL type `userStarGift#325835e1`.
 // Represents a gift¹, displayed on a user's profile page.
 //
 // Links:
@@ -50,6 +50,10 @@ type UserStarGift struct {
 	// If set, indicates this is a gift sent by from_id, received by the current user and
 	// currently hidden from our profile page.
 	Unsaved bool
+	// Refunded field of UserStarGift.
+	Refunded bool
+	// CanUpgrade field of UserStarGift.
+	CanUpgrade bool
 	// Sender of the gift (may be empty for anonymous senders; will always be set if this
 	// gift was sent to us).
 	//
@@ -58,7 +62,7 @@ type UserStarGift struct {
 	// When was this gift sent.
 	Date int
 	// The gift.
-	Gift StarGift
+	Gift StarGiftClass
 	// Message attached to the gift by the sender.
 	//
 	// Use SetMessage and GetMessage helpers.
@@ -79,10 +83,22 @@ type UserStarGift struct {
 	//
 	// Use SetConvertStars and GetConvertStars helpers.
 	ConvertStars int64
+	// UpgradeStars field of UserStarGift.
+	//
+	// Use SetUpgradeStars and GetUpgradeStars helpers.
+	UpgradeStars int64
+	// CanExportAt field of UserStarGift.
+	//
+	// Use SetCanExportAt and GetCanExportAt helpers.
+	CanExportAt int
+	// TransferStars field of UserStarGift.
+	//
+	// Use SetTransferStars and GetTransferStars helpers.
+	TransferStars int64
 }
 
 // UserStarGiftTypeID is TL type id of UserStarGift.
-const UserStarGiftTypeID = 0xeea49a6e
+const UserStarGiftTypeID = 0x325835e1
 
 // Ensuring interfaces in compile-time for UserStarGift.
 var (
@@ -105,13 +121,19 @@ func (u *UserStarGift) Zero() bool {
 	if !(u.Unsaved == false) {
 		return false
 	}
+	if !(u.Refunded == false) {
+		return false
+	}
+	if !(u.CanUpgrade == false) {
+		return false
+	}
 	if !(u.FromID == 0) {
 		return false
 	}
 	if !(u.Date == 0) {
 		return false
 	}
-	if !(u.Gift.Zero()) {
+	if !(u.Gift == nil) {
 		return false
 	}
 	if !(u.Message.Zero()) {
@@ -121,6 +143,15 @@ func (u *UserStarGift) Zero() bool {
 		return false
 	}
 	if !(u.ConvertStars == 0) {
+		return false
+	}
+	if !(u.UpgradeStars == 0) {
+		return false
+	}
+	if !(u.CanExportAt == 0) {
+		return false
+	}
+	if !(u.TransferStars == 0) {
 		return false
 	}
 
@@ -140,15 +171,22 @@ func (u *UserStarGift) String() string {
 func (u *UserStarGift) FillFrom(from interface {
 	GetNameHidden() (value bool)
 	GetUnsaved() (value bool)
+	GetRefunded() (value bool)
+	GetCanUpgrade() (value bool)
 	GetFromID() (value int64, ok bool)
 	GetDate() (value int)
-	GetGift() (value StarGift)
+	GetGift() (value StarGiftClass)
 	GetMessage() (value TextWithEntities, ok bool)
 	GetMsgID() (value int, ok bool)
 	GetConvertStars() (value int64, ok bool)
+	GetUpgradeStars() (value int64, ok bool)
+	GetCanExportAt() (value int, ok bool)
+	GetTransferStars() (value int64, ok bool)
 }) {
 	u.NameHidden = from.GetNameHidden()
 	u.Unsaved = from.GetUnsaved()
+	u.Refunded = from.GetRefunded()
+	u.CanUpgrade = from.GetCanUpgrade()
 	if val, ok := from.GetFromID(); ok {
 		u.FromID = val
 	}
@@ -165,6 +203,18 @@ func (u *UserStarGift) FillFrom(from interface {
 
 	if val, ok := from.GetConvertStars(); ok {
 		u.ConvertStars = val
+	}
+
+	if val, ok := from.GetUpgradeStars(); ok {
+		u.UpgradeStars = val
+	}
+
+	if val, ok := from.GetCanExportAt(); ok {
+		u.CanExportAt = val
+	}
+
+	if val, ok := from.GetTransferStars(); ok {
+		u.TransferStars = val
 	}
 
 }
@@ -203,6 +253,16 @@ func (u *UserStarGift) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(5),
 		},
 		{
+			Name:       "Refunded",
+			SchemaName: "refunded",
+			Null:       !u.Flags.Has(9),
+		},
+		{
+			Name:       "CanUpgrade",
+			SchemaName: "can_upgrade",
+			Null:       !u.Flags.Has(10),
+		},
+		{
 			Name:       "FromID",
 			SchemaName: "from_id",
 			Null:       !u.Flags.Has(1),
@@ -230,6 +290,21 @@ func (u *UserStarGift) TypeInfo() tdp.Type {
 			SchemaName: "convert_stars",
 			Null:       !u.Flags.Has(4),
 		},
+		{
+			Name:       "UpgradeStars",
+			SchemaName: "upgrade_stars",
+			Null:       !u.Flags.Has(6),
+		},
+		{
+			Name:       "CanExportAt",
+			SchemaName: "can_export_at",
+			Null:       !u.Flags.Has(7),
+		},
+		{
+			Name:       "TransferStars",
+			SchemaName: "transfer_stars",
+			Null:       !u.Flags.Has(8),
+		},
 	}
 	return typ
 }
@@ -241,6 +316,12 @@ func (u *UserStarGift) SetFlags() {
 	}
 	if !(u.Unsaved == false) {
 		u.Flags.Set(5)
+	}
+	if !(u.Refunded == false) {
+		u.Flags.Set(9)
+	}
+	if !(u.CanUpgrade == false) {
+		u.Flags.Set(10)
 	}
 	if !(u.FromID == 0) {
 		u.Flags.Set(1)
@@ -254,12 +335,21 @@ func (u *UserStarGift) SetFlags() {
 	if !(u.ConvertStars == 0) {
 		u.Flags.Set(4)
 	}
+	if !(u.UpgradeStars == 0) {
+		u.Flags.Set(6)
+	}
+	if !(u.CanExportAt == 0) {
+		u.Flags.Set(7)
+	}
+	if !(u.TransferStars == 0) {
+		u.Flags.Set(8)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStarGift) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStarGift#eea49a6e as nil")
+		return fmt.Errorf("can't encode userStarGift#325835e1 as nil")
 	}
 	b.PutID(UserStarGiftTypeID)
 	return u.EncodeBare(b)
@@ -268,22 +358,25 @@ func (u *UserStarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStarGift) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStarGift#eea49a6e as nil")
+		return fmt.Errorf("can't encode userStarGift#325835e1 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userStarGift#eea49a6e: field flags: %w", err)
+		return fmt.Errorf("unable to encode userStarGift#325835e1: field flags: %w", err)
 	}
 	if u.Flags.Has(1) {
 		b.PutLong(u.FromID)
 	}
 	b.PutInt(u.Date)
+	if u.Gift == nil {
+		return fmt.Errorf("unable to encode userStarGift#325835e1: field gift is nil")
+	}
 	if err := u.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userStarGift#eea49a6e: field gift: %w", err)
+		return fmt.Errorf("unable to encode userStarGift#325835e1: field gift: %w", err)
 	}
 	if u.Flags.Has(2) {
 		if err := u.Message.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userStarGift#eea49a6e: field message: %w", err)
+			return fmt.Errorf("unable to encode userStarGift#325835e1: field message: %w", err)
 		}
 	}
 	if u.Flags.Has(3) {
@@ -292,16 +385,25 @@ func (u *UserStarGift) EncodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(4) {
 		b.PutLong(u.ConvertStars)
 	}
+	if u.Flags.Has(6) {
+		b.PutLong(u.UpgradeStars)
+	}
+	if u.Flags.Has(7) {
+		b.PutInt(u.CanExportAt)
+	}
+	if u.Flags.Has(8) {
+		b.PutLong(u.TransferStars)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserStarGift) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStarGift#eea49a6e to nil")
+		return fmt.Errorf("can't decode userStarGift#325835e1 to nil")
 	}
 	if err := b.ConsumeID(UserStarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStarGift#eea49a6e: %w", err)
+		return fmt.Errorf("unable to decode userStarGift#325835e1: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -309,52 +411,77 @@ func (u *UserStarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStarGift) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStarGift#eea49a6e to nil")
+		return fmt.Errorf("can't decode userStarGift#325835e1 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field flags: %w", err)
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field flags: %w", err)
 		}
 	}
 	u.NameHidden = u.Flags.Has(0)
 	u.Unsaved = u.Flags.Has(5)
+	u.Refunded = u.Flags.Has(9)
+	u.CanUpgrade = u.Flags.Has(10)
 	if u.Flags.Has(1) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field from_id: %w", err)
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field from_id: %w", err)
 		}
 		u.FromID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field date: %w", err)
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field date: %w", err)
 		}
 		u.Date = value
 	}
 	{
-		if err := u.Gift.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field gift: %w", err)
+		value, err := DecodeStarGift(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field gift: %w", err)
 		}
+		u.Gift = value
 	}
 	if u.Flags.Has(2) {
 		if err := u.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field message: %w", err)
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field message: %w", err)
 		}
 	}
 	if u.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field msg_id: %w", err)
 		}
 		u.MsgID = value
 	}
 	if u.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userStarGift#eea49a6e: field convert_stars: %w", err)
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field convert_stars: %w", err)
 		}
 		u.ConvertStars = value
+	}
+	if u.Flags.Has(6) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field upgrade_stars: %w", err)
+		}
+		u.UpgradeStars = value
+	}
+	if u.Flags.Has(7) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field can_export_at: %w", err)
+		}
+		u.CanExportAt = value
+	}
+	if u.Flags.Has(8) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode userStarGift#325835e1: field transfer_stars: %w", err)
+		}
+		u.TransferStars = value
 	}
 	return nil
 }
@@ -397,6 +524,44 @@ func (u *UserStarGift) GetUnsaved() (value bool) {
 	return u.Flags.Has(5)
 }
 
+// SetRefunded sets value of Refunded conditional field.
+func (u *UserStarGift) SetRefunded(value bool) {
+	if value {
+		u.Flags.Set(9)
+		u.Refunded = true
+	} else {
+		u.Flags.Unset(9)
+		u.Refunded = false
+	}
+}
+
+// GetRefunded returns value of Refunded conditional field.
+func (u *UserStarGift) GetRefunded() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(9)
+}
+
+// SetCanUpgrade sets value of CanUpgrade conditional field.
+func (u *UserStarGift) SetCanUpgrade(value bool) {
+	if value {
+		u.Flags.Set(10)
+		u.CanUpgrade = true
+	} else {
+		u.Flags.Unset(10)
+		u.CanUpgrade = false
+	}
+}
+
+// GetCanUpgrade returns value of CanUpgrade conditional field.
+func (u *UserStarGift) GetCanUpgrade() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(10)
+}
+
 // SetFromID sets value of FromID conditional field.
 func (u *UserStarGift) SetFromID(value int64) {
 	u.Flags.Set(1)
@@ -424,7 +589,7 @@ func (u *UserStarGift) GetDate() (value int) {
 }
 
 // GetGift returns value of Gift field.
-func (u *UserStarGift) GetGift() (value StarGift) {
+func (u *UserStarGift) GetGift() (value StarGiftClass) {
 	if u == nil {
 		return
 	}
@@ -483,4 +648,58 @@ func (u *UserStarGift) GetConvertStars() (value int64, ok bool) {
 		return value, false
 	}
 	return u.ConvertStars, true
+}
+
+// SetUpgradeStars sets value of UpgradeStars conditional field.
+func (u *UserStarGift) SetUpgradeStars(value int64) {
+	u.Flags.Set(6)
+	u.UpgradeStars = value
+}
+
+// GetUpgradeStars returns value of UpgradeStars conditional field and
+// boolean which is true if field was set.
+func (u *UserStarGift) GetUpgradeStars() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(6) {
+		return value, false
+	}
+	return u.UpgradeStars, true
+}
+
+// SetCanExportAt sets value of CanExportAt conditional field.
+func (u *UserStarGift) SetCanExportAt(value int) {
+	u.Flags.Set(7)
+	u.CanExportAt = value
+}
+
+// GetCanExportAt returns value of CanExportAt conditional field and
+// boolean which is true if field was set.
+func (u *UserStarGift) GetCanExportAt() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(7) {
+		return value, false
+	}
+	return u.CanExportAt, true
+}
+
+// SetTransferStars sets value of TransferStars conditional field.
+func (u *UserStarGift) SetTransferStars(value int64) {
+	u.Flags.Set(8)
+	u.TransferStars = value
+}
+
+// GetTransferStars returns value of TransferStars conditional field and
+// boolean which is true if field was set.
+func (u *UserStarGift) GetTransferStars() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(8) {
+		return value, false
+	}
+	return u.TransferStars, true
 }

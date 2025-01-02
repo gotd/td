@@ -150,7 +150,7 @@ type PaymentsStarGifts struct {
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// List of available gifts.
-	Gifts []StarGift
+	Gifts []StarGiftClass
 }
 
 // PaymentsStarGiftsTypeID is TL type id of PaymentsStarGifts.
@@ -195,7 +195,7 @@ func (s *PaymentsStarGifts) String() string {
 // FillFrom fills PaymentsStarGifts from given interface.
 func (s *PaymentsStarGifts) FillFrom(from interface {
 	GetHash() (value int)
-	GetGifts() (value []StarGift)
+	GetGifts() (value []StarGiftClass)
 }) {
 	s.Hash = from.GetHash()
 	s.Gifts = from.GetGifts()
@@ -253,6 +253,9 @@ func (s *PaymentsStarGifts) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(s.Hash)
 	b.PutVectorHeader(len(s.Gifts))
 	for idx, v := range s.Gifts {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.starGifts#901689ea: field gifts element with index %d is nil", idx)
+		}
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode payments.starGifts#901689ea: field gifts element with index %d: %w", idx, err)
 		}
@@ -290,11 +293,11 @@ func (s *PaymentsStarGifts) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			s.Gifts = make([]StarGift, 0, headerLen%bin.PreallocateLimit)
+			s.Gifts = make([]StarGiftClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value StarGift
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeStarGift(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode payments.starGifts#901689ea: field gifts: %w", err)
 			}
 			s.Gifts = append(s.Gifts, value)
@@ -312,11 +315,16 @@ func (s *PaymentsStarGifts) GetHash() (value int) {
 }
 
 // GetGifts returns value of Gifts field.
-func (s *PaymentsStarGifts) GetGifts() (value []StarGift) {
+func (s *PaymentsStarGifts) GetGifts() (value []StarGiftClass) {
 	if s == nil {
 		return
 	}
 	return s.Gifts
+}
+
+// MapGifts returns field Gifts wrapped in StarGiftClassArray helper.
+func (s *PaymentsStarGifts) MapGifts() (value StarGiftClassArray) {
+	return StarGiftClassArray(s.Gifts)
 }
 
 // PaymentsStarGiftsClassName is schema name of PaymentsStarGiftsClass.

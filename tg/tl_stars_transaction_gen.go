@@ -57,6 +57,8 @@ type StarsTransaction struct {
 	// Links:
 	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	Reaction bool
+	// StargiftUpgrade field of StarsTransaction.
+	StargiftUpgrade bool
 	// Transaction ID.
 	ID string
 	// Amount of Stars (negative for outgoing transactions).
@@ -137,7 +139,7 @@ type StarsTransaction struct {
 	//  1) https://core.telegram.org/api/stars
 	//
 	// Use SetStargift and GetStargift helpers.
-	Stargift StarGift
+	Stargift StarGiftClass
 	// This transaction is payment for paid bot broadcasts¹.  Paid broadcasts are only
 	// allowed if the allow_paid_floodskip parameter of messages.sendMessage² and other
 	// message sending methods is set while trying to broadcast more than 30 messages per
@@ -197,6 +199,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.Reaction == false) {
 		return false
 	}
+	if !(s.StargiftUpgrade == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -239,7 +244,7 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.GiveawayPostID == 0) {
 		return false
 	}
-	if !(s.Stargift.Zero()) {
+	if !(s.Stargift == nil) {
 		return false
 	}
 	if !(s.FloodskipNumber == 0) {
@@ -274,6 +279,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetFailed() (value bool)
 	GetGift() (value bool)
 	GetReaction() (value bool)
+	GetStargiftUpgrade() (value bool)
 	GetID() (value string)
 	GetStars() (value StarsAmount)
 	GetDate() (value int)
@@ -288,7 +294,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetExtendedMedia() (value []MessageMediaClass, ok bool)
 	GetSubscriptionPeriod() (value int, ok bool)
 	GetGiveawayPostID() (value int, ok bool)
-	GetStargift() (value StarGift, ok bool)
+	GetStargift() (value StarGiftClass, ok bool)
 	GetFloodskipNumber() (value int, ok bool)
 	GetStarrefCommissionPermille() (value int, ok bool)
 	GetStarrefPeer() (value PeerClass, ok bool)
@@ -299,6 +305,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.Failed = from.GetFailed()
 	s.Gift = from.GetGift()
 	s.Reaction = from.GetReaction()
+	s.StargiftUpgrade = from.GetStargiftUpgrade()
 	s.ID = from.GetID()
 	s.Stars = from.GetStars()
 	s.Date = from.GetDate()
@@ -414,6 +421,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(11),
 		},
 		{
+			Name:       "StargiftUpgrade",
+			SchemaName: "stargift_upgrade",
+			Null:       !s.Flags.Has(18),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -525,6 +537,9 @@ func (s *StarsTransaction) SetFlags() {
 	if !(s.Reaction == false) {
 		s.Flags.Set(11)
 	}
+	if !(s.StargiftUpgrade == false) {
+		s.Flags.Set(18)
+	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
 	}
@@ -555,7 +570,7 @@ func (s *StarsTransaction) SetFlags() {
 	if !(s.GiveawayPostID == 0) {
 		s.Flags.Set(13)
 	}
-	if !(s.Stargift.Zero()) {
+	if !(s.Stargift == nil) {
 		s.Flags.Set(14)
 	}
 	if !(s.FloodskipNumber == 0) {
@@ -645,6 +660,9 @@ func (s *StarsTransaction) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(s.GiveawayPostID)
 	}
 	if s.Flags.Has(14) {
+		if s.Stargift == nil {
+			return fmt.Errorf("unable to encode starsTransaction#64dfc926: field stargift is nil")
+		}
 		if err := s.Stargift.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode starsTransaction#64dfc926: field stargift: %w", err)
 		}
@@ -697,6 +715,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.Failed = s.Flags.Has(6)
 	s.Gift = s.Flags.Has(10)
 	s.Reaction = s.Flags.Has(11)
+	s.StargiftUpgrade = s.Flags.Has(18)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -804,9 +823,11 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 		s.GiveawayPostID = value
 	}
 	if s.Flags.Has(14) {
-		if err := s.Stargift.Decode(b); err != nil {
+		value, err := DecodeStarGift(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode starsTransaction#64dfc926: field stargift: %w", err)
 		}
+		s.Stargift = value
 	}
 	if s.Flags.Has(15) {
 		value, err := b.Int()
@@ -930,6 +951,25 @@ func (s *StarsTransaction) GetReaction() (value bool) {
 		return
 	}
 	return s.Flags.Has(11)
+}
+
+// SetStargiftUpgrade sets value of StargiftUpgrade conditional field.
+func (s *StarsTransaction) SetStargiftUpgrade(value bool) {
+	if value {
+		s.Flags.Set(18)
+		s.StargiftUpgrade = true
+	} else {
+		s.Flags.Unset(18)
+		s.StargiftUpgrade = false
+	}
+}
+
+// GetStargiftUpgrade returns value of StargiftUpgrade conditional field.
+func (s *StarsTransaction) GetStargiftUpgrade() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(18)
 }
 
 // GetID returns value of ID field.
@@ -1145,14 +1185,14 @@ func (s *StarsTransaction) GetGiveawayPostID() (value int, ok bool) {
 }
 
 // SetStargift sets value of Stargift conditional field.
-func (s *StarsTransaction) SetStargift(value StarGift) {
+func (s *StarsTransaction) SetStargift(value StarGiftClass) {
 	s.Flags.Set(14)
 	s.Stargift = value
 }
 
 // GetStargift returns value of Stargift conditional field and
 // boolean which is true if field was set.
-func (s *StarsTransaction) GetStargift() (value StarGift, ok bool) {
+func (s *StarsTransaction) GetStargift() (value StarGiftClass, ok bool) {
 	if s == nil {
 		return
 	}

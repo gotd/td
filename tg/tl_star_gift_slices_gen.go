@@ -33,3 +33,381 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// StarGiftClassArray is adapter for slice of StarGiftClass.
+type StarGiftClassArray []StarGiftClass
+
+// Sort sorts slice of StarGiftClass.
+func (s StarGiftClassArray) Sort(less func(a, b StarGiftClass) bool) StarGiftClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StarGiftClass.
+func (s StarGiftClassArray) SortStable(less func(a, b StarGiftClass) bool) StarGiftClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StarGiftClass.
+func (s StarGiftClassArray) Retain(keep func(x StarGiftClass) bool) StarGiftClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StarGiftClassArray) First() (v StarGiftClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StarGiftClassArray) Last() (v StarGiftClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StarGiftClassArray) PopFirst() (v StarGiftClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StarGiftClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StarGiftClassArray) Pop() (v StarGiftClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of StarGiftClass by ID.
+func (s StarGiftClassArray) SortByID() StarGiftClassArray {
+	return s.Sort(func(a, b StarGiftClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of StarGiftClass by ID.
+func (s StarGiftClassArray) SortStableByID() StarGiftClassArray {
+	return s.SortStable(func(a, b StarGiftClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillStarGiftMap fills only StarGift constructors to given map.
+func (s StarGiftClassArray) FillStarGiftMap(to map[int64]*StarGift) {
+	for _, elem := range s {
+		value, ok := elem.(*StarGift)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// StarGiftToMap collects only StarGift constructors to map.
+func (s StarGiftClassArray) StarGiftToMap() map[int64]*StarGift {
+	r := make(map[int64]*StarGift, len(s))
+	s.FillStarGiftMap(r)
+	return r
+}
+
+// AsStarGift returns copy with only StarGift constructors.
+func (s StarGiftClassArray) AsStarGift() (to StarGiftArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StarGift)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// FillStarGiftUniqueMap fills only StarGiftUnique constructors to given map.
+func (s StarGiftClassArray) FillStarGiftUniqueMap(to map[int64]*StarGiftUnique) {
+	for _, elem := range s {
+		value, ok := elem.(*StarGiftUnique)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// StarGiftUniqueToMap collects only StarGiftUnique constructors to map.
+func (s StarGiftClassArray) StarGiftUniqueToMap() map[int64]*StarGiftUnique {
+	r := make(map[int64]*StarGiftUnique, len(s))
+	s.FillStarGiftUniqueMap(r)
+	return r
+}
+
+// AsStarGiftUnique returns copy with only StarGiftUnique constructors.
+func (s StarGiftClassArray) AsStarGiftUnique() (to StarGiftUniqueArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StarGiftUnique)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// StarGiftArray is adapter for slice of StarGift.
+type StarGiftArray []StarGift
+
+// Sort sorts slice of StarGift.
+func (s StarGiftArray) Sort(less func(a, b StarGift) bool) StarGiftArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StarGift.
+func (s StarGiftArray) SortStable(less func(a, b StarGift) bool) StarGiftArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StarGift.
+func (s StarGiftArray) Retain(keep func(x StarGift) bool) StarGiftArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StarGiftArray) First() (v StarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StarGiftArray) Last() (v StarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StarGiftArray) PopFirst() (v StarGift, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StarGift
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StarGiftArray) Pop() (v StarGift, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of StarGift by ID.
+func (s StarGiftArray) SortByID() StarGiftArray {
+	return s.Sort(func(a, b StarGift) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of StarGift by ID.
+func (s StarGiftArray) SortStableByID() StarGiftArray {
+	return s.SortStable(func(a, b StarGift) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s StarGiftArray) FillMap(to map[int64]StarGift) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s StarGiftArray) ToMap() map[int64]StarGift {
+	r := make(map[int64]StarGift, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// StarGiftUniqueArray is adapter for slice of StarGiftUnique.
+type StarGiftUniqueArray []StarGiftUnique
+
+// Sort sorts slice of StarGiftUnique.
+func (s StarGiftUniqueArray) Sort(less func(a, b StarGiftUnique) bool) StarGiftUniqueArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StarGiftUnique.
+func (s StarGiftUniqueArray) SortStable(less func(a, b StarGiftUnique) bool) StarGiftUniqueArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StarGiftUnique.
+func (s StarGiftUniqueArray) Retain(keep func(x StarGiftUnique) bool) StarGiftUniqueArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StarGiftUniqueArray) First() (v StarGiftUnique, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StarGiftUniqueArray) Last() (v StarGiftUnique, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StarGiftUniqueArray) PopFirst() (v StarGiftUnique, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StarGiftUnique
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StarGiftUniqueArray) Pop() (v StarGiftUnique, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of StarGiftUnique by ID.
+func (s StarGiftUniqueArray) SortByID() StarGiftUniqueArray {
+	return s.Sort(func(a, b StarGiftUnique) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of StarGiftUnique by ID.
+func (s StarGiftUniqueArray) SortStableByID() StarGiftUniqueArray {
+	return s.SortStable(func(a, b StarGiftUnique) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s StarGiftUniqueArray) FillMap(to map[int64]StarGiftUnique) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s StarGiftUniqueArray) ToMap() map[int64]StarGiftUnique {
+	r := make(map[int64]StarGiftUnique, len(s))
+	s.FillMap(r)
+	return r
+}

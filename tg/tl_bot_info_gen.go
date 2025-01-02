@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotInfo represents TL type `botInfo#36607333`.
+// BotInfo represents TL type `botInfo#4d8a0299`.
 // Info about bots (available bot commands, etc)
 //
 // See https://core.telegram.org/constructor/botInfo for reference.
@@ -84,10 +84,14 @@ type BotInfo struct {
 	//
 	// Use SetAppSettings and GetAppSettings helpers.
 	AppSettings BotAppSettings
+	// VerifierSettings field of BotInfo.
+	//
+	// Use SetVerifierSettings and GetVerifierSettings helpers.
+	VerifierSettings BotVerifierSettings
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
-const BotInfoTypeID = 0x36607333
+const BotInfoTypeID = 0x4d8a0299
 
 // Ensuring interfaces in compile-time for BotInfo.
 var (
@@ -131,6 +135,9 @@ func (b *BotInfo) Zero() bool {
 	if !(b.AppSettings.Zero()) {
 		return false
 	}
+	if !(b.VerifierSettings.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -155,6 +162,7 @@ func (b *BotInfo) FillFrom(from interface {
 	GetMenuButton() (value BotMenuButtonClass, ok bool)
 	GetPrivacyPolicyURL() (value string, ok bool)
 	GetAppSettings() (value BotAppSettings, ok bool)
+	GetVerifierSettings() (value BotVerifierSettings, ok bool)
 }) {
 	b.HasPreviewMedias = from.GetHasPreviewMedias()
 	if val, ok := from.GetUserID(); ok {
@@ -187,6 +195,10 @@ func (b *BotInfo) FillFrom(from interface {
 
 	if val, ok := from.GetAppSettings(); ok {
 		b.AppSettings = val
+	}
+
+	if val, ok := from.GetVerifierSettings(); ok {
+		b.VerifierSettings = val
 	}
 
 }
@@ -259,6 +271,11 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 			SchemaName: "app_settings",
 			Null:       !b.Flags.Has(8),
 		},
+		{
+			Name:       "VerifierSettings",
+			SchemaName: "verifier_settings",
+			Null:       !b.Flags.Has(9),
+		},
 	}
 	return typ
 }
@@ -292,12 +309,15 @@ func (b *BotInfo) SetFlags() {
 	if !(b.AppSettings.Zero()) {
 		b.Flags.Set(8)
 	}
+	if !(b.VerifierSettings.Zero()) {
+		b.Flags.Set(9)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#36607333 as nil")
+		return fmt.Errorf("can't encode botInfo#4d8a0299 as nil")
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -306,11 +326,11 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#36607333 as nil")
+		return fmt.Errorf("can't encode botInfo#4d8a0299 as nil")
 	}
 	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#36607333: field flags: %w", err)
+		return fmt.Errorf("unable to encode botInfo#4d8a0299: field flags: %w", err)
 	}
 	if b.Flags.Has(0) {
 		buf.PutLong(b.UserID)
@@ -320,34 +340,34 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	}
 	if b.Flags.Has(4) {
 		if b.DescriptionPhoto == nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field description_photo is nil")
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field description_photo is nil")
 		}
 		if err := b.DescriptionPhoto.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field description_photo: %w", err)
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field description_photo: %w", err)
 		}
 	}
 	if b.Flags.Has(5) {
 		if b.DescriptionDocument == nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field description_document is nil")
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field description_document is nil")
 		}
 		if err := b.DescriptionDocument.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field description_document: %w", err)
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field description_document: %w", err)
 		}
 	}
 	if b.Flags.Has(2) {
 		buf.PutVectorHeader(len(b.Commands))
 		for idx, v := range b.Commands {
 			if err := v.Encode(buf); err != nil {
-				return fmt.Errorf("unable to encode botInfo#36607333: field commands element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode botInfo#4d8a0299: field commands element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if b.Flags.Has(3) {
 		if b.MenuButton == nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field menu_button is nil")
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field menu_button is nil")
 		}
 		if err := b.MenuButton.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field menu_button: %w", err)
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field menu_button: %w", err)
 		}
 	}
 	if b.Flags.Has(7) {
@@ -355,7 +375,12 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	}
 	if b.Flags.Has(8) {
 		if err := b.AppSettings.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#36607333: field app_settings: %w", err)
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field app_settings: %w", err)
+		}
+	}
+	if b.Flags.Has(9) {
+		if err := b.VerifierSettings.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botInfo#4d8a0299: field verifier_settings: %w", err)
 		}
 	}
 	return nil
@@ -364,10 +389,10 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#36607333 to nil")
+		return fmt.Errorf("can't decode botInfo#4d8a0299 to nil")
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#36607333: %w", err)
+		return fmt.Errorf("unable to decode botInfo#4d8a0299: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -375,46 +400,46 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#36607333 to nil")
+		return fmt.Errorf("can't decode botInfo#4d8a0299 to nil")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field flags: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field flags: %w", err)
 		}
 	}
 	b.HasPreviewMedias = b.Flags.Has(6)
 	if b.Flags.Has(0) {
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field user_id: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
 	if b.Flags.Has(1) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field description: %w", err)
 		}
 		b.Description = value
 	}
 	if b.Flags.Has(4) {
 		value, err := DecodePhoto(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field description_photo: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field description_photo: %w", err)
 		}
 		b.DescriptionPhoto = value
 	}
 	if b.Flags.Has(5) {
 		value, err := DecodeDocument(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field description_document: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field description_document: %w", err)
 		}
 		b.DescriptionDocument = value
 	}
 	if b.Flags.Has(2) {
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field commands: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -423,7 +448,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#36607333: field commands: %w", err)
+				return fmt.Errorf("unable to decode botInfo#4d8a0299: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
@@ -431,20 +456,25 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b.Flags.Has(3) {
 		value, err := DecodeBotMenuButton(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field menu_button: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field menu_button: %w", err)
 		}
 		b.MenuButton = value
 	}
 	if b.Flags.Has(7) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field privacy_policy_url: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field privacy_policy_url: %w", err)
 		}
 		b.PrivacyPolicyURL = value
 	}
 	if b.Flags.Has(8) {
 		if err := b.AppSettings.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#36607333: field app_settings: %w", err)
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field app_settings: %w", err)
+		}
+	}
+	if b.Flags.Has(9) {
+		if err := b.VerifierSettings.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInfo#4d8a0299: field verifier_settings: %w", err)
 		}
 	}
 	return nil
@@ -611,6 +641,24 @@ func (b *BotInfo) GetAppSettings() (value BotAppSettings, ok bool) {
 		return value, false
 	}
 	return b.AppSettings, true
+}
+
+// SetVerifierSettings sets value of VerifierSettings conditional field.
+func (b *BotInfo) SetVerifierSettings(value BotVerifierSettings) {
+	b.Flags.Set(9)
+	b.VerifierSettings = value
+}
+
+// GetVerifierSettings returns value of VerifierSettings conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetVerifierSettings() (value BotVerifierSettings, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(9) {
+		return value, false
+	}
+	return b.VerifierSettings, true
 }
 
 // GetDescriptionPhotoAsNotEmpty returns mapped value of DescriptionPhoto conditional field and

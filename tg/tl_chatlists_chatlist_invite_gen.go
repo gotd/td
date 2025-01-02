@@ -369,7 +369,7 @@ func (c *ChatlistsChatlistInviteAlready) MapUsers() (value UserClassArray) {
 	return UserClassArray(c.Users)
 }
 
-// ChatlistsChatlistInvite represents TL type `chatlists.chatlistInvite#1dcd839d`.
+// ChatlistsChatlistInvite represents TL type `chatlists.chatlistInvite#f10ece2f`.
 // Info about a chat folder deep link »¹.
 //
 // Links:
@@ -382,8 +382,10 @@ type ChatlistsChatlistInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// TitleNoanimate field of ChatlistsChatlistInvite.
+	TitleNoanimate bool
 	// Name of the link
-	Title string
+	Title TextWithEntities
 	// Emoji to use as icon for the folder.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
@@ -397,7 +399,7 @@ type ChatlistsChatlistInvite struct {
 }
 
 // ChatlistsChatlistInviteTypeID is TL type id of ChatlistsChatlistInvite.
-const ChatlistsChatlistInviteTypeID = 0x1dcd839d
+const ChatlistsChatlistInviteTypeID = 0xf10ece2f
 
 // construct implements constructor of ChatlistsChatlistInviteClass.
 func (c ChatlistsChatlistInvite) construct() ChatlistsChatlistInviteClass { return &c }
@@ -419,7 +421,10 @@ func (c *ChatlistsChatlistInvite) Zero() bool {
 	if !(c.Flags.Zero()) {
 		return false
 	}
-	if !(c.Title == "") {
+	if !(c.TitleNoanimate == false) {
+		return false
+	}
+	if !(c.Title.Zero()) {
 		return false
 	}
 	if !(c.Emoticon == "") {
@@ -449,12 +454,14 @@ func (c *ChatlistsChatlistInvite) String() string {
 
 // FillFrom fills ChatlistsChatlistInvite from given interface.
 func (c *ChatlistsChatlistInvite) FillFrom(from interface {
-	GetTitle() (value string)
+	GetTitleNoanimate() (value bool)
+	GetTitle() (value TextWithEntities)
 	GetEmoticon() (value string, ok bool)
 	GetPeers() (value []PeerClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
+	c.TitleNoanimate = from.GetTitleNoanimate()
 	c.Title = from.GetTitle()
 	if val, ok := from.GetEmoticon(); ok {
 		c.Emoticon = val
@@ -489,6 +496,11 @@ func (c *ChatlistsChatlistInvite) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "TitleNoanimate",
+			SchemaName: "title_noanimate",
+			Null:       !c.Flags.Has(1),
+		},
+		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -515,6 +527,9 @@ func (c *ChatlistsChatlistInvite) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (c *ChatlistsChatlistInvite) SetFlags() {
+	if !(c.TitleNoanimate == false) {
+		c.Flags.Set(1)
+	}
 	if !(c.Emoticon == "") {
 		c.Flags.Set(0)
 	}
@@ -523,7 +538,7 @@ func (c *ChatlistsChatlistInvite) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *ChatlistsChatlistInvite) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatlists.chatlistInvite#1dcd839d as nil")
+		return fmt.Errorf("can't encode chatlists.chatlistInvite#f10ece2f as nil")
 	}
 	b.PutID(ChatlistsChatlistInviteTypeID)
 	return c.EncodeBare(b)
@@ -532,41 +547,43 @@ func (c *ChatlistsChatlistInvite) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatlistsChatlistInvite) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatlists.chatlistInvite#1dcd839d as nil")
+		return fmt.Errorf("can't encode chatlists.chatlistInvite#f10ece2f as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field flags: %w", err)
+		return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field flags: %w", err)
 	}
-	b.PutString(c.Title)
+	if err := c.Title.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field title: %w", err)
+	}
 	if c.Flags.Has(0) {
 		b.PutString(c.Emoticon)
 	}
 	b.PutVectorHeader(len(c.Peers))
 	for idx, v := range c.Peers {
 		if v == nil {
-			return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field peers element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field peers element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field peers element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chatlists.chatlistInvite#1dcd839d: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatlists.chatlistInvite#f10ece2f: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -575,10 +592,10 @@ func (c *ChatlistsChatlistInvite) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatlistsChatlistInvite) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatlists.chatlistInvite#1dcd839d to nil")
+		return fmt.Errorf("can't decode chatlists.chatlistInvite#f10ece2f to nil")
 	}
 	if err := b.ConsumeID(ChatlistsChatlistInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: %w", err)
+		return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -586,31 +603,30 @@ func (c *ChatlistsChatlistInvite) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatlists.chatlistInvite#1dcd839d to nil")
+		return fmt.Errorf("can't decode chatlists.chatlistInvite#f10ece2f to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field flags: %w", err)
+			return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field flags: %w", err)
 		}
 	}
+	c.TitleNoanimate = c.Flags.Has(1)
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field title: %w", err)
+		if err := c.Title.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field title: %w", err)
 		}
-		c.Title = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field emoticon: %w", err)
 		}
 		c.Emoticon = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field peers: %w", err)
+			return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field peers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -619,7 +635,7 @@ func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field peers: %w", err)
+				return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field peers: %w", err)
 			}
 			c.Peers = append(c.Peers, value)
 		}
@@ -627,7 +643,7 @@ func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field chats: %w", err)
+			return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -636,7 +652,7 @@ func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field chats: %w", err)
+				return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field chats: %w", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -644,7 +660,7 @@ func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field users: %w", err)
+			return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -653,7 +669,7 @@ func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatlists.chatlistInvite#1dcd839d: field users: %w", err)
+				return fmt.Errorf("unable to decode chatlists.chatlistInvite#f10ece2f: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -661,8 +677,27 @@ func (c *ChatlistsChatlistInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// SetTitleNoanimate sets value of TitleNoanimate conditional field.
+func (c *ChatlistsChatlistInvite) SetTitleNoanimate(value bool) {
+	if value {
+		c.Flags.Set(1)
+		c.TitleNoanimate = true
+	} else {
+		c.Flags.Unset(1)
+		c.TitleNoanimate = false
+	}
+}
+
+// GetTitleNoanimate returns value of TitleNoanimate conditional field.
+func (c *ChatlistsChatlistInvite) GetTitleNoanimate() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(1)
+}
+
 // GetTitle returns value of Title field.
-func (c *ChatlistsChatlistInvite) GetTitle() (value string) {
+func (c *ChatlistsChatlistInvite) GetTitle() (value TextWithEntities) {
 	if c == nil {
 		return
 	}
@@ -741,7 +776,7 @@ const ChatlistsChatlistInviteClassName = "chatlists.ChatlistInvite"
 //	}
 //	switch v := g.(type) {
 //	case *tg.ChatlistsChatlistInviteAlready: // chatlists.chatlistInviteAlready#fa87f659
-//	case *tg.ChatlistsChatlistInvite: // chatlists.chatlistInvite#1dcd839d
+//	case *tg.ChatlistsChatlistInvite: // chatlists.chatlistInvite#f10ece2f
 //	default: panic(v)
 //	}
 type ChatlistsChatlistInviteClass interface {
@@ -787,7 +822,7 @@ func DecodeChatlistsChatlistInvite(buf *bin.Buffer) (ChatlistsChatlistInviteClas
 		}
 		return &v, nil
 	case ChatlistsChatlistInviteTypeID:
-		// Decoding chatlists.chatlistInvite#1dcd839d.
+		// Decoding chatlists.chatlistInvite#f10ece2f.
 		v := ChatlistsChatlistInvite{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatlistsChatlistInviteClass: %w", err)
