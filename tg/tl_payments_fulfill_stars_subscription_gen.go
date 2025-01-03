@@ -205,8 +205,11 @@ func (f *PaymentsFulfillStarsSubscriptionRequest) GetSubscriptionID() (value str
 // Links:
 //  1. https://core.telegram.org/api/invites#paid-invite-links
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/payments.fulfillStarsSubscription for reference.
-// Can be used by bots.
 func (c *Client) PaymentsFulfillStarsSubscription(ctx context.Context, request *PaymentsFulfillStarsSubscriptionRequest) (bool, error) {
 	var result BoolBox
 

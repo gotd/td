@@ -230,8 +230,11 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) GetPrivate() (value bool) {
 // Links:
 //  1. https://core.telegram.org/api/reactions#paid-reactions
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.togglePaidReactionPrivacy for reference.
-// Can be used by bots.
 func (c *Client) MessagesTogglePaidReactionPrivacy(ctx context.Context, request *MessagesTogglePaidReactionPrivacyRequest) (bool, error) {
 	var result BoolBox
 

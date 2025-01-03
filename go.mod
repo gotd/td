@@ -10,7 +10,7 @@ require (
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.21.0
 	github.com/google/uuid v1.6.0
-	github.com/gotd/getdoc v0.45.0
+	github.com/gotd/getdoc v0.46.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0

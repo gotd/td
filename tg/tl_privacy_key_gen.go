@@ -1170,6 +1170,10 @@ func (p *PrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeyStarGiftsAutoSave represents TL type `privacyKeyStarGiftsAutoSave#2ca4fdf8`.
+// Whether received gifts¹ will be automatically displayed on our profile
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/privacyKeyStarGiftsAutoSave for reference.
 type PrivacyKeyStarGiftsAutoSave struct {

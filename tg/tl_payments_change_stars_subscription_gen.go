@@ -274,8 +274,11 @@ func (c *PaymentsChangeStarsSubscriptionRequest) GetCanceled() (value bool, ok b
 // Links:
 //  1. https://core.telegram.org/api/invites#paid-invite-links
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/payments.changeStarsSubscription for reference.
-// Can be used by bots.
 func (c *Client) PaymentsChangeStarsSubscription(ctx context.Context, request *PaymentsChangeStarsSubscriptionRequest) (bool, error) {
 	var result BoolBox
 

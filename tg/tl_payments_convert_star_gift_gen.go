@@ -192,8 +192,11 @@ func (c *PaymentsConvertStarGiftRequest) GetMsgID() (value int) {
 //  4. https://core.telegram.org/constructor/starGift
 //  5. https://core.telegram.org/constructor/starGift
 //
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
+//
 // See https://core.telegram.org/method/payments.convertStarGift for reference.
-// Can be used by bots.
 func (c *Client) PaymentsConvertStarGift(ctx context.Context, msgid int) (bool, error) {
 	var result BoolBox
 

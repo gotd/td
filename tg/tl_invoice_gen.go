@@ -89,7 +89,11 @@ type Invoice struct {
 	//
 	// Use SetTermsURL and GetTermsURL helpers.
 	TermsURL string
-	// SubscriptionPeriod field of Invoice.
+	// The number of seconds between consecutive Telegram Star debiting for bot
+	// subscription¹ invoices
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/subscriptions#bot-subscriptions
 	//
 	// Use SetSubscriptionPeriod and GetSubscriptionPeriod helpers.
 	SubscriptionPeriod int

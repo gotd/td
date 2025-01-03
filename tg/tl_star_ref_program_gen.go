@@ -32,24 +32,40 @@ var (
 )
 
 // StarRefProgram represents TL type `starRefProgram#dd0c66f2`.
+// Indo about an affiliate program offered by a bot¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/constructor/starRefProgram for reference.
 type StarRefProgram struct {
-	// Flags field of StarRefProgram.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BotID field of StarRefProgram.
+	// ID of the bot that offers the program
 	BotID int64
-	// CommissionPermille field of StarRefProgram.
+	// An affiliate gets a commission of starRefProgram¹.commission_permille‰ Telegram
+	// Stars² for every mini app transaction made by users they refer
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starRefProgram
+	//  2) https://core.telegram.org/api/stars
 	CommissionPermille int
-	// DurationMonths field of StarRefProgram.
+	// An affiliate gets a commission for every mini app transaction made by users they refer
+	// for duration_months months after a referral link is imported, starting the bot for
+	// the first time
 	//
 	// Use SetDurationMonths and GetDurationMonths helpers.
 	DurationMonths int
-	// EndDate field of StarRefProgram.
+	// Point in time (Unix timestamp) when the affiliate program will be closed (optional, if
+	// not set the affiliate program isn't scheduled to be closed)
 	//
 	// Use SetEndDate and GetEndDate helpers.
 	EndDate int
-	// DailyRevenuePerUser field of StarRefProgram.
+	// The amount of daily revenue per user in Telegram Stars of the bot that created the
+	// affiliate program
 	//
 	// Use SetDailyRevenuePerUser and GetDailyRevenuePerUser helpers.
 	DailyRevenuePerUser StarsAmount

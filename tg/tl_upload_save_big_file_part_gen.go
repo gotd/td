@@ -255,6 +255,7 @@ func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
 //	400 FILE_PART_SIZE_CHANGED: Provided file part size has changed.
 //	400 FILE_PART_SIZE_INVALID: The provided file part size is invalid.
 //	400 FILE_PART_TOO_BIG: The uploaded file part is too big.
+//	400 FILE_PART_TOO_SMALL: The size of the uploaded file part is too small, please see the documentation for the allowed sizes.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 // Can be used by bots.

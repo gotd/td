@@ -48,7 +48,7 @@ type StarGift struct {
 	Limited bool
 	// Whether this gift sold out and cannot be bought anymore.
 	SoldOut bool
-	// Birthday field of StarGift.
+	// Whether this is a birthday-themed gift
 	Birthday bool
 	// Identifier of the gift
 	ID int64

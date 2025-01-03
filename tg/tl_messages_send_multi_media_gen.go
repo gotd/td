@@ -767,6 +767,7 @@ func (s *MessagesSendMultiMediaRequest) GetEffect() (value int64, ok bool) {
 //
 // Possible errors:
 //
+//	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
@@ -781,12 +782,14 @@ func (s *MessagesSendMultiMediaRequest) GetEffect() (value int64, ok bool) {
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MEDIA_INVALID: Media invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 RANDOM_ID_EMPTY: Random ID empty.
 //	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
+//	400 REPLY_TO_INVALID: The specified reply_to field is invalid.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.

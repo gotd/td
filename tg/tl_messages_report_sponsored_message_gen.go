@@ -236,7 +236,6 @@ func (r *MessagesReportSponsoredMessageRequest) GetOption() (value []byte) {
 //  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
-// Can be used by bots.
 func (c *Client) MessagesReportSponsoredMessage(ctx context.Context, request *MessagesReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error) {
 	var result ChannelsSponsoredMessageReportResultBox
 

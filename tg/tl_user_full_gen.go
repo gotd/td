@@ -124,7 +124,10 @@ type UserFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/revenue#revenue-statistics
 	CanViewRevenue bool
-	// BotCanManageEmojiStatus field of UserFull.
+	// If set, this is a bot that can change our emoji status »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 	BotCanManageEmojiStatus bool
 	// User ID
 	ID int64
@@ -284,7 +287,10 @@ type UserFull struct {
 	//
 	// Use SetStargiftsCount and GetStargiftsCount helpers.
 	StargiftsCount int
-	// StarrefProgram field of UserFull.
+	// This bot has an active referral program »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/referrals
 	//
 	// Use SetStarrefProgram and GetStarrefProgram helpers.
 	StarrefProgram StarRefProgram

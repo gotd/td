@@ -93,7 +93,7 @@ type MessagesSearchRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Number of results to return¹
+	// Number of results to return¹, can be 0 to only return the message counter.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets

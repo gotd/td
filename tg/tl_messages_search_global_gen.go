@@ -47,9 +47,9 @@ type MessagesSearchGlobalRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/search#global-search
 	BroadcastsOnly bool
-	// GroupsOnly field of MessagesSearchGlobalRequest.
+	// Whether to search only in groups
 	GroupsOnly bool
-	// UsersOnly field of MessagesSearchGlobalRequest.
+	// Whether to search only in private chats
 	UsersOnly bool
 	// Peer folder ID, for more info click here¹
 	//

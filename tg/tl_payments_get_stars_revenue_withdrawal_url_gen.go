@@ -35,7 +35,7 @@ var (
 // Withdraw funds from a channel or bot's star balance »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#withdrawing-revenue
+//  1. https://core.telegram.org/api/stars#withdrawing-stars
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueWithdrawalUrl for reference.
 type PaymentsGetStarsRevenueWithdrawalURLRequest struct {
@@ -240,13 +240,14 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetPasswordAsNotEmpty() (*
 // Withdraw funds from a channel or bot's star balance »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#withdrawing-revenue
+//  1. https://core.telegram.org/api/stars#withdrawing-stars
 //
 // Possible errors:
 //
 //	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
 //	400 PASSWORD_MISSING: You must enable 2FA before executing this operation.
 //	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.
+//	400 SESSION_TOO_FRESH_%d: This session was created less than 24 hours ago, try again in %d seconds.
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueWithdrawalUrl for reference.
 func (c *Client) PaymentsGetStarsRevenueWithdrawalURL(ctx context.Context, request *PaymentsGetStarsRevenueWithdrawalURLRequest) (*PaymentsStarsRevenueWithdrawalURL, error) {

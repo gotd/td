@@ -32,18 +32,26 @@ var (
 )
 
 // MessagesPreparedInlineMessage represents TL type `messages.preparedInlineMessage#ff57708d`.
+// Represents a prepared inline message received via a bot's mini app, that can be sent
+// to some chats »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
 //
 // See https://core.telegram.org/constructor/messages.preparedInlineMessage for reference.
 type MessagesPreparedInlineMessage struct {
-	// QueryID field of MessagesPreparedInlineMessage.
+	// The query_id to pass to messages.sendInlineBotResult¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendInlineBotResult
 	QueryID int64
-	// Result field of MessagesPreparedInlineMessage.
+	// The contents of the message, to be shown in a preview
 	Result BotInlineResultClass
-	// PeerTypes field of MessagesPreparedInlineMessage.
+	// Types of chats where this message can be sent
 	PeerTypes []InlineQueryPeerTypeClass
-	// CacheTime field of MessagesPreparedInlineMessage.
+	// Caching validity of the results
 	CacheTime int
-	// Users field of MessagesPreparedInlineMessage.
+	// Users mentioned in the results
 	Users []UserClass
 }
 

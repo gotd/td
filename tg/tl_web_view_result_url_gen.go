@@ -43,7 +43,7 @@ type WebViewResultURL struct {
 	Flags bin.Fields
 	// If set, the app must be opened in fullsize mode instead of compact mode.
 	Fullsize bool
-	// Fullscreen field of WebViewResultURL.
+	// If set, the app must be opened in fullscreen
 	Fullscreen bool
 	// Webview session ID (only returned by inline button mini apps¹, menu button mini
 	// apps², attachment menu mini apps³).

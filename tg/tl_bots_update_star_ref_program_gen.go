@@ -32,16 +32,34 @@ var (
 )
 
 // BotsUpdateStarRefProgramRequest represents TL type `bots.updateStarRefProgram#778b5ab3`.
+// Create, edit or delete the affiliate program¹ of a bot we own
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/method/bots.updateStarRefProgram for reference.
 type BotsUpdateStarRefProgramRequest struct {
-	// Flags field of BotsUpdateStarRefProgramRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Bot field of BotsUpdateStarRefProgramRequest.
+	// The bot
 	Bot InputUserClass
-	// CommissionPermille field of BotsUpdateStarRefProgramRequest.
+	// The permille commission rate: it indicates the share of Telegram Stars received by
+	// affiliates for every transaction made by users they referred inside of the bot.    The
+	// minimum and maximum values for this parameter are contained in the
+	// starref_min_commission_permille¹ and starref_max_commission_permille² client
+	// configuration parameters.   Can be 0 to terminate the affiliate program.  Both the
+	// duration and the commission may only be raised after creation of the program: to lower
+	// them, the program must first be terminated and a new one created.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#starref-min-commission-permille
+	//  2) https://core.telegram.org/api/config#starref-max-commission-permille
 	CommissionPermille int
-	// DurationMonths field of BotsUpdateStarRefProgramRequest.
+	// Indicates the duration of the affiliate program; if not set, there is no expiration
+	// date.
 	//
 	// Use SetDurationMonths and GetDurationMonths helpers.
 	DurationMonths int
@@ -259,6 +277,17 @@ func (u *BotsUpdateStarRefProgramRequest) GetDurationMonths() (value int, ok boo
 }
 
 // BotsUpdateStarRefProgram invokes method bots.updateStarRefProgram#778b5ab3 returning error if any.
+// Create, edit or delete the affiliate program¹ of a bot we own
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/referrals
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//	400 STARREF_AWAITING_END: The previous referral program was terminated less than 24 hours ago: further changes can be made after the date specified in userFull.starref_program.end_date.
+//	400 STARREF_PERMILLE_INVALID: The specified commission_permille is invalid: the minimum and maximum values for this parameter are contained in the starref_min_commission_permille and starref_max_commission_permille client configuration parameters.
+//	400 STARREF_PERMILLE_TOO_LOW: The specified commission_permille is too low: the minimum and maximum values for this parameter are contained in the starref_min_commission_permille and starref_max_commission_permille client configuration parameters.
 //
 // See https://core.telegram.org/method/bots.updateStarRefProgram for reference.
 func (c *Client) BotsUpdateStarRefProgram(ctx context.Context, request *BotsUpdateStarRefProgramRequest) (*StarRefProgram, error) {

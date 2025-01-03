@@ -142,7 +142,6 @@ func (g *MessagesGetPaidReactionPrivacyRequest) DecodeBare(b *bin.Buffer) error 
 //  2. https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.getPaidReactionPrivacy for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetPaidReactionPrivacy(ctx context.Context) (UpdatesClass, error) {
 	var result UpdatesBox
 

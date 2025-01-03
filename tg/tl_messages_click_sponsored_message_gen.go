@@ -296,7 +296,6 @@ func (c *MessagesClickSponsoredMessageRequest) GetRandomID() (value []byte) {
 //  1. https://core.telegram.org/api/sponsored-messages#clicking-on-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.clickSponsoredMessage for reference.
-// Can be used by bots.
 func (c *Client) MessagesClickSponsoredMessage(ctx context.Context, request *MessagesClickSponsoredMessageRequest) (bool, error) {
 	var result BoolBox
 

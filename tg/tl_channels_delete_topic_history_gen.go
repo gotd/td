@@ -209,6 +209,7 @@ func (d *ChannelsDeleteTopicHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 //
 // Possible errors:
 //
+//	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 TOPIC_ID_INVALID: The specified topic ID is invalid.
 //

@@ -35,14 +35,14 @@ var (
 // Contains the URL to use to withdraw Telegram Star revenue¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#withdrawing-revenue
+//  1. https://core.telegram.org/api/stars#withdrawing-stars
 //
 // See https://core.telegram.org/constructor/payments.starsRevenueWithdrawalUrl for reference.
 type PaymentsStarsRevenueWithdrawalURL struct {
 	// Contains the URL to use to withdraw Telegram Star revenue¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/stars#withdrawing-revenue
+	//  1) https://core.telegram.org/api/stars#withdrawing-stars
 	URL string
 }
 

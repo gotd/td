@@ -216,6 +216,7 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 //
 // Possible errors:
 //
+//	403 CHAT_TYPE_INVALID: The specified user type is invalid.
 //	403 GROUPCALL_FORBIDDEN: The group call has already ended.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 INVITE_FORBIDDEN_WITH_JOINAS: If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.

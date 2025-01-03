@@ -1264,6 +1264,7 @@ func (i *InputPrivacyValueAllowPremium) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyValueAllowBots represents TL type `inputPrivacyValueAllowBots#5a4fcce5`.
+// Allow bots and mini apps
 //
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowBots for reference.
 type InputPrivacyValueAllowBots struct {
@@ -1365,6 +1366,7 @@ func (i *InputPrivacyValueAllowBots) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyValueDisallowBots represents TL type `inputPrivacyValueDisallowBots#c4e57915`.
+// Disallow bots and mini apps
 //
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowBots for reference.
 type InputPrivacyValueDisallowBots struct {

@@ -181,6 +181,7 @@ func (g *PaymentsGetStarsRevenueAdsAccountURLRequest) GetPeer() (value InputPeer
 //
 // Possible errors:
 //
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueAdsAccountUrl for reference.

@@ -32,20 +32,38 @@ var (
 )
 
 // PaymentsGetSuggestedStarRefBotsRequest represents TL type `payments.getSuggestedStarRefBots#d6b48f7`.
+// Obtain a list of suggested mini apps¹ with available affiliate programs²
+// order_by_revenue and order_by_date are mutually exclusive: if neither is set, results
+// are sorted by profitability.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/method/payments.getSuggestedStarRefBots for reference.
 type PaymentsGetSuggestedStarRefBotsRequest struct {
-	// Flags field of PaymentsGetSuggestedStarRefBotsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OrderByRevenue field of PaymentsGetSuggestedStarRefBotsRequest.
+	// If set, orders results by the expected revenue
 	OrderByRevenue bool
-	// OrderByDate field of PaymentsGetSuggestedStarRefBotsRequest.
+	// If set, orders results by the creation date of the affiliate program
 	OrderByDate bool
-	// Peer field of PaymentsGetSuggestedStarRefBotsRequest.
+	// The peer that will become the affiliate: star commissions will be transferred to this
+	// peer's star balance.
 	Peer InputPeerClass
-	// Offset field of PaymentsGetSuggestedStarRefBotsRequest.
+	// Offset for pagination, taken from payments.suggestedStarRefBots¹.next_offset,
+	// initially empty.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/payments.suggestedStarRefBots
 	Offset string
-	// Limit field of PaymentsGetSuggestedStarRefBotsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -308,6 +326,17 @@ func (g *PaymentsGetSuggestedStarRefBotsRequest) GetLimit() (value int) {
 }
 
 // PaymentsGetSuggestedStarRefBots invokes method payments.getSuggestedStarRefBots#d6b48f7 returning error if any.
+// Obtain a list of suggested mini apps¹ with available affiliate programs²
+// order_by_revenue and order_by_date are mutually exclusive: if neither is set, results
+// are sorted by profitability.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/api/bots/referrals
+//
+// Possible errors:
+//
+//	403 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getSuggestedStarRefBots for reference.
 func (c *Client) PaymentsGetSuggestedStarRefBots(ctx context.Context, request *PaymentsGetSuggestedStarRefBotsRequest) (*PaymentsSuggestedStarRefBots, error) {

@@ -325,6 +325,7 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	406 FILEREF_UPGRADE_NEEDED: The client has to be updated in order to support file references.
 //	400 FILE_ID_INVALID: The provided file id is invalid.
+//	400 FILE_REFERENCE_EMPTY: An empty file reference was specified.
 //	400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
 //	420 FLOOD_PREMIUM_WAIT_%d: Please wait %d seconds before repeating the action, or purchase a Telegram Premium subscription to remove this rate limit.
 //	400 LIMIT_INVALID: The provided limit is invalid.

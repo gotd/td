@@ -1173,6 +1173,10 @@ func (i *InputPrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyStarGiftsAutoSave represents TL type `inputPrivacyKeyStarGiftsAutoSave#e1732341`.
+// Whether received gifts¹ will be automatically displayed on our profile
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyStarGiftsAutoSave for reference.
 type InputPrivacyKeyStarGiftsAutoSave struct {
