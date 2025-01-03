@@ -561,14 +561,12 @@ func (i *InputInlineQueryResultAnimation) GetInputMessageContent() (value InputM
 	return i.InputMessageContent
 }
 
-// InputInlineQueryResultArticle represents TL type `inputInlineQueryResultArticle#75a3d10c`.
+// InputInlineQueryResultArticle represents TL type `inputInlineQueryResultArticle#763583bc`.
 type InputInlineQueryResultArticle struct {
 	// Unique identifier of the query result
 	ID string
 	// URL of the result, if it exists
 	URL string
-	// True, if the URL must be not shown
-	HideURL bool
 	// Title of the result
 	Title string
 	// Represents a link to an article or web page
@@ -589,7 +587,7 @@ type InputInlineQueryResultArticle struct {
 }
 
 // InputInlineQueryResultArticleTypeID is TL type id of InputInlineQueryResultArticle.
-const InputInlineQueryResultArticleTypeID = 0x75a3d10c
+const InputInlineQueryResultArticleTypeID = 0x763583bc
 
 // construct implements constructor of InputInlineQueryResultClass.
 func (i InputInlineQueryResultArticle) construct() InputInlineQueryResultClass { return &i }
@@ -612,9 +610,6 @@ func (i *InputInlineQueryResultArticle) Zero() bool {
 		return false
 	}
 	if !(i.URL == "") {
-		return false
-	}
-	if !(i.HideURL == false) {
 		return false
 	}
 	if !(i.Title == "") {
@@ -683,10 +678,6 @@ func (i *InputInlineQueryResultArticle) TypeInfo() tdp.Type {
 			SchemaName: "url",
 		},
 		{
-			Name:       "HideURL",
-			SchemaName: "hide_url",
-		},
-		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -721,7 +712,7 @@ func (i *InputInlineQueryResultArticle) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputInlineQueryResultArticle) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInlineQueryResultArticle#75a3d10c as nil")
+		return fmt.Errorf("can't encode inputInlineQueryResultArticle#763583bc as nil")
 	}
 	b.PutID(InputInlineQueryResultArticleTypeID)
 	return i.EncodeBare(b)
@@ -730,27 +721,26 @@ func (i *InputInlineQueryResultArticle) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputInlineQueryResultArticle) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInlineQueryResultArticle#75a3d10c as nil")
+		return fmt.Errorf("can't encode inputInlineQueryResultArticle#763583bc as nil")
 	}
 	b.PutString(i.ID)
 	b.PutString(i.URL)
-	b.PutBool(i.HideURL)
 	b.PutString(i.Title)
 	b.PutString(i.Description)
 	b.PutString(i.ThumbnailURL)
 	b.PutInt32(i.ThumbnailWidth)
 	b.PutInt32(i.ThumbnailHeight)
 	if i.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field reply_markup is nil")
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field reply_markup is nil")
 	}
 	if err := i.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field reply_markup: %w", err)
 	}
 	if i.InputMessageContent == nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field input_message_content is nil")
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field input_message_content is nil")
 	}
 	if err := i.InputMessageContent.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field input_message_content: %w", err)
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field input_message_content: %w", err)
 	}
 	return nil
 }
@@ -758,10 +748,10 @@ func (i *InputInlineQueryResultArticle) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputInlineQueryResultArticle) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInlineQueryResultArticle#75a3d10c to nil")
+		return fmt.Errorf("can't decode inputInlineQueryResultArticle#763583bc to nil")
 	}
 	if err := b.ConsumeID(InputInlineQueryResultArticleTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: %w", err)
+		return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -769,75 +759,68 @@ func (i *InputInlineQueryResultArticle) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputInlineQueryResultArticle) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInlineQueryResultArticle#75a3d10c to nil")
+		return fmt.Errorf("can't decode inputInlineQueryResultArticle#763583bc to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field id: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field id: %w", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field url: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field url: %w", err)
 		}
 		i.URL = value
 	}
 	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field hide_url: %w", err)
-		}
-		i.HideURL = value
-	}
-	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field title: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field title: %w", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field description: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field description: %w", err)
 		}
 		i.Description = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field thumbnail_url: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field thumbnail_url: %w", err)
 		}
 		i.ThumbnailURL = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field thumbnail_width: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field thumbnail_width: %w", err)
 		}
 		i.ThumbnailWidth = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field thumbnail_height: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field thumbnail_height: %w", err)
 		}
 		i.ThumbnailHeight = value
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field reply_markup: %w", err)
 		}
 		i.ReplyMarkup = value
 	}
 	{
 		value, err := DecodeInputMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field input_message_content: %w", err)
+			return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field input_message_content: %w", err)
 		}
 		i.InputMessageContent = value
 	}
@@ -847,7 +830,7 @@ func (i *InputInlineQueryResultArticle) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInlineQueryResultArticle#75a3d10c as nil")
+		return fmt.Errorf("can't encode inputInlineQueryResultArticle#763583bc as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultArticle")
@@ -857,9 +840,6 @@ func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.Comma()
 	b.FieldStart("url")
 	b.PutString(i.URL)
-	b.Comma()
-	b.FieldStart("hide_url")
-	b.PutBool(i.HideURL)
 	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
@@ -878,18 +858,18 @@ func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field reply_markup is nil")
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field reply_markup is nil")
 	}
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field input_message_content is nil")
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field input_message_content is nil")
 	}
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field input_message_content: %w", err)
+		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#763583bc: field input_message_content: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -900,73 +880,67 @@ func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputInlineQueryResultArticle) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInlineQueryResultArticle#75a3d10c to nil")
+		return fmt.Errorf("can't decode inputInlineQueryResultArticle#763583bc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputInlineQueryResultArticle"); err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: %w", err)
 			}
 		case "id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field id: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field id: %w", err)
 			}
 			i.ID = value
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field url: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field url: %w", err)
 			}
 			i.URL = value
-		case "hide_url":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field hide_url: %w", err)
-			}
-			i.HideURL = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field title: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field title: %w", err)
 			}
 			i.Title = value
 		case "description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field description: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field description: %w", err)
 			}
 			i.Description = value
 		case "thumbnail_url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field thumbnail_url: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field thumbnail_url: %w", err)
 			}
 			i.ThumbnailURL = value
 		case "thumbnail_width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field thumbnail_width: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field thumbnail_width: %w", err)
 			}
 			i.ThumbnailWidth = value
 		case "thumbnail_height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field thumbnail_height: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field thumbnail_height: %w", err)
 			}
 			i.ThumbnailHeight = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field reply_markup: %w", err)
 			}
 			i.ReplyMarkup = value
 		case "input_message_content":
 			value, err := DecodeTDLibJSONInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#75a3d10c: field input_message_content: %w", err)
+				return fmt.Errorf("unable to decode inputInlineQueryResultArticle#763583bc: field input_message_content: %w", err)
 			}
 			i.InputMessageContent = value
 		default:
@@ -990,14 +964,6 @@ func (i *InputInlineQueryResultArticle) GetURL() (value string) {
 		return
 	}
 	return i.URL
-}
-
-// GetHideURL returns value of HideURL field.
-func (i *InputInlineQueryResultArticle) GetHideURL() (value bool) {
-	if i == nil {
-		return
-	}
-	return i.HideURL
 }
 
 // GetTitle returns value of Title field.
@@ -5194,7 +5160,7 @@ const InputInlineQueryResultClassName = "InputInlineQueryResult"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.InputInlineQueryResultAnimation: // inputInlineQueryResultAnimation#a7335216
-//	case *tdapi.InputInlineQueryResultArticle: // inputInlineQueryResultArticle#75a3d10c
+//	case *tdapi.InputInlineQueryResultArticle: // inputInlineQueryResultArticle#763583bc
 //	case *tdapi.InputInlineQueryResultAudio: // inputInlineQueryResultAudio#4b1c35d4
 //	case *tdapi.InputInlineQueryResultContact: // inputInlineQueryResultContact#6e08b5d2
 //	case *tdapi.InputInlineQueryResultDocument: // inputInlineQueryResultDocument#227fd0cd
@@ -5250,7 +5216,7 @@ func DecodeInputInlineQueryResult(buf *bin.Buffer) (InputInlineQueryResultClass,
 		}
 		return &v, nil
 	case InputInlineQueryResultArticleTypeID:
-		// Decoding inputInlineQueryResultArticle#75a3d10c.
+		// Decoding inputInlineQueryResultArticle#763583bc.
 		v := InputInlineQueryResultArticle{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInlineQueryResultClass: %w", err)
@@ -5346,7 +5312,7 @@ func DecodeTDLibJSONInputInlineQueryResult(buf tdjson.Decoder) (InputInlineQuery
 		}
 		return &v, nil
 	case "inputInlineQueryResultArticle":
-		// Decoding inputInlineQueryResultArticle#75a3d10c.
+		// Decoding inputInlineQueryResultArticle#763583bc.
 		v := InputInlineQueryResultArticle{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInlineQueryResultClass: %w", err)

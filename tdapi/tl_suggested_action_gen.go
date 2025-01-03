@@ -1543,6 +1543,137 @@ func (s *SuggestedActionSetBirthdate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// SuggestedActionSetProfilePhoto represents TL type `suggestedActionSetProfilePhoto#9fe23d6b`.
+type SuggestedActionSetProfilePhoto struct {
+}
+
+// SuggestedActionSetProfilePhotoTypeID is TL type id of SuggestedActionSetProfilePhoto.
+const SuggestedActionSetProfilePhotoTypeID = 0x9fe23d6b
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionSetProfilePhoto) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionSetProfilePhoto.
+var (
+	_ bin.Encoder     = &SuggestedActionSetProfilePhoto{}
+	_ bin.Decoder     = &SuggestedActionSetProfilePhoto{}
+	_ bin.BareEncoder = &SuggestedActionSetProfilePhoto{}
+	_ bin.BareDecoder = &SuggestedActionSetProfilePhoto{}
+
+	_ SuggestedActionClass = &SuggestedActionSetProfilePhoto{}
+)
+
+func (s *SuggestedActionSetProfilePhoto) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionSetProfilePhoto) String() string {
+	if s == nil {
+		return "SuggestedActionSetProfilePhoto(nil)"
+	}
+	type Alias SuggestedActionSetProfilePhoto
+	return fmt.Sprintf("SuggestedActionSetProfilePhoto%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionSetProfilePhoto) TypeID() uint32 {
+	return SuggestedActionSetProfilePhotoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionSetProfilePhoto) TypeName() string {
+	return "suggestedActionSetProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionSetProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionSetProfilePhoto",
+		ID:   SuggestedActionSetProfilePhotoTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionSetProfilePhoto) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetProfilePhoto#9fe23d6b as nil")
+	}
+	b.PutID(SuggestedActionSetProfilePhotoTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionSetProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetProfilePhoto#9fe23d6b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionSetProfilePhoto) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetProfilePhoto#9fe23d6b to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionSetProfilePhotoTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionSetProfilePhoto#9fe23d6b: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionSetProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetProfilePhoto#9fe23d6b to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionSetProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetProfilePhoto#9fe23d6b as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionSetProfilePhoto")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionSetProfilePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetProfilePhoto#9fe23d6b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionSetProfilePhoto"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionSetProfilePhoto#9fe23d6b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SuggestedActionExtendPremium represents TL type `suggestedActionExtendPremium#de405cca`.
 type SuggestedActionExtendPremium struct {
 	// A URL for managing Telegram Premium subscription
@@ -1863,6 +1994,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionSubscribeToAnnualPremium: // suggestedActionSubscribeToAnnualPremium#164978bb
 //	case *tdapi.SuggestedActionGiftPremiumForChristmas: // suggestedActionGiftPremiumForChristmas#93b3ee6f
 //	case *tdapi.SuggestedActionSetBirthdate: // suggestedActionSetBirthdate#eabd9b02
+//	case *tdapi.SuggestedActionSetProfilePhoto: // suggestedActionSetProfilePhoto#9fe23d6b
 //	case *tdapi.SuggestedActionExtendPremium: // suggestedActionExtendPremium#de405cca
 //	case *tdapi.SuggestedActionExtendStarSubscriptions: // suggestedActionExtendStarSubscriptions#fd32d556
 //	default: panic(v)
@@ -1973,6 +2105,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionSetProfilePhotoTypeID:
+		// Decoding suggestedActionSetProfilePhoto#9fe23d6b.
+		v := SuggestedActionSetProfilePhoto{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	case SuggestedActionExtendPremiumTypeID:
 		// Decoding suggestedActionExtendPremium#de405cca.
 		v := SuggestedActionExtendPremium{}
@@ -2072,6 +2211,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionSetBirthdate":
 		// Decoding suggestedActionSetBirthdate#eabd9b02.
 		v := SuggestedActionSetBirthdate{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionSetProfilePhoto":
+		// Decoding suggestedActionSetProfilePhoto#9fe23d6b.
+		v := SuggestedActionSetProfilePhoto{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

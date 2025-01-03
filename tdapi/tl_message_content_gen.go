@@ -14770,27 +14770,40 @@ func (m *MessageGiveawayPrizeStars) GetSticker() (value Sticker) {
 	return m.Sticker
 }
 
-// MessageGift represents TL type `messageGift#982ec167`.
+// MessageGift represents TL type `messageGift#621a3876`.
 type MessageGift struct {
 	// The gift
 	Gift Gift
 	// Message added to the gift
 	Text FormattedText
-	// Number of Telegram Stars that can be claimed by the receiver instead of the gift; 0 if
-	// the gift can't be sold by the receiver
+	// Number of Telegram Stars that can be claimed by the receiver instead of the regular
+	// gift; 0 if the gift can't be sold by the receiver
 	SellStarCount int64
+	// Number of Telegram Stars that were paid by the sender for the ability to upgrade the
+	// gift
+	PrepaidUpgradeStarCount int64
 	// True, if the sender and gift text are shown only to the gift receiver; otherwise,
 	// everyone will be able to see them
 	IsPrivate bool
 	// True, if the gift is displayed on the user's profile page; only for the receiver of
 	// the gift
 	IsSaved bool
+	// True, if the gift can be upgraded to a unique gift; only for the receiver of the gift
+	CanBeUpgraded bool
 	// True, if the gift was converted to Telegram Stars; only for the receiver of the gift
 	WasConverted bool
+	// True, if the gift was upgraded to a unique gift
+	WasUpgraded bool
+	// True, if the gift was refunded and isn't available anymore
+	WasRefunded bool
+	// Identifier of the service message messageUpgradedGift or messageRefundedUpgradedGift
+	// with upgraded version of the gift; can be 0 if none or an identifier of a deleted
+	// message.
+	UpgradeMessageID int64
 }
 
 // MessageGiftTypeID is TL type id of MessageGift.
-const MessageGiftTypeID = 0x982ec167
+const MessageGiftTypeID = 0x621a3876
 
 // construct implements constructor of MessageContentClass.
 func (m MessageGift) construct() MessageContentClass { return &m }
@@ -14818,13 +14831,28 @@ func (m *MessageGift) Zero() bool {
 	if !(m.SellStarCount == 0) {
 		return false
 	}
+	if !(m.PrepaidUpgradeStarCount == 0) {
+		return false
+	}
 	if !(m.IsPrivate == false) {
 		return false
 	}
 	if !(m.IsSaved == false) {
 		return false
 	}
+	if !(m.CanBeUpgraded == false) {
+		return false
+	}
 	if !(m.WasConverted == false) {
+		return false
+	}
+	if !(m.WasUpgraded == false) {
+		return false
+	}
+	if !(m.WasRefunded == false) {
+		return false
+	}
+	if !(m.UpgradeMessageID == 0) {
 		return false
 	}
 
@@ -14876,6 +14904,10 @@ func (m *MessageGift) TypeInfo() tdp.Type {
 			SchemaName: "sell_star_count",
 		},
 		{
+			Name:       "PrepaidUpgradeStarCount",
+			SchemaName: "prepaid_upgrade_star_count",
+		},
+		{
 			Name:       "IsPrivate",
 			SchemaName: "is_private",
 		},
@@ -14884,8 +14916,24 @@ func (m *MessageGift) TypeInfo() tdp.Type {
 			SchemaName: "is_saved",
 		},
 		{
+			Name:       "CanBeUpgraded",
+			SchemaName: "can_be_upgraded",
+		},
+		{
 			Name:       "WasConverted",
 			SchemaName: "was_converted",
+		},
+		{
+			Name:       "WasUpgraded",
+			SchemaName: "was_upgraded",
+		},
+		{
+			Name:       "WasRefunded",
+			SchemaName: "was_refunded",
+		},
+		{
+			Name:       "UpgradeMessageID",
+			SchemaName: "upgrade_message_id",
 		},
 	}
 	return typ
@@ -14894,7 +14942,7 @@ func (m *MessageGift) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageGift) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGift#982ec167 as nil")
+		return fmt.Errorf("can't encode messageGift#621a3876 as nil")
 	}
 	b.PutID(MessageGiftTypeID)
 	return m.EncodeBare(b)
@@ -14903,28 +14951,33 @@ func (m *MessageGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageGift) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGift#982ec167 as nil")
+		return fmt.Errorf("can't encode messageGift#621a3876 as nil")
 	}
 	if err := m.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageGift#982ec167: field gift: %w", err)
+		return fmt.Errorf("unable to encode messageGift#621a3876: field gift: %w", err)
 	}
 	if err := m.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageGift#982ec167: field text: %w", err)
+		return fmt.Errorf("unable to encode messageGift#621a3876: field text: %w", err)
 	}
 	b.PutInt53(m.SellStarCount)
+	b.PutInt53(m.PrepaidUpgradeStarCount)
 	b.PutBool(m.IsPrivate)
 	b.PutBool(m.IsSaved)
+	b.PutBool(m.CanBeUpgraded)
 	b.PutBool(m.WasConverted)
+	b.PutBool(m.WasUpgraded)
+	b.PutBool(m.WasRefunded)
+	b.PutInt53(m.UpgradeMessageID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageGift) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGift#982ec167 to nil")
+		return fmt.Errorf("can't decode messageGift#621a3876 to nil")
 	}
 	if err := b.ConsumeID(MessageGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageGift#982ec167: %w", err)
+		return fmt.Errorf("unable to decode messageGift#621a3876: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -14932,45 +14985,80 @@ func (m *MessageGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageGift) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGift#982ec167 to nil")
+		return fmt.Errorf("can't decode messageGift#621a3876 to nil")
 	}
 	{
 		if err := m.Gift.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageGift#982ec167: field gift: %w", err)
+			return fmt.Errorf("unable to decode messageGift#621a3876: field gift: %w", err)
 		}
 	}
 	{
 		if err := m.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageGift#982ec167: field text: %w", err)
+			return fmt.Errorf("unable to decode messageGift#621a3876: field text: %w", err)
 		}
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGift#982ec167: field sell_star_count: %w", err)
+			return fmt.Errorf("unable to decode messageGift#621a3876: field sell_star_count: %w", err)
 		}
 		m.SellStarCount = value
 	}
 	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGift#621a3876: field prepaid_upgrade_star_count: %w", err)
+		}
+		m.PrepaidUpgradeStarCount = value
+	}
+	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGift#982ec167: field is_private: %w", err)
+			return fmt.Errorf("unable to decode messageGift#621a3876: field is_private: %w", err)
 		}
 		m.IsPrivate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGift#982ec167: field is_saved: %w", err)
+			return fmt.Errorf("unable to decode messageGift#621a3876: field is_saved: %w", err)
 		}
 		m.IsSaved = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGift#982ec167: field was_converted: %w", err)
+			return fmt.Errorf("unable to decode messageGift#621a3876: field can_be_upgraded: %w", err)
+		}
+		m.CanBeUpgraded = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGift#621a3876: field was_converted: %w", err)
 		}
 		m.WasConverted = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGift#621a3876: field was_upgraded: %w", err)
+		}
+		m.WasUpgraded = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGift#621a3876: field was_refunded: %w", err)
+		}
+		m.WasRefunded = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGift#621a3876: field upgrade_message_id: %w", err)
+		}
+		m.UpgradeMessageID = value
 	}
 	return nil
 }
@@ -14978,23 +15066,26 @@ func (m *MessageGift) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGift#982ec167 as nil")
+		return fmt.Errorf("can't encode messageGift#621a3876 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageGift")
 	b.Comma()
 	b.FieldStart("gift")
 	if err := m.Gift.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageGift#982ec167: field gift: %w", err)
+		return fmt.Errorf("unable to encode messageGift#621a3876: field gift: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("text")
 	if err := m.Text.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageGift#982ec167: field text: %w", err)
+		return fmt.Errorf("unable to encode messageGift#621a3876: field text: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("sell_star_count")
 	b.PutInt53(m.SellStarCount)
+	b.Comma()
+	b.FieldStart("prepaid_upgrade_star_count")
+	b.PutInt53(m.PrepaidUpgradeStarCount)
 	b.Comma()
 	b.FieldStart("is_private")
 	b.PutBool(m.IsPrivate)
@@ -15002,8 +15093,20 @@ func (m *MessageGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_saved")
 	b.PutBool(m.IsSaved)
 	b.Comma()
+	b.FieldStart("can_be_upgraded")
+	b.PutBool(m.CanBeUpgraded)
+	b.Comma()
 	b.FieldStart("was_converted")
 	b.PutBool(m.WasConverted)
+	b.Comma()
+	b.FieldStart("was_upgraded")
+	b.PutBool(m.WasUpgraded)
+	b.Comma()
+	b.FieldStart("was_refunded")
+	b.PutBool(m.WasRefunded)
+	b.Comma()
+	b.FieldStart("upgrade_message_id")
+	b.PutInt53(m.UpgradeMessageID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -15013,47 +15116,77 @@ func (m *MessageGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageGift) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGift#982ec167 to nil")
+		return fmt.Errorf("can't decode messageGift#621a3876 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageGift"); err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: %w", err)
 			}
 		case "gift":
 			if err := m.Gift.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: field gift: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: field gift: %w", err)
 			}
 		case "text":
 			if err := m.Text.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: field text: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: field text: %w", err)
 			}
 		case "sell_star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: field sell_star_count: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: field sell_star_count: %w", err)
 			}
 			m.SellStarCount = value
+		case "prepaid_upgrade_star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGift#621a3876: field prepaid_upgrade_star_count: %w", err)
+			}
+			m.PrepaidUpgradeStarCount = value
 		case "is_private":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: field is_private: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: field is_private: %w", err)
 			}
 			m.IsPrivate = value
 		case "is_saved":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: field is_saved: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: field is_saved: %w", err)
 			}
 			m.IsSaved = value
+		case "can_be_upgraded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGift#621a3876: field can_be_upgraded: %w", err)
+			}
+			m.CanBeUpgraded = value
 		case "was_converted":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGift#982ec167: field was_converted: %w", err)
+				return fmt.Errorf("unable to decode messageGift#621a3876: field was_converted: %w", err)
 			}
 			m.WasConverted = value
+		case "was_upgraded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGift#621a3876: field was_upgraded: %w", err)
+			}
+			m.WasUpgraded = value
+		case "was_refunded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGift#621a3876: field was_refunded: %w", err)
+			}
+			m.WasRefunded = value
+		case "upgrade_message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGift#621a3876: field upgrade_message_id: %w", err)
+			}
+			m.UpgradeMessageID = value
 		default:
 			return b.Skip()
 		}
@@ -15085,6 +15218,14 @@ func (m *MessageGift) GetSellStarCount() (value int64) {
 	return m.SellStarCount
 }
 
+// GetPrepaidUpgradeStarCount returns value of PrepaidUpgradeStarCount field.
+func (m *MessageGift) GetPrepaidUpgradeStarCount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.PrepaidUpgradeStarCount
+}
+
 // GetIsPrivate returns value of IsPrivate field.
 func (m *MessageGift) GetIsPrivate() (value bool) {
 	if m == nil {
@@ -15101,12 +15242,619 @@ func (m *MessageGift) GetIsSaved() (value bool) {
 	return m.IsSaved
 }
 
+// GetCanBeUpgraded returns value of CanBeUpgraded field.
+func (m *MessageGift) GetCanBeUpgraded() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.CanBeUpgraded
+}
+
 // GetWasConverted returns value of WasConverted field.
 func (m *MessageGift) GetWasConverted() (value bool) {
 	if m == nil {
 		return
 	}
 	return m.WasConverted
+}
+
+// GetWasUpgraded returns value of WasUpgraded field.
+func (m *MessageGift) GetWasUpgraded() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.WasUpgraded
+}
+
+// GetWasRefunded returns value of WasRefunded field.
+func (m *MessageGift) GetWasRefunded() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.WasRefunded
+}
+
+// GetUpgradeMessageID returns value of UpgradeMessageID field.
+func (m *MessageGift) GetUpgradeMessageID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.UpgradeMessageID
+}
+
+// MessageUpgradedGift represents TL type `messageUpgradedGift#4932f215`.
+type MessageUpgradedGift struct {
+	// The gift
+	Gift UpgradedGift
+	// True, if the gift was obtained by upgrading of a previously received gift; otherwise,
+	// this is a transferred gift
+	IsUpgrade bool
+	// True, if the gift is displayed on the user's profile page; only for the receiver of
+	// the gift
+	IsSaved bool
+	// True, if the gift can be transferred to another user; only for the receiver of the
+	// gift
+	CanBeTransferred bool
+	// True, if the gift was transferred to another user; only for the receiver of the gift
+	WasTransferred bool
+	// Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the
+	// receiver of the gift
+	TransferStarCount int64
+	// Point in time (Unix timestamp) when the gift can be transferred to TON blockchain as
+	// an NFT; 0 if NFT export isn't possible; only for the receiver of the gift
+	ExportDate int32
+}
+
+// MessageUpgradedGiftTypeID is TL type id of MessageUpgradedGift.
+const MessageUpgradedGiftTypeID = 0x4932f215
+
+// construct implements constructor of MessageContentClass.
+func (m MessageUpgradedGift) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageUpgradedGift.
+var (
+	_ bin.Encoder     = &MessageUpgradedGift{}
+	_ bin.Decoder     = &MessageUpgradedGift{}
+	_ bin.BareEncoder = &MessageUpgradedGift{}
+	_ bin.BareDecoder = &MessageUpgradedGift{}
+
+	_ MessageContentClass = &MessageUpgradedGift{}
+)
+
+func (m *MessageUpgradedGift) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Gift.Zero()) {
+		return false
+	}
+	if !(m.IsUpgrade == false) {
+		return false
+	}
+	if !(m.IsSaved == false) {
+		return false
+	}
+	if !(m.CanBeTransferred == false) {
+		return false
+	}
+	if !(m.WasTransferred == false) {
+		return false
+	}
+	if !(m.TransferStarCount == 0) {
+		return false
+	}
+	if !(m.ExportDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageUpgradedGift) String() string {
+	if m == nil {
+		return "MessageUpgradedGift(nil)"
+	}
+	type Alias MessageUpgradedGift
+	return fmt.Sprintf("MessageUpgradedGift%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageUpgradedGift) TypeID() uint32 {
+	return MessageUpgradedGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageUpgradedGift) TypeName() string {
+	return "messageUpgradedGift"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageUpgradedGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageUpgradedGift",
+		ID:   MessageUpgradedGiftTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Gift",
+			SchemaName: "gift",
+		},
+		{
+			Name:       "IsUpgrade",
+			SchemaName: "is_upgrade",
+		},
+		{
+			Name:       "IsSaved",
+			SchemaName: "is_saved",
+		},
+		{
+			Name:       "CanBeTransferred",
+			SchemaName: "can_be_transferred",
+		},
+		{
+			Name:       "WasTransferred",
+			SchemaName: "was_transferred",
+		},
+		{
+			Name:       "TransferStarCount",
+			SchemaName: "transfer_star_count",
+		},
+		{
+			Name:       "ExportDate",
+			SchemaName: "export_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageUpgradedGift) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageUpgradedGift#4932f215 as nil")
+	}
+	b.PutID(MessageUpgradedGiftTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageUpgradedGift) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageUpgradedGift#4932f215 as nil")
+	}
+	if err := m.Gift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageUpgradedGift#4932f215: field gift: %w", err)
+	}
+	b.PutBool(m.IsUpgrade)
+	b.PutBool(m.IsSaved)
+	b.PutBool(m.CanBeTransferred)
+	b.PutBool(m.WasTransferred)
+	b.PutInt53(m.TransferStarCount)
+	b.PutInt32(m.ExportDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageUpgradedGift) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageUpgradedGift#4932f215 to nil")
+	}
+	if err := b.ConsumeID(MessageUpgradedGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageUpgradedGift) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageUpgradedGift#4932f215 to nil")
+	}
+	{
+		if err := m.Gift.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field gift: %w", err)
+		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field is_upgrade: %w", err)
+		}
+		m.IsUpgrade = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field is_saved: %w", err)
+		}
+		m.IsSaved = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field can_be_transferred: %w", err)
+		}
+		m.CanBeTransferred = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field was_transferred: %w", err)
+		}
+		m.WasTransferred = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field transfer_star_count: %w", err)
+		}
+		m.TransferStarCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field export_date: %w", err)
+		}
+		m.ExportDate = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageUpgradedGift) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageUpgradedGift#4932f215 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageUpgradedGift")
+	b.Comma()
+	b.FieldStart("gift")
+	if err := m.Gift.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageUpgradedGift#4932f215: field gift: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("is_upgrade")
+	b.PutBool(m.IsUpgrade)
+	b.Comma()
+	b.FieldStart("is_saved")
+	b.PutBool(m.IsSaved)
+	b.Comma()
+	b.FieldStart("can_be_transferred")
+	b.PutBool(m.CanBeTransferred)
+	b.Comma()
+	b.FieldStart("was_transferred")
+	b.PutBool(m.WasTransferred)
+	b.Comma()
+	b.FieldStart("transfer_star_count")
+	b.PutInt53(m.TransferStarCount)
+	b.Comma()
+	b.FieldStart("export_date")
+	b.PutInt32(m.ExportDate)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageUpgradedGift) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageUpgradedGift#4932f215 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageUpgradedGift"); err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: %w", err)
+			}
+		case "gift":
+			if err := m.Gift.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field gift: %w", err)
+			}
+		case "is_upgrade":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field is_upgrade: %w", err)
+			}
+			m.IsUpgrade = value
+		case "is_saved":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field is_saved: %w", err)
+			}
+			m.IsSaved = value
+		case "can_be_transferred":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field can_be_transferred: %w", err)
+			}
+			m.CanBeTransferred = value
+		case "was_transferred":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field was_transferred: %w", err)
+			}
+			m.WasTransferred = value
+		case "transfer_star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field transfer_star_count: %w", err)
+			}
+			m.TransferStarCount = value
+		case "export_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageUpgradedGift#4932f215: field export_date: %w", err)
+			}
+			m.ExportDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetGift returns value of Gift field.
+func (m *MessageUpgradedGift) GetGift() (value UpgradedGift) {
+	if m == nil {
+		return
+	}
+	return m.Gift
+}
+
+// GetIsUpgrade returns value of IsUpgrade field.
+func (m *MessageUpgradedGift) GetIsUpgrade() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.IsUpgrade
+}
+
+// GetIsSaved returns value of IsSaved field.
+func (m *MessageUpgradedGift) GetIsSaved() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.IsSaved
+}
+
+// GetCanBeTransferred returns value of CanBeTransferred field.
+func (m *MessageUpgradedGift) GetCanBeTransferred() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.CanBeTransferred
+}
+
+// GetWasTransferred returns value of WasTransferred field.
+func (m *MessageUpgradedGift) GetWasTransferred() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.WasTransferred
+}
+
+// GetTransferStarCount returns value of TransferStarCount field.
+func (m *MessageUpgradedGift) GetTransferStarCount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.TransferStarCount
+}
+
+// GetExportDate returns value of ExportDate field.
+func (m *MessageUpgradedGift) GetExportDate() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.ExportDate
+}
+
+// MessageRefundedUpgradedGift represents TL type `messageRefundedUpgradedGift#d373886d`.
+type MessageRefundedUpgradedGift struct {
+	// The gift
+	Gift Gift
+	// True, if the gift was obtained by upgrading of a previously received gift
+	IsUpgrade bool
+}
+
+// MessageRefundedUpgradedGiftTypeID is TL type id of MessageRefundedUpgradedGift.
+const MessageRefundedUpgradedGiftTypeID = 0xd373886d
+
+// construct implements constructor of MessageContentClass.
+func (m MessageRefundedUpgradedGift) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageRefundedUpgradedGift.
+var (
+	_ bin.Encoder     = &MessageRefundedUpgradedGift{}
+	_ bin.Decoder     = &MessageRefundedUpgradedGift{}
+	_ bin.BareEncoder = &MessageRefundedUpgradedGift{}
+	_ bin.BareDecoder = &MessageRefundedUpgradedGift{}
+
+	_ MessageContentClass = &MessageRefundedUpgradedGift{}
+)
+
+func (m *MessageRefundedUpgradedGift) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Gift.Zero()) {
+		return false
+	}
+	if !(m.IsUpgrade == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageRefundedUpgradedGift) String() string {
+	if m == nil {
+		return "MessageRefundedUpgradedGift(nil)"
+	}
+	type Alias MessageRefundedUpgradedGift
+	return fmt.Sprintf("MessageRefundedUpgradedGift%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageRefundedUpgradedGift) TypeID() uint32 {
+	return MessageRefundedUpgradedGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageRefundedUpgradedGift) TypeName() string {
+	return "messageRefundedUpgradedGift"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageRefundedUpgradedGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageRefundedUpgradedGift",
+		ID:   MessageRefundedUpgradedGiftTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Gift",
+			SchemaName: "gift",
+		},
+		{
+			Name:       "IsUpgrade",
+			SchemaName: "is_upgrade",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageRefundedUpgradedGift) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageRefundedUpgradedGift#d373886d as nil")
+	}
+	b.PutID(MessageRefundedUpgradedGiftTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageRefundedUpgradedGift) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageRefundedUpgradedGift#d373886d as nil")
+	}
+	if err := m.Gift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageRefundedUpgradedGift#d373886d: field gift: %w", err)
+	}
+	b.PutBool(m.IsUpgrade)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageRefundedUpgradedGift) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageRefundedUpgradedGift#d373886d to nil")
+	}
+	if err := b.ConsumeID(MessageRefundedUpgradedGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageRefundedUpgradedGift#d373886d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageRefundedUpgradedGift) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageRefundedUpgradedGift#d373886d to nil")
+	}
+	{
+		if err := m.Gift.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageRefundedUpgradedGift#d373886d: field gift: %w", err)
+		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageRefundedUpgradedGift#d373886d: field is_upgrade: %w", err)
+		}
+		m.IsUpgrade = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageRefundedUpgradedGift) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageRefundedUpgradedGift#d373886d as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageRefundedUpgradedGift")
+	b.Comma()
+	b.FieldStart("gift")
+	if err := m.Gift.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageRefundedUpgradedGift#d373886d: field gift: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("is_upgrade")
+	b.PutBool(m.IsUpgrade)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageRefundedUpgradedGift) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageRefundedUpgradedGift#d373886d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageRefundedUpgradedGift"); err != nil {
+				return fmt.Errorf("unable to decode messageRefundedUpgradedGift#d373886d: %w", err)
+			}
+		case "gift":
+			if err := m.Gift.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageRefundedUpgradedGift#d373886d: field gift: %w", err)
+			}
+		case "is_upgrade":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageRefundedUpgradedGift#d373886d: field is_upgrade: %w", err)
+			}
+			m.IsUpgrade = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetGift returns value of Gift field.
+func (m *MessageRefundedUpgradedGift) GetGift() (value Gift) {
+	if m == nil {
+		return
+	}
+	return m.Gift
+}
+
+// GetIsUpgrade returns value of IsUpgrade field.
+func (m *MessageRefundedUpgradedGift) GetIsUpgrade() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.IsUpgrade
 }
 
 // MessageContactRegistered represents TL type `messageContactRegistered#a678fcff`.
@@ -17098,7 +17846,9 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageGiveawayWinners: // messageGiveawayWinners#1d99a27a
 //	case *tdapi.MessageGiftedStars: // messageGiftedStars#41bdbea7
 //	case *tdapi.MessageGiveawayPrizeStars: // messageGiveawayPrizeStars#aa0f5de3
-//	case *tdapi.MessageGift: // messageGift#982ec167
+//	case *tdapi.MessageGift: // messageGift#621a3876
+//	case *tdapi.MessageUpgradedGift: // messageUpgradedGift#4932f215
+//	case *tdapi.MessageRefundedUpgradedGift: // messageRefundedUpgradedGift#d373886d
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //	case *tdapi.MessageUsersShared: // messageUsersShared#7f1f4a22
 //	case *tdapi.MessageChatShared: // messageChatShared#aec6d961
@@ -17582,8 +18332,22 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageGiftTypeID:
-		// Decoding messageGift#982ec167.
+		// Decoding messageGift#621a3876.
 		v := MessageGift{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageUpgradedGiftTypeID:
+		// Decoding messageUpgradedGift#4932f215.
+		v := MessageUpgradedGift{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageRefundedUpgradedGiftTypeID:
+		// Decoding messageRefundedUpgradedGift#d373886d.
+		v := MessageRefundedUpgradedGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -18112,8 +18876,22 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageGift":
-		// Decoding messageGift#982ec167.
+		// Decoding messageGift#621a3876.
 		v := MessageGift{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageUpgradedGift":
+		// Decoding messageUpgradedGift#4932f215.
+		v := MessageUpgradedGift{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageRefundedUpgradedGift":
+		// Decoding messageRefundedUpgradedGift#d373886d.
+		v := MessageRefundedUpgradedGift{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

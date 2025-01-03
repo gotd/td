@@ -31,12 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchAffiliateProgramsRequest represents TL type `searchAffiliatePrograms#617c974c`.
+// SearchAffiliateProgramsRequest represents TL type `searchAffiliatePrograms#2899a011`.
 type SearchAffiliateProgramsRequest struct {
-	// Identifier of the chat for which affiliate programs are searched for. Can be an
-	// identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel
-	// chat with can_post_messages administrator right
-	ChatID int64
+	// The affiliate for which affiliate programs are searched for
+	Affiliate AffiliateTypeClass
 	// Sort order for the results
 	SortOrder AffiliateProgramSortOrderClass
 	// Offset of the first affiliate program to return as received from the previous request;
@@ -47,7 +45,7 @@ type SearchAffiliateProgramsRequest struct {
 }
 
 // SearchAffiliateProgramsRequestTypeID is TL type id of SearchAffiliateProgramsRequest.
-const SearchAffiliateProgramsRequestTypeID = 0x617c974c
+const SearchAffiliateProgramsRequestTypeID = 0x2899a011
 
 // Ensuring interfaces in compile-time for SearchAffiliateProgramsRequest.
 var (
@@ -61,7 +59,7 @@ func (s *SearchAffiliateProgramsRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.ChatID == 0) {
+	if !(s.Affiliate == nil) {
 		return false
 	}
 	if !(s.SortOrder == nil) {
@@ -110,8 +108,8 @@ func (s *SearchAffiliateProgramsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
+			Name:       "Affiliate",
+			SchemaName: "affiliate",
 		},
 		{
 			Name:       "SortOrder",
@@ -132,7 +130,7 @@ func (s *SearchAffiliateProgramsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchAffiliateProgramsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchAffiliatePrograms#617c974c as nil")
+		return fmt.Errorf("can't encode searchAffiliatePrograms#2899a011 as nil")
 	}
 	b.PutID(SearchAffiliateProgramsRequestTypeID)
 	return s.EncodeBare(b)
@@ -141,14 +139,19 @@ func (s *SearchAffiliateProgramsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchAffiliateProgramsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchAffiliatePrograms#617c974c as nil")
+		return fmt.Errorf("can't encode searchAffiliatePrograms#2899a011 as nil")
 	}
-	b.PutInt53(s.ChatID)
+	if s.Affiliate == nil {
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field affiliate is nil")
+	}
+	if err := s.Affiliate.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field affiliate: %w", err)
+	}
 	if s.SortOrder == nil {
-		return fmt.Errorf("unable to encode searchAffiliatePrograms#617c974c: field sort_order is nil")
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field sort_order is nil")
 	}
 	if err := s.SortOrder.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode searchAffiliatePrograms#617c974c: field sort_order: %w", err)
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field sort_order: %w", err)
 	}
 	b.PutString(s.Offset)
 	b.PutInt32(s.Limit)
@@ -158,10 +161,10 @@ func (s *SearchAffiliateProgramsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchAffiliateProgramsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchAffiliatePrograms#617c974c to nil")
+		return fmt.Errorf("can't decode searchAffiliatePrograms#2899a011 to nil")
 	}
 	if err := b.ConsumeID(SearchAffiliateProgramsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: %w", err)
+		return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -169,33 +172,33 @@ func (s *SearchAffiliateProgramsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchAffiliateProgramsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchAffiliatePrograms#617c974c to nil")
+		return fmt.Errorf("can't decode searchAffiliatePrograms#2899a011 to nil")
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeAffiliateType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field affiliate: %w", err)
 		}
-		s.ChatID = value
+		s.Affiliate = value
 	}
 	{
 		value, err := DecodeAffiliateProgramSortOrder(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field sort_order: %w", err)
+			return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field sort_order: %w", err)
 		}
 		s.SortOrder = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field offset: %w", err)
+			return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field offset: %w", err)
 		}
 		s.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field limit: %w", err)
+			return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field limit: %w", err)
 		}
 		s.Limit = value
 	}
@@ -205,20 +208,25 @@ func (s *SearchAffiliateProgramsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchAffiliateProgramsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchAffiliatePrograms#617c974c as nil")
+		return fmt.Errorf("can't encode searchAffiliatePrograms#2899a011 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchAffiliatePrograms")
 	b.Comma()
-	b.FieldStart("chat_id")
-	b.PutInt53(s.ChatID)
+	b.FieldStart("affiliate")
+	if s.Affiliate == nil {
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field affiliate is nil")
+	}
+	if err := s.Affiliate.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field affiliate: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("sort_order")
 	if s.SortOrder == nil {
-		return fmt.Errorf("unable to encode searchAffiliatePrograms#617c974c: field sort_order is nil")
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field sort_order is nil")
 	}
 	if err := s.SortOrder.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode searchAffiliatePrograms#617c974c: field sort_order: %w", err)
+		return fmt.Errorf("unable to encode searchAffiliatePrograms#2899a011: field sort_order: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("offset")
@@ -235,37 +243,37 @@ func (s *SearchAffiliateProgramsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchAffiliateProgramsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchAffiliatePrograms#617c974c to nil")
+		return fmt.Errorf("can't decode searchAffiliatePrograms#2899a011 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchAffiliatePrograms"); err != nil {
-				return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: %w", err)
+				return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: %w", err)
 			}
-		case "chat_id":
-			value, err := b.Int53()
+		case "affiliate":
+			value, err := DecodeTDLibJSONAffiliateType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field affiliate: %w", err)
 			}
-			s.ChatID = value
+			s.Affiliate = value
 		case "sort_order":
 			value, err := DecodeTDLibJSONAffiliateProgramSortOrder(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field sort_order: %w", err)
+				return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field sort_order: %w", err)
 			}
 			s.SortOrder = value
 		case "offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field offset: %w", err)
+				return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field offset: %w", err)
 			}
 			s.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchAffiliatePrograms#617c974c: field limit: %w", err)
+				return fmt.Errorf("unable to decode searchAffiliatePrograms#2899a011: field limit: %w", err)
 			}
 			s.Limit = value
 		default:
@@ -275,12 +283,12 @@ func (s *SearchAffiliateProgramsRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 	})
 }
 
-// GetChatID returns value of ChatID field.
-func (s *SearchAffiliateProgramsRequest) GetChatID() (value int64) {
+// GetAffiliate returns value of Affiliate field.
+func (s *SearchAffiliateProgramsRequest) GetAffiliate() (value AffiliateTypeClass) {
 	if s == nil {
 		return
 	}
-	return s.ChatID
+	return s.Affiliate
 }
 
 // GetSortOrder returns value of SortOrder field.
@@ -307,7 +315,7 @@ func (s *SearchAffiliateProgramsRequest) GetLimit() (value int32) {
 	return s.Limit
 }
 
-// SearchAffiliatePrograms invokes method searchAffiliatePrograms#617c974c returning error if any.
+// SearchAffiliatePrograms invokes method searchAffiliatePrograms#2899a011 returning error if any.
 func (c *Client) SearchAffiliatePrograms(ctx context.Context, request *SearchAffiliateProgramsRequest) (*FoundAffiliatePrograms, error) {
 	var result FoundAffiliatePrograms
 

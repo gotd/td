@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UserGift represents TL type `userGift#494eb721`.
+// UserGift represents TL type `userGift#a39db860`.
 type UserGift struct {
 	// Identifier of the user that sent the gift; 0 if unknown
 	SenderUserID int64
@@ -40,23 +40,41 @@ type UserGift struct {
 	// True, if the sender and gift text are shown only to the gift receiver; otherwise,
 	// everyone are able to see them
 	IsPrivate bool
-	// True, if the gift is displayed on the user's profile page; may be false only for the
-	// receiver of the gift
+	// True, if the gift is displayed on the user's profile page; only for the receiver of
+	// the gift
 	IsSaved bool
+	// True, if the gift is a regular gift that can be upgraded to a unique gift; only for
+	// the receiver of the gift
+	CanBeUpgraded bool
+	// True, if the gift is an upgraded gift that can be transferred to another user; only
+	// for the receiver of the gift
+	CanBeTransferred bool
+	// True, if the gift was refunded and isn't available anymore
+	WasRefunded bool
 	// Point in time (Unix timestamp) when the gift was sent
 	Date int32
 	// The gift
-	Gift Gift
+	Gift SentGiftClass
 	// Identifier of the message with the gift in the chat with the sender of the gift; can
-	// be 0 or an identifier of a deleted message; only for the gift receiver
+	// be 0 or an identifier of a deleted message; only for the receiver of the gift
 	MessageID int64
-	// Number of Telegram Stars that can be claimed by the receiver instead of the gift; 0 if
-	// the gift can't be sold by the current user
+	// Number of Telegram Stars that can be claimed by the receiver instead of the regular
+	// gift; 0 if the gift can't be sold by the current user
 	SellStarCount int64
+	// Number of Telegram Stars that were paid by the sender for the ability to upgrade the
+	// gift
+	PrepaidUpgradeStarCount int64
+	// Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the
+	// receiver of the gift
+	TransferStarCount int64
+	// Point in time (Unix timestamp) when the upgraded gift can be transferred to TON
+	// blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the
+	// gift
+	ExportDate int32
 }
 
 // UserGiftTypeID is TL type id of UserGift.
-const UserGiftTypeID = 0x494eb721
+const UserGiftTypeID = 0xa39db860
 
 // Ensuring interfaces in compile-time for UserGift.
 var (
@@ -82,16 +100,34 @@ func (u *UserGift) Zero() bool {
 	if !(u.IsSaved == false) {
 		return false
 	}
+	if !(u.CanBeUpgraded == false) {
+		return false
+	}
+	if !(u.CanBeTransferred == false) {
+		return false
+	}
+	if !(u.WasRefunded == false) {
+		return false
+	}
 	if !(u.Date == 0) {
 		return false
 	}
-	if !(u.Gift.Zero()) {
+	if !(u.Gift == nil) {
 		return false
 	}
 	if !(u.MessageID == 0) {
 		return false
 	}
 	if !(u.SellStarCount == 0) {
+		return false
+	}
+	if !(u.PrepaidUpgradeStarCount == 0) {
+		return false
+	}
+	if !(u.TransferStarCount == 0) {
+		return false
+	}
+	if !(u.ExportDate == 0) {
 		return false
 	}
 
@@ -147,6 +183,18 @@ func (u *UserGift) TypeInfo() tdp.Type {
 			SchemaName: "is_saved",
 		},
 		{
+			Name:       "CanBeUpgraded",
+			SchemaName: "can_be_upgraded",
+		},
+		{
+			Name:       "CanBeTransferred",
+			SchemaName: "can_be_transferred",
+		},
+		{
+			Name:       "WasRefunded",
+			SchemaName: "was_refunded",
+		},
+		{
 			Name:       "Date",
 			SchemaName: "date",
 		},
@@ -162,6 +210,18 @@ func (u *UserGift) TypeInfo() tdp.Type {
 			Name:       "SellStarCount",
 			SchemaName: "sell_star_count",
 		},
+		{
+			Name:       "PrepaidUpgradeStarCount",
+			SchemaName: "prepaid_upgrade_star_count",
+		},
+		{
+			Name:       "TransferStarCount",
+			SchemaName: "transfer_star_count",
+		},
+		{
+			Name:       "ExportDate",
+			SchemaName: "export_date",
+		},
 	}
 	return typ
 }
@@ -169,7 +229,7 @@ func (u *UserGift) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserGift) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userGift#494eb721 as nil")
+		return fmt.Errorf("can't encode userGift#a39db860 as nil")
 	}
 	b.PutID(UserGiftTypeID)
 	return u.EncodeBare(b)
@@ -178,30 +238,39 @@ func (u *UserGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserGift) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userGift#494eb721 as nil")
+		return fmt.Errorf("can't encode userGift#a39db860 as nil")
 	}
 	b.PutInt53(u.SenderUserID)
 	if err := u.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userGift#494eb721: field text: %w", err)
+		return fmt.Errorf("unable to encode userGift#a39db860: field text: %w", err)
 	}
 	b.PutBool(u.IsPrivate)
 	b.PutBool(u.IsSaved)
+	b.PutBool(u.CanBeUpgraded)
+	b.PutBool(u.CanBeTransferred)
+	b.PutBool(u.WasRefunded)
 	b.PutInt32(u.Date)
+	if u.Gift == nil {
+		return fmt.Errorf("unable to encode userGift#a39db860: field gift is nil")
+	}
 	if err := u.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userGift#494eb721: field gift: %w", err)
+		return fmt.Errorf("unable to encode userGift#a39db860: field gift: %w", err)
 	}
 	b.PutInt53(u.MessageID)
 	b.PutInt53(u.SellStarCount)
+	b.PutInt53(u.PrepaidUpgradeStarCount)
+	b.PutInt53(u.TransferStarCount)
+	b.PutInt32(u.ExportDate)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserGift) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userGift#494eb721 to nil")
+		return fmt.Errorf("can't decode userGift#a39db860 to nil")
 	}
 	if err := b.ConsumeID(UserGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode userGift#494eb721: %w", err)
+		return fmt.Errorf("unable to decode userGift#a39db860: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -209,59 +278,103 @@ func (u *UserGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserGift) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userGift#494eb721 to nil")
+		return fmt.Errorf("can't decode userGift#a39db860 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field sender_user_id: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field sender_user_id: %w", err)
 		}
 		u.SenderUserID = value
 	}
 	{
 		if err := u.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field text: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field text: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field is_private: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field is_private: %w", err)
 		}
 		u.IsPrivate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field is_saved: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field is_saved: %w", err)
 		}
 		u.IsSaved = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field can_be_upgraded: %w", err)
+		}
+		u.CanBeUpgraded = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field can_be_transferred: %w", err)
+		}
+		u.CanBeTransferred = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field was_refunded: %w", err)
+		}
+		u.WasRefunded = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field date: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field date: %w", err)
 		}
 		u.Date = value
 	}
 	{
-		if err := u.Gift.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field gift: %w", err)
+		value, err := DecodeSentGift(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field gift: %w", err)
 		}
+		u.Gift = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field message_id: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field message_id: %w", err)
 		}
 		u.MessageID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode userGift#494eb721: field sell_star_count: %w", err)
+			return fmt.Errorf("unable to decode userGift#a39db860: field sell_star_count: %w", err)
 		}
 		u.SellStarCount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field prepaid_upgrade_star_count: %w", err)
+		}
+		u.PrepaidUpgradeStarCount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field transfer_star_count: %w", err)
+		}
+		u.TransferStarCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode userGift#a39db860: field export_date: %w", err)
+		}
+		u.ExportDate = value
 	}
 	return nil
 }
@@ -269,7 +382,7 @@ func (u *UserGift) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userGift#494eb721 as nil")
+		return fmt.Errorf("can't encode userGift#a39db860 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userGift")
@@ -279,7 +392,7 @@ func (u *UserGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("text")
 	if err := u.Text.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userGift#494eb721: field text: %w", err)
+		return fmt.Errorf("unable to encode userGift#a39db860: field text: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("is_private")
@@ -288,12 +401,24 @@ func (u *UserGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_saved")
 	b.PutBool(u.IsSaved)
 	b.Comma()
+	b.FieldStart("can_be_upgraded")
+	b.PutBool(u.CanBeUpgraded)
+	b.Comma()
+	b.FieldStart("can_be_transferred")
+	b.PutBool(u.CanBeTransferred)
+	b.Comma()
+	b.FieldStart("was_refunded")
+	b.PutBool(u.WasRefunded)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(u.Date)
 	b.Comma()
 	b.FieldStart("gift")
+	if u.Gift == nil {
+		return fmt.Errorf("unable to encode userGift#a39db860: field gift is nil")
+	}
 	if err := u.Gift.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode userGift#494eb721: field gift: %w", err)
+		return fmt.Errorf("unable to encode userGift#a39db860: field gift: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("message_id")
@@ -301,6 +426,15 @@ func (u *UserGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sell_star_count")
 	b.PutInt53(u.SellStarCount)
+	b.Comma()
+	b.FieldStart("prepaid_upgrade_star_count")
+	b.PutInt53(u.PrepaidUpgradeStarCount)
+	b.Comma()
+	b.FieldStart("transfer_star_count")
+	b.PutInt53(u.TransferStarCount)
+	b.Comma()
+	b.FieldStart("export_date")
+	b.PutInt32(u.ExportDate)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -310,59 +444,97 @@ func (u *UserGift) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserGift) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userGift#494eb721 to nil")
+		return fmt.Errorf("can't decode userGift#a39db860 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userGift"); err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: %w", err)
 			}
 		case "sender_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field sender_user_id: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field sender_user_id: %w", err)
 			}
 			u.SenderUserID = value
 		case "text":
 			if err := u.Text.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field text: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field text: %w", err)
 			}
 		case "is_private":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field is_private: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field is_private: %w", err)
 			}
 			u.IsPrivate = value
 		case "is_saved":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field is_saved: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field is_saved: %w", err)
 			}
 			u.IsSaved = value
+		case "can_be_upgraded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field can_be_upgraded: %w", err)
+			}
+			u.CanBeUpgraded = value
+		case "can_be_transferred":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field can_be_transferred: %w", err)
+			}
+			u.CanBeTransferred = value
+		case "was_refunded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field was_refunded: %w", err)
+			}
+			u.WasRefunded = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field date: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field date: %w", err)
 			}
 			u.Date = value
 		case "gift":
-			if err := u.Gift.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field gift: %w", err)
+			value, err := DecodeTDLibJSONSentGift(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field gift: %w", err)
 			}
+			u.Gift = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field message_id: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field message_id: %w", err)
 			}
 			u.MessageID = value
 		case "sell_star_count":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode userGift#494eb721: field sell_star_count: %w", err)
+				return fmt.Errorf("unable to decode userGift#a39db860: field sell_star_count: %w", err)
 			}
 			u.SellStarCount = value
+		case "prepaid_upgrade_star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field prepaid_upgrade_star_count: %w", err)
+			}
+			u.PrepaidUpgradeStarCount = value
+		case "transfer_star_count":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field transfer_star_count: %w", err)
+			}
+			u.TransferStarCount = value
+		case "export_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode userGift#a39db860: field export_date: %w", err)
+			}
+			u.ExportDate = value
 		default:
 			return b.Skip()
 		}
@@ -402,6 +574,30 @@ func (u *UserGift) GetIsSaved() (value bool) {
 	return u.IsSaved
 }
 
+// GetCanBeUpgraded returns value of CanBeUpgraded field.
+func (u *UserGift) GetCanBeUpgraded() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.CanBeUpgraded
+}
+
+// GetCanBeTransferred returns value of CanBeTransferred field.
+func (u *UserGift) GetCanBeTransferred() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.CanBeTransferred
+}
+
+// GetWasRefunded returns value of WasRefunded field.
+func (u *UserGift) GetWasRefunded() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.WasRefunded
+}
+
 // GetDate returns value of Date field.
 func (u *UserGift) GetDate() (value int32) {
 	if u == nil {
@@ -411,7 +607,7 @@ func (u *UserGift) GetDate() (value int32) {
 }
 
 // GetGift returns value of Gift field.
-func (u *UserGift) GetGift() (value Gift) {
+func (u *UserGift) GetGift() (value SentGiftClass) {
 	if u == nil {
 		return
 	}
@@ -432,4 +628,28 @@ func (u *UserGift) GetSellStarCount() (value int64) {
 		return
 	}
 	return u.SellStarCount
+}
+
+// GetPrepaidUpgradeStarCount returns value of PrepaidUpgradeStarCount field.
+func (u *UserGift) GetPrepaidUpgradeStarCount() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.PrepaidUpgradeStarCount
+}
+
+// GetTransferStarCount returns value of TransferStarCount field.
+func (u *UserGift) GetTransferStarCount() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.TransferStarCount
+}
+
+// GetExportDate returns value of ExportDate field.
+func (u *UserGift) GetExportDate() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.ExportDate
 }

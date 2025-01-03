@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateCallRequest represents TL type `createCall#be282e10`.
+// CreateCallRequest represents TL type `createCall#b4410c99`.
 type CreateCallRequest struct {
 	// Identifier of the user to be called
 	UserID int64
@@ -39,10 +39,13 @@ type CreateCallRequest struct {
 	Protocol CallProtocol
 	// Pass true to create a video call
 	IsVideo bool
+	// Identifier of the group call to which the user will be added after exchanging private
+	// key via the call; pass 0 if none; currently, ignored
+	GroupCallID int32
 }
 
 // CreateCallRequestTypeID is TL type id of CreateCallRequest.
-const CreateCallRequestTypeID = 0xbe282e10
+const CreateCallRequestTypeID = 0xb4410c99
 
 // Ensuring interfaces in compile-time for CreateCallRequest.
 var (
@@ -63,6 +66,9 @@ func (c *CreateCallRequest) Zero() bool {
 		return false
 	}
 	if !(c.IsVideo == false) {
+		return false
+	}
+	if !(c.GroupCallID == 0) {
 		return false
 	}
 
@@ -113,6 +119,10 @@ func (c *CreateCallRequest) TypeInfo() tdp.Type {
 			Name:       "IsVideo",
 			SchemaName: "is_video",
 		},
+		{
+			Name:       "GroupCallID",
+			SchemaName: "group_call_id",
+		},
 	}
 	return typ
 }
@@ -120,7 +130,7 @@ func (c *CreateCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createCall#be282e10 as nil")
+		return fmt.Errorf("can't encode createCall#b4410c99 as nil")
 	}
 	b.PutID(CreateCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -129,23 +139,24 @@ func (c *CreateCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createCall#be282e10 as nil")
+		return fmt.Errorf("can't encode createCall#b4410c99 as nil")
 	}
 	b.PutInt53(c.UserID)
 	if err := c.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode createCall#be282e10: field protocol: %w", err)
+		return fmt.Errorf("unable to encode createCall#b4410c99: field protocol: %w", err)
 	}
 	b.PutBool(c.IsVideo)
+	b.PutInt32(c.GroupCallID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CreateCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createCall#be282e10 to nil")
+		return fmt.Errorf("can't decode createCall#b4410c99 to nil")
 	}
 	if err := b.ConsumeID(CreateCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createCall#be282e10: %w", err)
+		return fmt.Errorf("unable to decode createCall#b4410c99: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -153,26 +164,33 @@ func (c *CreateCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createCall#be282e10 to nil")
+		return fmt.Errorf("can't decode createCall#b4410c99 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode createCall#be282e10: field user_id: %w", err)
+			return fmt.Errorf("unable to decode createCall#b4410c99: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		if err := c.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode createCall#be282e10: field protocol: %w", err)
+			return fmt.Errorf("unable to decode createCall#b4410c99: field protocol: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode createCall#be282e10: field is_video: %w", err)
+			return fmt.Errorf("unable to decode createCall#b4410c99: field is_video: %w", err)
 		}
 		c.IsVideo = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode createCall#b4410c99: field group_call_id: %w", err)
+		}
+		c.GroupCallID = value
 	}
 	return nil
 }
@@ -180,7 +198,7 @@ func (c *CreateCallRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createCall#be282e10 as nil")
+		return fmt.Errorf("can't encode createCall#b4410c99 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createCall")
@@ -190,11 +208,14 @@ func (c *CreateCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("protocol")
 	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode createCall#be282e10: field protocol: %w", err)
+		return fmt.Errorf("unable to encode createCall#b4410c99: field protocol: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("is_video")
 	b.PutBool(c.IsVideo)
+	b.Comma()
+	b.FieldStart("group_call_id")
+	b.PutInt32(c.GroupCallID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -204,31 +225,37 @@ func (c *CreateCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createCall#be282e10 to nil")
+		return fmt.Errorf("can't decode createCall#b4410c99 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createCall"); err != nil {
-				return fmt.Errorf("unable to decode createCall#be282e10: %w", err)
+				return fmt.Errorf("unable to decode createCall#b4410c99: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode createCall#be282e10: field user_id: %w", err)
+				return fmt.Errorf("unable to decode createCall#b4410c99: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "protocol":
 			if err := c.Protocol.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode createCall#be282e10: field protocol: %w", err)
+				return fmt.Errorf("unable to decode createCall#b4410c99: field protocol: %w", err)
 			}
 		case "is_video":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode createCall#be282e10: field is_video: %w", err)
+				return fmt.Errorf("unable to decode createCall#b4410c99: field is_video: %w", err)
 			}
 			c.IsVideo = value
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createCall#b4410c99: field group_call_id: %w", err)
+			}
+			c.GroupCallID = value
 		default:
 			return b.Skip()
 		}
@@ -260,7 +287,15 @@ func (c *CreateCallRequest) GetIsVideo() (value bool) {
 	return c.IsVideo
 }
 
-// CreateCall invokes method createCall#be282e10 returning error if any.
+// GetGroupCallID returns value of GroupCallID field.
+func (c *CreateCallRequest) GetGroupCallID() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.GroupCallID
+}
+
+// CreateCall invokes method createCall#b4410c99 returning error if any.
 func (c *Client) CreateCall(ctx context.Context, request *CreateCallRequest) (*CallID, error) {
 	var result CallID
 

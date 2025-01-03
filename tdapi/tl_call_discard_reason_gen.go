@@ -686,6 +686,172 @@ func (c *CallDiscardReasonHungUp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// CallDiscardReasonAllowGroupCall represents TL type `callDiscardReasonAllowGroupCall#af177fd5`.
+type CallDiscardReasonAllowGroupCall struct {
+	// Encrypted using the call private key encryption key for the associated group call
+	EncryptedGroupCallKey []byte
+}
+
+// CallDiscardReasonAllowGroupCallTypeID is TL type id of CallDiscardReasonAllowGroupCall.
+const CallDiscardReasonAllowGroupCallTypeID = 0xaf177fd5
+
+// construct implements constructor of CallDiscardReasonClass.
+func (c CallDiscardReasonAllowGroupCall) construct() CallDiscardReasonClass { return &c }
+
+// Ensuring interfaces in compile-time for CallDiscardReasonAllowGroupCall.
+var (
+	_ bin.Encoder     = &CallDiscardReasonAllowGroupCall{}
+	_ bin.Decoder     = &CallDiscardReasonAllowGroupCall{}
+	_ bin.BareEncoder = &CallDiscardReasonAllowGroupCall{}
+	_ bin.BareDecoder = &CallDiscardReasonAllowGroupCall{}
+
+	_ CallDiscardReasonClass = &CallDiscardReasonAllowGroupCall{}
+)
+
+func (c *CallDiscardReasonAllowGroupCall) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.EncryptedGroupCallKey == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *CallDiscardReasonAllowGroupCall) String() string {
+	if c == nil {
+		return "CallDiscardReasonAllowGroupCall(nil)"
+	}
+	type Alias CallDiscardReasonAllowGroupCall
+	return fmt.Sprintf("CallDiscardReasonAllowGroupCall%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*CallDiscardReasonAllowGroupCall) TypeID() uint32 {
+	return CallDiscardReasonAllowGroupCallTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*CallDiscardReasonAllowGroupCall) TypeName() string {
+	return "callDiscardReasonAllowGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CallDiscardReasonAllowGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "callDiscardReasonAllowGroupCall",
+		ID:   CallDiscardReasonAllowGroupCallTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "EncryptedGroupCallKey",
+			SchemaName: "encrypted_group_call_key",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *CallDiscardReasonAllowGroupCall) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonAllowGroupCall#af177fd5 as nil")
+	}
+	b.PutID(CallDiscardReasonAllowGroupCallTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CallDiscardReasonAllowGroupCall) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonAllowGroupCall#af177fd5 as nil")
+	}
+	b.PutBytes(c.EncryptedGroupCallKey)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *CallDiscardReasonAllowGroupCall) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonAllowGroupCall#af177fd5 to nil")
+	}
+	if err := b.ConsumeID(CallDiscardReasonAllowGroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode callDiscardReasonAllowGroupCall#af177fd5: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CallDiscardReasonAllowGroupCall) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonAllowGroupCall#af177fd5 to nil")
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode callDiscardReasonAllowGroupCall#af177fd5: field encrypted_group_call_key: %w", err)
+		}
+		c.EncryptedGroupCallKey = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CallDiscardReasonAllowGroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonAllowGroupCall#af177fd5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callDiscardReasonAllowGroupCall")
+	b.Comma()
+	b.FieldStart("encrypted_group_call_key")
+	b.PutBytes(c.EncryptedGroupCallKey)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CallDiscardReasonAllowGroupCall) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonAllowGroupCall#af177fd5 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("callDiscardReasonAllowGroupCall"); err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonAllowGroupCall#af177fd5: %w", err)
+			}
+		case "encrypted_group_call_key":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonAllowGroupCall#af177fd5: field encrypted_group_call_key: %w", err)
+			}
+			c.EncryptedGroupCallKey = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetEncryptedGroupCallKey returns value of EncryptedGroupCallKey field.
+func (c *CallDiscardReasonAllowGroupCall) GetEncryptedGroupCallKey() (value []byte) {
+	if c == nil {
+		return
+	}
+	return c.EncryptedGroupCallKey
+}
+
 // CallDiscardReasonClassName is schema name of CallDiscardReasonClass.
 const CallDiscardReasonClassName = "CallDiscardReason"
 
@@ -703,6 +869,7 @@ const CallDiscardReasonClassName = "CallDiscardReason"
 //	case *tdapi.CallDiscardReasonDeclined: // callDiscardReasonDeclined#98e36c32
 //	case *tdapi.CallDiscardReasonDisconnected: // callDiscardReasonDisconnected#aff563a2
 //	case *tdapi.CallDiscardReasonHungUp: // callDiscardReasonHungUp#1a1ea5e6
+//	case *tdapi.CallDiscardReasonAllowGroupCall: // callDiscardReasonAllowGroupCall#af177fd5
 //	default: panic(v)
 //	}
 type CallDiscardReasonClass interface {
@@ -769,6 +936,13 @@ func DecodeCallDiscardReason(buf *bin.Buffer) (CallDiscardReasonClass, error) {
 			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
 		}
 		return &v, nil
+	case CallDiscardReasonAllowGroupCallTypeID:
+		// Decoding callDiscardReasonAllowGroupCall#af177fd5.
+		v := CallDiscardReasonAllowGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -812,6 +986,13 @@ func DecodeTDLibJSONCallDiscardReason(buf tdjson.Decoder) (CallDiscardReasonClas
 	case "callDiscardReasonHungUp":
 		// Decoding callDiscardReasonHungUp#1a1ea5e6.
 		v := CallDiscardReasonHungUp{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
+	case "callDiscardReasonAllowGroupCall":
+		// Decoding callDiscardReasonAllowGroupCall#af177fd5.
+		v := CallDiscardReasonAllowGroupCall{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
 		}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendGiftRequest represents TL type `sendGift#32c9796d`.
+// SendGiftRequest represents TL type `sendGift#13a97db`.
 type SendGiftRequest struct {
 	// Identifier of the gift to send
 	GiftID int64
@@ -43,10 +43,13 @@ type SendGiftRequest struct {
 	// Pass true to show the current user as sender and gift text only to the gift receiver;
 	// otherwise, everyone will be able to see them
 	IsPrivate bool
+	// Pass true to additionally pay for the gift upgrade and allow the receiver to upgrade
+	// it for free
+	PayForUpgrade bool
 }
 
 // SendGiftRequestTypeID is TL type id of SendGiftRequest.
-const SendGiftRequestTypeID = 0x32c9796d
+const SendGiftRequestTypeID = 0x13a97db
 
 // Ensuring interfaces in compile-time for SendGiftRequest.
 var (
@@ -70,6 +73,9 @@ func (s *SendGiftRequest) Zero() bool {
 		return false
 	}
 	if !(s.IsPrivate == false) {
+		return false
+	}
+	if !(s.PayForUpgrade == false) {
 		return false
 	}
 
@@ -124,6 +130,10 @@ func (s *SendGiftRequest) TypeInfo() tdp.Type {
 			Name:       "IsPrivate",
 			SchemaName: "is_private",
 		},
+		{
+			Name:       "PayForUpgrade",
+			SchemaName: "pay_for_upgrade",
+		},
 	}
 	return typ
 }
@@ -131,7 +141,7 @@ func (s *SendGiftRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendGiftRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendGift#32c9796d as nil")
+		return fmt.Errorf("can't encode sendGift#13a97db as nil")
 	}
 	b.PutID(SendGiftRequestTypeID)
 	return s.EncodeBare(b)
@@ -140,24 +150,25 @@ func (s *SendGiftRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendGiftRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendGift#32c9796d as nil")
+		return fmt.Errorf("can't encode sendGift#13a97db as nil")
 	}
 	b.PutLong(s.GiftID)
 	b.PutInt53(s.UserID)
 	if err := s.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendGift#32c9796d: field text: %w", err)
+		return fmt.Errorf("unable to encode sendGift#13a97db: field text: %w", err)
 	}
 	b.PutBool(s.IsPrivate)
+	b.PutBool(s.PayForUpgrade)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SendGiftRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendGift#32c9796d to nil")
+		return fmt.Errorf("can't decode sendGift#13a97db to nil")
 	}
 	if err := b.ConsumeID(SendGiftRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendGift#32c9796d: %w", err)
+		return fmt.Errorf("unable to decode sendGift#13a97db: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -165,33 +176,40 @@ func (s *SendGiftRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendGiftRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendGift#32c9796d to nil")
+		return fmt.Errorf("can't decode sendGift#13a97db to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendGift#32c9796d: field gift_id: %w", err)
+			return fmt.Errorf("unable to decode sendGift#13a97db: field gift_id: %w", err)
 		}
 		s.GiftID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendGift#32c9796d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode sendGift#13a97db: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
 		if err := s.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sendGift#32c9796d: field text: %w", err)
+			return fmt.Errorf("unable to decode sendGift#13a97db: field text: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendGift#32c9796d: field is_private: %w", err)
+			return fmt.Errorf("unable to decode sendGift#13a97db: field is_private: %w", err)
 		}
 		s.IsPrivate = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendGift#13a97db: field pay_for_upgrade: %w", err)
+		}
+		s.PayForUpgrade = value
 	}
 	return nil
 }
@@ -199,7 +217,7 @@ func (s *SendGiftRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendGiftRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendGift#32c9796d as nil")
+		return fmt.Errorf("can't encode sendGift#13a97db as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendGift")
@@ -212,11 +230,14 @@ func (s *SendGiftRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("text")
 	if err := s.Text.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendGift#32c9796d: field text: %w", err)
+		return fmt.Errorf("unable to encode sendGift#13a97db: field text: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("is_private")
 	b.PutBool(s.IsPrivate)
+	b.Comma()
+	b.FieldStart("pay_for_upgrade")
+	b.PutBool(s.PayForUpgrade)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -226,37 +247,43 @@ func (s *SendGiftRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendGiftRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendGift#32c9796d to nil")
+		return fmt.Errorf("can't decode sendGift#13a97db to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendGift"); err != nil {
-				return fmt.Errorf("unable to decode sendGift#32c9796d: %w", err)
+				return fmt.Errorf("unable to decode sendGift#13a97db: %w", err)
 			}
 		case "gift_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendGift#32c9796d: field gift_id: %w", err)
+				return fmt.Errorf("unable to decode sendGift#13a97db: field gift_id: %w", err)
 			}
 			s.GiftID = value
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendGift#32c9796d: field user_id: %w", err)
+				return fmt.Errorf("unable to decode sendGift#13a97db: field user_id: %w", err)
 			}
 			s.UserID = value
 		case "text":
 			if err := s.Text.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sendGift#32c9796d: field text: %w", err)
+				return fmt.Errorf("unable to decode sendGift#13a97db: field text: %w", err)
 			}
 		case "is_private":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendGift#32c9796d: field is_private: %w", err)
+				return fmt.Errorf("unable to decode sendGift#13a97db: field is_private: %w", err)
 			}
 			s.IsPrivate = value
+		case "pay_for_upgrade":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendGift#13a97db: field pay_for_upgrade: %w", err)
+			}
+			s.PayForUpgrade = value
 		default:
 			return b.Skip()
 		}
@@ -296,7 +323,15 @@ func (s *SendGiftRequest) GetIsPrivate() (value bool) {
 	return s.IsPrivate
 }
 
-// SendGift invokes method sendGift#32c9796d returning error if any.
+// GetPayForUpgrade returns value of PayForUpgrade field.
+func (s *SendGiftRequest) GetPayForUpgrade() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.PayForUpgrade
+}
+
+// SendGift invokes method sendGift#13a97db returning error if any.
 func (c *Client) SendGift(ctx context.Context, request *SendGiftRequest) error {
 	var ok Ok
 

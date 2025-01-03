@@ -4112,6 +4112,206 @@ func (s *StarTransactionTypeGiftPurchase) GetGift() (value Gift) {
 	return s.Gift
 }
 
+// StarTransactionTypeGiftTransfer represents TL type `starTransactionTypeGiftTransfer#ef323c55`.
+type StarTransactionTypeGiftTransfer struct {
+	// Identifier of the user that received the gift
+	UserID int64
+	// The gift
+	Gift UpgradedGift
+}
+
+// StarTransactionTypeGiftTransferTypeID is TL type id of StarTransactionTypeGiftTransfer.
+const StarTransactionTypeGiftTransferTypeID = 0xef323c55
+
+// construct implements constructor of StarTransactionTypeClass.
+func (s StarTransactionTypeGiftTransfer) construct() StarTransactionTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for StarTransactionTypeGiftTransfer.
+var (
+	_ bin.Encoder     = &StarTransactionTypeGiftTransfer{}
+	_ bin.Decoder     = &StarTransactionTypeGiftTransfer{}
+	_ bin.BareEncoder = &StarTransactionTypeGiftTransfer{}
+	_ bin.BareDecoder = &StarTransactionTypeGiftTransfer{}
+
+	_ StarTransactionTypeClass = &StarTransactionTypeGiftTransfer{}
+)
+
+func (s *StarTransactionTypeGiftTransfer) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.UserID == 0) {
+		return false
+	}
+	if !(s.Gift.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StarTransactionTypeGiftTransfer) String() string {
+	if s == nil {
+		return "StarTransactionTypeGiftTransfer(nil)"
+	}
+	type Alias StarTransactionTypeGiftTransfer
+	return fmt.Sprintf("StarTransactionTypeGiftTransfer%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StarTransactionTypeGiftTransfer) TypeID() uint32 {
+	return StarTransactionTypeGiftTransferTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StarTransactionTypeGiftTransfer) TypeName() string {
+	return "starTransactionTypeGiftTransfer"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StarTransactionTypeGiftTransfer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "starTransactionTypeGiftTransfer",
+		ID:   StarTransactionTypeGiftTransferTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Gift",
+			SchemaName: "gift",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StarTransactionTypeGiftTransfer) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionTypeGiftTransfer#ef323c55 as nil")
+	}
+	b.PutID(StarTransactionTypeGiftTransferTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StarTransactionTypeGiftTransfer) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionTypeGiftTransfer#ef323c55 as nil")
+	}
+	b.PutInt53(s.UserID)
+	if err := s.Gift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionTypeGiftTransfer#ef323c55: field gift: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StarTransactionTypeGiftTransfer) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionTypeGiftTransfer#ef323c55 to nil")
+	}
+	if err := b.ConsumeID(StarTransactionTypeGiftTransferTypeID); err != nil {
+		return fmt.Errorf("unable to decode starTransactionTypeGiftTransfer#ef323c55: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StarTransactionTypeGiftTransfer) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionTypeGiftTransfer#ef323c55 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode starTransactionTypeGiftTransfer#ef323c55: field user_id: %w", err)
+		}
+		s.UserID = value
+	}
+	{
+		if err := s.Gift.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starTransactionTypeGiftTransfer#ef323c55: field gift: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StarTransactionTypeGiftTransfer) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionTypeGiftTransfer#ef323c55 as nil")
+	}
+	b.ObjStart()
+	b.PutID("starTransactionTypeGiftTransfer")
+	b.Comma()
+	b.FieldStart("user_id")
+	b.PutInt53(s.UserID)
+	b.Comma()
+	b.FieldStart("gift")
+	if err := s.Gift.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionTypeGiftTransfer#ef323c55: field gift: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StarTransactionTypeGiftTransfer) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionTypeGiftTransfer#ef323c55 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("starTransactionTypeGiftTransfer"); err != nil {
+				return fmt.Errorf("unable to decode starTransactionTypeGiftTransfer#ef323c55: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode starTransactionTypeGiftTransfer#ef323c55: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "gift":
+			if err := s.Gift.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starTransactionTypeGiftTransfer#ef323c55: field gift: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetUserID returns value of UserID field.
+func (s *StarTransactionTypeGiftTransfer) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.UserID
+}
+
+// GetGift returns value of Gift field.
+func (s *StarTransactionTypeGiftTransfer) GetGift() (value UpgradedGift) {
+	if s == nil {
+		return
+	}
+	return s.Gift
+}
+
 // StarTransactionTypeGiftSale represents TL type `starTransactionTypeGiftSale#64d61157`.
 type StarTransactionTypeGiftSale struct {
 	// Identifier of the user that sent the gift
@@ -4306,6 +4506,172 @@ func (s *StarTransactionTypeGiftSale) GetUserID() (value int64) {
 
 // GetGift returns value of Gift field.
 func (s *StarTransactionTypeGiftSale) GetGift() (value Gift) {
+	if s == nil {
+		return
+	}
+	return s.Gift
+}
+
+// StarTransactionTypeGiftUpgrade represents TL type `starTransactionTypeGiftUpgrade#2697844b`.
+type StarTransactionTypeGiftUpgrade struct {
+	// The upgraded gift
+	Gift UpgradedGift
+}
+
+// StarTransactionTypeGiftUpgradeTypeID is TL type id of StarTransactionTypeGiftUpgrade.
+const StarTransactionTypeGiftUpgradeTypeID = 0x2697844b
+
+// construct implements constructor of StarTransactionTypeClass.
+func (s StarTransactionTypeGiftUpgrade) construct() StarTransactionTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for StarTransactionTypeGiftUpgrade.
+var (
+	_ bin.Encoder     = &StarTransactionTypeGiftUpgrade{}
+	_ bin.Decoder     = &StarTransactionTypeGiftUpgrade{}
+	_ bin.BareEncoder = &StarTransactionTypeGiftUpgrade{}
+	_ bin.BareDecoder = &StarTransactionTypeGiftUpgrade{}
+
+	_ StarTransactionTypeClass = &StarTransactionTypeGiftUpgrade{}
+)
+
+func (s *StarTransactionTypeGiftUpgrade) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Gift.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StarTransactionTypeGiftUpgrade) String() string {
+	if s == nil {
+		return "StarTransactionTypeGiftUpgrade(nil)"
+	}
+	type Alias StarTransactionTypeGiftUpgrade
+	return fmt.Sprintf("StarTransactionTypeGiftUpgrade%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StarTransactionTypeGiftUpgrade) TypeID() uint32 {
+	return StarTransactionTypeGiftUpgradeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StarTransactionTypeGiftUpgrade) TypeName() string {
+	return "starTransactionTypeGiftUpgrade"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StarTransactionTypeGiftUpgrade) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "starTransactionTypeGiftUpgrade",
+		ID:   StarTransactionTypeGiftUpgradeTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Gift",
+			SchemaName: "gift",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StarTransactionTypeGiftUpgrade) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionTypeGiftUpgrade#2697844b as nil")
+	}
+	b.PutID(StarTransactionTypeGiftUpgradeTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StarTransactionTypeGiftUpgrade) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionTypeGiftUpgrade#2697844b as nil")
+	}
+	if err := s.Gift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionTypeGiftUpgrade#2697844b: field gift: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StarTransactionTypeGiftUpgrade) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionTypeGiftUpgrade#2697844b to nil")
+	}
+	if err := b.ConsumeID(StarTransactionTypeGiftUpgradeTypeID); err != nil {
+		return fmt.Errorf("unable to decode starTransactionTypeGiftUpgrade#2697844b: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StarTransactionTypeGiftUpgrade) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionTypeGiftUpgrade#2697844b to nil")
+	}
+	{
+		if err := s.Gift.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starTransactionTypeGiftUpgrade#2697844b: field gift: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StarTransactionTypeGiftUpgrade) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starTransactionTypeGiftUpgrade#2697844b as nil")
+	}
+	b.ObjStart()
+	b.PutID("starTransactionTypeGiftUpgrade")
+	b.Comma()
+	b.FieldStart("gift")
+	if err := s.Gift.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode starTransactionTypeGiftUpgrade#2697844b: field gift: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StarTransactionTypeGiftUpgrade) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starTransactionTypeGiftUpgrade#2697844b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("starTransactionTypeGiftUpgrade"); err != nil {
+				return fmt.Errorf("unable to decode starTransactionTypeGiftUpgrade#2697844b: %w", err)
+			}
+		case "gift":
+			if err := s.Gift.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode starTransactionTypeGiftUpgrade#2697844b: field gift: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetGift returns value of Gift field.
+func (s *StarTransactionTypeGiftUpgrade) GetGift() (value UpgradedGift) {
 	if s == nil {
 		return
 	}
@@ -5080,7 +5446,9 @@ const StarTransactionTypeClassName = "StarTransactionType"
 //	case *tdapi.StarTransactionTypeChannelSubscriptionPurchase: // starTransactionTypeChannelSubscriptionPurchase#380eb3d1
 //	case *tdapi.StarTransactionTypeChannelSubscriptionSale: // starTransactionTypeChannelSubscriptionSale#fe127c82
 //	case *tdapi.StarTransactionTypeGiftPurchase: // starTransactionTypeGiftPurchase#ef5f1d52
+//	case *tdapi.StarTransactionTypeGiftTransfer: // starTransactionTypeGiftTransfer#ef323c55
 //	case *tdapi.StarTransactionTypeGiftSale: // starTransactionTypeGiftSale#64d61157
+//	case *tdapi.StarTransactionTypeGiftUpgrade: // starTransactionTypeGiftUpgrade#2697844b
 //	case *tdapi.StarTransactionTypeChannelPaidReactionSend: // starTransactionTypeChannelPaidReactionSend#c02667c0
 //	case *tdapi.StarTransactionTypeChannelPaidReactionReceive: // starTransactionTypeChannelPaidReactionReceive#23d6f9eb
 //	case *tdapi.StarTransactionTypeAffiliateProgramCommission: // starTransactionTypeAffiliateProgramCommission#9a637573
@@ -5256,9 +5624,23 @@ func DecodeStarTransactionType(buf *bin.Buffer) (StarTransactionTypeClass, error
 			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
 		}
 		return &v, nil
+	case StarTransactionTypeGiftTransferTypeID:
+		// Decoding starTransactionTypeGiftTransfer#ef323c55.
+		v := StarTransactionTypeGiftTransfer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
+		}
+		return &v, nil
 	case StarTransactionTypeGiftSaleTypeID:
 		// Decoding starTransactionTypeGiftSale#64d61157.
 		v := StarTransactionTypeGiftSale{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
+		}
+		return &v, nil
+	case StarTransactionTypeGiftUpgradeTypeID:
+		// Decoding starTransactionTypeGiftUpgrade#2697844b.
+		v := StarTransactionTypeGiftUpgrade{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
 		}
@@ -5443,9 +5825,23 @@ func DecodeTDLibJSONStarTransactionType(buf tdjson.Decoder) (StarTransactionType
 			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
 		}
 		return &v, nil
+	case "starTransactionTypeGiftTransfer":
+		// Decoding starTransactionTypeGiftTransfer#ef323c55.
+		v := StarTransactionTypeGiftTransfer{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
+		}
+		return &v, nil
 	case "starTransactionTypeGiftSale":
 		// Decoding starTransactionTypeGiftSale#64d61157.
 		v := StarTransactionTypeGiftSale{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
+		}
+		return &v, nil
+	case "starTransactionTypeGiftUpgrade":
+		// Decoding starTransactionTypeGiftUpgrade#2697844b.
+		v := StarTransactionTypeGiftUpgrade{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarTransactionTypeClass: %w", err)
 		}
