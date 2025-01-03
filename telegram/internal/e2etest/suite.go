@@ -57,11 +57,14 @@ func NewSuite(t *testing.T, config TestOptions) *Suite {
 		rand:    config.Random,
 		used:    make(map[string]struct{}),
 	}
-	if managerEnabled, _ := strconv.ParseBool(os.Getenv("TEST_ACCOUNTS_BROKEN")); managerEnabled {
+	if broken, _ := strconv.ParseBool(os.Getenv("TEST_ACCOUNTS_BROKEN")); broken {
 		t.Log("External test accounts are used as per TEST_ACCOUNTS_BROKEN")
 	} else {
 		t.Log("Normal test accounts are used")
 		s.manager = nil // disable manager
+	}
+	if disabled, _ := strconv.ParseBool(os.Getenv("TEST_ACCOUNT_MANAGER_DISABLED")); s.manager != nil && disabled {
+		t.Skip("Test account manager is disabled")
 	}
 	t.Cleanup(func() {
 		require.NoError(t, s.Close())
