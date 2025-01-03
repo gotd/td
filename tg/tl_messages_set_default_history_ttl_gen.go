@@ -36,7 +36,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
 type MessagesSetDefaultHistoryTTLRequest struct {
-	// The new default Time-To-Live of all messages sent in new chats.
+	// The new default Time-To-Live of all messages sent in new chats, in seconds.
 	Period int
 }
 

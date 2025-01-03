@@ -38,13 +38,23 @@ var (
 // current platform (ios, android, wp, etc.). Platforms can be concatenated (ios-android,
 // ios-wp), unknown platforms are to be ignored. The text is the error message that
 // should be shown to the user.
+// The restriction_add_platforms »¹ client configuration parameter contains an array of
+// platform identifiers that must also be treated as our own, in additional to the one
+// hardcoded in the client.
+//
+// Links:
+//  1. https://core.telegram.org/api/config#restriction-add-platforms
 //
 // See https://core.telegram.org/constructor/restrictionReason for reference.
 type RestrictionReason struct {
 	// Platform identifier (ios, android, wp, all, etc.), can be concatenated with a dash as
 	// separator (android-ios, ios-wp, etc)
 	Platform string
-	// Restriction reason (porno, terms, etc.)
+	// Restriction reason (porno, terms, etc.). Ignore this restriction reason if it is
+	// contained in the ignore_restriction_reasons »¹ client configuration parameter.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#ignore-restriction-reasons
 	Reason string
 	// Error message to be shown to the user
 	Text string

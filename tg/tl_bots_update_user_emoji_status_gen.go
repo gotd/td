@@ -32,12 +32,17 @@ var (
 )
 
 // BotsUpdateUserEmojiStatusRequest represents TL type `bots.updateUserEmojiStatus#ed9f30c5`.
+// Change the emoji status of a user (invoked by bots, see here »¹ for more info on the
+// full flow)
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 //
 // See https://core.telegram.org/method/bots.updateUserEmojiStatus for reference.
 type BotsUpdateUserEmojiStatusRequest struct {
-	// UserID field of BotsUpdateUserEmojiStatusRequest.
+	// The user whose emoji status should be changed
 	UserID InputUserClass
-	// EmojiStatus field of BotsUpdateUserEmojiStatusRequest.
+	// The emoji status
 	EmojiStatus EmojiStatusClass
 }
 
@@ -203,8 +208,19 @@ func (u *BotsUpdateUserEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 }
 
 // BotsUpdateUserEmojiStatus invokes method bots.updateUserEmojiStatus#ed9f30c5 returning error if any.
+// Change the emoji status of a user (invoked by bots, see here »¹ for more info on the
+// full flow)
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
+//
+// Possible errors:
+//
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/bots.updateUserEmojiStatus for reference.
+// Can be used by bots.
 func (c *Client) BotsUpdateUserEmojiStatus(ctx context.Context, request *BotsUpdateUserEmojiStatusRequest) (bool, error) {
 	var result BoolBox
 

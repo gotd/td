@@ -32,14 +32,18 @@ var (
 )
 
 // PaymentsConnectedStarRefBots represents TL type `payments.connectedStarRefBots#98d5ea1d`.
+// Active affiliations¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
 //
 // See https://core.telegram.org/constructor/payments.connectedStarRefBots for reference.
 type PaymentsConnectedStarRefBots struct {
-	// Count field of PaymentsConnectedStarRefBots.
+	// Total number of active affiliations
 	Count int
-	// ConnectedBots field of PaymentsConnectedStarRefBots.
+	// The affiliations
 	ConnectedBots []ConnectedBotStarRef
-	// Users field of PaymentsConnectedStarRefBots.
+	// Peers mentioned in connected_bots
 	Users []UserClass
 }
 

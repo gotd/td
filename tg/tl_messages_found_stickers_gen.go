@@ -32,12 +32,19 @@ var (
 )
 
 // MessagesFoundStickersNotModified represents TL type `messages.foundStickersNotModified#6010c534`.
+// No new stickers were found for the specified query
 //
 // See https://core.telegram.org/constructor/messages.foundStickersNotModified for reference.
 type MessagesFoundStickersNotModified struct {
-	// Flags field of MessagesFoundStickersNotModified.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NextOffset field of MessagesFoundStickersNotModified.
+	// Offset for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset int
@@ -205,18 +212,28 @@ func (f *MessagesFoundStickersNotModified) GetNextOffset() (value int, ok bool) 
 }
 
 // MessagesFoundStickers represents TL type `messages.foundStickers#82c9e290`.
+// Found stickers
 //
 // See https://core.telegram.org/constructor/messages.foundStickers for reference.
 type MessagesFoundStickers struct {
-	// Flags field of MessagesFoundStickers.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NextOffset field of MessagesFoundStickers.
+	// Offset for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset int
-	// Hash field of MessagesFoundStickers.
+	// Hash used for caching, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// Stickers field of MessagesFoundStickers.
+	// Found stickers
 	Stickers []DocumentClass
 }
 
@@ -490,7 +507,10 @@ type MessagesFoundStickersClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// NextOffset field of MessagesFoundStickersNotModified.
+	// Offset for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	GetNextOffset() (value int, ok bool)
 
 	// AsModified tries to map MessagesFoundStickersClass to MessagesFoundStickers.

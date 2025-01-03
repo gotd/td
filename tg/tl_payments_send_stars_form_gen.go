@@ -205,8 +205,12 @@ func (s *PaymentsSendStarsFormRequest) GetInvoice() (value InputInvoiceClass) {
 // Possible errors:
 //
 //	400 BALANCE_TOO_LOW: The transaction cannot be completed because the current Telegram Stars balance is too low.
+//	400 BOT_INVOICE_INVALID: The specified invoice is invalid.
 //	400 FORM_EXPIRED: The form was generated more than 10 minutes ago and has expired, please re-generate it using payments.getPaymentForm and pass the new form_id.
+//	400 FORM_ID_EMPTY: The specified form ID is empty.
+//	400 FORM_UNSUPPORTED: Please update your client.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STARGIFT_USAGE_LIMITED: The gift is sold out.
 //
 // See https://core.telegram.org/method/payments.sendStarsForm for reference.
 func (c *Client) PaymentsSendStarsForm(ctx context.Context, request *PaymentsSendStarsFormRequest) (PaymentsPaymentResultClass, error) {

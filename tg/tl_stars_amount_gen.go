@@ -32,12 +32,18 @@ var (
 )
 
 // StarsAmount represents TL type `starsAmount#bbb6b4a3`.
+// Describes a real (i.e. possibly decimal) amount of Telegram Stars¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsAmount for reference.
 type StarsAmount struct {
-	// Amount field of StarsAmount.
+	// The integer amount of Telegram Stars.
 	Amount int64
-	// Nanos field of StarsAmount.
+	// The decimal amount of Telegram Stars, expressed as nanostars (i.e. 1 nanostar is equal
+	// to 1/1'000'000'000th of a Telegram Star). This field may also be negative (the allowed
+	// range is -999999999 to 999999999).
 	Nanos int
 }
 

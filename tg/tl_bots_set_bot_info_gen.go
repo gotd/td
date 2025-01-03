@@ -386,6 +386,7 @@ func (s *BotsSetBotInfoRequest) GetDescription() (value string, ok bool) {
 //
 // Possible errors:
 //
+//	400 BOT_INVALID: This is not a valid bot.
 //	400 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //
 // See https://core.telegram.org/method/bots.setBotInfo for reference.

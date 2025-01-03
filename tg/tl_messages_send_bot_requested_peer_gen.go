@@ -291,6 +291,7 @@ func (s *MessagesSendBotRequestedPeerRequest) MapRequestedPeers() (value InputPe
 //
 // Possible errors:
 //
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.

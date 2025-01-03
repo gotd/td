@@ -300,6 +300,7 @@ func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
 //	400 PHOTO_INVALID_DIMENSIONS: The photo dimensions are invalid.
 //	400 PHOTO_SAVE_FILE_INVALID: Internal issues, try again later.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 VOICE_MESSAGES_FORBIDDEN: This user's privacy settings forbid you from sending voice messages.
 //	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.

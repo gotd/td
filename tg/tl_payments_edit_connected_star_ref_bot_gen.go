@@ -32,16 +32,23 @@ var (
 )
 
 // PaymentsEditConnectedStarRefBotRequest represents TL type `payments.editConnectedStarRefBot#e4fca4a3`.
+// Leave a bot's affiliate program »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
 //
 // See https://core.telegram.org/method/payments.editConnectedStarRefBot for reference.
 type PaymentsEditConnectedStarRefBotRequest struct {
-	// Flags field of PaymentsEditConnectedStarRefBotRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Revoked field of PaymentsEditConnectedStarRefBotRequest.
+	// If set, leaves the bot's affiliate program
 	Revoked bool
-	// Peer field of PaymentsEditConnectedStarRefBotRequest.
+	// The peer that was affiliated
 	Peer InputPeerClass
-	// Link field of PaymentsEditConnectedStarRefBotRequest.
+	// The affiliate link to revoke
 	Link string
 }
 
@@ -246,6 +253,14 @@ func (e *PaymentsEditConnectedStarRefBotRequest) GetLink() (value string) {
 }
 
 // PaymentsEditConnectedStarRefBot invokes method payments.editConnectedStarRefBot#e4fca4a3 returning error if any.
+// Leave a bot's affiliate program »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
+//
+// Possible errors:
+//
+//	400 STARREF_HASH_REVOKED: The specified affiliate link was already revoked.
 //
 // See https://core.telegram.org/method/payments.editConnectedStarRefBot for reference.
 func (c *Client) PaymentsEditConnectedStarRefBot(ctx context.Context, request *PaymentsEditConnectedStarRefBotRequest) (*PaymentsConnectedStarRefBots, error) {

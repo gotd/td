@@ -56,7 +56,10 @@ type StarsSubscription struct {
 	// Whether this subscription has expired because there are not enough stars on the user's
 	// balance to extend it.
 	MissingBalance bool
-	// BotCanceled field of StarsSubscription.
+	// Set if this bot subscription¹ was cancelled by the bot
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/subscriptions#bot-subscriptions
 	BotCanceled bool
 	// Subscription ID.
 	ID string
@@ -70,15 +73,18 @@ type StarsSubscription struct {
 	//
 	// Use SetChatInviteHash and GetChatInviteHash helpers.
 	ChatInviteHash string
-	// Title field of StarsSubscription.
+	// For bot subscriptions, the title of the subscription invoice
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Photo field of StarsSubscription.
+	// For bot subscriptions, the photo from the subscription invoice
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// InvoiceSlug field of StarsSubscription.
+	// For bot subscriptions, the identifier¹ of the subscription invoice
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#invoice-links
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string

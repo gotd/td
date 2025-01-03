@@ -469,6 +469,8 @@ func (e *MessagesExportChatInviteRequest) GetSubscriptionPricing() (value StarsS
 //	400 EXPIRE_DATE_INVALID: The specified expiration date is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 PRICING_CHAT_INVALID: The pricing for the subscription is invalid, the maximum price is specified in the stars_subscription_amount_max config key ».
+//	400 SUBSCRIPTION_PERIOD_INVALID: The specified subscription_pricing.period is invalid.
 //	400 USAGE_LIMIT_INVALID: The specified usage limit is invalid.
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.

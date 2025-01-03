@@ -181,6 +181,9 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 //	400 INVOICE_PAYLOAD_INVALID: The specified invoice payload is invalid.
 //	400 MEDIA_INVALID: Media invalid.
 //	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
+//	400 STARS_INVOICE_INVALID: The specified Telegram Star invoice is invalid.
+//	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
+//	400 WEBDOCUMENT_URL_EMPTY: The passed web document URL is empty.
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 // Can be used by bots.

@@ -176,7 +176,6 @@ func (g *MessagesGetSponsoredMessagesRequest) GetPeer() (value InputPeerClass) {
 //  1. https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/method/messages.getSponsoredMessages for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetSponsoredMessages(ctx context.Context, peer InputPeerClass) (MessagesSponsoredMessagesClass, error) {
 	var result MessagesSponsoredMessagesBox
 

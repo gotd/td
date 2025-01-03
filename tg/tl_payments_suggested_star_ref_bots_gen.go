@@ -32,18 +32,29 @@ var (
 )
 
 // PaymentsSuggestedStarRefBots represents TL type `payments.suggestedStarRefBots#b4d5d859`.
+// A list of suggested mini apps¹ with available affiliate programs²
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/constructor/payments.suggestedStarRefBots for reference.
 type PaymentsSuggestedStarRefBots struct {
-	// Flags field of PaymentsSuggestedStarRefBots.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of PaymentsSuggestedStarRefBots.
+	// Total number of results (for pagination)
 	Count int
-	// SuggestedBots field of PaymentsSuggestedStarRefBots.
+	// Suggested affiliate programs (full or partial list to be fetched using pagination)
 	SuggestedBots []StarRefProgram
-	// Users field of PaymentsSuggestedStarRefBots.
+	// Peers mentioned in suggested_bots
 	Users []UserClass
-	// NextOffset field of PaymentsSuggestedStarRefBots.
+	// Next offset for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

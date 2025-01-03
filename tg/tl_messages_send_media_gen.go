@@ -934,6 +934,8 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 BOT_GAMES_DISABLED: Games can't be sent to channels.
 //	400 BOT_PAYMENTS_DISABLED: Please enable bot payments in botfather before calling this method.
 //	400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN: You can't forward polls with public voters.
+//	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
+//	400 BUTTON_COPY_TEXT_INVALID: The specified keyboardButtonCopy.copy_text is invalid.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_POS_INVALID: The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
@@ -960,6 +962,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 EMOTICON_INVALID: The specified emoji is invalid.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 EXTENDED_MEDIA_AMOUNT_INVALID: The specified stars_amount of the passed inputMediaPaidMedia is invalid.
 //	400 EXTERNAL_URL_INVALID: External URL invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
@@ -969,6 +972,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 INPUT_FILE_INVALID: The specified InputFile is invalid.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//	400 INVOICE_PAYLOAD_INVALID: The specified invoice payload is invalid.
 //	400 MD5_CHECKSUM_INVALID: The MD5 checksums do not match.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
@@ -1003,7 +1007,10 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	400 STARS_INVOICE_INVALID: The specified Telegram Star invoice is invalid.
 //	400 STORY_ID_INVALID: The specified story ID is invalid.
+//	400 SUBSCRIPTION_EXPORT_MISSING: You cannot send a bot subscription invoice directly, you may only create invoice links using payments.exportInvoice.
+//	400 TERMS_URL_INVALID: The specified invoice.terms_url is invalid.
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 TTL_MEDIA_INVALID: Invalid media Time To Live was provided.

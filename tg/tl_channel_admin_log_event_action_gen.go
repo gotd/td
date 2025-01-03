@@ -7717,9 +7717,9 @@ func (c *ChannelAdminLogEventActionToggleSignatureProfiles) GetNewValue() (value
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend for reference.
 type ChannelAdminLogEventActionParticipantSubExtend struct {
-	// PrevParticipant field of ChannelAdminLogEventActionParticipantSubExtend.
+	// Same as new_participant.
 	PrevParticipant ChannelParticipantClass
-	// NewParticipant field of ChannelAdminLogEventActionParticipantSubExtend.
+	// The subscriber that extended the subscription.
 	NewParticipant ChannelParticipantClass
 }
 

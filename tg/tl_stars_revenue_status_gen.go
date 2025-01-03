@@ -47,7 +47,7 @@ type StarsRevenueStatus struct {
 	// If set, the user may withdraw¹ up to available_balance stars.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/stars#withdrawing-revenue
+	//  1) https://core.telegram.org/api/stars#withdrawing-stars
 	WithdrawalEnabled bool
 	// Amount of not-yet-withdrawn Telegram Stars.
 	CurrentBalance StarsAmount

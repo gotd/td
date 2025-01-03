@@ -138,7 +138,6 @@ func (g *PaymentsGetStarsGiveawayOptionsRequest) DecodeBare(b *bin.Buffer) error
 //  1. https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/method/payments.getStarsGiveawayOptions for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetStarsGiveawayOptions(ctx context.Context) ([]StarsGiveawayOption, error) {
 	var result StarsGiveawayOptionVector
 

@@ -36,11 +36,17 @@ var (
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 type ContactsResolveUsernameRequest struct {
-	// Flags field of ContactsResolveUsernameRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// @username to resolve
 	Username string
-	// Referer field of ContactsResolveUsernameRequest.
+	// Referrer ID from referral links »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#referral-links
 	//
 	// Use SetReferer and GetReferer helpers.
 	Referer string

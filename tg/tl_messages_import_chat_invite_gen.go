@@ -179,6 +179,7 @@ func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
 //	400 INVITE_REQUEST_SENT: You have successfully requested to join this chat or channel.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STARS_PAYMENT_REQUIRED: To import this chat invite link, you must first pay for the associated Telegram Star subscription ».
 //	400 USERS_TOO_MUCH: The maximum number of users has been exceeded (to create a chat, for example).
 //	400 USER_ALREADY_PARTICIPANT: The user is already in the group.
 //	400 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.

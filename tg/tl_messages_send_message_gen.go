@@ -938,7 +938,10 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 BOT_DOMAIN_INVALID: Bot domain invalid.
 //	400 BOT_INVALID: This is not a valid bot.
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
+//	400 BUSINESS_PEER_USAGE_MISSING: You cannot send a message to a user through a business connection if the user hasn't recently contacted us.
+//	400 BUTTON_COPY_TEXT_INVALID: The specified keyboardButtonCopy.copy_text is invalid.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
+//	400 BUTTON_ID_INVALID: The specified button ID is invalid.
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
 //	400 BUTTON_USER_INVALID: The user_id passed to inputKeyboardButtonUserProfile is invalid!
@@ -963,9 +966,10 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	500 MSG_WAIT_FAILED: A waiting call returned an error.
 //	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	404 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	406 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUOTE_TEXT_INVALID: The specified reply_to.quote_text field is invalid.

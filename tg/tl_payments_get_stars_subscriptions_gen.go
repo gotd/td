@@ -265,8 +265,11 @@ func (g *PaymentsGetStarsSubscriptionsRequest) GetOffset() (value string) {
 // Links:
 //  1. https://core.telegram.org/api/invites#paid-invite-links
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/payments.getStarsSubscriptions for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetStarsSubscriptions(ctx context.Context, request *PaymentsGetStarsSubscriptionsRequest) (*PaymentsStarsStatus, error) {
 	var result PaymentsStarsStatus
 

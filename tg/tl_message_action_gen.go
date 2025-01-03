@@ -1947,7 +1947,10 @@ type MessageActionPaymentSentMe struct {
 	ShippingOptionID string
 	// Provider payment identifier
 	Charge PaymentCharge
-	// SubscriptionUntilDate field of MessageActionPaymentSentMe.
+	// Expiration date of the Telegram Star subscription »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
@@ -2405,7 +2408,10 @@ type MessageActionPaymentSent struct {
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string
-	// SubscriptionUntilDate field of MessageActionPaymentSent.
+	// Expiration date of the Telegram Star subscription »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-subscriptions
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
@@ -9035,7 +9041,9 @@ type MessageActionPrizeStars struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Unclaimed field of MessageActionPrizeStars.
+	// If set, this indicates the reverse transaction that refunds the remaining stars to the
+	// creator of a giveaway if, when the giveaway ends, the number of members in the channel
+	// is smaller than the number of winners in the giveaway.
 	Unclaimed bool
 	// The number of Telegram Stars you won
 	Stars int64

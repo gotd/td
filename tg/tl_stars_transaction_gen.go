@@ -152,15 +152,29 @@ type StarsTransaction struct {
 	//
 	// Use SetFloodskipNumber and GetFloodskipNumber helpers.
 	FloodskipNumber int
-	// StarrefCommissionPermille field of StarsTransaction.
+	// This transaction is the receival (or refund) of an affiliate commission¹ (i.e. this
+	// is the transaction received by the peer that created the referral link², flag 17 is
+	// for transactions made by users that imported the referral link).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/referrals
+	//  2) https://core.telegram.org/api/links#referral-links
 	//
 	// Use SetStarrefCommissionPermille and GetStarrefCommissionPermille helpers.
 	StarrefCommissionPermille int
-	// StarrefPeer field of StarsTransaction.
+	// For transactions made by referred users¹, the peer that received the affiliate
+	// commission.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/referrals
 	//
 	// Use SetStarrefPeer and GetStarrefPeer helpers.
 	StarrefPeer PeerClass
-	// StarrefAmount field of StarsTransaction.
+	// For transactions made by referred users¹, the amount of Telegram Stars received by
+	// the affiliate, can be negative for refunds.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/referrals
 	//
 	// Use SetStarrefAmount and GetStarrefAmount helpers.
 	StarrefAmount StarsAmount

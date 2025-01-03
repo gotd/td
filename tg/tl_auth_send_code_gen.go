@@ -256,6 +256,7 @@ func (s *AuthSendCodeRequest) GetSettings() (value CodeSettings) {
 //	400 API_ID_INVALID: API ID invalid.
 //	400 API_ID_PUBLISHED_FLOOD: This API id was published somewhere, you can't use it now.
 //	500 AUTH_RESTART: Restart the authorization process.
+//	500 AUTH_RESTART_%d: Internal error (debug info %d), please repeat the method call.
 //	400 PHONE_NUMBER_APP_SIGNUP_FORBIDDEN: You can't sign up using this app.
 //	400 PHONE_NUMBER_BANNED: The provided phone number is banned from telegram.
 //	400 PHONE_NUMBER_FLOOD: You asked for the code too many times.

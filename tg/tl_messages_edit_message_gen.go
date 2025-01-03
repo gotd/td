@@ -625,6 +625,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //
 //	400 BOT_DOMAIN_INVALID: Bot domain invalid.
 //	400 BOT_INVALID: This is not a valid bot.
+//	400 BUTTON_COPY_TEXT_INVALID: The specified keyboardButtonCopy.copy_text is invalid.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
@@ -657,6 +658,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	500 MSG_WAIT_FAILED: A waiting call returned an error.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 PEER_TYPES_INVALID: The passed keyboardButtonSwitchInline.peer_types field is invalid.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.

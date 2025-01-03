@@ -239,8 +239,11 @@ func (g *PaymentsGetUserStarGiftsRequest) GetLimit() (value int) {
 // Links:
 //  1. https://core.telegram.org/api/gifts
 //
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
+//
 // See https://core.telegram.org/method/payments.getUserStarGifts for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetUserStarGifts(ctx context.Context, request *PaymentsGetUserStarGiftsRequest) (*PaymentsUserStarGifts, error) {
 	var result PaymentsUserStarGifts
 

@@ -32,12 +32,21 @@ var (
 )
 
 // MessagesBotPreparedInlineMessage represents TL type `messages.botPreparedInlineMessage#8ecf0511`.
+// Represents a prepared inline message saved by a bot, to be sent to the user via a web
+// app »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
 //
 // See https://core.telegram.org/constructor/messages.botPreparedInlineMessage for reference.
 type MessagesBotPreparedInlineMessage struct {
-	// ID field of MessagesBotPreparedInlineMessage.
+	// The ID of the saved message, to be passed to the id field of the
+	// web_app_send_prepared_message event »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/web-events#web-app-send-prepared-message
 	ID string
-	// ExpireDate field of MessagesBotPreparedInlineMessage.
+	// Expiration date of the message
 	ExpireDate int
 }
 

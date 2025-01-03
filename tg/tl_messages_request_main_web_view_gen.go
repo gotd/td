@@ -44,13 +44,19 @@ type MessagesRequestMainWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, requests to open the mini app in compact mode (as opposed to fullview mode).
-	// Must be set if the mode parameter of the Main Mini App link¹ is equal to compact.
+	// If set, requests to open the mini app in compact mode (as opposed to normal or
+	// fullscreen mode). Must be set if the mode parameter of the Main Mini App link¹ is
+	// equal to compact.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/links#main-mini-app-links
 	Compact bool
-	// Fullscreen field of MessagesRequestMainWebViewRequest.
+	// If set, requests to open the mini app in fullscreen mode (as opposed to compact or
+	// normal mode). Must be set if the mode parameter of the Main Mini App link¹ is equal
+	// to fullscreen.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#main-mini-app-links
 	Fullscreen bool
 	// Currently open chat, may be inputPeerEmpty¹ if no chat is currently open.
 	//

@@ -230,8 +230,11 @@ func (s *PaymentsSaveStarGiftRequest) GetMsgID() (value int) {
 // Links:
 //  1. https://core.telegram.org/api/gifts
 //
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
+//
 // See https://core.telegram.org/method/payments.saveStarGift for reference.
-// Can be used by bots.
 func (c *Client) PaymentsSaveStarGift(ctx context.Context, request *PaymentsSaveStarGiftRequest) (bool, error) {
 	var result BoolBox
 

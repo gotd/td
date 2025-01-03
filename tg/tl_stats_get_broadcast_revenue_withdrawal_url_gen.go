@@ -220,6 +220,7 @@ func (g *StatsGetBroadcastRevenueWithdrawalURLRequest) GetPasswordAsNotEmpty() (
 //	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
 //	400 PASSWORD_MISSING: You must enable 2FA before executing this operation.
 //	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.
+//	400 SESSION_TOO_FRESH_%d: This session was created less than 24 hours ago, try again in %d seconds.
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueWithdrawalUrl for reference.
 func (c *Client) StatsGetBroadcastRevenueWithdrawalURL(ctx context.Context, request *StatsGetBroadcastRevenueWithdrawalURLRequest) (*StatsBroadcastRevenueWithdrawalURL, error) {

@@ -255,6 +255,10 @@ func (e *ChatlistsExportChatlistInviteRequest) MapPeers() (value InputPeerClassA
 //
 // Possible errors:
 //
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHATLISTS_TOO_MUCH: You have created too many folder links, hitting the chatlist_invites_limit_default/chatlist_invites_limit_premium limits ».
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 FILTER_ID_INVALID: The specified filter ID is invalid.
 //	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //	400 INVITES_TOO_MUCH: The maximum number of per-folder invites specified by the chatlist_invites_limit_default/chatlist_invites_limit_premium client configuration parameters » was reached.

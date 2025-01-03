@@ -489,11 +489,12 @@ type WebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or
-	// something else, see here »¹ for a full list.
-	//
-	// Links:
-	//  1) https://github.com/telegramdesktop/tdesktop/blob/4f7a124f3e85f3f61d862b94fb5a45236976f38f/Telegram/SourceFiles/data/data_web_page.cpp#L127
+	// Type of the web page. One of the following: - video- gif- photo- document- profile-
+	// telegram_background- telegram_theme- telegram_story- telegram_channel-
+	// telegram_channel_request- telegram_megagroup- telegram_chat-
+	// telegram_megagroup_request- telegram_chat_request- telegram_album- telegram_message-
+	// telegram_bot- telegram_voicechat- telegram_livestream- telegram_user- telegram_botapp-
+	// telegram_channel_boost- telegram_group_boost- telegram_giftcode- telegram_stickerset
 	//
 	// Use SetType and GetType helpers.
 	Type string

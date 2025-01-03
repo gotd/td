@@ -57,7 +57,7 @@ type MessagesRequestSimpleWebViewRequest struct {
 	FromSideMenu bool
 	// Deprecated.
 	Compact bool
-	// Fullscreen field of MessagesRequestSimpleWebViewRequest.
+	// Requests to open the app in fullscreen mode.
 	Fullscreen bool
 	// Bot that owns the mini app
 	Bot InputUserClass

@@ -39,10 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/payments.getStarGifts for reference.
 type PaymentsGetStarGiftsRequest struct {
-	// Hash used for caching, for more info click here¹.
+	// Hash used for caching, for more info click here¹.The hash may be generated locally by
+	// using the ids of the returned or stored sticker starGift²s.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
+	//  2) https://core.telegram.org/constructor/starGift
 	Hash int
 }
 
@@ -174,7 +176,6 @@ func (g *PaymentsGetStarGiftsRequest) GetHash() (value int) {
 //  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getStarGifts for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetStarGifts(ctx context.Context, hash int) (PaymentsStarGiftsClass, error) {
 	var result PaymentsStarGiftsBox
 

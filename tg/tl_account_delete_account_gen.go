@@ -269,6 +269,7 @@ func (d *AccountDeleteAccountRequest) GetPasswordAsNotEmpty() (*InputCheckPasswo
 // Possible errors:
 //
 //	420 2FA_CONFIRM_WAIT_%d: Since this account is active and protected by a 2FA password, we will delete it in 1 week for security purposes. You can cancel this process at any time, you'll be able to reset your account in %d seconds.
+//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 func (c *Client) AccountDeleteAccount(ctx context.Context, request *AccountDeleteAccountRequest) (bool, error) {

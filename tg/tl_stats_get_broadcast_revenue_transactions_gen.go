@@ -238,6 +238,7 @@ func (g *StatsGetBroadcastRevenueTransactionsRequest) GetLimit() (value int) {
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stats.getBroadcastRevenueTransactions for reference.
 func (c *Client) StatsGetBroadcastRevenueTransactions(ctx context.Context, request *StatsGetBroadcastRevenueTransactionsRequest) (*StatsBroadcastRevenueTransactions, error) {

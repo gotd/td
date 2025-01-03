@@ -220,6 +220,7 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) GetID() (value []InputStarsTra
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 TRANSACTION_ID_INVALID: The specified transaction ID is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsTransactionsByID for reference.
 func (c *Client) PaymentsGetStarsTransactionsByID(ctx context.Context, request *PaymentsGetStarsTransactionsByIDRequest) (*PaymentsStarsStatus, error) {

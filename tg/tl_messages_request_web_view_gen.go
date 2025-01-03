@@ -59,14 +59,19 @@ type MessagesRequestWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	Silent bool
-	// If set, requests to open the mini app in compact mode (as opposed to fullview mode).
-	// Must be set if the mode parameter of the attachment menu deep link¹ is equal to
-	// compact.
+	// If set, requests to open the mini app in compact mode (as opposed to normal or
+	// fullscreen mode). Must be set if the mode parameter of the attachment menu deep link¹
+	// is equal to compact.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/links#bot-attachment-or-side-menu-links
 	Compact bool
-	// Fullscreen field of MessagesRequestWebViewRequest.
+	// If set, requests to open the mini app in fullscreen mode (as opposed to normal or
+	// compact mode). Must be set if the mode parameter of the attachment menu deep link¹ is
+	// equal to fullscreen.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#bot-attachment-or-side-menu-links
 	Fullscreen bool
 	// Dialog where the web app is being opened, and where the resulting message will be sent
 	// (see the docs for more info »¹).
@@ -696,6 +701,8 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
+//	400 THEME_PARAMS_INVALID: The specified theme_params field is invalid.
+//	400 URL_INVALID: Invalid URL provided.
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.

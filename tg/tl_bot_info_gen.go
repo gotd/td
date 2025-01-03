@@ -80,7 +80,10 @@ type BotInfo struct {
 	//
 	// Use SetPrivacyPolicyURL and GetPrivacyPolicyURL helpers.
 	PrivacyPolicyURL string
-	// AppSettings field of BotInfo.
+	// Mini app »¹ settings
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps
 	//
 	// Use SetAppSettings and GetAppSettings helpers.
 	AppSettings BotAppSettings
