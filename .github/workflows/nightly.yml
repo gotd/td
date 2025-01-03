@@ -23,13 +23,3 @@ jobs:
     secrets:
       APP_ID: ${{ secrets.APP_ID }}
       APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
-
-  tdlib:
-    uses: gotd/td/.github/workflows/update-schema.yml@main
-    with:
-      schema-name: "TDLib"
-      branch: "feat/update-tdlib-schema"
-      make-command: "download_tdlib_schema"
-    secrets:
-      APP_ID: ${{ secrets.APP_ID }}
-      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
