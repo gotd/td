@@ -3276,6 +3276,173 @@ func (p *PushMessageContentGift) GetStarCount() (value int64) {
 	return p.StarCount
 }
 
+// PushMessageContentUpgradedGift represents TL type `pushMessageContentUpgradedGift#99fa0ade`.
+type PushMessageContentUpgradedGift struct {
+	// True, if the gift was obtained by upgrading of a previously received gift; otherwise,
+	// this is a transferred gift
+	IsUpgrade bool
+}
+
+// PushMessageContentUpgradedGiftTypeID is TL type id of PushMessageContentUpgradedGift.
+const PushMessageContentUpgradedGiftTypeID = 0x99fa0ade
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentUpgradedGift) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentUpgradedGift.
+var (
+	_ bin.Encoder     = &PushMessageContentUpgradedGift{}
+	_ bin.Decoder     = &PushMessageContentUpgradedGift{}
+	_ bin.BareEncoder = &PushMessageContentUpgradedGift{}
+	_ bin.BareDecoder = &PushMessageContentUpgradedGift{}
+
+	_ PushMessageContentClass = &PushMessageContentUpgradedGift{}
+)
+
+func (p *PushMessageContentUpgradedGift) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.IsUpgrade == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentUpgradedGift) String() string {
+	if p == nil {
+		return "PushMessageContentUpgradedGift(nil)"
+	}
+	type Alias PushMessageContentUpgradedGift
+	return fmt.Sprintf("PushMessageContentUpgradedGift%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentUpgradedGift) TypeID() uint32 {
+	return PushMessageContentUpgradedGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentUpgradedGift) TypeName() string {
+	return "pushMessageContentUpgradedGift"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentUpgradedGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentUpgradedGift",
+		ID:   PushMessageContentUpgradedGiftTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsUpgrade",
+			SchemaName: "is_upgrade",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentUpgradedGift) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentUpgradedGift#99fa0ade as nil")
+	}
+	b.PutID(PushMessageContentUpgradedGiftTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentUpgradedGift) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentUpgradedGift#99fa0ade as nil")
+	}
+	b.PutBool(p.IsUpgrade)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentUpgradedGift) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentUpgradedGift#99fa0ade to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentUpgradedGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentUpgradedGift#99fa0ade: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentUpgradedGift) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentUpgradedGift#99fa0ade to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentUpgradedGift#99fa0ade: field is_upgrade: %w", err)
+		}
+		p.IsUpgrade = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentUpgradedGift) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentUpgradedGift#99fa0ade as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentUpgradedGift")
+	b.Comma()
+	b.FieldStart("is_upgrade")
+	b.PutBool(p.IsUpgrade)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentUpgradedGift) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentUpgradedGift#99fa0ade to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentUpgradedGift"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentUpgradedGift#99fa0ade: %w", err)
+			}
+		case "is_upgrade":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentUpgradedGift#99fa0ade: field is_upgrade: %w", err)
+			}
+			p.IsUpgrade = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetIsUpgrade returns value of IsUpgrade field.
+func (p *PushMessageContentUpgradedGift) GetIsUpgrade() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsUpgrade
+}
+
 // PushMessageContentScreenshotTaken represents TL type `pushMessageContentScreenshotTaken#cc51ff9`.
 type PushMessageContentScreenshotTaken struct {
 }
@@ -6959,6 +7126,7 @@ const PushMessageContentClassName = "PushMessageContent"
 //	case *tdapi.PushMessageContentPremiumGiftCode: // pushMessageContentPremiumGiftCode#18a15025
 //	case *tdapi.PushMessageContentGiveaway: // pushMessageContentGiveaway#d63e7f8e
 //	case *tdapi.PushMessageContentGift: // pushMessageContentGift#84a8cd0b
+//	case *tdapi.PushMessageContentUpgradedGift: // pushMessageContentUpgradedGift#99fa0ade
 //	case *tdapi.PushMessageContentScreenshotTaken: // pushMessageContentScreenshotTaken#cc51ff9
 //	case *tdapi.PushMessageContentSticker: // pushMessageContentSticker#5c98bdd3
 //	case *tdapi.PushMessageContentStory: // pushMessageContentStory#996471c9
@@ -7118,6 +7286,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 	case PushMessageContentGiftTypeID:
 		// Decoding pushMessageContentGift#84a8cd0b.
 		v := PushMessageContentGift{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentUpgradedGiftTypeID:
+		// Decoding pushMessageContentUpgradedGift#99fa0ade.
+		v := PushMessageContentUpgradedGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
@@ -7382,6 +7557,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentGift":
 		// Decoding pushMessageContentGift#84a8cd0b.
 		v := PushMessageContentGift{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentUpgradedGift":
+		// Decoding pushMessageContentUpgradedGift#99fa0ade.
+		v := PushMessageContentUpgradedGift{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

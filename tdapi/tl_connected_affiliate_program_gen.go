@@ -31,8 +31,8 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatAffiliateProgram represents TL type `chatAffiliateProgram#ab9c1136`.
-type ChatAffiliateProgram struct {
+// ConnectedAffiliateProgram represents TL type `connectedAffiliateProgram#58bf7415`.
+type ConnectedAffiliateProgram struct {
 	// The link that can be used to refer users if the program is still active
 	URL string
 	// User identifier of the bot created the program
@@ -50,18 +50,18 @@ type ChatAffiliateProgram struct {
 	RevenueStarCount int64
 }
 
-// ChatAffiliateProgramTypeID is TL type id of ChatAffiliateProgram.
-const ChatAffiliateProgramTypeID = 0xab9c1136
+// ConnectedAffiliateProgramTypeID is TL type id of ConnectedAffiliateProgram.
+const ConnectedAffiliateProgramTypeID = 0x58bf7415
 
-// Ensuring interfaces in compile-time for ChatAffiliateProgram.
+// Ensuring interfaces in compile-time for ConnectedAffiliateProgram.
 var (
-	_ bin.Encoder     = &ChatAffiliateProgram{}
-	_ bin.Decoder     = &ChatAffiliateProgram{}
-	_ bin.BareEncoder = &ChatAffiliateProgram{}
-	_ bin.BareDecoder = &ChatAffiliateProgram{}
+	_ bin.Encoder     = &ConnectedAffiliateProgram{}
+	_ bin.Decoder     = &ConnectedAffiliateProgram{}
+	_ bin.BareEncoder = &ConnectedAffiliateProgram{}
+	_ bin.BareDecoder = &ConnectedAffiliateProgram{}
 )
 
-func (c *ChatAffiliateProgram) Zero() bool {
+func (c *ConnectedAffiliateProgram) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -91,31 +91,31 @@ func (c *ChatAffiliateProgram) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatAffiliateProgram) String() string {
+func (c *ConnectedAffiliateProgram) String() string {
 	if c == nil {
-		return "ChatAffiliateProgram(nil)"
+		return "ConnectedAffiliateProgram(nil)"
 	}
-	type Alias ChatAffiliateProgram
-	return fmt.Sprintf("ChatAffiliateProgram%+v", Alias(*c))
+	type Alias ConnectedAffiliateProgram
+	return fmt.Sprintf("ConnectedAffiliateProgram%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatAffiliateProgram) TypeID() uint32 {
-	return ChatAffiliateProgramTypeID
+func (*ConnectedAffiliateProgram) TypeID() uint32 {
+	return ConnectedAffiliateProgramTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatAffiliateProgram) TypeName() string {
-	return "chatAffiliateProgram"
+func (*ConnectedAffiliateProgram) TypeName() string {
+	return "connectedAffiliateProgram"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatAffiliateProgram) TypeInfo() tdp.Type {
+func (c *ConnectedAffiliateProgram) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatAffiliateProgram",
-		ID:   ChatAffiliateProgramTypeID,
+		Name: "connectedAffiliateProgram",
+		ID:   ConnectedAffiliateProgramTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -155,23 +155,23 @@ func (c *ChatAffiliateProgram) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatAffiliateProgram) Encode(b *bin.Buffer) error {
+func (c *ConnectedAffiliateProgram) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAffiliateProgram#ab9c1136 as nil")
+		return fmt.Errorf("can't encode connectedAffiliateProgram#58bf7415 as nil")
 	}
-	b.PutID(ChatAffiliateProgramTypeID)
+	b.PutID(ConnectedAffiliateProgramTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatAffiliateProgram) EncodeBare(b *bin.Buffer) error {
+func (c *ConnectedAffiliateProgram) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAffiliateProgram#ab9c1136 as nil")
+		return fmt.Errorf("can't encode connectedAffiliateProgram#58bf7415 as nil")
 	}
 	b.PutString(c.URL)
 	b.PutInt53(c.BotUserID)
 	if err := c.Parameters.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatAffiliateProgram#ab9c1136: field parameters: %w", err)
+		return fmt.Errorf("unable to encode connectedAffiliateProgram#58bf7415: field parameters: %w", err)
 	}
 	b.PutInt32(c.ConnectionDate)
 	b.PutBool(c.IsDisconnected)
@@ -181,65 +181,65 @@ func (c *ChatAffiliateProgram) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatAffiliateProgram) Decode(b *bin.Buffer) error {
+func (c *ConnectedAffiliateProgram) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAffiliateProgram#ab9c1136 to nil")
+		return fmt.Errorf("can't decode connectedAffiliateProgram#58bf7415 to nil")
 	}
-	if err := b.ConsumeID(ChatAffiliateProgramTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: %w", err)
+	if err := b.ConsumeID(ConnectedAffiliateProgramTypeID); err != nil {
+		return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatAffiliateProgram) DecodeBare(b *bin.Buffer) error {
+func (c *ConnectedAffiliateProgram) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAffiliateProgram#ab9c1136 to nil")
+		return fmt.Errorf("can't decode connectedAffiliateProgram#58bf7415 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field url: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field url: %w", err)
 		}
 		c.URL = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field bot_user_id: %w", err)
 		}
 		c.BotUserID = value
 	}
 	{
 		if err := c.Parameters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field parameters: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field parameters: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field connection_date: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field connection_date: %w", err)
 		}
 		c.ConnectionDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field is_disconnected: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field is_disconnected: %w", err)
 		}
 		c.IsDisconnected = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field user_count: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field user_count: %w", err)
 		}
 		c.UserCount = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field revenue_star_count: %w", err)
+			return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field revenue_star_count: %w", err)
 		}
 		c.RevenueStarCount = value
 	}
@@ -247,12 +247,12 @@ func (c *ChatAffiliateProgram) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ConnectedAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAffiliateProgram#ab9c1136 as nil")
+		return fmt.Errorf("can't encode connectedAffiliateProgram#58bf7415 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatAffiliateProgram")
+	b.PutID("connectedAffiliateProgram")
 	b.Comma()
 	b.FieldStart("url")
 	b.PutString(c.URL)
@@ -262,7 +262,7 @@ func (c *ChatAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("parameters")
 	if err := c.Parameters.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatAffiliateProgram#ab9c1136: field parameters: %w", err)
+		return fmt.Errorf("unable to encode connectedAffiliateProgram#58bf7415: field parameters: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("connection_date")
@@ -283,55 +283,55 @@ func (c *ChatAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatAffiliateProgram) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ConnectedAffiliateProgram) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAffiliateProgram#ab9c1136 to nil")
+		return fmt.Errorf("can't decode connectedAffiliateProgram#58bf7415 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatAffiliateProgram"); err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: %w", err)
+			if err := b.ConsumeID("connectedAffiliateProgram"); err != nil {
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field url: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field url: %w", err)
 			}
 			c.URL = value
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field bot_user_id: %w", err)
 			}
 			c.BotUserID = value
 		case "parameters":
 			if err := c.Parameters.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field parameters: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field parameters: %w", err)
 			}
 		case "connection_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field connection_date: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field connection_date: %w", err)
 			}
 			c.ConnectionDate = value
 		case "is_disconnected":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field is_disconnected: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field is_disconnected: %w", err)
 			}
 			c.IsDisconnected = value
 		case "user_count":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field user_count: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field user_count: %w", err)
 			}
 			c.UserCount = value
 		case "revenue_star_count":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAffiliateProgram#ab9c1136: field revenue_star_count: %w", err)
+				return fmt.Errorf("unable to decode connectedAffiliateProgram#58bf7415: field revenue_star_count: %w", err)
 			}
 			c.RevenueStarCount = value
 		default:
@@ -342,7 +342,7 @@ func (c *ChatAffiliateProgram) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetURL returns value of URL field.
-func (c *ChatAffiliateProgram) GetURL() (value string) {
+func (c *ConnectedAffiliateProgram) GetURL() (value string) {
 	if c == nil {
 		return
 	}
@@ -350,7 +350,7 @@ func (c *ChatAffiliateProgram) GetURL() (value string) {
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (c *ChatAffiliateProgram) GetBotUserID() (value int64) {
+func (c *ConnectedAffiliateProgram) GetBotUserID() (value int64) {
 	if c == nil {
 		return
 	}
@@ -358,7 +358,7 @@ func (c *ChatAffiliateProgram) GetBotUserID() (value int64) {
 }
 
 // GetParameters returns value of Parameters field.
-func (c *ChatAffiliateProgram) GetParameters() (value AffiliateProgramParameters) {
+func (c *ConnectedAffiliateProgram) GetParameters() (value AffiliateProgramParameters) {
 	if c == nil {
 		return
 	}
@@ -366,7 +366,7 @@ func (c *ChatAffiliateProgram) GetParameters() (value AffiliateProgramParameters
 }
 
 // GetConnectionDate returns value of ConnectionDate field.
-func (c *ChatAffiliateProgram) GetConnectionDate() (value int32) {
+func (c *ConnectedAffiliateProgram) GetConnectionDate() (value int32) {
 	if c == nil {
 		return
 	}
@@ -374,7 +374,7 @@ func (c *ChatAffiliateProgram) GetConnectionDate() (value int32) {
 }
 
 // GetIsDisconnected returns value of IsDisconnected field.
-func (c *ChatAffiliateProgram) GetIsDisconnected() (value bool) {
+func (c *ConnectedAffiliateProgram) GetIsDisconnected() (value bool) {
 	if c == nil {
 		return
 	}
@@ -382,7 +382,7 @@ func (c *ChatAffiliateProgram) GetIsDisconnected() (value bool) {
 }
 
 // GetUserCount returns value of UserCount field.
-func (c *ChatAffiliateProgram) GetUserCount() (value int64) {
+func (c *ConnectedAffiliateProgram) GetUserCount() (value int64) {
 	if c == nil {
 		return
 	}
@@ -390,7 +390,7 @@ func (c *ChatAffiliateProgram) GetUserCount() (value int64) {
 }
 
 // GetRevenueStarCount returns value of RevenueStarCount field.
-func (c *ChatAffiliateProgram) GetRevenueStarCount() (value int64) {
+func (c *ConnectedAffiliateProgram) GetRevenueStarCount() (value int64) {
 	if c == nil {
 		return
 	}

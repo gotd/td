@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// FoundAffiliateProgram represents TL type `foundAffiliateProgram#80bf7012`.
+// FoundAffiliateProgram represents TL type `foundAffiliateProgram#c6636286`.
 type FoundAffiliateProgram struct {
 	// User identifier of the bot created the program
 	BotUserID int64
 	// Information about the affiliate program
-	Parameters AffiliateProgramInfo
+	Info AffiliateProgramInfo
 }
 
 // FoundAffiliateProgramTypeID is TL type id of FoundAffiliateProgram.
-const FoundAffiliateProgramTypeID = 0x80bf7012
+const FoundAffiliateProgramTypeID = 0xc6636286
 
 // Ensuring interfaces in compile-time for FoundAffiliateProgram.
 var (
@@ -57,7 +57,7 @@ func (f *FoundAffiliateProgram) Zero() bool {
 	if !(f.BotUserID == 0) {
 		return false
 	}
-	if !(f.Parameters.Zero()) {
+	if !(f.Info.Zero()) {
 		return false
 	}
 
@@ -101,8 +101,8 @@ func (f *FoundAffiliateProgram) TypeInfo() tdp.Type {
 			SchemaName: "bot_user_id",
 		},
 		{
-			Name:       "Parameters",
-			SchemaName: "parameters",
+			Name:       "Info",
+			SchemaName: "info",
 		},
 	}
 	return typ
@@ -111,7 +111,7 @@ func (f *FoundAffiliateProgram) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FoundAffiliateProgram) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode foundAffiliateProgram#80bf7012 as nil")
+		return fmt.Errorf("can't encode foundAffiliateProgram#c6636286 as nil")
 	}
 	b.PutID(FoundAffiliateProgramTypeID)
 	return f.EncodeBare(b)
@@ -120,11 +120,11 @@ func (f *FoundAffiliateProgram) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FoundAffiliateProgram) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode foundAffiliateProgram#80bf7012 as nil")
+		return fmt.Errorf("can't encode foundAffiliateProgram#c6636286 as nil")
 	}
 	b.PutInt53(f.BotUserID)
-	if err := f.Parameters.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode foundAffiliateProgram#80bf7012: field parameters: %w", err)
+	if err := f.Info.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode foundAffiliateProgram#c6636286: field info: %w", err)
 	}
 	return nil
 }
@@ -132,10 +132,10 @@ func (f *FoundAffiliateProgram) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *FoundAffiliateProgram) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode foundAffiliateProgram#80bf7012 to nil")
+		return fmt.Errorf("can't decode foundAffiliateProgram#c6636286 to nil")
 	}
 	if err := b.ConsumeID(FoundAffiliateProgramTypeID); err != nil {
-		return fmt.Errorf("unable to decode foundAffiliateProgram#80bf7012: %w", err)
+		return fmt.Errorf("unable to decode foundAffiliateProgram#c6636286: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -143,18 +143,18 @@ func (f *FoundAffiliateProgram) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FoundAffiliateProgram) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode foundAffiliateProgram#80bf7012 to nil")
+		return fmt.Errorf("can't decode foundAffiliateProgram#c6636286 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode foundAffiliateProgram#80bf7012: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode foundAffiliateProgram#c6636286: field bot_user_id: %w", err)
 		}
 		f.BotUserID = value
 	}
 	{
-		if err := f.Parameters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode foundAffiliateProgram#80bf7012: field parameters: %w", err)
+		if err := f.Info.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode foundAffiliateProgram#c6636286: field info: %w", err)
 		}
 	}
 	return nil
@@ -163,7 +163,7 @@ func (f *FoundAffiliateProgram) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (f *FoundAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
-		return fmt.Errorf("can't encode foundAffiliateProgram#80bf7012 as nil")
+		return fmt.Errorf("can't encode foundAffiliateProgram#c6636286 as nil")
 	}
 	b.ObjStart()
 	b.PutID("foundAffiliateProgram")
@@ -171,9 +171,9 @@ func (f *FoundAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("bot_user_id")
 	b.PutInt53(f.BotUserID)
 	b.Comma()
-	b.FieldStart("parameters")
-	if err := f.Parameters.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode foundAffiliateProgram#80bf7012: field parameters: %w", err)
+	b.FieldStart("info")
+	if err := f.Info.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode foundAffiliateProgram#c6636286: field info: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -184,24 +184,24 @@ func (f *FoundAffiliateProgram) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (f *FoundAffiliateProgram) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
-		return fmt.Errorf("can't decode foundAffiliateProgram#80bf7012 to nil")
+		return fmt.Errorf("can't decode foundAffiliateProgram#c6636286 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("foundAffiliateProgram"); err != nil {
-				return fmt.Errorf("unable to decode foundAffiliateProgram#80bf7012: %w", err)
+				return fmt.Errorf("unable to decode foundAffiliateProgram#c6636286: %w", err)
 			}
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode foundAffiliateProgram#80bf7012: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode foundAffiliateProgram#c6636286: field bot_user_id: %w", err)
 			}
 			f.BotUserID = value
-		case "parameters":
-			if err := f.Parameters.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode foundAffiliateProgram#80bf7012: field parameters: %w", err)
+		case "info":
+			if err := f.Info.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode foundAffiliateProgram#c6636286: field info: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -218,10 +218,10 @@ func (f *FoundAffiliateProgram) GetBotUserID() (value int64) {
 	return f.BotUserID
 }
 
-// GetParameters returns value of Parameters field.
-func (f *FoundAffiliateProgram) GetParameters() (value AffiliateProgramInfo) {
+// GetInfo returns value of Info field.
+func (f *FoundAffiliateProgram) GetInfo() (value AffiliateProgramInfo) {
 	if f == nil {
 		return
 	}
-	return f.Parameters
+	return f.Info
 }
