@@ -1087,6 +1087,12 @@ func (b *SearchGlobalQueryBuilder) FolderID(paramFolderID int) *SearchGlobalQuer
 	return b
 }
 
+// GroupsOnly sets GroupsOnly field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) GroupsOnly(paramGroupsOnly bool) *SearchGlobalQueryBuilder {
+	b.req.GroupsOnly = paramGroupsOnly
+	return b
+}
+
 // MaxDate sets MaxDate field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) MaxDate(paramMaxDate int) *SearchGlobalQueryBuilder {
 	b.req.MaxDate = paramMaxDate
@@ -1102,6 +1108,12 @@ func (b *SearchGlobalQueryBuilder) MinDate(paramMinDate int) *SearchGlobalQueryB
 // Q sets Q field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) Q(paramQ string) *SearchGlobalQueryBuilder {
 	b.req.Q = paramQ
+	return b
+}
+
+// UsersOnly sets UsersOnly field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) UsersOnly(paramUsersOnly bool) *SearchGlobalQueryBuilder {
+	b.req.UsersOnly = paramUsersOnly
 	return b
 }
 
@@ -1212,9 +1224,11 @@ func (b *SearchGlobalQueryBuilder) Query(ctx context.Context, req Request) (tg.M
 	r.BroadcastsOnly = b.req.BroadcastsOnly
 	r.Filter = b.req.Filter
 	r.FolderID = b.req.FolderID
+	r.GroupsOnly = b.req.GroupsOnly
 	r.MaxDate = b.req.MaxDate
 	r.MinDate = b.req.MinDate
 	r.Q = b.req.Q
+	r.UsersOnly = b.req.UsersOnly
 	r.OffsetID = req.OffsetID
 	r.OffsetPeer = req.OffsetPeer
 	r.OffsetRate = req.OffsetRate

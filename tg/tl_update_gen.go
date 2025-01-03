@@ -17567,22 +17567,26 @@ func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
 	return u.Version
 }
 
-// UpdateGroupCall represents TL type `updateGroupCall#14b24500`.
+// UpdateGroupCall represents TL type `updateGroupCall#97d64341`.
 // A new groupcall was started
 //
 // See https://core.telegram.org/constructor/updateGroupCall for reference.
 type UpdateGroupCall struct {
+	// Flags field of UpdateGroupCall.
+	Flags bin.Fields
 	// The channel/supergroup¹ where this group call or livestream takes place
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
+	//
+	// Use SetChatID and GetChatID helpers.
 	ChatID int64
 	// Info about the group call or livestream
 	Call GroupCallClass
 }
 
 // UpdateGroupCallTypeID is TL type id of UpdateGroupCall.
-const UpdateGroupCallTypeID = 0x14b24500
+const UpdateGroupCallTypeID = 0x97d64341
 
 // construct implements constructor of UpdateClass.
 func (u UpdateGroupCall) construct() UpdateClass { return &u }
@@ -17600,6 +17604,9 @@ var (
 func (u *UpdateGroupCall) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
 	}
 	if !(u.ChatID == 0) {
 		return false
@@ -17622,10 +17629,13 @@ func (u *UpdateGroupCall) String() string {
 
 // FillFrom fills UpdateGroupCall from given interface.
 func (u *UpdateGroupCall) FillFrom(from interface {
-	GetChatID() (value int64)
+	GetChatID() (value int64, ok bool)
 	GetCall() (value GroupCallClass)
 }) {
-	u.ChatID = from.GetChatID()
+	if val, ok := from.GetChatID(); ok {
+		u.ChatID = val
+	}
+
 	u.Call = from.GetCall()
 }
 
@@ -17655,6 +17665,7 @@ func (u *UpdateGroupCall) TypeInfo() tdp.Type {
 		{
 			Name:       "ChatID",
 			SchemaName: "chat_id",
+			Null:       !u.Flags.Has(0),
 		},
 		{
 			Name:       "Call",
@@ -17664,10 +17675,17 @@ func (u *UpdateGroupCall) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateGroupCall) SetFlags() {
+	if !(u.ChatID == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateGroupCall) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateGroupCall#14b24500 as nil")
+		return fmt.Errorf("can't encode updateGroupCall#97d64341 as nil")
 	}
 	b.PutID(UpdateGroupCallTypeID)
 	return u.EncodeBare(b)
@@ -17676,14 +17694,20 @@ func (u *UpdateGroupCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateGroupCall) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateGroupCall#14b24500 as nil")
+		return fmt.Errorf("can't encode updateGroupCall#97d64341 as nil")
 	}
-	b.PutLong(u.ChatID)
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateGroupCall#97d64341: field flags: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutLong(u.ChatID)
+	}
 	if u.Call == nil {
-		return fmt.Errorf("unable to encode updateGroupCall#14b24500: field call is nil")
+		return fmt.Errorf("unable to encode updateGroupCall#97d64341: field call is nil")
 	}
 	if err := u.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateGroupCall#14b24500: field call: %w", err)
+		return fmt.Errorf("unable to encode updateGroupCall#97d64341: field call: %w", err)
 	}
 	return nil
 }
@@ -17691,10 +17715,10 @@ func (u *UpdateGroupCall) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateGroupCall) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateGroupCall#14b24500 to nil")
+		return fmt.Errorf("can't decode updateGroupCall#97d64341 to nil")
 	}
 	if err := b.ConsumeID(UpdateGroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateGroupCall#14b24500: %w", err)
+		return fmt.Errorf("unable to decode updateGroupCall#97d64341: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -17702,31 +17726,46 @@ func (u *UpdateGroupCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateGroupCall) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateGroupCall#14b24500 to nil")
+		return fmt.Errorf("can't decode updateGroupCall#97d64341 to nil")
 	}
 	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateGroupCall#97d64341: field flags: %w", err)
+		}
+	}
+	if u.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateGroupCall#14b24500: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateGroupCall#97d64341: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := DecodeGroupCall(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateGroupCall#14b24500: field call: %w", err)
+			return fmt.Errorf("unable to decode updateGroupCall#97d64341: field call: %w", err)
 		}
 		u.Call = value
 	}
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateGroupCall) GetChatID() (value int64) {
+// SetChatID sets value of ChatID conditional field.
+func (u *UpdateGroupCall) SetChatID(value int64) {
+	u.Flags.Set(0)
+	u.ChatID = value
+}
+
+// GetChatID returns value of ChatID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateGroupCall) GetChatID() (value int64, ok bool) {
 	if u == nil {
 		return
 	}
-	return u.ChatID
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.ChatID, true
 }
 
 // GetCall returns value of Call field.
@@ -28674,7 +28713,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdatePinnedChannelMessages: // updatePinnedChannelMessages#5bb98608
 //	case *tg.UpdateChat: // updateChat#f89a6a4e
 //	case *tg.UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
-//	case *tg.UpdateGroupCall: // updateGroupCall#14b24500
+//	case *tg.UpdateGroupCall: // updateGroupCall#97d64341
 //	case *tg.UpdatePeerHistoryTTL: // updatePeerHistoryTTL#bb9bb9a5
 //	case *tg.UpdateChatParticipant: // updateChatParticipant#d087663a
 //	case *tg.UpdateChannelParticipant: // updateChannelParticipant#985d3abb
@@ -29360,7 +29399,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateGroupCallTypeID:
-		// Decoding updateGroupCall#14b24500.
+		// Decoding updateGroupCall#97d64341.
 		v := UpdateGroupCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

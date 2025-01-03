@@ -47,6 +47,10 @@ type MessagesSearchGlobalRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/search#global-search
 	BroadcastsOnly bool
+	// GroupsOnly field of MessagesSearchGlobalRequest.
+	GroupsOnly bool
+	// UsersOnly field of MessagesSearchGlobalRequest.
+	UsersOnly bool
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
@@ -107,6 +111,12 @@ func (s *MessagesSearchGlobalRequest) Zero() bool {
 	if !(s.BroadcastsOnly == false) {
 		return false
 	}
+	if !(s.GroupsOnly == false) {
+		return false
+	}
+	if !(s.UsersOnly == false) {
+		return false
+	}
 	if !(s.FolderID == 0) {
 		return false
 	}
@@ -150,6 +160,8 @@ func (s *MessagesSearchGlobalRequest) String() string {
 // FillFrom fills MessagesSearchGlobalRequest from given interface.
 func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 	GetBroadcastsOnly() (value bool)
+	GetGroupsOnly() (value bool)
+	GetUsersOnly() (value bool)
 	GetFolderID() (value int, ok bool)
 	GetQ() (value string)
 	GetFilter() (value MessagesFilterClass)
@@ -161,6 +173,8 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 	GetLimit() (value int)
 }) {
 	s.BroadcastsOnly = from.GetBroadcastsOnly()
+	s.GroupsOnly = from.GetGroupsOnly()
+	s.UsersOnly = from.GetUsersOnly()
 	if val, ok := from.GetFolderID(); ok {
 		s.FolderID = val
 	}
@@ -202,6 +216,16 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 			Name:       "BroadcastsOnly",
 			SchemaName: "broadcasts_only",
 			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "GroupsOnly",
+			SchemaName: "groups_only",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "UsersOnly",
+			SchemaName: "users_only",
+			Null:       !s.Flags.Has(3),
 		},
 		{
 			Name:       "FolderID",
@@ -248,6 +272,12 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 func (s *MessagesSearchGlobalRequest) SetFlags() {
 	if !(s.BroadcastsOnly == false) {
 		s.Flags.Set(1)
+	}
+	if !(s.GroupsOnly == false) {
+		s.Flags.Set(2)
+	}
+	if !(s.UsersOnly == false) {
+		s.Flags.Set(3)
 	}
 	if !(s.FolderID == 0) {
 		s.Flags.Set(0)
@@ -318,6 +348,8 @@ func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	s.BroadcastsOnly = s.Flags.Has(1)
+	s.GroupsOnly = s.Flags.Has(2)
+	s.UsersOnly = s.Flags.Has(3)
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
@@ -401,6 +433,44 @@ func (s *MessagesSearchGlobalRequest) GetBroadcastsOnly() (value bool) {
 		return
 	}
 	return s.Flags.Has(1)
+}
+
+// SetGroupsOnly sets value of GroupsOnly conditional field.
+func (s *MessagesSearchGlobalRequest) SetGroupsOnly(value bool) {
+	if value {
+		s.Flags.Set(2)
+		s.GroupsOnly = true
+	} else {
+		s.Flags.Unset(2)
+		s.GroupsOnly = false
+	}
+}
+
+// GetGroupsOnly returns value of GroupsOnly conditional field.
+func (s *MessagesSearchGlobalRequest) GetGroupsOnly() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(2)
+}
+
+// SetUsersOnly sets value of UsersOnly conditional field.
+func (s *MessagesSearchGlobalRequest) SetUsersOnly(value bool) {
+	if value {
+		s.Flags.Set(3)
+		s.UsersOnly = true
+	} else {
+		s.Flags.Unset(3)
+		s.UsersOnly = false
+	}
+}
+
+// GetUsersOnly returns value of UsersOnly conditional field.
+func (s *MessagesSearchGlobalRequest) GetUsersOnly() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(3)
 }
 
 // SetFolderID sets value of FolderID conditional field.
