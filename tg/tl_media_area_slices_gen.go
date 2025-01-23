@@ -220,6 +220,19 @@ func (s MediaAreaClassArray) AsMediaAreaWeather() (to MediaAreaWeatherArray) {
 	return to
 }
 
+// AsMediaAreaStarGift returns copy with only MediaAreaStarGift constructors.
+func (s MediaAreaClassArray) AsMediaAreaStarGift() (to MediaAreaStarGiftArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MediaAreaStarGift)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MediaAreaVenueArray is adapter for slice of MediaAreaVenue.
 type MediaAreaVenueArray []MediaAreaVenue
 
@@ -864,6 +877,88 @@ func (s *MediaAreaWeatherArray) PopFirst() (v MediaAreaWeather, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MediaAreaWeatherArray) Pop() (v MediaAreaWeather, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MediaAreaStarGiftArray is adapter for slice of MediaAreaStarGift.
+type MediaAreaStarGiftArray []MediaAreaStarGift
+
+// Sort sorts slice of MediaAreaStarGift.
+func (s MediaAreaStarGiftArray) Sort(less func(a, b MediaAreaStarGift) bool) MediaAreaStarGiftArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MediaAreaStarGift.
+func (s MediaAreaStarGiftArray) SortStable(less func(a, b MediaAreaStarGift) bool) MediaAreaStarGiftArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MediaAreaStarGift.
+func (s MediaAreaStarGiftArray) Retain(keep func(x MediaAreaStarGift) bool) MediaAreaStarGiftArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MediaAreaStarGiftArray) First() (v MediaAreaStarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MediaAreaStarGiftArray) Last() (v MediaAreaStarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MediaAreaStarGiftArray) PopFirst() (v MediaAreaStarGift, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MediaAreaStarGift
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MediaAreaStarGiftArray) Pop() (v MediaAreaStarGift, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

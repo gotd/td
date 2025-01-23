@@ -266,6 +266,90 @@ func (s *AccountGetChatThemes) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerAccountGetCollectibleEmojiStatuses struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AccountEmojiStatuses
+}
+
+type AccountGetCollectibleEmojiStatuses struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetCollectibleEmojiStatuses creates new AccountGetCollectibleEmojiStatuses.
+func NewAccountGetCollectibleEmojiStatuses(raw *tg.Client) *AccountGetCollectibleEmojiStatuses {
+	q := &AccountGetCollectibleEmojiStatuses{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetCollectibleEmojiStatuses) store(v innerAccountGetCollectibleEmojiStatuses) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetCollectibleEmojiStatuses) load() (innerAccountGetCollectibleEmojiStatuses, bool) {
+	v, ok := s.last.Load().(innerAccountGetCollectibleEmojiStatuses)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AccountEmojiStatuses must not be mutated.
+func (s *AccountGetCollectibleEmojiStatuses) Value() *tg.AccountEmojiStatuses {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetCollectibleEmojiStatuses) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetCollectibleEmojiStatuses) Get(ctx context.Context) (*tg.AccountEmojiStatuses, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetCollectibleEmojiStatuses) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetCollectibleEmojiStatuses(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetCollectibleEmojiStatuses")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AccountEmojiStatuses:
+		hash := variant.Hash
+
+		s.store(innerAccountGetCollectibleEmojiStatuses{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AccountEmojiStatusesNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetDefaultBackgroundEmojis struct {
 	// Last received hash.
 	hash int64

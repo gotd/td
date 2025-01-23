@@ -1054,7 +1054,7 @@ func (i *InputMediaContact) GetVcard() (value string) {
 	return i.Vcard
 }
 
-// InputMediaUploadedDocument represents TL type `inputMediaUploadedDocument#5b38c6c1`.
+// InputMediaUploadedDocument represents TL type `inputMediaUploadedDocument#37c9330`.
 // New document
 //
 // See https://core.telegram.org/constructor/inputMediaUploadedDocument for reference.
@@ -1088,6 +1088,14 @@ type InputMediaUploadedDocument struct {
 	//
 	// Use SetStickers and GetStickers helpers.
 	Stickers []InputDocumentClass
+	// VideoCover field of InputMediaUploadedDocument.
+	//
+	// Use SetVideoCover and GetVideoCover helpers.
+	VideoCover InputPhotoClass
+	// VideoTimestamp field of InputMediaUploadedDocument.
+	//
+	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
+	VideoTimestamp int
 	// Time to live in seconds of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
@@ -1095,7 +1103,7 @@ type InputMediaUploadedDocument struct {
 }
 
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
-const InputMediaUploadedDocumentTypeID = 0x5b38c6c1
+const InputMediaUploadedDocumentTypeID = 0x37c9330
 
 // construct implements constructor of InputMediaClass.
 func (i InputMediaUploadedDocument) construct() InputMediaClass { return &i }
@@ -1141,6 +1149,12 @@ func (i *InputMediaUploadedDocument) Zero() bool {
 	if !(i.Stickers == nil) {
 		return false
 	}
+	if !(i.VideoCover == nil) {
+		return false
+	}
+	if !(i.VideoTimestamp == 0) {
+		return false
+	}
 	if !(i.TTLSeconds == 0) {
 		return false
 	}
@@ -1167,6 +1181,8 @@ func (i *InputMediaUploadedDocument) FillFrom(from interface {
 	GetMimeType() (value string)
 	GetAttributes() (value []DocumentAttributeClass)
 	GetStickers() (value []InputDocumentClass, ok bool)
+	GetVideoCover() (value InputPhotoClass, ok bool)
+	GetVideoTimestamp() (value int, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
 	i.NosoundVideo = from.GetNosoundVideo()
@@ -1181,6 +1197,14 @@ func (i *InputMediaUploadedDocument) FillFrom(from interface {
 	i.Attributes = from.GetAttributes()
 	if val, ok := from.GetStickers(); ok {
 		i.Stickers = val
+	}
+
+	if val, ok := from.GetVideoCover(); ok {
+		i.VideoCover = val
+	}
+
+	if val, ok := from.GetVideoTimestamp(); ok {
+		i.VideoTimestamp = val
 	}
 
 	if val, ok := from.GetTTLSeconds(); ok {
@@ -1250,6 +1274,16 @@ func (i *InputMediaUploadedDocument) TypeInfo() tdp.Type {
 			Null:       !i.Flags.Has(0),
 		},
 		{
+			Name:       "VideoCover",
+			SchemaName: "video_cover",
+			Null:       !i.Flags.Has(6),
+		},
+		{
+			Name:       "VideoTimestamp",
+			SchemaName: "video_timestamp",
+			Null:       !i.Flags.Has(7),
+		},
+		{
 			Name:       "TTLSeconds",
 			SchemaName: "ttl_seconds",
 			Null:       !i.Flags.Has(1),
@@ -1275,6 +1309,12 @@ func (i *InputMediaUploadedDocument) SetFlags() {
 	if !(i.Stickers == nil) {
 		i.Flags.Set(0)
 	}
+	if !(i.VideoCover == nil) {
+		i.Flags.Set(6)
+	}
+	if !(i.VideoTimestamp == 0) {
+		i.Flags.Set(7)
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(1)
 	}
@@ -1283,7 +1323,7 @@ func (i *InputMediaUploadedDocument) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+		return fmt.Errorf("can't encode inputMediaUploadedDocument#37c9330 as nil")
 	}
 	b.PutID(InputMediaUploadedDocumentTypeID)
 	return i.EncodeBare(b)
@@ -1292,46 +1332,57 @@ func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+		return fmt.Errorf("can't encode inputMediaUploadedDocument#37c9330 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field flags: %w", err)
 	}
 	if i.File == nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field file is nil")
+		return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field file is nil")
 	}
 	if err := i.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field file: %w", err)
+		return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field file: %w", err)
 	}
 	if i.Flags.Has(2) {
 		if i.Thumb == nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field thumb is nil")
+			return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field thumb is nil")
 		}
 		if err := i.Thumb.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field thumb: %w", err)
+			return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field thumb: %w", err)
 		}
 	}
 	b.PutString(i.MimeType)
 	b.PutVectorHeader(len(i.Attributes))
 	for idx, v := range i.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field attributes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field attributes element with index %d: %w", idx, err)
 		}
 	}
 	if i.Flags.Has(0) {
 		b.PutVectorHeader(len(i.Stickers))
 		for idx, v := range i.Stickers {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field stickers element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field stickers element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field stickers element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field stickers element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if i.Flags.Has(6) {
+		if i.VideoCover == nil {
+			return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field video_cover is nil")
+		}
+		if err := i.VideoCover.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputMediaUploadedDocument#37c9330: field video_cover: %w", err)
+		}
+	}
+	if i.Flags.Has(7) {
+		b.PutInt(i.VideoTimestamp)
 	}
 	if i.Flags.Has(1) {
 		b.PutInt(i.TTLSeconds)
@@ -1342,10 +1393,10 @@ func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaUploadedDocument#5b38c6c1 to nil")
+		return fmt.Errorf("can't decode inputMediaUploadedDocument#37c9330 to nil")
 	}
 	if err := b.ConsumeID(InputMediaUploadedDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: %w", err)
+		return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1353,11 +1404,11 @@ func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaUploadedDocument#5b38c6c1 to nil")
+		return fmt.Errorf("can't decode inputMediaUploadedDocument#37c9330 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field flags: %w", err)
 		}
 	}
 	i.NosoundVideo = i.Flags.Has(3)
@@ -1366,28 +1417,28 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field file: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field file: %w", err)
 		}
 		i.File = value
 	}
 	if i.Flags.Has(2) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field thumb: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field thumb: %w", err)
 		}
 		i.Thumb = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field mime_type: %w", err)
 		}
 		i.MimeType = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field attributes: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field attributes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1396,7 +1447,7 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field attributes: %w", err)
+				return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field attributes: %w", err)
 			}
 			i.Attributes = append(i.Attributes, value)
 		}
@@ -1404,7 +1455,7 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field stickers: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field stickers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1413,15 +1464,29 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field stickers: %w", err)
+				return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field stickers: %w", err)
 			}
 			i.Stickers = append(i.Stickers, value)
 		}
 	}
+	if i.Flags.Has(6) {
+		value, err := DecodeInputPhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field video_cover: %w", err)
+		}
+		i.VideoCover = value
+	}
+	if i.Flags.Has(7) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field video_timestamp: %w", err)
+		}
+		i.VideoTimestamp = value
+	}
 	if i.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode inputMediaUploadedDocument#37c9330: field ttl_seconds: %w", err)
 		}
 		i.TTLSeconds = value
 	}
@@ -1545,6 +1610,42 @@ func (i *InputMediaUploadedDocument) GetStickers() (value []InputDocumentClass, 
 	return i.Stickers, true
 }
 
+// SetVideoCover sets value of VideoCover conditional field.
+func (i *InputMediaUploadedDocument) SetVideoCover(value InputPhotoClass) {
+	i.Flags.Set(6)
+	i.VideoCover = value
+}
+
+// GetVideoCover returns value of VideoCover conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedDocument) GetVideoCover() (value InputPhotoClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(6) {
+		return value, false
+	}
+	return i.VideoCover, true
+}
+
+// SetVideoTimestamp sets value of VideoTimestamp conditional field.
+func (i *InputMediaUploadedDocument) SetVideoTimestamp(value int) {
+	i.Flags.Set(7)
+	i.VideoTimestamp = value
+}
+
+// GetVideoTimestamp returns value of VideoTimestamp conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaUploadedDocument) GetVideoTimestamp() (value int, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(7) {
+		return value, false
+	}
+	return i.VideoTimestamp, true
+}
+
 // SetTTLSeconds sets value of TTLSeconds conditional field.
 func (i *InputMediaUploadedDocument) SetTTLSeconds(value int) {
 	i.Flags.Set(1)
@@ -1576,7 +1677,7 @@ func (i *InputMediaUploadedDocument) MapStickers() (value InputDocumentClassArra
 	return InputDocumentClassArray(i.Stickers), true
 }
 
-// InputMediaDocument represents TL type `inputMediaDocument#33473058`.
+// InputMediaDocument represents TL type `inputMediaDocument#a8763ab5`.
 // Forwarded document
 //
 // See https://core.telegram.org/constructor/inputMediaDocument for reference.
@@ -1590,6 +1691,14 @@ type InputMediaDocument struct {
 	Spoiler bool
 	// The document to be forwarded.
 	ID InputDocumentClass
+	// VideoCover field of InputMediaDocument.
+	//
+	// Use SetVideoCover and GetVideoCover helpers.
+	VideoCover InputPhotoClass
+	// VideoTimestamp field of InputMediaDocument.
+	//
+	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
+	VideoTimestamp int
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
@@ -1602,7 +1711,7 @@ type InputMediaDocument struct {
 }
 
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
-const InputMediaDocumentTypeID = 0x33473058
+const InputMediaDocumentTypeID = 0xa8763ab5
 
 // construct implements constructor of InputMediaClass.
 func (i InputMediaDocument) construct() InputMediaClass { return &i }
@@ -1630,6 +1739,12 @@ func (i *InputMediaDocument) Zero() bool {
 	if !(i.ID == nil) {
 		return false
 	}
+	if !(i.VideoCover == nil) {
+		return false
+	}
+	if !(i.VideoTimestamp == 0) {
+		return false
+	}
 	if !(i.TTLSeconds == 0) {
 		return false
 	}
@@ -1653,11 +1768,21 @@ func (i *InputMediaDocument) String() string {
 func (i *InputMediaDocument) FillFrom(from interface {
 	GetSpoiler() (value bool)
 	GetID() (value InputDocumentClass)
+	GetVideoCover() (value InputPhotoClass, ok bool)
+	GetVideoTimestamp() (value int, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 	GetQuery() (value string, ok bool)
 }) {
 	i.Spoiler = from.GetSpoiler()
 	i.ID = from.GetID()
+	if val, ok := from.GetVideoCover(); ok {
+		i.VideoCover = val
+	}
+
+	if val, ok := from.GetVideoTimestamp(); ok {
+		i.VideoTimestamp = val
+	}
+
 	if val, ok := from.GetTTLSeconds(); ok {
 		i.TTLSeconds = val
 	}
@@ -1701,6 +1826,16 @@ func (i *InputMediaDocument) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
+			Name:       "VideoCover",
+			SchemaName: "video_cover",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "VideoTimestamp",
+			SchemaName: "video_timestamp",
+			Null:       !i.Flags.Has(4),
+		},
+		{
 			Name:       "TTLSeconds",
 			SchemaName: "ttl_seconds",
 			Null:       !i.Flags.Has(0),
@@ -1719,6 +1854,12 @@ func (i *InputMediaDocument) SetFlags() {
 	if !(i.Spoiler == false) {
 		i.Flags.Set(2)
 	}
+	if !(i.VideoCover == nil) {
+		i.Flags.Set(3)
+	}
+	if !(i.VideoTimestamp == 0) {
+		i.Flags.Set(4)
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -1730,7 +1871,7 @@ func (i *InputMediaDocument) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
+		return fmt.Errorf("can't encode inputMediaDocument#a8763ab5 as nil")
 	}
 	b.PutID(InputMediaDocumentTypeID)
 	return i.EncodeBare(b)
@@ -1739,17 +1880,28 @@ func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
+		return fmt.Errorf("can't encode inputMediaDocument#a8763ab5 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputMediaDocument#a8763ab5: field flags: %w", err)
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field id is nil")
+		return fmt.Errorf("unable to encode inputMediaDocument#a8763ab5: field id is nil")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field id: %w", err)
+		return fmt.Errorf("unable to encode inputMediaDocument#a8763ab5: field id: %w", err)
+	}
+	if i.Flags.Has(3) {
+		if i.VideoCover == nil {
+			return fmt.Errorf("unable to encode inputMediaDocument#a8763ab5: field video_cover is nil")
+		}
+		if err := i.VideoCover.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputMediaDocument#a8763ab5: field video_cover: %w", err)
+		}
+	}
+	if i.Flags.Has(4) {
+		b.PutInt(i.VideoTimestamp)
 	}
 	if i.Flags.Has(0) {
 		b.PutInt(i.TTLSeconds)
@@ -1763,10 +1915,10 @@ func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocument#33473058 to nil")
+		return fmt.Errorf("can't decode inputMediaDocument#a8763ab5 to nil")
 	}
 	if err := b.ConsumeID(InputMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaDocument#33473058: %w", err)
+		return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1774,32 +1926,46 @@ func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocument#33473058 to nil")
+		return fmt.Errorf("can't decode inputMediaDocument#a8763ab5 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: field flags: %w", err)
 		}
 	}
 	i.Spoiler = i.Flags.Has(2)
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field id: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: field id: %w", err)
 		}
 		i.ID = value
+	}
+	if i.Flags.Has(3) {
+		value, err := DecodeInputPhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: field video_cover: %w", err)
+		}
+		i.VideoCover = value
+	}
+	if i.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: field video_timestamp: %w", err)
+		}
+		i.VideoTimestamp = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: field ttl_seconds: %w", err)
 		}
 		i.TTLSeconds = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field query: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#a8763ab5: field query: %w", err)
 		}
 		i.Query = value
 	}
@@ -1831,6 +1997,42 @@ func (i *InputMediaDocument) GetID() (value InputDocumentClass) {
 		return
 	}
 	return i.ID
+}
+
+// SetVideoCover sets value of VideoCover conditional field.
+func (i *InputMediaDocument) SetVideoCover(value InputPhotoClass) {
+	i.Flags.Set(3)
+	i.VideoCover = value
+}
+
+// GetVideoCover returns value of VideoCover conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocument) GetVideoCover() (value InputPhotoClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.VideoCover, true
+}
+
+// SetVideoTimestamp sets value of VideoTimestamp conditional field.
+func (i *InputMediaDocument) SetVideoTimestamp(value int) {
+	i.Flags.Set(4)
+	i.VideoTimestamp = value
+}
+
+// GetVideoTimestamp returns value of VideoTimestamp conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocument) GetVideoTimestamp() (value int, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(4) {
+		return value, false
+	}
+	return i.VideoTimestamp, true
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -2384,7 +2586,7 @@ func (i *InputMediaPhotoExternal) GetTTLSeconds() (value int, ok bool) {
 	return i.TTLSeconds, true
 }
 
-// InputMediaDocumentExternal represents TL type `inputMediaDocumentExternal#fb52dc99`.
+// InputMediaDocumentExternal represents TL type `inputMediaDocumentExternal#779600f9`.
 // Document that will be downloaded by the telegram servers
 //
 // See https://core.telegram.org/constructor/inputMediaDocumentExternal for reference.
@@ -2402,10 +2604,18 @@ type InputMediaDocumentExternal struct {
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
+	// VideoCover field of InputMediaDocumentExternal.
+	//
+	// Use SetVideoCover and GetVideoCover helpers.
+	VideoCover InputPhotoClass
+	// VideoTimestamp field of InputMediaDocumentExternal.
+	//
+	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
+	VideoTimestamp int
 }
 
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
-const InputMediaDocumentExternalTypeID = 0xfb52dc99
+const InputMediaDocumentExternalTypeID = 0x779600f9
 
 // construct implements constructor of InputMediaClass.
 func (i InputMediaDocumentExternal) construct() InputMediaClass { return &i }
@@ -2436,6 +2646,12 @@ func (i *InputMediaDocumentExternal) Zero() bool {
 	if !(i.TTLSeconds == 0) {
 		return false
 	}
+	if !(i.VideoCover == nil) {
+		return false
+	}
+	if !(i.VideoTimestamp == 0) {
+		return false
+	}
 
 	return true
 }
@@ -2454,11 +2670,21 @@ func (i *InputMediaDocumentExternal) FillFrom(from interface {
 	GetSpoiler() (value bool)
 	GetURL() (value string)
 	GetTTLSeconds() (value int, ok bool)
+	GetVideoCover() (value InputPhotoClass, ok bool)
+	GetVideoTimestamp() (value int, ok bool)
 }) {
 	i.Spoiler = from.GetSpoiler()
 	i.URL = from.GetURL()
 	if val, ok := from.GetTTLSeconds(); ok {
 		i.TTLSeconds = val
+	}
+
+	if val, ok := from.GetVideoCover(); ok {
+		i.VideoCover = val
+	}
+
+	if val, ok := from.GetVideoTimestamp(); ok {
+		i.VideoTimestamp = val
 	}
 
 }
@@ -2500,6 +2726,16 @@ func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
 			SchemaName: "ttl_seconds",
 			Null:       !i.Flags.Has(0),
 		},
+		{
+			Name:       "VideoCover",
+			SchemaName: "video_cover",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "VideoTimestamp",
+			SchemaName: "video_timestamp",
+			Null:       !i.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -2512,12 +2748,18 @@ func (i *InputMediaDocumentExternal) SetFlags() {
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
+	if !(i.VideoCover == nil) {
+		i.Flags.Set(2)
+	}
+	if !(i.VideoTimestamp == 0) {
+		i.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
+		return fmt.Errorf("can't encode inputMediaDocumentExternal#779600f9 as nil")
 	}
 	b.PutID(InputMediaDocumentExternalTypeID)
 	return i.EncodeBare(b)
@@ -2526,15 +2768,26 @@ func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaDocumentExternal) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
+		return fmt.Errorf("can't encode inputMediaDocumentExternal#779600f9 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputMediaDocumentExternal#779600f9: field flags: %w", err)
 	}
 	b.PutString(i.URL)
 	if i.Flags.Has(0) {
 		b.PutInt(i.TTLSeconds)
+	}
+	if i.Flags.Has(2) {
+		if i.VideoCover == nil {
+			return fmt.Errorf("unable to encode inputMediaDocumentExternal#779600f9: field video_cover is nil")
+		}
+		if err := i.VideoCover.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputMediaDocumentExternal#779600f9: field video_cover: %w", err)
+		}
+	}
+	if i.Flags.Has(3) {
+		b.PutInt(i.VideoTimestamp)
 	}
 	return nil
 }
@@ -2542,10 +2795,10 @@ func (i *InputMediaDocumentExternal) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocumentExternal#fb52dc99 to nil")
+		return fmt.Errorf("can't decode inputMediaDocumentExternal#779600f9 to nil")
 	}
 	if err := b.ConsumeID(InputMediaDocumentExternalTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: %w", err)
+		return fmt.Errorf("unable to decode inputMediaDocumentExternal#779600f9: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2553,27 +2806,41 @@ func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocumentExternal#fb52dc99 to nil")
+		return fmt.Errorf("can't decode inputMediaDocumentExternal#779600f9 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocumentExternal#779600f9: field flags: %w", err)
 		}
 	}
 	i.Spoiler = i.Flags.Has(1)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field url: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocumentExternal#779600f9: field url: %w", err)
 		}
 		i.URL = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocumentExternal#779600f9: field ttl_seconds: %w", err)
 		}
 		i.TTLSeconds = value
+	}
+	if i.Flags.Has(2) {
+		value, err := DecodeInputPhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaDocumentExternal#779600f9: field video_cover: %w", err)
+		}
+		i.VideoCover = value
+	}
+	if i.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaDocumentExternal#779600f9: field video_timestamp: %w", err)
+		}
+		i.VideoTimestamp = value
 	}
 	return nil
 }
@@ -2621,6 +2888,42 @@ func (i *InputMediaDocumentExternal) GetTTLSeconds() (value int, ok bool) {
 		return value, false
 	}
 	return i.TTLSeconds, true
+}
+
+// SetVideoCover sets value of VideoCover conditional field.
+func (i *InputMediaDocumentExternal) SetVideoCover(value InputPhotoClass) {
+	i.Flags.Set(2)
+	i.VideoCover = value
+}
+
+// GetVideoCover returns value of VideoCover conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocumentExternal) GetVideoCover() (value InputPhotoClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.VideoCover, true
+}
+
+// SetVideoTimestamp sets value of VideoTimestamp conditional field.
+func (i *InputMediaDocumentExternal) SetVideoTimestamp(value int) {
+	i.Flags.Set(3)
+	i.VideoTimestamp = value
+}
+
+// GetVideoTimestamp returns value of VideoTimestamp conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocumentExternal) GetVideoTimestamp() (value int, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.VideoTimestamp, true
 }
 
 // InputMediaGame represents TL type `inputMediaGame#d33f43f3`.
@@ -4787,11 +5090,11 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaPhoto: // inputMediaPhoto#b3ba0635
 //	case *tg.InputMediaGeoPoint: // inputMediaGeoPoint#f9c44144
 //	case *tg.InputMediaContact: // inputMediaContact#f8ab7dfb
-//	case *tg.InputMediaUploadedDocument: // inputMediaUploadedDocument#5b38c6c1
-//	case *tg.InputMediaDocument: // inputMediaDocument#33473058
+//	case *tg.InputMediaUploadedDocument: // inputMediaUploadedDocument#37c9330
+//	case *tg.InputMediaDocument: // inputMediaDocument#a8763ab5
 //	case *tg.InputMediaVenue: // inputMediaVenue#c13d1c11
 //	case *tg.InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
-//	case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
+//	case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#779600f9
 //	case *tg.InputMediaGame: // inputMediaGame#d33f43f3
 //	case *tg.InputMediaInvoice: // inputMediaInvoice#405fef0d
 //	case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
@@ -4864,14 +5167,14 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		}
 		return &v, nil
 	case InputMediaUploadedDocumentTypeID:
-		// Decoding inputMediaUploadedDocument#5b38c6c1.
+		// Decoding inputMediaUploadedDocument#37c9330.
 		v := InputMediaUploadedDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
 		}
 		return &v, nil
 	case InputMediaDocumentTypeID:
-		// Decoding inputMediaDocument#33473058.
+		// Decoding inputMediaDocument#a8763ab5.
 		v := InputMediaDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
@@ -4892,7 +5195,7 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		}
 		return &v, nil
 	case InputMediaDocumentExternalTypeID:
-		// Decoding inputMediaDocumentExternal#fb52dc99.
+		// Decoding inputMediaDocumentExternal#779600f9.
 		v := InputMediaDocumentExternal{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)

@@ -1813,6 +1813,167 @@ func (m *MediaAreaWeather) GetColor() (value int) {
 	return m.Color
 }
 
+// MediaAreaStarGift represents TL type `mediaAreaStarGift#5787686d`.
+//
+// See https://core.telegram.org/constructor/mediaAreaStarGift for reference.
+type MediaAreaStarGift struct {
+	// Coordinates field of MediaAreaStarGift.
+	Coordinates MediaAreaCoordinates
+	// Slug field of MediaAreaStarGift.
+	Slug string
+}
+
+// MediaAreaStarGiftTypeID is TL type id of MediaAreaStarGift.
+const MediaAreaStarGiftTypeID = 0x5787686d
+
+// construct implements constructor of MediaAreaClass.
+func (m MediaAreaStarGift) construct() MediaAreaClass { return &m }
+
+// Ensuring interfaces in compile-time for MediaAreaStarGift.
+var (
+	_ bin.Encoder     = &MediaAreaStarGift{}
+	_ bin.Decoder     = &MediaAreaStarGift{}
+	_ bin.BareEncoder = &MediaAreaStarGift{}
+	_ bin.BareDecoder = &MediaAreaStarGift{}
+
+	_ MediaAreaClass = &MediaAreaStarGift{}
+)
+
+func (m *MediaAreaStarGift) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Coordinates.Zero()) {
+		return false
+	}
+	if !(m.Slug == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MediaAreaStarGift) String() string {
+	if m == nil {
+		return "MediaAreaStarGift(nil)"
+	}
+	type Alias MediaAreaStarGift
+	return fmt.Sprintf("MediaAreaStarGift%+v", Alias(*m))
+}
+
+// FillFrom fills MediaAreaStarGift from given interface.
+func (m *MediaAreaStarGift) FillFrom(from interface {
+	GetCoordinates() (value MediaAreaCoordinates)
+	GetSlug() (value string)
+}) {
+	m.Coordinates = from.GetCoordinates()
+	m.Slug = from.GetSlug()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MediaAreaStarGift) TypeID() uint32 {
+	return MediaAreaStarGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MediaAreaStarGift) TypeName() string {
+	return "mediaAreaStarGift"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MediaAreaStarGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "mediaAreaStarGift",
+		ID:   MediaAreaStarGiftTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Coordinates",
+			SchemaName: "coordinates",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MediaAreaStarGift) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaStarGift#5787686d as nil")
+	}
+	b.PutID(MediaAreaStarGiftTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MediaAreaStarGift) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaStarGift#5787686d as nil")
+	}
+	if err := m.Coordinates.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaStarGift#5787686d: field coordinates: %w", err)
+	}
+	b.PutString(m.Slug)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MediaAreaStarGift) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaStarGift#5787686d to nil")
+	}
+	if err := b.ConsumeID(MediaAreaStarGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode mediaAreaStarGift#5787686d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MediaAreaStarGift) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaStarGift#5787686d to nil")
+	}
+	{
+		if err := m.Coordinates.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaStarGift#5787686d: field coordinates: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaStarGift#5787686d: field slug: %w", err)
+		}
+		m.Slug = value
+	}
+	return nil
+}
+
+// GetCoordinates returns value of Coordinates field.
+func (m *MediaAreaStarGift) GetCoordinates() (value MediaAreaCoordinates) {
+	if m == nil {
+		return
+	}
+	return m.Coordinates
+}
+
+// GetSlug returns value of Slug field.
+func (m *MediaAreaStarGift) GetSlug() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Slug
+}
+
 // MediaAreaClassName is schema name of MediaAreaClass.
 const MediaAreaClassName = "MediaArea"
 
@@ -1835,6 +1996,7 @@ const MediaAreaClassName = "MediaArea"
 //	case *tg.InputMediaAreaChannelPost: // inputMediaAreaChannelPost#2271f2bf
 //	case *tg.MediaAreaURL: // mediaAreaUrl#37381085
 //	case *tg.MediaAreaWeather: // mediaAreaWeather#49a6549c
+//	case *tg.MediaAreaStarGift: // mediaAreaStarGift#5787686d
 //	default: panic(v)
 //	}
 type MediaAreaClass interface {
@@ -1919,6 +2081,13 @@ func DecodeMediaArea(buf *bin.Buffer) (MediaAreaClass, error) {
 	case MediaAreaWeatherTypeID:
 		// Decoding mediaAreaWeather#49a6549c.
 		v := MediaAreaWeather{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
+		}
+		return &v, nil
+	case MediaAreaStarGiftTypeID:
+		// Decoding mediaAreaStarGift#5787686d.
+		v := MediaAreaStarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
 		}

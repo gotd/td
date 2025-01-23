@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsUpgradeStarGiftRequest represents TL type `payments.upgradeStarGift#cf4f0781`.
+// PaymentsUpgradeStarGiftRequest represents TL type `payments.upgradeStarGift#aed6e4f5`.
 //
 // See https://core.telegram.org/method/payments.upgradeStarGift for reference.
 type PaymentsUpgradeStarGiftRequest struct {
@@ -39,12 +39,12 @@ type PaymentsUpgradeStarGiftRequest struct {
 	Flags bin.Fields
 	// KeepOriginalDetails field of PaymentsUpgradeStarGiftRequest.
 	KeepOriginalDetails bool
-	// MsgID field of PaymentsUpgradeStarGiftRequest.
-	MsgID int
+	// Stargift field of PaymentsUpgradeStarGiftRequest.
+	Stargift InputSavedStarGiftClass
 }
 
 // PaymentsUpgradeStarGiftRequestTypeID is TL type id of PaymentsUpgradeStarGiftRequest.
-const PaymentsUpgradeStarGiftRequestTypeID = 0xcf4f0781
+const PaymentsUpgradeStarGiftRequestTypeID = 0xaed6e4f5
 
 // Ensuring interfaces in compile-time for PaymentsUpgradeStarGiftRequest.
 var (
@@ -64,7 +64,7 @@ func (u *PaymentsUpgradeStarGiftRequest) Zero() bool {
 	if !(u.KeepOriginalDetails == false) {
 		return false
 	}
-	if !(u.MsgID == 0) {
+	if !(u.Stargift == nil) {
 		return false
 	}
 
@@ -83,10 +83,10 @@ func (u *PaymentsUpgradeStarGiftRequest) String() string {
 // FillFrom fills PaymentsUpgradeStarGiftRequest from given interface.
 func (u *PaymentsUpgradeStarGiftRequest) FillFrom(from interface {
 	GetKeepOriginalDetails() (value bool)
-	GetMsgID() (value int)
+	GetStargift() (value InputSavedStarGiftClass)
 }) {
 	u.KeepOriginalDetails = from.GetKeepOriginalDetails()
-	u.MsgID = from.GetMsgID()
+	u.Stargift = from.GetStargift()
 }
 
 // TypeID returns type id in TL schema.
@@ -118,8 +118,8 @@ func (u *PaymentsUpgradeStarGiftRequest) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
-			Name:       "MsgID",
-			SchemaName: "msg_id",
+			Name:       "Stargift",
+			SchemaName: "stargift",
 		},
 	}
 	return typ
@@ -135,7 +135,7 @@ func (u *PaymentsUpgradeStarGiftRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (u *PaymentsUpgradeStarGiftRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode payments.upgradeStarGift#cf4f0781 as nil")
+		return fmt.Errorf("can't encode payments.upgradeStarGift#aed6e4f5 as nil")
 	}
 	b.PutID(PaymentsUpgradeStarGiftRequestTypeID)
 	return u.EncodeBare(b)
@@ -144,23 +144,28 @@ func (u *PaymentsUpgradeStarGiftRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PaymentsUpgradeStarGiftRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode payments.upgradeStarGift#cf4f0781 as nil")
+		return fmt.Errorf("can't encode payments.upgradeStarGift#aed6e4f5 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.upgradeStarGift#cf4f0781: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.upgradeStarGift#aed6e4f5: field flags: %w", err)
 	}
-	b.PutInt(u.MsgID)
+	if u.Stargift == nil {
+		return fmt.Errorf("unable to encode payments.upgradeStarGift#aed6e4f5: field stargift is nil")
+	}
+	if err := u.Stargift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.upgradeStarGift#aed6e4f5: field stargift: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *PaymentsUpgradeStarGiftRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode payments.upgradeStarGift#cf4f0781 to nil")
+		return fmt.Errorf("can't decode payments.upgradeStarGift#aed6e4f5 to nil")
 	}
 	if err := b.ConsumeID(PaymentsUpgradeStarGiftRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.upgradeStarGift#cf4f0781: %w", err)
+		return fmt.Errorf("unable to decode payments.upgradeStarGift#aed6e4f5: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -168,20 +173,20 @@ func (u *PaymentsUpgradeStarGiftRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PaymentsUpgradeStarGiftRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode payments.upgradeStarGift#cf4f0781 to nil")
+		return fmt.Errorf("can't decode payments.upgradeStarGift#aed6e4f5 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.upgradeStarGift#cf4f0781: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.upgradeStarGift#aed6e4f5: field flags: %w", err)
 		}
 	}
 	u.KeepOriginalDetails = u.Flags.Has(0)
 	{
-		value, err := b.Int()
+		value, err := DecodeInputSavedStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.upgradeStarGift#cf4f0781: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode payments.upgradeStarGift#aed6e4f5: field stargift: %w", err)
 		}
-		u.MsgID = value
+		u.Stargift = value
 	}
 	return nil
 }
@@ -205,15 +210,15 @@ func (u *PaymentsUpgradeStarGiftRequest) GetKeepOriginalDetails() (value bool) {
 	return u.Flags.Has(0)
 }
 
-// GetMsgID returns value of MsgID field.
-func (u *PaymentsUpgradeStarGiftRequest) GetMsgID() (value int) {
+// GetStargift returns value of Stargift field.
+func (u *PaymentsUpgradeStarGiftRequest) GetStargift() (value InputSavedStarGiftClass) {
 	if u == nil {
 		return
 	}
-	return u.MsgID
+	return u.Stargift
 }
 
-// PaymentsUpgradeStarGift invokes method payments.upgradeStarGift#cf4f0781 returning error if any.
+// PaymentsUpgradeStarGift invokes method payments.upgradeStarGift#aed6e4f5 returning error if any.
 //
 // See https://core.telegram.org/method/payments.upgradeStarGift for reference.
 func (c *Client) PaymentsUpgradeStarGift(ctx context.Context, request *PaymentsUpgradeStarGiftRequest) (UpdatesClass, error) {
