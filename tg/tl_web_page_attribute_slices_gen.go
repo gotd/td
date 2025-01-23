@@ -155,6 +155,19 @@ func (s WebPageAttributeClassArray) AsWebPageAttributeStickerSet() (to WebPageAt
 	return to
 }
 
+// AsWebPageAttributeUniqueStarGift returns copy with only WebPageAttributeUniqueStarGift constructors.
+func (s WebPageAttributeClassArray) AsWebPageAttributeUniqueStarGift() (to WebPageAttributeUniqueStarGiftArray) {
+	for _, elem := range s {
+		value, ok := elem.(*WebPageAttributeUniqueStarGift)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // WebPageAttributeThemeArray is adapter for slice of WebPageAttributeTheme.
 type WebPageAttributeThemeArray []WebPageAttributeTheme
 
@@ -417,6 +430,88 @@ func (s *WebPageAttributeStickerSetArray) PopFirst() (v WebPageAttributeStickerS
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *WebPageAttributeStickerSetArray) Pop() (v WebPageAttributeStickerSet, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// WebPageAttributeUniqueStarGiftArray is adapter for slice of WebPageAttributeUniqueStarGift.
+type WebPageAttributeUniqueStarGiftArray []WebPageAttributeUniqueStarGift
+
+// Sort sorts slice of WebPageAttributeUniqueStarGift.
+func (s WebPageAttributeUniqueStarGiftArray) Sort(less func(a, b WebPageAttributeUniqueStarGift) bool) WebPageAttributeUniqueStarGiftArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of WebPageAttributeUniqueStarGift.
+func (s WebPageAttributeUniqueStarGiftArray) SortStable(less func(a, b WebPageAttributeUniqueStarGift) bool) WebPageAttributeUniqueStarGiftArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of WebPageAttributeUniqueStarGift.
+func (s WebPageAttributeUniqueStarGiftArray) Retain(keep func(x WebPageAttributeUniqueStarGift) bool) WebPageAttributeUniqueStarGiftArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s WebPageAttributeUniqueStarGiftArray) First() (v WebPageAttributeUniqueStarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WebPageAttributeUniqueStarGiftArray) Last() (v WebPageAttributeUniqueStarGift, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WebPageAttributeUniqueStarGiftArray) PopFirst() (v WebPageAttributeUniqueStarGift, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero WebPageAttributeUniqueStarGift
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WebPageAttributeUniqueStarGiftArray) Pop() (v WebPageAttributeUniqueStarGift, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

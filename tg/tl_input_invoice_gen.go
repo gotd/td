@@ -819,7 +819,7 @@ func (i *InputInvoiceChatInviteSubscription) GetHash() (value string) {
 	return i.Hash
 }
 
-// InputInvoiceStarGift represents TL type `inputInvoiceStarGift#25d8c1d8`.
+// InputInvoiceStarGift represents TL type `inputInvoiceStarGift#e8625e92`.
 // Used to buy a Telegram Star Gift, see here »¹ for more info.
 //
 // Links:
@@ -837,8 +837,8 @@ type InputInvoiceStarGift struct {
 	HideName bool
 	// IncludeUpgrade field of InputInvoiceStarGift.
 	IncludeUpgrade bool
-	// Identifier of the user that will receive the gift
-	UserID InputUserClass
+	// Peer field of InputInvoiceStarGift.
+	Peer InputPeerClass
 	// Identifier of the gift, from starGift¹.id
 	//
 	// Links:
@@ -855,7 +855,7 @@ type InputInvoiceStarGift struct {
 }
 
 // InputInvoiceStarGiftTypeID is TL type id of InputInvoiceStarGift.
-const InputInvoiceStarGiftTypeID = 0x25d8c1d8
+const InputInvoiceStarGiftTypeID = 0xe8625e92
 
 // construct implements constructor of InputInvoiceClass.
 func (i InputInvoiceStarGift) construct() InputInvoiceClass { return &i }
@@ -883,7 +883,7 @@ func (i *InputInvoiceStarGift) Zero() bool {
 	if !(i.IncludeUpgrade == false) {
 		return false
 	}
-	if !(i.UserID == nil) {
+	if !(i.Peer == nil) {
 		return false
 	}
 	if !(i.GiftID == 0) {
@@ -909,13 +909,13 @@ func (i *InputInvoiceStarGift) String() string {
 func (i *InputInvoiceStarGift) FillFrom(from interface {
 	GetHideName() (value bool)
 	GetIncludeUpgrade() (value bool)
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetGiftID() (value int64)
 	GetMessage() (value TextWithEntities, ok bool)
 }) {
 	i.HideName = from.GetHideName()
 	i.IncludeUpgrade = from.GetIncludeUpgrade()
-	i.UserID = from.GetUserID()
+	i.Peer = from.GetPeer()
 	i.GiftID = from.GetGiftID()
 	if val, ok := from.GetMessage(); ok {
 		i.Message = val
@@ -957,8 +957,8 @@ func (i *InputInvoiceStarGift) TypeInfo() tdp.Type {
 			Null:       !i.Flags.Has(2),
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "GiftID",
@@ -989,7 +989,7 @@ func (i *InputInvoiceStarGift) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *InputInvoiceStarGift) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGift#25d8c1d8 as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGift#e8625e92 as nil")
 	}
 	b.PutID(InputInvoiceStarGiftTypeID)
 	return i.EncodeBare(b)
@@ -998,22 +998,22 @@ func (i *InputInvoiceStarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputInvoiceStarGift) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGift#25d8c1d8 as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGift#e8625e92 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGift#25d8c1d8: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputInvoiceStarGift#e8625e92: field flags: %w", err)
 	}
-	if i.UserID == nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGift#25d8c1d8: field user_id is nil")
+	if i.Peer == nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGift#e8625e92: field peer is nil")
 	}
-	if err := i.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGift#25d8c1d8: field user_id: %w", err)
+	if err := i.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGift#e8625e92: field peer: %w", err)
 	}
 	b.PutLong(i.GiftID)
 	if i.Flags.Has(1) {
 		if err := i.Message.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputInvoiceStarGift#25d8c1d8: field message: %w", err)
+			return fmt.Errorf("unable to encode inputInvoiceStarGift#e8625e92: field message: %w", err)
 		}
 	}
 	return nil
@@ -1022,10 +1022,10 @@ func (i *InputInvoiceStarGift) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputInvoiceStarGift) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGift#25d8c1d8 to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGift#e8625e92 to nil")
 	}
 	if err := b.ConsumeID(InputInvoiceStarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputInvoiceStarGift#25d8c1d8: %w", err)
+		return fmt.Errorf("unable to decode inputInvoiceStarGift#e8625e92: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1033,32 +1033,32 @@ func (i *InputInvoiceStarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputInvoiceStarGift) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGift#25d8c1d8 to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGift#e8625e92 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGift#25d8c1d8: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGift#e8625e92: field flags: %w", err)
 		}
 	}
 	i.HideName = i.Flags.Has(0)
 	i.IncludeUpgrade = i.Flags.Has(2)
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGift#25d8c1d8: field user_id: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGift#e8625e92: field peer: %w", err)
 		}
-		i.UserID = value
+		i.Peer = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGift#25d8c1d8: field gift_id: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGift#e8625e92: field gift_id: %w", err)
 		}
 		i.GiftID = value
 	}
 	if i.Flags.Has(1) {
 		if err := i.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGift#25d8c1d8: field message: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGift#e8625e92: field message: %w", err)
 		}
 	}
 	return nil
@@ -1102,12 +1102,12 @@ func (i *InputInvoiceStarGift) GetIncludeUpgrade() (value bool) {
 	return i.Flags.Has(2)
 }
 
-// GetUserID returns value of UserID field.
-func (i *InputInvoiceStarGift) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (i *InputInvoiceStarGift) GetPeer() (value InputPeerClass) {
 	if i == nil {
 		return
 	}
-	return i.UserID
+	return i.Peer
 }
 
 // GetGiftID returns value of GiftID field.
@@ -1136,7 +1136,7 @@ func (i *InputInvoiceStarGift) GetMessage() (value TextWithEntities, ok bool) {
 	return i.Message, true
 }
 
-// InputInvoiceStarGiftUpgrade represents TL type `inputInvoiceStarGiftUpgrade#5ebe7262`.
+// InputInvoiceStarGiftUpgrade represents TL type `inputInvoiceStarGiftUpgrade#4d818d5d`.
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftUpgrade for reference.
 type InputInvoiceStarGiftUpgrade struct {
@@ -1144,12 +1144,12 @@ type InputInvoiceStarGiftUpgrade struct {
 	Flags bin.Fields
 	// KeepOriginalDetails field of InputInvoiceStarGiftUpgrade.
 	KeepOriginalDetails bool
-	// MsgID field of InputInvoiceStarGiftUpgrade.
-	MsgID int
+	// Stargift field of InputInvoiceStarGiftUpgrade.
+	Stargift InputSavedStarGiftClass
 }
 
 // InputInvoiceStarGiftUpgradeTypeID is TL type id of InputInvoiceStarGiftUpgrade.
-const InputInvoiceStarGiftUpgradeTypeID = 0x5ebe7262
+const InputInvoiceStarGiftUpgradeTypeID = 0x4d818d5d
 
 // construct implements constructor of InputInvoiceClass.
 func (i InputInvoiceStarGiftUpgrade) construct() InputInvoiceClass { return &i }
@@ -1174,7 +1174,7 @@ func (i *InputInvoiceStarGiftUpgrade) Zero() bool {
 	if !(i.KeepOriginalDetails == false) {
 		return false
 	}
-	if !(i.MsgID == 0) {
+	if !(i.Stargift == nil) {
 		return false
 	}
 
@@ -1193,10 +1193,10 @@ func (i *InputInvoiceStarGiftUpgrade) String() string {
 // FillFrom fills InputInvoiceStarGiftUpgrade from given interface.
 func (i *InputInvoiceStarGiftUpgrade) FillFrom(from interface {
 	GetKeepOriginalDetails() (value bool)
-	GetMsgID() (value int)
+	GetStargift() (value InputSavedStarGiftClass)
 }) {
 	i.KeepOriginalDetails = from.GetKeepOriginalDetails()
-	i.MsgID = from.GetMsgID()
+	i.Stargift = from.GetStargift()
 }
 
 // TypeID returns type id in TL schema.
@@ -1228,8 +1228,8 @@ func (i *InputInvoiceStarGiftUpgrade) TypeInfo() tdp.Type {
 			Null:       !i.Flags.Has(0),
 		},
 		{
-			Name:       "MsgID",
-			SchemaName: "msg_id",
+			Name:       "Stargift",
+			SchemaName: "stargift",
 		},
 	}
 	return typ
@@ -1245,7 +1245,7 @@ func (i *InputInvoiceStarGiftUpgrade) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *InputInvoiceStarGiftUpgrade) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGiftUpgrade#5ebe7262 as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGiftUpgrade#4d818d5d as nil")
 	}
 	b.PutID(InputInvoiceStarGiftUpgradeTypeID)
 	return i.EncodeBare(b)
@@ -1254,23 +1254,28 @@ func (i *InputInvoiceStarGiftUpgrade) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputInvoiceStarGiftUpgrade) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGiftUpgrade#5ebe7262 as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGiftUpgrade#4d818d5d as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGiftUpgrade#5ebe7262: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftUpgrade#4d818d5d: field flags: %w", err)
 	}
-	b.PutInt(i.MsgID)
+	if i.Stargift == nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftUpgrade#4d818d5d: field stargift is nil")
+	}
+	if err := i.Stargift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftUpgrade#4d818d5d: field stargift: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputInvoiceStarGiftUpgrade) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGiftUpgrade#5ebe7262 to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGiftUpgrade#4d818d5d to nil")
 	}
 	if err := b.ConsumeID(InputInvoiceStarGiftUpgradeTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputInvoiceStarGiftUpgrade#5ebe7262: %w", err)
+		return fmt.Errorf("unable to decode inputInvoiceStarGiftUpgrade#4d818d5d: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1278,20 +1283,20 @@ func (i *InputInvoiceStarGiftUpgrade) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputInvoiceStarGiftUpgrade) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGiftUpgrade#5ebe7262 to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGiftUpgrade#4d818d5d to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGiftUpgrade#5ebe7262: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftUpgrade#4d818d5d: field flags: %w", err)
 		}
 	}
 	i.KeepOriginalDetails = i.Flags.Has(0)
 	{
-		value, err := b.Int()
+		value, err := DecodeInputSavedStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGiftUpgrade#5ebe7262: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftUpgrade#4d818d5d: field stargift: %w", err)
 		}
-		i.MsgID = value
+		i.Stargift = value
 	}
 	return nil
 }
@@ -1315,26 +1320,26 @@ func (i *InputInvoiceStarGiftUpgrade) GetKeepOriginalDetails() (value bool) {
 	return i.Flags.Has(0)
 }
 
-// GetMsgID returns value of MsgID field.
-func (i *InputInvoiceStarGiftUpgrade) GetMsgID() (value int) {
+// GetStargift returns value of Stargift field.
+func (i *InputInvoiceStarGiftUpgrade) GetStargift() (value InputSavedStarGiftClass) {
 	if i == nil {
 		return
 	}
-	return i.MsgID
+	return i.Stargift
 }
 
-// InputInvoiceStarGiftTransfer represents TL type `inputInvoiceStarGiftTransfer#ae3ba9ed`.
+// InputInvoiceStarGiftTransfer represents TL type `inputInvoiceStarGiftTransfer#4a5f5bd9`.
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftTransfer for reference.
 type InputInvoiceStarGiftTransfer struct {
-	// MsgID field of InputInvoiceStarGiftTransfer.
-	MsgID int
+	// Stargift field of InputInvoiceStarGiftTransfer.
+	Stargift InputSavedStarGiftClass
 	// ToID field of InputInvoiceStarGiftTransfer.
-	ToID InputUserClass
+	ToID InputPeerClass
 }
 
 // InputInvoiceStarGiftTransferTypeID is TL type id of InputInvoiceStarGiftTransfer.
-const InputInvoiceStarGiftTransferTypeID = 0xae3ba9ed
+const InputInvoiceStarGiftTransferTypeID = 0x4a5f5bd9
 
 // construct implements constructor of InputInvoiceClass.
 func (i InputInvoiceStarGiftTransfer) construct() InputInvoiceClass { return &i }
@@ -1353,7 +1358,7 @@ func (i *InputInvoiceStarGiftTransfer) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.MsgID == 0) {
+	if !(i.Stargift == nil) {
 		return false
 	}
 	if !(i.ToID == nil) {
@@ -1374,10 +1379,10 @@ func (i *InputInvoiceStarGiftTransfer) String() string {
 
 // FillFrom fills InputInvoiceStarGiftTransfer from given interface.
 func (i *InputInvoiceStarGiftTransfer) FillFrom(from interface {
-	GetMsgID() (value int)
-	GetToID() (value InputUserClass)
+	GetStargift() (value InputSavedStarGiftClass)
+	GetToID() (value InputPeerClass)
 }) {
-	i.MsgID = from.GetMsgID()
+	i.Stargift = from.GetStargift()
 	i.ToID = from.GetToID()
 }
 
@@ -1405,8 +1410,8 @@ func (i *InputInvoiceStarGiftTransfer) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MsgID",
-			SchemaName: "msg_id",
+			Name:       "Stargift",
+			SchemaName: "stargift",
 		},
 		{
 			Name:       "ToID",
@@ -1419,7 +1424,7 @@ func (i *InputInvoiceStarGiftTransfer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputInvoiceStarGiftTransfer) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGiftTransfer#ae3ba9ed as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGiftTransfer#4a5f5bd9 as nil")
 	}
 	b.PutID(InputInvoiceStarGiftTransferTypeID)
 	return i.EncodeBare(b)
@@ -1428,14 +1433,19 @@ func (i *InputInvoiceStarGiftTransfer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputInvoiceStarGiftTransfer) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGiftTransfer#ae3ba9ed as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGiftTransfer#4a5f5bd9 as nil")
 	}
-	b.PutInt(i.MsgID)
+	if i.Stargift == nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftTransfer#4a5f5bd9: field stargift is nil")
+	}
+	if err := i.Stargift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftTransfer#4a5f5bd9: field stargift: %w", err)
+	}
 	if i.ToID == nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGiftTransfer#ae3ba9ed: field to_id is nil")
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftTransfer#4a5f5bd9: field to_id is nil")
 	}
 	if err := i.ToID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGiftTransfer#ae3ba9ed: field to_id: %w", err)
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftTransfer#4a5f5bd9: field to_id: %w", err)
 	}
 	return nil
 }
@@ -1443,10 +1453,10 @@ func (i *InputInvoiceStarGiftTransfer) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputInvoiceStarGiftTransfer) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGiftTransfer#ae3ba9ed to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGiftTransfer#4a5f5bd9 to nil")
 	}
 	if err := b.ConsumeID(InputInvoiceStarGiftTransferTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputInvoiceStarGiftTransfer#ae3ba9ed: %w", err)
+		return fmt.Errorf("unable to decode inputInvoiceStarGiftTransfer#4a5f5bd9: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1454,35 +1464,35 @@ func (i *InputInvoiceStarGiftTransfer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputInvoiceStarGiftTransfer) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGiftTransfer#ae3ba9ed to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGiftTransfer#4a5f5bd9 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodeInputSavedStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGiftTransfer#ae3ba9ed: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftTransfer#4a5f5bd9: field stargift: %w", err)
 		}
-		i.MsgID = value
+		i.Stargift = value
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGiftTransfer#ae3ba9ed: field to_id: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftTransfer#4a5f5bd9: field to_id: %w", err)
 		}
 		i.ToID = value
 	}
 	return nil
 }
 
-// GetMsgID returns value of MsgID field.
-func (i *InputInvoiceStarGiftTransfer) GetMsgID() (value int) {
+// GetStargift returns value of Stargift field.
+func (i *InputInvoiceStarGiftTransfer) GetStargift() (value InputSavedStarGiftClass) {
 	if i == nil {
 		return
 	}
-	return i.MsgID
+	return i.Stargift
 }
 
 // GetToID returns value of ToID field.
-func (i *InputInvoiceStarGiftTransfer) GetToID() (value InputUserClass) {
+func (i *InputInvoiceStarGiftTransfer) GetToID() (value InputPeerClass) {
 	if i == nil {
 		return
 	}
@@ -1508,9 +1518,9 @@ const InputInvoiceClassName = "InputInvoice"
 //	case *tg.InputInvoicePremiumGiftCode: // inputInvoicePremiumGiftCode#98986c0d
 //	case *tg.InputInvoiceStars: // inputInvoiceStars#65f00ce3
 //	case *tg.InputInvoiceChatInviteSubscription: // inputInvoiceChatInviteSubscription#34e793f1
-//	case *tg.InputInvoiceStarGift: // inputInvoiceStarGift#25d8c1d8
-//	case *tg.InputInvoiceStarGiftUpgrade: // inputInvoiceStarGiftUpgrade#5ebe7262
-//	case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#ae3ba9ed
+//	case *tg.InputInvoiceStarGift: // inputInvoiceStarGift#e8625e92
+//	case *tg.InputInvoiceStarGiftUpgrade: // inputInvoiceStarGiftUpgrade#4d818d5d
+//	case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#4a5f5bd9
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -1575,21 +1585,21 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 		}
 		return &v, nil
 	case InputInvoiceStarGiftTypeID:
-		// Decoding inputInvoiceStarGift#25d8c1d8.
+		// Decoding inputInvoiceStarGift#e8625e92.
 		v := InputInvoiceStarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}
 		return &v, nil
 	case InputInvoiceStarGiftUpgradeTypeID:
-		// Decoding inputInvoiceStarGiftUpgrade#5ebe7262.
+		// Decoding inputInvoiceStarGiftUpgrade#4d818d5d.
 		v := InputInvoiceStarGiftUpgrade{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}
 		return &v, nil
 	case InputInvoiceStarGiftTransferTypeID:
-		// Decoding inputInvoiceStarGiftTransfer#ae3ba9ed.
+		// Decoding inputInvoiceStarGiftTransfer#4a5f5bd9.
 		v := InputInvoiceStarGiftTransfer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)

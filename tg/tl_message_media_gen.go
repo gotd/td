@@ -883,7 +883,7 @@ func (m *MessageMediaUnsupported) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// MessageMediaDocument represents TL type `messageMediaDocument#dd570bd5`.
+// MessageMediaDocument represents TL type `messageMediaDocument#52d8ccd9`.
 // Document (video, audio, voice, sticker, any media type except photo)
 //
 // See https://core.telegram.org/constructor/messageMediaDocument for reference.
@@ -912,6 +912,14 @@ type MessageMediaDocument struct {
 	//
 	// Use SetAltDocuments and GetAltDocuments helpers.
 	AltDocuments []DocumentClass
+	// VideoCover field of MessageMediaDocument.
+	//
+	// Use SetVideoCover and GetVideoCover helpers.
+	VideoCover PhotoClass
+	// VideoTimestamp field of MessageMediaDocument.
+	//
+	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
+	VideoTimestamp int
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
@@ -919,7 +927,7 @@ type MessageMediaDocument struct {
 }
 
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
-const MessageMediaDocumentTypeID = 0xdd570bd5
+const MessageMediaDocumentTypeID = 0x52d8ccd9
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaDocument) construct() MessageMediaClass { return &m }
@@ -962,6 +970,12 @@ func (m *MessageMediaDocument) Zero() bool {
 	if !(m.AltDocuments == nil) {
 		return false
 	}
+	if !(m.VideoCover == nil) {
+		return false
+	}
+	if !(m.VideoTimestamp == 0) {
+		return false
+	}
 	if !(m.TTLSeconds == 0) {
 		return false
 	}
@@ -987,6 +1001,8 @@ func (m *MessageMediaDocument) FillFrom(from interface {
 	GetVoice() (value bool)
 	GetDocument() (value DocumentClass, ok bool)
 	GetAltDocuments() (value []DocumentClass, ok bool)
+	GetVideoCover() (value PhotoClass, ok bool)
+	GetVideoTimestamp() (value int, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
 	m.Nopremium = from.GetNopremium()
@@ -1000,6 +1016,14 @@ func (m *MessageMediaDocument) FillFrom(from interface {
 
 	if val, ok := from.GetAltDocuments(); ok {
 		m.AltDocuments = val
+	}
+
+	if val, ok := from.GetVideoCover(); ok {
+		m.VideoCover = val
+	}
+
+	if val, ok := from.GetVideoTimestamp(); ok {
+		m.VideoTimestamp = val
 	}
 
 	if val, ok := from.GetTTLSeconds(); ok {
@@ -1067,6 +1091,16 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(5),
 		},
 		{
+			Name:       "VideoCover",
+			SchemaName: "video_cover",
+			Null:       !m.Flags.Has(9),
+		},
+		{
+			Name:       "VideoTimestamp",
+			SchemaName: "video_timestamp",
+			Null:       !m.Flags.Has(10),
+		},
+		{
 			Name:       "TTLSeconds",
 			SchemaName: "ttl_seconds",
 			Null:       !m.Flags.Has(2),
@@ -1098,6 +1132,12 @@ func (m *MessageMediaDocument) SetFlags() {
 	if !(m.AltDocuments == nil) {
 		m.Flags.Set(5)
 	}
+	if !(m.VideoCover == nil) {
+		m.Flags.Set(9)
+	}
+	if !(m.VideoTimestamp == 0) {
+		m.Flags.Set(10)
+	}
 	if !(m.TTLSeconds == 0) {
 		m.Flags.Set(2)
 	}
@@ -1106,7 +1146,7 @@ func (m *MessageMediaDocument) SetFlags() {
 // Encode implements bin.Encoder.
 func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaDocument#dd570bd5 as nil")
+		return fmt.Errorf("can't encode messageMediaDocument#52d8ccd9 as nil")
 	}
 	b.PutID(MessageMediaDocumentTypeID)
 	return m.EncodeBare(b)
@@ -1115,30 +1155,41 @@ func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaDocument#dd570bd5 as nil")
+		return fmt.Errorf("can't encode messageMediaDocument#52d8ccd9 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaDocument#dd570bd5: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field flags: %w", err)
 	}
 	if m.Flags.Has(0) {
 		if m.Document == nil {
-			return fmt.Errorf("unable to encode messageMediaDocument#dd570bd5: field document is nil")
+			return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field document is nil")
 		}
 		if err := m.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageMediaDocument#dd570bd5: field document: %w", err)
+			return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field document: %w", err)
 		}
 	}
 	if m.Flags.Has(5) {
 		b.PutVectorHeader(len(m.AltDocuments))
 		for idx, v := range m.AltDocuments {
 			if v == nil {
-				return fmt.Errorf("unable to encode messageMediaDocument#dd570bd5: field alt_documents element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field alt_documents element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messageMediaDocument#dd570bd5: field alt_documents element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field alt_documents element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if m.Flags.Has(9) {
+		if m.VideoCover == nil {
+			return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field video_cover is nil")
+		}
+		if err := m.VideoCover.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageMediaDocument#52d8ccd9: field video_cover: %w", err)
+		}
+	}
+	if m.Flags.Has(10) {
+		b.PutInt(m.VideoTimestamp)
 	}
 	if m.Flags.Has(2) {
 		b.PutInt(m.TTLSeconds)
@@ -1149,10 +1200,10 @@ func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaDocument#dd570bd5 to nil")
+		return fmt.Errorf("can't decode messageMediaDocument#52d8ccd9 to nil")
 	}
 	if err := b.ConsumeID(MessageMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaDocument#dd570bd5: %w", err)
+		return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1160,11 +1211,11 @@ func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaDocument#dd570bd5 to nil")
+		return fmt.Errorf("can't decode messageMediaDocument#52d8ccd9 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#dd570bd5: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field flags: %w", err)
 		}
 	}
 	m.Nopremium = m.Flags.Has(3)
@@ -1175,14 +1226,14 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(0) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#dd570bd5: field document: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field document: %w", err)
 		}
 		m.Document = value
 	}
 	if m.Flags.Has(5) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#dd570bd5: field alt_documents: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field alt_documents: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1191,15 +1242,29 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageMediaDocument#dd570bd5: field alt_documents: %w", err)
+				return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field alt_documents: %w", err)
 			}
 			m.AltDocuments = append(m.AltDocuments, value)
 		}
 	}
+	if m.Flags.Has(9) {
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field video_cover: %w", err)
+		}
+		m.VideoCover = value
+	}
+	if m.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field video_timestamp: %w", err)
+		}
+		m.VideoTimestamp = value
+	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#dd570bd5: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#52d8ccd9: field ttl_seconds: %w", err)
 		}
 		m.TTLSeconds = value
 	}
@@ -1335,6 +1400,42 @@ func (m *MessageMediaDocument) GetAltDocuments() (value []DocumentClass, ok bool
 		return value, false
 	}
 	return m.AltDocuments, true
+}
+
+// SetVideoCover sets value of VideoCover conditional field.
+func (m *MessageMediaDocument) SetVideoCover(value PhotoClass) {
+	m.Flags.Set(9)
+	m.VideoCover = value
+}
+
+// GetVideoCover returns value of VideoCover conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaDocument) GetVideoCover() (value PhotoClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(9) {
+		return value, false
+	}
+	return m.VideoCover, true
+}
+
+// SetVideoTimestamp sets value of VideoTimestamp conditional field.
+func (m *MessageMediaDocument) SetVideoTimestamp(value int) {
+	m.Flags.Set(10)
+	m.VideoTimestamp = value
+}
+
+// GetVideoTimestamp returns value of VideoTimestamp conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaDocument) GetVideoTimestamp() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(10) {
+		return value, false
+	}
+	return m.VideoTimestamp, true
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -4809,7 +4910,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
 //	case *tg.MessageMediaContact: // messageMediaContact#70322949
 //	case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
-//	case *tg.MessageMediaDocument: // messageMediaDocument#dd570bd5
+//	case *tg.MessageMediaDocument: // messageMediaDocument#52d8ccd9
 //	case *tg.MessageMediaWebPage: // messageMediaWebPage#ddf10c3b
 //	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
 //	case *tg.MessageMediaGame: // messageMediaGame#fdb19008
@@ -4885,7 +4986,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaDocumentTypeID:
-		// Decoding messageMediaDocument#dd570bd5.
+		// Decoding messageMediaDocument#52d8ccd9.
 		v := MessageMediaDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)

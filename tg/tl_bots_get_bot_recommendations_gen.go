@@ -31,18 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotsGetBotRecommendationsRequest represents TL type `bots.getBotRecommendations#2855be61`.
+// BotsGetBotRecommendationsRequest represents TL type `bots.getBotRecommendations#a1b70815`.
 //
 // See https://core.telegram.org/method/bots.getBotRecommendations for reference.
 type BotsGetBotRecommendationsRequest struct {
-	// Flags field of BotsGetBotRecommendationsRequest.
-	Flags bin.Fields
 	// Bot field of BotsGetBotRecommendationsRequest.
 	Bot InputUserClass
 }
 
 // BotsGetBotRecommendationsRequestTypeID is TL type id of BotsGetBotRecommendationsRequest.
-const BotsGetBotRecommendationsRequestTypeID = 0x2855be61
+const BotsGetBotRecommendationsRequestTypeID = 0xa1b70815
 
 // Ensuring interfaces in compile-time for BotsGetBotRecommendationsRequest.
 var (
@@ -55,9 +53,6 @@ var (
 func (g *BotsGetBotRecommendationsRequest) Zero() bool {
 	if g == nil {
 		return true
-	}
-	if !(g.Flags.Zero()) {
-		return false
 	}
 	if !(g.Bot == nil) {
 		return false
@@ -113,14 +108,10 @@ func (g *BotsGetBotRecommendationsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// SetFlags sets flags for non-zero fields.
-func (g *BotsGetBotRecommendationsRequest) SetFlags() {
-}
-
 // Encode implements bin.Encoder.
 func (g *BotsGetBotRecommendationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode bots.getBotRecommendations#2855be61 as nil")
+		return fmt.Errorf("can't encode bots.getBotRecommendations#a1b70815 as nil")
 	}
 	b.PutID(BotsGetBotRecommendationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,17 +120,13 @@ func (g *BotsGetBotRecommendationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *BotsGetBotRecommendationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode bots.getBotRecommendations#2855be61 as nil")
-	}
-	g.SetFlags()
-	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.getBotRecommendations#2855be61: field flags: %w", err)
+		return fmt.Errorf("can't encode bots.getBotRecommendations#a1b70815 as nil")
 	}
 	if g.Bot == nil {
-		return fmt.Errorf("unable to encode bots.getBotRecommendations#2855be61: field bot is nil")
+		return fmt.Errorf("unable to encode bots.getBotRecommendations#a1b70815: field bot is nil")
 	}
 	if err := g.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.getBotRecommendations#2855be61: field bot: %w", err)
+		return fmt.Errorf("unable to encode bots.getBotRecommendations#a1b70815: field bot: %w", err)
 	}
 	return nil
 }
@@ -147,10 +134,10 @@ func (g *BotsGetBotRecommendationsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *BotsGetBotRecommendationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode bots.getBotRecommendations#2855be61 to nil")
+		return fmt.Errorf("can't decode bots.getBotRecommendations#a1b70815 to nil")
 	}
 	if err := b.ConsumeID(BotsGetBotRecommendationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.getBotRecommendations#2855be61: %w", err)
+		return fmt.Errorf("unable to decode bots.getBotRecommendations#a1b70815: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -158,17 +145,12 @@ func (g *BotsGetBotRecommendationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *BotsGetBotRecommendationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode bots.getBotRecommendations#2855be61 to nil")
-	}
-	{
-		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode bots.getBotRecommendations#2855be61: field flags: %w", err)
-		}
+		return fmt.Errorf("can't decode bots.getBotRecommendations#a1b70815 to nil")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.getBotRecommendations#2855be61: field bot: %w", err)
+			return fmt.Errorf("unable to decode bots.getBotRecommendations#a1b70815: field bot: %w", err)
 		}
 		g.Bot = value
 	}
@@ -183,12 +165,15 @@ func (g *BotsGetBotRecommendationsRequest) GetBot() (value InputUserClass) {
 	return g.Bot
 }
 
-// BotsGetBotRecommendations invokes method bots.getBotRecommendations#2855be61 returning error if any.
+// BotsGetBotRecommendations invokes method bots.getBotRecommendations#a1b70815 returning error if any.
 //
 // See https://core.telegram.org/method/bots.getBotRecommendations for reference.
-func (c *Client) BotsGetBotRecommendations(ctx context.Context, request *BotsGetBotRecommendationsRequest) (UsersUsersClass, error) {
+func (c *Client) BotsGetBotRecommendations(ctx context.Context, bot InputUserClass) (UsersUsersClass, error) {
 	var result UsersUsersBox
 
+	request := &BotsGetBotRecommendationsRequest{
+		Bot: bot,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

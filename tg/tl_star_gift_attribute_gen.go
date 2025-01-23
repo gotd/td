@@ -686,7 +686,7 @@ func (s *StarGiftAttributeBackdrop) GetRarityPermille() (value int) {
 	return s.RarityPermille
 }
 
-// StarGiftAttributeOriginalDetails represents TL type `starGiftAttributeOriginalDetails#c02c4f4b`.
+// StarGiftAttributeOriginalDetails represents TL type `starGiftAttributeOriginalDetails#e0bff26c`.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeOriginalDetails for reference.
 type StarGiftAttributeOriginalDetails struct {
@@ -695,9 +695,9 @@ type StarGiftAttributeOriginalDetails struct {
 	// SenderID field of StarGiftAttributeOriginalDetails.
 	//
 	// Use SetSenderID and GetSenderID helpers.
-	SenderID int64
+	SenderID PeerClass
 	// RecipientID field of StarGiftAttributeOriginalDetails.
-	RecipientID int64
+	RecipientID PeerClass
 	// Date field of StarGiftAttributeOriginalDetails.
 	Date int
 	// Message field of StarGiftAttributeOriginalDetails.
@@ -707,7 +707,7 @@ type StarGiftAttributeOriginalDetails struct {
 }
 
 // StarGiftAttributeOriginalDetailsTypeID is TL type id of StarGiftAttributeOriginalDetails.
-const StarGiftAttributeOriginalDetailsTypeID = 0xc02c4f4b
+const StarGiftAttributeOriginalDetailsTypeID = 0xe0bff26c
 
 // construct implements constructor of StarGiftAttributeClass.
 func (s StarGiftAttributeOriginalDetails) construct() StarGiftAttributeClass { return &s }
@@ -729,10 +729,10 @@ func (s *StarGiftAttributeOriginalDetails) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
-	if !(s.SenderID == 0) {
+	if !(s.SenderID == nil) {
 		return false
 	}
-	if !(s.RecipientID == 0) {
+	if !(s.RecipientID == nil) {
 		return false
 	}
 	if !(s.Date == 0) {
@@ -756,8 +756,8 @@ func (s *StarGiftAttributeOriginalDetails) String() string {
 
 // FillFrom fills StarGiftAttributeOriginalDetails from given interface.
 func (s *StarGiftAttributeOriginalDetails) FillFrom(from interface {
-	GetSenderID() (value int64, ok bool)
-	GetRecipientID() (value int64)
+	GetSenderID() (value PeerClass, ok bool)
+	GetRecipientID() (value PeerClass)
 	GetDate() (value int)
 	GetMessage() (value TextWithEntities, ok bool)
 }) {
@@ -820,7 +820,7 @@ func (s *StarGiftAttributeOriginalDetails) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *StarGiftAttributeOriginalDetails) SetFlags() {
-	if !(s.SenderID == 0) {
+	if !(s.SenderID == nil) {
 		s.Flags.Set(0)
 	}
 	if !(s.Message.Zero()) {
@@ -831,7 +831,7 @@ func (s *StarGiftAttributeOriginalDetails) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *StarGiftAttributeOriginalDetails) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeOriginalDetails#c02c4f4b as nil")
+		return fmt.Errorf("can't encode starGiftAttributeOriginalDetails#e0bff26c as nil")
 	}
 	b.PutID(StarGiftAttributeOriginalDetailsTypeID)
 	return s.EncodeBare(b)
@@ -840,20 +840,30 @@ func (s *StarGiftAttributeOriginalDetails) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAttributeOriginalDetails) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeOriginalDetails#c02c4f4b as nil")
+		return fmt.Errorf("can't encode starGiftAttributeOriginalDetails#e0bff26c as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#c02c4f4b: field flags: %w", err)
+		return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#e0bff26c: field flags: %w", err)
 	}
 	if s.Flags.Has(0) {
-		b.PutLong(s.SenderID)
+		if s.SenderID == nil {
+			return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#e0bff26c: field sender_id is nil")
+		}
+		if err := s.SenderID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#e0bff26c: field sender_id: %w", err)
+		}
 	}
-	b.PutLong(s.RecipientID)
+	if s.RecipientID == nil {
+		return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#e0bff26c: field recipient_id is nil")
+	}
+	if err := s.RecipientID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#e0bff26c: field recipient_id: %w", err)
+	}
 	b.PutInt(s.Date)
 	if s.Flags.Has(1) {
 		if err := s.Message.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#c02c4f4b: field message: %w", err)
+			return fmt.Errorf("unable to encode starGiftAttributeOriginalDetails#e0bff26c: field message: %w", err)
 		}
 	}
 	return nil
@@ -862,10 +872,10 @@ func (s *StarGiftAttributeOriginalDetails) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarGiftAttributeOriginalDetails) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeOriginalDetails#c02c4f4b to nil")
+		return fmt.Errorf("can't decode starGiftAttributeOriginalDetails#e0bff26c to nil")
 	}
 	if err := b.ConsumeID(StarGiftAttributeOriginalDetailsTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#c02c4f4b: %w", err)
+		return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#e0bff26c: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -873,51 +883,51 @@ func (s *StarGiftAttributeOriginalDetails) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAttributeOriginalDetails) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeOriginalDetails#c02c4f4b to nil")
+		return fmt.Errorf("can't decode starGiftAttributeOriginalDetails#e0bff26c to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#c02c4f4b: field flags: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#e0bff26c: field flags: %w", err)
 		}
 	}
 	if s.Flags.Has(0) {
-		value, err := b.Long()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#c02c4f4b: field sender_id: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#e0bff26c: field sender_id: %w", err)
 		}
 		s.SenderID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#c02c4f4b: field recipient_id: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#e0bff26c: field recipient_id: %w", err)
 		}
 		s.RecipientID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#c02c4f4b: field date: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#e0bff26c: field date: %w", err)
 		}
 		s.Date = value
 	}
 	if s.Flags.Has(1) {
 		if err := s.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#c02c4f4b: field message: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeOriginalDetails#e0bff26c: field message: %w", err)
 		}
 	}
 	return nil
 }
 
 // SetSenderID sets value of SenderID conditional field.
-func (s *StarGiftAttributeOriginalDetails) SetSenderID(value int64) {
+func (s *StarGiftAttributeOriginalDetails) SetSenderID(value PeerClass) {
 	s.Flags.Set(0)
 	s.SenderID = value
 }
 
 // GetSenderID returns value of SenderID conditional field and
 // boolean which is true if field was set.
-func (s *StarGiftAttributeOriginalDetails) GetSenderID() (value int64, ok bool) {
+func (s *StarGiftAttributeOriginalDetails) GetSenderID() (value PeerClass, ok bool) {
 	if s == nil {
 		return
 	}
@@ -928,7 +938,7 @@ func (s *StarGiftAttributeOriginalDetails) GetSenderID() (value int64, ok bool) 
 }
 
 // GetRecipientID returns value of RecipientID field.
-func (s *StarGiftAttributeOriginalDetails) GetRecipientID() (value int64) {
+func (s *StarGiftAttributeOriginalDetails) GetRecipientID() (value PeerClass) {
 	if s == nil {
 		return
 	}
@@ -978,7 +988,7 @@ const StarGiftAttributeClassName = "StarGiftAttribute"
 //	case *tg.StarGiftAttributeModel: // starGiftAttributeModel#39d99013
 //	case *tg.StarGiftAttributePattern: // starGiftAttributePattern#13acff19
 //	case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#94271762
-//	case *tg.StarGiftAttributeOriginalDetails: // starGiftAttributeOriginalDetails#c02c4f4b
+//	case *tg.StarGiftAttributeOriginalDetails: // starGiftAttributeOriginalDetails#e0bff26c
 //	default: panic(v)
 //	}
 type StarGiftAttributeClass interface {
@@ -1029,7 +1039,7 @@ func DecodeStarGiftAttribute(buf *bin.Buffer) (StarGiftAttributeClass, error) {
 		}
 		return &v, nil
 	case StarGiftAttributeOriginalDetailsTypeID:
-		// Decoding starGiftAttributeOriginalDetails#c02c4f4b.
+		// Decoding starGiftAttributeOriginalDetails#e0bff26c.
 		v := StarGiftAttributeOriginalDetails{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAttributeClass: %w", err)

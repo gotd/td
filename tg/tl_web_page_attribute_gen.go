@@ -791,6 +791,145 @@ func (w *WebPageAttributeStickerSet) MapStickers() (value DocumentClassArray) {
 	return DocumentClassArray(w.Stickers)
 }
 
+// WebPageAttributeUniqueStarGift represents TL type `webPageAttributeUniqueStarGift#cf6f6db8`.
+//
+// See https://core.telegram.org/constructor/webPageAttributeUniqueStarGift for reference.
+type WebPageAttributeUniqueStarGift struct {
+	// Gift field of WebPageAttributeUniqueStarGift.
+	Gift StarGiftClass
+}
+
+// WebPageAttributeUniqueStarGiftTypeID is TL type id of WebPageAttributeUniqueStarGift.
+const WebPageAttributeUniqueStarGiftTypeID = 0xcf6f6db8
+
+// construct implements constructor of WebPageAttributeClass.
+func (w WebPageAttributeUniqueStarGift) construct() WebPageAttributeClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPageAttributeUniqueStarGift.
+var (
+	_ bin.Encoder     = &WebPageAttributeUniqueStarGift{}
+	_ bin.Decoder     = &WebPageAttributeUniqueStarGift{}
+	_ bin.BareEncoder = &WebPageAttributeUniqueStarGift{}
+	_ bin.BareDecoder = &WebPageAttributeUniqueStarGift{}
+
+	_ WebPageAttributeClass = &WebPageAttributeUniqueStarGift{}
+)
+
+func (w *WebPageAttributeUniqueStarGift) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Gift == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (w *WebPageAttributeUniqueStarGift) String() string {
+	if w == nil {
+		return "WebPageAttributeUniqueStarGift(nil)"
+	}
+	type Alias WebPageAttributeUniqueStarGift
+	return fmt.Sprintf("WebPageAttributeUniqueStarGift%+v", Alias(*w))
+}
+
+// FillFrom fills WebPageAttributeUniqueStarGift from given interface.
+func (w *WebPageAttributeUniqueStarGift) FillFrom(from interface {
+	GetGift() (value StarGiftClass)
+}) {
+	w.Gift = from.GetGift()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*WebPageAttributeUniqueStarGift) TypeID() uint32 {
+	return WebPageAttributeUniqueStarGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*WebPageAttributeUniqueStarGift) TypeName() string {
+	return "webPageAttributeUniqueStarGift"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPageAttributeUniqueStarGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPageAttributeUniqueStarGift",
+		ID:   WebPageAttributeUniqueStarGiftTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Gift",
+			SchemaName: "gift",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (w *WebPageAttributeUniqueStarGift) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeUniqueStarGift#cf6f6db8 as nil")
+	}
+	b.PutID(WebPageAttributeUniqueStarGiftTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPageAttributeUniqueStarGift) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeUniqueStarGift#cf6f6db8 as nil")
+	}
+	if w.Gift == nil {
+		return fmt.Errorf("unable to encode webPageAttributeUniqueStarGift#cf6f6db8: field gift is nil")
+	}
+	if err := w.Gift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode webPageAttributeUniqueStarGift#cf6f6db8: field gift: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (w *WebPageAttributeUniqueStarGift) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeUniqueStarGift#cf6f6db8 to nil")
+	}
+	if err := b.ConsumeID(WebPageAttributeUniqueStarGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode webPageAttributeUniqueStarGift#cf6f6db8: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPageAttributeUniqueStarGift) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeUniqueStarGift#cf6f6db8 to nil")
+	}
+	{
+		value, err := DecodeStarGift(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode webPageAttributeUniqueStarGift#cf6f6db8: field gift: %w", err)
+		}
+		w.Gift = value
+	}
+	return nil
+}
+
+// GetGift returns value of Gift field.
+func (w *WebPageAttributeUniqueStarGift) GetGift() (value StarGiftClass) {
+	if w == nil {
+		return
+	}
+	return w.Gift
+}
+
 // WebPageAttributeClassName is schema name of WebPageAttributeClass.
 const WebPageAttributeClassName = "WebPageAttribute"
 
@@ -808,6 +947,7 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //	case *tg.WebPageAttributeTheme: // webPageAttributeTheme#54b56617
 //	case *tg.WebPageAttributeStory: // webPageAttributeStory#2e94c3e7
 //	case *tg.WebPageAttributeStickerSet: // webPageAttributeStickerSet#50cc03d3
+//	case *tg.WebPageAttributeUniqueStarGift: // webPageAttributeUniqueStarGift#cf6f6db8
 //	default: panic(v)
 //	}
 type WebPageAttributeClass interface {
@@ -853,6 +993,13 @@ func DecodeWebPageAttribute(buf *bin.Buffer) (WebPageAttributeClass, error) {
 	case WebPageAttributeStickerSetTypeID:
 		// Decoding webPageAttributeStickerSet#50cc03d3.
 		v := WebPageAttributeStickerSet{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
+		}
+		return &v, nil
+	case WebPageAttributeUniqueStarGiftTypeID:
+		// Decoding webPageAttributeUniqueStarGift#cf6f6db8.
+		v := WebPageAttributeUniqueStarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
 		}

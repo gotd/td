@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsTransferStarGiftRequest represents TL type `payments.transferStarGift#333fb526`.
+// PaymentsTransferStarGiftRequest represents TL type `payments.transferStarGift#7f18176a`.
 //
 // See https://core.telegram.org/method/payments.transferStarGift for reference.
 type PaymentsTransferStarGiftRequest struct {
-	// MsgID field of PaymentsTransferStarGiftRequest.
-	MsgID int
+	// Stargift field of PaymentsTransferStarGiftRequest.
+	Stargift InputSavedStarGiftClass
 	// ToID field of PaymentsTransferStarGiftRequest.
-	ToID InputUserClass
+	ToID InputPeerClass
 }
 
 // PaymentsTransferStarGiftRequestTypeID is TL type id of PaymentsTransferStarGiftRequest.
-const PaymentsTransferStarGiftRequestTypeID = 0x333fb526
+const PaymentsTransferStarGiftRequestTypeID = 0x7f18176a
 
 // Ensuring interfaces in compile-time for PaymentsTransferStarGiftRequest.
 var (
@@ -56,7 +56,7 @@ func (t *PaymentsTransferStarGiftRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.MsgID == 0) {
+	if !(t.Stargift == nil) {
 		return false
 	}
 	if !(t.ToID == nil) {
@@ -77,10 +77,10 @@ func (t *PaymentsTransferStarGiftRequest) String() string {
 
 // FillFrom fills PaymentsTransferStarGiftRequest from given interface.
 func (t *PaymentsTransferStarGiftRequest) FillFrom(from interface {
-	GetMsgID() (value int)
-	GetToID() (value InputUserClass)
+	GetStargift() (value InputSavedStarGiftClass)
+	GetToID() (value InputPeerClass)
 }) {
-	t.MsgID = from.GetMsgID()
+	t.Stargift = from.GetStargift()
 	t.ToID = from.GetToID()
 }
 
@@ -108,8 +108,8 @@ func (t *PaymentsTransferStarGiftRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MsgID",
-			SchemaName: "msg_id",
+			Name:       "Stargift",
+			SchemaName: "stargift",
 		},
 		{
 			Name:       "ToID",
@@ -122,7 +122,7 @@ func (t *PaymentsTransferStarGiftRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *PaymentsTransferStarGiftRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode payments.transferStarGift#333fb526 as nil")
+		return fmt.Errorf("can't encode payments.transferStarGift#7f18176a as nil")
 	}
 	b.PutID(PaymentsTransferStarGiftRequestTypeID)
 	return t.EncodeBare(b)
@@ -131,14 +131,19 @@ func (t *PaymentsTransferStarGiftRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *PaymentsTransferStarGiftRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode payments.transferStarGift#333fb526 as nil")
+		return fmt.Errorf("can't encode payments.transferStarGift#7f18176a as nil")
 	}
-	b.PutInt(t.MsgID)
+	if t.Stargift == nil {
+		return fmt.Errorf("unable to encode payments.transferStarGift#7f18176a: field stargift is nil")
+	}
+	if err := t.Stargift.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.transferStarGift#7f18176a: field stargift: %w", err)
+	}
 	if t.ToID == nil {
-		return fmt.Errorf("unable to encode payments.transferStarGift#333fb526: field to_id is nil")
+		return fmt.Errorf("unable to encode payments.transferStarGift#7f18176a: field to_id is nil")
 	}
 	if err := t.ToID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.transferStarGift#333fb526: field to_id: %w", err)
+		return fmt.Errorf("unable to encode payments.transferStarGift#7f18176a: field to_id: %w", err)
 	}
 	return nil
 }
@@ -146,10 +151,10 @@ func (t *PaymentsTransferStarGiftRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *PaymentsTransferStarGiftRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode payments.transferStarGift#333fb526 to nil")
+		return fmt.Errorf("can't decode payments.transferStarGift#7f18176a to nil")
 	}
 	if err := b.ConsumeID(PaymentsTransferStarGiftRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.transferStarGift#333fb526: %w", err)
+		return fmt.Errorf("unable to decode payments.transferStarGift#7f18176a: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -157,42 +162,42 @@ func (t *PaymentsTransferStarGiftRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *PaymentsTransferStarGiftRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode payments.transferStarGift#333fb526 to nil")
+		return fmt.Errorf("can't decode payments.transferStarGift#7f18176a to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodeInputSavedStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.transferStarGift#333fb526: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode payments.transferStarGift#7f18176a: field stargift: %w", err)
 		}
-		t.MsgID = value
+		t.Stargift = value
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.transferStarGift#333fb526: field to_id: %w", err)
+			return fmt.Errorf("unable to decode payments.transferStarGift#7f18176a: field to_id: %w", err)
 		}
 		t.ToID = value
 	}
 	return nil
 }
 
-// GetMsgID returns value of MsgID field.
-func (t *PaymentsTransferStarGiftRequest) GetMsgID() (value int) {
+// GetStargift returns value of Stargift field.
+func (t *PaymentsTransferStarGiftRequest) GetStargift() (value InputSavedStarGiftClass) {
 	if t == nil {
 		return
 	}
-	return t.MsgID
+	return t.Stargift
 }
 
 // GetToID returns value of ToID field.
-func (t *PaymentsTransferStarGiftRequest) GetToID() (value InputUserClass) {
+func (t *PaymentsTransferStarGiftRequest) GetToID() (value InputPeerClass) {
 	if t == nil {
 		return
 	}
 	return t.ToID
 }
 
-// PaymentsTransferStarGift invokes method payments.transferStarGift#333fb526 returning error if any.
+// PaymentsTransferStarGift invokes method payments.transferStarGift#7f18176a returning error if any.
 //
 // See https://core.telegram.org/method/payments.transferStarGift for reference.
 func (c *Client) PaymentsTransferStarGift(ctx context.Context, request *PaymentsTransferStarGiftRequest) (UpdatesClass, error) {
