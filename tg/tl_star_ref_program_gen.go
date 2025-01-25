@@ -65,7 +65,8 @@ type StarRefProgram struct {
 	// Use SetEndDate and GetEndDate helpers.
 	EndDate int
 	// The amount of daily revenue per user in Telegram Stars of the bot that created the
-	// affiliate program
+	// affiliate program. To obtain the approximated revenue per referred user, multiply this
+	// value by commission_permille and divide by 1000.
 	//
 	// Use SetDailyRevenuePerUser and GetDailyRevenuePerUser helpers.
 	DailyRevenuePerUser StarsAmount
