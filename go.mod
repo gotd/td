@@ -10,7 +10,7 @@ require (
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.21.0
 	github.com/google/uuid v1.6.0
-	github.com/gotd/getdoc v0.47.0
+	github.com/gotd/getdoc v0.48.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
@@ -42,7 +42,7 @@ require (
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
-	github.com/go-faster/sdk v0.18.0 // indirect
+	github.com/go-faster/sdk v0.22.0 // indirect
 	github.com/go-faster/yaml v0.4.6 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect

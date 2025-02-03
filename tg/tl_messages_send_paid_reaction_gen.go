@@ -58,10 +58,10 @@ type MessagesSendPaidReactionRequest struct {
 	// Unique client message ID required to prevent message resending
 	RandomID int64
 	// Each post with star reactions has a leaderboard with the top senders, but users can
-	// opt out of appearing there if they prefer more privacy.  If the user explicitly chose
-	// to make their paid reaction(s) private, pass boolTrue¹ to messages.sendPaidReaction²
-	// private.  If the user explicitly chose to make their paid reaction(s) private, pass
-	// boolFalse³ to messages.sendPaidReaction⁴.private.  If the user did not make any
+	// opt out of appearing there if they prefer more privacy.If the user explicitly chose to
+	// make their paid reaction(s) private, pass boolTrue¹ to messages.sendPaidReaction²
+	// private.If the user explicitly chose to make their paid reaction(s) not private, pass
+	// boolFalse³ to messages.sendPaidReaction⁴.private.If the user did not make any
 	// explicit choice about the privacy of their paid reaction(s) (i.e. when reacting by
 	// clicking on an existing star reaction on a message), do not populate the messages
 	// sendPaidReaction⁵.private flag.
