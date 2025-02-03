@@ -307,6 +307,10 @@ const ChannelLocationClassName = "ChannelLocation"
 //
 // See https://core.telegram.org/type/ChannelLocation for reference.
 //
+// Constructors:
+//   - [ChannelLocationEmpty]
+//   - [ChannelLocation]
+//
 // Example:
 //
 //	g, err := tg.DecodeChannelLocation(buf)

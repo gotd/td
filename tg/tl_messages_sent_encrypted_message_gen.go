@@ -340,6 +340,10 @@ const MessagesSentEncryptedMessageClassName = "messages.SentEncryptedMessage"
 //
 // See https://core.telegram.org/type/messages.SentEncryptedMessage for reference.
 //
+// Constructors:
+//   - [MessagesSentEncryptedMessage]
+//   - [MessagesSentEncryptedFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesSentEncryptedMessage(buf)

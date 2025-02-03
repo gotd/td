@@ -292,6 +292,10 @@ const ResponseClassName = "Response"
 //
 // See https://localhost:80/doc/type/Response for reference.
 //
+// Constructors:
+//   - [ResponseID]
+//   - [ResponseText]
+//
 // Example:
 //
 //	g, err := td.DecodeResponse(buf)

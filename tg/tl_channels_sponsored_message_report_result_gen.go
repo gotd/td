@@ -430,6 +430,11 @@ const ChannelsSponsoredMessageReportResultClassName = "channels.SponsoredMessage
 //
 // See https://core.telegram.org/type/channels.SponsoredMessageReportResult for reference.
 //
+// Constructors:
+//   - [ChannelsSponsoredMessageReportResultChooseOption]
+//   - [ChannelsSponsoredMessageReportResultAdsHidden]
+//   - [ChannelsSponsoredMessageReportResultReported]
+//
 // Example:
 //
 //	g, err := tg.DecodeChannelsSponsoredMessageReportResult(buf)

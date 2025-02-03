@@ -398,6 +398,10 @@ const GeoPointClassName = "GeoPoint"
 //
 // See https://core.telegram.org/type/GeoPoint for reference.
 //
+// Constructors:
+//   - [GeoPointEmpty]
+//   - [GeoPoint]
+//
 // Example:
 //
 //	g, err := tg.DecodeGeoPoint(buf)

@@ -551,6 +551,11 @@ const ChatParticipantClassName = "ChatParticipant"
 //
 // See https://core.telegram.org/type/ChatParticipant for reference.
 //
+// Constructors:
+//   - [ChatParticipant]
+//   - [ChatParticipantCreator]
+//   - [ChatParticipantAdmin]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatParticipant(buf)

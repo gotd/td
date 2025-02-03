@@ -721,6 +721,12 @@ const InputEncryptedFileClassName = "InputEncryptedFile"
 //
 // See https://core.telegram.org/type/InputEncryptedFile for reference.
 //
+// Constructors:
+//   - [InputEncryptedFileEmpty]
+//   - [InputEncryptedFileUploaded]
+//   - [InputEncryptedFile]
+//   - [InputEncryptedFileBigUploaded]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputEncryptedFile(buf)

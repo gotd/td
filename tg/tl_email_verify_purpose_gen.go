@@ -410,6 +410,11 @@ const EmailVerifyPurposeClassName = "EmailVerifyPurpose"
 //
 // See https://core.telegram.org/type/EmailVerifyPurpose for reference.
 //
+// Constructors:
+//   - [EmailVerifyPurposeLoginSetup]
+//   - [EmailVerifyPurposeLoginChange]
+//   - [EmailVerifyPurposePassport]
+//
 // Example:
 //
 //	g, err := tg.DecodeEmailVerifyPurpose(buf)

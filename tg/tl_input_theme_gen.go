@@ -338,6 +338,10 @@ const InputThemeClassName = "InputTheme"
 //
 // See https://core.telegram.org/type/InputTheme for reference.
 //
+// Constructors:
+//   - [InputTheme]
+//   - [InputThemeSlug]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputTheme(buf)

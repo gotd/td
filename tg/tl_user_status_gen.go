@@ -920,6 +920,14 @@ const UserStatusClassName = "UserStatus"
 //
 // See https://core.telegram.org/type/UserStatus for reference.
 //
+// Constructors:
+//   - [UserStatusEmpty]
+//   - [UserStatusOnline]
+//   - [UserStatusOffline]
+//   - [UserStatusRecently]
+//   - [UserStatusLastWeek]
+//   - [UserStatusLastMonth]
+//
 // Example:
 //
 //	g, err := tg.DecodeUserStatus(buf)

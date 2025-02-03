@@ -337,6 +337,10 @@ const AccountWallPapersClassName = "account.WallPapers"
 //
 // See https://core.telegram.org/type/account.WallPapers for reference.
 //
+// Constructors:
+//   - [AccountWallPapersNotModified]
+//   - [AccountWallPapers]
+//
 // Example:
 //
 //	g, err := tg.DecodeAccountWallPapers(buf)

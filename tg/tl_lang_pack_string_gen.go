@@ -763,6 +763,11 @@ const LangPackStringClassName = "LangPackString"
 //
 // See https://core.telegram.org/type/LangPackString for reference.
 //
+// Constructors:
+//   - [LangPackString]
+//   - [LangPackStringPluralized]
+//   - [LangPackStringDeleted]
+//
 // Example:
 //
 //	g, err := tg.DecodeLangPackString(buf)

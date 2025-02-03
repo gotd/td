@@ -2882,6 +2882,15 @@ const UpdatesClassName = "Updates"
 //
 // See https://core.telegram.org/type/Updates for reference.
 //
+// Constructors:
+//   - [UpdatesTooLong]
+//   - [UpdateShortMessage]
+//   - [UpdateShortChatMessage]
+//   - [UpdateShort]
+//   - [UpdatesCombined]
+//   - [Updates]
+//   - [UpdateShortSentMessage]
+//
 // Example:
 //
 //	g, err := tg.DecodeUpdates(buf)

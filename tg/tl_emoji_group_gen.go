@@ -622,6 +622,11 @@ const EmojiGroupClassName = "EmojiGroup"
 //
 // See https://core.telegram.org/type/EmojiGroup for reference.
 //
+// Constructors:
+//   - [EmojiGroup]
+//   - [EmojiGroupGreeting]
+//   - [EmojiGroupPremium]
+//
 // Example:
 //
 //	g, err := tg.DecodeEmojiGroup(buf)

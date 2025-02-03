@@ -450,6 +450,10 @@ const InputSecureFileClassName = "InputSecureFile"
 //
 // See https://core.telegram.org/type/InputSecureFile for reference.
 //
+// Constructors:
+//   - [InputSecureFileUploaded]
+//   - [InputSecureFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputSecureFile(buf)

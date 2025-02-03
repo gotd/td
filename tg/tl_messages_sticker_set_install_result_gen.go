@@ -303,6 +303,10 @@ const MessagesStickerSetInstallResultClassName = "messages.StickerSetInstallResu
 //
 // See https://core.telegram.org/type/messages.StickerSetInstallResult for reference.
 //
+// Constructors:
+//   - [MessagesStickerSetInstallResultSuccess]
+//   - [MessagesStickerSetInstallResultArchive]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesStickerSetInstallResult(buf)

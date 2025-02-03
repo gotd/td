@@ -1069,6 +1069,10 @@ const GroupCallClassName = "GroupCall"
 //
 // See https://core.telegram.org/type/GroupCall for reference.
 //
+// Constructors:
+//   - [GroupCallDiscarded]
+//   - [GroupCall]
+//
 // Example:
 //
 //	g, err := tg.DecodeGroupCall(buf)

@@ -807,6 +807,11 @@ const BroadcastRevenueTransactionClassName = "BroadcastRevenueTransaction"
 //
 // See https://core.telegram.org/type/BroadcastRevenueTransaction for reference.
 //
+// Constructors:
+//   - [BroadcastRevenueTransactionProceeds]
+//   - [BroadcastRevenueTransactionWithdrawal]
+//   - [BroadcastRevenueTransactionRefund]
+//
 // Example:
 //
 //	g, err := tg.DecodeBroadcastRevenueTransaction(buf)

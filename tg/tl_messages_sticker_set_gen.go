@@ -409,6 +409,10 @@ const MessagesStickerSetClassName = "messages.StickerSet"
 //
 // See https://core.telegram.org/type/messages.StickerSet for reference.
 //
+// Constructors:
+//   - [MessagesStickerSet]
+//   - [MessagesStickerSetNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesStickerSet(buf)

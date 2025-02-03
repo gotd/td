@@ -470,6 +470,10 @@ const PostInteractionCountersClassName = "PostInteractionCounters"
 //
 // See https://core.telegram.org/type/PostInteractionCounters for reference.
 //
+// Constructors:
+//   - [PostInteractionCountersMessage]
+//   - [PostInteractionCountersStory]
+//
 // Example:
 //
 //	g, err := tg.DecodePostInteractionCounters(buf)

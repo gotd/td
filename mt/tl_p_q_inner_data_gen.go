@@ -861,6 +861,11 @@ const PQInnerDataClassName = "P_Q_inner_data"
 
 // PQInnerDataClass represents P_Q_inner_data generic type.
 //
+// Constructors:
+//   - [PQInnerData]
+//   - [PQInnerDataDC]
+//   - [PQInnerDataTempDC]
+//
 // Example:
 //
 //	g, err := mt.DecodePQInnerData(buf)

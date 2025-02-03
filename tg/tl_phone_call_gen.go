@@ -2413,6 +2413,14 @@ const PhoneCallClassName = "PhoneCall"
 //
 // See https://core.telegram.org/type/PhoneCall for reference.
 //
+// Constructors:
+//   - [PhoneCallEmpty]
+//   - [PhoneCallWaiting]
+//   - [PhoneCallRequested]
+//   - [PhoneCallAccepted]
+//   - [PhoneCall]
+//   - [PhoneCallDiscarded]
+//
 // Example:
 //
 //	g, err := tg.DecodePhoneCall(buf)

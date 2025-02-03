@@ -348,6 +348,10 @@ const HelpTermsOfServiceUpdateClassName = "help.TermsOfServiceUpdate"
 //
 // See https://core.telegram.org/type/help.TermsOfServiceUpdate for reference.
 //
+// Constructors:
+//   - [HelpTermsOfServiceUpdateEmpty]
+//   - [HelpTermsOfServiceUpdate]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpTermsOfServiceUpdate(buf)

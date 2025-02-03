@@ -324,6 +324,10 @@ const HelpTimezonesListClassName = "help.TimezonesList"
 //
 // See https://core.telegram.org/type/help.TimezonesList for reference.
 //
+// Constructors:
+//   - [HelpTimezonesListNotModified]
+//   - [HelpTimezonesList]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpTimezonesList(buf)

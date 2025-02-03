@@ -546,6 +546,10 @@ const WebDocumentClassName = "WebDocument"
 //
 // See https://core.telegram.org/type/WebDocument for reference.
 //
+// Constructors:
+//   - [WebDocument]
+//   - [WebDocumentNoProxy]
+//
 // Example:
 //
 //	g, err := tg.DecodeWebDocument(buf)

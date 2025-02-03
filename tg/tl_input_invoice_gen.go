@@ -1506,6 +1506,16 @@ const InputInvoiceClassName = "InputInvoice"
 //
 // See https://core.telegram.org/type/InputInvoice for reference.
 //
+// Constructors:
+//   - [InputInvoiceMessage]
+//   - [InputInvoiceSlug]
+//   - [InputInvoicePremiumGiftCode]
+//   - [InputInvoiceStars]
+//   - [InputInvoiceChatInviteSubscription]
+//   - [InputInvoiceStarGift]
+//   - [InputInvoiceStarGiftUpgrade]
+//   - [InputInvoiceStarGiftTransfer]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputInvoice(buf)

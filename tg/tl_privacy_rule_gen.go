@@ -1454,6 +1454,20 @@ const PrivacyRuleClassName = "PrivacyRule"
 //
 // See https://core.telegram.org/type/PrivacyRule for reference.
 //
+// Constructors:
+//   - [PrivacyValueAllowContacts]
+//   - [PrivacyValueAllowAll]
+//   - [PrivacyValueAllowUsers]
+//   - [PrivacyValueDisallowContacts]
+//   - [PrivacyValueDisallowAll]
+//   - [PrivacyValueDisallowUsers]
+//   - [PrivacyValueAllowChatParticipants]
+//   - [PrivacyValueDisallowChatParticipants]
+//   - [PrivacyValueAllowCloseFriends]
+//   - [PrivacyValueAllowPremium]
+//   - [PrivacyValueAllowBots]
+//   - [PrivacyValueDisallowBots]
+//
 // Example:
 //
 //	g, err := tg.DecodePrivacyRule(buf)

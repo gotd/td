@@ -1124,6 +1124,10 @@ const StarGiftClassName = "StarGift"
 //
 // See https://core.telegram.org/type/StarGift for reference.
 //
+// Constructors:
+//   - [StarGift]
+//   - [StarGiftUnique]
+//
 // Example:
 //
 //	g, err := tg.DecodeStarGift(buf)

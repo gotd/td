@@ -1310,6 +1310,19 @@ const InputStickerSetClassName = "InputStickerSet"
 //
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
+// Constructors:
+//   - [InputStickerSetEmpty]
+//   - [InputStickerSetID]
+//   - [InputStickerSetShortName]
+//   - [InputStickerSetAnimatedEmoji]
+//   - [InputStickerSetDice]
+//   - [InputStickerSetAnimatedEmojiAnimations]
+//   - [InputStickerSetPremiumGifts]
+//   - [InputStickerSetEmojiGenericAnimations]
+//   - [InputStickerSetEmojiDefaultStatuses]
+//   - [InputStickerSetEmojiDefaultTopicIcons]
+//   - [InputStickerSetEmojiChannelDefaultStatuses]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputStickerSet(buf)

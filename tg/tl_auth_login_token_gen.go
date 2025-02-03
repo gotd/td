@@ -505,6 +505,11 @@ const AuthLoginTokenClassName = "auth.LoginToken"
 //
 // See https://core.telegram.org/type/auth.LoginToken for reference.
 //
+// Constructors:
+//   - [AuthLoginToken]
+//   - [AuthLoginTokenMigrateTo]
+//   - [AuthLoginTokenSuccess]
+//
 // Example:
 //
 //	g, err := tg.DecodeAuthLoginToken(buf)

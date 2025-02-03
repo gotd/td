@@ -382,6 +382,10 @@ const HelpUserInfoClassName = "help.UserInfo"
 //
 // See https://core.telegram.org/type/help.UserInfo for reference.
 //
+// Constructors:
+//   - [HelpUserInfoEmpty]
+//   - [HelpUserInfo]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpUserInfo(buf)

@@ -10,6 +10,11 @@ const {{ $f.Name }}Name = "{{ $f.RawType }}"
 // See {{ $f.URL }} for reference.
 //
 {{- end }}
+// Constructors:
+{{ range $c := $f.Constructors -}}
+//  - [{{ $c.Name }}]
+{{ end -}}
+//
 // Example:
 //  g, err := {{ $.Config.Package }}.Decode{{ $f.Func }}(buf)
 //  if err != nil {

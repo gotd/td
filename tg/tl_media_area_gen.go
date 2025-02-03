@@ -1981,6 +1981,17 @@ const MediaAreaClassName = "MediaArea"
 //
 // See https://core.telegram.org/type/MediaArea for reference.
 //
+// Constructors:
+//   - [MediaAreaVenue]
+//   - [InputMediaAreaVenue]
+//   - [MediaAreaGeoPoint]
+//   - [MediaAreaSuggestedReaction]
+//   - [MediaAreaChannelPost]
+//   - [InputMediaAreaChannelPost]
+//   - [MediaAreaURL]
+//   - [MediaAreaWeather]
+//   - [MediaAreaStarGift]
+//
 // Example:
 //
 //	g, err := tg.DecodeMediaArea(buf)

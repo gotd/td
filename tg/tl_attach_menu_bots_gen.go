@@ -376,6 +376,10 @@ const AttachMenuBotsClassName = "AttachMenuBots"
 //
 // See https://core.telegram.org/type/AttachMenuBots for reference.
 //
+// Constructors:
+//   - [AttachMenuBotsNotModified]
+//   - [AttachMenuBots]
+//
 // Example:
 //
 //	g, err := tg.DecodeAttachMenuBots(buf)

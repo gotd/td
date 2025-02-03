@@ -328,6 +328,10 @@ const MessagesFoundStickerSetsClassName = "messages.FoundStickerSets"
 //
 // See https://core.telegram.org/type/messages.FoundStickerSets for reference.
 //
+// Constructors:
+//   - [MessagesFoundStickerSetsNotModified]
+//   - [MessagesFoundStickerSets]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesFoundStickerSets(buf)

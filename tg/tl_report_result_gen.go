@@ -525,6 +525,11 @@ const ReportResultClassName = "ReportResult"
 //
 // See https://core.telegram.org/type/ReportResult for reference.
 //
+// Constructors:
+//   - [ReportResultChooseOption]
+//   - [ReportResultAddComment]
+//   - [ReportResultReported]
+//
 // Example:
 //
 //	g, err := tg.DecodeReportResult(buf)

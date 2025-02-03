@@ -411,6 +411,10 @@ const MsgDetailedInfoClassName = "MsgDetailedInfo"
 
 // MsgDetailedInfoClass represents MsgDetailedInfo generic type.
 //
+// Constructors:
+//   - [MsgDetailedInfo]
+//   - [MsgNewDetailedInfo]
+//
 // Example:
 //
 //	g, err := mt.DecodeMsgDetailedInfo(buf)

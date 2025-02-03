@@ -1641,6 +1641,12 @@ const WebPageClassName = "WebPage"
 //
 // See https://core.telegram.org/type/WebPage for reference.
 //
+// Constructors:
+//   - [WebPageEmpty]
+//   - [WebPagePending]
+//   - [WebPage]
+//   - [WebPageNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeWebPage(buf)

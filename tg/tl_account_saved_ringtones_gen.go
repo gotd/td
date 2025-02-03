@@ -328,6 +328,10 @@ const AccountSavedRingtonesClassName = "account.SavedRingtones"
 //
 // See https://core.telegram.org/type/account.SavedRingtones for reference.
 //
+// Constructors:
+//   - [AccountSavedRingtonesNotModified]
+//   - [AccountSavedRingtones]
+//
 // Example:
 //
 //	g, err := tg.DecodeAccountSavedRingtones(buf)

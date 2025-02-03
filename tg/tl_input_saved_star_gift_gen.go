@@ -338,6 +338,10 @@ const InputSavedStarGiftClassName = "InputSavedStarGift"
 //
 // See https://core.telegram.org/type/InputSavedStarGift for reference.
 //
+// Constructors:
+//   - [InputSavedStarGiftUser]
+//   - [InputSavedStarGiftChat]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputSavedStarGift(buf)

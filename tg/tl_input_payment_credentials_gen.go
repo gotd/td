@@ -661,6 +661,12 @@ const InputPaymentCredentialsClassName = "InputPaymentCredentials"
 //
 // See https://core.telegram.org/type/InputPaymentCredentials for reference.
 //
+// Constructors:
+//   - [InputPaymentCredentialsSaved]
+//   - [InputPaymentCredentials]
+//   - [InputPaymentCredentialsApplePay]
+//   - [InputPaymentCredentialsGooglePay]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputPaymentCredentials(buf)

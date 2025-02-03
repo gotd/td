@@ -937,6 +937,12 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //
 // See https://core.telegram.org/type/WebPageAttribute for reference.
 //
+// Constructors:
+//   - [WebPageAttributeTheme]
+//   - [WebPageAttributeStory]
+//   - [WebPageAttributeStickerSet]
+//   - [WebPageAttributeUniqueStarGift]
+//
 // Example:
 //
 //	g, err := tg.DecodeWebPageAttribute(buf)

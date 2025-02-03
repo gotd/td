@@ -627,6 +627,11 @@ const InputChatPhotoClassName = "InputChatPhoto"
 //
 // See https://core.telegram.org/type/InputChatPhoto for reference.
 //
+// Constructors:
+//   - [InputChatPhotoEmpty]
+//   - [InputChatUploadedPhoto]
+//   - [InputChatPhoto]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputChatPhoto(buf)

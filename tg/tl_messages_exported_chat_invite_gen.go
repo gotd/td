@@ -450,6 +450,10 @@ const MessagesExportedChatInviteClassName = "messages.ExportedChatInvite"
 //
 // See https://core.telegram.org/type/messages.ExportedChatInvite for reference.
 //
+// Constructors:
+//   - [MessagesExportedChatInvite]
+//   - [MessagesExportedChatInviteReplaced]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesExportedChatInvite(buf)

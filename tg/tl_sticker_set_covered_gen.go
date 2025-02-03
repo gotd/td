@@ -800,6 +800,12 @@ const StickerSetCoveredClassName = "StickerSetCovered"
 //
 // See https://core.telegram.org/type/StickerSetCovered for reference.
 //
+// Constructors:
+//   - [StickerSetCovered]
+//   - [StickerSetMultiCovered]
+//   - [StickerSetFullCovered]
+//   - [StickerSetNoCovered]
+//
 // Example:
 //
 //	g, err := tg.DecodeStickerSetCovered(buf)

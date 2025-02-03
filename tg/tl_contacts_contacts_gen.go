@@ -367,6 +367,10 @@ const ContactsContactsClassName = "contacts.Contacts"
 //
 // See https://core.telegram.org/type/contacts.Contacts for reference.
 //
+// Constructors:
+//   - [ContactsContactsNotModified]
+//   - [ContactsContacts]
+//
 // Example:
 //
 //	g, err := tg.DecodeContactsContacts(buf)

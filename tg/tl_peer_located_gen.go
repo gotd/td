@@ -367,6 +367,10 @@ const PeerLocatedClassName = "PeerLocated"
 //
 // See https://core.telegram.org/type/PeerLocated for reference.
 //
+// Constructors:
+//   - [PeerLocated]
+//   - [PeerSelfLocated]
+//
 // Example:
 //
 //	g, err := tg.DecodePeerLocated(buf)

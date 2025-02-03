@@ -1120,6 +1120,10 @@ const PaymentsPaymentReceiptClassName = "payments.PaymentReceipt"
 //
 // See https://core.telegram.org/type/payments.PaymentReceipt for reference.
 //
+// Constructors:
+//   - [PaymentsPaymentReceipt]
+//   - [PaymentsPaymentReceiptStars]
+//
 // Example:
 //
 //	g, err := tg.DecodePaymentsPaymentReceipt(buf)

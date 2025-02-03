@@ -451,6 +451,10 @@ const UserProfilePhotoClassName = "UserProfilePhoto"
 //
 // See https://core.telegram.org/type/UserProfilePhoto for reference.
 //
+// Constructors:
+//   - [UserProfilePhotoEmpty]
+//   - [UserProfilePhoto]
+//
 // Example:
 //
 //	g, err := tg.DecodeUserProfilePhoto(buf)

@@ -410,6 +410,10 @@ const MessagesRecentStickersClassName = "messages.RecentStickers"
 //
 // See https://core.telegram.org/type/messages.RecentStickers for reference.
 //
+// Constructors:
+//   - [MessagesRecentStickersNotModified]
+//   - [MessagesRecentStickers]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesRecentStickers(buf)

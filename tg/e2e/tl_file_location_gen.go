@@ -417,6 +417,10 @@ const FileLocationClassName = "FileLocation"
 //
 // See https://core.telegram.org/type/FileLocation for reference.
 //
+// Constructors:
+//   - [FileLocationUnavailable]
+//   - [FileLocation]
+//
 // Example:
 //
 //	g, err := e2e.DecodeFileLocation(buf)

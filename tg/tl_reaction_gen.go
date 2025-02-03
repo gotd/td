@@ -521,6 +521,12 @@ const ReactionClassName = "Reaction"
 //
 // See https://core.telegram.org/type/Reaction for reference.
 //
+// Constructors:
+//   - [ReactionEmpty]
+//   - [ReactionEmoji]
+//   - [ReactionCustomEmoji]
+//   - [ReactionPaid]
+//
 // Example:
 //
 //	g, err := tg.DecodeReaction(buf)

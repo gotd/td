@@ -592,6 +592,10 @@ const HelpAppUpdateClassName = "help.AppUpdate"
 //
 // See https://core.telegram.org/type/help.AppUpdate for reference.
 //
+// Constructors:
+//   - [HelpAppUpdate]
+//   - [HelpNoAppUpdate]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpAppUpdate(buf)

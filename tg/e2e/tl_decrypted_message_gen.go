@@ -1647,6 +1647,14 @@ const DecryptedMessageClassName = "DecryptedMessage"
 //
 // See https://core.telegram.org/type/DecryptedMessage for reference.
 //
+// Constructors:
+//   - [DecryptedMessage8]
+//   - [DecryptedMessageService8]
+//   - [DecryptedMessage23]
+//   - [DecryptedMessageService]
+//   - [DecryptedMessage46]
+//   - [DecryptedMessage]
+//
 // Example:
 //
 //	g, err := e2e.DecodeDecryptedMessage(buf)

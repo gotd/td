@@ -286,6 +286,10 @@ const DestroySessionResClassName = "DestroySessionRes"
 
 // DestroySessionResClass represents DestroySessionRes generic type.
 //
+// Constructors:
+//   - [DestroySessionOk]
+//   - [DestroySessionNone]
+//
 // Example:
 //
 //	g, err := mt.DecodeDestroySessionRes(buf)

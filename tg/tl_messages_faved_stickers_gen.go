@@ -370,6 +370,10 @@ const MessagesFavedStickersClassName = "messages.FavedStickers"
 //
 // See https://core.telegram.org/type/messages.FavedStickers for reference.
 //
+// Constructors:
+//   - [MessagesFavedStickersNotModified]
+//   - [MessagesFavedStickers]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesFavedStickers(buf)

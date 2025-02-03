@@ -1202,6 +1202,11 @@ const ChatInviteClassName = "ChatInvite"
 //
 // See https://core.telegram.org/type/ChatInvite for reference.
 //
+// Constructors:
+//   - [ChatInviteAlready]
+//   - [ChatInvite]
+//   - [ChatInvitePeek]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatInvite(buf)

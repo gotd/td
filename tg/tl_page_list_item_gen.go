@@ -336,6 +336,10 @@ const PageListItemClassName = "PageListItem"
 //
 // See https://core.telegram.org/type/PageListItem for reference.
 //
+// Constructors:
+//   - [PageListItemText]
+//   - [PageListItemBlocks]
+//
 // Example:
 //
 //	g, err := tg.DecodePageListItem(buf)

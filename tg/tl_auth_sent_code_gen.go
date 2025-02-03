@@ -477,6 +477,10 @@ const AuthSentCodeClassName = "auth.SentCode"
 //
 // See https://core.telegram.org/type/auth.SentCode for reference.
 //
+// Constructors:
+//   - [AuthSentCode]
+//   - [AuthSentCodeSuccess]
+//
 // Example:
 //
 //	g, err := tg.DecodeAuthSentCode(buf)

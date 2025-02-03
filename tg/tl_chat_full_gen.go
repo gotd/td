@@ -4004,6 +4004,10 @@ const ChatFullClassName = "ChatFull"
 //
 // See https://core.telegram.org/type/ChatFull for reference.
 //
+// Constructors:
+//   - [ChatFull]
+//   - [ChannelFull]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatFull(buf)

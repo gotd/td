@@ -318,6 +318,10 @@ const InputStickeredMediaClassName = "InputStickeredMedia"
 //
 // See https://core.telegram.org/type/InputStickeredMedia for reference.
 //
+// Constructors:
+//   - [InputStickeredMediaPhoto]
+//   - [InputStickeredMediaDocument]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputStickeredMedia(buf)

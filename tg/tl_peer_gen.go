@@ -443,6 +443,11 @@ const PeerClassName = "Peer"
 //
 // See https://core.telegram.org/type/Peer for reference.
 //
+// Constructors:
+//   - [PeerUser]
+//   - [PeerChat]
+//   - [PeerChannel]
+//
 // Example:
 //
 //	g, err := tg.DecodePeer(buf)

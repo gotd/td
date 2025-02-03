@@ -334,6 +334,10 @@ const MessagesReactionsClassName = "messages.Reactions"
 //
 // See https://core.telegram.org/type/messages.Reactions for reference.
 //
+// Constructors:
+//   - [MessagesReactionsNotModified]
+//   - [MessagesReactions]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesReactions(buf)

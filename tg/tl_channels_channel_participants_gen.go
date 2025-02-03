@@ -427,6 +427,10 @@ const ChannelsChannelParticipantsClassName = "channels.ChannelParticipants"
 //
 // See https://core.telegram.org/type/channels.ChannelParticipants for reference.
 //
+// Constructors:
+//   - [ChannelsChannelParticipants]
+//   - [ChannelsChannelParticipantsNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeChannelsChannelParticipants(buf)

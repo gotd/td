@@ -812,6 +812,11 @@ const MessagesSavedDialogsClassName = "messages.SavedDialogs"
 //
 // See https://core.telegram.org/type/messages.SavedDialogs for reference.
 //
+// Constructors:
+//   - [MessagesSavedDialogs]
+//   - [MessagesSavedDialogsSlice]
+//   - [MessagesSavedDialogsNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesSavedDialogs(buf)

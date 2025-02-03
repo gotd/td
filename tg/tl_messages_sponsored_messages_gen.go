@@ -460,6 +460,10 @@ const MessagesSponsoredMessagesClassName = "messages.SponsoredMessages"
 //
 // See https://core.telegram.org/type/messages.SponsoredMessages for reference.
 //
+// Constructors:
+//   - [MessagesSponsoredMessages]
+//   - [MessagesSponsoredMessagesEmpty]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesSponsoredMessages(buf)

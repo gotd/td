@@ -2310,6 +2310,10 @@ const UserClassName = "User"
 //
 // See https://core.telegram.org/type/User for reference.
 //
+// Constructors:
+//   - [UserEmpty]
+//   - [User]
+//
 // Example:
 //
 //	g, err := tg.DecodeUser(buf)

@@ -2437,6 +2437,24 @@ const RichTextClassName = "RichText"
 //
 // See https://core.telegram.org/type/RichText for reference.
 //
+// Constructors:
+//   - [TextEmpty]
+//   - [TextPlain]
+//   - [TextBold]
+//   - [TextItalic]
+//   - [TextUnderline]
+//   - [TextStrike]
+//   - [TextFixed]
+//   - [TextURL]
+//   - [TextEmail]
+//   - [TextConcat]
+//   - [TextSubscript]
+//   - [TextSuperscript]
+//   - [TextMarked]
+//   - [TextPhone]
+//   - [TextImage]
+//   - [TextAnchor]
+//
 // Example:
 //
 //	g, err := tg.DecodeRichText(buf)

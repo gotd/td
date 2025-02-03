@@ -2643,6 +2643,15 @@ const BotInlineMessageClassName = "BotInlineMessage"
 //
 // See https://core.telegram.org/type/BotInlineMessage for reference.
 //
+// Constructors:
+//   - [BotInlineMessageMediaAuto]
+//   - [BotInlineMessageText]
+//   - [BotInlineMessageMediaGeo]
+//   - [BotInlineMessageMediaVenue]
+//   - [BotInlineMessageMediaContact]
+//   - [BotInlineMessageMediaInvoice]
+//   - [BotInlineMessageMediaWebPage]
+//
 // Example:
 //
 //	g, err := tg.DecodeBotInlineMessage(buf)

@@ -513,6 +513,10 @@ const MessageExtendedMediaClassName = "MessageExtendedMedia"
 //
 // See https://core.telegram.org/type/MessageExtendedMedia for reference.
 //
+// Constructors:
+//   - [MessageExtendedMediaPreview]
+//   - [MessageExtendedMedia]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessageExtendedMedia(buf)

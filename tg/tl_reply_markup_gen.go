@@ -981,6 +981,12 @@ const ReplyMarkupClassName = "ReplyMarkup"
 //
 // See https://core.telegram.org/type/ReplyMarkup for reference.
 //
+// Constructors:
+//   - [ReplyKeyboardHide]
+//   - [ReplyKeyboardForceReply]
+//   - [ReplyKeyboardMarkup]
+//   - [ReplyInlineMarkup]
+//
 // Example:
 //
 //	g, err := tg.DecodeReplyMarkup(buf)

@@ -1349,6 +1349,12 @@ const MessagesMessagesClassName = "messages.Messages"
 //
 // See https://core.telegram.org/type/messages.Messages for reference.
 //
+// Constructors:
+//   - [MessagesMessages]
+//   - [MessagesMessagesSlice]
+//   - [MessagesChannelMessages]
+//   - [MessagesMessagesNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesMessages(buf)

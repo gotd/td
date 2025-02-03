@@ -481,6 +481,10 @@ const PhotosPhotosClassName = "photos.Photos"
 //
 // See https://core.telegram.org/type/photos.Photos for reference.
 //
+// Constructors:
+//   - [PhotosPhotos]
+//   - [PhotosPhotosSlice]
+//
 // Example:
 //
 //	g, err := tg.DecodePhotosPhotos(buf)

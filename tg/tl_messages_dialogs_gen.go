@@ -816,6 +816,11 @@ const MessagesDialogsClassName = "messages.Dialogs"
 //
 // See https://core.telegram.org/type/messages.Dialogs for reference.
 //
+// Constructors:
+//   - [MessagesDialogs]
+//   - [MessagesDialogsSlice]
+//   - [MessagesDialogsNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesDialogs(buf)

@@ -3334,6 +3334,13 @@ const ChatClassName = "Chat"
 //
 // See https://core.telegram.org/type/Chat for reference.
 //
+// Constructors:
+//   - [ChatEmpty]
+//   - [Chat]
+//   - [ChatForbidden]
+//   - [Channel]
+//   - [ChannelForbidden]
+//
 // Example:
 //
 //	g, err := tg.DecodeChat(buf)

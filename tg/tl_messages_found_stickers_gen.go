@@ -478,6 +478,10 @@ const MessagesFoundStickersClassName = "messages.FoundStickers"
 //
 // See https://core.telegram.org/type/messages.FoundStickers for reference.
 //
+// Constructors:
+//   - [MessagesFoundStickersNotModified]
+//   - [MessagesFoundStickers]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesFoundStickers(buf)

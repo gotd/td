@@ -853,6 +853,10 @@ const ExportedChatInviteClassName = "ExportedChatInvite"
 //
 // See https://core.telegram.org/type/ExportedChatInvite for reference.
 //
+// Constructors:
+//   - [ChatInviteExported]
+//   - [ChatInvitePublicJoinRequests]
+//
 // Example:
 //
 //	g, err := tg.DecodeExportedChatInvite(buf)

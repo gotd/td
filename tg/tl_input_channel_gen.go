@@ -502,6 +502,11 @@ const InputChannelClassName = "InputChannel"
 //
 // See https://core.telegram.org/type/InputChannel for reference.
 //
+// Constructors:
+//   - [InputChannelEmpty]
+//   - [InputChannel]
+//   - [InputChannelFromMessage]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputChannel(buf)

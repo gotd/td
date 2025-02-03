@@ -319,6 +319,10 @@ const DialogPeerClassName = "DialogPeer"
 //
 // See https://core.telegram.org/type/DialogPeer for reference.
 //
+// Constructors:
+//   - [DialogPeer]
+//   - [DialogPeerFolder]
+//
 // Example:
 //
 //	g, err := tg.DecodeDialogPeer(buf)

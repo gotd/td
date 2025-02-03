@@ -337,6 +337,10 @@ const MessagesEmojiGroupsClassName = "messages.EmojiGroups"
 //
 // See https://core.telegram.org/type/messages.EmojiGroups for reference.
 //
+// Constructors:
+//   - [MessagesEmojiGroupsNotModified]
+//   - [MessagesEmojiGroups]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesEmojiGroups(buf)

@@ -1628,6 +1628,14 @@ const ChannelParticipantClassName = "ChannelParticipant"
 //
 // See https://core.telegram.org/type/ChannelParticipant for reference.
 //
+// Constructors:
+//   - [ChannelParticipant]
+//   - [ChannelParticipantSelf]
+//   - [ChannelParticipantCreator]
+//   - [ChannelParticipantAdmin]
+//   - [ChannelParticipantBanned]
+//   - [ChannelParticipantLeft]
+//
 // Example:
 //
 //	g, err := tg.DecodeChannelParticipant(buf)

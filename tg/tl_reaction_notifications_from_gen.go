@@ -242,6 +242,10 @@ const ReactionNotificationsFromClassName = "ReactionNotificationsFrom"
 //
 // See https://core.telegram.org/type/ReactionNotificationsFrom for reference.
 //
+// Constructors:
+//   - [ReactionNotificationsFromContacts]
+//   - [ReactionNotificationsFromAll]
+//
 // Example:
 //
 //	g, err := tg.DecodeReactionNotificationsFrom(buf)

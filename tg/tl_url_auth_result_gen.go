@@ -512,6 +512,11 @@ const URLAuthResultClassName = "UrlAuthResult"
 //
 // See https://core.telegram.org/type/UrlAuthResult for reference.
 //
+// Constructors:
+//   - [URLAuthResultRequest]
+//   - [URLAuthResultAccepted]
+//   - [URLAuthResultDefault]
+//
 // Example:
 //
 //	g, err := tg.DecodeURLAuthResult(buf)

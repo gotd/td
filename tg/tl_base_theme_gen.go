@@ -548,6 +548,13 @@ const BaseThemeClassName = "BaseTheme"
 //
 // See https://core.telegram.org/type/BaseTheme for reference.
 //
+// Constructors:
+//   - [BaseThemeClassic]
+//   - [BaseThemeDay]
+//   - [BaseThemeNight]
+//   - [BaseThemeTinted]
+//   - [BaseThemeArctic]
+//
 // Example:
 //
 //	g, err := tg.DecodeBaseTheme(buf)

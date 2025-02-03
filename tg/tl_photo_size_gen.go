@@ -1175,6 +1175,14 @@ const PhotoSizeClassName = "PhotoSize"
 //
 // See https://core.telegram.org/type/PhotoSize for reference.
 //
+// Constructors:
+//   - [PhotoSizeEmpty]
+//   - [PhotoSize]
+//   - [PhotoCachedSize]
+//   - [PhotoStrippedSize]
+//   - [PhotoSizeProgressive]
+//   - [PhotoPathSize]
+//
 // Example:
 //
 //	g, err := tg.DecodePhotoSize(buf)

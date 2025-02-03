@@ -492,6 +492,11 @@ const ContactsTopPeersClassName = "contacts.TopPeers"
 //
 // See https://core.telegram.org/type/contacts.TopPeers for reference.
 //
+// Constructors:
+//   - [ContactsTopPeersNotModified]
+//   - [ContactsTopPeers]
+//   - [ContactsTopPeersDisabled]
+//
 // Example:
 //
 //	g, err := tg.DecodeContactsTopPeers(buf)

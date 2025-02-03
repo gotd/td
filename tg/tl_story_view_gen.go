@@ -862,6 +862,11 @@ const StoryViewClassName = "StoryView"
 //
 // See https://core.telegram.org/type/StoryView for reference.
 //
+// Constructors:
+//   - [StoryView]
+//   - [StoryViewPublicForward]
+//   - [StoryViewPublicRepost]
+//
 // Example:
 //
 //	g, err := tg.DecodeStoryView(buf)

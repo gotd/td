@@ -526,6 +526,10 @@ const BotAppClassName = "BotApp"
 //
 // See https://core.telegram.org/type/BotApp for reference.
 //
+// Constructors:
+//   - [BotAppNotModified]
+//   - [BotApp]
+//
 // Example:
 //
 //	g, err := tg.DecodeBotApp(buf)

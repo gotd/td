@@ -2402,6 +2402,15 @@ const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 //
 // See https://core.telegram.org/type/InputStorePaymentPurpose for reference.
 //
+// Constructors:
+//   - [InputStorePaymentPremiumSubscription]
+//   - [InputStorePaymentGiftPremium]
+//   - [InputStorePaymentPremiumGiftCode]
+//   - [InputStorePaymentPremiumGiveaway]
+//   - [InputStorePaymentStarsTopup]
+//   - [InputStorePaymentStarsGift]
+//   - [InputStorePaymentStarsGiveaway]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputStorePaymentPurpose(buf)

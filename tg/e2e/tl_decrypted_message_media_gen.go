@@ -4303,6 +4303,24 @@ const DecryptedMessageMediaClassName = "DecryptedMessageMedia"
 //
 // See https://core.telegram.org/type/DecryptedMessageMedia for reference.
 //
+// Constructors:
+//   - [DecryptedMessageMediaEmpty]
+//   - [DecryptedMessageMediaPhoto8]
+//   - [DecryptedMessageMediaVideo8]
+//   - [DecryptedMessageMediaGeoPoint]
+//   - [DecryptedMessageMediaContact]
+//   - [DecryptedMessageMediaDocument8]
+//   - [DecryptedMessageMediaAudio8]
+//   - [DecryptedMessageMediaVideo23]
+//   - [DecryptedMessageMediaAudio]
+//   - [DecryptedMessageMediaExternalDocument]
+//   - [DecryptedMessageMediaPhoto]
+//   - [DecryptedMessageMediaVideo]
+//   - [DecryptedMessageMediaDocument46]
+//   - [DecryptedMessageMediaVenue]
+//   - [DecryptedMessageMediaWebPage]
+//   - [DecryptedMessageMediaDocument]
+//
 // Example:
 //
 //	g, err := e2e.DecodeDecryptedMessageMedia(buf)

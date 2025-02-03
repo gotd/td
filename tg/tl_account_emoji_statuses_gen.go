@@ -337,6 +337,10 @@ const AccountEmojiStatusesClassName = "account.EmojiStatuses"
 //
 // See https://core.telegram.org/type/account.EmojiStatuses for reference.
 //
+// Constructors:
+//   - [AccountEmojiStatusesNotModified]
+//   - [AccountEmojiStatuses]
+//
 // Example:
 //
 //	g, err := tg.DecodeAccountEmojiStatuses(buf)

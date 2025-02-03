@@ -5433,6 +5433,37 @@ const PageBlockClassName = "PageBlock"
 //
 // See https://core.telegram.org/type/PageBlock for reference.
 //
+// Constructors:
+//   - [PageBlockUnsupported]
+//   - [PageBlockTitle]
+//   - [PageBlockSubtitle]
+//   - [PageBlockAuthorDate]
+//   - [PageBlockHeader]
+//   - [PageBlockSubheader]
+//   - [PageBlockParagraph]
+//   - [PageBlockPreformatted]
+//   - [PageBlockFooter]
+//   - [PageBlockDivider]
+//   - [PageBlockAnchor]
+//   - [PageBlockList]
+//   - [PageBlockBlockquote]
+//   - [PageBlockPullquote]
+//   - [PageBlockPhoto]
+//   - [PageBlockVideo]
+//   - [PageBlockCover]
+//   - [PageBlockEmbed]
+//   - [PageBlockEmbedPost]
+//   - [PageBlockCollage]
+//   - [PageBlockSlideshow]
+//   - [PageBlockChannel]
+//   - [PageBlockAudio]
+//   - [PageBlockKicker]
+//   - [PageBlockTable]
+//   - [PageBlockOrderedList]
+//   - [PageBlockDetails]
+//   - [PageBlockRelatedArticles]
+//   - [PageBlockMap]
+//
 // Example:
 //
 //	g, err := tg.DecodePageBlock(buf)

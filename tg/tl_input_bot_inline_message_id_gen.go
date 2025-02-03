@@ -444,6 +444,10 @@ const InputBotInlineMessageIDClassName = "InputBotInlineMessageID"
 //
 // See https://core.telegram.org/type/InputBotInlineMessageID for reference.
 //
+// Constructors:
+//   - [InputBotInlineMessageID]
+//   - [InputBotInlineMessageID64]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputBotInlineMessageID(buf)

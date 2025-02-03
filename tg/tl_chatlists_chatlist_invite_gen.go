@@ -768,6 +768,10 @@ const ChatlistsChatlistInviteClassName = "chatlists.ChatlistInvite"
 //
 // See https://core.telegram.org/type/chatlists.ChatlistInvite for reference.
 //
+// Constructors:
+//   - [ChatlistsChatlistInviteAlready]
+//   - [ChatlistsChatlistInvite]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatlistsChatlistInvite(buf)

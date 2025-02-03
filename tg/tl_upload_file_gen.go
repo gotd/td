@@ -508,6 +508,10 @@ const UploadFileClassName = "upload.File"
 //
 // See https://core.telegram.org/type/upload.File for reference.
 //
+// Constructors:
+//   - [UploadFile]
+//   - [UploadFileCDNRedirect]
+//
 // Example:
 //
 //	g, err := tg.DecodeUploadFile(buf)

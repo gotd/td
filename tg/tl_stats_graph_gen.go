@@ -523,6 +523,11 @@ const StatsGraphClassName = "StatsGraph"
 //
 // See https://core.telegram.org/type/StatsGraph for reference.
 //
+// Constructors:
+//   - [StatsGraphAsync]
+//   - [StatsGraphError]
+//   - [StatsGraph]
+//
 // Example:
 //
 //	g, err := tg.DecodeStatsGraph(buf)

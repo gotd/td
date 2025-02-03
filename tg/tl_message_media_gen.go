@@ -4898,6 +4898,25 @@ const MessageMediaClassName = "MessageMedia"
 //
 // See https://core.telegram.org/type/MessageMedia for reference.
 //
+// Constructors:
+//   - [MessageMediaEmpty]
+//   - [MessageMediaPhoto]
+//   - [MessageMediaGeo]
+//   - [MessageMediaContact]
+//   - [MessageMediaUnsupported]
+//   - [MessageMediaDocument]
+//   - [MessageMediaWebPage]
+//   - [MessageMediaVenue]
+//   - [MessageMediaGame]
+//   - [MessageMediaInvoice]
+//   - [MessageMediaGeoLive]
+//   - [MessageMediaPoll]
+//   - [MessageMediaDice]
+//   - [MessageMediaStory]
+//   - [MessageMediaGiveaway]
+//   - [MessageMediaGiveawayResults]
+//   - [MessageMediaPaidMedia]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessageMedia(buf)

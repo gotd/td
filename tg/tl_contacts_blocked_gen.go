@@ -565,6 +565,10 @@ const ContactsBlockedClassName = "contacts.Blocked"
 //
 // See https://core.telegram.org/type/contacts.Blocked for reference.
 //
+// Constructors:
+//   - [ContactsBlocked]
+//   - [ContactsBlockedSlice]
+//
 // Example:
 //
 //	g, err := tg.DecodeContactsBlocked(buf)

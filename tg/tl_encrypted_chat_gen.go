@@ -1253,6 +1253,13 @@ const EncryptedChatClassName = "EncryptedChat"
 //
 // See https://core.telegram.org/type/EncryptedChat for reference.
 //
+// Constructors:
+//   - [EncryptedChatEmpty]
+//   - [EncryptedChatWaiting]
+//   - [EncryptedChatRequested]
+//   - [EncryptedChat]
+//   - [EncryptedChatDiscarded]
+//
 // Example:
 //
 //	g, err := tg.DecodeEncryptedChat(buf)

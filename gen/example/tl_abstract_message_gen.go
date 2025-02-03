@@ -839,6 +839,13 @@ const AbstractMessageClassName = "AbstractMessage"
 //
 // See https://localhost:80/doc/type/AbstractMessage for reference.
 //
+// Constructors:
+//   - [BigMessage]
+//   - [NoMessage]
+//   - [TargetsMessage]
+//   - [FieldsMessage]
+//   - [BytesMessage]
+//
 // Example:
 //
 //	g, err := td.DecodeAbstractMessage(buf)

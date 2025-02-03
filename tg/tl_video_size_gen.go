@@ -730,6 +730,11 @@ const VideoSizeClassName = "VideoSize"
 //
 // See https://core.telegram.org/type/VideoSize for reference.
 //
+// Constructors:
+//   - [VideoSize]
+//   - [VideoSizeEmojiMarkup]
+//   - [VideoSizeStickerMarkup]
+//
 // Example:
 //
 //	g, err := tg.DecodeVideoSize(buf)

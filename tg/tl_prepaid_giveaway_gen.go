@@ -512,6 +512,10 @@ const PrepaidGiveawayClassName = "PrepaidGiveaway"
 //
 // See https://core.telegram.org/type/PrepaidGiveaway for reference.
 //
+// Constructors:
+//   - [PrepaidGiveaway]
+//   - [PrepaidStarsGiveaway]
+//
 // Example:
 //
 //	g, err := tg.DecodePrepaidGiveaway(buf)

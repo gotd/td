@@ -3359,6 +3359,28 @@ const MessageEntityClassName = "MessageEntity"
 //
 // See https://core.telegram.org/type/MessageEntity for reference.
 //
+// Constructors:
+//   - [MessageEntityUnknown]
+//   - [MessageEntityMention]
+//   - [MessageEntityHashtag]
+//   - [MessageEntityBotCommand]
+//   - [MessageEntityURL]
+//   - [MessageEntityEmail]
+//   - [MessageEntityBold]
+//   - [MessageEntityItalic]
+//   - [MessageEntityCode]
+//   - [MessageEntityPre]
+//   - [MessageEntityTextURL]
+//   - [MessageEntityMentionName]
+//   - [MessageEntityPhone]
+//   - [MessageEntityCashtag]
+//   - [MessageEntityBankCard]
+//   - [MessageEntityUnderline]
+//   - [MessageEntityStrike]
+//   - [MessageEntityBlockquote]
+//   - [MessageEntitySpoiler]
+//   - [MessageEntityCustomEmoji]
+//
 // Example:
 //
 //	g, err := e2e.DecodeMessageEntity(buf)

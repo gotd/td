@@ -977,6 +977,11 @@ const RequestedPeerClassName = "RequestedPeer"
 //
 // See https://core.telegram.org/type/RequestedPeer for reference.
 //
+// Constructors:
+//   - [RequestedPeerUser]
+//   - [RequestedPeerChat]
+//   - [RequestedPeerChannel]
+//
 // Example:
 //
 //	g, err := tg.DecodeRequestedPeer(buf)

@@ -863,6 +863,10 @@ const PaymentsGiveawayInfoClassName = "payments.GiveawayInfo"
 //
 // See https://core.telegram.org/type/payments.GiveawayInfo for reference.
 //
+// Constructors:
+//   - [PaymentsGiveawayInfo]
+//   - [PaymentsGiveawayInfoResults]
+//
 // Example:
 //
 //	g, err := tg.DecodePaymentsGiveawayInfo(buf)

@@ -318,6 +318,10 @@ const UploadCDNFileClassName = "upload.CdnFile"
 //
 // See https://core.telegram.org/type/upload.CdnFile for reference.
 //
+// Constructors:
+//   - [UploadCDNFileReuploadNeeded]
+//   - [UploadCDNFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeUploadCDNFile(buf)

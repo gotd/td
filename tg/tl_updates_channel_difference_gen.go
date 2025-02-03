@@ -1134,6 +1134,11 @@ const UpdatesChannelDifferenceClassName = "updates.ChannelDifference"
 //
 // See https://core.telegram.org/type/updates.ChannelDifference for reference.
 //
+// Constructors:
+//   - [UpdatesChannelDifferenceEmpty]
+//   - [UpdatesChannelDifferenceTooLong]
+//   - [UpdatesChannelDifference]
+//
 // Example:
 //
 //	g, err := tg.DecodeUpdatesChannelDifference(buf)

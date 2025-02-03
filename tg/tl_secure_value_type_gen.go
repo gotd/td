@@ -1370,6 +1370,21 @@ const SecureValueTypeClassName = "SecureValueType"
 //
 // See https://core.telegram.org/type/SecureValueType for reference.
 //
+// Constructors:
+//   - [SecureValueTypePersonalDetails]
+//   - [SecureValueTypePassport]
+//   - [SecureValueTypeDriverLicense]
+//   - [SecureValueTypeIdentityCard]
+//   - [SecureValueTypeInternalPassport]
+//   - [SecureValueTypeAddress]
+//   - [SecureValueTypeUtilityBill]
+//   - [SecureValueTypeBankStatement]
+//   - [SecureValueTypeRentalAgreement]
+//   - [SecureValueTypePassportRegistration]
+//   - [SecureValueTypeTemporaryRegistration]
+//   - [SecureValueTypePhone]
+//   - [SecureValueTypeEmail]
+//
 // Example:
 //
 //	g, err := tg.DecodeSecureValueType(buf)
