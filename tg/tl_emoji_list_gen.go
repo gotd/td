@@ -324,6 +324,10 @@ const EmojiListClassName = "EmojiList"
 //
 // See https://core.telegram.org/type/EmojiList for reference.
 //
+// Constructors:
+//   - [EmojiListNotModified]
+//   - [EmojiList]
+//
 // Example:
 //
 //	g, err := tg.DecodeEmojiList(buf)

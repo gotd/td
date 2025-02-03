@@ -1284,6 +1284,20 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 //
 // See https://core.telegram.org/type/InputPrivacyKey for reference.
 //
+// Constructors:
+//   - [InputPrivacyKeyStatusTimestamp]
+//   - [InputPrivacyKeyChatInvite]
+//   - [InputPrivacyKeyPhoneCall]
+//   - [InputPrivacyKeyPhoneP2P]
+//   - [InputPrivacyKeyForwards]
+//   - [InputPrivacyKeyProfilePhoto]
+//   - [InputPrivacyKeyPhoneNumber]
+//   - [InputPrivacyKeyAddedByPhone]
+//   - [InputPrivacyKeyVoiceMessages]
+//   - [InputPrivacyKeyAbout]
+//   - [InputPrivacyKeyBirthday]
+//   - [InputPrivacyKeyStarGiftsAutoSave]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputPrivacyKey(buf)

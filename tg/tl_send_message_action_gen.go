@@ -2204,6 +2204,26 @@ const SendMessageActionClassName = "SendMessageAction"
 //
 // See https://core.telegram.org/type/SendMessageAction for reference.
 //
+// Constructors:
+//   - [SendMessageTypingAction]
+//   - [SendMessageCancelAction]
+//   - [SendMessageRecordVideoAction]
+//   - [SendMessageUploadVideoAction]
+//   - [SendMessageRecordAudioAction]
+//   - [SendMessageUploadAudioAction]
+//   - [SendMessageUploadPhotoAction]
+//   - [SendMessageUploadDocumentAction]
+//   - [SendMessageGeoLocationAction]
+//   - [SendMessageChooseContactAction]
+//   - [SendMessageGamePlayAction]
+//   - [SendMessageRecordRoundAction]
+//   - [SendMessageUploadRoundAction]
+//   - [SpeakingInGroupCallAction]
+//   - [SendMessageHistoryImportAction]
+//   - [SendMessageChooseStickerAction]
+//   - [SendMessageEmojiInteraction]
+//   - [SendMessageEmojiInteractionSeen]
+//
 // Example:
 //
 //	g, err := tg.DecodeSendMessageAction(buf)

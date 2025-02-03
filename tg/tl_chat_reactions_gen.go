@@ -466,6 +466,11 @@ const ChatReactionsClassName = "ChatReactions"
 //
 // See https://core.telegram.org/type/ChatReactions for reference.
 //
+// Constructors:
+//   - [ChatReactionsNone]
+//   - [ChatReactionsAll]
+//   - [ChatReactionsSome]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatReactions(buf)

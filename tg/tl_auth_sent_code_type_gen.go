@@ -2246,6 +2246,19 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 //
 // See https://core.telegram.org/type/auth.SentCodeType for reference.
 //
+// Constructors:
+//   - [AuthSentCodeTypeApp]
+//   - [AuthSentCodeTypeSMS]
+//   - [AuthSentCodeTypeCall]
+//   - [AuthSentCodeTypeFlashCall]
+//   - [AuthSentCodeTypeMissedCall]
+//   - [AuthSentCodeTypeEmailCode]
+//   - [AuthSentCodeTypeSetUpEmailRequired]
+//   - [AuthSentCodeTypeFragmentSMS]
+//   - [AuthSentCodeTypeFirebaseSMS]
+//   - [AuthSentCodeTypeSMSWord]
+//   - [AuthSentCodeTypeSMSPhrase]
+//
 // Example:
 //
 //	g, err := tg.DecodeAuthSentCodeType(buf)

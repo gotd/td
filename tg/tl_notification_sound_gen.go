@@ -543,6 +543,12 @@ const NotificationSoundClassName = "NotificationSound"
 //
 // See https://core.telegram.org/type/NotificationSound for reference.
 //
+// Constructors:
+//   - [NotificationSoundDefault]
+//   - [NotificationSoundNone]
+//   - [NotificationSoundLocal]
+//   - [NotificationSoundRingtone]
+//
 // Example:
 //
 //	g, err := tg.DecodeNotificationSound(buf)

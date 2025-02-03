@@ -553,6 +553,13 @@ const AttachMenuPeerTypeClassName = "AttachMenuPeerType"
 //
 // See https://core.telegram.org/type/AttachMenuPeerType for reference.
 //
+// Constructors:
+//   - [AttachMenuPeerTypeSameBotPM]
+//   - [AttachMenuPeerTypeBotPM]
+//   - [AttachMenuPeerTypePM]
+//   - [AttachMenuPeerTypeChat]
+//   - [AttachMenuPeerTypeBroadcast]
+//
 // Example:
 //
 //	g, err := tg.DecodeAttachMenuPeerType(buf)

@@ -388,6 +388,10 @@ const EmojiKeywordClassName = "EmojiKeyword"
 //
 // See https://core.telegram.org/type/EmojiKeyword for reference.
 //
+// Constructors:
+//   - [EmojiKeyword]
+//   - [EmojiKeywordDeleted]
+//
 // Example:
 //
 //	g, err := tg.DecodeEmojiKeyword(buf)

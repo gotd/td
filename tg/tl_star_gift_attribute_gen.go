@@ -978,6 +978,12 @@ const StarGiftAttributeClassName = "StarGiftAttribute"
 //
 // See https://core.telegram.org/type/StarGiftAttribute for reference.
 //
+// Constructors:
+//   - [StarGiftAttributeModel]
+//   - [StarGiftAttributePattern]
+//   - [StarGiftAttributeBackdrop]
+//   - [StarGiftAttributeOriginalDetails]
+//
 // Example:
 //
 //	g, err := tg.DecodeStarGiftAttribute(buf)

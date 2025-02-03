@@ -382,6 +382,10 @@ const InputBotAppClassName = "InputBotApp"
 //
 // See https://core.telegram.org/type/InputBotApp for reference.
 //
+// Constructors:
+//   - [InputBotAppID]
+//   - [InputBotAppShortName]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputBotApp(buf)

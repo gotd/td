@@ -2568,6 +2568,20 @@ const InputFileLocationClassName = "InputFileLocation"
 //
 // See https://core.telegram.org/type/InputFileLocation for reference.
 //
+// Constructors:
+//   - [InputFileLocation]
+//   - [InputEncryptedFileLocation]
+//   - [InputDocumentFileLocation]
+//   - [InputSecureFileLocation]
+//   - [InputTakeoutFileLocation]
+//   - [InputPhotoFileLocation]
+//   - [InputPhotoLegacyFileLocation]
+//   - [InputPeerPhotoFileLocation]
+//   - [InputStickerSetThumb]
+//   - [InputGroupCallStream]
+//   - [InputPeerPhotoFileLocationLegacy]
+//   - [InputStickerSetThumbLegacy]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputFileLocation(buf)

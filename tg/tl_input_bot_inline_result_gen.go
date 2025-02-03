@@ -1265,6 +1265,12 @@ const InputBotInlineResultClassName = "InputBotInlineResult"
 //
 // See https://core.telegram.org/type/InputBotInlineResult for reference.
 //
+// Constructors:
+//   - [InputBotInlineResult]
+//   - [InputBotInlineResultPhoto]
+//   - [InputBotInlineResultDocument]
+//   - [InputBotInlineResultGame]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputBotInlineResult(buf)

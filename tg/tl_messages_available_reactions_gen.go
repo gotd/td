@@ -326,6 +326,10 @@ const MessagesAvailableReactionsClassName = "messages.AvailableReactions"
 //
 // See https://core.telegram.org/type/messages.AvailableReactions for reference.
 //
+// Constructors:
+//   - [MessagesAvailableReactionsNotModified]
+//   - [MessagesAvailableReactions]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesAvailableReactions(buf)

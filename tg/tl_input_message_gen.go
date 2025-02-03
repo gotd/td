@@ -573,6 +573,12 @@ const InputMessageClassName = "InputMessage"
 //
 // See https://core.telegram.org/type/InputMessage for reference.
 //
+// Constructors:
+//   - [InputMessageID]
+//   - [InputMessageReplyTo]
+//   - [InputMessagePinned]
+//   - [InputMessageCallbackQuery]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputMessage(buf)

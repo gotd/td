@@ -549,6 +549,11 @@ const StoryReactionClassName = "StoryReaction"
 //
 // See https://core.telegram.org/type/StoryReaction for reference.
 //
+// Constructors:
+//   - [StoryReaction]
+//   - [StoryReactionPublicForward]
+//   - [StoryReactionPublicRepost]
+//
 // Example:
 //
 //	g, err := tg.DecodeStoryReaction(buf)

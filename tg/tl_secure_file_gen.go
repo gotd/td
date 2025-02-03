@@ -441,6 +441,10 @@ const SecureFileClassName = "SecureFile"
 //
 // See https://core.telegram.org/type/SecureFile for reference.
 //
+// Constructors:
+//   - [SecureFileEmpty]
+//   - [SecureFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeSecureFile(buf)

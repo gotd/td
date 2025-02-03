@@ -314,6 +314,10 @@ const InputQuickReplyShortcutClassName = "InputQuickReplyShortcut"
 //
 // See https://core.telegram.org/type/InputQuickReplyShortcut for reference.
 //
+// Constructors:
+//   - [InputQuickReplyShortcut]
+//   - [InputQuickReplyShortcutID]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputQuickReplyShortcut(buf)

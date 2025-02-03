@@ -698,6 +698,10 @@ const PhoneConnectionClassName = "PhoneConnection"
 //
 // See https://core.telegram.org/type/PhoneConnection for reference.
 //
+// Constructors:
+//   - [PhoneConnection]
+//   - [PhoneConnectionWebrtc]
+//
 // Example:
 //
 //	g, err := tg.DecodePhoneConnection(buf)

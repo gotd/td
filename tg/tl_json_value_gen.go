@@ -853,6 +853,14 @@ const JSONValueClassName = "JSONValue"
 //
 // See https://core.telegram.org/type/JSONValue for reference.
 //
+// Constructors:
+//   - [JSONNull]
+//   - [JSONBool]
+//   - [JSONNumber]
+//   - [JSONString]
+//   - [JSONArray]
+//   - [JSONObject]
+//
 // Example:
 //
 //	g, err := tg.DecodeJSONValue(buf)

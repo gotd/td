@@ -568,6 +568,10 @@ const AuthAuthorizationClassName = "auth.Authorization"
 //
 // See https://core.telegram.org/type/auth.Authorization for reference.
 //
+// Constructors:
+//   - [AuthAuthorization]
+//   - [AuthAuthorizationSignUpRequired]
+//
 // Example:
 //
 //	g, err := tg.DecodeAuthAuthorization(buf)

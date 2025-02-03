@@ -1833,6 +1833,25 @@ const TextEntityTypeClassName = "TextEntityType"
 //
 // See https://localhost:80/doc/type/TextEntityType for reference.
 //
+// Constructors:
+//   - [TextEntityTypeMention]
+//   - [TextEntityTypeHashtag]
+//   - [TextEntityTypeCashtag]
+//   - [TextEntityTypeBotCommand]
+//   - [TextEntityTypeURL]
+//   - [TextEntityTypeEmailAddress]
+//   - [TextEntityTypePhoneNumber]
+//   - [TextEntityTypeBankCardNumber]
+//   - [TextEntityTypeBold]
+//   - [TextEntityTypeItalic]
+//   - [TextEntityTypeUnderline]
+//   - [TextEntityTypeStrikethrough]
+//   - [TextEntityTypeCode]
+//   - [TextEntityTypePre]
+//   - [TextEntityTypePreCode]
+//   - [TextEntityTypeTextURL]
+//   - [TextEntityTypeMentionName]
+//
 // Example:
 //
 //	g, err := td.DecodeTextEntityType(buf)

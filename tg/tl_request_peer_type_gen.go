@@ -983,6 +983,11 @@ const RequestPeerTypeClassName = "RequestPeerType"
 //
 // See https://core.telegram.org/type/RequestPeerType for reference.
 //
+// Constructors:
+//   - [RequestPeerTypeUser]
+//   - [RequestPeerTypeChat]
+//   - [RequestPeerTypeBroadcast]
+//
 // Example:
 //
 //	g, err := tg.DecodeRequestPeerType(buf)

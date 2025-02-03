@@ -319,6 +319,10 @@ const InputDialogPeerClassName = "InputDialogPeer"
 //
 // See https://core.telegram.org/type/InputDialogPeer for reference.
 //
+// Constructors:
+//   - [InputDialogPeer]
+//   - [InputDialogPeerFolder]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputDialogPeer(buf)

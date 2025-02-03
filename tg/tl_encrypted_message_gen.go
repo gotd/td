@@ -510,6 +510,10 @@ const EncryptedMessageClassName = "EncryptedMessage"
 //
 // See https://core.telegram.org/type/EncryptedMessage for reference.
 //
+// Constructors:
+//   - [EncryptedMessage]
+//   - [EncryptedMessageService]
+//
 // Example:
 //
 //	g, err := tg.DecodeEncryptedMessage(buf)

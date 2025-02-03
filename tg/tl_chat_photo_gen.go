@@ -409,6 +409,10 @@ const ChatPhotoClassName = "ChatPhoto"
 //
 // See https://core.telegram.org/type/ChatPhoto for reference.
 //
+// Constructors:
+//   - [ChatPhotoEmpty]
+//   - [ChatPhoto]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatPhoto(buf)

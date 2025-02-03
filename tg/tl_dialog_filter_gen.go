@@ -1391,6 +1391,11 @@ const DialogFilterClassName = "DialogFilter"
 //
 // See https://core.telegram.org/type/DialogFilter for reference.
 //
+// Constructors:
+//   - [DialogFilter]
+//   - [DialogFilterDefault]
+//   - [DialogFilterChatlist]
+//
 // Example:
 //
 //	g, err := tg.DecodeDialogFilter(buf)

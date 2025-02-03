@@ -1873,6 +1873,16 @@ const DocumentAttributeClassName = "DocumentAttribute"
 //
 // See https://core.telegram.org/type/DocumentAttribute for reference.
 //
+// Constructors:
+//   - [DocumentAttributeImageSize]
+//   - [DocumentAttributeAnimated]
+//   - [DocumentAttributeSticker]
+//   - [DocumentAttributeVideo]
+//   - [DocumentAttributeAudio]
+//   - [DocumentAttributeFilename]
+//   - [DocumentAttributeHasStickers]
+//   - [DocumentAttributeCustomEmoji]
+//
 // Example:
 //
 //	g, err := tg.DecodeDocumentAttribute(buf)

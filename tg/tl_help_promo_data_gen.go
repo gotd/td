@@ -592,6 +592,10 @@ const HelpPromoDataClassName = "help.PromoData"
 //
 // See https://core.telegram.org/type/help.PromoData for reference.
 //
+// Constructors:
+//   - [HelpPromoDataEmpty]
+//   - [HelpPromoData]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpPromoData(buf)

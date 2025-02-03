@@ -242,6 +242,10 @@ const BoolClassName = "Bool"
 //
 // See https://core.telegram.org/type/Bool for reference.
 //
+// Constructors:
+//   - [BoolFalse]
+//   - [BoolTrue]
+//
 // Example:
 //
 //	g, err := tg.DecodeBool(buf)

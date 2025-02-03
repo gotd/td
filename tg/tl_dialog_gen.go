@@ -1068,6 +1068,10 @@ const DialogClassName = "Dialog"
 //
 // See https://core.telegram.org/type/Dialog for reference.
 //
+// Constructors:
+//   - [Dialog]
+//   - [DialogFolder]
+//
 // Example:
 //
 //	g, err := tg.DecodeDialog(buf)

@@ -334,6 +334,10 @@ const PaymentsStarGiftsClassName = "payments.StarGifts"
 //
 // See https://core.telegram.org/type/payments.StarGifts for reference.
 //
+// Constructors:
+//   - [PaymentsStarGiftsNotModified]
+//   - [PaymentsStarGifts]
+//
 // Example:
 //
 //	g, err := tg.DecodePaymentsStarGifts(buf)

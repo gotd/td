@@ -411,6 +411,10 @@ const HelpDeepLinkInfoClassName = "help.DeepLinkInfo"
 //
 // See https://core.telegram.org/type/help.DeepLinkInfo for reference.
 //
+// Constructors:
+//   - [HelpDeepLinkInfoEmpty]
+//   - [HelpDeepLinkInfo]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpDeepLinkInfo(buf)

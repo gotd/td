@@ -341,6 +341,10 @@ const InputCheckPasswordSRPClassName = "InputCheckPasswordSRP"
 //
 // See https://core.telegram.org/type/InputCheckPasswordSRP for reference.
 //
+// Constructors:
+//   - [InputCheckPasswordEmpty]
+//   - [InputCheckPasswordSRP]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputCheckPasswordSRP(buf)

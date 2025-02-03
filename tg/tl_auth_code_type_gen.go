@@ -554,6 +554,13 @@ const AuthCodeTypeClassName = "auth.CodeType"
 //
 // See https://core.telegram.org/type/auth.CodeType for reference.
 //
+// Constructors:
+//   - [AuthCodeTypeSMS]
+//   - [AuthCodeTypeCall]
+//   - [AuthCodeTypeFlashCall]
+//   - [AuthCodeTypeMissedCall]
+//   - [AuthCodeTypeFragmentSMS]
+//
 // Example:
 //
 //	g, err := tg.DecodeAuthCodeType(buf)

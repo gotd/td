@@ -658,6 +658,13 @@ const NotifyPeerClassName = "NotifyPeer"
 //
 // See https://core.telegram.org/type/NotifyPeer for reference.
 //
+// Constructors:
+//   - [NotifyPeer]
+//   - [NotifyUsers]
+//   - [NotifyChats]
+//   - [NotifyBroadcasts]
+//   - [NotifyForumTopic]
+//
 // Example:
 //
 //	g, err := tg.DecodeNotifyPeer(buf)

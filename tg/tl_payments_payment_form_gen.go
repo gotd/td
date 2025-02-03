@@ -1345,6 +1345,11 @@ const PaymentsPaymentFormClassName = "payments.PaymentForm"
 //
 // See https://core.telegram.org/type/payments.PaymentForm for reference.
 //
+// Constructors:
+//   - [PaymentsPaymentForm]
+//   - [PaymentsPaymentFormStars]
+//   - [PaymentsPaymentFormStarGift]
+//
 // Example:
 //
 //	g, err := tg.DecodePaymentsPaymentForm(buf)

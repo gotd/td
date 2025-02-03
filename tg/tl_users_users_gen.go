@@ -379,6 +379,10 @@ const UsersUsersClassName = "users.Users"
 //
 // See https://core.telegram.org/type/users.Users for reference.
 //
+// Constructors:
+//   - [UsersUsers]
+//   - [UsersUsersSlice]
+//
 // Example:
 //
 //	g, err := tg.DecodeUsersUsers(buf)

@@ -1924,6 +1924,17 @@ const SecureValueErrorClassName = "SecureValueError"
 //
 // See https://core.telegram.org/type/SecureValueError for reference.
 //
+// Constructors:
+//   - [SecureValueErrorData]
+//   - [SecureValueErrorFrontSide]
+//   - [SecureValueErrorReverseSide]
+//   - [SecureValueErrorSelfie]
+//   - [SecureValueErrorFile]
+//   - [SecureValueErrorFiles]
+//   - [SecureValueError]
+//   - [SecureValueErrorTranslationFile]
+//   - [SecureValueErrorTranslationFiles]
+//
 // Example:
 //
 //	g, err := tg.DecodeSecureValueError(buf)

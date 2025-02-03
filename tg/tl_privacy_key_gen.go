@@ -1281,6 +1281,20 @@ const PrivacyKeyClassName = "PrivacyKey"
 //
 // See https://core.telegram.org/type/PrivacyKey for reference.
 //
+// Constructors:
+//   - [PrivacyKeyStatusTimestamp]
+//   - [PrivacyKeyChatInvite]
+//   - [PrivacyKeyPhoneCall]
+//   - [PrivacyKeyPhoneP2P]
+//   - [PrivacyKeyForwards]
+//   - [PrivacyKeyProfilePhoto]
+//   - [PrivacyKeyPhoneNumber]
+//   - [PrivacyKeyAddedByPhone]
+//   - [PrivacyKeyVoiceMessages]
+//   - [PrivacyKeyAbout]
+//   - [PrivacyKeyBirthday]
+//   - [PrivacyKeyStarGiftsAutoSave]
+//
 // Example:
 //
 //	g, err := tg.DecodePrivacyKey(buf)

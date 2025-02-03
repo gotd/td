@@ -1101,6 +1101,15 @@ const InputPeerClassName = "InputPeer"
 //
 // See https://core.telegram.org/type/InputPeer for reference.
 //
+// Constructors:
+//   - [InputPeerEmpty]
+//   - [InputPeerSelf]
+//   - [InputPeerChat]
+//   - [InputPeerUser]
+//   - [InputPeerChannel]
+//   - [InputPeerUserFromMessage]
+//   - [InputPeerChannelFromMessage]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputPeer(buf)

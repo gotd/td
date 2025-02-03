@@ -317,6 +317,10 @@ const AuthClassName = "Auth"
 //
 // See https://localhost:80/doc/type/Auth for reference.
 //
+// Constructors:
+//   - [Auth]
+//   - [AuthPassword]
+//
 // Example:
 //
 //	g, err := td.DecodeAuth(buf)

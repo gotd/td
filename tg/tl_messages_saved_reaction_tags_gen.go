@@ -326,6 +326,10 @@ const MessagesSavedReactionTagsClassName = "messages.SavedReactionTags"
 //
 // See https://core.telegram.org/type/messages.SavedReactionTags for reference.
 //
+// Constructors:
+//   - [MessagesSavedReactionTagsNotModified]
+//   - [MessagesSavedReactionTags]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesSavedReactionTags(buf)

@@ -306,6 +306,10 @@ const AccountThemesClassName = "account.Themes"
 //
 // See https://localhost:80/doc/type/account.Themes for reference.
 //
+// Constructors:
+//   - [AccountThemesNotModified]
+//   - [AccountThemes]
+//
 // Example:
 //
 //	g, err := td.DecodeAccountThemes(buf)

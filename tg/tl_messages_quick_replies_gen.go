@@ -446,6 +446,10 @@ const MessagesQuickRepliesClassName = "messages.QuickReplies"
 //
 // See https://core.telegram.org/type/messages.QuickReplies for reference.
 //
+// Constructors:
+//   - [MessagesQuickReplies]
+//   - [MessagesQuickRepliesNotModified]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesQuickReplies(buf)

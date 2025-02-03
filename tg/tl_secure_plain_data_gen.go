@@ -316,6 +316,10 @@ const SecurePlainDataClassName = "SecurePlainData"
 //
 // See https://core.telegram.org/type/SecurePlainData for reference.
 //
+// Constructors:
+//   - [SecurePlainPhone]
+//   - [SecurePlainEmail]
+//
 // Example:
 //
 //	g, err := tg.DecodeSecurePlainData(buf)

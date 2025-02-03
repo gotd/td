@@ -659,6 +659,14 @@ const InlineQueryPeerTypeClassName = "InlineQueryPeerType"
 //
 // See https://core.telegram.org/type/InlineQueryPeerType for reference.
 //
+// Constructors:
+//   - [InlineQueryPeerTypeSameBotPM]
+//   - [InlineQueryPeerTypePM]
+//   - [InlineQueryPeerTypeChat]
+//   - [InlineQueryPeerTypeMegagroup]
+//   - [InlineQueryPeerTypeBroadcast]
+//   - [InlineQueryPeerTypeBotPM]
+//
 // Example:
 //
 //	g, err := tg.DecodeInlineQueryPeerType(buf)

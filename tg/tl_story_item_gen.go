@@ -1484,6 +1484,11 @@ const StoryItemClassName = "StoryItem"
 //
 // See https://core.telegram.org/type/StoryItem for reference.
 //
+// Constructors:
+//   - [StoryItemDeleted]
+//   - [StoryItemSkipped]
+//   - [StoryItem]
+//
 // Example:
 //
 //	g, err := tg.DecodeStoryItem(buf)

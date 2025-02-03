@@ -485,6 +485,11 @@ const InputWallPaperClassName = "InputWallPaper"
 //
 // See https://core.telegram.org/type/InputWallPaper for reference.
 //
+// Constructors:
+//   - [InputWallPaper]
+//   - [InputWallPaperSlug]
+//   - [InputWallPaperNoFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputWallPaper(buf)

@@ -580,6 +580,13 @@ const PhoneCallDiscardReasonClassName = "PhoneCallDiscardReason"
 //
 // See https://core.telegram.org/type/PhoneCallDiscardReason for reference.
 //
+// Constructors:
+//   - [PhoneCallDiscardReasonMissed]
+//   - [PhoneCallDiscardReasonDisconnect]
+//   - [PhoneCallDiscardReasonHangup]
+//   - [PhoneCallDiscardReasonBusy]
+//   - [PhoneCallDiscardReasonAllowGroupCall]
+//
 // Example:
 //
 //	g, err := tg.DecodePhoneCallDiscardReason(buf)

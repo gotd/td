@@ -412,6 +412,11 @@ const AccountResetPasswordResultClassName = "account.ResetPasswordResult"
 //
 // See https://core.telegram.org/type/account.ResetPasswordResult for reference.
 //
+// Constructors:
+//   - [AccountResetPasswordFailedWait]
+//   - [AccountResetPasswordRequestedWait]
+//   - [AccountResetPasswordOk]
+//
 // Example:
 //
 //	g, err := tg.DecodeAccountResetPasswordResult(buf)

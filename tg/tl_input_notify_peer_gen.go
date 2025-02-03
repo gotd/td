@@ -661,6 +661,13 @@ const InputNotifyPeerClassName = "InputNotifyPeer"
 //
 // See https://core.telegram.org/type/InputNotifyPeer for reference.
 //
+// Constructors:
+//   - [InputNotifyPeer]
+//   - [InputNotifyUsers]
+//   - [InputNotifyChats]
+//   - [InputNotifyBroadcasts]
+//   - [InputNotifyForumTopic]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputNotifyPeer(buf)

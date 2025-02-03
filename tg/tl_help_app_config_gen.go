@@ -316,6 +316,10 @@ const HelpAppConfigClassName = "help.AppConfig"
 //
 // See https://core.telegram.org/type/help.AppConfig for reference.
 //
+// Constructors:
+//   - [HelpAppConfigNotModified]
+//   - [HelpAppConfig]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpAppConfig(buf)

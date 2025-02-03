@@ -335,6 +335,10 @@ const InputDocumentClassName = "InputDocument"
 //
 // See https://core.telegram.org/type/InputDocument for reference.
 //
+// Constructors:
+//   - [InputDocumentEmpty]
+//   - [InputDocument]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputDocument(buf)

@@ -1119,6 +1119,16 @@ const ChannelParticipantsFilterClassName = "ChannelParticipantsFilter"
 //
 // See https://core.telegram.org/type/ChannelParticipantsFilter for reference.
 //
+// Constructors:
+//   - [ChannelParticipantsRecent]
+//   - [ChannelParticipantsAdmins]
+//   - [ChannelParticipantsKicked]
+//   - [ChannelParticipantsBots]
+//   - [ChannelParticipantsBanned]
+//   - [ChannelParticipantsSearch]
+//   - [ChannelParticipantsContacts]
+//   - [ChannelParticipantsMentions]
+//
 // Example:
 //
 //	g, err := tg.DecodeChannelParticipantsFilter(buf)

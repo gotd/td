@@ -418,6 +418,11 @@ const BotMenuButtonClassName = "BotMenuButton"
 //
 // See https://core.telegram.org/type/BotMenuButton for reference.
 //
+// Constructors:
+//   - [BotMenuButtonDefault]
+//   - [BotMenuButtonCommands]
+//   - [BotMenuButton]
+//
 // Example:
 //
 //	g, err := tg.DecodeBotMenuButton(buf)

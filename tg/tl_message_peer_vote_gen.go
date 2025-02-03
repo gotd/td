@@ -610,6 +610,11 @@ const MessagePeerVoteClassName = "MessagePeerVote"
 //
 // See https://core.telegram.org/type/MessagePeerVote for reference.
 //
+// Constructors:
+//   - [MessagePeerVote]
+//   - [MessagePeerVoteInputOption]
+//   - [MessagePeerVoteMultiple]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagePeerVote(buf)

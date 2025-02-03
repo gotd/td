@@ -320,6 +320,10 @@ const MessagesAllStickersClassName = "messages.AllStickers"
 //
 // See https://core.telegram.org/type/messages.AllStickers for reference.
 //
+// Constructors:
+//   - [MessagesAllStickersNotModified]
+//   - [MessagesAllStickers]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesAllStickers(buf)

@@ -602,6 +602,10 @@ const PhotoClassName = "Photo"
 //
 // See https://core.telegram.org/type/Photo for reference.
 //
+// Constructors:
+//   - [PhotoEmpty]
+//   - [Photo]
+//
 // Example:
 //
 //	g, err := tg.DecodePhoto(buf)

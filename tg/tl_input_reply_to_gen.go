@@ -647,6 +647,10 @@ const InputReplyToClassName = "InputReplyTo"
 //
 // See https://core.telegram.org/type/InputReplyTo for reference.
 //
+// Constructors:
+//   - [InputReplyToMessage]
+//   - [InputReplyToStory]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputReplyTo(buf)

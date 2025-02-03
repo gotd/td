@@ -320,6 +320,10 @@ const AccountThemesClassName = "account.Themes"
 //
 // See https://core.telegram.org/type/account.Themes for reference.
 //
+// Constructors:
+//   - [AccountThemesNotModified]
+//   - [AccountThemes]
+//
 // Example:
 //
 //	g, err := tg.DecodeAccountThemes(buf)

@@ -930,6 +930,10 @@ const BotInlineResultClassName = "BotInlineResult"
 //
 // See https://core.telegram.org/type/BotInlineResult for reference.
 //
+// Constructors:
+//   - [BotInlineResult]
+//   - [BotInlineMediaResult]
+//
 // Example:
 //
 //	g, err := tg.DecodeBotInlineResult(buf)

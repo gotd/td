@@ -3634,6 +3634,26 @@ const KeyboardButtonClassName = "KeyboardButton"
 //
 // See https://core.telegram.org/type/KeyboardButton for reference.
 //
+// Constructors:
+//   - [KeyboardButton]
+//   - [KeyboardButtonURL]
+//   - [KeyboardButtonCallback]
+//   - [KeyboardButtonRequestPhone]
+//   - [KeyboardButtonRequestGeoLocation]
+//   - [KeyboardButtonSwitchInline]
+//   - [KeyboardButtonGame]
+//   - [KeyboardButtonBuy]
+//   - [KeyboardButtonURLAuth]
+//   - [InputKeyboardButtonURLAuth]
+//   - [KeyboardButtonRequestPoll]
+//   - [InputKeyboardButtonUserProfile]
+//   - [KeyboardButtonUserProfile]
+//   - [KeyboardButtonWebView]
+//   - [KeyboardButtonSimpleWebView]
+//   - [KeyboardButtonRequestPeer]
+//   - [InputKeyboardButtonRequestPeer]
+//   - [KeyboardButtonCopy]
+//
 // Example:
 //
 //	g, err := tg.DecodeKeyboardButton(buf)

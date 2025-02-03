@@ -383,6 +383,10 @@ const EncryptedFileClassName = "EncryptedFile"
 //
 // See https://core.telegram.org/type/EncryptedFile for reference.
 //
+// Constructors:
+//   - [EncryptedFileEmpty]
+//   - [EncryptedFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeEncryptedFile(buf)

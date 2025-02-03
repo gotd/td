@@ -932,6 +932,10 @@ const ForumTopicClassName = "ForumTopic"
 //
 // See https://core.telegram.org/type/ForumTopic for reference.
 //
+// Constructors:
+//   - [ForumTopicDeleted]
+//   - [ForumTopic]
+//
 // Example:
 //
 //	g, err := tg.DecodeForumTopic(buf)

@@ -393,6 +393,10 @@ const PageListOrderedItemClassName = "PageListOrderedItem"
 //
 // See https://core.telegram.org/type/PageListOrderedItem for reference.
 //
+// Constructors:
+//   - [PageListOrderedItemText]
+//   - [PageListOrderedItemBlocks]
+//
 // Example:
 //
 //	g, err := tg.DecodePageListOrderedItem(buf)

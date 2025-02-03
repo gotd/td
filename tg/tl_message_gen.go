@@ -2895,6 +2895,11 @@ const MessageClassName = "Message"
 //
 // See https://core.telegram.org/type/Message for reference.
 //
+// Constructors:
+//   - [MessageEmpty]
+//   - [Message]
+//   - [MessageService]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessage(buf)

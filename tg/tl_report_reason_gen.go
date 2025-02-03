@@ -1058,6 +1058,18 @@ const ReportReasonClassName = "ReportReason"
 //
 // See https://core.telegram.org/type/ReportReason for reference.
 //
+// Constructors:
+//   - [InputReportReasonSpam]
+//   - [InputReportReasonViolence]
+//   - [InputReportReasonPornography]
+//   - [InputReportReasonChildAbuse]
+//   - [InputReportReasonOther]
+//   - [InputReportReasonCopyright]
+//   - [InputReportReasonGeoIrrelevant]
+//   - [InputReportReasonFake]
+//   - [InputReportReasonIllegalDrugs]
+//   - [InputReportReasonPersonalDetails]
+//
 // Example:
 //
 //	g, err := tg.DecodeReportReason(buf)

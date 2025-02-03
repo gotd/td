@@ -356,6 +356,10 @@ const PublicForwardClassName = "PublicForward"
 //
 // See https://core.telegram.org/type/PublicForward for reference.
 //
+// Constructors:
+//   - [PublicForwardMessage]
+//   - [PublicForwardStory]
+//
 // Example:
 //
 //	g, err := tg.DecodePublicForward(buf)

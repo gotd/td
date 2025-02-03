@@ -807,6 +807,11 @@ const InputWebFileLocationClassName = "InputWebFileLocation"
 //
 // See https://core.telegram.org/type/InputWebFileLocation for reference.
 //
+// Constructors:
+//   - [InputWebFileLocation]
+//   - [InputWebFileGeoPointLocation]
+//   - [InputWebFileAudioAlbumThumbLocation]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputWebFileLocation(buf)

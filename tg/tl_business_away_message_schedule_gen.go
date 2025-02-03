@@ -418,6 +418,11 @@ const BusinessAwayMessageScheduleClassName = "BusinessAwayMessageSchedule"
 //
 // See https://core.telegram.org/type/BusinessAwayMessageSchedule for reference.
 //
+// Constructors:
+//   - [BusinessAwayMessageScheduleAlways]
+//   - [BusinessAwayMessageScheduleOutsideWorkHours]
+//   - [BusinessAwayMessageScheduleCustom]
+//
 // Example:
 //
 //	g, err := tg.DecodeBusinessAwayMessageSchedule(buf)

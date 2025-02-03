@@ -561,6 +561,11 @@ const SetClientDHParamsAnswerClassName = "Set_client_DH_params_answer"
 
 // SetClientDHParamsAnswerClass represents Set_client_DH_params_answer generic type.
 //
+// Constructors:
+//   - [DhGenOk]
+//   - [DhGenRetry]
+//   - [DhGenFail]
+//
 // Example:
 //
 //	g, err := mt.DecodeSetClientDHParamsAnswer(buf)

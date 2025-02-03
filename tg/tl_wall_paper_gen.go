@@ -759,6 +759,10 @@ const WallPaperClassName = "WallPaper"
 //
 // See https://core.telegram.org/type/WallPaper for reference.
 //
+// Constructors:
+//   - [WallPaper]
+//   - [WallPaperNoFile]
+//
 // Example:
 //
 //	g, err := tg.DecodeWallPaper(buf)

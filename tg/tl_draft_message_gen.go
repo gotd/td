@@ -707,6 +707,10 @@ const DraftMessageClassName = "DraftMessage"
 //
 // See https://core.telegram.org/type/DraftMessage for reference.
 //
+// Constructors:
+//   - [DraftMessageEmpty]
+//   - [DraftMessage]
+//
 // Example:
 //
 //	g, err := tg.DecodeDraftMessage(buf)

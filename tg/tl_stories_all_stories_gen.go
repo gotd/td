@@ -623,6 +623,10 @@ const StoriesAllStoriesClassName = "stories.AllStories"
 //
 // See https://core.telegram.org/type/stories.AllStories for reference.
 //
+// Constructors:
+//   - [StoriesAllStoriesNotModified]
+//   - [StoriesAllStories]
+//
 // Example:
 //
 //	g, err := tg.DecodeStoriesAllStories(buf)

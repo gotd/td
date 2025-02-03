@@ -395,6 +395,10 @@ const MessagesDhConfigClassName = "messages.DhConfig"
 //
 // See https://core.telegram.org/type/messages.DhConfig for reference.
 //
+// Constructors:
+//   - [MessagesDhConfigNotModified]
+//   - [MessagesDhConfig]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesDhConfig(buf)

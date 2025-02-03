@@ -883,6 +883,10 @@ const MessageReplyHeaderClassName = "MessageReplyHeader"
 //
 // See https://core.telegram.org/type/MessageReplyHeader for reference.
 //
+// Constructors:
+//   - [MessageReplyHeader]
+//   - [MessageReplyStoryHeader]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessageReplyHeader(buf)

@@ -308,6 +308,10 @@ const HelpPassportConfigClassName = "help.PassportConfig"
 //
 // See https://core.telegram.org/type/help.PassportConfig for reference.
 //
+// Constructors:
+//   - [HelpPassportConfigNotModified]
+//   - [HelpPassportConfig]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpPassportConfig(buf)

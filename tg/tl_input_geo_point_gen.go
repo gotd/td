@@ -371,6 +371,10 @@ const InputGeoPointClassName = "InputGeoPoint"
 //
 // See https://core.telegram.org/type/InputGeoPoint for reference.
 //
+// Constructors:
+//   - [InputGeoPointEmpty]
+//   - [InputGeoPoint]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputGeoPoint(buf)

@@ -411,6 +411,10 @@ const BadMsgNotificationClassName = "BadMsgNotification"
 
 // BadMsgNotificationClass represents BadMsgNotification generic type.
 //
+// Constructors:
+//   - [BadMsgNotification]
+//   - [BadServerSalt]
+//
 // Example:
 //
 //	g, err := mt.DecodeBadMsgNotification(buf)

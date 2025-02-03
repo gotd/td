@@ -462,6 +462,10 @@ const SecureRequiredTypeClassName = "SecureRequiredType"
 //
 // See https://core.telegram.org/type/SecureRequiredType for reference.
 //
+// Constructors:
+//   - [SecureRequiredType]
+//   - [SecureRequiredTypeOneOf]
+//
 // Example:
 //
 //	g, err := tg.DecodeSecureRequiredType(buf)

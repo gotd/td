@@ -423,6 +423,10 @@ const HelpPeerColorSetClassName = "help.PeerColorSet"
 //
 // See https://core.telegram.org/type/help.PeerColorSet for reference.
 //
+// Constructors:
+//   - [HelpPeerColorSet]
+//   - [HelpPeerColorProfileSet]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpPeerColorSet(buf)

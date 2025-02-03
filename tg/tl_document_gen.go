@@ -692,6 +692,10 @@ const DocumentClassName = "Document"
 //
 // See https://core.telegram.org/type/Document for reference.
 //
+// Constructors:
+//   - [DocumentEmpty]
+//   - [Document]
+//
 // Example:
 //
 //	g, err := tg.DecodeDocument(buf)

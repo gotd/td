@@ -930,6 +930,16 @@ const StarsTransactionPeerClassName = "StarsTransactionPeer"
 //
 // See https://core.telegram.org/type/StarsTransactionPeer for reference.
 //
+// Constructors:
+//   - [StarsTransactionPeerUnsupported]
+//   - [StarsTransactionPeerAppStore]
+//   - [StarsTransactionPeerPlayMarket]
+//   - [StarsTransactionPeerPremiumBot]
+//   - [StarsTransactionPeerFragment]
+//   - [StarsTransactionPeer]
+//   - [StarsTransactionPeerAds]
+//   - [StarsTransactionPeerAPI]
+//
 // Example:
 //
 //	g, err := tg.DecodeStarsTransactionPeer(buf)

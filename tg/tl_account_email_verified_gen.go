@@ -343,6 +343,10 @@ const AccountEmailVerifiedClassName = "account.EmailVerified"
 //
 // See https://core.telegram.org/type/account.EmailVerified for reference.
 //
+// Constructors:
+//   - [AccountEmailVerified]
+//   - [AccountEmailVerifiedLogin]
+//
 // Example:
 //
 //	g, err := tg.DecodeAccountEmailVerified(buf)

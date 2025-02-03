@@ -387,6 +387,10 @@ const IPPortClassName = "IpPort"
 //
 // See https://core.telegram.org/type/IpPort for reference.
 //
+// Constructors:
+//   - [IPPort]
+//   - [IPPortSecret]
+//
 // Example:
 //
 //	g, err := tg.DecodeIPPort(buf)

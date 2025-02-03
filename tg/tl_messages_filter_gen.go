@@ -1837,6 +1837,25 @@ const MessagesFilterClassName = "MessagesFilter"
 //
 // See https://core.telegram.org/type/MessagesFilter for reference.
 //
+// Constructors:
+//   - [InputMessagesFilterEmpty]
+//   - [InputMessagesFilterPhotos]
+//   - [InputMessagesFilterVideo]
+//   - [InputMessagesFilterPhotoVideo]
+//   - [InputMessagesFilterDocument]
+//   - [InputMessagesFilterURL]
+//   - [InputMessagesFilterGif]
+//   - [InputMessagesFilterVoice]
+//   - [InputMessagesFilterMusic]
+//   - [InputMessagesFilterChatPhotos]
+//   - [InputMessagesFilterPhoneCalls]
+//   - [InputMessagesFilterRoundVoice]
+//   - [InputMessagesFilterRoundVideo]
+//   - [InputMessagesFilterMyMentions]
+//   - [InputMessagesFilterGeo]
+//   - [InputMessagesFilterContacts]
+//   - [InputMessagesFilterPinned]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesFilter(buf)

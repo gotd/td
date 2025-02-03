@@ -409,6 +409,11 @@ const RPCDropAnswerClassName = "RpcDropAnswer"
 
 // RPCDropAnswerClass represents RpcDropAnswer generic type.
 //
+// Constructors:
+//   - [RPCAnswerUnknown]
+//   - [RPCAnswerDroppedRunning]
+//   - [RPCAnswerDropped]
+//
 // Example:
 //
 //	g, err := mt.DecodeRPCDropAnswer(buf)

@@ -1474,6 +1474,20 @@ const InputPrivacyRuleClassName = "InputPrivacyRule"
 //
 // See https://core.telegram.org/type/InputPrivacyRule for reference.
 //
+// Constructors:
+//   - [InputPrivacyValueAllowContacts]
+//   - [InputPrivacyValueAllowAll]
+//   - [InputPrivacyValueAllowUsers]
+//   - [InputPrivacyValueDisallowContacts]
+//   - [InputPrivacyValueDisallowAll]
+//   - [InputPrivacyValueDisallowUsers]
+//   - [InputPrivacyValueAllowChatParticipants]
+//   - [InputPrivacyValueDisallowChatParticipants]
+//   - [InputPrivacyValueAllowCloseFriends]
+//   - [InputPrivacyValueAllowPremium]
+//   - [InputPrivacyValueAllowBots]
+//   - [InputPrivacyValueDisallowBots]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputPrivacyRule(buf)

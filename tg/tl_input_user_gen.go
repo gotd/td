@@ -604,6 +604,12 @@ const InputUserClassName = "InputUser"
 //
 // See https://core.telegram.org/type/InputUser for reference.
 //
+// Constructors:
+//   - [InputUserEmpty]
+//   - [InputUserSelf]
+//   - [InputUser]
+//   - [InputUserFromMessage]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputUser(buf)

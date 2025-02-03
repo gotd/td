@@ -1058,6 +1058,18 @@ const StorageFileTypeClassName = "storage.FileType"
 //
 // See https://core.telegram.org/type/storage.FileType for reference.
 //
+// Constructors:
+//   - [StorageFileUnknown]
+//   - [StorageFilePartial]
+//   - [StorageFileJpeg]
+//   - [StorageFileGif]
+//   - [StorageFilePng]
+//   - [StorageFilePdf]
+//   - [StorageFileMp3]
+//   - [StorageFileMov]
+//   - [StorageFileMp4]
+//   - [StorageFileWebp]
+//
 // Example:
 //
 //	g, err := tg.DecodeStorageFileType(buf)

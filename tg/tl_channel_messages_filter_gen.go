@@ -346,6 +346,10 @@ const ChannelMessagesFilterClassName = "ChannelMessagesFilter"
 //
 // See https://core.telegram.org/type/ChannelMessagesFilter for reference.
 //
+// Constructors:
+//   - [ChannelMessagesFilterEmpty]
+//   - [ChannelMessagesFilter]
+//
 // Example:
 //
 //	g, err := tg.DecodeChannelMessagesFilter(buf)

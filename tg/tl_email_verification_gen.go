@@ -443,6 +443,11 @@ const EmailVerificationClassName = "EmailVerification"
 //
 // See https://core.telegram.org/type/EmailVerification for reference.
 //
+// Constructors:
+//   - [EmailVerificationCode]
+//   - [EmailVerificationGoogle]
+//   - [EmailVerificationApple]
+//
 // Example:
 //
 //	g, err := tg.DecodeEmailVerification(buf)

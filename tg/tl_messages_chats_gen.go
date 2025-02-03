@@ -384,6 +384,10 @@ const MessagesChatsClassName = "messages.Chats"
 //
 // See https://core.telegram.org/type/messages.Chats for reference.
 //
+// Constructors:
+//   - [MessagesChats]
+//   - [MessagesChatsSlice]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesChats(buf)

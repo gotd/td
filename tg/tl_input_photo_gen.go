@@ -335,6 +335,10 @@ const InputPhotoClassName = "InputPhoto"
 //
 // See https://core.telegram.org/type/InputPhoto for reference.
 //
+// Constructors:
+//   - [InputPhotoEmpty]
+//   - [InputPhoto]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputPhoto(buf)

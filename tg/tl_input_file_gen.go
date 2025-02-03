@@ -598,6 +598,11 @@ const InputFileClassName = "InputFile"
 //
 // See https://core.telegram.org/type/InputFile for reference.
 //
+// Constructors:
+//   - [InputFile]
+//   - [InputFileBig]
+//   - [InputFileStoryDocument]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputFile(buf)

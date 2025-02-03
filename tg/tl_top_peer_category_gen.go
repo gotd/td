@@ -959,6 +959,17 @@ const TopPeerCategoryClassName = "TopPeerCategory"
 //
 // See https://core.telegram.org/type/TopPeerCategory for reference.
 //
+// Constructors:
+//   - [TopPeerCategoryBotsPM]
+//   - [TopPeerCategoryBotsInline]
+//   - [TopPeerCategoryCorrespondents]
+//   - [TopPeerCategoryGroups]
+//   - [TopPeerCategoryChannels]
+//   - [TopPeerCategoryPhoneCalls]
+//   - [TopPeerCategoryForwardUsers]
+//   - [TopPeerCategoryForwardChats]
+//   - [TopPeerCategoryBotsApp]
+//
 // Example:
 //
 //	g, err := tg.DecodeTopPeerCategory(buf)

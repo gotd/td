@@ -314,6 +314,10 @@ const InputCollectibleClassName = "InputCollectible"
 //
 // See https://core.telegram.org/type/InputCollectible for reference.
 //
+// Constructors:
+//   - [InputCollectibleUsername]
+//   - [InputCollectiblePhone]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputCollectible(buf)

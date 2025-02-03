@@ -459,6 +459,10 @@ const ChatParticipantsClassName = "ChatParticipants"
 //
 // See https://core.telegram.org/type/ChatParticipants for reference.
 //
+// Constructors:
+//   - [ChatParticipantsForbidden]
+//   - [ChatParticipants]
+//
 // Example:
 //
 //	g, err := tg.DecodeChatParticipants(buf)

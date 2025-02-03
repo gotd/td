@@ -386,6 +386,10 @@ const ServerDHParamsClassName = "Server_DH_Params"
 
 // ServerDHParamsClass represents Server_DH_Params generic type.
 //
+// Constructors:
+//   - [ServerDHParamsFail]
+//   - [ServerDHParamsOk]
+//
 // Example:
 //
 //	g, err := mt.DecodeServerDHParams(buf)

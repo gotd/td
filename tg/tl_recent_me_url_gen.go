@@ -831,6 +831,13 @@ const RecentMeURLClassName = "RecentMeUrl"
 //
 // See https://core.telegram.org/type/RecentMeUrl for reference.
 //
+// Constructors:
+//   - [RecentMeURLUnknown]
+//   - [RecentMeURLUser]
+//   - [RecentMeURLChat]
+//   - [RecentMeURLChatInvite]
+//   - [RecentMeURLStickerSet]
+//
 // Example:
 //
 //	g, err := tg.DecodeRecentMeURL(buf)

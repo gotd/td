@@ -240,6 +240,10 @@ const BoolClassName = "Bool"
 //
 // See https://localhost:80/doc/type/Bool for reference.
 //
+// Constructors:
+//   - [False]
+//   - [True]
+//
 // Example:
 //
 //	g, err := td.DecodeBool(buf)

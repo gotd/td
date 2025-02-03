@@ -1111,6 +1111,12 @@ const UpdatesDifferenceClassName = "updates.Difference"
 //
 // See https://core.telegram.org/type/updates.Difference for reference.
 //
+// Constructors:
+//   - [UpdatesDifferenceEmpty]
+//   - [UpdatesDifference]
+//   - [UpdatesDifferenceSlice]
+//   - [UpdatesDifferenceTooLong]
+//
 // Example:
 //
 //	g, err := tg.DecodeUpdatesDifference(buf)

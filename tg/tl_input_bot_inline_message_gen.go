@@ -2760,6 +2760,16 @@ const InputBotInlineMessageClassName = "InputBotInlineMessage"
 //
 // See https://core.telegram.org/type/InputBotInlineMessage for reference.
 //
+// Constructors:
+//   - [InputBotInlineMessageMediaAuto]
+//   - [InputBotInlineMessageText]
+//   - [InputBotInlineMessageMediaGeo]
+//   - [InputBotInlineMessageMediaVenue]
+//   - [InputBotInlineMessageMediaContact]
+//   - [InputBotInlineMessageGame]
+//   - [InputBotInlineMessageMediaInvoice]
+//   - [InputBotInlineMessageMediaWebPage]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputBotInlineMessage(buf)

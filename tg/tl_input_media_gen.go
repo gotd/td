@@ -5078,6 +5078,26 @@ const InputMediaClassName = "InputMedia"
 //
 // See https://core.telegram.org/type/InputMedia for reference.
 //
+// Constructors:
+//   - [InputMediaEmpty]
+//   - [InputMediaUploadedPhoto]
+//   - [InputMediaPhoto]
+//   - [InputMediaGeoPoint]
+//   - [InputMediaContact]
+//   - [InputMediaUploadedDocument]
+//   - [InputMediaDocument]
+//   - [InputMediaVenue]
+//   - [InputMediaPhotoExternal]
+//   - [InputMediaDocumentExternal]
+//   - [InputMediaGame]
+//   - [InputMediaInvoice]
+//   - [InputMediaGeoLive]
+//   - [InputMediaPoll]
+//   - [InputMediaDice]
+//   - [InputMediaStory]
+//   - [InputMediaWebPage]
+//   - [InputMediaPaidMedia]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputMedia(buf)

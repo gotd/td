@@ -328,6 +328,10 @@ const MessagesSavedGifsClassName = "messages.SavedGifs"
 //
 // See https://core.telegram.org/type/messages.SavedGifs for reference.
 //
+// Constructors:
+//   - [MessagesSavedGifsNotModified]
+//   - [MessagesSavedGifs]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesSavedGifs(buf)

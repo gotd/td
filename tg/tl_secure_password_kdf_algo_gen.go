@@ -412,6 +412,11 @@ const SecurePasswordKdfAlgoClassName = "SecurePasswordKdfAlgo"
 //
 // See https://core.telegram.org/type/SecurePasswordKdfAlgo for reference.
 //
+// Constructors:
+//   - [SecurePasswordKdfAlgoUnknown]
+//   - [SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000]
+//   - [SecurePasswordKdfAlgoSHA512]
+//
 // Example:
 //
 //	g, err := tg.DecodeSecurePasswordKdfAlgo(buf)

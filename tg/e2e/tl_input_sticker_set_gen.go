@@ -274,6 +274,10 @@ const InputStickerSetClassName = "InputStickerSet"
 //
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
+// Constructors:
+//   - [InputStickerSetShortName]
+//   - [InputStickerSetEmpty]
+//
 // Example:
 //
 //	g, err := e2e.DecodeInputStickerSet(buf)

@@ -638,6 +638,11 @@ const PhotoSizeClassName = "PhotoSize"
 //
 // See https://core.telegram.org/type/PhotoSize for reference.
 //
+// Constructors:
+//   - [PhotoSizeEmpty]
+//   - [PhotoSize]
+//   - [PhotoCachedSize]
+//
 // Example:
 //
 //	g, err := e2e.DecodePhotoSize(buf)

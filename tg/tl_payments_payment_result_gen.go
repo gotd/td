@@ -313,6 +313,10 @@ const PaymentsPaymentResultClassName = "payments.PaymentResult"
 //
 // See https://core.telegram.org/type/payments.PaymentResult for reference.
 //
+// Constructors:
+//   - [PaymentsPaymentResult]
+//   - [PaymentsPaymentVerificationNeeded]
+//
 // Example:
 //
 //	g, err := tg.DecodePaymentsPaymentResult(buf)

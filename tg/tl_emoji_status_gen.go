@@ -963,6 +963,12 @@ const EmojiStatusClassName = "EmojiStatus"
 //
 // See https://core.telegram.org/type/EmojiStatus for reference.
 //
+// Constructors:
+//   - [EmojiStatusEmpty]
+//   - [EmojiStatus]
+//   - [EmojiStatusCollectible]
+//   - [InputEmojiStatusCollectible]
+//
 // Example:
 //
 //	g, err := tg.DecodeEmojiStatus(buf)

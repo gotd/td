@@ -484,6 +484,10 @@ const MessagesFeaturedStickersClassName = "messages.FeaturedStickers"
 //
 // See https://core.telegram.org/type/messages.FeaturedStickers for reference.
 //
+// Constructors:
+//   - [MessagesFeaturedStickersNotModified]
+//   - [MessagesFeaturedStickers]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesFeaturedStickers(buf)

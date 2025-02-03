@@ -320,6 +320,10 @@ const HelpCountriesListClassName = "help.CountriesList"
 //
 // See https://core.telegram.org/type/help.CountriesList for reference.
 //
+// Constructors:
+//   - [HelpCountriesListNotModified]
+//   - [HelpCountriesList]
+//
 // Example:
 //
 //	g, err := tg.DecodeHelpCountriesList(buf)

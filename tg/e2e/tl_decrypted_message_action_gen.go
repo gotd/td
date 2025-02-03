@@ -1806,6 +1806,21 @@ const DecryptedMessageActionClassName = "DecryptedMessageAction"
 //
 // See https://core.telegram.org/type/DecryptedMessageAction for reference.
 //
+// Constructors:
+//   - [DecryptedMessageActionSetMessageTTL]
+//   - [DecryptedMessageActionReadMessages]
+//   - [DecryptedMessageActionDeleteMessages]
+//   - [DecryptedMessageActionScreenshotMessages]
+//   - [DecryptedMessageActionFlushHistory]
+//   - [DecryptedMessageActionResend]
+//   - [DecryptedMessageActionNotifyLayer]
+//   - [DecryptedMessageActionTyping]
+//   - [DecryptedMessageActionRequestKey]
+//   - [DecryptedMessageActionAcceptKey]
+//   - [DecryptedMessageActionAbortKey]
+//   - [DecryptedMessageActionCommitKey]
+//   - [DecryptedMessageActionNoop]
+//
 // Example:
 //
 //	g, err := e2e.DecodeDecryptedMessageAction(buf)

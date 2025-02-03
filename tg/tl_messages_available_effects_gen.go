@@ -376,6 +376,10 @@ const MessagesAvailableEffectsClassName = "messages.AvailableEffects"
 //
 // See https://core.telegram.org/type/messages.AvailableEffects for reference.
 //
+// Constructors:
+//   - [MessagesAvailableEffectsNotModified]
+//   - [MessagesAvailableEffects]
+//
 // Example:
 //
 //	g, err := tg.DecodeMessagesAvailableEffects(buf)

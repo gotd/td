@@ -913,6 +913,15 @@ const BotCommandScopeClassName = "BotCommandScope"
 //
 // See https://core.telegram.org/type/BotCommandScope for reference.
 //
+// Constructors:
+//   - [BotCommandScopeDefault]
+//   - [BotCommandScopeUsers]
+//   - [BotCommandScopeChats]
+//   - [BotCommandScopeChatAdmins]
+//   - [BotCommandScopePeer]
+//   - [BotCommandScopePeerAdmins]
+//   - [BotCommandScopePeerUser]
+//
 // Example:
 //
 //	g, err := tg.DecodeBotCommandScope(buf)

@@ -376,6 +376,10 @@ const InputGameClassName = "InputGame"
 //
 // See https://core.telegram.org/type/InputGame for reference.
 //
+// Constructors:
+//   - [InputGameID]
+//   - [InputGameShortName]
+//
 // Example:
 //
 //	g, err := tg.DecodeInputGame(buf)
