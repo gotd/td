@@ -21,11 +21,21 @@ func join(arg string) DeepLink {
 		},
 	}
 }
+
 func resolve(arg string) DeepLink {
 	return DeepLink{
 		Type: Resolve,
 		Args: map[string][]string{
 			"domain": {arg},
+		},
+	}
+}
+
+func businessChat(arg string) DeepLink {
+	return DeepLink{
+		Type: BusinessChat,
+		Args: map[string][]string{
+			"slug": {arg},
 		},
 	}
 }
@@ -124,9 +134,49 @@ func resolveSuite() map[string][]testCase {
 	}
 }
 
+func businessChatSuite() map[string][]testCase {
+	expect := businessChat("gotd_ru")
+	return map[string][]testCase{
+		"Test": {
+			{expect, `t.me/m/gotd_ru/`, false},
+			{expect, `https://t.me/m/gotd_ru/`, false},
+			{expect, `https://telegram.me/m/gotd_ru`, false},
+			{expect, `https://telegram.dog/m/gotd_ru`, false},
+			{expect, `tg:message?&&&&&&&slug=gotd_ru`, false},
+			{expect, `tg://message?slug=gotd_ru`, false},
+
+			{DeepLink{}, `https://t.co/m/gotd_ru`, true},
+			{DeepLink{}, `rt://message?slug=AAAAAAAAAAAAAAAAAA`, true},
+		},
+		"TDLib": {
+			// https://github.com/tdlib/td/blob/28c6f2e9c045372d50217919bf5768b7fbbe0294/test/link.cpp#L734-L750
+			// Positive
+			{businessChat("abacaba"), "t.me/m/abacaba", false},
+			{businessChat("aba aba"), "t.me/m/aba%20aba", false},
+			{businessChat("123456a"), "t.me/m/123456a", false},
+			{businessChat("12345678901"), "t.me/m/12345678901", false},
+			{businessChat("123456"), "t.me/m/123456", false},
+			{businessChat("123456"), "t.me/m/123456/123123/12/31/a/s//21w/?asdas#test", false},
+			{businessChat("abcdef"), "tg:message?slug=abcdef", false},
+			{businessChat("abc0ef"), "tg:message?slug=abc%30ef", false},
+
+			// Negative
+			{DeepLink{}, "t.me/m?slug=abcdef", true},
+			{DeepLink{}, "t.me/m", true},
+			{DeepLink{}, "t.me/m/", true},
+			{DeepLink{}, "t.me/m//abcdef", true},
+			{DeepLink{}, "t.me/m?/abcdef", true},
+			{DeepLink{}, "t.me/m/?abcdef", true},
+			{DeepLink{}, "t.me/m/#abcdef", true},
+			{DeepLink{}, "tg://message?slug=", true},
+		},
+	}
+}
+
 var typeSuites = map[string]map[string][]testCase{
-	"Join":    joinSuite(),
-	"Resolve": resolveSuite(),
+	"Join":         joinSuite(),
+	"Resolve":      resolveSuite(),
+	"BusinessChat": businessChatSuite(),
 }
 
 func TestParseDeeplink(t *testing.T) {

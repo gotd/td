@@ -30,6 +30,16 @@ const (
 	// 	t.me/+{hash}
 	//
 	Join Type = "join"
+
+	// BusinessChat is deeplink like
+	//
+	// tg:message?slug={slug}
+	// tg://message?slug={slug}
+	// https://t.me/m/{slug}
+	// https://telegram.me/m/{slug}
+	//
+	// See https://core.telegram.org/api/links#business-chat-links
+	BusinessChat Type = "message"
 )
 
 // DeepLink represents Telegram deeplink.
@@ -51,6 +61,8 @@ func (d DeepLink) validate() error {
 		return ensureParam(d.Args, "domain")
 	case Join:
 		return ensureParam(d.Args, "invite")
+	case BusinessChat:
+		return ensureParam(d.Args, "slug")
 	default:
 		return errors.Errorf("unsupported deeplink %q", d.Type)
 	}
@@ -67,6 +79,11 @@ func parseTg(u *url.URL) (DeepLink, error) {
 	case Join:
 		return DeepLink{
 			Type: Join,
+			Args: query,
+		}, nil
+	case BusinessChat:
+		return DeepLink{
+			Type: BusinessChat,
 			Args: query,
 		}, nil
 	}
@@ -100,6 +117,12 @@ func parseHTTPS(u *url.URL) (DeepLink, error) {
 		query.Set("invite", cleanInviteHash(base))
 		return DeepLink{
 			Type: Join,
+			Args: query,
+		}, nil
+	case "m":
+		query.Set("slug", base)
+		return DeepLink{
+			Type: BusinessChat,
 			Args: query,
 		}, nil
 	case "":
