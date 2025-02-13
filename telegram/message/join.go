@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-faster/errors"
 
-	"github.com/gotd/td/telegram/internal/deeplink"
+	"github.com/gotd/td/telegram/deeplink"
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
