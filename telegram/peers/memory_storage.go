@@ -108,7 +108,7 @@ type InmemoryCache struct {
 func (f *InmemoryCache) SaveUsers(ctx context.Context, users ...*tg.User) error {
 	f.usersMux.Lock()
 	defer f.usersMux.Unlock()
-	if f.channelsFull == nil {
+	if f.users == nil {
 		f.users = map[int64]*tg.User{}
 	}
 
@@ -123,7 +123,7 @@ func (f *InmemoryCache) SaveUsers(ctx context.Context, users ...*tg.User) error 
 func (f *InmemoryCache) SaveUserFulls(ctx context.Context, users ...*tg.UserFull) error {
 	f.usersFullMux.Lock()
 	defer f.usersFullMux.Unlock()
-	if f.channelsFull == nil {
+	if f.usersFull == nil {
 		f.usersFull = map[int64]*tg.UserFull{}
 	}
 
@@ -156,7 +156,7 @@ func (f *InmemoryCache) FindUserFull(ctx context.Context, id int64) (*tg.UserFul
 func (f *InmemoryCache) SaveChats(ctx context.Context, chats ...*tg.Chat) error {
 	f.chatsMux.Lock()
 	defer f.chatsMux.Unlock()
-	if f.channelsFull == nil {
+	if f.chats == nil {
 		f.chats = map[int64]*tg.Chat{}
 	}
 
@@ -171,7 +171,7 @@ func (f *InmemoryCache) SaveChats(ctx context.Context, chats ...*tg.Chat) error 
 func (f *InmemoryCache) SaveChatFulls(ctx context.Context, chats ...*tg.ChatFull) error {
 	f.chatsFullMux.Lock()
 	defer f.chatsFullMux.Unlock()
-	if f.channelsFull == nil {
+	if f.chatsFull == nil {
 		f.chatsFull = map[int64]*tg.ChatFull{}
 	}
 
@@ -204,7 +204,7 @@ func (f *InmemoryCache) FindChatFull(ctx context.Context, id int64) (*tg.ChatFul
 func (f *InmemoryCache) SaveChannels(ctx context.Context, channels ...*tg.Channel) error {
 	f.channelsMux.Lock()
 	defer f.channelsMux.Unlock()
-	if f.channelsFull == nil {
+	if f.channels == nil {
 		f.channels = map[int64]*tg.Channel{}
 	}
 
