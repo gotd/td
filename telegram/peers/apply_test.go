@@ -19,6 +19,7 @@ func TestManager_applyChats(t *testing.T) {
 		&tg.Chat{ID: 2},
 		&tg.ChatForbidden{ID: 3},
 		&tg.Channel{ID: 4, AccessHash: 14},
+		&tg.Channel{ID: 4, Min: true, AccessHash: 16},
 		&tg.ChannelForbidden{ID: 5, AccessHash: 15},
 	}
 

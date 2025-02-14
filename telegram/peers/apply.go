@@ -73,7 +73,6 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			k Key
 			v Value
 		)
-		// FIXME(tdakkota): check min constructors
 		switch ch := ch.(type) {
 		case *tg.Chat:
 			k.ID = ch.ID
@@ -88,8 +87,16 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			k.ID = ch.ID
 			v.AccessHash = ch.AccessHash
 			k.Prefix = channelPrefix
-			channels = append(channels, ch)
 
+			if ch.Min {
+				// If Min is true, skip updating existing peer as it corrupts the full AccessHash
+				if _, ok, err := m.storage.Find(ctx, k); err != nil || ok {
+					// FIXME: merge old channel data with new data from min constructor
+					continue
+				}
+			}
+
+			channels = append(channels, ch)
 			ids = append(ids, channelPeerID(ch.ID))
 		case *tg.ChannelForbidden:
 			k.ID = ch.ID
