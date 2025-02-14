@@ -478,6 +478,8 @@ type WebPage struct {
 	Flags bin.Fields
 	// Whether the size of the media in the preview can be changed.
 	HasLargeMedia bool
+	// VideoCoverPhoto field of WebPage.
+	VideoCoverPhoto bool
 	// Preview ID
 	ID int64
 	// URL of previewed webpage
@@ -581,6 +583,9 @@ func (w *WebPage) Zero() bool {
 	if !(w.HasLargeMedia == false) {
 		return false
 	}
+	if !(w.VideoCoverPhoto == false) {
+		return false
+	}
 	if !(w.ID == 0) {
 		return false
 	}
@@ -651,6 +656,7 @@ func (w *WebPage) String() string {
 // FillFrom fills WebPage from given interface.
 func (w *WebPage) FillFrom(from interface {
 	GetHasLargeMedia() (value bool)
+	GetVideoCoverPhoto() (value bool)
 	GetID() (value int64)
 	GetURL() (value string)
 	GetDisplayURL() (value string)
@@ -671,6 +677,7 @@ func (w *WebPage) FillFrom(from interface {
 	GetAttributes() (value []WebPageAttributeClass, ok bool)
 }) {
 	w.HasLargeMedia = from.GetHasLargeMedia()
+	w.VideoCoverPhoto = from.GetVideoCoverPhoto()
 	w.ID = from.GetID()
 	w.URL = from.GetURL()
 	w.DisplayURL = from.GetDisplayURL()
@@ -760,6 +767,11 @@ func (w *WebPage) TypeInfo() tdp.Type {
 			Name:       "HasLargeMedia",
 			SchemaName: "has_large_media",
 			Null:       !w.Flags.Has(13),
+		},
+		{
+			Name:       "VideoCoverPhoto",
+			SchemaName: "video_cover_photo",
+			Null:       !w.Flags.Has(14),
 		},
 		{
 			Name:       "ID",
@@ -855,6 +867,9 @@ func (w *WebPage) TypeInfo() tdp.Type {
 func (w *WebPage) SetFlags() {
 	if !(w.HasLargeMedia == false) {
 		w.Flags.Set(13)
+	}
+	if !(w.VideoCoverPhoto == false) {
+		w.Flags.Set(14)
 	}
 	if !(w.Type == "") {
 		w.Flags.Set(0)
@@ -1009,6 +1024,7 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	w.HasLargeMedia = w.Flags.Has(13)
+	w.VideoCoverPhoto = w.Flags.Has(14)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1163,6 +1179,25 @@ func (w *WebPage) GetHasLargeMedia() (value bool) {
 		return
 	}
 	return w.Flags.Has(13)
+}
+
+// SetVideoCoverPhoto sets value of VideoCoverPhoto conditional field.
+func (w *WebPage) SetVideoCoverPhoto(value bool) {
+	if value {
+		w.Flags.Set(14)
+		w.VideoCoverPhoto = true
+	} else {
+		w.Flags.Unset(14)
+		w.VideoCoverPhoto = false
+	}
+}
+
+// GetVideoCoverPhoto returns value of VideoCoverPhoto conditional field.
+func (w *WebPage) GetVideoCoverPhoto() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(14)
 }
 
 // GetID returns value of ID field.

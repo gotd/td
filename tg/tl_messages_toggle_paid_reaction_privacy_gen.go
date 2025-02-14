@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesTogglePaidReactionPrivacyRequest represents TL type `messages.togglePaidReactionPrivacy#849ad397`.
+// MessagesTogglePaidReactionPrivacyRequest represents TL type `messages.togglePaidReactionPrivacy#435885b5`.
 // Changes the privacy of already sent paid reactions¹ on a specific message.
 //
 // Links:
@@ -45,11 +45,11 @@ type MessagesTogglePaidReactionPrivacyRequest struct {
 	MsgID int
 	// If true, makes the current anonymous in the top sender leaderboard for this message;
 	// otherwise, does the opposite.
-	Private bool
+	Private PaidReactionPrivacyClass
 }
 
 // MessagesTogglePaidReactionPrivacyRequestTypeID is TL type id of MessagesTogglePaidReactionPrivacyRequest.
-const MessagesTogglePaidReactionPrivacyRequestTypeID = 0x849ad397
+const MessagesTogglePaidReactionPrivacyRequestTypeID = 0x435885b5
 
 // Ensuring interfaces in compile-time for MessagesTogglePaidReactionPrivacyRequest.
 var (
@@ -69,7 +69,7 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) Zero() bool {
 	if !(t.MsgID == 0) {
 		return false
 	}
-	if !(t.Private == false) {
+	if !(t.Private == nil) {
 		return false
 	}
 
@@ -89,7 +89,7 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) String() string {
 func (t *MessagesTogglePaidReactionPrivacyRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
-	GetPrivate() (value bool)
+	GetPrivate() (value PaidReactionPrivacyClass)
 }) {
 	t.Peer = from.GetPeer()
 	t.MsgID = from.GetMsgID()
@@ -138,7 +138,7 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *MessagesTogglePaidReactionPrivacyRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.togglePaidReactionPrivacy#849ad397 as nil")
+		return fmt.Errorf("can't encode messages.togglePaidReactionPrivacy#435885b5 as nil")
 	}
 	b.PutID(MessagesTogglePaidReactionPrivacyRequestTypeID)
 	return t.EncodeBare(b)
@@ -147,26 +147,31 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesTogglePaidReactionPrivacyRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.togglePaidReactionPrivacy#849ad397 as nil")
+		return fmt.Errorf("can't encode messages.togglePaidReactionPrivacy#435885b5 as nil")
 	}
 	if t.Peer == nil {
-		return fmt.Errorf("unable to encode messages.togglePaidReactionPrivacy#849ad397: field peer is nil")
+		return fmt.Errorf("unable to encode messages.togglePaidReactionPrivacy#435885b5: field peer is nil")
 	}
 	if err := t.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.togglePaidReactionPrivacy#849ad397: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.togglePaidReactionPrivacy#435885b5: field peer: %w", err)
 	}
 	b.PutInt(t.MsgID)
-	b.PutBool(t.Private)
+	if t.Private == nil {
+		return fmt.Errorf("unable to encode messages.togglePaidReactionPrivacy#435885b5: field private is nil")
+	}
+	if err := t.Private.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.togglePaidReactionPrivacy#435885b5: field private: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *MessagesTogglePaidReactionPrivacyRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.togglePaidReactionPrivacy#849ad397 to nil")
+		return fmt.Errorf("can't decode messages.togglePaidReactionPrivacy#435885b5 to nil")
 	}
 	if err := b.ConsumeID(MessagesTogglePaidReactionPrivacyRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#849ad397: %w", err)
+		return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#435885b5: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -174,26 +179,26 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesTogglePaidReactionPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.togglePaidReactionPrivacy#849ad397 to nil")
+		return fmt.Errorf("can't decode messages.togglePaidReactionPrivacy#435885b5 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#849ad397: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#435885b5: field peer: %w", err)
 		}
 		t.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#849ad397: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#435885b5: field msg_id: %w", err)
 		}
 		t.MsgID = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodePaidReactionPrivacy(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#849ad397: field private: %w", err)
+			return fmt.Errorf("unable to decode messages.togglePaidReactionPrivacy#435885b5: field private: %w", err)
 		}
 		t.Private = value
 	}
@@ -217,14 +222,14 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) GetMsgID() (value int) {
 }
 
 // GetPrivate returns value of Private field.
-func (t *MessagesTogglePaidReactionPrivacyRequest) GetPrivate() (value bool) {
+func (t *MessagesTogglePaidReactionPrivacyRequest) GetPrivate() (value PaidReactionPrivacyClass) {
 	if t == nil {
 		return
 	}
 	return t.Private
 }
 
-// MessagesTogglePaidReactionPrivacy invokes method messages.togglePaidReactionPrivacy#849ad397 returning error if any.
+// MessagesTogglePaidReactionPrivacy invokes method messages.togglePaidReactionPrivacy#435885b5 returning error if any.
 // Changes the privacy of already sent paid reactions¹ on a specific message.
 //
 // Links:

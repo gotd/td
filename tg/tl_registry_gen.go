@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 198
+const Layer = 199
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -411,7 +411,7 @@ func TypesMap() map[uint32]string {
 		UpdateBusinessBotCallbackQueryTypeID:                     "updateBusinessBotCallbackQuery#1ea2fda7",
 		UpdateStarsRevenueStatusTypeID:                           "updateStarsRevenueStatus#a584b019",
 		UpdateBotPurchasedPaidMediaTypeID:                        "updateBotPurchasedPaidMedia#283bd312",
-		UpdatePaidReactionPrivacyTypeID:                          "updatePaidReactionPrivacy#51ca7aec",
+		UpdatePaidReactionPrivacyTypeID:                          "updatePaidReactionPrivacy#8b725fce",
 		UpdatesStateTypeID:                                       "updates.state#a56c2a3e",
 		UpdatesDifferenceEmptyTypeID:                             "updates.differenceEmpty#5d75a138",
 		UpdatesDifferenceTypeID:                                  "updates.difference#f49ca0",
@@ -1405,7 +1405,7 @@ func TypesMap() map[uint32]string {
 		StarsGiveawayOptionTypeID:                                               "starsGiveawayOption#94ce852a",
 		StarsGiveawayWinnersOptionTypeID:                                        "starsGiveawayWinnersOption#54236209",
 		StarGiftTypeID:                                                          "starGift#2cc73c8",
-		StarGiftUniqueTypeID:                                                    "starGiftUnique#f2fe7e4a",
+		StarGiftUniqueTypeID:                                                    "starGiftUnique#5c62d151",
 		PaymentsStarGiftsNotModifiedTypeID:                                      "payments.starGiftsNotModified#a388a368",
 		PaymentsStarGiftsTypeID:                                                 "payments.starGifts#901689ea",
 		MessageReportOptionTypeID:                                               "messageReportOption#7903e3d9",
@@ -1438,6 +1438,9 @@ func TypesMap() map[uint32]string {
 		InputSavedStarGiftUserTypeID:                                            "inputSavedStarGiftUser#69279795",
 		InputSavedStarGiftChatTypeID:                                            "inputSavedStarGiftChat#f101aa7f",
 		PaymentsStarGiftWithdrawalURLTypeID:                                     "payments.starGiftWithdrawalUrl#84aa3a9c",
+		PaidReactionPrivacyDefaultTypeID:                                        "paidReactionPrivacyDefault#206ad49e",
+		PaidReactionPrivacyAnonymousTypeID:                                      "paidReactionPrivacyAnonymous#1f0c1ad9",
+		PaidReactionPrivacyPeerTypeID:                                           "paidReactionPrivacyPeer#dc6cfcf0",
 		InvokeAfterMsgRequestTypeID:                                             "invokeAfterMsg#cb9f372d",
 		InvokeAfterMsgsRequestTypeID:                                            "invokeAfterMsgs#3dc4b4f0",
 		InitConnectionRequestTypeID:                                             "initConnection#c1cd5ea9",
@@ -1448,6 +1451,7 @@ func TypesMap() map[uint32]string {
 		InvokeWithBusinessConnectionRequestTypeID:                               "invokeWithBusinessConnection#dd289f8e",
 		InvokeWithGooglePlayIntegrityRequestTypeID:                              "invokeWithGooglePlayIntegrity#1df92984",
 		InvokeWithApnsSecretRequestTypeID:                                       "invokeWithApnsSecret#dae54f8",
+		InvokeWithReCaptchaRequestTypeID:                                        "invokeWithReCaptcha#adbb0f94",
 		AuthSendCodeRequestTypeID:                                               "auth.sendCode#a677244f",
 		AuthSignUpRequestTypeID:                                                 "auth.signUp#aac7b717",
 		AuthSignInRequestTypeID:                                                 "auth.signIn#8d52a951",
@@ -1828,8 +1832,8 @@ func TypesMap() map[uint32]string {
 		MessagesDeleteFactCheckRequestTypeID:                                    "messages.deleteFactCheck#d1da940c",
 		MessagesGetFactCheckRequestTypeID:                                       "messages.getFactCheck#b9cdc5ee",
 		MessagesRequestMainWebViewRequestTypeID:                                 "messages.requestMainWebView#c9e01e7b",
-		MessagesSendPaidReactionRequestTypeID:                                   "messages.sendPaidReaction#9dd6a67b",
-		MessagesTogglePaidReactionPrivacyRequestTypeID:                          "messages.togglePaidReactionPrivacy#849ad397",
+		MessagesSendPaidReactionRequestTypeID:                                   "messages.sendPaidReaction#58bbcb50",
+		MessagesTogglePaidReactionPrivacyRequestTypeID:                          "messages.togglePaidReactionPrivacy#435885b5",
 		MessagesGetPaidReactionPrivacyRequestTypeID:                             "messages.getPaidReactionPrivacy#472455aa",
 		MessagesViewSponsoredMessageRequestTypeID:                               "messages.viewSponsoredMessage#673ad8f1",
 		MessagesClickSponsoredMessageRequestTypeID:                              "messages.clickSponsoredMessage#f093465",
@@ -1915,7 +1919,7 @@ func TypesMap() map[uint32]string {
 		ChannelsToggleSlowModeRequestTypeID:                                     "channels.toggleSlowMode#edd49ef0",
 		ChannelsGetInactiveChannelsRequestTypeID:                                "channels.getInactiveChannels#11e831ee",
 		ChannelsConvertToGigagroupRequestTypeID:                                 "channels.convertToGigagroup#b290c69",
-		ChannelsGetSendAsRequestTypeID:                                          "channels.getSendAs#dc770ee",
+		ChannelsGetSendAsRequestTypeID:                                          "channels.getSendAs#e785a43f",
 		ChannelsDeleteParticipantHistoryRequestTypeID:                           "channels.deleteParticipantHistory#367544db",
 		ChannelsToggleJoinToSendRequestTypeID:                                   "channels.toggleJoinToSend#e4cb9580",
 		ChannelsToggleJoinRequestRequestTypeID:                                  "channels.toggleJoinRequest#4c2985b6",
@@ -3547,6 +3551,9 @@ func NamesMap() map[string]uint32 {
 		"inputSavedStarGiftUser":                                            InputSavedStarGiftUserTypeID,
 		"inputSavedStarGiftChat":                                            InputSavedStarGiftChatTypeID,
 		"payments.starGiftWithdrawalUrl":                                    PaymentsStarGiftWithdrawalURLTypeID,
+		"paidReactionPrivacyDefault":                                        PaidReactionPrivacyDefaultTypeID,
+		"paidReactionPrivacyAnonymous":                                      PaidReactionPrivacyAnonymousTypeID,
+		"paidReactionPrivacyPeer":                                           PaidReactionPrivacyPeerTypeID,
 		"invokeAfterMsg":                                                    InvokeAfterMsgRequestTypeID,
 		"invokeAfterMsgs":                                                   InvokeAfterMsgsRequestTypeID,
 		"initConnection":                                                    InitConnectionRequestTypeID,
@@ -3557,6 +3564,7 @@ func NamesMap() map[string]uint32 {
 		"invokeWithBusinessConnection":                                      InvokeWithBusinessConnectionRequestTypeID,
 		"invokeWithGooglePlayIntegrity":                                     InvokeWithGooglePlayIntegrityRequestTypeID,
 		"invokeWithApnsSecret":                                              InvokeWithApnsSecretRequestTypeID,
+		"invokeWithReCaptcha":                                               InvokeWithReCaptchaRequestTypeID,
 		"auth.sendCode":                                                     AuthSendCodeRequestTypeID,
 		"auth.signUp":                                                       AuthSignUpRequestTypeID,
 		"auth.signIn":                                                       AuthSignInRequestTypeID,
@@ -5656,6 +5664,9 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		InputSavedStarGiftUserTypeID:                                            func() bin.Object { return &InputSavedStarGiftUser{} },
 		InputSavedStarGiftChatTypeID:                                            func() bin.Object { return &InputSavedStarGiftChat{} },
 		PaymentsStarGiftWithdrawalURLTypeID:                                     func() bin.Object { return &PaymentsStarGiftWithdrawalURL{} },
+		PaidReactionPrivacyDefaultTypeID:                                        func() bin.Object { return &PaidReactionPrivacyDefault{} },
+		PaidReactionPrivacyAnonymousTypeID:                                      func() bin.Object { return &PaidReactionPrivacyAnonymous{} },
+		PaidReactionPrivacyPeerTypeID:                                           func() bin.Object { return &PaidReactionPrivacyPeer{} },
 		InvokeAfterMsgRequestTypeID:                                             func() bin.Object { return &InvokeAfterMsgRequest{} },
 		InvokeAfterMsgsRequestTypeID:                                            func() bin.Object { return &InvokeAfterMsgsRequest{} },
 		InitConnectionRequestTypeID:                                             func() bin.Object { return &InitConnectionRequest{} },
@@ -5666,6 +5677,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		InvokeWithBusinessConnectionRequestTypeID:                               func() bin.Object { return &InvokeWithBusinessConnectionRequest{} },
 		InvokeWithGooglePlayIntegrityRequestTypeID:                              func() bin.Object { return &InvokeWithGooglePlayIntegrityRequest{} },
 		InvokeWithApnsSecretRequestTypeID:                                       func() bin.Object { return &InvokeWithApnsSecretRequest{} },
+		InvokeWithReCaptchaRequestTypeID:                                        func() bin.Object { return &InvokeWithReCaptchaRequest{} },
 		AuthSendCodeRequestTypeID:                                               func() bin.Object { return &AuthSendCodeRequest{} },
 		AuthSignUpRequestTypeID:                                                 func() bin.Object { return &AuthSignUpRequest{} },
 		AuthSignInRequestTypeID:                                                 func() bin.Object { return &AuthSignInRequest{} },
@@ -7333,6 +7345,11 @@ func ClassConstructorsMap() map[string][]uint32 {
 		PageListOrderedItemClassName: {
 			PageListOrderedItemTextTypeID,
 			PageListOrderedItemBlocksTypeID,
+		},
+		PaidReactionPrivacyClassName: {
+			PaidReactionPrivacyDefaultTypeID,
+			PaidReactionPrivacyAnonymousTypeID,
+			PaidReactionPrivacyPeerTypeID,
 		},
 		PasswordKdfAlgoClassName: {
 			PasswordKdfAlgoUnknownTypeID,
