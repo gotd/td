@@ -165,3 +165,57 @@ func TestManager_ResolvePhone(t *testing.T) {
 	_, err = m.Resolve(ctx, phone2)
 	a.Error(err)
 }
+
+func TestManager_ResolveDeeplinkBusinessChat(t *testing.T) {
+	const slug = "slug"
+	testUser := getTestUser()
+
+	apiReq := &tg.AccountResolveBusinessChatLinkRequest{Slug: slug}
+	apiResp := &tg.AccountResolvedBusinessChatLinks{
+		Peer: &tg.PeerUser{UserID: testUser.GetID()},
+		Users: []tg.UserClass{
+			&tg.User{ID: testUser.GetID(), AccessHash: 10, Username: testUser.Username},
+		},
+		Message: slug,
+	}
+
+	inputs := []struct {
+		Name         string
+		Input        string
+		wantParseErr bool
+		wantApiErr   bool
+	}{
+		{"Business chat link", "https://t.me/m/" + slug, false, false},
+		{"Api error", "https://t.me/m/" + slug, false, true},
+		{"Not business chat link", "https://t.me/not_business_link/", true, false},
+		{"No slug", "https://t.me/m/", true, false},
+	}
+
+	for _, tt := range inputs {
+		t.Run(tt.Name, func(t *testing.T) {
+			a := require.New(t)
+			mock, m := testManager(t)
+
+			if !tt.wantParseErr {
+				rb := mock.ExpectCall(apiReq)
+				if tt.wantApiErr {
+					rb.ThenRPCErr(getTestError())
+				} else {
+					rb.ThenResult(apiResp)
+				}
+			}
+
+			r, msg, err := m.ResolveBusinessChat(context.Background(), tt.Input)
+			if tt.wantParseErr || tt.wantApiErr {
+				a.Error(err)
+				return
+			}
+
+			a.NoError(err)
+			a.Equal(slug, msg.Msg)
+
+			a.IsType(&tg.InputPeerUser{}, r.InputPeer())
+			a.Equal(testUser.GetID(), r.ID())
+		})
+	}
+}
