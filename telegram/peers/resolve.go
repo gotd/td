@@ -237,3 +237,37 @@ func (m *Manager) ResolveDeeplinkJoin(ctx context.Context, u string) (tg.ChatInv
 
 	return inviteInfo, nil
 }
+
+// ResolveBusinessChat uses given deeplink to resolve business chat link.
+//
+// Input examples:
+//
+//	t.me/m/slug
+//	https://t.me/m/slug
+//	tg:message?slug=slug
+//	tg://message?slug=slug
+func (m *Manager) ResolveBusinessChat(ctx context.Context, u string) (p Peer, me MsgAndEntities, err error) {
+	link, err := deeplink.Expect(u, deeplink.BusinessChat)
+	if err != nil {
+		return nil, me, errors.Wrap(err, "expect business chat link")
+	}
+
+	bc, err := m.api.AccountResolveBusinessChatLink(ctx, link.Args.Get("slug"))
+	if err != nil {
+		return nil, me, errors.Wrap(err, "resolve business chat link")
+	}
+
+	if err = m.applyEntities(ctx, bc.Users, bc.Chats); err != nil {
+		return
+	}
+
+	p, ok := m.findPeerClass(bc.Peer, bc.Users, bc.Chats)
+	if !ok {
+		return nil, me, &PeerNotFoundError{Peer: bc.Peer}
+	}
+
+	me.Msg = bc.Message
+	me.Entities = bc.Entities
+
+	return
+}
