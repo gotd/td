@@ -8560,14 +8560,14 @@ func (s *ServerDispatcher) OnChannelsConvertToGigagroup(f func(ctx context.Conte
 	s.handlers[ChannelsConvertToGigagroupRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsGetSendAs(f func(ctx context.Context, peer InputPeerClass) (*ChannelsSendAsPeers, error)) {
+func (s *ServerDispatcher) OnChannelsGetSendAs(f func(ctx context.Context, request *ChannelsGetSendAsRequest) (*ChannelsSendAsPeers, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsGetSendAsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Peer)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}

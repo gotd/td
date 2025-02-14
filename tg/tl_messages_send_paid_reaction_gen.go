@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendPaidReactionRequest represents TL type `messages.sendPaidReaction#9dd6a67b`.
+// MessagesSendPaidReactionRequest represents TL type `messages.sendPaidReaction#58bbcb50`.
 // Sends one or more paid Telegram Star reactions »¹, transferring Telegram Stars »²
 // to a channel's balance.
 //
@@ -74,11 +74,11 @@ type MessagesSendPaidReactionRequest struct {
 	//  5) https://core.telegram.org/method/messages.sendPaidReaction
 	//
 	// Use SetPrivate and GetPrivate helpers.
-	Private bool
+	Private PaidReactionPrivacyClass
 }
 
 // MessagesSendPaidReactionRequestTypeID is TL type id of MessagesSendPaidReactionRequest.
-const MessagesSendPaidReactionRequestTypeID = 0x9dd6a67b
+const MessagesSendPaidReactionRequestTypeID = 0x58bbcb50
 
 // Ensuring interfaces in compile-time for MessagesSendPaidReactionRequest.
 var (
@@ -107,7 +107,7 @@ func (s *MessagesSendPaidReactionRequest) Zero() bool {
 	if !(s.RandomID == 0) {
 		return false
 	}
-	if !(s.Private == false) {
+	if !(s.Private == nil) {
 		return false
 	}
 
@@ -129,7 +129,7 @@ func (s *MessagesSendPaidReactionRequest) FillFrom(from interface {
 	GetMsgID() (value int)
 	GetCount() (value int)
 	GetRandomID() (value int64)
-	GetPrivate() (value bool, ok bool)
+	GetPrivate() (value PaidReactionPrivacyClass, ok bool)
 }) {
 	s.Peer = from.GetPeer()
 	s.MsgID = from.GetMsgID()
@@ -191,7 +191,7 @@ func (s *MessagesSendPaidReactionRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *MessagesSendPaidReactionRequest) SetFlags() {
-	if !(s.Private == false) {
+	if !(s.Private == nil) {
 		s.Flags.Set(0)
 	}
 }
@@ -199,7 +199,7 @@ func (s *MessagesSendPaidReactionRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *MessagesSendPaidReactionRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendPaidReaction#9dd6a67b as nil")
+		return fmt.Errorf("can't encode messages.sendPaidReaction#58bbcb50 as nil")
 	}
 	b.PutID(MessagesSendPaidReactionRequestTypeID)
 	return s.EncodeBare(b)
@@ -208,23 +208,28 @@ func (s *MessagesSendPaidReactionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendPaidReactionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendPaidReaction#9dd6a67b as nil")
+		return fmt.Errorf("can't encode messages.sendPaidReaction#58bbcb50 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendPaidReaction#9dd6a67b: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendPaidReaction#58bbcb50: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendPaidReaction#9dd6a67b: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendPaidReaction#58bbcb50: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendPaidReaction#9dd6a67b: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendPaidReaction#58bbcb50: field peer: %w", err)
 	}
 	b.PutInt(s.MsgID)
 	b.PutInt(s.Count)
 	b.PutLong(s.RandomID)
 	if s.Flags.Has(0) {
-		b.PutBool(s.Private)
+		if s.Private == nil {
+			return fmt.Errorf("unable to encode messages.sendPaidReaction#58bbcb50: field private is nil")
+		}
+		if err := s.Private.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.sendPaidReaction#58bbcb50: field private: %w", err)
+		}
 	}
 	return nil
 }
@@ -232,10 +237,10 @@ func (s *MessagesSendPaidReactionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendPaidReactionRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendPaidReaction#9dd6a67b to nil")
+		return fmt.Errorf("can't decode messages.sendPaidReaction#58bbcb50 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendPaidReactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: %w", err)
+		return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -243,45 +248,45 @@ func (s *MessagesSendPaidReactionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendPaidReactionRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendPaidReaction#9dd6a67b to nil")
+		return fmt.Errorf("can't decode messages.sendPaidReaction#58bbcb50 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: field msg_id: %w", err)
 		}
 		s.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: field count: %w", err)
+			return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: field count: %w", err)
 		}
 		s.Count = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(0) {
-		value, err := b.Bool()
+		value, err := DecodePaidReactionPrivacy(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendPaidReaction#9dd6a67b: field private: %w", err)
+			return fmt.Errorf("unable to decode messages.sendPaidReaction#58bbcb50: field private: %w", err)
 		}
 		s.Private = value
 	}
@@ -321,14 +326,14 @@ func (s *MessagesSendPaidReactionRequest) GetRandomID() (value int64) {
 }
 
 // SetPrivate sets value of Private conditional field.
-func (s *MessagesSendPaidReactionRequest) SetPrivate(value bool) {
+func (s *MessagesSendPaidReactionRequest) SetPrivate(value PaidReactionPrivacyClass) {
 	s.Flags.Set(0)
 	s.Private = value
 }
 
 // GetPrivate returns value of Private conditional field and
 // boolean which is true if field was set.
-func (s *MessagesSendPaidReactionRequest) GetPrivate() (value bool, ok bool) {
+func (s *MessagesSendPaidReactionRequest) GetPrivate() (value PaidReactionPrivacyClass, ok bool) {
 	if s == nil {
 		return
 	}
@@ -338,7 +343,7 @@ func (s *MessagesSendPaidReactionRequest) GetPrivate() (value bool, ok bool) {
 	return s.Private, true
 }
 
-// MessagesSendPaidReaction invokes method messages.sendPaidReaction#9dd6a67b returning error if any.
+// MessagesSendPaidReaction invokes method messages.sendPaidReaction#58bbcb50 returning error if any.
 // Sends one or more paid Telegram Star reactions »¹, transferring Telegram Stars »²
 // to a channel's balance.
 //

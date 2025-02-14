@@ -28471,7 +28471,7 @@ func (u *UpdateBotPurchasedPaidMedia) GetQts() (value int) {
 	return u.Qts
 }
 
-// UpdatePaidReactionPrivacy represents TL type `updatePaidReactionPrivacy#51ca7aec`.
+// UpdatePaidReactionPrivacy represents TL type `updatePaidReactionPrivacy#8b725fce`.
 // Contains the current default paid reaction privacy, see here »¹ for more info.
 // Clients should invoke messages.getPaidReactionPrivacy¹ on startup to fetch the
 // current default reaction privacy because this update is only sent to currently online
@@ -28484,11 +28484,11 @@ func (u *UpdateBotPurchasedPaidMedia) GetQts() (value int) {
 // See https://core.telegram.org/constructor/updatePaidReactionPrivacy for reference.
 type UpdatePaidReactionPrivacy struct {
 	// Whether paid reaction privacy is enabled or disabled.
-	Private bool
+	Private PaidReactionPrivacyClass
 }
 
 // UpdatePaidReactionPrivacyTypeID is TL type id of UpdatePaidReactionPrivacy.
-const UpdatePaidReactionPrivacyTypeID = 0x51ca7aec
+const UpdatePaidReactionPrivacyTypeID = 0x8b725fce
 
 // construct implements constructor of UpdateClass.
 func (u UpdatePaidReactionPrivacy) construct() UpdateClass { return &u }
@@ -28507,7 +28507,7 @@ func (u *UpdatePaidReactionPrivacy) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.Private == false) {
+	if !(u.Private == nil) {
 		return false
 	}
 
@@ -28525,7 +28525,7 @@ func (u *UpdatePaidReactionPrivacy) String() string {
 
 // FillFrom fills UpdatePaidReactionPrivacy from given interface.
 func (u *UpdatePaidReactionPrivacy) FillFrom(from interface {
-	GetPrivate() (value bool)
+	GetPrivate() (value PaidReactionPrivacyClass)
 }) {
 	u.Private = from.GetPrivate()
 }
@@ -28564,7 +28564,7 @@ func (u *UpdatePaidReactionPrivacy) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdatePaidReactionPrivacy) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updatePaidReactionPrivacy#51ca7aec as nil")
+		return fmt.Errorf("can't encode updatePaidReactionPrivacy#8b725fce as nil")
 	}
 	b.PutID(UpdatePaidReactionPrivacyTypeID)
 	return u.EncodeBare(b)
@@ -28573,19 +28573,24 @@ func (u *UpdatePaidReactionPrivacy) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdatePaidReactionPrivacy) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updatePaidReactionPrivacy#51ca7aec as nil")
+		return fmt.Errorf("can't encode updatePaidReactionPrivacy#8b725fce as nil")
 	}
-	b.PutBool(u.Private)
+	if u.Private == nil {
+		return fmt.Errorf("unable to encode updatePaidReactionPrivacy#8b725fce: field private is nil")
+	}
+	if err := u.Private.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePaidReactionPrivacy#8b725fce: field private: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdatePaidReactionPrivacy) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updatePaidReactionPrivacy#51ca7aec to nil")
+		return fmt.Errorf("can't decode updatePaidReactionPrivacy#8b725fce to nil")
 	}
 	if err := b.ConsumeID(UpdatePaidReactionPrivacyTypeID); err != nil {
-		return fmt.Errorf("unable to decode updatePaidReactionPrivacy#51ca7aec: %w", err)
+		return fmt.Errorf("unable to decode updatePaidReactionPrivacy#8b725fce: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -28593,12 +28598,12 @@ func (u *UpdatePaidReactionPrivacy) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdatePaidReactionPrivacy) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updatePaidReactionPrivacy#51ca7aec to nil")
+		return fmt.Errorf("can't decode updatePaidReactionPrivacy#8b725fce to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodePaidReactionPrivacy(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updatePaidReactionPrivacy#51ca7aec: field private: %w", err)
+			return fmt.Errorf("unable to decode updatePaidReactionPrivacy#8b725fce: field private: %w", err)
 		}
 		u.Private = value
 	}
@@ -28606,7 +28611,7 @@ func (u *UpdatePaidReactionPrivacy) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetPrivate returns value of Private field.
-func (u *UpdatePaidReactionPrivacy) GetPrivate() (value bool) {
+func (u *UpdatePaidReactionPrivacy) GetPrivate() (value PaidReactionPrivacyClass) {
 	if u == nil {
 		return
 	}
@@ -28910,7 +28915,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBusinessBotCallbackQuery: // updateBusinessBotCallbackQuery#1ea2fda7
 //	case *tg.UpdateStarsRevenueStatus: // updateStarsRevenueStatus#a584b019
 //	case *tg.UpdateBotPurchasedPaidMedia: // updateBotPurchasedPaidMedia#283bd312
-//	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#51ca7aec
+//	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#8b725fce
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -29920,7 +29925,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdatePaidReactionPrivacyTypeID:
-		// Decoding updatePaidReactionPrivacy#51ca7aec.
+		// Decoding updatePaidReactionPrivacy#8b725fce.
 		v := UpdatePaidReactionPrivacy{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
