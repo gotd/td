@@ -15,7 +15,7 @@ require (
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.4.1
-	github.com/klauspost/compress v1.17.11
+	github.com/klauspost/compress v1.18.0
 	github.com/ogen-go/ogen v1.10.0
 	github.com/rogpeppe/go-internal v1.13.1
 	github.com/stretchr/testify v1.10.0
