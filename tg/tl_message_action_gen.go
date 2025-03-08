@@ -7261,7 +7261,7 @@ func (m *MessageActionGiftCode) TypeInfo() tdp.Type {
 		{
 			Name:       "Unclaimed",
 			SchemaName: "unclaimed",
-			Null:       !m.Flags.Has(2),
+			Null:       !m.Flags.Has(5),
 		},
 		{
 			Name:       "BoostPeer",
@@ -7311,7 +7311,7 @@ func (m *MessageActionGiftCode) SetFlags() {
 		m.Flags.Set(0)
 	}
 	if !(m.Unclaimed == false) {
-		m.Flags.Set(2)
+		m.Flags.Set(5)
 	}
 	if !(m.BoostPeer == nil) {
 		m.Flags.Set(1)
@@ -7403,7 +7403,7 @@ func (m *MessageActionGiftCode) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	m.ViaGiveaway = m.Flags.Has(0)
-	m.Unclaimed = m.Flags.Has(2)
+	m.Unclaimed = m.Flags.Has(5)
 	if m.Flags.Has(1) {
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -7483,10 +7483,10 @@ func (m *MessageActionGiftCode) GetViaGiveaway() (value bool) {
 // SetUnclaimed sets value of Unclaimed conditional field.
 func (m *MessageActionGiftCode) SetUnclaimed(value bool) {
 	if value {
-		m.Flags.Set(2)
+		m.Flags.Set(5)
 		m.Unclaimed = true
 	} else {
-		m.Flags.Unset(2)
+		m.Flags.Unset(5)
 		m.Unclaimed = false
 	}
 }
@@ -7496,7 +7496,7 @@ func (m *MessageActionGiftCode) GetUnclaimed() (value bool) {
 	if m == nil {
 		return
 	}
-	return m.Flags.Has(2)
+	return m.Flags.Has(5)
 }
 
 // SetBoostPeer sets value of BoostPeer conditional field.
