@@ -1190,6 +1190,8 @@ type ChannelFull struct {
 	PaidReactionsAvailable bool
 	// StargiftsAvailable field of ChannelFull.
 	StargiftsAvailable bool
+	// PaidMessagesAvailable field of ChannelFull.
+	PaidMessagesAvailable bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1498,6 +1500,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.StargiftsAvailable == false) {
 		return false
 	}
+	if !(c.PaidMessagesAvailable == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1662,6 +1667,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetCanViewStarsRevenue() (value bool)
 	GetPaidReactionsAvailable() (value bool)
 	GetStargiftsAvailable() (value bool)
+	GetPaidMessagesAvailable() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1726,6 +1732,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.CanViewStarsRevenue = from.GetCanViewStarsRevenue()
 	c.PaidReactionsAvailable = from.GetPaidReactionsAvailable()
 	c.StargiftsAvailable = from.GetStargiftsAvailable()
+	c.PaidMessagesAvailable = from.GetPaidMessagesAvailable()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1995,6 +2002,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "StargiftsAvailable",
 			SchemaName: "stargifts_available",
 			Null:       !c.Flags2.Has(19),
+		},
+		{
+			Name:       "PaidMessagesAvailable",
+			SchemaName: "paid_messages_available",
+			Null:       !c.Flags2.Has(20),
 		},
 		{
 			Name:       "ID",
@@ -2267,6 +2279,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.StargiftsAvailable == false) {
 		c.Flags2.Set(19)
+	}
+	if !(c.PaidMessagesAvailable == false) {
+		c.Flags2.Set(20)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2611,6 +2626,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.CanViewStarsRevenue = c.Flags2.Has(15)
 	c.PaidReactionsAvailable = c.Flags2.Has(16)
 	c.StargiftsAvailable = c.Flags2.Has(19)
+	c.PaidMessagesAvailable = c.Flags2.Has(20)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3311,6 +3327,25 @@ func (c *ChannelFull) GetStargiftsAvailable() (value bool) {
 		return
 	}
 	return c.Flags2.Has(19)
+}
+
+// SetPaidMessagesAvailable sets value of PaidMessagesAvailable conditional field.
+func (c *ChannelFull) SetPaidMessagesAvailable(value bool) {
+	if value {
+		c.Flags2.Set(20)
+		c.PaidMessagesAvailable = true
+	} else {
+		c.Flags2.Unset(20)
+		c.PaidMessagesAvailable = false
+	}
+}
+
+// GetPaidMessagesAvailable returns value of PaidMessagesAvailable conditional field.
+func (c *ChannelFull) GetPaidMessagesAvailable() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(20)
 }
 
 // GetID returns value of ID field.

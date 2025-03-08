@@ -45,6 +45,8 @@ type SavedStarGift struct {
 	Refunded bool
 	// CanUpgrade field of SavedStarGift.
 	CanUpgrade bool
+	// PinnedToTop field of SavedStarGift.
+	PinnedToTop bool
 	// FromID field of SavedStarGift.
 	//
 	// Use SetFromID and GetFromID helpers.
@@ -113,6 +115,9 @@ func (s *SavedStarGift) Zero() bool {
 	if !(s.CanUpgrade == false) {
 		return false
 	}
+	if !(s.PinnedToTop == false) {
+		return false
+	}
 	if !(s.FromID == nil) {
 		return false
 	}
@@ -162,6 +167,7 @@ func (s *SavedStarGift) FillFrom(from interface {
 	GetUnsaved() (value bool)
 	GetRefunded() (value bool)
 	GetCanUpgrade() (value bool)
+	GetPinnedToTop() (value bool)
 	GetFromID() (value PeerClass, ok bool)
 	GetDate() (value int)
 	GetGift() (value StarGiftClass)
@@ -177,6 +183,7 @@ func (s *SavedStarGift) FillFrom(from interface {
 	s.Unsaved = from.GetUnsaved()
 	s.Refunded = from.GetRefunded()
 	s.CanUpgrade = from.GetCanUpgrade()
+	s.PinnedToTop = from.GetPinnedToTop()
 	if val, ok := from.GetFromID(); ok {
 		s.FromID = val
 	}
@@ -257,6 +264,11 @@ func (s *SavedStarGift) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(10),
 		},
 		{
+			Name:       "PinnedToTop",
+			SchemaName: "pinned_to_top",
+			Null:       !s.Flags.Has(12),
+		},
+		{
 			Name:       "FromID",
 			SchemaName: "from_id",
 			Null:       !s.Flags.Has(1),
@@ -321,6 +333,9 @@ func (s *SavedStarGift) SetFlags() {
 	}
 	if !(s.CanUpgrade == false) {
 		s.Flags.Set(10)
+	}
+	if !(s.PinnedToTop == false) {
+		s.Flags.Set(12)
 	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(1)
@@ -432,6 +447,7 @@ func (s *SavedStarGift) DecodeBare(b *bin.Buffer) error {
 	s.Unsaved = s.Flags.Has(5)
 	s.Refunded = s.Flags.Has(9)
 	s.CanUpgrade = s.Flags.Has(10)
+	s.PinnedToTop = s.Flags.Has(12)
 	if s.Flags.Has(1) {
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -577,6 +593,25 @@ func (s *SavedStarGift) GetCanUpgrade() (value bool) {
 		return
 	}
 	return s.Flags.Has(10)
+}
+
+// SetPinnedToTop sets value of PinnedToTop conditional field.
+func (s *SavedStarGift) SetPinnedToTop(value bool) {
+	if value {
+		s.Flags.Set(12)
+		s.PinnedToTop = true
+	} else {
+		s.Flags.Unset(12)
+		s.PinnedToTop = false
+	}
+}
+
+// GetPinnedToTop returns value of PinnedToTop conditional field.
+func (s *SavedStarGift) GetPinnedToTop() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(12)
 }
 
 // SetFromID sets value of FromID conditional field.

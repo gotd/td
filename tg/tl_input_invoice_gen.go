@@ -1499,6 +1499,238 @@ func (i *InputInvoiceStarGiftTransfer) GetToID() (value InputPeerClass) {
 	return i.ToID
 }
 
+// InputInvoicePremiumGiftStars represents TL type `inputInvoicePremiumGiftStars#dabab2ef`.
+//
+// See https://core.telegram.org/constructor/inputInvoicePremiumGiftStars for reference.
+type InputInvoicePremiumGiftStars struct {
+	// Flags field of InputInvoicePremiumGiftStars.
+	Flags bin.Fields
+	// UserID field of InputInvoicePremiumGiftStars.
+	UserID InputUserClass
+	// Months field of InputInvoicePremiumGiftStars.
+	Months int
+	// Message field of InputInvoicePremiumGiftStars.
+	//
+	// Use SetMessage and GetMessage helpers.
+	Message TextWithEntities
+}
+
+// InputInvoicePremiumGiftStarsTypeID is TL type id of InputInvoicePremiumGiftStars.
+const InputInvoicePremiumGiftStarsTypeID = 0xdabab2ef
+
+// construct implements constructor of InputInvoiceClass.
+func (i InputInvoicePremiumGiftStars) construct() InputInvoiceClass { return &i }
+
+// Ensuring interfaces in compile-time for InputInvoicePremiumGiftStars.
+var (
+	_ bin.Encoder     = &InputInvoicePremiumGiftStars{}
+	_ bin.Decoder     = &InputInvoicePremiumGiftStars{}
+	_ bin.BareEncoder = &InputInvoicePremiumGiftStars{}
+	_ bin.BareDecoder = &InputInvoicePremiumGiftStars{}
+
+	_ InputInvoiceClass = &InputInvoicePremiumGiftStars{}
+)
+
+func (i *InputInvoicePremiumGiftStars) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.UserID == nil) {
+		return false
+	}
+	if !(i.Months == 0) {
+		return false
+	}
+	if !(i.Message.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputInvoicePremiumGiftStars) String() string {
+	if i == nil {
+		return "InputInvoicePremiumGiftStars(nil)"
+	}
+	type Alias InputInvoicePremiumGiftStars
+	return fmt.Sprintf("InputInvoicePremiumGiftStars%+v", Alias(*i))
+}
+
+// FillFrom fills InputInvoicePremiumGiftStars from given interface.
+func (i *InputInvoicePremiumGiftStars) FillFrom(from interface {
+	GetUserID() (value InputUserClass)
+	GetMonths() (value int)
+	GetMessage() (value TextWithEntities, ok bool)
+}) {
+	i.UserID = from.GetUserID()
+	i.Months = from.GetMonths()
+	if val, ok := from.GetMessage(); ok {
+		i.Message = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputInvoicePremiumGiftStars) TypeID() uint32 {
+	return InputInvoicePremiumGiftStarsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputInvoicePremiumGiftStars) TypeName() string {
+	return "inputInvoicePremiumGiftStars"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputInvoicePremiumGiftStars) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputInvoicePremiumGiftStars",
+		ID:   InputInvoicePremiumGiftStarsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Months",
+			SchemaName: "months",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputInvoicePremiumGiftStars) SetFlags() {
+	if !(i.Message.Zero()) {
+		i.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputInvoicePremiumGiftStars) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoicePremiumGiftStars#dabab2ef as nil")
+	}
+	b.PutID(InputInvoicePremiumGiftStarsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputInvoicePremiumGiftStars) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoicePremiumGiftStars#dabab2ef as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoicePremiumGiftStars#dabab2ef: field flags: %w", err)
+	}
+	if i.UserID == nil {
+		return fmt.Errorf("unable to encode inputInvoicePremiumGiftStars#dabab2ef: field user_id is nil")
+	}
+	if err := i.UserID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoicePremiumGiftStars#dabab2ef: field user_id: %w", err)
+	}
+	b.PutInt(i.Months)
+	if i.Flags.Has(0) {
+		if err := i.Message.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputInvoicePremiumGiftStars#dabab2ef: field message: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputInvoicePremiumGiftStars) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoicePremiumGiftStars#dabab2ef to nil")
+	}
+	if err := b.ConsumeID(InputInvoicePremiumGiftStarsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputInvoicePremiumGiftStars#dabab2ef: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputInvoicePremiumGiftStars) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoicePremiumGiftStars#dabab2ef to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputInvoicePremiumGiftStars#dabab2ef: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputInvoicePremiumGiftStars#dabab2ef: field user_id: %w", err)
+		}
+		i.UserID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputInvoicePremiumGiftStars#dabab2ef: field months: %w", err)
+		}
+		i.Months = value
+	}
+	if i.Flags.Has(0) {
+		if err := i.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputInvoicePremiumGiftStars#dabab2ef: field message: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (i *InputInvoicePremiumGiftStars) GetUserID() (value InputUserClass) {
+	if i == nil {
+		return
+	}
+	return i.UserID
+}
+
+// GetMonths returns value of Months field.
+func (i *InputInvoicePremiumGiftStars) GetMonths() (value int) {
+	if i == nil {
+		return
+	}
+	return i.Months
+}
+
+// SetMessage sets value of Message conditional field.
+func (i *InputInvoicePremiumGiftStars) SetMessage(value TextWithEntities) {
+	i.Flags.Set(0)
+	i.Message = value
+}
+
+// GetMessage returns value of Message conditional field and
+// boolean which is true if field was set.
+func (i *InputInvoicePremiumGiftStars) GetMessage() (value TextWithEntities, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Message, true
+}
+
 // InputInvoiceClassName is schema name of InputInvoiceClass.
 const InputInvoiceClassName = "InputInvoice"
 
@@ -1515,6 +1747,7 @@ const InputInvoiceClassName = "InputInvoice"
 //   - [InputInvoiceStarGift]
 //   - [InputInvoiceStarGiftUpgrade]
 //   - [InputInvoiceStarGiftTransfer]
+//   - [InputInvoicePremiumGiftStars]
 //
 // Example:
 //
@@ -1531,6 +1764,7 @@ const InputInvoiceClassName = "InputInvoice"
 //	case *tg.InputInvoiceStarGift: // inputInvoiceStarGift#e8625e92
 //	case *tg.InputInvoiceStarGiftUpgrade: // inputInvoiceStarGiftUpgrade#4d818d5d
 //	case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#4a5f5bd9
+//	case *tg.InputInvoicePremiumGiftStars: // inputInvoicePremiumGiftStars#dabab2ef
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -1611,6 +1845,13 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 	case InputInvoiceStarGiftTransferTypeID:
 		// Decoding inputInvoiceStarGiftTransfer#4a5f5bd9.
 		v := InputInvoiceStarGiftTransfer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
+		}
+		return &v, nil
+	case InputInvoicePremiumGiftStarsTypeID:
+		// Decoding inputInvoicePremiumGiftStars#dabab2ef.
+		v := InputInvoicePremiumGiftStars{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}

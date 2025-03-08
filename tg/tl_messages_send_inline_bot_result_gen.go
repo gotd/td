@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#3ebee86a`.
+// MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#c0cf7646`.
 // Send a result obtained using messages.getInlineBotResults¹.
 //
 // Links:
@@ -94,10 +94,14 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
 	QuickReplyShortcut InputQuickReplyShortcutClass
+	// AllowPaidStars field of MessagesSendInlineBotResultRequest.
+	//
+	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
+	AllowPaidStars int64
 }
 
 // MessagesSendInlineBotResultRequestTypeID is TL type id of MessagesSendInlineBotResultRequest.
-const MessagesSendInlineBotResultRequestTypeID = 0x3ebee86a
+const MessagesSendInlineBotResultRequestTypeID = 0xc0cf7646
 
 // Ensuring interfaces in compile-time for MessagesSendInlineBotResultRequest.
 var (
@@ -150,6 +154,9 @@ func (s *MessagesSendInlineBotResultRequest) Zero() bool {
 	if !(s.QuickReplyShortcut == nil) {
 		return false
 	}
+	if !(s.AllowPaidStars == 0) {
+		return false
+	}
 
 	return true
 }
@@ -177,6 +184,7 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 	GetScheduleDate() (value int, ok bool)
 	GetSendAs() (value InputPeerClass, ok bool)
 	GetQuickReplyShortcut() (value InputQuickReplyShortcutClass, ok bool)
+	GetAllowPaidStars() (value int64, ok bool)
 }) {
 	s.Silent = from.GetSilent()
 	s.Background = from.GetBackground()
@@ -200,6 +208,10 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 
 	if val, ok := from.GetQuickReplyShortcut(); ok {
 		s.QuickReplyShortcut = val
+	}
+
+	if val, ok := from.GetAllowPaidStars(); ok {
+		s.AllowPaidStars = val
 	}
 
 }
@@ -283,6 +295,11 @@ func (s *MessagesSendInlineBotResultRequest) TypeInfo() tdp.Type {
 			SchemaName: "quick_reply_shortcut",
 			Null:       !s.Flags.Has(17),
 		},
+		{
+			Name:       "AllowPaidStars",
+			SchemaName: "allow_paid_stars",
+			Null:       !s.Flags.Has(21),
+		},
 	}
 	return typ
 }
@@ -313,12 +330,15 @@ func (s *MessagesSendInlineBotResultRequest) SetFlags() {
 	if !(s.QuickReplyShortcut == nil) {
 		s.Flags.Set(17)
 	}
+	if !(s.AllowPaidStars == 0) {
+		s.Flags.Set(21)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendInlineBotResult#3ebee86a as nil")
+		return fmt.Errorf("can't encode messages.sendInlineBotResult#c0cf7646 as nil")
 	}
 	b.PutID(MessagesSendInlineBotResultRequestTypeID)
 	return s.EncodeBare(b)
@@ -327,24 +347,24 @@ func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendInlineBotResult#3ebee86a as nil")
+		return fmt.Errorf("can't encode messages.sendInlineBotResult#c0cf7646 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field peer: %w", err)
 	}
 	if s.Flags.Has(0) {
 		if s.ReplyTo == nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field reply_to is nil")
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field reply_to is nil")
 		}
 		if err := s.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field reply_to: %w", err)
 		}
 	}
 	b.PutLong(s.RandomID)
@@ -355,19 +375,22 @@ func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(13) {
 		if s.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field send_as is nil")
 		}
 		if err := s.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field send_as: %w", err)
 		}
 	}
 	if s.Flags.Has(17) {
 		if s.QuickReplyShortcut == nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field quick_reply_shortcut is nil")
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field quick_reply_shortcut is nil")
 		}
 		if err := s.QuickReplyShortcut.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#3ebee86a: field quick_reply_shortcut: %w", err)
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#c0cf7646: field quick_reply_shortcut: %w", err)
 		}
+	}
+	if s.Flags.Has(21) {
+		b.PutLong(s.AllowPaidStars)
 	}
 	return nil
 }
@@ -375,10 +398,10 @@ func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendInlineBotResultRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendInlineBotResult#3ebee86a to nil")
+		return fmt.Errorf("can't decode messages.sendInlineBotResult#c0cf7646 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendInlineBotResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: %w", err)
+		return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -386,11 +409,11 @@ func (s *MessagesSendInlineBotResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendInlineBotResultRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendInlineBotResult#3ebee86a to nil")
+		return fmt.Errorf("can't decode messages.sendInlineBotResult#c0cf7646 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field flags: %w", err)
 		}
 	}
 	s.Silent = s.Flags.Has(5)
@@ -400,58 +423,65 @@ func (s *MessagesSendInlineBotResultRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
 		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field reply_to: %w", err)
 		}
 		s.ReplyTo = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field query_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field query_id: %w", err)
 		}
 		s.QueryID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field id: %w", err)
 		}
 		s.ID = value
 	}
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field schedule_date: %w", err)
 		}
 		s.ScheduleDate = value
 	}
 	if s.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field send_as: %w", err)
 		}
 		s.SendAs = value
 	}
 	if s.Flags.Has(17) {
 		value, err := DecodeInputQuickReplyShortcut(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#3ebee86a: field quick_reply_shortcut: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field quick_reply_shortcut: %w", err)
 		}
 		s.QuickReplyShortcut = value
+	}
+	if s.Flags.Has(21) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#c0cf7646: field allow_paid_stars: %w", err)
+		}
+		s.AllowPaidStars = value
 	}
 	return nil
 }
@@ -636,7 +666,25 @@ func (s *MessagesSendInlineBotResultRequest) GetQuickReplyShortcut() (value Inpu
 	return s.QuickReplyShortcut, true
 }
 
-// MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#3ebee86a returning error if any.
+// SetAllowPaidStars sets value of AllowPaidStars conditional field.
+func (s *MessagesSendInlineBotResultRequest) SetAllowPaidStars(value int64) {
+	s.Flags.Set(21)
+	s.AllowPaidStars = value
+}
+
+// GetAllowPaidStars returns value of AllowPaidStars conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSendInlineBotResultRequest) GetAllowPaidStars() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(21) {
+		return value, false
+	}
+	return s.AllowPaidStars, true
+}
+
+// MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#c0cf7646 returning error if any.
 // Send a result obtained using messages.getInlineBotResults¹.
 //
 // Links:
