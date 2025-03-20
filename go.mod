@@ -18,7 +18,7 @@ require (
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.4.1
 	github.com/klauspost/compress v1.18.0
-	github.com/ogen-go/ogen v1.10.0
+	github.com/ogen-go/ogen v1.10.1
 	github.com/rogpeppe/go-internal v1.14.1
 	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/otel v1.35.0
@@ -41,7 +41,7 @@ require (
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/dlclark/regexp2 v1.11.4 // indirect
+	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-faster/sdk v0.22.0 // indirect
