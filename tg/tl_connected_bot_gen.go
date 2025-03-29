@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ConnectedBot represents TL type `connectedBot#bd068601`.
+// ConnectedBot represents TL type `connectedBot#cd64636c`.
 // Contains info about a connected business bot »¹.
 //
 // Links:
@@ -44,8 +44,6 @@ type ConnectedBot struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the the bot can reply to messages it receives through the connection
-	CanReply bool
 	// ID of the connected bot
 	BotID int64
 	// Specifies the private chats that a connected business bot »¹ may receive messages
@@ -54,10 +52,12 @@ type ConnectedBot struct {
 	// Links:
 	//  1) https://core.telegram.org/api/business#connected-bots
 	Recipients BusinessBotRecipients
+	// Rights field of ConnectedBot.
+	Rights BusinessBotRights
 }
 
 // ConnectedBotTypeID is TL type id of ConnectedBot.
-const ConnectedBotTypeID = 0xbd068601
+const ConnectedBotTypeID = 0xcd64636c
 
 // Ensuring interfaces in compile-time for ConnectedBot.
 var (
@@ -74,13 +74,13 @@ func (c *ConnectedBot) Zero() bool {
 	if !(c.Flags.Zero()) {
 		return false
 	}
-	if !(c.CanReply == false) {
-		return false
-	}
 	if !(c.BotID == 0) {
 		return false
 	}
 	if !(c.Recipients.Zero()) {
+		return false
+	}
+	if !(c.Rights.Zero()) {
 		return false
 	}
 
@@ -98,13 +98,13 @@ func (c *ConnectedBot) String() string {
 
 // FillFrom fills ConnectedBot from given interface.
 func (c *ConnectedBot) FillFrom(from interface {
-	GetCanReply() (value bool)
 	GetBotID() (value int64)
 	GetRecipients() (value BusinessBotRecipients)
+	GetRights() (value BusinessBotRights)
 }) {
-	c.CanReply = from.GetCanReply()
 	c.BotID = from.GetBotID()
 	c.Recipients = from.GetRecipients()
+	c.Rights = from.GetRights()
 }
 
 // TypeID returns type id in TL schema.
@@ -131,11 +131,6 @@ func (c *ConnectedBot) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "CanReply",
-			SchemaName: "can_reply",
-			Null:       !c.Flags.Has(0),
-		},
-		{
 			Name:       "BotID",
 			SchemaName: "bot_id",
 		},
@@ -143,21 +138,22 @@ func (c *ConnectedBot) TypeInfo() tdp.Type {
 			Name:       "Recipients",
 			SchemaName: "recipients",
 		},
+		{
+			Name:       "Rights",
+			SchemaName: "rights",
+		},
 	}
 	return typ
 }
 
 // SetFlags sets flags for non-zero fields.
 func (c *ConnectedBot) SetFlags() {
-	if !(c.CanReply == false) {
-		c.Flags.Set(0)
-	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ConnectedBot) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode connectedBot#bd068601 as nil")
+		return fmt.Errorf("can't encode connectedBot#cd64636c as nil")
 	}
 	b.PutID(ConnectedBotTypeID)
 	return c.EncodeBare(b)
@@ -166,15 +162,18 @@ func (c *ConnectedBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ConnectedBot) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode connectedBot#bd068601 as nil")
+		return fmt.Errorf("can't encode connectedBot#cd64636c as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#bd068601: field flags: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#cd64636c: field flags: %w", err)
 	}
 	b.PutLong(c.BotID)
 	if err := c.Recipients.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#bd068601: field recipients: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#cd64636c: field recipients: %w", err)
+	}
+	if err := c.Rights.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode connectedBot#cd64636c: field rights: %w", err)
 	}
 	return nil
 }
@@ -182,10 +181,10 @@ func (c *ConnectedBot) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ConnectedBot) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode connectedBot#bd068601 to nil")
+		return fmt.Errorf("can't decode connectedBot#cd64636c to nil")
 	}
 	if err := b.ConsumeID(ConnectedBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode connectedBot#bd068601: %w", err)
+		return fmt.Errorf("unable to decode connectedBot#cd64636c: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -193,46 +192,31 @@ func (c *ConnectedBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ConnectedBot) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode connectedBot#bd068601 to nil")
+		return fmt.Errorf("can't decode connectedBot#cd64636c to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#bd068601: field flags: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#cd64636c: field flags: %w", err)
 		}
 	}
-	c.CanReply = c.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode connectedBot#bd068601: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#cd64636c: field bot_id: %w", err)
 		}
 		c.BotID = value
 	}
 	{
 		if err := c.Recipients.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#bd068601: field recipients: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#cd64636c: field recipients: %w", err)
+		}
+	}
+	{
+		if err := c.Rights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode connectedBot#cd64636c: field rights: %w", err)
 		}
 	}
 	return nil
-}
-
-// SetCanReply sets value of CanReply conditional field.
-func (c *ConnectedBot) SetCanReply(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.CanReply = true
-	} else {
-		c.Flags.Unset(0)
-		c.CanReply = false
-	}
-}
-
-// GetCanReply returns value of CanReply conditional field.
-func (c *ConnectedBot) GetCanReply() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.Flags.Has(0)
 }
 
 // GetBotID returns value of BotID field.
@@ -249,4 +233,12 @@ func (c *ConnectedBot) GetRecipients() (value BusinessBotRecipients) {
 		return
 	}
 	return c.Recipients
+}
+
+// GetRights returns value of Rights field.
+func (c *ConnectedBot) GetRights() (value BusinessBotRights) {
+	if c == nil {
+		return
+	}
+	return c.Rights
 }

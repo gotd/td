@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/SourceFiles/mtproto/scheme/api.tl
 // Merge:  _schema/legacy.tl
-// Layer:  200
-// SHA256: d412e1766320a7dce05248226f7e77ac7b0134766db340612212e5470b48d4e6
+// Layer:  201
+// SHA256: 9ed575bcb2fe2b7e16eee144145141f64ff61f6c577340c981a19cb73a02788e
 
 boolFalse#bc799737 = Bool;
 
@@ -325,6 +325,10 @@ messageActionStarGift#4717e8a4 flags:# name_hidden:flags.0?true saved:flags.2?tr
 
 messageActionStarGiftUnique#acdfcb81 flags:# upgrade:flags.0?true transferred:flags.1?true saved:flags.2?true refunded:flags.5?true gift:StarGift can_export_at:flags.3?int transfer_stars:flags.4?long from_id:flags.6?Peer peer:flags.7?Peer saved_id:flags.7?long = MessageAction;
 
+messageActionPaidMessagesRefunded#ac1f1fcd count:int stars:long = MessageAction;
+
+messageActionPaidMessagesPrice#bcd71419 stars:long = MessageAction;
+
 dialog#d58a08c6 flags:# pinned:flags.2?true unread_mark:flags.3?true view_forum_as_messages:flags.6?true peer:Peer top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int unread_reactions_count:int notify_settings:PeerNotifySettings pts:flags.0?int draft:flags.1?DraftMessage folder_id:flags.4?int ttl_period:flags.5?int = Dialog;
 
 dialogFolder#71bd134c flags:# pinned:flags.2?true folder:Folder peer:Peer top_message:int unread_muted_peers_count:int unread_unmuted_peers_count:int unread_muted_messages_count:int unread_unmuted_messages_count:int = Dialog;
@@ -352,6 +356,8 @@ geoPoint#b2a2f663 flags:# long:double lat:double access_hash:long accuracy_radiu
 auth.sentCode#5e002502 flags:# type:auth.SentCodeType phone_code_hash:string next_type:flags.1?auth.CodeType timeout:flags.2?int = auth.SentCode;
 
 auth.sentCodeSuccess#2390fe44 authorization:auth.Authorization = auth.SentCode;
+
+auth.sentCodePaymentRequired#d7cef980 store_product:string phone_code_hash:string = auth.SentCode;
 
 auth.authorization#2ea2c0d4 flags:# setup_password_required:flags.1?true otherwise_relogin_days:flags.1?int tmp_sessions:flags.0?int future_auth_token:flags.2?bytes user:User = auth.Authorization;
 
@@ -399,7 +405,7 @@ inputReportReasonIllegalDrugs#a8eb2be = ReportReason;
 
 inputReportReasonPersonalDetails#9ec7863d = ReportReason;
 
-userFull#d2234ea0 flags:# blocked:flags.0?true phone_calls_available:flags.4?true phone_calls_private:flags.5?true can_pin_message:flags.7?true has_scheduled:flags.12?true video_calls_available:flags.13?true voice_messages_forbidden:flags.20?true translations_disabled:flags.23?true stories_pinned_available:flags.26?true blocked_my_stories_from:flags.27?true wallpaper_overridden:flags.28?true contact_require_premium:flags.29?true read_dates_private:flags.30?true flags2:# sponsored_enabled:flags2.7?true can_view_revenue:flags2.9?true bot_can_manage_emoji_status:flags2.10?true id:long about:flags.1?string settings:PeerSettings personal_photo:flags.21?Photo profile_photo:flags.2?Photo fallback_photo:flags.22?Photo notify_settings:PeerNotifySettings bot_info:flags.3?BotInfo pinned_msg_id:flags.6?int common_chats_count:int folder_id:flags.11?int ttl_period:flags.14?int theme_emoticon:flags.15?string private_forward_name:flags.16?string bot_group_admin_rights:flags.17?ChatAdminRights bot_broadcast_admin_rights:flags.18?ChatAdminRights wallpaper:flags.24?WallPaper stories:flags.25?PeerStories business_work_hours:flags2.0?BusinessWorkHours business_location:flags2.1?BusinessLocation business_greeting_message:flags2.2?BusinessGreetingMessage business_away_message:flags2.3?BusinessAwayMessage business_intro:flags2.4?BusinessIntro birthday:flags2.5?Birthday personal_channel_id:flags2.6?long personal_channel_message:flags2.6?int stargifts_count:flags2.8?int starref_program:flags2.11?StarRefProgram bot_verification:flags2.12?BotVerification send_paid_messages_stars:flags2.14?long = UserFull;
+userFull#99e78045 flags:# blocked:flags.0?true phone_calls_available:flags.4?true phone_calls_private:flags.5?true can_pin_message:flags.7?true has_scheduled:flags.12?true video_calls_available:flags.13?true voice_messages_forbidden:flags.20?true translations_disabled:flags.23?true stories_pinned_available:flags.26?true blocked_my_stories_from:flags.27?true wallpaper_overridden:flags.28?true contact_require_premium:flags.29?true read_dates_private:flags.30?true flags2:# sponsored_enabled:flags2.7?true can_view_revenue:flags2.9?true bot_can_manage_emoji_status:flags2.10?true display_gifts_button:flags2.16?true id:long about:flags.1?string settings:PeerSettings personal_photo:flags.21?Photo profile_photo:flags.2?Photo fallback_photo:flags.22?Photo notify_settings:PeerNotifySettings bot_info:flags.3?BotInfo pinned_msg_id:flags.6?int common_chats_count:int folder_id:flags.11?int ttl_period:flags.14?int theme_emoticon:flags.15?string private_forward_name:flags.16?string bot_group_admin_rights:flags.17?ChatAdminRights bot_broadcast_admin_rights:flags.18?ChatAdminRights wallpaper:flags.24?WallPaper stories:flags.25?PeerStories business_work_hours:flags2.0?BusinessWorkHours business_location:flags2.1?BusinessLocation business_greeting_message:flags2.2?BusinessGreetingMessage business_away_message:flags2.3?BusinessAwayMessage business_intro:flags2.4?BusinessIntro birthday:flags2.5?Birthday personal_channel_id:flags2.6?long personal_channel_message:flags2.6?int stargifts_count:flags2.8?int starref_program:flags2.11?StarRefProgram bot_verification:flags2.12?BotVerification send_paid_messages_stars:flags2.14?long disallowed_gifts:flags2.15?DisallowedGiftsSettings = UserFull;
 
 contact#145ade0b user_id:long mutual:Bool = Contact;
 
@@ -754,6 +760,8 @@ updateStarsRevenueStatus#a584b019 peer:Peer status:StarsRevenueStatus = Update;
 updateBotPurchasedPaidMedia#283bd312 user_id:long payload:string qts:int = Update;
 
 updatePaidReactionPrivacy#8b725fce private:PaidReactionPrivacy = Update;
+
+updateSentPhoneCode#504aa18f sent_code:auth.SentCode = Update;
 
 updates.state#a56c2a3e pts:int qts:int date:int seq:int unread_count:int = updates.State;
 
@@ -2057,7 +2065,7 @@ statsGroupTopInviter#535f779d user_id:long invitations:int = StatsGroupTopInvite
 
 stats.megagroupStats#ef7ff916 period:StatsDateRangeDays members:StatsAbsValueAndPrev messages:StatsAbsValueAndPrev viewers:StatsAbsValueAndPrev posters:StatsAbsValueAndPrev growth_graph:StatsGraph members_graph:StatsGraph new_members_by_source_graph:StatsGraph languages_graph:StatsGraph messages_graph:StatsGraph actions_graph:StatsGraph top_hours_graph:StatsGraph weekdays_graph:StatsGraph top_posters:Vector<StatsGroupTopPoster> top_admins:Vector<StatsGroupTopAdmin> top_inviters:Vector<StatsGroupTopInviter> users:Vector<User> = stats.MegagroupStats;
 
-globalPrivacySettings#c9d8df1c flags:# archive_and_mute_new_noncontact_peers:flags.0?true keep_archived_unmuted:flags.1?true keep_archived_folders:flags.2?true hide_read_marks:flags.3?true new_noncontact_peers_require_premium:flags.4?true noncontact_peers_paid_stars:flags.5?long = GlobalPrivacySettings;
+globalPrivacySettings#fe41b34f flags:# archive_and_mute_new_noncontact_peers:flags.0?true keep_archived_unmuted:flags.1?true keep_archived_folders:flags.2?true hide_read_marks:flags.3?true new_noncontact_peers_require_premium:flags.4?true display_gifts_button:flags.7?true noncontact_peers_paid_stars:flags.5?long disallowed_gifts:flags.6?DisallowedGiftsSettings = GlobalPrivacySettings;
 
 help.countryCode#4203c5ef flags:# country_code:string prefixes:flags.0?Vector<string> patterns:flags.1?Vector<string> = help.CountryCode;
 
@@ -2286,6 +2294,8 @@ inputStorePaymentStarsTopup#dddd0f56 stars:long currency:string amount:long = In
 inputStorePaymentStarsGift#1d741ef7 user_id:InputUser stars:long currency:string amount:long = InputStorePaymentPurpose;
 
 inputStorePaymentStarsGiveaway#751f08fa flags:# only_new_subscribers:flags.0?true winners_are_visible:flags.3?true stars:long boost_peer:InputPeer additional_peers:flags.1?Vector<InputPeer> countries_iso2:flags.2?Vector<string> prize_description:flags.4?string random_id:long until_date:int currency:string amount:long users:int = InputStorePaymentPurpose;
+
+inputStorePaymentAuthCode#9bb2636d flags:# restore:flags.0?true phone_number:string phone_code_hash:string currency:string amount:long = InputStorePaymentPurpose;
 
 paymentFormMethod#88f8f21b url:string title:string = PaymentFormMethod;
 
@@ -2603,7 +2613,7 @@ messages.quickReplies#c68d6695 quick_replies:Vector<QuickReply> messages:Vector<
 
 messages.quickRepliesNotModified#5f91eb5b = messages.QuickReplies;
 
-connectedBot#bd068601 flags:# can_reply:flags.0?true bot_id:long recipients:BusinessBotRecipients = ConnectedBot;
+connectedBot#cd64636c flags:# bot_id:long recipients:BusinessBotRecipients rights:BusinessBotRights = ConnectedBot;
 
 account.connectedBots#17d7f87b connected_bots:Vector<ConnectedBot> users:Vector<User> = account.ConnectedBots;
 
@@ -2611,7 +2621,7 @@ messages.dialogFilters#2ad93719 flags:# tags_enabled:flags.0?true filters:Vector
 
 birthday#6c8e1e06 flags:# day:int month:int year:flags.0?int = Birthday;
 
-botBusinessConnection#896433b4 flags:# can_reply:flags.0?true disabled:flags.1?true connection_id:string user_id:long dc_id:int date:int = BotBusinessConnection;
+botBusinessConnection#8f34b2f5 flags:# disabled:flags.1?true connection_id:string user_id:long dc_id:int date:int rights:flags.2?BusinessBotRights = BotBusinessConnection;
 
 inputBusinessIntro#9c469cd flags:# title:string description:string sticker:flags.0?InputDocument = InputBusinessIntro;
 
@@ -2824,6 +2834,16 @@ requirementToContactEmpty#50a9839 = RequirementToContact;
 requirementToContactPremium#e581e4e9 = RequirementToContact;
 
 requirementToContactPaidMessages#b4f67e93 stars_amount:long = RequirementToContact;
+
+businessBotRights#a0624cf7 flags:# reply:flags.0?true read_messages:flags.1?true delete_sent_messages:flags.2?true delete_received_messages:flags.3?true edit_name:flags.4?true edit_bio:flags.5?true edit_profile_photo:flags.6?true edit_username:flags.7?true view_gifts:flags.8?true sell_gifts:flags.9?true change_gift_settings:flags.10?true transfer_and_upgrade_gifts:flags.11?true transfer_stars:flags.12?true manage_stories:flags.13?true = BusinessBotRights;
+
+disallowedGiftsSettings#71f276c4 flags:# disallow_unlimited_stargifts:flags.0?true disallow_limited_stargifts:flags.1?true disallow_unique_stargifts:flags.2?true disallow_premium_gifts:flags.3?true = DisallowedGiftsSettings;
+
+sponsoredPeer#c69708d3 flags:# random_id:bytes peer:Peer sponsor_info:flags.0?string additional_info:flags.1?string = SponsoredPeer;
+
+contacts.sponsoredPeersEmpty#ea32b4b1 = contacts.SponsoredPeers;
+
+contacts.sponsoredPeers#eb032884 peers:Vector<SponsoredPeer> chats:Vector<Chat> users:Vector<User> = contacts.SponsoredPeers;
 
 
 ---functions---
@@ -3088,7 +3108,7 @@ account.updateBusinessGreetingMessage#66cdafc4 flags:# message:flags.0?InputBusi
 
 account.updateBusinessAwayMessage#a26a7fa5 flags:# message:flags.0?InputBusinessAwayMessage = Bool;
 
-account.updateConnectedBot#43d8521d flags:# can_reply:flags.0?true deleted:flags.1?true bot:InputUser recipients:InputBusinessBotRecipients = Updates;
+account.updateConnectedBot#66a08c7e flags:# deleted:flags.1?true rights:flags.0?BusinessBotRights bot:InputUser recipients:InputBusinessBotRecipients = Updates;
 
 account.getConnectedBots#4ea4c80f = account.ConnectedBots;
 
@@ -3185,6 +3205,8 @@ contacts.editCloseFriends#ba6705f0 id:Vector<long> = Bool;
 contacts.setBlocked#94c65c76 flags:# my_stories_from:flags.0?true id:Vector<InputPeer> limit:int = Bool;
 
 contacts.getBirthdays#daeda864 = contacts.ContactBirthdays;
+
+contacts.getSponsoredPeers#b6c8c393 q:string = contacts.SponsoredPeers;
 
 messages.getMessages#63c66506 id:Vector<InputMessage> = messages.Messages;
 
@@ -3620,11 +3642,11 @@ messages.togglePaidReactionPrivacy#435885b5 peer:InputPeer msg_id:int private:Pa
 
 messages.getPaidReactionPrivacy#472455aa = Updates;
 
-messages.viewSponsoredMessage#673ad8f1 peer:InputPeer random_id:bytes = Bool;
+messages.viewSponsoredMessage#269e3643 random_id:bytes = Bool;
 
-messages.clickSponsoredMessage#f093465 flags:# media:flags.0?true fullscreen:flags.1?true peer:InputPeer random_id:bytes = Bool;
+messages.clickSponsoredMessage#8235057e flags:# media:flags.0?true fullscreen:flags.1?true random_id:bytes = Bool;
 
-messages.reportSponsoredMessage#1af3dbb8 peer:InputPeer random_id:bytes option:bytes = channels.SponsoredMessageReportResult;
+messages.reportSponsoredMessage#12cbf0c4 random_id:bytes option:bytes = channels.SponsoredMessageReportResult;
 
 messages.getSponsoredMessages#9bd2f439 peer:InputPeer = messages.SponsoredMessages;
 
@@ -3922,8 +3944,6 @@ payments.assignAppStoreTransaction#80ed747d receipt:bytes purpose:InputStorePaym
 
 payments.assignPlayMarketTransaction#dffd50d3 receipt:DataJSON purpose:InputStorePaymentPurpose = Updates;
 
-payments.canPurchasePremium#9fc19eb6 purpose:InputStorePaymentPurpose = Bool;
-
 payments.getPremiumGiftCodeOptions#2757ba54 flags:# boost_peer:flags.0?InputPeer = Vector<PremiumGiftCodeOption>;
 
 payments.checkGiftCode#8e51b4c1 slug:string = payments.CheckedGiftCode;
@@ -3997,6 +4017,8 @@ payments.getStarGiftWithdrawalUrl#d06e93a8 stargift:InputSavedStarGift password:
 payments.toggleChatStarGiftNotifications#60eaefa1 flags:# enabled:flags.0?true peer:InputPeer = Bool;
 
 payments.toggleStarGiftsPinnedToTop#1513e7b0 peer:InputPeer stargift:Vector<InputSavedStarGift> = Bool;
+
+payments.canPurchaseStore#4fdc5ea7 purpose:InputStorePaymentPurpose = Bool;
 
 stickers.createStickerSet#9021ab67 flags:# masks:flags.0?true emojis:flags.5?true text_color:flags.6?true user_id:InputUser title:string short_name:string thumb:flags.2?InputDocument stickers:Vector<InputStickerSetItem> software:flags.3?string = messages.StickerSet;
 
@@ -4248,4 +4270,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 200
+// LAYER 201

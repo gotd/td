@@ -207,6 +207,19 @@ func (s InputStorePaymentPurposeClassArray) AsInputStorePaymentStarsGiveaway() (
 	return to
 }
 
+// AsInputStorePaymentAuthCode returns copy with only InputStorePaymentAuthCode constructors.
+func (s InputStorePaymentPurposeClassArray) AsInputStorePaymentAuthCode() (to InputStorePaymentAuthCodeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputStorePaymentAuthCode)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputStorePaymentPremiumSubscriptionArray is adapter for slice of InputStorePaymentPremiumSubscription.
 type InputStorePaymentPremiumSubscriptionArray []InputStorePaymentPremiumSubscription
 
@@ -769,6 +782,88 @@ func (s *InputStorePaymentStarsGiveawayArray) PopFirst() (v InputStorePaymentSta
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputStorePaymentStarsGiveawayArray) Pop() (v InputStorePaymentStarsGiveaway, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputStorePaymentAuthCodeArray is adapter for slice of InputStorePaymentAuthCode.
+type InputStorePaymentAuthCodeArray []InputStorePaymentAuthCode
+
+// Sort sorts slice of InputStorePaymentAuthCode.
+func (s InputStorePaymentAuthCodeArray) Sort(less func(a, b InputStorePaymentAuthCode) bool) InputStorePaymentAuthCodeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputStorePaymentAuthCode.
+func (s InputStorePaymentAuthCodeArray) SortStable(less func(a, b InputStorePaymentAuthCode) bool) InputStorePaymentAuthCodeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputStorePaymentAuthCode.
+func (s InputStorePaymentAuthCodeArray) Retain(keep func(x InputStorePaymentAuthCode) bool) InputStorePaymentAuthCodeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputStorePaymentAuthCodeArray) First() (v InputStorePaymentAuthCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStorePaymentAuthCodeArray) Last() (v InputStorePaymentAuthCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStorePaymentAuthCodeArray) PopFirst() (v InputStorePaymentAuthCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputStorePaymentAuthCode
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStorePaymentAuthCodeArray) Pop() (v InputStorePaymentAuthCode, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
