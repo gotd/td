@@ -3197,6 +3197,23 @@ func (s *ServerDispatcher) OnContactsGetBirthdays(f func(ctx context.Context) (*
 	s.handlers[ContactsGetBirthdaysRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnContactsGetSponsoredPeers(f func(ctx context.Context, q string) (ContactsSponsoredPeersClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsGetSponsoredPeersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Q)
+		if err != nil {
+			return nil, err
+		}
+		return &ContactsSponsoredPeersBox{SponsoredPeers: response}, nil
+	}
+
+	s.handlers[ContactsGetSponsoredPeersRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetMessagesRequest
@@ -7098,14 +7115,14 @@ func (s *ServerDispatcher) OnMessagesGetPaidReactionPrivacy(f func(ctx context.C
 	s.handlers[MessagesGetPaidReactionPrivacyRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesViewSponsoredMessage(f func(ctx context.Context, request *MessagesViewSponsoredMessageRequest) (bool, error)) {
+func (s *ServerDispatcher) OnMessagesViewSponsoredMessage(f func(ctx context.Context, randomid []byte) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesViewSponsoredMessageRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, &request)
+		response, err := f(ctx, request.RandomID)
 		if err != nil {
 			return nil, err
 		}
@@ -9825,27 +9842,6 @@ func (s *ServerDispatcher) OnPaymentsAssignPlayMarketTransaction(f func(ctx cont
 	s.handlers[PaymentsAssignPlayMarketTransactionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPaymentsCanPurchasePremium(f func(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request PaymentsCanPurchasePremiumRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.Purpose)
-		if err != nil {
-			return nil, err
-		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
-	}
-
-	s.handlers[PaymentsCanPurchasePremiumRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnPaymentsGetPremiumGiftCodeOptions(f func(ctx context.Context, request *PaymentsGetPremiumGiftCodeOptionsRequest) ([]PremiumGiftCodeOption, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPremiumGiftCodeOptionsRequest
@@ -10501,6 +10497,27 @@ func (s *ServerDispatcher) OnPaymentsToggleStarGiftsPinnedToTop(f func(ctx conte
 	}
 
 	s.handlers[PaymentsToggleStarGiftsPinnedToTopRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsCanPurchaseStore(f func(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsCanPurchaseStoreRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Purpose)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsCanPurchaseStoreRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

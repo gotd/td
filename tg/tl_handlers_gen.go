@@ -1515,3 +1515,13 @@ func (u UpdateDispatcher) OnPaidReactionPrivacy(handler PaidReactionPrivacyHandl
 		return handler(ctx, e, update.(*UpdatePaidReactionPrivacy))
 	}
 }
+
+// SentPhoneCodeHandler is a SentPhoneCode event handler.
+type SentPhoneCodeHandler func(ctx context.Context, e Entities, update *UpdateSentPhoneCode) error
+
+// OnSentPhoneCode sets SentPhoneCode handler.
+func (u UpdateDispatcher) OnSentPhoneCode(handler SentPhoneCodeHandler) {
+	u.handlers[UpdateSentPhoneCodeTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSentPhoneCode))
+	}
+}

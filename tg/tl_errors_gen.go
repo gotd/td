@@ -412,7 +412,6 @@ const (
 	ErrPollQuestionInvalid              = "POLL_QUESTION_INVALID"
 	ErrPollVoteRequired                 = "POLL_VOTE_REQUIRED"
 	ErrPremiumAccountRequired           = "PREMIUM_ACCOUNT_REQUIRED"
-	ErrPremiumCurrentlyUnavailable      = "PREMIUM_CURRENTLY_UNAVAILABLE"
 	ErrPremiumSubActiveUntil            = "PREMIUM_SUB_ACTIVE_UNTIL"
 	ErrPreviousChatImportActiveWaitMin  = "PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_MIN"
 	ErrPricingChatInvalid               = "PRICING_CHAT_INVALID"
@@ -2535,11 +2534,6 @@ func IsPollVoteRequired(err error) bool {
 // IsPremiumAccountRequired reports whether err is PREMIUM_ACCOUNT_REQUIRED.
 func IsPremiumAccountRequired(err error) bool {
 	return tgerr.Is(err, ErrPremiumAccountRequired)
-}
-
-// IsPremiumCurrentlyUnavailable reports whether err is PREMIUM_CURRENTLY_UNAVAILABLE.
-func IsPremiumCurrentlyUnavailable(err error) bool {
-	return tgerr.Is(err, ErrPremiumCurrentlyUnavailable)
 }
 
 // IsPremiumSubActiveUntil reports whether err is PREMIUM_SUB_ACTIVE_UNTIL.

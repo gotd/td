@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UserFull represents TL type `userFull#d2234ea0`.
+// UserFull represents TL type `userFull#99e78045`.
 // Extended user info
 // When updating the local peer database »¹, all fields from the newly received
 // constructor take priority over the old constructor cached locally (including by
@@ -129,6 +129,8 @@ type UserFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 	BotCanManageEmojiStatus bool
+	// DisplayGiftsButton field of UserFull.
+	DisplayGiftsButton bool
 	// User ID
 	ID int64
 	// Bio of the user
@@ -298,10 +300,14 @@ type UserFull struct {
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
+	// DisallowedGifts field of UserFull.
+	//
+	// Use SetDisallowedGifts and GetDisallowedGifts helpers.
+	DisallowedGifts DisallowedGiftsSettings
 }
 
 // UserFullTypeID is TL type id of UserFull.
-const UserFullTypeID = 0xd2234ea0
+const UserFullTypeID = 0x99e78045
 
 // Ensuring interfaces in compile-time for UserFull.
 var (
@@ -367,6 +373,9 @@ func (u *UserFull) Zero() bool {
 		return false
 	}
 	if !(u.BotCanManageEmojiStatus == false) {
+		return false
+	}
+	if !(u.DisplayGiftsButton == false) {
 		return false
 	}
 	if !(u.ID == 0) {
@@ -459,6 +468,9 @@ func (u *UserFull) Zero() bool {
 	if !(u.SendPaidMessagesStars == 0) {
 		return false
 	}
+	if !(u.DisallowedGifts.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -490,6 +502,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetSponsoredEnabled() (value bool)
 	GetCanViewRevenue() (value bool)
 	GetBotCanManageEmojiStatus() (value bool)
+	GetDisplayGiftsButton() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string, ok bool)
 	GetSettings() (value PeerSettings)
@@ -520,6 +533,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetStarrefProgram() (value StarRefProgram, ok bool)
 	GetBotVerification() (value BotVerification, ok bool)
 	GetSendPaidMessagesStars() (value int64, ok bool)
+	GetDisallowedGifts() (value DisallowedGiftsSettings, ok bool)
 }) {
 	u.Blocked = from.GetBlocked()
 	u.PhoneCallsAvailable = from.GetPhoneCallsAvailable()
@@ -537,6 +551,7 @@ func (u *UserFull) FillFrom(from interface {
 	u.SponsoredEnabled = from.GetSponsoredEnabled()
 	u.CanViewRevenue = from.GetCanViewRevenue()
 	u.BotCanManageEmojiStatus = from.GetBotCanManageEmojiStatus()
+	u.DisplayGiftsButton = from.GetDisplayGiftsButton()
 	u.ID = from.GetID()
 	if val, ok := from.GetAbout(); ok {
 		u.About = val
@@ -645,6 +660,10 @@ func (u *UserFull) FillFrom(from interface {
 		u.SendPaidMessagesStars = val
 	}
 
+	if val, ok := from.GetDisallowedGifts(); ok {
+		u.DisallowedGifts = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -749,6 +768,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			Name:       "BotCanManageEmojiStatus",
 			SchemaName: "bot_can_manage_emoji_status",
 			Null:       !u.Flags2.Has(10),
+		},
+		{
+			Name:       "DisplayGiftsButton",
+			SchemaName: "display_gifts_button",
+			Null:       !u.Flags2.Has(16),
 		},
 		{
 			Name:       "ID",
@@ -896,6 +920,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			SchemaName: "send_paid_messages_stars",
 			Null:       !u.Flags2.Has(14),
 		},
+		{
+			Name:       "DisallowedGifts",
+			SchemaName: "disallowed_gifts",
+			Null:       !u.Flags2.Has(15),
+		},
 	}
 	return typ
 }
@@ -949,6 +978,9 @@ func (u *UserFull) SetFlags() {
 	}
 	if !(u.BotCanManageEmojiStatus == false) {
 		u.Flags2.Set(10)
+	}
+	if !(u.DisplayGiftsButton == false) {
+		u.Flags2.Set(16)
 	}
 	if !(u.About == "") {
 		u.Flags.Set(1)
@@ -1028,12 +1060,15 @@ func (u *UserFull) SetFlags() {
 	if !(u.SendPaidMessagesStars == 0) {
 		u.Flags2.Set(14)
 	}
+	if !(u.DisallowedGifts.Zero()) {
+		u.Flags2.Set(15)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UserFull) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#d2234ea0 as nil")
+		return fmt.Errorf("can't encode userFull#99e78045 as nil")
 	}
 	b.PutID(UserFullTypeID)
 	return u.EncodeBare(b)
@@ -1042,52 +1077,52 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#d2234ea0 as nil")
+		return fmt.Errorf("can't encode userFull#99e78045 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d2234ea0: field flags: %w", err)
+		return fmt.Errorf("unable to encode userFull#99e78045: field flags: %w", err)
 	}
 	if err := u.Flags2.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d2234ea0: field flags2: %w", err)
+		return fmt.Errorf("unable to encode userFull#99e78045: field flags2: %w", err)
 	}
 	b.PutLong(u.ID)
 	if u.Flags.Has(1) {
 		b.PutString(u.About)
 	}
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d2234ea0: field settings: %w", err)
+		return fmt.Errorf("unable to encode userFull#99e78045: field settings: %w", err)
 	}
 	if u.Flags.Has(21) {
 		if u.PersonalPhoto == nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field personal_photo is nil")
+			return fmt.Errorf("unable to encode userFull#99e78045: field personal_photo is nil")
 		}
 		if err := u.PersonalPhoto.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field personal_photo: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field personal_photo: %w", err)
 		}
 	}
 	if u.Flags.Has(2) {
 		if u.ProfilePhoto == nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field profile_photo is nil")
+			return fmt.Errorf("unable to encode userFull#99e78045: field profile_photo is nil")
 		}
 		if err := u.ProfilePhoto.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field profile_photo: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field profile_photo: %w", err)
 		}
 	}
 	if u.Flags.Has(22) {
 		if u.FallbackPhoto == nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field fallback_photo is nil")
+			return fmt.Errorf("unable to encode userFull#99e78045: field fallback_photo is nil")
 		}
 		if err := u.FallbackPhoto.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field fallback_photo: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field fallback_photo: %w", err)
 		}
 	}
 	if err := u.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d2234ea0: field notify_settings: %w", err)
+		return fmt.Errorf("unable to encode userFull#99e78045: field notify_settings: %w", err)
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field bot_info: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field bot_info: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
@@ -1108,55 +1143,55 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(17) {
 		if err := u.BotGroupAdminRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field bot_group_admin_rights: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field bot_group_admin_rights: %w", err)
 		}
 	}
 	if u.Flags.Has(18) {
 		if err := u.BotBroadcastAdminRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field bot_broadcast_admin_rights: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field bot_broadcast_admin_rights: %w", err)
 		}
 	}
 	if u.Flags.Has(24) {
 		if u.Wallpaper == nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field wallpaper is nil")
+			return fmt.Errorf("unable to encode userFull#99e78045: field wallpaper is nil")
 		}
 		if err := u.Wallpaper.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field wallpaper: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field wallpaper: %w", err)
 		}
 	}
 	if u.Flags.Has(25) {
 		if err := u.Stories.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field stories: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field stories: %w", err)
 		}
 	}
 	if u.Flags2.Has(0) {
 		if err := u.BusinessWorkHours.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field business_work_hours: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field business_work_hours: %w", err)
 		}
 	}
 	if u.Flags2.Has(1) {
 		if err := u.BusinessLocation.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field business_location: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field business_location: %w", err)
 		}
 	}
 	if u.Flags2.Has(2) {
 		if err := u.BusinessGreetingMessage.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field business_greeting_message: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field business_greeting_message: %w", err)
 		}
 	}
 	if u.Flags2.Has(3) {
 		if err := u.BusinessAwayMessage.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field business_away_message: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field business_away_message: %w", err)
 		}
 	}
 	if u.Flags2.Has(4) {
 		if err := u.BusinessIntro.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field business_intro: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field business_intro: %w", err)
 		}
 	}
 	if u.Flags2.Has(5) {
 		if err := u.Birthday.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field birthday: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field birthday: %w", err)
 		}
 	}
 	if u.Flags2.Has(6) {
@@ -1170,16 +1205,21 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags2.Has(11) {
 		if err := u.StarrefProgram.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field starref_program: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field starref_program: %w", err)
 		}
 	}
 	if u.Flags2.Has(12) {
 		if err := u.BotVerification.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d2234ea0: field bot_verification: %w", err)
+			return fmt.Errorf("unable to encode userFull#99e78045: field bot_verification: %w", err)
 		}
 	}
 	if u.Flags2.Has(14) {
 		b.PutLong(u.SendPaidMessagesStars)
+	}
+	if u.Flags2.Has(15) {
+		if err := u.DisallowedGifts.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode userFull#99e78045: field disallowed_gifts: %w", err)
+		}
 	}
 	return nil
 }
@@ -1187,10 +1227,10 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserFull) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#d2234ea0 to nil")
+		return fmt.Errorf("can't decode userFull#99e78045 to nil")
 	}
 	if err := b.ConsumeID(UserFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode userFull#d2234ea0: %w", err)
+		return fmt.Errorf("unable to decode userFull#99e78045: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1198,11 +1238,11 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#d2234ea0 to nil")
+		return fmt.Errorf("can't decode userFull#99e78045 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field flags: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field flags: %w", err)
 		}
 	}
 	u.Blocked = u.Flags.Has(0)
@@ -1220,193 +1260,199 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	u.ReadDatesPrivate = u.Flags.Has(30)
 	{
 		if err := u.Flags2.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field flags2: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field flags2: %w", err)
 		}
 	}
 	u.SponsoredEnabled = u.Flags2.Has(7)
 	u.CanViewRevenue = u.Flags2.Has(9)
 	u.BotCanManageEmojiStatus = u.Flags2.Has(10)
+	u.DisplayGiftsButton = u.Flags2.Has(16)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field id: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field id: %w", err)
 		}
 		u.ID = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field about: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field about: %w", err)
 		}
 		u.About = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field settings: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field settings: %w", err)
 		}
 	}
 	if u.Flags.Has(21) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field personal_photo: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field personal_photo: %w", err)
 		}
 		u.PersonalPhoto = value
 	}
 	if u.Flags.Has(2) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field profile_photo: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field profile_photo: %w", err)
 		}
 		u.ProfilePhoto = value
 	}
 	if u.Flags.Has(22) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field fallback_photo: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field fallback_photo: %w", err)
 		}
 		u.FallbackPhoto = value
 	}
 	{
 		if err := u.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field notify_settings: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field notify_settings: %w", err)
 		}
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field bot_info: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field bot_info: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field pinned_msg_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field pinned_msg_id: %w", err)
 		}
 		u.PinnedMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field common_chats_count: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field common_chats_count: %w", err)
 		}
 		u.CommonChatsCount = value
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field folder_id: %w", err)
 		}
 		u.FolderID = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field ttl_period: %w", err)
 		}
 		u.TTLPeriod = value
 	}
 	if u.Flags.Has(15) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field theme_emoticon: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field theme_emoticon: %w", err)
 		}
 		u.ThemeEmoticon = value
 	}
 	if u.Flags.Has(16) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field private_forward_name: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field private_forward_name: %w", err)
 		}
 		u.PrivateForwardName = value
 	}
 	if u.Flags.Has(17) {
 		if err := u.BotGroupAdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field bot_group_admin_rights: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field bot_group_admin_rights: %w", err)
 		}
 	}
 	if u.Flags.Has(18) {
 		if err := u.BotBroadcastAdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field bot_broadcast_admin_rights: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field bot_broadcast_admin_rights: %w", err)
 		}
 	}
 	if u.Flags.Has(24) {
 		value, err := DecodeWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field wallpaper: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field wallpaper: %w", err)
 		}
 		u.Wallpaper = value
 	}
 	if u.Flags.Has(25) {
 		if err := u.Stories.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field stories: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field stories: %w", err)
 		}
 	}
 	if u.Flags2.Has(0) {
 		if err := u.BusinessWorkHours.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field business_work_hours: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field business_work_hours: %w", err)
 		}
 	}
 	if u.Flags2.Has(1) {
 		if err := u.BusinessLocation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field business_location: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field business_location: %w", err)
 		}
 	}
 	if u.Flags2.Has(2) {
 		if err := u.BusinessGreetingMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field business_greeting_message: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field business_greeting_message: %w", err)
 		}
 	}
 	if u.Flags2.Has(3) {
 		if err := u.BusinessAwayMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field business_away_message: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field business_away_message: %w", err)
 		}
 	}
 	if u.Flags2.Has(4) {
 		if err := u.BusinessIntro.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field business_intro: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field business_intro: %w", err)
 		}
 	}
 	if u.Flags2.Has(5) {
 		if err := u.Birthday.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field birthday: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field birthday: %w", err)
 		}
 	}
 	if u.Flags2.Has(6) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field personal_channel_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field personal_channel_id: %w", err)
 		}
 		u.PersonalChannelID = value
 	}
 	if u.Flags2.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field personal_channel_message: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field personal_channel_message: %w", err)
 		}
 		u.PersonalChannelMessage = value
 	}
 	if u.Flags2.Has(8) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field stargifts_count: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field stargifts_count: %w", err)
 		}
 		u.StargiftsCount = value
 	}
 	if u.Flags2.Has(11) {
 		if err := u.StarrefProgram.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field starref_program: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field starref_program: %w", err)
 		}
 	}
 	if u.Flags2.Has(12) {
 		if err := u.BotVerification.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field bot_verification: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field bot_verification: %w", err)
 		}
 	}
 	if u.Flags2.Has(14) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d2234ea0: field send_paid_messages_stars: %w", err)
+			return fmt.Errorf("unable to decode userFull#99e78045: field send_paid_messages_stars: %w", err)
 		}
 		u.SendPaidMessagesStars = value
+	}
+	if u.Flags2.Has(15) {
+		if err := u.DisallowedGifts.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userFull#99e78045: field disallowed_gifts: %w", err)
+		}
 	}
 	return nil
 }
@@ -1713,6 +1759,25 @@ func (u *UserFull) GetBotCanManageEmojiStatus() (value bool) {
 		return
 	}
 	return u.Flags2.Has(10)
+}
+
+// SetDisplayGiftsButton sets value of DisplayGiftsButton conditional field.
+func (u *UserFull) SetDisplayGiftsButton(value bool) {
+	if value {
+		u.Flags2.Set(16)
+		u.DisplayGiftsButton = true
+	} else {
+		u.Flags2.Unset(16)
+		u.DisplayGiftsButton = false
+	}
+}
+
+// GetDisplayGiftsButton returns value of DisplayGiftsButton conditional field.
+func (u *UserFull) GetDisplayGiftsButton() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(16)
 }
 
 // GetID returns value of ID field.
@@ -2213,6 +2278,24 @@ func (u *UserFull) GetSendPaidMessagesStars() (value int64, ok bool) {
 		return value, false
 	}
 	return u.SendPaidMessagesStars, true
+}
+
+// SetDisallowedGifts sets value of DisallowedGifts conditional field.
+func (u *UserFull) SetDisallowedGifts(value DisallowedGiftsSettings) {
+	u.Flags2.Set(15)
+	u.DisallowedGifts = value
+}
+
+// GetDisallowedGifts returns value of DisallowedGifts conditional field and
+// boolean which is true if field was set.
+func (u *UserFull) GetDisallowedGifts() (value DisallowedGiftsSettings, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags2.Has(15) {
+		return value, false
+	}
+	return u.DisallowedGifts, true
 }
 
 // GetPersonalPhotoAsNotEmpty returns mapped value of PersonalPhoto conditional field and

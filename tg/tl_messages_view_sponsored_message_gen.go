@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesViewSponsoredMessageRequest represents TL type `messages.viewSponsoredMessage#673ad8f1`.
+// MessagesViewSponsoredMessageRequest represents TL type `messages.viewSponsoredMessage#269e3643`.
 // Mark a specific sponsored message »¹ as read
 //
 // Links:
@@ -39,14 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/messages.viewSponsoredMessage for reference.
 type MessagesViewSponsoredMessageRequest struct {
-	// The channel/bot where the ad is located
-	Peer InputPeerClass
 	// The ad's unique ID.
 	RandomID []byte
 }
 
 // MessagesViewSponsoredMessageRequestTypeID is TL type id of MessagesViewSponsoredMessageRequest.
-const MessagesViewSponsoredMessageRequestTypeID = 0x673ad8f1
+const MessagesViewSponsoredMessageRequestTypeID = 0x269e3643
 
 // Ensuring interfaces in compile-time for MessagesViewSponsoredMessageRequest.
 var (
@@ -59,9 +57,6 @@ var (
 func (v *MessagesViewSponsoredMessageRequest) Zero() bool {
 	if v == nil {
 		return true
-	}
-	if !(v.Peer == nil) {
-		return false
 	}
 	if !(v.RandomID == nil) {
 		return false
@@ -81,10 +76,8 @@ func (v *MessagesViewSponsoredMessageRequest) String() string {
 
 // FillFrom fills MessagesViewSponsoredMessageRequest from given interface.
 func (v *MessagesViewSponsoredMessageRequest) FillFrom(from interface {
-	GetPeer() (value InputPeerClass)
 	GetRandomID() (value []byte)
 }) {
-	v.Peer = from.GetPeer()
 	v.RandomID = from.GetRandomID()
 }
 
@@ -112,10 +105,6 @@ func (v *MessagesViewSponsoredMessageRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -126,7 +115,7 @@ func (v *MessagesViewSponsoredMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *MessagesViewSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode messages.viewSponsoredMessage#673ad8f1 as nil")
+		return fmt.Errorf("can't encode messages.viewSponsoredMessage#269e3643 as nil")
 	}
 	b.PutID(MessagesViewSponsoredMessageRequestTypeID)
 	return v.EncodeBare(b)
@@ -135,13 +124,7 @@ func (v *MessagesViewSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *MessagesViewSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode messages.viewSponsoredMessage#673ad8f1 as nil")
-	}
-	if v.Peer == nil {
-		return fmt.Errorf("unable to encode messages.viewSponsoredMessage#673ad8f1: field peer is nil")
-	}
-	if err := v.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.viewSponsoredMessage#673ad8f1: field peer: %w", err)
+		return fmt.Errorf("can't encode messages.viewSponsoredMessage#269e3643 as nil")
 	}
 	b.PutBytes(v.RandomID)
 	return nil
@@ -150,10 +133,10 @@ func (v *MessagesViewSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (v *MessagesViewSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode messages.viewSponsoredMessage#673ad8f1 to nil")
+		return fmt.Errorf("can't decode messages.viewSponsoredMessage#269e3643 to nil")
 	}
 	if err := b.ConsumeID(MessagesViewSponsoredMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.viewSponsoredMessage#673ad8f1: %w", err)
+		return fmt.Errorf("unable to decode messages.viewSponsoredMessage#269e3643: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -161,31 +144,16 @@ func (v *MessagesViewSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *MessagesViewSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode messages.viewSponsoredMessage#673ad8f1 to nil")
-	}
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.viewSponsoredMessage#673ad8f1: field peer: %w", err)
-		}
-		v.Peer = value
+		return fmt.Errorf("can't decode messages.viewSponsoredMessage#269e3643 to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.viewSponsoredMessage#673ad8f1: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.viewSponsoredMessage#269e3643: field random_id: %w", err)
 		}
 		v.RandomID = value
 	}
 	return nil
-}
-
-// GetPeer returns value of Peer field.
-func (v *MessagesViewSponsoredMessageRequest) GetPeer() (value InputPeerClass) {
-	if v == nil {
-		return
-	}
-	return v.Peer
 }
 
 // GetRandomID returns value of RandomID field.
@@ -196,16 +164,19 @@ func (v *MessagesViewSponsoredMessageRequest) GetRandomID() (value []byte) {
 	return v.RandomID
 }
 
-// MessagesViewSponsoredMessage invokes method messages.viewSponsoredMessage#673ad8f1 returning error if any.
+// MessagesViewSponsoredMessage invokes method messages.viewSponsoredMessage#269e3643 returning error if any.
 // Mark a specific sponsored message »¹ as read
 //
 // Links:
 //  1. https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/method/messages.viewSponsoredMessage for reference.
-func (c *Client) MessagesViewSponsoredMessage(ctx context.Context, request *MessagesViewSponsoredMessageRequest) (bool, error) {
+func (c *Client) MessagesViewSponsoredMessage(ctx context.Context, randomid []byte) (bool, error) {
 	var result BoolBox
 
+	request := &MessagesViewSponsoredMessageRequest{
+		RandomID: randomid,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}
