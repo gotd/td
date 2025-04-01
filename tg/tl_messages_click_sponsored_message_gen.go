@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesClickSponsoredMessageRequest represents TL type `messages.clickSponsoredMessage#f093465`.
+// MessagesClickSponsoredMessageRequest represents TL type `messages.clickSponsoredMessage#8235057e`.
 // Informs the server that the user has interacted with a sponsored message in one of the
 // ways listed here »¹.
 //
@@ -49,14 +49,12 @@ type MessagesClickSponsoredMessageRequest struct {
 	Media bool
 	// The user expanded the video to full screen, and then clicked on it.
 	Fullscreen bool
-	// The channel/bot where the ad is located
-	Peer InputPeerClass
 	// The ad's unique ID.
 	RandomID []byte
 }
 
 // MessagesClickSponsoredMessageRequestTypeID is TL type id of MessagesClickSponsoredMessageRequest.
-const MessagesClickSponsoredMessageRequestTypeID = 0xf093465
+const MessagesClickSponsoredMessageRequestTypeID = 0x8235057e
 
 // Ensuring interfaces in compile-time for MessagesClickSponsoredMessageRequest.
 var (
@@ -79,9 +77,6 @@ func (c *MessagesClickSponsoredMessageRequest) Zero() bool {
 	if !(c.Fullscreen == false) {
 		return false
 	}
-	if !(c.Peer == nil) {
-		return false
-	}
 	if !(c.RandomID == nil) {
 		return false
 	}
@@ -102,12 +97,10 @@ func (c *MessagesClickSponsoredMessageRequest) String() string {
 func (c *MessagesClickSponsoredMessageRequest) FillFrom(from interface {
 	GetMedia() (value bool)
 	GetFullscreen() (value bool)
-	GetPeer() (value InputPeerClass)
 	GetRandomID() (value []byte)
 }) {
 	c.Media = from.GetMedia()
 	c.Fullscreen = from.GetFullscreen()
-	c.Peer = from.GetPeer()
 	c.RandomID = from.GetRandomID()
 }
 
@@ -145,10 +138,6 @@ func (c *MessagesClickSponsoredMessageRequest) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(1),
 		},
 		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -169,7 +158,7 @@ func (c *MessagesClickSponsoredMessageRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *MessagesClickSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.clickSponsoredMessage#f093465 as nil")
+		return fmt.Errorf("can't encode messages.clickSponsoredMessage#8235057e as nil")
 	}
 	b.PutID(MessagesClickSponsoredMessageRequestTypeID)
 	return c.EncodeBare(b)
@@ -178,17 +167,11 @@ func (c *MessagesClickSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesClickSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.clickSponsoredMessage#f093465 as nil")
+		return fmt.Errorf("can't encode messages.clickSponsoredMessage#8235057e as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.clickSponsoredMessage#f093465: field flags: %w", err)
-	}
-	if c.Peer == nil {
-		return fmt.Errorf("unable to encode messages.clickSponsoredMessage#f093465: field peer is nil")
-	}
-	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.clickSponsoredMessage#f093465: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.clickSponsoredMessage#8235057e: field flags: %w", err)
 	}
 	b.PutBytes(c.RandomID)
 	return nil
@@ -197,10 +180,10 @@ func (c *MessagesClickSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *MessagesClickSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.clickSponsoredMessage#f093465 to nil")
+		return fmt.Errorf("can't decode messages.clickSponsoredMessage#8235057e to nil")
 	}
 	if err := b.ConsumeID(MessagesClickSponsoredMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.clickSponsoredMessage#f093465: %w", err)
+		return fmt.Errorf("unable to decode messages.clickSponsoredMessage#8235057e: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -208,26 +191,19 @@ func (c *MessagesClickSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesClickSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.clickSponsoredMessage#f093465 to nil")
+		return fmt.Errorf("can't decode messages.clickSponsoredMessage#8235057e to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.clickSponsoredMessage#f093465: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.clickSponsoredMessage#8235057e: field flags: %w", err)
 		}
 	}
 	c.Media = c.Flags.Has(0)
 	c.Fullscreen = c.Flags.Has(1)
 	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.clickSponsoredMessage#f093465: field peer: %w", err)
-		}
-		c.Peer = value
-	}
-	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.clickSponsoredMessage#f093465: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.clickSponsoredMessage#8235057e: field random_id: %w", err)
 		}
 		c.RandomID = value
 	}
@@ -272,14 +248,6 @@ func (c *MessagesClickSponsoredMessageRequest) GetFullscreen() (value bool) {
 	return c.Flags.Has(1)
 }
 
-// GetPeer returns value of Peer field.
-func (c *MessagesClickSponsoredMessageRequest) GetPeer() (value InputPeerClass) {
-	if c == nil {
-		return
-	}
-	return c.Peer
-}
-
 // GetRandomID returns value of RandomID field.
 func (c *MessagesClickSponsoredMessageRequest) GetRandomID() (value []byte) {
 	if c == nil {
@@ -288,7 +256,7 @@ func (c *MessagesClickSponsoredMessageRequest) GetRandomID() (value []byte) {
 	return c.RandomID
 }
 
-// MessagesClickSponsoredMessage invokes method messages.clickSponsoredMessage#f093465 returning error if any.
+// MessagesClickSponsoredMessage invokes method messages.clickSponsoredMessage#8235057e returning error if any.
 // Informs the server that the user has interacted with a sponsored message in one of the
 // ways listed here »¹.
 //

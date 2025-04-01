@@ -28618,6 +28618,145 @@ func (u *UpdatePaidReactionPrivacy) GetPrivate() (value PaidReactionPrivacyClass
 	return u.Private
 }
 
+// UpdateSentPhoneCode represents TL type `updateSentPhoneCode#504aa18f`.
+//
+// See https://core.telegram.org/constructor/updateSentPhoneCode for reference.
+type UpdateSentPhoneCode struct {
+	// SentCode field of UpdateSentPhoneCode.
+	SentCode AuthSentCodeClass
+}
+
+// UpdateSentPhoneCodeTypeID is TL type id of UpdateSentPhoneCode.
+const UpdateSentPhoneCodeTypeID = 0x504aa18f
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSentPhoneCode) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSentPhoneCode.
+var (
+	_ bin.Encoder     = &UpdateSentPhoneCode{}
+	_ bin.Decoder     = &UpdateSentPhoneCode{}
+	_ bin.BareEncoder = &UpdateSentPhoneCode{}
+	_ bin.BareDecoder = &UpdateSentPhoneCode{}
+
+	_ UpdateClass = &UpdateSentPhoneCode{}
+)
+
+func (u *UpdateSentPhoneCode) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.SentCode == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSentPhoneCode) String() string {
+	if u == nil {
+		return "UpdateSentPhoneCode(nil)"
+	}
+	type Alias UpdateSentPhoneCode
+	return fmt.Sprintf("UpdateSentPhoneCode%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateSentPhoneCode from given interface.
+func (u *UpdateSentPhoneCode) FillFrom(from interface {
+	GetSentCode() (value AuthSentCodeClass)
+}) {
+	u.SentCode = from.GetSentCode()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSentPhoneCode) TypeID() uint32 {
+	return UpdateSentPhoneCodeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSentPhoneCode) TypeName() string {
+	return "updateSentPhoneCode"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSentPhoneCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSentPhoneCode",
+		ID:   UpdateSentPhoneCodeTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SentCode",
+			SchemaName: "sent_code",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSentPhoneCode) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSentPhoneCode#504aa18f as nil")
+	}
+	b.PutID(UpdateSentPhoneCodeTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSentPhoneCode) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSentPhoneCode#504aa18f as nil")
+	}
+	if u.SentCode == nil {
+		return fmt.Errorf("unable to encode updateSentPhoneCode#504aa18f: field sent_code is nil")
+	}
+	if err := u.SentCode.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateSentPhoneCode#504aa18f: field sent_code: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSentPhoneCode) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSentPhoneCode#504aa18f to nil")
+	}
+	if err := b.ConsumeID(UpdateSentPhoneCodeTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSentPhoneCode#504aa18f: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSentPhoneCode) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSentPhoneCode#504aa18f to nil")
+	}
+	{
+		value, err := DecodeAuthSentCode(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSentPhoneCode#504aa18f: field sent_code: %w", err)
+		}
+		u.SentCode = value
+	}
+	return nil
+}
+
+// GetSentCode returns value of SentCode field.
+func (u *UpdateSentPhoneCode) GetSentCode() (value AuthSentCodeClass) {
+	if u == nil {
+		return
+	}
+	return u.SentCode
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -28767,6 +28906,7 @@ const UpdateClassName = "Update"
 //   - [UpdateStarsRevenueStatus]
 //   - [UpdateBotPurchasedPaidMedia]
 //   - [UpdatePaidReactionPrivacy]
+//   - [UpdateSentPhoneCode]
 //
 // Example:
 //
@@ -28916,6 +29056,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStarsRevenueStatus: // updateStarsRevenueStatus#a584b019
 //	case *tg.UpdateBotPurchasedPaidMedia: // updateBotPurchasedPaidMedia#283bd312
 //	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#8b725fce
+//	case *tg.UpdateSentPhoneCode: // updateSentPhoneCode#504aa18f
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -29927,6 +30068,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdatePaidReactionPrivacyTypeID:
 		// Decoding updatePaidReactionPrivacy#8b725fce.
 		v := UpdatePaidReactionPrivacy{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSentPhoneCodeTypeID:
+		// Decoding updateSentPhoneCode#504aa18f.
+		v := UpdateSentPhoneCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

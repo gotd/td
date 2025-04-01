@@ -10593,6 +10593,301 @@ func (m *MessageActionStarGiftUnique) GetSavedID() (value int64, ok bool) {
 	return m.SavedID, true
 }
 
+// MessageActionPaidMessagesRefunded represents TL type `messageActionPaidMessagesRefunded#ac1f1fcd`.
+//
+// See https://core.telegram.org/constructor/messageActionPaidMessagesRefunded for reference.
+type MessageActionPaidMessagesRefunded struct {
+	// Count field of MessageActionPaidMessagesRefunded.
+	Count int
+	// Stars field of MessageActionPaidMessagesRefunded.
+	Stars int64
+}
+
+// MessageActionPaidMessagesRefundedTypeID is TL type id of MessageActionPaidMessagesRefunded.
+const MessageActionPaidMessagesRefundedTypeID = 0xac1f1fcd
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPaidMessagesRefunded) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPaidMessagesRefunded.
+var (
+	_ bin.Encoder     = &MessageActionPaidMessagesRefunded{}
+	_ bin.Decoder     = &MessageActionPaidMessagesRefunded{}
+	_ bin.BareEncoder = &MessageActionPaidMessagesRefunded{}
+	_ bin.BareDecoder = &MessageActionPaidMessagesRefunded{}
+
+	_ MessageActionClass = &MessageActionPaidMessagesRefunded{}
+)
+
+func (m *MessageActionPaidMessagesRefunded) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Count == 0) {
+		return false
+	}
+	if !(m.Stars == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionPaidMessagesRefunded) String() string {
+	if m == nil {
+		return "MessageActionPaidMessagesRefunded(nil)"
+	}
+	type Alias MessageActionPaidMessagesRefunded
+	return fmt.Sprintf("MessageActionPaidMessagesRefunded%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPaidMessagesRefunded from given interface.
+func (m *MessageActionPaidMessagesRefunded) FillFrom(from interface {
+	GetCount() (value int)
+	GetStars() (value int64)
+}) {
+	m.Count = from.GetCount()
+	m.Stars = from.GetStars()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionPaidMessagesRefunded) TypeID() uint32 {
+	return MessageActionPaidMessagesRefundedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionPaidMessagesRefunded) TypeName() string {
+	return "messageActionPaidMessagesRefunded"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPaidMessagesRefunded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPaidMessagesRefunded",
+		ID:   MessageActionPaidMessagesRefundedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionPaidMessagesRefunded) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPaidMessagesRefunded#ac1f1fcd as nil")
+	}
+	b.PutID(MessageActionPaidMessagesRefundedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionPaidMessagesRefunded) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPaidMessagesRefunded#ac1f1fcd as nil")
+	}
+	b.PutInt(m.Count)
+	b.PutLong(m.Stars)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionPaidMessagesRefunded) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPaidMessagesRefunded#ac1f1fcd to nil")
+	}
+	if err := b.ConsumeID(MessageActionPaidMessagesRefundedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionPaidMessagesRefunded#ac1f1fcd: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionPaidMessagesRefunded) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPaidMessagesRefunded#ac1f1fcd to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaidMessagesRefunded#ac1f1fcd: field count: %w", err)
+		}
+		m.Count = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaidMessagesRefunded#ac1f1fcd: field stars: %w", err)
+		}
+		m.Stars = value
+	}
+	return nil
+}
+
+// GetCount returns value of Count field.
+func (m *MessageActionPaidMessagesRefunded) GetCount() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Count
+}
+
+// GetStars returns value of Stars field.
+func (m *MessageActionPaidMessagesRefunded) GetStars() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Stars
+}
+
+// MessageActionPaidMessagesPrice represents TL type `messageActionPaidMessagesPrice#bcd71419`.
+//
+// See https://core.telegram.org/constructor/messageActionPaidMessagesPrice for reference.
+type MessageActionPaidMessagesPrice struct {
+	// Stars field of MessageActionPaidMessagesPrice.
+	Stars int64
+}
+
+// MessageActionPaidMessagesPriceTypeID is TL type id of MessageActionPaidMessagesPrice.
+const MessageActionPaidMessagesPriceTypeID = 0xbcd71419
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPaidMessagesPrice) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPaidMessagesPrice.
+var (
+	_ bin.Encoder     = &MessageActionPaidMessagesPrice{}
+	_ bin.Decoder     = &MessageActionPaidMessagesPrice{}
+	_ bin.BareEncoder = &MessageActionPaidMessagesPrice{}
+	_ bin.BareDecoder = &MessageActionPaidMessagesPrice{}
+
+	_ MessageActionClass = &MessageActionPaidMessagesPrice{}
+)
+
+func (m *MessageActionPaidMessagesPrice) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Stars == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionPaidMessagesPrice) String() string {
+	if m == nil {
+		return "MessageActionPaidMessagesPrice(nil)"
+	}
+	type Alias MessageActionPaidMessagesPrice
+	return fmt.Sprintf("MessageActionPaidMessagesPrice%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPaidMessagesPrice from given interface.
+func (m *MessageActionPaidMessagesPrice) FillFrom(from interface {
+	GetStars() (value int64)
+}) {
+	m.Stars = from.GetStars()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionPaidMessagesPrice) TypeID() uint32 {
+	return MessageActionPaidMessagesPriceTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionPaidMessagesPrice) TypeName() string {
+	return "messageActionPaidMessagesPrice"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPaidMessagesPrice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPaidMessagesPrice",
+		ID:   MessageActionPaidMessagesPriceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stars",
+			SchemaName: "stars",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionPaidMessagesPrice) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPaidMessagesPrice#bcd71419 as nil")
+	}
+	b.PutID(MessageActionPaidMessagesPriceTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionPaidMessagesPrice) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPaidMessagesPrice#bcd71419 as nil")
+	}
+	b.PutLong(m.Stars)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionPaidMessagesPrice) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPaidMessagesPrice#bcd71419 to nil")
+	}
+	if err := b.ConsumeID(MessageActionPaidMessagesPriceTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#bcd71419: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionPaidMessagesPrice) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPaidMessagesPrice#bcd71419 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#bcd71419: field stars: %w", err)
+		}
+		m.Stars = value
+	}
+	return nil
+}
+
+// GetStars returns value of Stars field.
+func (m *MessageActionPaidMessagesPrice) GetStars() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Stars
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -10649,6 +10944,8 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionPrizeStars]
 //   - [MessageActionStarGift]
 //   - [MessageActionStarGiftUnique]
+//   - [MessageActionPaidMessagesRefunded]
+//   - [MessageActionPaidMessagesPrice]
 //
 // Example:
 //
@@ -10705,6 +11002,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPrizeStars: // messageActionPrizeStars#b00c47a2
 //	case *tg.MessageActionStarGift: // messageActionStarGift#4717e8a4
 //	case *tg.MessageActionStarGiftUnique: // messageActionStarGiftUnique#acdfcb81
+//	case *tg.MessageActionPaidMessagesRefunded: // messageActionPaidMessagesRefunded#ac1f1fcd
+//	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#bcd71419
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -11065,6 +11364,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionStarGiftUniqueTypeID:
 		// Decoding messageActionStarGiftUnique#acdfcb81.
 		v := MessageActionStarGiftUnique{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionPaidMessagesRefundedTypeID:
+		// Decoding messageActionPaidMessagesRefunded#ac1f1fcd.
+		v := MessageActionPaidMessagesRefunded{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionPaidMessagesPriceTypeID:
+		// Decoding messageActionPaidMessagesPrice#bcd71419.
+		v := MessageActionPaidMessagesPrice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesReportSponsoredMessageRequest represents TL type `messages.reportSponsoredMessage#1af3dbb8`.
+// MessagesReportSponsoredMessageRequest represents TL type `messages.reportSponsoredMessage#12cbf0c4`.
 // Report a sponsored message »¹, see here »² for more info on the full flow.
 //
 // Links:
@@ -40,8 +40,6 @@ var (
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
 type MessagesReportSponsoredMessageRequest struct {
-	// The channel/bot where the ad is located
-	Peer InputPeerClass
 	// The ad's unique ID.
 	RandomID []byte
 	// Chosen report option, initially an empty string, see here »¹ for more info on the
@@ -53,7 +51,7 @@ type MessagesReportSponsoredMessageRequest struct {
 }
 
 // MessagesReportSponsoredMessageRequestTypeID is TL type id of MessagesReportSponsoredMessageRequest.
-const MessagesReportSponsoredMessageRequestTypeID = 0x1af3dbb8
+const MessagesReportSponsoredMessageRequestTypeID = 0x12cbf0c4
 
 // Ensuring interfaces in compile-time for MessagesReportSponsoredMessageRequest.
 var (
@@ -66,9 +64,6 @@ var (
 func (r *MessagesReportSponsoredMessageRequest) Zero() bool {
 	if r == nil {
 		return true
-	}
-	if !(r.Peer == nil) {
-		return false
 	}
 	if !(r.RandomID == nil) {
 		return false
@@ -91,11 +86,9 @@ func (r *MessagesReportSponsoredMessageRequest) String() string {
 
 // FillFrom fills MessagesReportSponsoredMessageRequest from given interface.
 func (r *MessagesReportSponsoredMessageRequest) FillFrom(from interface {
-	GetPeer() (value InputPeerClass)
 	GetRandomID() (value []byte)
 	GetOption() (value []byte)
 }) {
-	r.Peer = from.GetPeer()
 	r.RandomID = from.GetRandomID()
 	r.Option = from.GetOption()
 }
@@ -124,10 +117,6 @@ func (r *MessagesReportSponsoredMessageRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -142,7 +131,7 @@ func (r *MessagesReportSponsoredMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesReportSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reportSponsoredMessage#1af3dbb8 as nil")
+		return fmt.Errorf("can't encode messages.reportSponsoredMessage#12cbf0c4 as nil")
 	}
 	b.PutID(MessagesReportSponsoredMessageRequestTypeID)
 	return r.EncodeBare(b)
@@ -151,13 +140,7 @@ func (r *MessagesReportSponsoredMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReportSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.reportSponsoredMessage#1af3dbb8 as nil")
-	}
-	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.reportSponsoredMessage#1af3dbb8: field peer is nil")
-	}
-	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.reportSponsoredMessage#1af3dbb8: field peer: %w", err)
+		return fmt.Errorf("can't encode messages.reportSponsoredMessage#12cbf0c4 as nil")
 	}
 	b.PutBytes(r.RandomID)
 	b.PutBytes(r.Option)
@@ -167,10 +150,10 @@ func (r *MessagesReportSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (r *MessagesReportSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reportSponsoredMessage#1af3dbb8 to nil")
+		return fmt.Errorf("can't decode messages.reportSponsoredMessage#12cbf0c4 to nil")
 	}
 	if err := b.ConsumeID(MessagesReportSponsoredMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.reportSponsoredMessage#1af3dbb8: %w", err)
+		return fmt.Errorf("unable to decode messages.reportSponsoredMessage#12cbf0c4: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -178,38 +161,23 @@ func (r *MessagesReportSponsoredMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReportSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.reportSponsoredMessage#1af3dbb8 to nil")
-	}
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.reportSponsoredMessage#1af3dbb8: field peer: %w", err)
-		}
-		r.Peer = value
+		return fmt.Errorf("can't decode messages.reportSponsoredMessage#12cbf0c4 to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.reportSponsoredMessage#1af3dbb8: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.reportSponsoredMessage#12cbf0c4: field random_id: %w", err)
 		}
 		r.RandomID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.reportSponsoredMessage#1af3dbb8: field option: %w", err)
+			return fmt.Errorf("unable to decode messages.reportSponsoredMessage#12cbf0c4: field option: %w", err)
 		}
 		r.Option = value
 	}
 	return nil
-}
-
-// GetPeer returns value of Peer field.
-func (r *MessagesReportSponsoredMessageRequest) GetPeer() (value InputPeerClass) {
-	if r == nil {
-		return
-	}
-	return r.Peer
 }
 
 // GetRandomID returns value of RandomID field.
@@ -228,7 +196,7 @@ func (r *MessagesReportSponsoredMessageRequest) GetOption() (value []byte) {
 	return r.Option
 }
 
-// MessagesReportSponsoredMessage invokes method messages.reportSponsoredMessage#1af3dbb8 returning error if any.
+// MessagesReportSponsoredMessage invokes method messages.reportSponsoredMessage#12cbf0c4 returning error if any.
 // Report a sponsored message »¹, see here »² for more info on the full flow.
 //
 // Links:

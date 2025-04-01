@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GlobalPrivacySettings represents TL type `globalPrivacySettings#c9d8df1c`.
+// GlobalPrivacySettings represents TL type `globalPrivacySettings#fe41b34f`.
 // Global privacy settings
 //
 // See https://core.telegram.org/constructor/globalPrivacySettings for reference.
@@ -92,14 +92,20 @@ type GlobalPrivacySettings struct {
 	//  6) https://core.telegram.org/api/config#new-noncontact-peers-require-premium-without-ownpremium
 	//  7) https://core.telegram.org/api/premium
 	NewNoncontactPeersRequirePremium bool
+	// DisplayGiftsButton field of GlobalPrivacySettings.
+	DisplayGiftsButton bool
 	// NoncontactPeersPaidStars field of GlobalPrivacySettings.
 	//
 	// Use SetNoncontactPeersPaidStars and GetNoncontactPeersPaidStars helpers.
 	NoncontactPeersPaidStars int64
+	// DisallowedGifts field of GlobalPrivacySettings.
+	//
+	// Use SetDisallowedGifts and GetDisallowedGifts helpers.
+	DisallowedGifts DisallowedGiftsSettings
 }
 
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.
-const GlobalPrivacySettingsTypeID = 0xc9d8df1c
+const GlobalPrivacySettingsTypeID = 0xfe41b34f
 
 // Ensuring interfaces in compile-time for GlobalPrivacySettings.
 var (
@@ -131,7 +137,13 @@ func (g *GlobalPrivacySettings) Zero() bool {
 	if !(g.NewNoncontactPeersRequirePremium == false) {
 		return false
 	}
+	if !(g.DisplayGiftsButton == false) {
+		return false
+	}
 	if !(g.NoncontactPeersPaidStars == 0) {
+		return false
+	}
+	if !(g.DisallowedGifts.Zero()) {
 		return false
 	}
 
@@ -154,15 +166,22 @@ func (g *GlobalPrivacySettings) FillFrom(from interface {
 	GetKeepArchivedFolders() (value bool)
 	GetHideReadMarks() (value bool)
 	GetNewNoncontactPeersRequirePremium() (value bool)
+	GetDisplayGiftsButton() (value bool)
 	GetNoncontactPeersPaidStars() (value int64, ok bool)
+	GetDisallowedGifts() (value DisallowedGiftsSettings, ok bool)
 }) {
 	g.ArchiveAndMuteNewNoncontactPeers = from.GetArchiveAndMuteNewNoncontactPeers()
 	g.KeepArchivedUnmuted = from.GetKeepArchivedUnmuted()
 	g.KeepArchivedFolders = from.GetKeepArchivedFolders()
 	g.HideReadMarks = from.GetHideReadMarks()
 	g.NewNoncontactPeersRequirePremium = from.GetNewNoncontactPeersRequirePremium()
+	g.DisplayGiftsButton = from.GetDisplayGiftsButton()
 	if val, ok := from.GetNoncontactPeersPaidStars(); ok {
 		g.NoncontactPeersPaidStars = val
+	}
+
+	if val, ok := from.GetDisallowedGifts(); ok {
+		g.DisallowedGifts = val
 	}
 
 }
@@ -216,9 +235,19 @@ func (g *GlobalPrivacySettings) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(4),
 		},
 		{
+			Name:       "DisplayGiftsButton",
+			SchemaName: "display_gifts_button",
+			Null:       !g.Flags.Has(7),
+		},
+		{
 			Name:       "NoncontactPeersPaidStars",
 			SchemaName: "noncontact_peers_paid_stars",
 			Null:       !g.Flags.Has(5),
+		},
+		{
+			Name:       "DisallowedGifts",
+			SchemaName: "disallowed_gifts",
+			Null:       !g.Flags.Has(6),
 		},
 	}
 	return typ
@@ -241,15 +270,21 @@ func (g *GlobalPrivacySettings) SetFlags() {
 	if !(g.NewNoncontactPeersRequirePremium == false) {
 		g.Flags.Set(4)
 	}
+	if !(g.DisplayGiftsButton == false) {
+		g.Flags.Set(7)
+	}
 	if !(g.NoncontactPeersPaidStars == 0) {
 		g.Flags.Set(5)
+	}
+	if !(g.DisallowedGifts.Zero()) {
+		g.Flags.Set(6)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode globalPrivacySettings#c9d8df1c as nil")
+		return fmt.Errorf("can't encode globalPrivacySettings#fe41b34f as nil")
 	}
 	b.PutID(GlobalPrivacySettingsTypeID)
 	return g.EncodeBare(b)
@@ -258,14 +293,19 @@ func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GlobalPrivacySettings) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode globalPrivacySettings#c9d8df1c as nil")
+		return fmt.Errorf("can't encode globalPrivacySettings#fe41b34f as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode globalPrivacySettings#c9d8df1c: field flags: %w", err)
+		return fmt.Errorf("unable to encode globalPrivacySettings#fe41b34f: field flags: %w", err)
 	}
 	if g.Flags.Has(5) {
 		b.PutLong(g.NoncontactPeersPaidStars)
+	}
+	if g.Flags.Has(6) {
+		if err := g.DisallowedGifts.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode globalPrivacySettings#fe41b34f: field disallowed_gifts: %w", err)
+		}
 	}
 	return nil
 }
@@ -273,10 +313,10 @@ func (g *GlobalPrivacySettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode globalPrivacySettings#c9d8df1c to nil")
+		return fmt.Errorf("can't decode globalPrivacySettings#fe41b34f to nil")
 	}
 	if err := b.ConsumeID(GlobalPrivacySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode globalPrivacySettings#c9d8df1c: %w", err)
+		return fmt.Errorf("unable to decode globalPrivacySettings#fe41b34f: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -284,11 +324,11 @@ func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GlobalPrivacySettings) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode globalPrivacySettings#c9d8df1c to nil")
+		return fmt.Errorf("can't decode globalPrivacySettings#fe41b34f to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode globalPrivacySettings#c9d8df1c: field flags: %w", err)
+			return fmt.Errorf("unable to decode globalPrivacySettings#fe41b34f: field flags: %w", err)
 		}
 	}
 	g.ArchiveAndMuteNewNoncontactPeers = g.Flags.Has(0)
@@ -296,12 +336,18 @@ func (g *GlobalPrivacySettings) DecodeBare(b *bin.Buffer) error {
 	g.KeepArchivedFolders = g.Flags.Has(2)
 	g.HideReadMarks = g.Flags.Has(3)
 	g.NewNoncontactPeersRequirePremium = g.Flags.Has(4)
+	g.DisplayGiftsButton = g.Flags.Has(7)
 	if g.Flags.Has(5) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode globalPrivacySettings#c9d8df1c: field noncontact_peers_paid_stars: %w", err)
+			return fmt.Errorf("unable to decode globalPrivacySettings#fe41b34f: field noncontact_peers_paid_stars: %w", err)
 		}
 		g.NoncontactPeersPaidStars = value
+	}
+	if g.Flags.Has(6) {
+		if err := g.DisallowedGifts.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode globalPrivacySettings#fe41b34f: field disallowed_gifts: %w", err)
+		}
 	}
 	return nil
 }
@@ -401,6 +447,25 @@ func (g *GlobalPrivacySettings) GetNewNoncontactPeersRequirePremium() (value boo
 	return g.Flags.Has(4)
 }
 
+// SetDisplayGiftsButton sets value of DisplayGiftsButton conditional field.
+func (g *GlobalPrivacySettings) SetDisplayGiftsButton(value bool) {
+	if value {
+		g.Flags.Set(7)
+		g.DisplayGiftsButton = true
+	} else {
+		g.Flags.Unset(7)
+		g.DisplayGiftsButton = false
+	}
+}
+
+// GetDisplayGiftsButton returns value of DisplayGiftsButton conditional field.
+func (g *GlobalPrivacySettings) GetDisplayGiftsButton() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(7)
+}
+
 // SetNoncontactPeersPaidStars sets value of NoncontactPeersPaidStars conditional field.
 func (g *GlobalPrivacySettings) SetNoncontactPeersPaidStars(value int64) {
 	g.Flags.Set(5)
@@ -417,4 +482,22 @@ func (g *GlobalPrivacySettings) GetNoncontactPeersPaidStars() (value int64, ok b
 		return value, false
 	}
 	return g.NoncontactPeersPaidStars, true
+}
+
+// SetDisallowedGifts sets value of DisallowedGifts conditional field.
+func (g *GlobalPrivacySettings) SetDisallowedGifts(value DisallowedGiftsSettings) {
+	g.Flags.Set(6)
+	g.DisallowedGifts = value
+}
+
+// GetDisallowedGifts returns value of DisallowedGifts conditional field and
+// boolean which is true if field was set.
+func (g *GlobalPrivacySettings) GetDisallowedGifts() (value DisallowedGiftsSettings, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(6) {
+		return value, false
+	}
+	return g.DisallowedGifts, true
 }
