@@ -1064,8 +1064,12 @@ type InputMediaUploadedDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the specified document is a video file with no audio tracks (a GIF animation
-	// (even as MPEG4), for example)
+	// Whether to send the file as a video even if it doesn't have an audio track (i.e. if
+	// set, the documentAttributeAnimated¹ attribute will not be set even for videos without
+	// audio)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/documentAttributeAnimated
 	NosoundVideo bool
 	// Force the media file to be uploaded as document
 	ForceFile bool
