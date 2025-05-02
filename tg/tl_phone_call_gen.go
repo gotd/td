@@ -166,7 +166,7 @@ func (p *PhoneCallEmpty) GetID() (value int64) {
 	return p.ID
 }
 
-// PhoneCallWaiting represents TL type `phoneCallWaiting#eed42858`.
+// PhoneCallWaiting represents TL type `phoneCallWaiting#c5226f17`.
 // Incoming phone call
 //
 // See https://core.telegram.org/constructor/phoneCallWaiting for reference.
@@ -194,14 +194,10 @@ type PhoneCallWaiting struct {
 	//
 	// Use SetReceiveDate and GetReceiveDate helpers.
 	ReceiveDate int
-	// ConferenceCall field of PhoneCallWaiting.
-	//
-	// Use SetConferenceCall and GetConferenceCall helpers.
-	ConferenceCall InputGroupCall
 }
 
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
-const PhoneCallWaitingTypeID = 0xeed42858
+const PhoneCallWaitingTypeID = 0xc5226f17
 
 // construct implements constructor of PhoneCallClass.
 func (p PhoneCallWaiting) construct() PhoneCallClass { return &p }
@@ -247,9 +243,6 @@ func (p *PhoneCallWaiting) Zero() bool {
 	if !(p.ReceiveDate == 0) {
 		return false
 	}
-	if !(p.ConferenceCall.Zero()) {
-		return false
-	}
 
 	return true
 }
@@ -273,7 +266,6 @@ func (p *PhoneCallWaiting) FillFrom(from interface {
 	GetParticipantID() (value int64)
 	GetProtocol() (value PhoneCallProtocol)
 	GetReceiveDate() (value int, ok bool)
-	GetConferenceCall() (value InputGroupCall, ok bool)
 }) {
 	p.Video = from.GetVideo()
 	p.ID = from.GetID()
@@ -284,10 +276,6 @@ func (p *PhoneCallWaiting) FillFrom(from interface {
 	p.Protocol = from.GetProtocol()
 	if val, ok := from.GetReceiveDate(); ok {
 		p.ReceiveDate = val
-	}
-
-	if val, ok := from.GetConferenceCall(); ok {
-		p.ConferenceCall = val
 	}
 
 }
@@ -349,11 +337,6 @@ func (p *PhoneCallWaiting) TypeInfo() tdp.Type {
 			SchemaName: "receive_date",
 			Null:       !p.Flags.Has(0),
 		},
-		{
-			Name:       "ConferenceCall",
-			SchemaName: "conference_call",
-			Null:       !p.Flags.Has(8),
-		},
 	}
 	return typ
 }
@@ -366,15 +349,12 @@ func (p *PhoneCallWaiting) SetFlags() {
 	if !(p.ReceiveDate == 0) {
 		p.Flags.Set(0)
 	}
-	if !(p.ConferenceCall.Zero()) {
-		p.Flags.Set(8)
-	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallWaiting#eed42858 as nil")
+		return fmt.Errorf("can't encode phoneCallWaiting#c5226f17 as nil")
 	}
 	b.PutID(PhoneCallWaitingTypeID)
 	return p.EncodeBare(b)
@@ -383,11 +363,11 @@ func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallWaiting#eed42858 as nil")
+		return fmt.Errorf("can't encode phoneCallWaiting#c5226f17 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallWaiting#eed42858: field flags: %w", err)
+		return fmt.Errorf("unable to encode phoneCallWaiting#c5226f17: field flags: %w", err)
 	}
 	b.PutLong(p.ID)
 	b.PutLong(p.AccessHash)
@@ -395,15 +375,10 @@ func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(p.AdminID)
 	b.PutLong(p.ParticipantID)
 	if err := p.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallWaiting#eed42858: field protocol: %w", err)
+		return fmt.Errorf("unable to encode phoneCallWaiting#c5226f17: field protocol: %w", err)
 	}
 	if p.Flags.Has(0) {
 		b.PutInt(p.ReceiveDate)
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCallWaiting#eed42858: field conference_call: %w", err)
-		}
 	}
 	return nil
 }
@@ -411,10 +386,10 @@ func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallWaiting) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallWaiting#eed42858 to nil")
+		return fmt.Errorf("can't decode phoneCallWaiting#c5226f17 to nil")
 	}
 	if err := b.ConsumeID(PhoneCallWaitingTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: %w", err)
+		return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -422,65 +397,60 @@ func (p *PhoneCallWaiting) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallWaiting) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallWaiting#eed42858 to nil")
+		return fmt.Errorf("can't decode phoneCallWaiting#c5226f17 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field flags: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field flags: %w", err)
 		}
 	}
 	p.Video = p.Flags.Has(6)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field access_hash: %w", err)
 		}
 		p.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field date: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field date: %w", err)
 		}
 		p.Date = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field admin_id: %w", err)
 		}
 		p.AdminID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field participant_id: %w", err)
 		}
 		p.ParticipantID = value
 	}
 	{
 		if err := p.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field protocol: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field protocol: %w", err)
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field receive_date: %w", err)
+			return fmt.Errorf("unable to decode phoneCallWaiting#c5226f17: field receive_date: %w", err)
 		}
 		p.ReceiveDate = value
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallWaiting#eed42858: field conference_call: %w", err)
-		}
 	}
 	return nil
 }
@@ -570,25 +540,7 @@ func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
 	return p.ReceiveDate, true
 }
 
-// SetConferenceCall sets value of ConferenceCall conditional field.
-func (p *PhoneCallWaiting) SetConferenceCall(value InputGroupCall) {
-	p.Flags.Set(8)
-	p.ConferenceCall = value
-}
-
-// GetConferenceCall returns value of ConferenceCall conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCallWaiting) GetConferenceCall() (value InputGroupCall, ok bool) {
-	if p == nil {
-		return
-	}
-	if !p.Flags.Has(8) {
-		return value, false
-	}
-	return p.ConferenceCall, true
-}
-
-// PhoneCallRequested represents TL type `phoneCallRequested#45361c63`.
+// PhoneCallRequested represents TL type `phoneCallRequested#14b0ed0c`.
 // Requested phone call
 //
 // See https://core.telegram.org/constructor/phoneCallRequested for reference.
@@ -617,14 +569,10 @@ type PhoneCallRequested struct {
 	GAHash []byte
 	// Call protocol info to be passed to libtgvoip
 	Protocol PhoneCallProtocol
-	// ConferenceCall field of PhoneCallRequested.
-	//
-	// Use SetConferenceCall and GetConferenceCall helpers.
-	ConferenceCall InputGroupCall
 }
 
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
-const PhoneCallRequestedTypeID = 0x45361c63
+const PhoneCallRequestedTypeID = 0x14b0ed0c
 
 // construct implements constructor of PhoneCallClass.
 func (p PhoneCallRequested) construct() PhoneCallClass { return &p }
@@ -670,9 +618,6 @@ func (p *PhoneCallRequested) Zero() bool {
 	if !(p.Protocol.Zero()) {
 		return false
 	}
-	if !(p.ConferenceCall.Zero()) {
-		return false
-	}
 
 	return true
 }
@@ -696,7 +641,6 @@ func (p *PhoneCallRequested) FillFrom(from interface {
 	GetParticipantID() (value int64)
 	GetGAHash() (value []byte)
 	GetProtocol() (value PhoneCallProtocol)
-	GetConferenceCall() (value InputGroupCall, ok bool)
 }) {
 	p.Video = from.GetVideo()
 	p.ID = from.GetID()
@@ -706,10 +650,6 @@ func (p *PhoneCallRequested) FillFrom(from interface {
 	p.ParticipantID = from.GetParticipantID()
 	p.GAHash = from.GetGAHash()
 	p.Protocol = from.GetProtocol()
-	if val, ok := from.GetConferenceCall(); ok {
-		p.ConferenceCall = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -768,11 +708,6 @@ func (p *PhoneCallRequested) TypeInfo() tdp.Type {
 			Name:       "Protocol",
 			SchemaName: "protocol",
 		},
-		{
-			Name:       "ConferenceCall",
-			SchemaName: "conference_call",
-			Null:       !p.Flags.Has(8),
-		},
 	}
 	return typ
 }
@@ -782,15 +717,12 @@ func (p *PhoneCallRequested) SetFlags() {
 	if !(p.Video == false) {
 		p.Flags.Set(6)
 	}
-	if !(p.ConferenceCall.Zero()) {
-		p.Flags.Set(8)
-	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallRequested#45361c63 as nil")
+		return fmt.Errorf("can't encode phoneCallRequested#14b0ed0c as nil")
 	}
 	b.PutID(PhoneCallRequestedTypeID)
 	return p.EncodeBare(b)
@@ -799,11 +731,11 @@ func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallRequested#45361c63 as nil")
+		return fmt.Errorf("can't encode phoneCallRequested#14b0ed0c as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallRequested#45361c63: field flags: %w", err)
+		return fmt.Errorf("unable to encode phoneCallRequested#14b0ed0c: field flags: %w", err)
 	}
 	b.PutLong(p.ID)
 	b.PutLong(p.AccessHash)
@@ -812,12 +744,7 @@ func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(p.ParticipantID)
 	b.PutBytes(p.GAHash)
 	if err := p.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallRequested#45361c63: field protocol: %w", err)
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCallRequested#45361c63: field conference_call: %w", err)
-		}
+		return fmt.Errorf("unable to encode phoneCallRequested#14b0ed0c: field protocol: %w", err)
 	}
 	return nil
 }
@@ -825,10 +752,10 @@ func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallRequested) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallRequested#45361c63 to nil")
+		return fmt.Errorf("can't decode phoneCallRequested#14b0ed0c to nil")
 	}
 	if err := b.ConsumeID(PhoneCallRequestedTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallRequested#45361c63: %w", err)
+		return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -836,64 +763,59 @@ func (p *PhoneCallRequested) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallRequested) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallRequested#45361c63 to nil")
+		return fmt.Errorf("can't decode phoneCallRequested#14b0ed0c to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field flags: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field flags: %w", err)
 		}
 	}
 	p.Video = p.Flags.Has(6)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field access_hash: %w", err)
 		}
 		p.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field date: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field date: %w", err)
 		}
 		p.Date = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field admin_id: %w", err)
 		}
 		p.AdminID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field participant_id: %w", err)
 		}
 		p.ParticipantID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field g_a_hash: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field g_a_hash: %w", err)
 		}
 		p.GAHash = value
 	}
 	{
 		if err := p.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field protocol: %w", err)
-		}
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallRequested#45361c63: field conference_call: %w", err)
+			return fmt.Errorf("unable to decode phoneCallRequested#14b0ed0c: field protocol: %w", err)
 		}
 	}
 	return nil
@@ -974,25 +896,7 @@ func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
 	return p.Protocol
 }
 
-// SetConferenceCall sets value of ConferenceCall conditional field.
-func (p *PhoneCallRequested) SetConferenceCall(value InputGroupCall) {
-	p.Flags.Set(8)
-	p.ConferenceCall = value
-}
-
-// GetConferenceCall returns value of ConferenceCall conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCallRequested) GetConferenceCall() (value InputGroupCall, ok bool) {
-	if p == nil {
-		return
-	}
-	if !p.Flags.Has(8) {
-		return value, false
-	}
-	return p.ConferenceCall, true
-}
-
-// PhoneCallAccepted represents TL type `phoneCallAccepted#22fd7181`.
+// PhoneCallAccepted represents TL type `phoneCallAccepted#3660c311`.
 // An accepted phone call
 //
 // See https://core.telegram.org/constructor/phoneCallAccepted for reference.
@@ -1021,14 +925,10 @@ type PhoneCallAccepted struct {
 	GB []byte
 	// Protocol to use for phone call
 	Protocol PhoneCallProtocol
-	// ConferenceCall field of PhoneCallAccepted.
-	//
-	// Use SetConferenceCall and GetConferenceCall helpers.
-	ConferenceCall InputGroupCall
 }
 
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
-const PhoneCallAcceptedTypeID = 0x22fd7181
+const PhoneCallAcceptedTypeID = 0x3660c311
 
 // construct implements constructor of PhoneCallClass.
 func (p PhoneCallAccepted) construct() PhoneCallClass { return &p }
@@ -1074,9 +974,6 @@ func (p *PhoneCallAccepted) Zero() bool {
 	if !(p.Protocol.Zero()) {
 		return false
 	}
-	if !(p.ConferenceCall.Zero()) {
-		return false
-	}
 
 	return true
 }
@@ -1100,7 +997,6 @@ func (p *PhoneCallAccepted) FillFrom(from interface {
 	GetParticipantID() (value int64)
 	GetGB() (value []byte)
 	GetProtocol() (value PhoneCallProtocol)
-	GetConferenceCall() (value InputGroupCall, ok bool)
 }) {
 	p.Video = from.GetVideo()
 	p.ID = from.GetID()
@@ -1110,10 +1006,6 @@ func (p *PhoneCallAccepted) FillFrom(from interface {
 	p.ParticipantID = from.GetParticipantID()
 	p.GB = from.GetGB()
 	p.Protocol = from.GetProtocol()
-	if val, ok := from.GetConferenceCall(); ok {
-		p.ConferenceCall = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -1172,11 +1064,6 @@ func (p *PhoneCallAccepted) TypeInfo() tdp.Type {
 			Name:       "Protocol",
 			SchemaName: "protocol",
 		},
-		{
-			Name:       "ConferenceCall",
-			SchemaName: "conference_call",
-			Null:       !p.Flags.Has(8),
-		},
 	}
 	return typ
 }
@@ -1186,15 +1073,12 @@ func (p *PhoneCallAccepted) SetFlags() {
 	if !(p.Video == false) {
 		p.Flags.Set(6)
 	}
-	if !(p.ConferenceCall.Zero()) {
-		p.Flags.Set(8)
-	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallAccepted#22fd7181 as nil")
+		return fmt.Errorf("can't encode phoneCallAccepted#3660c311 as nil")
 	}
 	b.PutID(PhoneCallAcceptedTypeID)
 	return p.EncodeBare(b)
@@ -1203,11 +1087,11 @@ func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallAccepted#22fd7181 as nil")
+		return fmt.Errorf("can't encode phoneCallAccepted#3660c311 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallAccepted#22fd7181: field flags: %w", err)
+		return fmt.Errorf("unable to encode phoneCallAccepted#3660c311: field flags: %w", err)
 	}
 	b.PutLong(p.ID)
 	b.PutLong(p.AccessHash)
@@ -1216,12 +1100,7 @@ func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(p.ParticipantID)
 	b.PutBytes(p.GB)
 	if err := p.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallAccepted#22fd7181: field protocol: %w", err)
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCallAccepted#22fd7181: field conference_call: %w", err)
-		}
+		return fmt.Errorf("unable to encode phoneCallAccepted#3660c311: field protocol: %w", err)
 	}
 	return nil
 }
@@ -1229,10 +1108,10 @@ func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallAccepted) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallAccepted#22fd7181 to nil")
+		return fmt.Errorf("can't decode phoneCallAccepted#3660c311 to nil")
 	}
 	if err := b.ConsumeID(PhoneCallAcceptedTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: %w", err)
+		return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -1240,64 +1119,59 @@ func (p *PhoneCallAccepted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallAccepted) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallAccepted#22fd7181 to nil")
+		return fmt.Errorf("can't decode phoneCallAccepted#3660c311 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field flags: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field flags: %w", err)
 		}
 	}
 	p.Video = p.Flags.Has(6)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field access_hash: %w", err)
 		}
 		p.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field date: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field date: %w", err)
 		}
 		p.Date = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field admin_id: %w", err)
 		}
 		p.AdminID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field participant_id: %w", err)
 		}
 		p.ParticipantID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field g_b: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field g_b: %w", err)
 		}
 		p.GB = value
 	}
 	{
 		if err := p.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field protocol: %w", err)
-		}
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallAccepted#22fd7181: field conference_call: %w", err)
+			return fmt.Errorf("unable to decode phoneCallAccepted#3660c311: field protocol: %w", err)
 		}
 	}
 	return nil
@@ -1378,25 +1252,7 @@ func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
 	return p.Protocol
 }
 
-// SetConferenceCall sets value of ConferenceCall conditional field.
-func (p *PhoneCallAccepted) SetConferenceCall(value InputGroupCall) {
-	p.Flags.Set(8)
-	p.ConferenceCall = value
-}
-
-// GetConferenceCall returns value of ConferenceCall conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCallAccepted) GetConferenceCall() (value InputGroupCall, ok bool) {
-	if p == nil {
-		return
-	}
-	if !p.Flags.Has(8) {
-		return value, false
-	}
-	return p.ConferenceCall, true
-}
-
-// PhoneCall represents TL type `phoneCall#3ba5940c`.
+// PhoneCall represents TL type `phoneCall#30535af5`.
 // Phone call
 //
 // See https://core.telegram.org/constructor/phoneCall for reference.
@@ -1410,6 +1266,8 @@ type PhoneCall struct {
 	P2PAllowed bool
 	// Whether this is a video call
 	Video bool
+	// ConferenceSupported field of PhoneCall.
+	ConferenceSupported bool
 	// Call ID
 	ID int64
 	// Access hash
@@ -1440,14 +1298,10 @@ type PhoneCall struct {
 	//
 	// Use SetCustomParameters and GetCustomParameters helpers.
 	CustomParameters DataJSON
-	// ConferenceCall field of PhoneCall.
-	//
-	// Use SetConferenceCall and GetConferenceCall helpers.
-	ConferenceCall InputGroupCall
 }
 
 // PhoneCallTypeID is TL type id of PhoneCall.
-const PhoneCallTypeID = 0x3ba5940c
+const PhoneCallTypeID = 0x30535af5
 
 // construct implements constructor of PhoneCallClass.
 func (p PhoneCall) construct() PhoneCallClass { return &p }
@@ -1473,6 +1327,9 @@ func (p *PhoneCall) Zero() bool {
 		return false
 	}
 	if !(p.Video == false) {
+		return false
+	}
+	if !(p.ConferenceSupported == false) {
 		return false
 	}
 	if !(p.ID == 0) {
@@ -1508,9 +1365,6 @@ func (p *PhoneCall) Zero() bool {
 	if !(p.CustomParameters.Zero()) {
 		return false
 	}
-	if !(p.ConferenceCall.Zero()) {
-		return false
-	}
 
 	return true
 }
@@ -1528,6 +1382,7 @@ func (p *PhoneCall) String() string {
 func (p *PhoneCall) FillFrom(from interface {
 	GetP2PAllowed() (value bool)
 	GetVideo() (value bool)
+	GetConferenceSupported() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetDate() (value int)
@@ -1539,10 +1394,10 @@ func (p *PhoneCall) FillFrom(from interface {
 	GetConnections() (value []PhoneConnectionClass)
 	GetStartDate() (value int)
 	GetCustomParameters() (value DataJSON, ok bool)
-	GetConferenceCall() (value InputGroupCall, ok bool)
 }) {
 	p.P2PAllowed = from.GetP2PAllowed()
 	p.Video = from.GetVideo()
+	p.ConferenceSupported = from.GetConferenceSupported()
 	p.ID = from.GetID()
 	p.AccessHash = from.GetAccessHash()
 	p.Date = from.GetDate()
@@ -1555,10 +1410,6 @@ func (p *PhoneCall) FillFrom(from interface {
 	p.StartDate = from.GetStartDate()
 	if val, ok := from.GetCustomParameters(); ok {
 		p.CustomParameters = val
-	}
-
-	if val, ok := from.GetConferenceCall(); ok {
-		p.ConferenceCall = val
 	}
 
 }
@@ -1595,6 +1446,11 @@ func (p *PhoneCall) TypeInfo() tdp.Type {
 			Name:       "Video",
 			SchemaName: "video",
 			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ConferenceSupported",
+			SchemaName: "conference_supported",
+			Null:       !p.Flags.Has(8),
 		},
 		{
 			Name:       "ID",
@@ -1641,11 +1497,6 @@ func (p *PhoneCall) TypeInfo() tdp.Type {
 			SchemaName: "custom_parameters",
 			Null:       !p.Flags.Has(7),
 		},
-		{
-			Name:       "ConferenceCall",
-			SchemaName: "conference_call",
-			Null:       !p.Flags.Has(8),
-		},
 	}
 	return typ
 }
@@ -1658,18 +1509,18 @@ func (p *PhoneCall) SetFlags() {
 	if !(p.Video == false) {
 		p.Flags.Set(6)
 	}
+	if !(p.ConferenceSupported == false) {
+		p.Flags.Set(8)
+	}
 	if !(p.CustomParameters.Zero()) {
 		p.Flags.Set(7)
-	}
-	if !(p.ConferenceCall.Zero()) {
-		p.Flags.Set(8)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCall#3ba5940c as nil")
+		return fmt.Errorf("can't encode phoneCall#30535af5 as nil")
 	}
 	b.PutID(PhoneCallTypeID)
 	return p.EncodeBare(b)
@@ -1678,11 +1529,11 @@ func (p *PhoneCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCall#3ba5940c as nil")
+		return fmt.Errorf("can't encode phoneCall#30535af5 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCall#3ba5940c: field flags: %w", err)
+		return fmt.Errorf("unable to encode phoneCall#30535af5: field flags: %w", err)
 	}
 	b.PutLong(p.ID)
 	b.PutLong(p.AccessHash)
@@ -1692,26 +1543,21 @@ func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
 	b.PutBytes(p.GAOrB)
 	b.PutLong(p.KeyFingerprint)
 	if err := p.Protocol.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCall#3ba5940c: field protocol: %w", err)
+		return fmt.Errorf("unable to encode phoneCall#30535af5: field protocol: %w", err)
 	}
 	b.PutVectorHeader(len(p.Connections))
 	for idx, v := range p.Connections {
 		if v == nil {
-			return fmt.Errorf("unable to encode phoneCall#3ba5940c: field connections element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode phoneCall#30535af5: field connections element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCall#3ba5940c: field connections element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode phoneCall#30535af5: field connections element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(p.StartDate)
 	if p.Flags.Has(7) {
 		if err := p.CustomParameters.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCall#3ba5940c: field custom_parameters: %w", err)
-		}
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCall#3ba5940c: field conference_call: %w", err)
+			return fmt.Errorf("unable to encode phoneCall#30535af5: field custom_parameters: %w", err)
 		}
 	}
 	return nil
@@ -1720,10 +1566,10 @@ func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCall#3ba5940c to nil")
+		return fmt.Errorf("can't decode phoneCall#30535af5 to nil")
 	}
 	if err := b.ConsumeID(PhoneCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCall#3ba5940c: %w", err)
+		return fmt.Errorf("unable to decode phoneCall#30535af5: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -1731,73 +1577,74 @@ func (p *PhoneCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCall#3ba5940c to nil")
+		return fmt.Errorf("can't decode phoneCall#30535af5 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field flags: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field flags: %w", err)
 		}
 	}
 	p.P2PAllowed = p.Flags.Has(5)
 	p.Video = p.Flags.Has(6)
+	p.ConferenceSupported = p.Flags.Has(8)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field id: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field access_hash: %w", err)
 		}
 		p.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field date: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field date: %w", err)
 		}
 		p.Date = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field admin_id: %w", err)
 		}
 		p.AdminID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field participant_id: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field participant_id: %w", err)
 		}
 		p.ParticipantID = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field g_a_or_b: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field g_a_or_b: %w", err)
 		}
 		p.GAOrB = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field key_fingerprint: %w", err)
 		}
 		p.KeyFingerprint = value
 	}
 	{
 		if err := p.Protocol.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field protocol: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field protocol: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field connections: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field connections: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1806,7 +1653,7 @@ func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhoneConnection(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneCall#3ba5940c: field connections: %w", err)
+				return fmt.Errorf("unable to decode phoneCall#30535af5: field connections: %w", err)
 			}
 			p.Connections = append(p.Connections, value)
 		}
@@ -1814,18 +1661,13 @@ func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field start_date: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field start_date: %w", err)
 		}
 		p.StartDate = value
 	}
 	if p.Flags.Has(7) {
 		if err := p.CustomParameters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field custom_parameters: %w", err)
-		}
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCall#3ba5940c: field conference_call: %w", err)
+			return fmt.Errorf("unable to decode phoneCall#30535af5: field custom_parameters: %w", err)
 		}
 	}
 	return nil
@@ -1867,6 +1709,25 @@ func (p *PhoneCall) GetVideo() (value bool) {
 		return
 	}
 	return p.Flags.Has(6)
+}
+
+// SetConferenceSupported sets value of ConferenceSupported conditional field.
+func (p *PhoneCall) SetConferenceSupported(value bool) {
+	if value {
+		p.Flags.Set(8)
+		p.ConferenceSupported = true
+	} else {
+		p.Flags.Unset(8)
+		p.ConferenceSupported = false
+	}
+}
+
+// GetConferenceSupported returns value of ConferenceSupported conditional field.
+func (p *PhoneCall) GetConferenceSupported() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(8)
 }
 
 // GetID returns value of ID field.
@@ -1967,30 +1828,12 @@ func (p *PhoneCall) GetCustomParameters() (value DataJSON, ok bool) {
 	return p.CustomParameters, true
 }
 
-// SetConferenceCall sets value of ConferenceCall conditional field.
-func (p *PhoneCall) SetConferenceCall(value InputGroupCall) {
-	p.Flags.Set(8)
-	p.ConferenceCall = value
-}
-
-// GetConferenceCall returns value of ConferenceCall conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCall) GetConferenceCall() (value InputGroupCall, ok bool) {
-	if p == nil {
-		return
-	}
-	if !p.Flags.Has(8) {
-		return value, false
-	}
-	return p.ConferenceCall, true
-}
-
 // MapConnections returns field Connections wrapped in PhoneConnectionClassArray helper.
 func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
 	return PhoneConnectionClassArray(p.Connections)
 }
 
-// PhoneCallDiscarded represents TL type `phoneCallDiscarded#f9d25503`.
+// PhoneCallDiscarded represents TL type `phoneCallDiscarded#50ca4de1`.
 // Indicates a discarded phone call
 //
 // See https://core.telegram.org/constructor/phoneCallDiscarded for reference.
@@ -2022,14 +1865,10 @@ type PhoneCallDiscarded struct {
 	//
 	// Use SetDuration and GetDuration helpers.
 	Duration int
-	// ConferenceCall field of PhoneCallDiscarded.
-	//
-	// Use SetConferenceCall and GetConferenceCall helpers.
-	ConferenceCall InputGroupCall
 }
 
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.
-const PhoneCallDiscardedTypeID = 0xf9d25503
+const PhoneCallDiscardedTypeID = 0x50ca4de1
 
 // construct implements constructor of PhoneCallClass.
 func (p PhoneCallDiscarded) construct() PhoneCallClass { return &p }
@@ -2069,9 +1908,6 @@ func (p *PhoneCallDiscarded) Zero() bool {
 	if !(p.Duration == 0) {
 		return false
 	}
-	if !(p.ConferenceCall.Zero()) {
-		return false
-	}
 
 	return true
 }
@@ -2093,7 +1929,6 @@ func (p *PhoneCallDiscarded) FillFrom(from interface {
 	GetID() (value int64)
 	GetReason() (value PhoneCallDiscardReasonClass, ok bool)
 	GetDuration() (value int, ok bool)
-	GetConferenceCall() (value InputGroupCall, ok bool)
 }) {
 	p.NeedRating = from.GetNeedRating()
 	p.NeedDebug = from.GetNeedDebug()
@@ -2105,10 +1940,6 @@ func (p *PhoneCallDiscarded) FillFrom(from interface {
 
 	if val, ok := from.GetDuration(); ok {
 		p.Duration = val
-	}
-
-	if val, ok := from.GetConferenceCall(); ok {
-		p.ConferenceCall = val
 	}
 
 }
@@ -2165,11 +1996,6 @@ func (p *PhoneCallDiscarded) TypeInfo() tdp.Type {
 			SchemaName: "duration",
 			Null:       !p.Flags.Has(1),
 		},
-		{
-			Name:       "ConferenceCall",
-			SchemaName: "conference_call",
-			Null:       !p.Flags.Has(8),
-		},
 	}
 	return typ
 }
@@ -2191,15 +2017,12 @@ func (p *PhoneCallDiscarded) SetFlags() {
 	if !(p.Duration == 0) {
 		p.Flags.Set(1)
 	}
-	if !(p.ConferenceCall.Zero()) {
-		p.Flags.Set(8)
-	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscarded#f9d25503 as nil")
+		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
 	}
 	b.PutID(PhoneCallDiscardedTypeID)
 	return p.EncodeBare(b)
@@ -2208,28 +2031,23 @@ func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscarded#f9d25503 as nil")
+		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneCallDiscarded#f9d25503: field flags: %w", err)
+		return fmt.Errorf("unable to encode phoneCallDiscarded#50ca4de1: field flags: %w", err)
 	}
 	b.PutLong(p.ID)
 	if p.Flags.Has(0) {
 		if p.Reason == nil {
-			return fmt.Errorf("unable to encode phoneCallDiscarded#f9d25503: field reason is nil")
+			return fmt.Errorf("unable to encode phoneCallDiscarded#50ca4de1: field reason is nil")
 		}
 		if err := p.Reason.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCallDiscarded#f9d25503: field reason: %w", err)
+			return fmt.Errorf("unable to encode phoneCallDiscarded#50ca4de1: field reason: %w", err)
 		}
 	}
 	if p.Flags.Has(1) {
 		b.PutInt(p.Duration)
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phoneCallDiscarded#f9d25503: field conference_call: %w", err)
-		}
 	}
 	return nil
 }
@@ -2237,10 +2055,10 @@ func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscarded#f9d25503 to nil")
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
 	}
 	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscarded#f9d25503: %w", err)
+		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -2248,11 +2066,11 @@ func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscarded#f9d25503 to nil")
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#f9d25503: field flags: %w", err)
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)
 		}
 	}
 	p.NeedRating = p.Flags.Has(2)
@@ -2261,28 +2079,23 @@ func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#f9d25503: field id: %w", err)
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field id: %w", err)
 		}
 		p.ID = value
 	}
 	if p.Flags.Has(0) {
 		value, err := DecodePhoneCallDiscardReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#f9d25503: field reason: %w", err)
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field reason: %w", err)
 		}
 		p.Reason = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#f9d25503: field duration: %w", err)
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field duration: %w", err)
 		}
 		p.Duration = value
-	}
-	if p.Flags.Has(8) {
-		if err := p.ConferenceCall.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#f9d25503: field conference_call: %w", err)
-		}
 	}
 	return nil
 }
@@ -2388,24 +2201,6 @@ func (p *PhoneCallDiscarded) GetDuration() (value int, ok bool) {
 	return p.Duration, true
 }
 
-// SetConferenceCall sets value of ConferenceCall conditional field.
-func (p *PhoneCallDiscarded) SetConferenceCall(value InputGroupCall) {
-	p.Flags.Set(8)
-	p.ConferenceCall = value
-}
-
-// GetConferenceCall returns value of ConferenceCall conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCallDiscarded) GetConferenceCall() (value InputGroupCall, ok bool) {
-	if p == nil {
-		return
-	}
-	if !p.Flags.Has(8) {
-		return value, false
-	}
-	return p.ConferenceCall, true
-}
-
 // PhoneCallClassName is schema name of PhoneCallClass.
 const PhoneCallClassName = "PhoneCall"
 
@@ -2429,11 +2224,11 @@ const PhoneCallClassName = "PhoneCall"
 //	}
 //	switch v := g.(type) {
 //	case *tg.PhoneCallEmpty: // phoneCallEmpty#5366c915
-//	case *tg.PhoneCallWaiting: // phoneCallWaiting#eed42858
-//	case *tg.PhoneCallRequested: // phoneCallRequested#45361c63
-//	case *tg.PhoneCallAccepted: // phoneCallAccepted#22fd7181
-//	case *tg.PhoneCall: // phoneCall#3ba5940c
-//	case *tg.PhoneCallDiscarded: // phoneCallDiscarded#f9d25503
+//	case *tg.PhoneCallWaiting: // phoneCallWaiting#c5226f17
+//	case *tg.PhoneCallRequested: // phoneCallRequested#14b0ed0c
+//	case *tg.PhoneCallAccepted: // phoneCallAccepted#3660c311
+//	case *tg.PhoneCall: // phoneCall#30535af5
+//	case *tg.PhoneCallDiscarded: // phoneCallDiscarded#50ca4de1
 //	default: panic(v)
 //	}
 type PhoneCallClass interface {
@@ -2494,9 +2289,6 @@ type NotEmptyPhoneCall interface {
 
 	// Call ID
 	GetID() (value int64)
-
-	// ConferenceCall field of PhoneCallWaiting.
-	GetConferenceCall() (value InputGroupCall, ok bool)
 }
 
 // AsNotEmpty tries to map PhoneCallEmpty to NotEmptyPhoneCall.
@@ -2550,35 +2342,35 @@ func DecodePhoneCall(buf *bin.Buffer) (PhoneCallClass, error) {
 		}
 		return &v, nil
 	case PhoneCallWaitingTypeID:
-		// Decoding phoneCallWaiting#eed42858.
+		// Decoding phoneCallWaiting#c5226f17.
 		v := PhoneCallWaiting{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhoneCallClass: %w", err)
 		}
 		return &v, nil
 	case PhoneCallRequestedTypeID:
-		// Decoding phoneCallRequested#45361c63.
+		// Decoding phoneCallRequested#14b0ed0c.
 		v := PhoneCallRequested{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhoneCallClass: %w", err)
 		}
 		return &v, nil
 	case PhoneCallAcceptedTypeID:
-		// Decoding phoneCallAccepted#22fd7181.
+		// Decoding phoneCallAccepted#3660c311.
 		v := PhoneCallAccepted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhoneCallClass: %w", err)
 		}
 		return &v, nil
 	case PhoneCallTypeID:
-		// Decoding phoneCall#3ba5940c.
+		// Decoding phoneCall#30535af5.
 		v := PhoneCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhoneCallClass: %w", err)
 		}
 		return &v, nil
 	case PhoneCallDiscardedTypeID:
-		// Decoding phoneCallDiscarded#f9d25503.
+		// Decoding phoneCallDiscarded#50ca4de1.
 		v := PhoneCallDiscarded{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhoneCallClass: %w", err)

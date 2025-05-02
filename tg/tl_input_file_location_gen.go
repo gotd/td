@@ -1826,7 +1826,7 @@ type InputGroupCallStream struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Livestream info
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Timestamp in milliseconds
 	TimeMs int64
 	// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting
@@ -1865,7 +1865,7 @@ func (i *InputGroupCallStream) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
-	if !(i.Call.Zero()) {
+	if !(i.Call == nil) {
 		return false
 	}
 	if !(i.TimeMs == 0) {
@@ -1895,7 +1895,7 @@ func (i *InputGroupCallStream) String() string {
 
 // FillFrom fills InputGroupCallStream from given interface.
 func (i *InputGroupCallStream) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetTimeMs() (value int64)
 	GetScale() (value int)
 	GetVideoChannel() (value int, ok bool)
@@ -1991,6 +1991,9 @@ func (i *InputGroupCallStream) EncodeBare(b *bin.Buffer) error {
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputGroupCallStream#598a92a: field flags: %w", err)
 	}
+	if i.Call == nil {
+		return fmt.Errorf("unable to encode inputGroupCallStream#598a92a: field call is nil")
+	}
 	if err := i.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputGroupCallStream#598a92a: field call: %w", err)
 	}
@@ -2027,9 +2030,11 @@ func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		if err := i.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field call: %w", err)
 		}
+		i.Call = value
 	}
 	{
 		value, err := b.Long()
@@ -2063,7 +2068,7 @@ func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (i *InputGroupCallStream) GetCall() (value InputGroupCall) {
+func (i *InputGroupCallStream) GetCall() (value InputGroupCallClass) {
 	if i == nil {
 		return
 	}

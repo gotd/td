@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.leaveGroupCallPresentation for reference.
 type PhoneLeaveGroupCallPresentationRequest struct {
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // PhoneLeaveGroupCallPresentationRequestTypeID is TL type id of PhoneLeaveGroupCallPresentationRequest.
@@ -55,7 +55,7 @@ func (l *PhoneLeaveGroupCallPresentationRequest) Zero() bool {
 	if l == nil {
 		return true
 	}
-	if !(l.Call.Zero()) {
+	if !(l.Call == nil) {
 		return false
 	}
 
@@ -73,7 +73,7 @@ func (l *PhoneLeaveGroupCallPresentationRequest) String() string {
 
 // FillFrom fills PhoneLeaveGroupCallPresentationRequest from given interface.
 func (l *PhoneLeaveGroupCallPresentationRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	l.Call = from.GetCall()
 }
@@ -123,6 +123,9 @@ func (l *PhoneLeaveGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error
 	if l == nil {
 		return fmt.Errorf("can't encode phone.leaveGroupCallPresentation#1c50d144 as nil")
 	}
+	if l.Call == nil {
+		return fmt.Errorf("unable to encode phone.leaveGroupCallPresentation#1c50d144: field call is nil")
+	}
 	if err := l.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.leaveGroupCallPresentation#1c50d144: field call: %w", err)
 	}
@@ -146,15 +149,17 @@ func (l *PhoneLeaveGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error
 		return fmt.Errorf("can't decode phone.leaveGroupCallPresentation#1c50d144 to nil")
 	}
 	{
-		if err := l.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.leaveGroupCallPresentation#1c50d144: field call: %w", err)
 		}
+		l.Call = value
 	}
 	return nil
 }
 
 // GetCall returns value of Call field.
-func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
+func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCallClass) {
 	if l == nil {
 		return
 	}
@@ -169,7 +174,7 @@ func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.leaveGroupCallPresentation for reference.
-func (c *Client) PhoneLeaveGroupCallPresentation(ctx context.Context, call InputGroupCall) (UpdatesClass, error) {
+func (c *Client) PhoneLeaveGroupCallPresentation(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error) {
 	var result UpdatesBox
 
 	request := &PhoneLeaveGroupCallPresentationRequest{

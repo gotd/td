@@ -43,7 +43,7 @@ var (
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
 type PhoneGetGroupCallStreamChannelsRequest struct {
 	// Group call or livestream
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // PhoneGetGroupCallStreamChannelsRequestTypeID is TL type id of PhoneGetGroupCallStreamChannelsRequest.
@@ -61,7 +61,7 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Call.Zero()) {
+	if !(g.Call == nil) {
 		return false
 	}
 
@@ -79,7 +79,7 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) String() string {
 
 // FillFrom fills PhoneGetGroupCallStreamChannelsRequest from given interface.
 func (g *PhoneGetGroupCallStreamChannelsRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	g.Call = from.GetCall()
 }
@@ -129,6 +129,9 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) EncodeBare(b *bin.Buffer) error
 	if g == nil {
 		return fmt.Errorf("can't encode phone.getGroupCallStreamChannels#1ab21940 as nil")
 	}
+	if g.Call == nil {
+		return fmt.Errorf("unable to encode phone.getGroupCallStreamChannels#1ab21940: field call is nil")
+	}
 	if err := g.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.getGroupCallStreamChannels#1ab21940: field call: %w", err)
 	}
@@ -152,15 +155,17 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) DecodeBare(b *bin.Buffer) error
 		return fmt.Errorf("can't decode phone.getGroupCallStreamChannels#1ab21940 to nil")
 	}
 	{
-		if err := g.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.getGroupCallStreamChannels#1ab21940: field call: %w", err)
 		}
+		g.Call = value
 	}
 	return nil
 }
 
 // GetCall returns value of Call field.
-func (g *PhoneGetGroupCallStreamChannelsRequest) GetCall() (value InputGroupCall) {
+func (g *PhoneGetGroupCallStreamChannelsRequest) GetCall() (value InputGroupCallClass) {
 	if g == nil {
 		return
 	}
@@ -182,7 +187,7 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) GetCall() (value InputGroupCall
 //	400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
-func (c *Client) PhoneGetGroupCallStreamChannels(ctx context.Context, call InputGroupCall) (*PhoneGroupCallStreamChannels, error) {
+func (c *Client) PhoneGetGroupCallStreamChannels(ctx context.Context, call InputGroupCallClass) (*PhoneGroupCallStreamChannels, error) {
 	var result PhoneGroupCallStreamChannels
 
 	request := &PhoneGetGroupCallStreamChannelsRequest{

@@ -44,7 +44,7 @@ type PhoneToggleGroupCallSettingsRequest struct {
 	// Invalidate existing invite links
 	ResetInviteHash bool
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Whether all users will that join this group call are muted by default upon joining the
 	// group call
 	//
@@ -73,7 +73,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) Zero() bool {
 	if !(t.ResetInviteHash == false) {
 		return false
 	}
-	if !(t.Call.Zero()) {
+	if !(t.Call == nil) {
 		return false
 	}
 	if !(t.JoinMuted == false) {
@@ -95,7 +95,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 // FillFrom fills PhoneToggleGroupCallSettingsRequest from given interface.
 func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
 	GetResetInviteHash() (value bool)
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetJoinMuted() (value bool, ok bool)
 }) {
 	t.ResetInviteHash = from.GetResetInviteHash()
@@ -175,6 +175,9 @@ func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field flags: %w", err)
 	}
+	if t.Call == nil {
+		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field call is nil")
+	}
 	if err := t.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
 	}
@@ -207,9 +210,11 @@ func (t *PhoneToggleGroupCallSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	t.ResetInviteHash = t.Flags.Has(1)
 	{
-		if err := t.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
 		}
+		t.Call = value
 	}
 	if t.Flags.Has(0) {
 		value, err := b.Bool()
@@ -241,7 +246,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) GetResetInviteHash() (value bool) 
 }
 
 // GetCall returns value of Call field.
-func (t *PhoneToggleGroupCallSettingsRequest) GetCall() (value InputGroupCall) {
+func (t *PhoneToggleGroupCallSettingsRequest) GetCall() (value InputGroupCallClass) {
 	if t == nil {
 		return
 	}

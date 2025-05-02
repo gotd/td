@@ -47,7 +47,7 @@ type PhoneEditGroupCallParticipantRequest struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// The group call participant (can also be the user itself)
 	Participant InputPeerClass
 	// Whether to mute or unmute the specified participant
@@ -94,7 +94,7 @@ func (e *PhoneEditGroupCallParticipantRequest) Zero() bool {
 	if !(e.Flags.Zero()) {
 		return false
 	}
-	if !(e.Call.Zero()) {
+	if !(e.Call == nil) {
 		return false
 	}
 	if !(e.Participant == nil) {
@@ -133,7 +133,7 @@ func (e *PhoneEditGroupCallParticipantRequest) String() string {
 
 // FillFrom fills PhoneEditGroupCallParticipantRequest from given interface.
 func (e *PhoneEditGroupCallParticipantRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetParticipant() (value InputPeerClass)
 	GetMuted() (value bool, ok bool)
 	GetVolume() (value int, ok bool)
@@ -275,6 +275,9 @@ func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
 	}
+	if e.Call == nil {
+		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field call is nil")
+	}
 	if err := e.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
 	}
@@ -327,9 +330,11 @@ func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		if err := e.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
 		}
+		e.Call = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
@@ -384,7 +389,7 @@ func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (e *PhoneEditGroupCallParticipantRequest) GetCall() (value InputGroupCall) {
+func (e *PhoneEditGroupCallParticipantRequest) GetCall() (value InputGroupCallClass) {
 	if e == nil {
 		return
 	}

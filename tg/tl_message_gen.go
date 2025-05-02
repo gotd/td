@@ -3001,6 +3001,14 @@ func (m *Message) AsInputMessageReplyTo() *InputMessageReplyTo {
 	return value
 }
 
+// AsInputGroupCallInvite tries to map Message to InputGroupCallInviteMessage.
+func (m *Message) AsInputGroupCallInvite() *InputGroupCallInviteMessage {
+	value := new(InputGroupCallInviteMessage)
+	value.MsgID = m.GetID()
+
+	return value
+}
+
 // NotEmptyMessage represents NotEmpty subset of MessageClass.
 type NotEmptyMessage interface {
 	bin.Encoder

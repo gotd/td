@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 type PhoneDiscardGroupCallRequest struct {
 	// The group call to terminate
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // PhoneDiscardGroupCallRequestTypeID is TL type id of PhoneDiscardGroupCallRequest.
@@ -55,7 +55,7 @@ func (d *PhoneDiscardGroupCallRequest) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.Call.Zero()) {
+	if !(d.Call == nil) {
 		return false
 	}
 
@@ -73,7 +73,7 @@ func (d *PhoneDiscardGroupCallRequest) String() string {
 
 // FillFrom fills PhoneDiscardGroupCallRequest from given interface.
 func (d *PhoneDiscardGroupCallRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	d.Call = from.GetCall()
 }
@@ -123,6 +123,9 @@ func (d *PhoneDiscardGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode phone.discardGroupCall#7a777135 as nil")
 	}
+	if d.Call == nil {
+		return fmt.Errorf("unable to encode phone.discardGroupCall#7a777135: field call is nil")
+	}
 	if err := d.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.discardGroupCall#7a777135: field call: %w", err)
 	}
@@ -146,15 +149,17 @@ func (d *PhoneDiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.discardGroupCall#7a777135 to nil")
 	}
 	{
-		if err := d.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.discardGroupCall#7a777135: field call: %w", err)
 		}
+		d.Call = value
 	}
 	return nil
 }
 
 // GetCall returns value of Call field.
-func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
+func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCallClass) {
 	if d == nil {
 		return
 	}
@@ -171,7 +176,7 @@ func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
-func (c *Client) PhoneDiscardGroupCall(ctx context.Context, call InputGroupCall) (UpdatesClass, error) {
+func (c *Client) PhoneDiscardGroupCall(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error) {
 	var result UpdatesBox
 
 	request := &PhoneDiscardGroupCallRequest{

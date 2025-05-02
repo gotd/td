@@ -10948,7 +10948,7 @@ func (s *ServerDispatcher) OnPhoneInviteToGroupCall(f func(ctx context.Context, 
 	s.handlers[PhoneInviteToGroupCallRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneDiscardGroupCall(f func(ctx context.Context, call InputGroupCall) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnPhoneDiscardGroupCall(f func(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneDiscardGroupCallRequest
 		if err := request.Decode(b); err != nil {
@@ -11135,7 +11135,7 @@ func (s *ServerDispatcher) OnPhoneToggleGroupCallStartSubscription(f func(ctx co
 	s.handlers[PhoneToggleGroupCallStartSubscriptionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneStartScheduledGroupCall(f func(ctx context.Context, call InputGroupCall) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnPhoneStartScheduledGroupCall(f func(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneStartScheduledGroupCallRequest
 		if err := request.Decode(b); err != nil {
@@ -11190,7 +11190,7 @@ func (s *ServerDispatcher) OnPhoneJoinGroupCallPresentation(f func(ctx context.C
 	s.handlers[PhoneJoinGroupCallPresentationRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneLeaveGroupCallPresentation(f func(ctx context.Context, call InputGroupCall) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnPhoneLeaveGroupCallPresentation(f func(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneLeaveGroupCallPresentationRequest
 		if err := request.Decode(b); err != nil {
@@ -11207,7 +11207,7 @@ func (s *ServerDispatcher) OnPhoneLeaveGroupCallPresentation(f func(ctx context.
 	s.handlers[PhoneLeaveGroupCallPresentationRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneGetGroupCallStreamChannels(f func(ctx context.Context, call InputGroupCall) (*PhoneGroupCallStreamChannels, error)) {
+func (s *ServerDispatcher) OnPhoneGetGroupCallStreamChannels(f func(ctx context.Context, call InputGroupCallClass) (*PhoneGroupCallStreamChannels, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneGetGroupCallStreamChannelsRequest
 		if err := request.Decode(b); err != nil {
@@ -11262,7 +11262,7 @@ func (s *ServerDispatcher) OnPhoneSaveCallLog(f func(ctx context.Context, reques
 	s.handlers[PhoneSaveCallLogRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhoneCreateConferenceCall(f func(ctx context.Context, request *PhoneCreateConferenceCallRequest) (*PhonePhoneCall, error)) {
+func (s *ServerDispatcher) OnPhoneCreateConferenceCall(f func(ctx context.Context, request *PhoneCreateConferenceCallRequest) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhoneCreateConferenceCallRequest
 		if err := request.Decode(b); err != nil {
@@ -11273,10 +11273,95 @@ func (s *ServerDispatcher) OnPhoneCreateConferenceCall(f func(ctx context.Contex
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &UpdatesBox{Updates: response}, nil
 	}
 
 	s.handlers[PhoneCreateConferenceCallRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneDeleteConferenceCallParticipants(f func(ctx context.Context, request *PhoneDeleteConferenceCallParticipantsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneDeleteConferenceCallParticipantsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneDeleteConferenceCallParticipantsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneSendConferenceCallBroadcast(f func(ctx context.Context, request *PhoneSendConferenceCallBroadcastRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneSendConferenceCallBroadcastRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneSendConferenceCallBroadcastRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneInviteConferenceCallParticipant(f func(ctx context.Context, request *PhoneInviteConferenceCallParticipantRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneInviteConferenceCallParticipantRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneInviteConferenceCallParticipantRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneDeclineConferenceCallInvite(f func(ctx context.Context, msgid int) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneDeclineConferenceCallInviteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.MsgID)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneDeclineConferenceCallInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneGetGroupCallChainBlocks(f func(ctx context.Context, request *PhoneGetGroupCallChainBlocksRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneGetGroupCallChainBlocksRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PhoneGetGroupCallChainBlocksRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnLangpackGetLangPack(f func(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error)) {

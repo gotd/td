@@ -31,18 +31,36 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneCreateConferenceCallRequest represents TL type `phone.createConferenceCall#dfc909ab`.
+// PhoneCreateConferenceCallRequest represents TL type `phone.createConferenceCall#7d0444bb`.
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
 type PhoneCreateConferenceCallRequest struct {
-	// Peer field of PhoneCreateConferenceCallRequest.
-	Peer InputPhoneCall
-	// KeyFingerprint field of PhoneCreateConferenceCallRequest.
-	KeyFingerprint int64
+	// Flags field of PhoneCreateConferenceCallRequest.
+	Flags bin.Fields
+	// Muted field of PhoneCreateConferenceCallRequest.
+	Muted bool
+	// VideoStopped field of PhoneCreateConferenceCallRequest.
+	VideoStopped bool
+	// Join field of PhoneCreateConferenceCallRequest.
+	Join bool
+	// RandomID field of PhoneCreateConferenceCallRequest.
+	RandomID int
+	// PublicKey field of PhoneCreateConferenceCallRequest.
+	//
+	// Use SetPublicKey and GetPublicKey helpers.
+	PublicKey bin.Int256
+	// Block field of PhoneCreateConferenceCallRequest.
+	//
+	// Use SetBlock and GetBlock helpers.
+	Block []byte
+	// Params field of PhoneCreateConferenceCallRequest.
+	//
+	// Use SetParams and GetParams helpers.
+	Params DataJSON
 }
 
 // PhoneCreateConferenceCallRequestTypeID is TL type id of PhoneCreateConferenceCallRequest.
-const PhoneCreateConferenceCallRequestTypeID = 0xdfc909ab
+const PhoneCreateConferenceCallRequestTypeID = 0x7d0444bb
 
 // Ensuring interfaces in compile-time for PhoneCreateConferenceCallRequest.
 var (
@@ -56,10 +74,28 @@ func (c *PhoneCreateConferenceCallRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Peer.Zero()) {
+	if !(c.Flags.Zero()) {
 		return false
 	}
-	if !(c.KeyFingerprint == 0) {
+	if !(c.Muted == false) {
+		return false
+	}
+	if !(c.VideoStopped == false) {
+		return false
+	}
+	if !(c.Join == false) {
+		return false
+	}
+	if !(c.RandomID == 0) {
+		return false
+	}
+	if !(c.PublicKey == bin.Int256{}) {
+		return false
+	}
+	if !(c.Block == nil) {
+		return false
+	}
+	if !(c.Params.Zero()) {
 		return false
 	}
 
@@ -77,11 +113,30 @@ func (c *PhoneCreateConferenceCallRequest) String() string {
 
 // FillFrom fills PhoneCreateConferenceCallRequest from given interface.
 func (c *PhoneCreateConferenceCallRequest) FillFrom(from interface {
-	GetPeer() (value InputPhoneCall)
-	GetKeyFingerprint() (value int64)
+	GetMuted() (value bool)
+	GetVideoStopped() (value bool)
+	GetJoin() (value bool)
+	GetRandomID() (value int)
+	GetPublicKey() (value bin.Int256, ok bool)
+	GetBlock() (value []byte, ok bool)
+	GetParams() (value DataJSON, ok bool)
 }) {
-	c.Peer = from.GetPeer()
-	c.KeyFingerprint = from.GetKeyFingerprint()
+	c.Muted = from.GetMuted()
+	c.VideoStopped = from.GetVideoStopped()
+	c.Join = from.GetJoin()
+	c.RandomID = from.GetRandomID()
+	if val, ok := from.GetPublicKey(); ok {
+		c.PublicKey = val
+	}
+
+	if val, ok := from.GetBlock(); ok {
+		c.Block = val
+	}
+
+	if val, ok := from.GetParams(); ok {
+		c.Params = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -108,21 +163,69 @@ func (c *PhoneCreateConferenceCallRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Peer",
-			SchemaName: "peer",
+			Name:       "Muted",
+			SchemaName: "muted",
+			Null:       !c.Flags.Has(0),
 		},
 		{
-			Name:       "KeyFingerprint",
-			SchemaName: "key_fingerprint",
+			Name:       "VideoStopped",
+			SchemaName: "video_stopped",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Join",
+			SchemaName: "join",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "PublicKey",
+			SchemaName: "public_key",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "Block",
+			SchemaName: "block",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+			Null:       !c.Flags.Has(3),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *PhoneCreateConferenceCallRequest) SetFlags() {
+	if !(c.Muted == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.VideoStopped == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.Join == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.PublicKey == bin.Int256{}) {
+		c.Flags.Set(3)
+	}
+	if !(c.Block == nil) {
+		c.Flags.Set(3)
+	}
+	if !(c.Params.Zero()) {
+		c.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *PhoneCreateConferenceCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.createConferenceCall#dfc909ab as nil")
+		return fmt.Errorf("can't encode phone.createConferenceCall#7d0444bb as nil")
 	}
 	b.PutID(PhoneCreateConferenceCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -131,22 +234,34 @@ func (c *PhoneCreateConferenceCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PhoneCreateConferenceCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.createConferenceCall#dfc909ab as nil")
+		return fmt.Errorf("can't encode phone.createConferenceCall#7d0444bb as nil")
 	}
-	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.createConferenceCall#dfc909ab: field peer: %w", err)
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode phone.createConferenceCall#7d0444bb: field flags: %w", err)
 	}
-	b.PutLong(c.KeyFingerprint)
+	b.PutInt(c.RandomID)
+	if c.Flags.Has(3) {
+		b.PutInt256(c.PublicKey)
+	}
+	if c.Flags.Has(3) {
+		b.PutBytes(c.Block)
+	}
+	if c.Flags.Has(3) {
+		if err := c.Params.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode phone.createConferenceCall#7d0444bb: field params: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *PhoneCreateConferenceCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.createConferenceCall#dfc909ab to nil")
+		return fmt.Errorf("can't decode phone.createConferenceCall#7d0444bb to nil")
 	}
 	if err := b.ConsumeID(PhoneCreateConferenceCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.createConferenceCall#dfc909ab: %w", err)
+		return fmt.Errorf("unable to decode phone.createConferenceCall#7d0444bb: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -154,47 +269,172 @@ func (c *PhoneCreateConferenceCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PhoneCreateConferenceCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.createConferenceCall#dfc909ab to nil")
+		return fmt.Errorf("can't decode phone.createConferenceCall#7d0444bb to nil")
 	}
 	{
-		if err := c.Peer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.createConferenceCall#dfc909ab: field peer: %w", err)
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.createConferenceCall#7d0444bb: field flags: %w", err)
 		}
 	}
+	c.Muted = c.Flags.Has(0)
+	c.VideoStopped = c.Flags.Has(2)
+	c.Join = c.Flags.Has(3)
 	{
-		value, err := b.Long()
+		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createConferenceCall#dfc909ab: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode phone.createConferenceCall#7d0444bb: field random_id: %w", err)
 		}
-		c.KeyFingerprint = value
+		c.RandomID = value
+	}
+	if c.Flags.Has(3) {
+		value, err := b.Int256()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.createConferenceCall#7d0444bb: field public_key: %w", err)
+		}
+		c.PublicKey = value
+	}
+	if c.Flags.Has(3) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.createConferenceCall#7d0444bb: field block: %w", err)
+		}
+		c.Block = value
+	}
+	if c.Flags.Has(3) {
+		if err := c.Params.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.createConferenceCall#7d0444bb: field params: %w", err)
+		}
 	}
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (c *PhoneCreateConferenceCallRequest) GetPeer() (value InputPhoneCall) {
+// SetMuted sets value of Muted conditional field.
+func (c *PhoneCreateConferenceCallRequest) SetMuted(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Muted = true
+	} else {
+		c.Flags.Unset(0)
+		c.Muted = false
+	}
+}
+
+// GetMuted returns value of Muted conditional field.
+func (c *PhoneCreateConferenceCallRequest) GetMuted() (value bool) {
 	if c == nil {
 		return
 	}
-	return c.Peer
+	return c.Flags.Has(0)
 }
 
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (c *PhoneCreateConferenceCallRequest) GetKeyFingerprint() (value int64) {
+// SetVideoStopped sets value of VideoStopped conditional field.
+func (c *PhoneCreateConferenceCallRequest) SetVideoStopped(value bool) {
+	if value {
+		c.Flags.Set(2)
+		c.VideoStopped = true
+	} else {
+		c.Flags.Unset(2)
+		c.VideoStopped = false
+	}
+}
+
+// GetVideoStopped returns value of VideoStopped conditional field.
+func (c *PhoneCreateConferenceCallRequest) GetVideoStopped() (value bool) {
 	if c == nil {
 		return
 	}
-	return c.KeyFingerprint
+	return c.Flags.Has(2)
 }
 
-// PhoneCreateConferenceCall invokes method phone.createConferenceCall#dfc909ab returning error if any.
+// SetJoin sets value of Join conditional field.
+func (c *PhoneCreateConferenceCallRequest) SetJoin(value bool) {
+	if value {
+		c.Flags.Set(3)
+		c.Join = true
+	} else {
+		c.Flags.Unset(3)
+		c.Join = false
+	}
+}
+
+// GetJoin returns value of Join conditional field.
+func (c *PhoneCreateConferenceCallRequest) GetJoin() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(3)
+}
+
+// GetRandomID returns value of RandomID field.
+func (c *PhoneCreateConferenceCallRequest) GetRandomID() (value int) {
+	if c == nil {
+		return
+	}
+	return c.RandomID
+}
+
+// SetPublicKey sets value of PublicKey conditional field.
+func (c *PhoneCreateConferenceCallRequest) SetPublicKey(value bin.Int256) {
+	c.Flags.Set(3)
+	c.PublicKey = value
+}
+
+// GetPublicKey returns value of PublicKey conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateConferenceCallRequest) GetPublicKey() (value bin.Int256, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(3) {
+		return value, false
+	}
+	return c.PublicKey, true
+}
+
+// SetBlock sets value of Block conditional field.
+func (c *PhoneCreateConferenceCallRequest) SetBlock(value []byte) {
+	c.Flags.Set(3)
+	c.Block = value
+}
+
+// GetBlock returns value of Block conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateConferenceCallRequest) GetBlock() (value []byte, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(3) {
+		return value, false
+	}
+	return c.Block, true
+}
+
+// SetParams sets value of Params conditional field.
+func (c *PhoneCreateConferenceCallRequest) SetParams(value DataJSON) {
+	c.Flags.Set(3)
+	c.Params = value
+}
+
+// GetParams returns value of Params conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateConferenceCallRequest) GetParams() (value DataJSON, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(3) {
+		return value, false
+	}
+	return c.Params, true
+}
+
+// PhoneCreateConferenceCall invokes method phone.createConferenceCall#7d0444bb returning error if any.
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
-func (c *Client) PhoneCreateConferenceCall(ctx context.Context, request *PhoneCreateConferenceCallRequest) (*PhonePhoneCall, error) {
-	var result PhonePhoneCall
+func (c *Client) PhoneCreateConferenceCall(ctx context.Context, request *PhoneCreateConferenceCallRequest) (UpdatesClass, error) {
+	var result UpdatesBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Updates, nil
 }

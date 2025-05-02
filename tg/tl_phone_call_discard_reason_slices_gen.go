@@ -116,10 +116,10 @@ func (s *PhoneCallDiscardReasonClassArray) Pop() (v PhoneCallDiscardReasonClass,
 	return v, true
 }
 
-// AsPhoneCallDiscardReasonAllowGroupCall returns copy with only PhoneCallDiscardReasonAllowGroupCall constructors.
-func (s PhoneCallDiscardReasonClassArray) AsPhoneCallDiscardReasonAllowGroupCall() (to PhoneCallDiscardReasonAllowGroupCallArray) {
+// AsPhoneCallDiscardReasonMigrateConferenceCall returns copy with only PhoneCallDiscardReasonMigrateConferenceCall constructors.
+func (s PhoneCallDiscardReasonClassArray) AsPhoneCallDiscardReasonMigrateConferenceCall() (to PhoneCallDiscardReasonMigrateConferenceCallArray) {
 	for _, elem := range s {
-		value, ok := elem.(*PhoneCallDiscardReasonAllowGroupCall)
+		value, ok := elem.(*PhoneCallDiscardReasonMigrateConferenceCall)
 		if !ok {
 			continue
 		}
@@ -129,27 +129,27 @@ func (s PhoneCallDiscardReasonClassArray) AsPhoneCallDiscardReasonAllowGroupCall
 	return to
 }
 
-// PhoneCallDiscardReasonAllowGroupCallArray is adapter for slice of PhoneCallDiscardReasonAllowGroupCall.
-type PhoneCallDiscardReasonAllowGroupCallArray []PhoneCallDiscardReasonAllowGroupCall
+// PhoneCallDiscardReasonMigrateConferenceCallArray is adapter for slice of PhoneCallDiscardReasonMigrateConferenceCall.
+type PhoneCallDiscardReasonMigrateConferenceCallArray []PhoneCallDiscardReasonMigrateConferenceCall
 
-// Sort sorts slice of PhoneCallDiscardReasonAllowGroupCall.
-func (s PhoneCallDiscardReasonAllowGroupCallArray) Sort(less func(a, b PhoneCallDiscardReasonAllowGroupCall) bool) PhoneCallDiscardReasonAllowGroupCallArray {
+// Sort sorts slice of PhoneCallDiscardReasonMigrateConferenceCall.
+func (s PhoneCallDiscardReasonMigrateConferenceCallArray) Sort(less func(a, b PhoneCallDiscardReasonMigrateConferenceCall) bool) PhoneCallDiscardReasonMigrateConferenceCallArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of PhoneCallDiscardReasonAllowGroupCall.
-func (s PhoneCallDiscardReasonAllowGroupCallArray) SortStable(less func(a, b PhoneCallDiscardReasonAllowGroupCall) bool) PhoneCallDiscardReasonAllowGroupCallArray {
+// SortStable sorts slice of PhoneCallDiscardReasonMigrateConferenceCall.
+func (s PhoneCallDiscardReasonMigrateConferenceCallArray) SortStable(less func(a, b PhoneCallDiscardReasonMigrateConferenceCall) bool) PhoneCallDiscardReasonMigrateConferenceCallArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of PhoneCallDiscardReasonAllowGroupCall.
-func (s PhoneCallDiscardReasonAllowGroupCallArray) Retain(keep func(x PhoneCallDiscardReasonAllowGroupCall) bool) PhoneCallDiscardReasonAllowGroupCallArray {
+// Retain filters in-place slice of PhoneCallDiscardReasonMigrateConferenceCall.
+func (s PhoneCallDiscardReasonMigrateConferenceCallArray) Retain(keep func(x PhoneCallDiscardReasonMigrateConferenceCall) bool) PhoneCallDiscardReasonMigrateConferenceCallArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -163,7 +163,7 @@ func (s PhoneCallDiscardReasonAllowGroupCallArray) Retain(keep func(x PhoneCallD
 }
 
 // First returns first element of slice (if exists).
-func (s PhoneCallDiscardReasonAllowGroupCallArray) First() (v PhoneCallDiscardReasonAllowGroupCall, ok bool) {
+func (s PhoneCallDiscardReasonMigrateConferenceCallArray) First() (v PhoneCallDiscardReasonMigrateConferenceCall, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -171,7 +171,7 @@ func (s PhoneCallDiscardReasonAllowGroupCallArray) First() (v PhoneCallDiscardRe
 }
 
 // Last returns last element of slice (if exists).
-func (s PhoneCallDiscardReasonAllowGroupCallArray) Last() (v PhoneCallDiscardReasonAllowGroupCall, ok bool) {
+func (s PhoneCallDiscardReasonMigrateConferenceCallArray) Last() (v PhoneCallDiscardReasonMigrateConferenceCall, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -179,7 +179,7 @@ func (s PhoneCallDiscardReasonAllowGroupCallArray) Last() (v PhoneCallDiscardRea
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardReasonAllowGroupCallArray) PopFirst() (v PhoneCallDiscardReasonAllowGroupCall, ok bool) {
+func (s *PhoneCallDiscardReasonMigrateConferenceCallArray) PopFirst() (v PhoneCallDiscardReasonMigrateConferenceCall, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -189,7 +189,7 @@ func (s *PhoneCallDiscardReasonAllowGroupCallArray) PopFirst() (v PhoneCallDisca
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero PhoneCallDiscardReasonAllowGroupCall
+	var zero PhoneCallDiscardReasonMigrateConferenceCall
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -198,7 +198,7 @@ func (s *PhoneCallDiscardReasonAllowGroupCallArray) PopFirst() (v PhoneCallDisca
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardReasonAllowGroupCallArray) Pop() (v PhoneCallDiscardReasonAllowGroupCall, ok bool) {
+func (s *PhoneCallDiscardReasonMigrateConferenceCallArray) Pop() (v PhoneCallDiscardReasonMigrateConferenceCall, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

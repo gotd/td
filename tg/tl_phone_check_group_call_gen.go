@@ -40,7 +40,7 @@ var (
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 type PhoneCheckGroupCallRequest struct {
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Source IDs
 	Sources []int
 }
@@ -60,7 +60,7 @@ func (c *PhoneCheckGroupCallRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		return false
 	}
 	if !(c.Sources == nil) {
@@ -81,7 +81,7 @@ func (c *PhoneCheckGroupCallRequest) String() string {
 
 // FillFrom fills PhoneCheckGroupCallRequest from given interface.
 func (c *PhoneCheckGroupCallRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetSources() (value []int)
 }) {
 	c.Call = from.GetCall()
@@ -137,6 +137,9 @@ func (c *PhoneCheckGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode phone.checkGroupCall#b59cf977 as nil")
 	}
+	if c.Call == nil {
+		return fmt.Errorf("unable to encode phone.checkGroupCall#b59cf977: field call is nil")
+	}
 	if err := c.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.checkGroupCall#b59cf977: field call: %w", err)
 	}
@@ -164,9 +167,11 @@ func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.checkGroupCall#b59cf977 to nil")
 	}
 	{
-		if err := c.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.checkGroupCall#b59cf977: field call: %w", err)
 		}
+		c.Call = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -189,7 +194,7 @@ func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (c *PhoneCheckGroupCallRequest) GetCall() (value InputGroupCall) {
+func (c *PhoneCheckGroupCallRequest) GetCall() (value InputGroupCallClass) {
 	if c == nil {
 		return
 	}

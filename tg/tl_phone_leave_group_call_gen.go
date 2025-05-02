@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 type PhoneLeaveGroupCallRequest struct {
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Your source ID
 	Source int
 }
@@ -57,7 +57,7 @@ func (l *PhoneLeaveGroupCallRequest) Zero() bool {
 	if l == nil {
 		return true
 	}
-	if !(l.Call.Zero()) {
+	if !(l.Call == nil) {
 		return false
 	}
 	if !(l.Source == 0) {
@@ -78,7 +78,7 @@ func (l *PhoneLeaveGroupCallRequest) String() string {
 
 // FillFrom fills PhoneLeaveGroupCallRequest from given interface.
 func (l *PhoneLeaveGroupCallRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetSource() (value int)
 }) {
 	l.Call = from.GetCall()
@@ -134,6 +134,9 @@ func (l *PhoneLeaveGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't encode phone.leaveGroupCall#500377f9 as nil")
 	}
+	if l.Call == nil {
+		return fmt.Errorf("unable to encode phone.leaveGroupCall#500377f9: field call is nil")
+	}
 	if err := l.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.leaveGroupCall#500377f9: field call: %w", err)
 	}
@@ -158,9 +161,11 @@ func (l *PhoneLeaveGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.leaveGroupCall#500377f9 to nil")
 	}
 	{
-		if err := l.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.leaveGroupCall#500377f9: field call: %w", err)
 		}
+		l.Call = value
 	}
 	{
 		value, err := b.Int()
@@ -173,7 +178,7 @@ func (l *PhoneLeaveGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (l *PhoneLeaveGroupCallRequest) GetCall() (value InputGroupCall) {
+func (l *PhoneLeaveGroupCallRequest) GetCall() (value InputGroupCallClass) {
 	if l == nil {
 		return
 	}

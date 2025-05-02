@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// The users to invite.
 	Users []InputUserClass
 }
@@ -57,7 +57,7 @@ func (i *PhoneInviteToGroupCallRequest) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.Call.Zero()) {
+	if !(i.Call == nil) {
 		return false
 	}
 	if !(i.Users == nil) {
@@ -78,7 +78,7 @@ func (i *PhoneInviteToGroupCallRequest) String() string {
 
 // FillFrom fills PhoneInviteToGroupCallRequest from given interface.
 func (i *PhoneInviteToGroupCallRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetUsers() (value []InputUserClass)
 }) {
 	i.Call = from.GetCall()
@@ -134,6 +134,9 @@ func (i *PhoneInviteToGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode phone.inviteToGroupCall#7b393160 as nil")
 	}
+	if i.Call == nil {
+		return fmt.Errorf("unable to encode phone.inviteToGroupCall#7b393160: field call is nil")
+	}
 	if err := i.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.inviteToGroupCall#7b393160: field call: %w", err)
 	}
@@ -166,9 +169,11 @@ func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.inviteToGroupCall#7b393160 to nil")
 	}
 	{
-		if err := i.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: field call: %w", err)
 		}
+		i.Call = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -191,7 +196,7 @@ func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCall) {
+func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCallClass) {
 	if i == nil {
 		return
 	}
