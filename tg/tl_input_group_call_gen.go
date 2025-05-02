@@ -45,12 +45,17 @@ type InputGroupCall struct {
 // InputGroupCallTypeID is TL type id of InputGroupCall.
 const InputGroupCallTypeID = 0xd8aa840f
 
+// construct implements constructor of InputGroupCallClass.
+func (i InputGroupCall) construct() InputGroupCallClass { return &i }
+
 // Ensuring interfaces in compile-time for InputGroupCall.
 var (
 	_ bin.Encoder     = &InputGroupCall{}
 	_ bin.Decoder     = &InputGroupCall{}
 	_ bin.BareEncoder = &InputGroupCall{}
 	_ bin.BareDecoder = &InputGroupCall{}
+
+	_ InputGroupCallClass = &InputGroupCall{}
 )
 
 func (i *InputGroupCall) Zero() bool {
@@ -186,4 +191,374 @@ func (i *InputGroupCall) GetAccessHash() (value int64) {
 		return
 	}
 	return i.AccessHash
+}
+
+// InputGroupCallSlug represents TL type `inputGroupCallSlug#fe06823f`.
+//
+// See https://core.telegram.org/constructor/inputGroupCallSlug for reference.
+type InputGroupCallSlug struct {
+	// Slug field of InputGroupCallSlug.
+	Slug string
+}
+
+// InputGroupCallSlugTypeID is TL type id of InputGroupCallSlug.
+const InputGroupCallSlugTypeID = 0xfe06823f
+
+// construct implements constructor of InputGroupCallClass.
+func (i InputGroupCallSlug) construct() InputGroupCallClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGroupCallSlug.
+var (
+	_ bin.Encoder     = &InputGroupCallSlug{}
+	_ bin.Decoder     = &InputGroupCallSlug{}
+	_ bin.BareEncoder = &InputGroupCallSlug{}
+	_ bin.BareDecoder = &InputGroupCallSlug{}
+
+	_ InputGroupCallClass = &InputGroupCallSlug{}
+)
+
+func (i *InputGroupCallSlug) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Slug == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputGroupCallSlug) String() string {
+	if i == nil {
+		return "InputGroupCallSlug(nil)"
+	}
+	type Alias InputGroupCallSlug
+	return fmt.Sprintf("InputGroupCallSlug%+v", Alias(*i))
+}
+
+// FillFrom fills InputGroupCallSlug from given interface.
+func (i *InputGroupCallSlug) FillFrom(from interface {
+	GetSlug() (value string)
+}) {
+	i.Slug = from.GetSlug()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputGroupCallSlug) TypeID() uint32 {
+	return InputGroupCallSlugTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputGroupCallSlug) TypeName() string {
+	return "inputGroupCallSlug"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGroupCallSlug) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGroupCallSlug",
+		ID:   InputGroupCallSlugTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputGroupCallSlug) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCallSlug#fe06823f as nil")
+	}
+	b.PutID(InputGroupCallSlugTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGroupCallSlug) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCallSlug#fe06823f as nil")
+	}
+	b.PutString(i.Slug)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputGroupCallSlug) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCallSlug#fe06823f to nil")
+	}
+	if err := b.ConsumeID(InputGroupCallSlugTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputGroupCallSlug#fe06823f: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGroupCallSlug) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCallSlug#fe06823f to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallSlug#fe06823f: field slug: %w", err)
+		}
+		i.Slug = value
+	}
+	return nil
+}
+
+// GetSlug returns value of Slug field.
+func (i *InputGroupCallSlug) GetSlug() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Slug
+}
+
+// InputGroupCallInviteMessage represents TL type `inputGroupCallInviteMessage#8c10603f`.
+//
+// See https://core.telegram.org/constructor/inputGroupCallInviteMessage for reference.
+type InputGroupCallInviteMessage struct {
+	// MsgID field of InputGroupCallInviteMessage.
+	MsgID int
+}
+
+// InputGroupCallInviteMessageTypeID is TL type id of InputGroupCallInviteMessage.
+const InputGroupCallInviteMessageTypeID = 0x8c10603f
+
+// construct implements constructor of InputGroupCallClass.
+func (i InputGroupCallInviteMessage) construct() InputGroupCallClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGroupCallInviteMessage.
+var (
+	_ bin.Encoder     = &InputGroupCallInviteMessage{}
+	_ bin.Decoder     = &InputGroupCallInviteMessage{}
+	_ bin.BareEncoder = &InputGroupCallInviteMessage{}
+	_ bin.BareDecoder = &InputGroupCallInviteMessage{}
+
+	_ InputGroupCallClass = &InputGroupCallInviteMessage{}
+)
+
+func (i *InputGroupCallInviteMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputGroupCallInviteMessage) String() string {
+	if i == nil {
+		return "InputGroupCallInviteMessage(nil)"
+	}
+	type Alias InputGroupCallInviteMessage
+	return fmt.Sprintf("InputGroupCallInviteMessage%+v", Alias(*i))
+}
+
+// FillFrom fills InputGroupCallInviteMessage from given interface.
+func (i *InputGroupCallInviteMessage) FillFrom(from interface {
+	GetMsgID() (value int)
+}) {
+	i.MsgID = from.GetMsgID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputGroupCallInviteMessage) TypeID() uint32 {
+	return InputGroupCallInviteMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputGroupCallInviteMessage) TypeName() string {
+	return "inputGroupCallInviteMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGroupCallInviteMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGroupCallInviteMessage",
+		ID:   InputGroupCallInviteMessageTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputGroupCallInviteMessage) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCallInviteMessage#8c10603f as nil")
+	}
+	b.PutID(InputGroupCallInviteMessageTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGroupCallInviteMessage) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCallInviteMessage#8c10603f as nil")
+	}
+	b.PutInt(i.MsgID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputGroupCallInviteMessage) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCallInviteMessage#8c10603f to nil")
+	}
+	if err := b.ConsumeID(InputGroupCallInviteMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputGroupCallInviteMessage#8c10603f: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGroupCallInviteMessage) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCallInviteMessage#8c10603f to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallInviteMessage#8c10603f: field msg_id: %w", err)
+		}
+		i.MsgID = value
+	}
+	return nil
+}
+
+// GetMsgID returns value of MsgID field.
+func (i *InputGroupCallInviteMessage) GetMsgID() (value int) {
+	if i == nil {
+		return
+	}
+	return i.MsgID
+}
+
+// InputGroupCallClassName is schema name of InputGroupCallClass.
+const InputGroupCallClassName = "InputGroupCall"
+
+// InputGroupCallClass represents InputGroupCall generic type.
+//
+// See https://core.telegram.org/type/InputGroupCall for reference.
+//
+// Constructors:
+//   - [InputGroupCall]
+//   - [InputGroupCallSlug]
+//   - [InputGroupCallInviteMessage]
+//
+// Example:
+//
+//	g, err := tg.DecodeInputGroupCall(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputGroupCall: // inputGroupCall#d8aa840f
+//	case *tg.InputGroupCallSlug: // inputGroupCallSlug#fe06823f
+//	case *tg.InputGroupCallInviteMessage: // inputGroupCallInviteMessage#8c10603f
+//	default: panic(v)
+//	}
+type InputGroupCallClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() InputGroupCallClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// DecodeInputGroupCall implements binary de-serialization for InputGroupCallClass.
+func DecodeInputGroupCall(buf *bin.Buffer) (InputGroupCallClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case InputGroupCallTypeID:
+		// Decoding inputGroupCall#d8aa840f.
+		v := InputGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputGroupCallClass: %w", err)
+		}
+		return &v, nil
+	case InputGroupCallSlugTypeID:
+		// Decoding inputGroupCallSlug#fe06823f.
+		v := InputGroupCallSlug{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputGroupCallClass: %w", err)
+		}
+		return &v, nil
+	case InputGroupCallInviteMessageTypeID:
+		// Decoding inputGroupCallInviteMessage#8c10603f.
+		v := InputGroupCallInviteMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputGroupCallClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode InputGroupCallClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// InputGroupCall boxes the InputGroupCallClass providing a helper.
+type InputGroupCallBox struct {
+	InputGroupCall InputGroupCallClass
+}
+
+// Decode implements bin.Decoder for InputGroupCallBox.
+func (b *InputGroupCallBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputGroupCallBox to nil")
+	}
+	v, err := DecodeInputGroupCall(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputGroupCall = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputGroupCallBox.
+func (b *InputGroupCallBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputGroupCall == nil {
+		return fmt.Errorf("unable to encode InputGroupCallClass as nil")
+	}
+	return b.InputGroupCall.Encode(buf)
 }

@@ -59,6 +59,8 @@ type StarsTransaction struct {
 	Reaction bool
 	// StargiftUpgrade field of StarsTransaction.
 	StargiftUpgrade bool
+	// BusinessTransfer field of StarsTransaction.
+	BusinessTransfer bool
 	// Transaction ID.
 	ID string
 	// Amount of Stars (negative for outgoing transactions).
@@ -224,6 +226,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.StargiftUpgrade == false) {
 		return false
 	}
+	if !(s.BusinessTransfer == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -308,6 +313,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetGift() (value bool)
 	GetReaction() (value bool)
 	GetStargiftUpgrade() (value bool)
+	GetBusinessTransfer() (value bool)
 	GetID() (value string)
 	GetStars() (value StarsAmount)
 	GetDate() (value int)
@@ -336,6 +342,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.Gift = from.GetGift()
 	s.Reaction = from.GetReaction()
 	s.StargiftUpgrade = from.GetStargiftUpgrade()
+	s.BusinessTransfer = from.GetBusinessTransfer()
 	s.ID = from.GetID()
 	s.Stars = from.GetStars()
 	s.Date = from.GetDate()
@@ -464,6 +471,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(18),
 		},
 		{
+			Name:       "BusinessTransfer",
+			SchemaName: "business_transfer",
+			Null:       !s.Flags.Has(21),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -587,6 +599,9 @@ func (s *StarsTransaction) SetFlags() {
 	}
 	if !(s.StargiftUpgrade == false) {
 		s.Flags.Set(18)
+	}
+	if !(s.BusinessTransfer == false) {
+		s.Flags.Set(21)
 	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
@@ -776,6 +791,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.Gift = s.Flags.Has(10)
 	s.Reaction = s.Flags.Has(11)
 	s.StargiftUpgrade = s.Flags.Has(18)
+	s.BusinessTransfer = s.Flags.Has(21)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1044,6 +1060,25 @@ func (s *StarsTransaction) GetStargiftUpgrade() (value bool) {
 		return
 	}
 	return s.Flags.Has(18)
+}
+
+// SetBusinessTransfer sets value of BusinessTransfer conditional field.
+func (s *StarsTransaction) SetBusinessTransfer(value bool) {
+	if value {
+		s.Flags.Set(21)
+		s.BusinessTransfer = true
+	} else {
+		s.Flags.Unset(21)
+		s.BusinessTransfer = false
+	}
+}
+
+// GetBusinessTransfer returns value of BusinessTransfer conditional field.
+func (s *StarsTransaction) GetBusinessTransfer() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(21)
 }
 
 // GetID returns value of ID field.

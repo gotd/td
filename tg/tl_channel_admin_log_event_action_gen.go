@@ -3262,7 +3262,7 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) GetNewValue() (value int) {
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStartGroupCall for reference.
 type ChannelAdminLogEventActionStartGroupCall struct {
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
@@ -3287,7 +3287,7 @@ func (c *ChannelAdminLogEventActionStartGroupCall) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		return false
 	}
 
@@ -3305,7 +3305,7 @@ func (c *ChannelAdminLogEventActionStartGroupCall) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionStartGroupCall from given interface.
 func (c *ChannelAdminLogEventActionStartGroupCall) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	c.Call = from.GetCall()
 }
@@ -3355,6 +3355,9 @@ func (c *ChannelAdminLogEventActionStartGroupCall) EncodeBare(b *bin.Buffer) err
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionStartGroupCall#23209745 as nil")
 	}
+	if c.Call == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionStartGroupCall#23209745: field call is nil")
+	}
 	if err := c.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
 	}
@@ -3378,15 +3381,17 @@ func (c *ChannelAdminLogEventActionStartGroupCall) DecodeBare(b *bin.Buffer) err
 		return fmt.Errorf("can't decode channelAdminLogEventActionStartGroupCall#23209745 to nil")
 	}
 	{
-		if err := c.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
 		}
+		c.Call = value
 	}
 	return nil
 }
 
 // GetCall returns value of Call field.
-func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCall) {
+func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCallClass) {
 	if c == nil {
 		return
 	}
@@ -3399,7 +3404,7 @@ func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCa
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall for reference.
 type ChannelAdminLogEventActionDiscardGroupCall struct {
 	// The group call that was terminated
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
@@ -3424,7 +3429,7 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		return false
 	}
 
@@ -3442,7 +3447,7 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionDiscardGroupCall from given interface.
 func (c *ChannelAdminLogEventActionDiscardGroupCall) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	c.Call = from.GetCall()
 }
@@ -3492,6 +3497,9 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) EncodeBare(b *bin.Buffer) e
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionDiscardGroupCall#db9f9140 as nil")
 	}
+	if c.Call == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call is nil")
+	}
 	if err := c.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
 	}
@@ -3515,15 +3523,17 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) DecodeBare(b *bin.Buffer) e
 		return fmt.Errorf("can't decode channelAdminLogEventActionDiscardGroupCall#db9f9140 to nil")
 	}
 	{
-		if err := c.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
 		}
+		c.Call = value
 	}
 	return nil
 }
 
 // GetCall returns value of Call field.
-func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroupCall) {
+func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroupCallClass) {
 	if c == nil {
 		return
 	}

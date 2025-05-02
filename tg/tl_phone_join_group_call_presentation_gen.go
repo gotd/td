@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.joinGroupCallPresentation for reference.
 type PhoneJoinGroupCallPresentationRequest struct {
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// WebRTC parameters
 	Params DataJSON
 }
@@ -57,7 +57,7 @@ func (j *PhoneJoinGroupCallPresentationRequest) Zero() bool {
 	if j == nil {
 		return true
 	}
-	if !(j.Call.Zero()) {
+	if !(j.Call == nil) {
 		return false
 	}
 	if !(j.Params.Zero()) {
@@ -78,7 +78,7 @@ func (j *PhoneJoinGroupCallPresentationRequest) String() string {
 
 // FillFrom fills PhoneJoinGroupCallPresentationRequest from given interface.
 func (j *PhoneJoinGroupCallPresentationRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetParams() (value DataJSON)
 }) {
 	j.Call = from.GetCall()
@@ -134,6 +134,9 @@ func (j *PhoneJoinGroupCallPresentationRequest) EncodeBare(b *bin.Buffer) error 
 	if j == nil {
 		return fmt.Errorf("can't encode phone.joinGroupCallPresentation#cbea6bc4 as nil")
 	}
+	if j.Call == nil {
+		return fmt.Errorf("unable to encode phone.joinGroupCallPresentation#cbea6bc4: field call is nil")
+	}
 	if err := j.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.joinGroupCallPresentation#cbea6bc4: field call: %w", err)
 	}
@@ -160,9 +163,11 @@ func (j *PhoneJoinGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error 
 		return fmt.Errorf("can't decode phone.joinGroupCallPresentation#cbea6bc4 to nil")
 	}
 	{
-		if err := j.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.joinGroupCallPresentation#cbea6bc4: field call: %w", err)
 		}
+		j.Call = value
 	}
 	{
 		if err := j.Params.Decode(b); err != nil {
@@ -173,7 +178,7 @@ func (j *PhoneJoinGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error 
 }
 
 // GetCall returns value of Call field.
-func (j *PhoneJoinGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
+func (j *PhoneJoinGroupCallPresentationRequest) GetCall() (value InputGroupCallClass) {
 	if j == nil {
 		return
 	}

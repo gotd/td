@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.startScheduledGroupCall for reference.
 type PhoneStartScheduledGroupCallRequest struct {
 	// The scheduled group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // PhoneStartScheduledGroupCallRequestTypeID is TL type id of PhoneStartScheduledGroupCallRequest.
@@ -55,7 +55,7 @@ func (s *PhoneStartScheduledGroupCallRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.Call.Zero()) {
+	if !(s.Call == nil) {
 		return false
 	}
 
@@ -73,7 +73,7 @@ func (s *PhoneStartScheduledGroupCallRequest) String() string {
 
 // FillFrom fills PhoneStartScheduledGroupCallRequest from given interface.
 func (s *PhoneStartScheduledGroupCallRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	s.Call = from.GetCall()
 }
@@ -123,6 +123,9 @@ func (s *PhoneStartScheduledGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode phone.startScheduledGroupCall#5680e342 as nil")
 	}
+	if s.Call == nil {
+		return fmt.Errorf("unable to encode phone.startScheduledGroupCall#5680e342: field call is nil")
+	}
 	if err := s.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.startScheduledGroupCall#5680e342: field call: %w", err)
 	}
@@ -146,15 +149,17 @@ func (s *PhoneStartScheduledGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.startScheduledGroupCall#5680e342 to nil")
 	}
 	{
-		if err := s.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.startScheduledGroupCall#5680e342: field call: %w", err)
 		}
+		s.Call = value
 	}
 	return nil
 }
 
 // GetCall returns value of Call field.
-func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCall) {
+func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCallClass) {
 	if s == nil {
 		return
 	}
@@ -170,7 +175,7 @@ func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCall) {
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.startScheduledGroupCall for reference.
-func (c *Client) PhoneStartScheduledGroupCall(ctx context.Context, call InputGroupCall) (UpdatesClass, error) {
+func (c *Client) PhoneStartScheduledGroupCall(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error) {
 	var result UpdatesBox
 
 	request := &PhoneStartScheduledGroupCallRequest{

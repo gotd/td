@@ -97,7 +97,7 @@ type ChatFull struct {
 	// Group call information
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Time-To-Live of messages sent by the current user to this chat
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
@@ -201,7 +201,7 @@ func (c *ChatFull) Zero() bool {
 	if !(c.FolderID == 0) {
 		return false
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		return false
 	}
 	if !(c.TTLPeriod == 0) {
@@ -252,7 +252,7 @@ func (c *ChatFull) FillFrom(from interface {
 	GetBotInfo() (value []BotInfo, ok bool)
 	GetPinnedMsgID() (value int, ok bool)
 	GetFolderID() (value int, ok bool)
-	GetCall() (value InputGroupCall, ok bool)
+	GetCall() (value InputGroupCallClass, ok bool)
 	GetTTLPeriod() (value int, ok bool)
 	GetGroupcallDefaultJoinAs() (value PeerClass, ok bool)
 	GetThemeEmoticon() (value string, ok bool)
@@ -471,7 +471,7 @@ func (c *ChatFull) SetFlags() {
 	if !(c.FolderID == 0) {
 		c.Flags.Set(11)
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		c.Flags.Set(12)
 	}
 	if !(c.TTLPeriod == 0) {
@@ -557,6 +557,9 @@ func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(c.FolderID)
 	}
 	if c.Flags.Has(12) {
+		if c.Call == nil {
+			return fmt.Errorf("unable to encode chatFull#2633421b: field call is nil")
+		}
 		if err := c.Call.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode chatFull#2633421b: field call: %w", err)
 		}
@@ -694,9 +697,11 @@ func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
 		c.FolderID = value
 	}
 	if c.Flags.Has(12) {
-		if err := c.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode chatFull#2633421b: field call: %w", err)
 		}
+		c.Call = value
 	}
 	if c.Flags.Has(14) {
 		value, err := b.Int()
@@ -940,14 +945,14 @@ func (c *ChatFull) GetFolderID() (value int, ok bool) {
 }
 
 // SetCall sets value of Call conditional field.
-func (c *ChatFull) SetCall(value InputGroupCall) {
+func (c *ChatFull) SetCall(value InputGroupCallClass) {
 	c.Flags.Set(12)
 	c.Call = value
 }
 
 // GetCall returns value of Call conditional field and
 // boolean which is true if field was set.
-func (c *ChatFull) GetCall() (value InputGroupCall, ok bool) {
+func (c *ChatFull) GetCall() (value InputGroupCallClass, ok bool) {
 	if c == nil {
 		return
 	}
@@ -1308,7 +1313,7 @@ type ChannelFull struct {
 	// Livestream or group call information
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Time-To-Live of messages in this channel or supergroup
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
@@ -1581,7 +1586,7 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.Pts == 0) {
 		return false
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		return false
 	}
 	if !(c.TTLPeriod == 0) {
@@ -1694,7 +1699,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetSlowmodeNextSendDate() (value int, ok bool)
 	GetStatsDC() (value int, ok bool)
 	GetPts() (value int)
-	GetCall() (value InputGroupCall, ok bool)
+	GetCall() (value InputGroupCallClass, ok bool)
 	GetTTLPeriod() (value int, ok bool)
 	GetPendingSuggestions() (value []string, ok bool)
 	GetGroupcallDefaultJoinAs() (value PeerClass, ok bool)
@@ -2334,7 +2339,7 @@ func (c *ChannelFull) SetFlags() {
 	if !(c.StatsDC == 0) {
 		c.Flags.Set(12)
 	}
-	if !(c.Call.Zero()) {
+	if !(c.Call == nil) {
 		c.Flags.Set(21)
 	}
 	if !(c.TTLPeriod == 0) {
@@ -2493,6 +2498,9 @@ func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(c.Pts)
 	if c.Flags.Has(21) {
+		if c.Call == nil {
+			return fmt.Errorf("unable to encode channelFull#52d6806b: field call is nil")
+		}
 		if err := c.Call.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode channelFull#52d6806b: field call: %w", err)
 		}
@@ -2816,9 +2824,11 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 		c.Pts = value
 	}
 	if c.Flags.Has(21) {
-		if err := c.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelFull#52d6806b: field call: %w", err)
 		}
+		c.Call = value
 	}
 	if c.Flags.Has(24) {
 		value, err := b.Int()
@@ -3727,14 +3737,14 @@ func (c *ChannelFull) GetPts() (value int) {
 }
 
 // SetCall sets value of Call conditional field.
-func (c *ChannelFull) SetCall(value InputGroupCall) {
+func (c *ChannelFull) SetCall(value InputGroupCallClass) {
 	c.Flags.Set(21)
 	c.Call = value
 }
 
 // GetCall returns value of Call conditional field and
 // boolean which is true if field was set.
-func (c *ChannelFull) GetCall() (value InputGroupCall, ok bool) {
+func (c *ChannelFull) GetCall() (value InputGroupCallClass, ok bool) {
 	if c == nil {
 		return
 	}
@@ -4112,7 +4122,7 @@ type ChatFullClass interface {
 	GetFolderID() (value int, ok bool)
 
 	// Group call information
-	GetCall() (value InputGroupCall, ok bool)
+	GetCall() (value InputGroupCallClass, ok bool)
 
 	// Time-To-Live of messages sent by the current user to this chat
 	GetTTLPeriod() (value int, ok bool)

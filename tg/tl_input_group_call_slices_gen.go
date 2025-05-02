@@ -33,3 +33,398 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// InputGroupCallClassArray is adapter for slice of InputGroupCallClass.
+type InputGroupCallClassArray []InputGroupCallClass
+
+// Sort sorts slice of InputGroupCallClass.
+func (s InputGroupCallClassArray) Sort(less func(a, b InputGroupCallClass) bool) InputGroupCallClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGroupCallClass.
+func (s InputGroupCallClassArray) SortStable(less func(a, b InputGroupCallClass) bool) InputGroupCallClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGroupCallClass.
+func (s InputGroupCallClassArray) Retain(keep func(x InputGroupCallClass) bool) InputGroupCallClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputGroupCallClassArray) First() (v InputGroupCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGroupCallClassArray) Last() (v InputGroupCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGroupCallClassArray) PopFirst() (v InputGroupCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputGroupCallClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGroupCallClassArray) Pop() (v InputGroupCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputGroupCall returns copy with only InputGroupCall constructors.
+func (s InputGroupCallClassArray) AsInputGroupCall() (to InputGroupCallArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputGroupCall)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputGroupCallSlug returns copy with only InputGroupCallSlug constructors.
+func (s InputGroupCallClassArray) AsInputGroupCallSlug() (to InputGroupCallSlugArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputGroupCallSlug)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputGroupCallInviteMessage returns copy with only InputGroupCallInviteMessage constructors.
+func (s InputGroupCallClassArray) AsInputGroupCallInviteMessage() (to InputGroupCallInviteMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputGroupCallInviteMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputGroupCallArray is adapter for slice of InputGroupCall.
+type InputGroupCallArray []InputGroupCall
+
+// Sort sorts slice of InputGroupCall.
+func (s InputGroupCallArray) Sort(less func(a, b InputGroupCall) bool) InputGroupCallArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGroupCall.
+func (s InputGroupCallArray) SortStable(less func(a, b InputGroupCall) bool) InputGroupCallArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGroupCall.
+func (s InputGroupCallArray) Retain(keep func(x InputGroupCall) bool) InputGroupCallArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputGroupCallArray) First() (v InputGroupCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGroupCallArray) Last() (v InputGroupCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGroupCallArray) PopFirst() (v InputGroupCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputGroupCall
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGroupCallArray) Pop() (v InputGroupCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of InputGroupCall by ID.
+func (s InputGroupCallArray) SortByID() InputGroupCallArray {
+	return s.Sort(func(a, b InputGroupCall) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputGroupCall by ID.
+func (s InputGroupCallArray) SortStableByID() InputGroupCallArray {
+	return s.SortStable(func(a, b InputGroupCall) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputGroupCallArray) FillMap(to map[int64]InputGroupCall) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputGroupCallArray) ToMap() map[int64]InputGroupCall {
+	r := make(map[int64]InputGroupCall, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// InputGroupCallSlugArray is adapter for slice of InputGroupCallSlug.
+type InputGroupCallSlugArray []InputGroupCallSlug
+
+// Sort sorts slice of InputGroupCallSlug.
+func (s InputGroupCallSlugArray) Sort(less func(a, b InputGroupCallSlug) bool) InputGroupCallSlugArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGroupCallSlug.
+func (s InputGroupCallSlugArray) SortStable(less func(a, b InputGroupCallSlug) bool) InputGroupCallSlugArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGroupCallSlug.
+func (s InputGroupCallSlugArray) Retain(keep func(x InputGroupCallSlug) bool) InputGroupCallSlugArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputGroupCallSlugArray) First() (v InputGroupCallSlug, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGroupCallSlugArray) Last() (v InputGroupCallSlug, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGroupCallSlugArray) PopFirst() (v InputGroupCallSlug, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputGroupCallSlug
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGroupCallSlugArray) Pop() (v InputGroupCallSlug, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputGroupCallInviteMessageArray is adapter for slice of InputGroupCallInviteMessage.
+type InputGroupCallInviteMessageArray []InputGroupCallInviteMessage
+
+// Sort sorts slice of InputGroupCallInviteMessage.
+func (s InputGroupCallInviteMessageArray) Sort(less func(a, b InputGroupCallInviteMessage) bool) InputGroupCallInviteMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGroupCallInviteMessage.
+func (s InputGroupCallInviteMessageArray) SortStable(less func(a, b InputGroupCallInviteMessage) bool) InputGroupCallInviteMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGroupCallInviteMessage.
+func (s InputGroupCallInviteMessageArray) Retain(keep func(x InputGroupCallInviteMessage) bool) InputGroupCallInviteMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputGroupCallInviteMessageArray) First() (v InputGroupCallInviteMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGroupCallInviteMessageArray) Last() (v InputGroupCallInviteMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGroupCallInviteMessageArray) PopFirst() (v InputGroupCallInviteMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputGroupCallInviteMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGroupCallInviteMessageArray) Pop() (v InputGroupCallInviteMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

@@ -49,7 +49,7 @@ type PhoneExportGroupCallInviteRequest struct {
 	// their hand).
 	CanSelfUnmute bool
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 }
 
 // PhoneExportGroupCallInviteRequestTypeID is TL type id of PhoneExportGroupCallInviteRequest.
@@ -73,7 +73,7 @@ func (e *PhoneExportGroupCallInviteRequest) Zero() bool {
 	if !(e.CanSelfUnmute == false) {
 		return false
 	}
-	if !(e.Call.Zero()) {
+	if !(e.Call == nil) {
 		return false
 	}
 
@@ -92,7 +92,7 @@ func (e *PhoneExportGroupCallInviteRequest) String() string {
 // FillFrom fills PhoneExportGroupCallInviteRequest from given interface.
 func (e *PhoneExportGroupCallInviteRequest) FillFrom(from interface {
 	GetCanSelfUnmute() (value bool)
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 }) {
 	e.CanSelfUnmute = from.GetCanSelfUnmute()
 	e.Call = from.GetCall()
@@ -159,6 +159,9 @@ func (e *PhoneExportGroupCallInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.exportGroupCallInvite#e6aa647f: field flags: %w", err)
 	}
+	if e.Call == nil {
+		return fmt.Errorf("unable to encode phone.exportGroupCallInvite#e6aa647f: field call is nil")
+	}
 	if err := e.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.exportGroupCallInvite#e6aa647f: field call: %w", err)
 	}
@@ -188,9 +191,11 @@ func (e *PhoneExportGroupCallInviteRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	e.CanSelfUnmute = e.Flags.Has(0)
 	{
-		if err := e.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.exportGroupCallInvite#e6aa647f: field call: %w", err)
 		}
+		e.Call = value
 	}
 	return nil
 }
@@ -215,7 +220,7 @@ func (e *PhoneExportGroupCallInviteRequest) GetCanSelfUnmute() (value bool) {
 }
 
 // GetCall returns value of Call field.
-func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
+func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCallClass) {
 	if e == nil {
 		return
 	}

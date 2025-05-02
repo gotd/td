@@ -47,7 +47,7 @@ type PhoneToggleGroupCallRecordRequest struct {
 	// Whether to also record video streams
 	Video bool
 	// The group call or livestream
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Recording title
 	//
 	// Use SetTitle and GetTitle helpers.
@@ -82,7 +82,7 @@ func (t *PhoneToggleGroupCallRecordRequest) Zero() bool {
 	if !(t.Video == false) {
 		return false
 	}
-	if !(t.Call.Zero()) {
+	if !(t.Call == nil) {
 		return false
 	}
 	if !(t.Title == "") {
@@ -108,7 +108,7 @@ func (t *PhoneToggleGroupCallRecordRequest) String() string {
 func (t *PhoneToggleGroupCallRecordRequest) FillFrom(from interface {
 	GetStart() (value bool)
 	GetVideo() (value bool)
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetTitle() (value string, ok bool)
 	GetVideoPortrait() (value bool, ok bool)
 }) {
@@ -210,6 +210,9 @@ func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#f128c708: field flags: %w", err)
 	}
+	if t.Call == nil {
+		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#f128c708: field call is nil")
+	}
 	if err := t.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#f128c708: field call: %w", err)
 	}
@@ -246,9 +249,11 @@ func (t *PhoneToggleGroupCallRecordRequest) DecodeBare(b *bin.Buffer) error {
 	t.Start = t.Flags.Has(0)
 	t.Video = t.Flags.Has(2)
 	{
-		if err := t.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#f128c708: field call: %w", err)
 		}
+		t.Call = value
 	}
 	if t.Flags.Has(1) {
 		value, err := b.String()
@@ -306,7 +311,7 @@ func (t *PhoneToggleGroupCallRecordRequest) GetVideo() (value bool) {
 }
 
 // GetCall returns value of Call field.
-func (t *PhoneToggleGroupCallRecordRequest) GetCall() (value InputGroupCall) {
+func (t *PhoneToggleGroupCallRecordRequest) GetCall() (value InputGroupCallClass) {
 	if t == nil {
 		return
 	}

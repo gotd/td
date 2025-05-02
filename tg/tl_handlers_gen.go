@@ -1525,3 +1525,13 @@ func (u UpdateDispatcher) OnSentPhoneCode(handler SentPhoneCodeHandler) {
 		return handler(ctx, e, update.(*UpdateSentPhoneCode))
 	}
 }
+
+// GroupCallChainBlocksHandler is a GroupCallChainBlocks event handler.
+type GroupCallChainBlocksHandler func(ctx context.Context, e Entities, update *UpdateGroupCallChainBlocks) error
+
+// OnGroupCallChainBlocks sets GroupCallChainBlocks handler.
+func (u UpdateDispatcher) OnGroupCallChainBlocks(handler GroupCallChainBlocksHandler) {
+	u.handlers[UpdateGroupCallChainBlocksTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateGroupCallChainBlocks))
+	}
+}

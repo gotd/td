@@ -4241,7 +4241,7 @@ type MessageActionGroupCall struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Group call duration
 	//
 	// Use SetDuration and GetDuration helpers.
@@ -4271,7 +4271,7 @@ func (m *MessageActionGroupCall) Zero() bool {
 	if !(m.Flags.Zero()) {
 		return false
 	}
-	if !(m.Call.Zero()) {
+	if !(m.Call == nil) {
 		return false
 	}
 	if !(m.Duration == 0) {
@@ -4292,7 +4292,7 @@ func (m *MessageActionGroupCall) String() string {
 
 // FillFrom fills MessageActionGroupCall from given interface.
 func (m *MessageActionGroupCall) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetDuration() (value int, ok bool)
 }) {
 	m.Call = from.GetCall()
@@ -4363,6 +4363,9 @@ func (m *MessageActionGroupCall) EncodeBare(b *bin.Buffer) error {
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field flags: %w", err)
 	}
+	if m.Call == nil {
+		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field call is nil")
+	}
 	if err := m.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field call: %w", err)
 	}
@@ -4394,9 +4397,11 @@ func (m *MessageActionGroupCall) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		if err := m.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messageActionGroupCall#7a0d7f42: field call: %w", err)
 		}
+		m.Call = value
 	}
 	if m.Flags.Has(0) {
 		value, err := b.Int()
@@ -4409,7 +4414,7 @@ func (m *MessageActionGroupCall) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (m *MessageActionGroupCall) GetCall() (value InputGroupCall) {
+func (m *MessageActionGroupCall) GetCall() (value InputGroupCallClass) {
 	if m == nil {
 		return
 	}
@@ -4440,7 +4445,7 @@ func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
 // See https://core.telegram.org/constructor/messageActionInviteToGroupCall for reference.
 type MessageActionInviteToGroupCall struct {
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// The invited users
 	Users []int64
 }
@@ -4465,7 +4470,7 @@ func (m *MessageActionInviteToGroupCall) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.Call.Zero()) {
+	if !(m.Call == nil) {
 		return false
 	}
 	if !(m.Users == nil) {
@@ -4486,7 +4491,7 @@ func (m *MessageActionInviteToGroupCall) String() string {
 
 // FillFrom fills MessageActionInviteToGroupCall from given interface.
 func (m *MessageActionInviteToGroupCall) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetUsers() (value []int64)
 }) {
 	m.Call = from.GetCall()
@@ -4542,6 +4547,9 @@ func (m *MessageActionInviteToGroupCall) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageActionInviteToGroupCall#502f92f7 as nil")
 	}
+	if m.Call == nil {
+		return fmt.Errorf("unable to encode messageActionInviteToGroupCall#502f92f7: field call is nil")
+	}
 	if err := m.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionInviteToGroupCall#502f92f7: field call: %w", err)
 	}
@@ -4569,9 +4577,11 @@ func (m *MessageActionInviteToGroupCall) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageActionInviteToGroupCall#502f92f7 to nil")
 	}
 	{
-		if err := m.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messageActionInviteToGroupCall#502f92f7: field call: %w", err)
 		}
+		m.Call = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -4594,7 +4604,7 @@ func (m *MessageActionInviteToGroupCall) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (m *MessageActionInviteToGroupCall) GetCall() (value InputGroupCall) {
+func (m *MessageActionInviteToGroupCall) GetCall() (value InputGroupCallClass) {
 	if m == nil {
 		return
 	}
@@ -4826,7 +4836,7 @@ func (m *MessageActionSetMessagesTTL) GetAutoSettingFrom() (value int64, ok bool
 // See https://core.telegram.org/constructor/messageActionGroupCallScheduled for reference.
 type MessageActionGroupCallScheduled struct {
 	// The group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// When is this group call scheduled to start
 	ScheduleDate int
 }
@@ -4851,7 +4861,7 @@ func (m *MessageActionGroupCallScheduled) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.Call.Zero()) {
+	if !(m.Call == nil) {
 		return false
 	}
 	if !(m.ScheduleDate == 0) {
@@ -4872,7 +4882,7 @@ func (m *MessageActionGroupCallScheduled) String() string {
 
 // FillFrom fills MessageActionGroupCallScheduled from given interface.
 func (m *MessageActionGroupCallScheduled) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetScheduleDate() (value int)
 }) {
 	m.Call = from.GetCall()
@@ -4928,6 +4938,9 @@ func (m *MessageActionGroupCallScheduled) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageActionGroupCallScheduled#b3a07661 as nil")
 	}
+	if m.Call == nil {
+		return fmt.Errorf("unable to encode messageActionGroupCallScheduled#b3a07661: field call is nil")
+	}
 	if err := m.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionGroupCallScheduled#b3a07661: field call: %w", err)
 	}
@@ -4952,9 +4965,11 @@ func (m *MessageActionGroupCallScheduled) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageActionGroupCallScheduled#b3a07661 to nil")
 	}
 	{
-		if err := m.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messageActionGroupCallScheduled#b3a07661: field call: %w", err)
 		}
+		m.Call = value
 	}
 	{
 		value, err := b.Int()
@@ -4967,7 +4982,7 @@ func (m *MessageActionGroupCallScheduled) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (m *MessageActionGroupCallScheduled) GetCall() (value InputGroupCall) {
+func (m *MessageActionGroupCallScheduled) GetCall() (value InputGroupCallClass) {
 	if m == nil {
 		return
 	}
@@ -10888,6 +10903,385 @@ func (m *MessageActionPaidMessagesPrice) GetStars() (value int64) {
 	return m.Stars
 }
 
+// MessageActionConferenceCall represents TL type `messageActionConferenceCall#2ffe2f7a`.
+//
+// See https://core.telegram.org/constructor/messageActionConferenceCall for reference.
+type MessageActionConferenceCall struct {
+	// Flags field of MessageActionConferenceCall.
+	Flags bin.Fields
+	// Missed field of MessageActionConferenceCall.
+	Missed bool
+	// Active field of MessageActionConferenceCall.
+	Active bool
+	// Video field of MessageActionConferenceCall.
+	Video bool
+	// CallID field of MessageActionConferenceCall.
+	CallID int64
+	// Duration field of MessageActionConferenceCall.
+	//
+	// Use SetDuration and GetDuration helpers.
+	Duration int
+	// OtherParticipants field of MessageActionConferenceCall.
+	//
+	// Use SetOtherParticipants and GetOtherParticipants helpers.
+	OtherParticipants []PeerClass
+}
+
+// MessageActionConferenceCallTypeID is TL type id of MessageActionConferenceCall.
+const MessageActionConferenceCallTypeID = 0x2ffe2f7a
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionConferenceCall) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionConferenceCall.
+var (
+	_ bin.Encoder     = &MessageActionConferenceCall{}
+	_ bin.Decoder     = &MessageActionConferenceCall{}
+	_ bin.BareEncoder = &MessageActionConferenceCall{}
+	_ bin.BareDecoder = &MessageActionConferenceCall{}
+
+	_ MessageActionClass = &MessageActionConferenceCall{}
+)
+
+func (m *MessageActionConferenceCall) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Missed == false) {
+		return false
+	}
+	if !(m.Active == false) {
+		return false
+	}
+	if !(m.Video == false) {
+		return false
+	}
+	if !(m.CallID == 0) {
+		return false
+	}
+	if !(m.Duration == 0) {
+		return false
+	}
+	if !(m.OtherParticipants == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionConferenceCall) String() string {
+	if m == nil {
+		return "MessageActionConferenceCall(nil)"
+	}
+	type Alias MessageActionConferenceCall
+	return fmt.Sprintf("MessageActionConferenceCall%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionConferenceCall from given interface.
+func (m *MessageActionConferenceCall) FillFrom(from interface {
+	GetMissed() (value bool)
+	GetActive() (value bool)
+	GetVideo() (value bool)
+	GetCallID() (value int64)
+	GetDuration() (value int, ok bool)
+	GetOtherParticipants() (value []PeerClass, ok bool)
+}) {
+	m.Missed = from.GetMissed()
+	m.Active = from.GetActive()
+	m.Video = from.GetVideo()
+	m.CallID = from.GetCallID()
+	if val, ok := from.GetDuration(); ok {
+		m.Duration = val
+	}
+
+	if val, ok := from.GetOtherParticipants(); ok {
+		m.OtherParticipants = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionConferenceCall) TypeID() uint32 {
+	return MessageActionConferenceCallTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionConferenceCall) TypeName() string {
+	return "messageActionConferenceCall"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionConferenceCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionConferenceCall",
+		ID:   MessageActionConferenceCallTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Missed",
+			SchemaName: "missed",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Active",
+			SchemaName: "active",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "CallID",
+			SchemaName: "call_id",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "OtherParticipants",
+			SchemaName: "other_participants",
+			Null:       !m.Flags.Has(3),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionConferenceCall) SetFlags() {
+	if !(m.Missed == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.Active == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Video == false) {
+		m.Flags.Set(4)
+	}
+	if !(m.Duration == 0) {
+		m.Flags.Set(2)
+	}
+	if !(m.OtherParticipants == nil) {
+		m.Flags.Set(3)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionConferenceCall) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionConferenceCall#2ffe2f7a as nil")
+	}
+	b.PutID(MessageActionConferenceCallTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionConferenceCall) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionConferenceCall#2ffe2f7a as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionConferenceCall#2ffe2f7a: field flags: %w", err)
+	}
+	b.PutLong(m.CallID)
+	if m.Flags.Has(2) {
+		b.PutInt(m.Duration)
+	}
+	if m.Flags.Has(3) {
+		b.PutVectorHeader(len(m.OtherParticipants))
+		for idx, v := range m.OtherParticipants {
+			if v == nil {
+				return fmt.Errorf("unable to encode messageActionConferenceCall#2ffe2f7a: field other_participants element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode messageActionConferenceCall#2ffe2f7a: field other_participants element with index %d: %w", idx, err)
+			}
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionConferenceCall) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionConferenceCall#2ffe2f7a to nil")
+	}
+	if err := b.ConsumeID(MessageActionConferenceCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionConferenceCall#2ffe2f7a: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionConferenceCall) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionConferenceCall#2ffe2f7a to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionConferenceCall#2ffe2f7a: field flags: %w", err)
+		}
+	}
+	m.Missed = m.Flags.Has(0)
+	m.Active = m.Flags.Has(1)
+	m.Video = m.Flags.Has(4)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionConferenceCall#2ffe2f7a: field call_id: %w", err)
+		}
+		m.CallID = value
+	}
+	if m.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionConferenceCall#2ffe2f7a: field duration: %w", err)
+		}
+		m.Duration = value
+	}
+	if m.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionConferenceCall#2ffe2f7a: field other_participants: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.OtherParticipants = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodePeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageActionConferenceCall#2ffe2f7a: field other_participants: %w", err)
+			}
+			m.OtherParticipants = append(m.OtherParticipants, value)
+		}
+	}
+	return nil
+}
+
+// SetMissed sets value of Missed conditional field.
+func (m *MessageActionConferenceCall) SetMissed(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Missed = true
+	} else {
+		m.Flags.Unset(0)
+		m.Missed = false
+	}
+}
+
+// GetMissed returns value of Missed conditional field.
+func (m *MessageActionConferenceCall) GetMissed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetActive sets value of Active conditional field.
+func (m *MessageActionConferenceCall) SetActive(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.Active = true
+	} else {
+		m.Flags.Unset(1)
+		m.Active = false
+	}
+}
+
+// GetActive returns value of Active conditional field.
+func (m *MessageActionConferenceCall) GetActive() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// SetVideo sets value of Video conditional field.
+func (m *MessageActionConferenceCall) SetVideo(value bool) {
+	if value {
+		m.Flags.Set(4)
+		m.Video = true
+	} else {
+		m.Flags.Unset(4)
+		m.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (m *MessageActionConferenceCall) GetVideo() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(4)
+}
+
+// GetCallID returns value of CallID field.
+func (m *MessageActionConferenceCall) GetCallID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.CallID
+}
+
+// SetDuration sets value of Duration conditional field.
+func (m *MessageActionConferenceCall) SetDuration(value int) {
+	m.Flags.Set(2)
+	m.Duration = value
+}
+
+// GetDuration returns value of Duration conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionConferenceCall) GetDuration() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.Duration, true
+}
+
+// SetOtherParticipants sets value of OtherParticipants conditional field.
+func (m *MessageActionConferenceCall) SetOtherParticipants(value []PeerClass) {
+	m.Flags.Set(3)
+	m.OtherParticipants = value
+}
+
+// GetOtherParticipants returns value of OtherParticipants conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionConferenceCall) GetOtherParticipants() (value []PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(3) {
+		return value, false
+	}
+	return m.OtherParticipants, true
+}
+
+// MapOtherParticipants returns field OtherParticipants wrapped in PeerClassArray helper.
+func (m *MessageActionConferenceCall) MapOtherParticipants() (value PeerClassArray, ok bool) {
+	if !m.Flags.Has(3) {
+		return value, false
+	}
+	return PeerClassArray(m.OtherParticipants), true
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -10946,6 +11340,7 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionStarGiftUnique]
 //   - [MessageActionPaidMessagesRefunded]
 //   - [MessageActionPaidMessagesPrice]
+//   - [MessageActionConferenceCall]
 //
 // Example:
 //
@@ -11004,6 +11399,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionStarGiftUnique: // messageActionStarGiftUnique#acdfcb81
 //	case *tg.MessageActionPaidMessagesRefunded: // messageActionPaidMessagesRefunded#ac1f1fcd
 //	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#bcd71419
+//	case *tg.MessageActionConferenceCall: // messageActionConferenceCall#2ffe2f7a
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -11378,6 +11774,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionPaidMessagesPriceTypeID:
 		// Decoding messageActionPaidMessagesPrice#bcd71419.
 		v := MessageActionPaidMessagesPrice{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionConferenceCallTypeID:
+		// Decoding messageActionConferenceCall#2ffe2f7a.
+		v := MessageActionConferenceCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

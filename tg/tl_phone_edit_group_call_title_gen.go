@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.editGroupCallTitle for reference.
 type PhoneEditGroupCallTitleRequest struct {
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// New title
 	Title string
 }
@@ -57,7 +57,7 @@ func (e *PhoneEditGroupCallTitleRequest) Zero() bool {
 	if e == nil {
 		return true
 	}
-	if !(e.Call.Zero()) {
+	if !(e.Call == nil) {
 		return false
 	}
 	if !(e.Title == "") {
@@ -78,7 +78,7 @@ func (e *PhoneEditGroupCallTitleRequest) String() string {
 
 // FillFrom fills PhoneEditGroupCallTitleRequest from given interface.
 func (e *PhoneEditGroupCallTitleRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetTitle() (value string)
 }) {
 	e.Call = from.GetCall()
@@ -134,6 +134,9 @@ func (e *PhoneEditGroupCallTitleRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode phone.editGroupCallTitle#1ca6ac0a as nil")
 	}
+	if e.Call == nil {
+		return fmt.Errorf("unable to encode phone.editGroupCallTitle#1ca6ac0a: field call is nil")
+	}
 	if err := e.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.editGroupCallTitle#1ca6ac0a: field call: %w", err)
 	}
@@ -158,9 +161,11 @@ func (e *PhoneEditGroupCallTitleRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.editGroupCallTitle#1ca6ac0a to nil")
 	}
 	{
-		if err := e.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.editGroupCallTitle#1ca6ac0a: field call: %w", err)
 		}
+		e.Call = value
 	}
 	{
 		value, err := b.String()
@@ -173,7 +178,7 @@ func (e *PhoneEditGroupCallTitleRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (e *PhoneEditGroupCallTitleRequest) GetCall() (value InputGroupCall) {
+func (e *PhoneEditGroupCallTitleRequest) GetCall() (value InputGroupCallClass) {
 	if e == nil {
 		return
 	}

@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.toggleGroupCallStartSubscription for reference.
 type PhoneToggleGroupCallStartSubscriptionRequest struct {
 	// Scheduled group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// Enable or disable subscription
 	Subscribed bool
 }
@@ -57,7 +57,7 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.Call.Zero()) {
+	if !(t.Call == nil) {
 		return false
 	}
 	if !(t.Subscribed == false) {
@@ -78,7 +78,7 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) String() string {
 
 // FillFrom fills PhoneToggleGroupCallStartSubscriptionRequest from given interface.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetSubscribed() (value bool)
 }) {
 	t.Call = from.GetCall()
@@ -134,6 +134,9 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) EncodeBare(b *bin.Buffer)
 	if t == nil {
 		return fmt.Errorf("can't encode phone.toggleGroupCallStartSubscription#219c34e6 as nil")
 	}
+	if t.Call == nil {
+		return fmt.Errorf("unable to encode phone.toggleGroupCallStartSubscription#219c34e6: field call is nil")
+	}
 	if err := t.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallStartSubscription#219c34e6: field call: %w", err)
 	}
@@ -158,9 +161,11 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) DecodeBare(b *bin.Buffer)
 		return fmt.Errorf("can't decode phone.toggleGroupCallStartSubscription#219c34e6 to nil")
 	}
 	{
-		if err := t.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallStartSubscription#219c34e6: field call: %w", err)
 		}
+		t.Call = value
 	}
 	{
 		value, err := b.Bool()
@@ -173,7 +178,7 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) DecodeBare(b *bin.Buffer)
 }
 
 // GetCall returns value of Call field.
-func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetCall() (value InputGroupCall) {
+func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetCall() (value InputGroupCallClass) {
 	if t == nil {
 		return
 	}

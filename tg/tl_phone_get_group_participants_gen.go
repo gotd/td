@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// If specified, will fetch group participant info about the specified peers
 	IDs []InputPeerClass
 	// If specified, will fetch group participant info about the specified WebRTC source IDs
@@ -73,7 +73,7 @@ func (g *PhoneGetGroupParticipantsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Call.Zero()) {
+	if !(g.Call == nil) {
 		return false
 	}
 	if !(g.IDs == nil) {
@@ -103,7 +103,7 @@ func (g *PhoneGetGroupParticipantsRequest) String() string {
 
 // FillFrom fills PhoneGetGroupParticipantsRequest from given interface.
 func (g *PhoneGetGroupParticipantsRequest) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetIDs() (value []InputPeerClass)
 	GetSources() (value []int)
 	GetOffset() (value string)
@@ -177,6 +177,9 @@ func (g *PhoneGetGroupParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode phone.getGroupParticipants#c558d8ab as nil")
 	}
+	if g.Call == nil {
+		return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field call is nil")
+	}
 	if err := g.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field call: %w", err)
 	}
@@ -215,9 +218,11 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode phone.getGroupParticipants#c558d8ab to nil")
 	}
 	{
-		if err := g.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field call: %w", err)
 		}
+		g.Call = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -271,7 +276,7 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
+func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCallClass) {
 	if g == nil {
 		return
 	}

@@ -17369,7 +17369,7 @@ func (u *UpdateChat) GetChatID() (value int64) {
 // See https://core.telegram.org/constructor/updateGroupCallParticipants for reference.
 type UpdateGroupCallParticipants struct {
 	// Group call
-	Call InputGroupCall
+	Call InputGroupCallClass
 	// New participant list
 	Participants []GroupCallParticipant
 	// Version
@@ -17396,7 +17396,7 @@ func (u *UpdateGroupCallParticipants) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.Call.Zero()) {
+	if !(u.Call == nil) {
 		return false
 	}
 	if !(u.Participants == nil) {
@@ -17420,7 +17420,7 @@ func (u *UpdateGroupCallParticipants) String() string {
 
 // FillFrom fills UpdateGroupCallParticipants from given interface.
 func (u *UpdateGroupCallParticipants) FillFrom(from interface {
-	GetCall() (value InputGroupCall)
+	GetCall() (value InputGroupCallClass)
 	GetParticipants() (value []GroupCallParticipant)
 	GetVersion() (value int)
 }) {
@@ -17482,6 +17482,9 @@ func (u *UpdateGroupCallParticipants) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateGroupCallParticipants#f2ebdb4e as nil")
 	}
+	if u.Call == nil {
+		return fmt.Errorf("unable to encode updateGroupCallParticipants#f2ebdb4e: field call is nil")
+	}
 	if err := u.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateGroupCallParticipants#f2ebdb4e: field call: %w", err)
 	}
@@ -17512,9 +17515,11 @@ func (u *UpdateGroupCallParticipants) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode updateGroupCallParticipants#f2ebdb4e to nil")
 	}
 	{
-		if err := u.Call.Decode(b); err != nil {
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: field call: %w", err)
 		}
+		u.Call = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -17544,7 +17549,7 @@ func (u *UpdateGroupCallParticipants) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCall returns value of Call field.
-func (u *UpdateGroupCallParticipants) GetCall() (value InputGroupCall) {
+func (u *UpdateGroupCallParticipants) GetCall() (value InputGroupCallClass) {
 	if u == nil {
 		return
 	}
@@ -28757,6 +28762,239 @@ func (u *UpdateSentPhoneCode) GetSentCode() (value AuthSentCodeClass) {
 	return u.SentCode
 }
 
+// UpdateGroupCallChainBlocks represents TL type `updateGroupCallChainBlocks#a477288f`.
+//
+// See https://core.telegram.org/constructor/updateGroupCallChainBlocks for reference.
+type UpdateGroupCallChainBlocks struct {
+	// Call field of UpdateGroupCallChainBlocks.
+	Call InputGroupCallClass
+	// SubChainID field of UpdateGroupCallChainBlocks.
+	SubChainID int
+	// Blocks field of UpdateGroupCallChainBlocks.
+	Blocks [][]byte
+	// NextOffset field of UpdateGroupCallChainBlocks.
+	NextOffset int
+}
+
+// UpdateGroupCallChainBlocksTypeID is TL type id of UpdateGroupCallChainBlocks.
+const UpdateGroupCallChainBlocksTypeID = 0xa477288f
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCallChainBlocks) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCallChainBlocks.
+var (
+	_ bin.Encoder     = &UpdateGroupCallChainBlocks{}
+	_ bin.Decoder     = &UpdateGroupCallChainBlocks{}
+	_ bin.BareEncoder = &UpdateGroupCallChainBlocks{}
+	_ bin.BareDecoder = &UpdateGroupCallChainBlocks{}
+
+	_ UpdateClass = &UpdateGroupCallChainBlocks{}
+)
+
+func (u *UpdateGroupCallChainBlocks) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Call == nil) {
+		return false
+	}
+	if !(u.SubChainID == 0) {
+		return false
+	}
+	if !(u.Blocks == nil) {
+		return false
+	}
+	if !(u.NextOffset == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateGroupCallChainBlocks) String() string {
+	if u == nil {
+		return "UpdateGroupCallChainBlocks(nil)"
+	}
+	type Alias UpdateGroupCallChainBlocks
+	return fmt.Sprintf("UpdateGroupCallChainBlocks%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateGroupCallChainBlocks from given interface.
+func (u *UpdateGroupCallChainBlocks) FillFrom(from interface {
+	GetCall() (value InputGroupCallClass)
+	GetSubChainID() (value int)
+	GetBlocks() (value [][]byte)
+	GetNextOffset() (value int)
+}) {
+	u.Call = from.GetCall()
+	u.SubChainID = from.GetSubChainID()
+	u.Blocks = from.GetBlocks()
+	u.NextOffset = from.GetNextOffset()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateGroupCallChainBlocks) TypeID() uint32 {
+	return UpdateGroupCallChainBlocksTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateGroupCallChainBlocks) TypeName() string {
+	return "updateGroupCallChainBlocks"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateGroupCallChainBlocks) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateGroupCallChainBlocks",
+		ID:   UpdateGroupCallChainBlocksTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "SubChainID",
+			SchemaName: "sub_chain_id",
+		},
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+		{
+			Name:       "NextOffset",
+			SchemaName: "next_offset",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateGroupCallChainBlocks) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupCallChainBlocks#a477288f as nil")
+	}
+	b.PutID(UpdateGroupCallChainBlocksTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateGroupCallChainBlocks) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupCallChainBlocks#a477288f as nil")
+	}
+	if u.Call == nil {
+		return fmt.Errorf("unable to encode updateGroupCallChainBlocks#a477288f: field call is nil")
+	}
+	if err := u.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateGroupCallChainBlocks#a477288f: field call: %w", err)
+	}
+	b.PutInt(u.SubChainID)
+	b.PutVectorHeader(len(u.Blocks))
+	for _, v := range u.Blocks {
+		b.PutBytes(v)
+	}
+	b.PutInt(u.NextOffset)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateGroupCallChainBlocks) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupCallChainBlocks#a477288f to nil")
+	}
+	if err := b.ConsumeID(UpdateGroupCallChainBlocksTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateGroupCallChainBlocks#a477288f: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateGroupCallChainBlocks) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupCallChainBlocks#a477288f to nil")
+	}
+	{
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallChainBlocks#a477288f: field call: %w", err)
+		}
+		u.Call = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallChainBlocks#a477288f: field sub_chain_id: %w", err)
+		}
+		u.SubChainID = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallChainBlocks#a477288f: field blocks: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Blocks = make([][]byte, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateGroupCallChainBlocks#a477288f: field blocks: %w", err)
+			}
+			u.Blocks = append(u.Blocks, value)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallChainBlocks#a477288f: field next_offset: %w", err)
+		}
+		u.NextOffset = value
+	}
+	return nil
+}
+
+// GetCall returns value of Call field.
+func (u *UpdateGroupCallChainBlocks) GetCall() (value InputGroupCallClass) {
+	if u == nil {
+		return
+	}
+	return u.Call
+}
+
+// GetSubChainID returns value of SubChainID field.
+func (u *UpdateGroupCallChainBlocks) GetSubChainID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.SubChainID
+}
+
+// GetBlocks returns value of Blocks field.
+func (u *UpdateGroupCallChainBlocks) GetBlocks() (value [][]byte) {
+	if u == nil {
+		return
+	}
+	return u.Blocks
+}
+
+// GetNextOffset returns value of NextOffset field.
+func (u *UpdateGroupCallChainBlocks) GetNextOffset() (value int) {
+	if u == nil {
+		return
+	}
+	return u.NextOffset
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -28907,6 +29145,7 @@ const UpdateClassName = "Update"
 //   - [UpdateBotPurchasedPaidMedia]
 //   - [UpdatePaidReactionPrivacy]
 //   - [UpdateSentPhoneCode]
+//   - [UpdateGroupCallChainBlocks]
 //
 // Example:
 //
@@ -29057,6 +29296,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBotPurchasedPaidMedia: // updateBotPurchasedPaidMedia#283bd312
 //	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#8b725fce
 //	case *tg.UpdateSentPhoneCode: // updateSentPhoneCode#504aa18f
+//	case *tg.UpdateGroupCallChainBlocks: // updateGroupCallChainBlocks#a477288f
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -30075,6 +30315,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateSentPhoneCodeTypeID:
 		// Decoding updateSentPhoneCode#504aa18f.
 		v := UpdateSentPhoneCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateGroupCallChainBlocksTypeID:
+		// Decoding updateGroupCallChainBlocks#a477288f.
+		v := UpdateGroupCallChainBlocks{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
