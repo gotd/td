@@ -14,8 +14,8 @@ jobs:
       matrix:
         flags: [""]
         go:
-          - "1.21"
-          - "1.22"
+          - "1.23"
+          - "1.24"
         arch:
           - amd64
         runner:
@@ -24,11 +24,11 @@ jobs:
         include:
           - arch: amd64
             runner: windows-latest
-            go: "1.22"
+            go: "1.24"
             flags: "-p=1"
 
           - arch: amd64
-            go: "1.22"
+            go: "1.24"
             runner: ubuntu-latest
             flags: "-race"
 
