@@ -9094,6 +9094,23 @@ func (s *ServerDispatcher) OnChannelsUpdatePaidMessagesPrice(f func(ctx context.
 	s.handlers[ChannelsUpdatePaidMessagesPriceRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsToggleAutotranslation(f func(ctx context.Context, request *ChannelsToggleAutotranslationRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsToggleAutotranslationRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsToggleAutotranslationRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -10520,6 +10537,40 @@ func (s *ServerDispatcher) OnPaymentsCanPurchaseStore(f func(ctx context.Context
 	s.handlers[PaymentsCanPurchaseStoreRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnPaymentsGetResaleStarGifts(f func(ctx context.Context, request *PaymentsGetResaleStarGiftsRequest) (*PaymentsResaleStarGifts, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetResaleStarGiftsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetResaleStarGiftsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsUpdateStarGiftPrice(f func(ctx context.Context, request *PaymentsUpdateStarGiftPriceRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsUpdateStarGiftPriceRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PaymentsUpdateStarGiftPriceRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersCreateStickerSetRequest
@@ -11831,7 +11882,7 @@ func (s *ServerDispatcher) OnChatlistsLeaveChatlist(f func(ctx context.Context, 
 	s.handlers[ChatlistsLeaveChatlistRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStoriesCanSendStory(f func(ctx context.Context, peer InputPeerClass) (bool, error)) {
+func (s *ServerDispatcher) OnStoriesCanSendStory(f func(ctx context.Context, peer InputPeerClass) (*StoriesCanSendStoryCount, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StoriesCanSendStoryRequest
 		if err := request.Decode(b); err != nil {
@@ -11842,11 +11893,7 @@ func (s *ServerDispatcher) OnStoriesCanSendStory(f func(ctx context.Context, pee
 		if err != nil {
 			return nil, err
 		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
+		return response, nil
 	}
 
 	s.handlers[StoriesCanSendStoryRequestTypeID] = handler

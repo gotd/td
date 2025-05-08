@@ -417,12 +417,14 @@ func (s *StarGiftAttributePattern) GetRarityPermille() (value int) {
 	return s.RarityPermille
 }
 
-// StarGiftAttributeBackdrop represents TL type `starGiftAttributeBackdrop#94271762`.
+// StarGiftAttributeBackdrop represents TL type `starGiftAttributeBackdrop#d93d859c`.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeBackdrop for reference.
 type StarGiftAttributeBackdrop struct {
 	// Name field of StarGiftAttributeBackdrop.
 	Name string
+	// BackdropID field of StarGiftAttributeBackdrop.
+	BackdropID int
 	// CenterColor field of StarGiftAttributeBackdrop.
 	CenterColor int
 	// EdgeColor field of StarGiftAttributeBackdrop.
@@ -436,7 +438,7 @@ type StarGiftAttributeBackdrop struct {
 }
 
 // StarGiftAttributeBackdropTypeID is TL type id of StarGiftAttributeBackdrop.
-const StarGiftAttributeBackdropTypeID = 0x94271762
+const StarGiftAttributeBackdropTypeID = 0xd93d859c
 
 // construct implements constructor of StarGiftAttributeClass.
 func (s StarGiftAttributeBackdrop) construct() StarGiftAttributeClass { return &s }
@@ -456,6 +458,9 @@ func (s *StarGiftAttributeBackdrop) Zero() bool {
 		return true
 	}
 	if !(s.Name == "") {
+		return false
+	}
+	if !(s.BackdropID == 0) {
 		return false
 	}
 	if !(s.CenterColor == 0) {
@@ -489,6 +494,7 @@ func (s *StarGiftAttributeBackdrop) String() string {
 // FillFrom fills StarGiftAttributeBackdrop from given interface.
 func (s *StarGiftAttributeBackdrop) FillFrom(from interface {
 	GetName() (value string)
+	GetBackdropID() (value int)
 	GetCenterColor() (value int)
 	GetEdgeColor() (value int)
 	GetPatternColor() (value int)
@@ -496,6 +502,7 @@ func (s *StarGiftAttributeBackdrop) FillFrom(from interface {
 	GetRarityPermille() (value int)
 }) {
 	s.Name = from.GetName()
+	s.BackdropID = from.GetBackdropID()
 	s.CenterColor = from.GetCenterColor()
 	s.EdgeColor = from.GetEdgeColor()
 	s.PatternColor = from.GetPatternColor()
@@ -531,6 +538,10 @@ func (s *StarGiftAttributeBackdrop) TypeInfo() tdp.Type {
 			SchemaName: "name",
 		},
 		{
+			Name:       "BackdropID",
+			SchemaName: "backdrop_id",
+		},
+		{
 			Name:       "CenterColor",
 			SchemaName: "center_color",
 		},
@@ -557,7 +568,7 @@ func (s *StarGiftAttributeBackdrop) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarGiftAttributeBackdrop) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeBackdrop#94271762 as nil")
+		return fmt.Errorf("can't encode starGiftAttributeBackdrop#d93d859c as nil")
 	}
 	b.PutID(StarGiftAttributeBackdropTypeID)
 	return s.EncodeBare(b)
@@ -566,9 +577,10 @@ func (s *StarGiftAttributeBackdrop) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAttributeBackdrop) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeBackdrop#94271762 as nil")
+		return fmt.Errorf("can't encode starGiftAttributeBackdrop#d93d859c as nil")
 	}
 	b.PutString(s.Name)
+	b.PutInt(s.BackdropID)
 	b.PutInt(s.CenterColor)
 	b.PutInt(s.EdgeColor)
 	b.PutInt(s.PatternColor)
@@ -580,10 +592,10 @@ func (s *StarGiftAttributeBackdrop) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarGiftAttributeBackdrop) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeBackdrop#94271762 to nil")
+		return fmt.Errorf("can't decode starGiftAttributeBackdrop#d93d859c to nil")
 	}
 	if err := b.ConsumeID(StarGiftAttributeBackdropTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: %w", err)
+		return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -591,47 +603,54 @@ func (s *StarGiftAttributeBackdrop) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAttributeBackdrop) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeBackdrop#94271762 to nil")
+		return fmt.Errorf("can't decode starGiftAttributeBackdrop#d93d859c to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: field name: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field name: %w", err)
 		}
 		s.Name = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: field center_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field backdrop_id: %w", err)
+		}
+		s.BackdropID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field center_color: %w", err)
 		}
 		s.CenterColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: field edge_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field edge_color: %w", err)
 		}
 		s.EdgeColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: field pattern_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field pattern_color: %w", err)
 		}
 		s.PatternColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: field text_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field text_color: %w", err)
 		}
 		s.TextColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#94271762: field rarity_permille: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field rarity_permille: %w", err)
 		}
 		s.RarityPermille = value
 	}
@@ -644,6 +663,14 @@ func (s *StarGiftAttributeBackdrop) GetName() (value string) {
 		return
 	}
 	return s.Name
+}
+
+// GetBackdropID returns value of BackdropID field.
+func (s *StarGiftAttributeBackdrop) GetBackdropID() (value int) {
+	if s == nil {
+		return
+	}
+	return s.BackdropID
 }
 
 // GetCenterColor returns value of CenterColor field.
@@ -993,7 +1020,7 @@ const StarGiftAttributeClassName = "StarGiftAttribute"
 //	switch v := g.(type) {
 //	case *tg.StarGiftAttributeModel: // starGiftAttributeModel#39d99013
 //	case *tg.StarGiftAttributePattern: // starGiftAttributePattern#13acff19
-//	case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#94271762
+//	case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#d93d859c
 //	case *tg.StarGiftAttributeOriginalDetails: // starGiftAttributeOriginalDetails#e0bff26c
 //	default: panic(v)
 //	}
@@ -1038,7 +1065,7 @@ func DecodeStarGiftAttribute(buf *bin.Buffer) (StarGiftAttributeClass, error) {
 		}
 		return &v, nil
 	case StarGiftAttributeBackdropTypeID:
-		// Decoding starGiftAttributeBackdrop#94271762.
+		// Decoding starGiftAttributeBackdrop#d93d859c.
 		v := StarGiftAttributeBackdrop{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAttributeClass: %w", err)

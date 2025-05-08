@@ -331,6 +331,140 @@ func (i *InputSavedStarGiftChat) GetSavedID() (value int64) {
 	return i.SavedID
 }
 
+// InputSavedStarGiftSlug represents TL type `inputSavedStarGiftSlug#2085c238`.
+//
+// See https://core.telegram.org/constructor/inputSavedStarGiftSlug for reference.
+type InputSavedStarGiftSlug struct {
+	// Slug field of InputSavedStarGiftSlug.
+	Slug string
+}
+
+// InputSavedStarGiftSlugTypeID is TL type id of InputSavedStarGiftSlug.
+const InputSavedStarGiftSlugTypeID = 0x2085c238
+
+// construct implements constructor of InputSavedStarGiftClass.
+func (i InputSavedStarGiftSlug) construct() InputSavedStarGiftClass { return &i }
+
+// Ensuring interfaces in compile-time for InputSavedStarGiftSlug.
+var (
+	_ bin.Encoder     = &InputSavedStarGiftSlug{}
+	_ bin.Decoder     = &InputSavedStarGiftSlug{}
+	_ bin.BareEncoder = &InputSavedStarGiftSlug{}
+	_ bin.BareDecoder = &InputSavedStarGiftSlug{}
+
+	_ InputSavedStarGiftClass = &InputSavedStarGiftSlug{}
+)
+
+func (i *InputSavedStarGiftSlug) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Slug == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputSavedStarGiftSlug) String() string {
+	if i == nil {
+		return "InputSavedStarGiftSlug(nil)"
+	}
+	type Alias InputSavedStarGiftSlug
+	return fmt.Sprintf("InputSavedStarGiftSlug%+v", Alias(*i))
+}
+
+// FillFrom fills InputSavedStarGiftSlug from given interface.
+func (i *InputSavedStarGiftSlug) FillFrom(from interface {
+	GetSlug() (value string)
+}) {
+	i.Slug = from.GetSlug()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputSavedStarGiftSlug) TypeID() uint32 {
+	return InputSavedStarGiftSlugTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputSavedStarGiftSlug) TypeName() string {
+	return "inputSavedStarGiftSlug"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputSavedStarGiftSlug) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputSavedStarGiftSlug",
+		ID:   InputSavedStarGiftSlugTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputSavedStarGiftSlug) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputSavedStarGiftSlug#2085c238 as nil")
+	}
+	b.PutID(InputSavedStarGiftSlugTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputSavedStarGiftSlug) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputSavedStarGiftSlug#2085c238 as nil")
+	}
+	b.PutString(i.Slug)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputSavedStarGiftSlug) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputSavedStarGiftSlug#2085c238 to nil")
+	}
+	if err := b.ConsumeID(InputSavedStarGiftSlugTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputSavedStarGiftSlug#2085c238: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputSavedStarGiftSlug) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputSavedStarGiftSlug#2085c238 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputSavedStarGiftSlug#2085c238: field slug: %w", err)
+		}
+		i.Slug = value
+	}
+	return nil
+}
+
+// GetSlug returns value of Slug field.
+func (i *InputSavedStarGiftSlug) GetSlug() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Slug
+}
+
 // InputSavedStarGiftClassName is schema name of InputSavedStarGiftClass.
 const InputSavedStarGiftClassName = "InputSavedStarGift"
 
@@ -341,6 +475,7 @@ const InputSavedStarGiftClassName = "InputSavedStarGift"
 // Constructors:
 //   - [InputSavedStarGiftUser]
 //   - [InputSavedStarGiftChat]
+//   - [InputSavedStarGiftSlug]
 //
 // Example:
 //
@@ -351,6 +486,7 @@ const InputSavedStarGiftClassName = "InputSavedStarGift"
 //	switch v := g.(type) {
 //	case *tg.InputSavedStarGiftUser: // inputSavedStarGiftUser#69279795
 //	case *tg.InputSavedStarGiftChat: // inputSavedStarGiftChat#f101aa7f
+//	case *tg.InputSavedStarGiftSlug: // inputSavedStarGiftSlug#2085c238
 //	default: panic(v)
 //	}
 type InputSavedStarGiftClass interface {
@@ -389,6 +525,13 @@ func DecodeInputSavedStarGift(buf *bin.Buffer) (InputSavedStarGiftClass, error) 
 	case InputSavedStarGiftChatTypeID:
 		// Decoding inputSavedStarGiftChat#f101aa7f.
 		v := InputSavedStarGiftChat{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputSavedStarGiftClass: %w", err)
+		}
+		return &v, nil
+	case InputSavedStarGiftSlugTypeID:
+		// Decoding inputSavedStarGiftSlug#2085c238.
+		v := InputSavedStarGiftSlug{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputSavedStarGiftClass: %w", err)
 		}

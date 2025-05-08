@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesCanSendStoryRequest represents TL type `stories.canSendStory#c7dfdfdd`.
+// StoriesCanSendStoryRequest represents TL type `stories.canSendStory#30eb63f0`.
 // Check whether we can post stories as the specified peer.
 //
 // See https://core.telegram.org/method/stories.canSendStory for reference.
@@ -41,7 +41,7 @@ type StoriesCanSendStoryRequest struct {
 }
 
 // StoriesCanSendStoryRequestTypeID is TL type id of StoriesCanSendStoryRequest.
-const StoriesCanSendStoryRequestTypeID = 0xc7dfdfdd
+const StoriesCanSendStoryRequestTypeID = 0x30eb63f0
 
 // Ensuring interfaces in compile-time for StoriesCanSendStoryRequest.
 var (
@@ -112,7 +112,7 @@ func (c *StoriesCanSendStoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *StoriesCanSendStoryRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stories.canSendStory#c7dfdfdd as nil")
+		return fmt.Errorf("can't encode stories.canSendStory#30eb63f0 as nil")
 	}
 	b.PutID(StoriesCanSendStoryRequestTypeID)
 	return c.EncodeBare(b)
@@ -121,13 +121,13 @@ func (c *StoriesCanSendStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *StoriesCanSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stories.canSendStory#c7dfdfdd as nil")
+		return fmt.Errorf("can't encode stories.canSendStory#30eb63f0 as nil")
 	}
 	if c.Peer == nil {
-		return fmt.Errorf("unable to encode stories.canSendStory#c7dfdfdd: field peer is nil")
+		return fmt.Errorf("unable to encode stories.canSendStory#30eb63f0: field peer is nil")
 	}
 	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.canSendStory#c7dfdfdd: field peer: %w", err)
+		return fmt.Errorf("unable to encode stories.canSendStory#30eb63f0: field peer: %w", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (c *StoriesCanSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *StoriesCanSendStoryRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stories.canSendStory#c7dfdfdd to nil")
+		return fmt.Errorf("can't decode stories.canSendStory#30eb63f0 to nil")
 	}
 	if err := b.ConsumeID(StoriesCanSendStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.canSendStory#c7dfdfdd: %w", err)
+		return fmt.Errorf("unable to decode stories.canSendStory#30eb63f0: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (c *StoriesCanSendStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *StoriesCanSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stories.canSendStory#c7dfdfdd to nil")
+		return fmt.Errorf("can't decode stories.canSendStory#30eb63f0 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.canSendStory#c7dfdfdd: field peer: %w", err)
+			return fmt.Errorf("unable to decode stories.canSendStory#30eb63f0: field peer: %w", err)
 		}
 		c.Peer = value
 	}
@@ -166,7 +166,7 @@ func (c *StoriesCanSendStoryRequest) GetPeer() (value InputPeerClass) {
 	return c.Peer
 }
 
-// StoriesCanSendStory invokes method stories.canSendStory#c7dfdfdd returning error if any.
+// StoriesCanSendStory invokes method stories.canSendStory#30eb63f0 returning error if any.
 // Check whether we can post stories as the specified peer.
 //
 // Possible errors:
@@ -180,15 +180,14 @@ func (c *StoriesCanSendStoryRequest) GetPeer() (value InputPeerClass) {
 //	400 STORY_SEND_FLOOD_WEEKLY_%d: You've hit the weekly story limit as specified by the stories_sent_weekly_limit_* client configuration parameters: wait for the specified number of seconds before posting a new story.
 //
 // See https://core.telegram.org/method/stories.canSendStory for reference.
-func (c *Client) StoriesCanSendStory(ctx context.Context, peer InputPeerClass) (bool, error) {
-	var result BoolBox
+func (c *Client) StoriesCanSendStory(ctx context.Context, peer InputPeerClass) (*StoriesCanSendStoryCount, error) {
+	var result StoriesCanSendStoryCount
 
 	request := &StoriesCanSendStoryRequest{
 		Peer: peer,
 	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return &result, nil
 }

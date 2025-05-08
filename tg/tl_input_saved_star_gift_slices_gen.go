@@ -142,6 +142,19 @@ func (s InputSavedStarGiftClassArray) AsInputSavedStarGiftChat() (to InputSavedS
 	return to
 }
 
+// AsInputSavedStarGiftSlug returns copy with only InputSavedStarGiftSlug constructors.
+func (s InputSavedStarGiftClassArray) AsInputSavedStarGiftSlug() (to InputSavedStarGiftSlugArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSavedStarGiftSlug)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputSavedStarGiftUserArray is adapter for slice of InputSavedStarGiftUser.
 type InputSavedStarGiftUserArray []InputSavedStarGiftUser
 
@@ -294,6 +307,88 @@ func (s *InputSavedStarGiftChatArray) PopFirst() (v InputSavedStarGiftChat, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputSavedStarGiftChatArray) Pop() (v InputSavedStarGiftChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputSavedStarGiftSlugArray is adapter for slice of InputSavedStarGiftSlug.
+type InputSavedStarGiftSlugArray []InputSavedStarGiftSlug
+
+// Sort sorts slice of InputSavedStarGiftSlug.
+func (s InputSavedStarGiftSlugArray) Sort(less func(a, b InputSavedStarGiftSlug) bool) InputSavedStarGiftSlugArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputSavedStarGiftSlug.
+func (s InputSavedStarGiftSlugArray) SortStable(less func(a, b InputSavedStarGiftSlug) bool) InputSavedStarGiftSlugArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputSavedStarGiftSlug.
+func (s InputSavedStarGiftSlugArray) Retain(keep func(x InputSavedStarGiftSlug) bool) InputSavedStarGiftSlugArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputSavedStarGiftSlugArray) First() (v InputSavedStarGiftSlug, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputSavedStarGiftSlugArray) Last() (v InputSavedStarGiftSlug, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputSavedStarGiftSlugArray) PopFirst() (v InputSavedStarGiftSlug, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputSavedStarGiftSlug
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputSavedStarGiftSlugArray) Pop() (v InputSavedStarGiftSlug, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

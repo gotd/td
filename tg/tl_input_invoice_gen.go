@@ -1897,6 +1897,172 @@ func (i *InputInvoiceBusinessBotTransferStars) GetStars() (value int64) {
 	return i.Stars
 }
 
+// InputInvoiceStarGiftResale represents TL type `inputInvoiceStarGiftResale#63cbc38c`.
+//
+// See https://core.telegram.org/constructor/inputInvoiceStarGiftResale for reference.
+type InputInvoiceStarGiftResale struct {
+	// Slug field of InputInvoiceStarGiftResale.
+	Slug string
+	// ToID field of InputInvoiceStarGiftResale.
+	ToID InputPeerClass
+}
+
+// InputInvoiceStarGiftResaleTypeID is TL type id of InputInvoiceStarGiftResale.
+const InputInvoiceStarGiftResaleTypeID = 0x63cbc38c
+
+// construct implements constructor of InputInvoiceClass.
+func (i InputInvoiceStarGiftResale) construct() InputInvoiceClass { return &i }
+
+// Ensuring interfaces in compile-time for InputInvoiceStarGiftResale.
+var (
+	_ bin.Encoder     = &InputInvoiceStarGiftResale{}
+	_ bin.Decoder     = &InputInvoiceStarGiftResale{}
+	_ bin.BareEncoder = &InputInvoiceStarGiftResale{}
+	_ bin.BareDecoder = &InputInvoiceStarGiftResale{}
+
+	_ InputInvoiceClass = &InputInvoiceStarGiftResale{}
+)
+
+func (i *InputInvoiceStarGiftResale) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Slug == "") {
+		return false
+	}
+	if !(i.ToID == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputInvoiceStarGiftResale) String() string {
+	if i == nil {
+		return "InputInvoiceStarGiftResale(nil)"
+	}
+	type Alias InputInvoiceStarGiftResale
+	return fmt.Sprintf("InputInvoiceStarGiftResale%+v", Alias(*i))
+}
+
+// FillFrom fills InputInvoiceStarGiftResale from given interface.
+func (i *InputInvoiceStarGiftResale) FillFrom(from interface {
+	GetSlug() (value string)
+	GetToID() (value InputPeerClass)
+}) {
+	i.Slug = from.GetSlug()
+	i.ToID = from.GetToID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputInvoiceStarGiftResale) TypeID() uint32 {
+	return InputInvoiceStarGiftResaleTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputInvoiceStarGiftResale) TypeName() string {
+	return "inputInvoiceStarGiftResale"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputInvoiceStarGiftResale) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputInvoiceStarGiftResale",
+		ID:   InputInvoiceStarGiftResaleTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+		{
+			Name:       "ToID",
+			SchemaName: "to_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputInvoiceStarGiftResale) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceStarGiftResale#63cbc38c as nil")
+	}
+	b.PutID(InputInvoiceStarGiftResaleTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputInvoiceStarGiftResale) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceStarGiftResale#63cbc38c as nil")
+	}
+	b.PutString(i.Slug)
+	if i.ToID == nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#63cbc38c: field to_id is nil")
+	}
+	if err := i.ToID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#63cbc38c: field to_id: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputInvoiceStarGiftResale) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceStarGiftResale#63cbc38c to nil")
+	}
+	if err := b.ConsumeID(InputInvoiceStarGiftResaleTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#63cbc38c: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputInvoiceStarGiftResale) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceStarGiftResale#63cbc38c to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#63cbc38c: field slug: %w", err)
+		}
+		i.Slug = value
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#63cbc38c: field to_id: %w", err)
+		}
+		i.ToID = value
+	}
+	return nil
+}
+
+// GetSlug returns value of Slug field.
+func (i *InputInvoiceStarGiftResale) GetSlug() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Slug
+}
+
+// GetToID returns value of ToID field.
+func (i *InputInvoiceStarGiftResale) GetToID() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
+	return i.ToID
+}
+
 // InputInvoiceClassName is schema name of InputInvoiceClass.
 const InputInvoiceClassName = "InputInvoice"
 
@@ -1915,6 +2081,7 @@ const InputInvoiceClassName = "InputInvoice"
 //   - [InputInvoiceStarGiftTransfer]
 //   - [InputInvoicePremiumGiftStars]
 //   - [InputInvoiceBusinessBotTransferStars]
+//   - [InputInvoiceStarGiftResale]
 //
 // Example:
 //
@@ -1933,6 +2100,7 @@ const InputInvoiceClassName = "InputInvoice"
 //	case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#4a5f5bd9
 //	case *tg.InputInvoicePremiumGiftStars: // inputInvoicePremiumGiftStars#dabab2ef
 //	case *tg.InputInvoiceBusinessBotTransferStars: // inputInvoiceBusinessBotTransferStars#f4997e42
+//	case *tg.InputInvoiceStarGiftResale: // inputInvoiceStarGiftResale#63cbc38c
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -2027,6 +2195,13 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 	case InputInvoiceBusinessBotTransferStarsTypeID:
 		// Decoding inputInvoiceBusinessBotTransferStars#f4997e42.
 		v := InputInvoiceBusinessBotTransferStars{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
+		}
+		return &v, nil
+	case InputInvoiceStarGiftResaleTypeID:
+		// Decoding inputInvoiceStarGiftResale#63cbc38c.
+		v := InputInvoiceStarGiftResale{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}

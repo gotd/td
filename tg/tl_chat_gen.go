@@ -1164,6 +1164,8 @@ type Channel struct {
 	// If set, messages sent by admins to this channel will link to the admin's profile (just
 	// like with groups).
 	SignatureProfiles bool
+	// Autotranslation field of Channel.
+	Autotranslation bool
 	// ID of the channel, see here »¹ for more info
 	//
 	// Links:
@@ -1380,6 +1382,9 @@ func (c *Channel) Zero() bool {
 	if !(c.SignatureProfiles == false) {
 		return false
 	}
+	if !(c.Autotranslation == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1479,6 +1484,7 @@ func (c *Channel) FillFrom(from interface {
 	GetStoriesHiddenMin() (value bool)
 	GetStoriesUnavailable() (value bool)
 	GetSignatureProfiles() (value bool)
+	GetAutotranslation() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetTitle() (value string)
@@ -1524,6 +1530,7 @@ func (c *Channel) FillFrom(from interface {
 	c.StoriesHiddenMin = from.GetStoriesHiddenMin()
 	c.StoriesUnavailable = from.GetStoriesUnavailable()
 	c.SignatureProfiles = from.GetSignatureProfiles()
+	c.Autotranslation = from.GetAutotranslation()
 	c.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		c.AccessHash = val
@@ -1738,6 +1745,11 @@ func (c *Channel) TypeInfo() tdp.Type {
 			Null:       !c.Flags2.Has(12),
 		},
 		{
+			Name:       "Autotranslation",
+			SchemaName: "autotranslation",
+			Null:       !c.Flags2.Has(15),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1910,6 +1922,9 @@ func (c *Channel) SetFlags() {
 	}
 	if !(c.SignatureProfiles == false) {
 		c.Flags2.Set(12)
+	}
+	if !(c.Autotranslation == false) {
+		c.Flags2.Set(15)
 	}
 	if !(c.AccessHash == 0) {
 		c.Flags.Set(13)
@@ -2117,6 +2132,7 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	c.StoriesHiddenMin = c.Flags2.Has(2)
 	c.StoriesUnavailable = c.Flags2.Has(3)
 	c.SignatureProfiles = c.Flags2.Has(12)
+	c.Autotranslation = c.Flags2.Has(15)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2724,6 +2740,25 @@ func (c *Channel) GetSignatureProfiles() (value bool) {
 		return
 	}
 	return c.Flags2.Has(12)
+}
+
+// SetAutotranslation sets value of Autotranslation conditional field.
+func (c *Channel) SetAutotranslation(value bool) {
+	if value {
+		c.Flags2.Set(15)
+		c.Autotranslation = true
+	} else {
+		c.Flags2.Unset(15)
+		c.Autotranslation = false
+	}
+}
+
+// GetAutotranslation returns value of Autotranslation conditional field.
+func (c *Channel) GetAutotranslation() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(15)
 }
 
 // GetID returns value of ID field.

@@ -166,7 +166,7 @@ func (p *HelpPromoDataEmpty) GetExpires() (value int) {
 	return p.Expires
 }
 
-// HelpPromoData represents TL type `help.promoData#8c39793f`.
+// HelpPromoData represents TL type `help.promoData#8a4d87a`.
 // MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/constructor/help.promoData for reference.
@@ -181,11 +181,9 @@ type HelpPromoData struct {
 	// Expiry of PSA/MTProxy info
 	Expires int
 	// MTProxy/PSA peer
+	//
+	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
-	// Chat info
-	Chats []ChatClass
-	// User info
-	Users []UserClass
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
@@ -194,10 +192,22 @@ type HelpPromoData struct {
 	//
 	// Use SetPsaMessage and GetPsaMessage helpers.
 	PsaMessage string
+	// PendingSuggestions field of HelpPromoData.
+	PendingSuggestions []string
+	// DismissedSuggestions field of HelpPromoData.
+	DismissedSuggestions []string
+	// CustomPendingSuggestion field of HelpPromoData.
+	//
+	// Use SetCustomPendingSuggestion and GetCustomPendingSuggestion helpers.
+	CustomPendingSuggestion PendingSuggestion
+	// Chat info
+	Chats []ChatClass
+	// User info
+	Users []UserClass
 }
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
-const HelpPromoDataTypeID = 0x8c39793f
+const HelpPromoDataTypeID = 0x8a4d87a
 
 // construct implements constructor of HelpPromoDataClass.
 func (p HelpPromoData) construct() HelpPromoDataClass { return &p }
@@ -228,16 +238,25 @@ func (p *HelpPromoData) Zero() bool {
 	if !(p.Peer == nil) {
 		return false
 	}
-	if !(p.Chats == nil) {
-		return false
-	}
-	if !(p.Users == nil) {
-		return false
-	}
 	if !(p.PsaType == "") {
 		return false
 	}
 	if !(p.PsaMessage == "") {
+		return false
+	}
+	if !(p.PendingSuggestions == nil) {
+		return false
+	}
+	if !(p.DismissedSuggestions == nil) {
+		return false
+	}
+	if !(p.CustomPendingSuggestion.Zero()) {
+		return false
+	}
+	if !(p.Chats == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
 		return false
 	}
 
@@ -257,17 +276,21 @@ func (p *HelpPromoData) String() string {
 func (p *HelpPromoData) FillFrom(from interface {
 	GetProxy() (value bool)
 	GetExpires() (value int)
-	GetPeer() (value PeerClass)
-	GetChats() (value []ChatClass)
-	GetUsers() (value []UserClass)
+	GetPeer() (value PeerClass, ok bool)
 	GetPsaType() (value string, ok bool)
 	GetPsaMessage() (value string, ok bool)
+	GetPendingSuggestions() (value []string)
+	GetDismissedSuggestions() (value []string)
+	GetCustomPendingSuggestion() (value PendingSuggestion, ok bool)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
 }) {
 	p.Proxy = from.GetProxy()
 	p.Expires = from.GetExpires()
-	p.Peer = from.GetPeer()
-	p.Chats = from.GetChats()
-	p.Users = from.GetUsers()
+	if val, ok := from.GetPeer(); ok {
+		p.Peer = val
+	}
+
 	if val, ok := from.GetPsaType(); ok {
 		p.PsaType = val
 	}
@@ -276,6 +299,14 @@ func (p *HelpPromoData) FillFrom(from interface {
 		p.PsaMessage = val
 	}
 
+	p.PendingSuggestions = from.GetPendingSuggestions()
+	p.DismissedSuggestions = from.GetDismissedSuggestions()
+	if val, ok := from.GetCustomPendingSuggestion(); ok {
+		p.CustomPendingSuggestion = val
+	}
+
+	p.Chats = from.GetChats()
+	p.Users = from.GetUsers()
 }
 
 // TypeID returns type id in TL schema.
@@ -313,14 +344,7 @@ func (p *HelpPromoData) TypeInfo() tdp.Type {
 		{
 			Name:       "Peer",
 			SchemaName: "peer",
-		},
-		{
-			Name:       "Chats",
-			SchemaName: "chats",
-		},
-		{
-			Name:       "Users",
-			SchemaName: "users",
+			Null:       !p.Flags.Has(3),
 		},
 		{
 			Name:       "PsaType",
@@ -332,6 +356,27 @@ func (p *HelpPromoData) TypeInfo() tdp.Type {
 			SchemaName: "psa_message",
 			Null:       !p.Flags.Has(2),
 		},
+		{
+			Name:       "PendingSuggestions",
+			SchemaName: "pending_suggestions",
+		},
+		{
+			Name:       "DismissedSuggestions",
+			SchemaName: "dismissed_suggestions",
+		},
+		{
+			Name:       "CustomPendingSuggestion",
+			SchemaName: "custom_pending_suggestion",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
 	}
 	return typ
 }
@@ -341,18 +386,24 @@ func (p *HelpPromoData) SetFlags() {
 	if !(p.Proxy == false) {
 		p.Flags.Set(0)
 	}
+	if !(p.Peer == nil) {
+		p.Flags.Set(3)
+	}
 	if !(p.PsaType == "") {
 		p.Flags.Set(1)
 	}
 	if !(p.PsaMessage == "") {
 		p.Flags.Set(2)
 	}
+	if !(p.CustomPendingSuggestion.Zero()) {
+		p.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
+		return fmt.Errorf("can't encode help.promoData#8a4d87a as nil")
 	}
 	b.PutID(HelpPromoDataTypeID)
 	return p.EncodeBare(b)
@@ -361,35 +412,19 @@ func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
+		return fmt.Errorf("can't encode help.promoData#8a4d87a as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.promoData#8c39793f: field flags: %w", err)
+		return fmt.Errorf("unable to encode help.promoData#8a4d87a: field flags: %w", err)
 	}
 	b.PutInt(p.Expires)
-	if p.Peer == nil {
-		return fmt.Errorf("unable to encode help.promoData#8c39793f: field peer is nil")
-	}
-	if err := p.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.promoData#8c39793f: field peer: %w", err)
-	}
-	b.PutVectorHeader(len(p.Chats))
-	for idx, v := range p.Chats {
-		if v == nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field chats element with index %d is nil", idx)
+	if p.Flags.Has(3) {
+		if p.Peer == nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field peer is nil")
 		}
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field chats element with index %d: %w", idx, err)
-		}
-	}
-	b.PutVectorHeader(len(p.Users))
-	for idx, v := range p.Users {
-		if v == nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field users element with index %d is nil", idx)
-		}
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.promoData#8c39793f: field users element with index %d: %w", idx, err)
+		if err := p.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field peer: %w", err)
 		}
 	}
 	if p.Flags.Has(1) {
@@ -398,16 +433,47 @@ func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(2) {
 		b.PutString(p.PsaMessage)
 	}
+	b.PutVectorHeader(len(p.PendingSuggestions))
+	for _, v := range p.PendingSuggestions {
+		b.PutString(v)
+	}
+	b.PutVectorHeader(len(p.DismissedSuggestions))
+	for _, v := range p.DismissedSuggestions {
+		b.PutString(v)
+	}
+	if p.Flags.Has(4) {
+		if err := p.CustomPendingSuggestion.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field custom_pending_suggestion: %w", err)
+		}
+	}
+	b.PutVectorHeader(len(p.Chats))
+	for idx, v := range p.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field chats element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(p.Users))
+	for idx, v := range p.Users {
+		if v == nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field users element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode help.promoData#8a4d87a: field users element with index %d: %w", idx, err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.promoData#8c39793f to nil")
+		return fmt.Errorf("can't decode help.promoData#8a4d87a to nil")
 	}
 	if err := b.ConsumeID(HelpPromoDataTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.promoData#8c39793f: %w", err)
+		return fmt.Errorf("unable to decode help.promoData#8a4d87a: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -415,32 +481,85 @@ func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.promoData#8c39793f to nil")
+		return fmt.Errorf("can't decode help.promoData#8a4d87a to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field flags: %w", err)
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field flags: %w", err)
 		}
 	}
 	p.Proxy = p.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field expires: %w", err)
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field expires: %w", err)
 		}
 		p.Expires = value
 	}
-	{
+	if p.Flags.Has(3) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field peer: %w", err)
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field peer: %w", err)
 		}
 		p.Peer = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field psa_type: %w", err)
+		}
+		p.PsaType = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field psa_message: %w", err)
+		}
+		p.PsaMessage = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field chats: %w", err)
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field pending_suggestions: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.PendingSuggestions = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode help.promoData#8a4d87a: field pending_suggestions: %w", err)
+			}
+			p.PendingSuggestions = append(p.PendingSuggestions, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field dismissed_suggestions: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.DismissedSuggestions = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode help.promoData#8a4d87a: field dismissed_suggestions: %w", err)
+			}
+			p.DismissedSuggestions = append(p.DismissedSuggestions, value)
+		}
+	}
+	if p.Flags.Has(4) {
+		if err := p.CustomPendingSuggestion.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field custom_pending_suggestion: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -449,7 +568,7 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.promoData#8c39793f: field chats: %w", err)
+				return fmt.Errorf("unable to decode help.promoData#8a4d87a: field chats: %w", err)
 			}
 			p.Chats = append(p.Chats, value)
 		}
@@ -457,7 +576,7 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field users: %w", err)
+			return fmt.Errorf("unable to decode help.promoData#8a4d87a: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -466,24 +585,10 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.promoData#8c39793f: field users: %w", err)
+				return fmt.Errorf("unable to decode help.promoData#8a4d87a: field users: %w", err)
 			}
 			p.Users = append(p.Users, value)
 		}
-	}
-	if p.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field psa_type: %w", err)
-		}
-		p.PsaType = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode help.promoData#8c39793f: field psa_message: %w", err)
-		}
-		p.PsaMessage = value
 	}
 	return nil
 }
@@ -515,28 +620,22 @@ func (p *HelpPromoData) GetExpires() (value int) {
 	return p.Expires
 }
 
-// GetPeer returns value of Peer field.
-func (p *HelpPromoData) GetPeer() (value PeerClass) {
-	if p == nil {
-		return
-	}
-	return p.Peer
+// SetPeer sets value of Peer conditional field.
+func (p *HelpPromoData) SetPeer(value PeerClass) {
+	p.Flags.Set(3)
+	p.Peer = value
 }
 
-// GetChats returns value of Chats field.
-func (p *HelpPromoData) GetChats() (value []ChatClass) {
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (p *HelpPromoData) GetPeer() (value PeerClass, ok bool) {
 	if p == nil {
 		return
 	}
-	return p.Chats
-}
-
-// GetUsers returns value of Users field.
-func (p *HelpPromoData) GetUsers() (value []UserClass) {
-	if p == nil {
-		return
+	if !p.Flags.Has(3) {
+		return value, false
 	}
-	return p.Users
+	return p.Peer, true
 }
 
 // SetPsaType sets value of PsaType conditional field.
@@ -575,6 +674,56 @@ func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
 	return p.PsaMessage, true
 }
 
+// GetPendingSuggestions returns value of PendingSuggestions field.
+func (p *HelpPromoData) GetPendingSuggestions() (value []string) {
+	if p == nil {
+		return
+	}
+	return p.PendingSuggestions
+}
+
+// GetDismissedSuggestions returns value of DismissedSuggestions field.
+func (p *HelpPromoData) GetDismissedSuggestions() (value []string) {
+	if p == nil {
+		return
+	}
+	return p.DismissedSuggestions
+}
+
+// SetCustomPendingSuggestion sets value of CustomPendingSuggestion conditional field.
+func (p *HelpPromoData) SetCustomPendingSuggestion(value PendingSuggestion) {
+	p.Flags.Set(4)
+	p.CustomPendingSuggestion = value
+}
+
+// GetCustomPendingSuggestion returns value of CustomPendingSuggestion conditional field and
+// boolean which is true if field was set.
+func (p *HelpPromoData) GetCustomPendingSuggestion() (value PendingSuggestion, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(4) {
+		return value, false
+	}
+	return p.CustomPendingSuggestion, true
+}
+
+// GetChats returns value of Chats field.
+func (p *HelpPromoData) GetChats() (value []ChatClass) {
+	if p == nil {
+		return
+	}
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *HelpPromoData) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
+	return p.Users
+}
+
 // MapChats returns field Chats wrapped in ChatClassArray helper.
 func (p *HelpPromoData) MapChats() (value ChatClassArray) {
 	return ChatClassArray(p.Chats)
@@ -604,7 +753,7 @@ const HelpPromoDataClassName = "help.PromoData"
 //	}
 //	switch v := g.(type) {
 //	case *tg.HelpPromoDataEmpty: // help.promoDataEmpty#98f6ac75
-//	case *tg.HelpPromoData: // help.promoData#8c39793f
+//	case *tg.HelpPromoData: // help.promoData#8a4d87a
 //	default: panic(v)
 //	}
 type HelpPromoDataClass interface {
@@ -657,7 +806,7 @@ func DecodeHelpPromoData(buf *bin.Buffer) (HelpPromoDataClass, error) {
 		}
 		return &v, nil
 	case HelpPromoDataTypeID:
-		// Decoding help.promoData#8c39793f.
+		// Decoding help.promoData#8a4d87a.
 		v := HelpPromoData{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode HelpPromoDataClass: %w", err)
