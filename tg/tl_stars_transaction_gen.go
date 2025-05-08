@@ -61,6 +61,8 @@ type StarsTransaction struct {
 	StargiftUpgrade bool
 	// BusinessTransfer field of StarsTransaction.
 	BusinessTransfer bool
+	// StargiftResale field of StarsTransaction.
+	StargiftResale bool
 	// Transaction ID.
 	ID string
 	// Amount of Stars (negative for outgoing transactions).
@@ -229,6 +231,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.BusinessTransfer == false) {
 		return false
 	}
+	if !(s.StargiftResale == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -314,6 +319,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetReaction() (value bool)
 	GetStargiftUpgrade() (value bool)
 	GetBusinessTransfer() (value bool)
+	GetStargiftResale() (value bool)
 	GetID() (value string)
 	GetStars() (value StarsAmount)
 	GetDate() (value int)
@@ -343,6 +349,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.Reaction = from.GetReaction()
 	s.StargiftUpgrade = from.GetStargiftUpgrade()
 	s.BusinessTransfer = from.GetBusinessTransfer()
+	s.StargiftResale = from.GetStargiftResale()
 	s.ID = from.GetID()
 	s.Stars = from.GetStars()
 	s.Date = from.GetDate()
@@ -476,6 +483,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(21),
 		},
 		{
+			Name:       "StargiftResale",
+			SchemaName: "stargift_resale",
+			Null:       !s.Flags.Has(22),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -602,6 +614,9 @@ func (s *StarsTransaction) SetFlags() {
 	}
 	if !(s.BusinessTransfer == false) {
 		s.Flags.Set(21)
+	}
+	if !(s.StargiftResale == false) {
+		s.Flags.Set(22)
 	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
@@ -792,6 +807,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.Reaction = s.Flags.Has(11)
 	s.StargiftUpgrade = s.Flags.Has(18)
 	s.BusinessTransfer = s.Flags.Has(21)
+	s.StargiftResale = s.Flags.Has(22)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1079,6 +1095,25 @@ func (s *StarsTransaction) GetBusinessTransfer() (value bool) {
 		return
 	}
 	return s.Flags.Has(21)
+}
+
+// SetStargiftResale sets value of StargiftResale conditional field.
+func (s *StarsTransaction) SetStargiftResale(value bool) {
+	if value {
+		s.Flags.Set(22)
+		s.StargiftResale = true
+	} else {
+		s.Flags.Unset(22)
+		s.StargiftResale = false
+	}
+}
+
+// GetStargiftResale returns value of StargiftResale conditional field.
+func (s *StarsTransaction) GetStargiftResale() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(22)
 }
 
 // GetID returns value of ID field.

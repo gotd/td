@@ -740,6 +740,19 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionPartic
 	return to
 }
 
+// AsChannelAdminLogEventActionToggleAutotranslation returns copy with only ChannelAdminLogEventActionToggleAutotranslation constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionToggleAutotranslation() (to ChannelAdminLogEventActionToggleAutotranslationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionToggleAutotranslation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -4664,6 +4677,88 @@ func (s *ChannelAdminLogEventActionParticipantSubExtendArray) PopFirst() (v Chan
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionParticipantSubExtendArray) Pop() (v ChannelAdminLogEventActionParticipantSubExtend, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionToggleAutotranslationArray is adapter for slice of ChannelAdminLogEventActionToggleAutotranslation.
+type ChannelAdminLogEventActionToggleAutotranslationArray []ChannelAdminLogEventActionToggleAutotranslation
+
+// Sort sorts slice of ChannelAdminLogEventActionToggleAutotranslation.
+func (s ChannelAdminLogEventActionToggleAutotranslationArray) Sort(less func(a, b ChannelAdminLogEventActionToggleAutotranslation) bool) ChannelAdminLogEventActionToggleAutotranslationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionToggleAutotranslation.
+func (s ChannelAdminLogEventActionToggleAutotranslationArray) SortStable(less func(a, b ChannelAdminLogEventActionToggleAutotranslation) bool) ChannelAdminLogEventActionToggleAutotranslationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionToggleAutotranslation.
+func (s ChannelAdminLogEventActionToggleAutotranslationArray) Retain(keep func(x ChannelAdminLogEventActionToggleAutotranslation) bool) ChannelAdminLogEventActionToggleAutotranslationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionToggleAutotranslationArray) First() (v ChannelAdminLogEventActionToggleAutotranslation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionToggleAutotranslationArray) Last() (v ChannelAdminLogEventActionToggleAutotranslation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionToggleAutotranslationArray) PopFirst() (v ChannelAdminLogEventActionToggleAutotranslation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionToggleAutotranslation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionToggleAutotranslationArray) Pop() (v ChannelAdminLogEventActionToggleAutotranslation, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

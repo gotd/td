@@ -7896,6 +7896,142 @@ func (c *ChannelAdminLogEventActionParticipantSubExtend) GetNewParticipant() (va
 	return c.NewParticipant
 }
 
+// ChannelAdminLogEventActionToggleAutotranslation represents TL type `channelAdminLogEventActionToggleAutotranslation#c517f77e`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleAutotranslation for reference.
+type ChannelAdminLogEventActionToggleAutotranslation struct {
+	// NewValue field of ChannelAdminLogEventActionToggleAutotranslation.
+	NewValue bool
+}
+
+// ChannelAdminLogEventActionToggleAutotranslationTypeID is TL type id of ChannelAdminLogEventActionToggleAutotranslation.
+const ChannelAdminLogEventActionToggleAutotranslationTypeID = 0xc517f77e
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleAutotranslation) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleAutotranslation.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleAutotranslation{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleAutotranslation{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleAutotranslation{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleAutotranslation{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleAutotranslation{}
+)
+
+func (c *ChannelAdminLogEventActionToggleAutotranslation) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleAutotranslation(nil)"
+	}
+	type Alias ChannelAdminLogEventActionToggleAutotranslation
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleAutotranslation%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionToggleAutotranslation from given interface.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionToggleAutotranslation) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleAutotranslationTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionToggleAutotranslation) TypeName() string {
+	return "channelAdminLogEventActionToggleAutotranslation"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleAutotranslation",
+		ID:   ChannelAdminLogEventActionToggleAutotranslationTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleAutotranslation#c517f77e as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionToggleAutotranslationTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleAutotranslation#c517f77e as nil")
+	}
+	b.PutBool(c.NewValue)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleAutotranslation#c517f77e to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionToggleAutotranslationTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleAutotranslation#c517f77e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleAutotranslation#c517f77e to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionToggleAutotranslation#c517f77e: field new_value: %w", err)
+		}
+		c.NewValue = value
+	}
+	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleAutotranslation) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.NewValue
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -7954,6 +8090,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //   - [ChannelAdminLogEventActionChangeEmojiStickerSet]
 //   - [ChannelAdminLogEventActionToggleSignatureProfiles]
 //   - [ChannelAdminLogEventActionParticipantSubExtend]
+//   - [ChannelAdminLogEventActionToggleAutotranslation]
 //
 // Example:
 //
@@ -8012,6 +8149,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //	case *tg.ChannelAdminLogEventActionChangeEmojiStickerSet: // channelAdminLogEventActionChangeEmojiStickerSet#46d840ab
 //	case *tg.ChannelAdminLogEventActionToggleSignatureProfiles: // channelAdminLogEventActionToggleSignatureProfiles#60a79c79
 //	case *tg.ChannelAdminLogEventActionParticipantSubExtend: // channelAdminLogEventActionParticipantSubExtend#64642db3
+//	case *tg.ChannelAdminLogEventActionToggleAutotranslation: // channelAdminLogEventActionToggleAutotranslation#c517f77e
 //	default: panic(v)
 //	}
 type ChannelAdminLogEventActionClass interface {
@@ -8386,6 +8524,13 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionParticipantSubExtendTypeID:
 		// Decoding channelAdminLogEventActionParticipantSubExtend#64642db3.
 		v := ChannelAdminLogEventActionParticipantSubExtend{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionToggleAutotranslationTypeID:
+		// Decoding channelAdminLogEventActionToggleAutotranslation#c517f77e.
+		v := ChannelAdminLogEventActionToggleAutotranslation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}
