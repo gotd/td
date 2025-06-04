@@ -1767,6 +1767,32 @@ func (s UpdateClassArray) AsUpdateGroupCallChainBlocks() (to UpdateGroupCallChai
 	return to
 }
 
+// AsUpdateReadMonoForumInbox returns copy with only UpdateReadMonoForumInbox constructors.
+func (s UpdateClassArray) AsUpdateReadMonoForumInbox() (to UpdateReadMonoForumInboxArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateReadMonoForumInbox)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateReadMonoForumOutbox returns copy with only UpdateReadMonoForumOutbox constructors.
+func (s UpdateClassArray) AsUpdateReadMonoForumOutbox() (to UpdateReadMonoForumOutboxArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateReadMonoForumOutbox)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -12435,6 +12461,170 @@ func (s *UpdateGroupCallChainBlocksArray) PopFirst() (v UpdateGroupCallChainBloc
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateGroupCallChainBlocksArray) Pop() (v UpdateGroupCallChainBlocks, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateReadMonoForumInboxArray is adapter for slice of UpdateReadMonoForumInbox.
+type UpdateReadMonoForumInboxArray []UpdateReadMonoForumInbox
+
+// Sort sorts slice of UpdateReadMonoForumInbox.
+func (s UpdateReadMonoForumInboxArray) Sort(less func(a, b UpdateReadMonoForumInbox) bool) UpdateReadMonoForumInboxArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateReadMonoForumInbox.
+func (s UpdateReadMonoForumInboxArray) SortStable(less func(a, b UpdateReadMonoForumInbox) bool) UpdateReadMonoForumInboxArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateReadMonoForumInbox.
+func (s UpdateReadMonoForumInboxArray) Retain(keep func(x UpdateReadMonoForumInbox) bool) UpdateReadMonoForumInboxArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateReadMonoForumInboxArray) First() (v UpdateReadMonoForumInbox, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateReadMonoForumInboxArray) Last() (v UpdateReadMonoForumInbox, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateReadMonoForumInboxArray) PopFirst() (v UpdateReadMonoForumInbox, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateReadMonoForumInbox
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateReadMonoForumInboxArray) Pop() (v UpdateReadMonoForumInbox, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateReadMonoForumOutboxArray is adapter for slice of UpdateReadMonoForumOutbox.
+type UpdateReadMonoForumOutboxArray []UpdateReadMonoForumOutbox
+
+// Sort sorts slice of UpdateReadMonoForumOutbox.
+func (s UpdateReadMonoForumOutboxArray) Sort(less func(a, b UpdateReadMonoForumOutbox) bool) UpdateReadMonoForumOutboxArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateReadMonoForumOutbox.
+func (s UpdateReadMonoForumOutboxArray) SortStable(less func(a, b UpdateReadMonoForumOutbox) bool) UpdateReadMonoForumOutboxArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateReadMonoForumOutbox.
+func (s UpdateReadMonoForumOutboxArray) Retain(keep func(x UpdateReadMonoForumOutbox) bool) UpdateReadMonoForumOutboxArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateReadMonoForumOutboxArray) First() (v UpdateReadMonoForumOutbox, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateReadMonoForumOutboxArray) Last() (v UpdateReadMonoForumOutbox, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateReadMonoForumOutboxArray) PopFirst() (v UpdateReadMonoForumOutbox, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateReadMonoForumOutbox
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateReadMonoForumOutboxArray) Pop() (v UpdateReadMonoForumOutbox, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -31,10 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsUpdatePaidMessagesPriceRequest represents TL type `channels.updatePaidMessagesPrice#fc84653f`.
+// ChannelsUpdatePaidMessagesPriceRequest represents TL type `channels.updatePaidMessagesPrice#4b12327b`.
 //
 // See https://core.telegram.org/method/channels.updatePaidMessagesPrice for reference.
 type ChannelsUpdatePaidMessagesPriceRequest struct {
+	// Flags field of ChannelsUpdatePaidMessagesPriceRequest.
+	Flags bin.Fields
+	// BroadcastMessagesAllowed field of ChannelsUpdatePaidMessagesPriceRequest.
+	BroadcastMessagesAllowed bool
 	// Channel field of ChannelsUpdatePaidMessagesPriceRequest.
 	Channel InputChannelClass
 	// SendPaidMessagesStars field of ChannelsUpdatePaidMessagesPriceRequest.
@@ -42,7 +46,7 @@ type ChannelsUpdatePaidMessagesPriceRequest struct {
 }
 
 // ChannelsUpdatePaidMessagesPriceRequestTypeID is TL type id of ChannelsUpdatePaidMessagesPriceRequest.
-const ChannelsUpdatePaidMessagesPriceRequestTypeID = 0xfc84653f
+const ChannelsUpdatePaidMessagesPriceRequestTypeID = 0x4b12327b
 
 // Ensuring interfaces in compile-time for ChannelsUpdatePaidMessagesPriceRequest.
 var (
@@ -55,6 +59,12 @@ var (
 func (u *ChannelsUpdatePaidMessagesPriceRequest) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.BroadcastMessagesAllowed == false) {
+		return false
 	}
 	if !(u.Channel == nil) {
 		return false
@@ -77,9 +87,11 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) String() string {
 
 // FillFrom fills ChannelsUpdatePaidMessagesPriceRequest from given interface.
 func (u *ChannelsUpdatePaidMessagesPriceRequest) FillFrom(from interface {
+	GetBroadcastMessagesAllowed() (value bool)
 	GetChannel() (value InputChannelClass)
 	GetSendPaidMessagesStars() (value int64)
 }) {
+	u.BroadcastMessagesAllowed = from.GetBroadcastMessagesAllowed()
 	u.Channel = from.GetChannel()
 	u.SendPaidMessagesStars = from.GetSendPaidMessagesStars()
 }
@@ -108,6 +120,11 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BroadcastMessagesAllowed",
+			SchemaName: "broadcast_messages_allowed",
+			Null:       !u.Flags.Has(0),
+		},
+		{
 			Name:       "Channel",
 			SchemaName: "channel",
 		},
@@ -119,10 +136,17 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *ChannelsUpdatePaidMessagesPriceRequest) SetFlags() {
+	if !(u.BroadcastMessagesAllowed == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *ChannelsUpdatePaidMessagesPriceRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode channels.updatePaidMessagesPrice#fc84653f as nil")
+		return fmt.Errorf("can't encode channels.updatePaidMessagesPrice#4b12327b as nil")
 	}
 	b.PutID(ChannelsUpdatePaidMessagesPriceRequestTypeID)
 	return u.EncodeBare(b)
@@ -131,13 +155,17 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *ChannelsUpdatePaidMessagesPriceRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode channels.updatePaidMessagesPrice#fc84653f as nil")
+		return fmt.Errorf("can't encode channels.updatePaidMessagesPrice#4b12327b as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.updatePaidMessagesPrice#4b12327b: field flags: %w", err)
 	}
 	if u.Channel == nil {
-		return fmt.Errorf("unable to encode channels.updatePaidMessagesPrice#fc84653f: field channel is nil")
+		return fmt.Errorf("unable to encode channels.updatePaidMessagesPrice#4b12327b: field channel is nil")
 	}
 	if err := u.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.updatePaidMessagesPrice#fc84653f: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.updatePaidMessagesPrice#4b12327b: field channel: %w", err)
 	}
 	b.PutLong(u.SendPaidMessagesStars)
 	return nil
@@ -146,10 +174,10 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) EncodeBare(b *bin.Buffer) error
 // Decode implements bin.Decoder.
 func (u *ChannelsUpdatePaidMessagesPriceRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode channels.updatePaidMessagesPrice#fc84653f to nil")
+		return fmt.Errorf("can't decode channels.updatePaidMessagesPrice#4b12327b to nil")
 	}
 	if err := b.ConsumeID(ChannelsUpdatePaidMessagesPriceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#fc84653f: %w", err)
+		return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#4b12327b: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -157,23 +185,48 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *ChannelsUpdatePaidMessagesPriceRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode channels.updatePaidMessagesPrice#fc84653f to nil")
+		return fmt.Errorf("can't decode channels.updatePaidMessagesPrice#4b12327b to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#4b12327b: field flags: %w", err)
+		}
+	}
+	u.BroadcastMessagesAllowed = u.Flags.Has(0)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#fc84653f: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#4b12327b: field channel: %w", err)
 		}
 		u.Channel = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#fc84653f: field send_paid_messages_stars: %w", err)
+			return fmt.Errorf("unable to decode channels.updatePaidMessagesPrice#4b12327b: field send_paid_messages_stars: %w", err)
 		}
 		u.SendPaidMessagesStars = value
 	}
 	return nil
+}
+
+// SetBroadcastMessagesAllowed sets value of BroadcastMessagesAllowed conditional field.
+func (u *ChannelsUpdatePaidMessagesPriceRequest) SetBroadcastMessagesAllowed(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.BroadcastMessagesAllowed = true
+	} else {
+		u.Flags.Unset(0)
+		u.BroadcastMessagesAllowed = false
+	}
+}
+
+// GetBroadcastMessagesAllowed returns value of BroadcastMessagesAllowed conditional field.
+func (u *ChannelsUpdatePaidMessagesPriceRequest) GetBroadcastMessagesAllowed() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
 }
 
 // GetChannel returns value of Channel field.
@@ -197,7 +250,7 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) GetChannelAsNotEmpty() (NotEmpt
 	return u.Channel.AsNotEmpty()
 }
 
-// ChannelsUpdatePaidMessagesPrice invokes method channels.updatePaidMessagesPrice#fc84653f returning error if any.
+// ChannelsUpdatePaidMessagesPrice invokes method channels.updatePaidMessagesPrice#4b12327b returning error if any.
 //
 // See https://core.telegram.org/method/channels.updatePaidMessagesPrice for reference.
 func (c *Client) ChannelsUpdatePaidMessagesPrice(ctx context.Context, request *ChannelsUpdatePaidMessagesPriceRequest) (UpdatesClass, error) {

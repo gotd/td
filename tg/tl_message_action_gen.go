@@ -10913,16 +10913,20 @@ func (m *MessageActionPaidMessagesRefunded) GetStars() (value int64) {
 	return m.Stars
 }
 
-// MessageActionPaidMessagesPrice represents TL type `messageActionPaidMessagesPrice#bcd71419`.
+// MessageActionPaidMessagesPrice represents TL type `messageActionPaidMessagesPrice#84b88578`.
 //
 // See https://core.telegram.org/constructor/messageActionPaidMessagesPrice for reference.
 type MessageActionPaidMessagesPrice struct {
+	// Flags field of MessageActionPaidMessagesPrice.
+	Flags bin.Fields
+	// BroadcastMessagesAllowed field of MessageActionPaidMessagesPrice.
+	BroadcastMessagesAllowed bool
 	// Stars field of MessageActionPaidMessagesPrice.
 	Stars int64
 }
 
 // MessageActionPaidMessagesPriceTypeID is TL type id of MessageActionPaidMessagesPrice.
-const MessageActionPaidMessagesPriceTypeID = 0xbcd71419
+const MessageActionPaidMessagesPriceTypeID = 0x84b88578
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionPaidMessagesPrice) construct() MessageActionClass { return &m }
@@ -10940,6 +10944,12 @@ var (
 func (m *MessageActionPaidMessagesPrice) Zero() bool {
 	if m == nil {
 		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.BroadcastMessagesAllowed == false) {
+		return false
 	}
 	if !(m.Stars == 0) {
 		return false
@@ -10959,8 +10969,10 @@ func (m *MessageActionPaidMessagesPrice) String() string {
 
 // FillFrom fills MessageActionPaidMessagesPrice from given interface.
 func (m *MessageActionPaidMessagesPrice) FillFrom(from interface {
+	GetBroadcastMessagesAllowed() (value bool)
 	GetStars() (value int64)
 }) {
+	m.BroadcastMessagesAllowed = from.GetBroadcastMessagesAllowed()
 	m.Stars = from.GetStars()
 }
 
@@ -10988,6 +11000,11 @@ func (m *MessageActionPaidMessagesPrice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BroadcastMessagesAllowed",
+			SchemaName: "broadcast_messages_allowed",
+			Null:       !m.Flags.Has(0),
+		},
+		{
 			Name:       "Stars",
 			SchemaName: "stars",
 		},
@@ -10995,10 +11012,17 @@ func (m *MessageActionPaidMessagesPrice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionPaidMessagesPrice) SetFlags() {
+	if !(m.BroadcastMessagesAllowed == false) {
+		m.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPaidMessagesPrice) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaidMessagesPrice#bcd71419 as nil")
+		return fmt.Errorf("can't encode messageActionPaidMessagesPrice#84b88578 as nil")
 	}
 	b.PutID(MessageActionPaidMessagesPriceTypeID)
 	return m.EncodeBare(b)
@@ -11007,7 +11031,11 @@ func (m *MessageActionPaidMessagesPrice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionPaidMessagesPrice) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaidMessagesPrice#bcd71419 as nil")
+		return fmt.Errorf("can't encode messageActionPaidMessagesPrice#84b88578 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPaidMessagesPrice#84b88578: field flags: %w", err)
 	}
 	b.PutLong(m.Stars)
 	return nil
@@ -11016,10 +11044,10 @@ func (m *MessageActionPaidMessagesPrice) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageActionPaidMessagesPrice) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaidMessagesPrice#bcd71419 to nil")
+		return fmt.Errorf("can't decode messageActionPaidMessagesPrice#84b88578 to nil")
 	}
 	if err := b.ConsumeID(MessageActionPaidMessagesPriceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#bcd71419: %w", err)
+		return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#84b88578: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -11027,16 +11055,41 @@ func (m *MessageActionPaidMessagesPrice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionPaidMessagesPrice) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaidMessagesPrice#bcd71419 to nil")
+		return fmt.Errorf("can't decode messageActionPaidMessagesPrice#84b88578 to nil")
 	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#84b88578: field flags: %w", err)
+		}
+	}
+	m.BroadcastMessagesAllowed = m.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#bcd71419: field stars: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaidMessagesPrice#84b88578: field stars: %w", err)
 		}
 		m.Stars = value
 	}
 	return nil
+}
+
+// SetBroadcastMessagesAllowed sets value of BroadcastMessagesAllowed conditional field.
+func (m *MessageActionPaidMessagesPrice) SetBroadcastMessagesAllowed(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.BroadcastMessagesAllowed = true
+	} else {
+		m.Flags.Unset(0)
+		m.BroadcastMessagesAllowed = false
+	}
+}
+
+// GetBroadcastMessagesAllowed returns value of BroadcastMessagesAllowed conditional field.
+func (m *MessageActionPaidMessagesPrice) GetBroadcastMessagesAllowed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
 }
 
 // GetStars returns value of Stars field.
@@ -11542,7 +11595,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionStarGift: // messageActionStarGift#4717e8a4
 //	case *tg.MessageActionStarGiftUnique: // messageActionStarGiftUnique#2e3ae60e
 //	case *tg.MessageActionPaidMessagesRefunded: // messageActionPaidMessagesRefunded#ac1f1fcd
-//	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#bcd71419
+//	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#84b88578
 //	case *tg.MessageActionConferenceCall: // messageActionConferenceCall#2ffe2f7a
 //	default: panic(v)
 //	}
@@ -11916,7 +11969,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionPaidMessagesPriceTypeID:
-		// Decoding messageActionPaidMessagesPrice#bcd71419.
+		// Decoding messageActionPaidMessagesPrice#84b88578.
 		v := MessageActionPaidMessagesPrice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)

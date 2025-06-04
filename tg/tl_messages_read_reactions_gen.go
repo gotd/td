@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesReadReactionsRequest represents TL type `messages.readReactions#54aa7f8e`.
+// MessagesReadReactionsRequest represents TL type `messages.readReactions#9ec44f93`.
 // Mark message reactions »¹ as read
 //
 // Links:
@@ -53,10 +53,14 @@ type MessagesReadReactionsRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
+	// SavedPeerID field of MessagesReadReactionsRequest.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID InputPeerClass
 }
 
 // MessagesReadReactionsRequestTypeID is TL type id of MessagesReadReactionsRequest.
-const MessagesReadReactionsRequestTypeID = 0x54aa7f8e
+const MessagesReadReactionsRequestTypeID = 0x9ec44f93
 
 // Ensuring interfaces in compile-time for MessagesReadReactionsRequest.
 var (
@@ -79,6 +83,9 @@ func (r *MessagesReadReactionsRequest) Zero() bool {
 	if !(r.TopMsgID == 0) {
 		return false
 	}
+	if !(r.SavedPeerID == nil) {
+		return false
+	}
 
 	return true
 }
@@ -96,10 +103,15 @@ func (r *MessagesReadReactionsRequest) String() string {
 func (r *MessagesReadReactionsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetTopMsgID() (value int, ok bool)
+	GetSavedPeerID() (value InputPeerClass, ok bool)
 }) {
 	r.Peer = from.GetPeer()
 	if val, ok := from.GetTopMsgID(); ok {
 		r.TopMsgID = val
+	}
+
+	if val, ok := from.GetSavedPeerID(); ok {
+		r.SavedPeerID = val
 	}
 
 }
@@ -136,6 +148,11 @@ func (r *MessagesReadReactionsRequest) TypeInfo() tdp.Type {
 			SchemaName: "top_msg_id",
 			Null:       !r.Flags.Has(0),
 		},
+		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !r.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -145,12 +162,15 @@ func (r *MessagesReadReactionsRequest) SetFlags() {
 	if !(r.TopMsgID == 0) {
 		r.Flags.Set(0)
 	}
+	if !(r.SavedPeerID == nil) {
+		r.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (r *MessagesReadReactionsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readReactions#54aa7f8e as nil")
+		return fmt.Errorf("can't encode messages.readReactions#9ec44f93 as nil")
 	}
 	b.PutID(MessagesReadReactionsRequestTypeID)
 	return r.EncodeBare(b)
@@ -159,20 +179,28 @@ func (r *MessagesReadReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readReactions#54aa7f8e as nil")
+		return fmt.Errorf("can't encode messages.readReactions#9ec44f93 as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.readReactions#54aa7f8e: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.readReactions#9ec44f93: field flags: %w", err)
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.readReactions#54aa7f8e: field peer is nil")
+		return fmt.Errorf("unable to encode messages.readReactions#9ec44f93: field peer is nil")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.readReactions#54aa7f8e: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.readReactions#9ec44f93: field peer: %w", err)
 	}
 	if r.Flags.Has(0) {
 		b.PutInt(r.TopMsgID)
+	}
+	if r.Flags.Has(1) {
+		if r.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode messages.readReactions#9ec44f93: field saved_peer_id is nil")
+		}
+		if err := r.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.readReactions#9ec44f93: field saved_peer_id: %w", err)
+		}
 	}
 	return nil
 }
@@ -180,10 +208,10 @@ func (r *MessagesReadReactionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *MessagesReadReactionsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readReactions#54aa7f8e to nil")
+		return fmt.Errorf("can't decode messages.readReactions#9ec44f93 to nil")
 	}
 	if err := b.ConsumeID(MessagesReadReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: %w", err)
+		return fmt.Errorf("unable to decode messages.readReactions#9ec44f93: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -191,26 +219,33 @@ func (r *MessagesReadReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readReactions#54aa7f8e to nil")
+		return fmt.Errorf("can't decode messages.readReactions#9ec44f93 to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.readReactions#9ec44f93: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.readReactions#9ec44f93: field peer: %w", err)
 		}
 		r.Peer = value
 	}
 	if r.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.readReactions#9ec44f93: field top_msg_id: %w", err)
 		}
 		r.TopMsgID = value
+	}
+	if r.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.readReactions#9ec44f93: field saved_peer_id: %w", err)
+		}
+		r.SavedPeerID = value
 	}
 	return nil
 }
@@ -241,7 +276,25 @@ func (r *MessagesReadReactionsRequest) GetTopMsgID() (value int, ok bool) {
 	return r.TopMsgID, true
 }
 
-// MessagesReadReactions invokes method messages.readReactions#54aa7f8e returning error if any.
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (r *MessagesReadReactionsRequest) SetSavedPeerID(value InputPeerClass) {
+	r.Flags.Set(1)
+	r.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (r *MessagesReadReactionsRequest) GetSavedPeerID() (value InputPeerClass, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(1) {
+		return value, false
+	}
+	return r.SavedPeerID, true
+}
+
+// MessagesReadReactions invokes method messages.readReactions#9ec44f93 returning error if any.
 // Mark message reactions »¹ as read
 //
 // Links:

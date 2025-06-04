@@ -1535,3 +1535,23 @@ func (u UpdateDispatcher) OnGroupCallChainBlocks(handler GroupCallChainBlocksHan
 		return handler(ctx, e, update.(*UpdateGroupCallChainBlocks))
 	}
 }
+
+// ReadMonoForumInboxHandler is a ReadMonoForumInbox event handler.
+type ReadMonoForumInboxHandler func(ctx context.Context, e Entities, update *UpdateReadMonoForumInbox) error
+
+// OnReadMonoForumInbox sets ReadMonoForumInbox handler.
+func (u UpdateDispatcher) OnReadMonoForumInbox(handler ReadMonoForumInboxHandler) {
+	u.handlers[UpdateReadMonoForumInboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadMonoForumInbox))
+	}
+}
+
+// ReadMonoForumOutboxHandler is a ReadMonoForumOutbox event handler.
+type ReadMonoForumOutboxHandler func(ctx context.Context, e Entities, update *UpdateReadMonoForumOutbox) error
+
+// OnReadMonoForumOutbox sets ReadMonoForumOutbox handler.
+func (u UpdateDispatcher) OnReadMonoForumOutbox(handler ReadMonoForumOutboxHandler) {
+	u.handlers[UpdateReadMonoForumOutboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadMonoForumOutbox))
+	}
+}

@@ -31,15 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetDialogUnreadMarksRequest represents TL type `messages.getDialogUnreadMarks#22e24e22`.
+// MessagesGetDialogUnreadMarksRequest represents TL type `messages.getDialogUnreadMarks#21202222`.
 // Get dialogs manually marked as unread
 //
 // See https://core.telegram.org/method/messages.getDialogUnreadMarks for reference.
 type MessagesGetDialogUnreadMarksRequest struct {
+	// Flags field of MessagesGetDialogUnreadMarksRequest.
+	Flags bin.Fields
+	// ParentPeer field of MessagesGetDialogUnreadMarksRequest.
+	//
+	// Use SetParentPeer and GetParentPeer helpers.
+	ParentPeer InputPeerClass
 }
 
 // MessagesGetDialogUnreadMarksRequestTypeID is TL type id of MessagesGetDialogUnreadMarksRequest.
-const MessagesGetDialogUnreadMarksRequestTypeID = 0x22e24e22
+const MessagesGetDialogUnreadMarksRequestTypeID = 0x21202222
 
 // Ensuring interfaces in compile-time for MessagesGetDialogUnreadMarksRequest.
 var (
@@ -53,6 +59,12 @@ func (g *MessagesGetDialogUnreadMarksRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ParentPeer == nil) {
+		return false
+	}
 
 	return true
 }
@@ -64,6 +76,16 @@ func (g *MessagesGetDialogUnreadMarksRequest) String() string {
 	}
 	type Alias MessagesGetDialogUnreadMarksRequest
 	return fmt.Sprintf("MessagesGetDialogUnreadMarksRequest%+v", Alias(*g))
+}
+
+// FillFrom fills MessagesGetDialogUnreadMarksRequest from given interface.
+func (g *MessagesGetDialogUnreadMarksRequest) FillFrom(from interface {
+	GetParentPeer() (value InputPeerClass, ok bool)
+}) {
+	if val, ok := from.GetParentPeer(); ok {
+		g.ParentPeer = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -88,14 +110,27 @@ func (g *MessagesGetDialogUnreadMarksRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ParentPeer",
+			SchemaName: "parent_peer",
+			Null:       !g.Flags.Has(0),
+		},
+	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetDialogUnreadMarksRequest) SetFlags() {
+	if !(g.ParentPeer == nil) {
+		g.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogUnreadMarksRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#22e24e22 as nil")
+		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#21202222 as nil")
 	}
 	b.PutID(MessagesGetDialogUnreadMarksRequestTypeID)
 	return g.EncodeBare(b)
@@ -104,7 +139,19 @@ func (g *MessagesGetDialogUnreadMarksRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDialogUnreadMarksRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#22e24e22 as nil")
+		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#21202222 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getDialogUnreadMarks#21202222: field flags: %w", err)
+	}
+	if g.Flags.Has(0) {
+		if g.ParentPeer == nil {
+			return fmt.Errorf("unable to encode messages.getDialogUnreadMarks#21202222: field parent_peer is nil")
+		}
+		if err := g.ParentPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getDialogUnreadMarks#21202222: field parent_peer: %w", err)
+		}
 	}
 	return nil
 }
@@ -112,10 +159,10 @@ func (g *MessagesGetDialogUnreadMarksRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogUnreadMarksRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#22e24e22 to nil")
+		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#21202222 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetDialogUnreadMarksRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#22e24e22: %w", err)
+		return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#21202222: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -123,19 +170,48 @@ func (g *MessagesGetDialogUnreadMarksRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDialogUnreadMarksRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#22e24e22 to nil")
+		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#21202222 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#21202222: field flags: %w", err)
+		}
+	}
+	if g.Flags.Has(0) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#21202222: field parent_peer: %w", err)
+		}
+		g.ParentPeer = value
 	}
 	return nil
 }
 
-// MessagesGetDialogUnreadMarks invokes method messages.getDialogUnreadMarks#22e24e22 returning error if any.
+// SetParentPeer sets value of ParentPeer conditional field.
+func (g *MessagesGetDialogUnreadMarksRequest) SetParentPeer(value InputPeerClass) {
+	g.Flags.Set(0)
+	g.ParentPeer = value
+}
+
+// GetParentPeer returns value of ParentPeer conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetDialogUnreadMarksRequest) GetParentPeer() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.ParentPeer, true
+}
+
+// MessagesGetDialogUnreadMarks invokes method messages.getDialogUnreadMarks#21202222 returning error if any.
 // Get dialogs manually marked as unread
 //
 // See https://core.telegram.org/method/messages.getDialogUnreadMarks for reference.
-func (c *Client) MessagesGetDialogUnreadMarks(ctx context.Context) ([]DialogPeerClass, error) {
+func (c *Client) MessagesGetDialogUnreadMarks(ctx context.Context, request *MessagesGetDialogUnreadMarksRequest) ([]DialogPeerClass, error) {
 	var result DialogPeerClassVector
 
-	request := &MessagesGetDialogUnreadMarksRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

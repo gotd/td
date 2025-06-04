@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetSavedDialogsRequest represents TL type `messages.getSavedDialogs#5381d21a`.
+// MessagesGetSavedDialogsRequest represents TL type `messages.getSavedDialogs#1e91fc99`.
 // Returns the current saved dialog list, see here »¹ for more info.
 //
 // Links:
@@ -46,6 +46,10 @@ type MessagesGetSavedDialogsRequest struct {
 	Flags bin.Fields
 	// Exclude pinned dialogs
 	ExcludePinned bool
+	// ParentPeer field of MessagesGetSavedDialogsRequest.
+	//
+	// Use SetParentPeer and GetParentPeer helpers.
+	ParentPeer InputPeerClass
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
@@ -72,7 +76,7 @@ type MessagesGetSavedDialogsRequest struct {
 }
 
 // MessagesGetSavedDialogsRequestTypeID is TL type id of MessagesGetSavedDialogsRequest.
-const MessagesGetSavedDialogsRequestTypeID = 0x5381d21a
+const MessagesGetSavedDialogsRequestTypeID = 0x1e91fc99
 
 // Ensuring interfaces in compile-time for MessagesGetSavedDialogsRequest.
 var (
@@ -90,6 +94,9 @@ func (g *MessagesGetSavedDialogsRequest) Zero() bool {
 		return false
 	}
 	if !(g.ExcludePinned == false) {
+		return false
+	}
+	if !(g.ParentPeer == nil) {
 		return false
 	}
 	if !(g.OffsetDate == 0) {
@@ -123,6 +130,7 @@ func (g *MessagesGetSavedDialogsRequest) String() string {
 // FillFrom fills MessagesGetSavedDialogsRequest from given interface.
 func (g *MessagesGetSavedDialogsRequest) FillFrom(from interface {
 	GetExcludePinned() (value bool)
+	GetParentPeer() (value InputPeerClass, ok bool)
 	GetOffsetDate() (value int)
 	GetOffsetID() (value int)
 	GetOffsetPeer() (value InputPeerClass)
@@ -130,6 +138,10 @@ func (g *MessagesGetSavedDialogsRequest) FillFrom(from interface {
 	GetHash() (value int64)
 }) {
 	g.ExcludePinned = from.GetExcludePinned()
+	if val, ok := from.GetParentPeer(); ok {
+		g.ParentPeer = val
+	}
+
 	g.OffsetDate = from.GetOffsetDate()
 	g.OffsetID = from.GetOffsetID()
 	g.OffsetPeer = from.GetOffsetPeer()
@@ -166,6 +178,11 @@ func (g *MessagesGetSavedDialogsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
+			Name:       "ParentPeer",
+			SchemaName: "parent_peer",
+			Null:       !g.Flags.Has(1),
+		},
+		{
 			Name:       "OffsetDate",
 			SchemaName: "offset_date",
 		},
@@ -194,12 +211,15 @@ func (g *MessagesGetSavedDialogsRequest) SetFlags() {
 	if !(g.ExcludePinned == false) {
 		g.Flags.Set(0)
 	}
+	if !(g.ParentPeer == nil) {
+		g.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetSavedDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedDialogs#5381d21a as nil")
+		return fmt.Errorf("can't encode messages.getSavedDialogs#1e91fc99 as nil")
 	}
 	b.PutID(MessagesGetSavedDialogsRequestTypeID)
 	return g.EncodeBare(b)
@@ -208,19 +228,27 @@ func (g *MessagesGetSavedDialogsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSavedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedDialogs#5381d21a as nil")
+		return fmt.Errorf("can't encode messages.getSavedDialogs#1e91fc99 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSavedDialogs#5381d21a: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.getSavedDialogs#1e91fc99: field flags: %w", err)
+	}
+	if g.Flags.Has(1) {
+		if g.ParentPeer == nil {
+			return fmt.Errorf("unable to encode messages.getSavedDialogs#1e91fc99: field parent_peer is nil")
+		}
+		if err := g.ParentPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getSavedDialogs#1e91fc99: field parent_peer: %w", err)
+		}
 	}
 	b.PutInt(g.OffsetDate)
 	b.PutInt(g.OffsetID)
 	if g.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode messages.getSavedDialogs#5381d21a: field offset_peer is nil")
+		return fmt.Errorf("unable to encode messages.getSavedDialogs#1e91fc99: field offset_peer is nil")
 	}
 	if err := g.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSavedDialogs#5381d21a: field offset_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getSavedDialogs#1e91fc99: field offset_peer: %w", err)
 	}
 	b.PutInt(g.Limit)
 	b.PutLong(g.Hash)
@@ -230,10 +258,10 @@ func (g *MessagesGetSavedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetSavedDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedDialogs#5381d21a to nil")
+		return fmt.Errorf("can't decode messages.getSavedDialogs#1e91fc99 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetSavedDialogsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: %w", err)
+		return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -241,46 +269,53 @@ func (g *MessagesGetSavedDialogsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSavedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedDialogs#5381d21a to nil")
+		return fmt.Errorf("can't decode messages.getSavedDialogs#1e91fc99 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field flags: %w", err)
 		}
 	}
 	g.ExcludePinned = g.Flags.Has(0)
+	if g.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field parent_peer: %w", err)
+		}
+		g.ParentPeer = value
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: field offset_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field offset_peer: %w", err)
 		}
 		g.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedDialogs#5381d21a: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedDialogs#1e91fc99: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -304,6 +339,24 @@ func (g *MessagesGetSavedDialogsRequest) GetExcludePinned() (value bool) {
 		return
 	}
 	return g.Flags.Has(0)
+}
+
+// SetParentPeer sets value of ParentPeer conditional field.
+func (g *MessagesGetSavedDialogsRequest) SetParentPeer(value InputPeerClass) {
+	g.Flags.Set(1)
+	g.ParentPeer = value
+}
+
+// GetParentPeer returns value of ParentPeer conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetSavedDialogsRequest) GetParentPeer() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.ParentPeer, true
 }
 
 // GetOffsetDate returns value of OffsetDate field.
@@ -346,7 +399,7 @@ func (g *MessagesGetSavedDialogsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetSavedDialogs invokes method messages.getSavedDialogs#5381d21a returning error if any.
+// MessagesGetSavedDialogs invokes method messages.getSavedDialogs#1e91fc99 returning error if any.
 // Returns the current saved dialog list, see here »¹ for more info.
 //
 // Links:

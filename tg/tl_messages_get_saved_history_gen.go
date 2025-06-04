@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetSavedHistoryRequest represents TL type `messages.getSavedHistory#3d9a414d`.
+// MessagesGetSavedHistoryRequest represents TL type `messages.getSavedHistory#998ab009`.
 // Returns saved messages »¹ forwarded from a specific peer
 //
 // Links:
@@ -39,6 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSavedHistory for reference.
 type MessagesGetSavedHistoryRequest struct {
+	// Flags field of MessagesGetSavedHistoryRequest.
+	Flags bin.Fields
+	// ParentPeer field of MessagesGetSavedHistoryRequest.
+	//
+	// Use SetParentPeer and GetParentPeer helpers.
+	ParentPeer InputPeerClass
 	// Target peer
 	Peer InputPeerClass
 	// Only return messages starting from the specified message ID
@@ -63,7 +69,7 @@ type MessagesGetSavedHistoryRequest struct {
 }
 
 // MessagesGetSavedHistoryRequestTypeID is TL type id of MessagesGetSavedHistoryRequest.
-const MessagesGetSavedHistoryRequestTypeID = 0x3d9a414d
+const MessagesGetSavedHistoryRequestTypeID = 0x998ab009
 
 // Ensuring interfaces in compile-time for MessagesGetSavedHistoryRequest.
 var (
@@ -76,6 +82,12 @@ var (
 func (g *MessagesGetSavedHistoryRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ParentPeer == nil) {
+		return false
 	}
 	if !(g.Peer == nil) {
 		return false
@@ -116,6 +128,7 @@ func (g *MessagesGetSavedHistoryRequest) String() string {
 
 // FillFrom fills MessagesGetSavedHistoryRequest from given interface.
 func (g *MessagesGetSavedHistoryRequest) FillFrom(from interface {
+	GetParentPeer() (value InputPeerClass, ok bool)
 	GetPeer() (value InputPeerClass)
 	GetOffsetID() (value int)
 	GetOffsetDate() (value int)
@@ -125,6 +138,10 @@ func (g *MessagesGetSavedHistoryRequest) FillFrom(from interface {
 	GetMinID() (value int)
 	GetHash() (value int64)
 }) {
+	if val, ok := from.GetParentPeer(); ok {
+		g.ParentPeer = val
+	}
+
 	g.Peer = from.GetPeer()
 	g.OffsetID = from.GetOffsetID()
 	g.OffsetDate = from.GetOffsetDate()
@@ -158,6 +175,11 @@ func (g *MessagesGetSavedHistoryRequest) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
+		{
+			Name:       "ParentPeer",
+			SchemaName: "parent_peer",
+			Null:       !g.Flags.Has(0),
+		},
 		{
 			Name:       "Peer",
 			SchemaName: "peer",
@@ -194,10 +216,17 @@ func (g *MessagesGetSavedHistoryRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetSavedHistoryRequest) SetFlags() {
+	if !(g.ParentPeer == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSavedHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedHistory#3d9a414d as nil")
+		return fmt.Errorf("can't encode messages.getSavedHistory#998ab009 as nil")
 	}
 	b.PutID(MessagesGetSavedHistoryRequestTypeID)
 	return g.EncodeBare(b)
@@ -206,13 +235,25 @@ func (g *MessagesGetSavedHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSavedHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedHistory#3d9a414d as nil")
+		return fmt.Errorf("can't encode messages.getSavedHistory#998ab009 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getSavedHistory#998ab009: field flags: %w", err)
+	}
+	if g.Flags.Has(0) {
+		if g.ParentPeer == nil {
+			return fmt.Errorf("unable to encode messages.getSavedHistory#998ab009: field parent_peer is nil")
+		}
+		if err := g.ParentPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getSavedHistory#998ab009: field parent_peer: %w", err)
+		}
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getSavedHistory#3d9a414d: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getSavedHistory#998ab009: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSavedHistory#3d9a414d: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getSavedHistory#998ab009: field peer: %w", err)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.OffsetDate)
@@ -227,10 +268,10 @@ func (g *MessagesGetSavedHistoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetSavedHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedHistory#3d9a414d to nil")
+		return fmt.Errorf("can't decode messages.getSavedHistory#998ab009 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetSavedHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: %w", err)
+		return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -238,65 +279,95 @@ func (g *MessagesGetSavedHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSavedHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedHistory#3d9a414d to nil")
+		return fmt.Errorf("can't decode messages.getSavedHistory#998ab009 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field flags: %w", err)
+		}
+	}
+	if g.Flags.Has(0) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field parent_peer: %w", err)
+		}
+		g.ParentPeer = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field add_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field add_offset: %w", err)
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field max_id: %w", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field min_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field min_id: %w", err)
 		}
 		g.MinID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedHistory#3d9a414d: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedHistory#998ab009: field hash: %w", err)
 		}
 		g.Hash = value
 	}
 	return nil
+}
+
+// SetParentPeer sets value of ParentPeer conditional field.
+func (g *MessagesGetSavedHistoryRequest) SetParentPeer(value InputPeerClass) {
+	g.Flags.Set(0)
+	g.ParentPeer = value
+}
+
+// GetParentPeer returns value of ParentPeer conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetSavedHistoryRequest) GetParentPeer() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.ParentPeer, true
 }
 
 // GetPeer returns value of Peer field.
@@ -363,7 +434,7 @@ func (g *MessagesGetSavedHistoryRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetSavedHistory invokes method messages.getSavedHistory#3d9a414d returning error if any.
+// MessagesGetSavedHistory invokes method messages.getSavedHistory#998ab009 returning error if any.
 // Returns saved messages »¹ forwarded from a specific peer
 //
 // Links:

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesMarkDialogUnreadRequest represents TL type `messages.markDialogUnread#c286d98f`.
+// MessagesMarkDialogUnreadRequest represents TL type `messages.markDialogUnread#8c5006f8`.
 // Manually mark dialog as unread
 //
 // See https://core.telegram.org/method/messages.markDialogUnread for reference.
@@ -43,12 +43,16 @@ type MessagesMarkDialogUnreadRequest struct {
 	Flags bin.Fields
 	// Mark as unread/read
 	Unread bool
+	// ParentPeer field of MessagesMarkDialogUnreadRequest.
+	//
+	// Use SetParentPeer and GetParentPeer helpers.
+	ParentPeer InputPeerClass
 	// Dialog
 	Peer InputDialogPeerClass
 }
 
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.
-const MessagesMarkDialogUnreadRequestTypeID = 0xc286d98f
+const MessagesMarkDialogUnreadRequestTypeID = 0x8c5006f8
 
 // Ensuring interfaces in compile-time for MessagesMarkDialogUnreadRequest.
 var (
@@ -66,6 +70,9 @@ func (m *MessagesMarkDialogUnreadRequest) Zero() bool {
 		return false
 	}
 	if !(m.Unread == false) {
+		return false
+	}
+	if !(m.ParentPeer == nil) {
 		return false
 	}
 	if !(m.Peer == nil) {
@@ -87,9 +94,14 @@ func (m *MessagesMarkDialogUnreadRequest) String() string {
 // FillFrom fills MessagesMarkDialogUnreadRequest from given interface.
 func (m *MessagesMarkDialogUnreadRequest) FillFrom(from interface {
 	GetUnread() (value bool)
+	GetParentPeer() (value InputPeerClass, ok bool)
 	GetPeer() (value InputDialogPeerClass)
 }) {
 	m.Unread = from.GetUnread()
+	if val, ok := from.GetParentPeer(); ok {
+		m.ParentPeer = val
+	}
+
 	m.Peer = from.GetPeer()
 }
 
@@ -122,6 +134,11 @@ func (m *MessagesMarkDialogUnreadRequest) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(0),
 		},
 		{
+			Name:       "ParentPeer",
+			SchemaName: "parent_peer",
+			Null:       !m.Flags.Has(1),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -134,12 +151,15 @@ func (m *MessagesMarkDialogUnreadRequest) SetFlags() {
 	if !(m.Unread == false) {
 		m.Flags.Set(0)
 	}
+	if !(m.ParentPeer == nil) {
+		m.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
+		return fmt.Errorf("can't encode messages.markDialogUnread#8c5006f8 as nil")
 	}
 	b.PutID(MessagesMarkDialogUnreadRequestTypeID)
 	return m.EncodeBare(b)
@@ -148,17 +168,25 @@ func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagesMarkDialogUnreadRequest) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
+		return fmt.Errorf("can't encode messages.markDialogUnread#8c5006f8 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.markDialogUnread#8c5006f8: field flags: %w", err)
+	}
+	if m.Flags.Has(1) {
+		if m.ParentPeer == nil {
+			return fmt.Errorf("unable to encode messages.markDialogUnread#8c5006f8: field parent_peer is nil")
+		}
+		if err := m.ParentPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.markDialogUnread#8c5006f8: field parent_peer: %w", err)
+		}
 	}
 	if m.Peer == nil {
-		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field peer is nil")
+		return fmt.Errorf("unable to encode messages.markDialogUnread#8c5006f8: field peer is nil")
 	}
 	if err := m.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.markDialogUnread#8c5006f8: field peer: %w", err)
 	}
 	return nil
 }
@@ -166,10 +194,10 @@ func (m *MessagesMarkDialogUnreadRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.markDialogUnread#c286d98f to nil")
+		return fmt.Errorf("can't decode messages.markDialogUnread#8c5006f8 to nil")
 	}
 	if err := b.ConsumeID(MessagesMarkDialogUnreadRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: %w", err)
+		return fmt.Errorf("unable to decode messages.markDialogUnread#8c5006f8: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -177,18 +205,25 @@ func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagesMarkDialogUnreadRequest) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.markDialogUnread#c286d98f to nil")
+		return fmt.Errorf("can't decode messages.markDialogUnread#8c5006f8 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.markDialogUnread#8c5006f8: field flags: %w", err)
 		}
 	}
 	m.Unread = m.Flags.Has(0)
+	if m.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.markDialogUnread#8c5006f8: field parent_peer: %w", err)
+		}
+		m.ParentPeer = value
+	}
 	{
 		value, err := DecodeInputDialogPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.markDialogUnread#8c5006f8: field peer: %w", err)
 		}
 		m.Peer = value
 	}
@@ -214,6 +249,24 @@ func (m *MessagesMarkDialogUnreadRequest) GetUnread() (value bool) {
 	return m.Flags.Has(0)
 }
 
+// SetParentPeer sets value of ParentPeer conditional field.
+func (m *MessagesMarkDialogUnreadRequest) SetParentPeer(value InputPeerClass) {
+	m.Flags.Set(1)
+	m.ParentPeer = value
+}
+
+// GetParentPeer returns value of ParentPeer conditional field and
+// boolean which is true if field was set.
+func (m *MessagesMarkDialogUnreadRequest) GetParentPeer() (value InputPeerClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.ParentPeer, true
+}
+
 // GetPeer returns value of Peer field.
 func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass) {
 	if m == nil {
@@ -222,7 +275,7 @@ func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass)
 	return m.Peer
 }
 
-// MessagesMarkDialogUnread invokes method messages.markDialogUnread#c286d98f returning error if any.
+// MessagesMarkDialogUnread invokes method messages.markDialogUnread#8c5006f8 returning error if any.
 // Manually mark dialog as unread
 //
 // Possible errors:

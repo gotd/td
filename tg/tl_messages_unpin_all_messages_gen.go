@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#ee22b9a8`.
+// MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#62dd747`.
 // Unpin¹ all pinned messages
 //
 // Links:
@@ -53,10 +53,14 @@ type MessagesUnpinAllMessagesRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
+	// SavedPeerID field of MessagesUnpinAllMessagesRequest.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID InputPeerClass
 }
 
 // MessagesUnpinAllMessagesRequestTypeID is TL type id of MessagesUnpinAllMessagesRequest.
-const MessagesUnpinAllMessagesRequestTypeID = 0xee22b9a8
+const MessagesUnpinAllMessagesRequestTypeID = 0x62dd747
 
 // Ensuring interfaces in compile-time for MessagesUnpinAllMessagesRequest.
 var (
@@ -79,6 +83,9 @@ func (u *MessagesUnpinAllMessagesRequest) Zero() bool {
 	if !(u.TopMsgID == 0) {
 		return false
 	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
 
 	return true
 }
@@ -96,10 +103,15 @@ func (u *MessagesUnpinAllMessagesRequest) String() string {
 func (u *MessagesUnpinAllMessagesRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetTopMsgID() (value int, ok bool)
+	GetSavedPeerID() (value InputPeerClass, ok bool)
 }) {
 	u.Peer = from.GetPeer()
 	if val, ok := from.GetTopMsgID(); ok {
 		u.TopMsgID = val
+	}
+
+	if val, ok := from.GetSavedPeerID(); ok {
+		u.SavedPeerID = val
 	}
 
 }
@@ -136,6 +148,11 @@ func (u *MessagesUnpinAllMessagesRequest) TypeInfo() tdp.Type {
 			SchemaName: "top_msg_id",
 			Null:       !u.Flags.Has(0),
 		},
+		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !u.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -145,12 +162,15 @@ func (u *MessagesUnpinAllMessagesRequest) SetFlags() {
 	if !(u.TopMsgID == 0) {
 		u.Flags.Set(0)
 	}
+	if !(u.SavedPeerID == nil) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.unpinAllMessages#ee22b9a8 as nil")
+		return fmt.Errorf("can't encode messages.unpinAllMessages#62dd747 as nil")
 	}
 	b.PutID(MessagesUnpinAllMessagesRequestTypeID)
 	return u.EncodeBare(b)
@@ -159,20 +179,28 @@ func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUnpinAllMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.unpinAllMessages#ee22b9a8 as nil")
+		return fmt.Errorf("can't encode messages.unpinAllMessages#62dd747 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#ee22b9a8: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.unpinAllMessages#62dd747: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#ee22b9a8: field peer is nil")
+		return fmt.Errorf("unable to encode messages.unpinAllMessages#62dd747: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#ee22b9a8: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.unpinAllMessages#62dd747: field peer: %w", err)
 	}
 	if u.Flags.Has(0) {
 		b.PutInt(u.TopMsgID)
+	}
+	if u.Flags.Has(1) {
+		if u.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode messages.unpinAllMessages#62dd747: field saved_peer_id is nil")
+		}
+		if err := u.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.unpinAllMessages#62dd747: field saved_peer_id: %w", err)
+		}
 	}
 	return nil
 }
@@ -180,10 +208,10 @@ func (u *MessagesUnpinAllMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.unpinAllMessages#ee22b9a8 to nil")
+		return fmt.Errorf("can't decode messages.unpinAllMessages#62dd747 to nil")
 	}
 	if err := b.ConsumeID(MessagesUnpinAllMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: %w", err)
+		return fmt.Errorf("unable to decode messages.unpinAllMessages#62dd747: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -191,26 +219,33 @@ func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUnpinAllMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.unpinAllMessages#ee22b9a8 to nil")
+		return fmt.Errorf("can't decode messages.unpinAllMessages#62dd747 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#62dd747: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#62dd747: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#62dd747: field top_msg_id: %w", err)
 		}
 		u.TopMsgID = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#62dd747: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
 	}
 	return nil
 }
@@ -241,7 +276,25 @@ func (u *MessagesUnpinAllMessagesRequest) GetTopMsgID() (value int, ok bool) {
 	return u.TopMsgID, true
 }
 
-// MessagesUnpinAllMessages invokes method messages.unpinAllMessages#ee22b9a8 returning error if any.
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (u *MessagesUnpinAllMessagesRequest) SetSavedPeerID(value InputPeerClass) {
+	u.Flags.Set(1)
+	u.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (u *MessagesUnpinAllMessagesRequest) GetSavedPeerID() (value InputPeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.SavedPeerID, true
+}
+
+// MessagesUnpinAllMessages invokes method messages.unpinAllMessages#62dd747 returning error if any.
 // Unpin¹ all pinned messages
 //
 // Links:
