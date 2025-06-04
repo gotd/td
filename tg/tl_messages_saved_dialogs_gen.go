@@ -43,7 +43,7 @@ type MessagesSavedDialogs struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
-	Dialogs []SavedDialog
+	Dialogs []SavedDialogClass
 	// List of last messages from each saved dialog
 	Messages []MessageClass
 	// Mentioned chats
@@ -99,7 +99,7 @@ func (s *MessagesSavedDialogs) String() string {
 
 // FillFrom fills MessagesSavedDialogs from given interface.
 func (s *MessagesSavedDialogs) FillFrom(from interface {
-	GetDialogs() (value []SavedDialog)
+	GetDialogs() (value []SavedDialogClass)
 	GetMessages() (value []MessageClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
@@ -169,6 +169,9 @@ func (s *MessagesSavedDialogs) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutVectorHeader(len(s.Dialogs))
 	for idx, v := range s.Dialogs {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.savedDialogs#f83ae221: field dialogs element with index %d is nil", idx)
+		}
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode messages.savedDialogs#f83ae221: field dialogs element with index %d: %w", idx, err)
 		}
@@ -226,11 +229,11 @@ func (s *MessagesSavedDialogs) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			s.Dialogs = make([]SavedDialog, 0, headerLen%bin.PreallocateLimit)
+			s.Dialogs = make([]SavedDialogClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value SavedDialog
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeSavedDialog(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode messages.savedDialogs#f83ae221: field dialogs: %w", err)
 			}
 			s.Dialogs = append(s.Dialogs, value)
@@ -291,7 +294,7 @@ func (s *MessagesSavedDialogs) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetDialogs returns value of Dialogs field.
-func (s *MessagesSavedDialogs) GetDialogs() (value []SavedDialog) {
+func (s *MessagesSavedDialogs) GetDialogs() (value []SavedDialogClass) {
 	if s == nil {
 		return
 	}
@@ -322,6 +325,11 @@ func (s *MessagesSavedDialogs) GetUsers() (value []UserClass) {
 	return s.Users
 }
 
+// MapDialogs returns field Dialogs wrapped in SavedDialogClassArray helper.
+func (s *MessagesSavedDialogs) MapDialogs() (value SavedDialogClassArray) {
+	return SavedDialogClassArray(s.Dialogs)
+}
+
 // MapMessages returns field Messages wrapped in MessageClassArray helper.
 func (s *MessagesSavedDialogs) MapMessages() (value MessageClassArray) {
 	return MessageClassArray(s.Messages)
@@ -348,7 +356,7 @@ type MessagesSavedDialogsSlice struct {
 	// Total number of saved message dialogs
 	Count int
 	// List of saved message dialogs
-	Dialogs []SavedDialog
+	Dialogs []SavedDialogClass
 	// List of last messages from dialogs
 	Messages []MessageClass
 	// Mentioned chats
@@ -408,7 +416,7 @@ func (s *MessagesSavedDialogsSlice) String() string {
 // FillFrom fills MessagesSavedDialogsSlice from given interface.
 func (s *MessagesSavedDialogsSlice) FillFrom(from interface {
 	GetCount() (value int)
-	GetDialogs() (value []SavedDialog)
+	GetDialogs() (value []SavedDialogClass)
 	GetMessages() (value []MessageClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
@@ -484,6 +492,9 @@ func (s *MessagesSavedDialogsSlice) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(s.Count)
 	b.PutVectorHeader(len(s.Dialogs))
 	for idx, v := range s.Dialogs {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.savedDialogsSlice#44ba9dd9: field dialogs element with index %d is nil", idx)
+		}
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode messages.savedDialogsSlice#44ba9dd9: field dialogs element with index %d: %w", idx, err)
 		}
@@ -548,11 +559,11 @@ func (s *MessagesSavedDialogsSlice) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			s.Dialogs = make([]SavedDialog, 0, headerLen%bin.PreallocateLimit)
+			s.Dialogs = make([]SavedDialogClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value SavedDialog
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeSavedDialog(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode messages.savedDialogsSlice#44ba9dd9: field dialogs: %w", err)
 			}
 			s.Dialogs = append(s.Dialogs, value)
@@ -621,7 +632,7 @@ func (s *MessagesSavedDialogsSlice) GetCount() (value int) {
 }
 
 // GetDialogs returns value of Dialogs field.
-func (s *MessagesSavedDialogsSlice) GetDialogs() (value []SavedDialog) {
+func (s *MessagesSavedDialogsSlice) GetDialogs() (value []SavedDialogClass) {
 	if s == nil {
 		return
 	}
@@ -650,6 +661,11 @@ func (s *MessagesSavedDialogsSlice) GetUsers() (value []UserClass) {
 		return
 	}
 	return s.Users
+}
+
+// MapDialogs returns field Dialogs wrapped in SavedDialogClassArray helper.
+func (s *MessagesSavedDialogsSlice) MapDialogs() (value SavedDialogClassArray) {
+	return SavedDialogClassArray(s.Dialogs)
 }
 
 // MapMessages returns field Messages wrapped in MessageClassArray helper.
@@ -874,7 +890,7 @@ type ModifiedMessagesSavedDialogs interface {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
-	GetDialogs() (value []SavedDialog)
+	GetDialogs() (value []SavedDialogClass)
 
 	// List of last messages from each saved dialog
 	GetMessages() (value []MessageClass)

@@ -33,3 +33,275 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// SavedDialogClassArray is adapter for slice of SavedDialogClass.
+type SavedDialogClassArray []SavedDialogClass
+
+// Sort sorts slice of SavedDialogClass.
+func (s SavedDialogClassArray) Sort(less func(a, b SavedDialogClass) bool) SavedDialogClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SavedDialogClass.
+func (s SavedDialogClassArray) SortStable(less func(a, b SavedDialogClass) bool) SavedDialogClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SavedDialogClass.
+func (s SavedDialogClassArray) Retain(keep func(x SavedDialogClass) bool) SavedDialogClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SavedDialogClassArray) First() (v SavedDialogClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SavedDialogClassArray) Last() (v SavedDialogClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SavedDialogClassArray) PopFirst() (v SavedDialogClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SavedDialogClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SavedDialogClassArray) Pop() (v SavedDialogClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsSavedDialog returns copy with only SavedDialog constructors.
+func (s SavedDialogClassArray) AsSavedDialog() (to SavedDialogArray) {
+	for _, elem := range s {
+		value, ok := elem.(*SavedDialog)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMonoForumDialog returns copy with only MonoForumDialog constructors.
+func (s SavedDialogClassArray) AsMonoForumDialog() (to MonoForumDialogArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MonoForumDialog)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// SavedDialogArray is adapter for slice of SavedDialog.
+type SavedDialogArray []SavedDialog
+
+// Sort sorts slice of SavedDialog.
+func (s SavedDialogArray) Sort(less func(a, b SavedDialog) bool) SavedDialogArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SavedDialog.
+func (s SavedDialogArray) SortStable(less func(a, b SavedDialog) bool) SavedDialogArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SavedDialog.
+func (s SavedDialogArray) Retain(keep func(x SavedDialog) bool) SavedDialogArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SavedDialogArray) First() (v SavedDialog, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SavedDialogArray) Last() (v SavedDialog, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SavedDialogArray) PopFirst() (v SavedDialog, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SavedDialog
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SavedDialogArray) Pop() (v SavedDialog, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MonoForumDialogArray is adapter for slice of MonoForumDialog.
+type MonoForumDialogArray []MonoForumDialog
+
+// Sort sorts slice of MonoForumDialog.
+func (s MonoForumDialogArray) Sort(less func(a, b MonoForumDialog) bool) MonoForumDialogArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MonoForumDialog.
+func (s MonoForumDialogArray) SortStable(less func(a, b MonoForumDialog) bool) MonoForumDialogArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MonoForumDialog.
+func (s MonoForumDialogArray) Retain(keep func(x MonoForumDialog) bool) MonoForumDialogArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MonoForumDialogArray) First() (v MonoForumDialog, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MonoForumDialogArray) Last() (v MonoForumDialog, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MonoForumDialogArray) PopFirst() (v MonoForumDialog, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MonoForumDialog
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MonoForumDialogArray) Pop() (v MonoForumDialog, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

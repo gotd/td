@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesDeleteSavedHistoryRequest represents TL type `messages.deleteSavedHistory#6e98102b`.
+// MessagesDeleteSavedHistoryRequest represents TL type `messages.deleteSavedHistory#4dc5085f`.
 // Deletes messages forwarded from a specific peer to saved messages »¹.
 //
 // Links:
@@ -44,6 +44,10 @@ type MessagesDeleteSavedHistoryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// ParentPeer field of MessagesDeleteSavedHistoryRequest.
+	//
+	// Use SetParentPeer and GetParentPeer helpers.
+	ParentPeer InputPeerClass
 	// Peer, whose messages will be deleted from saved messages »¹
 	//
 	// Links:
@@ -62,7 +66,7 @@ type MessagesDeleteSavedHistoryRequest struct {
 }
 
 // MessagesDeleteSavedHistoryRequestTypeID is TL type id of MessagesDeleteSavedHistoryRequest.
-const MessagesDeleteSavedHistoryRequestTypeID = 0x6e98102b
+const MessagesDeleteSavedHistoryRequestTypeID = 0x4dc5085f
 
 // Ensuring interfaces in compile-time for MessagesDeleteSavedHistoryRequest.
 var (
@@ -77,6 +81,9 @@ func (d *MessagesDeleteSavedHistoryRequest) Zero() bool {
 		return true
 	}
 	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.ParentPeer == nil) {
 		return false
 	}
 	if !(d.Peer == nil) {
@@ -106,11 +113,16 @@ func (d *MessagesDeleteSavedHistoryRequest) String() string {
 
 // FillFrom fills MessagesDeleteSavedHistoryRequest from given interface.
 func (d *MessagesDeleteSavedHistoryRequest) FillFrom(from interface {
+	GetParentPeer() (value InputPeerClass, ok bool)
 	GetPeer() (value InputPeerClass)
 	GetMaxID() (value int)
 	GetMinDate() (value int, ok bool)
 	GetMaxDate() (value int, ok bool)
 }) {
+	if val, ok := from.GetParentPeer(); ok {
+		d.ParentPeer = val
+	}
+
 	d.Peer = from.GetPeer()
 	d.MaxID = from.GetMaxID()
 	if val, ok := from.GetMinDate(); ok {
@@ -147,6 +159,11 @@ func (d *MessagesDeleteSavedHistoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ParentPeer",
+			SchemaName: "parent_peer",
+			Null:       !d.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -170,6 +187,9 @@ func (d *MessagesDeleteSavedHistoryRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (d *MessagesDeleteSavedHistoryRequest) SetFlags() {
+	if !(d.ParentPeer == nil) {
+		d.Flags.Set(0)
+	}
 	if !(d.MinDate == 0) {
 		d.Flags.Set(2)
 	}
@@ -181,7 +201,7 @@ func (d *MessagesDeleteSavedHistoryRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteSavedHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteSavedHistory#6e98102b as nil")
+		return fmt.Errorf("can't encode messages.deleteSavedHistory#4dc5085f as nil")
 	}
 	b.PutID(MessagesDeleteSavedHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -190,17 +210,25 @@ func (d *MessagesDeleteSavedHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteSavedHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteSavedHistory#6e98102b as nil")
+		return fmt.Errorf("can't encode messages.deleteSavedHistory#4dc5085f as nil")
 	}
 	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteSavedHistory#6e98102b: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.deleteSavedHistory#4dc5085f: field flags: %w", err)
+	}
+	if d.Flags.Has(0) {
+		if d.ParentPeer == nil {
+			return fmt.Errorf("unable to encode messages.deleteSavedHistory#4dc5085f: field parent_peer is nil")
+		}
+		if err := d.ParentPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.deleteSavedHistory#4dc5085f: field parent_peer: %w", err)
+		}
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode messages.deleteSavedHistory#6e98102b: field peer is nil")
+		return fmt.Errorf("unable to encode messages.deleteSavedHistory#4dc5085f: field peer is nil")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteSavedHistory#6e98102b: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.deleteSavedHistory#4dc5085f: field peer: %w", err)
 	}
 	b.PutInt(d.MaxID)
 	if d.Flags.Has(2) {
@@ -215,10 +243,10 @@ func (d *MessagesDeleteSavedHistoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteSavedHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteSavedHistory#6e98102b to nil")
+		return fmt.Errorf("can't decode messages.deleteSavedHistory#4dc5085f to nil")
 	}
 	if err := b.ConsumeID(MessagesDeleteSavedHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteSavedHistory#6e98102b: %w", err)
+		return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -226,42 +254,67 @@ func (d *MessagesDeleteSavedHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteSavedHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteSavedHistory#6e98102b to nil")
+		return fmt.Errorf("can't decode messages.deleteSavedHistory#4dc5085f to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteSavedHistory#6e98102b: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: field flags: %w", err)
 		}
+	}
+	if d.Flags.Has(0) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: field parent_peer: %w", err)
+		}
+		d.ParentPeer = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteSavedHistory#6e98102b: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: field peer: %w", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteSavedHistory#6e98102b: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: field max_id: %w", err)
 		}
 		d.MaxID = value
 	}
 	if d.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteSavedHistory#6e98102b: field min_date: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: field min_date: %w", err)
 		}
 		d.MinDate = value
 	}
 	if d.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteSavedHistory#6e98102b: field max_date: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteSavedHistory#4dc5085f: field max_date: %w", err)
 		}
 		d.MaxDate = value
 	}
 	return nil
+}
+
+// SetParentPeer sets value of ParentPeer conditional field.
+func (d *MessagesDeleteSavedHistoryRequest) SetParentPeer(value InputPeerClass) {
+	d.Flags.Set(0)
+	d.ParentPeer = value
+}
+
+// GetParentPeer returns value of ParentPeer conditional field and
+// boolean which is true if field was set.
+func (d *MessagesDeleteSavedHistoryRequest) GetParentPeer() (value InputPeerClass, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.ParentPeer, true
 }
 
 // GetPeer returns value of Peer field.
@@ -316,7 +369,7 @@ func (d *MessagesDeleteSavedHistoryRequest) GetMaxDate() (value int, ok bool) {
 	return d.MaxDate, true
 }
 
-// MessagesDeleteSavedHistory invokes method messages.deleteSavedHistory#6e98102b returning error if any.
+// MessagesDeleteSavedHistory invokes method messages.deleteSavedHistory#4dc5085f returning error if any.
 // Deletes messages forwarded from a specific peer to saved messages »¹.
 //
 // Links:

@@ -55,12 +55,17 @@ type SavedDialog struct {
 // SavedDialogTypeID is TL type id of SavedDialog.
 const SavedDialogTypeID = 0xbd87cb6c
 
+// construct implements constructor of SavedDialogClass.
+func (s SavedDialog) construct() SavedDialogClass { return &s }
+
 // Ensuring interfaces in compile-time for SavedDialog.
 var (
 	_ bin.Encoder     = &SavedDialog{}
 	_ bin.Decoder     = &SavedDialog{}
 	_ bin.BareEncoder = &SavedDialog{}
 	_ bin.BareDecoder = &SavedDialog{}
+
+	_ SavedDialogClass = &SavedDialog{}
 )
 
 func (s *SavedDialog) Zero() bool {
@@ -250,4 +255,483 @@ func (s *SavedDialog) GetTopMessage() (value int) {
 		return
 	}
 	return s.TopMessage
+}
+
+// MonoForumDialog represents TL type `monoForumDialog#64407ea7`.
+//
+// See https://core.telegram.org/constructor/monoForumDialog for reference.
+type MonoForumDialog struct {
+	// Flags field of MonoForumDialog.
+	Flags bin.Fields
+	// UnreadMark field of MonoForumDialog.
+	UnreadMark bool
+	// Peer field of MonoForumDialog.
+	Peer PeerClass
+	// TopMessage field of MonoForumDialog.
+	TopMessage int
+	// ReadInboxMaxID field of MonoForumDialog.
+	ReadInboxMaxID int
+	// ReadOutboxMaxID field of MonoForumDialog.
+	ReadOutboxMaxID int
+	// UnreadCount field of MonoForumDialog.
+	UnreadCount int
+	// UnreadReactionsCount field of MonoForumDialog.
+	UnreadReactionsCount int
+	// Draft field of MonoForumDialog.
+	//
+	// Use SetDraft and GetDraft helpers.
+	Draft DraftMessageClass
+}
+
+// MonoForumDialogTypeID is TL type id of MonoForumDialog.
+const MonoForumDialogTypeID = 0x64407ea7
+
+// construct implements constructor of SavedDialogClass.
+func (m MonoForumDialog) construct() SavedDialogClass { return &m }
+
+// Ensuring interfaces in compile-time for MonoForumDialog.
+var (
+	_ bin.Encoder     = &MonoForumDialog{}
+	_ bin.Decoder     = &MonoForumDialog{}
+	_ bin.BareEncoder = &MonoForumDialog{}
+	_ bin.BareDecoder = &MonoForumDialog{}
+
+	_ SavedDialogClass = &MonoForumDialog{}
+)
+
+func (m *MonoForumDialog) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.UnreadMark == false) {
+		return false
+	}
+	if !(m.Peer == nil) {
+		return false
+	}
+	if !(m.TopMessage == 0) {
+		return false
+	}
+	if !(m.ReadInboxMaxID == 0) {
+		return false
+	}
+	if !(m.ReadOutboxMaxID == 0) {
+		return false
+	}
+	if !(m.UnreadCount == 0) {
+		return false
+	}
+	if !(m.UnreadReactionsCount == 0) {
+		return false
+	}
+	if !(m.Draft == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MonoForumDialog) String() string {
+	if m == nil {
+		return "MonoForumDialog(nil)"
+	}
+	type Alias MonoForumDialog
+	return fmt.Sprintf("MonoForumDialog%+v", Alias(*m))
+}
+
+// FillFrom fills MonoForumDialog from given interface.
+func (m *MonoForumDialog) FillFrom(from interface {
+	GetUnreadMark() (value bool)
+	GetPeer() (value PeerClass)
+	GetTopMessage() (value int)
+	GetReadInboxMaxID() (value int)
+	GetReadOutboxMaxID() (value int)
+	GetUnreadCount() (value int)
+	GetUnreadReactionsCount() (value int)
+	GetDraft() (value DraftMessageClass, ok bool)
+}) {
+	m.UnreadMark = from.GetUnreadMark()
+	m.Peer = from.GetPeer()
+	m.TopMessage = from.GetTopMessage()
+	m.ReadInboxMaxID = from.GetReadInboxMaxID()
+	m.ReadOutboxMaxID = from.GetReadOutboxMaxID()
+	m.UnreadCount = from.GetUnreadCount()
+	m.UnreadReactionsCount = from.GetUnreadReactionsCount()
+	if val, ok := from.GetDraft(); ok {
+		m.Draft = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MonoForumDialog) TypeID() uint32 {
+	return MonoForumDialogTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MonoForumDialog) TypeName() string {
+	return "monoForumDialog"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MonoForumDialog) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "monoForumDialog",
+		ID:   MonoForumDialogTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UnreadMark",
+			SchemaName: "unread_mark",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TopMessage",
+			SchemaName: "top_message",
+		},
+		{
+			Name:       "ReadInboxMaxID",
+			SchemaName: "read_inbox_max_id",
+		},
+		{
+			Name:       "ReadOutboxMaxID",
+			SchemaName: "read_outbox_max_id",
+		},
+		{
+			Name:       "UnreadCount",
+			SchemaName: "unread_count",
+		},
+		{
+			Name:       "UnreadReactionsCount",
+			SchemaName: "unread_reactions_count",
+		},
+		{
+			Name:       "Draft",
+			SchemaName: "draft",
+			Null:       !m.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MonoForumDialog) SetFlags() {
+	if !(m.UnreadMark == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.Draft == nil) {
+		m.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MonoForumDialog) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode monoForumDialog#64407ea7 as nil")
+	}
+	b.PutID(MonoForumDialogTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MonoForumDialog) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode monoForumDialog#64407ea7 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode monoForumDialog#64407ea7: field flags: %w", err)
+	}
+	if m.Peer == nil {
+		return fmt.Errorf("unable to encode monoForumDialog#64407ea7: field peer is nil")
+	}
+	if err := m.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode monoForumDialog#64407ea7: field peer: %w", err)
+	}
+	b.PutInt(m.TopMessage)
+	b.PutInt(m.ReadInboxMaxID)
+	b.PutInt(m.ReadOutboxMaxID)
+	b.PutInt(m.UnreadCount)
+	b.PutInt(m.UnreadReactionsCount)
+	if m.Flags.Has(1) {
+		if m.Draft == nil {
+			return fmt.Errorf("unable to encode monoForumDialog#64407ea7: field draft is nil")
+		}
+		if err := m.Draft.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode monoForumDialog#64407ea7: field draft: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MonoForumDialog) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode monoForumDialog#64407ea7 to nil")
+	}
+	if err := b.ConsumeID(MonoForumDialogTypeID); err != nil {
+		return fmt.Errorf("unable to decode monoForumDialog#64407ea7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MonoForumDialog) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode monoForumDialog#64407ea7 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field flags: %w", err)
+		}
+	}
+	m.UnreadMark = m.Flags.Has(3)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field peer: %w", err)
+		}
+		m.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field top_message: %w", err)
+		}
+		m.TopMessage = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field read_inbox_max_id: %w", err)
+		}
+		m.ReadInboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field read_outbox_max_id: %w", err)
+		}
+		m.ReadOutboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field unread_count: %w", err)
+		}
+		m.UnreadCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field unread_reactions_count: %w", err)
+		}
+		m.UnreadReactionsCount = value
+	}
+	if m.Flags.Has(1) {
+		value, err := DecodeDraftMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode monoForumDialog#64407ea7: field draft: %w", err)
+		}
+		m.Draft = value
+	}
+	return nil
+}
+
+// SetUnreadMark sets value of UnreadMark conditional field.
+func (m *MonoForumDialog) SetUnreadMark(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.UnreadMark = true
+	} else {
+		m.Flags.Unset(3)
+		m.UnreadMark = false
+	}
+}
+
+// GetUnreadMark returns value of UnreadMark conditional field.
+func (m *MonoForumDialog) GetUnreadMark() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
+}
+
+// GetPeer returns value of Peer field.
+func (m *MonoForumDialog) GetPeer() (value PeerClass) {
+	if m == nil {
+		return
+	}
+	return m.Peer
+}
+
+// GetTopMessage returns value of TopMessage field.
+func (m *MonoForumDialog) GetTopMessage() (value int) {
+	if m == nil {
+		return
+	}
+	return m.TopMessage
+}
+
+// GetReadInboxMaxID returns value of ReadInboxMaxID field.
+func (m *MonoForumDialog) GetReadInboxMaxID() (value int) {
+	if m == nil {
+		return
+	}
+	return m.ReadInboxMaxID
+}
+
+// GetReadOutboxMaxID returns value of ReadOutboxMaxID field.
+func (m *MonoForumDialog) GetReadOutboxMaxID() (value int) {
+	if m == nil {
+		return
+	}
+	return m.ReadOutboxMaxID
+}
+
+// GetUnreadCount returns value of UnreadCount field.
+func (m *MonoForumDialog) GetUnreadCount() (value int) {
+	if m == nil {
+		return
+	}
+	return m.UnreadCount
+}
+
+// GetUnreadReactionsCount returns value of UnreadReactionsCount field.
+func (m *MonoForumDialog) GetUnreadReactionsCount() (value int) {
+	if m == nil {
+		return
+	}
+	return m.UnreadReactionsCount
+}
+
+// SetDraft sets value of Draft conditional field.
+func (m *MonoForumDialog) SetDraft(value DraftMessageClass) {
+	m.Flags.Set(1)
+	m.Draft = value
+}
+
+// GetDraft returns value of Draft conditional field and
+// boolean which is true if field was set.
+func (m *MonoForumDialog) GetDraft() (value DraftMessageClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.Draft, true
+}
+
+// SavedDialogClassName is schema name of SavedDialogClass.
+const SavedDialogClassName = "SavedDialog"
+
+// SavedDialogClass represents SavedDialog generic type.
+//
+// See https://core.telegram.org/type/SavedDialog for reference.
+//
+// Constructors:
+//   - [SavedDialog]
+//   - [MonoForumDialog]
+//
+// Example:
+//
+//	g, err := tg.DecodeSavedDialog(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.SavedDialog: // savedDialog#bd87cb6c
+//	case *tg.MonoForumDialog: // monoForumDialog#64407ea7
+//	default: panic(v)
+//	}
+type SavedDialogClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() SavedDialogClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// The dialog
+	GetPeer() (value PeerClass)
+
+	// The latest message ID
+	GetTopMessage() (value int)
+}
+
+// DecodeSavedDialog implements binary de-serialization for SavedDialogClass.
+func DecodeSavedDialog(buf *bin.Buffer) (SavedDialogClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case SavedDialogTypeID:
+		// Decoding savedDialog#bd87cb6c.
+		v := SavedDialog{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SavedDialogClass: %w", err)
+		}
+		return &v, nil
+	case MonoForumDialogTypeID:
+		// Decoding monoForumDialog#64407ea7.
+		v := MonoForumDialog{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SavedDialogClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode SavedDialogClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// SavedDialog boxes the SavedDialogClass providing a helper.
+type SavedDialogBox struct {
+	SavedDialog SavedDialogClass
+}
+
+// Decode implements bin.Decoder for SavedDialogBox.
+func (b *SavedDialogBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SavedDialogBox to nil")
+	}
+	v, err := DecodeSavedDialog(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SavedDialog = v
+	return nil
+}
+
+// Encode implements bin.Encode for SavedDialogBox.
+func (b *SavedDialogBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SavedDialog == nil {
+		return fmt.Errorf("unable to encode SavedDialogClass as nil")
+	}
+	return b.SavedDialog.Encode(buf)
 }

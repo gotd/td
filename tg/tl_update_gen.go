@@ -9188,7 +9188,7 @@ func (u *UpdateReadChannelOutbox) GetMaxID() (value int) {
 	return u.MaxID
 }
 
-// UpdateDraftMessage represents TL type `updateDraftMessage#1b49ec6d`.
+// UpdateDraftMessage represents TL type `updateDraftMessage#edfc111e`.
 // Notifies a change of a message draft¹.
 //
 // Links:
@@ -9210,12 +9210,16 @@ type UpdateDraftMessage struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
+	// SavedPeerID field of UpdateDraftMessage.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID PeerClass
 	// The draft
 	Draft DraftMessageClass
 }
 
 // UpdateDraftMessageTypeID is TL type id of UpdateDraftMessage.
-const UpdateDraftMessageTypeID = 0x1b49ec6d
+const UpdateDraftMessageTypeID = 0xedfc111e
 
 // construct implements constructor of UpdateClass.
 func (u UpdateDraftMessage) construct() UpdateClass { return &u }
@@ -9243,6 +9247,9 @@ func (u *UpdateDraftMessage) Zero() bool {
 	if !(u.TopMsgID == 0) {
 		return false
 	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
 	if !(u.Draft == nil) {
 		return false
 	}
@@ -9263,11 +9270,16 @@ func (u *UpdateDraftMessage) String() string {
 func (u *UpdateDraftMessage) FillFrom(from interface {
 	GetPeer() (value PeerClass)
 	GetTopMsgID() (value int, ok bool)
+	GetSavedPeerID() (value PeerClass, ok bool)
 	GetDraft() (value DraftMessageClass)
 }) {
 	u.Peer = from.GetPeer()
 	if val, ok := from.GetTopMsgID(); ok {
 		u.TopMsgID = val
+	}
+
+	if val, ok := from.GetSavedPeerID(); ok {
+		u.SavedPeerID = val
 	}
 
 	u.Draft = from.GetDraft()
@@ -9306,6 +9318,11 @@ func (u *UpdateDraftMessage) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "Draft",
 			SchemaName: "draft",
 		},
@@ -9318,12 +9335,15 @@ func (u *UpdateDraftMessage) SetFlags() {
 	if !(u.TopMsgID == 0) {
 		u.Flags.Set(0)
 	}
+	if !(u.SavedPeerID == nil) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateDraftMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateDraftMessage#1b49ec6d as nil")
+		return fmt.Errorf("can't encode updateDraftMessage#edfc111e as nil")
 	}
 	b.PutID(UpdateDraftMessageTypeID)
 	return u.EncodeBare(b)
@@ -9332,26 +9352,34 @@ func (u *UpdateDraftMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateDraftMessage) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateDraftMessage#1b49ec6d as nil")
+		return fmt.Errorf("can't encode updateDraftMessage#edfc111e as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateDraftMessage#1b49ec6d: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateDraftMessage#1b49ec6d: field peer is nil")
+		return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateDraftMessage#1b49ec6d: field peer: %w", err)
+		return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field peer: %w", err)
 	}
 	if u.Flags.Has(0) {
 		b.PutInt(u.TopMsgID)
 	}
+	if u.Flags.Has(1) {
+		if u.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field saved_peer_id is nil")
+		}
+		if err := u.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field saved_peer_id: %w", err)
+		}
+	}
 	if u.Draft == nil {
-		return fmt.Errorf("unable to encode updateDraftMessage#1b49ec6d: field draft is nil")
+		return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field draft is nil")
 	}
 	if err := u.Draft.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateDraftMessage#1b49ec6d: field draft: %w", err)
+		return fmt.Errorf("unable to encode updateDraftMessage#edfc111e: field draft: %w", err)
 	}
 	return nil
 }
@@ -9359,10 +9387,10 @@ func (u *UpdateDraftMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateDraftMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateDraftMessage#1b49ec6d to nil")
+		return fmt.Errorf("can't decode updateDraftMessage#edfc111e to nil")
 	}
 	if err := b.ConsumeID(UpdateDraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateDraftMessage#1b49ec6d: %w", err)
+		return fmt.Errorf("unable to decode updateDraftMessage#edfc111e: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -9370,31 +9398,38 @@ func (u *UpdateDraftMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateDraftMessage) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateDraftMessage#1b49ec6d to nil")
+		return fmt.Errorf("can't decode updateDraftMessage#edfc111e to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateDraftMessage#1b49ec6d: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateDraftMessage#edfc111e: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateDraftMessage#1b49ec6d: field peer: %w", err)
+			return fmt.Errorf("unable to decode updateDraftMessage#edfc111e: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateDraftMessage#1b49ec6d: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode updateDraftMessage#edfc111e: field top_msg_id: %w", err)
 		}
 		u.TopMsgID = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDraftMessage#edfc111e: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
 	}
 	{
 		value, err := DecodeDraftMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateDraftMessage#1b49ec6d: field draft: %w", err)
+			return fmt.Errorf("unable to decode updateDraftMessage#edfc111e: field draft: %w", err)
 		}
 		u.Draft = value
 	}
@@ -9425,6 +9460,24 @@ func (u *UpdateDraftMessage) GetTopMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return u.TopMsgID, true
+}
+
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (u *UpdateDraftMessage) SetSavedPeerID(value PeerClass) {
+	u.Flags.Set(1)
+	u.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateDraftMessage) GetSavedPeerID() (value PeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.SavedPeerID, true
 }
 
 // GetDraft returns value of Draft field.
@@ -12017,7 +12070,7 @@ func (u *UpdateFavedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// UpdateChannelReadMessagesContents represents TL type `updateChannelReadMessagesContents#ea29055d`.
+// UpdateChannelReadMessagesContents represents TL type `updateChannelReadMessagesContents#25f324f7`.
 // The specified channel/supergroup¹ messages were read
 //
 // Links:
@@ -12042,12 +12095,16 @@ type UpdateChannelReadMessagesContents struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
+	// SavedPeerID field of UpdateChannelReadMessagesContents.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID PeerClass
 	// IDs of messages that were read
 	Messages []int
 }
 
 // UpdateChannelReadMessagesContentsTypeID is TL type id of UpdateChannelReadMessagesContents.
-const UpdateChannelReadMessagesContentsTypeID = 0xea29055d
+const UpdateChannelReadMessagesContentsTypeID = 0x25f324f7
 
 // construct implements constructor of UpdateClass.
 func (u UpdateChannelReadMessagesContents) construct() UpdateClass { return &u }
@@ -12075,6 +12132,9 @@ func (u *UpdateChannelReadMessagesContents) Zero() bool {
 	if !(u.TopMsgID == 0) {
 		return false
 	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
 	if !(u.Messages == nil) {
 		return false
 	}
@@ -12095,11 +12155,16 @@ func (u *UpdateChannelReadMessagesContents) String() string {
 func (u *UpdateChannelReadMessagesContents) FillFrom(from interface {
 	GetChannelID() (value int64)
 	GetTopMsgID() (value int, ok bool)
+	GetSavedPeerID() (value PeerClass, ok bool)
 	GetMessages() (value []int)
 }) {
 	u.ChannelID = from.GetChannelID()
 	if val, ok := from.GetTopMsgID(); ok {
 		u.TopMsgID = val
+	}
+
+	if val, ok := from.GetSavedPeerID(); ok {
+		u.SavedPeerID = val
 	}
 
 	u.Messages = from.GetMessages()
@@ -12138,6 +12203,11 @@ func (u *UpdateChannelReadMessagesContents) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "Messages",
 			SchemaName: "messages",
 		},
@@ -12150,12 +12220,15 @@ func (u *UpdateChannelReadMessagesContents) SetFlags() {
 	if !(u.TopMsgID == 0) {
 		u.Flags.Set(0)
 	}
+	if !(u.SavedPeerID == nil) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelReadMessagesContents) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChannelReadMessagesContents#ea29055d as nil")
+		return fmt.Errorf("can't encode updateChannelReadMessagesContents#25f324f7 as nil")
 	}
 	b.PutID(UpdateChannelReadMessagesContentsTypeID)
 	return u.EncodeBare(b)
@@ -12164,15 +12237,23 @@ func (u *UpdateChannelReadMessagesContents) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateChannelReadMessagesContents) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChannelReadMessagesContents#ea29055d as nil")
+		return fmt.Errorf("can't encode updateChannelReadMessagesContents#25f324f7 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChannelReadMessagesContents#ea29055d: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateChannelReadMessagesContents#25f324f7: field flags: %w", err)
 	}
 	b.PutLong(u.ChannelID)
 	if u.Flags.Has(0) {
 		b.PutInt(u.TopMsgID)
+	}
+	if u.Flags.Has(1) {
+		if u.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode updateChannelReadMessagesContents#25f324f7: field saved_peer_id is nil")
+		}
+		if err := u.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateChannelReadMessagesContents#25f324f7: field saved_peer_id: %w", err)
+		}
 	}
 	b.PutVectorHeader(len(u.Messages))
 	for _, v := range u.Messages {
@@ -12184,10 +12265,10 @@ func (u *UpdateChannelReadMessagesContents) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateChannelReadMessagesContents) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChannelReadMessagesContents#ea29055d to nil")
+		return fmt.Errorf("can't decode updateChannelReadMessagesContents#25f324f7 to nil")
 	}
 	if err := b.ConsumeID(UpdateChannelReadMessagesContentsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChannelReadMessagesContents#ea29055d: %w", err)
+		return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -12195,31 +12276,38 @@ func (u *UpdateChannelReadMessagesContents) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateChannelReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChannelReadMessagesContents#ea29055d to nil")
+		return fmt.Errorf("can't decode updateChannelReadMessagesContents#25f324f7 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#ea29055d: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#ea29055d: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: field channel_id: %w", err)
 		}
 		u.ChannelID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#ea29055d: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: field top_msg_id: %w", err)
 		}
 		u.TopMsgID = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#ea29055d: field messages: %w", err)
+			return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -12228,7 +12316,7 @@ func (u *UpdateChannelReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChannelReadMessagesContents#ea29055d: field messages: %w", err)
+				return fmt.Errorf("unable to decode updateChannelReadMessagesContents#25f324f7: field messages: %w", err)
 			}
 			u.Messages = append(u.Messages, value)
 		}
@@ -12260,6 +12348,24 @@ func (u *UpdateChannelReadMessagesContents) GetTopMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return u.TopMsgID, true
+}
+
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (u *UpdateChannelReadMessagesContents) SetSavedPeerID(value PeerClass) {
+	u.Flags.Set(1)
+	u.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelReadMessagesContents) GetSavedPeerID() (value PeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.SavedPeerID, true
 }
 
 // GetMessages returns value of Messages field.
@@ -12537,7 +12643,7 @@ func (u *UpdateChannelAvailableMessages) GetAvailableMinID() (value int) {
 	return u.AvailableMinID
 }
 
-// UpdateDialogUnreadMark represents TL type `updateDialogUnreadMark#e16459c3`.
+// UpdateDialogUnreadMark represents TL type `updateDialogUnreadMark#b658f23e`.
 // The manual unread mark of a chat was changed
 //
 // See https://core.telegram.org/constructor/updateDialogUnreadMark for reference.
@@ -12551,10 +12657,14 @@ type UpdateDialogUnreadMark struct {
 	Unread bool
 	// The dialog
 	Peer DialogPeerClass
+	// SavedPeerID field of UpdateDialogUnreadMark.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID PeerClass
 }
 
 // UpdateDialogUnreadMarkTypeID is TL type id of UpdateDialogUnreadMark.
-const UpdateDialogUnreadMarkTypeID = 0xe16459c3
+const UpdateDialogUnreadMarkTypeID = 0xb658f23e
 
 // construct implements constructor of UpdateClass.
 func (u UpdateDialogUnreadMark) construct() UpdateClass { return &u }
@@ -12582,6 +12692,9 @@ func (u *UpdateDialogUnreadMark) Zero() bool {
 	if !(u.Peer == nil) {
 		return false
 	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
 
 	return true
 }
@@ -12599,9 +12712,14 @@ func (u *UpdateDialogUnreadMark) String() string {
 func (u *UpdateDialogUnreadMark) FillFrom(from interface {
 	GetUnread() (value bool)
 	GetPeer() (value DialogPeerClass)
+	GetSavedPeerID() (value PeerClass, ok bool)
 }) {
 	u.Unread = from.GetUnread()
 	u.Peer = from.GetPeer()
+	if val, ok := from.GetSavedPeerID(); ok {
+		u.SavedPeerID = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -12636,6 +12754,11 @@ func (u *UpdateDialogUnreadMark) TypeInfo() tdp.Type {
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
+		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !u.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -12645,12 +12768,15 @@ func (u *UpdateDialogUnreadMark) SetFlags() {
 	if !(u.Unread == false) {
 		u.Flags.Set(0)
 	}
+	if !(u.SavedPeerID == nil) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateDialogUnreadMark#e16459c3 as nil")
+		return fmt.Errorf("can't encode updateDialogUnreadMark#b658f23e as nil")
 	}
 	b.PutID(UpdateDialogUnreadMarkTypeID)
 	return u.EncodeBare(b)
@@ -12659,17 +12785,25 @@ func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateDialogUnreadMark) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateDialogUnreadMark#e16459c3 as nil")
+		return fmt.Errorf("can't encode updateDialogUnreadMark#b658f23e as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateDialogUnreadMark#e16459c3: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateDialogUnreadMark#b658f23e: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateDialogUnreadMark#e16459c3: field peer is nil")
+		return fmt.Errorf("unable to encode updateDialogUnreadMark#b658f23e: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateDialogUnreadMark#e16459c3: field peer: %w", err)
+		return fmt.Errorf("unable to encode updateDialogUnreadMark#b658f23e: field peer: %w", err)
+	}
+	if u.Flags.Has(1) {
+		if u.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode updateDialogUnreadMark#b658f23e: field saved_peer_id is nil")
+		}
+		if err := u.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateDialogUnreadMark#b658f23e: field saved_peer_id: %w", err)
+		}
 	}
 	return nil
 }
@@ -12677,10 +12811,10 @@ func (u *UpdateDialogUnreadMark) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateDialogUnreadMark) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateDialogUnreadMark#e16459c3 to nil")
+		return fmt.Errorf("can't decode updateDialogUnreadMark#b658f23e to nil")
 	}
 	if err := b.ConsumeID(UpdateDialogUnreadMarkTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateDialogUnreadMark#e16459c3: %w", err)
+		return fmt.Errorf("unable to decode updateDialogUnreadMark#b658f23e: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -12688,20 +12822,27 @@ func (u *UpdateDialogUnreadMark) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateDialogUnreadMark) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateDialogUnreadMark#e16459c3 to nil")
+		return fmt.Errorf("can't decode updateDialogUnreadMark#b658f23e to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateDialogUnreadMark#e16459c3: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateDialogUnreadMark#b658f23e: field flags: %w", err)
 		}
 	}
 	u.Unread = u.Flags.Has(0)
 	{
 		value, err := DecodeDialogPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateDialogUnreadMark#e16459c3: field peer: %w", err)
+			return fmt.Errorf("unable to decode updateDialogUnreadMark#b658f23e: field peer: %w", err)
 		}
 		u.Peer = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDialogUnreadMark#b658f23e: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
 	}
 	return nil
 }
@@ -12731,6 +12872,24 @@ func (u *UpdateDialogUnreadMark) GetPeer() (value DialogPeerClass) {
 		return
 	}
 	return u.Peer
+}
+
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (u *UpdateDialogUnreadMark) SetSavedPeerID(value PeerClass) {
+	u.Flags.Set(1)
+	u.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateDialogUnreadMark) GetSavedPeerID() (value PeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.SavedPeerID, true
 }
 
 // UpdateMessagePoll represents TL type `updateMessagePoll#aca1657b`.
@@ -20016,7 +20175,7 @@ func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
 	return u.Qts
 }
 
-// UpdateMessageReactions represents TL type `updateMessageReactions#5e1b3cb8`.
+// UpdateMessageReactions represents TL type `updateMessageReactions#1e297bfa`.
 // New message reactions »¹ are available
 //
 // Links:
@@ -20040,12 +20199,16 @@ type UpdateMessageReactions struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
+	// SavedPeerID field of UpdateMessageReactions.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID PeerClass
 	// Reactions
 	Reactions MessageReactions
 }
 
 // UpdateMessageReactionsTypeID is TL type id of UpdateMessageReactions.
-const UpdateMessageReactionsTypeID = 0x5e1b3cb8
+const UpdateMessageReactionsTypeID = 0x1e297bfa
 
 // construct implements constructor of UpdateClass.
 func (u UpdateMessageReactions) construct() UpdateClass { return &u }
@@ -20076,6 +20239,9 @@ func (u *UpdateMessageReactions) Zero() bool {
 	if !(u.TopMsgID == 0) {
 		return false
 	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
 	if !(u.Reactions.Zero()) {
 		return false
 	}
@@ -20097,12 +20263,17 @@ func (u *UpdateMessageReactions) FillFrom(from interface {
 	GetPeer() (value PeerClass)
 	GetMsgID() (value int)
 	GetTopMsgID() (value int, ok bool)
+	GetSavedPeerID() (value PeerClass, ok bool)
 	GetReactions() (value MessageReactions)
 }) {
 	u.Peer = from.GetPeer()
 	u.MsgID = from.GetMsgID()
 	if val, ok := from.GetTopMsgID(); ok {
 		u.TopMsgID = val
+	}
+
+	if val, ok := from.GetSavedPeerID(); ok {
+		u.SavedPeerID = val
 	}
 
 	u.Reactions = from.GetReactions()
@@ -20145,6 +20316,11 @@ func (u *UpdateMessageReactions) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "Reactions",
 			SchemaName: "reactions",
 		},
@@ -20157,12 +20333,15 @@ func (u *UpdateMessageReactions) SetFlags() {
 	if !(u.TopMsgID == 0) {
 		u.Flags.Set(0)
 	}
+	if !(u.SavedPeerID == nil) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateMessageReactions) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessageReactions#5e1b3cb8 as nil")
+		return fmt.Errorf("can't encode updateMessageReactions#1e297bfa as nil")
 	}
 	b.PutID(UpdateMessageReactionsTypeID)
 	return u.EncodeBare(b)
@@ -20171,24 +20350,32 @@ func (u *UpdateMessageReactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateMessageReactions) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessageReactions#5e1b3cb8 as nil")
+		return fmt.Errorf("can't encode updateMessageReactions#1e297bfa as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessageReactions#5e1b3cb8: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateMessageReactions#1e297bfa: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateMessageReactions#5e1b3cb8: field peer is nil")
+		return fmt.Errorf("unable to encode updateMessageReactions#1e297bfa: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessageReactions#5e1b3cb8: field peer: %w", err)
+		return fmt.Errorf("unable to encode updateMessageReactions#1e297bfa: field peer: %w", err)
 	}
 	b.PutInt(u.MsgID)
 	if u.Flags.Has(0) {
 		b.PutInt(u.TopMsgID)
 	}
+	if u.Flags.Has(1) {
+		if u.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode updateMessageReactions#1e297bfa: field saved_peer_id is nil")
+		}
+		if err := u.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateMessageReactions#1e297bfa: field saved_peer_id: %w", err)
+		}
+	}
 	if err := u.Reactions.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessageReactions#5e1b3cb8: field reactions: %w", err)
+		return fmt.Errorf("unable to encode updateMessageReactions#1e297bfa: field reactions: %w", err)
 	}
 	return nil
 }
@@ -20196,10 +20383,10 @@ func (u *UpdateMessageReactions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateMessageReactions) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessageReactions#5e1b3cb8 to nil")
+		return fmt.Errorf("can't decode updateMessageReactions#1e297bfa to nil")
 	}
 	if err := b.ConsumeID(UpdateMessageReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateMessageReactions#5e1b3cb8: %w", err)
+		return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -20207,37 +20394,44 @@ func (u *UpdateMessageReactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateMessageReactions) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessageReactions#5e1b3cb8 to nil")
+		return fmt.Errorf("can't decode updateMessageReactions#1e297bfa to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateMessageReactions#5e1b3cb8: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessageReactions#5e1b3cb8: field peer: %w", err)
+			return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessageReactions#5e1b3cb8: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: field msg_id: %w", err)
 		}
 		u.MsgID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessageReactions#5e1b3cb8: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: field top_msg_id: %w", err)
 		}
 		u.TopMsgID = value
 	}
+	if u.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
+	}
 	{
 		if err := u.Reactions.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateMessageReactions#5e1b3cb8: field reactions: %w", err)
+			return fmt.Errorf("unable to decode updateMessageReactions#1e297bfa: field reactions: %w", err)
 		}
 	}
 	return nil
@@ -20275,6 +20469,24 @@ func (u *UpdateMessageReactions) GetTopMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return u.TopMsgID, true
+}
+
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (u *UpdateMessageReactions) SetSavedPeerID(value PeerClass) {
+	u.Flags.Set(1)
+	u.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessageReactions) GetSavedPeerID() (value PeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.SavedPeerID, true
 }
 
 // GetReactions returns value of Reactions field.
@@ -28995,6 +29207,392 @@ func (u *UpdateGroupCallChainBlocks) GetNextOffset() (value int) {
 	return u.NextOffset
 }
 
+// UpdateReadMonoForumInbox represents TL type `updateReadMonoForumInbox#77b0e372`.
+//
+// See https://core.telegram.org/constructor/updateReadMonoForumInbox for reference.
+type UpdateReadMonoForumInbox struct {
+	// ChannelID field of UpdateReadMonoForumInbox.
+	ChannelID int64
+	// SavedPeerID field of UpdateReadMonoForumInbox.
+	SavedPeerID PeerClass
+	// ReadMaxID field of UpdateReadMonoForumInbox.
+	ReadMaxID int
+}
+
+// UpdateReadMonoForumInboxTypeID is TL type id of UpdateReadMonoForumInbox.
+const UpdateReadMonoForumInboxTypeID = 0x77b0e372
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadMonoForumInbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadMonoForumInbox.
+var (
+	_ bin.Encoder     = &UpdateReadMonoForumInbox{}
+	_ bin.Decoder     = &UpdateReadMonoForumInbox{}
+	_ bin.BareEncoder = &UpdateReadMonoForumInbox{}
+	_ bin.BareDecoder = &UpdateReadMonoForumInbox{}
+
+	_ UpdateClass = &UpdateReadMonoForumInbox{}
+)
+
+func (u *UpdateReadMonoForumInbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
+	if !(u.ReadMaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateReadMonoForumInbox) String() string {
+	if u == nil {
+		return "UpdateReadMonoForumInbox(nil)"
+	}
+	type Alias UpdateReadMonoForumInbox
+	return fmt.Sprintf("UpdateReadMonoForumInbox%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateReadMonoForumInbox from given interface.
+func (u *UpdateReadMonoForumInbox) FillFrom(from interface {
+	GetChannelID() (value int64)
+	GetSavedPeerID() (value PeerClass)
+	GetReadMaxID() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.SavedPeerID = from.GetSavedPeerID()
+	u.ReadMaxID = from.GetReadMaxID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateReadMonoForumInbox) TypeID() uint32 {
+	return UpdateReadMonoForumInboxTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateReadMonoForumInbox) TypeName() string {
+	return "updateReadMonoForumInbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadMonoForumInbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadMonoForumInbox",
+		ID:   UpdateReadMonoForumInboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateReadMonoForumInbox) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReadMonoForumInbox#77b0e372 as nil")
+	}
+	b.PutID(UpdateReadMonoForumInboxTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateReadMonoForumInbox) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReadMonoForumInbox#77b0e372 as nil")
+	}
+	b.PutLong(u.ChannelID)
+	if u.SavedPeerID == nil {
+		return fmt.Errorf("unable to encode updateReadMonoForumInbox#77b0e372: field saved_peer_id is nil")
+	}
+	if err := u.SavedPeerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateReadMonoForumInbox#77b0e372: field saved_peer_id: %w", err)
+	}
+	b.PutInt(u.ReadMaxID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateReadMonoForumInbox) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReadMonoForumInbox#77b0e372 to nil")
+	}
+	if err := b.ConsumeID(UpdateReadMonoForumInboxTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateReadMonoForumInbox#77b0e372: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateReadMonoForumInbox) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReadMonoForumInbox#77b0e372 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMonoForumInbox#77b0e372: field channel_id: %w", err)
+		}
+		u.ChannelID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMonoForumInbox#77b0e372: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMonoForumInbox#77b0e372: field read_max_id: %w", err)
+		}
+		u.ReadMaxID = value
+	}
+	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadMonoForumInbox) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChannelID
+}
+
+// GetSavedPeerID returns value of SavedPeerID field.
+func (u *UpdateReadMonoForumInbox) GetSavedPeerID() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.SavedPeerID
+}
+
+// GetReadMaxID returns value of ReadMaxID field.
+func (u *UpdateReadMonoForumInbox) GetReadMaxID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.ReadMaxID
+}
+
+// UpdateReadMonoForumOutbox represents TL type `updateReadMonoForumOutbox#a4a79376`.
+//
+// See https://core.telegram.org/constructor/updateReadMonoForumOutbox for reference.
+type UpdateReadMonoForumOutbox struct {
+	// ChannelID field of UpdateReadMonoForumOutbox.
+	ChannelID int64
+	// SavedPeerID field of UpdateReadMonoForumOutbox.
+	SavedPeerID PeerClass
+	// ReadMaxID field of UpdateReadMonoForumOutbox.
+	ReadMaxID int
+}
+
+// UpdateReadMonoForumOutboxTypeID is TL type id of UpdateReadMonoForumOutbox.
+const UpdateReadMonoForumOutboxTypeID = 0xa4a79376
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadMonoForumOutbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadMonoForumOutbox.
+var (
+	_ bin.Encoder     = &UpdateReadMonoForumOutbox{}
+	_ bin.Decoder     = &UpdateReadMonoForumOutbox{}
+	_ bin.BareEncoder = &UpdateReadMonoForumOutbox{}
+	_ bin.BareDecoder = &UpdateReadMonoForumOutbox{}
+
+	_ UpdateClass = &UpdateReadMonoForumOutbox{}
+)
+
+func (u *UpdateReadMonoForumOutbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
+	if !(u.ReadMaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateReadMonoForumOutbox) String() string {
+	if u == nil {
+		return "UpdateReadMonoForumOutbox(nil)"
+	}
+	type Alias UpdateReadMonoForumOutbox
+	return fmt.Sprintf("UpdateReadMonoForumOutbox%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateReadMonoForumOutbox from given interface.
+func (u *UpdateReadMonoForumOutbox) FillFrom(from interface {
+	GetChannelID() (value int64)
+	GetSavedPeerID() (value PeerClass)
+	GetReadMaxID() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.SavedPeerID = from.GetSavedPeerID()
+	u.ReadMaxID = from.GetReadMaxID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateReadMonoForumOutbox) TypeID() uint32 {
+	return UpdateReadMonoForumOutboxTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateReadMonoForumOutbox) TypeName() string {
+	return "updateReadMonoForumOutbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadMonoForumOutbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadMonoForumOutbox",
+		ID:   UpdateReadMonoForumOutboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateReadMonoForumOutbox) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReadMonoForumOutbox#a4a79376 as nil")
+	}
+	b.PutID(UpdateReadMonoForumOutboxTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateReadMonoForumOutbox) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReadMonoForumOutbox#a4a79376 as nil")
+	}
+	b.PutLong(u.ChannelID)
+	if u.SavedPeerID == nil {
+		return fmt.Errorf("unable to encode updateReadMonoForumOutbox#a4a79376: field saved_peer_id is nil")
+	}
+	if err := u.SavedPeerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateReadMonoForumOutbox#a4a79376: field saved_peer_id: %w", err)
+	}
+	b.PutInt(u.ReadMaxID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateReadMonoForumOutbox) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReadMonoForumOutbox#a4a79376 to nil")
+	}
+	if err := b.ConsumeID(UpdateReadMonoForumOutboxTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateReadMonoForumOutbox#a4a79376: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateReadMonoForumOutbox) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReadMonoForumOutbox#a4a79376 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMonoForumOutbox#a4a79376: field channel_id: %w", err)
+		}
+		u.ChannelID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMonoForumOutbox#a4a79376: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMonoForumOutbox#a4a79376: field read_max_id: %w", err)
+		}
+		u.ReadMaxID = value
+	}
+	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadMonoForumOutbox) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChannelID
+}
+
+// GetSavedPeerID returns value of SavedPeerID field.
+func (u *UpdateReadMonoForumOutbox) GetSavedPeerID() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.SavedPeerID
+}
+
+// GetReadMaxID returns value of ReadMaxID field.
+func (u *UpdateReadMonoForumOutbox) GetReadMaxID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.ReadMaxID
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -29146,6 +29744,8 @@ const UpdateClassName = "Update"
 //   - [UpdatePaidReactionPrivacy]
 //   - [UpdateSentPhoneCode]
 //   - [UpdateGroupCallChainBlocks]
+//   - [UpdateReadMonoForumInbox]
+//   - [UpdateReadMonoForumOutbox]
 //
 // Example:
 //
@@ -29196,7 +29796,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateEditMessage: // updateEditMessage#e40370a3
 //	case *tg.UpdateInlineBotCallbackQuery: // updateInlineBotCallbackQuery#691e9052
 //	case *tg.UpdateReadChannelOutbox: // updateReadChannelOutbox#b75f99a9
-//	case *tg.UpdateDraftMessage: // updateDraftMessage#1b49ec6d
+//	case *tg.UpdateDraftMessage: // updateDraftMessage#edfc111e
 //	case *tg.UpdateReadFeaturedStickers: // updateReadFeaturedStickers#571d2742
 //	case *tg.UpdateRecentStickers: // updateRecentStickers#9a422c20
 //	case *tg.UpdateConfig: // updateConfig#a229dd06
@@ -29212,10 +29812,10 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateLangPackTooLong: // updateLangPackTooLong#46560264
 //	case *tg.UpdateLangPack: // updateLangPack#56022f4d
 //	case *tg.UpdateFavedStickers: // updateFavedStickers#e511996d
-//	case *tg.UpdateChannelReadMessagesContents: // updateChannelReadMessagesContents#ea29055d
+//	case *tg.UpdateChannelReadMessagesContents: // updateChannelReadMessagesContents#25f324f7
 //	case *tg.UpdateContactsReset: // updateContactsReset#7084a7be
 //	case *tg.UpdateChannelAvailableMessages: // updateChannelAvailableMessages#b23fc698
-//	case *tg.UpdateDialogUnreadMark: // updateDialogUnreadMark#e16459c3
+//	case *tg.UpdateDialogUnreadMark: // updateDialogUnreadMark#b658f23e
 //	case *tg.UpdateMessagePoll: // updateMessagePoll#aca1657b
 //	case *tg.UpdateChatDefaultBannedRights: // updateChatDefaultBannedRights#54c01850
 //	case *tg.UpdateFolderPeers: // updateFolderPeers#19360dc0
@@ -29249,7 +29849,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBotCommands: // updateBotCommands#4d712f2e
 //	case *tg.UpdatePendingJoinRequests: // updatePendingJoinRequests#7063c3db
 //	case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#11dfa986
-//	case *tg.UpdateMessageReactions: // updateMessageReactions#5e1b3cb8
+//	case *tg.UpdateMessageReactions: // updateMessageReactions#1e297bfa
 //	case *tg.UpdateAttachMenuBots: // updateAttachMenuBots#17b7a20b
 //	case *tg.UpdateWebViewResultSent: // updateWebViewResultSent#1592b79d
 //	case *tg.UpdateBotMenuButton: // updateBotMenuButton#14b85813
@@ -29297,6 +29897,8 @@ const UpdateClassName = "Update"
 //	case *tg.UpdatePaidReactionPrivacy: // updatePaidReactionPrivacy#8b725fce
 //	case *tg.UpdateSentPhoneCode: // updateSentPhoneCode#504aa18f
 //	case *tg.UpdateGroupCallChainBlocks: // updateGroupCallChainBlocks#a477288f
+//	case *tg.UpdateReadMonoForumInbox: // updateReadMonoForumInbox#77b0e372
+//	case *tg.UpdateReadMonoForumOutbox: // updateReadMonoForumOutbox#a4a79376
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -29620,7 +30222,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateDraftMessageTypeID:
-		// Decoding updateDraftMessage#1b49ec6d.
+		// Decoding updateDraftMessage#edfc111e.
 		v := UpdateDraftMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -29732,7 +30334,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateChannelReadMessagesContentsTypeID:
-		// Decoding updateChannelReadMessagesContents#ea29055d.
+		// Decoding updateChannelReadMessagesContents#25f324f7.
 		v := UpdateChannelReadMessagesContents{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -29753,7 +30355,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateDialogUnreadMarkTypeID:
-		// Decoding updateDialogUnreadMark#e16459c3.
+		// Decoding updateDialogUnreadMark#b658f23e.
 		v := UpdateDialogUnreadMark{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -29991,7 +30593,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateMessageReactionsTypeID:
-		// Decoding updateMessageReactions#5e1b3cb8.
+		// Decoding updateMessageReactions#1e297bfa.
 		v := UpdateMessageReactions{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -30322,6 +30924,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateGroupCallChainBlocksTypeID:
 		// Decoding updateGroupCallChainBlocks#a477288f.
 		v := UpdateGroupCallChainBlocks{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateReadMonoForumInboxTypeID:
+		// Decoding updateReadMonoForumInbox#77b0e372.
+		v := UpdateReadMonoForumInbox{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateReadMonoForumOutboxTypeID:
+		// Decoding updateReadMonoForumOutbox#a4a79376.
+		v := UpdateReadMonoForumOutbox{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

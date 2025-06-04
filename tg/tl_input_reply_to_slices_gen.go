@@ -142,6 +142,19 @@ func (s InputReplyToClassArray) AsInputReplyToStory() (to InputReplyToStoryArray
 	return to
 }
 
+// AsInputReplyToMonoForum returns copy with only InputReplyToMonoForum constructors.
+func (s InputReplyToClassArray) AsInputReplyToMonoForum() (to InputReplyToMonoForumArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputReplyToMonoForum)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputReplyToMessageArray is adapter for slice of InputReplyToMessage.
 type InputReplyToMessageArray []InputReplyToMessage
 
@@ -294,6 +307,88 @@ func (s *InputReplyToStoryArray) PopFirst() (v InputReplyToStory, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputReplyToStoryArray) Pop() (v InputReplyToStory, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputReplyToMonoForumArray is adapter for slice of InputReplyToMonoForum.
+type InputReplyToMonoForumArray []InputReplyToMonoForum
+
+// Sort sorts slice of InputReplyToMonoForum.
+func (s InputReplyToMonoForumArray) Sort(less func(a, b InputReplyToMonoForum) bool) InputReplyToMonoForumArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputReplyToMonoForum.
+func (s InputReplyToMonoForumArray) SortStable(less func(a, b InputReplyToMonoForum) bool) InputReplyToMonoForumArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputReplyToMonoForum.
+func (s InputReplyToMonoForumArray) Retain(keep func(x InputReplyToMonoForum) bool) InputReplyToMonoForumArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputReplyToMonoForumArray) First() (v InputReplyToMonoForum, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputReplyToMonoForumArray) Last() (v InputReplyToMonoForum, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputReplyToMonoForumArray) PopFirst() (v InputReplyToMonoForum, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputReplyToMonoForum
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputReplyToMonoForumArray) Pop() (v InputReplyToMonoForum, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

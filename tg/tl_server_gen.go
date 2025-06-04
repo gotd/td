@@ -4908,14 +4908,14 @@ func (s *ServerDispatcher) OnMessagesMarkDialogUnread(f func(ctx context.Context
 	s.handlers[MessagesMarkDialogUnreadRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetDialogUnreadMarks(f func(ctx context.Context) ([]DialogPeerClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetDialogUnreadMarks(f func(ctx context.Context, request *MessagesGetDialogUnreadMarksRequest) ([]DialogPeerClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetDialogUnreadMarksRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -7263,6 +7263,44 @@ func (s *ServerDispatcher) OnMessagesReportMessagesDelivery(f func(ctx context.C
 	s.handlers[MessagesReportMessagesDeliveryRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetSavedDialogsByID(f func(ctx context.Context, request *MessagesGetSavedDialogsByIDRequest) (MessagesSavedDialogsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSavedDialogsByIDRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesSavedDialogsBox{SavedDialogs: response}, nil
+	}
+
+	s.handlers[MessagesGetSavedDialogsByIDRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesReadSavedHistory(f func(ctx context.Context, request *MessagesReadSavedHistoryRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesReadSavedHistoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesReadSavedHistoryRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9109,6 +9147,23 @@ func (s *ServerDispatcher) OnChannelsToggleAutotranslation(f func(ctx context.Co
 	}
 
 	s.handlers[ChannelsToggleAutotranslationRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsGetMessageAuthor(f func(ctx context.Context, request *ChannelsGetMessageAuthorRequest) (UserClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsGetMessageAuthorRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UserBox{User: response}, nil
+	}
+
+	s.handlers[ChannelsGetMessageAuthorRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {

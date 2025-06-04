@@ -472,7 +472,8 @@ func (q *QueryBuilder) GetSavedHistory(paramPeer tg.InputPeerClass) *GetSavedHis
 		raw:       q.raw,
 		batchSize: 1,
 		req: tg.MessagesGetSavedHistoryRequest{
-			Peer: &tg.InputPeerEmpty{},
+			ParentPeer: &tg.InputPeerEmpty{},
+			Peer:       &tg.InputPeerEmpty{},
 		},
 	}
 
@@ -500,6 +501,12 @@ func (b *GetSavedHistoryQueryBuilder) OffsetID(offsetID int) *GetSavedHistoryQue
 	return b
 }
 
+// ParentPeer sets ParentPeer field of GetSavedHistory query.
+func (b *GetSavedHistoryQueryBuilder) ParentPeer(paramParentPeer tg.InputPeerClass) *GetSavedHistoryQueryBuilder {
+	b.req.ParentPeer = paramParentPeer
+	return b
+}
+
 // Peer sets Peer field of GetSavedHistory query.
 func (b *GetSavedHistoryQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetSavedHistoryQueryBuilder {
 	b.req.Peer = paramPeer
@@ -512,6 +519,7 @@ func (b *GetSavedHistoryQueryBuilder) Query(ctx context.Context, req Request) (t
 		Limit: req.Limit,
 	}
 
+	r.ParentPeer = b.req.ParentPeer
 	r.Peer = b.req.Peer
 	r.AddOffset = req.AddOffset
 	r.OffsetDate = req.OffsetDate
@@ -685,7 +693,8 @@ func (q *QueryBuilder) GetUnreadReactions(paramPeer tg.InputPeerClass) *GetUnrea
 		raw:       q.raw,
 		batchSize: 1,
 		req: tg.MessagesGetUnreadReactionsRequest{
-			Peer: &tg.InputPeerEmpty{},
+			Peer:        &tg.InputPeerEmpty{},
+			SavedPeerID: &tg.InputPeerEmpty{},
 		},
 	}
 
@@ -713,6 +722,12 @@ func (b *GetUnreadReactionsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetU
 	return b
 }
 
+// SavedPeerID sets SavedPeerID field of GetUnreadReactions query.
+func (b *GetUnreadReactionsQueryBuilder) SavedPeerID(paramSavedPeerID tg.InputPeerClass) *GetUnreadReactionsQueryBuilder {
+	b.req.SavedPeerID = paramSavedPeerID
+	return b
+}
+
 // TopMsgID sets TopMsgID field of GetUnreadReactions query.
 func (b *GetUnreadReactionsQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadReactionsQueryBuilder {
 	b.req.TopMsgID = paramTopMsgID
@@ -726,6 +741,7 @@ func (b *GetUnreadReactionsQueryBuilder) Query(ctx context.Context, req Request)
 	}
 
 	r.Peer = b.req.Peer
+	r.SavedPeerID = b.req.SavedPeerID
 	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
 	r.OffsetID = req.OffsetID
