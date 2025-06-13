@@ -53,6 +53,7 @@ func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
 	case *tg.AuthLoginTokenSuccess:
 		// Token was already accepted, authentication successful
 		// Return empty token since no new token is needed
+		ctx.Done()
 		return Token{}, nil
 	case *tg.AuthLoginTokenMigrateTo:
 		// Migration needed
@@ -157,6 +158,13 @@ func (q QR) Auth(
 	if err != nil {
 		return nil, err
 	}
+
+	// If token is empty, it means AuthLoginTokenSuccess was returned
+	// and authentication is already complete
+	if token.String() == "" {
+		return q.Import(ctx)
+	}
+
 	timer := q.clock.Timer(until(token))
 	defer clock.StopTimer(timer)
 
@@ -173,6 +181,13 @@ func (q QR) Auth(
 			if err != nil {
 				return nil, err
 			}
+
+			// If empty token, it means AuthLoginTokenSuccess was returned
+			if t.String() == "" {
+				// QR was scanned and accepted, break out of loop
+				break
+			}
+
 			token = t
 			timer.Reset(until(token))
 
