@@ -51,8 +51,9 @@ func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
 	case *tg.AuthLoginToken:
 		return NewToken(t.Token, t.Expires), nil
 	case *tg.AuthLoginTokenSuccess:
-		// Token was already accepted, but we're trying to export
-		return Token{}, errors.New("login token already accepted")
+		// Token was already accepted, authentication successful
+		// Return empty token since no new token is needed
+		return Token{}, nil
 	case *tg.AuthLoginTokenMigrateTo:
 		// Migration needed
 		return Token{}, &MigrationNeededError{
