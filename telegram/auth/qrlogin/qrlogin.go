@@ -47,11 +47,20 @@ func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
 		return Token{}, errors.Wrap(err, "export")
 	}
 
-	t, ok := result.(*tg.AuthLoginToken)
-	if !ok {
+	switch t := result.(type) {
+	case *tg.AuthLoginToken:
+		return NewToken(t.Token, t.Expires), nil
+	case *tg.AuthLoginTokenSuccess:
+		// Token was already accepted, but we're trying to export
+		return Token{}, errors.New("login token already accepted")
+	case *tg.AuthLoginTokenMigrateTo:
+		// Migration needed
+		return Token{}, &MigrationNeededError{
+			MigrateTo: t,
+		}
+	default:
 		return Token{}, errors.Errorf("unexpected type %T", result)
 	}
-	return NewToken(t.Token, t.Expires), nil
 }
 
 // Accept accepts given token.
