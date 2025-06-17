@@ -3,7 +3,10 @@
         "APIID",
         "DCID",
         "gotd",
-        "qrlogin"
+        "qrlogin",
+        "stretchr",
+        "testutil",
+        "tgmock"
     ],
     "cSpell.language": "en, en-US"
 }
