@@ -159,9 +159,14 @@ func (q QR) Auth(
 	}
 
 	// If token is empty, it means AuthLoginTokenSuccess was returned
-	// and authentication is already complete
+	// and authentication is already complete, but we should wait for the signal
 	if token.String() == "" {
-		return q.Import(ctx)
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		case <-loggedIn:
+			return q.Import(ctx)
+		}
 	}
 
 	timer := q.clock.Timer(until(token))
