@@ -33,3 +33,275 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// StarsAmountClassArray is adapter for slice of StarsAmountClass.
+type StarsAmountClassArray []StarsAmountClass
+
+// Sort sorts slice of StarsAmountClass.
+func (s StarsAmountClassArray) Sort(less func(a, b StarsAmountClass) bool) StarsAmountClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StarsAmountClass.
+func (s StarsAmountClassArray) SortStable(less func(a, b StarsAmountClass) bool) StarsAmountClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StarsAmountClass.
+func (s StarsAmountClassArray) Retain(keep func(x StarsAmountClass) bool) StarsAmountClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StarsAmountClassArray) First() (v StarsAmountClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StarsAmountClassArray) Last() (v StarsAmountClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StarsAmountClassArray) PopFirst() (v StarsAmountClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StarsAmountClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StarsAmountClassArray) Pop() (v StarsAmountClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsStarsAmount returns copy with only StarsAmount constructors.
+func (s StarsAmountClassArray) AsStarsAmount() (to StarsAmountArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StarsAmount)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsStarsTonAmount returns copy with only StarsTonAmount constructors.
+func (s StarsAmountClassArray) AsStarsTonAmount() (to StarsTonAmountArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StarsTonAmount)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// StarsAmountArray is adapter for slice of StarsAmount.
+type StarsAmountArray []StarsAmount
+
+// Sort sorts slice of StarsAmount.
+func (s StarsAmountArray) Sort(less func(a, b StarsAmount) bool) StarsAmountArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StarsAmount.
+func (s StarsAmountArray) SortStable(less func(a, b StarsAmount) bool) StarsAmountArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StarsAmount.
+func (s StarsAmountArray) Retain(keep func(x StarsAmount) bool) StarsAmountArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StarsAmountArray) First() (v StarsAmount, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StarsAmountArray) Last() (v StarsAmount, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StarsAmountArray) PopFirst() (v StarsAmount, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StarsAmount
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StarsAmountArray) Pop() (v StarsAmount, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// StarsTonAmountArray is adapter for slice of StarsTonAmount.
+type StarsTonAmountArray []StarsTonAmount
+
+// Sort sorts slice of StarsTonAmount.
+func (s StarsTonAmountArray) Sort(less func(a, b StarsTonAmount) bool) StarsTonAmountArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StarsTonAmount.
+func (s StarsTonAmountArray) SortStable(less func(a, b StarsTonAmount) bool) StarsTonAmountArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StarsTonAmount.
+func (s StarsTonAmountArray) Retain(keep func(x StarsTonAmount) bool) StarsTonAmountArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StarsTonAmountArray) First() (v StarsTonAmount, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StarsTonAmountArray) Last() (v StarsTonAmount, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StarsTonAmountArray) PopFirst() (v StarsTonAmount, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StarsTonAmount
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StarsTonAmountArray) Pop() (v StarsTonAmount, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

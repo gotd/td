@@ -50,12 +50,17 @@ type StarsAmount struct {
 // StarsAmountTypeID is TL type id of StarsAmount.
 const StarsAmountTypeID = 0xbbb6b4a3
 
+// construct implements constructor of StarsAmountClass.
+func (s StarsAmount) construct() StarsAmountClass { return &s }
+
 // Ensuring interfaces in compile-time for StarsAmount.
 var (
 	_ bin.Encoder     = &StarsAmount{}
 	_ bin.Decoder     = &StarsAmount{}
 	_ bin.BareEncoder = &StarsAmount{}
 	_ bin.BareDecoder = &StarsAmount{}
+
+	_ StarsAmountClass = &StarsAmount{}
 )
 
 func (s *StarsAmount) Zero() bool {
@@ -191,4 +196,234 @@ func (s *StarsAmount) GetNanos() (value int) {
 		return
 	}
 	return s.Nanos
+}
+
+// StarsTonAmount represents TL type `starsTonAmount#74aee3e0`.
+//
+// See https://core.telegram.org/constructor/starsTonAmount for reference.
+type StarsTonAmount struct {
+	// Amount field of StarsTonAmount.
+	Amount int64
+}
+
+// StarsTonAmountTypeID is TL type id of StarsTonAmount.
+const StarsTonAmountTypeID = 0x74aee3e0
+
+// construct implements constructor of StarsAmountClass.
+func (s StarsTonAmount) construct() StarsAmountClass { return &s }
+
+// Ensuring interfaces in compile-time for StarsTonAmount.
+var (
+	_ bin.Encoder     = &StarsTonAmount{}
+	_ bin.Decoder     = &StarsTonAmount{}
+	_ bin.BareEncoder = &StarsTonAmount{}
+	_ bin.BareDecoder = &StarsTonAmount{}
+
+	_ StarsAmountClass = &StarsTonAmount{}
+)
+
+func (s *StarsTonAmount) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Amount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StarsTonAmount) String() string {
+	if s == nil {
+		return "StarsTonAmount(nil)"
+	}
+	type Alias StarsTonAmount
+	return fmt.Sprintf("StarsTonAmount%+v", Alias(*s))
+}
+
+// FillFrom fills StarsTonAmount from given interface.
+func (s *StarsTonAmount) FillFrom(from interface {
+	GetAmount() (value int64)
+}) {
+	s.Amount = from.GetAmount()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StarsTonAmount) TypeID() uint32 {
+	return StarsTonAmountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StarsTonAmount) TypeName() string {
+	return "starsTonAmount"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StarsTonAmount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "starsTonAmount",
+		ID:   StarsTonAmountTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StarsTonAmount) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starsTonAmount#74aee3e0 as nil")
+	}
+	b.PutID(StarsTonAmountTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StarsTonAmount) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode starsTonAmount#74aee3e0 as nil")
+	}
+	b.PutLong(s.Amount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StarsTonAmount) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starsTonAmount#74aee3e0 to nil")
+	}
+	if err := b.ConsumeID(StarsTonAmountTypeID); err != nil {
+		return fmt.Errorf("unable to decode starsTonAmount#74aee3e0: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StarsTonAmount) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode starsTonAmount#74aee3e0 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode starsTonAmount#74aee3e0: field amount: %w", err)
+		}
+		s.Amount = value
+	}
+	return nil
+}
+
+// GetAmount returns value of Amount field.
+func (s *StarsTonAmount) GetAmount() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.Amount
+}
+
+// StarsAmountClassName is schema name of StarsAmountClass.
+const StarsAmountClassName = "StarsAmount"
+
+// StarsAmountClass represents StarsAmount generic type.
+//
+// See https://core.telegram.org/type/StarsAmount for reference.
+//
+// Constructors:
+//   - [StarsAmount]
+//   - [StarsTonAmount]
+//
+// Example:
+//
+//	g, err := tg.DecodeStarsAmount(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.StarsAmount: // starsAmount#bbb6b4a3
+//	case *tg.StarsTonAmount: // starsTonAmount#74aee3e0
+//	default: panic(v)
+//	}
+type StarsAmountClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() StarsAmountClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// The integer amount of Telegram Stars.
+	GetAmount() (value int64)
+}
+
+// DecodeStarsAmount implements binary de-serialization for StarsAmountClass.
+func DecodeStarsAmount(buf *bin.Buffer) (StarsAmountClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case StarsAmountTypeID:
+		// Decoding starsAmount#bbb6b4a3.
+		v := StarsAmount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarsAmountClass: %w", err)
+		}
+		return &v, nil
+	case StarsTonAmountTypeID:
+		// Decoding starsTonAmount#74aee3e0.
+		v := StarsTonAmount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StarsAmountClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode StarsAmountClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// StarsAmount boxes the StarsAmountClass providing a helper.
+type StarsAmountBox struct {
+	StarsAmount StarsAmountClass
+}
+
+// Decode implements bin.Decoder for StarsAmountBox.
+func (b *StarsAmountBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode StarsAmountBox to nil")
+	}
+	v, err := DecodeStarsAmount(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.StarsAmount = v
+	return nil
+}
+
+// Encode implements bin.Encode for StarsAmountBox.
+func (b *StarsAmountBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.StarsAmount == nil {
+		return fmt.Errorf("unable to encode StarsAmountClass as nil")
+	}
+	return b.StarsAmount.Encode(buf)
 }

@@ -123,6 +123,8 @@ type ChatAdminRights struct {
 	//  1) https://core.telegram.org/api/stories
 	//  2) https://core.telegram.org/api/channel
 	DeleteStories bool
+	// ManageDirectMessages field of ChatAdminRights.
+	ManageDirectMessages bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -188,6 +190,9 @@ func (c *ChatAdminRights) Zero() bool {
 	if !(c.DeleteStories == false) {
 		return false
 	}
+	if !(c.ManageDirectMessages == false) {
+		return false
+	}
 
 	return true
 }
@@ -218,6 +223,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetPostStories() (value bool)
 	GetEditStories() (value bool)
 	GetDeleteStories() (value bool)
+	GetManageDirectMessages() (value bool)
 }) {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.PostMessages = from.GetPostMessages()
@@ -234,6 +240,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	c.PostStories = from.GetPostStories()
 	c.EditStories = from.GetEditStories()
 	c.DeleteStories = from.GetDeleteStories()
+	c.ManageDirectMessages = from.GetManageDirectMessages()
 }
 
 // TypeID returns type id in TL schema.
@@ -334,6 +341,11 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 			SchemaName: "delete_stories",
 			Null:       !c.Flags.Has(16),
 		},
+		{
+			Name:       "ManageDirectMessages",
+			SchemaName: "manage_direct_messages",
+			Null:       !c.Flags.Has(17),
+		},
 	}
 	return typ
 }
@@ -384,6 +396,9 @@ func (c *ChatAdminRights) SetFlags() {
 	}
 	if !(c.DeleteStories == false) {
 		c.Flags.Set(16)
+	}
+	if !(c.ManageDirectMessages == false) {
+		c.Flags.Set(17)
 	}
 }
 
@@ -444,6 +459,7 @@ func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
 	c.PostStories = c.Flags.Has(14)
 	c.EditStories = c.Flags.Has(15)
 	c.DeleteStories = c.Flags.Has(16)
+	c.ManageDirectMessages = c.Flags.Has(17)
 	return nil
 }
 
@@ -730,4 +746,23 @@ func (c *ChatAdminRights) GetDeleteStories() (value bool) {
 		return
 	}
 	return c.Flags.Has(16)
+}
+
+// SetManageDirectMessages sets value of ManageDirectMessages conditional field.
+func (c *ChatAdminRights) SetManageDirectMessages(value bool) {
+	if value {
+		c.Flags.Set(17)
+		c.ManageDirectMessages = true
+	} else {
+		c.Flags.Unset(17)
+		c.ManageDirectMessages = false
+	}
+}
+
+// GetManageDirectMessages returns value of ManageDirectMessages conditional field.
+func (c *ChatAdminRights) GetManageDirectMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(17)
 }

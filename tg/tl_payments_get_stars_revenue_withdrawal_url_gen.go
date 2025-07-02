@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetStarsRevenueWithdrawalURLRequest represents TL type `payments.getStarsRevenueWithdrawalUrl#13bbe8b3`.
+// PaymentsGetStarsRevenueWithdrawalURLRequest represents TL type `payments.getStarsRevenueWithdrawalUrl#2433dc92`.
 // Withdraw funds from a channel or bot's star balance »¹.
 //
 // Links:
@@ -39,10 +39,16 @@ var (
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueWithdrawalUrl for reference.
 type PaymentsGetStarsRevenueWithdrawalURLRequest struct {
+	// Flags field of PaymentsGetStarsRevenueWithdrawalURLRequest.
+	Flags bin.Fields
+	// Ton field of PaymentsGetStarsRevenueWithdrawalURLRequest.
+	Ton bool
 	// Channel or bot from which to withdraw funds.
 	Peer InputPeerClass
-	// Amount of stars to withdraw.
-	Stars int64
+	// Amount field of PaymentsGetStarsRevenueWithdrawalURLRequest.
+	//
+	// Use SetAmount and GetAmount helpers.
+	Amount int64
 	// 2FA password, see here »¹ for more info.
 	//
 	// Links:
@@ -51,7 +57,7 @@ type PaymentsGetStarsRevenueWithdrawalURLRequest struct {
 }
 
 // PaymentsGetStarsRevenueWithdrawalURLRequestTypeID is TL type id of PaymentsGetStarsRevenueWithdrawalURLRequest.
-const PaymentsGetStarsRevenueWithdrawalURLRequestTypeID = 0x13bbe8b3
+const PaymentsGetStarsRevenueWithdrawalURLRequestTypeID = 0x2433dc92
 
 // Ensuring interfaces in compile-time for PaymentsGetStarsRevenueWithdrawalURLRequest.
 var (
@@ -65,10 +71,16 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Ton == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
-	if !(g.Stars == 0) {
+	if !(g.Amount == 0) {
 		return false
 	}
 	if !(g.Password == nil) {
@@ -89,12 +101,17 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) String() string {
 
 // FillFrom fills PaymentsGetStarsRevenueWithdrawalURLRequest from given interface.
 func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) FillFrom(from interface {
+	GetTon() (value bool)
 	GetPeer() (value InputPeerClass)
-	GetStars() (value int64)
+	GetAmount() (value int64, ok bool)
 	GetPassword() (value InputCheckPasswordSRPClass)
 }) {
+	g.Ton = from.GetTon()
 	g.Peer = from.GetPeer()
-	g.Stars = from.GetStars()
+	if val, ok := from.GetAmount(); ok {
+		g.Amount = val
+	}
+
 	g.Password = from.GetPassword()
 }
 
@@ -122,12 +139,18 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Ton",
+			SchemaName: "ton",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
 		{
-			Name:       "Stars",
-			SchemaName: "stars",
+			Name:       "Amount",
+			SchemaName: "amount",
+			Null:       !g.Flags.Has(1),
 		},
 		{
 			Name:       "Password",
@@ -137,10 +160,20 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) SetFlags() {
+	if !(g.Ton == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.Amount == 0) {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsRevenueWithdrawalUrl#13bbe8b3 as nil")
+		return fmt.Errorf("can't encode payments.getStarsRevenueWithdrawalUrl#2433dc92 as nil")
 	}
 	b.PutID(PaymentsGetStarsRevenueWithdrawalURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -149,20 +182,26 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) Encode(b *bin.Buffer) erro
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsRevenueWithdrawalUrl#13bbe8b3 as nil")
+		return fmt.Errorf("can't encode payments.getStarsRevenueWithdrawalUrl#2433dc92 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#2433dc92: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field peer is nil")
+		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#2433dc92: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field peer: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#2433dc92: field peer: %w", err)
 	}
-	b.PutLong(g.Stars)
+	if g.Flags.Has(1) {
+		b.PutLong(g.Amount)
+	}
 	if g.Password == nil {
-		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field password is nil")
+		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#2433dc92: field password is nil")
 	}
 	if err := g.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field password: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarsRevenueWithdrawalUrl#2433dc92: field password: %w", err)
 	}
 	return nil
 }
@@ -170,10 +209,10 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) EncodeBare(b *bin.Buffer) 
 // Decode implements bin.Decoder.
 func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsRevenueWithdrawalUrl#13bbe8b3 to nil")
+		return fmt.Errorf("can't decode payments.getStarsRevenueWithdrawalUrl#2433dc92 to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetStarsRevenueWithdrawalURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: %w", err)
+		return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#2433dc92: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -181,30 +220,55 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) Decode(b *bin.Buffer) erro
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsRevenueWithdrawalUrl#13bbe8b3 to nil")
+		return fmt.Errorf("can't decode payments.getStarsRevenueWithdrawalUrl#2433dc92 to nil")
 	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#2433dc92: field flags: %w", err)
+		}
+	}
+	g.Ton = g.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#2433dc92: field peer: %w", err)
 		}
 		g.Peer = value
 	}
-	{
+	if g.Flags.Has(1) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field stars: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#2433dc92: field amount: %w", err)
 		}
-		g.Stars = value
+		g.Amount = value
 	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#13bbe8b3: field password: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsRevenueWithdrawalUrl#2433dc92: field password: %w", err)
 		}
 		g.Password = value
 	}
 	return nil
+}
+
+// SetTon sets value of Ton conditional field.
+func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) SetTon(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Ton = true
+	} else {
+		g.Flags.Unset(0)
+		g.Ton = false
+	}
+}
+
+// GetTon returns value of Ton conditional field.
+func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetTon() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
@@ -215,12 +279,22 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetPeer() (value InputPeer
 	return g.Peer
 }
 
-// GetStars returns value of Stars field.
-func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetStars() (value int64) {
+// SetAmount sets value of Amount conditional field.
+func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) SetAmount(value int64) {
+	g.Flags.Set(1)
+	g.Amount = value
+}
+
+// GetAmount returns value of Amount conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetAmount() (value int64, ok bool) {
 	if g == nil {
 		return
 	}
-	return g.Stars
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.Amount, true
 }
 
 // GetPassword returns value of Password field.
@@ -236,7 +310,7 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetPasswordAsNotEmpty() (*
 	return g.Password.AsNotEmpty()
 }
 
-// PaymentsGetStarsRevenueWithdrawalURL invokes method payments.getStarsRevenueWithdrawalUrl#13bbe8b3 returning error if any.
+// PaymentsGetStarsRevenueWithdrawalURL invokes method payments.getStarsRevenueWithdrawalUrl#2433dc92 returning error if any.
 // Withdraw funds from a channel or bot's star balance »¹.
 //
 // Links:

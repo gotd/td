@@ -5075,6 +5075,140 @@ func (i *InputMediaPaidMedia) MapExtendedMedia() (value InputMediaClassArray) {
 	return InputMediaClassArray(i.ExtendedMedia)
 }
 
+// InputMediaTodo represents TL type `inputMediaTodo#9fc55fde`.
+//
+// See https://core.telegram.org/constructor/inputMediaTodo for reference.
+type InputMediaTodo struct {
+	// Todo field of InputMediaTodo.
+	Todo TodoList
+}
+
+// InputMediaTodoTypeID is TL type id of InputMediaTodo.
+const InputMediaTodoTypeID = 0x9fc55fde
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaTodo) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaTodo.
+var (
+	_ bin.Encoder     = &InputMediaTodo{}
+	_ bin.Decoder     = &InputMediaTodo{}
+	_ bin.BareEncoder = &InputMediaTodo{}
+	_ bin.BareDecoder = &InputMediaTodo{}
+
+	_ InputMediaClass = &InputMediaTodo{}
+)
+
+func (i *InputMediaTodo) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Todo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMediaTodo) String() string {
+	if i == nil {
+		return "InputMediaTodo(nil)"
+	}
+	type Alias InputMediaTodo
+	return fmt.Sprintf("InputMediaTodo%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaTodo from given interface.
+func (i *InputMediaTodo) FillFrom(from interface {
+	GetTodo() (value TodoList)
+}) {
+	i.Todo = from.GetTodo()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMediaTodo) TypeID() uint32 {
+	return InputMediaTodoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMediaTodo) TypeName() string {
+	return "inputMediaTodo"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaTodo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaTodo",
+		ID:   InputMediaTodoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Todo",
+			SchemaName: "todo",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaTodo) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaTodo#9fc55fde as nil")
+	}
+	b.PutID(InputMediaTodoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaTodo) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaTodo#9fc55fde as nil")
+	}
+	if err := i.Todo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMediaTodo#9fc55fde: field todo: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMediaTodo) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaTodo#9fc55fde to nil")
+	}
+	if err := b.ConsumeID(InputMediaTodoTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaTodo#9fc55fde: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaTodo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaTodo#9fc55fde to nil")
+	}
+	{
+		if err := i.Todo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputMediaTodo#9fc55fde: field todo: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetTodo returns value of Todo field.
+func (i *InputMediaTodo) GetTodo() (value TodoList) {
+	if i == nil {
+		return
+	}
+	return i.Todo
+}
+
 // InputMediaClassName is schema name of InputMediaClass.
 const InputMediaClassName = "InputMedia"
 
@@ -5101,6 +5235,7 @@ const InputMediaClassName = "InputMedia"
 //   - [InputMediaStory]
 //   - [InputMediaWebPage]
 //   - [InputMediaPaidMedia]
+//   - [InputMediaTodo]
 //
 // Example:
 //
@@ -5127,6 +5262,7 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaStory: // inputMediaStory#89fdd778
 //	case *tg.InputMediaWebPage: // inputMediaWebPage#c21b8849
 //	case *tg.InputMediaPaidMedia: // inputMediaPaidMedia#c4103386
+//	case *tg.InputMediaTodo: // inputMediaTodo#9fc55fde
 //	default: panic(v)
 //	}
 type InputMediaClass interface {
@@ -5277,6 +5413,13 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 	case InputMediaPaidMediaTypeID:
 		// Decoding inputMediaPaidMedia#c4103386.
 		v := InputMediaPaidMedia{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+		}
+		return &v, nil
+	case InputMediaTodoTypeID:
+		// Decoding inputMediaTodo#9fc55fde.
+		v := InputMediaTodo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
 		}

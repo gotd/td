@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetStarsTransactionsByIDRequest represents TL type `payments.getStarsTransactionsByID#27842d2e`.
+// PaymentsGetStarsTransactionsByIDRequest represents TL type `payments.getStarsTransactionsByID#2dca16b8`.
 // Obtain info about Telegram Star transactions »¹ using specific transaction IDs.
 //
 // Links:
@@ -39,6 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.getStarsTransactionsByID for reference.
 type PaymentsGetStarsTransactionsByIDRequest struct {
+	// Flags field of PaymentsGetStarsTransactionsByIDRequest.
+	Flags bin.Fields
+	// Ton field of PaymentsGetStarsTransactionsByIDRequest.
+	Ton bool
 	// Channel or bot.
 	Peer InputPeerClass
 	// Transaction IDs.
@@ -46,7 +50,7 @@ type PaymentsGetStarsTransactionsByIDRequest struct {
 }
 
 // PaymentsGetStarsTransactionsByIDRequestTypeID is TL type id of PaymentsGetStarsTransactionsByIDRequest.
-const PaymentsGetStarsTransactionsByIDRequestTypeID = 0x27842d2e
+const PaymentsGetStarsTransactionsByIDRequestTypeID = 0x2dca16b8
 
 // Ensuring interfaces in compile-time for PaymentsGetStarsTransactionsByIDRequest.
 var (
@@ -59,6 +63,12 @@ var (
 func (g *PaymentsGetStarsTransactionsByIDRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Ton == false) {
+		return false
 	}
 	if !(g.Peer == nil) {
 		return false
@@ -81,9 +91,11 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) String() string {
 
 // FillFrom fills PaymentsGetStarsTransactionsByIDRequest from given interface.
 func (g *PaymentsGetStarsTransactionsByIDRequest) FillFrom(from interface {
+	GetTon() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetID() (value []InputStarsTransaction)
 }) {
+	g.Ton = from.GetTon()
 	g.Peer = from.GetPeer()
 	g.ID = from.GetID()
 }
@@ -112,6 +124,11 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Ton",
+			SchemaName: "ton",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -123,10 +140,17 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *PaymentsGetStarsTransactionsByIDRequest) SetFlags() {
+	if !(g.Ton == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetStarsTransactionsByIDRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsTransactionsByID#27842d2e as nil")
+		return fmt.Errorf("can't encode payments.getStarsTransactionsByID#2dca16b8 as nil")
 	}
 	b.PutID(PaymentsGetStarsTransactionsByIDRequestTypeID)
 	return g.EncodeBare(b)
@@ -135,18 +159,22 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetStarsTransactionsByIDRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsTransactionsByID#27842d2e as nil")
+		return fmt.Errorf("can't encode payments.getStarsTransactionsByID#2dca16b8 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#2dca16b8: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#27842d2e: field peer is nil")
+		return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#2dca16b8: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#27842d2e: field peer: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#2dca16b8: field peer: %w", err)
 	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#27842d2e: field id element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.getStarsTransactionsByID#2dca16b8: field id element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -155,10 +183,10 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) EncodeBare(b *bin.Buffer) erro
 // Decode implements bin.Decoder.
 func (g *PaymentsGetStarsTransactionsByIDRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsTransactionsByID#27842d2e to nil")
+		return fmt.Errorf("can't decode payments.getStarsTransactionsByID#2dca16b8 to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetStarsTransactionsByIDRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#27842d2e: %w", err)
+		return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#2dca16b8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -166,19 +194,25 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetStarsTransactionsByIDRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsTransactionsByID#27842d2e to nil")
+		return fmt.Errorf("can't decode payments.getStarsTransactionsByID#2dca16b8 to nil")
 	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#2dca16b8: field flags: %w", err)
+		}
+	}
+	g.Ton = g.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#27842d2e: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#2dca16b8: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#27842d2e: field id: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#2dca16b8: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -187,12 +221,31 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) DecodeBare(b *bin.Buffer) erro
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputStarsTransaction
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#27842d2e: field id: %w", err)
+				return fmt.Errorf("unable to decode payments.getStarsTransactionsByID#2dca16b8: field id: %w", err)
 			}
 			g.ID = append(g.ID, value)
 		}
 	}
 	return nil
+}
+
+// SetTon sets value of Ton conditional field.
+func (g *PaymentsGetStarsTransactionsByIDRequest) SetTon(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Ton = true
+	} else {
+		g.Flags.Unset(0)
+		g.Ton = false
+	}
+}
+
+// GetTon returns value of Ton conditional field.
+func (g *PaymentsGetStarsTransactionsByIDRequest) GetTon() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
@@ -211,7 +264,7 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) GetID() (value []InputStarsTra
 	return g.ID
 }
 
-// PaymentsGetStarsTransactionsByID invokes method payments.getStarsTransactionsByID#27842d2e returning error if any.
+// PaymentsGetStarsTransactionsByID invokes method payments.getStarsTransactionsByID#2dca16b8 returning error if any.
 // Obtain info about Telegram Star transactions »¹ using specific transaction IDs.
 //
 // Links:

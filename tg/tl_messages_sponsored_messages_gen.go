@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSponsoredMessages represents TL type `messages.sponsoredMessages#c9ee1d87`.
+// MessagesSponsoredMessages represents TL type `messages.sponsoredMessages#ffda656d`.
 // A set of sponsored messages associated to a channel
 //
 // See https://core.telegram.org/constructor/messages.sponsoredMessages for reference.
@@ -46,6 +46,14 @@ type MessagesSponsoredMessages struct {
 	//
 	// Use SetPostsBetween and GetPostsBetween helpers.
 	PostsBetween int
+	// StartDelay field of MessagesSponsoredMessages.
+	//
+	// Use SetStartDelay and GetStartDelay helpers.
+	StartDelay int
+	// BetweenDelay field of MessagesSponsoredMessages.
+	//
+	// Use SetBetweenDelay and GetBetweenDelay helpers.
+	BetweenDelay int
 	// Sponsored messages
 	Messages []SponsoredMessage
 	// Chats mentioned in the sponsored messages
@@ -55,7 +63,7 @@ type MessagesSponsoredMessages struct {
 }
 
 // MessagesSponsoredMessagesTypeID is TL type id of MessagesSponsoredMessages.
-const MessagesSponsoredMessagesTypeID = 0xc9ee1d87
+const MessagesSponsoredMessagesTypeID = 0xffda656d
 
 // construct implements constructor of MessagesSponsoredMessagesClass.
 func (s MessagesSponsoredMessages) construct() MessagesSponsoredMessagesClass { return &s }
@@ -78,6 +86,12 @@ func (s *MessagesSponsoredMessages) Zero() bool {
 		return false
 	}
 	if !(s.PostsBetween == 0) {
+		return false
+	}
+	if !(s.StartDelay == 0) {
+		return false
+	}
+	if !(s.BetweenDelay == 0) {
 		return false
 	}
 	if !(s.Messages == nil) {
@@ -105,12 +119,22 @@ func (s *MessagesSponsoredMessages) String() string {
 // FillFrom fills MessagesSponsoredMessages from given interface.
 func (s *MessagesSponsoredMessages) FillFrom(from interface {
 	GetPostsBetween() (value int, ok bool)
+	GetStartDelay() (value int, ok bool)
+	GetBetweenDelay() (value int, ok bool)
 	GetMessages() (value []SponsoredMessage)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
 	if val, ok := from.GetPostsBetween(); ok {
 		s.PostsBetween = val
+	}
+
+	if val, ok := from.GetStartDelay(); ok {
+		s.StartDelay = val
+	}
+
+	if val, ok := from.GetBetweenDelay(); ok {
+		s.BetweenDelay = val
 	}
 
 	s.Messages = from.GetMessages()
@@ -147,6 +171,16 @@ func (s *MessagesSponsoredMessages) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(0),
 		},
 		{
+			Name:       "StartDelay",
+			SchemaName: "start_delay",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "BetweenDelay",
+			SchemaName: "between_delay",
+			Null:       !s.Flags.Has(2),
+		},
+		{
 			Name:       "Messages",
 			SchemaName: "messages",
 		},
@@ -167,12 +201,18 @@ func (s *MessagesSponsoredMessages) SetFlags() {
 	if !(s.PostsBetween == 0) {
 		s.Flags.Set(0)
 	}
+	if !(s.StartDelay == 0) {
+		s.Flags.Set(1)
+	}
+	if !(s.BetweenDelay == 0) {
+		s.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSponsoredMessages) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sponsoredMessages#c9ee1d87 as nil")
+		return fmt.Errorf("can't encode messages.sponsoredMessages#ffda656d as nil")
 	}
 	b.PutID(MessagesSponsoredMessagesTypeID)
 	return s.EncodeBare(b)
@@ -181,37 +221,43 @@ func (s *MessagesSponsoredMessages) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSponsoredMessages) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sponsoredMessages#c9ee1d87 as nil")
+		return fmt.Errorf("can't encode messages.sponsoredMessages#ffda656d as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sponsoredMessages#c9ee1d87: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sponsoredMessages#ffda656d: field flags: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.PostsBetween)
 	}
+	if s.Flags.Has(1) {
+		b.PutInt(s.StartDelay)
+	}
+	if s.Flags.Has(2) {
+		b.PutInt(s.BetweenDelay)
+	}
 	b.PutVectorHeader(len(s.Messages))
 	for idx, v := range s.Messages {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sponsoredMessages#c9ee1d87: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.sponsoredMessages#ffda656d: field messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Chats))
 	for idx, v := range s.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.sponsoredMessages#c9ee1d87: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.sponsoredMessages#ffda656d: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sponsoredMessages#c9ee1d87: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.sponsoredMessages#ffda656d: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.sponsoredMessages#c9ee1d87: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.sponsoredMessages#ffda656d: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sponsoredMessages#c9ee1d87: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.sponsoredMessages#ffda656d: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -220,10 +266,10 @@ func (s *MessagesSponsoredMessages) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSponsoredMessages) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sponsoredMessages#c9ee1d87 to nil")
+		return fmt.Errorf("can't decode messages.sponsoredMessages#ffda656d to nil")
 	}
 	if err := b.ConsumeID(MessagesSponsoredMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: %w", err)
+		return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -231,24 +277,38 @@ func (s *MessagesSponsoredMessages) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sponsoredMessages#c9ee1d87 to nil")
+		return fmt.Errorf("can't decode messages.sponsoredMessages#ffda656d to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field flags: %w", err)
 		}
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field posts_between: %w", err)
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field posts_between: %w", err)
 		}
 		s.PostsBetween = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field start_delay: %w", err)
+		}
+		s.StartDelay = value
+	}
+	if s.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field between_delay: %w", err)
+		}
+		s.BetweenDelay = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field messages: %w", err)
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -257,7 +317,7 @@ func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value SponsoredMessage
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field messages: %w", err)
+				return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field messages: %w", err)
 			}
 			s.Messages = append(s.Messages, value)
 		}
@@ -265,7 +325,7 @@ func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field chats: %w", err)
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -274,7 +334,7 @@ func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field chats: %w", err)
+				return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field chats: %w", err)
 			}
 			s.Chats = append(s.Chats, value)
 		}
@@ -282,7 +342,7 @@ func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -291,7 +351,7 @@ func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sponsoredMessages#c9ee1d87: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.sponsoredMessages#ffda656d: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
 		}
@@ -315,6 +375,42 @@ func (s *MessagesSponsoredMessages) GetPostsBetween() (value int, ok bool) {
 		return value, false
 	}
 	return s.PostsBetween, true
+}
+
+// SetStartDelay sets value of StartDelay conditional field.
+func (s *MessagesSponsoredMessages) SetStartDelay(value int) {
+	s.Flags.Set(1)
+	s.StartDelay = value
+}
+
+// GetStartDelay returns value of StartDelay conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSponsoredMessages) GetStartDelay() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.StartDelay, true
+}
+
+// SetBetweenDelay sets value of BetweenDelay conditional field.
+func (s *MessagesSponsoredMessages) SetBetweenDelay(value int) {
+	s.Flags.Set(2)
+	s.BetweenDelay = value
+}
+
+// GetBetweenDelay returns value of BetweenDelay conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSponsoredMessages) GetBetweenDelay() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.BetweenDelay, true
 }
 
 // GetMessages returns value of Messages field.
@@ -471,7 +567,7 @@ const MessagesSponsoredMessagesClassName = "messages.SponsoredMessages"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.MessagesSponsoredMessages: // messages.sponsoredMessages#c9ee1d87
+//	case *tg.MessagesSponsoredMessages: // messages.sponsoredMessages#ffda656d
 //	case *tg.MessagesSponsoredMessagesEmpty: // messages.sponsoredMessagesEmpty#1839490f
 //	default: panic(v)
 //	}
@@ -515,7 +611,7 @@ func DecodeMessagesSponsoredMessages(buf *bin.Buffer) (MessagesSponsoredMessages
 	}
 	switch id {
 	case MessagesSponsoredMessagesTypeID:
-		// Decoding messages.sponsoredMessages#c9ee1d87.
+		// Decoding messages.sponsoredMessages#ffda656d.
 		v := MessagesSponsoredMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesSponsoredMessagesClass: %w", err)
