@@ -11479,6 +11479,1266 @@ func (m *MessageActionConferenceCall) MapOtherParticipants() (value PeerClassArr
 	return PeerClassArray(m.OtherParticipants), true
 }
 
+// MessageActionTodoCompletions represents TL type `messageActionTodoCompletions#cc7c5c89`.
+//
+// See https://core.telegram.org/constructor/messageActionTodoCompletions for reference.
+type MessageActionTodoCompletions struct {
+	// Completed field of MessageActionTodoCompletions.
+	Completed []int
+	// Incompleted field of MessageActionTodoCompletions.
+	Incompleted []int
+}
+
+// MessageActionTodoCompletionsTypeID is TL type id of MessageActionTodoCompletions.
+const MessageActionTodoCompletionsTypeID = 0xcc7c5c89
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionTodoCompletions) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionTodoCompletions.
+var (
+	_ bin.Encoder     = &MessageActionTodoCompletions{}
+	_ bin.Decoder     = &MessageActionTodoCompletions{}
+	_ bin.BareEncoder = &MessageActionTodoCompletions{}
+	_ bin.BareDecoder = &MessageActionTodoCompletions{}
+
+	_ MessageActionClass = &MessageActionTodoCompletions{}
+)
+
+func (m *MessageActionTodoCompletions) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Completed == nil) {
+		return false
+	}
+	if !(m.Incompleted == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionTodoCompletions) String() string {
+	if m == nil {
+		return "MessageActionTodoCompletions(nil)"
+	}
+	type Alias MessageActionTodoCompletions
+	return fmt.Sprintf("MessageActionTodoCompletions%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionTodoCompletions from given interface.
+func (m *MessageActionTodoCompletions) FillFrom(from interface {
+	GetCompleted() (value []int)
+	GetIncompleted() (value []int)
+}) {
+	m.Completed = from.GetCompleted()
+	m.Incompleted = from.GetIncompleted()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionTodoCompletions) TypeID() uint32 {
+	return MessageActionTodoCompletionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionTodoCompletions) TypeName() string {
+	return "messageActionTodoCompletions"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionTodoCompletions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionTodoCompletions",
+		ID:   MessageActionTodoCompletionsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Completed",
+			SchemaName: "completed",
+		},
+		{
+			Name:       "Incompleted",
+			SchemaName: "incompleted",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionTodoCompletions) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTodoCompletions#cc7c5c89 as nil")
+	}
+	b.PutID(MessageActionTodoCompletionsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionTodoCompletions) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTodoCompletions#cc7c5c89 as nil")
+	}
+	b.PutVectorHeader(len(m.Completed))
+	for _, v := range m.Completed {
+		b.PutInt(v)
+	}
+	b.PutVectorHeader(len(m.Incompleted))
+	for _, v := range m.Incompleted {
+		b.PutInt(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionTodoCompletions) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTodoCompletions#cc7c5c89 to nil")
+	}
+	if err := b.ConsumeID(MessageActionTodoCompletionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionTodoCompletions#cc7c5c89: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionTodoCompletions) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTodoCompletions#cc7c5c89 to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTodoCompletions#cc7c5c89: field completed: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Completed = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageActionTodoCompletions#cc7c5c89: field completed: %w", err)
+			}
+			m.Completed = append(m.Completed, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTodoCompletions#cc7c5c89: field incompleted: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Incompleted = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageActionTodoCompletions#cc7c5c89: field incompleted: %w", err)
+			}
+			m.Incompleted = append(m.Incompleted, value)
+		}
+	}
+	return nil
+}
+
+// GetCompleted returns value of Completed field.
+func (m *MessageActionTodoCompletions) GetCompleted() (value []int) {
+	if m == nil {
+		return
+	}
+	return m.Completed
+}
+
+// GetIncompleted returns value of Incompleted field.
+func (m *MessageActionTodoCompletions) GetIncompleted() (value []int) {
+	if m == nil {
+		return
+	}
+	return m.Incompleted
+}
+
+// MessageActionTodoAppendTasks represents TL type `messageActionTodoAppendTasks#c7edbc83`.
+//
+// See https://core.telegram.org/constructor/messageActionTodoAppendTasks for reference.
+type MessageActionTodoAppendTasks struct {
+	// List field of MessageActionTodoAppendTasks.
+	List []TodoItem
+}
+
+// MessageActionTodoAppendTasksTypeID is TL type id of MessageActionTodoAppendTasks.
+const MessageActionTodoAppendTasksTypeID = 0xc7edbc83
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionTodoAppendTasks) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionTodoAppendTasks.
+var (
+	_ bin.Encoder     = &MessageActionTodoAppendTasks{}
+	_ bin.Decoder     = &MessageActionTodoAppendTasks{}
+	_ bin.BareEncoder = &MessageActionTodoAppendTasks{}
+	_ bin.BareDecoder = &MessageActionTodoAppendTasks{}
+
+	_ MessageActionClass = &MessageActionTodoAppendTasks{}
+)
+
+func (m *MessageActionTodoAppendTasks) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.List == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionTodoAppendTasks) String() string {
+	if m == nil {
+		return "MessageActionTodoAppendTasks(nil)"
+	}
+	type Alias MessageActionTodoAppendTasks
+	return fmt.Sprintf("MessageActionTodoAppendTasks%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionTodoAppendTasks from given interface.
+func (m *MessageActionTodoAppendTasks) FillFrom(from interface {
+	GetList() (value []TodoItem)
+}) {
+	m.List = from.GetList()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionTodoAppendTasks) TypeID() uint32 {
+	return MessageActionTodoAppendTasksTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionTodoAppendTasks) TypeName() string {
+	return "messageActionTodoAppendTasks"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionTodoAppendTasks) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionTodoAppendTasks",
+		ID:   MessageActionTodoAppendTasksTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "List",
+			SchemaName: "list",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionTodoAppendTasks) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTodoAppendTasks#c7edbc83 as nil")
+	}
+	b.PutID(MessageActionTodoAppendTasksTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionTodoAppendTasks) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTodoAppendTasks#c7edbc83 as nil")
+	}
+	b.PutVectorHeader(len(m.List))
+	for idx, v := range m.List {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionTodoAppendTasks#c7edbc83: field list element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionTodoAppendTasks) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTodoAppendTasks#c7edbc83 to nil")
+	}
+	if err := b.ConsumeID(MessageActionTodoAppendTasksTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionTodoAppendTasks#c7edbc83: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionTodoAppendTasks) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTodoAppendTasks#c7edbc83 to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTodoAppendTasks#c7edbc83: field list: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.List = make([]TodoItem, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value TodoItem
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode messageActionTodoAppendTasks#c7edbc83: field list: %w", err)
+			}
+			m.List = append(m.List, value)
+		}
+	}
+	return nil
+}
+
+// GetList returns value of List field.
+func (m *MessageActionTodoAppendTasks) GetList() (value []TodoItem) {
+	if m == nil {
+		return
+	}
+	return m.List
+}
+
+// MessageActionSuggestedPostApproval represents TL type `messageActionSuggestedPostApproval#ee7a1596`.
+//
+// See https://core.telegram.org/constructor/messageActionSuggestedPostApproval for reference.
+type MessageActionSuggestedPostApproval struct {
+	// Flags field of MessageActionSuggestedPostApproval.
+	Flags bin.Fields
+	// Rejected field of MessageActionSuggestedPostApproval.
+	Rejected bool
+	// BalanceTooLow field of MessageActionSuggestedPostApproval.
+	BalanceTooLow bool
+	// RejectComment field of MessageActionSuggestedPostApproval.
+	//
+	// Use SetRejectComment and GetRejectComment helpers.
+	RejectComment string
+	// ScheduleDate field of MessageActionSuggestedPostApproval.
+	//
+	// Use SetScheduleDate and GetScheduleDate helpers.
+	ScheduleDate int
+	// Price field of MessageActionSuggestedPostApproval.
+	//
+	// Use SetPrice and GetPrice helpers.
+	Price StarsAmountClass
+}
+
+// MessageActionSuggestedPostApprovalTypeID is TL type id of MessageActionSuggestedPostApproval.
+const MessageActionSuggestedPostApprovalTypeID = 0xee7a1596
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSuggestedPostApproval) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSuggestedPostApproval.
+var (
+	_ bin.Encoder     = &MessageActionSuggestedPostApproval{}
+	_ bin.Decoder     = &MessageActionSuggestedPostApproval{}
+	_ bin.BareEncoder = &MessageActionSuggestedPostApproval{}
+	_ bin.BareDecoder = &MessageActionSuggestedPostApproval{}
+
+	_ MessageActionClass = &MessageActionSuggestedPostApproval{}
+)
+
+func (m *MessageActionSuggestedPostApproval) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Rejected == false) {
+		return false
+	}
+	if !(m.BalanceTooLow == false) {
+		return false
+	}
+	if !(m.RejectComment == "") {
+		return false
+	}
+	if !(m.ScheduleDate == 0) {
+		return false
+	}
+	if !(m.Price == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionSuggestedPostApproval) String() string {
+	if m == nil {
+		return "MessageActionSuggestedPostApproval(nil)"
+	}
+	type Alias MessageActionSuggestedPostApproval
+	return fmt.Sprintf("MessageActionSuggestedPostApproval%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSuggestedPostApproval from given interface.
+func (m *MessageActionSuggestedPostApproval) FillFrom(from interface {
+	GetRejected() (value bool)
+	GetBalanceTooLow() (value bool)
+	GetRejectComment() (value string, ok bool)
+	GetScheduleDate() (value int, ok bool)
+	GetPrice() (value StarsAmountClass, ok bool)
+}) {
+	m.Rejected = from.GetRejected()
+	m.BalanceTooLow = from.GetBalanceTooLow()
+	if val, ok := from.GetRejectComment(); ok {
+		m.RejectComment = val
+	}
+
+	if val, ok := from.GetScheduleDate(); ok {
+		m.ScheduleDate = val
+	}
+
+	if val, ok := from.GetPrice(); ok {
+		m.Price = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionSuggestedPostApproval) TypeID() uint32 {
+	return MessageActionSuggestedPostApprovalTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionSuggestedPostApproval) TypeName() string {
+	return "messageActionSuggestedPostApproval"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSuggestedPostApproval) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSuggestedPostApproval",
+		ID:   MessageActionSuggestedPostApprovalTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Rejected",
+			SchemaName: "rejected",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "BalanceTooLow",
+			SchemaName: "balance_too_low",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "RejectComment",
+			SchemaName: "reject_comment",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Price",
+			SchemaName: "price",
+			Null:       !m.Flags.Has(4),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionSuggestedPostApproval) SetFlags() {
+	if !(m.Rejected == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.BalanceTooLow == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.RejectComment == "") {
+		m.Flags.Set(2)
+	}
+	if !(m.ScheduleDate == 0) {
+		m.Flags.Set(3)
+	}
+	if !(m.Price == nil) {
+		m.Flags.Set(4)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionSuggestedPostApproval) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestedPostApproval#ee7a1596 as nil")
+	}
+	b.PutID(MessageActionSuggestedPostApprovalTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionSuggestedPostApproval) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestedPostApproval#ee7a1596 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionSuggestedPostApproval#ee7a1596: field flags: %w", err)
+	}
+	if m.Flags.Has(2) {
+		b.PutString(m.RejectComment)
+	}
+	if m.Flags.Has(3) {
+		b.PutInt(m.ScheduleDate)
+	}
+	if m.Flags.Has(4) {
+		if m.Price == nil {
+			return fmt.Errorf("unable to encode messageActionSuggestedPostApproval#ee7a1596: field price is nil")
+		}
+		if err := m.Price.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionSuggestedPostApproval#ee7a1596: field price: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionSuggestedPostApproval) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestedPostApproval#ee7a1596 to nil")
+	}
+	if err := b.ConsumeID(MessageActionSuggestedPostApprovalTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionSuggestedPostApproval#ee7a1596: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionSuggestedPostApproval) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestedPostApproval#ee7a1596 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestedPostApproval#ee7a1596: field flags: %w", err)
+		}
+	}
+	m.Rejected = m.Flags.Has(0)
+	m.BalanceTooLow = m.Flags.Has(1)
+	if m.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestedPostApproval#ee7a1596: field reject_comment: %w", err)
+		}
+		m.RejectComment = value
+	}
+	if m.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestedPostApproval#ee7a1596: field schedule_date: %w", err)
+		}
+		m.ScheduleDate = value
+	}
+	if m.Flags.Has(4) {
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestedPostApproval#ee7a1596: field price: %w", err)
+		}
+		m.Price = value
+	}
+	return nil
+}
+
+// SetRejected sets value of Rejected conditional field.
+func (m *MessageActionSuggestedPostApproval) SetRejected(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Rejected = true
+	} else {
+		m.Flags.Unset(0)
+		m.Rejected = false
+	}
+}
+
+// GetRejected returns value of Rejected conditional field.
+func (m *MessageActionSuggestedPostApproval) GetRejected() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetBalanceTooLow sets value of BalanceTooLow conditional field.
+func (m *MessageActionSuggestedPostApproval) SetBalanceTooLow(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.BalanceTooLow = true
+	} else {
+		m.Flags.Unset(1)
+		m.BalanceTooLow = false
+	}
+}
+
+// GetBalanceTooLow returns value of BalanceTooLow conditional field.
+func (m *MessageActionSuggestedPostApproval) GetBalanceTooLow() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// SetRejectComment sets value of RejectComment conditional field.
+func (m *MessageActionSuggestedPostApproval) SetRejectComment(value string) {
+	m.Flags.Set(2)
+	m.RejectComment = value
+}
+
+// GetRejectComment returns value of RejectComment conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionSuggestedPostApproval) GetRejectComment() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.RejectComment, true
+}
+
+// SetScheduleDate sets value of ScheduleDate conditional field.
+func (m *MessageActionSuggestedPostApproval) SetScheduleDate(value int) {
+	m.Flags.Set(3)
+	m.ScheduleDate = value
+}
+
+// GetScheduleDate returns value of ScheduleDate conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionSuggestedPostApproval) GetScheduleDate() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(3) {
+		return value, false
+	}
+	return m.ScheduleDate, true
+}
+
+// SetPrice sets value of Price conditional field.
+func (m *MessageActionSuggestedPostApproval) SetPrice(value StarsAmountClass) {
+	m.Flags.Set(4)
+	m.Price = value
+}
+
+// GetPrice returns value of Price conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionSuggestedPostApproval) GetPrice() (value StarsAmountClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.Price, true
+}
+
+// MessageActionSuggestedPostSuccess represents TL type `messageActionSuggestedPostSuccess#95ddcf69`.
+//
+// See https://core.telegram.org/constructor/messageActionSuggestedPostSuccess for reference.
+type MessageActionSuggestedPostSuccess struct {
+	// Price field of MessageActionSuggestedPostSuccess.
+	Price StarsAmountClass
+}
+
+// MessageActionSuggestedPostSuccessTypeID is TL type id of MessageActionSuggestedPostSuccess.
+const MessageActionSuggestedPostSuccessTypeID = 0x95ddcf69
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSuggestedPostSuccess) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSuggestedPostSuccess.
+var (
+	_ bin.Encoder     = &MessageActionSuggestedPostSuccess{}
+	_ bin.Decoder     = &MessageActionSuggestedPostSuccess{}
+	_ bin.BareEncoder = &MessageActionSuggestedPostSuccess{}
+	_ bin.BareDecoder = &MessageActionSuggestedPostSuccess{}
+
+	_ MessageActionClass = &MessageActionSuggestedPostSuccess{}
+)
+
+func (m *MessageActionSuggestedPostSuccess) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Price == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionSuggestedPostSuccess) String() string {
+	if m == nil {
+		return "MessageActionSuggestedPostSuccess(nil)"
+	}
+	type Alias MessageActionSuggestedPostSuccess
+	return fmt.Sprintf("MessageActionSuggestedPostSuccess%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSuggestedPostSuccess from given interface.
+func (m *MessageActionSuggestedPostSuccess) FillFrom(from interface {
+	GetPrice() (value StarsAmountClass)
+}) {
+	m.Price = from.GetPrice()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionSuggestedPostSuccess) TypeID() uint32 {
+	return MessageActionSuggestedPostSuccessTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionSuggestedPostSuccess) TypeName() string {
+	return "messageActionSuggestedPostSuccess"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSuggestedPostSuccess) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSuggestedPostSuccess",
+		ID:   MessageActionSuggestedPostSuccessTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Price",
+			SchemaName: "price",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionSuggestedPostSuccess) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestedPostSuccess#95ddcf69 as nil")
+	}
+	b.PutID(MessageActionSuggestedPostSuccessTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionSuggestedPostSuccess) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestedPostSuccess#95ddcf69 as nil")
+	}
+	if m.Price == nil {
+		return fmt.Errorf("unable to encode messageActionSuggestedPostSuccess#95ddcf69: field price is nil")
+	}
+	if err := m.Price.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionSuggestedPostSuccess#95ddcf69: field price: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionSuggestedPostSuccess) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestedPostSuccess#95ddcf69 to nil")
+	}
+	if err := b.ConsumeID(MessageActionSuggestedPostSuccessTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionSuggestedPostSuccess#95ddcf69: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionSuggestedPostSuccess) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestedPostSuccess#95ddcf69 to nil")
+	}
+	{
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestedPostSuccess#95ddcf69: field price: %w", err)
+		}
+		m.Price = value
+	}
+	return nil
+}
+
+// GetPrice returns value of Price field.
+func (m *MessageActionSuggestedPostSuccess) GetPrice() (value StarsAmountClass) {
+	if m == nil {
+		return
+	}
+	return m.Price
+}
+
+// MessageActionSuggestedPostRefund represents TL type `messageActionSuggestedPostRefund#69f916f8`.
+//
+// See https://core.telegram.org/constructor/messageActionSuggestedPostRefund for reference.
+type MessageActionSuggestedPostRefund struct {
+	// Flags field of MessageActionSuggestedPostRefund.
+	Flags bin.Fields
+	// PayerInitiated field of MessageActionSuggestedPostRefund.
+	PayerInitiated bool
+}
+
+// MessageActionSuggestedPostRefundTypeID is TL type id of MessageActionSuggestedPostRefund.
+const MessageActionSuggestedPostRefundTypeID = 0x69f916f8
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSuggestedPostRefund) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSuggestedPostRefund.
+var (
+	_ bin.Encoder     = &MessageActionSuggestedPostRefund{}
+	_ bin.Decoder     = &MessageActionSuggestedPostRefund{}
+	_ bin.BareEncoder = &MessageActionSuggestedPostRefund{}
+	_ bin.BareDecoder = &MessageActionSuggestedPostRefund{}
+
+	_ MessageActionClass = &MessageActionSuggestedPostRefund{}
+)
+
+func (m *MessageActionSuggestedPostRefund) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.PayerInitiated == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionSuggestedPostRefund) String() string {
+	if m == nil {
+		return "MessageActionSuggestedPostRefund(nil)"
+	}
+	type Alias MessageActionSuggestedPostRefund
+	return fmt.Sprintf("MessageActionSuggestedPostRefund%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSuggestedPostRefund from given interface.
+func (m *MessageActionSuggestedPostRefund) FillFrom(from interface {
+	GetPayerInitiated() (value bool)
+}) {
+	m.PayerInitiated = from.GetPayerInitiated()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionSuggestedPostRefund) TypeID() uint32 {
+	return MessageActionSuggestedPostRefundTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionSuggestedPostRefund) TypeName() string {
+	return "messageActionSuggestedPostRefund"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSuggestedPostRefund) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSuggestedPostRefund",
+		ID:   MessageActionSuggestedPostRefundTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PayerInitiated",
+			SchemaName: "payer_initiated",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionSuggestedPostRefund) SetFlags() {
+	if !(m.PayerInitiated == false) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionSuggestedPostRefund) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestedPostRefund#69f916f8 as nil")
+	}
+	b.PutID(MessageActionSuggestedPostRefundTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionSuggestedPostRefund) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestedPostRefund#69f916f8 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionSuggestedPostRefund#69f916f8: field flags: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionSuggestedPostRefund) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestedPostRefund#69f916f8 to nil")
+	}
+	if err := b.ConsumeID(MessageActionSuggestedPostRefundTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionSuggestedPostRefund#69f916f8: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionSuggestedPostRefund) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestedPostRefund#69f916f8 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestedPostRefund#69f916f8: field flags: %w", err)
+		}
+	}
+	m.PayerInitiated = m.Flags.Has(0)
+	return nil
+}
+
+// SetPayerInitiated sets value of PayerInitiated conditional field.
+func (m *MessageActionSuggestedPostRefund) SetPayerInitiated(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.PayerInitiated = true
+	} else {
+		m.Flags.Unset(0)
+		m.PayerInitiated = false
+	}
+}
+
+// GetPayerInitiated returns value of PayerInitiated conditional field.
+func (m *MessageActionSuggestedPostRefund) GetPayerInitiated() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// MessageActionGiftTon represents TL type `messageActionGiftTon#a8a3c699`.
+//
+// See https://core.telegram.org/constructor/messageActionGiftTon for reference.
+type MessageActionGiftTon struct {
+	// Flags field of MessageActionGiftTon.
+	Flags bin.Fields
+	// Currency field of MessageActionGiftTon.
+	Currency string
+	// Amount field of MessageActionGiftTon.
+	Amount int64
+	// CryptoCurrency field of MessageActionGiftTon.
+	CryptoCurrency string
+	// CryptoAmount field of MessageActionGiftTon.
+	CryptoAmount int64
+	// TransactionID field of MessageActionGiftTon.
+	//
+	// Use SetTransactionID and GetTransactionID helpers.
+	TransactionID string
+}
+
+// MessageActionGiftTonTypeID is TL type id of MessageActionGiftTon.
+const MessageActionGiftTonTypeID = 0xa8a3c699
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGiftTon) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGiftTon.
+var (
+	_ bin.Encoder     = &MessageActionGiftTon{}
+	_ bin.Decoder     = &MessageActionGiftTon{}
+	_ bin.BareEncoder = &MessageActionGiftTon{}
+	_ bin.BareDecoder = &MessageActionGiftTon{}
+
+	_ MessageActionClass = &MessageActionGiftTon{}
+)
+
+func (m *MessageActionGiftTon) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.Amount == 0) {
+		return false
+	}
+	if !(m.CryptoCurrency == "") {
+		return false
+	}
+	if !(m.CryptoAmount == 0) {
+		return false
+	}
+	if !(m.TransactionID == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionGiftTon) String() string {
+	if m == nil {
+		return "MessageActionGiftTon(nil)"
+	}
+	type Alias MessageActionGiftTon
+	return fmt.Sprintf("MessageActionGiftTon%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionGiftTon from given interface.
+func (m *MessageActionGiftTon) FillFrom(from interface {
+	GetCurrency() (value string)
+	GetAmount() (value int64)
+	GetCryptoCurrency() (value string)
+	GetCryptoAmount() (value int64)
+	GetTransactionID() (value string, ok bool)
+}) {
+	m.Currency = from.GetCurrency()
+	m.Amount = from.GetAmount()
+	m.CryptoCurrency = from.GetCryptoCurrency()
+	m.CryptoAmount = from.GetCryptoAmount()
+	if val, ok := from.GetTransactionID(); ok {
+		m.TransactionID = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionGiftTon) TypeID() uint32 {
+	return MessageActionGiftTonTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionGiftTon) TypeName() string {
+	return "messageActionGiftTon"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGiftTon) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGiftTon",
+		ID:   MessageActionGiftTonTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "CryptoCurrency",
+			SchemaName: "crypto_currency",
+		},
+		{
+			Name:       "CryptoAmount",
+			SchemaName: "crypto_amount",
+		},
+		{
+			Name:       "TransactionID",
+			SchemaName: "transaction_id",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionGiftTon) SetFlags() {
+	if !(m.TransactionID == "") {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGiftTon) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftTon#a8a3c699 as nil")
+	}
+	b.PutID(MessageActionGiftTonTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionGiftTon) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftTon#a8a3c699 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionGiftTon#a8a3c699: field flags: %w", err)
+	}
+	b.PutString(m.Currency)
+	b.PutLong(m.Amount)
+	b.PutString(m.CryptoCurrency)
+	b.PutLong(m.CryptoAmount)
+	if m.Flags.Has(0) {
+		b.PutString(m.TransactionID)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGiftTon) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftTon#a8a3c699 to nil")
+	}
+	if err := b.ConsumeID(MessageActionGiftTonTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionGiftTon) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftTon#a8a3c699 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: field currency: %w", err)
+		}
+		m.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: field amount: %w", err)
+		}
+		m.Amount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: field crypto_currency: %w", err)
+		}
+		m.CryptoCurrency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: field crypto_amount: %w", err)
+		}
+		m.CryptoAmount = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftTon#a8a3c699: field transaction_id: %w", err)
+		}
+		m.TransactionID = value
+	}
+	return nil
+}
+
+// GetCurrency returns value of Currency field.
+func (m *MessageActionGiftTon) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (m *MessageActionGiftTon) GetAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Amount
+}
+
+// GetCryptoCurrency returns value of CryptoCurrency field.
+func (m *MessageActionGiftTon) GetCryptoCurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.CryptoCurrency
+}
+
+// GetCryptoAmount returns value of CryptoAmount field.
+func (m *MessageActionGiftTon) GetCryptoAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.CryptoAmount
+}
+
+// SetTransactionID sets value of TransactionID conditional field.
+func (m *MessageActionGiftTon) SetTransactionID(value string) {
+	m.Flags.Set(0)
+	m.TransactionID = value
+}
+
+// GetTransactionID returns value of TransactionID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftTon) GetTransactionID() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.TransactionID, true
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -11538,6 +12798,12 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionPaidMessagesRefunded]
 //   - [MessageActionPaidMessagesPrice]
 //   - [MessageActionConferenceCall]
+//   - [MessageActionTodoCompletions]
+//   - [MessageActionTodoAppendTasks]
+//   - [MessageActionSuggestedPostApproval]
+//   - [MessageActionSuggestedPostSuccess]
+//   - [MessageActionSuggestedPostRefund]
+//   - [MessageActionGiftTon]
 //
 // Example:
 //
@@ -11597,6 +12863,12 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPaidMessagesRefunded: // messageActionPaidMessagesRefunded#ac1f1fcd
 //	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#84b88578
 //	case *tg.MessageActionConferenceCall: // messageActionConferenceCall#2ffe2f7a
+//	case *tg.MessageActionTodoCompletions: // messageActionTodoCompletions#cc7c5c89
+//	case *tg.MessageActionTodoAppendTasks: // messageActionTodoAppendTasks#c7edbc83
+//	case *tg.MessageActionSuggestedPostApproval: // messageActionSuggestedPostApproval#ee7a1596
+//	case *tg.MessageActionSuggestedPostSuccess: // messageActionSuggestedPostSuccess#95ddcf69
+//	case *tg.MessageActionSuggestedPostRefund: // messageActionSuggestedPostRefund#69f916f8
+//	case *tg.MessageActionGiftTon: // messageActionGiftTon#a8a3c699
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -11978,6 +13250,48 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionConferenceCallTypeID:
 		// Decoding messageActionConferenceCall#2ffe2f7a.
 		v := MessageActionConferenceCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionTodoCompletionsTypeID:
+		// Decoding messageActionTodoCompletions#cc7c5c89.
+		v := MessageActionTodoCompletions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionTodoAppendTasksTypeID:
+		// Decoding messageActionTodoAppendTasks#c7edbc83.
+		v := MessageActionTodoAppendTasks{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionSuggestedPostApprovalTypeID:
+		// Decoding messageActionSuggestedPostApproval#ee7a1596.
+		v := MessageActionSuggestedPostApproval{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionSuggestedPostSuccessTypeID:
+		// Decoding messageActionSuggestedPostSuccess#95ddcf69.
+		v := MessageActionSuggestedPostSuccess{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionSuggestedPostRefundTypeID:
+		// Decoding messageActionSuggestedPostRefund#69f916f8.
+		v := MessageActionSuggestedPostRefund{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGiftTonTypeID:
+		// Decoding messageActionGiftTon#a8a3c699.
+		v := MessageActionGiftTon{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

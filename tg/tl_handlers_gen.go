@@ -1456,16 +1456,6 @@ func (u UpdateDispatcher) OnNewStoryReaction(handler NewStoryReactionHandler) {
 	}
 }
 
-// BroadcastRevenueTransactionsHandler is a BroadcastRevenueTransactions event handler.
-type BroadcastRevenueTransactionsHandler func(ctx context.Context, e Entities, update *UpdateBroadcastRevenueTransactions) error
-
-// OnBroadcastRevenueTransactions sets BroadcastRevenueTransactions handler.
-func (u UpdateDispatcher) OnBroadcastRevenueTransactions(handler BroadcastRevenueTransactionsHandler) {
-	u.handlers[UpdateBroadcastRevenueTransactionsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
-		return handler(ctx, e, update.(*UpdateBroadcastRevenueTransactions))
-	}
-}
-
 // StarsBalanceHandler is a StarsBalance event handler.
 type StarsBalanceHandler func(ctx context.Context, e Entities, update *UpdateStarsBalance) error
 
@@ -1553,5 +1543,15 @@ type ReadMonoForumOutboxHandler func(ctx context.Context, e Entities, update *Up
 func (u UpdateDispatcher) OnReadMonoForumOutbox(handler ReadMonoForumOutboxHandler) {
 	u.handlers[UpdateReadMonoForumOutboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
 		return handler(ctx, e, update.(*UpdateReadMonoForumOutbox))
+	}
+}
+
+// MonoForumNoPaidExceptionHandler is a MonoForumNoPaidException event handler.
+type MonoForumNoPaidExceptionHandler func(ctx context.Context, e Entities, update *UpdateMonoForumNoPaidException) error
+
+// OnMonoForumNoPaidException sets MonoForumNoPaidException handler.
+func (u UpdateDispatcher) OnMonoForumNoPaidException(handler MonoForumNoPaidExceptionHandler) {
+	u.handlers[UpdateMonoForumNoPaidExceptionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMonoForumNoPaidException))
 	}
 }

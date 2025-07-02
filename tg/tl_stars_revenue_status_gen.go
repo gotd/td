@@ -50,11 +50,11 @@ type StarsRevenueStatus struct {
 	//  1) https://core.telegram.org/api/stars#withdrawing-stars
 	WithdrawalEnabled bool
 	// Amount of not-yet-withdrawn Telegram Stars.
-	CurrentBalance StarsAmount
+	CurrentBalance StarsAmountClass
 	// Amount of withdrawable Telegram Stars.
-	AvailableBalance StarsAmount
+	AvailableBalance StarsAmountClass
 	// Total amount of earned Telegram Stars.
-	OverallRevenue StarsAmount
+	OverallRevenue StarsAmountClass
 	// Unixtime indicating when will withdrawal be available to the user. If not set,
 	// withdrawal can be started now.
 	//
@@ -83,13 +83,13 @@ func (s *StarsRevenueStatus) Zero() bool {
 	if !(s.WithdrawalEnabled == false) {
 		return false
 	}
-	if !(s.CurrentBalance.Zero()) {
+	if !(s.CurrentBalance == nil) {
 		return false
 	}
-	if !(s.AvailableBalance.Zero()) {
+	if !(s.AvailableBalance == nil) {
 		return false
 	}
-	if !(s.OverallRevenue.Zero()) {
+	if !(s.OverallRevenue == nil) {
 		return false
 	}
 	if !(s.NextWithdrawalAt == 0) {
@@ -111,9 +111,9 @@ func (s *StarsRevenueStatus) String() string {
 // FillFrom fills StarsRevenueStatus from given interface.
 func (s *StarsRevenueStatus) FillFrom(from interface {
 	GetWithdrawalEnabled() (value bool)
-	GetCurrentBalance() (value StarsAmount)
-	GetAvailableBalance() (value StarsAmount)
-	GetOverallRevenue() (value StarsAmount)
+	GetCurrentBalance() (value StarsAmountClass)
+	GetAvailableBalance() (value StarsAmountClass)
+	GetOverallRevenue() (value StarsAmountClass)
 	GetNextWithdrawalAt() (value int, ok bool)
 }) {
 	s.WithdrawalEnabled = from.GetWithdrawalEnabled()
@@ -203,11 +203,20 @@ func (s *StarsRevenueStatus) EncodeBare(b *bin.Buffer) error {
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field flags: %w", err)
 	}
+	if s.CurrentBalance == nil {
+		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field current_balance is nil")
+	}
 	if err := s.CurrentBalance.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field current_balance: %w", err)
 	}
+	if s.AvailableBalance == nil {
+		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field available_balance is nil")
+	}
 	if err := s.AvailableBalance.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field available_balance: %w", err)
+	}
+	if s.OverallRevenue == nil {
+		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field overall_revenue is nil")
 	}
 	if err := s.OverallRevenue.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode starsRevenueStatus#febe5491: field overall_revenue: %w", err)
@@ -241,19 +250,25 @@ func (s *StarsRevenueStatus) DecodeBare(b *bin.Buffer) error {
 	}
 	s.WithdrawalEnabled = s.Flags.Has(0)
 	{
-		if err := s.CurrentBalance.Decode(b); err != nil {
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode starsRevenueStatus#febe5491: field current_balance: %w", err)
 		}
+		s.CurrentBalance = value
 	}
 	{
-		if err := s.AvailableBalance.Decode(b); err != nil {
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode starsRevenueStatus#febe5491: field available_balance: %w", err)
 		}
+		s.AvailableBalance = value
 	}
 	{
-		if err := s.OverallRevenue.Decode(b); err != nil {
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode starsRevenueStatus#febe5491: field overall_revenue: %w", err)
 		}
+		s.OverallRevenue = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.Int()
@@ -285,7 +300,7 @@ func (s *StarsRevenueStatus) GetWithdrawalEnabled() (value bool) {
 }
 
 // GetCurrentBalance returns value of CurrentBalance field.
-func (s *StarsRevenueStatus) GetCurrentBalance() (value StarsAmount) {
+func (s *StarsRevenueStatus) GetCurrentBalance() (value StarsAmountClass) {
 	if s == nil {
 		return
 	}
@@ -293,7 +308,7 @@ func (s *StarsRevenueStatus) GetCurrentBalance() (value StarsAmount) {
 }
 
 // GetAvailableBalance returns value of AvailableBalance field.
-func (s *StarsRevenueStatus) GetAvailableBalance() (value StarsAmount) {
+func (s *StarsRevenueStatus) GetAvailableBalance() (value StarsAmountClass) {
 	if s == nil {
 		return
 	}
@@ -301,7 +316,7 @@ func (s *StarsRevenueStatus) GetAvailableBalance() (value StarsAmount) {
 }
 
 // GetOverallRevenue returns value of OverallRevenue field.
-func (s *StarsRevenueStatus) GetOverallRevenue() (value StarsAmount) {
+func (s *StarsRevenueStatus) GetOverallRevenue() (value StarsAmountClass) {
 	if s == nil {
 		return
 	}

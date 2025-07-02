@@ -27633,176 +27633,6 @@ func (u *UpdateNewStoryReaction) GetReaction() (value ReactionClass) {
 	return u.Reaction
 }
 
-// UpdateBroadcastRevenueTransactions represents TL type `updateBroadcastRevenueTransactions#dfd961f5`.
-// A new channel ad revenue transaction was made, see here »¹ for more info.
-//
-// Links:
-//  1. https://core.telegram.org/api/revenue#revenue-statistics
-//
-// See https://core.telegram.org/constructor/updateBroadcastRevenueTransactions for reference.
-type UpdateBroadcastRevenueTransactions struct {
-	// Channel
-	Peer PeerClass
-	// New ad revenue balance.
-	Balances BroadcastRevenueBalances
-}
-
-// UpdateBroadcastRevenueTransactionsTypeID is TL type id of UpdateBroadcastRevenueTransactions.
-const UpdateBroadcastRevenueTransactionsTypeID = 0xdfd961f5
-
-// construct implements constructor of UpdateClass.
-func (u UpdateBroadcastRevenueTransactions) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateBroadcastRevenueTransactions.
-var (
-	_ bin.Encoder     = &UpdateBroadcastRevenueTransactions{}
-	_ bin.Decoder     = &UpdateBroadcastRevenueTransactions{}
-	_ bin.BareEncoder = &UpdateBroadcastRevenueTransactions{}
-	_ bin.BareDecoder = &UpdateBroadcastRevenueTransactions{}
-
-	_ UpdateClass = &UpdateBroadcastRevenueTransactions{}
-)
-
-func (u *UpdateBroadcastRevenueTransactions) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.Peer == nil) {
-		return false
-	}
-	if !(u.Balances.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateBroadcastRevenueTransactions) String() string {
-	if u == nil {
-		return "UpdateBroadcastRevenueTransactions(nil)"
-	}
-	type Alias UpdateBroadcastRevenueTransactions
-	return fmt.Sprintf("UpdateBroadcastRevenueTransactions%+v", Alias(*u))
-}
-
-// FillFrom fills UpdateBroadcastRevenueTransactions from given interface.
-func (u *UpdateBroadcastRevenueTransactions) FillFrom(from interface {
-	GetPeer() (value PeerClass)
-	GetBalances() (value BroadcastRevenueBalances)
-}) {
-	u.Peer = from.GetPeer()
-	u.Balances = from.GetBalances()
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateBroadcastRevenueTransactions) TypeID() uint32 {
-	return UpdateBroadcastRevenueTransactionsTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateBroadcastRevenueTransactions) TypeName() string {
-	return "updateBroadcastRevenueTransactions"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateBroadcastRevenueTransactions) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateBroadcastRevenueTransactions",
-		ID:   UpdateBroadcastRevenueTransactionsTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
-			Name:       "Balances",
-			SchemaName: "balances",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateBroadcastRevenueTransactions) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateBroadcastRevenueTransactions#dfd961f5 as nil")
-	}
-	b.PutID(UpdateBroadcastRevenueTransactionsTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateBroadcastRevenueTransactions) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateBroadcastRevenueTransactions#dfd961f5 as nil")
-	}
-	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateBroadcastRevenueTransactions#dfd961f5: field peer is nil")
-	}
-	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateBroadcastRevenueTransactions#dfd961f5: field peer: %w", err)
-	}
-	if err := u.Balances.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateBroadcastRevenueTransactions#dfd961f5: field balances: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateBroadcastRevenueTransactions) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateBroadcastRevenueTransactions#dfd961f5 to nil")
-	}
-	if err := b.ConsumeID(UpdateBroadcastRevenueTransactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateBroadcastRevenueTransactions#dfd961f5: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateBroadcastRevenueTransactions) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateBroadcastRevenueTransactions#dfd961f5 to nil")
-	}
-	{
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode updateBroadcastRevenueTransactions#dfd961f5: field peer: %w", err)
-		}
-		u.Peer = value
-	}
-	{
-		if err := u.Balances.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateBroadcastRevenueTransactions#dfd961f5: field balances: %w", err)
-		}
-	}
-	return nil
-}
-
-// GetPeer returns value of Peer field.
-func (u *UpdateBroadcastRevenueTransactions) GetPeer() (value PeerClass) {
-	if u == nil {
-		return
-	}
-	return u.Peer
-}
-
-// GetBalances returns value of Balances field.
-func (u *UpdateBroadcastRevenueTransactions) GetBalances() (value BroadcastRevenueBalances) {
-	if u == nil {
-		return
-	}
-	return u.Balances
-}
-
 // UpdateStarsBalance represents TL type `updateStarsBalance#4e80a379`.
 // The current account's Telegram Stars balance »¹ has changed.
 //
@@ -27812,7 +27642,7 @@ func (u *UpdateBroadcastRevenueTransactions) GetBalances() (value BroadcastReven
 // See https://core.telegram.org/constructor/updateStarsBalance for reference.
 type UpdateStarsBalance struct {
 	// New balance.
-	Balance StarsAmount
+	Balance StarsAmountClass
 }
 
 // UpdateStarsBalanceTypeID is TL type id of UpdateStarsBalance.
@@ -27835,7 +27665,7 @@ func (u *UpdateStarsBalance) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.Balance.Zero()) {
+	if !(u.Balance == nil) {
 		return false
 	}
 
@@ -27853,7 +27683,7 @@ func (u *UpdateStarsBalance) String() string {
 
 // FillFrom fills UpdateStarsBalance from given interface.
 func (u *UpdateStarsBalance) FillFrom(from interface {
-	GetBalance() (value StarsAmount)
+	GetBalance() (value StarsAmountClass)
 }) {
 	u.Balance = from.GetBalance()
 }
@@ -27903,6 +27733,9 @@ func (u *UpdateStarsBalance) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateStarsBalance#4e80a379 as nil")
 	}
+	if u.Balance == nil {
+		return fmt.Errorf("unable to encode updateStarsBalance#4e80a379: field balance is nil")
+	}
 	if err := u.Balance.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateStarsBalance#4e80a379: field balance: %w", err)
 	}
@@ -27926,15 +27759,17 @@ func (u *UpdateStarsBalance) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode updateStarsBalance#4e80a379 to nil")
 	}
 	{
-		if err := u.Balance.Decode(b); err != nil {
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateStarsBalance#4e80a379: field balance: %w", err)
 		}
+		u.Balance = value
 	}
 	return nil
 }
 
 // GetBalance returns value of Balance field.
-func (u *UpdateStarsBalance) GetBalance() (value StarsAmount) {
+func (u *UpdateStarsBalance) GetBalance() (value StarsAmountClass) {
 	if u == nil {
 		return
 	}
@@ -29593,6 +29428,225 @@ func (u *UpdateReadMonoForumOutbox) GetReadMaxID() (value int) {
 	return u.ReadMaxID
 }
 
+// UpdateMonoForumNoPaidException represents TL type `updateMonoForumNoPaidException#9f812b08`.
+//
+// See https://core.telegram.org/constructor/updateMonoForumNoPaidException for reference.
+type UpdateMonoForumNoPaidException struct {
+	// Flags field of UpdateMonoForumNoPaidException.
+	Flags bin.Fields
+	// Exception field of UpdateMonoForumNoPaidException.
+	Exception bool
+	// ChannelID field of UpdateMonoForumNoPaidException.
+	ChannelID int64
+	// SavedPeerID field of UpdateMonoForumNoPaidException.
+	SavedPeerID PeerClass
+}
+
+// UpdateMonoForumNoPaidExceptionTypeID is TL type id of UpdateMonoForumNoPaidException.
+const UpdateMonoForumNoPaidExceptionTypeID = 0x9f812b08
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMonoForumNoPaidException) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMonoForumNoPaidException.
+var (
+	_ bin.Encoder     = &UpdateMonoForumNoPaidException{}
+	_ bin.Decoder     = &UpdateMonoForumNoPaidException{}
+	_ bin.BareEncoder = &UpdateMonoForumNoPaidException{}
+	_ bin.BareDecoder = &UpdateMonoForumNoPaidException{}
+
+	_ UpdateClass = &UpdateMonoForumNoPaidException{}
+)
+
+func (u *UpdateMonoForumNoPaidException) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Exception == false) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.SavedPeerID == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateMonoForumNoPaidException) String() string {
+	if u == nil {
+		return "UpdateMonoForumNoPaidException(nil)"
+	}
+	type Alias UpdateMonoForumNoPaidException
+	return fmt.Sprintf("UpdateMonoForumNoPaidException%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateMonoForumNoPaidException from given interface.
+func (u *UpdateMonoForumNoPaidException) FillFrom(from interface {
+	GetException() (value bool)
+	GetChannelID() (value int64)
+	GetSavedPeerID() (value PeerClass)
+}) {
+	u.Exception = from.GetException()
+	u.ChannelID = from.GetChannelID()
+	u.SavedPeerID = from.GetSavedPeerID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateMonoForumNoPaidException) TypeID() uint32 {
+	return UpdateMonoForumNoPaidExceptionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateMonoForumNoPaidException) TypeName() string {
+	return "updateMonoForumNoPaidException"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMonoForumNoPaidException) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMonoForumNoPaidException",
+		ID:   UpdateMonoForumNoPaidExceptionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Exception",
+			SchemaName: "exception",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateMonoForumNoPaidException) SetFlags() {
+	if !(u.Exception == false) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateMonoForumNoPaidException) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMonoForumNoPaidException#9f812b08 as nil")
+	}
+	b.PutID(UpdateMonoForumNoPaidExceptionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateMonoForumNoPaidException) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMonoForumNoPaidException#9f812b08 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMonoForumNoPaidException#9f812b08: field flags: %w", err)
+	}
+	b.PutLong(u.ChannelID)
+	if u.SavedPeerID == nil {
+		return fmt.Errorf("unable to encode updateMonoForumNoPaidException#9f812b08: field saved_peer_id is nil")
+	}
+	if err := u.SavedPeerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMonoForumNoPaidException#9f812b08: field saved_peer_id: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateMonoForumNoPaidException) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMonoForumNoPaidException#9f812b08 to nil")
+	}
+	if err := b.ConsumeID(UpdateMonoForumNoPaidExceptionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateMonoForumNoPaidException#9f812b08: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateMonoForumNoPaidException) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMonoForumNoPaidException#9f812b08 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateMonoForumNoPaidException#9f812b08: field flags: %w", err)
+		}
+	}
+	u.Exception = u.Flags.Has(0)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMonoForumNoPaidException#9f812b08: field channel_id: %w", err)
+		}
+		u.ChannelID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMonoForumNoPaidException#9f812b08: field saved_peer_id: %w", err)
+		}
+		u.SavedPeerID = value
+	}
+	return nil
+}
+
+// SetException sets value of Exception conditional field.
+func (u *UpdateMonoForumNoPaidException) SetException(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Exception = true
+	} else {
+		u.Flags.Unset(0)
+		u.Exception = false
+	}
+}
+
+// GetException returns value of Exception conditional field.
+func (u *UpdateMonoForumNoPaidException) GetException() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateMonoForumNoPaidException) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChannelID
+}
+
+// GetSavedPeerID returns value of SavedPeerID field.
+func (u *UpdateMonoForumNoPaidException) GetSavedPeerID() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.SavedPeerID
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -29736,7 +29790,6 @@ const UpdateClassName = "Update"
 //   - [UpdateBotEditBusinessMessage]
 //   - [UpdateBotDeleteBusinessMessage]
 //   - [UpdateNewStoryReaction]
-//   - [UpdateBroadcastRevenueTransactions]
 //   - [UpdateStarsBalance]
 //   - [UpdateBusinessBotCallbackQuery]
 //   - [UpdateStarsRevenueStatus]
@@ -29746,6 +29799,7 @@ const UpdateClassName = "Update"
 //   - [UpdateGroupCallChainBlocks]
 //   - [UpdateReadMonoForumInbox]
 //   - [UpdateReadMonoForumOutbox]
+//   - [UpdateMonoForumNoPaidException]
 //
 // Example:
 //
@@ -29889,7 +29943,6 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBotEditBusinessMessage: // updateBotEditBusinessMessage#7df587c
 //	case *tg.UpdateBotDeleteBusinessMessage: // updateBotDeleteBusinessMessage#a02a982e
 //	case *tg.UpdateNewStoryReaction: // updateNewStoryReaction#1824e40b
-//	case *tg.UpdateBroadcastRevenueTransactions: // updateBroadcastRevenueTransactions#dfd961f5
 //	case *tg.UpdateStarsBalance: // updateStarsBalance#4e80a379
 //	case *tg.UpdateBusinessBotCallbackQuery: // updateBusinessBotCallbackQuery#1ea2fda7
 //	case *tg.UpdateStarsRevenueStatus: // updateStarsRevenueStatus#a584b019
@@ -29899,6 +29952,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateGroupCallChainBlocks: // updateGroupCallChainBlocks#a477288f
 //	case *tg.UpdateReadMonoForumInbox: // updateReadMonoForumInbox#77b0e372
 //	case *tg.UpdateReadMonoForumOutbox: // updateReadMonoForumOutbox#a4a79376
+//	case *tg.UpdateMonoForumNoPaidException: // updateMonoForumNoPaidException#9f812b08
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -30872,13 +30926,6 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateBroadcastRevenueTransactionsTypeID:
-		// Decoding updateBroadcastRevenueTransactions#dfd961f5.
-		v := UpdateBroadcastRevenueTransactions{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case UpdateStarsBalanceTypeID:
 		// Decoding updateStarsBalance#4e80a379.
 		v := UpdateStarsBalance{}
@@ -30938,6 +30985,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateReadMonoForumOutboxTypeID:
 		// Decoding updateReadMonoForumOutbox#a4a79376.
 		v := UpdateReadMonoForumOutbox{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateMonoForumNoPaidExceptionTypeID:
+		// Decoding updateMonoForumNoPaidException#9f812b08.
+		v := UpdateMonoForumNoPaidException{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
