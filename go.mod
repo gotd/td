@@ -16,7 +16,7 @@ require (
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
-	github.com/k0kubun/pp/v3 v3.4.1
+	github.com/k0kubun/pp/v3 v3.5.0
 	github.com/klauspost/compress v1.18.0
 	github.com/ogen-go/ogen v1.12.0
 	github.com/rogpeppe/go-internal v1.14.1
@@ -48,7 +48,7 @@ require (
 	github.com/go-faster/yaml v0.4.6 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
