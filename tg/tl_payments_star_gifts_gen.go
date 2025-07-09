@@ -136,7 +136,7 @@ func (s *PaymentsStarGiftsNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// PaymentsStarGifts represents TL type `payments.starGifts#901689ea`.
+// PaymentsStarGifts represents TL type `payments.starGifts#2ed82995`.
 // Available gifts »¹.
 //
 // Links:
@@ -151,10 +151,14 @@ type PaymentsStarGifts struct {
 	Hash int
 	// List of available gifts.
 	Gifts []StarGiftClass
+	// Chats field of PaymentsStarGifts.
+	Chats []ChatClass
+	// Users field of PaymentsStarGifts.
+	Users []UserClass
 }
 
 // PaymentsStarGiftsTypeID is TL type id of PaymentsStarGifts.
-const PaymentsStarGiftsTypeID = 0x901689ea
+const PaymentsStarGiftsTypeID = 0x2ed82995
 
 // construct implements constructor of PaymentsStarGiftsClass.
 func (s PaymentsStarGifts) construct() PaymentsStarGiftsClass { return &s }
@@ -179,6 +183,12 @@ func (s *PaymentsStarGifts) Zero() bool {
 	if !(s.Gifts == nil) {
 		return false
 	}
+	if !(s.Chats == nil) {
+		return false
+	}
+	if !(s.Users == nil) {
+		return false
+	}
 
 	return true
 }
@@ -196,9 +206,13 @@ func (s *PaymentsStarGifts) String() string {
 func (s *PaymentsStarGifts) FillFrom(from interface {
 	GetHash() (value int)
 	GetGifts() (value []StarGiftClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
 }) {
 	s.Hash = from.GetHash()
 	s.Gifts = from.GetGifts()
+	s.Chats = from.GetChats()
+	s.Users = from.GetUsers()
 }
 
 // TypeID returns type id in TL schema.
@@ -232,6 +246,14 @@ func (s *PaymentsStarGifts) TypeInfo() tdp.Type {
 			Name:       "Gifts",
 			SchemaName: "gifts",
 		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
 	}
 	return typ
 }
@@ -239,7 +261,7 @@ func (s *PaymentsStarGifts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PaymentsStarGifts) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGifts#901689ea as nil")
+		return fmt.Errorf("can't encode payments.starGifts#2ed82995 as nil")
 	}
 	b.PutID(PaymentsStarGiftsTypeID)
 	return s.EncodeBare(b)
@@ -248,16 +270,34 @@ func (s *PaymentsStarGifts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsStarGifts) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGifts#901689ea as nil")
+		return fmt.Errorf("can't encode payments.starGifts#2ed82995 as nil")
 	}
 	b.PutInt(s.Hash)
 	b.PutVectorHeader(len(s.Gifts))
 	for idx, v := range s.Gifts {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.starGifts#901689ea: field gifts element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.starGifts#2ed82995: field gifts element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starGifts#901689ea: field gifts element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starGifts#2ed82995: field gifts element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Chats))
+	for idx, v := range s.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.starGifts#2ed82995: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starGifts#2ed82995: field chats element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Users))
+	for idx, v := range s.Users {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.starGifts#2ed82995: field users element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starGifts#2ed82995: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -266,10 +306,10 @@ func (s *PaymentsStarGifts) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsStarGifts) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGifts#901689ea to nil")
+		return fmt.Errorf("can't decode payments.starGifts#2ed82995 to nil")
 	}
 	if err := b.ConsumeID(PaymentsStarGiftsTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.starGifts#901689ea: %w", err)
+		return fmt.Errorf("unable to decode payments.starGifts#2ed82995: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -277,19 +317,19 @@ func (s *PaymentsStarGifts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsStarGifts) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGifts#901689ea to nil")
+		return fmt.Errorf("can't decode payments.starGifts#2ed82995 to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGifts#901689ea: field hash: %w", err)
+			return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field hash: %w", err)
 		}
 		s.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGifts#901689ea: field gifts: %w", err)
+			return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field gifts: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -298,9 +338,43 @@ func (s *PaymentsStarGifts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStarGift(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.starGifts#901689ea: field gifts: %w", err)
+				return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field gifts: %w", err)
 			}
 			s.Gifts = append(s.Gifts, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field chats: %w", err)
+			}
+			s.Chats = append(s.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field users: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Users = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeUser(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.starGifts#2ed82995: field users: %w", err)
+			}
+			s.Users = append(s.Users, value)
 		}
 	}
 	return nil
@@ -322,9 +396,35 @@ func (s *PaymentsStarGifts) GetGifts() (value []StarGiftClass) {
 	return s.Gifts
 }
 
+// GetChats returns value of Chats field.
+func (s *PaymentsStarGifts) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
+	return s.Chats
+}
+
+// GetUsers returns value of Users field.
+func (s *PaymentsStarGifts) GetUsers() (value []UserClass) {
+	if s == nil {
+		return
+	}
+	return s.Users
+}
+
 // MapGifts returns field Gifts wrapped in StarGiftClassArray helper.
 func (s *PaymentsStarGifts) MapGifts() (value StarGiftClassArray) {
 	return StarGiftClassArray(s.Gifts)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (s *PaymentsStarGifts) MapChats() (value ChatClassArray) {
+	return ChatClassArray(s.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (s *PaymentsStarGifts) MapUsers() (value UserClassArray) {
+	return UserClassArray(s.Users)
 }
 
 // PaymentsStarGiftsClassName is schema name of PaymentsStarGiftsClass.
@@ -346,7 +446,7 @@ const PaymentsStarGiftsClassName = "payments.StarGifts"
 //	}
 //	switch v := g.(type) {
 //	case *tg.PaymentsStarGiftsNotModified: // payments.starGiftsNotModified#a388a368
-//	case *tg.PaymentsStarGifts: // payments.starGifts#901689ea
+//	case *tg.PaymentsStarGifts: // payments.starGifts#2ed82995
 //	default: panic(v)
 //	}
 type PaymentsStarGiftsClass interface {
@@ -396,7 +496,7 @@ func DecodePaymentsStarGifts(buf *bin.Buffer) (PaymentsStarGiftsClass, error) {
 		}
 		return &v, nil
 	case PaymentsStarGiftsTypeID:
-		// Decoding payments.starGifts#901689ea.
+		// Decoding payments.starGifts#2ed82995.
 		v := PaymentsStarGifts{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentsStarGiftsClass: %w", err)

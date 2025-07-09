@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 206
+const Layer = 207
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -1424,10 +1424,10 @@ func TypesMap() map[uint32]string {
 		MessageReactorTypeID:                                                    "messageReactor#4ba3a95a",
 		StarsGiveawayOptionTypeID:                                               "starsGiveawayOption#94ce852a",
 		StarsGiveawayWinnersOptionTypeID:                                        "starsGiveawayWinnersOption#54236209",
-		StarGiftTypeID:                                                          "starGift#c62aca28",
-		StarGiftUniqueTypeID:                                                    "starGiftUnique#6411db89",
+		StarGiftTypeID:                                                          "starGift#7f853c12",
+		StarGiftUniqueTypeID:                                                    "starGiftUnique#f63778ae",
 		PaymentsStarGiftsNotModifiedTypeID:                                      "payments.starGiftsNotModified#a388a368",
-		PaymentsStarGiftsTypeID:                                                 "payments.starGifts#901689ea",
+		PaymentsStarGiftsTypeID:                                                 "payments.starGifts#2ed82995",
 		MessageReportOptionTypeID:                                               "messageReportOption#7903e3d9",
 		ReportResultChooseOptionTypeID:                                          "reportResultChooseOption#f0e4e0b6",
 		ReportResultAddCommentTypeID:                                            "reportResultAddComment#6f09ac31",
