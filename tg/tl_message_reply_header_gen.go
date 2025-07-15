@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageReplyHeader represents TL type `messageReplyHeader#afbc09db`.
+// MessageReplyHeader represents TL type `messageReplyHeader#6917560b`.
 // Message replies and thread¹ information
 //
 // Links:
@@ -100,10 +100,14 @@ type MessageReplyHeader struct {
 	//
 	// Use SetQuoteOffset and GetQuoteOffset helpers.
 	QuoteOffset int
+	// TodoItemID field of MessageReplyHeader.
+	//
+	// Use SetTodoItemID and GetTodoItemID helpers.
+	TodoItemID int
 }
 
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
-const MessageReplyHeaderTypeID = 0xafbc09db
+const MessageReplyHeaderTypeID = 0x6917560b
 
 // construct implements constructor of MessageReplyHeaderClass.
 func (m MessageReplyHeader) construct() MessageReplyHeaderClass { return &m }
@@ -158,6 +162,9 @@ func (m *MessageReplyHeader) Zero() bool {
 	if !(m.QuoteOffset == 0) {
 		return false
 	}
+	if !(m.TodoItemID == 0) {
+		return false
+	}
 
 	return true
 }
@@ -184,6 +191,7 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 	GetQuoteText() (value string, ok bool)
 	GetQuoteEntities() (value []MessageEntityClass, ok bool)
 	GetQuoteOffset() (value int, ok bool)
+	GetTodoItemID() (value int, ok bool)
 }) {
 	m.ReplyToScheduled = from.GetReplyToScheduled()
 	m.ForumTopic = from.GetForumTopic()
@@ -218,6 +226,10 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 
 	if val, ok := from.GetQuoteOffset(); ok {
 		m.QuoteOffset = val
+	}
+
+	if val, ok := from.GetTodoItemID(); ok {
+		m.TodoItemID = val
 	}
 
 }
@@ -300,6 +312,11 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 			SchemaName: "quote_offset",
 			Null:       !m.Flags.Has(10),
 		},
+		{
+			Name:       "TodoItemID",
+			SchemaName: "todo_item_id",
+			Null:       !m.Flags.Has(11),
+		},
 	}
 	return typ
 }
@@ -339,12 +356,15 @@ func (m *MessageReplyHeader) SetFlags() {
 	if !(m.QuoteOffset == 0) {
 		m.Flags.Set(10)
 	}
+	if !(m.TodoItemID == 0) {
+		m.Flags.Set(11)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplyHeader#afbc09db as nil")
+		return fmt.Errorf("can't encode messageReplyHeader#6917560b as nil")
 	}
 	b.PutID(MessageReplyHeaderTypeID)
 	return m.EncodeBare(b)
@@ -353,34 +373,34 @@ func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplyHeader#afbc09db as nil")
+		return fmt.Errorf("can't encode messageReplyHeader#6917560b as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field flags: %w", err)
 	}
 	if m.Flags.Has(4) {
 		b.PutInt(m.ReplyToMsgID)
 	}
 	if m.Flags.Has(0) {
 		if m.ReplyToPeerID == nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field reply_to_peer_id is nil")
+			return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field reply_to_peer_id is nil")
 		}
 		if err := m.ReplyToPeerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field reply_to_peer_id: %w", err)
+			return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field reply_to_peer_id: %w", err)
 		}
 	}
 	if m.Flags.Has(5) {
 		if err := m.ReplyFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field reply_from: %w", err)
+			return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field reply_from: %w", err)
 		}
 	}
 	if m.Flags.Has(8) {
 		if m.ReplyMedia == nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field reply_media is nil")
+			return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field reply_media is nil")
 		}
 		if err := m.ReplyMedia.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field reply_media: %w", err)
+			return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field reply_media: %w", err)
 		}
 	}
 	if m.Flags.Has(1) {
@@ -393,15 +413,18 @@ func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(m.QuoteEntities))
 		for idx, v := range m.QuoteEntities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field quote_entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field quote_entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messageReplyHeader#afbc09db: field quote_entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messageReplyHeader#6917560b: field quote_entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if m.Flags.Has(10) {
 		b.PutInt(m.QuoteOffset)
+	}
+	if m.Flags.Has(11) {
+		b.PutInt(m.TodoItemID)
 	}
 	return nil
 }
@@ -409,10 +432,10 @@ func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplyHeader#afbc09db to nil")
+		return fmt.Errorf("can't decode messageReplyHeader#6917560b to nil")
 	}
 	if err := b.ConsumeID(MessageReplyHeaderTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: %w", err)
+		return fmt.Errorf("unable to decode messageReplyHeader#6917560b: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -420,11 +443,11 @@ func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplyHeader#afbc09db to nil")
+		return fmt.Errorf("can't decode messageReplyHeader#6917560b to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field flags: %w", err)
 		}
 	}
 	m.ReplyToScheduled = m.Flags.Has(2)
@@ -433,47 +456,47 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field reply_to_msg_id: %w", err)
 		}
 		m.ReplyToMsgID = value
 	}
 	if m.Flags.Has(0) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field reply_to_peer_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field reply_to_peer_id: %w", err)
 		}
 		m.ReplyToPeerID = value
 	}
 	if m.Flags.Has(5) {
 		if err := m.ReplyFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field reply_from: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field reply_from: %w", err)
 		}
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field reply_media: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field reply_media: %w", err)
 		}
 		m.ReplyMedia = value
 	}
 	if m.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field reply_to_top_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field reply_to_top_id: %w", err)
 		}
 		m.ReplyToTopID = value
 	}
 	if m.Flags.Has(6) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field quote_text: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field quote_text: %w", err)
 		}
 		m.QuoteText = value
 	}
 	if m.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field quote_entities: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field quote_entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -482,7 +505,7 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field quote_entities: %w", err)
+				return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field quote_entities: %w", err)
 			}
 			m.QuoteEntities = append(m.QuoteEntities, value)
 		}
@@ -490,9 +513,16 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplyHeader#afbc09db: field quote_offset: %w", err)
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field quote_offset: %w", err)
 		}
 		m.QuoteOffset = value
+	}
+	if m.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageReplyHeader#6917560b: field todo_item_id: %w", err)
+		}
+		m.TodoItemID = value
 	}
 	return nil
 }
@@ -698,6 +728,24 @@ func (m *MessageReplyHeader) GetQuoteOffset() (value int, ok bool) {
 	return m.QuoteOffset, true
 }
 
+// SetTodoItemID sets value of TodoItemID conditional field.
+func (m *MessageReplyHeader) SetTodoItemID(value int) {
+	m.Flags.Set(11)
+	m.TodoItemID = value
+}
+
+// GetTodoItemID returns value of TodoItemID conditional field and
+// boolean which is true if field was set.
+func (m *MessageReplyHeader) GetTodoItemID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(11) {
+		return value, false
+	}
+	return m.TodoItemID, true
+}
+
 // MapQuoteEntities returns field QuoteEntities wrapped in MessageEntityClassArray helper.
 func (m *MessageReplyHeader) MapQuoteEntities() (value MessageEntityClassArray, ok bool) {
 	if !m.Flags.Has(7) {
@@ -894,7 +942,7 @@ const MessageReplyHeaderClassName = "MessageReplyHeader"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.MessageReplyHeader: // messageReplyHeader#afbc09db
+//	case *tg.MessageReplyHeader: // messageReplyHeader#6917560b
 //	case *tg.MessageReplyStoryHeader: // messageReplyStoryHeader#e5af939
 //	default: panic(v)
 //	}
@@ -925,7 +973,7 @@ func DecodeMessageReplyHeader(buf *bin.Buffer) (MessageReplyHeaderClass, error) 
 	}
 	switch id {
 	case MessageReplyHeaderTypeID:
-		// Decoding messageReplyHeader#afbc09db.
+		// Decoding messageReplyHeader#6917560b.
 		v := MessageReplyHeader{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageReplyHeaderClass: %w", err)
