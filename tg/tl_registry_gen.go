@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 207
+const Layer = 209
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -1089,7 +1089,7 @@ func TypesMap() map[uint32]string {
 		MessageViewsTypeID:                                                      "messageViews#455b853d",
 		MessagesMessageViewsTypeID:                                              "messages.messageViews#b6c4f543",
 		MessagesDiscussionMessageTypeID:                                         "messages.discussionMessage#a6341782",
-		MessageReplyHeaderTypeID:                                                "messageReplyHeader#afbc09db",
+		MessageReplyHeaderTypeID:                                                "messageReplyHeader#6917560b",
 		MessageReplyStoryHeaderTypeID:                                           "messageReplyStoryHeader#e5af939",
 		MessageRepliesTypeID:                                                    "messageReplies#83d60fc2",
 		PeerBlockedTypeID:                                                       "peerBlocked#e8fd8014",
@@ -1283,7 +1283,7 @@ func TypesMap() map[uint32]string {
 		StoryViewPublicRepostTypeID:                                             "storyViewPublicRepost#bd74cf49",
 		StoriesStoryViewsListTypeID:                                             "stories.storyViewsList#59d78fc5",
 		StoriesStoryViewsTypeID:                                                 "stories.storyViews#de9eed1d",
-		InputReplyToMessageTypeID:                                               "inputReplyToMessage#b07038b0",
+		InputReplyToMessageTypeID:                                               "inputReplyToMessage#869fbe10",
 		InputReplyToStoryTypeID:                                                 "inputReplyToStory#5881323a",
 		InputReplyToMonoForumTypeID:                                             "inputReplyToMonoForum#69d66c45",
 		ExportedStoryLinkTypeID:                                                 "exportedStoryLink#3fc9053b",
