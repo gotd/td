@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/account.getPaidMessagesRevenue for reference.
 type AccountGetPaidMessagesRevenueRequest struct {
-	// Flags field of AccountGetPaidMessagesRevenueRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ParentPeer field of AccountGetPaidMessagesRevenueRequest.
 	//
@@ -239,6 +242,7 @@ func (g *AccountGetPaidMessagesRevenueRequest) GetUserID() (value InputUserClass
 // AccountGetPaidMessagesRevenue invokes method account.getPaidMessagesRevenue#19ba4a67 returning error if any.
 //
 // See https://core.telegram.org/method/account.getPaidMessagesRevenue for reference.
+// Can be used by bots.
 func (c *Client) AccountGetPaidMessagesRevenue(ctx context.Context, request *AccountGetPaidMessagesRevenueRequest) (*AccountPaidMessagesRevenue, error) {
 	var result AccountPaidMessagesRevenue
 

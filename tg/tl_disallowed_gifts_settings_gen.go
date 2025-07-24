@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/disallowedGiftsSettings for reference.
 type DisallowedGiftsSettings struct {
-	// Flags field of DisallowedGiftsSettings.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// DisallowUnlimitedStargifts field of DisallowedGiftsSettings.
 	DisallowUnlimitedStargifts bool

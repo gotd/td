@@ -41,7 +41,10 @@ type PhoneGetGroupCallChainBlocksRequest struct {
 	SubChainID int
 	// Offset field of PhoneGetGroupCallChainBlocksRequest.
 	Offset int
-	// Limit field of PhoneGetGroupCallChainBlocksRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -249,6 +252,7 @@ func (g *PhoneGetGroupCallChainBlocksRequest) GetLimit() (value int) {
 // PhoneGetGroupCallChainBlocks invokes method phone.getGroupCallChainBlocks#ee9f88a6 returning error if any.
 //
 // See https://core.telegram.org/method/phone.getGroupCallChainBlocks for reference.
+// Can be used by bots.
 func (c *Client) PhoneGetGroupCallChainBlocks(ctx context.Context, request *PhoneGetGroupCallChainBlocksRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

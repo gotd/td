@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/botVerifierSettings for reference.
 type BotVerifierSettings struct {
-	// Flags field of BotVerifierSettings.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// CanModifyCustomDescription field of BotVerifierSettings.
 	CanModifyCustomDescription bool

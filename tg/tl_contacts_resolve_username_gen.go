@@ -239,6 +239,7 @@ func (r *ContactsResolveUsernameRequest) GetReferer() (value string, ok bool) {
 // Possible errors:
 //
 //	400 CONNECTION_LAYER_INVALID: Layer invalid.
+//	400 STARREF_EXPIRED: The specified referral link is invalid.
 //	400 USERNAME_INVALID: The provided username is not valid.
 //	400 USERNAME_NOT_OCCUPIED: The provided username is not occupied.
 //

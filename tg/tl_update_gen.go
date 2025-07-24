@@ -17736,7 +17736,10 @@ func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
 //
 // See https://core.telegram.org/constructor/updateGroupCall for reference.
 type UpdateGroupCall struct {
-	// Flags field of UpdateGroupCall.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The channel/supergroup¹ where this group call or livestream takes place
 	//
@@ -29432,7 +29435,10 @@ func (u *UpdateReadMonoForumOutbox) GetReadMaxID() (value int) {
 //
 // See https://core.telegram.org/constructor/updateMonoForumNoPaidException for reference.
 type UpdateMonoForumNoPaidException struct {
-	// Flags field of UpdateMonoForumNoPaidException.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Exception field of UpdateMonoForumNoPaidException.
 	Exception bool

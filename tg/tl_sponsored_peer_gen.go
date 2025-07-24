@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/sponsoredPeer for reference.
 type SponsoredPeer struct {
-	// Flags field of SponsoredPeer.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// RandomID field of SponsoredPeer.
 	RandomID []byte

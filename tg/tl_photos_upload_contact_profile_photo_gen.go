@@ -51,7 +51,7 @@ type PhotosUploadContactProfilePhotoRequest struct {
 	//  1) https://core.telegram.org/constructor/messageActionSuggestProfilePhoto
 	Suggest bool
 	// If set, removes a previously set personal profile picture (does not affect suggested
-	// profile pictures, to remove them simply deleted the messageActionSuggestProfilePhoto¹
+	// profile pictures, to remove them simply delete the messageActionSuggestProfilePhoto¹
 	// service message with messages.deleteMessages²).
 	//
 	// Links:

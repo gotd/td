@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/account.toggleNoPaidMessagesException for reference.
 type AccountToggleNoPaidMessagesExceptionRequest struct {
-	// Flags field of AccountToggleNoPaidMessagesExceptionRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// RefundCharged field of AccountToggleNoPaidMessagesExceptionRequest.
 	RefundCharged bool
@@ -309,6 +312,7 @@ func (t *AccountToggleNoPaidMessagesExceptionRequest) GetUserID() (value InputUs
 // AccountToggleNoPaidMessagesException invokes method account.toggleNoPaidMessagesException#fe2eda76 returning error if any.
 //
 // See https://core.telegram.org/method/account.toggleNoPaidMessagesException for reference.
+// Can be used by bots.
 func (c *Client) AccountToggleNoPaidMessagesException(ctx context.Context, request *AccountToggleNoPaidMessagesExceptionRequest) (bool, error) {
 	var result BoolBox
 

@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
 type PaymentsGetSavedStarGiftsRequest struct {
-	// Flags field of PaymentsGetSavedStarGiftsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ExcludeUnsaved field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnsaved bool
@@ -53,7 +56,10 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	Peer InputPeerClass
 	// Offset field of PaymentsGetSavedStarGiftsRequest.
 	Offset string
-	// Limit field of PaymentsGetSavedStarGiftsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -450,6 +456,7 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetLimit() (value int) {
 // PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#23830de9 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetSavedStarGifts(ctx context.Context, request *PaymentsGetSavedStarGiftsRequest) (*PaymentsSavedStarGifts, error) {
 	var result PaymentsSavedStarGifts
 

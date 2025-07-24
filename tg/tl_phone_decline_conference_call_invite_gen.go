@@ -163,6 +163,7 @@ func (d *PhoneDeclineConferenceCallInviteRequest) GetMsgID() (value int) {
 // PhoneDeclineConferenceCallInvite invokes method phone.declineConferenceCallInvite#3c479971 returning error if any.
 //
 // See https://core.telegram.org/method/phone.declineConferenceCallInvite for reference.
+// Can be used by bots.
 func (c *Client) PhoneDeclineConferenceCallInvite(ctx context.Context, msgid int) (UpdatesClass, error) {
 	var result UpdatesBox
 

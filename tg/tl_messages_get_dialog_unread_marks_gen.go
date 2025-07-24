@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.getDialogUnreadMarks for reference.
 type MessagesGetDialogUnreadMarksRequest struct {
-	// Flags field of MessagesGetDialogUnreadMarksRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ParentPeer field of MessagesGetDialogUnreadMarksRequest.
 	//

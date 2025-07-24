@@ -1140,7 +1140,10 @@ func (i *InputInvoiceStarGift) GetMessage() (value TextWithEntities, ok bool) {
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftUpgrade for reference.
 type InputInvoiceStarGiftUpgrade struct {
-	// Flags field of InputInvoiceStarGiftUpgrade.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// KeepOriginalDetails field of InputInvoiceStarGiftUpgrade.
 	KeepOriginalDetails bool
@@ -1503,7 +1506,10 @@ func (i *InputInvoiceStarGiftTransfer) GetToID() (value InputPeerClass) {
 //
 // See https://core.telegram.org/constructor/inputInvoicePremiumGiftStars for reference.
 type InputInvoicePremiumGiftStars struct {
-	// Flags field of InputInvoicePremiumGiftStars.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// UserID field of InputInvoicePremiumGiftStars.
 	UserID InputUserClass

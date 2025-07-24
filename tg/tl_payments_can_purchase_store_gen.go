@@ -168,6 +168,7 @@ func (c *PaymentsCanPurchaseStoreRequest) GetPurpose() (value InputStorePaymentP
 // PaymentsCanPurchaseStore invokes method payments.canPurchaseStore#4fdc5ea7 returning error if any.
 //
 // See https://core.telegram.org/method/payments.canPurchaseStore for reference.
+// Can be used by bots.
 func (c *Client) PaymentsCanPurchaseStore(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error) {
 	var result BoolBox
 

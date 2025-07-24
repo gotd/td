@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/channels.updatePaidMessagesPrice for reference.
 type ChannelsUpdatePaidMessagesPriceRequest struct {
-	// Flags field of ChannelsUpdatePaidMessagesPriceRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// BroadcastMessagesAllowed field of ChannelsUpdatePaidMessagesPriceRequest.
 	BroadcastMessagesAllowed bool
@@ -253,6 +256,7 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) GetChannelAsNotEmpty() (NotEmpt
 // ChannelsUpdatePaidMessagesPrice invokes method channels.updatePaidMessagesPrice#4b12327b returning error if any.
 //
 // See https://core.telegram.org/method/channels.updatePaidMessagesPrice for reference.
+// Can be used by bots.
 func (c *Client) ChannelsUpdatePaidMessagesPrice(ctx context.Context, request *ChannelsUpdatePaidMessagesPriceRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

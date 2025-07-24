@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/suggestedPost for reference.
 type SuggestedPost struct {
-	// Flags field of SuggestedPost.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Accepted field of SuggestedPost.
 	Accepted bool

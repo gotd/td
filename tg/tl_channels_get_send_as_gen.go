@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/method/channels.getSendAs for reference.
 type ChannelsGetSendAsRequest struct {
-	// Flags field of ChannelsGetSendAsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ForPaidReactions field of ChannelsGetSendAsRequest.
 	ForPaidReactions bool

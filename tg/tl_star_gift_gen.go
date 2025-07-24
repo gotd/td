@@ -832,7 +832,10 @@ func (s *StarGift) GetReleasedBy() (value PeerClass, ok bool) {
 //
 // See https://core.telegram.org/constructor/starGiftUnique for reference.
 type StarGiftUnique struct {
-	// Flags field of StarGiftUnique.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ID field of StarGiftUnique.
 	ID int64

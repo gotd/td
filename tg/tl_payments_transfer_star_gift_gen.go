@@ -199,6 +199,10 @@ func (t *PaymentsTransferStarGiftRequest) GetToID() (value InputPeerClass) {
 
 // PaymentsTransferStarGift invokes method payments.transferStarGift#7f18176a returning error if any.
 //
+// Possible errors:
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//
 // See https://core.telegram.org/method/payments.transferStarGift for reference.
 func (c *Client) PaymentsTransferStarGift(ctx context.Context, request *PaymentsTransferStarGiftRequest) (UpdatesClass, error) {
 	var result UpdatesBox

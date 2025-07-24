@@ -195,6 +195,7 @@ func (u *PaymentsUpdateStarGiftPriceRequest) GetResellStars() (value int64) {
 // PaymentsUpdateStarGiftPrice invokes method payments.updateStarGiftPrice#3baea4e1 returning error if any.
 //
 // See https://core.telegram.org/method/payments.updateStarGiftPrice for reference.
+// Can be used by bots.
 func (c *Client) PaymentsUpdateStarGiftPrice(ctx context.Context, request *PaymentsUpdateStarGiftPriceRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

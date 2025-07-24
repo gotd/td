@@ -4895,7 +4895,10 @@ func (m *MessageMediaPaidMedia) MapExtendedMedia() (value MessageExtendedMediaCl
 //
 // See https://core.telegram.org/constructor/messageMediaToDo for reference.
 type MessageMediaToDo struct {
-	// Flags field of MessageMediaToDo.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Todo field of MessageMediaToDo.
 	Todo TodoList

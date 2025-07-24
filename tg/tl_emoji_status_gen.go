@@ -141,7 +141,10 @@ func (e *EmojiStatusEmpty) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/emojiStatus for reference.
 type EmojiStatus struct {
-	// Flags field of EmojiStatus.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Custom emoji document ID¹
 	//
@@ -344,7 +347,10 @@ func (e *EmojiStatus) GetUntil() (value int, ok bool) {
 //
 // See https://core.telegram.org/constructor/emojiStatusCollectible for reference.
 type EmojiStatusCollectible struct {
-	// Flags field of EmojiStatusCollectible.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// CollectibleID field of EmojiStatusCollectible.
 	CollectibleID int64
@@ -760,7 +766,10 @@ func (e *EmojiStatusCollectible) GetUntil() (value int, ok bool) {
 //
 // See https://core.telegram.org/constructor/inputEmojiStatusCollectible for reference.
 type InputEmojiStatusCollectible struct {
-	// Flags field of InputEmojiStatusCollectible.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// CollectibleID field of InputEmojiStatusCollectible.
 	CollectibleID int64

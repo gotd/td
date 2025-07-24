@@ -41,7 +41,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.getStarsStatus for reference.
 type PaymentsGetStarsStatusRequest struct {
-	// Flags field of PaymentsGetStarsStatusRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Ton field of PaymentsGetStarsStatusRequest.
 	Ton bool

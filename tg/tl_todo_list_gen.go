@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/todoList for reference.
 type TodoList struct {
-	// Flags field of TodoList.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// OthersCanAppend field of TodoList.
 	OthersCanAppend bool

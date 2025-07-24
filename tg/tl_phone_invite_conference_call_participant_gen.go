@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/phone.inviteConferenceCallParticipant for reference.
 type PhoneInviteConferenceCallParticipantRequest struct {
-	// Flags field of PhoneInviteConferenceCallParticipantRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Video field of PhoneInviteConferenceCallParticipantRequest.
 	Video bool
@@ -253,6 +256,7 @@ func (i *PhoneInviteConferenceCallParticipantRequest) GetUserID() (value InputUs
 // PhoneInviteConferenceCallParticipant invokes method phone.inviteConferenceCallParticipant#bcf22685 returning error if any.
 //
 // See https://core.telegram.org/method/phone.inviteConferenceCallParticipant for reference.
+// Can be used by bots.
 func (c *Client) PhoneInviteConferenceCallParticipant(ctx context.Context, request *PhoneInviteConferenceCallParticipantRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

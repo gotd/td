@@ -497,6 +497,7 @@ const (
 	ErrStargiftInvalid                  = "STARGIFT_INVALID"
 	ErrStargiftUsageLimited             = "STARGIFT_USAGE_LIMITED"
 	ErrStarrefAwaitingEnd               = "STARREF_AWAITING_END"
+	ErrStarrefExpired                   = "STARREF_EXPIRED"
 	ErrStarrefHashRevoked               = "STARREF_HASH_REVOKED"
 	ErrStarrefPermilleInvalid           = "STARREF_PERMILLE_INVALID"
 	ErrStarrefPermilleTooLow            = "STARREF_PERMILLE_TOO_LOW"
@@ -2959,6 +2960,11 @@ func IsStargiftUsageLimited(err error) bool {
 // IsStarrefAwaitingEnd reports whether err is STARREF_AWAITING_END.
 func IsStarrefAwaitingEnd(err error) bool {
 	return tgerr.Is(err, ErrStarrefAwaitingEnd)
+}
+
+// IsStarrefExpired reports whether err is STARREF_EXPIRED.
+func IsStarrefExpired(err error) bool {
+	return tgerr.Is(err, ErrStarrefExpired)
 }
 
 // IsStarrefHashRevoked reports whether err is STARREF_HASH_REVOKED.

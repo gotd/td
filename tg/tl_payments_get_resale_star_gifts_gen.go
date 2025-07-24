@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.getResaleStarGifts for reference.
 type PaymentsGetResaleStarGiftsRequest struct {
-	// Flags field of PaymentsGetResaleStarGiftsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// SortByPrice field of PaymentsGetResaleStarGiftsRequest.
 	SortByPrice bool
@@ -53,7 +56,10 @@ type PaymentsGetResaleStarGiftsRequest struct {
 	Attributes []StarGiftAttributeIDClass
 	// Offset field of PaymentsGetResaleStarGiftsRequest.
 	Offset string
-	// Limit field of PaymentsGetResaleStarGiftsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -427,6 +433,7 @@ func (g *PaymentsGetResaleStarGiftsRequest) MapAttributes() (value StarGiftAttri
 // PaymentsGetResaleStarGifts invokes method payments.getResaleStarGifts#7a5fa236 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getResaleStarGifts for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetResaleStarGifts(ctx context.Context, request *PaymentsGetResaleStarGiftsRequest) (*PaymentsResaleStarGifts, error) {
 	var result PaymentsResaleStarGifts
 
