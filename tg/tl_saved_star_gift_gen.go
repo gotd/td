@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/savedStarGift for reference.
 type SavedStarGift struct {
-	// Flags field of SavedStarGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// NameHidden field of SavedStarGift.
 	NameHidden bool

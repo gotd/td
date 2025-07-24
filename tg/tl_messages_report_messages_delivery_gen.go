@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.reportMessagesDelivery for reference.
 type MessagesReportMessagesDeliveryRequest struct {
-	// Flags field of MessagesReportMessagesDeliveryRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Push field of MessagesReportMessagesDeliveryRequest.
 	Push bool
@@ -259,6 +262,10 @@ func (r *MessagesReportMessagesDeliveryRequest) GetID() (value []int) {
 }
 
 // MessagesReportMessagesDelivery invokes method messages.reportMessagesDelivery#5a6d7395 returning error if any.
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.reportMessagesDelivery for reference.
 func (c *Client) MessagesReportMessagesDelivery(ctx context.Context, request *MessagesReportMessagesDeliveryRequest) (bool, error) {

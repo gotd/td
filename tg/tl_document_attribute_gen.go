@@ -600,7 +600,7 @@ type DocumentAttributeVideo struct {
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	// Codec used for the video, i.e. “h264”, “h265”, or “av1”
+	// Codec used for the video, i.e. "h264", "h265", or "av1"
 	//
 	// Use SetVideoCodec and GetVideoCodec helpers.
 	VideoCodec string

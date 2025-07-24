@@ -261,7 +261,10 @@ func (s *SavedDialog) GetTopMessage() (value int) {
 //
 // See https://core.telegram.org/constructor/monoForumDialog for reference.
 type MonoForumDialog struct {
-	// Flags field of MonoForumDialog.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// UnreadMark field of MonoForumDialog.
 	UnreadMark bool

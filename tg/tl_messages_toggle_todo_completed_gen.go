@@ -275,6 +275,7 @@ func (t *MessagesToggleTodoCompletedRequest) GetIncompleted() (value []int) {
 // MessagesToggleTodoCompleted invokes method messages.toggleTodoCompleted#d3e03124 returning error if any.
 //
 // See https://core.telegram.org/method/messages.toggleTodoCompleted for reference.
+// Can be used by bots.
 func (c *Client) MessagesToggleTodoCompleted(ctx context.Context, request *MessagesToggleTodoCompletedRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

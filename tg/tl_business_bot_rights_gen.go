@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/businessBotRights for reference.
 type BusinessBotRights struct {
-	// Flags field of BusinessBotRights.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Reply field of BusinessBotRights.
 	Reply bool

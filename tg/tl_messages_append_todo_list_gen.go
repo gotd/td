@@ -237,6 +237,7 @@ func (a *MessagesAppendTodoListRequest) GetList() (value []TodoItem) {
 // MessagesAppendTodoList invokes method messages.appendTodoList#21a61057 returning error if any.
 //
 // See https://core.telegram.org/method/messages.appendTodoList for reference.
+// Can be used by bots.
 func (c *Client) MessagesAppendTodoList(ctx context.Context, request *MessagesAppendTodoListRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

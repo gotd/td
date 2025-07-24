@@ -12,13 +12,13 @@ require (
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.21.2
 	github.com/google/uuid v1.6.0
-	github.com/gotd/getdoc v0.49.0
+	github.com/gotd/getdoc v0.50.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.0
 	github.com/klauspost/compress v1.18.0
-	github.com/ogen-go/ogen v1.12.0
+	github.com/ogen-go/ogen v1.14.0
 	github.com/rogpeppe/go-internal v1.14.1
 	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/otel v1.37.0
@@ -44,7 +44,7 @@ require (
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
-	github.com/go-faster/sdk v0.27.0 // indirect
+	github.com/go-faster/sdk v0.28.0 // indirect
 	github.com/go-faster/yaml v0.4.6 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect

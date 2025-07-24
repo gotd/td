@@ -40,7 +40,10 @@ var (
 //
 // See https://core.telegram.org/constructor/payments.starsRevenueStats for reference.
 type PaymentsStarsRevenueStats struct {
-	// Flags field of PaymentsStarsRevenueStats.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// TopHoursGraph field of PaymentsStarsRevenueStats.
 	//

@@ -200,6 +200,7 @@ func (t *ChannelsToggleAutotranslationRequest) GetChannelAsNotEmpty() (NotEmptyI
 // ChannelsToggleAutotranslation invokes method channels.toggleAutotranslation#167fc0a1 returning error if any.
 //
 // See https://core.telegram.org/method/channels.toggleAutotranslation for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleAutotranslation(ctx context.Context, request *ChannelsToggleAutotranslationRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

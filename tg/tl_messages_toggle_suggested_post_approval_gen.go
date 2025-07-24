@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.toggleSuggestedPostApproval for reference.
 type MessagesToggleSuggestedPostApprovalRequest struct {
-	// Flags field of MessagesToggleSuggestedPostApprovalRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Reject field of MessagesToggleSuggestedPostApprovalRequest.
 	Reject bool
@@ -344,6 +347,7 @@ func (t *MessagesToggleSuggestedPostApprovalRequest) GetRejectComment() (value s
 // MessagesToggleSuggestedPostApproval invokes method messages.toggleSuggestedPostApproval#8107455c returning error if any.
 //
 // See https://core.telegram.org/method/messages.toggleSuggestedPostApproval for reference.
+// Can be used by bots.
 func (c *Client) MessagesToggleSuggestedPostApproval(ctx context.Context, request *MessagesToggleSuggestedPostApprovalRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

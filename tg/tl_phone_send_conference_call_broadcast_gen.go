@@ -195,6 +195,7 @@ func (s *PhoneSendConferenceCallBroadcastRequest) GetBlock() (value []byte) {
 // PhoneSendConferenceCallBroadcast invokes method phone.sendConferenceCallBroadcast#c6701900 returning error if any.
 //
 // See https://core.telegram.org/method/phone.sendConferenceCallBroadcast for reference.
+// Can be used by bots.
 func (c *Client) PhoneSendConferenceCallBroadcast(ctx context.Context, request *PhoneSendConferenceCallBroadcastRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

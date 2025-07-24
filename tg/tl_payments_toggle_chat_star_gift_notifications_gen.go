@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.toggleChatStarGiftNotifications for reference.
 type PaymentsToggleChatStarGiftNotificationsRequest struct {
-	// Flags field of PaymentsToggleChatStarGiftNotificationsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Enabled field of PaymentsToggleChatStarGiftNotificationsRequest.
 	Enabled bool
@@ -221,6 +224,7 @@ func (t *PaymentsToggleChatStarGiftNotificationsRequest) GetPeer() (value InputP
 // PaymentsToggleChatStarGiftNotifications invokes method payments.toggleChatStarGiftNotifications#60eaefa1 returning error if any.
 //
 // See https://core.telegram.org/method/payments.toggleChatStarGiftNotifications for reference.
+// Can be used by bots.
 func (c *Client) PaymentsToggleChatStarGiftNotifications(ctx context.Context, request *PaymentsToggleChatStarGiftNotificationsRequest) (bool, error) {
 	var result BoolBox
 

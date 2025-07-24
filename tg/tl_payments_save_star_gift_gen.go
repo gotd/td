@@ -233,6 +233,7 @@ func (s *PaymentsSaveStarGiftRequest) GetStargift() (value InputSavedStarGiftCla
 //
 // Possible errors:
 //
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/payments.saveStarGift for reference.

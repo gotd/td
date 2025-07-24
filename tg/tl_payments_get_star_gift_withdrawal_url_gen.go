@@ -205,6 +205,7 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) GetPasswordAsNotEmpty() (*Inpu
 // PaymentsGetStarGiftWithdrawalURL invokes method payments.getStarGiftWithdrawalUrl#d06e93a8 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getStarGiftWithdrawalUrl for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetStarGiftWithdrawalURL(ctx context.Context, request *PaymentsGetStarGiftWithdrawalURLRequest) (*PaymentsStarGiftWithdrawalURL, error) {
 	var result PaymentsStarGiftWithdrawalURL
 

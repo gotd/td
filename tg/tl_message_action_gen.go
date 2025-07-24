@@ -10065,7 +10065,10 @@ func (m *MessageActionStarGift) GetSavedID() (value int64, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageActionStarGiftUnique for reference.
 type MessageActionStarGiftUnique struct {
-	// Flags field of MessageActionStarGiftUnique.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Upgrade field of MessageActionStarGiftUnique.
 	Upgrade bool
@@ -10917,7 +10920,10 @@ func (m *MessageActionPaidMessagesRefunded) GetStars() (value int64) {
 //
 // See https://core.telegram.org/constructor/messageActionPaidMessagesPrice for reference.
 type MessageActionPaidMessagesPrice struct {
-	// Flags field of MessageActionPaidMessagesPrice.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// BroadcastMessagesAllowed field of MessageActionPaidMessagesPrice.
 	BroadcastMessagesAllowed bool
@@ -11104,7 +11110,10 @@ func (m *MessageActionPaidMessagesPrice) GetStars() (value int64) {
 //
 // See https://core.telegram.org/constructor/messageActionConferenceCall for reference.
 type MessageActionConferenceCall struct {
-	// Flags field of MessageActionConferenceCall.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Missed field of MessageActionConferenceCall.
 	Missed bool
@@ -11819,7 +11828,10 @@ func (m *MessageActionTodoAppendTasks) GetList() (value []TodoItem) {
 //
 // See https://core.telegram.org/constructor/messageActionSuggestedPostApproval for reference.
 type MessageActionSuggestedPostApproval struct {
-	// Flags field of MessageActionSuggestedPostApproval.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Rejected field of MessageActionSuggestedPostApproval.
 	Rejected bool
@@ -12302,7 +12314,10 @@ func (m *MessageActionSuggestedPostSuccess) GetPrice() (value StarsAmountClass) 
 //
 // See https://core.telegram.org/constructor/messageActionSuggestedPostRefund for reference.
 type MessageActionSuggestedPostRefund struct {
-	// Flags field of MessageActionSuggestedPostRefund.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// PayerInitiated field of MessageActionSuggestedPostRefund.
 	PayerInitiated bool
@@ -12462,7 +12477,10 @@ func (m *MessageActionSuggestedPostRefund) GetPayerInitiated() (value bool) {
 //
 // See https://core.telegram.org/constructor/messageActionGiftTon for reference.
 type MessageActionGiftTon struct {
-	// Flags field of MessageActionGiftTon.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Currency field of MessageActionGiftTon.
 	Currency string

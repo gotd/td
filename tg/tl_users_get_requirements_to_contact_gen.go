@@ -186,6 +186,7 @@ func (g *UsersGetRequirementsToContactRequest) MapID() (value InputUserClassArra
 // UsersGetRequirementsToContact invokes method users.getRequirementsToContact#d89a83a3 returning error if any.
 //
 // See https://core.telegram.org/method/users.getRequirementsToContact for reference.
+// Can be used by bots.
 func (c *Client) UsersGetRequirementsToContact(ctx context.Context, id []InputUserClass) ([]RequirementToContactClass, error) {
 	var result RequirementToContactClassVector
 

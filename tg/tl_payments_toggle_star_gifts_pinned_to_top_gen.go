@@ -218,6 +218,7 @@ func (t *PaymentsToggleStarGiftsPinnedToTopRequest) MapStargift() (value InputSa
 // PaymentsToggleStarGiftsPinnedToTop invokes method payments.toggleStarGiftsPinnedToTop#1513e7b0 returning error if any.
 //
 // See https://core.telegram.org/method/payments.toggleStarGiftsPinnedToTop for reference.
+// Can be used by bots.
 func (c *Client) PaymentsToggleStarGiftsPinnedToTop(ctx context.Context, request *PaymentsToggleStarGiftsPinnedToTopRequest) (bool, error) {
 	var result BoolBox
 

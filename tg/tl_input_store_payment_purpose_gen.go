@@ -2399,7 +2399,10 @@ func (i *InputStorePaymentStarsGiveaway) MapAdditionalPeers() (value InputPeerCl
 //
 // See https://core.telegram.org/constructor/inputStorePaymentAuthCode for reference.
 type InputStorePaymentAuthCode struct {
-	// Flags field of InputStorePaymentAuthCode.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Restore field of InputStorePaymentAuthCode.
 	Restore bool
