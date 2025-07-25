@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetSavedStarGiftsRequest represents TL type `payments.getSavedStarGifts#23830de9`.
+// PaymentsGetSavedStarGiftsRequest represents TL type `payments.getSavedStarGifts#a319e569`.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
 type PaymentsGetSavedStarGiftsRequest struct {
@@ -54,6 +54,10 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	SortByValue bool
 	// Peer field of PaymentsGetSavedStarGiftsRequest.
 	Peer InputPeerClass
+	// CollectionID field of PaymentsGetSavedStarGiftsRequest.
+	//
+	// Use SetCollectionID and GetCollectionID helpers.
+	CollectionID int
 	// Offset field of PaymentsGetSavedStarGiftsRequest.
 	Offset string
 	// Maximum number of results to return, see pagination¹
@@ -64,7 +68,7 @@ type PaymentsGetSavedStarGiftsRequest struct {
 }
 
 // PaymentsGetSavedStarGiftsRequestTypeID is TL type id of PaymentsGetSavedStarGiftsRequest.
-const PaymentsGetSavedStarGiftsRequestTypeID = 0x23830de9
+const PaymentsGetSavedStarGiftsRequestTypeID = 0xa319e569
 
 // Ensuring interfaces in compile-time for PaymentsGetSavedStarGiftsRequest.
 var (
@@ -102,6 +106,9 @@ func (g *PaymentsGetSavedStarGiftsRequest) Zero() bool {
 	if !(g.Peer == nil) {
 		return false
 	}
+	if !(g.CollectionID == 0) {
+		return false
+	}
 	if !(g.Offset == "") {
 		return false
 	}
@@ -130,6 +137,7 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	GetExcludeUnique() (value bool)
 	GetSortByValue() (value bool)
 	GetPeer() (value InputPeerClass)
+	GetCollectionID() (value int, ok bool)
 	GetOffset() (value string)
 	GetLimit() (value int)
 }) {
@@ -140,6 +148,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	g.ExcludeUnique = from.GetExcludeUnique()
 	g.SortByValue = from.GetSortByValue()
 	g.Peer = from.GetPeer()
+	if val, ok := from.GetCollectionID(); ok {
+		g.CollectionID = val
+	}
+
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 }
@@ -202,6 +214,11 @@ func (g *PaymentsGetSavedStarGiftsRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
+			Name:       "CollectionID",
+			SchemaName: "collection_id",
+			Null:       !g.Flags.Has(6),
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -233,12 +250,15 @@ func (g *PaymentsGetSavedStarGiftsRequest) SetFlags() {
 	if !(g.SortByValue == false) {
 		g.Flags.Set(5)
 	}
+	if !(g.CollectionID == 0) {
+		g.Flags.Set(6)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *PaymentsGetSavedStarGiftsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getSavedStarGifts#23830de9 as nil")
+		return fmt.Errorf("can't encode payments.getSavedStarGifts#a319e569 as nil")
 	}
 	b.PutID(PaymentsGetSavedStarGiftsRequestTypeID)
 	return g.EncodeBare(b)
@@ -247,17 +267,20 @@ func (g *PaymentsGetSavedStarGiftsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetSavedStarGiftsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getSavedStarGifts#23830de9 as nil")
+		return fmt.Errorf("can't encode payments.getSavedStarGifts#a319e569 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getSavedStarGifts#23830de9: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.getSavedStarGifts#a319e569: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getSavedStarGifts#23830de9: field peer is nil")
+		return fmt.Errorf("unable to encode payments.getSavedStarGifts#a319e569: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getSavedStarGifts#23830de9: field peer: %w", err)
+		return fmt.Errorf("unable to encode payments.getSavedStarGifts#a319e569: field peer: %w", err)
+	}
+	if g.Flags.Has(6) {
+		b.PutInt(g.CollectionID)
 	}
 	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
@@ -267,10 +290,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetSavedStarGiftsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getSavedStarGifts#23830de9 to nil")
+		return fmt.Errorf("can't decode payments.getSavedStarGifts#a319e569 to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetSavedStarGiftsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: %w", err)
+		return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -278,11 +301,11 @@ func (g *PaymentsGetSavedStarGiftsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetSavedStarGiftsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getSavedStarGifts#23830de9 to nil")
+		return fmt.Errorf("can't decode payments.getSavedStarGifts#a319e569 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field flags: %w", err)
 		}
 	}
 	g.ExcludeUnsaved = g.Flags.Has(0)
@@ -294,21 +317,28 @@ func (g *PaymentsGetSavedStarGiftsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field peer: %w", err)
 		}
 		g.Peer = value
+	}
+	if g.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field collection_id: %w", err)
+		}
+		g.CollectionID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field offset: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field limit: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -437,6 +467,24 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetPeer() (value InputPeerClass) {
 	return g.Peer
 }
 
+// SetCollectionID sets value of CollectionID conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetCollectionID(value int) {
+	g.Flags.Set(6)
+	g.CollectionID = value
+}
+
+// GetCollectionID returns value of CollectionID conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGetSavedStarGiftsRequest) GetCollectionID() (value int, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(6) {
+		return value, false
+	}
+	return g.CollectionID, true
+}
+
 // GetOffset returns value of Offset field.
 func (g *PaymentsGetSavedStarGiftsRequest) GetOffset() (value string) {
 	if g == nil {
@@ -453,7 +501,7 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#23830de9 returning error if any.
+// PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#a319e569 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
 // Can be used by bots.

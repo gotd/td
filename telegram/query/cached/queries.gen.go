@@ -2653,3 +2653,91 @@ func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
 		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
+
+type innerPaymentsGetStarGiftCollections struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.PaymentsStarGiftCollections
+}
+
+type PaymentsGetStarGiftCollections struct {
+	// Query to send.
+	req *tg.PaymentsGetStarGiftCollectionsRequest
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewPaymentsGetStarGiftCollections creates new PaymentsGetStarGiftCollections.
+func NewPaymentsGetStarGiftCollections(raw *tg.Client, initial *tg.PaymentsGetStarGiftCollectionsRequest) *PaymentsGetStarGiftCollections {
+	q := &PaymentsGetStarGiftCollections{
+		req: initial,
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *PaymentsGetStarGiftCollections) store(v innerPaymentsGetStarGiftCollections) {
+	s.last.Store(v)
+}
+
+func (s *PaymentsGetStarGiftCollections) load() (innerPaymentsGetStarGiftCollections, bool) {
+	v, ok := s.last.Load().(innerPaymentsGetStarGiftCollections)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned PaymentsStarGiftCollections must not be mutated.
+func (s *PaymentsGetStarGiftCollections) Value() *tg.PaymentsStarGiftCollections {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *PaymentsGetStarGiftCollections) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *PaymentsGetStarGiftCollections) Get(ctx context.Context) (*tg.PaymentsStarGiftCollections, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *PaymentsGetStarGiftCollections) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := s.req
+	req.Hash = lastHash
+	result, err := s.raw.PaymentsGetStarGiftCollections(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute PaymentsGetStarGiftCollections")
+	}
+
+	switch variant := result.(type) {
+	case *tg.PaymentsStarGiftCollections:
+		hash := s.computeHash(variant)
+
+		s.store(innerPaymentsGetStarGiftCollections{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.PaymentsStarGiftCollectionsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}

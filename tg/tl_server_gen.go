@@ -10677,6 +10677,99 @@ func (s *ServerDispatcher) OnPaymentsUpdateStarGiftPrice(f func(ctx context.Cont
 	s.handlers[PaymentsUpdateStarGiftPriceRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnPaymentsCreateStarGiftCollection(f func(ctx context.Context, request *PaymentsCreateStarGiftCollectionRequest) (*StarGiftCollection, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsCreateStarGiftCollectionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsCreateStarGiftCollectionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsUpdateStarGiftCollection(f func(ctx context.Context, request *PaymentsUpdateStarGiftCollectionRequest) (*StarGiftCollection, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsUpdateStarGiftCollectionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsUpdateStarGiftCollectionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsReorderStarGiftCollections(f func(ctx context.Context, request *PaymentsReorderStarGiftCollectionsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsReorderStarGiftCollectionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsReorderStarGiftCollectionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsDeleteStarGiftCollection(f func(ctx context.Context, request *PaymentsDeleteStarGiftCollectionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsDeleteStarGiftCollectionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsDeleteStarGiftCollectionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetStarGiftCollections(f func(ctx context.Context, request *PaymentsGetStarGiftCollectionsRequest) (PaymentsStarGiftCollectionsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetStarGiftCollectionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &PaymentsStarGiftCollectionsBox{StarGiftCollections: response}, nil
+	}
+
+	s.handlers[PaymentsGetStarGiftCollectionsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersCreateStickerSetRequest
