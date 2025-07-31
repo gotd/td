@@ -82,9 +82,21 @@ func (b *ChannelsSearchPostsQueryBuilder) OffsetID(offsetID int) *ChannelsSearch
 	return b
 }
 
+// AllowPaidStars sets AllowPaidStars field of ChannelsSearchPosts query.
+func (b *ChannelsSearchPostsQueryBuilder) AllowPaidStars(paramAllowPaidStars int64) *ChannelsSearchPostsQueryBuilder {
+	b.req.AllowPaidStars = paramAllowPaidStars
+	return b
+}
+
 // Hashtag sets Hashtag field of ChannelsSearchPosts query.
 func (b *ChannelsSearchPostsQueryBuilder) Hashtag(paramHashtag string) *ChannelsSearchPostsQueryBuilder {
 	b.req.Hashtag = paramHashtag
+	return b
+}
+
+// Query sets Query field of ChannelsSearchPosts query.
+func (b *ChannelsSearchPostsQueryBuilder) Query(paramQuery string) *ChannelsSearchPostsQueryBuilder {
+	b.req.Query = paramQuery
 	return b
 }
 
@@ -94,7 +106,9 @@ func (b *ChannelsSearchPostsQueryBuilder) Query(ctx context.Context, req Request
 		Limit: req.Limit,
 	}
 
+	r.AllowPaidStars = b.req.AllowPaidStars
 	r.Hashtag = b.req.Hashtag
+	r.Query = b.req.Query
 	r.OffsetID = req.OffsetID
 	r.OffsetPeer = req.OffsetPeer
 	r.OffsetRate = req.OffsetRate

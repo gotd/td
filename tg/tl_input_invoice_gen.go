@@ -1903,10 +1903,14 @@ func (i *InputInvoiceBusinessBotTransferStars) GetStars() (value int64) {
 	return i.Stars
 }
 
-// InputInvoiceStarGiftResale represents TL type `inputInvoiceStarGiftResale#63cbc38c`.
+// InputInvoiceStarGiftResale represents TL type `inputInvoiceStarGiftResale#c39f5324`.
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftResale for reference.
 type InputInvoiceStarGiftResale struct {
+	// Flags field of InputInvoiceStarGiftResale.
+	Flags bin.Fields
+	// Ton field of InputInvoiceStarGiftResale.
+	Ton bool
 	// Slug field of InputInvoiceStarGiftResale.
 	Slug string
 	// ToID field of InputInvoiceStarGiftResale.
@@ -1914,7 +1918,7 @@ type InputInvoiceStarGiftResale struct {
 }
 
 // InputInvoiceStarGiftResaleTypeID is TL type id of InputInvoiceStarGiftResale.
-const InputInvoiceStarGiftResaleTypeID = 0x63cbc38c
+const InputInvoiceStarGiftResaleTypeID = 0xc39f5324
 
 // construct implements constructor of InputInvoiceClass.
 func (i InputInvoiceStarGiftResale) construct() InputInvoiceClass { return &i }
@@ -1932,6 +1936,12 @@ var (
 func (i *InputInvoiceStarGiftResale) Zero() bool {
 	if i == nil {
 		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Ton == false) {
+		return false
 	}
 	if !(i.Slug == "") {
 		return false
@@ -1954,9 +1964,11 @@ func (i *InputInvoiceStarGiftResale) String() string {
 
 // FillFrom fills InputInvoiceStarGiftResale from given interface.
 func (i *InputInvoiceStarGiftResale) FillFrom(from interface {
+	GetTon() (value bool)
 	GetSlug() (value string)
 	GetToID() (value InputPeerClass)
 }) {
+	i.Ton = from.GetTon()
 	i.Slug = from.GetSlug()
 	i.ToID = from.GetToID()
 }
@@ -1985,6 +1997,11 @@ func (i *InputInvoiceStarGiftResale) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Ton",
+			SchemaName: "ton",
+			Null:       !i.Flags.Has(0),
+		},
+		{
 			Name:       "Slug",
 			SchemaName: "slug",
 		},
@@ -1996,10 +2013,17 @@ func (i *InputInvoiceStarGiftResale) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputInvoiceStarGiftResale) SetFlags() {
+	if !(i.Ton == false) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputInvoiceStarGiftResale) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGiftResale#63cbc38c as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGiftResale#c39f5324 as nil")
 	}
 	b.PutID(InputInvoiceStarGiftResaleTypeID)
 	return i.EncodeBare(b)
@@ -2008,14 +2032,18 @@ func (i *InputInvoiceStarGiftResale) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputInvoiceStarGiftResale) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputInvoiceStarGiftResale#63cbc38c as nil")
+		return fmt.Errorf("can't encode inputInvoiceStarGiftResale#c39f5324 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#c39f5324: field flags: %w", err)
 	}
 	b.PutString(i.Slug)
 	if i.ToID == nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#63cbc38c: field to_id is nil")
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#c39f5324: field to_id is nil")
 	}
 	if err := i.ToID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#63cbc38c: field to_id: %w", err)
+		return fmt.Errorf("unable to encode inputInvoiceStarGiftResale#c39f5324: field to_id: %w", err)
 	}
 	return nil
 }
@@ -2023,10 +2051,10 @@ func (i *InputInvoiceStarGiftResale) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputInvoiceStarGiftResale) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGiftResale#63cbc38c to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGiftResale#c39f5324 to nil")
 	}
 	if err := b.ConsumeID(InputInvoiceStarGiftResaleTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#63cbc38c: %w", err)
+		return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#c39f5324: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2034,23 +2062,48 @@ func (i *InputInvoiceStarGiftResale) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputInvoiceStarGiftResale) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputInvoiceStarGiftResale#63cbc38c to nil")
+		return fmt.Errorf("can't decode inputInvoiceStarGiftResale#c39f5324 to nil")
 	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#c39f5324: field flags: %w", err)
+		}
+	}
+	i.Ton = i.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#63cbc38c: field slug: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#c39f5324: field slug: %w", err)
 		}
 		i.Slug = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#63cbc38c: field to_id: %w", err)
+			return fmt.Errorf("unable to decode inputInvoiceStarGiftResale#c39f5324: field to_id: %w", err)
 		}
 		i.ToID = value
 	}
 	return nil
+}
+
+// SetTon sets value of Ton conditional field.
+func (i *InputInvoiceStarGiftResale) SetTon(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Ton = true
+	} else {
+		i.Flags.Unset(0)
+		i.Ton = false
+	}
+}
+
+// GetTon returns value of Ton conditional field.
+func (i *InputInvoiceStarGiftResale) GetTon() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(0)
 }
 
 // GetSlug returns value of Slug field.
@@ -2106,7 +2159,7 @@ const InputInvoiceClassName = "InputInvoice"
 //	case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#4a5f5bd9
 //	case *tg.InputInvoicePremiumGiftStars: // inputInvoicePremiumGiftStars#dabab2ef
 //	case *tg.InputInvoiceBusinessBotTransferStars: // inputInvoiceBusinessBotTransferStars#f4997e42
-//	case *tg.InputInvoiceStarGiftResale: // inputInvoiceStarGiftResale#63cbc38c
+//	case *tg.InputInvoiceStarGiftResale: // inputInvoiceStarGiftResale#c39f5324
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -2206,7 +2259,7 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 		}
 		return &v, nil
 	case InputInvoiceStarGiftResaleTypeID:
-		// Decoding inputInvoiceStarGiftResale#63cbc38c.
+		// Decoding inputInvoiceStarGiftResale#c39f5324.
 		v := InputInvoiceStarGiftResale{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
