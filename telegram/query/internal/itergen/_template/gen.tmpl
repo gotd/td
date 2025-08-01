@@ -101,8 +101,8 @@ func (b *{{ $.Name }}QueryBuilder) {{ $mapping.Arg.OriginalName }}({{ $mapping.A
 {{- end }}{{- end }}
 
 {{ range $f := $.AdditionalParams }}
-// {{ $f.OriginalName }} sets {{ $f.OriginalName }} field of {{ $.Name }} query.
-func (b *{{ $.Name }}QueryBuilder) {{ $f.OriginalName }}(param{{ $f.OriginalName }} {{ $f.Type }}) *{{ $.Name }}QueryBuilder {
+// {{ $f.MethodName }} sets {{ $f.OriginalName }} field of {{ $.Name }} query.
+func (b *{{ $.Name }}QueryBuilder) {{ $f.MethodName }}(param{{ $f.OriginalName }} {{ $f.Type }}) *{{ $.Name }}QueryBuilder {
     b.req.{{ $f.OriginalName }} = param{{ $f.OriginalName }}
     return b
 }

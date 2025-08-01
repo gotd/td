@@ -94,8 +94,8 @@ func (b *ChannelsSearchPostsQueryBuilder) Hashtag(paramHashtag string) *Channels
 	return b
 }
 
-// Query sets Query field of ChannelsSearchPosts query.
-func (b *ChannelsSearchPostsQueryBuilder) Query(paramQuery string) *ChannelsSearchPostsQueryBuilder {
+// SetQuery sets Query field of ChannelsSearchPosts query.
+func (b *ChannelsSearchPostsQueryBuilder) SetQuery(paramQuery string) *ChannelsSearchPostsQueryBuilder {
 	b.req.Query = paramQuery
 	return b
 }
