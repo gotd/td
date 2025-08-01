@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsSearchPostsRequest represents TL type `channels.searchPosts#d19f987b`.
+// ChannelsSearchPostsRequest represents TL type `channels.searchPosts#f2c4f24d`.
 // Globally search for posts from public channels »¹ (including those we aren't a
 // member of) containing a specific hashtag.
 //
@@ -40,8 +40,16 @@ var (
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 type ChannelsSearchPostsRequest struct {
+	// Flags field of ChannelsSearchPostsRequest.
+	Flags bin.Fields
 	// The hashtag to search, without the # character.
+	//
+	// Use SetHashtag and GetHashtag helpers.
 	Hashtag string
+	// Query field of ChannelsSearchPostsRequest.
+	//
+	// Use SetQuery and GetQuery helpers.
+	Query string
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
@@ -62,10 +70,14 @@ type ChannelsSearchPostsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	Limit int
+	// AllowPaidStars field of ChannelsSearchPostsRequest.
+	//
+	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
+	AllowPaidStars int64
 }
 
 // ChannelsSearchPostsRequestTypeID is TL type id of ChannelsSearchPostsRequest.
-const ChannelsSearchPostsRequestTypeID = 0xd19f987b
+const ChannelsSearchPostsRequestTypeID = 0xf2c4f24d
 
 // Ensuring interfaces in compile-time for ChannelsSearchPostsRequest.
 var (
@@ -79,7 +91,13 @@ func (s *ChannelsSearchPostsRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
 	if !(s.Hashtag == "") {
+		return false
+	}
+	if !(s.Query == "") {
 		return false
 	}
 	if !(s.OffsetRate == 0) {
@@ -92,6 +110,9 @@ func (s *ChannelsSearchPostsRequest) Zero() bool {
 		return false
 	}
 	if !(s.Limit == 0) {
+		return false
+	}
+	if !(s.AllowPaidStars == 0) {
 		return false
 	}
 
@@ -109,17 +130,30 @@ func (s *ChannelsSearchPostsRequest) String() string {
 
 // FillFrom fills ChannelsSearchPostsRequest from given interface.
 func (s *ChannelsSearchPostsRequest) FillFrom(from interface {
-	GetHashtag() (value string)
+	GetHashtag() (value string, ok bool)
+	GetQuery() (value string, ok bool)
 	GetOffsetRate() (value int)
 	GetOffsetPeer() (value InputPeerClass)
 	GetOffsetID() (value int)
 	GetLimit() (value int)
+	GetAllowPaidStars() (value int64, ok bool)
 }) {
-	s.Hashtag = from.GetHashtag()
+	if val, ok := from.GetHashtag(); ok {
+		s.Hashtag = val
+	}
+
+	if val, ok := from.GetQuery(); ok {
+		s.Query = val
+	}
+
 	s.OffsetRate = from.GetOffsetRate()
 	s.OffsetPeer = from.GetOffsetPeer()
 	s.OffsetID = from.GetOffsetID()
 	s.Limit = from.GetLimit()
+	if val, ok := from.GetAllowPaidStars(); ok {
+		s.AllowPaidStars = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -148,6 +182,12 @@ func (s *ChannelsSearchPostsRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "Hashtag",
 			SchemaName: "hashtag",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+			Null:       !s.Flags.Has(1),
 		},
 		{
 			Name:       "OffsetRate",
@@ -165,14 +205,32 @@ func (s *ChannelsSearchPostsRequest) TypeInfo() tdp.Type {
 			Name:       "Limit",
 			SchemaName: "limit",
 		},
+		{
+			Name:       "AllowPaidStars",
+			SchemaName: "allow_paid_stars",
+			Null:       !s.Flags.Has(2),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *ChannelsSearchPostsRequest) SetFlags() {
+	if !(s.Hashtag == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.Query == "") {
+		s.Flags.Set(1)
+	}
+	if !(s.AllowPaidStars == 0) {
+		s.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *ChannelsSearchPostsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.searchPosts#d19f987b as nil")
+		return fmt.Errorf("can't encode channels.searchPosts#f2c4f24d as nil")
 	}
 	b.PutID(ChannelsSearchPostsRequestTypeID)
 	return s.EncodeBare(b)
@@ -181,28 +239,40 @@ func (s *ChannelsSearchPostsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ChannelsSearchPostsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.searchPosts#d19f987b as nil")
+		return fmt.Errorf("can't encode channels.searchPosts#f2c4f24d as nil")
 	}
-	b.PutString(s.Hashtag)
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.searchPosts#f2c4f24d: field flags: %w", err)
+	}
+	if s.Flags.Has(0) {
+		b.PutString(s.Hashtag)
+	}
+	if s.Flags.Has(1) {
+		b.PutString(s.Query)
+	}
 	b.PutInt(s.OffsetRate)
 	if s.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode channels.searchPosts#d19f987b: field offset_peer is nil")
+		return fmt.Errorf("unable to encode channels.searchPosts#f2c4f24d: field offset_peer is nil")
 	}
 	if err := s.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.searchPosts#d19f987b: field offset_peer: %w", err)
+		return fmt.Errorf("unable to encode channels.searchPosts#f2c4f24d: field offset_peer: %w", err)
 	}
 	b.PutInt(s.OffsetID)
 	b.PutInt(s.Limit)
+	if s.Flags.Has(2) {
+		b.PutLong(s.AllowPaidStars)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *ChannelsSearchPostsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.searchPosts#d19f987b to nil")
+		return fmt.Errorf("can't decode channels.searchPosts#f2c4f24d to nil")
 	}
 	if err := b.ConsumeID(ChannelsSearchPostsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.searchPosts#d19f987b: %w", err)
+		return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -210,52 +280,99 @@ func (s *ChannelsSearchPostsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ChannelsSearchPostsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.searchPosts#d19f987b to nil")
+		return fmt.Errorf("can't decode channels.searchPosts#f2c4f24d to nil")
 	}
 	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field flags: %w", err)
+		}
+	}
+	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.searchPosts#d19f987b: field hashtag: %w", err)
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field hashtag: %w", err)
 		}
 		s.Hashtag = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field query: %w", err)
+		}
+		s.Query = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.searchPosts#d19f987b: field offset_rate: %w", err)
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field offset_rate: %w", err)
 		}
 		s.OffsetRate = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.searchPosts#d19f987b: field offset_peer: %w", err)
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field offset_peer: %w", err)
 		}
 		s.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.searchPosts#d19f987b: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field offset_id: %w", err)
 		}
 		s.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.searchPosts#d19f987b: field limit: %w", err)
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field limit: %w", err)
 		}
 		s.Limit = value
+	}
+	if s.Flags.Has(2) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.searchPosts#f2c4f24d: field allow_paid_stars: %w", err)
+		}
+		s.AllowPaidStars = value
 	}
 	return nil
 }
 
-// GetHashtag returns value of Hashtag field.
-func (s *ChannelsSearchPostsRequest) GetHashtag() (value string) {
+// SetHashtag sets value of Hashtag conditional field.
+func (s *ChannelsSearchPostsRequest) SetHashtag(value string) {
+	s.Flags.Set(0)
+	s.Hashtag = value
+}
+
+// GetHashtag returns value of Hashtag conditional field and
+// boolean which is true if field was set.
+func (s *ChannelsSearchPostsRequest) GetHashtag() (value string, ok bool) {
 	if s == nil {
 		return
 	}
-	return s.Hashtag
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.Hashtag, true
+}
+
+// SetQuery sets value of Query conditional field.
+func (s *ChannelsSearchPostsRequest) SetQuery(value string) {
+	s.Flags.Set(1)
+	s.Query = value
+}
+
+// GetQuery returns value of Query conditional field and
+// boolean which is true if field was set.
+func (s *ChannelsSearchPostsRequest) GetQuery() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.Query, true
 }
 
 // GetOffsetRate returns value of OffsetRate field.
@@ -290,7 +407,25 @@ func (s *ChannelsSearchPostsRequest) GetLimit() (value int) {
 	return s.Limit
 }
 
-// ChannelsSearchPosts invokes method channels.searchPosts#d19f987b returning error if any.
+// SetAllowPaidStars sets value of AllowPaidStars conditional field.
+func (s *ChannelsSearchPostsRequest) SetAllowPaidStars(value int64) {
+	s.Flags.Set(2)
+	s.AllowPaidStars = value
+}
+
+// GetAllowPaidStars returns value of AllowPaidStars conditional field and
+// boolean which is true if field was set.
+func (s *ChannelsSearchPostsRequest) GetAllowPaidStars() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.AllowPaidStars, true
+}
+
+// ChannelsSearchPosts invokes method channels.searchPosts#f2c4f24d returning error if any.
 // Globally search for posts from public channels »¹ (including those we aren't a
 // member of) containing a specific hashtag.
 //

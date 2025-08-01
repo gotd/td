@@ -9217,6 +9217,23 @@ func (s *ServerDispatcher) OnChannelsGetMessageAuthor(f func(ctx context.Context
 	s.handlers[ChannelsGetMessageAuthorRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsCheckSearchPostsFlood(f func(ctx context.Context, request *ChannelsCheckSearchPostsFloodRequest) (*SearchPostsFlood, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsCheckSearchPostsFloodRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsCheckSearchPostsFloodRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -12486,6 +12503,116 @@ func (s *ServerDispatcher) OnStoriesSearchPosts(f func(ctx context.Context, requ
 	}
 
 	s.handlers[StoriesSearchPostsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesCreateAlbum(f func(ctx context.Context, request *StoriesCreateAlbumRequest) (*StoryAlbum, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesCreateAlbumRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesCreateAlbumRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesUpdateAlbum(f func(ctx context.Context, request *StoriesUpdateAlbumRequest) (*StoryAlbum, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesUpdateAlbumRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesUpdateAlbumRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesReorderAlbums(f func(ctx context.Context, request *StoriesReorderAlbumsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesReorderAlbumsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesReorderAlbumsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesDeleteAlbum(f func(ctx context.Context, request *StoriesDeleteAlbumRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesDeleteAlbumRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesDeleteAlbumRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetAlbums(f func(ctx context.Context, request *StoriesGetAlbumsRequest) (StoriesAlbumsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetAlbumsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &StoriesAlbumsBox{Albums: response}, nil
+	}
+
+	s.handlers[StoriesGetAlbumsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetAlbumStories(f func(ctx context.Context, request *StoriesGetAlbumStoriesRequest) (*StoriesStories, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetAlbumStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetAlbumStoriesRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPremiumGetBoostsList(f func(ctx context.Context, request *PremiumGetBoostsListRequest) (*PremiumBoostsList, error)) {

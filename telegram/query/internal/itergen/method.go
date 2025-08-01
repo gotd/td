@@ -16,15 +16,24 @@ type Param struct {
 	OriginalName string
 	// Go type.
 	Type string
+	// MethodName to use.
+	MethodName string
 }
 
 func varToParam(field *types.Var) Param {
 	fieldName := field.Name()
 	fieldName = strings.ToLower(fieldName[:1]) + fieldName[1:]
+	originalName := field.Name()
+	methodName := originalName
+	if methodName == "Query" {
+		// HACK: fix conflict.
+		methodName = "Set" + methodName
+	}
 	return Param{
 		Name:         fieldName,
-		OriginalName: field.Name(),
+		OriginalName: originalName,
 		Type:         genutil.PrintType(field.Type()),
+		MethodName:   methodName,
 	}
 }
 
