@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
+	"rsc.io/qr"
 
 	"github.com/gotd/neo"
 
@@ -184,4 +185,137 @@ func TestQR_Auth(t *testing.T) {
 	loggedIn <- struct{}{}
 
 	a.NoError(<-done)
+}
+
+func TestMigrationNeededError_Error(t *testing.T) {
+	a := require.New(t)
+	err := &MigrationNeededError{
+		MigrateTo: &tg.AuthLoginTokenMigrateTo{
+			DCID: 2,
+		},
+	}
+	a.Equal("migration to 2 needed", err.Error())
+}
+
+// Mock dispatcher that implements the required interface
+type mockDispatcher struct {
+	handler tg.LoginTokenHandler
+}
+
+func (m *mockDispatcher) OnLoginToken(h tg.LoginTokenHandler) {
+	m.handler = h
+}
+
+func TestOnLoginToken(t *testing.T) {
+	a := require.New(t)
+
+	dispatcher := &mockDispatcher{}
+	loggedIn := OnLoginToken(dispatcher)
+
+	// Verify that handler was set
+	a.NotNil(dispatcher.handler)
+
+	// Test the handler
+	ctx := context.Background()
+	entities := tg.Entities{}
+	update := &tg.UpdateLoginToken{}
+
+	// First call should send to channel
+	done := make(chan error, 1)
+	go func() {
+		done <- dispatcher.handler(ctx, entities, update)
+	}()
+
+	// Should receive signal
+	select {
+	case <-loggedIn:
+		// Good
+	case <-time.After(time.Second):
+		t.Fatal("should receive signal")
+	}
+
+	// Handler should return nil
+	a.NoError(<-done)
+
+	// Second call when channel is full should not block
+	err := dispatcher.handler(ctx, entities, update)
+	a.NoError(err)
+}
+
+func TestToken_Image(t *testing.T) {
+	a := require.New(t)
+	token := NewToken([]byte("test_token"), int(time.Now().Unix()))
+
+	// Test with valid QR level
+	img, err := token.Image(qr.L)
+	a.NoError(err)
+	a.NotNil(img)
+
+	// Test with different QR levels
+	levels := []qr.Level{qr.L, qr.M, qr.Q, qr.H}
+
+	for _, level := range levels {
+		img, err := token.Image(level)
+		a.NoError(err)
+		a.NotNil(img)
+	}
+}
+
+func TestQR_Import_WithMigration(t *testing.T) {
+	ctx := context.Background()
+	a := require.New(t)
+
+	// Test with migration function
+	migrateCalled := false
+	migrate := func(ctx context.Context, dcID int) error {
+		migrateCalled = true
+		a.Equal(2, dcID)
+		return nil
+	}
+
+	mock, qr := testQR(t, migrate)
+
+	auth := &tg.AuthAuthorization{
+		User: &tg.User{ID: 10},
+	}
+
+	// First call returns migration needed
+	mock.ExpectCall(&tg.AuthExportLoginTokenRequest{
+		APIID:   constant.TestAppID,
+		APIHash: constant.TestAppHash,
+	}).ThenResult(&tg.AuthLoginTokenMigrateTo{
+		DCID:  2,
+		Token: testToken.token,
+	}).ExpectCall(&tg.AuthImportLoginTokenRequest{
+		Token: testToken.token,
+	}).ThenResult(&tg.AuthLoginTokenSuccess{
+		Authorization: auth,
+	})
+
+	result, err := qr.Import(ctx)
+	a.NoError(err)
+	a.Equal(auth, result)
+	a.True(migrateCalled)
+}
+
+func TestQR_Import_MigrationError(t *testing.T) {
+	ctx := context.Background()
+	a := require.New(t)
+
+	// Test with migration function that returns error
+	migrate := func(ctx context.Context, dcID int) error {
+		return testutil.TestError()
+	}
+
+	mock, qr := testQR(t, migrate)
+
+	mock.ExpectCall(&tg.AuthExportLoginTokenRequest{
+		APIID:   constant.TestAppID,
+		APIHash: constant.TestAppHash,
+	}).ThenResult(&tg.AuthLoginTokenMigrateTo{
+		DCID: 2,
+	})
+
+	_, err := qr.Import(ctx)
+	a.ErrorIs(err, testutil.TestError())
 }
