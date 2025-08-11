@@ -10,7 +10,7 @@ require (
 	github.com/go-faster/errors v0.7.1
 	github.com/go-faster/jx v1.1.0
 	github.com/go-faster/xor v1.0.0
-	github.com/go-openapi/inflect v0.21.2
+	github.com/go-openapi/inflect v0.21.3
 	github.com/google/uuid v1.6.0
 	github.com/gotd/getdoc v0.50.0
 	github.com/gotd/ige v0.2.2
