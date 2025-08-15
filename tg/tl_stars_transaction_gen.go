@@ -63,6 +63,8 @@ type StarsTransaction struct {
 	BusinessTransfer bool
 	// StargiftResale field of StarsTransaction.
 	StargiftResale bool
+	// PostsSearch field of StarsTransaction.
+	PostsSearch bool
 	// Transaction ID.
 	ID string
 	// Amount field of StarsTransaction.
@@ -242,6 +244,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.StargiftResale == false) {
 		return false
 	}
+	if !(s.PostsSearch == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -334,6 +339,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetStargiftUpgrade() (value bool)
 	GetBusinessTransfer() (value bool)
 	GetStargiftResale() (value bool)
+	GetPostsSearch() (value bool)
 	GetID() (value string)
 	GetAmount() (value StarsAmountClass)
 	GetDate() (value int)
@@ -366,6 +372,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.StargiftUpgrade = from.GetStargiftUpgrade()
 	s.BusinessTransfer = from.GetBusinessTransfer()
 	s.StargiftResale = from.GetStargiftResale()
+	s.PostsSearch = from.GetPostsSearch()
 	s.ID = from.GetID()
 	s.Amount = from.GetAmount()
 	s.Date = from.GetDate()
@@ -512,6 +519,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(22),
 		},
 		{
+			Name:       "PostsSearch",
+			SchemaName: "posts_search",
+			Null:       !s.Flags.Has(24),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -651,6 +663,9 @@ func (s *StarsTransaction) SetFlags() {
 	}
 	if !(s.StargiftResale == false) {
 		s.Flags.Set(22)
+	}
+	if !(s.PostsSearch == false) {
+		s.Flags.Set(24)
 	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
@@ -860,6 +875,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.StargiftUpgrade = s.Flags.Has(18)
 	s.BusinessTransfer = s.Flags.Has(21)
 	s.StargiftResale = s.Flags.Has(22)
+	s.PostsSearch = s.Flags.Has(24)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1184,6 +1200,25 @@ func (s *StarsTransaction) GetStargiftResale() (value bool) {
 		return
 	}
 	return s.Flags.Has(22)
+}
+
+// SetPostsSearch sets value of PostsSearch conditional field.
+func (s *StarsTransaction) SetPostsSearch(value bool) {
+	if value {
+		s.Flags.Set(24)
+		s.PostsSearch = true
+	} else {
+		s.Flags.Unset(24)
+		s.PostsSearch = false
+	}
+}
+
+// GetPostsSearch returns value of PostsSearch conditional field.
+func (s *StarsTransaction) GetPostsSearch() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(24)
 }
 
 // GetID returns value of ID field.
