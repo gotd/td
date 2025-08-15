@@ -1,10 +1,15 @@
 package qrlogin
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/gotd/td/tg"
 )
+
+// ErrAlreadyAuthenticated indicates that user is already authenticated
+// and no new QR token is needed.
+var ErrAlreadyAuthenticated = errors.New("already authenticated")
 
 // MigrationNeededError reports that Telegram requested DC migration to continue login.
 type MigrationNeededError struct {
