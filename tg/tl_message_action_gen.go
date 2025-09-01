@@ -4997,17 +4997,17 @@ func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
 	return m.ScheduleDate
 }
 
-// MessageActionSetChatTheme represents TL type `messageActionSetChatTheme#aa786345`.
+// MessageActionSetChatTheme represents TL type `messageActionSetChatTheme#b91bbd3a`.
 // The chat theme was changed
 //
 // See https://core.telegram.org/constructor/messageActionSetChatTheme for reference.
 type MessageActionSetChatTheme struct {
-	// The emoji that identifies a chat theme
-	Emoticon string
+	// Theme field of MessageActionSetChatTheme.
+	Theme ChatThemeClass
 }
 
 // MessageActionSetChatThemeTypeID is TL type id of MessageActionSetChatTheme.
-const MessageActionSetChatThemeTypeID = 0xaa786345
+const MessageActionSetChatThemeTypeID = 0xb91bbd3a
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionSetChatTheme) construct() MessageActionClass { return &m }
@@ -5026,7 +5026,7 @@ func (m *MessageActionSetChatTheme) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.Emoticon == "") {
+	if !(m.Theme == nil) {
 		return false
 	}
 
@@ -5044,9 +5044,9 @@ func (m *MessageActionSetChatTheme) String() string {
 
 // FillFrom fills MessageActionSetChatTheme from given interface.
 func (m *MessageActionSetChatTheme) FillFrom(from interface {
-	GetEmoticon() (value string)
+	GetTheme() (value ChatThemeClass)
 }) {
-	m.Emoticon = from.GetEmoticon()
+	m.Theme = from.GetTheme()
 }
 
 // TypeID returns type id in TL schema.
@@ -5073,8 +5073,8 @@ func (m *MessageActionSetChatTheme) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Emoticon",
-			SchemaName: "emoticon",
+			Name:       "Theme",
+			SchemaName: "theme",
 		},
 	}
 	return typ
@@ -5083,7 +5083,7 @@ func (m *MessageActionSetChatTheme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageActionSetChatTheme) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionSetChatTheme#aa786345 as nil")
+		return fmt.Errorf("can't encode messageActionSetChatTheme#b91bbd3a as nil")
 	}
 	b.PutID(MessageActionSetChatThemeTypeID)
 	return m.EncodeBare(b)
@@ -5092,19 +5092,24 @@ func (m *MessageActionSetChatTheme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionSetChatTheme) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionSetChatTheme#aa786345 as nil")
+		return fmt.Errorf("can't encode messageActionSetChatTheme#b91bbd3a as nil")
 	}
-	b.PutString(m.Emoticon)
+	if m.Theme == nil {
+		return fmt.Errorf("unable to encode messageActionSetChatTheme#b91bbd3a: field theme is nil")
+	}
+	if err := m.Theme.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionSetChatTheme#b91bbd3a: field theme: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionSetChatTheme) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionSetChatTheme#aa786345 to nil")
+		return fmt.Errorf("can't decode messageActionSetChatTheme#b91bbd3a to nil")
 	}
 	if err := b.ConsumeID(MessageActionSetChatThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionSetChatTheme#aa786345: %w", err)
+		return fmt.Errorf("unable to decode messageActionSetChatTheme#b91bbd3a: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -5112,24 +5117,24 @@ func (m *MessageActionSetChatTheme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionSetChatTheme) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionSetChatTheme#aa786345 to nil")
+		return fmt.Errorf("can't decode messageActionSetChatTheme#b91bbd3a to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeChatTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionSetChatTheme#aa786345: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode messageActionSetChatTheme#b91bbd3a: field theme: %w", err)
 		}
-		m.Emoticon = value
+		m.Theme = value
 	}
 	return nil
 }
 
-// GetEmoticon returns value of Emoticon field.
-func (m *MessageActionSetChatTheme) GetEmoticon() (value string) {
+// GetTheme returns value of Theme field.
+func (m *MessageActionSetChatTheme) GetTheme() (value ChatThemeClass) {
 	if m == nil {
 		return
 	}
-	return m.Emoticon
+	return m.Theme
 }
 
 // MessageActionChatJoinedByRequest represents TL type `messageActionChatJoinedByRequest#ebbca3cb`.
@@ -9328,7 +9333,7 @@ func (m *MessageActionPrizeStars) GetGiveawayMsgID() (value int) {
 	return m.GiveawayMsgID
 }
 
-// MessageActionStarGift represents TL type `messageActionStarGift#4717e8a4`.
+// MessageActionStarGift represents TL type `messageActionStarGift#f24de7fa`.
 // You received a gift, see here »¹ for more info.
 //
 // Links:
@@ -9363,6 +9368,10 @@ type MessageActionStarGift struct {
 	Refunded bool
 	// CanUpgrade field of MessageActionStarGift.
 	CanUpgrade bool
+	// PrepaidUpgrade field of MessageActionStarGift.
+	PrepaidUpgrade bool
+	// UpgradeSeparate field of MessageActionStarGift.
+	UpgradeSeparate bool
 	// Info about the gift
 	Gift StarGiftClass
 	// Additional message from the sender of the gift
@@ -9396,10 +9405,18 @@ type MessageActionStarGift struct {
 	//
 	// Use SetSavedID and GetSavedID helpers.
 	SavedID int64
+	// PrepaidUpgradeHash field of MessageActionStarGift.
+	//
+	// Use SetPrepaidUpgradeHash and GetPrepaidUpgradeHash helpers.
+	PrepaidUpgradeHash string
+	// GiftMsgID field of MessageActionStarGift.
+	//
+	// Use SetGiftMsgID and GetGiftMsgID helpers.
+	GiftMsgID int
 }
 
 // MessageActionStarGiftTypeID is TL type id of MessageActionStarGift.
-const MessageActionStarGiftTypeID = 0x4717e8a4
+const MessageActionStarGiftTypeID = 0xf24de7fa
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionStarGift) construct() MessageActionClass { return &m }
@@ -9439,6 +9456,12 @@ func (m *MessageActionStarGift) Zero() bool {
 	if !(m.CanUpgrade == false) {
 		return false
 	}
+	if !(m.PrepaidUpgrade == false) {
+		return false
+	}
+	if !(m.UpgradeSeparate == false) {
+		return false
+	}
 	if !(m.Gift == nil) {
 		return false
 	}
@@ -9463,6 +9486,12 @@ func (m *MessageActionStarGift) Zero() bool {
 	if !(m.SavedID == 0) {
 		return false
 	}
+	if !(m.PrepaidUpgradeHash == "") {
+		return false
+	}
+	if !(m.GiftMsgID == 0) {
+		return false
+	}
 
 	return true
 }
@@ -9484,6 +9513,8 @@ func (m *MessageActionStarGift) FillFrom(from interface {
 	GetUpgraded() (value bool)
 	GetRefunded() (value bool)
 	GetCanUpgrade() (value bool)
+	GetPrepaidUpgrade() (value bool)
+	GetUpgradeSeparate() (value bool)
 	GetGift() (value StarGiftClass)
 	GetMessage() (value TextWithEntities, ok bool)
 	GetConvertStars() (value int64, ok bool)
@@ -9492,6 +9523,8 @@ func (m *MessageActionStarGift) FillFrom(from interface {
 	GetFromID() (value PeerClass, ok bool)
 	GetPeer() (value PeerClass, ok bool)
 	GetSavedID() (value int64, ok bool)
+	GetPrepaidUpgradeHash() (value string, ok bool)
+	GetGiftMsgID() (value int, ok bool)
 }) {
 	m.NameHidden = from.GetNameHidden()
 	m.Saved = from.GetSaved()
@@ -9499,6 +9532,8 @@ func (m *MessageActionStarGift) FillFrom(from interface {
 	m.Upgraded = from.GetUpgraded()
 	m.Refunded = from.GetRefunded()
 	m.CanUpgrade = from.GetCanUpgrade()
+	m.PrepaidUpgrade = from.GetPrepaidUpgrade()
+	m.UpgradeSeparate = from.GetUpgradeSeparate()
 	m.Gift = from.GetGift()
 	if val, ok := from.GetMessage(); ok {
 		m.Message = val
@@ -9526,6 +9561,14 @@ func (m *MessageActionStarGift) FillFrom(from interface {
 
 	if val, ok := from.GetSavedID(); ok {
 		m.SavedID = val
+	}
+
+	if val, ok := from.GetPrepaidUpgradeHash(); ok {
+		m.PrepaidUpgradeHash = val
+	}
+
+	if val, ok := from.GetGiftMsgID(); ok {
+		m.GiftMsgID = val
 	}
 
 }
@@ -9584,6 +9627,16 @@ func (m *MessageActionStarGift) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(10),
 		},
 		{
+			Name:       "PrepaidUpgrade",
+			SchemaName: "prepaid_upgrade",
+			Null:       !m.Flags.Has(13),
+		},
+		{
+			Name:       "UpgradeSeparate",
+			SchemaName: "upgrade_separate",
+			Null:       !m.Flags.Has(16),
+		},
+		{
 			Name:       "Gift",
 			SchemaName: "gift",
 		},
@@ -9622,6 +9675,16 @@ func (m *MessageActionStarGift) TypeInfo() tdp.Type {
 			SchemaName: "saved_id",
 			Null:       !m.Flags.Has(12),
 		},
+		{
+			Name:       "PrepaidUpgradeHash",
+			SchemaName: "prepaid_upgrade_hash",
+			Null:       !m.Flags.Has(14),
+		},
+		{
+			Name:       "GiftMsgID",
+			SchemaName: "gift_msg_id",
+			Null:       !m.Flags.Has(15),
+		},
 	}
 	return typ
 }
@@ -9646,6 +9709,12 @@ func (m *MessageActionStarGift) SetFlags() {
 	if !(m.CanUpgrade == false) {
 		m.Flags.Set(10)
 	}
+	if !(m.PrepaidUpgrade == false) {
+		m.Flags.Set(13)
+	}
+	if !(m.UpgradeSeparate == false) {
+		m.Flags.Set(16)
+	}
 	if !(m.Message.Zero()) {
 		m.Flags.Set(1)
 	}
@@ -9667,12 +9736,18 @@ func (m *MessageActionStarGift) SetFlags() {
 	if !(m.SavedID == 0) {
 		m.Flags.Set(12)
 	}
+	if !(m.PrepaidUpgradeHash == "") {
+		m.Flags.Set(14)
+	}
+	if !(m.GiftMsgID == 0) {
+		m.Flags.Set(15)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionStarGift) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionStarGift#4717e8a4 as nil")
+		return fmt.Errorf("can't encode messageActionStarGift#f24de7fa as nil")
 	}
 	b.PutID(MessageActionStarGiftTypeID)
 	return m.EncodeBare(b)
@@ -9681,21 +9756,21 @@ func (m *MessageActionStarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionStarGift) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionStarGift#4717e8a4 as nil")
+		return fmt.Errorf("can't encode messageActionStarGift#f24de7fa as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field flags: %w", err)
 	}
 	if m.Gift == nil {
-		return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field gift is nil")
+		return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field gift is nil")
 	}
 	if err := m.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field gift: %w", err)
+		return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field gift: %w", err)
 	}
 	if m.Flags.Has(1) {
 		if err := m.Message.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field message: %w", err)
+			return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field message: %w", err)
 		}
 	}
 	if m.Flags.Has(4) {
@@ -9709,22 +9784,28 @@ func (m *MessageActionStarGift) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(11) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field from_id is nil")
+			return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field from_id is nil")
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field from_id: %w", err)
+			return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field from_id: %w", err)
 		}
 	}
 	if m.Flags.Has(12) {
 		if m.Peer == nil {
-			return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field peer is nil")
+			return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field peer is nil")
 		}
 		if err := m.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionStarGift#4717e8a4: field peer: %w", err)
+			return fmt.Errorf("unable to encode messageActionStarGift#f24de7fa: field peer: %w", err)
 		}
 	}
 	if m.Flags.Has(12) {
 		b.PutLong(m.SavedID)
+	}
+	if m.Flags.Has(14) {
+		b.PutString(m.PrepaidUpgradeHash)
+	}
+	if m.Flags.Has(15) {
+		b.PutInt(m.GiftMsgID)
 	}
 	return nil
 }
@@ -9732,10 +9813,10 @@ func (m *MessageActionStarGift) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageActionStarGift) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionStarGift#4717e8a4 to nil")
+		return fmt.Errorf("can't decode messageActionStarGift#f24de7fa to nil")
 	}
 	if err := b.ConsumeID(MessageActionStarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: %w", err)
+		return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -9743,11 +9824,11 @@ func (m *MessageActionStarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionStarGift) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionStarGift#4717e8a4 to nil")
+		return fmt.Errorf("can't decode messageActionStarGift#f24de7fa to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field flags: %w", err)
 		}
 	}
 	m.NameHidden = m.Flags.Has(0)
@@ -9756,59 +9837,75 @@ func (m *MessageActionStarGift) DecodeBare(b *bin.Buffer) error {
 	m.Upgraded = m.Flags.Has(5)
 	m.Refunded = m.Flags.Has(9)
 	m.CanUpgrade = m.Flags.Has(10)
+	m.PrepaidUpgrade = m.Flags.Has(13)
+	m.UpgradeSeparate = m.Flags.Has(16)
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field gift: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field gift: %w", err)
 		}
 		m.Gift = value
 	}
 	if m.Flags.Has(1) {
 		if err := m.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field message: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field message: %w", err)
 		}
 	}
 	if m.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field convert_stars: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field convert_stars: %w", err)
 		}
 		m.ConvertStars = value
 	}
 	if m.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field upgrade_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field upgrade_msg_id: %w", err)
 		}
 		m.UpgradeMsgID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field upgrade_stars: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field upgrade_stars: %w", err)
 		}
 		m.UpgradeStars = value
 	}
 	if m.Flags.Has(11) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field from_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field from_id: %w", err)
 		}
 		m.FromID = value
 	}
 	if m.Flags.Has(12) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field peer: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field peer: %w", err)
 		}
 		m.Peer = value
 	}
 	if m.Flags.Has(12) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGift#4717e8a4: field saved_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field saved_id: %w", err)
 		}
 		m.SavedID = value
+	}
+	if m.Flags.Has(14) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field prepaid_upgrade_hash: %w", err)
+		}
+		m.PrepaidUpgradeHash = value
+	}
+	if m.Flags.Has(15) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGift#f24de7fa: field gift_msg_id: %w", err)
+		}
+		m.GiftMsgID = value
 	}
 	return nil
 }
@@ -9925,6 +10022,44 @@ func (m *MessageActionStarGift) GetCanUpgrade() (value bool) {
 		return
 	}
 	return m.Flags.Has(10)
+}
+
+// SetPrepaidUpgrade sets value of PrepaidUpgrade conditional field.
+func (m *MessageActionStarGift) SetPrepaidUpgrade(value bool) {
+	if value {
+		m.Flags.Set(13)
+		m.PrepaidUpgrade = true
+	} else {
+		m.Flags.Unset(13)
+		m.PrepaidUpgrade = false
+	}
+}
+
+// GetPrepaidUpgrade returns value of PrepaidUpgrade conditional field.
+func (m *MessageActionStarGift) GetPrepaidUpgrade() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(13)
+}
+
+// SetUpgradeSeparate sets value of UpgradeSeparate conditional field.
+func (m *MessageActionStarGift) SetUpgradeSeparate(value bool) {
+	if value {
+		m.Flags.Set(16)
+		m.UpgradeSeparate = true
+	} else {
+		m.Flags.Unset(16)
+		m.UpgradeSeparate = false
+	}
+}
+
+// GetUpgradeSeparate returns value of UpgradeSeparate conditional field.
+func (m *MessageActionStarGift) GetUpgradeSeparate() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(16)
 }
 
 // GetGift returns value of Gift field.
@@ -10061,6 +10196,42 @@ func (m *MessageActionStarGift) GetSavedID() (value int64, ok bool) {
 	return m.SavedID, true
 }
 
+// SetPrepaidUpgradeHash sets value of PrepaidUpgradeHash conditional field.
+func (m *MessageActionStarGift) SetPrepaidUpgradeHash(value string) {
+	m.Flags.Set(14)
+	m.PrepaidUpgradeHash = value
+}
+
+// GetPrepaidUpgradeHash returns value of PrepaidUpgradeHash conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionStarGift) GetPrepaidUpgradeHash() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(14) {
+		return value, false
+	}
+	return m.PrepaidUpgradeHash, true
+}
+
+// SetGiftMsgID sets value of GiftMsgID conditional field.
+func (m *MessageActionStarGift) SetGiftMsgID(value int) {
+	m.Flags.Set(15)
+	m.GiftMsgID = value
+}
+
+// GetGiftMsgID returns value of GiftMsgID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionStarGift) GetGiftMsgID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(15) {
+		return value, false
+	}
+	return m.GiftMsgID, true
+}
+
 // MessageActionStarGiftUnique represents TL type `messageActionStarGiftUnique#34f762f3`.
 //
 // See https://core.telegram.org/constructor/messageActionStarGiftUnique for reference.
@@ -10078,6 +10249,8 @@ type MessageActionStarGiftUnique struct {
 	Saved bool
 	// Refunded field of MessageActionStarGiftUnique.
 	Refunded bool
+	// PrepaidUpgrade field of MessageActionStarGiftUnique.
+	PrepaidUpgrade bool
 	// Gift field of MessageActionStarGiftUnique.
 	Gift StarGiftClass
 	// CanExportAt field of MessageActionStarGiftUnique.
@@ -10149,6 +10322,9 @@ func (m *MessageActionStarGiftUnique) Zero() bool {
 	if !(m.Refunded == false) {
 		return false
 	}
+	if !(m.PrepaidUpgrade == false) {
+		return false
+	}
 	if !(m.Gift == nil) {
 		return false
 	}
@@ -10195,6 +10371,7 @@ func (m *MessageActionStarGiftUnique) FillFrom(from interface {
 	GetTransferred() (value bool)
 	GetSaved() (value bool)
 	GetRefunded() (value bool)
+	GetPrepaidUpgrade() (value bool)
 	GetGift() (value StarGiftClass)
 	GetCanExportAt() (value int, ok bool)
 	GetTransferStars() (value int64, ok bool)
@@ -10209,6 +10386,7 @@ func (m *MessageActionStarGiftUnique) FillFrom(from interface {
 	m.Transferred = from.GetTransferred()
 	m.Saved = from.GetSaved()
 	m.Refunded = from.GetRefunded()
+	m.PrepaidUpgrade = from.GetPrepaidUpgrade()
 	m.Gift = from.GetGift()
 	if val, ok := from.GetCanExportAt(); ok {
 		m.CanExportAt = val
@@ -10288,6 +10466,11 @@ func (m *MessageActionStarGiftUnique) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(5),
 		},
 		{
+			Name:       "PrepaidUpgrade",
+			SchemaName: "prepaid_upgrade",
+			Null:       !m.Flags.Has(11),
+		},
+		{
 			Name:       "Gift",
 			SchemaName: "gift",
 		},
@@ -10348,6 +10531,9 @@ func (m *MessageActionStarGiftUnique) SetFlags() {
 	}
 	if !(m.Refunded == false) {
 		m.Flags.Set(5)
+	}
+	if !(m.PrepaidUpgrade == false) {
+		m.Flags.Set(11)
 	}
 	if !(m.CanExportAt == 0) {
 		m.Flags.Set(3)
@@ -10466,6 +10652,7 @@ func (m *MessageActionStarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	m.Transferred = m.Flags.Has(1)
 	m.Saved = m.Flags.Has(2)
 	m.Refunded = m.Flags.Has(5)
+	m.PrepaidUpgrade = m.Flags.Has(11)
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
@@ -10606,6 +10793,25 @@ func (m *MessageActionStarGiftUnique) GetRefunded() (value bool) {
 		return
 	}
 	return m.Flags.Has(5)
+}
+
+// SetPrepaidUpgrade sets value of PrepaidUpgrade conditional field.
+func (m *MessageActionStarGiftUnique) SetPrepaidUpgrade(value bool) {
+	if value {
+		m.Flags.Set(11)
+		m.PrepaidUpgrade = true
+	} else {
+		m.Flags.Unset(11)
+		m.PrepaidUpgrade = false
+	}
+}
+
+// GetPrepaidUpgrade returns value of PrepaidUpgrade conditional field.
+func (m *MessageActionStarGiftUnique) GetPrepaidUpgrade() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(11)
 }
 
 // GetGift returns value of Gift field.
@@ -12863,7 +13069,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#502f92f7
 //	case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#3c134d7b
 //	case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
-//	case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
+//	case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#b91bbd3a
 //	case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
 //	case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
 //	case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
@@ -12881,7 +13087,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPaymentRefunded: // messageActionPaymentRefunded#41b3e202
 //	case *tg.MessageActionGiftStars: // messageActionGiftStars#45d5b021
 //	case *tg.MessageActionPrizeStars: // messageActionPrizeStars#b00c47a2
-//	case *tg.MessageActionStarGift: // messageActionStarGift#4717e8a4
+//	case *tg.MessageActionStarGift: // messageActionStarGift#f24de7fa
 //	case *tg.MessageActionStarGiftUnique: // messageActionStarGiftUnique#34f762f3
 //	case *tg.MessageActionPaidMessagesRefunded: // messageActionPaidMessagesRefunded#ac1f1fcd
 //	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#84b88578
@@ -13117,7 +13323,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionSetChatThemeTypeID:
-		// Decoding messageActionSetChatTheme#aa786345.
+		// Decoding messageActionSetChatTheme#b91bbd3a.
 		v := MessageActionSetChatTheme{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
@@ -13243,7 +13449,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionStarGiftTypeID:
-		// Decoding messageActionStarGift#4717e8a4.
+		// Decoding messageActionStarGift#f24de7fa.
 		v := MessageActionStarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)

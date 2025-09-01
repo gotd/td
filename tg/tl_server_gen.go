@@ -2651,6 +2651,82 @@ func (s *ServerDispatcher) OnAccountToggleNoPaidMessagesException(f func(ctx con
 	s.handlers[AccountToggleNoPaidMessagesExceptionRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountSetMainProfileTab(f func(ctx context.Context, tab ProfileTabClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountSetMainProfileTabRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Tab)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountSetMainProfileTabRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountSaveMusic(f func(ctx context.Context, request *AccountSaveMusicRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountSaveMusicRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountSaveMusicRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetSavedMusicIDs(f func(ctx context.Context, hash int64) (AccountSavedMusicIDsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetSavedMusicIDsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountSavedMusicIDsBox{SavedMusicIds: response}, nil
+	}
+
+	s.handlers[AccountGetSavedMusicIDsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetUniqueGiftChatThemes(f func(ctx context.Context, request *AccountGetUniqueGiftChatThemesRequest) (AccountChatThemesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetUniqueGiftChatThemesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountChatThemesBox{ChatThemes: response}, nil
+	}
+
+	s.handlers[AccountGetUniqueGiftChatThemesRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -2721,6 +2797,40 @@ func (s *ServerDispatcher) OnUsersGetRequirementsToContact(f func(ctx context.Co
 	}
 
 	s.handlers[UsersGetRequirementsToContactRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnUsersGetSavedMusic(f func(ctx context.Context, request *UsersGetSavedMusicRequest) (UsersSavedMusicClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request UsersGetSavedMusicRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UsersSavedMusicBox{SavedMusic: response}, nil
+	}
+
+	s.handlers[UsersGetSavedMusicRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnUsersGetSavedMusicByID(f func(ctx context.Context, request *UsersGetSavedMusicByIDRequest) (UsersSavedMusicClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request UsersGetSavedMusicByIDRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UsersSavedMusicBox{SavedMusic: response}, nil
+	}
+
+	s.handlers[UsersGetSavedMusicByIDRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnContactsGetContactIDs(f func(ctx context.Context, hash int64) ([]int, error)) {
@@ -9234,6 +9344,27 @@ func (s *ServerDispatcher) OnChannelsCheckSearchPostsFlood(f func(ctx context.Co
 	s.handlers[ChannelsCheckSearchPostsFloodRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsSetMainProfileTab(f func(ctx context.Context, request *ChannelsSetMainProfileTabRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsSetMainProfileTabRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsSetMainProfileTabRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -10785,6 +10916,40 @@ func (s *ServerDispatcher) OnPaymentsGetStarGiftCollections(f func(ctx context.C
 	}
 
 	s.handlers[PaymentsGetStarGiftCollectionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetUniqueStarGiftValueInfo(f func(ctx context.Context, slug string) (*PaymentsUniqueStarGiftValueInfo, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetUniqueStarGiftValueInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Slug)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetUniqueStarGiftValueInfoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsCheckCanSendGift(f func(ctx context.Context, giftid int64) (PaymentsCheckCanSendGiftResultClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsCheckCanSendGiftRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.GiftID)
+		if err != nil {
+			return nil, err
+		}
+		return &PaymentsCheckCanSendGiftResultBox{CheckCanSendGiftResult: response}, nil
+	}
+
+	s.handlers[PaymentsCheckCanSendGiftRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

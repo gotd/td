@@ -31,18 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsUniqueStarGift represents TL type `payments.uniqueStarGift#caa2f60b`.
+// PaymentsUniqueStarGift represents TL type `payments.uniqueStarGift#416c56e8`.
 //
 // See https://core.telegram.org/constructor/payments.uniqueStarGift for reference.
 type PaymentsUniqueStarGift struct {
 	// Gift field of PaymentsUniqueStarGift.
 	Gift StarGiftClass
+	// Chats field of PaymentsUniqueStarGift.
+	Chats []ChatClass
 	// Users field of PaymentsUniqueStarGift.
 	Users []UserClass
 }
 
 // PaymentsUniqueStarGiftTypeID is TL type id of PaymentsUniqueStarGift.
-const PaymentsUniqueStarGiftTypeID = 0xcaa2f60b
+const PaymentsUniqueStarGiftTypeID = 0x416c56e8
 
 // Ensuring interfaces in compile-time for PaymentsUniqueStarGift.
 var (
@@ -57,6 +59,9 @@ func (u *PaymentsUniqueStarGift) Zero() bool {
 		return true
 	}
 	if !(u.Gift == nil) {
+		return false
+	}
+	if !(u.Chats == nil) {
 		return false
 	}
 	if !(u.Users == nil) {
@@ -78,9 +83,11 @@ func (u *PaymentsUniqueStarGift) String() string {
 // FillFrom fills PaymentsUniqueStarGift from given interface.
 func (u *PaymentsUniqueStarGift) FillFrom(from interface {
 	GetGift() (value StarGiftClass)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
 	u.Gift = from.GetGift()
+	u.Chats = from.GetChats()
 	u.Users = from.GetUsers()
 }
 
@@ -112,6 +119,10 @@ func (u *PaymentsUniqueStarGift) TypeInfo() tdp.Type {
 			SchemaName: "gift",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -122,7 +133,7 @@ func (u *PaymentsUniqueStarGift) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *PaymentsUniqueStarGift) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode payments.uniqueStarGift#caa2f60b as nil")
+		return fmt.Errorf("can't encode payments.uniqueStarGift#416c56e8 as nil")
 	}
 	b.PutID(PaymentsUniqueStarGiftTypeID)
 	return u.EncodeBare(b)
@@ -131,21 +142,30 @@ func (u *PaymentsUniqueStarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PaymentsUniqueStarGift) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode payments.uniqueStarGift#caa2f60b as nil")
+		return fmt.Errorf("can't encode payments.uniqueStarGift#416c56e8 as nil")
 	}
 	if u.Gift == nil {
-		return fmt.Errorf("unable to encode payments.uniqueStarGift#caa2f60b: field gift is nil")
+		return fmt.Errorf("unable to encode payments.uniqueStarGift#416c56e8: field gift is nil")
 	}
 	if err := u.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.uniqueStarGift#caa2f60b: field gift: %w", err)
+		return fmt.Errorf("unable to encode payments.uniqueStarGift#416c56e8: field gift: %w", err)
+	}
+	b.PutVectorHeader(len(u.Chats))
+	for idx, v := range u.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.uniqueStarGift#416c56e8: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.uniqueStarGift#416c56e8: field chats element with index %d: %w", idx, err)
+		}
 	}
 	b.PutVectorHeader(len(u.Users))
 	for idx, v := range u.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.uniqueStarGift#caa2f60b: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.uniqueStarGift#416c56e8: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.uniqueStarGift#caa2f60b: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.uniqueStarGift#416c56e8: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -154,10 +174,10 @@ func (u *PaymentsUniqueStarGift) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *PaymentsUniqueStarGift) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode payments.uniqueStarGift#caa2f60b to nil")
+		return fmt.Errorf("can't decode payments.uniqueStarGift#416c56e8 to nil")
 	}
 	if err := b.ConsumeID(PaymentsUniqueStarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.uniqueStarGift#caa2f60b: %w", err)
+		return fmt.Errorf("unable to decode payments.uniqueStarGift#416c56e8: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -165,19 +185,36 @@ func (u *PaymentsUniqueStarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PaymentsUniqueStarGift) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode payments.uniqueStarGift#caa2f60b to nil")
+		return fmt.Errorf("can't decode payments.uniqueStarGift#416c56e8 to nil")
 	}
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.uniqueStarGift#caa2f60b: field gift: %w", err)
+			return fmt.Errorf("unable to decode payments.uniqueStarGift#416c56e8: field gift: %w", err)
 		}
 		u.Gift = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.uniqueStarGift#caa2f60b: field users: %w", err)
+			return fmt.Errorf("unable to decode payments.uniqueStarGift#416c56e8: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.uniqueStarGift#416c56e8: field chats: %w", err)
+			}
+			u.Chats = append(u.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.uniqueStarGift#416c56e8: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -186,7 +223,7 @@ func (u *PaymentsUniqueStarGift) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.uniqueStarGift#caa2f60b: field users: %w", err)
+				return fmt.Errorf("unable to decode payments.uniqueStarGift#416c56e8: field users: %w", err)
 			}
 			u.Users = append(u.Users, value)
 		}
@@ -202,12 +239,25 @@ func (u *PaymentsUniqueStarGift) GetGift() (value StarGiftClass) {
 	return u.Gift
 }
 
+// GetChats returns value of Chats field.
+func (u *PaymentsUniqueStarGift) GetChats() (value []ChatClass) {
+	if u == nil {
+		return
+	}
+	return u.Chats
+}
+
 // GetUsers returns value of Users field.
 func (u *PaymentsUniqueStarGift) GetUsers() (value []UserClass) {
 	if u == nil {
 		return
 	}
 	return u.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (u *PaymentsUniqueStarGift) MapChats() (value ChatClassArray) {
+	return ChatClassArray(u.Chats)
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.

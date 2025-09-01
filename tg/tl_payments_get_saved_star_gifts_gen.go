@@ -46,12 +46,14 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	ExcludeSaved bool
 	// ExcludeUnlimited field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnlimited bool
-	// ExcludeLimited field of PaymentsGetSavedStarGiftsRequest.
-	ExcludeLimited bool
 	// ExcludeUnique field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnique bool
 	// SortByValue field of PaymentsGetSavedStarGiftsRequest.
 	SortByValue bool
+	// ExcludeUpgradable field of PaymentsGetSavedStarGiftsRequest.
+	ExcludeUpgradable bool
+	// ExcludeUnupgradable field of PaymentsGetSavedStarGiftsRequest.
+	ExcludeUnupgradable bool
 	// Peer field of PaymentsGetSavedStarGiftsRequest.
 	Peer InputPeerClass
 	// CollectionID field of PaymentsGetSavedStarGiftsRequest.
@@ -94,13 +96,16 @@ func (g *PaymentsGetSavedStarGiftsRequest) Zero() bool {
 	if !(g.ExcludeUnlimited == false) {
 		return false
 	}
-	if !(g.ExcludeLimited == false) {
-		return false
-	}
 	if !(g.ExcludeUnique == false) {
 		return false
 	}
 	if !(g.SortByValue == false) {
+		return false
+	}
+	if !(g.ExcludeUpgradable == false) {
+		return false
+	}
+	if !(g.ExcludeUnupgradable == false) {
 		return false
 	}
 	if !(g.Peer == nil) {
@@ -133,9 +138,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	GetExcludeUnsaved() (value bool)
 	GetExcludeSaved() (value bool)
 	GetExcludeUnlimited() (value bool)
-	GetExcludeLimited() (value bool)
 	GetExcludeUnique() (value bool)
 	GetSortByValue() (value bool)
+	GetExcludeUpgradable() (value bool)
+	GetExcludeUnupgradable() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetCollectionID() (value int, ok bool)
 	GetOffset() (value string)
@@ -144,9 +150,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	g.ExcludeUnsaved = from.GetExcludeUnsaved()
 	g.ExcludeSaved = from.GetExcludeSaved()
 	g.ExcludeUnlimited = from.GetExcludeUnlimited()
-	g.ExcludeLimited = from.GetExcludeLimited()
 	g.ExcludeUnique = from.GetExcludeUnique()
 	g.SortByValue = from.GetSortByValue()
+	g.ExcludeUpgradable = from.GetExcludeUpgradable()
+	g.ExcludeUnupgradable = from.GetExcludeUnupgradable()
 	g.Peer = from.GetPeer()
 	if val, ok := from.GetCollectionID(); ok {
 		g.CollectionID = val
@@ -195,11 +202,6 @@ func (g *PaymentsGetSavedStarGiftsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(2),
 		},
 		{
-			Name:       "ExcludeLimited",
-			SchemaName: "exclude_limited",
-			Null:       !g.Flags.Has(3),
-		},
-		{
 			Name:       "ExcludeUnique",
 			SchemaName: "exclude_unique",
 			Null:       !g.Flags.Has(4),
@@ -208,6 +210,16 @@ func (g *PaymentsGetSavedStarGiftsRequest) TypeInfo() tdp.Type {
 			Name:       "SortByValue",
 			SchemaName: "sort_by_value",
 			Null:       !g.Flags.Has(5),
+		},
+		{
+			Name:       "ExcludeUpgradable",
+			SchemaName: "exclude_upgradable",
+			Null:       !g.Flags.Has(7),
+		},
+		{
+			Name:       "ExcludeUnupgradable",
+			SchemaName: "exclude_unupgradable",
+			Null:       !g.Flags.Has(8),
 		},
 		{
 			Name:       "Peer",
@@ -241,14 +253,17 @@ func (g *PaymentsGetSavedStarGiftsRequest) SetFlags() {
 	if !(g.ExcludeUnlimited == false) {
 		g.Flags.Set(2)
 	}
-	if !(g.ExcludeLimited == false) {
-		g.Flags.Set(3)
-	}
 	if !(g.ExcludeUnique == false) {
 		g.Flags.Set(4)
 	}
 	if !(g.SortByValue == false) {
 		g.Flags.Set(5)
+	}
+	if !(g.ExcludeUpgradable == false) {
+		g.Flags.Set(7)
+	}
+	if !(g.ExcludeUnupgradable == false) {
+		g.Flags.Set(8)
 	}
 	if !(g.CollectionID == 0) {
 		g.Flags.Set(6)
@@ -311,9 +326,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) DecodeBare(b *bin.Buffer) error {
 	g.ExcludeUnsaved = g.Flags.Has(0)
 	g.ExcludeSaved = g.Flags.Has(1)
 	g.ExcludeUnlimited = g.Flags.Has(2)
-	g.ExcludeLimited = g.Flags.Has(3)
 	g.ExcludeUnique = g.Flags.Has(4)
 	g.SortByValue = g.Flags.Has(5)
+	g.ExcludeUpgradable = g.Flags.Has(7)
+	g.ExcludeUnupgradable = g.Flags.Has(8)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -402,25 +418,6 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUnlimited() (value bool) {
 	return g.Flags.Has(2)
 }
 
-// SetExcludeLimited sets value of ExcludeLimited conditional field.
-func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeLimited(value bool) {
-	if value {
-		g.Flags.Set(3)
-		g.ExcludeLimited = true
-	} else {
-		g.Flags.Unset(3)
-		g.ExcludeLimited = false
-	}
-}
-
-// GetExcludeLimited returns value of ExcludeLimited conditional field.
-func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeLimited() (value bool) {
-	if g == nil {
-		return
-	}
-	return g.Flags.Has(3)
-}
-
 // SetExcludeUnique sets value of ExcludeUnique conditional field.
 func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeUnique(value bool) {
 	if value {
@@ -457,6 +454,44 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetSortByValue() (value bool) {
 		return
 	}
 	return g.Flags.Has(5)
+}
+
+// SetExcludeUpgradable sets value of ExcludeUpgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeUpgradable(value bool) {
+	if value {
+		g.Flags.Set(7)
+		g.ExcludeUpgradable = true
+	} else {
+		g.Flags.Unset(7)
+		g.ExcludeUpgradable = false
+	}
+}
+
+// GetExcludeUpgradable returns value of ExcludeUpgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUpgradable() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(7)
+}
+
+// SetExcludeUnupgradable sets value of ExcludeUnupgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeUnupgradable(value bool) {
+	if value {
+		g.Flags.Set(8)
+		g.ExcludeUnupgradable = true
+	} else {
+		g.Flags.Unset(8)
+		g.ExcludeUnupgradable = false
+	}
+}
+
+// GetExcludeUnupgradable returns value of ExcludeUnupgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUnupgradable() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(8)
 }
 
 // GetPeer returns value of Peer field.

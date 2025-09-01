@@ -31,18 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesWebPagePreview represents TL type `messages.webPagePreview#b53e8b21`.
+// MessagesWebPagePreview represents TL type `messages.webPagePreview#8c9a88ac`.
 //
 // See https://core.telegram.org/constructor/messages.webPagePreview for reference.
 type MessagesWebPagePreview struct {
 	// Media field of MessagesWebPagePreview.
 	Media MessageMediaClass
+	// Chats field of MessagesWebPagePreview.
+	Chats []ChatClass
 	// Users field of MessagesWebPagePreview.
 	Users []UserClass
 }
 
 // MessagesWebPagePreviewTypeID is TL type id of MessagesWebPagePreview.
-const MessagesWebPagePreviewTypeID = 0xb53e8b21
+const MessagesWebPagePreviewTypeID = 0x8c9a88ac
 
 // Ensuring interfaces in compile-time for MessagesWebPagePreview.
 var (
@@ -57,6 +59,9 @@ func (w *MessagesWebPagePreview) Zero() bool {
 		return true
 	}
 	if !(w.Media == nil) {
+		return false
+	}
+	if !(w.Chats == nil) {
 		return false
 	}
 	if !(w.Users == nil) {
@@ -78,9 +83,11 @@ func (w *MessagesWebPagePreview) String() string {
 // FillFrom fills MessagesWebPagePreview from given interface.
 func (w *MessagesWebPagePreview) FillFrom(from interface {
 	GetMedia() (value MessageMediaClass)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
 	w.Media = from.GetMedia()
+	w.Chats = from.GetChats()
 	w.Users = from.GetUsers()
 }
 
@@ -112,6 +119,10 @@ func (w *MessagesWebPagePreview) TypeInfo() tdp.Type {
 			SchemaName: "media",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -122,7 +133,7 @@ func (w *MessagesWebPagePreview) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *MessagesWebPagePreview) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode messages.webPagePreview#b53e8b21 as nil")
+		return fmt.Errorf("can't encode messages.webPagePreview#8c9a88ac as nil")
 	}
 	b.PutID(MessagesWebPagePreviewTypeID)
 	return w.EncodeBare(b)
@@ -131,21 +142,30 @@ func (w *MessagesWebPagePreview) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *MessagesWebPagePreview) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode messages.webPagePreview#b53e8b21 as nil")
+		return fmt.Errorf("can't encode messages.webPagePreview#8c9a88ac as nil")
 	}
 	if w.Media == nil {
-		return fmt.Errorf("unable to encode messages.webPagePreview#b53e8b21: field media is nil")
+		return fmt.Errorf("unable to encode messages.webPagePreview#8c9a88ac: field media is nil")
 	}
 	if err := w.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.webPagePreview#b53e8b21: field media: %w", err)
+		return fmt.Errorf("unable to encode messages.webPagePreview#8c9a88ac: field media: %w", err)
+	}
+	b.PutVectorHeader(len(w.Chats))
+	for idx, v := range w.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.webPagePreview#8c9a88ac: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.webPagePreview#8c9a88ac: field chats element with index %d: %w", idx, err)
+		}
 	}
 	b.PutVectorHeader(len(w.Users))
 	for idx, v := range w.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.webPagePreview#b53e8b21: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.webPagePreview#8c9a88ac: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.webPagePreview#b53e8b21: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.webPagePreview#8c9a88ac: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -154,10 +174,10 @@ func (w *MessagesWebPagePreview) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (w *MessagesWebPagePreview) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode messages.webPagePreview#b53e8b21 to nil")
+		return fmt.Errorf("can't decode messages.webPagePreview#8c9a88ac to nil")
 	}
 	if err := b.ConsumeID(MessagesWebPagePreviewTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.webPagePreview#b53e8b21: %w", err)
+		return fmt.Errorf("unable to decode messages.webPagePreview#8c9a88ac: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -165,19 +185,36 @@ func (w *MessagesWebPagePreview) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *MessagesWebPagePreview) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode messages.webPagePreview#b53e8b21 to nil")
+		return fmt.Errorf("can't decode messages.webPagePreview#8c9a88ac to nil")
 	}
 	{
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.webPagePreview#b53e8b21: field media: %w", err)
+			return fmt.Errorf("unable to decode messages.webPagePreview#8c9a88ac: field media: %w", err)
 		}
 		w.Media = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.webPagePreview#b53e8b21: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.webPagePreview#8c9a88ac: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			w.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.webPagePreview#8c9a88ac: field chats: %w", err)
+			}
+			w.Chats = append(w.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.webPagePreview#8c9a88ac: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -186,7 +223,7 @@ func (w *MessagesWebPagePreview) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.webPagePreview#b53e8b21: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.webPagePreview#8c9a88ac: field users: %w", err)
 			}
 			w.Users = append(w.Users, value)
 		}
@@ -202,12 +239,25 @@ func (w *MessagesWebPagePreview) GetMedia() (value MessageMediaClass) {
 	return w.Media
 }
 
+// GetChats returns value of Chats field.
+func (w *MessagesWebPagePreview) GetChats() (value []ChatClass) {
+	if w == nil {
+		return
+	}
+	return w.Chats
+}
+
 // GetUsers returns value of Users field.
 func (w *MessagesWebPagePreview) GetUsers() (value []UserClass) {
 	if w == nil {
 		return
 	}
 	return w.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (w *MessagesWebPagePreview) MapChats() (value ChatClassArray) {
+	return ChatClassArray(w.Chats)
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.

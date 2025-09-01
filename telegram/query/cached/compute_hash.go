@@ -49,3 +49,18 @@ func (s *PaymentsGetStarGiftCollections) computeHash(v *tg.PaymentsStarGiftColle
 
 	return h.Sum()
 }
+
+func (s *AccountGetSavedMusicIDs) computeHash(v *tg.AccountSavedMusicIDs) int64 {
+	ids := v.IDs
+
+	sort.SliceStable(ids, func(i, j int) bool {
+		return ids[i] < ids[j]
+	})
+
+	h := hasher.Hasher{}
+	for _, id := range ids {
+		h.Update(uint32(id))
+	}
+
+	return h.Sum()
+}
