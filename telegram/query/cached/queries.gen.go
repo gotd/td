@@ -770,6 +770,90 @@ func (s *AccountGetRecentEmojiStatuses) Fetch(ctx context.Context) (bool, error)
 	}
 }
 
+type innerAccountGetSavedMusicIDs struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AccountSavedMusicIDs
+}
+
+type AccountGetSavedMusicIDs struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetSavedMusicIDs creates new AccountGetSavedMusicIDs.
+func NewAccountGetSavedMusicIDs(raw *tg.Client) *AccountGetSavedMusicIDs {
+	q := &AccountGetSavedMusicIDs{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetSavedMusicIDs) store(v innerAccountGetSavedMusicIDs) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetSavedMusicIDs) load() (innerAccountGetSavedMusicIDs, bool) {
+	v, ok := s.last.Load().(innerAccountGetSavedMusicIDs)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AccountSavedMusicIDs must not be mutated.
+func (s *AccountGetSavedMusicIDs) Value() *tg.AccountSavedMusicIDs {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetSavedMusicIDs) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetSavedMusicIDs) Get(ctx context.Context) (*tg.AccountSavedMusicIDs, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetSavedMusicIDs) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetSavedMusicIDs(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetSavedMusicIDs")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AccountSavedMusicIDs:
+		hash := s.computeHash(variant)
+
+		s.store(innerAccountGetSavedMusicIDs{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AccountSavedMusicIDsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetSavedRingtones struct {
 	// Last received hash.
 	hash int64

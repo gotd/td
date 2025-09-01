@@ -65,6 +65,8 @@ type StarsTransaction struct {
 	StargiftResale bool
 	// PostsSearch field of StarsTransaction.
 	PostsSearch bool
+	// StargiftPrepaidUpgrade field of StarsTransaction.
+	StargiftPrepaidUpgrade bool
 	// Transaction ID.
 	ID string
 	// Amount field of StarsTransaction.
@@ -247,6 +249,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.PostsSearch == false) {
 		return false
 	}
+	if !(s.StargiftPrepaidUpgrade == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -340,6 +345,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetBusinessTransfer() (value bool)
 	GetStargiftResale() (value bool)
 	GetPostsSearch() (value bool)
+	GetStargiftPrepaidUpgrade() (value bool)
 	GetID() (value string)
 	GetAmount() (value StarsAmountClass)
 	GetDate() (value int)
@@ -373,6 +379,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.BusinessTransfer = from.GetBusinessTransfer()
 	s.StargiftResale = from.GetStargiftResale()
 	s.PostsSearch = from.GetPostsSearch()
+	s.StargiftPrepaidUpgrade = from.GetStargiftPrepaidUpgrade()
 	s.ID = from.GetID()
 	s.Amount = from.GetAmount()
 	s.Date = from.GetDate()
@@ -524,6 +531,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(24),
 		},
 		{
+			Name:       "StargiftPrepaidUpgrade",
+			SchemaName: "stargift_prepaid_upgrade",
+			Null:       !s.Flags.Has(25),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -666,6 +678,9 @@ func (s *StarsTransaction) SetFlags() {
 	}
 	if !(s.PostsSearch == false) {
 		s.Flags.Set(24)
+	}
+	if !(s.StargiftPrepaidUpgrade == false) {
+		s.Flags.Set(25)
 	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
@@ -876,6 +891,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.BusinessTransfer = s.Flags.Has(21)
 	s.StargiftResale = s.Flags.Has(22)
 	s.PostsSearch = s.Flags.Has(24)
+	s.StargiftPrepaidUpgrade = s.Flags.Has(25)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1219,6 +1235,25 @@ func (s *StarsTransaction) GetPostsSearch() (value bool) {
 		return
 	}
 	return s.Flags.Has(24)
+}
+
+// SetStargiftPrepaidUpgrade sets value of StargiftPrepaidUpgrade conditional field.
+func (s *StarsTransaction) SetStargiftPrepaidUpgrade(value bool) {
+	if value {
+		s.Flags.Set(25)
+		s.StargiftPrepaidUpgrade = true
+	} else {
+		s.Flags.Unset(25)
+		s.StargiftPrepaidUpgrade = false
+	}
+}
+
+// GetStargiftPrepaidUpgrade returns value of StargiftPrepaidUpgrade conditional field.
+func (s *StarsTransaction) GetStargiftPrepaidUpgrade() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(25)
 }
 
 // GetID returns value of ID field.

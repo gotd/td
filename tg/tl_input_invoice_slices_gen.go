@@ -259,6 +259,19 @@ func (s InputInvoiceClassArray) AsInputInvoiceStarGiftResale() (to InputInvoiceS
 	return to
 }
 
+// AsInputInvoiceStarGiftPrepaidUpgrade returns copy with only InputInvoiceStarGiftPrepaidUpgrade constructors.
+func (s InputInvoiceClassArray) AsInputInvoiceStarGiftPrepaidUpgrade() (to InputInvoiceStarGiftPrepaidUpgradeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputInvoiceStarGiftPrepaidUpgrade)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputInvoiceMessageArray is adapter for slice of InputInvoiceMessage.
 type InputInvoiceMessageArray []InputInvoiceMessage
 
@@ -1149,6 +1162,88 @@ func (s *InputInvoiceStarGiftResaleArray) PopFirst() (v InputInvoiceStarGiftResa
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputInvoiceStarGiftResaleArray) Pop() (v InputInvoiceStarGiftResale, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputInvoiceStarGiftPrepaidUpgradeArray is adapter for slice of InputInvoiceStarGiftPrepaidUpgrade.
+type InputInvoiceStarGiftPrepaidUpgradeArray []InputInvoiceStarGiftPrepaidUpgrade
+
+// Sort sorts slice of InputInvoiceStarGiftPrepaidUpgrade.
+func (s InputInvoiceStarGiftPrepaidUpgradeArray) Sort(less func(a, b InputInvoiceStarGiftPrepaidUpgrade) bool) InputInvoiceStarGiftPrepaidUpgradeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputInvoiceStarGiftPrepaidUpgrade.
+func (s InputInvoiceStarGiftPrepaidUpgradeArray) SortStable(less func(a, b InputInvoiceStarGiftPrepaidUpgrade) bool) InputInvoiceStarGiftPrepaidUpgradeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputInvoiceStarGiftPrepaidUpgrade.
+func (s InputInvoiceStarGiftPrepaidUpgradeArray) Retain(keep func(x InputInvoiceStarGiftPrepaidUpgrade) bool) InputInvoiceStarGiftPrepaidUpgradeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputInvoiceStarGiftPrepaidUpgradeArray) First() (v InputInvoiceStarGiftPrepaidUpgrade, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputInvoiceStarGiftPrepaidUpgradeArray) Last() (v InputInvoiceStarGiftPrepaidUpgrade, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputInvoiceStarGiftPrepaidUpgradeArray) PopFirst() (v InputInvoiceStarGiftPrepaidUpgrade, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputInvoiceStarGiftPrepaidUpgrade
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputInvoiceStarGiftPrepaidUpgradeArray) Pop() (v InputInvoiceStarGiftPrepaidUpgrade, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
