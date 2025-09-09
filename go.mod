@@ -21,9 +21,9 @@ require (
 	github.com/ogen-go/ogen v1.14.0
 	github.com/rogpeppe/go-internal v1.14.1
 	github.com/stretchr/testify v1.11.1
-	go.opentelemetry.io/otel v1.37.0
-	go.opentelemetry.io/otel/metric v1.37.0
-	go.opentelemetry.io/otel/trace v1.37.0
+	go.opentelemetry.io/otel v1.38.0
+	go.opentelemetry.io/otel/metric v1.38.0
+	go.opentelemetry.io/otel/trace v1.38.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/multierr v1.11.0
 	go.uber.org/zap v1.27.0
