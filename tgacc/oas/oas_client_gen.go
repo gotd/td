@@ -17,7 +17,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
-	semconv "go.opentelemetry.io/otel/semconv/v1.34.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.37.0"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -109,7 +109,7 @@ func (c *Client) sendAcquireTelegramAccount(ctx context.Context, request *Acquir
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("acquireTelegramAccount"),
 		semconv.HTTPRequestMethodKey.String("POST"),
-		semconv.HTTPRouteKey.String("/api/telegram/account/acquire"),
+		semconv.URLTemplateKey.String("/api/telegram/account/acquire"),
 	}
 	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
 
@@ -218,7 +218,7 @@ func (c *Client) sendGetHealth(ctx context.Context) (res *Health, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getHealth"),
 		semconv.HTTPRequestMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/api/health"),
+		semconv.URLTemplateKey.String("/api/health"),
 	}
 	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
 
@@ -291,7 +291,7 @@ func (c *Client) sendHeartbeatTelegramAccount(ctx context.Context, params Heartb
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("heartbeatTelegramAccount"),
 		semconv.HTTPRequestMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/api/telegram/account/heartbeat/{token}"),
+		semconv.URLTemplateKey.String("/api/telegram/account/heartbeat/{token}"),
 	}
 	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
 
@@ -403,7 +403,7 @@ func (c *Client) sendReceiveTelegramCode(ctx context.Context, params ReceiveTele
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("receiveTelegramCode"),
 		semconv.HTTPRequestMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/api/telegram/code/receive/{token}"),
+		semconv.URLTemplateKey.String("/api/telegram/code/receive/{token}"),
 	}
 	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
 
