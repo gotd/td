@@ -18,8 +18,9 @@ const _ConnMode_name = "ConnModeUpdatesConnModeDataConnModeCDN"
 var _ConnMode_index = [...]uint8{0, 15, 27, 38}
 
 func (i ConnMode) String() string {
-	if i >= ConnMode(len(_ConnMode_index)-1) {
+	idx := int(i) - 0
+	if i < 0 || idx >= len(_ConnMode_index)-1 {
 		return "ConnMode(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
-	return _ConnMode_name[_ConnMode_index[i]:_ConnMode_index[i+1]]
+	return _ConnMode_name[_ConnMode_index[idx]:_ConnMode_index[idx+1]]
 }
