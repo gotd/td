@@ -67,6 +67,8 @@ type StarsTransaction struct {
 	PostsSearch bool
 	// StargiftPrepaidUpgrade field of StarsTransaction.
 	StargiftPrepaidUpgrade bool
+	// StargiftDropOriginalDetails field of StarsTransaction.
+	StargiftDropOriginalDetails bool
 	// Transaction ID.
 	ID string
 	// Amount field of StarsTransaction.
@@ -252,6 +254,9 @@ func (s *StarsTransaction) Zero() bool {
 	if !(s.StargiftPrepaidUpgrade == false) {
 		return false
 	}
+	if !(s.StargiftDropOriginalDetails == false) {
+		return false
+	}
 	if !(s.ID == "") {
 		return false
 	}
@@ -346,6 +351,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	GetStargiftResale() (value bool)
 	GetPostsSearch() (value bool)
 	GetStargiftPrepaidUpgrade() (value bool)
+	GetStargiftDropOriginalDetails() (value bool)
 	GetID() (value string)
 	GetAmount() (value StarsAmountClass)
 	GetDate() (value int)
@@ -380,6 +386,7 @@ func (s *StarsTransaction) FillFrom(from interface {
 	s.StargiftResale = from.GetStargiftResale()
 	s.PostsSearch = from.GetPostsSearch()
 	s.StargiftPrepaidUpgrade = from.GetStargiftPrepaidUpgrade()
+	s.StargiftDropOriginalDetails = from.GetStargiftDropOriginalDetails()
 	s.ID = from.GetID()
 	s.Amount = from.GetAmount()
 	s.Date = from.GetDate()
@@ -536,6 +543,11 @@ func (s *StarsTransaction) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(25),
 		},
 		{
+			Name:       "StargiftDropOriginalDetails",
+			SchemaName: "stargift_drop_original_details",
+			Null:       !s.Flags.Has(26),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -681,6 +693,9 @@ func (s *StarsTransaction) SetFlags() {
 	}
 	if !(s.StargiftPrepaidUpgrade == false) {
 		s.Flags.Set(25)
+	}
+	if !(s.StargiftDropOriginalDetails == false) {
+		s.Flags.Set(26)
 	}
 	if !(s.Title == "") {
 		s.Flags.Set(0)
@@ -892,6 +907,7 @@ func (s *StarsTransaction) DecodeBare(b *bin.Buffer) error {
 	s.StargiftResale = s.Flags.Has(22)
 	s.PostsSearch = s.Flags.Has(24)
 	s.StargiftPrepaidUpgrade = s.Flags.Has(25)
+	s.StargiftDropOriginalDetails = s.Flags.Has(26)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1254,6 +1270,25 @@ func (s *StarsTransaction) GetStargiftPrepaidUpgrade() (value bool) {
 		return
 	}
 	return s.Flags.Has(25)
+}
+
+// SetStargiftDropOriginalDetails sets value of StargiftDropOriginalDetails conditional field.
+func (s *StarsTransaction) SetStargiftDropOriginalDetails(value bool) {
+	if value {
+		s.Flags.Set(26)
+		s.StargiftDropOriginalDetails = true
+	} else {
+		s.Flags.Unset(26)
+		s.StargiftDropOriginalDetails = false
+	}
+}
+
+// GetStargiftDropOriginalDetails returns value of StargiftDropOriginalDetails conditional field.
+func (s *StarsTransaction) GetStargiftDropOriginalDetails() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(26)
 }
 
 // GetID returns value of ID field.

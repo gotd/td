@@ -327,6 +327,8 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	BotHasMainApp bool
+	// BotForumView field of User.
+	BotForumView bool
 	// ID of the user, see here »¹ for more info.
 	//
 	// Links:
@@ -470,14 +472,14 @@ type User struct {
 	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
-	Color PeerColor
+	Color PeerColorClass
 	// The user's profile color¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetProfileColor and GetProfileColor helpers.
-	ProfileColor PeerColor
+	ProfileColor PeerColorClass
 	// Monthly Active Users (MAU) of this bot (may be absent for small bots).
 	//
 	// Use SetBotActiveUsers and GetBotActiveUsers helpers.
@@ -593,6 +595,9 @@ func (u *User) Zero() bool {
 	if !(u.BotHasMainApp == false) {
 		return false
 	}
+	if !(u.BotForumView == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -638,10 +643,10 @@ func (u *User) Zero() bool {
 	if !(u.StoriesMaxID == 0) {
 		return false
 	}
-	if !(u.Color.Zero()) {
+	if !(u.Color == nil) {
 		return false
 	}
-	if !(u.ProfileColor.Zero()) {
+	if !(u.ProfileColor == nil) {
 		return false
 	}
 	if !(u.BotActiveUsers == 0) {
@@ -693,6 +698,7 @@ func (u *User) FillFrom(from interface {
 	GetContactRequirePremium() (value bool)
 	GetBotBusiness() (value bool)
 	GetBotHasMainApp() (value bool)
+	GetBotForumView() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -708,8 +714,8 @@ func (u *User) FillFrom(from interface {
 	GetEmojiStatus() (value EmojiStatusClass, ok bool)
 	GetUsernames() (value []Username, ok bool)
 	GetStoriesMaxID() (value int, ok bool)
-	GetColor() (value PeerColor, ok bool)
-	GetProfileColor() (value PeerColor, ok bool)
+	GetColor() (value PeerColorClass, ok bool)
+	GetProfileColor() (value PeerColorClass, ok bool)
 	GetBotActiveUsers() (value int, ok bool)
 	GetBotVerificationIcon() (value int64, ok bool)
 	GetSendPaidMessagesStars() (value int64, ok bool)
@@ -739,6 +745,7 @@ func (u *User) FillFrom(from interface {
 	u.ContactRequirePremium = from.GetContactRequirePremium()
 	u.BotBusiness = from.GetBotBusiness()
 	u.BotHasMainApp = from.GetBotHasMainApp()
+	u.BotForumView = from.GetBotForumView()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -967,6 +974,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags2.Has(13),
 		},
 		{
+			Name:       "BotForumView",
+			SchemaName: "bot_forum_view",
+			Null:       !u.Flags2.Has(16),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1146,6 +1158,9 @@ func (u *User) SetFlags() {
 	if !(u.BotHasMainApp == false) {
 		u.Flags2.Set(13)
 	}
+	if !(u.BotForumView == false) {
+		u.Flags2.Set(16)
+	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
 	}
@@ -1188,10 +1203,10 @@ func (u *User) SetFlags() {
 	if !(u.StoriesMaxID == 0) {
 		u.Flags2.Set(5)
 	}
-	if !(u.Color.Zero()) {
+	if !(u.Color == nil) {
 		u.Flags2.Set(8)
 	}
-	if !(u.ProfileColor.Zero()) {
+	if !(u.ProfileColor == nil) {
 		u.Flags2.Set(9)
 	}
 	if !(u.BotActiveUsers == 0) {
@@ -1295,11 +1310,17 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(u.StoriesMaxID)
 	}
 	if u.Flags2.Has(8) {
+		if u.Color == nil {
+			return fmt.Errorf("unable to encode user#20b1422: field color is nil")
+		}
 		if err := u.Color.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode user#20b1422: field color: %w", err)
 		}
 	}
 	if u.Flags2.Has(9) {
+		if u.ProfileColor == nil {
+			return fmt.Errorf("unable to encode user#20b1422: field profile_color is nil")
+		}
 		if err := u.ProfileColor.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode user#20b1422: field profile_color: %w", err)
 		}
@@ -1367,6 +1388,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.ContactRequirePremium = u.Flags2.Has(10)
 	u.BotBusiness = u.Flags2.Has(11)
 	u.BotHasMainApp = u.Flags2.Has(13)
+	u.BotForumView = u.Flags2.Has(16)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1493,14 +1515,18 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		u.StoriesMaxID = value
 	}
 	if u.Flags2.Has(8) {
-		if err := u.Color.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode user#20b1422: field color: %w", err)
 		}
+		u.Color = value
 	}
 	if u.Flags2.Has(9) {
-		if err := u.ProfileColor.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode user#20b1422: field profile_color: %w", err)
 		}
+		u.ProfileColor = value
 	}
 	if u.Flags2.Has(12) {
 		value, err := b.Int()
@@ -2001,6 +2027,25 @@ func (u *User) GetBotHasMainApp() (value bool) {
 	return u.Flags2.Has(13)
 }
 
+// SetBotForumView sets value of BotForumView conditional field.
+func (u *User) SetBotForumView(value bool) {
+	if value {
+		u.Flags2.Set(16)
+		u.BotForumView = true
+	} else {
+		u.Flags2.Unset(16)
+		u.BotForumView = false
+	}
+}
+
+// GetBotForumView returns value of BotForumView conditional field.
+func (u *User) GetBotForumView() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(16)
+}
+
 // GetID returns value of ID field.
 func (u *User) GetID() (value int64) {
 	if u == nil {
@@ -2262,14 +2307,14 @@ func (u *User) GetStoriesMaxID() (value int, ok bool) {
 }
 
 // SetColor sets value of Color conditional field.
-func (u *User) SetColor(value PeerColor) {
+func (u *User) SetColor(value PeerColorClass) {
 	u.Flags2.Set(8)
 	u.Color = value
 }
 
 // GetColor returns value of Color conditional field and
 // boolean which is true if field was set.
-func (u *User) GetColor() (value PeerColor, ok bool) {
+func (u *User) GetColor() (value PeerColorClass, ok bool) {
 	if u == nil {
 		return
 	}
@@ -2280,14 +2325,14 @@ func (u *User) GetColor() (value PeerColor, ok bool) {
 }
 
 // SetProfileColor sets value of ProfileColor conditional field.
-func (u *User) SetProfileColor(value PeerColor) {
+func (u *User) SetProfileColor(value PeerColorClass) {
 	u.Flags2.Set(9)
 	u.ProfileColor = value
 }
 
 // GetProfileColor returns value of ProfileColor conditional field and
 // boolean which is true if field was set.
-func (u *User) GetProfileColor() (value PeerColor, ok bool) {
+func (u *User) GetProfileColor() (value PeerColorClass, ok bool) {
 	if u == nil {
 		return
 	}

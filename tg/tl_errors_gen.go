@@ -117,7 +117,6 @@ const (
 	ErrChannelsAdminLocatedTooMuch      = "CHANNELS_ADMIN_LOCATED_TOO_MUCH"
 	ErrChannelsAdminPublicTooMuch       = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
 	ErrChannelsTooMuch                  = "CHANNELS_TOO_MUCH"
-	ErrChannelForumMissing              = "CHANNEL_FORUM_MISSING"
 	ErrChannelIDInvalid                 = "CHANNEL_ID_INVALID"
 	ErrChannelInvalid                   = "CHANNEL_INVALID"
 	ErrChannelParicipantMissing         = "CHANNEL_PARICIPANT_MISSING"
@@ -251,7 +250,6 @@ const (
 	ErrFromMessageBotDisabled           = "FROM_MESSAGE_BOT_DISABLED"
 	ErrFromPeerInvalid                  = "FROM_PEER_INVALID"
 	ErrGameBotInvalid                   = "GAME_BOT_INVALID"
-	ErrGeneralModifyIconForbidden       = "GENERAL_MODIFY_ICON_FORBIDDEN"
 	ErrGeoPointInvalid                  = "GEO_POINT_INVALID"
 	ErrGiftSlugExpired                  = "GIFT_SLUG_EXPIRED"
 	ErrGiftSlugInvalid                  = "GIFT_SLUG_INVALID"
@@ -559,14 +557,9 @@ const (
 	ErrTokenEmpty                       = "TOKEN_EMPTY"
 	ErrTokenInvalid                     = "TOKEN_INVALID"
 	ErrTokenTypeInvalid                 = "TOKEN_TYPE_INVALID"
-	ErrTopicsEmpty                      = "TOPICS_EMPTY"
 	ErrTopicClosed                      = "TOPIC_CLOSED"
-	ErrTopicCloseSeparately             = "TOPIC_CLOSE_SEPARATELY"
 	ErrTopicDeleted                     = "TOPIC_DELETED"
-	ErrTopicHideSeparately              = "TOPIC_HIDE_SEPARATELY"
 	ErrTopicIDInvalid                   = "TOPIC_ID_INVALID"
-	ErrTopicNotModified                 = "TOPIC_NOT_MODIFIED"
-	ErrTopicTitleEmpty                  = "TOPIC_TITLE_EMPTY"
 	ErrToLangInvalid                    = "TO_LANG_INVALID"
 	ErrTransactionIDInvalid             = "TRANSACTION_ID_INVALID"
 	ErrTranscriptionFailed              = "TRANSCRIPTION_FAILED"
@@ -1060,11 +1053,6 @@ func IsChannelsAdminPublicTooMuch(err error) bool {
 // IsChannelsTooMuch reports whether err is CHANNELS_TOO_MUCH.
 func IsChannelsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrChannelsTooMuch)
-}
-
-// IsChannelForumMissing reports whether err is CHANNEL_FORUM_MISSING.
-func IsChannelForumMissing(err error) bool {
-	return tgerr.Is(err, ErrChannelForumMissing)
 }
 
 // IsChannelIDInvalid reports whether err is CHANNEL_ID_INVALID.
@@ -1730,11 +1718,6 @@ func IsFromPeerInvalid(err error) bool {
 // IsGameBotInvalid reports whether err is GAME_BOT_INVALID.
 func IsGameBotInvalid(err error) bool {
 	return tgerr.Is(err, ErrGameBotInvalid)
-}
-
-// IsGeneralModifyIconForbidden reports whether err is GENERAL_MODIFY_ICON_FORBIDDEN.
-func IsGeneralModifyIconForbidden(err error) bool {
-	return tgerr.Is(err, ErrGeneralModifyIconForbidden)
 }
 
 // IsGeoPointInvalid reports whether err is GEO_POINT_INVALID.
@@ -3272,19 +3255,9 @@ func IsTokenTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrTokenTypeInvalid)
 }
 
-// IsTopicsEmpty reports whether err is TOPICS_EMPTY.
-func IsTopicsEmpty(err error) bool {
-	return tgerr.Is(err, ErrTopicsEmpty)
-}
-
 // IsTopicClosed reports whether err is TOPIC_CLOSED.
 func IsTopicClosed(err error) bool {
 	return tgerr.Is(err, ErrTopicClosed)
-}
-
-// IsTopicCloseSeparately reports whether err is TOPIC_CLOSE_SEPARATELY.
-func IsTopicCloseSeparately(err error) bool {
-	return tgerr.Is(err, ErrTopicCloseSeparately)
 }
 
 // IsTopicDeleted reports whether err is TOPIC_DELETED.
@@ -3292,24 +3265,9 @@ func IsTopicDeleted(err error) bool {
 	return tgerr.Is(err, ErrTopicDeleted)
 }
 
-// IsTopicHideSeparately reports whether err is TOPIC_HIDE_SEPARATELY.
-func IsTopicHideSeparately(err error) bool {
-	return tgerr.Is(err, ErrTopicHideSeparately)
-}
-
 // IsTopicIDInvalid reports whether err is TOPIC_ID_INVALID.
 func IsTopicIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrTopicIDInvalid)
-}
-
-// IsTopicNotModified reports whether err is TOPIC_NOT_MODIFIED.
-func IsTopicNotModified(err error) bool {
-	return tgerr.Is(err, ErrTopicNotModified)
-}
-
-// IsTopicTitleEmpty reports whether err is TOPIC_TITLE_EMPTY.
-func IsTopicTitleEmpty(err error) bool {
-	return tgerr.Is(err, ErrTopicTitleEmpty)
 }
 
 // IsToLangInvalid reports whether err is TO_LANG_INVALID.

@@ -272,6 +272,32 @@ func (s InputInvoiceClassArray) AsInputInvoiceStarGiftPrepaidUpgrade() (to Input
 	return to
 }
 
+// AsInputInvoicePremiumAuthCode returns copy with only InputInvoicePremiumAuthCode constructors.
+func (s InputInvoiceClassArray) AsInputInvoicePremiumAuthCode() (to InputInvoicePremiumAuthCodeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputInvoicePremiumAuthCode)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputInvoiceStarGiftDropOriginalDetails returns copy with only InputInvoiceStarGiftDropOriginalDetails constructors.
+func (s InputInvoiceClassArray) AsInputInvoiceStarGiftDropOriginalDetails() (to InputInvoiceStarGiftDropOriginalDetailsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputInvoiceStarGiftDropOriginalDetails)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputInvoiceMessageArray is adapter for slice of InputInvoiceMessage.
 type InputInvoiceMessageArray []InputInvoiceMessage
 
@@ -1244,6 +1270,170 @@ func (s *InputInvoiceStarGiftPrepaidUpgradeArray) PopFirst() (v InputInvoiceStar
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputInvoiceStarGiftPrepaidUpgradeArray) Pop() (v InputInvoiceStarGiftPrepaidUpgrade, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputInvoicePremiumAuthCodeArray is adapter for slice of InputInvoicePremiumAuthCode.
+type InputInvoicePremiumAuthCodeArray []InputInvoicePremiumAuthCode
+
+// Sort sorts slice of InputInvoicePremiumAuthCode.
+func (s InputInvoicePremiumAuthCodeArray) Sort(less func(a, b InputInvoicePremiumAuthCode) bool) InputInvoicePremiumAuthCodeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputInvoicePremiumAuthCode.
+func (s InputInvoicePremiumAuthCodeArray) SortStable(less func(a, b InputInvoicePremiumAuthCode) bool) InputInvoicePremiumAuthCodeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputInvoicePremiumAuthCode.
+func (s InputInvoicePremiumAuthCodeArray) Retain(keep func(x InputInvoicePremiumAuthCode) bool) InputInvoicePremiumAuthCodeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputInvoicePremiumAuthCodeArray) First() (v InputInvoicePremiumAuthCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputInvoicePremiumAuthCodeArray) Last() (v InputInvoicePremiumAuthCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputInvoicePremiumAuthCodeArray) PopFirst() (v InputInvoicePremiumAuthCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputInvoicePremiumAuthCode
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputInvoicePremiumAuthCodeArray) Pop() (v InputInvoicePremiumAuthCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputInvoiceStarGiftDropOriginalDetailsArray is adapter for slice of InputInvoiceStarGiftDropOriginalDetails.
+type InputInvoiceStarGiftDropOriginalDetailsArray []InputInvoiceStarGiftDropOriginalDetails
+
+// Sort sorts slice of InputInvoiceStarGiftDropOriginalDetails.
+func (s InputInvoiceStarGiftDropOriginalDetailsArray) Sort(less func(a, b InputInvoiceStarGiftDropOriginalDetails) bool) InputInvoiceStarGiftDropOriginalDetailsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputInvoiceStarGiftDropOriginalDetails.
+func (s InputInvoiceStarGiftDropOriginalDetailsArray) SortStable(less func(a, b InputInvoiceStarGiftDropOriginalDetails) bool) InputInvoiceStarGiftDropOriginalDetailsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputInvoiceStarGiftDropOriginalDetails.
+func (s InputInvoiceStarGiftDropOriginalDetailsArray) Retain(keep func(x InputInvoiceStarGiftDropOriginalDetails) bool) InputInvoiceStarGiftDropOriginalDetailsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputInvoiceStarGiftDropOriginalDetailsArray) First() (v InputInvoiceStarGiftDropOriginalDetails, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputInvoiceStarGiftDropOriginalDetailsArray) Last() (v InputInvoiceStarGiftDropOriginalDetails, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputInvoiceStarGiftDropOriginalDetailsArray) PopFirst() (v InputInvoiceStarGiftDropOriginalDetails, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputInvoiceStarGiftDropOriginalDetails
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputInvoiceStarGiftDropOriginalDetailsArray) Pop() (v InputInvoiceStarGiftDropOriginalDetails, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

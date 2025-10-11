@@ -82,7 +82,7 @@ type SponsoredMessage struct {
 	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
-	Color PeerColor
+	Color PeerColorClass
 	// Label of the sponsored message button.
 	ButtonText string
 	// If set, contains additional information about the sponsor to be shown along with the
@@ -150,7 +150,7 @@ func (s *SponsoredMessage) Zero() bool {
 	if !(s.Media == nil) {
 		return false
 	}
-	if !(s.Color.Zero()) {
+	if !(s.Color == nil) {
 		return false
 	}
 	if !(s.ButtonText == "") {
@@ -192,7 +192,7 @@ func (s *SponsoredMessage) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetPhoto() (value PhotoClass, ok bool)
 	GetMedia() (value MessageMediaClass, ok bool)
-	GetColor() (value PeerColor, ok bool)
+	GetColor() (value PeerColorClass, ok bool)
 	GetButtonText() (value string)
 	GetSponsorInfo() (value string, ok bool)
 	GetAdditionalInfo() (value string, ok bool)
@@ -354,7 +354,7 @@ func (s *SponsoredMessage) SetFlags() {
 	if !(s.Media == nil) {
 		s.Flags.Set(14)
 	}
-	if !(s.Color.Zero()) {
+	if !(s.Color == nil) {
 		s.Flags.Set(13)
 	}
 	if !(s.SponsorInfo == "") {
@@ -421,6 +421,9 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 		}
 	}
 	if s.Flags.Has(13) {
+		if s.Color == nil {
+			return fmt.Errorf("unable to encode sponsoredMessage#7dbf8673: field color is nil")
+		}
 		if err := s.Color.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode sponsoredMessage#7dbf8673: field color: %w", err)
 		}
@@ -524,9 +527,11 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 		s.Media = value
 	}
 	if s.Flags.Has(13) {
-		if err := s.Color.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode sponsoredMessage#7dbf8673: field color: %w", err)
 		}
+		s.Color = value
 	}
 	{
 		value, err := b.String()
@@ -691,14 +696,14 @@ func (s *SponsoredMessage) GetMedia() (value MessageMediaClass, ok bool) {
 }
 
 // SetColor sets value of Color conditional field.
-func (s *SponsoredMessage) SetColor(value PeerColor) {
+func (s *SponsoredMessage) SetColor(value PeerColorClass) {
 	s.Flags.Set(13)
 	s.Color = value
 }
 
 // GetColor returns value of Color conditional field and
 // boolean which is true if field was set.
-func (s *SponsoredMessage) GetColor() (value PeerColor, ok bool) {
+func (s *SponsoredMessage) GetColor() (value PeerColorClass, ok bool) {
 	if s == nil {
 		return
 	}
