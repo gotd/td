@@ -54,6 +54,10 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	ExcludeUpgradable bool
 	// ExcludeUnupgradable field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnupgradable bool
+	// PeerColorAvailable field of PaymentsGetSavedStarGiftsRequest.
+	PeerColorAvailable bool
+	// ExcludeHosted field of PaymentsGetSavedStarGiftsRequest.
+	ExcludeHosted bool
 	// Peer field of PaymentsGetSavedStarGiftsRequest.
 	Peer InputPeerClass
 	// CollectionID field of PaymentsGetSavedStarGiftsRequest.
@@ -108,6 +112,12 @@ func (g *PaymentsGetSavedStarGiftsRequest) Zero() bool {
 	if !(g.ExcludeUnupgradable == false) {
 		return false
 	}
+	if !(g.PeerColorAvailable == false) {
+		return false
+	}
+	if !(g.ExcludeHosted == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
@@ -142,6 +152,8 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	GetSortByValue() (value bool)
 	GetExcludeUpgradable() (value bool)
 	GetExcludeUnupgradable() (value bool)
+	GetPeerColorAvailable() (value bool)
+	GetExcludeHosted() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetCollectionID() (value int, ok bool)
 	GetOffset() (value string)
@@ -154,6 +166,8 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	g.SortByValue = from.GetSortByValue()
 	g.ExcludeUpgradable = from.GetExcludeUpgradable()
 	g.ExcludeUnupgradable = from.GetExcludeUnupgradable()
+	g.PeerColorAvailable = from.GetPeerColorAvailable()
+	g.ExcludeHosted = from.GetExcludeHosted()
 	g.Peer = from.GetPeer()
 	if val, ok := from.GetCollectionID(); ok {
 		g.CollectionID = val
@@ -222,6 +236,16 @@ func (g *PaymentsGetSavedStarGiftsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(8),
 		},
 		{
+			Name:       "PeerColorAvailable",
+			SchemaName: "peer_color_available",
+			Null:       !g.Flags.Has(9),
+		},
+		{
+			Name:       "ExcludeHosted",
+			SchemaName: "exclude_hosted",
+			Null:       !g.Flags.Has(10),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -264,6 +288,12 @@ func (g *PaymentsGetSavedStarGiftsRequest) SetFlags() {
 	}
 	if !(g.ExcludeUnupgradable == false) {
 		g.Flags.Set(8)
+	}
+	if !(g.PeerColorAvailable == false) {
+		g.Flags.Set(9)
+	}
+	if !(g.ExcludeHosted == false) {
+		g.Flags.Set(10)
 	}
 	if !(g.CollectionID == 0) {
 		g.Flags.Set(6)
@@ -330,6 +360,8 @@ func (g *PaymentsGetSavedStarGiftsRequest) DecodeBare(b *bin.Buffer) error {
 	g.SortByValue = g.Flags.Has(5)
 	g.ExcludeUpgradable = g.Flags.Has(7)
 	g.ExcludeUnupgradable = g.Flags.Has(8)
+	g.PeerColorAvailable = g.Flags.Has(9)
+	g.ExcludeHosted = g.Flags.Has(10)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -492,6 +524,44 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUnupgradable() (value bool)
 		return
 	}
 	return g.Flags.Has(8)
+}
+
+// SetPeerColorAvailable sets value of PeerColorAvailable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetPeerColorAvailable(value bool) {
+	if value {
+		g.Flags.Set(9)
+		g.PeerColorAvailable = true
+	} else {
+		g.Flags.Unset(9)
+		g.PeerColorAvailable = false
+	}
+}
+
+// GetPeerColorAvailable returns value of PeerColorAvailable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetPeerColorAvailable() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(9)
+}
+
+// SetExcludeHosted sets value of ExcludeHosted conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeHosted(value bool) {
+	if value {
+		g.Flags.Set(10)
+		g.ExcludeHosted = true
+	} else {
+		g.Flags.Unset(10)
+		g.ExcludeHosted = false
+	}
+}
+
+// GetExcludeHosted returns value of ExcludeHosted conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeHosted() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(10)
 }
 
 // GetPeer returns value of Peer field.

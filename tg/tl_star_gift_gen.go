@@ -54,6 +54,8 @@ type StarGift struct {
 	RequirePremium bool
 	// LimitedPerUser field of StarGift.
 	LimitedPerUser bool
+	// PeerColorAvailable field of StarGift.
+	PeerColorAvailable bool
 	// Identifier of the gift
 	ID int64
 	// Sticker¹ that represents the gift.
@@ -160,6 +162,9 @@ func (s *StarGift) Zero() bool {
 	if !(s.LimitedPerUser == false) {
 		return false
 	}
+	if !(s.PeerColorAvailable == false) {
+		return false
+	}
 	if !(s.ID == 0) {
 		return false
 	}
@@ -228,6 +233,7 @@ func (s *StarGift) FillFrom(from interface {
 	GetBirthday() (value bool)
 	GetRequirePremium() (value bool)
 	GetLimitedPerUser() (value bool)
+	GetPeerColorAvailable() (value bool)
 	GetID() (value int64)
 	GetSticker() (value DocumentClass)
 	GetStars() (value int64)
@@ -250,6 +256,7 @@ func (s *StarGift) FillFrom(from interface {
 	s.Birthday = from.GetBirthday()
 	s.RequirePremium = from.GetRequirePremium()
 	s.LimitedPerUser = from.GetLimitedPerUser()
+	s.PeerColorAvailable = from.GetPeerColorAvailable()
 	s.ID = from.GetID()
 	s.Sticker = from.GetSticker()
 	s.Stars = from.GetStars()
@@ -353,6 +360,11 @@ func (s *StarGift) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(8),
 		},
 		{
+			Name:       "PeerColorAvailable",
+			SchemaName: "peer_color_available",
+			Null:       !s.Flags.Has(10),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -448,6 +460,9 @@ func (s *StarGift) SetFlags() {
 	}
 	if !(s.LimitedPerUser == false) {
 		s.Flags.Set(8)
+	}
+	if !(s.PeerColorAvailable == false) {
+		s.Flags.Set(10)
 	}
 	if !(s.AvailabilityRemains == 0) {
 		s.Flags.Set(0)
@@ -584,6 +599,7 @@ func (s *StarGift) DecodeBare(b *bin.Buffer) error {
 	s.Birthday = s.Flags.Has(2)
 	s.RequirePremium = s.Flags.Has(7)
 	s.LimitedPerUser = s.Flags.Has(8)
+	s.PeerColorAvailable = s.Flags.Has(10)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -792,6 +808,25 @@ func (s *StarGift) GetLimitedPerUser() (value bool) {
 		return
 	}
 	return s.Flags.Has(8)
+}
+
+// SetPeerColorAvailable sets value of PeerColorAvailable conditional field.
+func (s *StarGift) SetPeerColorAvailable(value bool) {
+	if value {
+		s.Flags.Set(10)
+		s.PeerColorAvailable = true
+	} else {
+		s.Flags.Unset(10)
+		s.PeerColorAvailable = false
+	}
+}
+
+// GetPeerColorAvailable returns value of PeerColorAvailable conditional field.
+func (s *StarGift) GetPeerColorAvailable() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(10)
 }
 
 // GetID returns value of ID field.
@@ -1042,7 +1077,7 @@ func (s *StarGift) GetLockedUntilDate() (value int, ok bool) {
 	return s.LockedUntilDate, true
 }
 
-// StarGiftUnique represents TL type `starGiftUnique#1befe865`.
+// StarGiftUnique represents TL type `starGiftUnique#b0bf741b`.
 //
 // See https://core.telegram.org/constructor/starGiftUnique for reference.
 type StarGiftUnique struct {
@@ -1109,10 +1144,18 @@ type StarGiftUnique struct {
 	//
 	// Use SetThemePeer and GetThemePeer helpers.
 	ThemePeer PeerClass
+	// PeerColor field of StarGiftUnique.
+	//
+	// Use SetPeerColor and GetPeerColor helpers.
+	PeerColor PeerColorClass
+	// HostID field of StarGiftUnique.
+	//
+	// Use SetHostID and GetHostID helpers.
+	HostID PeerClass
 }
 
 // StarGiftUniqueTypeID is TL type id of StarGiftUnique.
-const StarGiftUniqueTypeID = 0x1befe865
+const StarGiftUniqueTypeID = 0xb0bf741b
 
 // construct implements constructor of StarGiftClass.
 func (s StarGiftUnique) construct() StarGiftClass { return &s }
@@ -1194,6 +1237,12 @@ func (s *StarGiftUnique) Zero() bool {
 	if !(s.ThemePeer == nil) {
 		return false
 	}
+	if !(s.PeerColor == nil) {
+		return false
+	}
+	if !(s.HostID == nil) {
+		return false
+	}
 
 	return true
 }
@@ -1229,6 +1278,8 @@ func (s *StarGiftUnique) FillFrom(from interface {
 	GetValueAmount() (value int64, ok bool)
 	GetValueCurrency() (value string, ok bool)
 	GetThemePeer() (value PeerClass, ok bool)
+	GetPeerColor() (value PeerColorClass, ok bool)
+	GetHostID() (value PeerClass, ok bool)
 }) {
 	s.RequirePremium = from.GetRequirePremium()
 	s.ResaleTonOnly = from.GetResaleTonOnly()
@@ -1275,6 +1326,14 @@ func (s *StarGiftUnique) FillFrom(from interface {
 
 	if val, ok := from.GetThemePeer(); ok {
 		s.ThemePeer = val
+	}
+
+	if val, ok := from.GetPeerColor(); ok {
+		s.PeerColor = val
+	}
+
+	if val, ok := from.GetHostID(); ok {
+		s.HostID = val
 	}
 
 }
@@ -1394,6 +1453,16 @@ func (s *StarGiftUnique) TypeInfo() tdp.Type {
 			SchemaName: "theme_peer",
 			Null:       !s.Flags.Has(10),
 		},
+		{
+			Name:       "PeerColor",
+			SchemaName: "peer_color",
+			Null:       !s.Flags.Has(11),
+		},
+		{
+			Name:       "HostID",
+			SchemaName: "host_id",
+			Null:       !s.Flags.Has(12),
+		},
 	}
 	return typ
 }
@@ -1436,12 +1505,18 @@ func (s *StarGiftUnique) SetFlags() {
 	if !(s.ThemePeer == nil) {
 		s.Flags.Set(10)
 	}
+	if !(s.PeerColor == nil) {
+		s.Flags.Set(11)
+	}
+	if !(s.HostID == nil) {
+		s.Flags.Set(12)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StarGiftUnique) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftUnique#1befe865 as nil")
+		return fmt.Errorf("can't encode starGiftUnique#b0bf741b as nil")
 	}
 	b.PutID(StarGiftUniqueTypeID)
 	return s.EncodeBare(b)
@@ -1450,11 +1525,11 @@ func (s *StarGiftUnique) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftUnique#1befe865 as nil")
+		return fmt.Errorf("can't encode starGiftUnique#b0bf741b as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGiftUnique#1befe865: field flags: %w", err)
+		return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field flags: %w", err)
 	}
 	b.PutLong(s.ID)
 	b.PutLong(s.GiftID)
@@ -1463,10 +1538,10 @@ func (s *StarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(s.Num)
 	if s.Flags.Has(0) {
 		if s.OwnerID == nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field owner_id is nil")
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field owner_id is nil")
 		}
 		if err := s.OwnerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field owner_id: %w", err)
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field owner_id: %w", err)
 		}
 	}
 	if s.Flags.Has(1) {
@@ -1478,10 +1553,10 @@ func (s *StarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(s.Attributes))
 	for idx, v := range s.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field attributes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field attributes element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(s.AvailabilityIssued)
@@ -1493,19 +1568,19 @@ func (s *StarGiftUnique) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.ResellAmount))
 		for idx, v := range s.ResellAmount {
 			if v == nil {
-				return fmt.Errorf("unable to encode starGiftUnique#1befe865: field resell_amount element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field resell_amount element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode starGiftUnique#1befe865: field resell_amount element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field resell_amount element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if s.Flags.Has(5) {
 		if s.ReleasedBy == nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field released_by is nil")
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field released_by is nil")
 		}
 		if err := s.ReleasedBy.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field released_by: %w", err)
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field released_by: %w", err)
 		}
 	}
 	if s.Flags.Has(8) {
@@ -1516,10 +1591,26 @@ func (s *StarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(10) {
 		if s.ThemePeer == nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field theme_peer is nil")
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field theme_peer is nil")
 		}
 		if err := s.ThemePeer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftUnique#1befe865: field theme_peer: %w", err)
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field theme_peer: %w", err)
+		}
+	}
+	if s.Flags.Has(11) {
+		if s.PeerColor == nil {
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field peer_color is nil")
+		}
+		if err := s.PeerColor.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field peer_color: %w", err)
+		}
+	}
+	if s.Flags.Has(12) {
+		if s.HostID == nil {
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field host_id is nil")
+		}
+		if err := s.HostID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode starGiftUnique#b0bf741b: field host_id: %w", err)
 		}
 	}
 	return nil
@@ -1528,10 +1619,10 @@ func (s *StarGiftUnique) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarGiftUnique) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftUnique#1befe865 to nil")
+		return fmt.Errorf("can't decode starGiftUnique#b0bf741b to nil")
 	}
 	if err := b.ConsumeID(StarGiftUniqueTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftUnique#1befe865: %w", err)
+		return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -1539,11 +1630,11 @@ func (s *StarGiftUnique) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftUnique#1befe865 to nil")
+		return fmt.Errorf("can't decode starGiftUnique#b0bf741b to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field flags: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field flags: %w", err)
 		}
 	}
 	s.RequirePremium = s.Flags.Has(6)
@@ -1552,63 +1643,63 @@ func (s *StarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field id: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field gift_id: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field gift_id: %w", err)
 		}
 		s.GiftID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field title: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field title: %w", err)
 		}
 		s.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field slug: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field slug: %w", err)
 		}
 		s.Slug = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field num: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field num: %w", err)
 		}
 		s.Num = value
 	}
 	if s.Flags.Has(0) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field owner_id: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field owner_id: %w", err)
 		}
 		s.OwnerID = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field owner_name: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field owner_name: %w", err)
 		}
 		s.OwnerName = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field owner_address: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field owner_address: %w", err)
 		}
 		s.OwnerAddress = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field attributes: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field attributes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1617,7 +1708,7 @@ func (s *StarGiftUnique) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStarGiftAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode starGiftUnique#1befe865: field attributes: %w", err)
+				return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field attributes: %w", err)
 			}
 			s.Attributes = append(s.Attributes, value)
 		}
@@ -1625,28 +1716,28 @@ func (s *StarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field availability_issued: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field availability_issued: %w", err)
 		}
 		s.AvailabilityIssued = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field availability_total: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field availability_total: %w", err)
 		}
 		s.AvailabilityTotal = value
 	}
 	if s.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field gift_address: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field gift_address: %w", err)
 		}
 		s.GiftAddress = value
 	}
 	if s.Flags.Has(4) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field resell_amount: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field resell_amount: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1655,7 +1746,7 @@ func (s *StarGiftUnique) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStarsAmount(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode starGiftUnique#1befe865: field resell_amount: %w", err)
+				return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field resell_amount: %w", err)
 			}
 			s.ResellAmount = append(s.ResellAmount, value)
 		}
@@ -1663,30 +1754,44 @@ func (s *StarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(5) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field released_by: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field released_by: %w", err)
 		}
 		s.ReleasedBy = value
 	}
 	if s.Flags.Has(8) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field value_amount: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field value_amount: %w", err)
 		}
 		s.ValueAmount = value
 	}
 	if s.Flags.Has(8) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field value_currency: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field value_currency: %w", err)
 		}
 		s.ValueCurrency = value
 	}
 	if s.Flags.Has(10) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftUnique#1befe865: field theme_peer: %w", err)
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field theme_peer: %w", err)
 		}
 		s.ThemePeer = value
+	}
+	if s.Flags.Has(11) {
+		value, err := DecodePeerColor(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field peer_color: %w", err)
+		}
+		s.PeerColor = value
+	}
+	if s.Flags.Has(12) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftUnique#b0bf741b: field host_id: %w", err)
+		}
+		s.HostID = value
 	}
 	return nil
 }
@@ -1974,6 +2079,42 @@ func (s *StarGiftUnique) GetThemePeer() (value PeerClass, ok bool) {
 	return s.ThemePeer, true
 }
 
+// SetPeerColor sets value of PeerColor conditional field.
+func (s *StarGiftUnique) SetPeerColor(value PeerColorClass) {
+	s.Flags.Set(11)
+	s.PeerColor = value
+}
+
+// GetPeerColor returns value of PeerColor conditional field and
+// boolean which is true if field was set.
+func (s *StarGiftUnique) GetPeerColor() (value PeerColorClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(11) {
+		return value, false
+	}
+	return s.PeerColor, true
+}
+
+// SetHostID sets value of HostID conditional field.
+func (s *StarGiftUnique) SetHostID(value PeerClass) {
+	s.Flags.Set(12)
+	s.HostID = value
+}
+
+// GetHostID returns value of HostID conditional field and
+// boolean which is true if field was set.
+func (s *StarGiftUnique) GetHostID() (value PeerClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(12) {
+		return value, false
+	}
+	return s.HostID, true
+}
+
 // MapAttributes returns field Attributes wrapped in StarGiftAttributeClassArray helper.
 func (s *StarGiftUnique) MapAttributes() (value StarGiftAttributeClassArray) {
 	return StarGiftAttributeClassArray(s.Attributes)
@@ -2006,7 +2147,7 @@ const StarGiftClassName = "StarGift"
 //	}
 //	switch v := g.(type) {
 //	case *tg.StarGift: // starGift#80ac53c3
-//	case *tg.StarGiftUnique: // starGiftUnique#1befe865
+//	case *tg.StarGiftUnique: // starGiftUnique#b0bf741b
 //	default: panic(v)
 //	}
 type StarGiftClass interface {
@@ -2052,7 +2193,7 @@ func DecodeStarGift(buf *bin.Buffer) (StarGiftClass, error) {
 		}
 		return &v, nil
 	case StarGiftUniqueTypeID:
-		// Decoding starGiftUnique#1befe865.
+		// Decoding starGiftUnique#b0bf741b.
 		v := StarGiftUnique{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftClass: %w", err)

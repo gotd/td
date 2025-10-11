@@ -119,3 +119,11 @@ func (b *TypingActionBuilder) EmojiInteractionSeen(ctx context.Context, emoticon
 		Emoticon: emoticon,
 	})
 }
+
+// TextDraft sends SendMessageTextDraftAction.
+func (b *TypingActionBuilder) TextDraft(ctx context.Context, randomID int64, text tg.TextWithEntities) error {
+	return b.send(ctx, &tg.SendMessageTextDraftAction{
+		RandomID: randomID,
+		Text:     text,
+	})
+}

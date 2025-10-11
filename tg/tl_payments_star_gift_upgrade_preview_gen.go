@@ -31,16 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsStarGiftUpgradePreview represents TL type `payments.starGiftUpgradePreview#167bd90b`.
+// PaymentsStarGiftUpgradePreview represents TL type `payments.starGiftUpgradePreview#3de1dfed`.
 //
 // See https://core.telegram.org/constructor/payments.starGiftUpgradePreview for reference.
 type PaymentsStarGiftUpgradePreview struct {
 	// SampleAttributes field of PaymentsStarGiftUpgradePreview.
 	SampleAttributes []StarGiftAttributeClass
+	// Prices field of PaymentsStarGiftUpgradePreview.
+	Prices []StarGiftUpgradePrice
+	// NextPrices field of PaymentsStarGiftUpgradePreview.
+	NextPrices []StarGiftUpgradePrice
 }
 
 // PaymentsStarGiftUpgradePreviewTypeID is TL type id of PaymentsStarGiftUpgradePreview.
-const PaymentsStarGiftUpgradePreviewTypeID = 0x167bd90b
+const PaymentsStarGiftUpgradePreviewTypeID = 0x3de1dfed
 
 // Ensuring interfaces in compile-time for PaymentsStarGiftUpgradePreview.
 var (
@@ -55,6 +59,12 @@ func (s *PaymentsStarGiftUpgradePreview) Zero() bool {
 		return true
 	}
 	if !(s.SampleAttributes == nil) {
+		return false
+	}
+	if !(s.Prices == nil) {
+		return false
+	}
+	if !(s.NextPrices == nil) {
 		return false
 	}
 
@@ -73,8 +83,12 @@ func (s *PaymentsStarGiftUpgradePreview) String() string {
 // FillFrom fills PaymentsStarGiftUpgradePreview from given interface.
 func (s *PaymentsStarGiftUpgradePreview) FillFrom(from interface {
 	GetSampleAttributes() (value []StarGiftAttributeClass)
+	GetPrices() (value []StarGiftUpgradePrice)
+	GetNextPrices() (value []StarGiftUpgradePrice)
 }) {
 	s.SampleAttributes = from.GetSampleAttributes()
+	s.Prices = from.GetPrices()
+	s.NextPrices = from.GetNextPrices()
 }
 
 // TypeID returns type id in TL schema.
@@ -104,6 +118,14 @@ func (s *PaymentsStarGiftUpgradePreview) TypeInfo() tdp.Type {
 			Name:       "SampleAttributes",
 			SchemaName: "sample_attributes",
 		},
+		{
+			Name:       "Prices",
+			SchemaName: "prices",
+		},
+		{
+			Name:       "NextPrices",
+			SchemaName: "next_prices",
+		},
 	}
 	return typ
 }
@@ -111,7 +133,7 @@ func (s *PaymentsStarGiftUpgradePreview) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PaymentsStarGiftUpgradePreview) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGiftUpgradePreview#167bd90b as nil")
+		return fmt.Errorf("can't encode payments.starGiftUpgradePreview#3de1dfed as nil")
 	}
 	b.PutID(PaymentsStarGiftUpgradePreviewTypeID)
 	return s.EncodeBare(b)
@@ -120,15 +142,27 @@ func (s *PaymentsStarGiftUpgradePreview) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsStarGiftUpgradePreview) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGiftUpgradePreview#167bd90b as nil")
+		return fmt.Errorf("can't encode payments.starGiftUpgradePreview#3de1dfed as nil")
 	}
 	b.PutVectorHeader(len(s.SampleAttributes))
 	for idx, v := range s.SampleAttributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.starGiftUpgradePreview#167bd90b: field sample_attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.starGiftUpgradePreview#3de1dfed: field sample_attributes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starGiftUpgradePreview#167bd90b: field sample_attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starGiftUpgradePreview#3de1dfed: field sample_attributes element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Prices))
+	for idx, v := range s.Prices {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starGiftUpgradePreview#3de1dfed: field prices element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.NextPrices))
+	for idx, v := range s.NextPrices {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starGiftUpgradePreview#3de1dfed: field next_prices element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -137,10 +171,10 @@ func (s *PaymentsStarGiftUpgradePreview) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsStarGiftUpgradePreview) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGiftUpgradePreview#167bd90b to nil")
+		return fmt.Errorf("can't decode payments.starGiftUpgradePreview#3de1dfed to nil")
 	}
 	if err := b.ConsumeID(PaymentsStarGiftUpgradePreviewTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#167bd90b: %w", err)
+		return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -148,12 +182,12 @@ func (s *PaymentsStarGiftUpgradePreview) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsStarGiftUpgradePreview) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGiftUpgradePreview#167bd90b to nil")
+		return fmt.Errorf("can't decode payments.starGiftUpgradePreview#3de1dfed to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#167bd90b: field sample_attributes: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: field sample_attributes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -162,9 +196,43 @@ func (s *PaymentsStarGiftUpgradePreview) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStarGiftAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#167bd90b: field sample_attributes: %w", err)
+				return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: field sample_attributes: %w", err)
 			}
 			s.SampleAttributes = append(s.SampleAttributes, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: field prices: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Prices = make([]StarGiftUpgradePrice, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value StarGiftUpgradePrice
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: field prices: %w", err)
+			}
+			s.Prices = append(s.Prices, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: field next_prices: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.NextPrices = make([]StarGiftUpgradePrice, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value StarGiftUpgradePrice
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode payments.starGiftUpgradePreview#3de1dfed: field next_prices: %w", err)
+			}
+			s.NextPrices = append(s.NextPrices, value)
 		}
 	}
 	return nil
@@ -176,6 +244,22 @@ func (s *PaymentsStarGiftUpgradePreview) GetSampleAttributes() (value []StarGift
 		return
 	}
 	return s.SampleAttributes
+}
+
+// GetPrices returns value of Prices field.
+func (s *PaymentsStarGiftUpgradePreview) GetPrices() (value []StarGiftUpgradePrice) {
+	if s == nil {
+		return
+	}
+	return s.Prices
+}
+
+// GetNextPrices returns value of NextPrices field.
+func (s *PaymentsStarGiftUpgradePreview) GetNextPrices() (value []StarGiftUpgradePrice) {
+	if s == nil {
+		return
+	}
+	return s.NextPrices
 }
 
 // MapSampleAttributes returns field SampleAttributes wrapped in StarGiftAttributeClassArray helper.

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ContactsAddContactRequest represents TL type `contacts.addContact#e8f463d0`.
+// ContactsAddContactRequest represents TL type `contacts.addContact#d9ba2e54`.
 // Add an existing telegram user as contact.
 // Use contacts.importContacts¹ to add contacts by phone number, without knowing their
 // Telegram ID.
@@ -57,10 +57,14 @@ type ContactsAddContactRequest struct {
 	// User's phone number, may be omitted to simply add the user to the contact list,
 	// without a phone number.
 	Phone string
+	// Note field of ContactsAddContactRequest.
+	//
+	// Use SetNote and GetNote helpers.
+	Note TextWithEntities
 }
 
 // ContactsAddContactRequestTypeID is TL type id of ContactsAddContactRequest.
-const ContactsAddContactRequestTypeID = 0xe8f463d0
+const ContactsAddContactRequestTypeID = 0xd9ba2e54
 
 // Ensuring interfaces in compile-time for ContactsAddContactRequest.
 var (
@@ -92,6 +96,9 @@ func (a *ContactsAddContactRequest) Zero() bool {
 	if !(a.Phone == "") {
 		return false
 	}
+	if !(a.Note.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -112,12 +119,17 @@ func (a *ContactsAddContactRequest) FillFrom(from interface {
 	GetFirstName() (value string)
 	GetLastName() (value string)
 	GetPhone() (value string)
+	GetNote() (value TextWithEntities, ok bool)
 }) {
 	a.AddPhonePrivacyException = from.GetAddPhonePrivacyException()
 	a.ID = from.GetID()
 	a.FirstName = from.GetFirstName()
 	a.LastName = from.GetLastName()
 	a.Phone = from.GetPhone()
+	if val, ok := from.GetNote(); ok {
+		a.Note = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -164,6 +176,11 @@ func (a *ContactsAddContactRequest) TypeInfo() tdp.Type {
 			Name:       "Phone",
 			SchemaName: "phone",
 		},
+		{
+			Name:       "Note",
+			SchemaName: "note",
+			Null:       !a.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -173,12 +190,15 @@ func (a *ContactsAddContactRequest) SetFlags() {
 	if !(a.AddPhonePrivacyException == false) {
 		a.Flags.Set(0)
 	}
+	if !(a.Note.Zero()) {
+		a.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
+		return fmt.Errorf("can't encode contacts.addContact#d9ba2e54 as nil")
 	}
 	b.PutID(ContactsAddContactRequestTypeID)
 	return a.EncodeBare(b)
@@ -187,31 +207,36 @@ func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *ContactsAddContactRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
+		return fmt.Errorf("can't encode contacts.addContact#d9ba2e54 as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field flags: %w", err)
+		return fmt.Errorf("unable to encode contacts.addContact#d9ba2e54: field flags: %w", err)
 	}
 	if a.ID == nil {
-		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field id is nil")
+		return fmt.Errorf("unable to encode contacts.addContact#d9ba2e54: field id is nil")
 	}
 	if err := a.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field id: %w", err)
+		return fmt.Errorf("unable to encode contacts.addContact#d9ba2e54: field id: %w", err)
 	}
 	b.PutString(a.FirstName)
 	b.PutString(a.LastName)
 	b.PutString(a.Phone)
+	if a.Flags.Has(1) {
+		if err := a.Note.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode contacts.addContact#d9ba2e54: field note: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode contacts.addContact#e8f463d0 to nil")
+		return fmt.Errorf("can't decode contacts.addContact#d9ba2e54 to nil")
 	}
 	if err := b.ConsumeID(ContactsAddContactRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: %w", err)
+		return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -219,41 +244,46 @@ func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *ContactsAddContactRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode contacts.addContact#e8f463d0 to nil")
+		return fmt.Errorf("can't decode contacts.addContact#d9ba2e54 to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field flags: %w", err)
+			return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: field flags: %w", err)
 		}
 	}
 	a.AddPhonePrivacyException = a.Flags.Has(0)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field id: %w", err)
+			return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: field id: %w", err)
 		}
 		a.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field first_name: %w", err)
+			return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: field first_name: %w", err)
 		}
 		a.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field last_name: %w", err)
+			return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: field last_name: %w", err)
 		}
 		a.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field phone: %w", err)
+			return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: field phone: %w", err)
 		}
 		a.Phone = value
+	}
+	if a.Flags.Has(1) {
+		if err := a.Note.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode contacts.addContact#d9ba2e54: field note: %w", err)
+		}
 	}
 	return nil
 }
@@ -309,7 +339,25 @@ func (a *ContactsAddContactRequest) GetPhone() (value string) {
 	return a.Phone
 }
 
-// ContactsAddContact invokes method contacts.addContact#e8f463d0 returning error if any.
+// SetNote sets value of Note conditional field.
+func (a *ContactsAddContactRequest) SetNote(value TextWithEntities) {
+	a.Flags.Set(1)
+	a.Note = value
+}
+
+// GetNote returns value of Note conditional field and
+// boolean which is true if field was set.
+func (a *ContactsAddContactRequest) GetNote() (value TextWithEntities, ok bool) {
+	if a == nil {
+		return
+	}
+	if !a.Flags.Has(1) {
+		return value, false
+	}
+	return a.Note, true
+}
+
+// ContactsAddContact invokes method contacts.addContact#d9ba2e54 returning error if any.
 // Add an existing telegram user as contact.
 // Use contacts.importContacts¹ to add contacts by phone number, without knowing their
 // Telegram ID.

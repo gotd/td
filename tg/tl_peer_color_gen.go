@@ -64,12 +64,17 @@ type PeerColor struct {
 // PeerColorTypeID is TL type id of PeerColor.
 const PeerColorTypeID = 0xb54b5acf
 
+// construct implements constructor of PeerColorClass.
+func (p PeerColor) construct() PeerColorClass { return &p }
+
 // Ensuring interfaces in compile-time for PeerColor.
 var (
 	_ bin.Encoder     = &PeerColor{}
 	_ bin.Decoder     = &PeerColor{}
 	_ bin.BareEncoder = &PeerColor{}
 	_ bin.BareDecoder = &PeerColor{}
+
+	_ PeerColorClass = &PeerColor{}
 )
 
 func (p *PeerColor) Zero() bool {
@@ -259,4 +264,622 @@ func (p *PeerColor) GetBackgroundEmojiID() (value int64, ok bool) {
 		return value, false
 	}
 	return p.BackgroundEmojiID, true
+}
+
+// PeerColorCollectible represents TL type `peerColorCollectible#b9c0639a`.
+//
+// See https://core.telegram.org/constructor/peerColorCollectible for reference.
+type PeerColorCollectible struct {
+	// Flags field of PeerColorCollectible.
+	Flags bin.Fields
+	// CollectibleID field of PeerColorCollectible.
+	CollectibleID int64
+	// GiftEmojiID field of PeerColorCollectible.
+	GiftEmojiID int64
+	// BackgroundEmojiID field of PeerColorCollectible.
+	BackgroundEmojiID int64
+	// AccentColor field of PeerColorCollectible.
+	AccentColor int
+	// Colors field of PeerColorCollectible.
+	Colors []int
+	// DarkAccentColor field of PeerColorCollectible.
+	//
+	// Use SetDarkAccentColor and GetDarkAccentColor helpers.
+	DarkAccentColor int
+	// DarkColors field of PeerColorCollectible.
+	//
+	// Use SetDarkColors and GetDarkColors helpers.
+	DarkColors []int
+}
+
+// PeerColorCollectibleTypeID is TL type id of PeerColorCollectible.
+const PeerColorCollectibleTypeID = 0xb9c0639a
+
+// construct implements constructor of PeerColorClass.
+func (p PeerColorCollectible) construct() PeerColorClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerColorCollectible.
+var (
+	_ bin.Encoder     = &PeerColorCollectible{}
+	_ bin.Decoder     = &PeerColorCollectible{}
+	_ bin.BareEncoder = &PeerColorCollectible{}
+	_ bin.BareDecoder = &PeerColorCollectible{}
+
+	_ PeerColorClass = &PeerColorCollectible{}
+)
+
+func (p *PeerColorCollectible) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.CollectibleID == 0) {
+		return false
+	}
+	if !(p.GiftEmojiID == 0) {
+		return false
+	}
+	if !(p.BackgroundEmojiID == 0) {
+		return false
+	}
+	if !(p.AccentColor == 0) {
+		return false
+	}
+	if !(p.Colors == nil) {
+		return false
+	}
+	if !(p.DarkAccentColor == 0) {
+		return false
+	}
+	if !(p.DarkColors == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PeerColorCollectible) String() string {
+	if p == nil {
+		return "PeerColorCollectible(nil)"
+	}
+	type Alias PeerColorCollectible
+	return fmt.Sprintf("PeerColorCollectible%+v", Alias(*p))
+}
+
+// FillFrom fills PeerColorCollectible from given interface.
+func (p *PeerColorCollectible) FillFrom(from interface {
+	GetCollectibleID() (value int64)
+	GetGiftEmojiID() (value int64)
+	GetBackgroundEmojiID() (value int64)
+	GetAccentColor() (value int)
+	GetColors() (value []int)
+	GetDarkAccentColor() (value int, ok bool)
+	GetDarkColors() (value []int, ok bool)
+}) {
+	p.CollectibleID = from.GetCollectibleID()
+	p.GiftEmojiID = from.GetGiftEmojiID()
+	p.BackgroundEmojiID = from.GetBackgroundEmojiID()
+	p.AccentColor = from.GetAccentColor()
+	p.Colors = from.GetColors()
+	if val, ok := from.GetDarkAccentColor(); ok {
+		p.DarkAccentColor = val
+	}
+
+	if val, ok := from.GetDarkColors(); ok {
+		p.DarkColors = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PeerColorCollectible) TypeID() uint32 {
+	return PeerColorCollectibleTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PeerColorCollectible) TypeName() string {
+	return "peerColorCollectible"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerColorCollectible) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerColorCollectible",
+		ID:   PeerColorCollectibleTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CollectibleID",
+			SchemaName: "collectible_id",
+		},
+		{
+			Name:       "GiftEmojiID",
+			SchemaName: "gift_emoji_id",
+		},
+		{
+			Name:       "BackgroundEmojiID",
+			SchemaName: "background_emoji_id",
+		},
+		{
+			Name:       "AccentColor",
+			SchemaName: "accent_color",
+		},
+		{
+			Name:       "Colors",
+			SchemaName: "colors",
+		},
+		{
+			Name:       "DarkAccentColor",
+			SchemaName: "dark_accent_color",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "DarkColors",
+			SchemaName: "dark_colors",
+			Null:       !p.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PeerColorCollectible) SetFlags() {
+	if !(p.DarkAccentColor == 0) {
+		p.Flags.Set(0)
+	}
+	if !(p.DarkColors == nil) {
+		p.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PeerColorCollectible) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerColorCollectible#b9c0639a as nil")
+	}
+	b.PutID(PeerColorCollectibleTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerColorCollectible) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerColorCollectible#b9c0639a as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode peerColorCollectible#b9c0639a: field flags: %w", err)
+	}
+	b.PutLong(p.CollectibleID)
+	b.PutLong(p.GiftEmojiID)
+	b.PutLong(p.BackgroundEmojiID)
+	b.PutInt(p.AccentColor)
+	b.PutVectorHeader(len(p.Colors))
+	for _, v := range p.Colors {
+		b.PutInt(v)
+	}
+	if p.Flags.Has(0) {
+		b.PutInt(p.DarkAccentColor)
+	}
+	if p.Flags.Has(1) {
+		b.PutVectorHeader(len(p.DarkColors))
+		for _, v := range p.DarkColors {
+			b.PutInt(v)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PeerColorCollectible) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerColorCollectible#b9c0639a to nil")
+	}
+	if err := b.ConsumeID(PeerColorCollectibleTypeID); err != nil {
+		return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerColorCollectible) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerColorCollectible#b9c0639a to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field collectible_id: %w", err)
+		}
+		p.CollectibleID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field gift_emoji_id: %w", err)
+		}
+		p.GiftEmojiID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field background_emoji_id: %w", err)
+		}
+		p.BackgroundEmojiID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field accent_color: %w", err)
+		}
+		p.AccentColor = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field colors: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Colors = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field colors: %w", err)
+			}
+			p.Colors = append(p.Colors, value)
+		}
+	}
+	if p.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field dark_accent_color: %w", err)
+		}
+		p.DarkAccentColor = value
+	}
+	if p.Flags.Has(1) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field dark_colors: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.DarkColors = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode peerColorCollectible#b9c0639a: field dark_colors: %w", err)
+			}
+			p.DarkColors = append(p.DarkColors, value)
+		}
+	}
+	return nil
+}
+
+// GetCollectibleID returns value of CollectibleID field.
+func (p *PeerColorCollectible) GetCollectibleID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.CollectibleID
+}
+
+// GetGiftEmojiID returns value of GiftEmojiID field.
+func (p *PeerColorCollectible) GetGiftEmojiID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.GiftEmojiID
+}
+
+// GetBackgroundEmojiID returns value of BackgroundEmojiID field.
+func (p *PeerColorCollectible) GetBackgroundEmojiID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.BackgroundEmojiID
+}
+
+// GetAccentColor returns value of AccentColor field.
+func (p *PeerColorCollectible) GetAccentColor() (value int) {
+	if p == nil {
+		return
+	}
+	return p.AccentColor
+}
+
+// GetColors returns value of Colors field.
+func (p *PeerColorCollectible) GetColors() (value []int) {
+	if p == nil {
+		return
+	}
+	return p.Colors
+}
+
+// SetDarkAccentColor sets value of DarkAccentColor conditional field.
+func (p *PeerColorCollectible) SetDarkAccentColor(value int) {
+	p.Flags.Set(0)
+	p.DarkAccentColor = value
+}
+
+// GetDarkAccentColor returns value of DarkAccentColor conditional field and
+// boolean which is true if field was set.
+func (p *PeerColorCollectible) GetDarkAccentColor() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.DarkAccentColor, true
+}
+
+// SetDarkColors sets value of DarkColors conditional field.
+func (p *PeerColorCollectible) SetDarkColors(value []int) {
+	p.Flags.Set(1)
+	p.DarkColors = value
+}
+
+// GetDarkColors returns value of DarkColors conditional field and
+// boolean which is true if field was set.
+func (p *PeerColorCollectible) GetDarkColors() (value []int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.DarkColors, true
+}
+
+// InputPeerColorCollectible represents TL type `inputPeerColorCollectible#b8ea86a9`.
+//
+// See https://core.telegram.org/constructor/inputPeerColorCollectible for reference.
+type InputPeerColorCollectible struct {
+	// CollectibleID field of InputPeerColorCollectible.
+	CollectibleID int64
+}
+
+// InputPeerColorCollectibleTypeID is TL type id of InputPeerColorCollectible.
+const InputPeerColorCollectibleTypeID = 0xb8ea86a9
+
+// construct implements constructor of PeerColorClass.
+func (i InputPeerColorCollectible) construct() PeerColorClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerColorCollectible.
+var (
+	_ bin.Encoder     = &InputPeerColorCollectible{}
+	_ bin.Decoder     = &InputPeerColorCollectible{}
+	_ bin.BareEncoder = &InputPeerColorCollectible{}
+	_ bin.BareDecoder = &InputPeerColorCollectible{}
+
+	_ PeerColorClass = &InputPeerColorCollectible{}
+)
+
+func (i *InputPeerColorCollectible) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.CollectibleID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPeerColorCollectible) String() string {
+	if i == nil {
+		return "InputPeerColorCollectible(nil)"
+	}
+	type Alias InputPeerColorCollectible
+	return fmt.Sprintf("InputPeerColorCollectible%+v", Alias(*i))
+}
+
+// FillFrom fills InputPeerColorCollectible from given interface.
+func (i *InputPeerColorCollectible) FillFrom(from interface {
+	GetCollectibleID() (value int64)
+}) {
+	i.CollectibleID = from.GetCollectibleID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPeerColorCollectible) TypeID() uint32 {
+	return InputPeerColorCollectibleTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPeerColorCollectible) TypeName() string {
+	return "inputPeerColorCollectible"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPeerColorCollectible) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPeerColorCollectible",
+		ID:   InputPeerColorCollectibleTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CollectibleID",
+			SchemaName: "collectible_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPeerColorCollectible) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPeerColorCollectible#b8ea86a9 as nil")
+	}
+	b.PutID(InputPeerColorCollectibleTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPeerColorCollectible) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPeerColorCollectible#b8ea86a9 as nil")
+	}
+	b.PutLong(i.CollectibleID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPeerColorCollectible) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerColorCollectible#b8ea86a9 to nil")
+	}
+	if err := b.ConsumeID(InputPeerColorCollectibleTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPeerColorCollectible#b8ea86a9: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPeerColorCollectible) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerColorCollectible#b8ea86a9 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerColorCollectible#b8ea86a9: field collectible_id: %w", err)
+		}
+		i.CollectibleID = value
+	}
+	return nil
+}
+
+// GetCollectibleID returns value of CollectibleID field.
+func (i *InputPeerColorCollectible) GetCollectibleID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.CollectibleID
+}
+
+// PeerColorClassName is schema name of PeerColorClass.
+const PeerColorClassName = "PeerColor"
+
+// PeerColorClass represents PeerColor generic type.
+//
+// See https://core.telegram.org/type/PeerColor for reference.
+//
+// Constructors:
+//   - [PeerColor]
+//   - [PeerColorCollectible]
+//   - [InputPeerColorCollectible]
+//
+// Example:
+//
+//	g, err := tg.DecodePeerColor(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PeerColor: // peerColor#b54b5acf
+//	case *tg.PeerColorCollectible: // peerColorCollectible#b9c0639a
+//	case *tg.InputPeerColorCollectible: // inputPeerColorCollectible#b8ea86a9
+//	default: panic(v)
+//	}
+type PeerColorClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() PeerColorClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// DecodePeerColor implements binary de-serialization for PeerColorClass.
+func DecodePeerColor(buf *bin.Buffer) (PeerColorClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case PeerColorTypeID:
+		// Decoding peerColor#b54b5acf.
+		v := PeerColor{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PeerColorClass: %w", err)
+		}
+		return &v, nil
+	case PeerColorCollectibleTypeID:
+		// Decoding peerColorCollectible#b9c0639a.
+		v := PeerColorCollectible{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PeerColorClass: %w", err)
+		}
+		return &v, nil
+	case InputPeerColorCollectibleTypeID:
+		// Decoding inputPeerColorCollectible#b8ea86a9.
+		v := InputPeerColorCollectible{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PeerColorClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PeerColorClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// PeerColor boxes the PeerColorClass providing a helper.
+type PeerColorBox struct {
+	PeerColor PeerColorClass
+}
+
+// Decode implements bin.Decoder for PeerColorBox.
+func (b *PeerColorBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PeerColorBox to nil")
+	}
+	v, err := DecodePeerColor(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PeerColor = v
+	return nil
+}
+
+// Encode implements bin.Encode for PeerColorBox.
+func (b *PeerColorBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PeerColor == nil {
+		return fmt.Errorf("unable to encode PeerColorClass as nil")
+	}
+	return b.PeerColor.Encode(buf)
 }

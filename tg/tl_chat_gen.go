@@ -1247,14 +1247,14 @@ type Channel struct {
 	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
-	Color PeerColor
+	Color PeerColorClass
 	// The channel's profile color¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetProfileColor and GetProfileColor helpers.
-	ProfileColor PeerColor
+	ProfileColor PeerColorClass
 	// Emoji status¹
 	//
 	// Links:
@@ -1443,10 +1443,10 @@ func (c *Channel) Zero() bool {
 	if !(c.StoriesMaxID == 0) {
 		return false
 	}
-	if !(c.Color.Zero()) {
+	if !(c.Color == nil) {
 		return false
 	}
-	if !(c.ProfileColor.Zero()) {
+	if !(c.ProfileColor == nil) {
 		return false
 	}
 	if !(c.EmojiStatus == nil) {
@@ -1523,8 +1523,8 @@ func (c *Channel) FillFrom(from interface {
 	GetParticipantsCount() (value int, ok bool)
 	GetUsernames() (value []Username, ok bool)
 	GetStoriesMaxID() (value int, ok bool)
-	GetColor() (value PeerColor, ok bool)
-	GetProfileColor() (value PeerColor, ok bool)
+	GetColor() (value PeerColorClass, ok bool)
+	GetProfileColor() (value PeerColorClass, ok bool)
 	GetEmojiStatus() (value EmojiStatusClass, ok bool)
 	GetLevel() (value int, ok bool)
 	GetSubscriptionUntilDate() (value int, ok bool)
@@ -2015,10 +2015,10 @@ func (c *Channel) SetFlags() {
 	if !(c.StoriesMaxID == 0) {
 		c.Flags2.Set(4)
 	}
-	if !(c.Color.Zero()) {
+	if !(c.Color == nil) {
 		c.Flags2.Set(7)
 	}
-	if !(c.ProfileColor.Zero()) {
+	if !(c.ProfileColor == nil) {
 		c.Flags2.Set(8)
 	}
 	if !(c.EmojiStatus == nil) {
@@ -2115,11 +2115,17 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(c.StoriesMaxID)
 	}
 	if c.Flags2.Has(7) {
+		if c.Color == nil {
+			return fmt.Errorf("unable to encode channel#fe685355: field color is nil")
+		}
 		if err := c.Color.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode channel#fe685355: field color: %w", err)
 		}
 	}
 	if c.Flags2.Has(8) {
+		if c.ProfileColor == nil {
+			return fmt.Errorf("unable to encode channel#fe685355: field profile_color is nil")
+		}
 		if err := c.ProfileColor.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode channel#fe685355: field profile_color: %w", err)
 		}
@@ -2310,14 +2316,18 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 		c.StoriesMaxID = value
 	}
 	if c.Flags2.Has(7) {
-		if err := c.Color.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channel#fe685355: field color: %w", err)
 		}
+		c.Color = value
 	}
 	if c.Flags2.Has(8) {
-		if err := c.ProfileColor.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channel#fe685355: field profile_color: %w", err)
 		}
+		c.ProfileColor = value
 	}
 	if c.Flags2.Has(9) {
 		value, err := DecodeEmojiStatus(b)
@@ -3091,14 +3101,14 @@ func (c *Channel) GetStoriesMaxID() (value int, ok bool) {
 }
 
 // SetColor sets value of Color conditional field.
-func (c *Channel) SetColor(value PeerColor) {
+func (c *Channel) SetColor(value PeerColorClass) {
 	c.Flags2.Set(7)
 	c.Color = value
 }
 
 // GetColor returns value of Color conditional field and
 // boolean which is true if field was set.
-func (c *Channel) GetColor() (value PeerColor, ok bool) {
+func (c *Channel) GetColor() (value PeerColorClass, ok bool) {
 	if c == nil {
 		return
 	}
@@ -3109,14 +3119,14 @@ func (c *Channel) GetColor() (value PeerColor, ok bool) {
 }
 
 // SetProfileColor sets value of ProfileColor conditional field.
-func (c *Channel) SetProfileColor(value PeerColor) {
+func (c *Channel) SetProfileColor(value PeerColorClass) {
 	c.Flags2.Set(8)
 	c.ProfileColor = value
 }
 
 // GetProfileColor returns value of ProfileColor conditional field and
 // boolean which is true if field was set.
-func (c *Channel) GetProfileColor() (value PeerColor, ok bool) {
+func (c *Channel) GetProfileColor() (value PeerColorClass, ok bool) {
 	if c == nil {
 		return
 	}

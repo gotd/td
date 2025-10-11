@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountGetUniqueGiftChatThemesRequest represents TL type `account.getUniqueGiftChatThemes#fe74ef9f`.
+// AccountGetUniqueGiftChatThemesRequest represents TL type `account.getUniqueGiftChatThemes#e42ce9c9`.
 //
 // See https://core.telegram.org/method/account.getUniqueGiftChatThemes for reference.
 type AccountGetUniqueGiftChatThemesRequest struct {
 	// Offset field of AccountGetUniqueGiftChatThemesRequest.
-	Offset int
+	Offset string
 	// Limit field of AccountGetUniqueGiftChatThemesRequest.
 	Limit int
 	// Hash field of AccountGetUniqueGiftChatThemesRequest.
@@ -44,7 +44,7 @@ type AccountGetUniqueGiftChatThemesRequest struct {
 }
 
 // AccountGetUniqueGiftChatThemesRequestTypeID is TL type id of AccountGetUniqueGiftChatThemesRequest.
-const AccountGetUniqueGiftChatThemesRequestTypeID = 0xfe74ef9f
+const AccountGetUniqueGiftChatThemesRequestTypeID = 0xe42ce9c9
 
 // Ensuring interfaces in compile-time for AccountGetUniqueGiftChatThemesRequest.
 var (
@@ -58,7 +58,7 @@ func (g *AccountGetUniqueGiftChatThemesRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Offset == 0) {
+	if !(g.Offset == "") {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -82,7 +82,7 @@ func (g *AccountGetUniqueGiftChatThemesRequest) String() string {
 
 // FillFrom fills AccountGetUniqueGiftChatThemesRequest from given interface.
 func (g *AccountGetUniqueGiftChatThemesRequest) FillFrom(from interface {
-	GetOffset() (value int)
+	GetOffset() (value string)
 	GetLimit() (value int)
 	GetHash() (value int64)
 }) {
@@ -133,7 +133,7 @@ func (g *AccountGetUniqueGiftChatThemesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetUniqueGiftChatThemesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getUniqueGiftChatThemes#fe74ef9f as nil")
+		return fmt.Errorf("can't encode account.getUniqueGiftChatThemes#e42ce9c9 as nil")
 	}
 	b.PutID(AccountGetUniqueGiftChatThemesRequestTypeID)
 	return g.EncodeBare(b)
@@ -142,9 +142,9 @@ func (g *AccountGetUniqueGiftChatThemesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetUniqueGiftChatThemesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getUniqueGiftChatThemes#fe74ef9f as nil")
+		return fmt.Errorf("can't encode account.getUniqueGiftChatThemes#e42ce9c9 as nil")
 	}
-	b.PutInt(g.Offset)
+	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
 	b.PutLong(g.Hash)
 	return nil
@@ -153,10 +153,10 @@ func (g *AccountGetUniqueGiftChatThemesRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (g *AccountGetUniqueGiftChatThemesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getUniqueGiftChatThemes#fe74ef9f to nil")
+		return fmt.Errorf("can't decode account.getUniqueGiftChatThemes#e42ce9c9 to nil")
 	}
 	if err := b.ConsumeID(AccountGetUniqueGiftChatThemesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#fe74ef9f: %w", err)
+		return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#e42ce9c9: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -164,26 +164,26 @@ func (g *AccountGetUniqueGiftChatThemesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetUniqueGiftChatThemesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getUniqueGiftChatThemes#fe74ef9f to nil")
+		return fmt.Errorf("can't decode account.getUniqueGiftChatThemes#e42ce9c9 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#fe74ef9f: field offset: %w", err)
+			return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#e42ce9c9: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#fe74ef9f: field limit: %w", err)
+			return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#e42ce9c9: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#fe74ef9f: field hash: %w", err)
+			return fmt.Errorf("unable to decode account.getUniqueGiftChatThemes#e42ce9c9: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -191,7 +191,7 @@ func (g *AccountGetUniqueGiftChatThemesRequest) DecodeBare(b *bin.Buffer) error 
 }
 
 // GetOffset returns value of Offset field.
-func (g *AccountGetUniqueGiftChatThemesRequest) GetOffset() (value int) {
+func (g *AccountGetUniqueGiftChatThemesRequest) GetOffset() (value string) {
 	if g == nil {
 		return
 	}
@@ -214,7 +214,7 @@ func (g *AccountGetUniqueGiftChatThemesRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// AccountGetUniqueGiftChatThemes invokes method account.getUniqueGiftChatThemes#fe74ef9f returning error if any.
+// AccountGetUniqueGiftChatThemes invokes method account.getUniqueGiftChatThemes#e42ce9c9 returning error if any.
 //
 // See https://core.telegram.org/method/account.getUniqueGiftChatThemes for reference.
 func (c *Client) AccountGetUniqueGiftChatThemes(ctx context.Context, request *AccountGetUniqueGiftChatThemesRequest) (AccountChatThemesClass, error) {

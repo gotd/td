@@ -132,7 +132,7 @@ func (c *AccountChatThemesNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// AccountChatThemes represents TL type `account.chatThemes#16484857`.
+// AccountChatThemes represents TL type `account.chatThemes#be098173`.
 //
 // See https://core.telegram.org/constructor/account.chatThemes for reference.
 type AccountChatThemes struct {
@@ -149,11 +149,11 @@ type AccountChatThemes struct {
 	// NextOffset field of AccountChatThemes.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset int
+	NextOffset string
 }
 
 // AccountChatThemesTypeID is TL type id of AccountChatThemes.
-const AccountChatThemesTypeID = 0x16484857
+const AccountChatThemesTypeID = 0xbe098173
 
 // construct implements constructor of AccountChatThemesClass.
 func (c AccountChatThemes) construct() AccountChatThemesClass { return &c }
@@ -187,7 +187,7 @@ func (c *AccountChatThemes) Zero() bool {
 	if !(c.Users == nil) {
 		return false
 	}
-	if !(c.NextOffset == 0) {
+	if !(c.NextOffset == "") {
 		return false
 	}
 
@@ -209,7 +209,7 @@ func (c *AccountChatThemes) FillFrom(from interface {
 	GetThemes() (value []ChatThemeClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
-	GetNextOffset() (value int, ok bool)
+	GetNextOffset() (value string, ok bool)
 }) {
 	c.Hash = from.GetHash()
 	c.Themes = from.GetThemes()
@@ -271,7 +271,7 @@ func (c *AccountChatThemes) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (c *AccountChatThemes) SetFlags() {
-	if !(c.NextOffset == 0) {
+	if !(c.NextOffset == "") {
 		c.Flags.Set(0)
 	}
 }
@@ -279,7 +279,7 @@ func (c *AccountChatThemes) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *AccountChatThemes) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.chatThemes#16484857 as nil")
+		return fmt.Errorf("can't encode account.chatThemes#be098173 as nil")
 	}
 	b.PutID(AccountChatThemesTypeID)
 	return c.EncodeBare(b)
@@ -288,42 +288,42 @@ func (c *AccountChatThemes) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountChatThemes) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.chatThemes#16484857 as nil")
+		return fmt.Errorf("can't encode account.chatThemes#be098173 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.chatThemes#16484857: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.chatThemes#be098173: field flags: %w", err)
 	}
 	b.PutLong(c.Hash)
 	b.PutVectorHeader(len(c.Themes))
 	for idx, v := range c.Themes {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.chatThemes#16484857: field themes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode account.chatThemes#be098173: field themes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.chatThemes#16484857: field themes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode account.chatThemes#be098173: field themes element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.chatThemes#16484857: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode account.chatThemes#be098173: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.chatThemes#16484857: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode account.chatThemes#be098173: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode account.chatThemes#16484857: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode account.chatThemes#be098173: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.chatThemes#16484857: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode account.chatThemes#be098173: field users element with index %d: %w", idx, err)
 		}
 	}
 	if c.Flags.Has(0) {
-		b.PutInt(c.NextOffset)
+		b.PutString(c.NextOffset)
 	}
 	return nil
 }
@@ -331,10 +331,10 @@ func (c *AccountChatThemes) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *AccountChatThemes) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.chatThemes#16484857 to nil")
+		return fmt.Errorf("can't decode account.chatThemes#be098173 to nil")
 	}
 	if err := b.ConsumeID(AccountChatThemesTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.chatThemes#16484857: %w", err)
+		return fmt.Errorf("unable to decode account.chatThemes#be098173: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -342,24 +342,24 @@ func (c *AccountChatThemes) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountChatThemes) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.chatThemes#16484857 to nil")
+		return fmt.Errorf("can't decode account.chatThemes#be098173 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.chatThemes#16484857: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.chatThemes#be098173: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.chatThemes#16484857: field hash: %w", err)
+			return fmt.Errorf("unable to decode account.chatThemes#be098173: field hash: %w", err)
 		}
 		c.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.chatThemes#16484857: field themes: %w", err)
+			return fmt.Errorf("unable to decode account.chatThemes#be098173: field themes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -368,7 +368,7 @@ func (c *AccountChatThemes) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChatTheme(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.chatThemes#16484857: field themes: %w", err)
+				return fmt.Errorf("unable to decode account.chatThemes#be098173: field themes: %w", err)
 			}
 			c.Themes = append(c.Themes, value)
 		}
@@ -376,7 +376,7 @@ func (c *AccountChatThemes) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.chatThemes#16484857: field chats: %w", err)
+			return fmt.Errorf("unable to decode account.chatThemes#be098173: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -385,7 +385,7 @@ func (c *AccountChatThemes) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.chatThemes#16484857: field chats: %w", err)
+				return fmt.Errorf("unable to decode account.chatThemes#be098173: field chats: %w", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -393,7 +393,7 @@ func (c *AccountChatThemes) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.chatThemes#16484857: field users: %w", err)
+			return fmt.Errorf("unable to decode account.chatThemes#be098173: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -402,15 +402,15 @@ func (c *AccountChatThemes) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode account.chatThemes#16484857: field users: %w", err)
+				return fmt.Errorf("unable to decode account.chatThemes#be098173: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
 	}
 	if c.Flags.Has(0) {
-		value, err := b.Int()
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.chatThemes#16484857: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode account.chatThemes#be098173: field next_offset: %w", err)
 		}
 		c.NextOffset = value
 	}
@@ -450,14 +450,14 @@ func (c *AccountChatThemes) GetUsers() (value []UserClass) {
 }
 
 // SetNextOffset sets value of NextOffset conditional field.
-func (c *AccountChatThemes) SetNextOffset(value int) {
+func (c *AccountChatThemes) SetNextOffset(value string) {
 	c.Flags.Set(0)
 	c.NextOffset = value
 }
 
 // GetNextOffset returns value of NextOffset conditional field and
 // boolean which is true if field was set.
-func (c *AccountChatThemes) GetNextOffset() (value int, ok bool) {
+func (c *AccountChatThemes) GetNextOffset() (value string, ok bool) {
 	if c == nil {
 		return
 	}
@@ -501,7 +501,7 @@ const AccountChatThemesClassName = "account.ChatThemes"
 //	}
 //	switch v := g.(type) {
 //	case *tg.AccountChatThemesNotModified: // account.chatThemesNotModified#e011e1c4
-//	case *tg.AccountChatThemes: // account.chatThemes#16484857
+//	case *tg.AccountChatThemes: // account.chatThemes#be098173
 //	default: panic(v)
 //	}
 type AccountChatThemesClass interface {
@@ -551,7 +551,7 @@ func DecodeAccountChatThemes(buf *bin.Buffer) (AccountChatThemesClass, error) {
 		}
 		return &v, nil
 	case AccountChatThemesTypeID:
-		// Decoding account.chatThemes#16484857.
+		// Decoding account.chatThemes#be098173.
 		v := AccountChatThemes{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AccountChatThemesClass: %w", err)

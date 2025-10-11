@@ -470,7 +470,7 @@ func (s *AuthSentCodeSuccess) GetAuthorization() (value AuthAuthorizationClass) 
 	return s.Authorization
 }
 
-// AuthSentCodePaymentRequired represents TL type `auth.sentCodePaymentRequired#d7a2fcf9`.
+// AuthSentCodePaymentRequired represents TL type `auth.sentCodePaymentRequired#e0955a3c`.
 //
 // See https://core.telegram.org/constructor/auth.sentCodePaymentRequired for reference.
 type AuthSentCodePaymentRequired struct {
@@ -482,10 +482,14 @@ type AuthSentCodePaymentRequired struct {
 	SupportEmailAddress string
 	// SupportEmailSubject field of AuthSentCodePaymentRequired.
 	SupportEmailSubject string
+	// Currency field of AuthSentCodePaymentRequired.
+	Currency string
+	// Amount field of AuthSentCodePaymentRequired.
+	Amount int64
 }
 
 // AuthSentCodePaymentRequiredTypeID is TL type id of AuthSentCodePaymentRequired.
-const AuthSentCodePaymentRequiredTypeID = 0xd7a2fcf9
+const AuthSentCodePaymentRequiredTypeID = 0xe0955a3c
 
 // construct implements constructor of AuthSentCodeClass.
 func (s AuthSentCodePaymentRequired) construct() AuthSentCodeClass { return &s }
@@ -516,6 +520,12 @@ func (s *AuthSentCodePaymentRequired) Zero() bool {
 	if !(s.SupportEmailSubject == "") {
 		return false
 	}
+	if !(s.Currency == "") {
+		return false
+	}
+	if !(s.Amount == 0) {
+		return false
+	}
 
 	return true
 }
@@ -535,11 +545,15 @@ func (s *AuthSentCodePaymentRequired) FillFrom(from interface {
 	GetPhoneCodeHash() (value string)
 	GetSupportEmailAddress() (value string)
 	GetSupportEmailSubject() (value string)
+	GetCurrency() (value string)
+	GetAmount() (value int64)
 }) {
 	s.StoreProduct = from.GetStoreProduct()
 	s.PhoneCodeHash = from.GetPhoneCodeHash()
 	s.SupportEmailAddress = from.GetSupportEmailAddress()
 	s.SupportEmailSubject = from.GetSupportEmailSubject()
+	s.Currency = from.GetCurrency()
+	s.Amount = from.GetAmount()
 }
 
 // TypeID returns type id in TL schema.
@@ -581,6 +595,14 @@ func (s *AuthSentCodePaymentRequired) TypeInfo() tdp.Type {
 			Name:       "SupportEmailSubject",
 			SchemaName: "support_email_subject",
 		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
 	}
 	return typ
 }
@@ -588,7 +610,7 @@ func (s *AuthSentCodePaymentRequired) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AuthSentCodePaymentRequired) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sentCodePaymentRequired#d7a2fcf9 as nil")
+		return fmt.Errorf("can't encode auth.sentCodePaymentRequired#e0955a3c as nil")
 	}
 	b.PutID(AuthSentCodePaymentRequiredTypeID)
 	return s.EncodeBare(b)
@@ -597,22 +619,24 @@ func (s *AuthSentCodePaymentRequired) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSentCodePaymentRequired) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sentCodePaymentRequired#d7a2fcf9 as nil")
+		return fmt.Errorf("can't encode auth.sentCodePaymentRequired#e0955a3c as nil")
 	}
 	b.PutString(s.StoreProduct)
 	b.PutString(s.PhoneCodeHash)
 	b.PutString(s.SupportEmailAddress)
 	b.PutString(s.SupportEmailSubject)
+	b.PutString(s.Currency)
+	b.PutLong(s.Amount)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *AuthSentCodePaymentRequired) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sentCodePaymentRequired#d7a2fcf9 to nil")
+		return fmt.Errorf("can't decode auth.sentCodePaymentRequired#e0955a3c to nil")
 	}
 	if err := b.ConsumeID(AuthSentCodePaymentRequiredTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#d7a2fcf9: %w", err)
+		return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -620,35 +644,49 @@ func (s *AuthSentCodePaymentRequired) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSentCodePaymentRequired) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sentCodePaymentRequired#d7a2fcf9 to nil")
+		return fmt.Errorf("can't decode auth.sentCodePaymentRequired#e0955a3c to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#d7a2fcf9: field store_product: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: field store_product: %w", err)
 		}
 		s.StoreProduct = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#d7a2fcf9: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: field phone_code_hash: %w", err)
 		}
 		s.PhoneCodeHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#d7a2fcf9: field support_email_address: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: field support_email_address: %w", err)
 		}
 		s.SupportEmailAddress = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#d7a2fcf9: field support_email_subject: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: field support_email_subject: %w", err)
 		}
 		s.SupportEmailSubject = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: field currency: %w", err)
+		}
+		s.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodePaymentRequired#e0955a3c: field amount: %w", err)
+		}
+		s.Amount = value
 	}
 	return nil
 }
@@ -685,6 +723,22 @@ func (s *AuthSentCodePaymentRequired) GetSupportEmailSubject() (value string) {
 	return s.SupportEmailSubject
 }
 
+// GetCurrency returns value of Currency field.
+func (s *AuthSentCodePaymentRequired) GetCurrency() (value string) {
+	if s == nil {
+		return
+	}
+	return s.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (s *AuthSentCodePaymentRequired) GetAmount() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.Amount
+}
+
 // AuthSentCodeClassName is schema name of AuthSentCodeClass.
 const AuthSentCodeClassName = "auth.SentCode"
 
@@ -706,7 +760,7 @@ const AuthSentCodeClassName = "auth.SentCode"
 //	switch v := g.(type) {
 //	case *tg.AuthSentCode: // auth.sentCode#5e002502
 //	case *tg.AuthSentCodeSuccess: // auth.sentCodeSuccess#2390fe44
-//	case *tg.AuthSentCodePaymentRequired: // auth.sentCodePaymentRequired#d7a2fcf9
+//	case *tg.AuthSentCodePaymentRequired: // auth.sentCodePaymentRequired#e0955a3c
 //	default: panic(v)
 //	}
 type AuthSentCodeClass interface {
@@ -750,7 +804,7 @@ func DecodeAuthSentCode(buf *bin.Buffer) (AuthSentCodeClass, error) {
 		}
 		return &v, nil
 	case AuthSentCodePaymentRequiredTypeID:
-		// Decoding auth.sentCodePaymentRequired#d7a2fcf9.
+		// Decoding auth.sentCodePaymentRequired#e0955a3c.
 		v := AuthSentCodePaymentRequired{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeClass: %w", err)
