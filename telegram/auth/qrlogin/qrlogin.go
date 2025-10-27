@@ -47,11 +47,21 @@ func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
 		return Token{}, errors.Wrap(err, "export")
 	}
 
-	t, ok := result.(*tg.AuthLoginToken)
-	if !ok {
+	switch t := result.(type) {
+	case *tg.AuthLoginToken:
+		return NewToken(t.Token, t.Expires), nil
+	case *tg.AuthLoginTokenSuccess:
+		// Token was already accepted, authentication successful
+		// Return empty token since no new token is needed
+		return Token{}, nil
+	case *tg.AuthLoginTokenMigrateTo:
+		// Migration needed
+		return Token{}, &MigrationNeededError{
+			MigrateTo: t,
+		}
+	default:
 		return Token{}, errors.Errorf("unexpected type %T", result)
 	}
-	return NewToken(t.Token, t.Expires), nil
 }
 
 // Accept accepts given token.
@@ -147,6 +157,18 @@ func (q QR) Auth(
 	if err != nil {
 		return nil, err
 	}
+
+	// If token is empty, it means AuthLoginTokenSuccess was returned
+	// and authentication is already complete, but we should wait for the signal
+	if token.String() == "" {
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		case <-loggedIn:
+			return q.Import(ctx)
+		}
+	}
+
 	timer := q.clock.Timer(until(token))
 	defer clock.StopTimer(timer)
 
@@ -163,6 +185,13 @@ func (q QR) Auth(
 			if err != nil {
 				return nil, err
 			}
+
+			// If empty token, it means AuthLoginTokenSuccess was returned
+			if t.String() == "" {
+				// QR was scanned and accepted, break out of loop
+				break
+			}
+
 			token = t
 			timer.Reset(until(token))
 
