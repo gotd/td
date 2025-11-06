@@ -32,6 +32,17 @@ var (
 )
 
 // ChannelsUpdatePaidMessagesPriceRequest represents TL type `channels.updatePaidMessagesPrice#4b12327b`.
+// Enable or disable paid messages »¹ in this supergroup² or monoforum³.
+// Also used to enable or disable monoforums aka direct messages in a channel¹.
+// Note that passing the ID of the monoforum itself to channel will return a
+// CHANNEL_MONOFORUM_UNSUPPORTED error: pass the ID of the associated channel to edit the
+// settings of the associated monoforum, instead.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-messages
+//  2. https://core.telegram.org/api/channel
+//  3. https://core.telegram.org/api/monoforum
+//  4. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/method/channels.updatePaidMessagesPrice for reference.
 type ChannelsUpdatePaidMessagesPriceRequest struct {
@@ -40,11 +51,23 @@ type ChannelsUpdatePaidMessagesPriceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BroadcastMessagesAllowed field of ChannelsUpdatePaidMessagesPriceRequest.
+	// Only usable for channels, enables or disables the associated monoforum aka direct
+	// messages¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	BroadcastMessagesAllowed bool
-	// Channel field of ChannelsUpdatePaidMessagesPriceRequest.
+	// Pass the supergroup ID for supergroups and the ID of the channel¹ to modify the
+	// setting in the associated monoforum.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
-	// SendPaidMessagesStars field of ChannelsUpdatePaidMessagesPriceRequest.
+	// Specifies the required amount of Telegram Stars¹ users must pay to send messages to
+	// the supergroup or monoforum.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	SendPaidMessagesStars int64
 }
 
@@ -254,9 +277,26 @@ func (u *ChannelsUpdatePaidMessagesPriceRequest) GetChannelAsNotEmpty() (NotEmpt
 }
 
 // ChannelsUpdatePaidMessagesPrice invokes method channels.updatePaidMessagesPrice#4b12327b returning error if any.
+// Enable or disable paid messages »¹ in this supergroup² or monoforum³.
+// Also used to enable or disable monoforums aka direct messages in a channel¹.
+// Note that passing the ID of the monoforum itself to channel will return a
+// CHANNEL_MONOFORUM_UNSUPPORTED error: pass the ID of the associated channel to edit the
+// settings of the associated monoforum, instead.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-messages
+//  2. https://core.telegram.org/api/channel
+//  3. https://core.telegram.org/api/monoforum
+//  4. https://core.telegram.org/api/monoforum
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_MONOFORUM_UNSUPPORTED: Monoforums do not support this feature.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//	400 STARS_AMOUNT_INVALID: The specified amount in stars is invalid.
 //
 // See https://core.telegram.org/method/channels.updatePaidMessagesPrice for reference.
-// Can be used by bots.
 func (c *Client) ChannelsUpdatePaidMessagesPrice(ctx context.Context, request *ChannelsUpdatePaidMessagesPriceRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

@@ -123,7 +123,12 @@ type ChatAdminRights struct {
 	//  1) https://core.telegram.org/api/stories
 	//  2) https://core.telegram.org/api/channel
 	DeleteStories bool
-	// ManageDirectMessages field of ChatAdminRights.
+	// If set, allows the admin to manage the direct messages monoforum »¹ and decline
+	// suggested posts »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
+	//  2) https://core.telegram.org/api/suggested-posts
 	ManageDirectMessages bool
 }
 

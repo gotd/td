@@ -100,7 +100,10 @@ type MessageReplyHeader struct {
 	//
 	// Use SetQuoteOffset and GetQuoteOffset helpers.
 	QuoteOffset int
-	// TodoItemID field of MessageReplyHeader.
+	// Can be set to reply to the specified item of a todo list »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/todo
 	//
 	// Use SetTodoItemID and GetTodoItemID helpers.
 	TodoItemID int

@@ -1193,9 +1193,15 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	PaidReactionsAvailable bool
-	// StargiftsAvailable field of ChannelFull.
+	// If set, users may send Gifts »¹ to this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts
 	StargiftsAvailable bool
-	// PaidMessagesAvailable field of ChannelFull.
+	// If set, admins may enable enable paid messages »¹ in this supergroup.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
 	PaidMessagesAvailable bool
 	// ID of the channel
 	ID int64
@@ -1409,19 +1415,42 @@ type ChannelFull struct {
 	//
 	// Use SetEmojiset and GetEmojiset helpers.
 	Emojiset StickerSet
-	// BotVerification field of ChannelFull.
+	// Bot verification icon¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/verification
 	//
 	// Use SetBotVerification and GetBotVerification helpers.
 	BotVerification BotVerification
-	// StargiftsCount field of ChannelFull.
+	// Admins with chatAdminRights¹.post_messages rights will see the total number of
+	// received gifts, everyone else will see the number of gifts added to the channel's
+	// profile.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/chatAdminRights
 	//
 	// Use SetStargiftsCount and GetStargiftsCount helpers.
 	StargiftsCount int
-	// SendPaidMessagesStars field of ChannelFull.
+	// If set and bigger than 0, this supergroup, monoforum¹ or the monoforum associated to
+	// this channel has enabled paid messages »² and we must pay the specified amount of
+	// Stars³ to send messages to it, see here »⁴ for the full flow. This flag will be
+	// set both for the monoforum and for channelFull⁵ of the associated channel). If set
+	// and equal to 0, the monoforum requires payment in general but we were exempted from
+	// paying.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
+	//  2) https://core.telegram.org/api/paid-messages
+	//  3) https://core.telegram.org/api/stars
+	//  4) https://core.telegram.org/api/paid-messages
+	//  5) https://core.telegram.org/constructor/channelFull
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
-	// MainTab field of ChannelFull.
+	// The main tab for the channel's profile, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/profile#tabs
 	//
 	// Use SetMainTab and GetMainTab helpers.
 	MainTab ProfileTabClass

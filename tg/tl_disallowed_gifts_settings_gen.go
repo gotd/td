@@ -32,6 +32,10 @@ var (
 )
 
 // DisallowedGiftsSettings represents TL type `disallowedGiftsSettings#71f276c4`.
+// Disallow the reception of specific gift¹ types.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/disallowedGiftsSettings for reference.
 type DisallowedGiftsSettings struct {
@@ -40,13 +44,27 @@ type DisallowedGiftsSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// DisallowUnlimitedStargifts field of DisallowedGiftsSettings.
+	// Disallow the reception of gifts with an unlimited supply (those with the starGift¹
+	// limited flag not set).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
 	DisallowUnlimitedStargifts bool
-	// DisallowLimitedStargifts field of DisallowedGiftsSettings.
+	// Disallow the reception of limited-supply gifts (those with the starGift¹.limited flag
+	// set).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
 	DisallowLimitedStargifts bool
-	// DisallowUniqueStargifts field of DisallowedGiftsSettings.
+	// Disallow the reception of collectible gifts »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	DisallowUniqueStargifts bool
-	// DisallowPremiumGifts field of DisallowedGiftsSettings.
+	// Disallow the reception of gifted Telegram Premium subscriptions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	DisallowPremiumGifts bool
 }
 

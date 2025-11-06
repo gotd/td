@@ -181,7 +181,6 @@ func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocu
 //	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
-// Can be used by bots.
 func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, sticker InputDocumentClass) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

@@ -32,10 +32,15 @@ var (
 )
 
 // BotsGetBotRecommendationsRequest represents TL type `bots.getBotRecommendations#a1b70815`.
+// Obtain a list of similarly themed bots, selected based on similarities in their
+// subscriber bases, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/recommend
 //
 // See https://core.telegram.org/method/bots.getBotRecommendations for reference.
 type BotsGetBotRecommendationsRequest struct {
-	// Bot field of BotsGetBotRecommendationsRequest.
+	// The method will return bots related to the passed bot.
 	Bot InputUserClass
 }
 
@@ -166,6 +171,11 @@ func (g *BotsGetBotRecommendationsRequest) GetBot() (value InputUserClass) {
 }
 
 // BotsGetBotRecommendations invokes method bots.getBotRecommendations#a1b70815 returning error if any.
+// Obtain a list of similarly themed bots, selected based on similarities in their
+// subscriber bases, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/recommend
 //
 // Possible errors:
 //

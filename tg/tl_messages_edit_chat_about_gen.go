@@ -218,7 +218,6 @@ func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editChatAbout for reference.
-// Can be used by bots.
 func (c *Client) MessagesEditChatAbout(ctx context.Context, request *MessagesEditChatAboutRequest) (bool, error) {
 	var result BoolBox
 

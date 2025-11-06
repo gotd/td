@@ -1266,7 +1266,10 @@ type PhoneCall struct {
 	P2PAllowed bool
 	// Whether this is a video call
 	Video bool
-	// ConferenceSupported field of PhoneCall.
+	// If set, the other party supports upgrading of the call to a conference call¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/group-calls
 	ConferenceSupported bool
 	// Call ID
 	ID int64

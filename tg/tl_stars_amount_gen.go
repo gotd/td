@@ -42,8 +42,8 @@ type StarsAmount struct {
 	// The integer amount of Telegram Stars.
 	Amount int64
 	// The decimal amount of Telegram Stars, expressed as nanostars (i.e. 1 nanostar is equal
-	// to 1/1'000'000'000th of a Telegram Star). This field may also be negative (the allowed
-	// range is -999999999 to 999999999).
+	// to 1/1'000'000'000th (one billionth) of a Telegram Star). This field may also be
+	// negative (the allowed range is -999999999 to 999999999).
 	Nanos int
 }
 
@@ -199,10 +199,11 @@ func (s *StarsAmount) GetNanos() (value int) {
 }
 
 // StarsTonAmount represents TL type `starsTonAmount#74aee3e0`.
+// Describes an amount of toncoin in nanotons (i.e. 1/1_000_000_000 of a toncoin).
 //
 // See https://core.telegram.org/constructor/starsTonAmount for reference.
 type StarsTonAmount struct {
-	// Amount field of StarsTonAmount.
+	// The amount in nanotons.
 	Amount int64
 }
 

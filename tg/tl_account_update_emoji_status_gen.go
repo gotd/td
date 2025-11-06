@@ -185,6 +185,7 @@ func (u *AccountUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyEm
 //
 // Possible errors:
 //
+//	400 COLLECTIBLE_INVALID: The specified collectible is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
 //
 // See https://core.telegram.org/method/account.updateEmojiStatus for reference.

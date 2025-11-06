@@ -284,7 +284,6 @@ func (h *MessagesHideChatJoinRequestRequest) GetUserID() (value InputUserClass) 
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.
-// Can be used by bots.
 func (c *Client) MessagesHideChatJoinRequest(ctx context.Context, request *MessagesHideChatJoinRequestRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

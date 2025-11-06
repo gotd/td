@@ -32,10 +32,15 @@ var (
 )
 
 // UsersSavedMusicNotModified represents TL type `users.savedMusicNotModified#e3878aa4`.
+// This subset of the songs currently pinned on a user's profile hasn't changed, see here
+// »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/constructor/users.savedMusicNotModified for reference.
 type UsersSavedMusicNotModified struct {
-	// Count field of UsersSavedMusicNotModified.
+	// Total number of songs on the user's profile.
 	Count int
 }
 
@@ -166,12 +171,17 @@ func (s *UsersSavedMusicNotModified) GetCount() (value int) {
 }
 
 // UsersSavedMusic represents TL type `users.savedMusic#34a2f297`.
+// List of songs currently pinned on a user's profile, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/constructor/users.savedMusic for reference.
 type UsersSavedMusic struct {
-	// Count field of UsersSavedMusic.
+	// Total number of songs (can be bigger than documents depending on the passed limit, and
+	// the default maximum limit in which case pagination is required).
 	Count int
-	// Documents field of UsersSavedMusic.
+	// Songs.
 	Documents []DocumentClass
 }
 
@@ -389,7 +399,7 @@ type UsersSavedMusicClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Count field of UsersSavedMusicNotModified.
+	// Total number of songs on the user's profile.
 	GetCount() (value int)
 
 	// AsModified tries to map UsersSavedMusicClass to UsersSavedMusic.

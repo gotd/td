@@ -49,7 +49,7 @@ var (
 //
 // Links:
 //  1. https://core.telegram.org/constructor/updateBotBusinessConnect
-//  2. https://core.telegram.org/api/business#connected-bots
+//  2. https://core.telegram.org/api/bots/connected-business-bots
 //  3. https://core.telegram.org/constructor/updateBotNewBusinessMessage
 //  4. https://core.telegram.org/constructor/updateBotBusinessConnect
 //  5. https://core.telegram.org/constructor/updateBotBusinessConnect
@@ -60,7 +60,7 @@ type AccountGetBotBusinessConnectionRequest struct {
 	// Business connection ID »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	ConnectionID string
 }
 
@@ -203,7 +203,7 @@ func (g *AccountGetBotBusinessConnectionRequest) GetConnectionID() (value string
 //
 // Links:
 //  1. https://core.telegram.org/constructor/updateBotBusinessConnect
-//  2. https://core.telegram.org/api/business#connected-bots
+//  2. https://core.telegram.org/api/bots/connected-business-bots
 //  3. https://core.telegram.org/constructor/updateBotNewBusinessMessage
 //  4. https://core.telegram.org/constructor/updateBotBusinessConnect
 //  5. https://core.telegram.org/constructor/updateBotBusinessConnect
@@ -214,7 +214,6 @@ func (g *AccountGetBotBusinessConnectionRequest) GetConnectionID() (value string
 //	400 CONNECTION_ID_INVALID: The specified connection ID is invalid.
 //
 // See https://core.telegram.org/method/account.getBotBusinessConnection for reference.
-// Can be used by bots.
 func (c *Client) AccountGetBotBusinessConnection(ctx context.Context, connectionid string) (UpdatesClass, error) {
 	var result UpdatesBox
 

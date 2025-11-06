@@ -53,7 +53,11 @@ type MessagesUnpinAllMessagesRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// SavedPeerID field of MessagesUnpinAllMessagesRequest.
+	// If set, must be equal to the ID of a monoforum topic¹, and will unpin all messages
+	// pinned in the passed monoforum topic.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID InputPeerClass
@@ -304,10 +308,10 @@ func (u *MessagesUnpinAllMessagesRequest) GetSavedPeerID() (value InputPeerClass
 //
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
-// Can be used by bots.
 func (c *Client) MessagesUnpinAllMessages(ctx context.Context, request *MessagesUnpinAllMessagesRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

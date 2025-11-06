@@ -198,7 +198,6 @@ func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
-// Can be used by bots.
 func (c *Client) ChannelsGetFullChannel(ctx context.Context, channel InputChannelClass) (*MessagesChatFull, error) {
 	var result MessagesChatFull
 

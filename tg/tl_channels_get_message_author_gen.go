@@ -32,12 +32,18 @@ var (
 )
 
 // ChannelsGetMessageAuthorRequest represents TL type `channels.getMessageAuthor#ece2a0e6`.
+// Can only be invoked by non-bot admins of a monoforum »¹, obtains the original sender
+// of a message sent by other monoforum admins to the monoforum, on behalf of the channel
+// associated to the monoforum.
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/method/channels.getMessageAuthor for reference.
 type ChannelsGetMessageAuthorRequest struct {
-	// Channel field of ChannelsGetMessageAuthorRequest.
+	// ID of the monoforum.
 	Channel InputChannelClass
-	// ID field of ChannelsGetMessageAuthorRequest.
+	// ID of the message sent by a monoforum admin.
 	ID int
 }
 
@@ -198,9 +204,18 @@ func (g *ChannelsGetMessageAuthorRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 }
 
 // ChannelsGetMessageAuthor invokes method channels.getMessageAuthor#ece2a0e6 returning error if any.
+// Can only be invoked by non-bot admins of a monoforum »¹, obtains the original sender
+// of a message sent by other monoforum admins to the monoforum, on behalf of the channel
+// associated to the monoforum.
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.getMessageAuthor for reference.
-// Can be used by bots.
 func (c *Client) ChannelsGetMessageAuthor(ctx context.Context, request *ChannelsGetMessageAuthorRequest) (UserClass, error) {
 	var result UserBox
 

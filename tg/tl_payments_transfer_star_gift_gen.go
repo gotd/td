@@ -32,12 +32,21 @@ var (
 )
 
 // PaymentsTransferStarGiftRequest represents TL type `payments.transferStarGift#7f18176a`.
+// Transfer a collectible gift¹ to another user or channel: can only be used if transfer
+// is free (i.e. messageActionStarGiftUnique².transfer_stars is not set); see here »³
+// for more info on the full flow (including the different flow to use in case the
+// transfer isn't free).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/messageActionStarGiftUnique
+//  3. https://core.telegram.org/api/gifts#transferring-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.transferStarGift for reference.
 type PaymentsTransferStarGiftRequest struct {
-	// Stargift field of PaymentsTransferStarGiftRequest.
+	// The gift to transfer.
 	Stargift InputSavedStarGiftClass
-	// ToID field of PaymentsTransferStarGiftRequest.
+	// Destination peer.
 	ToID InputPeerClass
 }
 
@@ -198,10 +207,26 @@ func (t *PaymentsTransferStarGiftRequest) GetToID() (value InputPeerClass) {
 }
 
 // PaymentsTransferStarGift invokes method payments.transferStarGift#7f18176a returning error if any.
+// Transfer a collectible gift¹ to another user or channel: can only be used if transfer
+// is free (i.e. messageActionStarGiftUnique².transfer_stars is not set); see here »³
+// for more info on the full flow (including the different flow to use in case the
+// transfer isn't free).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/messageActionStarGiftUnique
+//  3. https://core.telegram.org/api/gifts#transferring-collectible-gifts
 //
 // Possible errors:
 //
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PAYMENT_REQUIRED: Payment is required for this action, see here » for more info.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 SAVED_ID_EMPTY: The passed inputSavedStarGiftChat.saved_id is empty.
+//	400 STARGIFT_NOT_FOUND: The specified gift was not found.
+//	400 STARGIFT_OWNER_INVALID: You cannot transfer or sell a gift owned by another user.
+//	400 STARGIFT_PEER_INVALID: The specified inputSavedStarGiftChat.peer is invalid.
 //
 // See https://core.telegram.org/method/payments.transferStarGift for reference.
 func (c *Client) PaymentsTransferStarGift(ctx context.Context, request *PaymentsTransferStarGiftRequest) (UpdatesClass, error) {

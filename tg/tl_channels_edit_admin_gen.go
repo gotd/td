@@ -278,12 +278,14 @@ func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel,
 //	400 BOT_CHANNELS_NA: Bots can't edit admin privileges.
 //	400 BOT_GROUPS_BLOCKED: This bot can't be added to groups.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_MONOFORUM_UNSUPPORTED: Monoforums do not support this feature.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_INVITE_REQUIRED: You do not have the rights to do this.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	406 FRESH_CHANGE_ADMINS_FORBIDDEN: You were just elected admin, you can't add or modify other admins yet.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 RIGHT_FORBIDDEN: Your admin rights do not allow you to do this.
 //	400 USERS_TOO_MUCH: The maximum number of users has been exceeded (to create a chat, for example).
@@ -296,7 +298,6 @@ func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel,
 //	403 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
 //
 // See https://core.telegram.org/method/channels.editAdmin for reference.
-// Can be used by bots.
 func (c *Client) ChannelsEditAdmin(ctx context.Context, request *ChannelsEditAdminRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

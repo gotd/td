@@ -185,7 +185,7 @@ type Photo struct {
 	// file reference¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/file_reference
+	//  1) https://core.telegram.org/api/file-references
 	FileReference []byte
 	// Date of upload
 	Date int

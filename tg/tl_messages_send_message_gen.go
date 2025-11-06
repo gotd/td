@@ -117,11 +117,19 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
-	// AllowPaidStars field of MessagesSendMessageRequest.
+	// For paid messages »¹, specifies the amount of Telegram Stars² the user has agreed
+	// to pay in order to send the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
-	// SuggestedPost field of MessagesSendMessageRequest.
+	// Used to suggest a post to a channel, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
@@ -1031,8 +1039,12 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 // Possible errors:
 //
 //	400 ADMIN_RIGHTS_EMPTY: The chatAdminRights constructor passed in keyboardButtonRequestPeer.peer_type.user_admin_rights has no rights set (i.e. flags is 0).
+//	406 ALLOW_PAYMENT_REQUIRED: This peer only accepts paid messages »: this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .
+//	403 ALLOW_PAYMENT_REQUIRED_%d: This peer charges %d Telegram Stars per message, but the allow_paid_stars was not set or its value is smaller than %d.
+//	400 BALANCE_TOO_LOW: The transaction cannot be completed because the current Telegram Stars balance is too low.
 //	400 BOT_DOMAIN_INVALID: Bot domain invalid.
 //	400 BOT_INVALID: This is not a valid bot.
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
 //	400 BUSINESS_PEER_USAGE_MISSING: You cannot send a message to a user through a business connection if the user hasn't recently contacted us.
 //	400 BUTTON_COPY_TEXT_INVALID: The specified keyboardButtonCopy.copy_text is invalid.
@@ -1043,8 +1055,10 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 BUTTON_USER_INVALID: The user_id passed to inputKeyboardButtonUserProfile is invalid!
 //	400 BUTTON_USER_PRIVACY_RESTRICTED: The privacy setting of the user specified in a inputKeyboardButtonUserProfile button do not allow creating such a button.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_MONOFORUM_UNSUPPORTED: Monoforums do not support this feature.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
 //	403 CHAT_GUEST_SEND_FORBIDDEN: You join the discussion group before commenting, see here » for more info.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
@@ -1063,10 +1077,12 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	500 MSG_WAIT_FAILED: A waiting call returned an error.
 //	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
 //	404 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 PEER_TYPES_INVALID: The passed keyboardButtonSwitchInline.peer_types field is invalid.
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	406 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUOTE_TEXT_INVALID: The specified reply_to.quote_text field is invalid.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
@@ -1075,6 +1091,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
 //	400 REPLY_MESSAGE_ID_INVALID: The specified reply-to message ID is invalid.
 //	400 REPLY_TO_INVALID: The specified reply_to field is invalid.
+//	400 REPLY_TO_MONOFORUM_PEER_INVALID: The specified inputReplyToMonoForum.monoforum_peer_id is invalid.
 //	400 REPLY_TO_USER_INVALID: The replied-to user is invalid.
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
@@ -1082,7 +1099,10 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	400 STORIES_NEVER_CREATED: This peer hasn't ever posted any stories.
 //	400 STORY_ID_INVALID: The specified story ID is invalid.
+//	400 SUGGESTED_POST_AMOUNT_INVALID: The specified price for the suggested post is invalid.
+//	400 SUGGESTED_POST_PEER_INVALID: You cannot send suggested posts to non-monoforum peers.
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
@@ -1092,7 +1112,6 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
-// Can be used by bots.
 func (c *Client) MessagesSendMessage(ctx context.Context, request *MessagesSendMessageRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

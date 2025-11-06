@@ -129,7 +129,16 @@ type UserFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 	BotCanManageEmojiStatus bool
-	// DisplayGiftsButton field of UserFull.
+	// If this flag is set for both us and another user (changed through
+	// globalPrivacySettings¹), a gift button should always be displayed in the text field
+	// in private chats with the other user: once clicked, the gift UI should be displayed,
+	// offering the user options to gift Telegram Premium »² subscriptions or Telegram
+	// Gifts »³.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/globalPrivacySettings
+	//  2) https://core.telegram.org/api/premium
+	//  3) https://core.telegram.org/api/gifts
 	DisplayGiftsButton bool
 	// User ID
 	ID int64
@@ -179,7 +188,10 @@ type UserFull struct {
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
-	// Theme field of UserFull.
+	// The chat theme associated with this user »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/themes#chat-themes
 	//
 	// Use SetTheme and GetTheme helpers.
 	Theme ChatThemeClass
@@ -292,35 +304,63 @@ type UserFull struct {
 	//
 	// Use SetStarrefProgram and GetStarrefProgram helpers.
 	StarrefProgram StarRefProgram
-	// BotVerification field of UserFull.
+	// Describes a bot verification icon »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/verification
 	//
 	// Use SetBotVerification and GetBotVerification helpers.
 	BotVerification BotVerification
-	// SendPaidMessagesStars field of UserFull.
+	// If set and bigger than 0, this user has enabled paid messages »¹ and we must pay the
+	// specified amount of Stars² to send messages to them, see here »³ for the full flow.
+	// If set and equal to 0, the user requires payment in general but we were exempted from
+	// paying for any of the reasons specified in the docs »⁴.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
+	//  3) https://core.telegram.org/api/paid-messages
+	//  4) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
-	// DisallowedGifts field of UserFull.
+	// Disallows the reception of specific gift types.
 	//
 	// Use SetDisallowedGifts and GetDisallowedGifts helpers.
 	DisallowedGifts DisallowedGiftsSettings
-	// StarsRating field of UserFull.
+	// The user's star rating¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-rating
 	//
 	// Use SetStarsRating and GetStarsRating helpers.
 	StarsRating StarsRating
-	// StarsMyPendingRating field of UserFull.
+	// Our pending star rating¹, only visible for ourselves.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-rating
 	//
 	// Use SetStarsMyPendingRating and GetStarsMyPendingRating helpers.
 	StarsMyPendingRating StarsRating
-	// StarsMyPendingRatingDate field of UserFull.
+	// When the pending star rating¹ will be applied, only visible for ourselves.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars#star-rating
 	//
 	// Use SetStarsMyPendingRatingDate and GetStarsMyPendingRatingDate helpers.
 	StarsMyPendingRatingDate int
-	// MainTab field of UserFull.
+	// The main tab for the user's profile, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/profile#tabs
 	//
 	// Use SetMainTab and GetMainTab helpers.
 	MainTab ProfileTabClass
-	// SavedMusic field of UserFull.
+	// The first song on the music tab of the profile, see here »¹ for more info on the
+	// music profile tab.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/profile#music
 	//
 	// Use SetSavedMusic and GetSavedMusic helpers.
 	SavedMusic DocumentClass

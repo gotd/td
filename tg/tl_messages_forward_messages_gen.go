@@ -80,7 +80,12 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// ReplyTo field of MessagesForwardMessagesRequest.
+	// Can only contain an inputReplyToMonoForum¹, to forward messages to a monoforum
+	// topic² (mutually exclusive with top_msg_id).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputReplyToMonoForum
+	//  2) https://core.telegram.org/api/monoforum
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass
@@ -99,15 +104,23 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
 	QuickReplyShortcut InputQuickReplyShortcutClass
-	// VideoTimestamp field of MessagesForwardMessagesRequest.
+	// Start playing the video at the specified timestamp (seconds).
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
-	// AllowPaidStars field of MessagesForwardMessagesRequest.
+	// For paid messages »¹, specifies the amount of Telegram Stars² the user has agreed
+	// to pay in order to send the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
-	// SuggestedPost field of MessagesForwardMessagesRequest.
+	// Used to suggest a post to a channel, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
@@ -964,6 +977,8 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //
 // Possible errors:
 //
+//	406 ALLOW_PAYMENT_REQUIRED: This peer only accepts paid messages »: this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .
+//	403 ALLOW_PAYMENT_REQUIRED_%d: This peer charges %d Telegram Stars per message, but the allow_paid_stars was not set or its value is smaller than %d.
 //	400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN: You can't forward polls with public voters.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
@@ -976,6 +991,7 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	403 CHAT_SEND_DOCS_FORBIDDEN: You can't send documents in this chat.
 //	403 CHAT_SEND_GAME_FORBIDDEN: You can't send a game to this chat.
 //	403 CHAT_SEND_GIFS_FORBIDDEN: You can't send gifs in this chat.
+//	403 CHAT_SEND_INLINE_FORBIDDEN: You can't send inline messages in this group.
 //	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
 //	403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
 //	403 CHAT_SEND_PLAIN_FORBIDDEN: You can't send non-media (text) messages in this chat.
@@ -983,6 +999,7 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	403 CHAT_SEND_STICKERS_FORBIDDEN: You can't send stickers in this chat.
 //	403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
 //	403 CHAT_SEND_VOICES_FORBIDDEN: You can't send voice recordings in this chat.
+//	403 CHAT_SEND_WEBPAGE_FORBIDDEN: You can't send webpage previews to this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 GROUPED_MEDIA_INVALID: Invalid grouped media.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
@@ -991,20 +1008,23 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	406 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	406 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUIZ_ANSWER_MISSING: You can forward a quiz while hiding the original author only after choosing an option in the quiz.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 RANDOM_ID_INVALID: A provided random ID is invalid.
 //	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
+//	400 REPLY_TO_MONOFORUM_PEER_INVALID: The specified inputReplyToMonoForum.monoforum_peer_id is invalid.
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	400 SLOWMODE_MULTI_MSGS_DISABLED: Slowmode is enabled, you cannot forward multiple messages to this group.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	400 SUGGESTED_POST_PEER_INVALID: You cannot send suggested posts to non-monoforum peers.
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
@@ -1014,7 +1034,6 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.forwardMessages for reference.
-// Can be used by bots.
 func (c *Client) MessagesForwardMessages(ctx context.Context, request *MessagesForwardMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

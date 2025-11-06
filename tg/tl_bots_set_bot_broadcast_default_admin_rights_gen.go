@@ -180,7 +180,6 @@ func (s *BotsSetBotBroadcastDefaultAdminRightsRequest) GetAdminRights() (value C
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.setBotBroadcastDefaultAdminRights for reference.
-// Can be used by bots.
 func (c *Client) BotsSetBotBroadcastDefaultAdminRights(ctx context.Context, adminrights ChatAdminRights) (bool, error) {
 	var result BoolBox
 

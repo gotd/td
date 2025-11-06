@@ -294,33 +294,15 @@ type User struct {
 	StoriesHidden bool
 	// No stories from this user are visible.
 	StoriesUnavailable bool
-	// If set, we can only write to this user if they have already sent some messages to us,
-	// if we are subscribed to Telegram Premium¹, or if they're a mutual contact (user²
-	// mutual_contact).  All the secondary conditions listed above must be checked separately
-	// to verify whether we can still write to the user, even if this flag is set (i.e. a
-	// mutual contact will have this flag set even if we can still write to them, and so on..
-	// ); to avoid doing these extra checks if we haven't yet cached all the required
-	// information (for example while displaying the chat list in the sharing UI) the users
-	// getIsPremiumRequiredToContact³ method may be invoked instead, passing the list of
-	// users currently visible in the UI, returning a list of booleans that directly specify
-	// whether we can or cannot write to each user; alternatively, the userFull⁴
-	// contact_require_premium flag contains the same (fully checked, i.e. it's not just a
-	// copy of this flag) info returned by users.getIsPremiumRequiredToContact⁵. To set
-	// this flag for ourselves invoke account.setGlobalPrivacySettings⁶, setting the
-	// settings.new_noncontact_peers_require_premium flag.
+	// See here for more info on this flag »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/premium
-	//  2) https://core.telegram.org/constructor/user
-	//  3) https://core.telegram.org/method/users.getIsPremiumRequiredToContact
-	//  4) https://core.telegram.org/constructor/userFull
-	//  5) https://core.telegram.org/method/users.getIsPremiumRequiredToContact
-	//  6) https://core.telegram.org/method/account.setGlobalPrivacySettings
+	//  1) https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
 	ContactRequirePremium bool
 	// Whether this bot can be connected to a user as specified here »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	BotBusiness bool
 	// If set, this bot has configured a Main Mini App »¹.
 	//
@@ -329,7 +311,7 @@ type User struct {
 	BotHasMainApp bool
 	// BotForumView field of User.
 	BotForumView bool
-	// ID of the user, see here »¹ for more info.
+	// ID of the user, see here »¹ for more info and the available ID range.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers#peer-id
@@ -484,11 +466,24 @@ type User struct {
 	//
 	// Use SetBotActiveUsers and GetBotActiveUsers helpers.
 	BotActiveUsers int
-	// BotVerificationIcon field of User.
+	// Describes a bot verification icon »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/verification
 	//
 	// Use SetBotVerificationIcon and GetBotVerificationIcon helpers.
 	BotVerificationIcon int64
-	// SendPaidMessagesStars field of User.
+	// If set, the user has enabled paid messages »¹, we might need to pay the specified
+	// amount of Stars² to send them messages, depending on the configured exceptions: check
+	// userFull³.send_paid_messages_stars or users.getRequirementsToContact⁴ to see if the
+	// currently logged in user actually has to pay or not, see here »⁵ for the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
+	//  3) https://core.telegram.org/constructor/userFull
+	//  4) https://core.telegram.org/method/users.getRequirementsToContact
+	//  5) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64

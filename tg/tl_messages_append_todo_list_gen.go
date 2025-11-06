@@ -32,14 +32,18 @@ var (
 )
 
 // MessagesAppendTodoListRequest represents TL type `messages.appendTodoList#21a61057`.
+// Appends one or more items to a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/method/messages.appendTodoList for reference.
 type MessagesAppendTodoListRequest struct {
-	// Peer field of MessagesAppendTodoListRequest.
+	// Peer where the todo list was posted.
 	Peer InputPeerClass
-	// MsgID field of MessagesAppendTodoListRequest.
+	// ID of the message with the todo list.
 	MsgID int
-	// List field of MessagesAppendTodoListRequest.
+	// Items to append.
 	List []TodoItem
 }
 
@@ -235,9 +239,19 @@ func (a *MessagesAppendTodoListRequest) GetList() (value []TodoItem) {
 }
 
 // MessagesAppendTodoList invokes method messages.appendTodoList#21a61057 returning error if any.
+// Appends one or more items to a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
+//
+// Possible errors:
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 TODO_ITEM_DUPLICATE: Duplicate checklist items detected.
+//	400 TODO_NOT_MODIFIED: No todo items were specified, so no changes were made to the todo list.
 //
 // See https://core.telegram.org/method/messages.appendTodoList for reference.
-// Can be used by bots.
 func (c *Client) MessagesAppendTodoList(ctx context.Context, request *MessagesAppendTodoListRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

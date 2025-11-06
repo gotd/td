@@ -204,7 +204,7 @@ type Chat struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// ID of the group, see here »¹ for more info
+	// ID of the group, see here »¹ for more info and the available ID range.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers#peer-id
@@ -1164,15 +1164,31 @@ type Channel struct {
 	// If set, messages sent by admins to this channel will link to the admin's profile (just
 	// like with groups).
 	SignatureProfiles bool
-	// Autotranslation field of Channel.
+	// If set, autotranslation¹ was enabled for all users by the admin of the channel, as
+	// specified here »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/translation#autotranslation-for-channels
+	//  2) https://core.telegram.org/api/translation#autotranslation-for-channels
 	Autotranslation bool
-	// BroadcastMessagesAllowed field of Channel.
+	// If set, this channel has an associated monoforum »¹, and its ID is specified in the
+	// linked_monoforum_id flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	BroadcastMessagesAllowed bool
-	// Monoforum field of Channel.
+	// If set, this is a monoforum »¹, and the ID of the associated channel is specified in
+	// the linked_monoforum_id.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	Monoforum bool
-	// ForumTabs field of Channel.
+	// If set, enables the tabbed forum UI »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#tabbed-or-list-based-forum-ui
 	ForumTabs bool
-	// ID of the channel, see here »¹ for more info
+	// ID of the channel, see here »¹ for more info and the available ID range.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers#peer-id
@@ -1280,15 +1296,35 @@ type Channel struct {
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
-	// BotVerificationIcon field of Channel.
+	// Describes a bot verification icon »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/verification
 	//
 	// Use SetBotVerificationIcon and GetBotVerificationIcon helpers.
 	BotVerificationIcon int64
-	// SendPaidMessagesStars field of Channel.
+	// If set, this supergroup or monoforum¹ has enabled paid messages »², we might need
+	// to pay the specified amount of Stars³ to send messages to it, depending on the
+	// configured exceptions: check channelFull⁴.send_paid_messages_stars to see if the
+	// currently logged in user actually has to pay or not, see here »⁵ for the full flow
+	// (only set for the monoforum, not the associated channel).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
+	//  2) https://core.telegram.org/api/paid-messages
+	//  3) https://core.telegram.org/api/stars
+	//  4) https://core.telegram.org/constructor/channelFull
+	//  5) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
-	// LinkedMonoforumID field of Channel.
+	// For channels with associated monoforums¹, the monoforum² ID. For Monoforums³, the
+	// ID of the associated channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
+	//  2) https://core.telegram.org/api/monoforum
+	//  3) https://core.telegram.org/api/monoforum
 	//
 	// Use SetLinkedMonoforumID and GetLinkedMonoforumID helpers.
 	LinkedMonoforumID int64
@@ -3679,7 +3715,7 @@ type NotEmptyChat interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// ID of the group, see here »¹ for more info
+	// ID of the group, see here »¹ for more info and the available ID range.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers#peer-id
@@ -3809,7 +3845,7 @@ type FullChat interface {
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	GetNoforwards() (value bool)
 
-	// ID of the group, see here »¹ for more info
+	// ID of the group, see here »¹ for more info and the available ID range.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/peers#peer-id

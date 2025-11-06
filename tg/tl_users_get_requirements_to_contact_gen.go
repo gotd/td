@@ -32,10 +32,19 @@ var (
 )
 
 // UsersGetRequirementsToContactRequest represents TL type `users.getRequirementsToContact#d89a83a3`.
+// Check whether we can write to the specified users, used to implement bulk checks for
+// Premium-only messages »¹ and paid messages »².
+// For each input user, returns a RequirementToContact¹ constructor (at the same offset
+// in the vector) containing requirements to contact them.
+//
+// Links:
+//  1. https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
+//  2. https://core.telegram.org/api/paid-messages
+//  3. https://core.telegram.org/type/RequirementToContact
 //
 // See https://core.telegram.org/method/users.getRequirementsToContact for reference.
 type UsersGetRequirementsToContactRequest struct {
-	// ID field of UsersGetRequirementsToContactRequest.
+	// Users to check.
 	ID []InputUserClass
 }
 
@@ -184,9 +193,17 @@ func (g *UsersGetRequirementsToContactRequest) MapID() (value InputUserClassArra
 }
 
 // UsersGetRequirementsToContact invokes method users.getRequirementsToContact#d89a83a3 returning error if any.
+// Check whether we can write to the specified users, used to implement bulk checks for
+// Premium-only messages »¹ and paid messages »².
+// For each input user, returns a RequirementToContact¹ constructor (at the same offset
+// in the vector) containing requirements to contact them.
+//
+// Links:
+//  1. https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
+//  2. https://core.telegram.org/api/paid-messages
+//  3. https://core.telegram.org/type/RequirementToContact
 //
 // See https://core.telegram.org/method/users.getRequirementsToContact for reference.
-// Can be used by bots.
 func (c *Client) UsersGetRequirementsToContact(ctx context.Context, id []InputUserClass) ([]RequirementToContactClass, error) {
 	var result RequirementToContactClassVector
 

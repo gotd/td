@@ -32,7 +32,7 @@ var (
 )
 
 // StarsTransaction represents TL type `starsTransaction#13659eb0`.
-// Represents a Telegram Stars transaction »¹.
+// Represents a Telegram Stars or TON transaction »¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/stars
@@ -57,21 +57,38 @@ type StarsTransaction struct {
 	// Links:
 	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	Reaction bool
-	// StargiftUpgrade field of StarsTransaction.
+	// This transaction pays for the upgrade of a gift to a collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	StargiftUpgrade bool
-	// BusinessTransfer field of StarsTransaction.
+	// This transaction transfers stars from the balance of a user account connected to a
+	// business bot¹, to the balance of the business bot, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
+	//  2) https://core.telegram.org/api/stars#transferring-stars-from-a-business-account-to-the-business-bot
 	BusinessTransfer bool
-	// StargiftResale field of StarsTransaction.
+	// This transaction is related to the resale of a collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#reselling-collectible-gifts
 	StargiftResale bool
-	// PostsSearch field of StarsTransaction.
+	// Represents payment for a paid global post search »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/search#posts-tab
 	PostsSearch bool
-	// StargiftPrepaidUpgrade field of StarsTransaction.
+	// Represents payment for a separate prepaid upgrade of a gift¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	StargiftPrepaidUpgrade bool
 	// StargiftDropOriginalDetails field of StarsTransaction.
 	StargiftDropOriginalDetails bool
 	// Transaction ID.
 	ID string
-	// Amount field of StarsTransaction.
+	// Amount of Telegram Stars or TON.
 	Amount StarsAmountClass
 	// Date of the transaction (unixtime).
 	Date int
@@ -188,19 +205,26 @@ type StarsTransaction struct {
 	//
 	// Use SetStarrefAmount and GetStarrefAmount helpers.
 	StarrefAmount StarsAmountClass
-	// PaidMessages field of StarsTransaction.
+	// This transaction is related to the reception or transmission of a paid message »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetPaidMessages and GetPaidMessages helpers.
 	PaidMessages int
-	// PremiumGiftMonths field of StarsTransaction.
+	// This transaction indicates the payment for a gifted Telegram Premium subscription »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium#gifting-telegram-premium
 	//
 	// Use SetPremiumGiftMonths and GetPremiumGiftMonths helpers.
 	PremiumGiftMonths int
-	// AdsProceedsFromDate field of StarsTransaction.
+	// Indicates that this is payment for ad revenue from the specified unixtime (always set
+	// together with ads_proceeds_to_date).
 	//
 	// Use SetAdsProceedsFromDate and GetAdsProceedsFromDate helpers.
 	AdsProceedsFromDate int
-	// AdsProceedsToDate field of StarsTransaction.
+	// Indicates that this is payment for ad revenue to the specified unixtime.
 	//
 	// Use SetAdsProceedsToDate and GetAdsProceedsToDate helpers.
 	AdsProceedsToDate int

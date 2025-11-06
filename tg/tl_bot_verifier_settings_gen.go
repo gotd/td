@@ -32,6 +32,10 @@ var (
 )
 
 // BotVerifierSettings represents TL type `botVerifierSettings#b0cd6617`.
+// Info about the current verifier bot »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/verification
 //
 // See https://core.telegram.org/constructor/botVerifierSettings for reference.
 type BotVerifierSettings struct {
@@ -40,13 +44,14 @@ type BotVerifierSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CanModifyCustomDescription field of BotVerifierSettings.
+	// Indicates whether the bot is allowed to set a custom description field for individual
+	// verified peers, different from the custom_description provided here.
 	CanModifyCustomDescription bool
-	// Icon field of BotVerifierSettings.
+	// Verification icon
 	Icon int64
-	// Company field of BotVerifierSettings.
+	// The name of the organization that provides the verification
 	Company string
-	// CustomDescription field of BotVerifierSettings.
+	// An optional default description for the verification
 	//
 	// Use SetCustomDescription and GetCustomDescription helpers.
 	CustomDescription string

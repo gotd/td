@@ -237,6 +237,7 @@ func (g *StoriesGetPinnedStoriesRequest) GetLimit() (value int) {
 //
 // Possible errors:
 //
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //

@@ -205,7 +205,6 @@ func (g *MessagesGetStickerSetRequest) GetHash() (value int) {
 //	406 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetStickerSet(ctx context.Context, request *MessagesGetStickerSetRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

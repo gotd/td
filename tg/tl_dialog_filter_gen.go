@@ -84,7 +84,8 @@ type DialogFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	ExcludeArchived bool
-	// TitleNoanimate field of DialogFilter.
+	// If set, any animated emojis present in title should not be animated and should be
+	// instead frozen on the first frame.
 	TitleNoanimate bool
 	// Folder¹ ID
 	//
@@ -941,7 +942,8 @@ type DialogFilterChatlist struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#chat-folder-links
 	HasMyInvites bool
-	// TitleNoanimate field of DialogFilterChatlist.
+	// If set, any animated emojis present in title should not be animated and should be
+	// instead frozen on the first frame.
 	TitleNoanimate bool
 	// ID of the folder
 	ID int

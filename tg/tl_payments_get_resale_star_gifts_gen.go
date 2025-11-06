@@ -32,6 +32,16 @@ var (
 )
 
 // PaymentsGetResaleStarGiftsRequest represents TL type `payments.getResaleStarGifts#7a5fa236`.
+// Get collectible gifts¹ of a specific type currently on resale, see here »² for more
+// info.
+// sort_by_price and sort_by_num are mutually exclusive, if neither are set results are
+// sorted by the unixtime (descending) when their resell price was last changed.
+// See here »¹ for detailed documentation on this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/api/gifts#reselling-collectible-gifts
+//  3. https://core.telegram.org/api/gifts#sending-gifts
 //
 // See https://core.telegram.org/method/payments.getResaleStarGifts for reference.
 type PaymentsGetResaleStarGiftsRequest struct {
@@ -40,21 +50,36 @@ type PaymentsGetResaleStarGiftsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// SortByPrice field of PaymentsGetResaleStarGiftsRequest.
+	// Sort gifts by price (ascending).
 	SortByPrice bool
-	// SortByNum field of PaymentsGetResaleStarGiftsRequest.
+	// Sort gifts by number (ascending).
 	SortByNum bool
-	// AttributesHash field of PaymentsGetResaleStarGiftsRequest.
+	// If a previous call to the method was made and payments.resaleStarGifts¹
+	// attributes_hash was set, pass it here to avoid returning any results if they haven't
+	// changed. Otherwise, set this flag and pass 0 to return payments.resaleStarGifts²
+	// attributes_hash and payments.resaleStarGifts³.attributes, these two fields will not
+	// be set if this flag is not set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/payments.resaleStarGifts
+	//  2) https://core.telegram.org/constructor/payments.resaleStarGifts
+	//  3) https://core.telegram.org/constructor/payments.resaleStarGifts
 	//
 	// Use SetAttributesHash and GetAttributesHash helpers.
 	AttributesHash int64
-	// GiftID field of PaymentsGetResaleStarGiftsRequest.
+	// Mandatory identifier of the base gift from which the collectible gift was upgraded.
 	GiftID int64
-	// Attributes field of PaymentsGetResaleStarGiftsRequest.
+	// Optionally filter gifts with the specified attributes. If no attributes of a specific
+	// type are specified, all attributes of that type are allowed.
 	//
 	// Use SetAttributes and GetAttributes helpers.
 	Attributes []StarGiftAttributeIDClass
-	// Offset field of PaymentsGetResaleStarGiftsRequest.
+	// Offset for pagination. If not equal to an empty string, payments.resaleStarGifts¹
+	// counters will not be set to avoid returning the counters every time a new page is
+	// fetched.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/payments.resaleStarGifts
 	Offset string
 	// Maximum number of results to return, see pagination¹
 	//
@@ -431,9 +456,22 @@ func (g *PaymentsGetResaleStarGiftsRequest) MapAttributes() (value StarGiftAttri
 }
 
 // PaymentsGetResaleStarGifts invokes method payments.getResaleStarGifts#7a5fa236 returning error if any.
+// Get collectible gifts¹ of a specific type currently on resale, see here »² for more
+// info.
+// sort_by_price and sort_by_num are mutually exclusive, if neither are set results are
+// sorted by the unixtime (descending) when their resell price was last changed.
+// See here »¹ for detailed documentation on this method.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/api/gifts#reselling-collectible-gifts
+//  3. https://core.telegram.org/api/gifts#sending-gifts
+//
+// Possible errors:
+//
+//	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.getResaleStarGifts for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetResaleStarGifts(ctx context.Context, request *PaymentsGetResaleStarGiftsRequest) (*PaymentsResaleStarGifts, error) {
 	var result PaymentsResaleStarGifts
 

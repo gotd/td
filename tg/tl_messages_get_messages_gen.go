@@ -188,7 +188,6 @@ func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassArray) {
 // Returns the list of messages by their IDs.
 //
 // See https://core.telegram.org/method/messages.getMessages for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetMessages(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 

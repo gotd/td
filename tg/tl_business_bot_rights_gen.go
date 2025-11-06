@@ -32,6 +32,10 @@ var (
 )
 
 // BusinessBotRights represents TL type `businessBotRights#a0624cf7`.
+// Business bot rights¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/businessBotRights for reference.
 type BusinessBotRights struct {
@@ -40,33 +44,38 @@ type BusinessBotRights struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Reply field of BusinessBotRights.
+	// Whether the bot can send and edit messages in private chats that had incoming messages
+	// in the last 24 hours.
 	Reply bool
-	// ReadMessages field of BusinessBotRights.
+	// Whether the bot can mark incoming private messages as read.
 	ReadMessages bool
-	// DeleteSentMessages field of BusinessBotRights.
+	// Whether the bot can delete messages sent by the bot.
 	DeleteSentMessages bool
-	// DeleteReceivedMessages field of BusinessBotRights.
+	// Whether the bot can delete received private messages in managed chats.
 	DeleteReceivedMessages bool
-	// EditName field of BusinessBotRights.
+	// Whether the bot can edit the first and last name of the business account.
 	EditName bool
-	// EditBio field of BusinessBotRights.
+	// Whether the bot can edit the bio of the business account.
 	EditBio bool
-	// EditProfilePhoto field of BusinessBotRights.
+	// Whether the bot can edit the profile photo of the business account.
 	EditProfilePhoto bool
-	// EditUsername field of BusinessBotRights.
+	// Whether the bot can edit the username of the business account.
 	EditUsername bool
-	// ViewGifts field of BusinessBotRights.
+	// Whether the bot can view gifts and the amount of Telegram Stars owned by the business
+	// account.
 	ViewGifts bool
-	// SellGifts field of BusinessBotRights.
+	// Whether the bot can convert regular gifts owned by the business account to Telegram
+	// Stars.
 	SellGifts bool
-	// ChangeGiftSettings field of BusinessBotRights.
+	// Whether the bot can change the privacy settings pertaining to gifts for the business
+	// account.
 	ChangeGiftSettings bool
-	// TransferAndUpgradeGifts field of BusinessBotRights.
+	// Whether the bot can transfer and upgrade gifts owned by the business account.
 	TransferAndUpgradeGifts bool
-	// TransferStars field of BusinessBotRights.
+	// Whether the bot can transfer Telegram Stars received by the business account to its
+	// own account, or use them to upgrade and transfer gifts.
 	TransferStars bool
-	// ManageStories field of BusinessBotRights.
+	// Whether the bot can post, edit and delete stories on behalf of the business account.
 	ManageStories bool
 }
 

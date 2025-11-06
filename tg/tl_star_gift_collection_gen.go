@@ -32,22 +32,33 @@ var (
 )
 
 // StarGiftCollection represents TL type `starGiftCollection#9d6b13b0`.
+// Represents a star gift collection »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
 //
 // See https://core.telegram.org/constructor/starGiftCollection for reference.
 type StarGiftCollection struct {
-	// Flags field of StarGiftCollection.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CollectionID field of StarGiftCollection.
+	// The ID of the collection.
 	CollectionID int
-	// Title field of StarGiftCollection.
+	// Title of the collection.
 	Title string
-	// Icon field of StarGiftCollection.
+	// Optional icon for the collection, taken from the first gift in the collection.
 	//
 	// Use SetIcon and GetIcon helpers.
 	Icon DocumentClass
-	// GiftsCount field of StarGiftCollection.
+	// Number of gifts in the collection.
 	GiftsCount int
-	// Hash field of StarGiftCollection.
+	// Field to use instead of collection_id when generating the hash to pass to payments
+	// getStarGiftCollections¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getStarGiftCollections
 	Hash int64
 }
 

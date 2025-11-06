@@ -33,9 +33,14 @@ var (
 
 // StoriesSendStoryRequest represents TL type `stories.sendStory#737fc2ec`.
 // Uploads a Telegram Story¹.
+// May also be used in a business connection¹, not by wrapping the query in
+// invokeWithBusinessConnection »², but rather by specifying the ID of a controlled
+// business user in peer.
 //
 // Links:
 //  1. https://core.telegram.org/api/stories
+//  2. https://core.telegram.org/api/bots/connected-business-bots
+//  3. https://core.telegram.org/method/invokeWithBusinessConnection
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 type StoriesSendStoryRequest struct {
@@ -103,7 +108,7 @@ type StoriesSendStoryRequest struct {
 	//
 	// Use SetFwdFromStory and GetFwdFromStory helpers.
 	FwdFromStory int
-	// Albums field of StoriesSendStoryRequest.
+	// If set, adds the story to the specified albums.
 	//
 	// Use SetAlbums and GetAlbums helpers.
 	Albums []int
@@ -833,13 +838,21 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 
 // StoriesSendStory invokes method stories.sendStory#737fc2ec returning error if any.
 // Uploads a Telegram Story¹.
+// May also be used in a business connection¹, not by wrapping the query in
+// invokeWithBusinessConnection »², but rather by specifying the ID of a controlled
+// business user in peer.
 //
 // Links:
 //  1. https://core.telegram.org/api/stories
+//  2. https://core.telegram.org/api/bots/connected-business-bots
+//  3. https://core.telegram.org/method/invokeWithBusinessConnection
 //
 // Possible errors:
 //
 //	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
+//	403 BOT_ACCESS_FORBIDDEN: The specified method can be used over a business connection for some operations, but the specified query attempted an operation that is not allowed over a business connection.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MEDIA_FILE_INVALID: The specified media file is invalid.

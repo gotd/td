@@ -32,28 +32,35 @@ var (
 )
 
 // PaymentsUpdateStarGiftCollectionRequest represents TL type `payments.updateStarGiftCollection#4fddbee7`.
+// Add or remove gifts from a star gift collection »¹, or rename the collection.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
 //
 // See https://core.telegram.org/method/payments.updateStarGiftCollection for reference.
 type PaymentsUpdateStarGiftCollectionRequest struct {
-	// Flags field of PaymentsUpdateStarGiftCollectionRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of PaymentsUpdateStarGiftCollectionRequest.
+	// Peer that owns the collection.
 	Peer InputPeerClass
-	// CollectionID field of PaymentsUpdateStarGiftCollectionRequest.
+	// Collection ID.
 	CollectionID int
-	// Title field of PaymentsUpdateStarGiftCollectionRequest.
+	// Title of the collection, to rename the collection.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// DeleteStargift field of PaymentsUpdateStarGiftCollectionRequest.
+	// Can contain a list of gifts to remove from the collection.
 	//
 	// Use SetDeleteStargift and GetDeleteStargift helpers.
 	DeleteStargift []InputSavedStarGiftClass
-	// AddStargift field of PaymentsUpdateStarGiftCollectionRequest.
+	// Can contain a list of gifts to add to the collection.
 	//
 	// Use SetAddStargift and GetAddStargift helpers.
 	AddStargift []InputSavedStarGiftClass
-	// Order field of PaymentsUpdateStarGiftCollectionRequest.
+	// Can contain the new gift order.
 	//
 	// Use SetOrder and GetOrder helpers.
 	Order []InputSavedStarGiftClass
@@ -481,6 +488,14 @@ func (u *PaymentsUpdateStarGiftCollectionRequest) MapOrder() (value InputSavedSt
 }
 
 // PaymentsUpdateStarGiftCollection invokes method payments.updateStarGiftCollection#4fddbee7 returning error if any.
+// Add or remove gifts from a star gift collection »¹, or rename the collection.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.updateStarGiftCollection for reference.
 func (c *Client) PaymentsUpdateStarGiftCollection(ctx context.Context, request *PaymentsUpdateStarGiftCollectionRequest) (*StarGiftCollection, error) {

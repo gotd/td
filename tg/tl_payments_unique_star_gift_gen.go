@@ -32,14 +32,21 @@ var (
 )
 
 // PaymentsUniqueStarGift represents TL type `payments.uniqueStarGift#416c56e8`.
+// Represents a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/payments.uniqueStarGift for reference.
 type PaymentsUniqueStarGift struct {
-	// Gift field of PaymentsUniqueStarGift.
+	// The starGiftUnique¹ constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	Gift StarGiftClass
-	// Chats field of PaymentsUniqueStarGift.
+	// Chats mentioned in the gift field.
 	Chats []ChatClass
-	// Users field of PaymentsUniqueStarGift.
+	// Users mentioned in the gift field.
 	Users []UserClass
 }
 

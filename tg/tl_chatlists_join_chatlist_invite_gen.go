@@ -230,6 +230,8 @@ func (j *ChatlistsJoinChatlistInviteRequest) MapPeers() (value InputPeerClassArr
 //
 // Possible errors:
 //
+//	400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.
+//	400 CHATLISTS_TOO_MUCH: You have created too many folder links, hitting the chatlist_invites_limit_default/chatlist_invites_limit_premium limits ».
 //	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
 //	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
 //	400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.

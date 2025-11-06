@@ -144,10 +144,11 @@ func (r *MessagesReactionsNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/messages.reactions for reference.
 type MessagesReactions struct {
-	// Hash used for caching, for more info click here¹
+	// Hash used for caching, can also be locally regenerated using the algorithm specified
+	// here »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/offsets#hash-generation
+	//  1) https://core.telegram.org/api/reactions#recent-reactions
 	Hash int64
 	// Reactions
 	Reactions []ReactionClass

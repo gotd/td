@@ -32,14 +32,29 @@ var (
 )
 
 // AccountGetUniqueGiftChatThemesRequest represents TL type `account.getUniqueGiftChatThemes#e42ce9c9`.
+// Obtain all chat themes »¹ associated to owned collectible gifts »².
+//
+// Links:
+//  1. https://core.telegram.org/api/themes#chat-themes
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/method/account.getUniqueGiftChatThemes for reference.
 type AccountGetUniqueGiftChatThemesRequest struct {
-	// Offset field of AccountGetUniqueGiftChatThemesRequest.
+	// Offset for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset string
-	// Limit field of AccountGetUniqueGiftChatThemesRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash field of AccountGetUniqueGiftChatThemesRequest.
+	// Hash from a previously returned account.chatThemes¹ constructor, to avoid returning
+	// any result if the theme list hasn't changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/account.chatThemes
 	Hash int64
 }
 
@@ -215,6 +230,11 @@ func (g *AccountGetUniqueGiftChatThemesRequest) GetHash() (value int64) {
 }
 
 // AccountGetUniqueGiftChatThemes invokes method account.getUniqueGiftChatThemes#e42ce9c9 returning error if any.
+// Obtain all chat themes »¹ associated to owned collectible gifts »².
+//
+// Links:
+//  1. https://core.telegram.org/api/themes#chat-themes
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/method/account.getUniqueGiftChatThemes for reference.
 func (c *Client) AccountGetUniqueGiftChatThemes(ctx context.Context, request *AccountGetUniqueGiftChatThemesRequest) (AccountChatThemesClass, error) {

@@ -212,7 +212,6 @@ func (r *StickersReplaceStickerRequest) GetStickerAsNotEmpty() (*InputDocument, 
 //	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.replaceSticker for reference.
-// Can be used by bots.
 func (c *Client) StickersReplaceSticker(ctx context.Context, request *StickersReplaceStickerRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

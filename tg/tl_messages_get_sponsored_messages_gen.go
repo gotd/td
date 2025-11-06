@@ -46,7 +46,10 @@ type MessagesGetSponsoredMessagesRequest struct {
 	Flags bin.Fields
 	// The currently open channel/bot.
 	Peer InputPeerClass
-	// MsgID field of MessagesGetSponsoredMessagesRequest.
+	// Must be set when fetching sponsored messages to show on channel videos »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
@@ -243,6 +246,11 @@ func (g *MessagesGetSponsoredMessagesRequest) GetMsgID() (value int, ok bool) {
 //
 // Links:
 //  1. https://core.telegram.org/api/sponsored-messages
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/messages.getSponsoredMessages for reference.
 func (c *Client) MessagesGetSponsoredMessages(ctx context.Context, request *MessagesGetSponsoredMessagesRequest) (MessagesSponsoredMessagesClass, error) {

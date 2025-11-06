@@ -516,7 +516,10 @@ type StoryItem struct {
 	//
 	// Use SetSentReaction and GetSentReaction helpers.
 	SentReaction ReactionClass
-	// Albums field of StoryItem.
+	// Albums¹ this story is part of.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#story-albums
 	//
 	// Use SetAlbums and GetAlbums helpers.
 	Albums []int

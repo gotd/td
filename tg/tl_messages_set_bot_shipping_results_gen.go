@@ -314,7 +314,6 @@ func (s *MessagesSetBotShippingResultsRequest) GetShippingOptions() (value []Shi
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setBotShippingResults for reference.
-// Can be used by bots.
 func (c *Client) MessagesSetBotShippingResults(ctx context.Context, request *MessagesSetBotShippingResultsRequest) (bool, error) {
 	var result BoolBox
 

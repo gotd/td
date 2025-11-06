@@ -311,7 +311,6 @@ func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument
 //	400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
-// Can be used by bots.
 func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

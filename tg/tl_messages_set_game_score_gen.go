@@ -359,7 +359,6 @@ func (s *MessagesSetGameScoreRequest) GetScore() (value int) {
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setGameScore for reference.
-// Can be used by bots.
 func (c *Client) MessagesSetGameScore(ctx context.Context, request *MessagesSetGameScoreRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

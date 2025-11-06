@@ -32,16 +32,27 @@ var (
 )
 
 // AccountSaveMusicRequest represents TL type `account.saveMusic#b26732a9`.
+// Adds or removes a song from the current user's profile see here »¹ for more info on
+// the music tab of the profile page.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/method/account.saveMusic for reference.
 type AccountSaveMusicRequest struct {
-	// Flags field of AccountSaveMusicRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Unsave field of AccountSaveMusicRequest.
+	// If set, removes the song.
 	Unsave bool
-	// ID field of AccountSaveMusicRequest.
+	// The song to add or remove; can be an already added song when reordering songs with
+	// after_id. Adding an already added song will never re-add it, only move it to the top
+	// of the song list (or after the song passed in after_id).
 	ID InputDocumentClass
-	// AfterID field of AccountSaveMusicRequest.
+	// If set, the song will be added after the passed song (must be already pinned on the
+	// profile).
 	//
 	// Use SetAfterID and GetAfterID helpers.
 	AfterID InputDocumentClass
@@ -286,6 +297,15 @@ func (s *AccountSaveMusicRequest) GetAfterIDAsNotEmpty() (*InputDocument, bool) 
 }
 
 // AccountSaveMusic invokes method account.saveMusic#b26732a9 returning error if any.
+// Adds or removes a song from the current user's profile see here »¹ for more info on
+// the music tab of the profile page.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
+//
+// Possible errors:
+//
+//	400 DOCUMENT_INVALID: The specified document is invalid.
 //
 // See https://core.telegram.org/method/account.saveMusic for reference.
 func (c *Client) AccountSaveMusic(ctx context.Context, request *AccountSaveMusicRequest) (bool, error) {

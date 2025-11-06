@@ -177,16 +177,17 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 //
 // Possible errors:
 //
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
 //	400 INVOICE_PAYLOAD_INVALID: The specified invoice payload is invalid.
 //	400 MEDIA_INVALID: Media invalid.
 //	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
 //	400 STARS_INVOICE_INVALID: The specified Telegram Star invoice is invalid.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
 //	400 WEBDOCUMENT_URL_EMPTY: The passed web document URL is empty.
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
-// Can be used by bots.
 func (c *Client) PaymentsExportInvoice(ctx context.Context, invoicemedia InputMediaClass) (*PaymentsExportedInvoice, error) {
 	var result PaymentsExportedInvoice
 

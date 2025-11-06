@@ -696,6 +696,7 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 //
 //	400 BOT_INVALID: This is not a valid bot.
 //	400 BOT_WEBVIEW_DISABLED: A webview cannot be opened in the specified conditions: emitted for example if from_bot_menu or url are set and peer is not the chat with the bot.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.

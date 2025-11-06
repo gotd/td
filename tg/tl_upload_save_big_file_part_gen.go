@@ -258,7 +258,6 @@ func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
 //	400 FILE_PART_TOO_SMALL: The size of the uploaded file part is too small, please see the documentation for the allowed sizes.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
-// Can be used by bots.
 func (c *Client) UploadSaveBigFilePart(ctx context.Context, request *UploadSaveBigFilePartRequest) (bool, error) {
 	var result BoolBox
 

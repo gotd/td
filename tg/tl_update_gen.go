@@ -4889,10 +4889,13 @@ func (u *UpdateWebPage) GetPtsCount() (value int) {
 }
 
 // UpdateReadMessagesContents represents TL type `updateReadMessagesContents#f8227181`.
-// Contents of messages in the common message box¹ were read
+// Contents of messages in the common message box¹ were read (emitted specifically for
+// messages like voice messages or video, only once the media is watched and marked as
+// read using messages.readMessageContents²).
 //
 // Links:
 //  1. https://core.telegram.org/api/updates
+//  2. https://core.telegram.org/method/messages.readMessageContents
 //
 // See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
@@ -9324,7 +9327,10 @@ type UpdateDraftMessage struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// SavedPeerID field of UpdateDraftMessage.
+	// If set, the draft is related to the specified monoforum topic ID »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass
@@ -12185,10 +12191,13 @@ func (u *UpdateFavedStickers) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateChannelReadMessagesContents represents TL type `updateChannelReadMessagesContents#25f324f7`.
-// The specified channel/supergroup¹ messages were read
+// The specified channel/supergroup¹ messages were read (emitted specifically for
+// messages like voice messages or video, only once the media is watched and marked as
+// read using channels.readMessageContents²)
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/method/channels.readMessageContents
 //
 // See https://core.telegram.org/constructor/updateChannelReadMessagesContents for reference.
 type UpdateChannelReadMessagesContents struct {
@@ -12209,7 +12218,10 @@ type UpdateChannelReadMessagesContents struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// SavedPeerID field of UpdateChannelReadMessagesContents.
+	// If set, the messages were read within the specified monoforum topic »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass
@@ -12771,7 +12783,10 @@ type UpdateDialogUnreadMark struct {
 	Unread bool
 	// The dialog
 	Peer DialogPeerClass
-	// SavedPeerID field of UpdateDialogUnreadMark.
+	// If set, the mark is related to the specified monoforum topic ID »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass
@@ -20316,7 +20331,10 @@ type UpdateMessageReactions struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// SavedPeerID field of UpdateMessageReactions.
+	// If set, the reactions are in the specified monoforum topic »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass
@@ -26145,7 +26163,7 @@ func (u *UpdateDeleteQuickReplyMessages) GetMessages() (value []int) {
 // the user.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //  2. https://core.telegram.org/constructor/updateBotBusinessConnect
 //
 // See https://core.telegram.org/constructor/updateBotBusinessConnect for reference.
@@ -26314,7 +26332,7 @@ func (u *UpdateBotBusinessConnect) GetQts() (value int) {
 // A message was received via a connected business chat »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/updateBotNewBusinessMessage for reference.
 type UpdateBotNewBusinessMessage struct {
@@ -26588,7 +26606,7 @@ func (u *UpdateBotNewBusinessMessage) GetQts() (value int) {
 // A message was edited in a connected business chat »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/updateBotEditBusinessMessage for reference.
 type UpdateBotEditBusinessMessage struct {
@@ -26862,7 +26880,7 @@ func (u *UpdateBotEditBusinessMessage) GetQts() (value int) {
 // A message was deleted in a connected business chat »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/updateBotDeleteBusinessMessage for reference.
 type UpdateBotDeleteBusinessMessage struct {
@@ -27457,7 +27475,7 @@ func (u *UpdateStarsBalance) GetBalance() (value StarsAmountClass) {
 // was sent to the bot that created the button.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/updateBusinessBotCallbackQuery for reference.
 type UpdateBusinessBotCallbackQuery struct {
@@ -27473,7 +27491,7 @@ type UpdateBusinessBotCallbackQuery struct {
 	// Business connection ID¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	ConnectionID string
 	// Message that contains the keyboard (also contains info about the chat where the
 	// message was sent).
@@ -28211,7 +28229,7 @@ func (u *UpdateBotPurchasedPaidMedia) GetQts() (value int) {
 //
 // See https://core.telegram.org/constructor/updatePaidReactionPrivacy for reference.
 type UpdatePaidReactionPrivacy struct {
-	// Whether paid reaction privacy is enabled or disabled.
+	// Paid reaction privacy settings.
 	Private PaidReactionPrivacyClass
 }
 
@@ -28347,10 +28365,11 @@ func (u *UpdatePaidReactionPrivacy) GetPrivate() (value PaidReactionPrivacyClass
 }
 
 // UpdateSentPhoneCode represents TL type `updateSentPhoneCode#504aa18f`.
+// A paid login SMS code was successfully sent.
 //
 // See https://core.telegram.org/constructor/updateSentPhoneCode for reference.
 type UpdateSentPhoneCode struct {
-	// SentCode field of UpdateSentPhoneCode.
+	// Info about the sent code.
 	SentCode AuthSentCodeClass
 }
 
@@ -28486,16 +28505,20 @@ func (u *UpdateSentPhoneCode) GetSentCode() (value AuthSentCodeClass) {
 }
 
 // UpdateGroupCallChainBlocks represents TL type `updateGroupCallChainBlocks#a477288f`.
+// Contains updates to the blockchain of a conference call, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/end-to-end/group-calls
 //
 // See https://core.telegram.org/constructor/updateGroupCallChainBlocks for reference.
 type UpdateGroupCallChainBlocks struct {
-	// Call field of UpdateGroupCallChainBlocks.
+	// The conference call.
 	Call InputGroupCallClass
-	// SubChainID field of UpdateGroupCallChainBlocks.
+	// Subchain ID.
 	SubChainID int
-	// Blocks field of UpdateGroupCallChainBlocks.
+	// Blocks.
 	Blocks [][]byte
-	// NextOffset field of UpdateGroupCallChainBlocks.
+	// Offset of the next block.
 	NextOffset int
 }
 
@@ -28719,14 +28742,18 @@ func (u *UpdateGroupCallChainBlocks) GetNextOffset() (value int) {
 }
 
 // UpdateReadMonoForumInbox represents TL type `updateReadMonoForumInbox#77b0e372`.
+// Incoming messages in a monoforum topic¹ were read
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/constructor/updateReadMonoForumInbox for reference.
 type UpdateReadMonoForumInbox struct {
-	// ChannelID field of UpdateReadMonoForumInbox.
+	// ID of the monoforum.
 	ChannelID int64
-	// SavedPeerID field of UpdateReadMonoForumInbox.
+	// Topic ID.
 	SavedPeerID PeerClass
-	// ReadMaxID field of UpdateReadMonoForumInbox.
+	// Position up to which all incoming messages are read.
 	ReadMaxID int
 }
 
@@ -28912,14 +28939,18 @@ func (u *UpdateReadMonoForumInbox) GetReadMaxID() (value int) {
 }
 
 // UpdateReadMonoForumOutbox represents TL type `updateReadMonoForumOutbox#a4a79376`.
+// Outgoing messages in a monoforum¹ were read.
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/constructor/updateReadMonoForumOutbox for reference.
 type UpdateReadMonoForumOutbox struct {
-	// ChannelID field of UpdateReadMonoForumOutbox.
+	// ID of the monoforum.
 	ChannelID int64
-	// SavedPeerID field of UpdateReadMonoForumOutbox.
+	// Topic ID.
 	SavedPeerID PeerClass
-	// ReadMaxID field of UpdateReadMonoForumOutbox.
+	// Position up to which all outgoing messages are read.
 	ReadMaxID int
 }
 
@@ -29105,6 +29136,12 @@ func (u *UpdateReadMonoForumOutbox) GetReadMaxID() (value int) {
 }
 
 // UpdateMonoForumNoPaidException represents TL type `updateMonoForumNoPaidException#9f812b08`.
+// An admin has (un)exempted this monoforum topic »¹ from payment to send messages
+// using account.toggleNoPaidMessagesException².
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
+//  2. https://core.telegram.org/method/account.toggleNoPaidMessagesException
 //
 // See https://core.telegram.org/constructor/updateMonoForumNoPaidException for reference.
 type UpdateMonoForumNoPaidException struct {
@@ -29113,11 +29150,11 @@ type UpdateMonoForumNoPaidException struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Exception field of UpdateMonoForumNoPaidException.
+	// If set, an admin has exempted this peer, otherwise the peer was unexempted.
 	Exception bool
-	// ChannelID field of UpdateMonoForumNoPaidException.
+	// The monoforum ID.
 	ChannelID int64
-	// SavedPeerID field of UpdateMonoForumNoPaidException.
+	// The peer/topic ID.
 	SavedPeerID PeerClass
 }
 

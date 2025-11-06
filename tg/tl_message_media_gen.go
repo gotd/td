@@ -912,11 +912,11 @@ type MessageMediaDocument struct {
 	//
 	// Use SetAltDocuments and GetAltDocuments helpers.
 	AltDocuments []DocumentClass
-	// VideoCover field of MessageMediaDocument.
+	// Custom video cover.
 	//
 	// Use SetVideoCover and GetVideoCover helpers.
 	VideoCover PhotoClass
-	// VideoTimestamp field of MessageMediaDocument.
+	// Start playing the video at the specified timestamp (seconds).
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
@@ -4892,6 +4892,10 @@ func (m *MessageMediaPaidMedia) MapExtendedMedia() (value MessageExtendedMediaCl
 }
 
 // MessageMediaToDo represents TL type `messageMediaToDo#8a53b014`.
+// Represents a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/messageMediaToDo for reference.
 type MessageMediaToDo struct {
@@ -4900,9 +4904,9 @@ type MessageMediaToDo struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Todo field of MessageMediaToDo.
+	// The todo list.
 	Todo TodoList
-	// Completions field of MessageMediaToDo.
+	// Completed items.
 	//
 	// Use SetCompletions and GetCompletions helpers.
 	Completions []TodoCompletion

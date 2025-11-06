@@ -57,11 +57,14 @@ type PhoneJoinGroupCallRequest struct {
 	//
 	// Use SetInviteHash and GetInviteHash helpers.
 	InviteHash string
-	// PublicKey field of PhoneJoinGroupCallRequest.
+	// For conference calls, your public key.
 	//
 	// Use SetPublicKey and GetPublicKey helpers.
 	PublicKey bin.Int256
-	// Block field of PhoneJoinGroupCallRequest.
+	// The block containing an appropriate e2e.chain.changeSetGroupState event¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/group-calls
 	//
 	// Use SetBlock and GetBlock helpers.
 	Block []byte
