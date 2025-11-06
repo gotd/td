@@ -159,8 +159,8 @@ func (q QR) Auth(
 	}
 
 	// If token is empty, it means AuthLoginTokenSuccess was returned
-	// and authentication is already complete, but we should wait for the signal
-	if token.String() == "" {
+	// and authentication is already complete, but we should wait for the signal.
+	if token.Empty() {
 		select {
 		case <-ctx.Done():
 			return nil, ctx.Err()
@@ -186,9 +186,9 @@ func (q QR) Auth(
 				return nil, err
 			}
 
-			// If empty token, it means AuthLoginTokenSuccess was returned
-			if t.String() == "" {
-				// QR was scanned and accepted, break out of loop
+			if t.Empty() {
+				// If empty token, it means AuthLoginTokenSuccess was returned.
+				// QR was scanned and accepted, break to import.
 				break
 			}
 

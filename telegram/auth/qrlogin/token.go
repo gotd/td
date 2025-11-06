@@ -59,6 +59,11 @@ func (t Token) String() string {
 	return base64.URLEncoding.EncodeToString(t.token)
 }
 
+// Empty reports whether token is empty.
+func (t Token) Empty() bool {
+	return len(t.token) == 0
+}
+
 // URL returns login URL.
 //
 // See https://core.telegram.org/api/qr-login#exporting-a-login-token.

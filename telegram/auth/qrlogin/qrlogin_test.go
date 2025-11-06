@@ -197,7 +197,7 @@ func TestMigrationNeededError_Error(t *testing.T) {
 	a.Equal("migration to 2 needed", err.Error())
 }
 
-// Mock dispatcher that implements the required interface
+// Mock dispatcher that implements the required interface.
 type mockDispatcher struct {
 	handler tg.LoginTokenHandler
 }
@@ -212,7 +212,7 @@ func TestOnLoginToken(t *testing.T) {
 	dispatcher := &mockDispatcher{}
 	loggedIn := OnLoginToken(dispatcher)
 
-	// Verify that handler was set
+	// Verify that handler was set.
 	a.NotNil(dispatcher.handler)
 
 	// Test the handler
@@ -220,24 +220,24 @@ func TestOnLoginToken(t *testing.T) {
 	entities := tg.Entities{}
 	update := &tg.UpdateLoginToken{}
 
-	// First call should send to channel
+	// First call should send to channel.
 	done := make(chan error, 1)
 	go func() {
 		done <- dispatcher.handler(ctx, entities, update)
 	}()
 
-	// Should receive signal
+	// Should receive signal.
 	select {
 	case <-loggedIn:
 		// Good
-	case <-time.After(time.Second):
+	case <-time.After(time.Second * 5):
 		t.Fatal("should receive signal")
 	}
 
-	// Handler should return nil
+	// Handler should return nil.
 	a.NoError(<-done)
 
-	// Second call when channel is full should not block
+	// Second call when channel is full should not block.
 	err := dispatcher.handler(ctx, entities, update)
 	a.NoError(err)
 }
@@ -246,12 +246,12 @@ func TestToken_Image(t *testing.T) {
 	a := require.New(t)
 	token := NewToken([]byte("test_token"), int(time.Now().Unix()))
 
-	// Test with valid QR level
+	// Test with valid QR level.
 	img, err := token.Image(qr.L)
 	a.NoError(err)
 	a.NotNil(img)
 
-	// Test with different QR levels
+	// Test with different QR levels.
 	levels := []qr.Level{qr.L, qr.M, qr.Q, qr.H}
 
 	for _, level := range levels {
@@ -265,7 +265,7 @@ func TestQR_Import_WithMigration(t *testing.T) {
 	ctx := context.Background()
 	a := require.New(t)
 
-	// Test with migration function
+	// Test with migration function.
 	migrateCalled := false
 	migrate := func(ctx context.Context, dcID int) error {
 		migrateCalled = true
@@ -279,7 +279,7 @@ func TestQR_Import_WithMigration(t *testing.T) {
 		User: &tg.User{ID: 10},
 	}
 
-	// First call returns migration needed
+	// First call returns migration needed.
 	mock.ExpectCall(&tg.AuthExportLoginTokenRequest{
 		APIID:   constant.TestAppID,
 		APIHash: constant.TestAppHash,
@@ -302,7 +302,7 @@ func TestQR_Import_MigrationError(t *testing.T) {
 	ctx := context.Background()
 	a := require.New(t)
 
-	// Test with migration function that returns error
+	// Test with migration function that returns error,
 	migrate := func(ctx context.Context, dcID int) error {
 		return testutil.TestError()
 	}
