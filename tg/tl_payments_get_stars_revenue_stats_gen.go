@@ -46,6 +46,8 @@ type PaymentsGetStarsRevenueStatsRequest struct {
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
+	// Ton field of PaymentsGetStarsRevenueStatsRequest.
+	Ton bool
 	// Get statistics for the specified bot, channel or ourselves (inputPeerSelf¹).
 	//
 	// Links:
@@ -74,6 +76,9 @@ func (g *PaymentsGetStarsRevenueStatsRequest) Zero() bool {
 	if !(g.Dark == false) {
 		return false
 	}
+	if !(g.Ton == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
@@ -93,9 +98,11 @@ func (g *PaymentsGetStarsRevenueStatsRequest) String() string {
 // FillFrom fills PaymentsGetStarsRevenueStatsRequest from given interface.
 func (g *PaymentsGetStarsRevenueStatsRequest) FillFrom(from interface {
 	GetDark() (value bool)
+	GetTon() (value bool)
 	GetPeer() (value InputPeerClass)
 }) {
 	g.Dark = from.GetDark()
+	g.Ton = from.GetTon()
 	g.Peer = from.GetPeer()
 }
 
@@ -128,6 +135,11 @@ func (g *PaymentsGetStarsRevenueStatsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
+			Name:       "Ton",
+			SchemaName: "ton",
+			Null:       !g.Flags.Has(1),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -139,6 +151,9 @@ func (g *PaymentsGetStarsRevenueStatsRequest) TypeInfo() tdp.Type {
 func (g *PaymentsGetStarsRevenueStatsRequest) SetFlags() {
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
+	}
+	if !(g.Ton == false) {
+		g.Flags.Set(1)
 	}
 }
 
@@ -191,6 +206,7 @@ func (g *PaymentsGetStarsRevenueStatsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	g.Dark = g.Flags.Has(0)
+	g.Ton = g.Flags.Has(1)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -218,6 +234,25 @@ func (g *PaymentsGetStarsRevenueStatsRequest) GetDark() (value bool) {
 		return
 	}
 	return g.Flags.Has(0)
+}
+
+// SetTon sets value of Ton conditional field.
+func (g *PaymentsGetStarsRevenueStatsRequest) SetTon(value bool) {
+	if value {
+		g.Flags.Set(1)
+		g.Ton = true
+	} else {
+		g.Flags.Unset(1)
+		g.Ton = false
+	}
+}
+
+// GetTon returns value of Ton conditional field.
+func (g *PaymentsGetStarsRevenueStatsRequest) GetTon() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.

@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
 type PhoneCreateConferenceCallRequest struct {
-	// Flags field of PhoneCreateConferenceCallRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Muted field of PhoneCreateConferenceCallRequest.
 	Muted bool
@@ -430,6 +433,7 @@ func (c *PhoneCreateConferenceCallRequest) GetParams() (value DataJSON, ok bool)
 // PhoneCreateConferenceCall invokes method phone.createConferenceCall#7d0444bb returning error if any.
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
+// Can be used by bots.
 func (c *Client) PhoneCreateConferenceCall(ctx context.Context, request *PhoneCreateConferenceCallRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSavedDialogsByID for reference.
 type MessagesGetSavedDialogsByIDRequest struct {
-	// Flags field of MessagesGetSavedDialogsByIDRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ParentPeer field of MessagesGetSavedDialogsByIDRequest.
 	//
@@ -257,6 +260,7 @@ func (g *MessagesGetSavedDialogsByIDRequest) MapIDs() (value InputPeerClassArray
 // MessagesGetSavedDialogsByID invokes method messages.getSavedDialogsByID#6f6f9c96 returning error if any.
 //
 // See https://core.telegram.org/method/messages.getSavedDialogsByID for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetSavedDialogsByID(ctx context.Context, request *MessagesGetSavedDialogsByIDRequest) (MessagesSavedDialogsClass, error) {
 	var result MessagesSavedDialogsBox
 

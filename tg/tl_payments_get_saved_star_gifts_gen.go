@@ -31,11 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetSavedStarGiftsRequest represents TL type `payments.getSavedStarGifts#23830de9`.
+// PaymentsGetSavedStarGiftsRequest represents TL type `payments.getSavedStarGifts#a319e569`.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
 type PaymentsGetSavedStarGiftsRequest struct {
-	// Flags field of PaymentsGetSavedStarGiftsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ExcludeUnsaved field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnsaved bool
@@ -43,22 +46,35 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	ExcludeSaved bool
 	// ExcludeUnlimited field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnlimited bool
-	// ExcludeLimited field of PaymentsGetSavedStarGiftsRequest.
-	ExcludeLimited bool
 	// ExcludeUnique field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeUnique bool
 	// SortByValue field of PaymentsGetSavedStarGiftsRequest.
 	SortByValue bool
+	// ExcludeUpgradable field of PaymentsGetSavedStarGiftsRequest.
+	ExcludeUpgradable bool
+	// ExcludeUnupgradable field of PaymentsGetSavedStarGiftsRequest.
+	ExcludeUnupgradable bool
+	// PeerColorAvailable field of PaymentsGetSavedStarGiftsRequest.
+	PeerColorAvailable bool
+	// ExcludeHosted field of PaymentsGetSavedStarGiftsRequest.
+	ExcludeHosted bool
 	// Peer field of PaymentsGetSavedStarGiftsRequest.
 	Peer InputPeerClass
+	// CollectionID field of PaymentsGetSavedStarGiftsRequest.
+	//
+	// Use SetCollectionID and GetCollectionID helpers.
+	CollectionID int
 	// Offset field of PaymentsGetSavedStarGiftsRequest.
 	Offset string
-	// Limit field of PaymentsGetSavedStarGiftsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
 // PaymentsGetSavedStarGiftsRequestTypeID is TL type id of PaymentsGetSavedStarGiftsRequest.
-const PaymentsGetSavedStarGiftsRequestTypeID = 0x23830de9
+const PaymentsGetSavedStarGiftsRequestTypeID = 0xa319e569
 
 // Ensuring interfaces in compile-time for PaymentsGetSavedStarGiftsRequest.
 var (
@@ -84,16 +100,28 @@ func (g *PaymentsGetSavedStarGiftsRequest) Zero() bool {
 	if !(g.ExcludeUnlimited == false) {
 		return false
 	}
-	if !(g.ExcludeLimited == false) {
-		return false
-	}
 	if !(g.ExcludeUnique == false) {
 		return false
 	}
 	if !(g.SortByValue == false) {
 		return false
 	}
+	if !(g.ExcludeUpgradable == false) {
+		return false
+	}
+	if !(g.ExcludeUnupgradable == false) {
+		return false
+	}
+	if !(g.PeerColorAvailable == false) {
+		return false
+	}
+	if !(g.ExcludeHosted == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.CollectionID == 0) {
 		return false
 	}
 	if !(g.Offset == "") {
@@ -120,20 +148,31 @@ func (g *PaymentsGetSavedStarGiftsRequest) FillFrom(from interface {
 	GetExcludeUnsaved() (value bool)
 	GetExcludeSaved() (value bool)
 	GetExcludeUnlimited() (value bool)
-	GetExcludeLimited() (value bool)
 	GetExcludeUnique() (value bool)
 	GetSortByValue() (value bool)
+	GetExcludeUpgradable() (value bool)
+	GetExcludeUnupgradable() (value bool)
+	GetPeerColorAvailable() (value bool)
+	GetExcludeHosted() (value bool)
 	GetPeer() (value InputPeerClass)
+	GetCollectionID() (value int, ok bool)
 	GetOffset() (value string)
 	GetLimit() (value int)
 }) {
 	g.ExcludeUnsaved = from.GetExcludeUnsaved()
 	g.ExcludeSaved = from.GetExcludeSaved()
 	g.ExcludeUnlimited = from.GetExcludeUnlimited()
-	g.ExcludeLimited = from.GetExcludeLimited()
 	g.ExcludeUnique = from.GetExcludeUnique()
 	g.SortByValue = from.GetSortByValue()
+	g.ExcludeUpgradable = from.GetExcludeUpgradable()
+	g.ExcludeUnupgradable = from.GetExcludeUnupgradable()
+	g.PeerColorAvailable = from.GetPeerColorAvailable()
+	g.ExcludeHosted = from.GetExcludeHosted()
 	g.Peer = from.GetPeer()
+	if val, ok := from.GetCollectionID(); ok {
+		g.CollectionID = val
+	}
+
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 }
@@ -177,11 +216,6 @@ func (g *PaymentsGetSavedStarGiftsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(2),
 		},
 		{
-			Name:       "ExcludeLimited",
-			SchemaName: "exclude_limited",
-			Null:       !g.Flags.Has(3),
-		},
-		{
 			Name:       "ExcludeUnique",
 			SchemaName: "exclude_unique",
 			Null:       !g.Flags.Has(4),
@@ -192,8 +226,33 @@ func (g *PaymentsGetSavedStarGiftsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(5),
 		},
 		{
+			Name:       "ExcludeUpgradable",
+			SchemaName: "exclude_upgradable",
+			Null:       !g.Flags.Has(7),
+		},
+		{
+			Name:       "ExcludeUnupgradable",
+			SchemaName: "exclude_unupgradable",
+			Null:       !g.Flags.Has(8),
+		},
+		{
+			Name:       "PeerColorAvailable",
+			SchemaName: "peer_color_available",
+			Null:       !g.Flags.Has(9),
+		},
+		{
+			Name:       "ExcludeHosted",
+			SchemaName: "exclude_hosted",
+			Null:       !g.Flags.Has(10),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
+		},
+		{
+			Name:       "CollectionID",
+			SchemaName: "collection_id",
+			Null:       !g.Flags.Has(6),
 		},
 		{
 			Name:       "Offset",
@@ -218,21 +277,33 @@ func (g *PaymentsGetSavedStarGiftsRequest) SetFlags() {
 	if !(g.ExcludeUnlimited == false) {
 		g.Flags.Set(2)
 	}
-	if !(g.ExcludeLimited == false) {
-		g.Flags.Set(3)
-	}
 	if !(g.ExcludeUnique == false) {
 		g.Flags.Set(4)
 	}
 	if !(g.SortByValue == false) {
 		g.Flags.Set(5)
 	}
+	if !(g.ExcludeUpgradable == false) {
+		g.Flags.Set(7)
+	}
+	if !(g.ExcludeUnupgradable == false) {
+		g.Flags.Set(8)
+	}
+	if !(g.PeerColorAvailable == false) {
+		g.Flags.Set(9)
+	}
+	if !(g.ExcludeHosted == false) {
+		g.Flags.Set(10)
+	}
+	if !(g.CollectionID == 0) {
+		g.Flags.Set(6)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *PaymentsGetSavedStarGiftsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getSavedStarGifts#23830de9 as nil")
+		return fmt.Errorf("can't encode payments.getSavedStarGifts#a319e569 as nil")
 	}
 	b.PutID(PaymentsGetSavedStarGiftsRequestTypeID)
 	return g.EncodeBare(b)
@@ -241,17 +312,20 @@ func (g *PaymentsGetSavedStarGiftsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetSavedStarGiftsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getSavedStarGifts#23830de9 as nil")
+		return fmt.Errorf("can't encode payments.getSavedStarGifts#a319e569 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getSavedStarGifts#23830de9: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.getSavedStarGifts#a319e569: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getSavedStarGifts#23830de9: field peer is nil")
+		return fmt.Errorf("unable to encode payments.getSavedStarGifts#a319e569: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getSavedStarGifts#23830de9: field peer: %w", err)
+		return fmt.Errorf("unable to encode payments.getSavedStarGifts#a319e569: field peer: %w", err)
+	}
+	if g.Flags.Has(6) {
+		b.PutInt(g.CollectionID)
 	}
 	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
@@ -261,10 +335,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetSavedStarGiftsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getSavedStarGifts#23830de9 to nil")
+		return fmt.Errorf("can't decode payments.getSavedStarGifts#a319e569 to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetSavedStarGiftsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: %w", err)
+		return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -272,37 +346,47 @@ func (g *PaymentsGetSavedStarGiftsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetSavedStarGiftsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getSavedStarGifts#23830de9 to nil")
+		return fmt.Errorf("can't decode payments.getSavedStarGifts#a319e569 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field flags: %w", err)
 		}
 	}
 	g.ExcludeUnsaved = g.Flags.Has(0)
 	g.ExcludeSaved = g.Flags.Has(1)
 	g.ExcludeUnlimited = g.Flags.Has(2)
-	g.ExcludeLimited = g.Flags.Has(3)
 	g.ExcludeUnique = g.Flags.Has(4)
 	g.SortByValue = g.Flags.Has(5)
+	g.ExcludeUpgradable = g.Flags.Has(7)
+	g.ExcludeUnupgradable = g.Flags.Has(8)
+	g.PeerColorAvailable = g.Flags.Has(9)
+	g.ExcludeHosted = g.Flags.Has(10)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field peer: %w", err)
 		}
 		g.Peer = value
+	}
+	if g.Flags.Has(6) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field collection_id: %w", err)
+		}
+		g.CollectionID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field offset: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getSavedStarGifts#23830de9: field limit: %w", err)
+			return fmt.Errorf("unable to decode payments.getSavedStarGifts#a319e569: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -366,25 +450,6 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUnlimited() (value bool) {
 	return g.Flags.Has(2)
 }
 
-// SetExcludeLimited sets value of ExcludeLimited conditional field.
-func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeLimited(value bool) {
-	if value {
-		g.Flags.Set(3)
-		g.ExcludeLimited = true
-	} else {
-		g.Flags.Unset(3)
-		g.ExcludeLimited = false
-	}
-}
-
-// GetExcludeLimited returns value of ExcludeLimited conditional field.
-func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeLimited() (value bool) {
-	if g == nil {
-		return
-	}
-	return g.Flags.Has(3)
-}
-
 // SetExcludeUnique sets value of ExcludeUnique conditional field.
 func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeUnique(value bool) {
 	if value {
@@ -423,12 +488,106 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetSortByValue() (value bool) {
 	return g.Flags.Has(5)
 }
 
+// SetExcludeUpgradable sets value of ExcludeUpgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeUpgradable(value bool) {
+	if value {
+		g.Flags.Set(7)
+		g.ExcludeUpgradable = true
+	} else {
+		g.Flags.Unset(7)
+		g.ExcludeUpgradable = false
+	}
+}
+
+// GetExcludeUpgradable returns value of ExcludeUpgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUpgradable() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(7)
+}
+
+// SetExcludeUnupgradable sets value of ExcludeUnupgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeUnupgradable(value bool) {
+	if value {
+		g.Flags.Set(8)
+		g.ExcludeUnupgradable = true
+	} else {
+		g.Flags.Unset(8)
+		g.ExcludeUnupgradable = false
+	}
+}
+
+// GetExcludeUnupgradable returns value of ExcludeUnupgradable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeUnupgradable() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(8)
+}
+
+// SetPeerColorAvailable sets value of PeerColorAvailable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetPeerColorAvailable(value bool) {
+	if value {
+		g.Flags.Set(9)
+		g.PeerColorAvailable = true
+	} else {
+		g.Flags.Unset(9)
+		g.PeerColorAvailable = false
+	}
+}
+
+// GetPeerColorAvailable returns value of PeerColorAvailable conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetPeerColorAvailable() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(9)
+}
+
+// SetExcludeHosted sets value of ExcludeHosted conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetExcludeHosted(value bool) {
+	if value {
+		g.Flags.Set(10)
+		g.ExcludeHosted = true
+	} else {
+		g.Flags.Unset(10)
+		g.ExcludeHosted = false
+	}
+}
+
+// GetExcludeHosted returns value of ExcludeHosted conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) GetExcludeHosted() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(10)
+}
+
 // GetPeer returns value of Peer field.
 func (g *PaymentsGetSavedStarGiftsRequest) GetPeer() (value InputPeerClass) {
 	if g == nil {
 		return
 	}
 	return g.Peer
+}
+
+// SetCollectionID sets value of CollectionID conditional field.
+func (g *PaymentsGetSavedStarGiftsRequest) SetCollectionID(value int) {
+	g.Flags.Set(6)
+	g.CollectionID = value
+}
+
+// GetCollectionID returns value of CollectionID conditional field and
+// boolean which is true if field was set.
+func (g *PaymentsGetSavedStarGiftsRequest) GetCollectionID() (value int, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(6) {
+		return value, false
+	}
+	return g.CollectionID, true
 }
 
 // GetOffset returns value of Offset field.
@@ -447,9 +606,10 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#23830de9 returning error if any.
+// PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#a319e569 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetSavedStarGifts(ctx context.Context, request *PaymentsGetSavedStarGiftsRequest) (*PaymentsSavedStarGifts, error) {
 	var result PaymentsSavedStarGifts
 

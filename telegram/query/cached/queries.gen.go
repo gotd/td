@@ -770,6 +770,90 @@ func (s *AccountGetRecentEmojiStatuses) Fetch(ctx context.Context) (bool, error)
 	}
 }
 
+type innerAccountGetSavedMusicIDs struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AccountSavedMusicIDs
+}
+
+type AccountGetSavedMusicIDs struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetSavedMusicIDs creates new AccountGetSavedMusicIDs.
+func NewAccountGetSavedMusicIDs(raw *tg.Client) *AccountGetSavedMusicIDs {
+	q := &AccountGetSavedMusicIDs{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetSavedMusicIDs) store(v innerAccountGetSavedMusicIDs) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetSavedMusicIDs) load() (innerAccountGetSavedMusicIDs, bool) {
+	v, ok := s.last.Load().(innerAccountGetSavedMusicIDs)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AccountSavedMusicIDs must not be mutated.
+func (s *AccountGetSavedMusicIDs) Value() *tg.AccountSavedMusicIDs {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetSavedMusicIDs) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetSavedMusicIDs) Get(ctx context.Context) (*tg.AccountSavedMusicIDs, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetSavedMusicIDs) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetSavedMusicIDs(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetSavedMusicIDs")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AccountSavedMusicIDs:
+		hash := s.computeHash(variant)
+
+		s.store(innerAccountGetSavedMusicIDs{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AccountSavedMusicIDsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetSavedRingtones struct {
 	// Last received hash.
 	hash int64
@@ -2645,6 +2729,182 @@ func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
 		})
 		return true, nil
 	case *tg.MessagesFoundStickerSetsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerPaymentsGetStarGiftCollections struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.PaymentsStarGiftCollections
+}
+
+type PaymentsGetStarGiftCollections struct {
+	// Query to send.
+	req *tg.PaymentsGetStarGiftCollectionsRequest
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewPaymentsGetStarGiftCollections creates new PaymentsGetStarGiftCollections.
+func NewPaymentsGetStarGiftCollections(raw *tg.Client, initial *tg.PaymentsGetStarGiftCollectionsRequest) *PaymentsGetStarGiftCollections {
+	q := &PaymentsGetStarGiftCollections{
+		req: initial,
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *PaymentsGetStarGiftCollections) store(v innerPaymentsGetStarGiftCollections) {
+	s.last.Store(v)
+}
+
+func (s *PaymentsGetStarGiftCollections) load() (innerPaymentsGetStarGiftCollections, bool) {
+	v, ok := s.last.Load().(innerPaymentsGetStarGiftCollections)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned PaymentsStarGiftCollections must not be mutated.
+func (s *PaymentsGetStarGiftCollections) Value() *tg.PaymentsStarGiftCollections {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *PaymentsGetStarGiftCollections) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *PaymentsGetStarGiftCollections) Get(ctx context.Context) (*tg.PaymentsStarGiftCollections, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *PaymentsGetStarGiftCollections) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := s.req
+	req.Hash = lastHash
+	result, err := s.raw.PaymentsGetStarGiftCollections(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute PaymentsGetStarGiftCollections")
+	}
+
+	switch variant := result.(type) {
+	case *tg.PaymentsStarGiftCollections:
+		hash := s.computeHash(variant)
+
+		s.store(innerPaymentsGetStarGiftCollections{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.PaymentsStarGiftCollectionsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerStoriesGetAlbums struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.StoriesAlbums
+}
+
+type StoriesGetAlbums struct {
+	// Query to send.
+	req *tg.StoriesGetAlbumsRequest
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewStoriesGetAlbums creates new StoriesGetAlbums.
+func NewStoriesGetAlbums(raw *tg.Client, initial *tg.StoriesGetAlbumsRequest) *StoriesGetAlbums {
+	q := &StoriesGetAlbums{
+		req: initial,
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *StoriesGetAlbums) store(v innerStoriesGetAlbums) {
+	s.last.Store(v)
+}
+
+func (s *StoriesGetAlbums) load() (innerStoriesGetAlbums, bool) {
+	v, ok := s.last.Load().(innerStoriesGetAlbums)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned StoriesAlbums must not be mutated.
+func (s *StoriesGetAlbums) Value() *tg.StoriesAlbums {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *StoriesGetAlbums) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *StoriesGetAlbums) Get(ctx context.Context) (*tg.StoriesAlbums, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *StoriesGetAlbums) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := s.req
+	req.Hash = lastHash
+	result, err := s.raw.StoriesGetAlbums(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute StoriesGetAlbums")
+	}
+
+	switch variant := result.(type) {
+	case *tg.StoriesAlbums:
+		hash := variant.Hash
+
+		s.store(innerStoriesGetAlbums{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.StoriesAlbumsNotModified:
 		if lastHash == 0 {
 			return false, errors.Errorf("got unexpected %T result", result)
 		}

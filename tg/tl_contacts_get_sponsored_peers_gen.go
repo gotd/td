@@ -163,6 +163,7 @@ func (g *ContactsGetSponsoredPeersRequest) GetQ() (value string) {
 // ContactsGetSponsoredPeers invokes method contacts.getSponsoredPeers#b6c8c393 returning error if any.
 //
 // See https://core.telegram.org/method/contacts.getSponsoredPeers for reference.
+// Can be used by bots.
 func (c *Client) ContactsGetSponsoredPeers(ctx context.Context, q string) (ContactsSponsoredPeersClass, error) {
 	var result ContactsSponsoredPeersBox
 

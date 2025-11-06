@@ -31,11 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SavedStarGift represents TL type `savedStarGift#dfda0499`.
+// SavedStarGift represents TL type `savedStarGift#8983a452`.
 //
 // See https://core.telegram.org/constructor/savedStarGift for reference.
 type SavedStarGift struct {
-	// Flags field of SavedStarGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// NameHidden field of SavedStarGift.
 	NameHidden bool
@@ -47,6 +50,8 @@ type SavedStarGift struct {
 	CanUpgrade bool
 	// PinnedToTop field of SavedStarGift.
 	PinnedToTop bool
+	// UpgradeSeparate field of SavedStarGift.
+	UpgradeSeparate bool
 	// FromID field of SavedStarGift.
 	//
 	// Use SetFromID and GetFromID helpers.
@@ -91,10 +96,22 @@ type SavedStarGift struct {
 	//
 	// Use SetCanResellAt and GetCanResellAt helpers.
 	CanResellAt int
+	// CollectionID field of SavedStarGift.
+	//
+	// Use SetCollectionID and GetCollectionID helpers.
+	CollectionID []int
+	// PrepaidUpgradeHash field of SavedStarGift.
+	//
+	// Use SetPrepaidUpgradeHash and GetPrepaidUpgradeHash helpers.
+	PrepaidUpgradeHash string
+	// DropOriginalDetailsStars field of SavedStarGift.
+	//
+	// Use SetDropOriginalDetailsStars and GetDropOriginalDetailsStars helpers.
+	DropOriginalDetailsStars int64
 }
 
 // SavedStarGiftTypeID is TL type id of SavedStarGift.
-const SavedStarGiftTypeID = 0xdfda0499
+const SavedStarGiftTypeID = 0x8983a452
 
 // Ensuring interfaces in compile-time for SavedStarGift.
 var (
@@ -124,6 +141,9 @@ func (s *SavedStarGift) Zero() bool {
 		return false
 	}
 	if !(s.PinnedToTop == false) {
+		return false
+	}
+	if !(s.UpgradeSeparate == false) {
 		return false
 	}
 	if !(s.FromID == nil) {
@@ -162,6 +182,15 @@ func (s *SavedStarGift) Zero() bool {
 	if !(s.CanResellAt == 0) {
 		return false
 	}
+	if !(s.CollectionID == nil) {
+		return false
+	}
+	if !(s.PrepaidUpgradeHash == "") {
+		return false
+	}
+	if !(s.DropOriginalDetailsStars == 0) {
+		return false
+	}
 
 	return true
 }
@@ -182,6 +211,7 @@ func (s *SavedStarGift) FillFrom(from interface {
 	GetRefunded() (value bool)
 	GetCanUpgrade() (value bool)
 	GetPinnedToTop() (value bool)
+	GetUpgradeSeparate() (value bool)
 	GetFromID() (value PeerClass, ok bool)
 	GetDate() (value int)
 	GetGift() (value StarGiftClass)
@@ -194,12 +224,16 @@ func (s *SavedStarGift) FillFrom(from interface {
 	GetTransferStars() (value int64, ok bool)
 	GetCanTransferAt() (value int, ok bool)
 	GetCanResellAt() (value int, ok bool)
+	GetCollectionID() (value []int, ok bool)
+	GetPrepaidUpgradeHash() (value string, ok bool)
+	GetDropOriginalDetailsStars() (value int64, ok bool)
 }) {
 	s.NameHidden = from.GetNameHidden()
 	s.Unsaved = from.GetUnsaved()
 	s.Refunded = from.GetRefunded()
 	s.CanUpgrade = from.GetCanUpgrade()
 	s.PinnedToTop = from.GetPinnedToTop()
+	s.UpgradeSeparate = from.GetUpgradeSeparate()
 	if val, ok := from.GetFromID(); ok {
 		s.FromID = val
 	}
@@ -240,6 +274,18 @@ func (s *SavedStarGift) FillFrom(from interface {
 
 	if val, ok := from.GetCanResellAt(); ok {
 		s.CanResellAt = val
+	}
+
+	if val, ok := from.GetCollectionID(); ok {
+		s.CollectionID = val
+	}
+
+	if val, ok := from.GetPrepaidUpgradeHash(); ok {
+		s.PrepaidUpgradeHash = val
+	}
+
+	if val, ok := from.GetDropOriginalDetailsStars(); ok {
+		s.DropOriginalDetailsStars = val
 	}
 
 }
@@ -291,6 +337,11 @@ func (s *SavedStarGift) TypeInfo() tdp.Type {
 			Name:       "PinnedToTop",
 			SchemaName: "pinned_to_top",
 			Null:       !s.Flags.Has(12),
+		},
+		{
+			Name:       "UpgradeSeparate",
+			SchemaName: "upgrade_separate",
+			Null:       !s.Flags.Has(17),
 		},
 		{
 			Name:       "FromID",
@@ -350,6 +401,21 @@ func (s *SavedStarGift) TypeInfo() tdp.Type {
 			SchemaName: "can_resell_at",
 			Null:       !s.Flags.Has(14),
 		},
+		{
+			Name:       "CollectionID",
+			SchemaName: "collection_id",
+			Null:       !s.Flags.Has(15),
+		},
+		{
+			Name:       "PrepaidUpgradeHash",
+			SchemaName: "prepaid_upgrade_hash",
+			Null:       !s.Flags.Has(16),
+		},
+		{
+			Name:       "DropOriginalDetailsStars",
+			SchemaName: "drop_original_details_stars",
+			Null:       !s.Flags.Has(18),
+		},
 	}
 	return typ
 }
@@ -370,6 +436,9 @@ func (s *SavedStarGift) SetFlags() {
 	}
 	if !(s.PinnedToTop == false) {
 		s.Flags.Set(12)
+	}
+	if !(s.UpgradeSeparate == false) {
+		s.Flags.Set(17)
 	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(1)
@@ -401,12 +470,21 @@ func (s *SavedStarGift) SetFlags() {
 	if !(s.CanResellAt == 0) {
 		s.Flags.Set(14)
 	}
+	if !(s.CollectionID == nil) {
+		s.Flags.Set(15)
+	}
+	if !(s.PrepaidUpgradeHash == "") {
+		s.Flags.Set(16)
+	}
+	if !(s.DropOriginalDetailsStars == 0) {
+		s.Flags.Set(18)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *SavedStarGift) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedStarGift#dfda0499 as nil")
+		return fmt.Errorf("can't encode savedStarGift#8983a452 as nil")
 	}
 	b.PutID(SavedStarGiftTypeID)
 	return s.EncodeBare(b)
@@ -415,30 +493,30 @@ func (s *SavedStarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SavedStarGift) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode savedStarGift#dfda0499 as nil")
+		return fmt.Errorf("can't encode savedStarGift#8983a452 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode savedStarGift#dfda0499: field flags: %w", err)
+		return fmt.Errorf("unable to encode savedStarGift#8983a452: field flags: %w", err)
 	}
 	if s.Flags.Has(1) {
 		if s.FromID == nil {
-			return fmt.Errorf("unable to encode savedStarGift#dfda0499: field from_id is nil")
+			return fmt.Errorf("unable to encode savedStarGift#8983a452: field from_id is nil")
 		}
 		if err := s.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode savedStarGift#dfda0499: field from_id: %w", err)
+			return fmt.Errorf("unable to encode savedStarGift#8983a452: field from_id: %w", err)
 		}
 	}
 	b.PutInt(s.Date)
 	if s.Gift == nil {
-		return fmt.Errorf("unable to encode savedStarGift#dfda0499: field gift is nil")
+		return fmt.Errorf("unable to encode savedStarGift#8983a452: field gift is nil")
 	}
 	if err := s.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode savedStarGift#dfda0499: field gift: %w", err)
+		return fmt.Errorf("unable to encode savedStarGift#8983a452: field gift: %w", err)
 	}
 	if s.Flags.Has(2) {
 		if err := s.Message.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode savedStarGift#dfda0499: field message: %w", err)
+			return fmt.Errorf("unable to encode savedStarGift#8983a452: field message: %w", err)
 		}
 	}
 	if s.Flags.Has(3) {
@@ -465,16 +543,28 @@ func (s *SavedStarGift) EncodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(14) {
 		b.PutInt(s.CanResellAt)
 	}
+	if s.Flags.Has(15) {
+		b.PutVectorHeader(len(s.CollectionID))
+		for _, v := range s.CollectionID {
+			b.PutInt(v)
+		}
+	}
+	if s.Flags.Has(16) {
+		b.PutString(s.PrepaidUpgradeHash)
+	}
+	if s.Flags.Has(18) {
+		b.PutLong(s.DropOriginalDetailsStars)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SavedStarGift) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedStarGift#dfda0499 to nil")
+		return fmt.Errorf("can't decode savedStarGift#8983a452 to nil")
 	}
 	if err := b.ConsumeID(SavedStarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode savedStarGift#dfda0499: %w", err)
+		return fmt.Errorf("unable to decode savedStarGift#8983a452: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -482,11 +572,11 @@ func (s *SavedStarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SavedStarGift) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode savedStarGift#dfda0499 to nil")
+		return fmt.Errorf("can't decode savedStarGift#8983a452 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field flags: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field flags: %w", err)
 		}
 	}
 	s.NameHidden = s.Flags.Has(0)
@@ -494,87 +584,119 @@ func (s *SavedStarGift) DecodeBare(b *bin.Buffer) error {
 	s.Refunded = s.Flags.Has(9)
 	s.CanUpgrade = s.Flags.Has(10)
 	s.PinnedToTop = s.Flags.Has(12)
+	s.UpgradeSeparate = s.Flags.Has(17)
 	if s.Flags.Has(1) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field from_id: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field from_id: %w", err)
 		}
 		s.FromID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field date: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field date: %w", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field gift: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field gift: %w", err)
 		}
 		s.Gift = value
 	}
 	if s.Flags.Has(2) {
 		if err := s.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field message: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field message: %w", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field msg_id: %w", err)
 		}
 		s.MsgID = value
 	}
 	if s.Flags.Has(11) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field saved_id: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field saved_id: %w", err)
 		}
 		s.SavedID = value
 	}
 	if s.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field convert_stars: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field convert_stars: %w", err)
 		}
 		s.ConvertStars = value
 	}
 	if s.Flags.Has(6) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field upgrade_stars: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field upgrade_stars: %w", err)
 		}
 		s.UpgradeStars = value
 	}
 	if s.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field can_export_at: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field can_export_at: %w", err)
 		}
 		s.CanExportAt = value
 	}
 	if s.Flags.Has(8) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field transfer_stars: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field transfer_stars: %w", err)
 		}
 		s.TransferStars = value
 	}
 	if s.Flags.Has(13) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field can_transfer_at: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field can_transfer_at: %w", err)
 		}
 		s.CanTransferAt = value
 	}
 	if s.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode savedStarGift#dfda0499: field can_resell_at: %w", err)
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field can_resell_at: %w", err)
 		}
 		s.CanResellAt = value
+	}
+	if s.Flags.Has(15) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field collection_id: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.CollectionID = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode savedStarGift#8983a452: field collection_id: %w", err)
+			}
+			s.CollectionID = append(s.CollectionID, value)
+		}
+	}
+	if s.Flags.Has(16) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field prepaid_upgrade_hash: %w", err)
+		}
+		s.PrepaidUpgradeHash = value
+	}
+	if s.Flags.Has(18) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode savedStarGift#8983a452: field drop_original_details_stars: %w", err)
+		}
+		s.DropOriginalDetailsStars = value
 	}
 	return nil
 }
@@ -672,6 +794,25 @@ func (s *SavedStarGift) GetPinnedToTop() (value bool) {
 		return
 	}
 	return s.Flags.Has(12)
+}
+
+// SetUpgradeSeparate sets value of UpgradeSeparate conditional field.
+func (s *SavedStarGift) SetUpgradeSeparate(value bool) {
+	if value {
+		s.Flags.Set(17)
+		s.UpgradeSeparate = true
+	} else {
+		s.Flags.Unset(17)
+		s.UpgradeSeparate = false
+	}
+}
+
+// GetUpgradeSeparate returns value of UpgradeSeparate conditional field.
+func (s *SavedStarGift) GetUpgradeSeparate() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(17)
 }
 
 // SetFromID sets value of FromID conditional field.
@@ -868,4 +1009,58 @@ func (s *SavedStarGift) GetCanResellAt() (value int, ok bool) {
 		return value, false
 	}
 	return s.CanResellAt, true
+}
+
+// SetCollectionID sets value of CollectionID conditional field.
+func (s *SavedStarGift) SetCollectionID(value []int) {
+	s.Flags.Set(15)
+	s.CollectionID = value
+}
+
+// GetCollectionID returns value of CollectionID conditional field and
+// boolean which is true if field was set.
+func (s *SavedStarGift) GetCollectionID() (value []int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(15) {
+		return value, false
+	}
+	return s.CollectionID, true
+}
+
+// SetPrepaidUpgradeHash sets value of PrepaidUpgradeHash conditional field.
+func (s *SavedStarGift) SetPrepaidUpgradeHash(value string) {
+	s.Flags.Set(16)
+	s.PrepaidUpgradeHash = value
+}
+
+// GetPrepaidUpgradeHash returns value of PrepaidUpgradeHash conditional field and
+// boolean which is true if field was set.
+func (s *SavedStarGift) GetPrepaidUpgradeHash() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(16) {
+		return value, false
+	}
+	return s.PrepaidUpgradeHash, true
+}
+
+// SetDropOriginalDetailsStars sets value of DropOriginalDetailsStars conditional field.
+func (s *SavedStarGift) SetDropOriginalDetailsStars(value int64) {
+	s.Flags.Set(18)
+	s.DropOriginalDetailsStars = value
+}
+
+// GetDropOriginalDetailsStars returns value of DropOriginalDetailsStars conditional field and
+// boolean which is true if field was set.
+func (s *SavedStarGift) GetDropOriginalDetailsStars() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(18) {
+		return value, false
+	}
+	return s.DropOriginalDetailsStars, true
 }

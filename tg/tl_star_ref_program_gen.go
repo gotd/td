@@ -69,7 +69,7 @@ type StarRefProgram struct {
 	// value by commission_permille and divide by 1000.
 	//
 	// Use SetDailyRevenuePerUser and GetDailyRevenuePerUser helpers.
-	DailyRevenuePerUser StarsAmount
+	DailyRevenuePerUser StarsAmountClass
 }
 
 // StarRefProgramTypeID is TL type id of StarRefProgram.
@@ -102,7 +102,7 @@ func (s *StarRefProgram) Zero() bool {
 	if !(s.EndDate == 0) {
 		return false
 	}
-	if !(s.DailyRevenuePerUser.Zero()) {
+	if !(s.DailyRevenuePerUser == nil) {
 		return false
 	}
 
@@ -124,7 +124,7 @@ func (s *StarRefProgram) FillFrom(from interface {
 	GetCommissionPermille() (value int)
 	GetDurationMonths() (value int, ok bool)
 	GetEndDate() (value int, ok bool)
-	GetDailyRevenuePerUser() (value StarsAmount, ok bool)
+	GetDailyRevenuePerUser() (value StarsAmountClass, ok bool)
 }) {
 	s.BotID = from.GetBotID()
 	s.CommissionPermille = from.GetCommissionPermille()
@@ -200,7 +200,7 @@ func (s *StarRefProgram) SetFlags() {
 	if !(s.EndDate == 0) {
 		s.Flags.Set(1)
 	}
-	if !(s.DailyRevenuePerUser.Zero()) {
+	if !(s.DailyRevenuePerUser == nil) {
 		s.Flags.Set(2)
 	}
 }
@@ -232,6 +232,9 @@ func (s *StarRefProgram) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(s.EndDate)
 	}
 	if s.Flags.Has(2) {
+		if s.DailyRevenuePerUser == nil {
+			return fmt.Errorf("unable to encode starRefProgram#dd0c66f2: field daily_revenue_per_user is nil")
+		}
 		if err := s.DailyRevenuePerUser.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode starRefProgram#dd0c66f2: field daily_revenue_per_user: %w", err)
 		}
@@ -289,9 +292,11 @@ func (s *StarRefProgram) DecodeBare(b *bin.Buffer) error {
 		s.EndDate = value
 	}
 	if s.Flags.Has(2) {
-		if err := s.DailyRevenuePerUser.Decode(b); err != nil {
+		value, err := DecodeStarsAmount(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode starRefProgram#dd0c66f2: field daily_revenue_per_user: %w", err)
 		}
+		s.DailyRevenuePerUser = value
 	}
 	return nil
 }
@@ -349,14 +354,14 @@ func (s *StarRefProgram) GetEndDate() (value int, ok bool) {
 }
 
 // SetDailyRevenuePerUser sets value of DailyRevenuePerUser conditional field.
-func (s *StarRefProgram) SetDailyRevenuePerUser(value StarsAmount) {
+func (s *StarRefProgram) SetDailyRevenuePerUser(value StarsAmountClass) {
 	s.Flags.Set(2)
 	s.DailyRevenuePerUser = value
 }
 
 // GetDailyRevenuePerUser returns value of DailyRevenuePerUser conditional field and
 // boolean which is true if field was set.
-func (s *StarRefProgram) GetDailyRevenuePerUser() (value StarsAmount, ok bool) {
+func (s *StarRefProgram) GetDailyRevenuePerUser() (value StarsAmountClass, ok bool) {
 	if s == nil {
 		return
 	}

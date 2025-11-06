@@ -717,7 +717,10 @@ func (s *StarGiftAttributeBackdrop) GetRarityPermille() (value int) {
 //
 // See https://core.telegram.org/constructor/starGiftAttributeOriginalDetails for reference.
 type StarGiftAttributeOriginalDetails struct {
-	// Flags field of StarGiftAttributeOriginalDetails.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// SenderID field of StarGiftAttributeOriginalDetails.
 	//

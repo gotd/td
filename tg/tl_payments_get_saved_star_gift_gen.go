@@ -186,6 +186,7 @@ func (g *PaymentsGetSavedStarGiftRequest) MapStargift() (value InputSavedStarGif
 // PaymentsGetSavedStarGift invokes method payments.getSavedStarGift#b455a106 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGift for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetSavedStarGift(ctx context.Context, stargift []InputSavedStarGiftClass) (*PaymentsSavedStarGifts, error) {
 	var result PaymentsSavedStarGifts
 

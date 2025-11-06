@@ -200,6 +200,7 @@ func (g *ChannelsGetMessageAuthorRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // ChannelsGetMessageAuthor invokes method channels.getMessageAuthor#ece2a0e6 returning error if any.
 //
 // See https://core.telegram.org/method/channels.getMessageAuthor for reference.
+// Can be used by bots.
 func (c *Client) ChannelsGetMessageAuthor(ctx context.Context, request *ChannelsGetMessageAuthorRequest) (UserClass, error) {
 	var result UserBox
 

@@ -167,6 +167,10 @@ func (g *BotsGetBotRecommendationsRequest) GetBot() (value InputUserClass) {
 
 // BotsGetBotRecommendations invokes method bots.getBotRecommendations#a1b70815 returning error if any.
 //
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//
 // See https://core.telegram.org/method/bots.getBotRecommendations for reference.
 func (c *Client) BotsGetBotRecommendations(ctx context.Context, bot InputUserClass) (UsersUsersClass, error) {
 	var result UsersUsersBox

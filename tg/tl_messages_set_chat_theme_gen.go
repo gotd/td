@@ -31,23 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSetChatThemeRequest represents TL type `messages.setChatTheme#e63be13f`.
+// MessagesSetChatThemeRequest represents TL type `messages.setChatTheme#81202c9`.
 // Change the chat theme of a certain chat
 //
 // See https://core.telegram.org/method/messages.setChatTheme for reference.
 type MessagesSetChatThemeRequest struct {
 	// Private chat where to change theme
 	Peer InputPeerClass
-	// Emoji, identifying a specific chat theme; a list of chat themes can be fetched using
-	// account.getChatThemes¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/method/account.getChatThemes
-	Emoticon string
+	// Theme field of MessagesSetChatThemeRequest.
+	Theme InputChatThemeClass
 }
 
 // MessagesSetChatThemeRequestTypeID is TL type id of MessagesSetChatThemeRequest.
-const MessagesSetChatThemeRequestTypeID = 0xe63be13f
+const MessagesSetChatThemeRequestTypeID = 0x81202c9
 
 // Ensuring interfaces in compile-time for MessagesSetChatThemeRequest.
 var (
@@ -64,7 +60,7 @@ func (s *MessagesSetChatThemeRequest) Zero() bool {
 	if !(s.Peer == nil) {
 		return false
 	}
-	if !(s.Emoticon == "") {
+	if !(s.Theme == nil) {
 		return false
 	}
 
@@ -83,10 +79,10 @@ func (s *MessagesSetChatThemeRequest) String() string {
 // FillFrom fills MessagesSetChatThemeRequest from given interface.
 func (s *MessagesSetChatThemeRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
-	GetEmoticon() (value string)
+	GetTheme() (value InputChatThemeClass)
 }) {
 	s.Peer = from.GetPeer()
-	s.Emoticon = from.GetEmoticon()
+	s.Theme = from.GetTheme()
 }
 
 // TypeID returns type id in TL schema.
@@ -117,8 +113,8 @@ func (s *MessagesSetChatThemeRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
-			Name:       "Emoticon",
-			SchemaName: "emoticon",
+			Name:       "Theme",
+			SchemaName: "theme",
 		},
 	}
 	return typ
@@ -127,7 +123,7 @@ func (s *MessagesSetChatThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetChatThemeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setChatTheme#e63be13f as nil")
+		return fmt.Errorf("can't encode messages.setChatTheme#81202c9 as nil")
 	}
 	b.PutID(MessagesSetChatThemeRequestTypeID)
 	return s.EncodeBare(b)
@@ -136,25 +132,30 @@ func (s *MessagesSetChatThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetChatThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setChatTheme#e63be13f as nil")
+		return fmt.Errorf("can't encode messages.setChatTheme#81202c9 as nil")
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.setChatTheme#e63be13f: field peer is nil")
+		return fmt.Errorf("unable to encode messages.setChatTheme#81202c9: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setChatTheme#e63be13f: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.setChatTheme#81202c9: field peer: %w", err)
 	}
-	b.PutString(s.Emoticon)
+	if s.Theme == nil {
+		return fmt.Errorf("unable to encode messages.setChatTheme#81202c9: field theme is nil")
+	}
+	if err := s.Theme.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.setChatTheme#81202c9: field theme: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *MessagesSetChatThemeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setChatTheme#e63be13f to nil")
+		return fmt.Errorf("can't decode messages.setChatTheme#81202c9 to nil")
 	}
 	if err := b.ConsumeID(MessagesSetChatThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setChatTheme#e63be13f: %w", err)
+		return fmt.Errorf("unable to decode messages.setChatTheme#81202c9: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -162,21 +163,21 @@ func (s *MessagesSetChatThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetChatThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setChatTheme#e63be13f to nil")
+		return fmt.Errorf("can't decode messages.setChatTheme#81202c9 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setChatTheme#e63be13f: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.setChatTheme#81202c9: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeInputChatTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setChatTheme#e63be13f: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode messages.setChatTheme#81202c9: field theme: %w", err)
 		}
-		s.Emoticon = value
+		s.Theme = value
 	}
 	return nil
 }
@@ -189,15 +190,15 @@ func (s *MessagesSetChatThemeRequest) GetPeer() (value InputPeerClass) {
 	return s.Peer
 }
 
-// GetEmoticon returns value of Emoticon field.
-func (s *MessagesSetChatThemeRequest) GetEmoticon() (value string) {
+// GetTheme returns value of Theme field.
+func (s *MessagesSetChatThemeRequest) GetTheme() (value InputChatThemeClass) {
 	if s == nil {
 		return
 	}
-	return s.Emoticon
+	return s.Theme
 }
 
-// MessagesSetChatTheme invokes method messages.setChatTheme#e63be13f returning error if any.
+// MessagesSetChatTheme invokes method messages.setChatTheme#81202c9 returning error if any.
 // Change the chat theme of a certain chat
 //
 // Possible errors:

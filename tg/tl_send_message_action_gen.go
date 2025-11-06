@@ -2197,6 +2197,167 @@ func (s *SendMessageEmojiInteractionSeen) GetEmoticon() (value string) {
 	return s.Emoticon
 }
 
+// SendMessageTextDraftAction represents TL type `sendMessageTextDraftAction#376d975c`.
+//
+// See https://core.telegram.org/constructor/sendMessageTextDraftAction for reference.
+type SendMessageTextDraftAction struct {
+	// RandomID field of SendMessageTextDraftAction.
+	RandomID int64
+	// Text field of SendMessageTextDraftAction.
+	Text TextWithEntities
+}
+
+// SendMessageTextDraftActionTypeID is TL type id of SendMessageTextDraftAction.
+const SendMessageTextDraftActionTypeID = 0x376d975c
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageTextDraftAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageTextDraftAction.
+var (
+	_ bin.Encoder     = &SendMessageTextDraftAction{}
+	_ bin.Decoder     = &SendMessageTextDraftAction{}
+	_ bin.BareEncoder = &SendMessageTextDraftAction{}
+	_ bin.BareDecoder = &SendMessageTextDraftAction{}
+
+	_ SendMessageActionClass = &SendMessageTextDraftAction{}
+)
+
+func (s *SendMessageTextDraftAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.RandomID == 0) {
+		return false
+	}
+	if !(s.Text.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SendMessageTextDraftAction) String() string {
+	if s == nil {
+		return "SendMessageTextDraftAction(nil)"
+	}
+	type Alias SendMessageTextDraftAction
+	return fmt.Sprintf("SendMessageTextDraftAction%+v", Alias(*s))
+}
+
+// FillFrom fills SendMessageTextDraftAction from given interface.
+func (s *SendMessageTextDraftAction) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetText() (value TextWithEntities)
+}) {
+	s.RandomID = from.GetRandomID()
+	s.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SendMessageTextDraftAction) TypeID() uint32 {
+	return SendMessageTextDraftActionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SendMessageTextDraftAction) TypeName() string {
+	return "sendMessageTextDraftAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageTextDraftAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageTextDraftAction",
+		ID:   SendMessageTextDraftActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SendMessageTextDraftAction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageTextDraftAction#376d975c as nil")
+	}
+	b.PutID(SendMessageTextDraftActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageTextDraftAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageTextDraftAction#376d975c as nil")
+	}
+	b.PutLong(s.RandomID)
+	if err := s.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessageTextDraftAction#376d975c: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SendMessageTextDraftAction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageTextDraftAction#376d975c to nil")
+	}
+	if err := b.ConsumeID(SendMessageTextDraftActionTypeID); err != nil {
+		return fmt.Errorf("unable to decode sendMessageTextDraftAction#376d975c: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageTextDraftAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageTextDraftAction#376d975c to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendMessageTextDraftAction#376d975c: field random_id: %w", err)
+		}
+		s.RandomID = value
+	}
+	{
+		if err := s.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode sendMessageTextDraftAction#376d975c: field text: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *SendMessageTextDraftAction) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.RandomID
+}
+
+// GetText returns value of Text field.
+func (s *SendMessageTextDraftAction) GetText() (value TextWithEntities) {
+	if s == nil {
+		return
+	}
+	return s.Text
+}
+
 // SendMessageActionClassName is schema name of SendMessageActionClass.
 const SendMessageActionClassName = "SendMessageAction"
 
@@ -2223,6 +2384,7 @@ const SendMessageActionClassName = "SendMessageAction"
 //   - [SendMessageChooseStickerAction]
 //   - [SendMessageEmojiInteraction]
 //   - [SendMessageEmojiInteractionSeen]
+//   - [SendMessageTextDraftAction]
 //
 // Example:
 //
@@ -2249,6 +2411,7 @@ const SendMessageActionClassName = "SendMessageAction"
 //	case *tg.SendMessageChooseStickerAction: // sendMessageChooseStickerAction#b05ac6b1
 //	case *tg.SendMessageEmojiInteraction: // sendMessageEmojiInteraction#25972bcb
 //	case *tg.SendMessageEmojiInteractionSeen: // sendMessageEmojiInteractionSeen#b665902e
+//	case *tg.SendMessageTextDraftAction: // sendMessageTextDraftAction#376d975c
 //	default: panic(v)
 //	}
 type SendMessageActionClass interface {
@@ -2399,6 +2562,13 @@ func DecodeSendMessageAction(buf *bin.Buffer) (SendMessageActionClass, error) {
 	case SendMessageEmojiInteractionSeenTypeID:
 		// Decoding sendMessageEmojiInteractionSeen#b665902e.
 		v := SendMessageEmojiInteractionSeen{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+		}
+		return &v, nil
+	case SendMessageTextDraftActionTypeID:
+		// Decoding sendMessageTextDraftAction#376d975c.
+		v := SendMessageTextDraftAction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
 		}

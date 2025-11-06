@@ -31,16 +31,25 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountGetPaidMessagesRevenueRequest represents TL type `account.getPaidMessagesRevenue#f1266f38`.
+// AccountGetPaidMessagesRevenueRequest represents TL type `account.getPaidMessagesRevenue#19ba4a67`.
 //
 // See https://core.telegram.org/method/account.getPaidMessagesRevenue for reference.
 type AccountGetPaidMessagesRevenueRequest struct {
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+	Flags bin.Fields
+	// ParentPeer field of AccountGetPaidMessagesRevenueRequest.
+	//
+	// Use SetParentPeer and GetParentPeer helpers.
+	ParentPeer InputPeerClass
 	// UserID field of AccountGetPaidMessagesRevenueRequest.
 	UserID InputUserClass
 }
 
 // AccountGetPaidMessagesRevenueRequestTypeID is TL type id of AccountGetPaidMessagesRevenueRequest.
-const AccountGetPaidMessagesRevenueRequestTypeID = 0xf1266f38
+const AccountGetPaidMessagesRevenueRequestTypeID = 0x19ba4a67
 
 // Ensuring interfaces in compile-time for AccountGetPaidMessagesRevenueRequest.
 var (
@@ -53,6 +62,12 @@ var (
 func (g *AccountGetPaidMessagesRevenueRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ParentPeer == nil) {
+		return false
 	}
 	if !(g.UserID == nil) {
 		return false
@@ -72,8 +87,13 @@ func (g *AccountGetPaidMessagesRevenueRequest) String() string {
 
 // FillFrom fills AccountGetPaidMessagesRevenueRequest from given interface.
 func (g *AccountGetPaidMessagesRevenueRequest) FillFrom(from interface {
+	GetParentPeer() (value InputPeerClass, ok bool)
 	GetUserID() (value InputUserClass)
 }) {
+	if val, ok := from.GetParentPeer(); ok {
+		g.ParentPeer = val
+	}
+
 	g.UserID = from.GetUserID()
 }
 
@@ -101,6 +121,11 @@ func (g *AccountGetPaidMessagesRevenueRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ParentPeer",
+			SchemaName: "parent_peer",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -108,10 +133,17 @@ func (g *AccountGetPaidMessagesRevenueRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *AccountGetPaidMessagesRevenueRequest) SetFlags() {
+	if !(g.ParentPeer == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetPaidMessagesRevenueRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPaidMessagesRevenue#f1266f38 as nil")
+		return fmt.Errorf("can't encode account.getPaidMessagesRevenue#19ba4a67 as nil")
 	}
 	b.PutID(AccountGetPaidMessagesRevenueRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,13 +152,25 @@ func (g *AccountGetPaidMessagesRevenueRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetPaidMessagesRevenueRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getPaidMessagesRevenue#f1266f38 as nil")
+		return fmt.Errorf("can't encode account.getPaidMessagesRevenue#19ba4a67 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#19ba4a67: field flags: %w", err)
+	}
+	if g.Flags.Has(0) {
+		if g.ParentPeer == nil {
+			return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#19ba4a67: field parent_peer is nil")
+		}
+		if err := g.ParentPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#19ba4a67: field parent_peer: %w", err)
+		}
 	}
 	if g.UserID == nil {
-		return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#f1266f38: field user_id is nil")
+		return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#19ba4a67: field user_id is nil")
 	}
 	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#f1266f38: field user_id: %w", err)
+		return fmt.Errorf("unable to encode account.getPaidMessagesRevenue#19ba4a67: field user_id: %w", err)
 	}
 	return nil
 }
@@ -134,10 +178,10 @@ func (g *AccountGetPaidMessagesRevenueRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *AccountGetPaidMessagesRevenueRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPaidMessagesRevenue#f1266f38 to nil")
+		return fmt.Errorf("can't decode account.getPaidMessagesRevenue#19ba4a67 to nil")
 	}
 	if err := b.ConsumeID(AccountGetPaidMessagesRevenueRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getPaidMessagesRevenue#f1266f38: %w", err)
+		return fmt.Errorf("unable to decode account.getPaidMessagesRevenue#19ba4a67: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -145,16 +189,46 @@ func (g *AccountGetPaidMessagesRevenueRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetPaidMessagesRevenueRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getPaidMessagesRevenue#f1266f38 to nil")
+		return fmt.Errorf("can't decode account.getPaidMessagesRevenue#19ba4a67 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.getPaidMessagesRevenue#19ba4a67: field flags: %w", err)
+		}
+	}
+	if g.Flags.Has(0) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.getPaidMessagesRevenue#19ba4a67: field parent_peer: %w", err)
+		}
+		g.ParentPeer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getPaidMessagesRevenue#f1266f38: field user_id: %w", err)
+			return fmt.Errorf("unable to decode account.getPaidMessagesRevenue#19ba4a67: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
 	return nil
+}
+
+// SetParentPeer sets value of ParentPeer conditional field.
+func (g *AccountGetPaidMessagesRevenueRequest) SetParentPeer(value InputPeerClass) {
+	g.Flags.Set(0)
+	g.ParentPeer = value
+}
+
+// GetParentPeer returns value of ParentPeer conditional field and
+// boolean which is true if field was set.
+func (g *AccountGetPaidMessagesRevenueRequest) GetParentPeer() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.ParentPeer, true
 }
 
 // GetUserID returns value of UserID field.
@@ -165,15 +239,13 @@ func (g *AccountGetPaidMessagesRevenueRequest) GetUserID() (value InputUserClass
 	return g.UserID
 }
 
-// AccountGetPaidMessagesRevenue invokes method account.getPaidMessagesRevenue#f1266f38 returning error if any.
+// AccountGetPaidMessagesRevenue invokes method account.getPaidMessagesRevenue#19ba4a67 returning error if any.
 //
 // See https://core.telegram.org/method/account.getPaidMessagesRevenue for reference.
-func (c *Client) AccountGetPaidMessagesRevenue(ctx context.Context, userid InputUserClass) (*AccountPaidMessagesRevenue, error) {
+// Can be used by bots.
+func (c *Client) AccountGetPaidMessagesRevenue(ctx context.Context, request *AccountGetPaidMessagesRevenueRequest) (*AccountPaidMessagesRevenue, error) {
 	var result AccountPaidMessagesRevenue
 
-	request := &AccountGetPaidMessagesRevenueRequest{
-		UserID: userid,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

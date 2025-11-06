@@ -5,13 +5,13 @@ package oas
 import (
 	"net/http"
 
-	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/trace"
-
 	ht "github.com/ogen-go/ogen/http"
 	"github.com/ogen-go/ogen/ogenregex"
 	"github.com/ogen-go/ogen/otelogen"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
+	"go.opentelemetry.io/otel/trace"
 )
 
 var regexMap = map[string]ogenregex.Regexp{
@@ -35,6 +35,7 @@ type otelConfig struct {
 	Tracer         trace.Tracer
 	MeterProvider  metric.MeterProvider
 	Meter          metric.Meter
+	Attributes     []attribute.KeyValue
 }
 
 func (cfg *otelConfig) initOTEL() {
@@ -130,6 +131,13 @@ func WithMeterProvider(provider metric.MeterProvider) Option {
 		if provider != nil {
 			cfg.MeterProvider = provider
 		}
+	})
+}
+
+// WithAttributes specifies default otel attributes.
+func WithAttributes(attributes ...attribute.KeyValue) Option {
+	return otelOptionFunc(func(cfg *otelConfig) {
+		cfg.Attributes = attributes
 	})
 }
 

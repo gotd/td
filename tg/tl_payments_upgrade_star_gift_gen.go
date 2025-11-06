@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.upgradeStarGift for reference.
 type PaymentsUpgradeStarGiftRequest struct {
-	// Flags field of PaymentsUpgradeStarGiftRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// KeepOriginalDetails field of PaymentsUpgradeStarGiftRequest.
 	KeepOriginalDetails bool
@@ -219,6 +222,10 @@ func (u *PaymentsUpgradeStarGiftRequest) GetStargift() (value InputSavedStarGift
 }
 
 // PaymentsUpgradeStarGift invokes method payments.upgradeStarGift#aed6e4f5 returning error if any.
+//
+// Possible errors:
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.upgradeStarGift for reference.
 func (c *Client) PaymentsUpgradeStarGift(ctx context.Context, request *PaymentsUpgradeStarGiftRequest) (UpdatesClass, error) {

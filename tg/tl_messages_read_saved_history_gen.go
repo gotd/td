@@ -227,6 +227,7 @@ func (r *MessagesReadSavedHistoryRequest) GetMaxID() (value int) {
 // MessagesReadSavedHistory invokes method messages.readSavedHistory#ba4a3b5b returning error if any.
 //
 // See https://core.telegram.org/method/messages.readSavedHistory for reference.
+// Can be used by bots.
 func (c *Client) MessagesReadSavedHistory(ctx context.Context, request *MessagesReadSavedHistoryRequest) (bool, error) {
 	var result BoolBox
 

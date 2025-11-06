@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/phone.deleteConferenceCallParticipants for reference.
 type PhoneDeleteConferenceCallParticipantsRequest struct {
-	// Flags field of PhoneDeleteConferenceCallParticipantsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// OnlyLeft field of PhoneDeleteConferenceCallParticipantsRequest.
 	OnlyLeft bool
@@ -323,6 +326,7 @@ func (d *PhoneDeleteConferenceCallParticipantsRequest) GetBlock() (value []byte)
 // PhoneDeleteConferenceCallParticipants invokes method phone.deleteConferenceCallParticipants#8ca60525 returning error if any.
 //
 // See https://core.telegram.org/method/phone.deleteConferenceCallParticipants for reference.
+// Can be used by bots.
 func (c *Client) PhoneDeleteConferenceCallParticipants(ctx context.Context, request *PhoneDeleteConferenceCallParticipantsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

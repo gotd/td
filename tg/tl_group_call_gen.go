@@ -260,6 +260,12 @@ type GroupCall struct {
 	Conference bool
 	// Creator field of GroupCall.
 	Creator bool
+	// MessagesEnabled field of GroupCall.
+	MessagesEnabled bool
+	// CanChangeMessagesEnabled field of GroupCall.
+	CanChangeMessagesEnabled bool
+	// Min field of GroupCall.
+	Min bool
 	// Group call ID
 	ID int64
 	// Group call access hash
@@ -349,6 +355,15 @@ func (g *GroupCall) Zero() bool {
 	if !(g.Creator == false) {
 		return false
 	}
+	if !(g.MessagesEnabled == false) {
+		return false
+	}
+	if !(g.CanChangeMessagesEnabled == false) {
+		return false
+	}
+	if !(g.Min == false) {
+		return false
+	}
 	if !(g.ID == 0) {
 		return false
 	}
@@ -407,6 +422,9 @@ func (g *GroupCall) FillFrom(from interface {
 	GetListenersHidden() (value bool)
 	GetConference() (value bool)
 	GetCreator() (value bool)
+	GetMessagesEnabled() (value bool)
+	GetCanChangeMessagesEnabled() (value bool)
+	GetMin() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetParticipantsCount() (value int)
@@ -429,6 +447,9 @@ func (g *GroupCall) FillFrom(from interface {
 	g.ListenersHidden = from.GetListenersHidden()
 	g.Conference = from.GetConference()
 	g.Creator = from.GetCreator()
+	g.MessagesEnabled = from.GetMessagesEnabled()
+	g.CanChangeMessagesEnabled = from.GetCanChangeMessagesEnabled()
+	g.Min = from.GetMin()
 	g.ID = from.GetID()
 	g.AccessHash = from.GetAccessHash()
 	g.ParticipantsCount = from.GetParticipantsCount()
@@ -534,6 +555,21 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(15),
 		},
 		{
+			Name:       "MessagesEnabled",
+			SchemaName: "messages_enabled",
+			Null:       !g.Flags.Has(17),
+		},
+		{
+			Name:       "CanChangeMessagesEnabled",
+			SchemaName: "can_change_messages_enabled",
+			Null:       !g.Flags.Has(18),
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !g.Flags.Has(19),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -618,6 +654,15 @@ func (g *GroupCall) SetFlags() {
 	}
 	if !(g.Creator == false) {
 		g.Flags.Set(15)
+	}
+	if !(g.MessagesEnabled == false) {
+		g.Flags.Set(17)
+	}
+	if !(g.CanChangeMessagesEnabled == false) {
+		g.Flags.Set(18)
+	}
+	if !(g.Min == false) {
+		g.Flags.Set(19)
 	}
 	if !(g.Title == "") {
 		g.Flags.Set(3)
@@ -714,6 +759,9 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	g.ListenersHidden = g.Flags.Has(13)
 	g.Conference = g.Flags.Has(14)
 	g.Creator = g.Flags.Has(15)
+	g.MessagesEnabled = g.Flags.Has(17)
+	g.CanChangeMessagesEnabled = g.Flags.Has(18)
+	g.Min = g.Flags.Has(19)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -982,6 +1030,63 @@ func (g *GroupCall) GetCreator() (value bool) {
 		return
 	}
 	return g.Flags.Has(15)
+}
+
+// SetMessagesEnabled sets value of MessagesEnabled conditional field.
+func (g *GroupCall) SetMessagesEnabled(value bool) {
+	if value {
+		g.Flags.Set(17)
+		g.MessagesEnabled = true
+	} else {
+		g.Flags.Unset(17)
+		g.MessagesEnabled = false
+	}
+}
+
+// GetMessagesEnabled returns value of MessagesEnabled conditional field.
+func (g *GroupCall) GetMessagesEnabled() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(17)
+}
+
+// SetCanChangeMessagesEnabled sets value of CanChangeMessagesEnabled conditional field.
+func (g *GroupCall) SetCanChangeMessagesEnabled(value bool) {
+	if value {
+		g.Flags.Set(18)
+		g.CanChangeMessagesEnabled = true
+	} else {
+		g.Flags.Unset(18)
+		g.CanChangeMessagesEnabled = false
+	}
+}
+
+// GetCanChangeMessagesEnabled returns value of CanChangeMessagesEnabled conditional field.
+func (g *GroupCall) GetCanChangeMessagesEnabled() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(18)
+}
+
+// SetMin sets value of Min conditional field.
+func (g *GroupCall) SetMin(value bool) {
+	if value {
+		g.Flags.Set(19)
+		g.Min = true
+	} else {
+		g.Flags.Unset(19)
+		g.Min = false
+	}
+}
+
+// GetMin returns value of Min conditional field.
+func (g *GroupCall) GetMin() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(19)
 }
 
 // GetID returns value of ID field.

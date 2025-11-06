@@ -163,6 +163,7 @@ func (g *PaymentsGetUniqueStarGiftRequest) GetSlug() (value string) {
 // PaymentsGetUniqueStarGift invokes method payments.getUniqueStarGift#a1974d72 returning error if any.
 //
 // See https://core.telegram.org/method/payments.getUniqueStarGift for reference.
+// Can be used by bots.
 func (c *Client) PaymentsGetUniqueStarGift(ctx context.Context, slug string) (*PaymentsUniqueStarGift, error) {
 	var result PaymentsUniqueStarGift
 

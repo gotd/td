@@ -6726,9 +6726,9 @@ func (c *ChannelAdminLogEventActionToggleAntiSpam) GetNewValue() (value bool) {
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePeerColor for reference.
 type ChannelAdminLogEventActionChangePeerColor struct {
 	// Previous accent palette
-	PrevValue PeerColor
+	PrevValue PeerColorClass
 	// New accent palette
-	NewValue PeerColor
+	NewValue PeerColorClass
 }
 
 // ChannelAdminLogEventActionChangePeerColorTypeID is TL type id of ChannelAdminLogEventActionChangePeerColor.
@@ -6753,10 +6753,10 @@ func (c *ChannelAdminLogEventActionChangePeerColor) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.PrevValue.Zero()) {
+	if !(c.PrevValue == nil) {
 		return false
 	}
-	if !(c.NewValue.Zero()) {
+	if !(c.NewValue == nil) {
 		return false
 	}
 
@@ -6774,8 +6774,8 @@ func (c *ChannelAdminLogEventActionChangePeerColor) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionChangePeerColor from given interface.
 func (c *ChannelAdminLogEventActionChangePeerColor) FillFrom(from interface {
-	GetPrevValue() (value PeerColor)
-	GetNewValue() (value PeerColor)
+	GetPrevValue() (value PeerColorClass)
+	GetNewValue() (value PeerColorClass)
 }) {
 	c.PrevValue = from.GetPrevValue()
 	c.NewValue = from.GetNewValue()
@@ -6830,8 +6830,14 @@ func (c *ChannelAdminLogEventActionChangePeerColor) EncodeBare(b *bin.Buffer) er
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangePeerColor#5796e780 as nil")
 	}
+	if c.PrevValue == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangePeerColor#5796e780: field prev_value is nil")
+	}
 	if err := c.PrevValue.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangePeerColor#5796e780: field prev_value: %w", err)
+	}
+	if c.NewValue == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangePeerColor#5796e780: field new_value is nil")
 	}
 	if err := c.NewValue.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangePeerColor#5796e780: field new_value: %w", err)
@@ -6856,20 +6862,24 @@ func (c *ChannelAdminLogEventActionChangePeerColor) DecodeBare(b *bin.Buffer) er
 		return fmt.Errorf("can't decode channelAdminLogEventActionChangePeerColor#5796e780 to nil")
 	}
 	{
-		if err := c.PrevValue.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionChangePeerColor#5796e780: field prev_value: %w", err)
 		}
+		c.PrevValue = value
 	}
 	{
-		if err := c.NewValue.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionChangePeerColor#5796e780: field new_value: %w", err)
 		}
+		c.NewValue = value
 	}
 	return nil
 }
 
 // GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangePeerColor) GetPrevValue() (value PeerColor) {
+func (c *ChannelAdminLogEventActionChangePeerColor) GetPrevValue() (value PeerColorClass) {
 	if c == nil {
 		return
 	}
@@ -6877,7 +6887,7 @@ func (c *ChannelAdminLogEventActionChangePeerColor) GetPrevValue() (value PeerCo
 }
 
 // GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangePeerColor) GetNewValue() (value PeerColor) {
+func (c *ChannelAdminLogEventActionChangePeerColor) GetNewValue() (value PeerColorClass) {
 	if c == nil {
 		return
 	}
@@ -6893,9 +6903,9 @@ func (c *ChannelAdminLogEventActionChangePeerColor) GetNewValue() (value PeerCol
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeProfilePeerColor for reference.
 type ChannelAdminLogEventActionChangeProfilePeerColor struct {
 	// Previous accent palette
-	PrevValue PeerColor
+	PrevValue PeerColorClass
 	// New accent palette
-	NewValue PeerColor
+	NewValue PeerColorClass
 }
 
 // ChannelAdminLogEventActionChangeProfilePeerColorTypeID is TL type id of ChannelAdminLogEventActionChangeProfilePeerColor.
@@ -6920,10 +6930,10 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.PrevValue.Zero()) {
+	if !(c.PrevValue == nil) {
 		return false
 	}
-	if !(c.NewValue.Zero()) {
+	if !(c.NewValue == nil) {
 		return false
 	}
 
@@ -6941,8 +6951,8 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionChangeProfilePeerColor from given interface.
 func (c *ChannelAdminLogEventActionChangeProfilePeerColor) FillFrom(from interface {
-	GetPrevValue() (value PeerColor)
-	GetNewValue() (value PeerColor)
+	GetPrevValue() (value PeerColorClass)
+	GetNewValue() (value PeerColorClass)
 }) {
 	c.PrevValue = from.GetPrevValue()
 	c.NewValue = from.GetNewValue()
@@ -6997,8 +7007,14 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) EncodeBare(b *bin.Buf
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeProfilePeerColor#5e477b25 as nil")
 	}
+	if c.PrevValue == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeProfilePeerColor#5e477b25: field prev_value is nil")
+	}
 	if err := c.PrevValue.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeProfilePeerColor#5e477b25: field prev_value: %w", err)
+	}
+	if c.NewValue == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeProfilePeerColor#5e477b25: field new_value is nil")
 	}
 	if err := c.NewValue.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeProfilePeerColor#5e477b25: field new_value: %w", err)
@@ -7023,20 +7039,24 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) DecodeBare(b *bin.Buf
 		return fmt.Errorf("can't decode channelAdminLogEventActionChangeProfilePeerColor#5e477b25 to nil")
 	}
 	{
-		if err := c.PrevValue.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeProfilePeerColor#5e477b25: field prev_value: %w", err)
 		}
+		c.PrevValue = value
 	}
 	{
-		if err := c.NewValue.Decode(b); err != nil {
+		value, err := DecodePeerColor(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeProfilePeerColor#5e477b25: field new_value: %w", err)
 		}
+		c.NewValue = value
 	}
 	return nil
 }
 
 // GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetPrevValue() (value PeerColor) {
+func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetPrevValue() (value PeerColorClass) {
 	if c == nil {
 		return
 	}
@@ -7044,7 +7064,7 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetPrevValue() (value
 }
 
 // GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetNewValue() (value PeerColor) {
+func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetNewValue() (value PeerColorClass) {
 	if c == nil {
 		return
 	}

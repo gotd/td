@@ -33,3 +33,370 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// PeerColorClassArray is adapter for slice of PeerColorClass.
+type PeerColorClassArray []PeerColorClass
+
+// Sort sorts slice of PeerColorClass.
+func (s PeerColorClassArray) Sort(less func(a, b PeerColorClass) bool) PeerColorClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerColorClass.
+func (s PeerColorClassArray) SortStable(less func(a, b PeerColorClass) bool) PeerColorClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerColorClass.
+func (s PeerColorClassArray) Retain(keep func(x PeerColorClass) bool) PeerColorClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerColorClassArray) First() (v PeerColorClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerColorClassArray) Last() (v PeerColorClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerColorClassArray) PopFirst() (v PeerColorClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerColorClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerColorClassArray) Pop() (v PeerColorClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPeerColor returns copy with only PeerColor constructors.
+func (s PeerColorClassArray) AsPeerColor() (to PeerColorArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerColor)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPeerColorCollectible returns copy with only PeerColorCollectible constructors.
+func (s PeerColorClassArray) AsPeerColorCollectible() (to PeerColorCollectibleArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerColorCollectible)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPeerColorCollectible returns copy with only InputPeerColorCollectible constructors.
+func (s PeerColorClassArray) AsInputPeerColorCollectible() (to InputPeerColorCollectibleArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPeerColorCollectible)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PeerColorArray is adapter for slice of PeerColor.
+type PeerColorArray []PeerColor
+
+// Sort sorts slice of PeerColor.
+func (s PeerColorArray) Sort(less func(a, b PeerColor) bool) PeerColorArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerColor.
+func (s PeerColorArray) SortStable(less func(a, b PeerColor) bool) PeerColorArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerColor.
+func (s PeerColorArray) Retain(keep func(x PeerColor) bool) PeerColorArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerColorArray) First() (v PeerColor, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerColorArray) Last() (v PeerColor, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerColorArray) PopFirst() (v PeerColor, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerColor
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerColorArray) Pop() (v PeerColor, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PeerColorCollectibleArray is adapter for slice of PeerColorCollectible.
+type PeerColorCollectibleArray []PeerColorCollectible
+
+// Sort sorts slice of PeerColorCollectible.
+func (s PeerColorCollectibleArray) Sort(less func(a, b PeerColorCollectible) bool) PeerColorCollectibleArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerColorCollectible.
+func (s PeerColorCollectibleArray) SortStable(less func(a, b PeerColorCollectible) bool) PeerColorCollectibleArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerColorCollectible.
+func (s PeerColorCollectibleArray) Retain(keep func(x PeerColorCollectible) bool) PeerColorCollectibleArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerColorCollectibleArray) First() (v PeerColorCollectible, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerColorCollectibleArray) Last() (v PeerColorCollectible, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerColorCollectibleArray) PopFirst() (v PeerColorCollectible, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerColorCollectible
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerColorCollectibleArray) Pop() (v PeerColorCollectible, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPeerColorCollectibleArray is adapter for slice of InputPeerColorCollectible.
+type InputPeerColorCollectibleArray []InputPeerColorCollectible
+
+// Sort sorts slice of InputPeerColorCollectible.
+func (s InputPeerColorCollectibleArray) Sort(less func(a, b InputPeerColorCollectible) bool) InputPeerColorCollectibleArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPeerColorCollectible.
+func (s InputPeerColorCollectibleArray) SortStable(less func(a, b InputPeerColorCollectible) bool) InputPeerColorCollectibleArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPeerColorCollectible.
+func (s InputPeerColorCollectibleArray) Retain(keep func(x InputPeerColorCollectible) bool) InputPeerColorCollectibleArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPeerColorCollectibleArray) First() (v InputPeerColorCollectible, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPeerColorCollectibleArray) Last() (v InputPeerColorCollectible, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPeerColorCollectibleArray) PopFirst() (v InputPeerColorCollectible, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPeerColorCollectible
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPeerColorCollectibleArray) Pop() (v InputPeerColorCollectible, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

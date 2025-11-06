@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetStarsStatusRequest represents TL type `payments.getStarsStatus#104fcfa7`.
+// PaymentsGetStarsStatusRequest represents TL type `payments.getStarsStatus#4ea9b3bf`.
 // Get the current Telegram Stars balance¹ of the current account (with
 // peer=inputPeerSelf²), or the stars balance of the bot specified in peer.
 //
@@ -41,12 +41,19 @@ var (
 //
 // See https://core.telegram.org/method/payments.getStarsStatus for reference.
 type PaymentsGetStarsStatusRequest struct {
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+	Flags bin.Fields
+	// Ton field of PaymentsGetStarsStatusRequest.
+	Ton bool
 	// Peer of which to get the balance.
 	Peer InputPeerClass
 }
 
 // PaymentsGetStarsStatusRequestTypeID is TL type id of PaymentsGetStarsStatusRequest.
-const PaymentsGetStarsStatusRequestTypeID = 0x104fcfa7
+const PaymentsGetStarsStatusRequestTypeID = 0x4ea9b3bf
 
 // Ensuring interfaces in compile-time for PaymentsGetStarsStatusRequest.
 var (
@@ -59,6 +66,12 @@ var (
 func (g *PaymentsGetStarsStatusRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Ton == false) {
+		return false
 	}
 	if !(g.Peer == nil) {
 		return false
@@ -78,8 +91,10 @@ func (g *PaymentsGetStarsStatusRequest) String() string {
 
 // FillFrom fills PaymentsGetStarsStatusRequest from given interface.
 func (g *PaymentsGetStarsStatusRequest) FillFrom(from interface {
+	GetTon() (value bool)
 	GetPeer() (value InputPeerClass)
 }) {
+	g.Ton = from.GetTon()
 	g.Peer = from.GetPeer()
 }
 
@@ -107,6 +122,11 @@ func (g *PaymentsGetStarsStatusRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Ton",
+			SchemaName: "ton",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -114,10 +134,17 @@ func (g *PaymentsGetStarsStatusRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *PaymentsGetStarsStatusRequest) SetFlags() {
+	if !(g.Ton == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetStarsStatusRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsStatus#104fcfa7 as nil")
+		return fmt.Errorf("can't encode payments.getStarsStatus#4ea9b3bf as nil")
 	}
 	b.PutID(PaymentsGetStarsStatusRequestTypeID)
 	return g.EncodeBare(b)
@@ -126,13 +153,17 @@ func (g *PaymentsGetStarsStatusRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetStarsStatusRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarsStatus#104fcfa7 as nil")
+		return fmt.Errorf("can't encode payments.getStarsStatus#4ea9b3bf as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.getStarsStatus#4ea9b3bf: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getStarsStatus#104fcfa7: field peer is nil")
+		return fmt.Errorf("unable to encode payments.getStarsStatus#4ea9b3bf: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarsStatus#104fcfa7: field peer: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarsStatus#4ea9b3bf: field peer: %w", err)
 	}
 	return nil
 }
@@ -140,10 +171,10 @@ func (g *PaymentsGetStarsStatusRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetStarsStatusRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsStatus#104fcfa7 to nil")
+		return fmt.Errorf("can't decode payments.getStarsStatus#4ea9b3bf to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetStarsStatusRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getStarsStatus#104fcfa7: %w", err)
+		return fmt.Errorf("unable to decode payments.getStarsStatus#4ea9b3bf: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,16 +182,41 @@ func (g *PaymentsGetStarsStatusRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetStarsStatusRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarsStatus#104fcfa7 to nil")
+		return fmt.Errorf("can't decode payments.getStarsStatus#4ea9b3bf to nil")
 	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.getStarsStatus#4ea9b3bf: field flags: %w", err)
+		}
+	}
+	g.Ton = g.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarsStatus#104fcfa7: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarsStatus#4ea9b3bf: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	return nil
+}
+
+// SetTon sets value of Ton conditional field.
+func (g *PaymentsGetStarsStatusRequest) SetTon(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Ton = true
+	} else {
+		g.Flags.Unset(0)
+		g.Ton = false
+	}
+}
+
+// GetTon returns value of Ton conditional field.
+func (g *PaymentsGetStarsStatusRequest) GetTon() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
@@ -171,7 +227,7 @@ func (g *PaymentsGetStarsStatusRequest) GetPeer() (value InputPeerClass) {
 	return g.Peer
 }
 
-// PaymentsGetStarsStatus invokes method payments.getStarsStatus#104fcfa7 returning error if any.
+// PaymentsGetStarsStatus invokes method payments.getStarsStatus#4ea9b3bf returning error if any.
 // Get the current Telegram Stars balance¹ of the current account (with
 // peer=inputPeerSelf²), or the stars balance of the bot specified in peer.
 //
@@ -184,12 +240,9 @@ func (g *PaymentsGetStarsStatusRequest) GetPeer() (value InputPeerClass) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsStatus for reference.
-func (c *Client) PaymentsGetStarsStatus(ctx context.Context, peer InputPeerClass) (*PaymentsStarsStatus, error) {
+func (c *Client) PaymentsGetStarsStatus(ctx context.Context, request *PaymentsGetStarsStatusRequest) (*PaymentsStarsStatus, error) {
 	var result PaymentsStarsStatus
 
-	request := &PaymentsGetStarsStatusRequest{
-		Peer: peer,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

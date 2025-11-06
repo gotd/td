@@ -41,6 +41,12 @@ func (u *AudioDocumentBuilder) Duration(duration time.Duration) *AudioDocumentBu
 	return u.DurationSeconds(int(duration.Seconds()))
 }
 
+// Filename sets filename of audio file.
+func (u *AudioDocumentBuilder) Filename( filename string ) *AudioDocumentBuilder {
+	u.doc.Attributes(&tg.DocumentAttributeFilename{ FileName: filename })
+	return u
+}
+
 // DurationSeconds sets duration in seconds.
 func (u *AudioDocumentBuilder) DurationSeconds(duration int) *AudioDocumentBuilder {
 	u.attr.Duration = duration

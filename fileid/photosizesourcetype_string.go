@@ -26,8 +26,9 @@ const _PhotoSizeSourceType_name = "PhotoSizeSourceLegacyPhotoSizeSourceThumbnail
 var _PhotoSizeSourceType_index = [...]uint16{0, 21, 45, 76, 105, 139, 164, 201, 236, 276, 317, 340}
 
 func (i PhotoSizeSourceType) String() string {
-	if i < 0 || i >= PhotoSizeSourceType(len(_PhotoSizeSourceType_index)-1) {
+	idx := int(i) - 0
+	if i < 0 || idx >= len(_PhotoSizeSourceType_index)-1 {
 		return "PhotoSizeSourceType(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
-	return _PhotoSizeSourceType_name[_PhotoSizeSourceType_index[i]:_PhotoSizeSourceType_index[i+1]]
+	return _PhotoSizeSourceType_name[_PhotoSizeSourceType_index[idx]:_PhotoSizeSourceType_index[idx+1]]
 }

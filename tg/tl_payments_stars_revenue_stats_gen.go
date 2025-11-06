@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsStarsRevenueStats represents TL type `payments.starsRevenueStats#c92bb73b`.
+// PaymentsStarsRevenueStats represents TL type `payments.starsRevenueStats#6c207376`.
 // Star revenue statistics, see here »¹ for more info.
 // Note that all balances and currency amounts and graph values are in Stars.
 //
@@ -40,6 +40,15 @@ var (
 //
 // See https://core.telegram.org/constructor/payments.starsRevenueStats for reference.
 type PaymentsStarsRevenueStats struct {
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+	Flags bin.Fields
+	// TopHoursGraph field of PaymentsStarsRevenueStats.
+	//
+	// Use SetTopHoursGraph and GetTopHoursGraph helpers.
+	TopHoursGraph StatsGraphClass
 	// Star revenue graph (number of earned stars)
 	RevenueGraph StatsGraphClass
 	// Current balance, current withdrawable balance and overall earned Telegram Stars
@@ -49,7 +58,7 @@ type PaymentsStarsRevenueStats struct {
 }
 
 // PaymentsStarsRevenueStatsTypeID is TL type id of PaymentsStarsRevenueStats.
-const PaymentsStarsRevenueStatsTypeID = 0xc92bb73b
+const PaymentsStarsRevenueStatsTypeID = 0x6c207376
 
 // Ensuring interfaces in compile-time for PaymentsStarsRevenueStats.
 var (
@@ -62,6 +71,12 @@ var (
 func (s *PaymentsStarsRevenueStats) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.TopHoursGraph == nil) {
+		return false
 	}
 	if !(s.RevenueGraph == nil) {
 		return false
@@ -87,10 +102,15 @@ func (s *PaymentsStarsRevenueStats) String() string {
 
 // FillFrom fills PaymentsStarsRevenueStats from given interface.
 func (s *PaymentsStarsRevenueStats) FillFrom(from interface {
+	GetTopHoursGraph() (value StatsGraphClass, ok bool)
 	GetRevenueGraph() (value StatsGraphClass)
 	GetStatus() (value StarsRevenueStatus)
 	GetUsdRate() (value float64)
 }) {
+	if val, ok := from.GetTopHoursGraph(); ok {
+		s.TopHoursGraph = val
+	}
+
 	s.RevenueGraph = from.GetRevenueGraph()
 	s.Status = from.GetStatus()
 	s.UsdRate = from.GetUsdRate()
@@ -120,6 +140,11 @@ func (s *PaymentsStarsRevenueStats) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "TopHoursGraph",
+			SchemaName: "top_hours_graph",
+			Null:       !s.Flags.Has(0),
+		},
+		{
 			Name:       "RevenueGraph",
 			SchemaName: "revenue_graph",
 		},
@@ -135,10 +160,17 @@ func (s *PaymentsStarsRevenueStats) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *PaymentsStarsRevenueStats) SetFlags() {
+	if !(s.TopHoursGraph == nil) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *PaymentsStarsRevenueStats) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starsRevenueStats#c92bb73b as nil")
+		return fmt.Errorf("can't encode payments.starsRevenueStats#6c207376 as nil")
 	}
 	b.PutID(PaymentsStarsRevenueStatsTypeID)
 	return s.EncodeBare(b)
@@ -147,16 +179,28 @@ func (s *PaymentsStarsRevenueStats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsStarsRevenueStats) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starsRevenueStats#c92bb73b as nil")
+		return fmt.Errorf("can't encode payments.starsRevenueStats#6c207376 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.starsRevenueStats#6c207376: field flags: %w", err)
+	}
+	if s.Flags.Has(0) {
+		if s.TopHoursGraph == nil {
+			return fmt.Errorf("unable to encode payments.starsRevenueStats#6c207376: field top_hours_graph is nil")
+		}
+		if err := s.TopHoursGraph.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starsRevenueStats#6c207376: field top_hours_graph: %w", err)
+		}
 	}
 	if s.RevenueGraph == nil {
-		return fmt.Errorf("unable to encode payments.starsRevenueStats#c92bb73b: field revenue_graph is nil")
+		return fmt.Errorf("unable to encode payments.starsRevenueStats#6c207376: field revenue_graph is nil")
 	}
 	if err := s.RevenueGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.starsRevenueStats#c92bb73b: field revenue_graph: %w", err)
+		return fmt.Errorf("unable to encode payments.starsRevenueStats#6c207376: field revenue_graph: %w", err)
 	}
 	if err := s.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.starsRevenueStats#c92bb73b: field status: %w", err)
+		return fmt.Errorf("unable to encode payments.starsRevenueStats#6c207376: field status: %w", err)
 	}
 	b.PutDouble(s.UsdRate)
 	return nil
@@ -165,10 +209,10 @@ func (s *PaymentsStarsRevenueStats) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsStarsRevenueStats) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starsRevenueStats#c92bb73b to nil")
+		return fmt.Errorf("can't decode payments.starsRevenueStats#6c207376 to nil")
 	}
 	if err := b.ConsumeID(PaymentsStarsRevenueStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.starsRevenueStats#c92bb73b: %w", err)
+		return fmt.Errorf("unable to decode payments.starsRevenueStats#6c207376: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -176,28 +220,58 @@ func (s *PaymentsStarsRevenueStats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsStarsRevenueStats) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starsRevenueStats#c92bb73b to nil")
+		return fmt.Errorf("can't decode payments.starsRevenueStats#6c207376 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.starsRevenueStats#6c207376: field flags: %w", err)
+		}
+	}
+	if s.Flags.Has(0) {
+		value, err := DecodeStatsGraph(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starsRevenueStats#6c207376: field top_hours_graph: %w", err)
+		}
+		s.TopHoursGraph = value
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsRevenueStats#c92bb73b: field revenue_graph: %w", err)
+			return fmt.Errorf("unable to decode payments.starsRevenueStats#6c207376: field revenue_graph: %w", err)
 		}
 		s.RevenueGraph = value
 	}
 	{
 		if err := s.Status.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.starsRevenueStats#c92bb73b: field status: %w", err)
+			return fmt.Errorf("unable to decode payments.starsRevenueStats#6c207376: field status: %w", err)
 		}
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starsRevenueStats#c92bb73b: field usd_rate: %w", err)
+			return fmt.Errorf("unable to decode payments.starsRevenueStats#6c207376: field usd_rate: %w", err)
 		}
 		s.UsdRate = value
 	}
 	return nil
+}
+
+// SetTopHoursGraph sets value of TopHoursGraph conditional field.
+func (s *PaymentsStarsRevenueStats) SetTopHoursGraph(value StatsGraphClass) {
+	s.Flags.Set(0)
+	s.TopHoursGraph = value
+}
+
+// GetTopHoursGraph returns value of TopHoursGraph conditional field and
+// boolean which is true if field was set.
+func (s *PaymentsStarsRevenueStats) GetTopHoursGraph() (value StatsGraphClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.TopHoursGraph, true
 }
 
 // GetRevenueGraph returns value of RevenueGraph field.
