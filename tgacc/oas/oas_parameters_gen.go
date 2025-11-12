@@ -9,7 +9,7 @@ import (
 // HeartbeatTelegramAccountParams is parameters of heartbeatTelegramAccount operation.
 type HeartbeatTelegramAccountParams struct {
 	Token  uuid.UUID
-	Forget OptBool
+	Forget OptBool `json:",omitempty,omitzero"`
 }
 
 // ReceiveTelegramCodeParams is parameters of receiveTelegramCode operation.
