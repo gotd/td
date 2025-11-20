@@ -32,6 +32,10 @@ var (
 )
 
 // SavedStarGift represents TL type `savedStarGift#8983a452`.
+// Represents a gift¹ owned by a peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/savedStarGift for reference.
 type SavedStarGift struct {
@@ -40,67 +44,115 @@ type SavedStarGift struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NameHidden field of SavedStarGift.
+	// If set, the gift sender in from_id and the message are set only for the receiver of
+	// the gift.
 	NameHidden bool
-	// Unsaved field of SavedStarGift.
+	// If set, the gift is not pinned on the user's profile.
 	Unsaved bool
-	// Refunded field of SavedStarGift.
+	// This gift was upgraded to a collectible gift »¹ and then re-downgraded to a regular
+	// gift because a request to refund the payment related to the upgrade was made, and the
+	// money was returned.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	Refunded bool
-	// CanUpgrade field of SavedStarGift.
+	// Only set for non-collectible gifts, if they can be upgraded to a collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	CanUpgrade bool
-	// PinnedToTop field of SavedStarGift.
+	// Whether this gift is pinned on top of the user's profile page.
 	PinnedToTop bool
-	// UpgradeSeparate field of SavedStarGift.
+	// If set, someone already separately pre-paid¹ for the upgrade of this gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	UpgradeSeparate bool
-	// FromID field of SavedStarGift.
+	// Sender of the gift (unset for anonymous gifts).
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// Date field of SavedStarGift.
+	// Reception date of the gift.
 	Date int
-	// Gift field of SavedStarGift.
+	// The collectible gift.
 	Gift StarGiftClass
-	// Message field of SavedStarGift.
+	// Message attached to the gift.
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
-	// MsgID field of SavedStarGift.
+	// For gifts received by users, ID to use in inputSavedStarGiftUser¹ constructors.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputSavedStarGiftUser
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
-	// SavedID field of SavedStarGift.
+	// For gifts received by channels, ID to use in inputSavedStarGiftChat¹ constructors.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputSavedStarGiftChat
 	//
 	// Use SetSavedID and GetSavedID helpers.
 	SavedID int64
-	// ConvertStars field of SavedStarGift.
+	// For non-collectible gifts, the receiver of this gift may convert it to this many
+	// Telegram Stars, instead of displaying it on their profile page.
 	//
 	// Use SetConvertStars and GetConvertStars helpers.
 	ConvertStars int64
-	// UpgradeStars field of SavedStarGift.
+	// Only for pre-paid non-collectible gifts, the number of Telegram Stars the sender has
+	// already paid to convert the gift into a collectible gift »¹ (this is different from
+	// the meaning of the flag in messageActionStarGift², where it signals the upgrade price
+	// for not yet upgraded gifts).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
+	//  2) https://core.telegram.org/constructor/messageActionStarGift
 	//
 	// Use SetUpgradeStars and GetUpgradeStars helpers.
 	UpgradeStars int64
-	// CanExportAt field of SavedStarGift.
+	// If set, indicates that the current gift can't be exported to the TON blockchain »¹
+	// yet: the owner will be able to export it at the specified unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain
 	//
 	// Use SetCanExportAt and GetCanExportAt helpers.
 	CanExportAt int
-	// TransferStars field of SavedStarGift.
+	// If set, indicates that the gift can be transferred »¹ to another user by paying the
+	// specified amount of stars.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#transferring-collectible-gifts
 	//
 	// Use SetTransferStars and GetTransferStars helpers.
 	TransferStars int64
-	// CanTransferAt field of SavedStarGift.
+	// If set, indicates that the current gift can't be transferred »¹ yet: the owner will
+	// be able to transfer it at the specified unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#transferring-collectible-gifts
 	//
 	// Use SetCanTransferAt and GetCanTransferAt helpers.
 	CanTransferAt int
-	// CanResellAt field of SavedStarGift.
+	// If set, indicates that the current gift can't be resold »¹ yet: the owner will be
+	// able to put it up for sale at the specified unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#reselling-collectible-gifts
 	//
 	// Use SetCanResellAt and GetCanResellAt helpers.
 	CanResellAt int
-	// CollectionID field of SavedStarGift.
+	// IDs of the collections »¹ that this gift is a part of.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#gift-collections
 	//
 	// Use SetCollectionID and GetCollectionID helpers.
 	CollectionID []int
-	// PrepaidUpgradeHash field of SavedStarGift.
+	// Hash to prepay for a gift upgrade separately »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	//
 	// Use SetPrepaidUpgradeHash and GetPrepaidUpgradeHash helpers.
 	PrepaidUpgradeHash string

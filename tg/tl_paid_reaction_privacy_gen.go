@@ -32,6 +32,10 @@ var (
 )
 
 // PaidReactionPrivacyDefault represents TL type `paidReactionPrivacyDefault#206ad49e`.
+// Uses the default reaction privacy, set using messages.togglePaidReactionPrivacy¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.togglePaidReactionPrivacy
 //
 // See https://core.telegram.org/constructor/paidReactionPrivacyDefault for reference.
 type PaidReactionPrivacyDefault struct {
@@ -133,6 +137,7 @@ func (p *PaidReactionPrivacyDefault) DecodeBare(b *bin.Buffer) error {
 }
 
 // PaidReactionPrivacyAnonymous represents TL type `paidReactionPrivacyAnonymous#1f0c1ad9`.
+// Send paid reactions anonymously.
 //
 // See https://core.telegram.org/constructor/paidReactionPrivacyAnonymous for reference.
 type PaidReactionPrivacyAnonymous struct {
@@ -234,10 +239,14 @@ func (p *PaidReactionPrivacyAnonymous) DecodeBare(b *bin.Buffer) error {
 }
 
 // PaidReactionPrivacyPeer represents TL type `paidReactionPrivacyPeer#dc6cfcf0`.
+// Send paid reactions as the specified peer, fetched using channels.getSendAs¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/channels.getSendAs
 //
 // See https://core.telegram.org/constructor/paidReactionPrivacyPeer for reference.
 type PaidReactionPrivacyPeer struct {
-	// Peer field of PaidReactionPrivacyPeer.
+	// The peer to send reactions as.
 	Peer InputPeerClass
 }
 

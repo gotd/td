@@ -234,12 +234,13 @@ func (g *ChannelsGetMessagesRequest) MapID() (value InputMessageClassArray) {
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//	400 FROZEN_PARTICIPANT_MISSING: The current account is frozen, and cannot access the specified peer.
 //	400 MESSAGE_IDS_EMPTY: No message ids were provided.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/channels.getMessages for reference.
-// Can be used by bots.
 func (c *Client) ChannelsGetMessages(ctx context.Context, request *ChannelsGetMessagesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 

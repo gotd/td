@@ -32,10 +32,12 @@ var (
 )
 
 // PaymentsCanPurchaseStoreRequest represents TL type `payments.canPurchaseStore#4fdc5ea7`.
+// Checks whether a purchase is possible. Must be called before in-store purchase,
+// official apps only.
 //
 // See https://core.telegram.org/method/payments.canPurchaseStore for reference.
 type PaymentsCanPurchaseStoreRequest struct {
-	// Purpose field of PaymentsCanPurchaseStoreRequest.
+	// Payment purpose.
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -166,9 +168,15 @@ func (c *PaymentsCanPurchaseStoreRequest) GetPurpose() (value InputStorePaymentP
 }
 
 // PaymentsCanPurchaseStore invokes method payments.canPurchaseStore#4fdc5ea7 returning error if any.
+// Checks whether a purchase is possible. Must be called before in-store purchase,
+// official apps only.
+//
+// Possible errors:
+//
+//	400 INPUT_PURPOSE_INVALID: The specified payment purpose is invalid.
+//	406 PREMIUM_CURRENTLY_UNAVAILABLE: You cannot currently purchase a Premium subscription.
 //
 // See https://core.telegram.org/method/payments.canPurchaseStore for reference.
-// Can be used by bots.
 func (c *Client) PaymentsCanPurchaseStore(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error) {
 	var result BoolBox
 

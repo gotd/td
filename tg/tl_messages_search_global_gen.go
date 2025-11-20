@@ -68,7 +68,8 @@ type MessagesSearchGlobalRequest struct {
 	// If a positive value was transferred, the method will return only messages with date
 	// smaller than max_date
 	MaxDate int
-	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
+	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹, or if
+	// that is absent, the date of the last returned message.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice

@@ -32,10 +32,19 @@ var (
 )
 
 // AccountPaidMessagesRevenue represents TL type `account.paidMessagesRevenue#1e109708`.
+// Total number of non-refunded Telegram Stars¹ a user has spent on sending us messages
+// either directly or through a channel, see here »² for more info on paid messages.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/api/paid-messages
 //
 // See https://core.telegram.org/constructor/account.paidMessagesRevenue for reference.
 type AccountPaidMessagesRevenue struct {
-	// StarsAmount field of AccountPaidMessagesRevenue.
+	// Amount in Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	StarsAmount int64
 }
 

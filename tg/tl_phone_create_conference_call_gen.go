@@ -32,6 +32,7 @@ var (
 )
 
 // PhoneCreateConferenceCallRequest represents TL type `phone.createConferenceCall#7d0444bb`.
+// Create and optionally join a new conference call.
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
 type PhoneCreateConferenceCallRequest struct {
@@ -40,23 +41,23 @@ type PhoneCreateConferenceCallRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Muted field of PhoneCreateConferenceCallRequest.
+	// If set, mute our microphone when joining the call (can only be used if join is set).
 	Muted bool
-	// VideoStopped field of PhoneCreateConferenceCallRequest.
+	// If set, our video stream is disabled (can only be used if join is set).
 	VideoStopped bool
-	// Join field of PhoneCreateConferenceCallRequest.
+	// If set, also join the call, otherwise just create the call link.
 	Join bool
-	// RandomID field of PhoneCreateConferenceCallRequest.
+	// Unique client message ID required to prevent creation of duplicate group calls.
 	RandomID int
-	// PublicKey field of PhoneCreateConferenceCallRequest.
+	// Public key (can only be used if join is set).
 	//
 	// Use SetPublicKey and GetPublicKey helpers.
 	PublicKey bin.Int256
-	// Block field of PhoneCreateConferenceCallRequest.
+	// Initial blockchain block (can only be used if join is set).
 	//
 	// Use SetBlock and GetBlock helpers.
 	Block []byte
-	// Params field of PhoneCreateConferenceCallRequest.
+	// Parameters from tgcalls (can only be used if join is set).
 	//
 	// Use SetParams and GetParams helpers.
 	Params DataJSON
@@ -431,9 +432,9 @@ func (c *PhoneCreateConferenceCallRequest) GetParams() (value DataJSON, ok bool)
 }
 
 // PhoneCreateConferenceCall invokes method phone.createConferenceCall#7d0444bb returning error if any.
+// Create and optionally join a new conference call.
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
-// Can be used by bots.
 func (c *Client) PhoneCreateConferenceCall(ctx context.Context, request *PhoneCreateConferenceCallRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

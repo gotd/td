@@ -32,12 +32,17 @@ var (
 )
 
 // UsersGetSavedMusicByIDRequest represents TL type `users.getSavedMusicByID#7573a4e9`.
+// Check if the passed songs are still pinned to the user's profile, or refresh the file
+// references of songs pinned on a user's profile see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/method/users.getSavedMusicByID for reference.
 type UsersGetSavedMusicByIDRequest struct {
-	// ID field of UsersGetSavedMusicByIDRequest.
+	// The ID of the user.
 	ID InputUserClass
-	// Documents field of UsersGetSavedMusicByIDRequest.
+	// The songs (here, file_reference can be empty to refresh file references).
 	Documents []InputDocumentClass
 }
 
@@ -216,6 +221,15 @@ func (g *UsersGetSavedMusicByIDRequest) MapDocuments() (value InputDocumentClass
 }
 
 // UsersGetSavedMusicByID invokes method users.getSavedMusicByID#7573a4e9 returning error if any.
+// Check if the passed songs are still pinned to the user's profile, or refresh the file
+// references of songs pinned on a user's profile see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
+//
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.getSavedMusicByID for reference.
 func (c *Client) UsersGetSavedMusicByID(ctx context.Context, request *UsersGetSavedMusicByIDRequest) (UsersSavedMusicClass, error) {

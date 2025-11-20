@@ -32,12 +32,19 @@ var (
 )
 
 // PaymentsUpdateStarGiftPriceRequest represents TL type `payments.updateStarGiftPrice#edbe6ccb`.
+// A collectible gift we own »¹ can be put up for sale on the gift marketplace »²
+// with this method, see here »³ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://telegram.org/blog/gift-marketplace-and-more
+//  3. https://core.telegram.org/api/gifts#reselling-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.updateStarGiftPrice for reference.
 type PaymentsUpdateStarGiftPriceRequest struct {
-	// Stargift field of PaymentsUpdateStarGiftPriceRequest.
+	// The gift to resell.
 	Stargift InputSavedStarGiftClass
-	// ResellAmount field of PaymentsUpdateStarGiftPriceRequest.
+	// Resale price of the gift.
 	ResellAmount StarsAmountClass
 }
 
@@ -198,9 +205,20 @@ func (u *PaymentsUpdateStarGiftPriceRequest) GetResellAmount() (value StarsAmoun
 }
 
 // PaymentsUpdateStarGiftPrice invokes method payments.updateStarGiftPrice#edbe6ccb returning error if any.
+// A collectible gift we own »¹ can be put up for sale on the gift marketplace »²
+// with this method, see here »³ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://telegram.org/blog/gift-marketplace-and-more
+//  3. https://core.telegram.org/api/gifts#reselling-collectible-gifts
+//
+// Possible errors:
+//
+//	400 SAVED_ID_EMPTY: The passed inputSavedStarGiftChat.saved_id is empty.
+//	400 STARGIFT_NOT_FOUND: The specified gift was not found.
 //
 // See https://core.telegram.org/method/payments.updateStarGiftPrice for reference.
-// Can be used by bots.
 func (c *Client) PaymentsUpdateStarGiftPrice(ctx context.Context, request *PaymentsUpdateStarGiftPriceRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

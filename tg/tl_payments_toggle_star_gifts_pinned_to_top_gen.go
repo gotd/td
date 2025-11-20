@@ -32,12 +32,17 @@ var (
 )
 
 // PaymentsToggleStarGiftsPinnedToTopRequest represents TL type `payments.toggleStarGiftsPinnedToTop#1513e7b0`.
+// Pins a received gift on top of the profile of the user or owned channels by using
+// payments.toggleStarGiftsPinnedToTop¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/payments.toggleStarGiftsPinnedToTop
 //
 // See https://core.telegram.org/method/payments.toggleStarGiftsPinnedToTop for reference.
 type PaymentsToggleStarGiftsPinnedToTopRequest struct {
-	// Peer field of PaymentsToggleStarGiftsPinnedToTopRequest.
+	// The peer where to pin the gift.
 	Peer InputPeerClass
-	// Stargift field of PaymentsToggleStarGiftsPinnedToTopRequest.
+	// The gift to pin.
 	Stargift []InputSavedStarGiftClass
 }
 
@@ -216,9 +221,17 @@ func (t *PaymentsToggleStarGiftsPinnedToTopRequest) MapStargift() (value InputSa
 }
 
 // PaymentsToggleStarGiftsPinnedToTop invokes method payments.toggleStarGiftsPinnedToTop#1513e7b0 returning error if any.
+// Pins a received gift on top of the profile of the user or owned channels by using
+// payments.toggleStarGiftsPinnedToTop¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/payments.toggleStarGiftsPinnedToTop
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.toggleStarGiftsPinnedToTop for reference.
-// Can be used by bots.
 func (c *Client) PaymentsToggleStarGiftsPinnedToTop(ctx context.Context, request *PaymentsToggleStarGiftsPinnedToTopRequest) (bool, error) {
 	var result BoolBox
 

@@ -167,7 +167,11 @@ func (p *HelpPromoDataEmpty) GetExpires() (value int) {
 }
 
 // HelpPromoData represents TL type `help.promoData#8a4d87a`.
-// MTProxy/Public Service Announcement information
+// A set of useful suggestions and a PSA/MTProxy sponsored peer, see here »¹ for more
+// info.
+//
+// Links:
+//  1. https://core.telegram.org/api/config#suggestions
 //
 // See https://core.telegram.org/constructor/help.promoData for reference.
 type HelpPromoData struct {
@@ -176,27 +180,41 @@ type HelpPromoData struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MTProxy-related channel
+	// Set when connecting using an MTProxy that has configured an associated peer (that will
+	// be passed in peer, i.e. the channel that sponsored the MTProxy) that should be pinned
+	// on top of the chat list.
 	Proxy bool
-	// Expiry of PSA/MTProxy info
+	// Unixtime when to re-invoke help.getPromoData¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getPromoData
 	Expires int
 	// MTProxy/PSA peer
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
-	// PSA type
+	// For Public Service Announcement peers, indicates the type of the PSA.
 	//
 	// Use SetPsaType and GetPsaType helpers.
 	PsaType string
-	// PSA message
+	// For Public Service Announcement peers, contains the PSA itself.
 	//
 	// Use SetPsaMessage and GetPsaMessage helpers.
 	PsaMessage string
-	// PendingSuggestions field of HelpPromoData.
+	// Contains a list of pending suggestions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#basic-suggestions
 	PendingSuggestions []string
-	// DismissedSuggestions field of HelpPromoData.
+	// Contains a list of inverted suggestions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#inverted-suggestions
 	DismissedSuggestions []string
-	// CustomPendingSuggestion field of HelpPromoData.
+	// Contains a list of custom pending suggestions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#custom-suggestions
 	//
 	// Use SetCustomPendingSuggestion and GetCustomPendingSuggestion helpers.
 	CustomPendingSuggestion PendingSuggestion

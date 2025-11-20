@@ -351,7 +351,6 @@ func (s *MessagesSetBotCallbackAnswerRequest) GetCacheTime() (value int) {
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setBotCallbackAnswer for reference.
-// Can be used by bots.
 func (c *Client) MessagesSetBotCallbackAnswer(ctx context.Context, request *MessagesSetBotCallbackAnswerRequest) (bool, error) {
 	var result BoolBox
 

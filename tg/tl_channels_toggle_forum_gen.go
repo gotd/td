@@ -43,7 +43,7 @@ type ChannelsToggleForumRequest struct {
 	Channel InputChannelClass
 	// Enable or disable forum functionality
 	Enabled bool
-	// Tabs field of ChannelsToggleForumRequest.
+	// If true enables the tabbed forum UI, otherwise enables the list-based forum UI.
 	Tabs bool
 }
 

@@ -79,7 +79,7 @@ type PeerSettings struct {
 	// toggleConnectedBotPaused »².
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	//  2) https://core.telegram.org/method/account.toggleConnectedBotPaused
 	BusinessBotPaused bool
 	// This flag is set if both business_bot_id and business_bot_manage_url are set and
@@ -87,8 +87,8 @@ type PeerSettings struct {
 	// settings during initial configuration².
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
-	//  2) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
+	//  2) https://core.telegram.org/api/bots/connected-business-bots
 	BusinessBotCanReply bool
 	// Distance in meters between us and this peer
 	//
@@ -112,7 +112,7 @@ type PeerSettings struct {
 	// about the bot in the action bar.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	//
 	// Use SetBusinessBotID and GetBusinessBotID helpers.
 	BusinessBotID int64
@@ -124,23 +124,30 @@ type PeerSettings struct {
 	//
 	// Use SetBusinessBotManageURL and GetBusinessBotManageURL helpers.
 	BusinessBotManageURL string
-	// ChargePaidMessageStars field of PeerSettings.
+	// All users that must pay us »¹ to send us private messages will have this flag set
+	// only for us, containing the amount of required stars, see here »² for more info on
+	// paid messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetChargePaidMessageStars and GetChargePaidMessageStars helpers.
 	ChargePaidMessageStars int64
-	// RegistrationMonth field of PeerSettings.
+	// Used to display the user's registration year and month, the string is in MM.YYYY
+	// format, where MM is the registration month (1-12), and YYYY is the registration year.
 	//
 	// Use SetRegistrationMonth and GetRegistrationMonth helpers.
 	RegistrationMonth string
-	// PhoneCountry field of PeerSettings.
+	// The country code of the user's phone number.
 	//
 	// Use SetPhoneCountry and GetPhoneCountry helpers.
 	PhoneCountry string
-	// NameChangeDate field of PeerSettings.
+	// When was the user's name last changed.
 	//
 	// Use SetNameChangeDate and GetNameChangeDate helpers.
 	NameChangeDate int
-	// PhotoChangeDate field of PeerSettings.
+	// When was the user's photo last changed.
 	//
 	// Use SetPhotoChangeDate and GetPhotoChangeDate helpers.
 	PhotoChangeDate int

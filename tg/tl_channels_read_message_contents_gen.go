@@ -32,10 +32,12 @@ var (
 )
 
 // ChannelsReadMessageContentsRequest represents TL type `channels.readMessageContents#eab5dc38`.
-// Mark channel/supergroup¹ message contents as read
+// Mark channel/supergroup¹ message contents as read, emitting an
+// updateChannelReadMessagesContents².
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/constructor/updateChannelReadMessagesContents
 //
 // See https://core.telegram.org/method/channels.readMessageContents for reference.
 type ChannelsReadMessageContentsRequest struct {
@@ -218,10 +220,12 @@ func (r *ChannelsReadMessageContentsRequest) GetChannelAsNotEmpty() (NotEmptyInp
 }
 
 // ChannelsReadMessageContents invokes method channels.readMessageContents#eab5dc38 returning error if any.
-// Mark channel/supergroup¹ message contents as read
+// Mark channel/supergroup¹ message contents as read, emitting an
+// updateChannelReadMessagesContents².
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/constructor/updateChannelReadMessagesContents
 //
 // Possible errors:
 //

@@ -204,6 +204,8 @@ func (t *MessagesTranscribeAudioRequest) GetMsgID() (value int) {
 //
 // Possible errors:
 //
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 MSG_VOICE_MISSING: The specified message is not a voice message.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	400 TRANSCRIPTION_FAILED: Audio transcription failed.

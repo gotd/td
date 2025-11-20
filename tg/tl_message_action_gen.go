@@ -5002,7 +5002,7 @@ func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
 //
 // See https://core.telegram.org/constructor/messageActionSetChatTheme for reference.
 type MessageActionSetChatTheme struct {
-	// Theme field of MessageActionSetChatTheme.
+	// The new chat theme.
 	Theme ChatThemeClass
 }
 
@@ -5554,6 +5554,12 @@ func (m *MessageActionWebViewDataSent) GetText() (value string) {
 
 // MessageActionGiftPremium represents TL type `messageActionGiftPremium#6c6274fa`.
 // Info about a gifted Telegram Premium subscription
+// This service message should be displayed below the appropriate sticker from the
+// inputStickerSetPremiumGifts »¹ stickerset »²:
+//
+// Links:
+//  1. https://core.telegram.org/constructor/inputStickerSetPremiumGifts
+//  2. https://core.telegram.org/api/stickers#stickersets
 //
 // See https://core.telegram.org/constructor/messageActionGiftPremium for reference.
 type MessageActionGiftPremium struct {
@@ -5575,7 +5581,7 @@ type MessageActionGiftPremium struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	// Duration of the gifted Telegram Premium subscription
+	// Duration of the gifted Telegram Premium subscription.
 	Months int
 	// If the gift was bought using a cryptocurrency, the cryptocurrency name.
 	//
@@ -8717,9 +8723,13 @@ func (m *MessageActionPaymentRefunded) GetCharge() (value PaymentCharge) {
 
 // MessageActionGiftStars represents TL type `messageActionGiftStars#45d5b021`.
 // You gifted or were gifted some Telegram Stars¹.
+// This service message should be displayed below the appropriate sticker from the
+// inputStickerSetPremiumGifts »¹ stickerset »²:
 //
 // Links:
 //  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/constructor/inputStickerSetPremiumGifts
+//  3. https://core.telegram.org/api/stickers#stickersets
 //
 // See https://core.telegram.org/constructor/messageActionGiftStars for reference.
 type MessageActionGiftStars struct {
@@ -9084,10 +9094,14 @@ func (m *MessageActionGiftStars) GetTransactionID() (value string, ok bool) {
 
 // MessageActionPrizeStars represents TL type `messageActionPrizeStars#b00c47a2`.
 // You won some Telegram Stars¹ in a Telegram Star giveaway »².
+// This service message should be displayed below the appropriate sticker from the
+// inputStickerSetPremiumGifts »¹ stickerset »²:
 //
 // Links:
 //  1. https://core.telegram.org/api/stars
 //  2. https://core.telegram.org/api/giveaways#star-giveaways
+//  3. https://core.telegram.org/constructor/inputStickerSetPremiumGifts
+//  4. https://core.telegram.org/api/stickers#stickersets
 //
 // See https://core.telegram.org/constructor/messageActionPrizeStars for reference.
 type MessageActionPrizeStars struct {
@@ -9385,11 +9399,11 @@ type MessageActionStarGift struct {
 	// decides to display the gift on their profile
 	NameHidden bool
 	// Whether this gift was added to the destination user's profile (may be toggled using
-	// payments.saveStarGift¹ and fetched using payments.getUserStarGifts²)
+	// payments.saveStarGift¹ and fetched using payments.getSavedStarGifts²)
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/payments.saveStarGift
-	//  2) https://core.telegram.org/method/payments.getUserStarGifts
+	//  2) https://core.telegram.org/method/payments.getSavedStarGifts
 	Saved bool
 	// Whether this gift was converted to Telegram Stars¹ and cannot be displayed on the
 	// profile anymore.
@@ -9397,15 +9411,27 @@ type MessageActionStarGift struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stars
 	Converted bool
-	// Upgraded field of MessageActionStarGift.
+	// This gift was upgraded to a collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	Upgraded bool
-	// Refunded field of MessageActionStarGift.
+	// This gift is not available anymore because a request to refund the payment related to
+	// this gift was made, and the money was returned.
 	Refunded bool
-	// CanUpgrade field of MessageActionStarGift.
+	// If set, this gift can be upgraded to a collectible gift¹; can only be set for the
+	// receiver of a gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift
 	CanUpgrade bool
-	// PrepaidUpgrade field of MessageActionStarGift.
+	// The sender has already pre-paid for the upgrade of this gift to a collectible gift.
 	PrepaidUpgrade bool
-	// UpgradeSeparate field of MessageActionStarGift.
+	// This service message is the notification of a separate pre-payment for the upgrade of
+	// a gift we own¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	UpgradeSeparate bool
 	// Info about the gift
 	Gift StarGiftClass
@@ -9420,31 +9446,50 @@ type MessageActionStarGift struct {
 	//
 	// Use SetConvertStars and GetConvertStars helpers.
 	ConvertStars int64
-	// UpgradeMsgID field of MessageActionStarGift.
+	// If set, this gift was upgraded to a collectible gift¹, and the corresponding
+	// messageActionStarGiftUnique² is available at the specified message ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift
+	//  2) https://core.telegram.org/constructor/messageActionStarGiftUnique
 	//
 	// Use SetUpgradeMsgID and GetUpgradeMsgID helpers.
 	UpgradeMsgID int
-	// UpgradeStars field of MessageActionStarGift.
+	// The number of Telegram Stars the user can pay to convert the gift into a collectible
+	// gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	//
 	// Use SetUpgradeStars and GetUpgradeStars helpers.
 	UpgradeStars int64
-	// FromID field of MessageActionStarGift.
+	// Sender of the gift (unset for anonymous gifts).
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// Peer field of MessageActionStarGift.
+	// Receiver of the gift.
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
-	// SavedID field of MessageActionStarGift.
+	// For channel gifts, ID to use in inputSavedStarGiftChat¹ constructors.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputSavedStarGiftChat
 	//
 	// Use SetSavedID and GetSavedID helpers.
 	SavedID int64
-	// PrepaidUpgradeHash field of MessageActionStarGift.
+	// Hash to prepay for a gift upgrade separately »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	//
 	// Use SetPrepaidUpgradeHash and GetPrepaidUpgradeHash helpers.
 	PrepaidUpgradeHash string
-	// GiftMsgID field of MessageActionStarGift.
+	// For separate upgrades¹, the identifier of the message with the gift whose upgrade was
+	// prepaid (only valid for the receiver of the service message).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	//
 	// Use SetGiftMsgID and GetGiftMsgID helpers.
 	GiftMsgID int
@@ -10268,6 +10313,11 @@ func (m *MessageActionStarGift) GetGiftMsgID() (value int, ok bool) {
 }
 
 // MessageActionStarGiftUnique represents TL type `messageActionStarGiftUnique#95728543`.
+// A gift »¹ was upgraded to a collectible gift »².
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/messageActionStarGiftUnique for reference.
 type MessageActionStarGiftUnique struct {
@@ -10276,49 +10326,85 @@ type MessageActionStarGiftUnique struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Upgrade field of MessageActionStarGiftUnique.
+	// If set, this collectible was upgraded »¹ to a collectible gift from a previously
+	// received or sent (depending on the out flag of the containing messageService²)
+	// non-collectible gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
+	//  2) https://core.telegram.org/constructor/messageService
 	Upgrade bool
-	// Transferred field of MessageActionStarGiftUnique.
+	// If set, this collectible was transferred (either to the current user or by the current
+	// user to the other user in the private chat, depending on the out flag of the
+	// containing messageService¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageService
 	Transferred bool
-	// Saved field of MessageActionStarGiftUnique.
+	// If set, this gift is visible on the user or channel's profile page; can only be set
+	// for the receiver of a gift.
 	Saved bool
-	// Refunded field of MessageActionStarGiftUnique.
+	// This gift was upgraded to a collectible gift »¹ and then re-downgraded to a regular
+	// gift because a request to refund the payment related to the upgrade was made, and the
+	// money was returned.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	Refunded bool
-	// PrepaidUpgrade field of MessageActionStarGiftUnique.
+	// The sender has pre-paid for the upgrade of this gift to a collectible gift.
 	PrepaidUpgrade bool
 	// Assigned field of MessageActionStarGiftUnique.
 	Assigned bool
-	// Gift field of MessageActionStarGiftUnique.
+	// The collectible gift.
 	Gift StarGiftClass
-	// CanExportAt field of MessageActionStarGiftUnique.
+	// If set, indicates that the current gift can't be exported to the TON blockchain »¹
+	// yet: the owner will be able to export it at the specified unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain
 	//
 	// Use SetCanExportAt and GetCanExportAt helpers.
 	CanExportAt int
-	// TransferStars field of MessageActionStarGiftUnique.
+	// If set, indicates that the gift can be transferred »¹ to another user by paying the
+	// specified amount of stars.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#transferring-collectible-gifts
 	//
 	// Use SetTransferStars and GetTransferStars helpers.
 	TransferStars int64
-	// FromID field of MessageActionStarGiftUnique.
+	// Sender of the gift (unset for anonymous gifts).
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// Peer field of MessageActionStarGiftUnique.
+	// Receiver of the gift.
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
-	// SavedID field of MessageActionStarGiftUnique.
+	// For channel gifts, ID to use in inputSavedStarGiftChat¹ constructors.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputSavedStarGiftChat
 	//
 	// Use SetSavedID and GetSavedID helpers.
 	SavedID int64
-	// ResaleAmount field of MessageActionStarGiftUnique.
+	// Resale price of the gift.
 	//
 	// Use SetResaleAmount and GetResaleAmount helpers.
 	ResaleAmount StarsAmountClass
-	// CanTransferAt field of MessageActionStarGiftUnique.
+	// If set, indicates that the current gift can't be transferred »¹ yet: the owner will
+	// be able to transfer it at the specified unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#transferring-collectible-gifts
 	//
 	// Use SetCanTransferAt and GetCanTransferAt helpers.
 	CanTransferAt int
-	// CanResellAt field of MessageActionStarGiftUnique.
+	// If set, indicates that the current gift can't be resold »¹ yet: the owner will be
+	// able to put it up for sale at the specified unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#reselling-collectible-gifts
 	//
 	// Use SetCanResellAt and GetCanResellAt helpers.
 	CanResellAt int
@@ -11085,12 +11171,18 @@ func (m *MessageActionStarGiftUnique) GetDropOriginalDetailsStars() (value int64
 }
 
 // MessageActionPaidMessagesRefunded represents TL type `messageActionPaidMessagesRefunded#ac1f1fcd`.
+// Sent from peer A to B, indicates that A refunded all stars¹ B previously paid to send
+// messages to A, see here »² for more info on paid messages.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/api/paid-messages
 //
 // See https://core.telegram.org/constructor/messageActionPaidMessagesRefunded for reference.
 type MessageActionPaidMessagesRefunded struct {
-	// Count field of MessageActionPaidMessagesRefunded.
+	// Number of paid messages affected by the refund.
 	Count int
-	// Stars field of MessageActionPaidMessagesRefunded.
+	// Number of refunded stars.
 	Stars int64
 }
 
@@ -11246,6 +11338,10 @@ func (m *MessageActionPaidMessagesRefunded) GetStars() (value int64) {
 }
 
 // MessageActionPaidMessagesPrice represents TL type `messageActionPaidMessagesPrice#84b88578`.
+// The price of paid messages »¹ in this chat was changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-messages
 //
 // See https://core.telegram.org/constructor/messageActionPaidMessagesPrice for reference.
 type MessageActionPaidMessagesPrice struct {
@@ -11254,9 +11350,18 @@ type MessageActionPaidMessagesPrice struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BroadcastMessagesAllowed field of MessageActionPaidMessagesPrice.
+	// Can only be set for channels, if set indicates that direct messages were enabled »¹,
+	// otherwise indicates that direct messages were disabled; the price of paid messages is
+	// related to the price of direct messages (aka those sent to the associated monoforum²).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
+	//  2) https://core.telegram.org/api/monoforum
 	BroadcastMessagesAllowed bool
-	// Stars field of MessageActionPaidMessagesPrice.
+	// The new price in Telegram Stars¹, can be 0 if messages are now free.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	Stars int64
 }
 
@@ -11436,6 +11541,16 @@ func (m *MessageActionPaidMessagesPrice) GetStars() (value int64) {
 }
 
 // MessageActionConferenceCall represents TL type `messageActionConferenceCall#2ffe2f7a`.
+// Represents a conference call¹ (or an invitation to a conference call, if neither the
+// missed nor active flags are set).
+// If call_requests_disabled¹ is not set or false, an incoming
+// messageActionConferenceCall² with the missed and active flags not set should trigger
+// ringing and an incoming call screen, just like for one-on-one calls.
+//
+// Links:
+//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  2. https://core.telegram.org/api/config#call-requests-disabled
+//  3. https://core.telegram.org/constructor/messageActionConferenceCall
 //
 // See https://core.telegram.org/constructor/messageActionConferenceCall for reference.
 type MessageActionConferenceCall struct {
@@ -11444,19 +11559,19 @@ type MessageActionConferenceCall struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Missed field of MessageActionConferenceCall.
+	// Whether the conference call has ended and the user hasn't joined.
 	Missed bool
-	// Active field of MessageActionConferenceCall.
+	// Whether the user is currently in the conference call.
 	Active bool
-	// Video field of MessageActionConferenceCall.
+	// Whether this is a video conference call.
 	Video bool
-	// CallID field of MessageActionConferenceCall.
+	// Call ID.
 	CallID int64
-	// Duration field of MessageActionConferenceCall.
+	// Call duration, for left calls only.
 	//
 	// Use SetDuration and GetDuration helpers.
 	Duration int
-	// OtherParticipants field of MessageActionConferenceCall.
+	// Identifiers of some other call participants.
 	//
 	// Use SetOtherParticipants and GetOtherParticipants helpers.
 	OtherParticipants []PeerClass
@@ -11818,12 +11933,16 @@ func (m *MessageActionConferenceCall) MapOtherParticipants() (value PeerClassArr
 }
 
 // MessageActionTodoCompletions represents TL type `messageActionTodoCompletions#cc7c5c89`.
+// Items were marked as completed or not completed in a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/messageActionTodoCompletions for reference.
 type MessageActionTodoCompletions struct {
-	// Completed field of MessageActionTodoCompletions.
+	// Items marked as completed.
 	Completed []int
-	// Incompleted field of MessageActionTodoCompletions.
+	// Items marked as not completed.
 	Incompleted []int
 }
 
@@ -12005,10 +12124,14 @@ func (m *MessageActionTodoCompletions) GetIncompleted() (value []int) {
 }
 
 // MessageActionTodoAppendTasks represents TL type `messageActionTodoAppendTasks#c7edbc83`.
+// Items were appended to the todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/messageActionTodoAppendTasks for reference.
 type MessageActionTodoAppendTasks struct {
-	// List field of MessageActionTodoAppendTasks.
+	// Appended items.
 	List []TodoItem
 }
 
@@ -12154,6 +12277,10 @@ func (m *MessageActionTodoAppendTasks) GetList() (value []TodoItem) {
 }
 
 // MessageActionSuggestedPostApproval represents TL type `messageActionSuggestedPostApproval#ee7a1596`.
+// A suggested post »¹ was approved or rejected.
+//
+// Links:
+//  1. https://core.telegram.org/api/suggested-posts
 //
 // See https://core.telegram.org/constructor/messageActionSuggestedPostApproval for reference.
 type MessageActionSuggestedPostApproval struct {
@@ -12162,19 +12289,20 @@ type MessageActionSuggestedPostApproval struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Rejected field of MessageActionSuggestedPostApproval.
+	// Whether the suggested post was rejected.
 	Rejected bool
-	// BalanceTooLow field of MessageActionSuggestedPostApproval.
+	// If set, the post was approved but the user's balance is too low to pay for the
+	// suggested post.
 	BalanceTooLow bool
-	// RejectComment field of MessageActionSuggestedPostApproval.
+	// If the suggested post was rejected, can optionally contain a rejection comment.
 	//
 	// Use SetRejectComment and GetRejectComment helpers.
 	RejectComment string
-	// ScheduleDate field of MessageActionSuggestedPostApproval.
+	// Scheduling date.
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// Price field of MessageActionSuggestedPostApproval.
+	// Price for the suggested post.
 	//
 	// Use SetPrice and GetPrice helpers.
 	Price StarsAmountClass
@@ -12501,10 +12629,15 @@ func (m *MessageActionSuggestedPostApproval) GetPrice() (value StarsAmountClass,
 }
 
 // MessageActionSuggestedPostSuccess represents TL type `messageActionSuggestedPostSuccess#95ddcf69`.
+// A suggested post »¹ was successfully posted, and payment for it was successfully
+// received.
+//
+// Links:
+//  1. https://core.telegram.org/api/suggested-posts
 //
 // See https://core.telegram.org/constructor/messageActionSuggestedPostSuccess for reference.
 type MessageActionSuggestedPostSuccess struct {
-	// Price field of MessageActionSuggestedPostSuccess.
+	// The price.
 	Price StarsAmountClass
 }
 
@@ -12640,6 +12773,14 @@ func (m *MessageActionSuggestedPostSuccess) GetPrice() (value StarsAmountClass) 
 }
 
 // MessageActionSuggestedPostRefund represents TL type `messageActionSuggestedPostRefund#69f916f8`.
+// A suggested post »¹ was accepted and posted or scheduled, but either the channel
+// deleted the posted/scheduled post before stars_suggested_post_age_min² seconds have
+// elapsed, or the user refunded the payment for the stars used to pay for the suggested
+// post.
+//
+// Links:
+//  1. https://core.telegram.org/api/suggested-posts
+//  2. https://core.telegram.org/api/config#stars-suggested-post-age-min
 //
 // See https://core.telegram.org/constructor/messageActionSuggestedPostRefund for reference.
 type MessageActionSuggestedPostRefund struct {
@@ -12648,7 +12789,7 @@ type MessageActionSuggestedPostRefund struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PayerInitiated field of MessageActionSuggestedPostRefund.
+	// If set, the user refunded the payment for the stars used to pay for the suggested post.
 	PayerInitiated bool
 }
 
@@ -12803,6 +12944,13 @@ func (m *MessageActionSuggestedPostRefund) GetPayerInitiated() (value bool) {
 }
 
 // MessageActionGiftTon represents TL type `messageActionGiftTon#a8a3c699`.
+// You were gifted some toncoins.
+// This service message should be displayed below the appropriate sticker from the
+// inputStickerSetTonGifts »¹ stickerset »²:
+//
+// Links:
+//  1. https://core.telegram.org/constructor/inputStickerSetTonGifts
+//  2. https://core.telegram.org/api/stickers#stickersets
 //
 // See https://core.telegram.org/constructor/messageActionGiftTon for reference.
 type MessageActionGiftTon struct {
@@ -12811,15 +12959,17 @@ type MessageActionGiftTon struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Currency field of MessageActionGiftTon.
+	// Name of a localized FIAT currency.
 	Currency string
-	// Amount field of MessageActionGiftTon.
+	// FIAT currency equivalent (in the currency specified in currency) of the amount
+	// specified in crypto_amount.
 	Amount int64
-	// CryptoCurrency field of MessageActionGiftTon.
+	// Name of the cryptocurrency.
 	CryptoCurrency string
-	// CryptoAmount field of MessageActionGiftTon.
+	// Amount in the smallest unit of the cryptocurrency (for TONs, one billionth of a ton,
+	// AKA a nanoton).
 	CryptoAmount int64
-	// TransactionID field of MessageActionGiftTon.
+	// Transaction ID.
 	//
 	// Use SetTransactionID and GetTransactionID helpers.
 	TransactionID string

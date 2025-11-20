@@ -32,16 +32,23 @@ var (
 )
 
 // PendingSuggestion represents TL type `pendingSuggestion#e7e82e12`.
+// Represents a custom pending suggestion »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/config#custom-suggestions
 //
 // See https://core.telegram.org/constructor/pendingSuggestion for reference.
 type PendingSuggestion struct {
-	// Suggestion field of PendingSuggestion.
+	// The suggestion ID, can be passed to help.dismissSuggestion¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.dismissSuggestion
 	Suggestion string
-	// Title field of PendingSuggestion.
+	// Title of the suggestion.
 	Title TextWithEntities
-	// Description field of PendingSuggestion.
+	// Body of the suggestion.
 	Description TextWithEntities
-	// URL field of PendingSuggestion.
+	// URL to open when the user clicks on the suggestion.
 	URL string
 }
 

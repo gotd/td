@@ -250,6 +250,10 @@ func (g *MessagesGetSavedReactionTagsRequest) GetHash() (value int64) {
 // Links:
 //  1. https://core.telegram.org/api/saved-messages#tags
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.getSavedReactionTags for reference.
 func (c *Client) MessagesGetSavedReactionTags(ctx context.Context, request *MessagesGetSavedReactionTagsRequest) (MessagesSavedReactionTagsClass, error) {
 	var result MessagesSavedReactionTagsBox

@@ -32,22 +32,33 @@ var (
 )
 
 // SearchPostsFlood represents TL type `searchPostsFlood#3e0b5b6a`.
+// Indicates if the specified global post search »¹ requires payment.
+//
+// Links:
+//  1. https://core.telegram.org/api/search#posts-tab
 //
 // See https://core.telegram.org/constructor/searchPostsFlood for reference.
 type SearchPostsFlood struct {
-	// Flags field of SearchPostsFlood.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// QueryIsFree field of SearchPostsFlood.
+	// The specified query is free (and it will not use up free search slots).
 	QueryIsFree bool
-	// TotalDaily field of SearchPostsFlood.
+	// Total number of daily free search slots.
 	TotalDaily int
-	// Remains field of SearchPostsFlood.
+	// Remaining number of free search slots.
 	Remains int
-	// WaitTill field of SearchPostsFlood.
+	// If there are no more search slots, specifies the unixtime when more search slots will
+	// be available.
 	//
 	// Use SetWaitTill and GetWaitTill helpers.
 	WaitTill int
-	// StarsAmount field of SearchPostsFlood.
+	// The number of Telegram Stars¹ to pay for each non-free search.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	StarsAmount int64
 }
 

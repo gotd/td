@@ -50,9 +50,14 @@ type StarGift struct {
 	SoldOut bool
 	// Whether this is a birthday-themed gift
 	Birthday bool
-	// RequirePremium field of StarGift.
+	// This gift can only be bought by users with a Premium¹ subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	RequirePremium bool
-	// LimitedPerUser field of StarGift.
+	// If set, the maximum number of gifts of this type that can be owned by a single user is
+	// limited and specified in per_user_total, and the remaining slots for the current user
+	// in per_user_remains.
 	LimitedPerUser bool
 	// PeerColorAvailable field of StarGift.
 	PeerColorAvailable bool
@@ -77,7 +82,12 @@ type StarGift struct {
 	//
 	// Use SetAvailabilityTotal and GetAvailabilityTotal helpers.
 	AvailabilityTotal int
-	// AvailabilityResale field of StarGift.
+	// The total number of (upgraded to collectibles¹) gifts of this type currently on
+	// resale²
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
+	//  2) https://core.telegram.org/api/gifts#reselling-collectible-gifts
 	//
 	// Use SetAvailabilityResale and GetAvailabilityResale helpers.
 	AvailabilityResale int64
@@ -94,31 +104,43 @@ type StarGift struct {
 	//
 	// Use SetLastSaleDate and GetLastSaleDate helpers.
 	LastSaleDate int
-	// UpgradeStars field of StarGift.
+	// The number of Telegram Stars the user can pay to convert the gift into a collectible
+	// gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	//
 	// Use SetUpgradeStars and GetUpgradeStars helpers.
 	UpgradeStars int64
-	// ResellMinStars field of StarGift.
+	// The minimum price in Stars¹ for gifts of this type currently on resale².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
+	//  2) https://core.telegram.org/api/gifts#reselling-collectible-gifts
 	//
 	// Use SetResellMinStars and GetResellMinStars helpers.
 	ResellMinStars int64
-	// Title field of StarGift.
+	// Title of the gift
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// ReleasedBy field of StarGift.
+	// This gift was released by the specified peer.
 	//
 	// Use SetReleasedBy and GetReleasedBy helpers.
 	ReleasedBy PeerClass
-	// PerUserTotal field of StarGift.
+	// Maximum number of gifts of this type that can be owned by any user.
 	//
 	// Use SetPerUserTotal and GetPerUserTotal helpers.
 	PerUserTotal int
-	// PerUserRemains field of StarGift.
+	// Remaining number of gifts of this type that can be owned by the current user.
 	//
 	// Use SetPerUserRemains and GetPerUserRemains helpers.
 	PerUserRemains int
-	// LockedUntilDate field of StarGift.
+	// If set, the specified gift possibly cannot be sent until the specified date, see here
+	// »¹ for the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts
 	//
 	// Use SetLockedUntilDate and GetLockedUntilDate helpers.
 	LockedUntilDate int
@@ -1078,6 +1100,13 @@ func (s *StarGift) GetLockedUntilDate() (value int, ok bool) {
 }
 
 // StarGiftUnique represents TL type `starGiftUnique#b0bf741b`.
+// Represents a collectible star gift, see here »¹ for more info.
+// The sticker that represents the gift is contained in a starGiftAttributeModel¹ object
+// in attributes.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/starGiftAttributeModel
 //
 // See https://core.telegram.org/constructor/starGiftUnique for reference.
 type StarGiftUnique struct {
@@ -1086,61 +1115,91 @@ type StarGiftUnique struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RequirePremium field of StarGiftUnique.
+	// This gift can only be bought by users with a Premium¹ subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	RequirePremium bool
-	// ResaleTonOnly field of StarGiftUnique.
+	// Whether the gift can be bought only using Toncoins.
 	ResaleTonOnly bool
-	// ThemeAvailable field of StarGiftUnique.
+	// A chat theme associated to this gift is available, see here »¹ for more info on how
+	// to use it.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/themes#chat-themes
 	ThemeAvailable bool
-	// ID field of StarGiftUnique.
+	// Identifier of the collectible gift.
 	ID int64
-	// GiftID field of StarGiftUnique.
+	// Unique ID of the gift.
 	GiftID int64
-	// Title field of StarGiftUnique.
+	// Collectible title.
 	Title string
-	// Slug field of StarGiftUnique.
+	// Slug that can be used to create a collectible gift deep link »¹, or elsewhere in the
+	// API where a collectible slug is accepted².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#collectible-gift-link
+	//  2) https://core.telegram.org/api/gifts
 	Slug string
-	// Num field of StarGiftUnique.
+	// Unique identifier of this collectible gift among all (already upgraded) collectible
+	// gifts of the same type.
 	Num int
-	// OwnerID field of StarGiftUnique.
+	// The owner of the gift.
 	//
 	// Use SetOwnerID and GetOwnerID helpers.
 	OwnerID PeerClass
-	// OwnerName field of StarGiftUnique.
+	// The name of the owner if neither owner_id nor owner_address are set.
 	//
 	// Use SetOwnerName and GetOwnerName helpers.
 	OwnerName string
-	// OwnerAddress field of StarGiftUnique.
+	// For NFTs on the TON blockchain¹, contains the address of the owner (append it to the
+	// ton_blockchain_explorer_url client configuration value »² to obtain a link with
+	// information about the address).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain
+	//  2) https://core.telegram.org/api/config#ton-blockchain-explorer-url
 	//
 	// Use SetOwnerAddress and GetOwnerAddress helpers.
 	OwnerAddress string
-	// Attributes field of StarGiftUnique.
+	// Collectible attributes
 	Attributes []StarGiftAttributeClass
-	// AvailabilityIssued field of StarGiftUnique.
+	// Total number of gifts of the same type that were upgraded to a collectible gift.
 	AvailabilityIssued int
-	// AvailabilityTotal field of StarGiftUnique.
+	// Total number of gifts of the same type that can be upgraded or were already upgraded
+	// to a collectible gift.
 	AvailabilityTotal int
-	// GiftAddress field of StarGiftUnique.
+	// For NFTs on the TON blockchain¹, contains the address of the NFT (append it to the
+	// ton_blockchain_explorer_url client configuration value »² to obtain a link with
+	// information about the address).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain
+	//  2) https://core.telegram.org/api/config#ton-blockchain-explorer-url
 	//
 	// Use SetGiftAddress and GetGiftAddress helpers.
 	GiftAddress string
-	// ResellAmount field of StarGiftUnique.
+	// Resale price of the gift.
 	//
 	// Use SetResellAmount and GetResellAmount helpers.
 	ResellAmount []StarsAmountClass
-	// ReleasedBy field of StarGiftUnique.
+	// This gift was released by the specified peer.
 	//
 	// Use SetReleasedBy and GetReleasedBy helpers.
 	ReleasedBy PeerClass
-	// ValueAmount field of StarGiftUnique.
+	// Price of the gift.
 	//
 	// Use SetValueAmount and GetValueAmount helpers.
 	ValueAmount int64
-	// ValueCurrency field of StarGiftUnique.
+	// Currency for the gift's price.
 	//
 	// Use SetValueCurrency and GetValueCurrency helpers.
 	ValueCurrency string
-	// ThemePeer field of StarGiftUnique.
+	// The current chat where the associated chat theme¹ is installed, if any (gift-based
+	// themes can only be installed in one chat at a time).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/themes#chat-themes
 	//
 	// Use SetThemePeer and GetThemePeer helpers.
 	ThemePeer PeerClass
@@ -2168,13 +2227,16 @@ type StarGiftClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// RequirePremium field of StarGift.
+	// This gift can only be bought by users with a Premium¹ subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	GetRequirePremium() (value bool)
 
 	// Identifier of the gift
 	GetID() (value int64)
 
-	// ReleasedBy field of StarGift.
+	// This gift was released by the specified peer.
 	GetReleasedBy() (value PeerClass, ok bool)
 }
 

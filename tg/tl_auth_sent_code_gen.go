@@ -471,16 +471,25 @@ func (s *AuthSentCodeSuccess) GetAuthorization() (value AuthAuthorizationClass) 
 }
 
 // AuthSentCodePaymentRequired represents TL type `auth.sentCodePaymentRequired#e0955a3c`.
+// Official apps may receive this constructor, indicating that due to the high cost of
+// SMS verification codes for the user's country/provider, the user must purchase a
+// Telegram Premium¹ subscription in order to proceed with the login/signup.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
 //
 // See https://core.telegram.org/constructor/auth.sentCodePaymentRequired for reference.
 type AuthSentCodePaymentRequired struct {
-	// StoreProduct field of AuthSentCodePaymentRequired.
+	// Store identifier of the Telegram Premium subscription.
 	StoreProduct string
-	// PhoneCodeHash field of AuthSentCodePaymentRequired.
+	// Phone code hash, to be stored and later re-used with auth.signIn¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.signIn
 	PhoneCodeHash string
-	// SupportEmailAddress field of AuthSentCodePaymentRequired.
+	// An email address that can be contacted for more information about this request.
 	SupportEmailAddress string
-	// SupportEmailSubject field of AuthSentCodePaymentRequired.
+	// The mandatory subject for the email.
 	SupportEmailSubject string
 	// Currency field of AuthSentCodePaymentRequired.
 	Currency string

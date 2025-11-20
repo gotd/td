@@ -35,7 +35,7 @@ var (
 // List all currently connected business bots »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/method/account.getConnectedBots for reference.
 type AccountGetConnectedBotsRequest struct {
@@ -135,7 +135,7 @@ func (g *AccountGetConnectedBotsRequest) DecodeBare(b *bin.Buffer) error {
 // List all currently connected business bots »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/method/account.getConnectedBots for reference.
 func (c *Client) AccountGetConnectedBots(ctx context.Context) (*AccountConnectedBots, error) {

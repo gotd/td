@@ -7917,10 +7917,14 @@ func (c *ChannelAdminLogEventActionParticipantSubExtend) GetNewParticipant() (va
 }
 
 // ChannelAdminLogEventActionToggleAutotranslation represents TL type `channelAdminLogEventActionToggleAutotranslation#c517f77e`.
+// Channel autotranslation was toggled »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/translation#autotranslation-for-channels
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleAutotranslation for reference.
 type ChannelAdminLogEventActionToggleAutotranslation struct {
-	// NewValue field of ChannelAdminLogEventActionToggleAutotranslation.
+	// New value of the toggle
 	NewValue bool
 }
 

@@ -32,12 +32,17 @@ var (
 )
 
 // PhoneSendConferenceCallBroadcastRequest represents TL type `phone.sendConferenceCallBroadcast#c6701900`.
+// Broadcast a blockchain block to all members of a conference call, see here »¹ for
+// more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/end-to-end/group-calls
 //
 // See https://core.telegram.org/method/phone.sendConferenceCallBroadcast for reference.
 type PhoneSendConferenceCallBroadcastRequest struct {
-	// Call field of PhoneSendConferenceCallBroadcastRequest.
+	// The conference where to broadcast the block.
 	Call InputGroupCallClass
-	// Block field of PhoneSendConferenceCallBroadcastRequest.
+	// The block to broadcast.
 	Block []byte
 }
 
@@ -193,9 +198,17 @@ func (s *PhoneSendConferenceCallBroadcastRequest) GetBlock() (value []byte) {
 }
 
 // PhoneSendConferenceCallBroadcast invokes method phone.sendConferenceCallBroadcast#c6701900 returning error if any.
+// Broadcast a blockchain block to all members of a conference call, see here »¹ for
+// more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/end-to-end/group-calls
+//
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.sendConferenceCallBroadcast for reference.
-// Can be used by bots.
 func (c *Client) PhoneSendConferenceCallBroadcast(ctx context.Context, request *PhoneSendConferenceCallBroadcastRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

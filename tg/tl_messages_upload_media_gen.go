@@ -33,6 +33,13 @@ var (
 
 // MessagesUploadMediaRequest represents TL type `messages.uploadMedia#14967978`.
 // Upload a file and associate it to a chat (without actually sending it to the chat)
+// May also be used in a business connection¹, not by wrapping the query in
+// invokeWithBusinessConnection »², but rather by specifying the business connection ID
+// in the business_connection_id parameter.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/connected-business-bots
+//  2. https://core.telegram.org/method/invokeWithBusinessConnection
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 type MessagesUploadMediaRequest struct {
@@ -45,7 +52,7 @@ type MessagesUploadMediaRequest struct {
 	// directly by the bot.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	//
 	// Use SetBusinessConnectionID and GetBusinessConnectionID helpers.
 	BusinessConnectionID string
@@ -280,6 +287,13 @@ func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
 
 // MessagesUploadMedia invokes method messages.uploadMedia#14967978 returning error if any.
 // Upload a file and associate it to a chat (without actually sending it to the chat)
+// May also be used in a business connection¹, not by wrapping the query in
+// invokeWithBusinessConnection »², but rather by specifying the business connection ID
+// in the business_connection_id parameter.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/connected-business-bots
+//  2. https://core.telegram.org/method/invokeWithBusinessConnection
 //
 // Possible errors:
 //
@@ -304,7 +318,6 @@ func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
 //	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
-// Can be used by bots.
 func (c *Client) MessagesUploadMedia(ctx context.Context, request *MessagesUploadMediaRequest) (MessageMediaClass, error) {
 	var result MessageMediaBox
 

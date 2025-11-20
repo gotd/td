@@ -329,7 +329,6 @@ func (s *MessagesSetInlineGameScoreRequest) GetScore() (value int) {
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setInlineGameScore for reference.
-// Can be used by bots.
 func (c *Client) MessagesSetInlineGameScore(ctx context.Context, request *MessagesSetInlineGameScoreRequest) (bool, error) {
 	var result BoolBox
 

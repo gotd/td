@@ -32,12 +32,16 @@ var (
 )
 
 // ChannelsToggleAutotranslationRequest represents TL type `channels.toggleAutotranslation#167fc0a1`.
+// Toggle autotranslation in a channel, for all users: see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/translation#autotranslation-for-channels
 //
 // See https://core.telegram.org/method/channels.toggleAutotranslation for reference.
 type ChannelsToggleAutotranslationRequest struct {
-	// Channel field of ChannelsToggleAutotranslationRequest.
+	// The channel where to toggle autotranslation.
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleAutotranslationRequest.
+	// Whether to enable or disable autotranslation.
 	Enabled bool
 }
 
@@ -198,9 +202,16 @@ func (t *ChannelsToggleAutotranslationRequest) GetChannelAsNotEmpty() (NotEmptyI
 }
 
 // ChannelsToggleAutotranslation invokes method channels.toggleAutotranslation#167fc0a1 returning error if any.
+// Toggle autotranslation in a channel, for all users: see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/translation#autotranslation-for-channels
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.toggleAutotranslation for reference.
-// Can be used by bots.
 func (c *Client) ChannelsToggleAutotranslation(ctx context.Context, request *ChannelsToggleAutotranslationRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

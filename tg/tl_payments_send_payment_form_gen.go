@@ -404,7 +404,10 @@ func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
 //
 // Possible errors:
 //
+//	400 FORM_UNSUPPORTED: Please update your client.
+//	400 INVOICE_INVALID: The specified invoice is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PAYMENT_CREDENTIALS_INVALID: The specified payment credentials are invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 TMP_PASSWORD_INVALID: The passed tmp_password is invalid.
 //

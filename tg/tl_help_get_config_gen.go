@@ -142,7 +142,6 @@ func (g *HelpGetConfigRequest) DecodeBare(b *bin.Buffer) error {
 //	403 USER_PRIVACY_RESTRICTED: The user's privacy settings do not allow you to do this.
 //
 // See https://core.telegram.org/method/help.getConfig for reference.
-// Can be used by bots.
 func (c *Client) HelpGetConfig(ctx context.Context) (*Config, error) {
 	var result Config
 

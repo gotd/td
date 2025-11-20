@@ -440,10 +440,17 @@ func (p *PhoneCallDiscardReasonBusy) DecodeBare(b *bin.Buffer) error {
 }
 
 // PhoneCallDiscardReasonMigrateConferenceCall represents TL type `phoneCallDiscardReasonMigrateConferenceCall#9fbbf1f7`.
+// This phone call was migrated to a conference call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/end-to-end/group-calls
 //
 // See https://core.telegram.org/constructor/phoneCallDiscardReasonMigrateConferenceCall for reference.
 type PhoneCallDiscardReasonMigrateConferenceCall struct {
-	// Slug field of PhoneCallDiscardReasonMigrateConferenceCall.
+	// Conference link »¹ slug.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#conference-links
 	Slug string
 }
 

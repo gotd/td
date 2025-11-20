@@ -117,11 +117,19 @@ type MessagesSendMediaRequest struct {
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
-	// AllowPaidStars field of MessagesSendMediaRequest.
+	// For paid messages »¹, specifies the amount of Telegram Stars² the user has agreed
+	// to pay in order to send the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
-	// SuggestedPost field of MessagesSendMediaRequest.
+	// Used to suggest a post to a channel, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
@@ -1027,15 +1035,19 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //
 // Possible errors:
 //
+//	406 ALLOW_PAYMENT_REQUIRED: This peer only accepts paid messages »: this error is only emitted for older layers without paid messages support, so the client must be updated in order to use paid messages.  .
+//	403 ALLOW_PAYMENT_REQUIRED_%d: This peer charges %d Telegram Stars per message, but the allow_paid_stars was not set or its value is smaller than %d.
 //	400 BOT_GAMES_DISABLED: Games can't be sent to channels.
 //	400 BOT_PAYMENTS_DISABLED: Please enable bot payments in botfather before calling this method.
 //	400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN: You can't forward polls with public voters.
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
 //	400 BUTTON_COPY_TEXT_INVALID: The specified keyboardButtonCopy.copy_text is invalid.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_POS_INVALID: The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
+//	400 BUTTON_USER_PRIVACY_RESTRICTED: The privacy setting of the user specified in a inputKeyboardButtonUserProfile button do not allow creating such a button.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
@@ -1056,9 +1068,11 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
+//	400 EFFECT_ID_INVALID: The specified effect ID is invalid.
 //	400 EMOTICON_INVALID: The specified emoji is invalid.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 EXTENDED_MEDIA_AMOUNT_INVALID: The specified stars_amount of the passed inputMediaPaidMedia is invalid.
+//	400 EXTENDED_MEDIA_INVALID: The specified paid media is invalid.
 //	400 EXTERNAL_URL_INVALID: External URL invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
@@ -1076,7 +1090,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 MESSAGE_EMPTY: The provided message is empty.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	406 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.
 //	400 PHOTO_INVALID_DIMENSIONS: The photo dimensions are invalid.
 //	400 PHOTO_SAVE_FILE_INVALID: Internal issues, try again later.
@@ -1087,6 +1101,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 POLL_QUESTION_INVALID: One of the poll questions is not acceptable.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUIZ_CORRECT_ANSWERS_EMPTY: No correct quiz answer was specified.
 //	400 QUIZ_CORRECT_ANSWERS_TOO_MUCH: You specified too many correct answers in a quiz, quizzes can only have one right answer!
@@ -1098,6 +1113,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
+//	400 REPLY_MESSAGE_ID_INVALID: The specified reply-to message ID is invalid.
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
@@ -1106,7 +1122,10 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 STARS_INVOICE_INVALID: The specified Telegram Star invoice is invalid.
 //	400 STORY_ID_INVALID: The specified story ID is invalid.
 //	400 SUBSCRIPTION_EXPORT_MISSING: You cannot send a bot subscription invoice directly, you may only create invoice links using payments.exportInvoice.
+//	400 SUGGESTED_POST_PEER_INVALID: You cannot send suggested posts to non-monoforum peers.
 //	400 TERMS_URL_INVALID: The specified invoice.terms_url is invalid.
+//	400 TODO_ITEMS_EMPTY: A checklist was specified, but no checklist items were passed.
+//	400 TODO_ITEM_DUPLICATE: Duplicate checklist items detected.
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 TTL_MEDIA_INVALID: Invalid media Time To Live was provided.
@@ -1123,7 +1142,6 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.sendMedia for reference.
-// Can be used by bots.
 func (c *Client) MessagesSendMedia(ctx context.Context, request *MessagesSendMediaRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

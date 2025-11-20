@@ -498,6 +498,8 @@ func (r *MessagesRequestAppWebViewRequest) GetPlatform() (value string) {
 //	400 BOT_APP_BOT_INVALID: The bot_id passed in the inputBotAppShortName constructor is invalid.
 //	400 BOT_APP_INVALID: The specified bot app is invalid.
 //	400 BOT_APP_SHORTNAME_INVALID: The specified bot app short name is invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 THEME_PARAMS_INVALID: The specified theme_params field is invalid.
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
 func (c *Client) MessagesRequestAppWebView(ctx context.Context, request *MessagesRequestAppWebViewRequest) (*WebViewResultURL, error) {

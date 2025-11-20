@@ -32,6 +32,13 @@ var (
 )
 
 // AccountGetPaidMessagesRevenueRequest represents TL type `account.getPaidMessagesRevenue#19ba4a67`.
+// Get the number of stars we have received from the specified user thanks to paid
+// messages »¹; the received amount will be equal to the sent amount multiplied by
+// stars_paid_message_commission_permille² divided by 1000.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-messages
+//  2. https://core.telegram.org/api/config#stars-paid-message-commission-permille
 //
 // See https://core.telegram.org/method/account.getPaidMessagesRevenue for reference.
 type AccountGetPaidMessagesRevenueRequest struct {
@@ -40,11 +47,15 @@ type AccountGetPaidMessagesRevenueRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ParentPeer field of AccountGetPaidMessagesRevenueRequest.
+	// If set, can contain the ID of a monoforum (channel direct messages)¹ to obtain the
+	// number of stars the user has spent to send us direct messages via the channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetParentPeer and GetParentPeer helpers.
 	ParentPeer InputPeerClass
-	// UserID field of AccountGetPaidMessagesRevenueRequest.
+	// The user that paid to send us messages.
 	UserID InputUserClass
 }
 
@@ -240,9 +251,20 @@ func (g *AccountGetPaidMessagesRevenueRequest) GetUserID() (value InputUserClass
 }
 
 // AccountGetPaidMessagesRevenue invokes method account.getPaidMessagesRevenue#19ba4a67 returning error if any.
+// Get the number of stars we have received from the specified user thanks to paid
+// messages »¹; the received amount will be equal to the sent amount multiplied by
+// stars_paid_message_commission_permille² divided by 1000.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-messages
+//  2. https://core.telegram.org/api/config#stars-paid-message-commission-permille
+//
+// Possible errors:
+//
+//	400 PARENT_PEER_INVALID: The specified parent_peer is invalid.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/account.getPaidMessagesRevenue for reference.
-// Can be used by bots.
 func (c *Client) AccountGetPaidMessagesRevenue(ctx context.Context, request *AccountGetPaidMessagesRevenueRequest) (*AccountPaidMessagesRevenue, error) {
 	var result AccountPaidMessagesRevenue
 

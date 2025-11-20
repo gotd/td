@@ -207,7 +207,6 @@ func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 //	400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
-// Can be used by bots.
 func (c *Client) UploadReuploadCDNFile(ctx context.Context, request *UploadReuploadCDNFileRequest) ([]FileHash, error) {
 	var result FileHashVector
 

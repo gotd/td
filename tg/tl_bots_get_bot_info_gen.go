@@ -248,7 +248,6 @@ func (g *BotsGetBotInfoRequest) GetLangCode() (value string) {
 //	400 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
-// Can be used by bots.
 func (c *Client) BotsGetBotInfo(ctx context.Context, request *BotsGetBotInfoRequest) (*BotsBotInfo, error) {
 	var result BotsBotInfo
 

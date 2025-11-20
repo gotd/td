@@ -199,6 +199,7 @@ func (r *MessagesReadHistoryRequest) GetMaxID() (value int) {
 //
 // Possible errors:
 //
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.

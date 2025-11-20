@@ -178,7 +178,6 @@ func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.getFullUser for reference.
-// Can be used by bots.
 func (c *Client) UsersGetFullUser(ctx context.Context, id InputUserClass) (*UsersUserFull, error) {
 	var result UsersUserFull
 

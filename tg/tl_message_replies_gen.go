@@ -32,7 +32,8 @@ var (
 )
 
 // MessageReplies represents TL type `messageReplies#83d60fc2`.
-// Info about the comment section of a channel post, or a simple message thread¹
+// Info about the comment section of a channel post, a simple message thread, a forum
+// topic, or a direct messages topic¹ (all features ultimately based on message threads).
 //
 // Links:
 //  1. https://core.telegram.org/api/threads

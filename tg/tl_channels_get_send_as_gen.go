@@ -41,7 +41,11 @@ type ChannelsGetSendAsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ForPaidReactions field of ChannelsGetSendAsRequest.
+	// If set, fetches the list of peers that can be used to send paid reactions¹ to
+	// messages of a specific peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	ForPaidReactions bool
 	// The group where we intend to send messages
 	Peer InputPeerClass

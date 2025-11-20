@@ -53,7 +53,11 @@ type MessagesReadReactionsRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// SavedPeerID field of MessagesReadReactionsRequest.
+	// If set, must be equal to the ID of a monoforum topic¹: will affect that topic in the
+	// monoforum passed in peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID InputPeerClass

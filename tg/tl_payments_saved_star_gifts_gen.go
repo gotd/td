@@ -32,6 +32,10 @@ var (
 )
 
 // PaymentsSavedStarGifts represents TL type `payments.savedStarGifts#95f389b1`.
+// Represents a list of gifts¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.savedStarGifts for reference.
 type PaymentsSavedStarGifts struct {
@@ -40,21 +44,29 @@ type PaymentsSavedStarGifts struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of PaymentsSavedStarGifts.
+	// Total number of results (can be less than the returned gifts, in which case
+	// next_offset will be set).
 	Count int
-	// ChatNotificationsEnabled field of PaymentsSavedStarGifts.
+	// Ternary value: can be not set, set&true, set&false. Can only be set for channels we
+	// own: the value indicates whether we enabled gift notifications¹ for this channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#notifications-for-received-channel-gifts
 	//
 	// Use SetChatNotificationsEnabled and GetChatNotificationsEnabled helpers.
 	ChatNotificationsEnabled bool
-	// Gifts field of PaymentsSavedStarGifts.
+	// Gifts
 	Gifts []SavedStarGift
-	// NextOffset field of PaymentsSavedStarGifts.
+	// Offset to pass to payments.getSavedStarGifts¹ to fetch the next page of results.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getSavedStarGifts
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Chats field of PaymentsSavedStarGifts.
+	// Channels mentioned in gifts
 	Chats []ChatClass
-	// Users field of PaymentsSavedStarGifts.
+	// Users mentioned in gifts
 	Users []UserClass
 }
 

@@ -201,7 +201,6 @@ func (g *ChannelsGetChannelsRequest) MapID() (value InputChannelClassArray) {
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/channels.getChannels for reference.
-// Can be used by bots.
 func (c *Client) ChannelsGetChannels(ctx context.Context, id []InputChannelClass) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 

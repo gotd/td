@@ -32,16 +32,27 @@ var (
 )
 
 // UsersGetSavedMusicRequest represents TL type `users.getSavedMusic#788d7fe3`.
+// Get songs pinned to the user's profile, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/method/users.getSavedMusic for reference.
 type UsersGetSavedMusicRequest struct {
-	// ID field of UsersGetSavedMusicRequest.
+	// The ID of the user.
 	ID InputUserClass
-	// Offset field of UsersGetSavedMusicRequest.
+	// Offset for pagination.
 	Offset int
-	// Limit field of UsersGetSavedMusicRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash field of UsersGetSavedMusicRequest.
+	// Hash »¹ of the IDs of previously added songs, to avoid returning any result if there
+	// was no change.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -247,6 +258,14 @@ func (g *UsersGetSavedMusicRequest) GetHash() (value int64) {
 }
 
 // UsersGetSavedMusic invokes method users.getSavedMusic#788d7fe3 returning error if any.
+// Get songs pinned to the user's profile, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
+//
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.getSavedMusic for reference.
 func (c *Client) UsersGetSavedMusic(ctx context.Context, request *UsersGetSavedMusicRequest) (UsersSavedMusicClass, error) {

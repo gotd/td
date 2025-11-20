@@ -32,12 +32,19 @@ var (
 )
 
 // ChannelsCheckSearchPostsFloodRequest represents TL type `channels.checkSearchPostsFlood#22567115`.
+// Check if the specified global post search »¹ requires payment.
+//
+// Links:
+//  1. https://core.telegram.org/api/search#posts-tab
 //
 // See https://core.telegram.org/method/channels.checkSearchPostsFlood for reference.
 type ChannelsCheckSearchPostsFloodRequest struct {
-	// Flags field of ChannelsCheckSearchPostsFloodRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Query field of ChannelsCheckSearchPostsFloodRequest.
+	// The query.
 	//
 	// Use SetQuery and GetQuery helpers.
 	Query string
@@ -200,6 +207,10 @@ func (c *ChannelsCheckSearchPostsFloodRequest) GetQuery() (value string, ok bool
 }
 
 // ChannelsCheckSearchPostsFlood invokes method channels.checkSearchPostsFlood#22567115 returning error if any.
+// Check if the specified global post search »¹ requires payment.
+//
+// Links:
+//  1. https://core.telegram.org/api/search#posts-tab
 //
 // See https://core.telegram.org/method/channels.checkSearchPostsFlood for reference.
 func (c *Client) ChannelsCheckSearchPostsFlood(ctx context.Context, request *ChannelsCheckSearchPostsFloodRequest) (*SearchPostsFlood, error) {

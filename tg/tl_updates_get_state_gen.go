@@ -132,7 +132,6 @@ func (g *UpdatesGetStateRequest) DecodeBare(b *bin.Buffer) error {
 // Returns a current state of updates.
 //
 // See https://core.telegram.org/method/updates.getState for reference.
-// Can be used by bots.
 func (c *Client) UpdatesGetState(ctx context.Context) (*UpdatesState, error) {
 	var result UpdatesState
 

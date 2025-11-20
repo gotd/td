@@ -32,14 +32,21 @@ var (
 )
 
 // StarGiftAttributeModel represents TL type `starGiftAttributeModel#39d99013`.
+// The model of a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributeModel for reference.
 type StarGiftAttributeModel struct {
-	// Name field of StarGiftAttributeModel.
+	// Name of the model
 	Name string
-	// Document field of StarGiftAttributeModel.
+	// The sticker¹ representing the upgraded gift
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	Document DocumentClass
-	// RarityPermille field of StarGiftAttributeModel.
+	// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
 	RarityPermille int
 }
 
@@ -225,14 +232,20 @@ func (s *StarGiftAttributeModel) GetRarityPermille() (value int) {
 }
 
 // StarGiftAttributePattern represents TL type `starGiftAttributePattern#13acff19`.
+// A sticker¹ applied on the backdrop of a collectible gift »² using a repeating
+// pattern.
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers
+//  2. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributePattern for reference.
 type StarGiftAttributePattern struct {
-	// Name field of StarGiftAttributePattern.
+	// Name of the symbol
 	Name string
-	// Document field of StarGiftAttributePattern.
+	// The symbol
 	Document DocumentClass
-	// RarityPermille field of StarGiftAttributePattern.
+	// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
 	RarityPermille int
 }
 
@@ -418,22 +431,29 @@ func (s *StarGiftAttributePattern) GetRarityPermille() (value int) {
 }
 
 // StarGiftAttributeBackdrop represents TL type `starGiftAttributeBackdrop#d93d859c`.
+// The backdrop of a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributeBackdrop for reference.
 type StarGiftAttributeBackdrop struct {
-	// Name field of StarGiftAttributeBackdrop.
+	// Name of the backdrop
 	Name string
-	// BackdropID field of StarGiftAttributeBackdrop.
+	// Unique ID of the backdrop
 	BackdropID int
-	// CenterColor field of StarGiftAttributeBackdrop.
+	// Color of the center of the backdrop in RGB24 format.
 	CenterColor int
-	// EdgeColor field of StarGiftAttributeBackdrop.
+	// Color of the edges of the backdrop in RGB24 format.
 	EdgeColor int
-	// PatternColor field of StarGiftAttributeBackdrop.
+	// Color of the starGiftAttributePattern¹ applied on the backdrop in RGB24 format.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributePattern
 	PatternColor int
-	// TextColor field of StarGiftAttributeBackdrop.
+	// Color of the text on the backdrop in RGB24 format.
 	TextColor int
-	// RarityPermille field of StarGiftAttributeBackdrop.
+	// The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
 	RarityPermille int
 }
 
@@ -714,6 +734,12 @@ func (s *StarGiftAttributeBackdrop) GetRarityPermille() (value int) {
 }
 
 // StarGiftAttributeOriginalDetails represents TL type `starGiftAttributeOriginalDetails#e0bff26c`.
+// Info about the sender, receiver and message attached to the original gift »¹, before
+// it was upgraded to a collectible gift »².
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributeOriginalDetails for reference.
 type StarGiftAttributeOriginalDetails struct {
@@ -722,15 +748,15 @@ type StarGiftAttributeOriginalDetails struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// SenderID field of StarGiftAttributeOriginalDetails.
+	// Original sender of the gift, absent if the gift was private.
 	//
 	// Use SetSenderID and GetSenderID helpers.
 	SenderID PeerClass
-	// RecipientID field of StarGiftAttributeOriginalDetails.
+	// Original receiver of the gift.
 	RecipientID PeerClass
-	// Date field of StarGiftAttributeOriginalDetails.
+	// When was the gift sent.
 	Date int
-	// Message field of StarGiftAttributeOriginalDetails.
+	// Original message attached to the gift, if present.
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities

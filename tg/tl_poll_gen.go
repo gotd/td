@@ -58,10 +58,11 @@ type Poll struct {
 	//  1) https://core.telegram.org/api/premium
 	//  2) https://core.telegram.org/api/custom-emoji
 	Question TextWithEntities
-	// The possible answers, vote using messages.sendVote¹.
+	// The possible answers (2-poll_answers_max¹), vote using messages.sendVote².
 	//
 	// Links:
-	//  1) https://core.telegram.org/method/messages.sendVote
+	//  1) https://core.telegram.org/api/config#poll-answers-max
+	//  2) https://core.telegram.org/method/messages.sendVote
 	Answers []PollAnswer
 	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used
 	// together with close_date.

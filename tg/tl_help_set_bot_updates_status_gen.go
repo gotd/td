@@ -198,7 +198,6 @@ func (s *HelpSetBotUpdatesStatusRequest) GetMessage() (value string) {
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
-// Can be used by bots.
 func (c *Client) HelpSetBotUpdatesStatus(ctx context.Context, request *HelpSetBotUpdatesStatusRequest) (bool, error) {
 	var result BoolBox
 

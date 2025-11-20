@@ -208,7 +208,6 @@ func (g *PremiumGetUserBoostsRequest) GetUserID() (value InputUserClass) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/premium.getUserBoosts for reference.
-// Can be used by bots.
 func (c *Client) PremiumGetUserBoosts(ctx context.Context, request *PremiumGetUserBoostsRequest) (*PremiumBoostsList, error) {
 	var result PremiumBoostsList
 

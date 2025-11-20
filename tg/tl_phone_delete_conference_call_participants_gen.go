@@ -32,6 +32,8 @@ var (
 )
 
 // PhoneDeleteConferenceCallParticipantsRequest represents TL type `phone.deleteConferenceCallParticipants#8ca60525`.
+// Remove participants from a conference call.
+// Exactly one of the only_left and kick flags must be set.
 //
 // See https://core.telegram.org/method/phone.deleteConferenceCallParticipants for reference.
 type PhoneDeleteConferenceCallParticipantsRequest struct {
@@ -40,15 +42,18 @@ type PhoneDeleteConferenceCallParticipantsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OnlyLeft field of PhoneDeleteConferenceCallParticipantsRequest.
+	// Whether this is a removal of members that already left the conference call.
 	OnlyLeft bool
-	// Kick field of PhoneDeleteConferenceCallParticipantsRequest.
+	// Whether this is a forced removal of active members in a conference call.
 	Kick bool
-	// Call field of PhoneDeleteConferenceCallParticipantsRequest.
+	// The conference call.
 	Call InputGroupCallClass
-	// IDs field of PhoneDeleteConferenceCallParticipantsRequest.
+	// IDs of users to remove.
 	IDs []int64
-	// Block field of PhoneDeleteConferenceCallParticipantsRequest.
+	// The block containing an appropriate e2e.chain.changeSetGroupState event¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/group-calls
 	Block []byte
 }
 
@@ -324,9 +329,14 @@ func (d *PhoneDeleteConferenceCallParticipantsRequest) GetBlock() (value []byte)
 }
 
 // PhoneDeleteConferenceCallParticipants invokes method phone.deleteConferenceCallParticipants#8ca60525 returning error if any.
+// Remove participants from a conference call.
+// Exactly one of the only_left and kick flags must be set.
+//
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.deleteConferenceCallParticipants for reference.
-// Can be used by bots.
 func (c *Client) PhoneDeleteConferenceCallParticipants(ctx context.Context, request *PhoneDeleteConferenceCallParticipantsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

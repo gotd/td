@@ -32,6 +32,13 @@ var (
 )
 
 // PaymentsGetSavedStarGiftsRequest represents TL type `payments.getSavedStarGifts#a319e569`.
+// Fetch the full list of gifts¹ owned by a peer.
+// Note that unlike what the name suggests, the method can be used to fetch both "saved"
+// and "unsaved" gifts (aka gifts both pinned and not pinned) to the profile, depending
+// on the passed flags.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
 type PaymentsGetSavedStarGiftsRequest struct {
@@ -40,31 +47,58 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ExcludeUnsaved field of PaymentsGetSavedStarGiftsRequest.
+	// Exclude gifts not pinned on the profile.
 	ExcludeUnsaved bool
-	// ExcludeSaved field of PaymentsGetSavedStarGiftsRequest.
+	// Exclude gifts pinned on the profile.
 	ExcludeSaved bool
-	// ExcludeUnlimited field of PaymentsGetSavedStarGiftsRequest.
+	// Exclude gifts that do not have the starGift¹.limited flag set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
 	ExcludeUnlimited bool
-	// ExcludeUnique field of PaymentsGetSavedStarGiftsRequest.
+	// Exclude collectible gifts »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	ExcludeUnique bool
-	// SortByValue field of PaymentsGetSavedStarGiftsRequest.
+	// If set, sorts the gifts by price instead of reception date.
 	SortByValue bool
-	// ExcludeUpgradable field of PaymentsGetSavedStarGiftsRequest.
+	// Exclude gifts that can be upgraded to collectible gifts »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	ExcludeUpgradable bool
-	// ExcludeUnupgradable field of PaymentsGetSavedStarGiftsRequest.
+	// Exclude gifts that cannot be upgraded to collectible gifts »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	ExcludeUnupgradable bool
 	// PeerColorAvailable field of PaymentsGetSavedStarGiftsRequest.
 	PeerColorAvailable bool
 	// ExcludeHosted field of PaymentsGetSavedStarGiftsRequest.
 	ExcludeHosted bool
-	// Peer field of PaymentsGetSavedStarGiftsRequest.
+	// Fetch only gifts owned by the specified peer, such as: a user, with
+	// peer=inputPeerUser¹; a channel, with peer=inputPeerChannel²; a connected business
+	// user³ (when executing the method as a bot, over the business connection), with
+	// peer=inputPeerUser⁴.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPeerUser
+	//  2) https://core.telegram.org/constructor/inputPeerChannel
+	//  3) https://core.telegram.org/api/bots/connected-business-bots
+	//  4) https://core.telegram.org/constructor/inputPeerUser
 	Peer InputPeerClass
-	// CollectionID field of PaymentsGetSavedStarGiftsRequest.
+	// Only returns gifts within the specified collection »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#gift-collections
 	//
 	// Use SetCollectionID and GetCollectionID helpers.
 	CollectionID int
-	// Offset field of PaymentsGetSavedStarGiftsRequest.
+	// Offset for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset string
 	// Maximum number of results to return, see pagination¹
 	//
@@ -607,9 +641,20 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetLimit() (value int) {
 }
 
 // PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#a319e569 returning error if any.
+// Fetch the full list of gifts¹ owned by a peer.
+// Note that unlike what the name suggests, the method can be used to fetch both "saved"
+// and "unsaved" gifts (aka gifts both pinned and not pinned) to the profile, depending
+// on the passed flags.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//
+// Possible errors:
+//
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetSavedStarGifts(ctx context.Context, request *PaymentsGetSavedStarGiftsRequest) (*PaymentsSavedStarGifts, error) {
 	var result PaymentsSavedStarGifts
 

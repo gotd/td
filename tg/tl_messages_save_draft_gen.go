@@ -76,7 +76,10 @@ type MessagesSaveDraftRequest struct {
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
-	// SuggestedPost field of MessagesSaveDraftRequest.
+	// Used to suggest a post to a channel, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
@@ -580,6 +583,7 @@ func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray,
 // Possible errors:
 //
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //

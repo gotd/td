@@ -32,28 +32,35 @@ var (
 )
 
 // StoriesUpdateAlbumRequest represents TL type `stories.updateAlbum#5e5259b6`.
+// Rename a story albums »¹, or add, delete or reorder stories in it.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/method/stories.updateAlbum for reference.
 type StoriesUpdateAlbumRequest struct {
-	// Flags field of StoriesUpdateAlbumRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of StoriesUpdateAlbumRequest.
+	// Peer where the album is posted.
 	Peer InputPeerClass
-	// AlbumID field of StoriesUpdateAlbumRequest.
+	// Album ID.
 	AlbumID int
-	// Title field of StoriesUpdateAlbumRequest.
+	// New album title.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// DeleteStories field of StoriesUpdateAlbumRequest.
+	// If set, deletes the specified stories from the album.
 	//
 	// Use SetDeleteStories and GetDeleteStories helpers.
 	DeleteStories []int
-	// AddStories field of StoriesUpdateAlbumRequest.
+	// If set, adds the specified stories to the album.
 	//
 	// Use SetAddStories and GetAddStories helpers.
 	AddStories []int
-	// Order field of StoriesUpdateAlbumRequest.
+	// If set, reorders the stories in the album by their IDs.
 	//
 	// Use SetOrder and GetOrder helpers.
 	Order []int
@@ -442,6 +449,14 @@ func (u *StoriesUpdateAlbumRequest) GetOrder() (value []int, ok bool) {
 }
 
 // StoriesUpdateAlbum invokes method stories.updateAlbum#5e5259b6 returning error if any.
+// Rename a story albums »¹, or add, delete or reorder stories in it.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.updateAlbum for reference.
 func (c *Client) StoriesUpdateAlbum(ctx context.Context, request *StoriesUpdateAlbumRequest) (*StoryAlbum, error) {

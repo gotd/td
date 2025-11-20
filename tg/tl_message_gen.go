@@ -308,9 +308,16 @@ type Message struct {
 	//  2) https://core.telegram.org/api/scheduled-messages
 	//  3) https://core.telegram.org/api/files#video-qualities
 	VideoProcessingPending bool
-	// PaidSuggestedPostStars field of Message.
+	// Set if this is a suggested channel post »¹ that was paid using Telegram Stars².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
+	//  2) https://core.telegram.org/api/stars
 	PaidSuggestedPostStars bool
-	// PaidSuggestedPostTon field of Message.
+	// Set if this is a suggested channel post »¹ that was paid using Toncoins.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	PaidSuggestedPostTon bool
 	// ID of the message
 	ID int
@@ -336,12 +343,14 @@ type Message struct {
 	FromBoostsApplied int
 	// Peer ID, the chat where this message was sent
 	PeerID PeerClass
-	// Messages fetched from a saved messages dialog »¹ will have peer=inputPeerSelf² and
-	// the saved_peer_id flag set to the ID of the saved dialog.
+	// Messages from a saved messages dialog »¹ will have peer=inputPeerSelf² and the
+	// saved_peer_id flag set to the ID of the saved dialog.Messages from a monoforum »³
+	// will have peer=ID of the monoforum and the saved_peer_id flag set to the ID of a topic.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
 	//  2) https://core.telegram.org/constructor/inputPeerSelf
+	//  3) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass
@@ -357,7 +366,7 @@ type Message struct {
 	// of the user.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	//
 	// Use SetViaBusinessBotID and GetViaBusinessBotID helpers.
 	ViaBusinessBotID int64
@@ -451,15 +460,29 @@ type Message struct {
 	//
 	// Use SetFactcheck and GetFactcheck helpers.
 	Factcheck FactCheck
-	// ReportDeliveryUntilDate field of Message.
+	// Used for Telegram Gateway verification messages¹: if set and the current unixtime is
+	// bigger than the specified unixtime, invoke messages.reportMessagesDelivery² passing
+	// the ID and the peer of this message as soon as it is received by the client
+	// (optionally batching requests for the same peer).
+	//
+	// Links:
+	//  1) https://telegram.org/blog/star-messages-gateway-2-0-and-more#save-even-more-on-user-verification
+	//  2) https://core.telegram.org/method/messages.reportMessagesDelivery
 	//
 	// Use SetReportDeliveryUntilDate and GetReportDeliveryUntilDate helpers.
 	ReportDeliveryUntilDate int
-	// PaidMessageStars field of Message.
+	// The amount of stars the sender has paid to send the message, see here »¹ for more
+	// info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetPaidMessageStars and GetPaidMessageStars helpers.
 	PaidMessageStars int64
-	// SuggestedPost field of Message.
+	// Used to suggest a post to a channel, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
@@ -2375,7 +2398,10 @@ type MessageService struct {
 	Mentioned bool
 	// Whether the message contains unread media
 	MediaUnread bool
-	// ReactionsArePossible field of MessageService.
+	// Whether you can react to this message »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	ReactionsArePossible bool
 	// Whether the message is silent
 	Silent bool
@@ -2391,7 +2417,12 @@ type MessageService struct {
 	FromID PeerClass
 	// Sender of service message
 	PeerID PeerClass
-	// SavedPeerID field of MessageService.
+	// Will only be set for service messages within a monoforum topic »¹: peer will be
+	// equal to the ID of the monoforum and the saved_peer_id flag will be set to the ID of a
+	// topic.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass
@@ -2403,7 +2434,10 @@ type MessageService struct {
 	Date int
 	// Event connected with the service message
 	Action MessageActionClass
-	// Reactions field of MessageService.
+	// Reactions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	//
 	// Use SetReactions and GetReactions helpers.
 	Reactions MessageReactions
@@ -3229,12 +3263,14 @@ type NotEmptyMessage interface {
 	// Peer ID, the chat where this message was sent
 	GetPeerID() (value PeerClass)
 
-	// Messages fetched from a saved messages dialog »¹ will have peer=inputPeerSelf² and
-	// the saved_peer_id flag set to the ID of the saved dialog.
+	// Messages from a saved messages dialog »¹ will have peer=inputPeerSelf² and the
+	// saved_peer_id flag set to the ID of the saved dialog.Messages from a monoforum »³
+	// will have peer=ID of the monoforum and the saved_peer_id flag set to the ID of a topic.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
 	//  2) https://core.telegram.org/constructor/inputPeerSelf
+	//  3) https://core.telegram.org/api/monoforum
 	GetSavedPeerID() (value PeerClass, ok bool)
 
 	// Reply information

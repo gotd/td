@@ -195,7 +195,6 @@ func (l *ChannelsLeaveChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChann
 //	400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
 //
 // See https://core.telegram.org/method/channels.leaveChannel for reference.
-// Can be used by bots.
 func (c *Client) ChannelsLeaveChannel(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {
 	var result UpdatesBox
 

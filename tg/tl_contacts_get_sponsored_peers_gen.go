@@ -32,10 +32,11 @@ var (
 )
 
 // ContactsGetSponsoredPeersRequest represents TL type `contacts.getSponsoredPeers#b6c8c393`.
+// Obtain a list of sponsored peer search results for a given query
 //
 // See https://core.telegram.org/method/contacts.getSponsoredPeers for reference.
 type ContactsGetSponsoredPeersRequest struct {
-	// Q field of ContactsGetSponsoredPeersRequest.
+	// The query
 	Q string
 }
 
@@ -161,9 +162,13 @@ func (g *ContactsGetSponsoredPeersRequest) GetQ() (value string) {
 }
 
 // ContactsGetSponsoredPeers invokes method contacts.getSponsoredPeers#b6c8c393 returning error if any.
+// Obtain a list of sponsored peer search results for a given query
+//
+// Possible errors:
+//
+//	400 SEARCH_QUERY_EMPTY: The search query is empty.
 //
 // See https://core.telegram.org/method/contacts.getSponsoredPeers for reference.
-// Can be used by bots.
 func (c *Client) ContactsGetSponsoredPeers(ctx context.Context, q string) (ContactsSponsoredPeersClass, error) {
 	var result ContactsSponsoredPeersBox
 

@@ -32,16 +32,26 @@ var (
 )
 
 // StoriesGetAlbumStoriesRequest represents TL type `stories.getAlbumStories#ac806d61`.
+// Get stories in a story album »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/method/stories.getAlbumStories for reference.
 type StoriesGetAlbumStoriesRequest struct {
-	// Peer field of StoriesGetAlbumStoriesRequest.
+	// Peer where the album is posted.
 	Peer InputPeerClass
-	// AlbumID field of StoriesGetAlbumStoriesRequest.
+	// ID of the album.
 	AlbumID int
-	// Offset field of StoriesGetAlbumStoriesRequest.
+	// Offset for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset int
-	// Limit field of StoriesGetAlbumStoriesRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -247,6 +257,14 @@ func (g *StoriesGetAlbumStoriesRequest) GetLimit() (value int) {
 }
 
 // StoriesGetAlbumStories invokes method stories.getAlbumStories#ac806d61 returning error if any.
+// Get stories in a story album »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.getAlbumStories for reference.
 func (c *Client) StoriesGetAlbumStories(ctx context.Context, request *StoriesGetAlbumStoriesRequest) (*StoriesStories, error) {

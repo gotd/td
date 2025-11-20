@@ -258,6 +258,10 @@ func (s *SavedDialog) GetTopMessage() (value int) {
 }
 
 // MonoForumDialog represents TL type `monoForumDialog#64407ea7`.
+// Represents a monoforum topic »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/constructor/monoForumDialog for reference.
 type MonoForumDialog struct {
@@ -266,23 +270,33 @@ type MonoForumDialog struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// UnreadMark field of MonoForumDialog.
+	// Whether this topic has a manually set (with messages.markDialogUnread¹) unread mark.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.markDialogUnread
 	UnreadMark bool
-	// NopaidMessagesException field of MonoForumDialog.
+	// If set, an admin has exempted this peer from payment to send messages using account
+	// toggleNoPaidMessagesException¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.toggleNoPaidMessagesException
 	NopaidMessagesException bool
-	// Peer field of MonoForumDialog.
+	// The peer associated to the topic, AKA the topic ID.
 	Peer PeerClass
-	// TopMessage field of MonoForumDialog.
+	// The latest message ID
 	TopMessage int
-	// ReadInboxMaxID field of MonoForumDialog.
+	// Position up to which all incoming messages are read.
 	ReadInboxMaxID int
-	// ReadOutboxMaxID field of MonoForumDialog.
+	// Position up to which all outgoing messages are read.
 	ReadOutboxMaxID int
-	// UnreadCount field of MonoForumDialog.
+	// Number of unread messages.
 	UnreadCount int
-	// UnreadReactionsCount field of MonoForumDialog.
+	// Number of unread reactions.
 	UnreadReactionsCount int
-	// Draft field of MonoForumDialog.
+	// A pending message draft¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/drafts
 	//
 	// Use SetDraft and GetDraft helpers.
 	Draft DraftMessageClass

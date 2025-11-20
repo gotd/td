@@ -32,6 +32,10 @@ var (
 )
 
 // BotsSetCustomVerificationRequest represents TL type `bots.setCustomVerification#8b89dfbd`.
+// Verify a user or chat on behalf of an organization »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/verification
 //
 // See https://core.telegram.org/method/bots.setCustomVerification for reference.
 type BotsSetCustomVerificationRequest struct {
@@ -40,15 +44,21 @@ type BotsSetCustomVerificationRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Enabled field of BotsSetCustomVerificationRequest.
+	// If set, adds the verification; otherwise removes verification.
 	Enabled bool
-	// Bot field of BotsSetCustomVerificationRequest.
+	// Must not be set if invoked by a bot, must be set to the ID of an owned bot if invoked
+	// by a user.
 	//
 	// Use SetBot and GetBot helpers.
 	Bot InputUserClass
-	// Peer field of BotsSetCustomVerificationRequest.
+	// The peer to verify
 	Peer InputPeerClass
-	// CustomDescription field of BotsSetCustomVerificationRequest.
+	// Custom description for the verification, the UTF-8 length limit for this field is
+	// contained in bot_verification_description_length_limit »¹. If not set, Was verified
+	// by organization "organization_name" will be used as description.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#bot-verification-description-length-limit
 	//
 	// Use SetCustomDescription and GetCustomDescription helpers.
 	CustomDescription string
@@ -323,14 +333,18 @@ func (s *BotsSetCustomVerificationRequest) GetCustomDescription() (value string,
 }
 
 // BotsSetCustomVerification invokes method bots.setCustomVerification#8b89dfbd returning error if any.
+// Verify a user or chat on behalf of an organization »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/verification
 //
 // Possible errors:
 //
 //	400 BOT_INVALID: This is not a valid bot.
+//	403 BOT_VERIFIER_FORBIDDEN: This bot cannot assign verification icons.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/bots.setCustomVerification for reference.
-// Can be used by bots.
 func (c *Client) BotsSetCustomVerification(ctx context.Context, request *BotsSetCustomVerificationRequest) (bool, error) {
 	var result BoolBox
 

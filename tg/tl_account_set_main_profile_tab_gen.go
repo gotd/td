@@ -32,10 +32,14 @@ var (
 )
 
 // AccountSetMainProfileTabRequest represents TL type `account.setMainProfileTab#5dee78b0`.
+// Changes the main profile tab of the current user, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#tabs
 //
 // See https://core.telegram.org/method/account.setMainProfileTab for reference.
 type AccountSetMainProfileTabRequest struct {
-	// Tab field of AccountSetMainProfileTabRequest.
+	// The tab to set as main tab.
 	Tab ProfileTabClass
 }
 
@@ -166,6 +170,10 @@ func (s *AccountSetMainProfileTabRequest) GetTab() (value ProfileTabClass) {
 }
 
 // AccountSetMainProfileTab invokes method account.setMainProfileTab#5dee78b0 returning error if any.
+// Changes the main profile tab of the current user, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#tabs
 //
 // See https://core.telegram.org/method/account.setMainProfileTab for reference.
 func (c *Client) AccountSetMainProfileTab(ctx context.Context, tab ProfileTabClass) (bool, error) {

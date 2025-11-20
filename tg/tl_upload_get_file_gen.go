@@ -327,6 +327,7 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 //	400 FILE_ID_INVALID: The provided file id is invalid.
 //	400 FILE_REFERENCE_EMPTY: An empty file reference was specified.
 //	400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
+//	400 FILE_REFERENCE_INVALID: The specified file reference is invalid.
 //	420 FLOOD_PREMIUM_WAIT_%d: Please wait %d seconds before repeating the action, or purchase a Telegram Premium subscription to remove this rate limit.
 //	400 LIMIT_INVALID: The provided limit is invalid.
 //	400 LOCATION_INVALID: The provided location is invalid.
@@ -335,7 +336,6 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/upload.getFile for reference.
-// Can be used by bots.
 func (c *Client) UploadGetFile(ctx context.Context, request *UploadGetFileRequest) (UploadFileClass, error) {
 	var result UploadFileBox
 

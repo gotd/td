@@ -52,7 +52,7 @@ type PaymentsGetStarsTransactionsRequest struct {
 	Outbound bool
 	// Return transactions in ascending order by date (instead of descending order by date).
 	Ascending bool
-	// Ton field of PaymentsGetStarsTransactionsRequest.
+	// If set, returns the channel/ad revenue transactions in nanotons, instead.
 	Ton bool
 	// If set, fetches only transactions for the specified Telegram Star subscription »¹.
 	//
@@ -459,9 +459,9 @@ func (g *PaymentsGetStarsTransactionsRequest) GetLimit() (value int) {
 //
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 SUBSCRIPTION_ID_INVALID: The specified subscription_id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsTransactions for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetStarsTransactions(ctx context.Context, request *PaymentsGetStarsTransactionsRequest) (*PaymentsStarsStatus, error) {
 	var result PaymentsStarsStatus
 

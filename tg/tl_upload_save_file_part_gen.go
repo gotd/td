@@ -225,7 +225,6 @@ func (s *UploadSaveFilePartRequest) GetBytes() (value []byte) {
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
-// Can be used by bots.
 func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (bool, error) {
 	var result BoolBox
 

@@ -32,10 +32,12 @@ var (
 )
 
 // MessagesGetSavedHistoryRequest represents TL type `messages.getSavedHistory#998ab009`.
-// Returns saved messages »¹ forwarded from a specific peer
+// Fetch saved messages »¹ forwarded from a specific peer, or fetch messages from a
+// monoforum topic »².
 //
 // Links:
 //  1. https://core.telegram.org/api/saved-messages
+//  2. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/method/messages.getSavedHistory for reference.
 type MessagesGetSavedHistoryRequest struct {
@@ -44,11 +46,12 @@ type MessagesGetSavedHistoryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ParentPeer field of MessagesGetSavedHistoryRequest.
+	// If set, fetches messages from the specified monoforum, otherwise fetches from saved
+	// messages.
 	//
 	// Use SetParentPeer and GetParentPeer helpers.
 	ParentPeer InputPeerClass
-	// Target peer
+	// Target peer (or topic)
 	Peer InputPeerClass
 	// Only return messages starting from the specified message ID
 	OffsetID int
@@ -438,10 +441,12 @@ func (g *MessagesGetSavedHistoryRequest) GetHash() (value int64) {
 }
 
 // MessagesGetSavedHistory invokes method messages.getSavedHistory#998ab009 returning error if any.
-// Returns saved messages »¹ forwarded from a specific peer
+// Fetch saved messages »¹ forwarded from a specific peer, or fetch messages from a
+// monoforum topic »².
 //
 // Links:
 //  1. https://core.telegram.org/api/saved-messages
+//  2. https://core.telegram.org/api/monoforum
 //
 // Possible errors:
 //

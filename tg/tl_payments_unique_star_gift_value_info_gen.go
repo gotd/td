@@ -32,50 +32,67 @@ var (
 )
 
 // PaymentsUniqueStarGiftValueInfo represents TL type `payments.uniqueStarGiftValueInfo#512fe446`.
+// Information about the value of a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/payments.uniqueStarGiftValueInfo for reference.
 type PaymentsUniqueStarGiftValueInfo struct {
-	// Flags field of PaymentsUniqueStarGiftValueInfo.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// LastSaleOnFragment field of PaymentsUniqueStarGiftValueInfo.
+	// If set, the last sale was completed on Fragment.
 	LastSaleOnFragment bool
-	// ValueIsAverage field of PaymentsUniqueStarGiftValueInfo.
+	// If set, the value is calculated from the average value of sold gifts of the same type.
+	// Otherwise, it is based on the sale price of the gift.
 	ValueIsAverage bool
-	// Currency field of PaymentsUniqueStarGiftValueInfo.
+	// Three-letter ISO 4217 currency¹ code (a localized fiat currency used to represent
+	// prices and price estimations in this constructor).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Value field of PaymentsUniqueStarGiftValueInfo.
+	// Estimated value of the gift, in the smallest unit of the currency specified in
+	// currency.
 	Value int64
-	// InitialSaleDate field of PaymentsUniqueStarGiftValueInfo.
+	// Initial purchase date of the gift.
 	InitialSaleDate int
-	// InitialSaleStars field of PaymentsUniqueStarGiftValueInfo.
+	// Initial purchase price in Stars.
 	InitialSaleStars int64
-	// InitialSalePrice field of PaymentsUniqueStarGiftValueInfo.
+	// Initial purchase price in the smallest unit of the currency specified in currency
+	// (automatically converted from initial_sale_stars).
 	InitialSalePrice int64
-	// LastSaleDate field of PaymentsUniqueStarGiftValueInfo.
+	// Last resale date of the gift.
 	//
 	// Use SetLastSaleDate and GetLastSaleDate helpers.
 	LastSaleDate int
-	// LastSalePrice field of PaymentsUniqueStarGiftValueInfo.
+	// Last resale price, in the smallest unit of the currency specified in currency.
 	//
 	// Use SetLastSalePrice and GetLastSalePrice helpers.
 	LastSalePrice int64
-	// FloorPrice field of PaymentsUniqueStarGiftValueInfo.
+	// The current minimum price of collectible gifts of the same type, in the smallest unit
+	// of the currency specified in currency.
 	//
 	// Use SetFloorPrice and GetFloorPrice helpers.
 	FloorPrice int64
-	// AveragePrice field of PaymentsUniqueStarGiftValueInfo.
+	// The current average sale price of collectible gifts of the same type, in the smallest
+	// unit of the currency specified in currency.
 	//
 	// Use SetAveragePrice and GetAveragePrice helpers.
 	AveragePrice int64
-	// ListedCount field of PaymentsUniqueStarGiftValueInfo.
+	// Number of gifts of the same type currently being resold on Telegram.
 	//
 	// Use SetListedCount and GetListedCount helpers.
 	ListedCount int
-	// FragmentListedCount field of PaymentsUniqueStarGiftValueInfo.
+	// Number of gifts of the same type currently being resold on fragment.
 	//
 	// Use SetFragmentListedCount and GetFragmentListedCount helpers.
 	FragmentListedCount int
-	// FragmentListedURL field of PaymentsUniqueStarGiftValueInfo.
+	// Fragment link to the listing of gifts of the same type currently being resold on
+	// fragment.
 	//
 	// Use SetFragmentListedURL and GetFragmentListedURL helpers.
 	FragmentListedURL string

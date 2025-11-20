@@ -68,37 +68,33 @@ type GlobalPrivacySettings struct {
 	//  4) https://core.telegram.org/method/messages.getOutboxReadDate
 	//  5) https://core.telegram.org/constructor/userFull
 	HideReadMarks bool
-	// If set, only users that have a premium account, are in our contact list, or already
-	// have a private chat with us can write to us; a 403 PRIVACY_PREMIUM_REQUIRED error will
-	// be emitted otherwise.  The userFull¹.contact_require_premium flag will be set for
-	// users that have this flag enabled.  To check whether we can write to a user with this
-	// flag enabled, if we haven't yet cached all the required information (for example we
-	// don't have the userFull² or history of all users while displaying the chat list in
-	// the sharing UI) the users.getIsPremiumRequiredToContact³ method may be invoked,
-	// passing the list of users currently visible in the UI, returning a list of booleans
-	// that directly specify whether we can or cannot write to each user. This option may be
-	// enabled by both non-Premium⁴ and Premium⁵ users only if the
-	// new_noncontact_peers_require_premium_without_ownpremium client configuration flag
-	// »⁶ is equal to true, otherwise it may be enabled only by Premium⁷ users and
-	// non-Premium users will receive a PREMIUM_ACCOUNT_REQUIRED error when trying to enable
-	// this flag.
+	// See here for more info on this flag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/privacy#require-premium-for-new-non-contact-users
+	NewNoncontactPeersRequirePremium bool
+	// Enables or disables our userFull¹.display_gifts_button flag: if the userFull²
+	// display_gifts_button flag of both us and another user is set, a gift button should
+	// always be displayed in the text field in private chats with the other user: once
+	// clicked, the gift UI should be displayed, offering the user options to gift Telegram
+	// Premium »³ subscriptions or Telegram Gifts »⁴.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	//  2) https://core.telegram.org/constructor/userFull
-	//  3) https://core.telegram.org/method/users.getIsPremiumRequiredToContact
-	//  4) https://core.telegram.org/api/premium
-	//  5) https://core.telegram.org/api/premium
-	//  6) https://core.telegram.org/api/config#new-noncontact-peers-require-premium-without-ownpremium
-	//  7) https://core.telegram.org/api/premium
-	NewNoncontactPeersRequirePremium bool
-	// DisplayGiftsButton field of GlobalPrivacySettings.
+	//  3) https://core.telegram.org/api/premium#gifting-telegram-premium
+	//  4) https://core.telegram.org/api/gifts
 	DisplayGiftsButton bool
-	// NoncontactPeersPaidStars field of GlobalPrivacySettings.
+	// If configured, specifies the number of stars¹ users must pay us to send us a message,
+	// see here »² for more info on paid messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
+	//  2) https://core.telegram.org/api/paid-messages
 	//
 	// Use SetNoncontactPeersPaidStars and GetNoncontactPeersPaidStars helpers.
 	NoncontactPeersPaidStars int64
-	// DisallowedGifts field of GlobalPrivacySettings.
+	// Disallows the reception of specific gift types.
 	//
 	// Use SetDisallowedGifts and GetDisallowedGifts helpers.
 	DisallowedGifts DisallowedGiftsSettings

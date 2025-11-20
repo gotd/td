@@ -256,7 +256,10 @@ type ChatInvite struct {
 	//
 	// Use SetSubscriptionFormID and GetSubscriptionFormID helpers.
 	SubscriptionFormID int64
-	// BotVerification field of ChatInvite.
+	// Describes a bot verification icon »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/verification
 	//
 	// Use SetBotVerification and GetBotVerification helpers.
 	BotVerification BotVerification
