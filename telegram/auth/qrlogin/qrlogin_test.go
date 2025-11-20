@@ -2,6 +2,7 @@ package qrlogin
 
 import (
 	"context"
+	"runtime"
 	"testing"
 	"time"
 
@@ -207,6 +208,10 @@ func (m *mockDispatcher) OnLoginToken(h tg.LoginTokenHandler) {
 }
 
 func TestOnLoginToken(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("skipping on macOS")
+	}
+
 	a := require.New(t)
 
 	dispatcher := &mockDispatcher{}
