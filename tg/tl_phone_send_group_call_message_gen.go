@@ -31,20 +31,30 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneSendGroupCallMessageRequest represents TL type `phone.sendGroupCallMessage#87893014`.
+// PhoneSendGroupCallMessageRequest represents TL type `phone.sendGroupCallMessage#b1d11410`.
 //
 // See https://core.telegram.org/method/phone.sendGroupCallMessage for reference.
 type PhoneSendGroupCallMessageRequest struct {
+	// Flags field of PhoneSendGroupCallMessageRequest.
+	Flags bin.Fields
 	// Call field of PhoneSendGroupCallMessageRequest.
 	Call InputGroupCallClass
 	// RandomID field of PhoneSendGroupCallMessageRequest.
 	RandomID int64
 	// Message field of PhoneSendGroupCallMessageRequest.
 	Message TextWithEntities
+	// AllowPaidStars field of PhoneSendGroupCallMessageRequest.
+	//
+	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
+	AllowPaidStars int64
+	// SendAs field of PhoneSendGroupCallMessageRequest.
+	//
+	// Use SetSendAs and GetSendAs helpers.
+	SendAs InputPeerClass
 }
 
 // PhoneSendGroupCallMessageRequestTypeID is TL type id of PhoneSendGroupCallMessageRequest.
-const PhoneSendGroupCallMessageRequestTypeID = 0x87893014
+const PhoneSendGroupCallMessageRequestTypeID = 0xb1d11410
 
 // Ensuring interfaces in compile-time for PhoneSendGroupCallMessageRequest.
 var (
@@ -58,6 +68,9 @@ func (s *PhoneSendGroupCallMessageRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
 	if !(s.Call == nil) {
 		return false
 	}
@@ -65,6 +78,12 @@ func (s *PhoneSendGroupCallMessageRequest) Zero() bool {
 		return false
 	}
 	if !(s.Message.Zero()) {
+		return false
+	}
+	if !(s.AllowPaidStars == 0) {
+		return false
+	}
+	if !(s.SendAs == nil) {
 		return false
 	}
 
@@ -85,10 +104,20 @@ func (s *PhoneSendGroupCallMessageRequest) FillFrom(from interface {
 	GetCall() (value InputGroupCallClass)
 	GetRandomID() (value int64)
 	GetMessage() (value TextWithEntities)
+	GetAllowPaidStars() (value int64, ok bool)
+	GetSendAs() (value InputPeerClass, ok bool)
 }) {
 	s.Call = from.GetCall()
 	s.RandomID = from.GetRandomID()
 	s.Message = from.GetMessage()
+	if val, ok := from.GetAllowPaidStars(); ok {
+		s.AllowPaidStars = val
+	}
+
+	if val, ok := from.GetSendAs(); ok {
+		s.SendAs = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -126,14 +155,34 @@ func (s *PhoneSendGroupCallMessageRequest) TypeInfo() tdp.Type {
 			Name:       "Message",
 			SchemaName: "message",
 		},
+		{
+			Name:       "AllowPaidStars",
+			SchemaName: "allow_paid_stars",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "SendAs",
+			SchemaName: "send_as",
+			Null:       !s.Flags.Has(1),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *PhoneSendGroupCallMessageRequest) SetFlags() {
+	if !(s.AllowPaidStars == 0) {
+		s.Flags.Set(0)
+	}
+	if !(s.SendAs == nil) {
+		s.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *PhoneSendGroupCallMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.sendGroupCallMessage#87893014 as nil")
+		return fmt.Errorf("can't encode phone.sendGroupCallMessage#b1d11410 as nil")
 	}
 	b.PutID(PhoneSendGroupCallMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -142,17 +191,32 @@ func (s *PhoneSendGroupCallMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PhoneSendGroupCallMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode phone.sendGroupCallMessage#87893014 as nil")
+		return fmt.Errorf("can't encode phone.sendGroupCallMessage#b1d11410 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#b1d11410: field flags: %w", err)
 	}
 	if s.Call == nil {
-		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#87893014: field call is nil")
+		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#b1d11410: field call is nil")
 	}
 	if err := s.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#87893014: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#b1d11410: field call: %w", err)
 	}
 	b.PutLong(s.RandomID)
 	if err := s.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#87893014: field message: %w", err)
+		return fmt.Errorf("unable to encode phone.sendGroupCallMessage#b1d11410: field message: %w", err)
+	}
+	if s.Flags.Has(0) {
+		b.PutLong(s.AllowPaidStars)
+	}
+	if s.Flags.Has(1) {
+		if s.SendAs == nil {
+			return fmt.Errorf("unable to encode phone.sendGroupCallMessage#b1d11410: field send_as is nil")
+		}
+		if err := s.SendAs.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode phone.sendGroupCallMessage#b1d11410: field send_as: %w", err)
+		}
 	}
 	return nil
 }
@@ -160,10 +224,10 @@ func (s *PhoneSendGroupCallMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PhoneSendGroupCallMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.sendGroupCallMessage#87893014 to nil")
+		return fmt.Errorf("can't decode phone.sendGroupCallMessage#b1d11410 to nil")
 	}
 	if err := b.ConsumeID(PhoneSendGroupCallMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.sendGroupCallMessage#87893014: %w", err)
+		return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -171,26 +235,45 @@ func (s *PhoneSendGroupCallMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PhoneSendGroupCallMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode phone.sendGroupCallMessage#87893014 to nil")
+		return fmt.Errorf("can't decode phone.sendGroupCallMessage#b1d11410 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputGroupCall(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#87893014: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: field call: %w", err)
 		}
 		s.Call = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#87893014: field random_id: %w", err)
+			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	{
 		if err := s.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#87893014: field message: %w", err)
+			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: field message: %w", err)
 		}
+	}
+	if s.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: field allow_paid_stars: %w", err)
+		}
+		s.AllowPaidStars = value
+	}
+	if s.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.sendGroupCallMessage#b1d11410: field send_as: %w", err)
+		}
+		s.SendAs = value
 	}
 	return nil
 }
@@ -219,15 +302,50 @@ func (s *PhoneSendGroupCallMessageRequest) GetMessage() (value TextWithEntities)
 	return s.Message
 }
 
-// PhoneSendGroupCallMessage invokes method phone.sendGroupCallMessage#87893014 returning error if any.
+// SetAllowPaidStars sets value of AllowPaidStars conditional field.
+func (s *PhoneSendGroupCallMessageRequest) SetAllowPaidStars(value int64) {
+	s.Flags.Set(0)
+	s.AllowPaidStars = value
+}
+
+// GetAllowPaidStars returns value of AllowPaidStars conditional field and
+// boolean which is true if field was set.
+func (s *PhoneSendGroupCallMessageRequest) GetAllowPaidStars() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.AllowPaidStars, true
+}
+
+// SetSendAs sets value of SendAs conditional field.
+func (s *PhoneSendGroupCallMessageRequest) SetSendAs(value InputPeerClass) {
+	s.Flags.Set(1)
+	s.SendAs = value
+}
+
+// GetSendAs returns value of SendAs conditional field and
+// boolean which is true if field was set.
+func (s *PhoneSendGroupCallMessageRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.SendAs, true
+}
+
+// PhoneSendGroupCallMessage invokes method phone.sendGroupCallMessage#b1d11410 returning error if any.
 //
 // See https://core.telegram.org/method/phone.sendGroupCallMessage for reference.
-func (c *Client) PhoneSendGroupCallMessage(ctx context.Context, request *PhoneSendGroupCallMessageRequest) (bool, error) {
-	var result BoolBox
+func (c *Client) PhoneSendGroupCallMessage(ctx context.Context, request *PhoneSendGroupCallMessageRequest) (UpdatesClass, error) {
+	var result UpdatesBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return result.Updates, nil
 }

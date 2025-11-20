@@ -43,6 +43,8 @@ type ChannelsGetSendAsRequest struct {
 	Flags bin.Fields
 	// ForPaidReactions field of ChannelsGetSendAsRequest.
 	ForPaidReactions bool
+	// ForLiveStories field of ChannelsGetSendAsRequest.
+	ForLiveStories bool
 	// The group where we intend to send messages
 	Peer InputPeerClass
 }
@@ -68,6 +70,9 @@ func (g *ChannelsGetSendAsRequest) Zero() bool {
 	if !(g.ForPaidReactions == false) {
 		return false
 	}
+	if !(g.ForLiveStories == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
@@ -87,9 +92,11 @@ func (g *ChannelsGetSendAsRequest) String() string {
 // FillFrom fills ChannelsGetSendAsRequest from given interface.
 func (g *ChannelsGetSendAsRequest) FillFrom(from interface {
 	GetForPaidReactions() (value bool)
+	GetForLiveStories() (value bool)
 	GetPeer() (value InputPeerClass)
 }) {
 	g.ForPaidReactions = from.GetForPaidReactions()
+	g.ForLiveStories = from.GetForLiveStories()
 	g.Peer = from.GetPeer()
 }
 
@@ -122,6 +129,11 @@ func (g *ChannelsGetSendAsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
+			Name:       "ForLiveStories",
+			SchemaName: "for_live_stories",
+			Null:       !g.Flags.Has(1),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -133,6 +145,9 @@ func (g *ChannelsGetSendAsRequest) TypeInfo() tdp.Type {
 func (g *ChannelsGetSendAsRequest) SetFlags() {
 	if !(g.ForPaidReactions == false) {
 		g.Flags.Set(0)
+	}
+	if !(g.ForLiveStories == false) {
+		g.Flags.Set(1)
 	}
 }
 
@@ -185,6 +200,7 @@ func (g *ChannelsGetSendAsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	g.ForPaidReactions = g.Flags.Has(0)
+	g.ForLiveStories = g.Flags.Has(1)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -212,6 +228,25 @@ func (g *ChannelsGetSendAsRequest) GetForPaidReactions() (value bool) {
 		return
 	}
 	return g.Flags.Has(0)
+}
+
+// SetForLiveStories sets value of ForLiveStories conditional field.
+func (g *ChannelsGetSendAsRequest) SetForLiveStories(value bool) {
+	if value {
+		g.Flags.Set(1)
+		g.ForLiveStories = true
+	} else {
+		g.Flags.Unset(1)
+		g.ForLiveStories = false
+	}
+}
+
+// GetForLiveStories returns value of ForLiveStories conditional field.
+func (g *ChannelsGetSendAsRequest) GetForLiveStories() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.

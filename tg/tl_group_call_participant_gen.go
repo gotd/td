@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GroupCallParticipant represents TL type `groupCallParticipant#eba636fe`.
+// GroupCallParticipant represents TL type `groupCallParticipant#2a3dc7ac`.
 // Info about a group call participant
 //
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
@@ -102,10 +102,14 @@ type GroupCallParticipant struct {
 	//
 	// Use SetPresentation and GetPresentation helpers.
 	Presentation GroupCallParticipantVideo
+	// PaidStarsTotal field of GroupCallParticipant.
+	//
+	// Use SetPaidStarsTotal and GetPaidStarsTotal helpers.
+	PaidStarsTotal int64
 }
 
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
-const GroupCallParticipantTypeID = 0xeba636fe
+const GroupCallParticipantTypeID = 0x2a3dc7ac
 
 // Ensuring interfaces in compile-time for GroupCallParticipant.
 var (
@@ -179,6 +183,9 @@ func (g *GroupCallParticipant) Zero() bool {
 	if !(g.Presentation.Zero()) {
 		return false
 	}
+	if !(g.PaidStarsTotal == 0) {
+		return false
+	}
 
 	return true
 }
@@ -213,6 +220,7 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 	GetRaiseHandRating() (value int64, ok bool)
 	GetVideo() (value GroupCallParticipantVideo, ok bool)
 	GetPresentation() (value GroupCallParticipantVideo, ok bool)
+	GetPaidStarsTotal() (value int64, ok bool)
 }) {
 	g.Muted = from.GetMuted()
 	g.Left = from.GetLeft()
@@ -249,6 +257,10 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 
 	if val, ok := from.GetPresentation(); ok {
 		g.Presentation = val
+	}
+
+	if val, ok := from.GetPaidStarsTotal(); ok {
+		g.PaidStarsTotal = val
 	}
 
 }
@@ -368,6 +380,11 @@ func (g *GroupCallParticipant) TypeInfo() tdp.Type {
 			SchemaName: "presentation",
 			Null:       !g.Flags.Has(14),
 		},
+		{
+			Name:       "PaidStarsTotal",
+			SchemaName: "paid_stars_total",
+			Null:       !g.Flags.Has(16),
+		},
 	}
 	return typ
 }
@@ -422,12 +439,15 @@ func (g *GroupCallParticipant) SetFlags() {
 	if !(g.Presentation.Zero()) {
 		g.Flags.Set(14)
 	}
+	if !(g.PaidStarsTotal == 0) {
+		g.Flags.Set(16)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
+		return fmt.Errorf("can't encode groupCallParticipant#2a3dc7ac as nil")
 	}
 	b.PutID(GroupCallParticipantTypeID)
 	return g.EncodeBare(b)
@@ -436,17 +456,17 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
+		return fmt.Errorf("can't encode groupCallParticipant#2a3dc7ac as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field flags: %w", err)
+		return fmt.Errorf("unable to encode groupCallParticipant#2a3dc7ac: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field peer is nil")
+		return fmt.Errorf("unable to encode groupCallParticipant#2a3dc7ac: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field peer: %w", err)
+		return fmt.Errorf("unable to encode groupCallParticipant#2a3dc7ac: field peer: %w", err)
 	}
 	b.PutInt(g.Date)
 	if g.Flags.Has(3) {
@@ -464,13 +484,16 @@ func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 	}
 	if g.Flags.Has(6) {
 		if err := g.Video.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field video: %w", err)
+			return fmt.Errorf("unable to encode groupCallParticipant#2a3dc7ac: field video: %w", err)
 		}
 	}
 	if g.Flags.Has(14) {
 		if err := g.Presentation.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field presentation: %w", err)
+			return fmt.Errorf("unable to encode groupCallParticipant#2a3dc7ac: field presentation: %w", err)
 		}
+	}
+	if g.Flags.Has(16) {
+		b.PutLong(g.PaidStarsTotal)
 	}
 	return nil
 }
@@ -478,10 +501,10 @@ func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
+		return fmt.Errorf("can't decode groupCallParticipant#2a3dc7ac to nil")
 	}
 	if err := b.ConsumeID(GroupCallParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: %w", err)
+		return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -489,11 +512,11 @@ func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
+		return fmt.Errorf("can't decode groupCallParticipant#2a3dc7ac to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field flags: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field flags: %w", err)
 		}
 	}
 	g.Muted = g.Flags.Has(0)
@@ -509,61 +532,68 @@ func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field peer: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field date: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field date: %w", err)
 		}
 		g.Date = value
 	}
 	if g.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field active_date: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field active_date: %w", err)
 		}
 		g.ActiveDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field source: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field source: %w", err)
 		}
 		g.Source = value
 	}
 	if g.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field volume: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field volume: %w", err)
 		}
 		g.Volume = value
 	}
 	if g.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field about: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field about: %w", err)
 		}
 		g.About = value
 	}
 	if g.Flags.Has(13) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field raise_hand_rating: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field raise_hand_rating: %w", err)
 		}
 		g.RaiseHandRating = value
 	}
 	if g.Flags.Has(6) {
 		if err := g.Video.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field video: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field video: %w", err)
 		}
 	}
 	if g.Flags.Has(14) {
 		if err := g.Presentation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field presentation: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field presentation: %w", err)
 		}
+	}
+	if g.Flags.Has(16) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#2a3dc7ac: field paid_stars_total: %w", err)
+		}
+		g.PaidStarsTotal = value
 	}
 	return nil
 }
@@ -888,4 +918,22 @@ func (g *GroupCallParticipant) GetPresentation() (value GroupCallParticipantVide
 		return value, false
 	}
 	return g.Presentation, true
+}
+
+// SetPaidStarsTotal sets value of PaidStarsTotal conditional field.
+func (g *GroupCallParticipant) SetPaidStarsTotal(value int64) {
+	g.Flags.Set(16)
+	g.PaidStarsTotal = value
+}
+
+// GetPaidStarsTotal returns value of PaidStarsTotal conditional field and
+// boolean which is true if field was set.
+func (g *GroupCallParticipant) GetPaidStarsTotal() (value int64, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(16) {
+		return value, false
+	}
+	return g.PaidStarsTotal, true
 }

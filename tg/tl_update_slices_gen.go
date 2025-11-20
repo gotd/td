@@ -1819,6 +1819,45 @@ func (s UpdateClassArray) AsUpdatePinnedForumTopics() (to UpdatePinnedForumTopic
 	return to
 }
 
+// AsUpdateDeleteGroupCallMessages returns copy with only UpdateDeleteGroupCallMessages constructors.
+func (s UpdateClassArray) AsUpdateDeleteGroupCallMessages() (to UpdateDeleteGroupCallMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateDeleteGroupCallMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateStarGiftAuctionState returns copy with only UpdateStarGiftAuctionState constructors.
+func (s UpdateClassArray) AsUpdateStarGiftAuctionState() (to UpdateStarGiftAuctionStateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateStarGiftAuctionState)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateStarGiftAuctionUserState returns copy with only UpdateStarGiftAuctionUserState constructors.
+func (s UpdateClassArray) AsUpdateStarGiftAuctionUserState() (to UpdateStarGiftAuctionUserStateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateStarGiftAuctionUserState)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -12815,6 +12854,252 @@ func (s *UpdatePinnedForumTopicsArray) PopFirst() (v UpdatePinnedForumTopics, ok
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdatePinnedForumTopicsArray) Pop() (v UpdatePinnedForumTopics, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateDeleteGroupCallMessagesArray is adapter for slice of UpdateDeleteGroupCallMessages.
+type UpdateDeleteGroupCallMessagesArray []UpdateDeleteGroupCallMessages
+
+// Sort sorts slice of UpdateDeleteGroupCallMessages.
+func (s UpdateDeleteGroupCallMessagesArray) Sort(less func(a, b UpdateDeleteGroupCallMessages) bool) UpdateDeleteGroupCallMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateDeleteGroupCallMessages.
+func (s UpdateDeleteGroupCallMessagesArray) SortStable(less func(a, b UpdateDeleteGroupCallMessages) bool) UpdateDeleteGroupCallMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateDeleteGroupCallMessages.
+func (s UpdateDeleteGroupCallMessagesArray) Retain(keep func(x UpdateDeleteGroupCallMessages) bool) UpdateDeleteGroupCallMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateDeleteGroupCallMessagesArray) First() (v UpdateDeleteGroupCallMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateDeleteGroupCallMessagesArray) Last() (v UpdateDeleteGroupCallMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateDeleteGroupCallMessagesArray) PopFirst() (v UpdateDeleteGroupCallMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateDeleteGroupCallMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateDeleteGroupCallMessagesArray) Pop() (v UpdateDeleteGroupCallMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateStarGiftAuctionStateArray is adapter for slice of UpdateStarGiftAuctionState.
+type UpdateStarGiftAuctionStateArray []UpdateStarGiftAuctionState
+
+// Sort sorts slice of UpdateStarGiftAuctionState.
+func (s UpdateStarGiftAuctionStateArray) Sort(less func(a, b UpdateStarGiftAuctionState) bool) UpdateStarGiftAuctionStateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateStarGiftAuctionState.
+func (s UpdateStarGiftAuctionStateArray) SortStable(less func(a, b UpdateStarGiftAuctionState) bool) UpdateStarGiftAuctionStateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateStarGiftAuctionState.
+func (s UpdateStarGiftAuctionStateArray) Retain(keep func(x UpdateStarGiftAuctionState) bool) UpdateStarGiftAuctionStateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateStarGiftAuctionStateArray) First() (v UpdateStarGiftAuctionState, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateStarGiftAuctionStateArray) Last() (v UpdateStarGiftAuctionState, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateStarGiftAuctionStateArray) PopFirst() (v UpdateStarGiftAuctionState, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateStarGiftAuctionState
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateStarGiftAuctionStateArray) Pop() (v UpdateStarGiftAuctionState, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateStarGiftAuctionUserStateArray is adapter for slice of UpdateStarGiftAuctionUserState.
+type UpdateStarGiftAuctionUserStateArray []UpdateStarGiftAuctionUserState
+
+// Sort sorts slice of UpdateStarGiftAuctionUserState.
+func (s UpdateStarGiftAuctionUserStateArray) Sort(less func(a, b UpdateStarGiftAuctionUserState) bool) UpdateStarGiftAuctionUserStateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateStarGiftAuctionUserState.
+func (s UpdateStarGiftAuctionUserStateArray) SortStable(less func(a, b UpdateStarGiftAuctionUserState) bool) UpdateStarGiftAuctionUserStateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateStarGiftAuctionUserState.
+func (s UpdateStarGiftAuctionUserStateArray) Retain(keep func(x UpdateStarGiftAuctionUserState) bool) UpdateStarGiftAuctionUserStateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateStarGiftAuctionUserStateArray) First() (v UpdateStarGiftAuctionUserState, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateStarGiftAuctionUserStateArray) Last() (v UpdateStarGiftAuctionUserState, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateStarGiftAuctionUserStateArray) PopFirst() (v UpdateStarGiftAuctionUserState, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateStarGiftAuctionUserState
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateStarGiftAuctionUserStateArray) Pop() (v UpdateStarGiftAuctionUserState, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

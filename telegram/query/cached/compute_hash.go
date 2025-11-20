@@ -64,3 +64,18 @@ func (s *AccountGetSavedMusicIDs) computeHash(v *tg.AccountSavedMusicIDs) int64 
 
 	return h.Sum()
 }
+
+func (s *PaymentsGetStarGiftActiveAuctions) computeHash(v *tg.PaymentsStarGiftActiveAuctions) int64 {
+	auctions := v.Auctions
+
+	sort.SliceStable(auctions, func(i, j int) bool {
+		return auctions[i].GetGift().GetID() < auctions[j].GetGift().GetID()
+	})
+
+	h := hasher.Hasher{}
+	for _, auction := range auctions {
+		h.Update(uint32(auction.GetGift().GetID()))
+	}
+
+	return h.Sum()
+}

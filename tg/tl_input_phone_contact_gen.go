@@ -31,11 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
+// InputPhoneContact represents TL type `inputPhoneContact#6a1dc4be`.
 // Phone contact.
 //
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
+	// Flags field of InputPhoneContact.
+	Flags bin.Fields
 	// An arbitrary 64-bit integer: it should be set, for example, to an incremental number
 	// when using contacts.importContacts¹, in order to retry importing only the contacts
 	// that weren't imported successfully, according to the client_ids returned in contacts
@@ -51,10 +53,14 @@ type InputPhoneContact struct {
 	FirstName string
 	// Contact's last name
 	LastName string
+	// Note field of InputPhoneContact.
+	//
+	// Use SetNote and GetNote helpers.
+	Note TextWithEntities
 }
 
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.
-const InputPhoneContactTypeID = 0xf392b7f4
+const InputPhoneContactTypeID = 0x6a1dc4be
 
 // Ensuring interfaces in compile-time for InputPhoneContact.
 var (
@@ -68,6 +74,9 @@ func (i *InputPhoneContact) Zero() bool {
 	if i == nil {
 		return true
 	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
 	if !(i.ClientID == 0) {
 		return false
 	}
@@ -78,6 +87,9 @@ func (i *InputPhoneContact) Zero() bool {
 		return false
 	}
 	if !(i.LastName == "") {
+		return false
+	}
+	if !(i.Note.Zero()) {
 		return false
 	}
 
@@ -99,11 +111,16 @@ func (i *InputPhoneContact) FillFrom(from interface {
 	GetPhone() (value string)
 	GetFirstName() (value string)
 	GetLastName() (value string)
+	GetNote() (value TextWithEntities, ok bool)
 }) {
 	i.ClientID = from.GetClientID()
 	i.Phone = from.GetPhone()
 	i.FirstName = from.GetFirstName()
 	i.LastName = from.GetLastName()
+	if val, ok := from.GetNote(); ok {
+		i.Note = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -145,14 +162,26 @@ func (i *InputPhoneContact) TypeInfo() tdp.Type {
 			Name:       "LastName",
 			SchemaName: "last_name",
 		},
+		{
+			Name:       "Note",
+			SchemaName: "note",
+			Null:       !i.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputPhoneContact) SetFlags() {
+	if !(i.Note.Zero()) {
+		i.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputPhoneContact) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoneContact#f392b7f4 as nil")
+		return fmt.Errorf("can't encode inputPhoneContact#6a1dc4be as nil")
 	}
 	b.PutID(InputPhoneContactTypeID)
 	return i.EncodeBare(b)
@@ -161,22 +190,31 @@ func (i *InputPhoneContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPhoneContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPhoneContact#f392b7f4 as nil")
+		return fmt.Errorf("can't encode inputPhoneContact#6a1dc4be as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPhoneContact#6a1dc4be: field flags: %w", err)
 	}
 	b.PutLong(i.ClientID)
 	b.PutString(i.Phone)
 	b.PutString(i.FirstName)
 	b.PutString(i.LastName)
+	if i.Flags.Has(0) {
+		if err := i.Note.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputPhoneContact#6a1dc4be: field note: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputPhoneContact) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoneContact#f392b7f4 to nil")
+		return fmt.Errorf("can't decode inputPhoneContact#6a1dc4be to nil")
 	}
 	if err := b.ConsumeID(InputPhoneContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: %w", err)
+		return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -184,35 +222,45 @@ func (i *InputPhoneContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPhoneContact) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPhoneContact#f392b7f4 to nil")
+		return fmt.Errorf("can't decode inputPhoneContact#6a1dc4be to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field client_id: %w", err)
+			return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: field client_id: %w", err)
 		}
 		i.ClientID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field phone: %w", err)
+			return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: field phone: %w", err)
 		}
 		i.Phone = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field first_name: %w", err)
+			return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: field first_name: %w", err)
 		}
 		i.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: field last_name: %w", err)
+			return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: field last_name: %w", err)
 		}
 		i.LastName = value
+	}
+	if i.Flags.Has(0) {
+		if err := i.Note.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPhoneContact#6a1dc4be: field note: %w", err)
+		}
 	}
 	return nil
 }
@@ -247,4 +295,22 @@ func (i *InputPhoneContact) GetLastName() (value string) {
 		return
 	}
 	return i.LastName
+}
+
+// SetNote sets value of Note conditional field.
+func (i *InputPhoneContact) SetNote(value TextWithEntities) {
+	i.Flags.Set(0)
+	i.Note = value
+}
+
+// GetNote returns value of Note conditional field and
+// boolean which is true if field was set.
+func (i *InputPhoneContact) GetNote() (value TextWithEntities, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Note, true
 }

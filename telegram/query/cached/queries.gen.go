@@ -2738,6 +2738,90 @@ func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerPaymentsGetStarGiftActiveAuctions struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.PaymentsStarGiftActiveAuctions
+}
+
+type PaymentsGetStarGiftActiveAuctions struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewPaymentsGetStarGiftActiveAuctions creates new PaymentsGetStarGiftActiveAuctions.
+func NewPaymentsGetStarGiftActiveAuctions(raw *tg.Client) *PaymentsGetStarGiftActiveAuctions {
+	q := &PaymentsGetStarGiftActiveAuctions{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *PaymentsGetStarGiftActiveAuctions) store(v innerPaymentsGetStarGiftActiveAuctions) {
+	s.last.Store(v)
+}
+
+func (s *PaymentsGetStarGiftActiveAuctions) load() (innerPaymentsGetStarGiftActiveAuctions, bool) {
+	v, ok := s.last.Load().(innerPaymentsGetStarGiftActiveAuctions)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned PaymentsStarGiftActiveAuctions must not be mutated.
+func (s *PaymentsGetStarGiftActiveAuctions) Value() *tg.PaymentsStarGiftActiveAuctions {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *PaymentsGetStarGiftActiveAuctions) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *PaymentsGetStarGiftActiveAuctions) Get(ctx context.Context) (*tg.PaymentsStarGiftActiveAuctions, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *PaymentsGetStarGiftActiveAuctions) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.PaymentsGetStarGiftActiveAuctions(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute PaymentsGetStarGiftActiveAuctions")
+	}
+
+	switch variant := result.(type) {
+	case *tg.PaymentsStarGiftActiveAuctions:
+		hash := s.computeHash(variant)
+
+		s.store(innerPaymentsGetStarGiftActiveAuctions{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.PaymentsStarGiftActiveAuctionsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerPaymentsGetStarGiftCollections struct {
 	// Last received hash.
 	hash int64

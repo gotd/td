@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneGetGroupCallStreamRtmpURLRequest represents TL type `phone.getGroupCallStreamRtmpUrl#deb3abbf`.
+// PhoneGetGroupCallStreamRtmpURLRequest represents TL type `phone.getGroupCallStreamRtmpUrl#5af4c73a`.
 // Get RTMP URL and stream key for RTMP livestreams. Can be used even before creating the
 // actual RTMP livestream with phone.createGroupCall¹ (the rtmp_stream flag must be set).
 //
@@ -40,6 +40,10 @@ var (
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamRtmpUrl for reference.
 type PhoneGetGroupCallStreamRtmpURLRequest struct {
+	// Flags field of PhoneGetGroupCallStreamRtmpURLRequest.
+	Flags bin.Fields
+	// LiveStory field of PhoneGetGroupCallStreamRtmpURLRequest.
+	LiveStory bool
 	// Peer to livestream into
 	Peer InputPeerClass
 	// Whether to revoke the previous stream key or simply return the existing one
@@ -47,7 +51,7 @@ type PhoneGetGroupCallStreamRtmpURLRequest struct {
 }
 
 // PhoneGetGroupCallStreamRtmpURLRequestTypeID is TL type id of PhoneGetGroupCallStreamRtmpURLRequest.
-const PhoneGetGroupCallStreamRtmpURLRequestTypeID = 0xdeb3abbf
+const PhoneGetGroupCallStreamRtmpURLRequestTypeID = 0x5af4c73a
 
 // Ensuring interfaces in compile-time for PhoneGetGroupCallStreamRtmpURLRequest.
 var (
@@ -60,6 +64,12 @@ var (
 func (g *PhoneGetGroupCallStreamRtmpURLRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.LiveStory == false) {
+		return false
 	}
 	if !(g.Peer == nil) {
 		return false
@@ -82,9 +92,11 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) String() string {
 
 // FillFrom fills PhoneGetGroupCallStreamRtmpURLRequest from given interface.
 func (g *PhoneGetGroupCallStreamRtmpURLRequest) FillFrom(from interface {
+	GetLiveStory() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetRevoke() (value bool)
 }) {
+	g.LiveStory = from.GetLiveStory()
 	g.Peer = from.GetPeer()
 	g.Revoke = from.GetRevoke()
 }
@@ -113,6 +125,11 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "LiveStory",
+			SchemaName: "live_story",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -124,10 +141,17 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *PhoneGetGroupCallStreamRtmpURLRequest) SetFlags() {
+	if !(g.LiveStory == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupCallStreamRtmpURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCallStreamRtmpUrl#deb3abbf as nil")
+		return fmt.Errorf("can't encode phone.getGroupCallStreamRtmpUrl#5af4c73a as nil")
 	}
 	b.PutID(PhoneGetGroupCallStreamRtmpURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -136,13 +160,17 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PhoneGetGroupCallStreamRtmpURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupCallStreamRtmpUrl#deb3abbf as nil")
+		return fmt.Errorf("can't encode phone.getGroupCallStreamRtmpUrl#5af4c73a as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode phone.getGroupCallStreamRtmpUrl#5af4c73a: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode phone.getGroupCallStreamRtmpUrl#deb3abbf: field peer is nil")
+		return fmt.Errorf("unable to encode phone.getGroupCallStreamRtmpUrl#5af4c73a: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.getGroupCallStreamRtmpUrl#deb3abbf: field peer: %w", err)
+		return fmt.Errorf("unable to encode phone.getGroupCallStreamRtmpUrl#5af4c73a: field peer: %w", err)
 	}
 	b.PutBool(g.Revoke)
 	return nil
@@ -151,10 +179,10 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupCallStreamRtmpURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCallStreamRtmpUrl#deb3abbf to nil")
+		return fmt.Errorf("can't decode phone.getGroupCallStreamRtmpUrl#5af4c73a to nil")
 	}
 	if err := b.ConsumeID(PhoneGetGroupCallStreamRtmpURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#deb3abbf: %w", err)
+		return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#5af4c73a: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -162,23 +190,48 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PhoneGetGroupCallStreamRtmpURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupCallStreamRtmpUrl#deb3abbf to nil")
+		return fmt.Errorf("can't decode phone.getGroupCallStreamRtmpUrl#5af4c73a to nil")
 	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#5af4c73a: field flags: %w", err)
+		}
+	}
+	g.LiveStory = g.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#deb3abbf: field peer: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#5af4c73a: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#deb3abbf: field revoke: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupCallStreamRtmpUrl#5af4c73a: field revoke: %w", err)
 		}
 		g.Revoke = value
 	}
 	return nil
+}
+
+// SetLiveStory sets value of LiveStory conditional field.
+func (g *PhoneGetGroupCallStreamRtmpURLRequest) SetLiveStory(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.LiveStory = true
+	} else {
+		g.Flags.Unset(0)
+		g.LiveStory = false
+	}
+}
+
+// GetLiveStory returns value of LiveStory conditional field.
+func (g *PhoneGetGroupCallStreamRtmpURLRequest) GetLiveStory() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
@@ -197,7 +250,7 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) GetRevoke() (value bool) {
 	return g.Revoke
 }
 
-// PhoneGetGroupCallStreamRtmpURL invokes method phone.getGroupCallStreamRtmpUrl#deb3abbf returning error if any.
+// PhoneGetGroupCallStreamRtmpURL invokes method phone.getGroupCallStreamRtmpUrl#5af4c73a returning error if any.
 // Get RTMP URL and stream key for RTMP livestreams. Can be used even before creating the
 // actual RTMP livestream with phone.createGroupCall¹ (the rtmp_stream flag must be set).
 //

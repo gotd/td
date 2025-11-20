@@ -220,7 +220,7 @@ func (g *GroupCallDiscarded) GetDuration() (value int) {
 	return g.Duration
 }
 
-// GroupCall represents TL type `groupCall#553b0ba1`.
+// GroupCall represents TL type `groupCall#efb2b617`.
 // Info about a group call or livestream
 //
 // See https://core.telegram.org/constructor/groupCall for reference.
@@ -300,10 +300,18 @@ type GroupCall struct {
 	//
 	// Use SetInviteLink and GetInviteLink helpers.
 	InviteLink string
+	// SendPaidMessagesStars field of GroupCall.
+	//
+	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
+	SendPaidMessagesStars int64
+	// DefaultSendAs field of GroupCall.
+	//
+	// Use SetDefaultSendAs and GetDefaultSendAs helpers.
+	DefaultSendAs PeerClass
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
-const GroupCallTypeID = 0x553b0ba1
+const GroupCallTypeID = 0xefb2b617
 
 // construct implements constructor of GroupCallClass.
 func (g GroupCall) construct() GroupCallClass { return &g }
@@ -397,6 +405,12 @@ func (g *GroupCall) Zero() bool {
 	if !(g.InviteLink == "") {
 		return false
 	}
+	if !(g.SendPaidMessagesStars == 0) {
+		return false
+	}
+	if !(g.DefaultSendAs == nil) {
+		return false
+	}
 
 	return true
 }
@@ -436,6 +450,8 @@ func (g *GroupCall) FillFrom(from interface {
 	GetUnmutedVideoLimit() (value int)
 	GetVersion() (value int)
 	GetInviteLink() (value string, ok bool)
+	GetSendPaidMessagesStars() (value int64, ok bool)
+	GetDefaultSendAs() (value PeerClass, ok bool)
 }) {
 	g.JoinMuted = from.GetJoinMuted()
 	g.CanChangeJoinMuted = from.GetCanChangeJoinMuted()
@@ -477,6 +493,14 @@ func (g *GroupCall) FillFrom(from interface {
 	g.Version = from.GetVersion()
 	if val, ok := from.GetInviteLink(); ok {
 		g.InviteLink = val
+	}
+
+	if val, ok := from.GetSendPaidMessagesStars(); ok {
+		g.SendPaidMessagesStars = val
+	}
+
+	if val, ok := from.GetDefaultSendAs(); ok {
+		g.DefaultSendAs = val
 	}
 
 }
@@ -619,6 +643,16 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			SchemaName: "invite_link",
 			Null:       !g.Flags.Has(16),
 		},
+		{
+			Name:       "SendPaidMessagesStars",
+			SchemaName: "send_paid_messages_stars",
+			Null:       !g.Flags.Has(20),
+		},
+		{
+			Name:       "DefaultSendAs",
+			SchemaName: "default_send_as",
+			Null:       !g.Flags.Has(21),
+		},
 	}
 	return typ
 }
@@ -682,12 +716,18 @@ func (g *GroupCall) SetFlags() {
 	if !(g.InviteLink == "") {
 		g.Flags.Set(16)
 	}
+	if !(g.SendPaidMessagesStars == 0) {
+		g.Flags.Set(20)
+	}
+	if !(g.DefaultSendAs == nil) {
+		g.Flags.Set(21)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *GroupCall) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#553b0ba1 as nil")
+		return fmt.Errorf("can't encode groupCall#efb2b617 as nil")
 	}
 	b.PutID(GroupCallTypeID)
 	return g.EncodeBare(b)
@@ -696,11 +736,11 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#553b0ba1 as nil")
+		return fmt.Errorf("can't encode groupCall#efb2b617 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCall#553b0ba1: field flags: %w", err)
+		return fmt.Errorf("unable to encode groupCall#efb2b617: field flags: %w", err)
 	}
 	b.PutLong(g.ID)
 	b.PutLong(g.AccessHash)
@@ -725,16 +765,27 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if g.Flags.Has(16) {
 		b.PutString(g.InviteLink)
 	}
+	if g.Flags.Has(20) {
+		b.PutLong(g.SendPaidMessagesStars)
+	}
+	if g.Flags.Has(21) {
+		if g.DefaultSendAs == nil {
+			return fmt.Errorf("unable to encode groupCall#efb2b617: field default_send_as is nil")
+		}
+		if err := g.DefaultSendAs.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode groupCall#efb2b617: field default_send_as: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GroupCall) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#553b0ba1 to nil")
+		return fmt.Errorf("can't decode groupCall#efb2b617 to nil")
 	}
 	if err := b.ConsumeID(GroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCall#553b0ba1: %w", err)
+		return fmt.Errorf("unable to decode groupCall#efb2b617: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -742,11 +793,11 @@ func (g *GroupCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#553b0ba1 to nil")
+		return fmt.Errorf("can't decode groupCall#efb2b617 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field flags: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field flags: %w", err)
 		}
 	}
 	g.JoinMuted = g.Flags.Has(1)
@@ -765,79 +816,93 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field id: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field id: %w", err)
 		}
 		g.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field access_hash: %w", err)
 		}
 		g.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field participants_count: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field participants_count: %w", err)
 		}
 		g.ParticipantsCount = value
 	}
 	if g.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field title: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field title: %w", err)
 		}
 		g.Title = value
 	}
 	if g.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field stream_dc_id: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field stream_dc_id: %w", err)
 		}
 		g.StreamDCID = value
 	}
 	if g.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field record_start_date: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field record_start_date: %w", err)
 		}
 		g.RecordStartDate = value
 	}
 	if g.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field schedule_date: %w", err)
 		}
 		g.ScheduleDate = value
 	}
 	if g.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field unmuted_video_count: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field unmuted_video_count: %w", err)
 		}
 		g.UnmutedVideoCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field unmuted_video_limit: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field unmuted_video_limit: %w", err)
 		}
 		g.UnmutedVideoLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field version: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field version: %w", err)
 		}
 		g.Version = value
 	}
 	if g.Flags.Has(16) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#553b0ba1: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field invite_link: %w", err)
 		}
 		g.InviteLink = value
+	}
+	if g.Flags.Has(20) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field send_paid_messages_stars: %w", err)
+		}
+		g.SendPaidMessagesStars = value
+	}
+	if g.Flags.Has(21) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#efb2b617: field default_send_as: %w", err)
+		}
+		g.DefaultSendAs = value
 	}
 	return nil
 }
@@ -1237,6 +1302,42 @@ func (g *GroupCall) GetInviteLink() (value string, ok bool) {
 	return g.InviteLink, true
 }
 
+// SetSendPaidMessagesStars sets value of SendPaidMessagesStars conditional field.
+func (g *GroupCall) SetSendPaidMessagesStars(value int64) {
+	g.Flags.Set(20)
+	g.SendPaidMessagesStars = value
+}
+
+// GetSendPaidMessagesStars returns value of SendPaidMessagesStars conditional field and
+// boolean which is true if field was set.
+func (g *GroupCall) GetSendPaidMessagesStars() (value int64, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(20) {
+		return value, false
+	}
+	return g.SendPaidMessagesStars, true
+}
+
+// SetDefaultSendAs sets value of DefaultSendAs conditional field.
+func (g *GroupCall) SetDefaultSendAs(value PeerClass) {
+	g.Flags.Set(21)
+	g.DefaultSendAs = value
+}
+
+// GetDefaultSendAs returns value of DefaultSendAs conditional field and
+// boolean which is true if field was set.
+func (g *GroupCall) GetDefaultSendAs() (value PeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(21) {
+		return value, false
+	}
+	return g.DefaultSendAs, true
+}
+
 // GroupCallClassName is schema name of GroupCallClass.
 const GroupCallClassName = "GroupCall"
 
@@ -1256,7 +1357,7 @@ const GroupCallClassName = "GroupCall"
 //	}
 //	switch v := g.(type) {
 //	case *tg.GroupCallDiscarded: // groupCallDiscarded#7780bcb4
-//	case *tg.GroupCall: // groupCall#553b0ba1
+//	case *tg.GroupCall: // groupCall#efb2b617
 //	default: panic(v)
 //	}
 type GroupCallClass interface {
@@ -1308,7 +1409,7 @@ func DecodeGroupCall(buf *bin.Buffer) (GroupCallClass, error) {
 		}
 		return &v, nil
 	case GroupCallTypeID:
-		// Decoding groupCall#553b0ba1.
+		// Decoding groupCall#efb2b617.
 		v := GroupCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode GroupCallClass: %w", err)

@@ -48,6 +48,8 @@ type DisallowedGiftsSettings struct {
 	DisallowUniqueStargifts bool
 	// DisallowPremiumGifts field of DisallowedGiftsSettings.
 	DisallowPremiumGifts bool
+	// DisallowStargiftsFromChannels field of DisallowedGiftsSettings.
+	DisallowStargiftsFromChannels bool
 }
 
 // DisallowedGiftsSettingsTypeID is TL type id of DisallowedGiftsSettings.
@@ -80,6 +82,9 @@ func (d *DisallowedGiftsSettings) Zero() bool {
 	if !(d.DisallowPremiumGifts == false) {
 		return false
 	}
+	if !(d.DisallowStargiftsFromChannels == false) {
+		return false
+	}
 
 	return true
 }
@@ -99,11 +104,13 @@ func (d *DisallowedGiftsSettings) FillFrom(from interface {
 	GetDisallowLimitedStargifts() (value bool)
 	GetDisallowUniqueStargifts() (value bool)
 	GetDisallowPremiumGifts() (value bool)
+	GetDisallowStargiftsFromChannels() (value bool)
 }) {
 	d.DisallowUnlimitedStargifts = from.GetDisallowUnlimitedStargifts()
 	d.DisallowLimitedStargifts = from.GetDisallowLimitedStargifts()
 	d.DisallowUniqueStargifts = from.GetDisallowUniqueStargifts()
 	d.DisallowPremiumGifts = from.GetDisallowPremiumGifts()
+	d.DisallowStargiftsFromChannels = from.GetDisallowStargiftsFromChannels()
 }
 
 // TypeID returns type id in TL schema.
@@ -149,6 +156,11 @@ func (d *DisallowedGiftsSettings) TypeInfo() tdp.Type {
 			SchemaName: "disallow_premium_gifts",
 			Null:       !d.Flags.Has(3),
 		},
+		{
+			Name:       "DisallowStargiftsFromChannels",
+			SchemaName: "disallow_stargifts_from_channels",
+			Null:       !d.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -166,6 +178,9 @@ func (d *DisallowedGiftsSettings) SetFlags() {
 	}
 	if !(d.DisallowPremiumGifts == false) {
 		d.Flags.Set(3)
+	}
+	if !(d.DisallowStargiftsFromChannels == false) {
+		d.Flags.Set(4)
 	}
 }
 
@@ -215,6 +230,7 @@ func (d *DisallowedGiftsSettings) DecodeBare(b *bin.Buffer) error {
 	d.DisallowLimitedStargifts = d.Flags.Has(1)
 	d.DisallowUniqueStargifts = d.Flags.Has(2)
 	d.DisallowPremiumGifts = d.Flags.Has(3)
+	d.DisallowStargiftsFromChannels = d.Flags.Has(4)
 	return nil
 }
 
@@ -292,4 +308,23 @@ func (d *DisallowedGiftsSettings) GetDisallowPremiumGifts() (value bool) {
 		return
 	}
 	return d.Flags.Has(3)
+}
+
+// SetDisallowStargiftsFromChannels sets value of DisallowStargiftsFromChannels conditional field.
+func (d *DisallowedGiftsSettings) SetDisallowStargiftsFromChannels(value bool) {
+	if value {
+		d.Flags.Set(4)
+		d.DisallowStargiftsFromChannels = true
+	} else {
+		d.Flags.Unset(4)
+		d.DisallowStargiftsFromChannels = false
+	}
+}
+
+// GetDisallowStargiftsFromChannels returns value of DisallowStargiftsFromChannels conditional field.
+func (d *DisallowedGiftsSettings) GetDisallowStargiftsFromChannels() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(4)
 }

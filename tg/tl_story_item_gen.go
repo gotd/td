@@ -187,6 +187,8 @@ type StoryItemSkipped struct {
 	// Links:
 	//  1) https://core.telegram.org/api/privacy
 	CloseFriends bool
+	// Live field of StoryItemSkipped.
+	Live bool
 	// Story ID
 	ID int
 	// When was the story posted.
@@ -221,6 +223,9 @@ func (s *StoryItemSkipped) Zero() bool {
 	if !(s.CloseFriends == false) {
 		return false
 	}
+	if !(s.Live == false) {
+		return false
+	}
 	if !(s.ID == 0) {
 		return false
 	}
@@ -246,11 +251,13 @@ func (s *StoryItemSkipped) String() string {
 // FillFrom fills StoryItemSkipped from given interface.
 func (s *StoryItemSkipped) FillFrom(from interface {
 	GetCloseFriends() (value bool)
+	GetLive() (value bool)
 	GetID() (value int)
 	GetDate() (value int)
 	GetExpireDate() (value int)
 }) {
 	s.CloseFriends = from.GetCloseFriends()
+	s.Live = from.GetLive()
 	s.ID = from.GetID()
 	s.Date = from.GetDate()
 	s.ExpireDate = from.GetExpireDate()
@@ -285,6 +292,11 @@ func (s *StoryItemSkipped) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(8),
 		},
 		{
+			Name:       "Live",
+			SchemaName: "live",
+			Null:       !s.Flags.Has(9),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -304,6 +316,9 @@ func (s *StoryItemSkipped) TypeInfo() tdp.Type {
 func (s *StoryItemSkipped) SetFlags() {
 	if !(s.CloseFriends == false) {
 		s.Flags.Set(8)
+	}
+	if !(s.Live == false) {
+		s.Flags.Set(9)
 	}
 }
 
@@ -353,6 +368,7 @@ func (s *StoryItemSkipped) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	s.CloseFriends = s.Flags.Has(8)
+	s.Live = s.Flags.Has(9)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -394,6 +410,25 @@ func (s *StoryItemSkipped) GetCloseFriends() (value bool) {
 		return
 	}
 	return s.Flags.Has(8)
+}
+
+// SetLive sets value of Live conditional field.
+func (s *StoryItemSkipped) SetLive(value bool) {
+	if value {
+		s.Flags.Set(9)
+		s.Live = true
+	} else {
+		s.Flags.Unset(9)
+		s.Live = false
+	}
+}
+
+// GetLive returns value of Live conditional field.
+func (s *StoryItemSkipped) GetLive() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(9)
 }
 
 // GetID returns value of ID field.

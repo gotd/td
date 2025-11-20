@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesEditMessageRequest represents TL type `messages.editMessage#dfd14005`.
+// MessagesEditMessageRequest represents TL type `messages.editMessage#51e842e1`.
 // Edit message
 //
 // See https://core.telegram.org/method/messages.editMessage for reference.
@@ -76,6 +76,10 @@ type MessagesEditMessageRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
+	// ScheduleRepeatPeriod field of MessagesEditMessageRequest.
+	//
+	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
+	ScheduleRepeatPeriod int
 	// If specified, edits a quick reply shortcut message, instead »¹.
 	//
 	// Links:
@@ -86,7 +90,7 @@ type MessagesEditMessageRequest struct {
 }
 
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.
-const MessagesEditMessageRequestTypeID = 0xdfd14005
+const MessagesEditMessageRequestTypeID = 0x51e842e1
 
 // Ensuring interfaces in compile-time for MessagesEditMessageRequest.
 var (
@@ -130,6 +134,9 @@ func (e *MessagesEditMessageRequest) Zero() bool {
 	if !(e.ScheduleDate == 0) {
 		return false
 	}
+	if !(e.ScheduleRepeatPeriod == 0) {
+		return false
+	}
 	if !(e.QuickReplyShortcutID == 0) {
 		return false
 	}
@@ -157,6 +164,7 @@ func (e *MessagesEditMessageRequest) FillFrom(from interface {
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetScheduleDate() (value int, ok bool)
+	GetScheduleRepeatPeriod() (value int, ok bool)
 	GetQuickReplyShortcutID() (value int, ok bool)
 }) {
 	e.NoWebpage = from.GetNoWebpage()
@@ -181,6 +189,10 @@ func (e *MessagesEditMessageRequest) FillFrom(from interface {
 
 	if val, ok := from.GetScheduleDate(); ok {
 		e.ScheduleDate = val
+	}
+
+	if val, ok := from.GetScheduleRepeatPeriod(); ok {
+		e.ScheduleRepeatPeriod = val
 	}
 
 	if val, ok := from.GetQuickReplyShortcutID(); ok {
@@ -256,6 +268,11 @@ func (e *MessagesEditMessageRequest) TypeInfo() tdp.Type {
 			Null:       !e.Flags.Has(15),
 		},
 		{
+			Name:       "ScheduleRepeatPeriod",
+			SchemaName: "schedule_repeat_period",
+			Null:       !e.Flags.Has(18),
+		},
+		{
 			Name:       "QuickReplyShortcutID",
 			SchemaName: "quick_reply_shortcut_id",
 			Null:       !e.Flags.Has(17),
@@ -287,6 +304,9 @@ func (e *MessagesEditMessageRequest) SetFlags() {
 	if !(e.ScheduleDate == 0) {
 		e.Flags.Set(15)
 	}
+	if !(e.ScheduleRepeatPeriod == 0) {
+		e.Flags.Set(18)
+	}
 	if !(e.QuickReplyShortcutID == 0) {
 		e.Flags.Set(17)
 	}
@@ -295,7 +315,7 @@ func (e *MessagesEditMessageRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editMessage#dfd14005 as nil")
+		return fmt.Errorf("can't encode messages.editMessage#51e842e1 as nil")
 	}
 	b.PutID(MessagesEditMessageRequestTypeID)
 	return e.EncodeBare(b)
@@ -304,17 +324,17 @@ func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editMessage#dfd14005 as nil")
+		return fmt.Errorf("can't encode messages.editMessage#51e842e1 as nil")
 	}
 	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field flags: %w", err)
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field peer is nil")
+		return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field peer is nil")
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field peer: %w", err)
 	}
 	b.PutInt(e.ID)
 	if e.Flags.Has(11) {
@@ -322,33 +342,36 @@ func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if e.Flags.Has(14) {
 		if e.Media == nil {
-			return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field media is nil")
+			return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field media is nil")
 		}
 		if err := e.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field media: %w", err)
+			return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field media: %w", err)
 		}
 	}
 	if e.Flags.Has(2) {
 		if e.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field reply_markup is nil")
+			return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field reply_markup is nil")
 		}
 		if err := e.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field reply_markup: %w", err)
 		}
 	}
 	if e.Flags.Has(3) {
 		b.PutVectorHeader(len(e.Entities))
 		for idx, v := range e.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.editMessage#dfd14005: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messages.editMessage#51e842e1: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if e.Flags.Has(15) {
 		b.PutInt(e.ScheduleDate)
+	}
+	if e.Flags.Has(18) {
+		b.PutInt(e.ScheduleRepeatPeriod)
 	}
 	if e.Flags.Has(17) {
 		b.PutInt(e.QuickReplyShortcutID)
@@ -359,10 +382,10 @@ func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editMessage#dfd14005 to nil")
+		return fmt.Errorf("can't decode messages.editMessage#51e842e1 to nil")
 	}
 	if err := b.ConsumeID(MessagesEditMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editMessage#dfd14005: %w", err)
+		return fmt.Errorf("unable to decode messages.editMessage#51e842e1: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -370,11 +393,11 @@ func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editMessage#dfd14005 to nil")
+		return fmt.Errorf("can't decode messages.editMessage#51e842e1 to nil")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field flags: %w", err)
 		}
 	}
 	e.NoWebpage = e.Flags.Has(1)
@@ -382,42 +405,42 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field peer: %w", err)
 		}
 		e.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field id: %w", err)
 		}
 		e.ID = value
 	}
 	if e.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field message: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field message: %w", err)
 		}
 		e.Message = value
 	}
 	if e.Flags.Has(14) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field media: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field media: %w", err)
 		}
 		e.Media = value
 	}
 	if e.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field reply_markup: %w", err)
 		}
 		e.ReplyMarkup = value
 	}
 	if e.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field entities: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -426,7 +449,7 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field entities: %w", err)
+				return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field entities: %w", err)
 			}
 			e.Entities = append(e.Entities, value)
 		}
@@ -434,14 +457,21 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if e.Flags.Has(15) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field schedule_date: %w", err)
 		}
 		e.ScheduleDate = value
+	}
+	if e.Flags.Has(18) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field schedule_repeat_period: %w", err)
+		}
+		e.ScheduleRepeatPeriod = value
 	}
 	if e.Flags.Has(17) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#dfd14005: field quick_reply_shortcut_id: %w", err)
+			return fmt.Errorf("unable to decode messages.editMessage#51e842e1: field quick_reply_shortcut_id: %w", err)
 		}
 		e.QuickReplyShortcutID = value
 	}
@@ -592,6 +622,24 @@ func (e *MessagesEditMessageRequest) GetScheduleDate() (value int, ok bool) {
 	return e.ScheduleDate, true
 }
 
+// SetScheduleRepeatPeriod sets value of ScheduleRepeatPeriod conditional field.
+func (e *MessagesEditMessageRequest) SetScheduleRepeatPeriod(value int) {
+	e.Flags.Set(18)
+	e.ScheduleRepeatPeriod = value
+}
+
+// GetScheduleRepeatPeriod returns value of ScheduleRepeatPeriod conditional field and
+// boolean which is true if field was set.
+func (e *MessagesEditMessageRequest) GetScheduleRepeatPeriod() (value int, ok bool) {
+	if e == nil {
+		return
+	}
+	if !e.Flags.Has(18) {
+		return value, false
+	}
+	return e.ScheduleRepeatPeriod, true
+}
+
 // SetQuickReplyShortcutID sets value of QuickReplyShortcutID conditional field.
 func (e *MessagesEditMessageRequest) SetQuickReplyShortcutID(value int) {
 	e.Flags.Set(17)
@@ -618,7 +666,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 	return MessageEntityClassArray(e.Entities), true
 }
 
-// MessagesEditMessage invokes method messages.editMessage#dfd14005 returning error if any.
+// MessagesEditMessage invokes method messages.editMessage#51e842e1 returning error if any.
 // Edit message
 //
 // Possible errors:
