@@ -5109,6 +5109,198 @@ func (m *MessageMediaToDo) GetCompletions() (value []TodoCompletion, ok bool) {
 	return m.Completions, true
 }
 
+// MessageMediaVideoStream represents TL type `messageMediaVideoStream#ca5cab89`.
+//
+// See https://core.telegram.org/constructor/messageMediaVideoStream for reference.
+type MessageMediaVideoStream struct {
+	// Flags field of MessageMediaVideoStream.
+	Flags bin.Fields
+	// RtmpStream field of MessageMediaVideoStream.
+	RtmpStream bool
+	// Call field of MessageMediaVideoStream.
+	Call InputGroupCallClass
+}
+
+// MessageMediaVideoStreamTypeID is TL type id of MessageMediaVideoStream.
+const MessageMediaVideoStreamTypeID = 0xca5cab89
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaVideoStream) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaVideoStream.
+var (
+	_ bin.Encoder     = &MessageMediaVideoStream{}
+	_ bin.Decoder     = &MessageMediaVideoStream{}
+	_ bin.BareEncoder = &MessageMediaVideoStream{}
+	_ bin.BareDecoder = &MessageMediaVideoStream{}
+
+	_ MessageMediaClass = &MessageMediaVideoStream{}
+)
+
+func (m *MessageMediaVideoStream) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.RtmpStream == false) {
+		return false
+	}
+	if !(m.Call == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageMediaVideoStream) String() string {
+	if m == nil {
+		return "MessageMediaVideoStream(nil)"
+	}
+	type Alias MessageMediaVideoStream
+	return fmt.Sprintf("MessageMediaVideoStream%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaVideoStream from given interface.
+func (m *MessageMediaVideoStream) FillFrom(from interface {
+	GetRtmpStream() (value bool)
+	GetCall() (value InputGroupCallClass)
+}) {
+	m.RtmpStream = from.GetRtmpStream()
+	m.Call = from.GetCall()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageMediaVideoStream) TypeID() uint32 {
+	return MessageMediaVideoStreamTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageMediaVideoStream) TypeName() string {
+	return "messageMediaVideoStream"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaVideoStream) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaVideoStream",
+		ID:   MessageMediaVideoStreamTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RtmpStream",
+			SchemaName: "rtmp_stream",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaVideoStream) SetFlags() {
+	if !(m.RtmpStream == false) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageMediaVideoStream) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaVideoStream#ca5cab89 as nil")
+	}
+	b.PutID(MessageMediaVideoStreamTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaVideoStream) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaVideoStream#ca5cab89 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaVideoStream#ca5cab89: field flags: %w", err)
+	}
+	if m.Call == nil {
+		return fmt.Errorf("unable to encode messageMediaVideoStream#ca5cab89: field call is nil")
+	}
+	if err := m.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaVideoStream#ca5cab89: field call: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageMediaVideoStream) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaVideoStream#ca5cab89 to nil")
+	}
+	if err := b.ConsumeID(MessageMediaVideoStreamTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageMediaVideoStream#ca5cab89: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaVideoStream) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaVideoStream#ca5cab89 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaVideoStream#ca5cab89: field flags: %w", err)
+		}
+	}
+	m.RtmpStream = m.Flags.Has(0)
+	{
+		value, err := DecodeInputGroupCall(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaVideoStream#ca5cab89: field call: %w", err)
+		}
+		m.Call = value
+	}
+	return nil
+}
+
+// SetRtmpStream sets value of RtmpStream conditional field.
+func (m *MessageMediaVideoStream) SetRtmpStream(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.RtmpStream = true
+	} else {
+		m.Flags.Unset(0)
+		m.RtmpStream = false
+	}
+}
+
+// GetRtmpStream returns value of RtmpStream conditional field.
+func (m *MessageMediaVideoStream) GetRtmpStream() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// GetCall returns value of Call field.
+func (m *MessageMediaVideoStream) GetCall() (value InputGroupCallClass) {
+	if m == nil {
+		return
+	}
+	return m.Call
+}
+
 // MessageMediaClassName is schema name of MessageMediaClass.
 const MessageMediaClassName = "MessageMedia"
 
@@ -5135,6 +5327,7 @@ const MessageMediaClassName = "MessageMedia"
 //   - [MessageMediaGiveawayResults]
 //   - [MessageMediaPaidMedia]
 //   - [MessageMediaToDo]
+//   - [MessageMediaVideoStream]
 //
 // Example:
 //
@@ -5161,6 +5354,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#ceaa3ea1
 //	case *tg.MessageMediaPaidMedia: // messageMediaPaidMedia#a8852491
 //	case *tg.MessageMediaToDo: // messageMediaToDo#8a53b014
+//	case *tg.MessageMediaVideoStream: // messageMediaVideoStream#ca5cab89
 //	default: panic(v)
 //	}
 type MessageMediaClass interface {
@@ -5311,6 +5505,13 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 	case MessageMediaToDoTypeID:
 		// Decoding messageMediaToDo#8a53b014.
 		v := MessageMediaToDo{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
+		}
+		return &v, nil
+	case MessageMediaVideoStreamTypeID:
+		// Decoding messageMediaVideoStream#ca5cab89.
+		v := MessageMediaVideoStream{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
 		}

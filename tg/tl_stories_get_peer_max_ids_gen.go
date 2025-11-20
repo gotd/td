@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesGetPeerMaxIDsRequest represents TL type `stories.getPeerMaxIDs#535983c3`.
+// StoriesGetPeerMaxIDsRequest represents TL type `stories.getPeerMaxIDs#78499170`.
 // Get the IDs of the maximum read stories for a set of peers.
 //
 // See https://core.telegram.org/method/stories.getPeerMaxIDs for reference.
@@ -41,7 +41,7 @@ type StoriesGetPeerMaxIDsRequest struct {
 }
 
 // StoriesGetPeerMaxIDsRequestTypeID is TL type id of StoriesGetPeerMaxIDsRequest.
-const StoriesGetPeerMaxIDsRequestTypeID = 0x535983c3
+const StoriesGetPeerMaxIDsRequestTypeID = 0x78499170
 
 // Ensuring interfaces in compile-time for StoriesGetPeerMaxIDsRequest.
 var (
@@ -112,7 +112,7 @@ func (g *StoriesGetPeerMaxIDsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StoriesGetPeerMaxIDsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getPeerMaxIDs#535983c3 as nil")
+		return fmt.Errorf("can't encode stories.getPeerMaxIDs#78499170 as nil")
 	}
 	b.PutID(StoriesGetPeerMaxIDsRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,15 +121,15 @@ func (g *StoriesGetPeerMaxIDsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StoriesGetPeerMaxIDsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getPeerMaxIDs#535983c3 as nil")
+		return fmt.Errorf("can't encode stories.getPeerMaxIDs#78499170 as nil")
 	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.getPeerMaxIDs#535983c3: field id element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.getPeerMaxIDs#78499170: field id element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.getPeerMaxIDs#535983c3: field id element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.getPeerMaxIDs#78499170: field id element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -138,10 +138,10 @@ func (g *StoriesGetPeerMaxIDsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *StoriesGetPeerMaxIDsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getPeerMaxIDs#535983c3 to nil")
+		return fmt.Errorf("can't decode stories.getPeerMaxIDs#78499170 to nil")
 	}
 	if err := b.ConsumeID(StoriesGetPeerMaxIDsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.getPeerMaxIDs#535983c3: %w", err)
+		return fmt.Errorf("unable to decode stories.getPeerMaxIDs#78499170: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -149,12 +149,12 @@ func (g *StoriesGetPeerMaxIDsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StoriesGetPeerMaxIDsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getPeerMaxIDs#535983c3 to nil")
+		return fmt.Errorf("can't decode stories.getPeerMaxIDs#78499170 to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getPeerMaxIDs#535983c3: field id: %w", err)
+			return fmt.Errorf("unable to decode stories.getPeerMaxIDs#78499170: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -163,7 +163,7 @@ func (g *StoriesGetPeerMaxIDsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.getPeerMaxIDs#535983c3: field id: %w", err)
+				return fmt.Errorf("unable to decode stories.getPeerMaxIDs#78499170: field id: %w", err)
 			}
 			g.ID = append(g.ID, value)
 		}
@@ -184,12 +184,12 @@ func (g *StoriesGetPeerMaxIDsRequest) MapID() (value InputPeerClassArray) {
 	return InputPeerClassArray(g.ID)
 }
 
-// StoriesGetPeerMaxIDs invokes method stories.getPeerMaxIDs#535983c3 returning error if any.
+// StoriesGetPeerMaxIDs invokes method stories.getPeerMaxIDs#78499170 returning error if any.
 // Get the IDs of the maximum read stories for a set of peers.
 //
 // See https://core.telegram.org/method/stories.getPeerMaxIDs for reference.
-func (c *Client) StoriesGetPeerMaxIDs(ctx context.Context, id []InputPeerClass) ([]int, error) {
-	var result IntVector
+func (c *Client) StoriesGetPeerMaxIDs(ctx context.Context, id []InputPeerClass) ([]RecentStory, error) {
+	var result RecentStoryVector
 
 	request := &StoriesGetPeerMaxIDsRequest{
 		ID: id,
@@ -197,5 +197,5 @@ func (c *Client) StoriesGetPeerMaxIDs(ctx context.Context, id []InputPeerClass) 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return []int(result.Elems), nil
+	return []RecentStory(result.Elems), nil
 }

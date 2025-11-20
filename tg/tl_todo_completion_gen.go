@@ -31,20 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// TodoCompletion represents TL type `todoCompletion#4cc120b7`.
+// TodoCompletion represents TL type `todoCompletion#221bb5e4`.
 //
 // See https://core.telegram.org/constructor/todoCompletion for reference.
 type TodoCompletion struct {
 	// ID field of TodoCompletion.
 	ID int
 	// CompletedBy field of TodoCompletion.
-	CompletedBy int64
+	CompletedBy PeerClass
 	// Date field of TodoCompletion.
 	Date int
 }
 
 // TodoCompletionTypeID is TL type id of TodoCompletion.
-const TodoCompletionTypeID = 0x4cc120b7
+const TodoCompletionTypeID = 0x221bb5e4
 
 // Ensuring interfaces in compile-time for TodoCompletion.
 var (
@@ -61,7 +61,7 @@ func (t *TodoCompletion) Zero() bool {
 	if !(t.ID == 0) {
 		return false
 	}
-	if !(t.CompletedBy == 0) {
+	if !(t.CompletedBy == nil) {
 		return false
 	}
 	if !(t.Date == 0) {
@@ -83,7 +83,7 @@ func (t *TodoCompletion) String() string {
 // FillFrom fills TodoCompletion from given interface.
 func (t *TodoCompletion) FillFrom(from interface {
 	GetID() (value int)
-	GetCompletedBy() (value int64)
+	GetCompletedBy() (value PeerClass)
 	GetDate() (value int)
 }) {
 	t.ID = from.GetID()
@@ -133,7 +133,7 @@ func (t *TodoCompletion) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TodoCompletion) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode todoCompletion#4cc120b7 as nil")
+		return fmt.Errorf("can't encode todoCompletion#221bb5e4 as nil")
 	}
 	b.PutID(TodoCompletionTypeID)
 	return t.EncodeBare(b)
@@ -142,10 +142,15 @@ func (t *TodoCompletion) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TodoCompletion) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode todoCompletion#4cc120b7 as nil")
+		return fmt.Errorf("can't encode todoCompletion#221bb5e4 as nil")
 	}
 	b.PutInt(t.ID)
-	b.PutLong(t.CompletedBy)
+	if t.CompletedBy == nil {
+		return fmt.Errorf("unable to encode todoCompletion#221bb5e4: field completed_by is nil")
+	}
+	if err := t.CompletedBy.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode todoCompletion#221bb5e4: field completed_by: %w", err)
+	}
 	b.PutInt(t.Date)
 	return nil
 }
@@ -153,10 +158,10 @@ func (t *TodoCompletion) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TodoCompletion) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode todoCompletion#4cc120b7 to nil")
+		return fmt.Errorf("can't decode todoCompletion#221bb5e4 to nil")
 	}
 	if err := b.ConsumeID(TodoCompletionTypeID); err != nil {
-		return fmt.Errorf("unable to decode todoCompletion#4cc120b7: %w", err)
+		return fmt.Errorf("unable to decode todoCompletion#221bb5e4: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -164,26 +169,26 @@ func (t *TodoCompletion) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TodoCompletion) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode todoCompletion#4cc120b7 to nil")
+		return fmt.Errorf("can't decode todoCompletion#221bb5e4 to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode todoCompletion#4cc120b7: field id: %w", err)
+			return fmt.Errorf("unable to decode todoCompletion#221bb5e4: field id: %w", err)
 		}
 		t.ID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode todoCompletion#4cc120b7: field completed_by: %w", err)
+			return fmt.Errorf("unable to decode todoCompletion#221bb5e4: field completed_by: %w", err)
 		}
 		t.CompletedBy = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode todoCompletion#4cc120b7: field date: %w", err)
+			return fmt.Errorf("unable to decode todoCompletion#221bb5e4: field date: %w", err)
 		}
 		t.Date = value
 	}
@@ -199,7 +204,7 @@ func (t *TodoCompletion) GetID() (value int) {
 }
 
 // GetCompletedBy returns value of CompletedBy field.
-func (t *TodoCompletion) GetCompletedBy() (value int64) {
+func (t *TodoCompletion) GetCompletedBy() (value PeerClass) {
 	if t == nil {
 		return
 	}

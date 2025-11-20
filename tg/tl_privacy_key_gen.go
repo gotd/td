@@ -1375,6 +1375,107 @@ func (p *PrivacyKeyNoPaidMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PrivacyKeySavedMusic represents TL type `privacyKeySavedMusic#ff7a571b`.
+//
+// See https://core.telegram.org/constructor/privacyKeySavedMusic for reference.
+type PrivacyKeySavedMusic struct {
+}
+
+// PrivacyKeySavedMusicTypeID is TL type id of PrivacyKeySavedMusic.
+const PrivacyKeySavedMusicTypeID = 0xff7a571b
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeySavedMusic) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeySavedMusic.
+var (
+	_ bin.Encoder     = &PrivacyKeySavedMusic{}
+	_ bin.Decoder     = &PrivacyKeySavedMusic{}
+	_ bin.BareEncoder = &PrivacyKeySavedMusic{}
+	_ bin.BareDecoder = &PrivacyKeySavedMusic{}
+
+	_ PrivacyKeyClass = &PrivacyKeySavedMusic{}
+)
+
+func (p *PrivacyKeySavedMusic) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeySavedMusic) String() string {
+	if p == nil {
+		return "PrivacyKeySavedMusic(nil)"
+	}
+	type Alias PrivacyKeySavedMusic
+	return fmt.Sprintf("PrivacyKeySavedMusic%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrivacyKeySavedMusic) TypeID() uint32 {
+	return PrivacyKeySavedMusicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrivacyKeySavedMusic) TypeName() string {
+	return "privacyKeySavedMusic"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrivacyKeySavedMusic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "privacyKeySavedMusic",
+		ID:   PrivacyKeySavedMusicTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrivacyKeySavedMusic) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeySavedMusic#ff7a571b as nil")
+	}
+	b.PutID(PrivacyKeySavedMusicTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeySavedMusic) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeySavedMusic#ff7a571b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrivacyKeySavedMusic) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeySavedMusic#ff7a571b to nil")
+	}
+	if err := b.ConsumeID(PrivacyKeySavedMusicTypeID); err != nil {
+		return fmt.Errorf("unable to decode privacyKeySavedMusic#ff7a571b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeySavedMusic) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeySavedMusic#ff7a571b to nil")
+	}
+	return nil
+}
+
 // PrivacyKeyClassName is schema name of PrivacyKeyClass.
 const PrivacyKeyClassName = "PrivacyKey"
 
@@ -1396,6 +1497,7 @@ const PrivacyKeyClassName = "PrivacyKey"
 //   - [PrivacyKeyBirthday]
 //   - [PrivacyKeyStarGiftsAutoSave]
 //   - [PrivacyKeyNoPaidMessages]
+//   - [PrivacyKeySavedMusic]
 //
 // Example:
 //
@@ -1417,6 +1519,7 @@ const PrivacyKeyClassName = "PrivacyKey"
 //	case *tg.PrivacyKeyBirthday: // privacyKeyBirthday#2000a518
 //	case *tg.PrivacyKeyStarGiftsAutoSave: // privacyKeyStarGiftsAutoSave#2ca4fdf8
 //	case *tg.PrivacyKeyNoPaidMessages: // privacyKeyNoPaidMessages#17d348d2
+//	case *tg.PrivacyKeySavedMusic: // privacyKeySavedMusic#ff7a571b
 //	default: panic(v)
 //	}
 type PrivacyKeyClass interface {
@@ -1532,6 +1635,13 @@ func DecodePrivacyKey(buf *bin.Buffer) (PrivacyKeyClass, error) {
 	case PrivacyKeyNoPaidMessagesTypeID:
 		// Decoding privacyKeyNoPaidMessages#17d348d2.
 		v := PrivacyKeyNoPaidMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case PrivacyKeySavedMusicTypeID:
+		// Decoding privacyKeySavedMusic#ff7a571b.
+		v := PrivacyKeySavedMusic{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
 		}

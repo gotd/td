@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarGift represents TL type `starGift#80ac53c3`.
+// StarGift represents TL type `starGift#1b9a4d7f`.
 // Represents a star gift, see here »¹ for more info.
 //
 // Links:
@@ -56,6 +56,8 @@ type StarGift struct {
 	LimitedPerUser bool
 	// PeerColorAvailable field of StarGift.
 	PeerColorAvailable bool
+	// Auction field of StarGift.
+	Auction bool
 	// Identifier of the gift
 	ID int64
 	// Sticker¹ that represents the gift.
@@ -122,10 +124,18 @@ type StarGift struct {
 	//
 	// Use SetLockedUntilDate and GetLockedUntilDate helpers.
 	LockedUntilDate int
+	// AuctionSlug field of StarGift.
+	//
+	// Use SetAuctionSlug and GetAuctionSlug helpers.
+	AuctionSlug string
+	// GiftsPerRound field of StarGift.
+	//
+	// Use SetGiftsPerRound and GetGiftsPerRound helpers.
+	GiftsPerRound int
 }
 
 // StarGiftTypeID is TL type id of StarGift.
-const StarGiftTypeID = 0x80ac53c3
+const StarGiftTypeID = 0x1b9a4d7f
 
 // construct implements constructor of StarGiftClass.
 func (s StarGift) construct() StarGiftClass { return &s }
@@ -163,6 +173,9 @@ func (s *StarGift) Zero() bool {
 		return false
 	}
 	if !(s.PeerColorAvailable == false) {
+		return false
+	}
+	if !(s.Auction == false) {
 		return false
 	}
 	if !(s.ID == 0) {
@@ -213,6 +226,12 @@ func (s *StarGift) Zero() bool {
 	if !(s.LockedUntilDate == 0) {
 		return false
 	}
+	if !(s.AuctionSlug == "") {
+		return false
+	}
+	if !(s.GiftsPerRound == 0) {
+		return false
+	}
 
 	return true
 }
@@ -234,6 +253,7 @@ func (s *StarGift) FillFrom(from interface {
 	GetRequirePremium() (value bool)
 	GetLimitedPerUser() (value bool)
 	GetPeerColorAvailable() (value bool)
+	GetAuction() (value bool)
 	GetID() (value int64)
 	GetSticker() (value DocumentClass)
 	GetStars() (value int64)
@@ -250,6 +270,8 @@ func (s *StarGift) FillFrom(from interface {
 	GetPerUserTotal() (value int, ok bool)
 	GetPerUserRemains() (value int, ok bool)
 	GetLockedUntilDate() (value int, ok bool)
+	GetAuctionSlug() (value string, ok bool)
+	GetGiftsPerRound() (value int, ok bool)
 }) {
 	s.Limited = from.GetLimited()
 	s.SoldOut = from.GetSoldOut()
@@ -257,6 +279,7 @@ func (s *StarGift) FillFrom(from interface {
 	s.RequirePremium = from.GetRequirePremium()
 	s.LimitedPerUser = from.GetLimitedPerUser()
 	s.PeerColorAvailable = from.GetPeerColorAvailable()
+	s.Auction = from.GetAuction()
 	s.ID = from.GetID()
 	s.Sticker = from.GetSticker()
 	s.Stars = from.GetStars()
@@ -307,6 +330,14 @@ func (s *StarGift) FillFrom(from interface {
 
 	if val, ok := from.GetLockedUntilDate(); ok {
 		s.LockedUntilDate = val
+	}
+
+	if val, ok := from.GetAuctionSlug(); ok {
+		s.AuctionSlug = val
+	}
+
+	if val, ok := from.GetGiftsPerRound(); ok {
+		s.GiftsPerRound = val
 	}
 
 }
@@ -363,6 +394,11 @@ func (s *StarGift) TypeInfo() tdp.Type {
 			Name:       "PeerColorAvailable",
 			SchemaName: "peer_color_available",
 			Null:       !s.Flags.Has(10),
+		},
+		{
+			Name:       "Auction",
+			SchemaName: "auction",
+			Null:       !s.Flags.Has(11),
 		},
 		{
 			Name:       "ID",
@@ -440,6 +476,16 @@ func (s *StarGift) TypeInfo() tdp.Type {
 			SchemaName: "locked_until_date",
 			Null:       !s.Flags.Has(9),
 		},
+		{
+			Name:       "AuctionSlug",
+			SchemaName: "auction_slug",
+			Null:       !s.Flags.Has(11),
+		},
+		{
+			Name:       "GiftsPerRound",
+			SchemaName: "gifts_per_round",
+			Null:       !s.Flags.Has(11),
+		},
 	}
 	return typ
 }
@@ -463,6 +509,9 @@ func (s *StarGift) SetFlags() {
 	}
 	if !(s.PeerColorAvailable == false) {
 		s.Flags.Set(10)
+	}
+	if !(s.Auction == false) {
+		s.Flags.Set(11)
 	}
 	if !(s.AvailabilityRemains == 0) {
 		s.Flags.Set(0)
@@ -500,12 +549,18 @@ func (s *StarGift) SetFlags() {
 	if !(s.LockedUntilDate == 0) {
 		s.Flags.Set(9)
 	}
+	if !(s.AuctionSlug == "") {
+		s.Flags.Set(11)
+	}
+	if !(s.GiftsPerRound == 0) {
+		s.Flags.Set(11)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StarGift) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGift#80ac53c3 as nil")
+		return fmt.Errorf("can't encode starGift#1b9a4d7f as nil")
 	}
 	b.PutID(StarGiftTypeID)
 	return s.EncodeBare(b)
@@ -514,18 +569,18 @@ func (s *StarGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGift) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGift#80ac53c3 as nil")
+		return fmt.Errorf("can't encode starGift#1b9a4d7f as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGift#80ac53c3: field flags: %w", err)
+		return fmt.Errorf("unable to encode starGift#1b9a4d7f: field flags: %w", err)
 	}
 	b.PutLong(s.ID)
 	if s.Sticker == nil {
-		return fmt.Errorf("unable to encode starGift#80ac53c3: field sticker is nil")
+		return fmt.Errorf("unable to encode starGift#1b9a4d7f: field sticker is nil")
 	}
 	if err := s.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGift#80ac53c3: field sticker: %w", err)
+		return fmt.Errorf("unable to encode starGift#1b9a4d7f: field sticker: %w", err)
 	}
 	b.PutLong(s.Stars)
 	if s.Flags.Has(0) {
@@ -555,10 +610,10 @@ func (s *StarGift) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(6) {
 		if s.ReleasedBy == nil {
-			return fmt.Errorf("unable to encode starGift#80ac53c3: field released_by is nil")
+			return fmt.Errorf("unable to encode starGift#1b9a4d7f: field released_by is nil")
 		}
 		if err := s.ReleasedBy.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGift#80ac53c3: field released_by: %w", err)
+			return fmt.Errorf("unable to encode starGift#1b9a4d7f: field released_by: %w", err)
 		}
 	}
 	if s.Flags.Has(8) {
@@ -570,16 +625,22 @@ func (s *StarGift) EncodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(9) {
 		b.PutInt(s.LockedUntilDate)
 	}
+	if s.Flags.Has(11) {
+		b.PutString(s.AuctionSlug)
+	}
+	if s.Flags.Has(11) {
+		b.PutInt(s.GiftsPerRound)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGift) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGift#80ac53c3 to nil")
+		return fmt.Errorf("can't decode starGift#1b9a4d7f to nil")
 	}
 	if err := b.ConsumeID(StarGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGift#80ac53c3: %w", err)
+		return fmt.Errorf("unable to decode starGift#1b9a4d7f: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -587,11 +648,11 @@ func (s *StarGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGift) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGift#80ac53c3 to nil")
+		return fmt.Errorf("can't decode starGift#1b9a4d7f to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field flags: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field flags: %w", err)
 		}
 	}
 	s.Limited = s.Flags.Has(0)
@@ -600,117 +661,132 @@ func (s *StarGift) DecodeBare(b *bin.Buffer) error {
 	s.RequirePremium = s.Flags.Has(7)
 	s.LimitedPerUser = s.Flags.Has(8)
 	s.PeerColorAvailable = s.Flags.Has(10)
+	s.Auction = s.Flags.Has(11)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field id: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field sticker: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field sticker: %w", err)
 		}
 		s.Sticker = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field stars: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field stars: %w", err)
 		}
 		s.Stars = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field availability_remains: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field availability_remains: %w", err)
 		}
 		s.AvailabilityRemains = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field availability_total: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field availability_total: %w", err)
 		}
 		s.AvailabilityTotal = value
 	}
 	if s.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field availability_resale: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field availability_resale: %w", err)
 		}
 		s.AvailabilityResale = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field convert_stars: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field convert_stars: %w", err)
 		}
 		s.ConvertStars = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field first_sale_date: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field first_sale_date: %w", err)
 		}
 		s.FirstSaleDate = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field last_sale_date: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field last_sale_date: %w", err)
 		}
 		s.LastSaleDate = value
 	}
 	if s.Flags.Has(3) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field upgrade_stars: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field upgrade_stars: %w", err)
 		}
 		s.UpgradeStars = value
 	}
 	if s.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field resell_min_stars: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field resell_min_stars: %w", err)
 		}
 		s.ResellMinStars = value
 	}
 	if s.Flags.Has(5) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field title: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field title: %w", err)
 		}
 		s.Title = value
 	}
 	if s.Flags.Has(6) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field released_by: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field released_by: %w", err)
 		}
 		s.ReleasedBy = value
 	}
 	if s.Flags.Has(8) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field per_user_total: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field per_user_total: %w", err)
 		}
 		s.PerUserTotal = value
 	}
 	if s.Flags.Has(8) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field per_user_remains: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field per_user_remains: %w", err)
 		}
 		s.PerUserRemains = value
 	}
 	if s.Flags.Has(9) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGift#80ac53c3: field locked_until_date: %w", err)
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field locked_until_date: %w", err)
 		}
 		s.LockedUntilDate = value
+	}
+	if s.Flags.Has(11) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field auction_slug: %w", err)
+		}
+		s.AuctionSlug = value
+	}
+	if s.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGift#1b9a4d7f: field gifts_per_round: %w", err)
+		}
+		s.GiftsPerRound = value
 	}
 	return nil
 }
@@ -827,6 +903,25 @@ func (s *StarGift) GetPeerColorAvailable() (value bool) {
 		return
 	}
 	return s.Flags.Has(10)
+}
+
+// SetAuction sets value of Auction conditional field.
+func (s *StarGift) SetAuction(value bool) {
+	if value {
+		s.Flags.Set(11)
+		s.Auction = true
+	} else {
+		s.Flags.Unset(11)
+		s.Auction = false
+	}
+}
+
+// GetAuction returns value of Auction conditional field.
+func (s *StarGift) GetAuction() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(11)
 }
 
 // GetID returns value of ID field.
@@ -1075,6 +1170,42 @@ func (s *StarGift) GetLockedUntilDate() (value int, ok bool) {
 		return value, false
 	}
 	return s.LockedUntilDate, true
+}
+
+// SetAuctionSlug sets value of AuctionSlug conditional field.
+func (s *StarGift) SetAuctionSlug(value string) {
+	s.Flags.Set(11)
+	s.AuctionSlug = value
+}
+
+// GetAuctionSlug returns value of AuctionSlug conditional field and
+// boolean which is true if field was set.
+func (s *StarGift) GetAuctionSlug() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(11) {
+		return value, false
+	}
+	return s.AuctionSlug, true
+}
+
+// SetGiftsPerRound sets value of GiftsPerRound conditional field.
+func (s *StarGift) SetGiftsPerRound(value int) {
+	s.Flags.Set(11)
+	s.GiftsPerRound = value
+}
+
+// GetGiftsPerRound returns value of GiftsPerRound conditional field and
+// boolean which is true if field was set.
+func (s *StarGift) GetGiftsPerRound() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(11) {
+		return value, false
+	}
+	return s.GiftsPerRound, true
 }
 
 // StarGiftUnique represents TL type `starGiftUnique#b0bf741b`.
@@ -2146,7 +2277,7 @@ const StarGiftClassName = "StarGift"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.StarGift: // starGift#80ac53c3
+//	case *tg.StarGift: // starGift#1b9a4d7f
 //	case *tg.StarGiftUnique: // starGiftUnique#b0bf741b
 //	default: panic(v)
 //	}
@@ -2178,6 +2309,14 @@ type StarGiftClass interface {
 	GetReleasedBy() (value PeerClass, ok bool)
 }
 
+// AsInputStarGiftAuction tries to map StarGift to InputStarGiftAuction.
+func (s *StarGift) AsInputStarGiftAuction() *InputStarGiftAuction {
+	value := new(InputStarGiftAuction)
+	value.GiftID = s.GetID()
+
+	return value
+}
+
 // DecodeStarGift implements binary de-serialization for StarGiftClass.
 func DecodeStarGift(buf *bin.Buffer) (StarGiftClass, error) {
 	id, err := buf.PeekID()
@@ -2186,7 +2325,7 @@ func DecodeStarGift(buf *bin.Buffer) (StarGiftClass, error) {
 	}
 	switch id {
 	case StarGiftTypeID:
-		// Decoding starGift#80ac53c3.
+		// Decoding starGift#1b9a4d7f.
 		v := StarGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftClass: %w", err)

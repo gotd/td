@@ -1378,6 +1378,107 @@ func (i *InputPrivacyKeyNoPaidMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyKeySavedMusic represents TL type `inputPrivacyKeySavedMusic#4dbe9226`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeySavedMusic for reference.
+type InputPrivacyKeySavedMusic struct {
+}
+
+// InputPrivacyKeySavedMusicTypeID is TL type id of InputPrivacyKeySavedMusic.
+const InputPrivacyKeySavedMusicTypeID = 0x4dbe9226
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeySavedMusic) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeySavedMusic.
+var (
+	_ bin.Encoder     = &InputPrivacyKeySavedMusic{}
+	_ bin.Decoder     = &InputPrivacyKeySavedMusic{}
+	_ bin.BareEncoder = &InputPrivacyKeySavedMusic{}
+	_ bin.BareDecoder = &InputPrivacyKeySavedMusic{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeySavedMusic{}
+)
+
+func (i *InputPrivacyKeySavedMusic) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeySavedMusic) String() string {
+	if i == nil {
+		return "InputPrivacyKeySavedMusic(nil)"
+	}
+	type Alias InputPrivacyKeySavedMusic
+	return fmt.Sprintf("InputPrivacyKeySavedMusic%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyKeySavedMusic) TypeID() uint32 {
+	return InputPrivacyKeySavedMusicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyKeySavedMusic) TypeName() string {
+	return "inputPrivacyKeySavedMusic"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeySavedMusic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeySavedMusic",
+		ID:   InputPrivacyKeySavedMusicTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyKeySavedMusic) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeySavedMusic#4dbe9226 as nil")
+	}
+	b.PutID(InputPrivacyKeySavedMusicTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeySavedMusic) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeySavedMusic#4dbe9226 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyKeySavedMusic) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeySavedMusic#4dbe9226 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyKeySavedMusicTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyKeySavedMusic#4dbe9226: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeySavedMusic) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeySavedMusic#4dbe9226 to nil")
+	}
+	return nil
+}
+
 // InputPrivacyKeyClassName is schema name of InputPrivacyKeyClass.
 const InputPrivacyKeyClassName = "InputPrivacyKey"
 
@@ -1399,6 +1500,7 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 //   - [InputPrivacyKeyBirthday]
 //   - [InputPrivacyKeyStarGiftsAutoSave]
 //   - [InputPrivacyKeyNoPaidMessages]
+//   - [InputPrivacyKeySavedMusic]
 //
 // Example:
 //
@@ -1420,6 +1522,7 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 //	case *tg.InputPrivacyKeyBirthday: // inputPrivacyKeyBirthday#d65a11cc
 //	case *tg.InputPrivacyKeyStarGiftsAutoSave: // inputPrivacyKeyStarGiftsAutoSave#e1732341
 //	case *tg.InputPrivacyKeyNoPaidMessages: // inputPrivacyKeyNoPaidMessages#bdc597b4
+//	case *tg.InputPrivacyKeySavedMusic: // inputPrivacyKeySavedMusic#4dbe9226
 //	default: panic(v)
 //	}
 type InputPrivacyKeyClass interface {
@@ -1535,6 +1638,13 @@ func DecodeInputPrivacyKey(buf *bin.Buffer) (InputPrivacyKeyClass, error) {
 	case InputPrivacyKeyNoPaidMessagesTypeID:
 		// Decoding inputPrivacyKeyNoPaidMessages#bdc597b4.
 		v := InputPrivacyKeyNoPaidMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyKeySavedMusicTypeID:
+		// Decoding inputPrivacyKeySavedMusic#4dbe9226.
+		v := InputPrivacyKeySavedMusic{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
 		}

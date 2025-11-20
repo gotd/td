@@ -1575,3 +1575,33 @@ func (u UpdateDispatcher) OnPinnedForumTopics(handler PinnedForumTopicsHandler) 
 		return handler(ctx, e, update.(*UpdatePinnedForumTopics))
 	}
 }
+
+// DeleteGroupCallMessagesHandler is a DeleteGroupCallMessages event handler.
+type DeleteGroupCallMessagesHandler func(ctx context.Context, e Entities, update *UpdateDeleteGroupCallMessages) error
+
+// OnDeleteGroupCallMessages sets DeleteGroupCallMessages handler.
+func (u UpdateDispatcher) OnDeleteGroupCallMessages(handler DeleteGroupCallMessagesHandler) {
+	u.handlers[UpdateDeleteGroupCallMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDeleteGroupCallMessages))
+	}
+}
+
+// StarGiftAuctionStateHandler is a StarGiftAuctionState event handler.
+type StarGiftAuctionStateHandler func(ctx context.Context, e Entities, update *UpdateStarGiftAuctionState) error
+
+// OnStarGiftAuctionState sets StarGiftAuctionState handler.
+func (u UpdateDispatcher) OnStarGiftAuctionState(handler StarGiftAuctionStateHandler) {
+	u.handlers[UpdateStarGiftAuctionStateTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStarGiftAuctionState))
+	}
+}
+
+// StarGiftAuctionUserStateHandler is a StarGiftAuctionUserState event handler.
+type StarGiftAuctionUserStateHandler func(ctx context.Context, e Entities, update *UpdateStarGiftAuctionUserState) error
+
+// OnStarGiftAuctionUserState sets StarGiftAuctionUserState handler.
+func (u UpdateDispatcher) OnStarGiftAuctionUserState(handler StarGiftAuctionUserStateHandler) {
+	u.handlers[UpdateStarGiftAuctionUserStateTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStarGiftAuctionUserState))
+	}
+}

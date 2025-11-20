@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneToggleGroupCallSettingsRequest represents TL type `phone.toggleGroupCallSettings#e9723804`.
+// PhoneToggleGroupCallSettingsRequest represents TL type `phone.toggleGroupCallSettings#974392f2`.
 // Change group call settings
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
@@ -54,10 +54,14 @@ type PhoneToggleGroupCallSettingsRequest struct {
 	//
 	// Use SetMessagesEnabled and GetMessagesEnabled helpers.
 	MessagesEnabled bool
+	// SendPaidMessagesStars field of PhoneToggleGroupCallSettingsRequest.
+	//
+	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
+	SendPaidMessagesStars int64
 }
 
 // PhoneToggleGroupCallSettingsRequestTypeID is TL type id of PhoneToggleGroupCallSettingsRequest.
-const PhoneToggleGroupCallSettingsRequestTypeID = 0xe9723804
+const PhoneToggleGroupCallSettingsRequestTypeID = 0x974392f2
 
 // Ensuring interfaces in compile-time for PhoneToggleGroupCallSettingsRequest.
 var (
@@ -86,6 +90,9 @@ func (t *PhoneToggleGroupCallSettingsRequest) Zero() bool {
 	if !(t.MessagesEnabled == false) {
 		return false
 	}
+	if !(t.SendPaidMessagesStars == 0) {
+		return false
+	}
 
 	return true
 }
@@ -105,6 +112,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
 	GetCall() (value InputGroupCallClass)
 	GetJoinMuted() (value bool, ok bool)
 	GetMessagesEnabled() (value bool, ok bool)
+	GetSendPaidMessagesStars() (value int64, ok bool)
 }) {
 	t.ResetInviteHash = from.GetResetInviteHash()
 	t.Call = from.GetCall()
@@ -114,6 +122,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
 
 	if val, ok := from.GetMessagesEnabled(); ok {
 		t.MessagesEnabled = val
+	}
+
+	if val, ok := from.GetSendPaidMessagesStars(); ok {
+		t.SendPaidMessagesStars = val
 	}
 
 }
@@ -160,6 +172,11 @@ func (t *PhoneToggleGroupCallSettingsRequest) TypeInfo() tdp.Type {
 			SchemaName: "messages_enabled",
 			Null:       !t.Flags.Has(2),
 		},
+		{
+			Name:       "SendPaidMessagesStars",
+			SchemaName: "send_paid_messages_stars",
+			Null:       !t.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -175,12 +192,15 @@ func (t *PhoneToggleGroupCallSettingsRequest) SetFlags() {
 	if !(t.MessagesEnabled == false) {
 		t.Flags.Set(2)
 	}
+	if !(t.SendPaidMessagesStars == 0) {
+		t.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#e9723804 as nil")
+		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#974392f2 as nil")
 	}
 	b.PutID(PhoneToggleGroupCallSettingsRequestTypeID)
 	return t.EncodeBare(b)
@@ -189,17 +209,17 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#e9723804 as nil")
+		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#974392f2 as nil")
 	}
 	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#e9723804: field flags: %w", err)
+		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#974392f2: field flags: %w", err)
 	}
 	if t.Call == nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#e9723804: field call is nil")
+		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#974392f2: field call is nil")
 	}
 	if err := t.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#e9723804: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#974392f2: field call: %w", err)
 	}
 	if t.Flags.Has(0) {
 		b.PutBool(t.JoinMuted)
@@ -207,16 +227,19 @@ func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if t.Flags.Has(2) {
 		b.PutBool(t.MessagesEnabled)
 	}
+	if t.Flags.Has(3) {
+		b.PutLong(t.SendPaidMessagesStars)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#e9723804 to nil")
+		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#974392f2 to nil")
 	}
 	if err := b.ConsumeID(PhoneToggleGroupCallSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#e9723804: %w", err)
+		return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#974392f2: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -224,34 +247,41 @@ func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *PhoneToggleGroupCallSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#e9723804 to nil")
+		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#974392f2 to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#e9723804: field flags: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#974392f2: field flags: %w", err)
 		}
 	}
 	t.ResetInviteHash = t.Flags.Has(1)
 	{
 		value, err := DecodeInputGroupCall(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#e9723804: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#974392f2: field call: %w", err)
 		}
 		t.Call = value
 	}
 	if t.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#e9723804: field join_muted: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#974392f2: field join_muted: %w", err)
 		}
 		t.JoinMuted = value
 	}
 	if t.Flags.Has(2) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#e9723804: field messages_enabled: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#974392f2: field messages_enabled: %w", err)
 		}
 		t.MessagesEnabled = value
+	}
+	if t.Flags.Has(3) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#974392f2: field send_paid_messages_stars: %w", err)
+		}
+		t.SendPaidMessagesStars = value
 	}
 	return nil
 }
@@ -319,7 +349,25 @@ func (t *PhoneToggleGroupCallSettingsRequest) GetMessagesEnabled() (value bool, 
 	return t.MessagesEnabled, true
 }
 
-// PhoneToggleGroupCallSettings invokes method phone.toggleGroupCallSettings#e9723804 returning error if any.
+// SetSendPaidMessagesStars sets value of SendPaidMessagesStars conditional field.
+func (t *PhoneToggleGroupCallSettingsRequest) SetSendPaidMessagesStars(value int64) {
+	t.Flags.Set(3)
+	t.SendPaidMessagesStars = value
+}
+
+// GetSendPaidMessagesStars returns value of SendPaidMessagesStars conditional field and
+// boolean which is true if field was set.
+func (t *PhoneToggleGroupCallSettingsRequest) GetSendPaidMessagesStars() (value int64, ok bool) {
+	if t == nil {
+		return
+	}
+	if !t.Flags.Has(3) {
+		return value, false
+	}
+	return t.SendPaidMessagesStars, true
+}
+
+// PhoneToggleGroupCallSettings invokes method phone.toggleGroupCallSettings#974392f2 returning error if any.
 // Change group call settings
 //
 // Possible errors:
