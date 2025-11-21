@@ -31,7 +31,7 @@ jobs:
             test-${{ runner.os }}-go-
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Run tests with coverage
         run: make coverage
@@ -50,7 +50,7 @@ jobs:
       - test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Download artifact
         uses: actions/download-artifact@v6
