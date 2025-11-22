@@ -35,7 +35,7 @@ var (
 // Contains info about a forward of a story¹ as a message.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/publicForwardMessage for reference.
 type PublicForwardMessage struct {
@@ -178,7 +178,7 @@ func (p *PublicForwardMessage) GetMessage() (value MessageClass) {
 // Contains info about a forward of a story¹ as a repost by a public channel.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/publicForwardStory for reference.
 type PublicForwardStory struct {
@@ -357,20 +357,19 @@ const PublicForwardClassName = "PublicForward"
 // See https://core.telegram.org/type/PublicForward for reference.
 //
 // Constructors:
-//   - [PublicForwardMessage]
-//   - [PublicForwardStory]
+//  - [PublicForwardMessage]
+//  - [PublicForwardStory]
 //
 // Example:
-//
-//	g, err := tg.DecodePublicForward(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PublicForwardMessage: // publicForwardMessage#1f2bf4a
-//	case *tg.PublicForwardStory: // publicForwardStory#edf3add0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePublicForward(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PublicForwardMessage: // publicForwardMessage#1f2bf4a
+//  case *tg.PublicForwardStory: // publicForwardStory#edf3add0
+//  default: panic(v)
+//  }
 type PublicForwardClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -36,8 +36,8 @@ var (
 // updateDeleteQuickReplyMessages² update.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
 //
 // See https://core.telegram.org/method/messages.deleteQuickReplyMessages for reference.
 type MessagesDeleteQuickReplyMessagesRequest struct {
@@ -214,12 +214,11 @@ func (d *MessagesDeleteQuickReplyMessagesRequest) GetID() (value []int) {
 // updateDeleteQuickReplyMessages² update.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
 //
 // Possible errors:
-//
-//	400 SHORTCUT_INVALID: The specified shortcut is invalid.
+//  400 SHORTCUT_INVALID: The specified shortcut is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteQuickReplyMessages for reference.
 func (c *Client) MessagesDeleteQuickReplyMessages(ctx context.Context, request *MessagesDeleteQuickReplyMessagesRequest) (UpdatesClass, error) {

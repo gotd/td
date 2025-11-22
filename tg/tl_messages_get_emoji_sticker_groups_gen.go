@@ -35,7 +35,7 @@ var (
 // Represents a list of emoji categories¹, to be used when choosing a sticker.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
+//  1) https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/method/messages.getEmojiStickerGroups for reference.
 type MessagesGetEmojiStickerGroupsRequest struct {
@@ -171,7 +171,7 @@ func (g *MessagesGetEmojiStickerGroupsRequest) GetHash() (value int) {
 // Represents a list of emoji categories¹, to be used when choosing a sticker.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
+//  1) https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/method/messages.getEmojiStickerGroups for reference.
 func (c *Client) MessagesGetEmojiStickerGroups(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error) {

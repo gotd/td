@@ -428,20 +428,19 @@ const ChannelsChannelParticipantsClassName = "channels.ChannelParticipants"
 // See https://core.telegram.org/type/channels.ChannelParticipants for reference.
 //
 // Constructors:
-//   - [ChannelsChannelParticipants]
-//   - [ChannelsChannelParticipantsNotModified]
+//  - [ChannelsChannelParticipants]
+//  - [ChannelsChannelParticipantsNotModified]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelsChannelParticipants(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelsChannelParticipants: // channels.channelParticipants#9ab0feaf
-//	case *tg.ChannelsChannelParticipantsNotModified: // channels.channelParticipantsNotModified#f0173fe9
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelsChannelParticipants(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelsChannelParticipants: // channels.channelParticipants#9ab0feaf
+//  case *tg.ChannelsChannelParticipantsNotModified: // channels.channelParticipantsNotModified#f0173fe9
+//  default: panic(v)
+//  }
 type ChannelsChannelParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -444,22 +444,21 @@ const EmailVerificationClassName = "EmailVerification"
 // See https://core.telegram.org/type/EmailVerification for reference.
 //
 // Constructors:
-//   - [EmailVerificationCode]
-//   - [EmailVerificationGoogle]
-//   - [EmailVerificationApple]
+//  - [EmailVerificationCode]
+//  - [EmailVerificationGoogle]
+//  - [EmailVerificationApple]
 //
 // Example:
-//
-//	g, err := tg.DecodeEmailVerification(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EmailVerificationCode: // emailVerificationCode#922e55a9
-//	case *tg.EmailVerificationGoogle: // emailVerificationGoogle#db909ec2
-//	case *tg.EmailVerificationApple: // emailVerificationApple#96d074fd
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEmailVerification(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EmailVerificationCode: // emailVerificationCode#922e55a9
+//  case *tg.EmailVerificationGoogle: // emailVerificationGoogle#db909ec2
+//  case *tg.EmailVerificationApple: // emailVerificationApple#96d074fd
+//  default: panic(v)
+//  }
 type EmailVerificationClass interface {
 	bin.Encoder
 	bin.Decoder

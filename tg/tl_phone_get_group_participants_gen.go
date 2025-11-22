@@ -324,8 +324,7 @@ func (g *PhoneGetGroupParticipantsRequest) MapIDs() (value InputPeerClassArray) 
 // Get group call participants
 //
 // Possible errors:
-//
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 func (c *Client) PhoneGetGroupParticipants(ctx context.Context, request *PhoneGetGroupParticipantsRequest) (*PhoneGroupParticipants, error) {

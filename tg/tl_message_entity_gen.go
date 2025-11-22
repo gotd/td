@@ -204,8 +204,8 @@ func (m *MessageEntityUnknown) GetLength() (value int) {
 // be used to mention users by their ID.
 //
 // Links:
-//  1. https://core.telegram.org/api/mentions
-//  2. https://core.telegram.org/constructor/messageEntityMentionName
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/messageEntityMentionName
 //
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
@@ -713,9 +713,9 @@ func (m *MessageEntityBotCommand) GetLength() (value int) {
 // messageEntityTextUrl³.
 //
 // Links:
-//  1. https://google.com
-//  2. https://google.com
-//  3. https://core.telegram.org/constructor/messageEntityTextUrl
+//  1) https://google.com
+//  2) https://google.com
+//  3) https://core.telegram.org/constructor/messageEntityTextUrl
 //
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityURL struct {
@@ -886,7 +886,7 @@ func (m *MessageEntityURL) GetLength() (value int) {
 // Message entity representing an email@example.com¹.
 //
 // Links:
-//  1. https://core.telegram.orgmailto:email@example.com
+//  1) https://core.telegram.orgmailto:email@example.com
 //
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
@@ -1761,10 +1761,10 @@ func (m *MessageEntityPre) GetLanguage() (value string) {
 // the domain whitelist documentation »¹.
 //
 // Links:
-//  1. https://google.com
-//  2. https://google.com
-//  3. https://core.telegram.org/constructor/messageEntityUrl
-//  4. https://core.telegram.org/api/config#whitelisted-domains
+//  1) https://google.com
+//  2) https://google.com
+//  3) https://core.telegram.org/constructor/messageEntityUrl
+//  4) https://core.telegram.org/api/config#whitelisted-domains
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextURL struct {
@@ -1963,8 +1963,8 @@ func (m *MessageEntityTextURL) GetURL() (value string) {
 // inputMessageEntityMentionName².
 //
 // Links:
-//  1. https://core.telegram.org/api/mentions
-//  2. https://core.telegram.org/constructor/inputMessageEntityMentionName
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/inputMessageEntityMentionName
 //
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
@@ -2163,8 +2163,8 @@ func (m *MessageEntityMentionName) GetUserID() (value int64) {
 // the messageEntityMentionName² constructor, instead.
 //
 // Links:
-//  1. https://core.telegram.org/api/mentions
-//  2. https://core.telegram.org/constructor/messageEntityMentionName
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/messageEntityMentionName
 //
 // See https://core.telegram.org/constructor/inputMessageEntityMentionName for reference.
 type InputMessageEntityMentionName struct {
@@ -3378,7 +3378,7 @@ func (m *MessageEntitySpoiler) GetLength() (value int) {
 // ignore it.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/documentAttributeCustomEmoji
+//  1) https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/constructor/messageEntityCustomEmoji for reference.
 type MessageEntityCustomEmoji struct {
@@ -3809,58 +3809,57 @@ const MessageEntityClassName = "MessageEntity"
 // See https://core.telegram.org/type/MessageEntity for reference.
 //
 // Constructors:
-//   - [MessageEntityUnknown]
-//   - [MessageEntityMention]
-//   - [MessageEntityHashtag]
-//   - [MessageEntityBotCommand]
-//   - [MessageEntityURL]
-//   - [MessageEntityEmail]
-//   - [MessageEntityBold]
-//   - [MessageEntityItalic]
-//   - [MessageEntityCode]
-//   - [MessageEntityPre]
-//   - [MessageEntityTextURL]
-//   - [MessageEntityMentionName]
-//   - [InputMessageEntityMentionName]
-//   - [MessageEntityPhone]
-//   - [MessageEntityCashtag]
-//   - [MessageEntityUnderline]
-//   - [MessageEntityStrike]
-//   - [MessageEntityBankCard]
-//   - [MessageEntitySpoiler]
-//   - [MessageEntityCustomEmoji]
-//   - [MessageEntityBlockquote]
+//  - [MessageEntityUnknown]
+//  - [MessageEntityMention]
+//  - [MessageEntityHashtag]
+//  - [MessageEntityBotCommand]
+//  - [MessageEntityURL]
+//  - [MessageEntityEmail]
+//  - [MessageEntityBold]
+//  - [MessageEntityItalic]
+//  - [MessageEntityCode]
+//  - [MessageEntityPre]
+//  - [MessageEntityTextURL]
+//  - [MessageEntityMentionName]
+//  - [InputMessageEntityMentionName]
+//  - [MessageEntityPhone]
+//  - [MessageEntityCashtag]
+//  - [MessageEntityUnderline]
+//  - [MessageEntityStrike]
+//  - [MessageEntityBankCard]
+//  - [MessageEntitySpoiler]
+//  - [MessageEntityCustomEmoji]
+//  - [MessageEntityBlockquote]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessageEntity(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessageEntityUnknown: // messageEntityUnknown#bb92ba95
-//	case *tg.MessageEntityMention: // messageEntityMention#fa04579d
-//	case *tg.MessageEntityHashtag: // messageEntityHashtag#6f635b0d
-//	case *tg.MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
-//	case *tg.MessageEntityURL: // messageEntityUrl#6ed02538
-//	case *tg.MessageEntityEmail: // messageEntityEmail#64e475c2
-//	case *tg.MessageEntityBold: // messageEntityBold#bd610bc9
-//	case *tg.MessageEntityItalic: // messageEntityItalic#826f8b60
-//	case *tg.MessageEntityCode: // messageEntityCode#28a20571
-//	case *tg.MessageEntityPre: // messageEntityPre#73924be0
-//	case *tg.MessageEntityTextURL: // messageEntityTextUrl#76a6d327
-//	case *tg.MessageEntityMentionName: // messageEntityMentionName#dc7b1140
-//	case *tg.InputMessageEntityMentionName: // inputMessageEntityMentionName#208e68c9
-//	case *tg.MessageEntityPhone: // messageEntityPhone#9b69e34b
-//	case *tg.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
-//	case *tg.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
-//	case *tg.MessageEntityStrike: // messageEntityStrike#bf0693d4
-//	case *tg.MessageEntityBankCard: // messageEntityBankCard#761e6af4
-//	case *tg.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
-//	case *tg.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
-//	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#f1ccaaac
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessageEntity(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessageEntityUnknown: // messageEntityUnknown#bb92ba95
+//  case *tg.MessageEntityMention: // messageEntityMention#fa04579d
+//  case *tg.MessageEntityHashtag: // messageEntityHashtag#6f635b0d
+//  case *tg.MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
+//  case *tg.MessageEntityURL: // messageEntityUrl#6ed02538
+//  case *tg.MessageEntityEmail: // messageEntityEmail#64e475c2
+//  case *tg.MessageEntityBold: // messageEntityBold#bd610bc9
+//  case *tg.MessageEntityItalic: // messageEntityItalic#826f8b60
+//  case *tg.MessageEntityCode: // messageEntityCode#28a20571
+//  case *tg.MessageEntityPre: // messageEntityPre#73924be0
+//  case *tg.MessageEntityTextURL: // messageEntityTextUrl#76a6d327
+//  case *tg.MessageEntityMentionName: // messageEntityMentionName#dc7b1140
+//  case *tg.InputMessageEntityMentionName: // inputMessageEntityMentionName#208e68c9
+//  case *tg.MessageEntityPhone: // messageEntityPhone#9b69e34b
+//  case *tg.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
+//  case *tg.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
+//  case *tg.MessageEntityStrike: // messageEntityStrike#bf0693d4
+//  case *tg.MessageEntityBankCard: // messageEntityBankCard#761e6af4
+//  case *tg.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
+//  case *tg.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
+//  case *tg.MessageEntityBlockquote: // messageEntityBlockquote#f1ccaaac
+//  default: panic(v)
+//  }
 type MessageEntityClass interface {
 	bin.Encoder
 	bin.Decoder

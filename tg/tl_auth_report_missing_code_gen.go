@@ -225,8 +225,7 @@ func (r *AuthReportMissingCodeRequest) GetMnc() (value string) {
 // Official apps only, reports that the SMS authentication code wasn't delivered.
 //
 // Possible errors:
-//
-//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//  400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/auth.reportMissingCode for reference.
 func (c *Client) AuthReportMissingCode(ctx context.Context, request *AuthReportMissingCodeRequest) (bool, error) {

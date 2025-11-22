@@ -36,8 +36,8 @@ var (
 // set as custom emoji status².
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
-//  2. https://core.telegram.org/api
+//  1) https://core.telegram.org/api/emoji-categories
+//  2) https://core.telegram.org/api
 //
 // See https://core.telegram.org/method/messages.getEmojiStatusGroups for reference.
 type MessagesGetEmojiStatusGroupsRequest struct {
@@ -174,8 +174,8 @@ func (g *MessagesGetEmojiStatusGroupsRequest) GetHash() (value int) {
 // set as custom emoji status².
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
-//  2. https://core.telegram.org/api
+//  1) https://core.telegram.org/api/emoji-categories
+//  2) https://core.telegram.org/api
 //
 // See https://core.telegram.org/method/messages.getEmojiStatusGroups for reference.
 func (c *Client) MessagesGetEmojiStatusGroups(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error) {

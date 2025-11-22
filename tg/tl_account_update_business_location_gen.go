@@ -38,8 +38,8 @@ var (
 // parameters.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#location
-//  2. https://core.telegram.org/api/business#location
+//  1) https://core.telegram.org/api/business#location
+//  2) https://core.telegram.org/api/business#location
 //
 // See https://core.telegram.org/method/account.updateBusinessLocation for reference.
 type AccountUpdateBusinessLocationRequest struct {
@@ -280,8 +280,8 @@ func (u *AccountUpdateBusinessLocationRequest) GetGeoPointAsNotEmpty() (*InputGe
 // parameters.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#location
-//  2. https://core.telegram.org/api/business#location
+//  1) https://core.telegram.org/api/business#location
+//  2) https://core.telegram.org/api/business#location
 //
 // See https://core.telegram.org/method/account.updateBusinessLocation for reference.
 func (c *Client) AccountUpdateBusinessLocation(ctx context.Context, request *AccountUpdateBusinessLocationRequest) (bool, error) {

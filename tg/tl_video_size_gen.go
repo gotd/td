@@ -35,7 +35,7 @@ var (
 // An animated profile picture¹ in MPEG4 format
 //
 // Links:
-//  1. https://core.telegram.org/api/files#animated-profile-pictures
+//  1) https://core.telegram.org/api/files#animated-profile-pictures
 //
 // See https://core.telegram.org/constructor/videoSize for reference.
 type VideoSize struct {
@@ -323,8 +323,8 @@ func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
 // An animated profile picture¹ based on a custom emoji sticker².
 //
 // Links:
-//  1. https://core.telegram.org/api/files#animated-profile-pictures
-//  2. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/files#animated-profile-pictures
+//  2) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/videoSizeEmojiMarkup for reference.
 type VideoSizeEmojiMarkup struct {
@@ -511,8 +511,8 @@ func (v *VideoSizeEmojiMarkup) GetBackgroundColors() (value []int) {
 // An animated profile picture¹ based on a sticker².
 //
 // Links:
-//  1. https://core.telegram.org/api/files#animated-profile-pictures
-//  2. https://core.telegram.org/api/stickers
+//  1) https://core.telegram.org/api/files#animated-profile-pictures
+//  2) https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/constructor/videoSizeStickerMarkup for reference.
 type VideoSizeStickerMarkup struct {
@@ -731,22 +731,21 @@ const VideoSizeClassName = "VideoSize"
 // See https://core.telegram.org/type/VideoSize for reference.
 //
 // Constructors:
-//   - [VideoSize]
-//   - [VideoSizeEmojiMarkup]
-//   - [VideoSizeStickerMarkup]
+//  - [VideoSize]
+//  - [VideoSizeEmojiMarkup]
+//  - [VideoSizeStickerMarkup]
 //
 // Example:
-//
-//	g, err := tg.DecodeVideoSize(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.VideoSize: // videoSize#de33b094
-//	case *tg.VideoSizeEmojiMarkup: // videoSizeEmojiMarkup#f85c413c
-//	case *tg.VideoSizeStickerMarkup: // videoSizeStickerMarkup#da082fe
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeVideoSize(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.VideoSize: // videoSize#de33b094
+//  case *tg.VideoSizeEmojiMarkup: // videoSizeEmojiMarkup#f85c413c
+//  case *tg.VideoSizeStickerMarkup: // videoSizeStickerMarkup#da082fe
+//  default: panic(v)
+//  }
 type VideoSizeClass interface {
 	bin.Encoder
 	bin.Decoder

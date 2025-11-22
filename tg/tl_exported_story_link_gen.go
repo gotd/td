@@ -35,7 +35,7 @@ var (
 // Represents a story deep link¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#story-links
+//  1) https://core.telegram.org/api/stories#story-links
 //
 // See https://core.telegram.org/constructor/exportedStoryLink for reference.
 type ExportedStoryLink struct {

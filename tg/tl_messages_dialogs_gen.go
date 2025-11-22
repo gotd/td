@@ -817,22 +817,21 @@ const MessagesDialogsClassName = "messages.Dialogs"
 // See https://core.telegram.org/type/messages.Dialogs for reference.
 //
 // Constructors:
-//   - [MessagesDialogs]
-//   - [MessagesDialogsSlice]
-//   - [MessagesDialogsNotModified]
+//  - [MessagesDialogs]
+//  - [MessagesDialogsSlice]
+//  - [MessagesDialogsNotModified]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesDialogs(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesDialogs: // messages.dialogs#15ba6c40
-//	case *tg.MessagesDialogsSlice: // messages.dialogsSlice#71e094f3
-//	case *tg.MessagesDialogsNotModified: // messages.dialogsNotModified#f0e3e596
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesDialogs(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesDialogs: // messages.dialogs#15ba6c40
+//  case *tg.MessagesDialogsSlice: // messages.dialogsSlice#71e094f3
+//  case *tg.MessagesDialogsNotModified: // messages.dialogsNotModified#f0e3e596
+//  default: panic(v)
+//  }
 type MessagesDialogsClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -440,8 +440,8 @@ func (i *InputStorePaymentGiftPremium) GetAmount() (value int64) {
 // giveaways and gifts.
 //
 // Links:
-//  1. https://core.telegram.org/api/premium
-//  2. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/premium
+//  2) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumGiftCode for reference.
 type InputStorePaymentPremiumGiftCode struct {
@@ -798,7 +798,7 @@ func (i *InputStorePaymentPremiumGiftCode) MapUsers() (value InputUserClassArray
 // Used to pay for a giveaway, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumGiveaway for reference.
 type InputStorePaymentPremiumGiveaway struct {
@@ -1354,7 +1354,7 @@ func (i *InputStorePaymentPremiumGiveaway) MapAdditionalPeers() (value InputPeer
 // Used to top up the Telegram Stars balance¹ of the current account.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsTopup for reference.
 type InputStorePaymentStarsTopup struct {
@@ -1626,7 +1626,7 @@ func (i *InputStorePaymentStarsTopup) GetSpendPurposePeer() (value InputPeerClas
 // Used to gift Telegram Stars¹ to a friend.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsGift for reference.
 type InputStorePaymentStarsGift struct {
@@ -1859,7 +1859,7 @@ func (i *InputStorePaymentStarsGift) GetAmount() (value int64) {
 // Used to pay for a star giveaway, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways#star-giveaways
+//  1) https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsGiveaway for reference.
 type InputStorePaymentStarsGiveaway struct {
@@ -2745,32 +2745,31 @@ const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 // See https://core.telegram.org/type/InputStorePaymentPurpose for reference.
 //
 // Constructors:
-//   - [InputStorePaymentPremiumSubscription]
-//   - [InputStorePaymentGiftPremium]
-//   - [InputStorePaymentPremiumGiftCode]
-//   - [InputStorePaymentPremiumGiveaway]
-//   - [InputStorePaymentStarsTopup]
-//   - [InputStorePaymentStarsGift]
-//   - [InputStorePaymentStarsGiveaway]
-//   - [InputStorePaymentAuthCode]
+//  - [InputStorePaymentPremiumSubscription]
+//  - [InputStorePaymentGiftPremium]
+//  - [InputStorePaymentPremiumGiftCode]
+//  - [InputStorePaymentPremiumGiveaway]
+//  - [InputStorePaymentStarsTopup]
+//  - [InputStorePaymentStarsGift]
+//  - [InputStorePaymentStarsGiveaway]
+//  - [InputStorePaymentAuthCode]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputStorePaymentPurpose(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputStorePaymentPremiumSubscription: // inputStorePaymentPremiumSubscription#a6751e66
-//	case *tg.InputStorePaymentGiftPremium: // inputStorePaymentGiftPremium#616f7fe8
-//	case *tg.InputStorePaymentPremiumGiftCode: // inputStorePaymentPremiumGiftCode#fb790393
-//	case *tg.InputStorePaymentPremiumGiveaway: // inputStorePaymentPremiumGiveaway#160544ca
-//	case *tg.InputStorePaymentStarsTopup: // inputStorePaymentStarsTopup#f9a2a6cb
-//	case *tg.InputStorePaymentStarsGift: // inputStorePaymentStarsGift#1d741ef7
-//	case *tg.InputStorePaymentStarsGiveaway: // inputStorePaymentStarsGiveaway#751f08fa
-//	case *tg.InputStorePaymentAuthCode: // inputStorePaymentAuthCode#9bb2636d
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputStorePaymentPurpose(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputStorePaymentPremiumSubscription: // inputStorePaymentPremiumSubscription#a6751e66
+//  case *tg.InputStorePaymentGiftPremium: // inputStorePaymentGiftPremium#616f7fe8
+//  case *tg.InputStorePaymentPremiumGiftCode: // inputStorePaymentPremiumGiftCode#fb790393
+//  case *tg.InputStorePaymentPremiumGiveaway: // inputStorePaymentPremiumGiveaway#160544ca
+//  case *tg.InputStorePaymentStarsTopup: // inputStorePaymentStarsTopup#f9a2a6cb
+//  case *tg.InputStorePaymentStarsGift: // inputStorePaymentStarsGift#1d741ef7
+//  case *tg.InputStorePaymentStarsGiveaway: // inputStorePaymentStarsGiveaway#751f08fa
+//  case *tg.InputStorePaymentAuthCode: // inputStorePaymentAuthCode#9bb2636d
+//  default: panic(v)
+//  }
 type InputStorePaymentPurposeClass interface {
 	bin.Encoder
 	bin.Decoder

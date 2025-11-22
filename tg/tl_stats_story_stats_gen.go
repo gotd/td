@@ -35,8 +35,8 @@ var (
 // Contains statistics¹ about a story².
 //
 // Links:
-//  1. https://core.telegram.org/api/stats
-//  2. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stats
+//  2) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stats.storyStats for reference.
 type StatsStoryStats struct {

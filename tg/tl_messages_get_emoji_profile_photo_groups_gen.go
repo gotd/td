@@ -36,8 +36,8 @@ var (
 // set as profile picture².
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
-//  2. https://core.telegram.org/api/files#sticker-profile-pictures
+//  1) https://core.telegram.org/api/emoji-categories
+//  2) https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/messages.getEmojiProfilePhotoGroups for reference.
 type MessagesGetEmojiProfilePhotoGroupsRequest struct {
@@ -174,8 +174,8 @@ func (g *MessagesGetEmojiProfilePhotoGroupsRequest) GetHash() (value int) {
 // set as profile picture².
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
-//  2. https://core.telegram.org/api/files#sticker-profile-pictures
+//  1) https://core.telegram.org/api/emoji-categories
+//  2) https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/messages.getEmojiProfilePhotoGroups for reference.
 func (c *Client) MessagesGetEmojiProfilePhotoGroups(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error) {

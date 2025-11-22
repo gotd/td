@@ -132,8 +132,7 @@ func (g *HelpGetSupportNameRequest) DecodeBare(b *bin.Buffer) error {
 // Get localized name of the telegram support user
 //
 // Possible errors:
-//
-//	403 USER_INVALID: Invalid user provided.
+//  403 USER_INVALID: Invalid user provided.
 //
 // See https://core.telegram.org/method/help.getSupportName for reference.
 func (c *Client) HelpGetSupportName(ctx context.Context) (*HelpSupportName, error) {

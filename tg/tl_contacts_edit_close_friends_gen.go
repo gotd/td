@@ -35,7 +35,7 @@ var (
 // Edit the close friends list, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/privacy
+//  1) https://core.telegram.org/api/privacy
 //
 // See https://core.telegram.org/method/contacts.editCloseFriends for reference.
 type ContactsEditCloseFriendsRequest struct {
@@ -184,7 +184,7 @@ func (e *ContactsEditCloseFriendsRequest) GetID() (value []int64) {
 // Edit the close friends list, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/privacy
+//  1) https://core.telegram.org/api/privacy
 //
 // See https://core.telegram.org/method/contacts.editCloseFriends for reference.
 func (c *Client) ContactsEditCloseFriends(ctx context.Context, id []int64) (bool, error) {

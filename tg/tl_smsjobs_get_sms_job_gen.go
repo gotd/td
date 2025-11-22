@@ -165,8 +165,7 @@ func (g *SMSJobsGetSMSJobRequest) GetJobID() (value string) {
 // Get info about an SMS job (official clients only).
 //
 // Possible errors:
-//
-//	400 SMSJOB_ID_INVALID: The specified job ID is invalid.
+//  400 SMSJOB_ID_INVALID: The specified job ID is invalid.
 //
 // See https://core.telegram.org/method/smsjobs.getSmsJob for reference.
 func (c *Client) SMSJobsGetSMSJob(ctx context.Context, jobid string) (*SMSJob, error) {

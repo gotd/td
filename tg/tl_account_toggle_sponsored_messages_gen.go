@@ -37,8 +37,8 @@ var (
 // the Telegram ad platform »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/premium
-//  2. https://ads.telegram.org
+//  1) https://core.telegram.org/api/premium
+//  2) https://ads.telegram.org
 //
 // See https://core.telegram.org/method/account.toggleSponsoredMessages for reference.
 type AccountToggleSponsoredMessagesRequest struct {
@@ -173,8 +173,8 @@ func (t *AccountToggleSponsoredMessagesRequest) GetEnabled() (value bool) {
 // the Telegram ad platform »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/premium
-//  2. https://ads.telegram.org
+//  1) https://core.telegram.org/api/premium
+//  2) https://ads.telegram.org
 //
 // See https://core.telegram.org/method/account.toggleSponsoredMessages for reference.
 func (c *Client) AccountToggleSponsoredMessages(ctx context.Context, enabled bool) (bool, error) {

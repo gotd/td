@@ -35,7 +35,7 @@ var (
 // Reaction notification settings, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#notifications-about-reactions
+//  1) https://core.telegram.org/api/reactions#notifications-about-reactions
 //
 // See https://core.telegram.org/constructor/reactionsNotifySettings for reference.
 type ReactionsNotifySettings struct {

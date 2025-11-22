@@ -36,9 +36,9 @@ var (
 // web_app_send_prepared_message events³
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
-//  2. https://core.telegram.org/api/bots/webapps
-//  3. https://core.telegram.org/api/web-events#web-app-send-prepared-message
+//  1) https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
+//  2) https://core.telegram.org/api/bots/webapps
+//  3) https://core.telegram.org/api/web-events#web-app-send-prepared-message
 //
 // See https://core.telegram.org/method/messages.getPreparedInlineMessage for reference.
 type MessagesGetPreparedInlineMessageRequest struct {
@@ -210,14 +210,13 @@ func (g *MessagesGetPreparedInlineMessageRequest) GetID() (value string) {
 // web_app_send_prepared_message events³
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
-//  2. https://core.telegram.org/api/bots/webapps
-//  3. https://core.telegram.org/api/web-events#web-app-send-prepared-message
+//  1) https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
+//  2) https://core.telegram.org/api/bots/webapps
+//  3) https://core.telegram.org/api/web-events#web-app-send-prepared-message
 //
 // Possible errors:
-//
-//	400 ID_EXPIRED: The passed prepared inline message ID has expired.
-//	400 ID_INVALID: The passed ID is invalid.
+//  400 ID_EXPIRED: The passed prepared inline message ID has expired.
+//  400 ID_INVALID: The passed ID is invalid.
 //
 // See https://core.telegram.org/method/messages.getPreparedInlineMessage for reference.
 func (c *Client) MessagesGetPreparedInlineMessage(ctx context.Context, request *MessagesGetPreparedInlineMessageRequest) (*MessagesPreparedInlineMessage, error) {

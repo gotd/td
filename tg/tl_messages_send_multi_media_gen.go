@@ -35,7 +35,7 @@ var (
 // Send an album or grouped media¹
 //
 // Links:
-//  1. https://core.telegram.org/api/files#albums-grouped-media
+//  1) https://core.telegram.org/api/files#albums-grouped-media
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 type MessagesSendMultiMediaRequest struct {
@@ -811,40 +811,39 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 // Send an album or grouped media¹
 //
 // Links:
-//  1. https://core.telegram.org/api/files#albums-grouped-media
+//  1) https://core.telegram.org/api/files#albums-grouped-media
 //
 // Possible errors:
-//
-//	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
-//	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
-//	403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
-//	403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
-//	400 FILE_REFERENCE_%d_EXPIRED: The file reference of the media file at index %d in the passed media array expired, it must be refreshed.
-//	400 FILE_REFERENCE_%d_INVALID: The file reference of the media file at index %d in the passed media array is invalid.
-//	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
-//	400 MEDIA_EMPTY: The provided media object is invalid.
-//	400 MEDIA_INVALID: Media invalid.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
-//	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
-//	400 RANDOM_ID_EMPTY: Random ID empty.
-//	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
-//	400 REPLY_TO_INVALID: The specified reply_to field is invalid.
-//	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
-//	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
-//	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
-//	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
-//	400 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
-//	400 TOPIC_DELETED: The specified topic was deleted.
-//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//  400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
+//  403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
+//  403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
+//  403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//  400 FILE_REFERENCE_%d_EXPIRED: The file reference of the media file at index %d in the passed media array expired, it must be refreshed.
+//  400 FILE_REFERENCE_%d_INVALID: The file reference of the media file at index %d in the passed media array is invalid.
+//  400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
+//  400 MEDIA_EMPTY: The provided media object is invalid.
+//  400 MEDIA_INVALID: Media invalid.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
+//  500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
+//  400 RANDOM_ID_EMPTY: Random ID empty.
+//  400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
+//  400 REPLY_TO_INVALID: The specified reply_to field is invalid.
+//  400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
+//  400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
+//  400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
+//  420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//  400 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
+//  400 TOPIC_DELETED: The specified topic was deleted.
+//  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 // Can be used by bots.

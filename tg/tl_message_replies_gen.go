@@ -35,7 +35,7 @@ var (
 // Info about the comment section of a channel post, or a simple message thread¹
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/messageReplies for reference.
 type MessageReplies struct {

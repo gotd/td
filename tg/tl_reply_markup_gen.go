@@ -982,24 +982,23 @@ const ReplyMarkupClassName = "ReplyMarkup"
 // See https://core.telegram.org/type/ReplyMarkup for reference.
 //
 // Constructors:
-//   - [ReplyKeyboardHide]
-//   - [ReplyKeyboardForceReply]
-//   - [ReplyKeyboardMarkup]
-//   - [ReplyInlineMarkup]
+//  - [ReplyKeyboardHide]
+//  - [ReplyKeyboardForceReply]
+//  - [ReplyKeyboardMarkup]
+//  - [ReplyInlineMarkup]
 //
 // Example:
-//
-//	g, err := tg.DecodeReplyMarkup(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ReplyKeyboardHide: // replyKeyboardHide#a03e5b85
-//	case *tg.ReplyKeyboardForceReply: // replyKeyboardForceReply#86b40b08
-//	case *tg.ReplyKeyboardMarkup: // replyKeyboardMarkup#85dd99d1
-//	case *tg.ReplyInlineMarkup: // replyInlineMarkup#48a30254
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeReplyMarkup(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ReplyKeyboardHide: // replyKeyboardHide#a03e5b85
+//  case *tg.ReplyKeyboardForceReply: // replyKeyboardForceReply#86b40b08
+//  case *tg.ReplyKeyboardMarkup: // replyKeyboardMarkup#85dd99d1
+//  case *tg.ReplyInlineMarkup: // replyInlineMarkup#48a30254
+//  default: panic(v)
+//  }
 type ReplyMarkupClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Contains info about successfully or unsuccessfully invited »¹ users.
 //
 // Links:
-//  1. https://core.telegram.org/api/invites#direct-invites
+//  1) https://core.telegram.org/api/invites#direct-invites
 //
 // See https://core.telegram.org/constructor/messages.invitedUsers for reference.
 type MessagesInvitedUsers struct {

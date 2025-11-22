@@ -639,22 +639,21 @@ const PhotoSizeClassName = "PhotoSize"
 // See https://core.telegram.org/type/PhotoSize for reference.
 //
 // Constructors:
-//   - [PhotoSizeEmpty]
-//   - [PhotoSize]
-//   - [PhotoCachedSize]
+//  - [PhotoSizeEmpty]
+//  - [PhotoSize]
+//  - [PhotoCachedSize]
 //
 // Example:
-//
-//	g, err := e2e.DecodePhotoSize(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *e2e.PhotoSizeEmpty: // photoSizeEmpty#e17e23c
-//	case *e2e.PhotoSize: // photoSize#77bfb61b
-//	case *e2e.PhotoCachedSize: // photoCachedSize#e9a734fa
-//	default: panic(v)
-//	}
+//  g, err := e2e.DecodePhotoSize(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *e2e.PhotoSizeEmpty: // photoSizeEmpty#e17e23c
+//  case *e2e.PhotoSize: // photoSize#77bfb61b
+//  case *e2e.PhotoCachedSize: // photoCachedSize#e9a734fa
+//  default: panic(v)
+//  }
 type PhotoSizeClass interface {
 	bin.Encoder
 	bin.Decoder

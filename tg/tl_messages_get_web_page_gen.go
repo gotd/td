@@ -35,7 +35,7 @@ var (
 // Get instant view¹ page
 //
 // Links:
-//  1. https://instantview.telegram.org
+//  1) https://instantview.telegram.org
 //
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 type MessagesGetWebPageRequest struct {
@@ -203,11 +203,10 @@ func (g *MessagesGetWebPageRequest) GetHash() (value int) {
 // Get instant view¹ page
 //
 // Links:
-//  1. https://instantview.telegram.org
+//  1) https://instantview.telegram.org
 //
 // Possible errors:
-//
-//	400 WC_CONVERT_URL_INVALID: WC convert URL invalid.
+//  400 WC_CONVERT_URL_INVALID: WC convert URL invalid.
 //
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (*MessagesWebPage, error) {

@@ -35,7 +35,7 @@ var (
 // Info about multiple chat folder deep links »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.exportedInvites for reference.
 type ChatlistsExportedInvites struct {

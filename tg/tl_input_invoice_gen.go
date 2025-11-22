@@ -35,8 +35,8 @@ var (
 // An invoice contained in a messageMediaInvoice¹ message or paid media »².
 //
 // Links:
-//  1. https://core.telegram.org/constructor/messageMediaInvoice
-//  2. https://core.telegram.org/api/paid-media
+//  1) https://core.telegram.org/constructor/messageMediaInvoice
+//  2) https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/inputInvoiceMessage for reference.
 type InputInvoiceMessage struct {
@@ -207,8 +207,8 @@ func (i *InputInvoiceMessage) GetMsgID() (value int) {
 // config parameter »²
 //
 // Links:
-//  1. https://core.telegram.org/api/links#invoice-links
-//  2. https://core.telegram.org/api/config#premium-invoice-slug
+//  1) https://core.telegram.org/api/links#invoice-links
+//  2) https://core.telegram.org/api/config#premium-invoice-slug
 //
 // See https://core.telegram.org/constructor/inputInvoiceSlug for reference.
 type InputInvoiceSlug struct {
@@ -347,9 +347,9 @@ func (i *InputInvoiceSlug) GetSlug() (value string) {
 // giftcodes² to members of a channel/supergroup, in exchange for boosts³.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
-//  2. https://core.telegram.org/api/giveaways
-//  3. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/giveaways
+//  2) https://core.telegram.org/api/giveaways
+//  3) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/inputInvoicePremiumGiftCode for reference.
 type InputInvoicePremiumGiftCode struct {
@@ -532,8 +532,8 @@ func (i *InputInvoicePremiumGiftCode) GetOption() (value PremiumGiftCodeOption) 
 // account, or to start a Telegram Star giveaway »².
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://core.telegram.org/api/giveaways#star-giveaways
+//  1) https://core.telegram.org/api/stars
+//  2) https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/inputInvoiceStars for reference.
 type InputInvoiceStars struct {
@@ -682,7 +682,7 @@ func (i *InputInvoiceStars) GetPurpose() (value InputStorePaymentPurposeClass) {
 // Used to pay for a Telegram Star subscription »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#star-subscriptions
+//  1) https://core.telegram.org/api/stars#star-subscriptions
 //
 // See https://core.telegram.org/constructor/inputInvoiceChatInviteSubscription for reference.
 type InputInvoiceChatInviteSubscription struct {
@@ -823,7 +823,7 @@ func (i *InputInvoiceChatInviteSubscription) GetHash() (value string) {
 // Used to buy a Telegram Star Gift, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGift for reference.
 type InputInvoiceStarGift struct {
@@ -2924,46 +2924,45 @@ const InputInvoiceClassName = "InputInvoice"
 // See https://core.telegram.org/type/InputInvoice for reference.
 //
 // Constructors:
-//   - [InputInvoiceMessage]
-//   - [InputInvoiceSlug]
-//   - [InputInvoicePremiumGiftCode]
-//   - [InputInvoiceStars]
-//   - [InputInvoiceChatInviteSubscription]
-//   - [InputInvoiceStarGift]
-//   - [InputInvoiceStarGiftUpgrade]
-//   - [InputInvoiceStarGiftTransfer]
-//   - [InputInvoicePremiumGiftStars]
-//   - [InputInvoiceBusinessBotTransferStars]
-//   - [InputInvoiceStarGiftResale]
-//   - [InputInvoiceStarGiftPrepaidUpgrade]
-//   - [InputInvoicePremiumAuthCode]
-//   - [InputInvoiceStarGiftDropOriginalDetails]
-//   - [InputInvoiceStarGiftAuctionBid]
+//  - [InputInvoiceMessage]
+//  - [InputInvoiceSlug]
+//  - [InputInvoicePremiumGiftCode]
+//  - [InputInvoiceStars]
+//  - [InputInvoiceChatInviteSubscription]
+//  - [InputInvoiceStarGift]
+//  - [InputInvoiceStarGiftUpgrade]
+//  - [InputInvoiceStarGiftTransfer]
+//  - [InputInvoicePremiumGiftStars]
+//  - [InputInvoiceBusinessBotTransferStars]
+//  - [InputInvoiceStarGiftResale]
+//  - [InputInvoiceStarGiftPrepaidUpgrade]
+//  - [InputInvoicePremiumAuthCode]
+//  - [InputInvoiceStarGiftDropOriginalDetails]
+//  - [InputInvoiceStarGiftAuctionBid]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputInvoice(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputInvoiceMessage: // inputInvoiceMessage#c5b56859
-//	case *tg.InputInvoiceSlug: // inputInvoiceSlug#c326caef
-//	case *tg.InputInvoicePremiumGiftCode: // inputInvoicePremiumGiftCode#98986c0d
-//	case *tg.InputInvoiceStars: // inputInvoiceStars#65f00ce3
-//	case *tg.InputInvoiceChatInviteSubscription: // inputInvoiceChatInviteSubscription#34e793f1
-//	case *tg.InputInvoiceStarGift: // inputInvoiceStarGift#e8625e92
-//	case *tg.InputInvoiceStarGiftUpgrade: // inputInvoiceStarGiftUpgrade#4d818d5d
-//	case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#4a5f5bd9
-//	case *tg.InputInvoicePremiumGiftStars: // inputInvoicePremiumGiftStars#dabab2ef
-//	case *tg.InputInvoiceBusinessBotTransferStars: // inputInvoiceBusinessBotTransferStars#f4997e42
-//	case *tg.InputInvoiceStarGiftResale: // inputInvoiceStarGiftResale#c39f5324
-//	case *tg.InputInvoiceStarGiftPrepaidUpgrade: // inputInvoiceStarGiftPrepaidUpgrade#9a0b48b8
-//	case *tg.InputInvoicePremiumAuthCode: // inputInvoicePremiumAuthCode#3e77f614
-//	case *tg.InputInvoiceStarGiftDropOriginalDetails: // inputInvoiceStarGiftDropOriginalDetails#923d8d1
-//	case *tg.InputInvoiceStarGiftAuctionBid: // inputInvoiceStarGiftAuctionBid#1ecafa10
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputInvoice(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputInvoiceMessage: // inputInvoiceMessage#c5b56859
+//  case *tg.InputInvoiceSlug: // inputInvoiceSlug#c326caef
+//  case *tg.InputInvoicePremiumGiftCode: // inputInvoicePremiumGiftCode#98986c0d
+//  case *tg.InputInvoiceStars: // inputInvoiceStars#65f00ce3
+//  case *tg.InputInvoiceChatInviteSubscription: // inputInvoiceChatInviteSubscription#34e793f1
+//  case *tg.InputInvoiceStarGift: // inputInvoiceStarGift#e8625e92
+//  case *tg.InputInvoiceStarGiftUpgrade: // inputInvoiceStarGiftUpgrade#4d818d5d
+//  case *tg.InputInvoiceStarGiftTransfer: // inputInvoiceStarGiftTransfer#4a5f5bd9
+//  case *tg.InputInvoicePremiumGiftStars: // inputInvoicePremiumGiftStars#dabab2ef
+//  case *tg.InputInvoiceBusinessBotTransferStars: // inputInvoiceBusinessBotTransferStars#f4997e42
+//  case *tg.InputInvoiceStarGiftResale: // inputInvoiceStarGiftResale#c39f5324
+//  case *tg.InputInvoiceStarGiftPrepaidUpgrade: // inputInvoiceStarGiftPrepaidUpgrade#9a0b48b8
+//  case *tg.InputInvoicePremiumAuthCode: // inputInvoicePremiumAuthCode#3e77f614
+//  case *tg.InputInvoiceStarGiftDropOriginalDetails: // inputInvoiceStarGiftDropOriginalDetails#923d8d1
+//  case *tg.InputInvoiceStarGiftAuctionBid: // inputInvoiceStarGiftAuctionBid#1ecafa10
+//  default: panic(v)
+//  }
 type InputInvoiceClass interface {
 	bin.Encoder
 	bin.Decoder

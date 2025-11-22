@@ -170,8 +170,7 @@ func (g *MessagesGetAttachedStickersRequest) GetMedia() (value InputStickeredMed
 // Get stickers attached to a photo or video
 //
 // Possible errors:
-//
-//	400 MEDIA_EMPTY: The provided media object is invalid.
+//  400 MEDIA_EMPTY: The provided media object is invalid.
 //
 // See https://core.telegram.org/method/messages.getAttachedStickers for reference.
 func (c *Client) MessagesGetAttachedStickers(ctx context.Context, media InputStickeredMediaClass) ([]StickerSetCoveredClass, error) {

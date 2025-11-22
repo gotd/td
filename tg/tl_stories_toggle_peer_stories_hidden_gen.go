@@ -36,7 +36,7 @@ var (
 // bar on the homescreen, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#hiding-stories-of-other-users
+//  1) https://core.telegram.org/api/stories#hiding-stories-of-other-users
 //
 // See https://core.telegram.org/method/stories.togglePeerStoriesHidden for reference.
 type StoriesTogglePeerStoriesHiddenRequest struct {
@@ -202,11 +202,10 @@ func (t *StoriesTogglePeerStoriesHiddenRequest) GetHidden() (value bool) {
 // bar on the homescreen, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#hiding-stories-of-other-users
+//  1) https://core.telegram.org/api/stories#hiding-stories-of-other-users
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.togglePeerStoriesHidden for reference.
 func (c *Client) StoriesTogglePeerStoriesHidden(ctx context.Context, request *StoriesTogglePeerStoriesHiddenRequest) (bool, error) {

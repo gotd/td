@@ -35,7 +35,7 @@ var (
 // Get a list of sponsored messages for a peer, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/method/messages.getSponsoredMessages for reference.
 type MessagesGetSponsoredMessagesRequest struct {
@@ -242,7 +242,7 @@ func (g *MessagesGetSponsoredMessagesRequest) GetMsgID() (value int, ok bool) {
 // Get a list of sponsored messages for a peer, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/method/messages.getSponsoredMessages for reference.
 func (c *Client) MessagesGetSponsoredMessages(ctx context.Context, request *MessagesGetSponsoredMessagesRequest) (MessagesSponsoredMessagesClass, error) {

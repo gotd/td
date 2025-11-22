@@ -199,7 +199,7 @@ func (l *LangPackString) GetValue() (value string) {
 // org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 //
 // Links:
-//  1. https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
+//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
 //
 // See https://core.telegram.org/constructor/langPackStringPluralized for reference.
 type LangPackStringPluralized struct {
@@ -764,22 +764,21 @@ const LangPackStringClassName = "LangPackString"
 // See https://core.telegram.org/type/LangPackString for reference.
 //
 // Constructors:
-//   - [LangPackString]
-//   - [LangPackStringPluralized]
-//   - [LangPackStringDeleted]
+//  - [LangPackString]
+//  - [LangPackStringPluralized]
+//  - [LangPackStringDeleted]
 //
 // Example:
-//
-//	g, err := tg.DecodeLangPackString(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.LangPackString: // langPackString#cad181f6
-//	case *tg.LangPackStringPluralized: // langPackStringPluralized#6c47ac9f
-//	case *tg.LangPackStringDeleted: // langPackStringDeleted#2979eeb2
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeLangPackString(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.LangPackString: // langPackString#cad181f6
+//  case *tg.LangPackStringPluralized: // langPackStringPluralized#6c47ac9f
+//  case *tg.LangPackStringDeleted: // langPackStringDeleted#2979eeb2
+//  default: panic(v)
+//  }
 type LangPackStringClass interface {
 	bin.Encoder
 	bin.Decoder

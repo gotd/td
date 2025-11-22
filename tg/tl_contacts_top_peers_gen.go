@@ -493,22 +493,21 @@ const ContactsTopPeersClassName = "contacts.TopPeers"
 // See https://core.telegram.org/type/contacts.TopPeers for reference.
 //
 // Constructors:
-//   - [ContactsTopPeersNotModified]
-//   - [ContactsTopPeers]
-//   - [ContactsTopPeersDisabled]
+//  - [ContactsTopPeersNotModified]
+//  - [ContactsTopPeers]
+//  - [ContactsTopPeersDisabled]
 //
 // Example:
-//
-//	g, err := tg.DecodeContactsTopPeers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ContactsTopPeersNotModified: // contacts.topPeersNotModified#de266ef5
-//	case *tg.ContactsTopPeers: // contacts.topPeers#70b772a8
-//	case *tg.ContactsTopPeersDisabled: // contacts.topPeersDisabled#b52c939d
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeContactsTopPeers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ContactsTopPeersNotModified: // contacts.topPeersNotModified#de266ef5
+//  case *tg.ContactsTopPeers: // contacts.topPeers#70b772a8
+//  case *tg.ContactsTopPeersDisabled: // contacts.topPeersDisabled#b52c939d
+//  default: panic(v)
+//  }
 type ContactsTopPeersClass interface {
 	bin.Encoder
 	bin.Decoder

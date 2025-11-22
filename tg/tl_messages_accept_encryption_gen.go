@@ -222,10 +222,9 @@ func (a *MessagesAcceptEncryptionRequest) GetKeyFingerprint() (value int64) {
 // Confirms creation of a secret chat
 //
 // Possible errors:
-//
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 ENCRYPTION_ALREADY_ACCEPTED: Secret chat already accepted.
-//	400 ENCRYPTION_ALREADY_DECLINED: The secret chat was already declined.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 ENCRYPTION_ALREADY_ACCEPTED: Secret chat already accepted.
+//  400 ENCRYPTION_ALREADY_DECLINED: The secret chat was already declined.
 //
 // See https://core.telegram.org/method/messages.acceptEncryption for reference.
 func (c *Client) MessagesAcceptEncryption(ctx context.Context, request *MessagesAcceptEncryptionRequest) (EncryptedChatClass, error) {

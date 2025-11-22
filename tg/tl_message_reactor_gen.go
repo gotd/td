@@ -35,7 +35,7 @@ var (
 // Info about a user in the paid Star reactions leaderboard¹ for a message.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#paid-reactions
+//  1) https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/constructor/messageReactor for reference.
 type MessageReactor struct {

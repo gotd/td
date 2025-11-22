@@ -35,7 +35,7 @@ var (
 // Request a reupload of a certain file to a CDN DC¹.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 type UploadReuploadCDNFileRequest struct {
@@ -195,16 +195,15 @@ func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 // Request a reupload of a certain file to a CDN DC¹.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // Possible errors:
-//
-//	400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
-//	500 CDN_UPLOAD_TIMEOUT: A server-side timeout occurred while reuploading the file to the CDN DC.
-//	400 FILE_TOKEN_INVALID: The master DC did not accept the file_token (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.
-//	400 LOCATION_INVALID: The provided location is invalid.
-//	400 REQUEST_TOKEN_INVALID: The master DC did not accept the request_token from the CDN DC. Continue downloading the file from the master DC using upload.getFile.
-//	400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
+//  400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
+//  500 CDN_UPLOAD_TIMEOUT: A server-side timeout occurred while reuploading the file to the CDN DC.
+//  400 FILE_TOKEN_INVALID: The master DC did not accept the file_token (e.g., the token has expired). Continue downloading the file from the master DC using upload.getFile.
+//  400 LOCATION_INVALID: The provided location is invalid.
+//  400 REQUEST_TOKEN_INVALID: The master DC did not accept the request_token from the CDN DC. Continue downloading the file from the master DC using upload.getFile.
+//  400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 // Can be used by bots.

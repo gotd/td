@@ -137,7 +137,7 @@ func (e *EmojiStatusEmpty) DecodeBare(b *bin.Buffer) error {
 // An emoji status¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/emojiStatus for reference.
 type EmojiStatus struct {
@@ -973,24 +973,23 @@ const EmojiStatusClassName = "EmojiStatus"
 // See https://core.telegram.org/type/EmojiStatus for reference.
 //
 // Constructors:
-//   - [EmojiStatusEmpty]
-//   - [EmojiStatus]
-//   - [EmojiStatusCollectible]
-//   - [InputEmojiStatusCollectible]
+//  - [EmojiStatusEmpty]
+//  - [EmojiStatus]
+//  - [EmojiStatusCollectible]
+//  - [InputEmojiStatusCollectible]
 //
 // Example:
-//
-//	g, err := tg.DecodeEmojiStatus(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EmojiStatusEmpty: // emojiStatusEmpty#2de11aae
-//	case *tg.EmojiStatus: // emojiStatus#e7ff068a
-//	case *tg.EmojiStatusCollectible: // emojiStatusCollectible#7184603b
-//	case *tg.InputEmojiStatusCollectible: // inputEmojiStatusCollectible#7141dbf
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEmojiStatus(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EmojiStatusEmpty: // emojiStatusEmpty#2de11aae
+//  case *tg.EmojiStatus: // emojiStatus#e7ff068a
+//  case *tg.EmojiStatusCollectible: // emojiStatusCollectible#7184603b
+//  case *tg.InputEmojiStatusCollectible: // inputEmojiStatusCollectible#7141dbf
+//  default: panic(v)
+//  }
 type EmojiStatusClass interface {
 	bin.Encoder
 	bin.Decoder

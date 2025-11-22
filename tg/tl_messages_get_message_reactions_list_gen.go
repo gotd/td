@@ -35,7 +35,7 @@ var (
 // Get message reaction¹ list, along with the sender of each reaction.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessageReactionsList for reference.
 type MessagesGetMessageReactionsListRequest struct {
@@ -356,12 +356,11 @@ func (g *MessagesGetMessageReactionsListRequest) GetLimit() (value int) {
 // Get message reaction¹ list, along with the sender of each reaction.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // Possible errors:
-//
-//	403 BROADCAST_FORBIDDEN: Channel poll voters and reactions cannot be fetched to prevent deanonymization.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
+//  403 BROADCAST_FORBIDDEN: Channel poll voters and reactions cannot be fetched to prevent deanonymization.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/messages.getMessageReactionsList for reference.
 func (c *Client) MessagesGetMessageReactionsList(ctx context.Context, request *MessagesGetMessageReactionsListRequest) (*MessagesMessageReactionsList, error) {

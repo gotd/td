@@ -35,7 +35,7 @@ var (
 // Represents a Telegram Stars transaction »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransaction for reference.
 type StarsTransaction struct {

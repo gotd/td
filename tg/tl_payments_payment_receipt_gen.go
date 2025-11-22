@@ -663,7 +663,7 @@ func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassArray) {
 // Receipt for payment made using Telegram Stars¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/payments.paymentReceiptStars for reference.
 type PaymentsPaymentReceiptStars struct {
@@ -1121,20 +1121,19 @@ const PaymentsPaymentReceiptClassName = "payments.PaymentReceipt"
 // See https://core.telegram.org/type/payments.PaymentReceipt for reference.
 //
 // Constructors:
-//   - [PaymentsPaymentReceipt]
-//   - [PaymentsPaymentReceiptStars]
+//  - [PaymentsPaymentReceipt]
+//  - [PaymentsPaymentReceiptStars]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsPaymentReceipt(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsPaymentReceipt: // payments.paymentReceipt#70c4fe03
-//	case *tg.PaymentsPaymentReceiptStars: // payments.paymentReceiptStars#dabbf83a
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsPaymentReceipt(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsPaymentReceipt: // payments.paymentReceipt#70c4fe03
+//  case *tg.PaymentsPaymentReceiptStars: // payments.paymentReceiptStars#dabbf83a
+//  default: panic(v)
+//  }
 type PaymentsPaymentReceiptClass interface {
 	bin.Encoder
 	bin.Decoder

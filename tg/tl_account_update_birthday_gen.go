@@ -35,7 +35,7 @@ var (
 // Update our birthday, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/profile#birthday
+//  1) https://core.telegram.org/api/profile#birthday
 //
 // See https://core.telegram.org/method/account.updateBirthday for reference.
 type AccountUpdateBirthdayRequest struct {
@@ -210,11 +210,10 @@ func (u *AccountUpdateBirthdayRequest) GetBirthday() (value Birthday, ok bool) {
 // Update our birthday, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/profile#birthday
+//  1) https://core.telegram.org/api/profile#birthday
 //
 // Possible errors:
-//
-//	400 BIRTHDAY_INVALID: An invalid age was specified, must be between 0 and 150 years.
+//  400 BIRTHDAY_INVALID: An invalid age was specified, must be between 0 and 150 years.
 //
 // See https://core.telegram.org/method/account.updateBirthday for reference.
 func (c *Client) AccountUpdateBirthday(ctx context.Context, request *AccountUpdateBirthdayRequest) (bool, error) {

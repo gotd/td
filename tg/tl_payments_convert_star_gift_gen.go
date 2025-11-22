@@ -40,11 +40,11 @@ var (
 // ago.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
-//  2. https://core.telegram.org/constructor/starGift
-//  3. https://core.telegram.org/api/stars
-//  4. https://core.telegram.org/constructor/starGift
-//  5. https://core.telegram.org/constructor/starGift
+//  1) https://core.telegram.org/api/gifts
+//  2) https://core.telegram.org/constructor/starGift
+//  3) https://core.telegram.org/api/stars
+//  4) https://core.telegram.org/constructor/starGift
+//  5) https://core.telegram.org/constructor/starGift
 //
 // See https://core.telegram.org/method/payments.convertStarGift for reference.
 type PaymentsConvertStarGiftRequest struct {
@@ -187,16 +187,15 @@ func (c *PaymentsConvertStarGiftRequest) GetStargift() (value InputSavedStarGift
 // ago.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
-//  2. https://core.telegram.org/constructor/starGift
-//  3. https://core.telegram.org/api/stars
-//  4. https://core.telegram.org/constructor/starGift
-//  5. https://core.telegram.org/constructor/starGift
+//  1) https://core.telegram.org/api/gifts
+//  2) https://core.telegram.org/constructor/starGift
+//  3) https://core.telegram.org/api/stars
+//  4) https://core.telegram.org/constructor/starGift
+//  5) https://core.telegram.org/constructor/starGift
 //
 // Possible errors:
-//
-//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/payments.convertStarGift for reference.
 func (c *Client) PaymentsConvertStarGift(ctx context.Context, stargift InputSavedStarGiftClass) (bool, error) {

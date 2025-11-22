@@ -170,9 +170,8 @@ func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCallCla
 // Start a scheduled group call.
 //
 // Possible errors:
-//
-//	403 GROUPCALL_ALREADY_STARTED: The groupcall has already started, you can join directly using phone.joinGroupCall.
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//  403 GROUPCALL_ALREADY_STARTED: The groupcall has already started, you can join directly using phone.joinGroupCall.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.startScheduledGroupCall for reference.
 func (c *Client) PhoneStartScheduledGroupCall(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error) {

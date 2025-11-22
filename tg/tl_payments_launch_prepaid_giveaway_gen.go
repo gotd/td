@@ -35,7 +35,7 @@ var (
 // Launch a prepaid giveaway »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.launchPrepaidGiveaway for reference.
 type PaymentsLaunchPrepaidGiveawayRequest struct {
@@ -232,11 +232,10 @@ func (l *PaymentsLaunchPrepaidGiveawayRequest) GetPurpose() (value InputStorePay
 // Launch a prepaid giveaway »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.launchPrepaidGiveaway for reference.
 func (c *Client) PaymentsLaunchPrepaidGiveaway(ctx context.Context, request *PaymentsLaunchPrepaidGiveawayRequest) (UpdatesClass, error) {

@@ -745,7 +745,7 @@ func (s *AuthSentCodeTypeMissedCall) GetLength() (value int) {
 // The code was sent via the previously configured login email »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#email-verification
+//  1) https://core.telegram.org/api/auth#email-verification
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeEmailCode for reference.
 type AuthSentCodeTypeEmailCode struct {
@@ -1106,7 +1106,7 @@ func (s *AuthSentCodeTypeEmailCode) GetResetPendingDate() (value int, ok bool) {
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#email-verification
+//  1) https://core.telegram.org/api/auth#email-verification
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSetUpEmailRequired for reference.
 type AuthSentCodeTypeSetUpEmailRequired struct {
@@ -1308,7 +1308,7 @@ func (s *AuthSentCodeTypeSetUpEmailRequired) GetGoogleSigninAllowed() (value boo
 // The code was delivered via fragment.com¹.
 //
 // Links:
-//  1. https://fragment.com
+//  1) https://fragment.com
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFragmentSms for reference.
 type AuthSentCodeTypeFragmentSMS struct {
@@ -1478,7 +1478,7 @@ func (s *AuthSentCodeTypeFragmentSMS) GetLength() (value int) {
 // described in the auth documentation »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/auth
+//  1) https://core.telegram.org/api/auth
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFirebaseSms for reference.
 type AuthSentCodeTypeFirebaseSMS struct {
@@ -2247,38 +2247,37 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 // See https://core.telegram.org/type/auth.SentCodeType for reference.
 //
 // Constructors:
-//   - [AuthSentCodeTypeApp]
-//   - [AuthSentCodeTypeSMS]
-//   - [AuthSentCodeTypeCall]
-//   - [AuthSentCodeTypeFlashCall]
-//   - [AuthSentCodeTypeMissedCall]
-//   - [AuthSentCodeTypeEmailCode]
-//   - [AuthSentCodeTypeSetUpEmailRequired]
-//   - [AuthSentCodeTypeFragmentSMS]
-//   - [AuthSentCodeTypeFirebaseSMS]
-//   - [AuthSentCodeTypeSMSWord]
-//   - [AuthSentCodeTypeSMSPhrase]
+//  - [AuthSentCodeTypeApp]
+//  - [AuthSentCodeTypeSMS]
+//  - [AuthSentCodeTypeCall]
+//  - [AuthSentCodeTypeFlashCall]
+//  - [AuthSentCodeTypeMissedCall]
+//  - [AuthSentCodeTypeEmailCode]
+//  - [AuthSentCodeTypeSetUpEmailRequired]
+//  - [AuthSentCodeTypeFragmentSMS]
+//  - [AuthSentCodeTypeFirebaseSMS]
+//  - [AuthSentCodeTypeSMSWord]
+//  - [AuthSentCodeTypeSMSPhrase]
 //
 // Example:
-//
-//	g, err := tg.DecodeAuthSentCodeType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
-//	case *tg.AuthSentCodeTypeSMS: // auth.sentCodeTypeSms#c000bba2
-//	case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
-//	case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
-//	case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
-//	case *tg.AuthSentCodeTypeEmailCode: // auth.sentCodeTypeEmailCode#f450f59b
-//	case *tg.AuthSentCodeTypeSetUpEmailRequired: // auth.sentCodeTypeSetUpEmailRequired#a5491dea
-//	case *tg.AuthSentCodeTypeFragmentSMS: // auth.sentCodeTypeFragmentSms#d9565c39
-//	case *tg.AuthSentCodeTypeFirebaseSMS: // auth.sentCodeTypeFirebaseSms#9fd736
-//	case *tg.AuthSentCodeTypeSMSWord: // auth.sentCodeTypeSmsWord#a416ac81
-//	case *tg.AuthSentCodeTypeSMSPhrase: // auth.sentCodeTypeSmsPhrase#b37794af
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAuthSentCodeType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
+//  case *tg.AuthSentCodeTypeSMS: // auth.sentCodeTypeSms#c000bba2
+//  case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
+//  case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
+//  case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
+//  case *tg.AuthSentCodeTypeEmailCode: // auth.sentCodeTypeEmailCode#f450f59b
+//  case *tg.AuthSentCodeTypeSetUpEmailRequired: // auth.sentCodeTypeSetUpEmailRequired#a5491dea
+//  case *tg.AuthSentCodeTypeFragmentSMS: // auth.sentCodeTypeFragmentSms#d9565c39
+//  case *tg.AuthSentCodeTypeFirebaseSMS: // auth.sentCodeTypeFirebaseSms#9fd736
+//  case *tg.AuthSentCodeTypeSMSWord: // auth.sentCodeTypeSmsWord#a416ac81
+//  case *tg.AuthSentCodeTypeSMSPhrase: // auth.sentCodeTypeSmsPhrase#b37794af
+//  default: panic(v)
+//  }
 type AuthSentCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder

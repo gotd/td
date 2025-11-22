@@ -562,22 +562,21 @@ const SetClientDHParamsAnswerClassName = "Set_client_DH_params_answer"
 // SetClientDHParamsAnswerClass represents Set_client_DH_params_answer generic type.
 //
 // Constructors:
-//   - [DhGenOk]
-//   - [DhGenRetry]
-//   - [DhGenFail]
+//  - [DhGenOk]
+//  - [DhGenRetry]
+//  - [DhGenFail]
 //
 // Example:
-//
-//	g, err := mt.DecodeSetClientDHParamsAnswer(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *mt.DhGenOk: // dh_gen_ok#3bcbf734
-//	case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
-//	case *mt.DhGenFail: // dh_gen_fail#a69dae02
-//	default: panic(v)
-//	}
+//  g, err := mt.DecodeSetClientDHParamsAnswer(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *mt.DhGenOk: // dh_gen_ok#3bcbf734
+//  case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
+//  case *mt.DhGenFail: // dh_gen_fail#a69dae02
+//  default: panic(v)
+//  }
 type SetClientDHParamsAnswerClass interface {
 	bin.Encoder
 	bin.Decoder

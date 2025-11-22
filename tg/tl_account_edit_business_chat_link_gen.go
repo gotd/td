@@ -35,7 +35,7 @@ var (
 // Edit a created business chat deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/method/account.editBusinessChatLink for reference.
 type AccountEditBusinessChatLinkRequest struct {
@@ -198,12 +198,11 @@ func (e *AccountEditBusinessChatLinkRequest) GetLink() (value InputBusinessChatL
 // Edit a created business chat deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // Possible errors:
-//
-//	400 CHATLINK_SLUG_EMPTY: The specified slug is empty.
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 CHATLINK_SLUG_EMPTY: The specified slug is empty.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.editBusinessChatLink for reference.
 func (c *Client) AccountEditBusinessChatLink(ctx context.Context, request *AccountEditBusinessChatLinkRequest) (*BusinessChatLink, error) {

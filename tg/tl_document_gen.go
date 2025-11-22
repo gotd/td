@@ -693,20 +693,19 @@ const DocumentClassName = "Document"
 // See https://core.telegram.org/type/Document for reference.
 //
 // Constructors:
-//   - [DocumentEmpty]
-//   - [Document]
+//  - [DocumentEmpty]
+//  - [Document]
 //
 // Example:
-//
-//	g, err := tg.DecodeDocument(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.DocumentEmpty: // documentEmpty#36f8c871
-//	case *tg.Document: // document#8fd4c4d8
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeDocument(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.DocumentEmpty: // documentEmpty#36f8c871
+//  case *tg.Document: // document#8fd4c4d8
+//  default: panic(v)
+//  }
 type DocumentClass interface {
 	bin.Encoder
 	bin.Decoder

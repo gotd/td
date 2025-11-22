@@ -35,7 +35,7 @@ var (
 // Pricing of a Telegram Star subscription »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/invites#paid-invite-links
+//  1) https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/constructor/starsSubscriptionPricing for reference.
 type StarsSubscriptionPricing struct {

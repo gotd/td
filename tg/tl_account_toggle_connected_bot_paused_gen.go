@@ -36,7 +36,7 @@ var (
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1) https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/method/account.toggleConnectedBotPaused for reference.
 type AccountToggleConnectedBotPausedRequest struct {
@@ -202,11 +202,10 @@ func (t *AccountToggleConnectedBotPausedRequest) GetPaused() (value bool) {
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1) https://core.telegram.org/api/business#connected-bots
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/account.toggleConnectedBotPaused for reference.
 func (c *Client) AccountToggleConnectedBotPaused(ctx context.Context, request *AccountToggleConnectedBotPausedRequest) (bool, error) {

@@ -36,7 +36,7 @@ var (
 // channels.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stats.getStoryPublicForwards for reference.
 type StatsGetStoryPublicForwardsRequest struct {
@@ -265,11 +265,10 @@ func (g *StatsGetStoryPublicForwardsRequest) GetLimit() (value int) {
 // channels.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stats.getStoryPublicForwards for reference.
 func (c *Client) StatsGetStoryPublicForwards(ctx context.Context, request *StatsGetStoryPublicForwardsRequest) (*StatsPublicForwards, error) {

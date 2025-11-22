@@ -35,7 +35,7 @@ var (
 // Represents a color palette that can be used in message accents »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColorSet for reference.
 type HelpPeerColorSet struct {
@@ -186,7 +186,7 @@ func (p *HelpPeerColorSet) GetColors() (value []int) {
 // Represents a color palette that can be used in profile pages »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColorProfileSet for reference.
 type HelpPeerColorProfileSet struct {
@@ -424,20 +424,19 @@ const HelpPeerColorSetClassName = "help.PeerColorSet"
 // See https://core.telegram.org/type/help.PeerColorSet for reference.
 //
 // Constructors:
-//   - [HelpPeerColorSet]
-//   - [HelpPeerColorProfileSet]
+//  - [HelpPeerColorSet]
+//  - [HelpPeerColorProfileSet]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpPeerColorSet(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpPeerColorSet: // help.peerColorSet#26219a58
-//	case *tg.HelpPeerColorProfileSet: // help.peerColorProfileSet#767d61eb
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpPeerColorSet(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpPeerColorSet: // help.peerColorSet#26219a58
+//  case *tg.HelpPeerColorProfileSet: // help.peerColorProfileSet#767d61eb
+//  default: panic(v)
+//  }
 type HelpPeerColorSetClass interface {
 	bin.Encoder
 	bin.Decoder

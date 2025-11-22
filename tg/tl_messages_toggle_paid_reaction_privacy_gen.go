@@ -35,7 +35,7 @@ var (
 // Changes the privacy of already sent paid reactions¹ on a specific message.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#paid-reactions
+//  1) https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.togglePaidReactionPrivacy for reference.
 type MessagesTogglePaidReactionPrivacyRequest struct {
@@ -233,11 +233,10 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) GetPrivate() (value PaidReact
 // Changes the privacy of already sent paid reactions¹ on a specific message.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#paid-reactions
+//  1) https://core.telegram.org/api/reactions#paid-reactions
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.togglePaidReactionPrivacy for reference.
 func (c *Client) MessagesTogglePaidReactionPrivacy(ctx context.Context, request *MessagesTogglePaidReactionPrivacyRequest) (bool, error) {

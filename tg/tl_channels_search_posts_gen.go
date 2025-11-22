@@ -36,7 +36,7 @@ var (
 // member of) containing a specific hashtag.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 type ChannelsSearchPostsRequest struct {
@@ -430,7 +430,7 @@ func (s *ChannelsSearchPostsRequest) GetAllowPaidStars() (value int64, ok bool) 
 // member of) containing a specific hashtag.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 func (c *Client) ChannelsSearchPosts(ctx context.Context, request *ChannelsSearchPostsRequest) (MessagesMessagesClass, error) {

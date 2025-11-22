@@ -202,9 +202,8 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetAdminID() (value In
 // Delete all revoked chat invites
 //
 // Possible errors:
-//
-//	400 ADMIN_ID_INVALID: The specified admin ID is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 ADMIN_ID_INVALID: The specified admin ID is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteRevokedExportedChatInvites for reference.
 func (c *Client) MessagesDeleteRevokedExportedChatInvites(ctx context.Context, request *MessagesDeleteRevokedExportedChatInvitesRequest) (bool, error) {

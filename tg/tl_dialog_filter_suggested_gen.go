@@ -35,7 +35,7 @@ var (
 // Suggested folders¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/dialogFilterSuggested for reference.
 type DialogFilterSuggested struct {

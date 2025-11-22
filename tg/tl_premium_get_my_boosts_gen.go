@@ -36,8 +36,8 @@ var (
 // left.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
-//  2. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
+//  2) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/method/premium.getMyBoosts for reference.
 type PremiumGetMyBoostsRequest struct {
@@ -138,8 +138,8 @@ func (g *PremiumGetMyBoostsRequest) DecodeBare(b *bin.Buffer) error {
 // left.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
-//  2. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
+//  2) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/method/premium.getMyBoosts for reference.
 func (c *Client) PremiumGetMyBoosts(ctx context.Context) (*PremiumMyBoosts, error) {

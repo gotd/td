@@ -35,7 +35,7 @@ var (
 // Indo about an affiliate program offered by a bot¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/constructor/starRefProgram for reference.
 type StarRefProgram struct {

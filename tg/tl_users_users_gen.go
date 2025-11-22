@@ -380,20 +380,19 @@ const UsersUsersClassName = "users.Users"
 // See https://core.telegram.org/type/users.Users for reference.
 //
 // Constructors:
-//   - [UsersUsers]
-//   - [UsersUsersSlice]
+//  - [UsersUsers]
+//  - [UsersUsersSlice]
 //
 // Example:
-//
-//	g, err := tg.DecodeUsersUsers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UsersUsers: // users.users#62d706b8
-//	case *tg.UsersUsersSlice: // users.usersSlice#315a4974
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUsersUsers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UsersUsers: // users.users#62d706b8
+//  case *tg.UsersUsersSlice: // users.usersSlice#315a4974
+//  default: panic(v)
+//  }
 type UsersUsersClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -321,20 +321,19 @@ const HelpCountriesListClassName = "help.CountriesList"
 // See https://core.telegram.org/type/help.CountriesList for reference.
 //
 // Constructors:
-//   - [HelpCountriesListNotModified]
-//   - [HelpCountriesList]
+//  - [HelpCountriesListNotModified]
+//  - [HelpCountriesList]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpCountriesList(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpCountriesListNotModified: // help.countriesListNotModified#93cc1f32
-//	case *tg.HelpCountriesList: // help.countriesList#87d0759e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpCountriesList(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpCountriesListNotModified: // help.countriesListNotModified#93cc1f32
+//  case *tg.HelpCountriesList: // help.countriesList#87d0759e
+//  default: panic(v)
+//  }
 type HelpCountriesListClass interface {
 	bin.Encoder
 	bin.Decoder

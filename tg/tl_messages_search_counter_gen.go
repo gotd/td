@@ -36,7 +36,7 @@ var (
 // parameters
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.search
+//  1) https://core.telegram.org/method/messages.search
 //
 // See https://core.telegram.org/constructor/messages.searchCounter for reference.
 type MessagesSearchCounter struct {

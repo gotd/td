@@ -471,20 +471,19 @@ const PostInteractionCountersClassName = "PostInteractionCounters"
 // See https://core.telegram.org/type/PostInteractionCounters for reference.
 //
 // Constructors:
-//   - [PostInteractionCountersMessage]
-//   - [PostInteractionCountersStory]
+//  - [PostInteractionCountersMessage]
+//  - [PostInteractionCountersStory]
 //
 // Example:
-//
-//	g, err := tg.DecodePostInteractionCounters(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PostInteractionCountersMessage: // postInteractionCountersMessage#e7058e7f
-//	case *tg.PostInteractionCountersStory: // postInteractionCountersStory#8a480e27
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePostInteractionCounters(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PostInteractionCountersMessage: // postInteractionCountersMessage#e7058e7f
+//  case *tg.PostInteractionCountersStory: // postInteractionCountersStory#8a480e27
+//  default: panic(v)
+//  }
 type PostInteractionCountersClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -662,24 +662,23 @@ const InputPaymentCredentialsClassName = "InputPaymentCredentials"
 // See https://core.telegram.org/type/InputPaymentCredentials for reference.
 //
 // Constructors:
-//   - [InputPaymentCredentialsSaved]
-//   - [InputPaymentCredentials]
-//   - [InputPaymentCredentialsApplePay]
-//   - [InputPaymentCredentialsGooglePay]
+//  - [InputPaymentCredentialsSaved]
+//  - [InputPaymentCredentials]
+//  - [InputPaymentCredentialsApplePay]
+//  - [InputPaymentCredentialsGooglePay]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputPaymentCredentials(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputPaymentCredentialsSaved: // inputPaymentCredentialsSaved#c10eb2cf
-//	case *tg.InputPaymentCredentials: // inputPaymentCredentials#3417d728
-//	case *tg.InputPaymentCredentialsApplePay: // inputPaymentCredentialsApplePay#aa1c39f
-//	case *tg.InputPaymentCredentialsGooglePay: // inputPaymentCredentialsGooglePay#8ac32801
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputPaymentCredentials(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputPaymentCredentialsSaved: // inputPaymentCredentialsSaved#c10eb2cf
+//  case *tg.InputPaymentCredentials: // inputPaymentCredentials#3417d728
+//  case *tg.InputPaymentCredentialsApplePay: // inputPaymentCredentialsApplePay#aa1c39f
+//  case *tg.InputPaymentCredentialsGooglePay: // inputPaymentCredentialsGooglePay#8ac32801
+//  default: panic(v)
+//  }
 type InputPaymentCredentialsClass interface {
 	bin.Encoder
 	bin.Decoder

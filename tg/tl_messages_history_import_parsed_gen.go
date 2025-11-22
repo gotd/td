@@ -38,7 +38,7 @@ var (
 // a chat of unknown type.
 //
 // Links:
-//  1. https://core.telegram.org/api/import
+//  1) https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/constructor/messages.historyImportParsed for reference.
 type MessagesHistoryImportParsed struct {

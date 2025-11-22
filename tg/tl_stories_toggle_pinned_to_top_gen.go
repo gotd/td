@@ -35,7 +35,7 @@ var (
 // Pin some stories to the top of the profile, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
+//  1) https://core.telegram.org/api/stories#pinned-or-archived-stories
 //
 // See https://core.telegram.org/method/stories.togglePinnedToTop for reference.
 type StoriesTogglePinnedToTopRequest struct {
@@ -216,12 +216,11 @@ func (t *StoriesTogglePinnedToTopRequest) GetID() (value []int) {
 // Pin some stories to the top of the profile, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
+//  1) https://core.telegram.org/api/stories#pinned-or-archived-stories
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 STORY_ID_INVALID: The specified story ID is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 STORY_ID_INVALID: The specified story ID is invalid.
 //
 // See https://core.telegram.org/method/stories.togglePinnedToTop for reference.
 func (c *Client) StoriesTogglePinnedToTop(ctx context.Context, request *StoriesTogglePinnedToTopRequest) (bool, error) {

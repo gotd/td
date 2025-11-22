@@ -35,7 +35,7 @@ var (
 // Info about a saved message reaction tag »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/constructor/savedReactionTag for reference.
 type SavedReactionTag struct {

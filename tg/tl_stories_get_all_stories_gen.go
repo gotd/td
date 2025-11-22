@@ -36,7 +36,7 @@ var (
 // on watching stories.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllStories for reference.
 type StoriesGetAllStoriesRequest struct {
@@ -298,7 +298,7 @@ func (g *StoriesGetAllStoriesRequest) GetState() (value string, ok bool) {
 // on watching stories.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllStories for reference.
 func (c *Client) StoriesGetAllStories(ctx context.Context, request *StoriesGetAllStoriesRequest) (StoriesAllStoriesClass, error) {

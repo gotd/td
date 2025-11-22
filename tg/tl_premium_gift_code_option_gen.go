@@ -35,7 +35,7 @@ var (
 // Contains info about a giveaway/gift¹ option.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/premiumGiftCodeOption for reference.
 type PremiumGiftCodeOption struct {

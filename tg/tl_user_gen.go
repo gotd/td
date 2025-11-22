@@ -175,9 +175,9 @@ func (u *UserEmpty) GetID() (value int64) {
 // peer database².
 //
 // Links:
-//  1. https://core.telegram.org/api/peers
-//  2. https://github.com/tdlib/td/blob/cb164927417f22811c74cd8678ed4a5ab7cb80ba/td/telegram/UserManager.cpp#L2267
-//  3. https://core.telegram.org/api/peers
+//  1) https://core.telegram.org/api/peers
+//  2) https://github.com/tdlib/td/blob/cb164927417f22811c74cd8678ed4a5ab7cb80ba/td/telegram/UserManager.cpp#L2267
+//  3) https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/user for reference.
 type User struct {
@@ -2404,20 +2404,19 @@ const UserClassName = "User"
 // See https://core.telegram.org/type/User for reference.
 //
 // Constructors:
-//   - [UserEmpty]
-//   - [User]
+//  - [UserEmpty]
+//  - [User]
 //
 // Example:
-//
-//	g, err := tg.DecodeUser(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UserEmpty: // userEmpty#d3bc4b7a
-//	case *tg.User: // user#31774388
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUser(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UserEmpty: // userEmpty#d3bc4b7a
+//  case *tg.User: // user#31774388
+//  default: panic(v)
+//  }
 type UserClass interface {
 	bin.Encoder
 	bin.Decoder

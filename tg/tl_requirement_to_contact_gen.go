@@ -375,22 +375,21 @@ const RequirementToContactClassName = "RequirementToContact"
 // See https://core.telegram.org/type/RequirementToContact for reference.
 //
 // Constructors:
-//   - [RequirementToContactEmpty]
-//   - [RequirementToContactPremium]
-//   - [RequirementToContactPaidMessages]
+//  - [RequirementToContactEmpty]
+//  - [RequirementToContactPremium]
+//  - [RequirementToContactPaidMessages]
 //
 // Example:
-//
-//	g, err := tg.DecodeRequirementToContact(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.RequirementToContactEmpty: // requirementToContactEmpty#50a9839
-//	case *tg.RequirementToContactPremium: // requirementToContactPremium#e581e4e9
-//	case *tg.RequirementToContactPaidMessages: // requirementToContactPaidMessages#b4f67e93
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeRequirementToContact(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.RequirementToContactEmpty: // requirementToContactEmpty#50a9839
+//  case *tg.RequirementToContactPremium: // requirementToContactPremium#e581e4e9
+//  case *tg.RequirementToContactPaidMessages: // requirementToContactPaidMessages#b4f67e93
+//  default: panic(v)
+//  }
 type RequirementToContactClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -204,9 +204,8 @@ func (s *MessagesSaveDefaultSendAsRequest) GetSendAs() (value InputPeerClass) {
 // votes to a specific group
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //
 // See https://core.telegram.org/method/messages.saveDefaultSendAs for reference.
 func (c *Client) MessagesSaveDefaultSendAs(ctx context.Context, request *MessagesSaveDefaultSendAsRequest) (bool, error) {

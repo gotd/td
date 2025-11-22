@@ -224,9 +224,8 @@ func (g *ChannelsGetChannelRecommendationsRequest) GetChannelAsNotEmpty() (NotEm
 // their subscriber bases.
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/channels.getChannelRecommendations for reference.
 func (c *Client) ChannelsGetChannelRecommendations(ctx context.Context, request *ChannelsGetChannelRecommendationsRequest) (MessagesChatsClass, error) {

@@ -35,7 +35,7 @@ var (
 // List of stories¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
+//  1) https://core.telegram.org/api/stories#pinned-or-archived-stories
 //
 // See https://core.telegram.org/constructor/stories.stories for reference.
 type StoriesStories struct {

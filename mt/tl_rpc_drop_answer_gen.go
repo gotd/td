@@ -410,22 +410,21 @@ const RPCDropAnswerClassName = "RpcDropAnswer"
 // RPCDropAnswerClass represents RpcDropAnswer generic type.
 //
 // Constructors:
-//   - [RPCAnswerUnknown]
-//   - [RPCAnswerDroppedRunning]
-//   - [RPCAnswerDropped]
+//  - [RPCAnswerUnknown]
+//  - [RPCAnswerDroppedRunning]
+//  - [RPCAnswerDropped]
 //
 // Example:
-//
-//	g, err := mt.DecodeRPCDropAnswer(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *mt.RPCAnswerUnknown: // rpc_answer_unknown#5e2ad36e
-//	case *mt.RPCAnswerDroppedRunning: // rpc_answer_dropped_running#cd78e586
-//	case *mt.RPCAnswerDropped: // rpc_answer_dropped#a43ad8b7
-//	default: panic(v)
-//	}
+//  g, err := mt.DecodeRPCDropAnswer(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *mt.RPCAnswerUnknown: // rpc_answer_unknown#5e2ad36e
+//  case *mt.RPCAnswerDroppedRunning: // rpc_answer_dropped_running#cd78e586
+//  case *mt.RPCAnswerDropped: // rpc_answer_dropped#a43ad8b7
+//  default: panic(v)
+//  }
 type RPCDropAnswerClass interface {
 	bin.Encoder
 	bin.Decoder

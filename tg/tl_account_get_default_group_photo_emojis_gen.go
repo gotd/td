@@ -35,8 +35,8 @@ var (
 // Get a set of suggested custom emoji stickers¹ that can be used as group picture²
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/files#sticker-profile-pictures
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
 type AccountGetDefaultGroupPhotoEmojisRequest struct {
@@ -172,8 +172,8 @@ func (g *AccountGetDefaultGroupPhotoEmojisRequest) GetHash() (value int64) {
 // Get a set of suggested custom emoji stickers¹ that can be used as group picture²
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/files#sticker-profile-pictures
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
 func (c *Client) AccountGetDefaultGroupPhotoEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {

@@ -35,7 +35,7 @@ var (
 // Clear recently used message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.clearRecentReactions for reference.
 type MessagesClearRecentReactionsRequest struct {
@@ -135,7 +135,7 @@ func (c *MessagesClearRecentReactionsRequest) DecodeBare(b *bin.Buffer) error {
 // Clear recently used message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.clearRecentReactions for reference.
 func (c *Client) MessagesClearRecentReactions(ctx context.Context) (bool, error) {

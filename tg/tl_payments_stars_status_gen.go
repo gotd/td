@@ -36,7 +36,7 @@ var (
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
+//  1) https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // See https://core.telegram.org/constructor/payments.starsStatus for reference.
 type PaymentsStarsStatus struct {

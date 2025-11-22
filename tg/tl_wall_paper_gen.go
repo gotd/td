@@ -35,7 +35,7 @@ var (
 // Represents a wallpaper¹ based on an image.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
@@ -479,7 +479,7 @@ func (w *WallPaper) GetSettings() (value WallPaperSettings, ok bool) {
 // Represents a wallpaper¹ only based on colors/gradients.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
@@ -760,20 +760,19 @@ const WallPaperClassName = "WallPaper"
 // See https://core.telegram.org/type/WallPaper for reference.
 //
 // Constructors:
-//   - [WallPaper]
-//   - [WallPaperNoFile]
+//  - [WallPaper]
+//  - [WallPaperNoFile]
 //
 // Example:
-//
-//	g, err := tg.DecodeWallPaper(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.WallPaper: // wallPaper#a437c3ed
-//	case *tg.WallPaperNoFile: // wallPaperNoFile#e0804116
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeWallPaper(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.WallPaper: // wallPaper#a437c3ed
+//  case *tg.WallPaperNoFile: // wallPaperNoFile#e0804116
+//  default: panic(v)
+//  }
 type WallPaperClass interface {
 	bin.Encoder
 	bin.Decoder

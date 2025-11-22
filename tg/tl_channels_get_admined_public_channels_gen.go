@@ -37,9 +37,9 @@ var (
 // given the choice to remove one of his channels/supergroups/geogroups.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/constructor/config
-//  3. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/constructor/config
+//  3) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 type ChannelsGetAdminedPublicChannelsRequest struct {
@@ -288,14 +288,13 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) GetForPersonal() (value bool) 
 // given the choice to remove one of his channels/supergroups/geogroups.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/constructor/config
-//  3. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/constructor/config
+//  3) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//
-//	400 CHANNELS_ADMIN_LOCATED_TOO_MUCH: The user has reached the limit of public geogroups.
-//	400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
+//  400 CHANNELS_ADMIN_LOCATED_TOO_MUCH: The user has reached the limit of public geogroups.
+//  400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 func (c *Client) ChannelsGetAdminedPublicChannels(ctx context.Context, request *ChannelsGetAdminedPublicChannelsRequest) (MessagesChatsClass, error) {

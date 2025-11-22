@@ -35,7 +35,7 @@ var (
 // A report option for a sponsored message »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/constructor/sponsoredMessageReportOption for reference.
 type SponsoredMessageReportOption struct {

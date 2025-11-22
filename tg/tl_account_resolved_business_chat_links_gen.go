@@ -35,7 +35,7 @@ var (
 // Contains info about a single resolved business chat deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/constructor/account.resolvedBusinessChatLinks for reference.
 type AccountResolvedBusinessChatLinks struct {

@@ -574,24 +574,23 @@ const InputMessageClassName = "InputMessage"
 // See https://core.telegram.org/type/InputMessage for reference.
 //
 // Constructors:
-//   - [InputMessageID]
-//   - [InputMessageReplyTo]
-//   - [InputMessagePinned]
-//   - [InputMessageCallbackQuery]
+//  - [InputMessageID]
+//  - [InputMessageReplyTo]
+//  - [InputMessagePinned]
+//  - [InputMessageCallbackQuery]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputMessage(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputMessageID: // inputMessageID#a676a322
-//	case *tg.InputMessageReplyTo: // inputMessageReplyTo#bad88395
-//	case *tg.InputMessagePinned: // inputMessagePinned#86872538
-//	case *tg.InputMessageCallbackQuery: // inputMessageCallbackQuery#acfa1a7e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputMessage(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputMessageID: // inputMessageID#a676a322
+//  case *tg.InputMessageReplyTo: // inputMessageReplyTo#bad88395
+//  case *tg.InputMessagePinned: // inputMessagePinned#86872538
+//  case *tg.InputMessageCallbackQuery: // inputMessageCallbackQuery#acfa1a7e
+//  default: panic(v)
+//  }
 type InputMessageClass interface {
 	bin.Encoder
 	bin.Decoder

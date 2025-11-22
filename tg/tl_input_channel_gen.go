@@ -302,7 +302,7 @@ func (i *InputChannel) GetAccessHash() (value int64) {
 // Defines a min¹ channel that was seen in a certain message of a certain chat.
 //
 // Links:
-//  1. https://core.telegram.org/api/min
+//  1) https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {
@@ -503,22 +503,21 @@ const InputChannelClassName = "InputChannel"
 // See https://core.telegram.org/type/InputChannel for reference.
 //
 // Constructors:
-//   - [InputChannelEmpty]
-//   - [InputChannel]
-//   - [InputChannelFromMessage]
+//  - [InputChannelEmpty]
+//  - [InputChannel]
+//  - [InputChannelFromMessage]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputChannel(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputChannelEmpty: // inputChannelEmpty#ee8c1e86
-//	case *tg.InputChannel: // inputChannel#f35aec28
-//	case *tg.InputChannelFromMessage: // inputChannelFromMessage#5b934f9d
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputChannel(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputChannelEmpty: // inputChannelEmpty#ee8c1e86
+//  case *tg.InputChannel: // inputChannel#f35aec28
+//  case *tg.InputChannelFromMessage: // inputChannelFromMessage#5b934f9d
+//  default: panic(v)
+//  }
 type InputChannelClass interface {
 	bin.Encoder
 	bin.Decoder

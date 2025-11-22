@@ -35,7 +35,7 @@ var (
 // Change the reaction notification settings »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#notifications-about-reactions
+//  1) https://core.telegram.org/api/reactions#notifications-about-reactions
 //
 // See https://core.telegram.org/method/account.setReactionsNotifySettings for reference.
 type AccountSetReactionsNotifySettingsRequest struct {
@@ -168,7 +168,7 @@ func (s *AccountSetReactionsNotifySettingsRequest) GetSettings() (value Reaction
 // Change the reaction notification settings »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#notifications-about-reactions
+//  1) https://core.telegram.org/api/reactions#notifications-about-reactions
 //
 // See https://core.telegram.org/method/account.setReactionsNotifySettings for reference.
 func (c *Client) AccountSetReactionsNotifySettings(ctx context.Context, settings ReactionsNotifySettings) (*ReactionsNotifySettings, error) {

@@ -410,20 +410,19 @@ const ChatPhotoClassName = "ChatPhoto"
 // See https://core.telegram.org/type/ChatPhoto for reference.
 //
 // Constructors:
-//   - [ChatPhotoEmpty]
-//   - [ChatPhoto]
+//  - [ChatPhotoEmpty]
+//  - [ChatPhoto]
 //
 // Example:
-//
-//	g, err := tg.DecodeChatPhoto(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatPhotoEmpty: // chatPhotoEmpty#37c1011c
-//	case *tg.ChatPhoto: // chatPhoto#1c6e1c11
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChatPhoto(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatPhotoEmpty: // chatPhotoEmpty#37c1011c
+//  case *tg.ChatPhoto: // chatPhoto#1c6e1c11
+//  default: panic(v)
+//  }
 type ChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder

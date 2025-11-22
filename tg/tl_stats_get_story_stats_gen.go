@@ -35,8 +35,8 @@ var (
 // Get statistics¹ for a certain story².
 //
 // Links:
-//  1. https://core.telegram.org/api/stats
-//  2. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stats
+//  2) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stats.getStoryStats for reference.
 type StatsGetStoryStatsRequest struct {
@@ -257,13 +257,12 @@ func (g *StatsGetStoryStatsRequest) GetID() (value int) {
 // Get statistics¹ for a certain story².
 //
 // Links:
-//  1. https://core.telegram.org/api/stats
-//  2. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stats
+//  2) https://core.telegram.org/api/stories
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 STORIES_NEVER_CREATED: This peer hasn't ever posted any stories.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 STORIES_NEVER_CREATED: This peer hasn't ever posted any stories.
 //
 // See https://core.telegram.org/method/stats.getStoryStats for reference.
 func (c *Client) StatsGetStoryStats(ctx context.Context, request *StatsGetStoryStatsRequest) (*StatsStoryStats, error) {

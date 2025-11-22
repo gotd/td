@@ -36,7 +36,7 @@ var (
 // »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
+//  1) https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
 type ChannelsToggleJoinToSendRequest struct {
@@ -207,14 +207,13 @@ func (t *ChannelsToggleJoinToSendRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
+//  1) https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
 func (c *Client) ChannelsToggleJoinToSend(ctx context.Context, request *ChannelsToggleJoinToSendRequest) (UpdatesClass, error) {

@@ -196,10 +196,9 @@ func (g *LangpackGetLangPackRequest) GetLangCode() (value string) {
 // Get localization pack strings
 //
 // Possible errors:
-//
-//	400 LANGUAGE_INVALID: The specified lang_code is invalid.
-//	400 LANG_CODE_NOT_SUPPORTED: The specified language code is not supported.
-//	400 LANG_PACK_INVALID: The provided language pack is invalid.
+//  400 LANGUAGE_INVALID: The specified lang_code is invalid.
+//  400 LANG_CODE_NOT_SUPPORTED: The specified language code is not supported.
+//  400 LANG_PACK_INVALID: The provided language pack is invalid.
 //
 // See https://core.telegram.org/method/langpack.getLangPack for reference.
 func (c *Client) LangpackGetLangPack(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error) {

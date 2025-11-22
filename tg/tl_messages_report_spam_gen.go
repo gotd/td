@@ -36,7 +36,7 @@ var (
 // that
 //
 // Links:
-//  1. https://core.telegram.org/constructor/peerSettings
+//  1) https://core.telegram.org/constructor/peerSettings
 //
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 type MessagesReportSpamRequest struct {
@@ -175,13 +175,12 @@ func (r *MessagesReportSpamRequest) GetPeer() (value InputPeerClass) {
 // that
 //
 // Links:
-//  1. https://core.telegram.org/constructor/peerSettings
+//  1) https://core.telegram.org/constructor/peerSettings
 //
 // Possible errors:
-//
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 func (c *Client) MessagesReportSpam(ctx context.Context, peer InputPeerClass) (bool, error) {

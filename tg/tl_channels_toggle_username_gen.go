@@ -36,8 +36,8 @@ var (
 // or channel² we own.
 //
 // Links:
-//  1. https://fragment.com
-//  2. https://core.telegram.org/api/channel
+//  1) https://fragment.com
+//  2) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.toggleUsername for reference.
 type ChannelsToggleUsernameRequest struct {
@@ -238,18 +238,17 @@ func (t *ChannelsToggleUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // or channel² we own.
 //
 // Links:
-//  1. https://fragment.com
-//  2. https://core.telegram.org/api/channel
+//  1) https://fragment.com
+//  2) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
-//	400 USERNAMES_ACTIVE_TOO_MUCH: The maximum number of active usernames was reached.
-//	400 USERNAME_INVALID: The provided username is not valid.
-//	400 USERNAME_NOT_MODIFIED: The username was not modified.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  400 USERNAMES_ACTIVE_TOO_MUCH: The maximum number of active usernames was reached.
+//  400 USERNAME_INVALID: The provided username is not valid.
+//  400 USERNAME_NOT_MODIFIED: The username was not modified.
 //
 // See https://core.telegram.org/method/channels.toggleUsername for reference.
 func (c *Client) ChannelsToggleUsername(ctx context.Context, request *ChannelsToggleUsernameRequest) (bool, error) {

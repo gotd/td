@@ -479,20 +479,19 @@ const MessagesFoundStickersClassName = "messages.FoundStickers"
 // See https://core.telegram.org/type/messages.FoundStickers for reference.
 //
 // Constructors:
-//   - [MessagesFoundStickersNotModified]
-//   - [MessagesFoundStickers]
+//  - [MessagesFoundStickersNotModified]
+//  - [MessagesFoundStickers]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesFoundStickers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesFoundStickersNotModified: // messages.foundStickersNotModified#6010c534
-//	case *tg.MessagesFoundStickers: // messages.foundStickers#82c9e290
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesFoundStickers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesFoundStickersNotModified: // messages.foundStickersNotModified#6010c534
+//  case *tg.MessagesFoundStickers: // messages.foundStickers#82c9e290
+//  default: panic(v)
+//  }
 type MessagesFoundStickersClass interface {
 	bin.Encoder
 	bin.Decoder

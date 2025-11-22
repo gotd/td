@@ -341,20 +341,19 @@ const PaymentsStarGiftActiveAuctionsClassName = "payments.StarGiftActiveAuctions
 // See https://core.telegram.org/type/payments.StarGiftActiveAuctions for reference.
 //
 // Constructors:
-//   - [PaymentsStarGiftActiveAuctionsNotModified]
-//   - [PaymentsStarGiftActiveAuctions]
+//  - [PaymentsStarGiftActiveAuctionsNotModified]
+//  - [PaymentsStarGiftActiveAuctions]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsStarGiftActiveAuctions(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsStarGiftActiveAuctionsNotModified: // payments.starGiftActiveAuctionsNotModified#db33dad0
-//	case *tg.PaymentsStarGiftActiveAuctions: // payments.starGiftActiveAuctions#97f187d8
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsStarGiftActiveAuctions(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsStarGiftActiveAuctionsNotModified: // payments.starGiftActiveAuctionsNotModified#db33dad0
+//  case *tg.PaymentsStarGiftActiveAuctions: // payments.starGiftActiveAuctions#97f187d8
+//  default: panic(v)
+//  }
 type PaymentsStarGiftActiveAuctionsClass interface {
 	bin.Encoder
 	bin.Decoder

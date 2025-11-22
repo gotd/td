@@ -389,20 +389,19 @@ const ContactsSponsoredPeersClassName = "contacts.SponsoredPeers"
 // See https://core.telegram.org/type/contacts.SponsoredPeers for reference.
 //
 // Constructors:
-//   - [ContactsSponsoredPeersEmpty]
-//   - [ContactsSponsoredPeers]
+//  - [ContactsSponsoredPeersEmpty]
+//  - [ContactsSponsoredPeers]
 //
 // Example:
-//
-//	g, err := tg.DecodeContactsSponsoredPeers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ContactsSponsoredPeersEmpty: // contacts.sponsoredPeersEmpty#ea32b4b1
-//	case *tg.ContactsSponsoredPeers: // contacts.sponsoredPeers#eb032884
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeContactsSponsoredPeers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ContactsSponsoredPeersEmpty: // contacts.sponsoredPeersEmpty#ea32b4b1
+//  case *tg.ContactsSponsoredPeers: // contacts.sponsoredPeers#eb032884
+//  default: panic(v)
+//  }
 type ContactsSponsoredPeersClass interface {
 	bin.Encoder
 	bin.Decoder

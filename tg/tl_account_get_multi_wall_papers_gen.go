@@ -35,7 +35,7 @@ var (
 // Get info about multiple wallpapers¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getMultiWallPapers for reference.
 type AccountGetMultiWallPapersRequest struct {
@@ -194,11 +194,10 @@ func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaper
 // Get info about multiple wallpapers¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
-//
-//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
 //
 // See https://core.telegram.org/method/account.getMultiWallPapers for reference.
 func (c *Client) AccountGetMultiWallPapers(ctx context.Context, wallpapers []InputWallPaperClass) ([]WallPaperClass, error) {

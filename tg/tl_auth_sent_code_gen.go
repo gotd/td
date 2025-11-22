@@ -331,7 +331,7 @@ func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
 // The user successfully authorized using future auth tokens¹
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#future-auth-tokens
+//  1) https://core.telegram.org/api/auth#future-auth-tokens
 //
 // See https://core.telegram.org/constructor/auth.sentCodeSuccess for reference.
 type AuthSentCodeSuccess struct {
@@ -747,22 +747,21 @@ const AuthSentCodeClassName = "auth.SentCode"
 // See https://core.telegram.org/type/auth.SentCode for reference.
 //
 // Constructors:
-//   - [AuthSentCode]
-//   - [AuthSentCodeSuccess]
-//   - [AuthSentCodePaymentRequired]
+//  - [AuthSentCode]
+//  - [AuthSentCodeSuccess]
+//  - [AuthSentCodePaymentRequired]
 //
 // Example:
-//
-//	g, err := tg.DecodeAuthSentCode(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AuthSentCode: // auth.sentCode#5e002502
-//	case *tg.AuthSentCodeSuccess: // auth.sentCodeSuccess#2390fe44
-//	case *tg.AuthSentCodePaymentRequired: // auth.sentCodePaymentRequired#e0955a3c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAuthSentCode(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AuthSentCode: // auth.sentCode#5e002502
+//  case *tg.AuthSentCodeSuccess: // auth.sentCodeSuccess#2390fe44
+//  case *tg.AuthSentCodePaymentRequired: // auth.sentCodePaymentRequired#e0955a3c
+//  default: panic(v)
+//  }
 type AuthSentCodeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Fetch main mini app previews, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/method/bots.getPreviewMedias for reference.
 type BotsGetPreviewMediasRequest struct {
@@ -173,11 +173,10 @@ func (g *BotsGetPreviewMediasRequest) GetBot() (value InputUserClass) {
 // Fetch main mini app previews, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.getPreviewMedias for reference.
 func (c *Client) BotsGetPreviewMedias(ctx context.Context, bot InputUserClass) ([]BotPreviewMedia, error) {

@@ -35,7 +35,7 @@ var (
 // Activate or deactivate a purchased fragment.com¹ username associated to a bot we own.
 //
 // Links:
-//  1. https://fragment.com
+//  1) https://fragment.com
 //
 // See https://core.telegram.org/method/bots.toggleUsername for reference.
 type BotsToggleUsernameRequest struct {
@@ -227,12 +227,11 @@ func (t *BotsToggleUsernameRequest) GetActive() (value bool) {
 // Activate or deactivate a purchased fragment.com¹ username associated to a bot we own.
 //
 // Links:
-//  1. https://fragment.com
+//  1) https://fragment.com
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 USERNAME_NOT_MODIFIED: The username was not modified.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 USERNAME_NOT_MODIFIED: The username was not modified.
 //
 // See https://core.telegram.org/method/bots.toggleUsername for reference.
 func (c *Client) BotsToggleUsername(ctx context.Context, request *BotsToggleUsernameRequest) (bool, error) {

@@ -35,7 +35,7 @@ var (
 // Update the keywords, emojis or mask coordinates¹ of a sticker.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers#mask-stickers
+//  1) https://core.telegram.org/api/stickers#mask-stickers
 //
 // See https://core.telegram.org/method/stickers.changeSticker for reference.
 type StickersChangeStickerRequest struct {
@@ -347,11 +347,10 @@ func (c *StickersChangeStickerRequest) GetStickerAsNotEmpty() (*InputDocument, b
 // Update the keywords, emojis or mask coordinates¹ of a sticker.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers#mask-stickers
+//  1) https://core.telegram.org/api/stickers#mask-stickers
 //
 // Possible errors:
-//
-//	400 STICKER_INVALID: The provided sticker is invalid.
+//  400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.changeSticker for reference.
 // Can be used by bots.

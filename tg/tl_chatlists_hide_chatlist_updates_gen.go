@@ -35,7 +35,7 @@ var (
 // Dismiss new pending peers recently added to a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.hideChatlistUpdates for reference.
 type ChatlistsHideChatlistUpdatesRequest struct {
@@ -168,12 +168,11 @@ func (h *ChatlistsHideChatlistUpdatesRequest) GetChatlist() (value InputChatlist
 // Dismiss new pending peers recently added to a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
-//
-//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
-//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //
 // See https://core.telegram.org/method/chatlists.hideChatlistUpdates for reference.
 func (c *Client) ChatlistsHideChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (bool, error) {

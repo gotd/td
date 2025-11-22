@@ -347,20 +347,19 @@ const ChannelMessagesFilterClassName = "ChannelMessagesFilter"
 // See https://core.telegram.org/type/ChannelMessagesFilter for reference.
 //
 // Constructors:
-//   - [ChannelMessagesFilterEmpty]
-//   - [ChannelMessagesFilter]
+//  - [ChannelMessagesFilterEmpty]
+//  - [ChannelMessagesFilter]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelMessagesFilter(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelMessagesFilterEmpty: // channelMessagesFilterEmpty#94d42ee7
-//	case *tg.ChannelMessagesFilter: // channelMessagesFilter#cd77d957
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelMessagesFilter(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelMessagesFilterEmpty: // channelMessagesFilterEmpty#94d42ee7
+//  case *tg.ChannelMessagesFilter: // channelMessagesFilter#cd77d957
+//  default: panic(v)
+//  }
 type ChannelMessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder

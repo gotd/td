@@ -131,7 +131,7 @@ func TypesMap() map[uint32]string {
 		ChatPhotoEmptyTypeID:                                     "chatPhotoEmpty#37c1011c",
 		ChatPhotoTypeID:                                          "chatPhoto#1c6e1c11",
 		MessageEmptyTypeID:                                       "messageEmpty#90a6ca84",
-		MessageTypeID:                                            "message#b92f76cf",
+		MessageTypeID:                                            "message#9815cec8",
 		MessageServiceTypeID:                                     "messageService#7a800e0a",
 		MessageMediaEmptyTypeID:                                  "messageMediaEmpty#3ded6320",
 		MessageMediaPhotoTypeID:                                  "messageMediaPhoto#695150d7",

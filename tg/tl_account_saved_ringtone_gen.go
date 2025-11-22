@@ -139,7 +139,7 @@ func (s *AccountSavedRingtone) DecodeBare(b *bin.Buffer) error {
 // use the returned Document¹ to refer to the notification sound from now on
 //
 // Links:
-//  1. https://core.telegram.org/type/Document
+//  1) https://core.telegram.org/type/Document
 //
 // See https://core.telegram.org/constructor/account.savedRingtoneConverted for reference.
 type AccountSavedRingtoneConverted struct {
@@ -286,20 +286,19 @@ const AccountSavedRingtoneClassName = "account.SavedRingtone"
 // See https://core.telegram.org/type/account.SavedRingtone for reference.
 //
 // Constructors:
-//   - [AccountSavedRingtone]
-//   - [AccountSavedRingtoneConverted]
+//  - [AccountSavedRingtone]
+//  - [AccountSavedRingtoneConverted]
 //
 // Example:
-//
-//	g, err := tg.DecodeAccountSavedRingtone(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AccountSavedRingtone: // account.savedRingtone#b7263f6d
-//	case *tg.AccountSavedRingtoneConverted: // account.savedRingtoneConverted#1f307eb7
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAccountSavedRingtone(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AccountSavedRingtone: // account.savedRingtone#b7263f6d
+//  case *tg.AccountSavedRingtoneConverted: // account.savedRingtoneConverted#1f307eb7
+//  default: panic(v)
+//  }
 type AccountSavedRingtoneClass interface {
 	bin.Encoder
 	bin.Decoder

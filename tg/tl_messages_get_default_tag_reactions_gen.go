@@ -35,7 +35,7 @@ var (
 // Fetch a default recommended list of saved message tag reactions¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/method/messages.getDefaultTagReactions for reference.
 type MessagesGetDefaultTagReactionsRequest struct {
@@ -171,7 +171,7 @@ func (g *MessagesGetDefaultTagReactionsRequest) GetHash() (value int64) {
 // Fetch a default recommended list of saved message tag reactions¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/method/messages.getDefaultTagReactions for reference.
 func (c *Client) MessagesGetDefaultTagReactions(ctx context.Context, hash int64) (MessagesReactionsClass, error) {

@@ -359,10 +359,9 @@ func (t *PhoneToggleGroupCallRecordRequest) GetVideoPortrait() (value bool, ok b
 // automatically sent to Saved messages (the chat with ourselves).
 //
 // Possible errors:
-//
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
-//	400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
+//  403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//  400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallRecord for reference.
 func (c *Client) PhoneToggleGroupCallRecord(ctx context.Context, request *PhoneToggleGroupCallRecordRequest) (UpdatesClass, error) {

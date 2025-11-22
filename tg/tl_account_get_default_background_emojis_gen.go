@@ -36,8 +36,8 @@ var (
 // pattern².
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/account.getDefaultBackgroundEmojis for reference.
 type AccountGetDefaultBackgroundEmojisRequest struct {
@@ -174,8 +174,8 @@ func (g *AccountGetDefaultBackgroundEmojisRequest) GetHash() (value int64) {
 // pattern².
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/account.getDefaultBackgroundEmojis for reference.
 func (c *Client) AccountGetDefaultBackgroundEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {

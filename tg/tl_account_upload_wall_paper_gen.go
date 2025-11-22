@@ -35,7 +35,7 @@ var (
 // Create and upload a new wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 type AccountUploadWallPaperRequest struct {
@@ -286,12 +286,11 @@ func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) 
 // Create and upload a new wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
-//
-//	400 WALLPAPER_FILE_INVALID: The specified wallpaper file is invalid.
-//	400 WALLPAPER_MIME_INVALID: The specified wallpaper MIME type is invalid.
+//  400 WALLPAPER_FILE_INVALID: The specified wallpaper file is invalid.
+//  400 WALLPAPER_MIME_INVALID: The specified wallpaper MIME type is invalid.
 //
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 func (c *Client) AccountUploadWallPaper(ctx context.Context, request *AccountUploadWallPaperRequest) (WallPaperClass, error) {

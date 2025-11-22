@@ -35,7 +35,7 @@ var (
 // Get all contacts, requires a takeout session, see here » for more info¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/takeout
+//  1) https://core.telegram.org/api/takeout
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.
 type ContactsGetSavedRequest struct {
@@ -135,12 +135,11 @@ func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
 // Get all contacts, requires a takeout session, see here » for more info¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/takeout
+//  1) https://core.telegram.org/api/takeout
 //
 // Possible errors:
-//
-//	400 TAKEOUT_INVALID: The specified takeout ID is invalid.
-//	403 TAKEOUT_REQUIRED: A takeout¹ session needs to be initialized first, see here » for more info².
+//  400 TAKEOUT_INVALID: The specified takeout ID is invalid.
+//  403 TAKEOUT_REQUIRED: A takeout¹ session needs to be initialized first, see here » for more info².
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.
 func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, error) {

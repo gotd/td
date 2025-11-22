@@ -169,9 +169,8 @@ func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
 // cancelled.
 //
 // Possible errors:
-//
-//	400 MAX_QTS_INVALID: The specified max_qts is invalid.
-//	500 MSG_WAIT_FAILED: A waiting call returned an error.
+//  400 MAX_QTS_INVALID: The specified max_qts is invalid.
+//  500 MSG_WAIT_FAILED: A waiting call returned an error.
 //
 // See https://core.telegram.org/method/messages.receivedQueue for reference.
 func (c *Client) MessagesReceivedQueue(ctx context.Context, maxqts int) ([]int64, error) {

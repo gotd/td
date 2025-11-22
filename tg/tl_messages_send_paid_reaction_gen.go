@@ -36,8 +36,8 @@ var (
 // to a channel's balance.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#paid-reactions
-//  2. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/reactions#paid-reactions
+//  2) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/method/messages.sendPaidReaction for reference.
 type MessagesSendPaidReactionRequest struct {
@@ -348,12 +348,11 @@ func (s *MessagesSendPaidReactionRequest) GetPrivate() (value PaidReactionPrivac
 // to a channel's balance.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#paid-reactions
-//  2. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/reactions#paid-reactions
+//  2) https://core.telegram.org/api/stars
 //
 // Possible errors:
-//
-//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/messages.sendPaidReaction for reference.
 func (c *Client) MessagesSendPaidReaction(ctx context.Context, request *MessagesSendPaidReactionRequest) (UpdatesClass, error) {

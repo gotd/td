@@ -199,8 +199,7 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) GetPurpose() (value InputSt
 // only.
 //
 // Possible errors:
-//
-//	400 DATA_JSON_INVALID: The provided JSON data is invalid.
+//  400 DATA_JSON_INVALID: The provided JSON data is invalid.
 //
 // See https://core.telegram.org/method/payments.assignPlayMarketTransaction for reference.
 func (c *Client) PaymentsAssignPlayMarketTransaction(ctx context.Context, request *PaymentsAssignPlayMarketTransactionRequest) (UpdatesClass, error) {

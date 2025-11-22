@@ -35,7 +35,7 @@ var (
 // Update folder¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 type MessagesUpdateDialogFilterRequest struct {
@@ -248,17 +248,16 @@ func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilterClass
 // Update folder¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // Possible errors:
-//
-//	400 CHATLIST_EXCLUDE_INVALID: The specified exclude_peers are invalid.
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
-//	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
-//	400 FILTER_TITLE_EMPTY: The title field of the filter is empty.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHATLIST_EXCLUDE_INVALID: The specified exclude_peers are invalid.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
+//  400 FILTER_TITLE_EMPTY: The title field of the filter is empty.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (bool, error) {

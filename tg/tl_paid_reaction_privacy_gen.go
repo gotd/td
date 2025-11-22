@@ -380,22 +380,21 @@ const PaidReactionPrivacyClassName = "PaidReactionPrivacy"
 // See https://core.telegram.org/type/PaidReactionPrivacy for reference.
 //
 // Constructors:
-//   - [PaidReactionPrivacyDefault]
-//   - [PaidReactionPrivacyAnonymous]
-//   - [PaidReactionPrivacyPeer]
+//  - [PaidReactionPrivacyDefault]
+//  - [PaidReactionPrivacyAnonymous]
+//  - [PaidReactionPrivacyPeer]
 //
 // Example:
-//
-//	g, err := tg.DecodePaidReactionPrivacy(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaidReactionPrivacyDefault: // paidReactionPrivacyDefault#206ad49e
-//	case *tg.PaidReactionPrivacyAnonymous: // paidReactionPrivacyAnonymous#1f0c1ad9
-//	case *tg.PaidReactionPrivacyPeer: // paidReactionPrivacyPeer#dc6cfcf0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaidReactionPrivacy(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaidReactionPrivacyDefault: // paidReactionPrivacyDefault#206ad49e
+//  case *tg.PaidReactionPrivacyAnonymous: // paidReactionPrivacyAnonymous#1f0c1ad9
+//  case *tg.PaidReactionPrivacyPeer: // paidReactionPrivacyPeer#dc6cfcf0
+//  default: panic(v)
+//  }
 type PaidReactionPrivacyClass interface {
 	bin.Encoder
 	bin.Decoder

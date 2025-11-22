@@ -35,7 +35,7 @@ var (
 // Translated text with entities¹
 //
 // Links:
-//  1. https://core.telegram.org/api/entities
+//  1) https://core.telegram.org/api/entities
 //
 // See https://core.telegram.org/constructor/messages.translateResult for reference.
 type MessagesTranslateResult struct {

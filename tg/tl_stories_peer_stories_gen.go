@@ -35,7 +35,7 @@ var (
 // Active story list¹ of a specific peer.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/constructor/stories.peerStories for reference.
 type StoriesPeerStories struct {

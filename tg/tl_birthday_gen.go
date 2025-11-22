@@ -37,8 +37,8 @@ var (
 // with birthdays within a +1/-1 day time range, related to the current day.
 //
 // Links:
-//  1. https://core.telegram.org/api/profile#birthday
-//  2. https://core.telegram.org/api/premium#gifting-telegram-premium
+//  1) https://core.telegram.org/api/profile#birthday
+//  2) https://core.telegram.org/api/premium#gifting-telegram-premium
 //
 // See https://core.telegram.org/constructor/birthday for reference.
 type Birthday struct {

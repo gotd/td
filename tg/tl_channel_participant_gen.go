@@ -1629,28 +1629,27 @@ const ChannelParticipantClassName = "ChannelParticipant"
 // See https://core.telegram.org/type/ChannelParticipant for reference.
 //
 // Constructors:
-//   - [ChannelParticipant]
-//   - [ChannelParticipantSelf]
-//   - [ChannelParticipantCreator]
-//   - [ChannelParticipantAdmin]
-//   - [ChannelParticipantBanned]
-//   - [ChannelParticipantLeft]
+//  - [ChannelParticipant]
+//  - [ChannelParticipantSelf]
+//  - [ChannelParticipantCreator]
+//  - [ChannelParticipantAdmin]
+//  - [ChannelParticipantBanned]
+//  - [ChannelParticipantLeft]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelParticipant(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelParticipant: // channelParticipant#cb397619
-//	case *tg.ChannelParticipantSelf: // channelParticipantSelf#4f607bef
-//	case *tg.ChannelParticipantCreator: // channelParticipantCreator#2fe601d3
-//	case *tg.ChannelParticipantAdmin: // channelParticipantAdmin#34c3bb53
-//	case *tg.ChannelParticipantBanned: // channelParticipantBanned#6df8014e
-//	case *tg.ChannelParticipantLeft: // channelParticipantLeft#1b03f006
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelParticipant(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelParticipant: // channelParticipant#cb397619
+//  case *tg.ChannelParticipantSelf: // channelParticipantSelf#4f607bef
+//  case *tg.ChannelParticipantCreator: // channelParticipantCreator#2fe601d3
+//  case *tg.ChannelParticipantAdmin: // channelParticipantAdmin#34c3bb53
+//  case *tg.ChannelParticipantBanned: // channelParticipantBanned#6df8014e
+//  case *tg.ChannelParticipantLeft: // channelParticipantLeft#1b03f006
+//  default: panic(v)
+//  }
 type ChannelParticipantClass interface {
 	bin.Encoder
 	bin.Decoder

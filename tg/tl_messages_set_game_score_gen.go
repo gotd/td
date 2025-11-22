@@ -351,12 +351,11 @@ func (s *MessagesSetGameScoreRequest) GetScore() (value int) {
 // message (bots only).
 //
 // Possible errors:
-//
-//	400 BOT_SCORE_NOT_MODIFIED: The score wasn't modified.
-//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 SCORE_INVALID: The specified game score is invalid.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 BOT_SCORE_NOT_MODIFIED: The score wasn't modified.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 SCORE_INVALID: The specified game score is invalid.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setGameScore for reference.
 // Can be used by bots.

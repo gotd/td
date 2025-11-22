@@ -132,8 +132,7 @@ func (g *SMSJobsGetStatusRequest) DecodeBare(b *bin.Buffer) error {
 // Get SMS jobs status (official clients only).
 //
 // Possible errors:
-//
-//	400 NOT_JOINED: The current user hasn't joined the Peer-to-Peer Login Program.
+//  400 NOT_JOINED: The current user hasn't joined the Peer-to-Peer Login Program.
 //
 // See https://core.telegram.org/method/smsjobs.getStatus for reference.
 func (c *Client) SMSJobsGetStatus(ctx context.Context) (*SMSJobsStatus, error) {

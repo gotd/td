@@ -132,8 +132,7 @@ func (j *SMSJobsJoinRequest) DecodeBare(b *bin.Buffer) error {
 // Enable SMS jobs (official clients only).
 //
 // Possible errors:
-//
-//	400 NOT_ELIGIBLE: The current user is not eligible to join the Peer-to-Peer Login Program.
+//  400 NOT_ELIGIBLE: The current user is not eligible to join the Peer-to-Peer Login Program.
 //
 // See https://core.telegram.org/method/smsjobs.join for reference.
 func (c *Client) SMSJobsJoin(ctx context.Context) (bool, error) {

@@ -35,7 +35,7 @@ var (
 // Create, edit or delete the affiliate program¹ of a bot we own
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/method/bots.updateStarRefProgram for reference.
 type BotsUpdateStarRefProgramRequest struct {
@@ -280,14 +280,13 @@ func (u *BotsUpdateStarRefProgramRequest) GetDurationMonths() (value int, ok boo
 // Create, edit or delete the affiliate program¹ of a bot we own
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/referrals
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 STARREF_AWAITING_END: The previous referral program was terminated less than 24 hours ago: further changes can be made after the date specified in userFull.starref_program.end_date.
-//	400 STARREF_PERMILLE_INVALID: The specified commission_permille is invalid: the minimum and maximum values for this parameter are contained in the starref_min_commission_permille and starref_max_commission_permille client configuration parameters.
-//	400 STARREF_PERMILLE_TOO_LOW: The specified commission_permille is too low: the minimum and maximum values for this parameter are contained in the starref_min_commission_permille and starref_max_commission_permille client configuration parameters.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 STARREF_AWAITING_END: The previous referral program was terminated less than 24 hours ago: further changes can be made after the date specified in userFull.starref_program.end_date.
+//  400 STARREF_PERMILLE_INVALID: The specified commission_permille is invalid: the minimum and maximum values for this parameter are contained in the starref_min_commission_permille and starref_max_commission_permille client configuration parameters.
+//  400 STARREF_PERMILLE_TOO_LOW: The specified commission_permille is too low: the minimum and maximum values for this parameter are contained in the starref_min_commission_permille and starref_max_commission_permille client configuration parameters.
 //
 // See https://core.telegram.org/method/bots.updateStarRefProgram for reference.
 func (c *Client) BotsUpdateStarRefProgram(ctx context.Context, request *BotsUpdateStarRefProgramRequest) (*StarRefProgram, error) {

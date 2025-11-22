@@ -35,7 +35,7 @@ var (
 // Edit a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.editExportedInvite for reference.
 type ChatlistsEditExportedInviteRequest struct {
@@ -341,16 +341,15 @@ func (e *ChatlistsEditExportedInviteRequest) MapPeers() (value InputPeerClassArr
 // Edit a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
-//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
-//	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
-//	400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
-//	400 PEERS_LIST_EMPTY: The specified list of peers is empty.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//  400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
+//  400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
+//  400 PEERS_LIST_EMPTY: The specified list of peers is empty.
 //
 // See https://core.telegram.org/method/chatlists.editExportedInvite for reference.
 func (c *Client) ChatlistsEditExportedInvite(ctx context.Context, request *ChatlistsEditExportedInviteRequest) (*ExportedChatlistInvite, error) {

@@ -35,7 +35,7 @@ var (
 // Get Telegram Star revenue statistics »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueStats for reference.
 type PaymentsGetStarsRevenueStatsRequest struct {
@@ -267,11 +267,10 @@ func (g *PaymentsGetStarsRevenueStatsRequest) GetPeer() (value InputPeerClass) {
 // Get Telegram Star revenue statistics »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueStats for reference.
 func (c *Client) PaymentsGetStarsRevenueStats(ctx context.Context, request *PaymentsGetStarsRevenueStatsRequest) (*PaymentsStarsRevenueStats, error) {

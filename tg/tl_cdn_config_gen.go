@@ -35,7 +35,7 @@ var (
 // Configuration for CDN¹ file downloads.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/cdnConfig for reference.
 type CDNConfig struct {

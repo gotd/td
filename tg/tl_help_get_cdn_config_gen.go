@@ -35,7 +35,7 @@ var (
 // Get configuration for CDN¹ file downloads.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
 type HelpGetCDNConfigRequest struct {
@@ -135,7 +135,7 @@ func (g *HelpGetCDNConfigRequest) DecodeBare(b *bin.Buffer) error {
 // Get configuration for CDN¹ file downloads.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
 // Can be used by bots.

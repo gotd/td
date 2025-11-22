@@ -35,7 +35,7 @@ var (
 // Represents a color palette »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/peerColor for reference.
 type PeerColor struct {
@@ -790,22 +790,21 @@ const PeerColorClassName = "PeerColor"
 // See https://core.telegram.org/type/PeerColor for reference.
 //
 // Constructors:
-//   - [PeerColor]
-//   - [PeerColorCollectible]
-//   - [InputPeerColorCollectible]
+//  - [PeerColor]
+//  - [PeerColorCollectible]
+//  - [InputPeerColorCollectible]
 //
 // Example:
-//
-//	g, err := tg.DecodePeerColor(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PeerColor: // peerColor#b54b5acf
-//	case *tg.PeerColorCollectible: // peerColorCollectible#b9c0639a
-//	case *tg.InputPeerColorCollectible: // inputPeerColorCollectible#b8ea86a9
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePeerColor(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PeerColor: // peerColor#b54b5acf
+//  case *tg.PeerColorCollectible: // peerColorCollectible#b9c0639a
+//  case *tg.InputPeerColorCollectible: // inputPeerColorCollectible#b8ea86a9
+//  default: panic(v)
+//  }
 type PeerColorClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -566,20 +566,19 @@ const ContactsBlockedClassName = "contacts.Blocked"
 // See https://core.telegram.org/type/contacts.Blocked for reference.
 //
 // Constructors:
-//   - [ContactsBlocked]
-//   - [ContactsBlockedSlice]
+//  - [ContactsBlocked]
+//  - [ContactsBlockedSlice]
 //
 // Example:
-//
-//	g, err := tg.DecodeContactsBlocked(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ContactsBlocked: // contacts.blocked#ade1591
-//	case *tg.ContactsBlockedSlice: // contacts.blockedSlice#e1664194
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeContactsBlocked(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ContactsBlocked: // contacts.blocked#ade1591
+//  case *tg.ContactsBlockedSlice: // contacts.blockedSlice#e1664194
+//  default: panic(v)
+//  }
 type ContactsBlockedClass interface {
 	bin.Encoder
 	bin.Decoder

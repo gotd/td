@@ -37,7 +37,7 @@ var (
 // custom time period when we cannot immediately answer to the user.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
+//  1) https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/constructor/inputBusinessAwayMessage for reference.
 type InputBusinessAwayMessage struct {

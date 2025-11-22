@@ -35,7 +35,7 @@ var (
 // Get a list of default suggested emoji statuses¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getDefaultEmojiStatuses for reference.
 type AccountGetDefaultEmojiStatusesRequest struct {
@@ -171,7 +171,7 @@ func (g *AccountGetDefaultEmojiStatusesRequest) GetHash() (value int64) {
 // Get a list of default suggested emoji statuses¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getDefaultEmojiStatuses for reference.
 func (c *Client) AccountGetDefaultEmojiStatuses(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error) {

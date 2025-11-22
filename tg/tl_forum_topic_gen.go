@@ -170,7 +170,7 @@ func (f *ForumTopicDeleted) GetID() (value int) {
 // Represents a forum topic¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/forumTopic for reference.
 type ForumTopic struct {
@@ -1000,20 +1000,19 @@ const ForumTopicClassName = "ForumTopic"
 // See https://core.telegram.org/type/ForumTopic for reference.
 //
 // Constructors:
-//   - [ForumTopicDeleted]
-//   - [ForumTopic]
+//  - [ForumTopicDeleted]
+//  - [ForumTopic]
 //
 // Example:
-//
-//	g, err := tg.DecodeForumTopic(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ForumTopicDeleted: // forumTopicDeleted#23f109b
-//	case *tg.ForumTopic: // forumTopic#cdff0eca
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeForumTopic(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ForumTopicDeleted: // forumTopicDeleted#23f109b
+//  case *tg.ForumTopic: // forumTopic#cdff0eca
+//  default: panic(v)
+//  }
 type ForumTopicClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -336,20 +336,19 @@ const InputDocumentClassName = "InputDocument"
 // See https://core.telegram.org/type/InputDocument for reference.
 //
 // Constructors:
-//   - [InputDocumentEmpty]
-//   - [InputDocument]
+//  - [InputDocumentEmpty]
+//  - [InputDocument]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputDocument(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputDocumentEmpty: // inputDocumentEmpty#72f0eaae
-//	case *tg.InputDocument: // inputDocument#1abfb575
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputDocument(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputDocumentEmpty: // inputDocumentEmpty#72f0eaae
+//  case *tg.InputDocument: // inputDocument#1abfb575
+//  default: panic(v)
+//  }
 type InputDocumentClass interface {
 	bin.Encoder
 	bin.Decoder

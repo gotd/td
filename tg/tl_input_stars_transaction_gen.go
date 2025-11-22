@@ -35,7 +35,7 @@ var (
 // Used to fetch info about a Telegram Star transaction »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
+//  1) https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // See https://core.telegram.org/constructor/inputStarsTransaction for reference.
 type InputStarsTransaction struct {

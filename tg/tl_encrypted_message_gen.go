@@ -511,20 +511,19 @@ const EncryptedMessageClassName = "EncryptedMessage"
 // See https://core.telegram.org/type/EncryptedMessage for reference.
 //
 // Constructors:
-//   - [EncryptedMessage]
-//   - [EncryptedMessageService]
+//  - [EncryptedMessage]
+//  - [EncryptedMessageService]
 //
 // Example:
-//
-//	g, err := tg.DecodeEncryptedMessage(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EncryptedMessage: // encryptedMessage#ed18c118
-//	case *tg.EncryptedMessageService: // encryptedMessageService#23734b06
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEncryptedMessage(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EncryptedMessage: // encryptedMessage#ed18c118
+//  case *tg.EncryptedMessageService: // encryptedMessageService#23734b06
+//  default: panic(v)
+//  }
 type EncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -36,7 +36,7 @@ var (
 // logged-in user.
 //
 // Links:
-//  1. https://fragment.com
+//  1) https://fragment.com
 //
 // See https://core.telegram.org/method/account.toggleUsername for reference.
 type AccountToggleUsernameRequest struct {
@@ -197,13 +197,12 @@ func (t *AccountToggleUsernameRequest) GetActive() (value bool) {
 // logged-in user.
 //
 // Links:
-//  1. https://fragment.com
+//  1) https://fragment.com
 //
 // Possible errors:
-//
-//	400 USERNAMES_ACTIVE_TOO_MUCH: The maximum number of active usernames was reached.
-//	400 USERNAME_INVALID: The provided username is not valid.
-//	400 USERNAME_NOT_MODIFIED: The username was not modified.
+//  400 USERNAMES_ACTIVE_TOO_MUCH: The maximum number of active usernames was reached.
+//  400 USERNAME_INVALID: The provided username is not valid.
+//  400 USERNAME_NOT_MODIFIED: The username was not modified.
 //
 // See https://core.telegram.org/method/account.toggleUsername for reference.
 func (c *Client) AccountToggleUsername(ctx context.Context, request *AccountToggleUsernameRequest) (bool, error) {

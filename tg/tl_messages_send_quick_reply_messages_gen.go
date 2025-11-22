@@ -35,7 +35,7 @@ var (
 // Send a quick reply shortcut »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.sendQuickReplyMessages for reference.
 type MessagesSendQuickReplyMessagesRequest struct {
@@ -282,12 +282,11 @@ func (s *MessagesSendQuickReplyMessagesRequest) GetRandomID() (value []int64) {
 // Send a quick reply shortcut »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/messages.sendQuickReplyMessages for reference.
 func (c *Client) MessagesSendQuickReplyMessages(ctx context.Context, request *MessagesSendQuickReplyMessagesRequest) (UpdatesClass, error) {

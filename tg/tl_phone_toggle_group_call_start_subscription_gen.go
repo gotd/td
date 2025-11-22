@@ -197,9 +197,8 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bo
 // Subscribe or unsubscribe to a scheduled group call
 //
 // Possible errors:
-//
-//	403 GROUPCALL_ALREADY_STARTED: The groupcall has already started, you can join directly using phone.joinGroupCall.
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//  403 GROUPCALL_ALREADY_STARTED: The groupcall has already started, you can join directly using phone.joinGroupCall.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallStartSubscription for reference.
 func (c *Client) PhoneToggleGroupCallStartSubscription(ctx context.Context, request *PhoneToggleGroupCallStartSubscriptionRequest) (UpdatesClass, error) {

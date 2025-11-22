@@ -35,8 +35,8 @@ var (
 // Secure passport¹ data, for more info see the passport docs »²
 //
 // Links:
-//  1. https://core.telegram.org/passport
-//  2. https://core.telegram.org/passport/encryption#securedata
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#securedata
 //
 // See https://core.telegram.org/constructor/secureData for reference.
 type SecureData struct {

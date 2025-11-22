@@ -35,7 +35,7 @@ var (
 // Fetch info about a specific bot affiliation »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/method/payments.getConnectedStarRefBot for reference.
 type PaymentsGetConnectedStarRefBotRequest struct {
@@ -205,11 +205,10 @@ func (g *PaymentsGetConnectedStarRefBotRequest) GetBot() (value InputUserClass) 
 // Fetch info about a specific bot affiliation »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/referrals
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getConnectedStarRefBot for reference.
 func (c *Client) PaymentsGetConnectedStarRefBot(ctx context.Context, request *PaymentsGetConnectedStarRefBotRequest) (*PaymentsConnectedStarRefBots, error) {

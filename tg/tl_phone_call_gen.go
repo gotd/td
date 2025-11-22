@@ -2209,28 +2209,27 @@ const PhoneCallClassName = "PhoneCall"
 // See https://core.telegram.org/type/PhoneCall for reference.
 //
 // Constructors:
-//   - [PhoneCallEmpty]
-//   - [PhoneCallWaiting]
-//   - [PhoneCallRequested]
-//   - [PhoneCallAccepted]
-//   - [PhoneCall]
-//   - [PhoneCallDiscarded]
+//  - [PhoneCallEmpty]
+//  - [PhoneCallWaiting]
+//  - [PhoneCallRequested]
+//  - [PhoneCallAccepted]
+//  - [PhoneCall]
+//  - [PhoneCallDiscarded]
 //
 // Example:
-//
-//	g, err := tg.DecodePhoneCall(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PhoneCallEmpty: // phoneCallEmpty#5366c915
-//	case *tg.PhoneCallWaiting: // phoneCallWaiting#c5226f17
-//	case *tg.PhoneCallRequested: // phoneCallRequested#14b0ed0c
-//	case *tg.PhoneCallAccepted: // phoneCallAccepted#3660c311
-//	case *tg.PhoneCall: // phoneCall#30535af5
-//	case *tg.PhoneCallDiscarded: // phoneCallDiscarded#50ca4de1
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePhoneCall(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PhoneCallEmpty: // phoneCallEmpty#5366c915
+//  case *tg.PhoneCallWaiting: // phoneCallWaiting#c5226f17
+//  case *tg.PhoneCallRequested: // phoneCallRequested#14b0ed0c
+//  case *tg.PhoneCallAccepted: // phoneCallAccepted#3660c311
+//  case *tg.PhoneCall: // phoneCall#30535af5
+//  case *tg.PhoneCallDiscarded: // phoneCallDiscarded#50ca4de1
+//  default: panic(v)
+//  }
 type PhoneCallClass interface {
 	bin.Encoder
 	bin.Decoder

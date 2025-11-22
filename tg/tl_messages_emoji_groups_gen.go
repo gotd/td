@@ -35,7 +35,7 @@ var (
 // The list of emoji categories¹ hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
+//  1) https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/constructor/messages.emojiGroupsNotModified for reference.
 type MessagesEmojiGroupsNotModified struct {
@@ -140,7 +140,7 @@ func (e *MessagesEmojiGroupsNotModified) DecodeBare(b *bin.Buffer) error {
 // Represents a list of emoji categories¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
+//  1) https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/constructor/messages.emojiGroups for reference.
 type MessagesEmojiGroups struct {
@@ -338,20 +338,19 @@ const MessagesEmojiGroupsClassName = "messages.EmojiGroups"
 // See https://core.telegram.org/type/messages.EmojiGroups for reference.
 //
 // Constructors:
-//   - [MessagesEmojiGroupsNotModified]
-//   - [MessagesEmojiGroups]
+//  - [MessagesEmojiGroupsNotModified]
+//  - [MessagesEmojiGroups]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesEmojiGroups(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesEmojiGroupsNotModified: // messages.emojiGroupsNotModified#6fb4ad87
-//	case *tg.MessagesEmojiGroups: // messages.emojiGroups#881fb94b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesEmojiGroups(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesEmojiGroupsNotModified: // messages.emojiGroupsNotModified#6fb4ad87
+//  case *tg.MessagesEmojiGroups: // messages.emojiGroups#881fb94b
+//  default: panic(v)
+//  }
 type MessagesEmojiGroupsClass interface {
 	bin.Encoder
 	bin.Decoder

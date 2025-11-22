@@ -411,20 +411,19 @@ const MessagesRecentStickersClassName = "messages.RecentStickers"
 // See https://core.telegram.org/type/messages.RecentStickers for reference.
 //
 // Constructors:
-//   - [MessagesRecentStickersNotModified]
-//   - [MessagesRecentStickers]
+//  - [MessagesRecentStickersNotModified]
+//  - [MessagesRecentStickers]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesRecentStickers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesRecentStickersNotModified: // messages.recentStickersNotModified#b17f890
-//	case *tg.MessagesRecentStickers: // messages.recentStickers#88d37c56
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesRecentStickers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesRecentStickersNotModified: // messages.recentStickersNotModified#b17f890
+//  case *tg.MessagesRecentStickers: // messages.recentStickers#88d37c56
+//  default: panic(v)
+//  }
 type MessagesRecentStickersClass interface {
 	bin.Encoder
 	bin.Decoder

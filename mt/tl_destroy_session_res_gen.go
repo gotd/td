@@ -287,20 +287,19 @@ const DestroySessionResClassName = "DestroySessionRes"
 // DestroySessionResClass represents DestroySessionRes generic type.
 //
 // Constructors:
-//   - [DestroySessionOk]
-//   - [DestroySessionNone]
+//  - [DestroySessionOk]
+//  - [DestroySessionNone]
 //
 // Example:
-//
-//	g, err := mt.DecodeDestroySessionRes(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *mt.DestroySessionOk: // destroy_session_ok#e22045fc
-//	case *mt.DestroySessionNone: // destroy_session_none#62d350c9
-//	default: panic(v)
-//	}
+//  g, err := mt.DecodeDestroySessionRes(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *mt.DestroySessionOk: // destroy_session_ok#e22045fc
+//  case *mt.DestroySessionNone: // destroy_session_none#62d350c9
+//  default: panic(v)
+//  }
 type DestroySessionResClass interface {
 	bin.Encoder
 	bin.Decoder

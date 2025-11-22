@@ -35,7 +35,7 @@ var (
 // Mini app »¹ settings
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
+//  1) https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/constructor/botAppSettings for reference.
 type BotAppSettings struct {

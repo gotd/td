@@ -35,7 +35,7 @@ var (
 // Telegram Business introduction »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-introduction
+//  1) https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/constructor/inputBusinessIntro for reference.
 type InputBusinessIntro struct {

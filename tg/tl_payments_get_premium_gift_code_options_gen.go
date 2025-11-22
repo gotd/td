@@ -35,7 +35,7 @@ var (
 // Obtain a list of Telegram Premium giveaway/gift code »¹ options.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.getPremiumGiftCodeOptions for reference.
 type PaymentsGetPremiumGiftCodeOptionsRequest struct {
@@ -215,7 +215,7 @@ func (g *PaymentsGetPremiumGiftCodeOptionsRequest) GetBoostPeer() (value InputPe
 // Obtain a list of Telegram Premium giveaway/gift code »¹ options.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.getPremiumGiftCodeOptions for reference.
 func (c *Client) PaymentsGetPremiumGiftCodeOptions(ctx context.Context, request *PaymentsGetPremiumGiftCodeOptionsRequest) ([]PremiumGiftCodeOption, error) {

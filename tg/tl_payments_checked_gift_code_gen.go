@@ -35,7 +35,7 @@ var (
 // Contains info about a Telegram Premium giftcode link¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#premium-giftcode-links
+//  1) https://core.telegram.org/api/links#premium-giftcode-links
 //
 // See https://core.telegram.org/constructor/payments.checkedGiftCode for reference.
 type PaymentsCheckedGiftCode struct {

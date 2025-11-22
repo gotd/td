@@ -35,8 +35,8 @@ var (
 // Report a sponsored message »¹, see here »² for more info on the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages
-//  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages
+//  2) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
 type MessagesReportSponsoredMessageRequest struct {
@@ -200,8 +200,8 @@ func (r *MessagesReportSponsoredMessageRequest) GetOption() (value []byte) {
 // Report a sponsored message »¹, see here »² for more info on the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages
-//  2. https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages
+//  2) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
 func (c *Client) MessagesReportSponsoredMessage(ctx context.Context, request *MessagesReportSponsoredMessageRequest) (ChannelsSponsoredMessageReportResultClass, error) {

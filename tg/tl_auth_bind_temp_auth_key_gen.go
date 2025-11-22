@@ -38,7 +38,7 @@ var (
 // For more information, see Perfect Forward Secrecy¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/pfs
+//  1) https://core.telegram.org/api/pfs
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 type AuthBindTempAuthKeyRequest struct {
@@ -264,13 +264,12 @@ func (b *AuthBindTempAuthKeyRequest) GetEncryptedMessage() (value []byte) {
 // For more information, see Perfect Forward Secrecy¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/pfs
+//  1) https://core.telegram.org/api/pfs
 //
 // Possible errors:
-//
-//	400 ENCRYPTED_MESSAGE_INVALID: Encrypted message invalid.
-//	400 TEMP_AUTH_KEY_ALREADY_BOUND: The passed temporary key is already bound to another perm_auth_key_id.
-//	400 TEMP_AUTH_KEY_EMPTY: No temporary auth key provided.
+//  400 ENCRYPTED_MESSAGE_INVALID: Encrypted message invalid.
+//  400 TEMP_AUTH_KEY_ALREADY_BOUND: The passed temporary key is already bound to another perm_auth_key_id.
+//  400 TEMP_AUTH_KEY_EMPTY: No temporary auth key provided.
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 // Can be used by bots.

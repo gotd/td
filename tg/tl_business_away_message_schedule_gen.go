@@ -35,7 +35,7 @@ var (
 // Always send Telegram Business away messages¹ to users writing to us in private.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
+//  1) https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/constructor/businessAwayMessageScheduleAlways for reference.
 type BusinessAwayMessageScheduleAlways struct {
@@ -141,8 +141,8 @@ func (b *BusinessAwayMessageScheduleAlways) DecodeBare(buf *bin.Buffer) error {
 // the configured Telegram Business working hours².
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
-//  2. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#away-messages
+//  2) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/constructor/businessAwayMessageScheduleOutsideWorkHours for reference.
 type BusinessAwayMessageScheduleOutsideWorkHours struct {
@@ -250,7 +250,7 @@ func (b *BusinessAwayMessageScheduleOutsideWorkHours) DecodeBare(buf *bin.Buffer
 // specified time span.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
+//  1) https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/constructor/businessAwayMessageScheduleCustom for reference.
 type BusinessAwayMessageScheduleCustom struct {
@@ -419,22 +419,21 @@ const BusinessAwayMessageScheduleClassName = "BusinessAwayMessageSchedule"
 // See https://core.telegram.org/type/BusinessAwayMessageSchedule for reference.
 //
 // Constructors:
-//   - [BusinessAwayMessageScheduleAlways]
-//   - [BusinessAwayMessageScheduleOutsideWorkHours]
-//   - [BusinessAwayMessageScheduleCustom]
+//  - [BusinessAwayMessageScheduleAlways]
+//  - [BusinessAwayMessageScheduleOutsideWorkHours]
+//  - [BusinessAwayMessageScheduleCustom]
 //
 // Example:
-//
-//	g, err := tg.DecodeBusinessAwayMessageSchedule(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.BusinessAwayMessageScheduleAlways: // businessAwayMessageScheduleAlways#c9b9e2b9
-//	case *tg.BusinessAwayMessageScheduleOutsideWorkHours: // businessAwayMessageScheduleOutsideWorkHours#c3f2f501
-//	case *tg.BusinessAwayMessageScheduleCustom: // businessAwayMessageScheduleCustom#cc4d9ecc
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeBusinessAwayMessageSchedule(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.BusinessAwayMessageScheduleAlways: // businessAwayMessageScheduleAlways#c9b9e2b9
+//  case *tg.BusinessAwayMessageScheduleOutsideWorkHours: // businessAwayMessageScheduleOutsideWorkHours#c3f2f501
+//  case *tg.BusinessAwayMessageScheduleCustom: // businessAwayMessageScheduleCustom#cc4d9ecc
+//  default: panic(v)
+//  }
 type BusinessAwayMessageScheduleClass interface {
 	bin.Encoder
 	bin.Decoder

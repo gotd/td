@@ -357,20 +357,19 @@ const UsersSavedMusicClassName = "users.SavedMusic"
 // See https://core.telegram.org/type/users.SavedMusic for reference.
 //
 // Constructors:
-//   - [UsersSavedMusicNotModified]
-//   - [UsersSavedMusic]
+//  - [UsersSavedMusicNotModified]
+//  - [UsersSavedMusic]
 //
 // Example:
-//
-//	g, err := tg.DecodeUsersSavedMusic(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UsersSavedMusicNotModified: // users.savedMusicNotModified#e3878aa4
-//	case *tg.UsersSavedMusic: // users.savedMusic#34a2f297
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUsersSavedMusic(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UsersSavedMusicNotModified: // users.savedMusicNotModified#e3878aa4
+//  case *tg.UsersSavedMusic: // users.savedMusic#34a2f297
+//  default: panic(v)
+//  }
 type UsersSavedMusicClass interface {
 	bin.Encoder
 	bin.Decoder

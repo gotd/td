@@ -325,9 +325,8 @@ func (s *BotsSetCustomVerificationRequest) GetCustomDescription() (value string,
 // BotsSetCustomVerification invokes method bots.setCustomVerification#8b89dfbd returning error if any.
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/bots.setCustomVerification for reference.
 // Can be used by bots.

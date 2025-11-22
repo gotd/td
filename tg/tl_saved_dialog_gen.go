@@ -35,7 +35,7 @@ var (
 // Represents a saved dialog »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/savedDialog for reference.
 type SavedDialog struct {
@@ -683,20 +683,19 @@ const SavedDialogClassName = "SavedDialog"
 // See https://core.telegram.org/type/SavedDialog for reference.
 //
 // Constructors:
-//   - [SavedDialog]
-//   - [MonoForumDialog]
+//  - [SavedDialog]
+//  - [MonoForumDialog]
 //
 // Example:
-//
-//	g, err := tg.DecodeSavedDialog(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.SavedDialog: // savedDialog#bd87cb6c
-//	case *tg.MonoForumDialog: // monoForumDialog#64407ea7
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeSavedDialog(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.SavedDialog: // savedDialog#bd87cb6c
+//  case *tg.MonoForumDialog: // monoForumDialog#64407ea7
+//  default: panic(v)
+//  }
 type SavedDialogClass interface {
 	bin.Encoder
 	bin.Decoder

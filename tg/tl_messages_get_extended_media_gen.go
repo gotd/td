@@ -38,8 +38,8 @@ var (
 // No information will be returned for messages containing not yet bought paid media.
 //
 // Links:
-//  1. https://core.telegram.org/api/paid-media
-//  2. https://core.telegram.org/constructor/updateMessageExtendedMedia
+//  1) https://core.telegram.org/api/paid-media
+//  2) https://core.telegram.org/constructor/updateMessageExtendedMedia
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 type MessagesGetExtendedMediaRequest struct {
@@ -220,8 +220,8 @@ func (g *MessagesGetExtendedMediaRequest) GetID() (value []int) {
 // No information will be returned for messages containing not yet bought paid media.
 //
 // Links:
-//  1. https://core.telegram.org/api/paid-media
-//  2. https://core.telegram.org/constructor/updateMessageExtendedMedia
+//  1) https://core.telegram.org/api/paid-media
+//  2) https://core.telegram.org/constructor/updateMessageExtendedMedia
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 func (c *Client) MessagesGetExtendedMedia(ctx context.Context, request *MessagesGetExtendedMediaRequest) (UpdatesClass, error) {

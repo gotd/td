@@ -38,9 +38,9 @@ var (
 // shortcuts are also deleted by this method).
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateDeleteQuickReply
-//  3. https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateDeleteQuickReply
+//  3) https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
 //
 // See https://core.telegram.org/method/messages.deleteQuickReplyShortcut for reference.
 type MessagesDeleteQuickReplyShortcutRequest struct {
@@ -179,13 +179,12 @@ func (d *MessagesDeleteQuickReplyShortcutRequest) GetShortcutID() (value int) {
 // shortcuts are also deleted by this method).
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateDeleteQuickReply
-//  3. https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateDeleteQuickReply
+//  3) https://core.telegram.org/constructor/updateDeleteQuickReplyMessages
 //
 // Possible errors:
-//
-//	400 SHORTCUT_INVALID: The specified shortcut is invalid.
+//  400 SHORTCUT_INVALID: The specified shortcut is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteQuickReplyShortcut for reference.
 func (c *Client) MessagesDeleteQuickReplyShortcut(ctx context.Context, shortcutid int) (bool, error) {

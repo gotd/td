@@ -37,8 +37,8 @@ var (
 // are sorted by profitability.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/method/payments.getSuggestedStarRefBots for reference.
 type PaymentsGetSuggestedStarRefBotsRequest struct {
@@ -331,12 +331,11 @@ func (g *PaymentsGetSuggestedStarRefBotsRequest) GetLimit() (value int) {
 // are sorted by profitability.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/bots/referrals
 //
 // Possible errors:
-//
-//	403 PEER_ID_INVALID: The provided peer id is invalid.
+//  403 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getSuggestedStarRefBots for reference.
 func (c *Client) PaymentsGetSuggestedStarRefBots(ctx context.Context, request *PaymentsGetSuggestedStarRefBotsRequest) (*PaymentsSuggestedStarRefBots, error) {

@@ -1135,22 +1135,21 @@ const UpdatesChannelDifferenceClassName = "updates.ChannelDifference"
 // See https://core.telegram.org/type/updates.ChannelDifference for reference.
 //
 // Constructors:
-//   - [UpdatesChannelDifferenceEmpty]
-//   - [UpdatesChannelDifferenceTooLong]
-//   - [UpdatesChannelDifference]
+//  - [UpdatesChannelDifferenceEmpty]
+//  - [UpdatesChannelDifferenceTooLong]
+//  - [UpdatesChannelDifference]
 //
 // Example:
-//
-//	g, err := tg.DecodeUpdatesChannelDifference(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UpdatesChannelDifferenceEmpty: // updates.channelDifferenceEmpty#3e11affb
-//	case *tg.UpdatesChannelDifferenceTooLong: // updates.channelDifferenceTooLong#a4bcc6fe
-//	case *tg.UpdatesChannelDifference: // updates.channelDifference#2064674e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUpdatesChannelDifference(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UpdatesChannelDifferenceEmpty: // updates.channelDifferenceEmpty#3e11affb
+//  case *tg.UpdatesChannelDifferenceTooLong: // updates.channelDifferenceTooLong#a4bcc6fe
+//  case *tg.UpdatesChannelDifference: // updates.channelDifference#2064674e
+//  default: panic(v)
+//  }
 type UpdatesChannelDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -137,7 +137,7 @@ func (p *HelpPeerColorsNotModified) DecodeBare(b *bin.Buffer) error {
 // Contains info about multiple color palettes »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColors for reference.
 type HelpPeerColors struct {
@@ -327,20 +327,19 @@ const HelpPeerColorsClassName = "help.PeerColors"
 // See https://core.telegram.org/type/help.PeerColors for reference.
 //
 // Constructors:
-//   - [HelpPeerColorsNotModified]
-//   - [HelpPeerColors]
+//  - [HelpPeerColorsNotModified]
+//  - [HelpPeerColors]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpPeerColors(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpPeerColorsNotModified: // help.peerColorsNotModified#2ba1f5ce
-//	case *tg.HelpPeerColors: // help.peerColors#f8ed08
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpPeerColors(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpPeerColorsNotModified: // help.peerColorsNotModified#2ba1f5ce
+//  case *tg.HelpPeerColors: // help.peerColors#f8ed08
+//  default: panic(v)
+//  }
 type HelpPeerColorsClass interface {
 	bin.Encoder
 	bin.Decoder

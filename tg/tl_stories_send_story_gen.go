@@ -35,7 +35,7 @@ var (
 // Uploads a Telegram Story¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 type StoriesSendStoryRequest struct {
@@ -835,21 +835,20 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 // Uploads a Telegram Story¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // Possible errors:
-//
-//	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
-//	400 IMAGE_PROCESS_FAILED: Failure while processing image.
-//	400 MEDIA_EMPTY: The provided media object is invalid.
-//	400 MEDIA_FILE_INVALID: The specified media file is invalid.
-//	400 MEDIA_TYPE_INVALID: The specified media type cannot be used in stories.
-//	400 MEDIA_VIDEO_STORY_MISSING: A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	400 STORIES_TOO_MUCH: You have hit the maximum active stories limit as specified by the story_expiring_limit_* client configuration parameters: you should buy a Premium subscription, delete an active story, or wait for the oldest story to expire.
-//	400 STORY_PERIOD_INVALID: The specified story period is invalid for this account.
-//	400 VENUE_ID_INVALID: The specified venue ID is invalid.
+//  400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
+//  400 IMAGE_PROCESS_FAILED: Failure while processing image.
+//  400 MEDIA_EMPTY: The provided media object is invalid.
+//  400 MEDIA_FILE_INVALID: The specified media file is invalid.
+//  400 MEDIA_TYPE_INVALID: The specified media type cannot be used in stories.
+//  400 MEDIA_VIDEO_STORY_MISSING: A non-story video cannot be repubblished as a story (emitted when trying to resend a non-story video as a story using inputDocument).
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 STORIES_TOO_MUCH: You have hit the maximum active stories limit as specified by the story_expiring_limit_* client configuration parameters: you should buy a Premium subscription, delete an active story, or wait for the oldest story to expire.
+//  400 STORY_PERIOD_INVALID: The specified story period is invalid for this account.
+//  400 VENUE_ID_INVALID: The specified venue ID is invalid.
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 func (c *Client) StoriesSendStory(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error) {

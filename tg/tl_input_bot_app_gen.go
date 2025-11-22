@@ -35,7 +35,7 @@ var (
 // Used to fetch information about a direct link Mini App¹ by its ID
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/constructor/inputBotAppID for reference.
 type InputBotAppID struct {
@@ -206,7 +206,7 @@ func (i *InputBotAppID) GetAccessHash() (value int64) {
 // Used to fetch information about a direct link Mini App¹ by its short name
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/constructor/inputBotAppShortName for reference.
 type InputBotAppShortName struct {
@@ -383,20 +383,19 @@ const InputBotAppClassName = "InputBotApp"
 // See https://core.telegram.org/type/InputBotApp for reference.
 //
 // Constructors:
-//   - [InputBotAppID]
-//   - [InputBotAppShortName]
+//  - [InputBotAppID]
+//  - [InputBotAppShortName]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputBotApp(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputBotAppID: // inputBotAppID#a920bd7a
-//	case *tg.InputBotAppShortName: // inputBotAppShortName#908c0407
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputBotApp(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputBotAppID: // inputBotAppID#a920bd7a
+//  case *tg.InputBotAppShortName: // inputBotAppShortName#908c0407
+//  default: panic(v)
+//  }
 type InputBotAppClass interface {
 	bin.Encoder
 	bin.Decoder

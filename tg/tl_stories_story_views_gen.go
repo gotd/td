@@ -35,7 +35,7 @@ var (
 // Reaction and view counters for a list of stories¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stories.storyViews for reference.
 type StoriesStoryViews struct {

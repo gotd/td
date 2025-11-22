@@ -35,7 +35,7 @@ var (
 // Represents an attachment menu icon color for bot mini apps »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBotIconColor for reference.
 type AttachMenuBotIconColor struct {

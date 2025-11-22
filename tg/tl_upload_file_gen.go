@@ -229,7 +229,7 @@ func (f *UploadFile) GetBytes() (value []byte) {
 // The file must be downloaded from a CDN DC¹.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.fileCdnRedirect for reference.
 type UploadFileCDNRedirect struct {
@@ -509,20 +509,19 @@ const UploadFileClassName = "upload.File"
 // See https://core.telegram.org/type/upload.File for reference.
 //
 // Constructors:
-//   - [UploadFile]
-//   - [UploadFileCDNRedirect]
+//  - [UploadFile]
+//  - [UploadFileCDNRedirect]
 //
 // Example:
-//
-//	g, err := tg.DecodeUploadFile(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UploadFile: // upload.file#96a18d5
-//	case *tg.UploadFileCDNRedirect: // upload.fileCdnRedirect#f18cda44
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUploadFile(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UploadFile: // upload.file#96a18d5
+//  case *tg.UploadFileCDNRedirect: // upload.fileCdnRedirect#f18cda44
+//  default: panic(v)
+//  }
 type UploadFileClass interface {
 	bin.Encoder
 	bin.Decoder

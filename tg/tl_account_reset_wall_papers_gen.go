@@ -35,7 +35,7 @@ var (
 // Delete all installed wallpapers¹, reverting to the default wallpaper set.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.resetWallPapers for reference.
 type AccountResetWallPapersRequest struct {
@@ -135,7 +135,7 @@ func (r *AccountResetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 // Delete all installed wallpapers¹, reverting to the default wallpaper set.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.resetWallPapers for reference.
 func (c *Client) AccountResetWallPapers(ctx context.Context) (bool, error) {

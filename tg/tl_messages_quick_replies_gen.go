@@ -35,7 +35,7 @@ var (
 // Info about quick reply shortcuts »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/messages.quickReplies for reference.
 type MessagesQuickReplies struct {
@@ -338,7 +338,7 @@ func (q *MessagesQuickReplies) MapUsers() (value UserClassArray) {
 // Info about quick reply shortcuts »¹ hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/messages.quickRepliesNotModified for reference.
 type MessagesQuickRepliesNotModified struct {
@@ -447,20 +447,19 @@ const MessagesQuickRepliesClassName = "messages.QuickReplies"
 // See https://core.telegram.org/type/messages.QuickReplies for reference.
 //
 // Constructors:
-//   - [MessagesQuickReplies]
-//   - [MessagesQuickRepliesNotModified]
+//  - [MessagesQuickReplies]
+//  - [MessagesQuickRepliesNotModified]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesQuickReplies(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesQuickReplies: // messages.quickReplies#c68d6695
-//	case *tg.MessagesQuickRepliesNotModified: // messages.quickRepliesNotModified#5f91eb5b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesQuickReplies(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesQuickReplies: // messages.quickReplies#c68d6695
+//  case *tg.MessagesQuickRepliesNotModified: // messages.quickRepliesNotModified#5f91eb5b
+//  default: panic(v)
+//  }
 type MessagesQuickRepliesClass interface {
 	bin.Encoder
 	bin.Decoder

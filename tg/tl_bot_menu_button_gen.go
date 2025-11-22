@@ -35,8 +35,8 @@ var (
 // Placeholder bot menu button¹ never returned to users: see the docs for more info².
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/menu
-//  2. https://core.telegram.org/api/bots/menu
+//  1) https://core.telegram.org/api/bots/menu
+//  2) https://core.telegram.org/api/bots/menu
 //
 // See https://core.telegram.org/constructor/botMenuButtonDefault for reference.
 type BotMenuButtonDefault struct {
@@ -141,7 +141,7 @@ func (b *BotMenuButtonDefault) DecodeBare(buf *bin.Buffer) error {
 // Bot menu button¹ that opens the bot command list when clicked.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/menu
+//  1) https://core.telegram.org/api/bots/menu
 //
 // See https://core.telegram.org/constructor/botMenuButtonCommands for reference.
 type BotMenuButtonCommands struct {
@@ -246,8 +246,8 @@ func (b *BotMenuButtonCommands) DecodeBare(buf *bin.Buffer) error {
 // Bot menu button¹ that opens a web app² when clicked.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/menu
-//  2. https://core.telegram.org/api/bots/webapps
+//  1) https://core.telegram.org/api/bots/menu
+//  2) https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/constructor/botMenuButton for reference.
 type BotMenuButton struct {
@@ -419,22 +419,21 @@ const BotMenuButtonClassName = "BotMenuButton"
 // See https://core.telegram.org/type/BotMenuButton for reference.
 //
 // Constructors:
-//   - [BotMenuButtonDefault]
-//   - [BotMenuButtonCommands]
-//   - [BotMenuButton]
+//  - [BotMenuButtonDefault]
+//  - [BotMenuButtonCommands]
+//  - [BotMenuButton]
 //
 // Example:
-//
-//	g, err := tg.DecodeBotMenuButton(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.BotMenuButtonDefault: // botMenuButtonDefault#7533a588
-//	case *tg.BotMenuButtonCommands: // botMenuButtonCommands#4258c205
-//	case *tg.BotMenuButton: // botMenuButton#c7b57ce6
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeBotMenuButton(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.BotMenuButtonDefault: // botMenuButtonDefault#7533a588
+//  case *tg.BotMenuButtonCommands: // botMenuButtonCommands#4258c205
+//  case *tg.BotMenuButton: // botMenuButton#c7b57ce6
+//  default: panic(v)
+//  }
 type BotMenuButtonClass interface {
 	bin.Encoder
 	bin.Decoder

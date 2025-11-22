@@ -39,8 +39,8 @@ var (
 // messageMediaGiveaway¹.channels field.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
-//  2. https://core.telegram.org/constructor/messageMediaGiveaway
+//  1) https://core.telegram.org/api/giveaways
+//  2) https://core.telegram.org/constructor/messageMediaGiveaway
 //
 // See https://core.telegram.org/constructor/payments.giveawayInfo for reference.
 type PaymentsGiveawayInfo struct {
@@ -419,7 +419,7 @@ func (g *PaymentsGiveawayInfo) GetDisallowedCountry() (value string, ok bool) {
 // A giveaway¹ has ended.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/payments.giveawayInfoResults for reference.
 type PaymentsGiveawayInfoResults struct {
@@ -864,20 +864,19 @@ const PaymentsGiveawayInfoClassName = "payments.GiveawayInfo"
 // See https://core.telegram.org/type/payments.GiveawayInfo for reference.
 //
 // Constructors:
-//   - [PaymentsGiveawayInfo]
-//   - [PaymentsGiveawayInfoResults]
+//  - [PaymentsGiveawayInfo]
+//  - [PaymentsGiveawayInfoResults]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsGiveawayInfo(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsGiveawayInfo: // payments.giveawayInfo#4367daa0
-//	case *tg.PaymentsGiveawayInfoResults: // payments.giveawayInfoResults#e175e66f
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsGiveawayInfo(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsGiveawayInfo: // payments.giveawayInfo#4367daa0
+//  case *tg.PaymentsGiveawayInfoResults: // payments.giveawayInfoResults#e175e66f
+//  default: panic(v)
+//  }
 type PaymentsGiveawayInfoClass interface {
 	bin.Encoder
 	bin.Decoder

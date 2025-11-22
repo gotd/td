@@ -35,7 +35,7 @@ var (
 // Install wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.installWallPaper for reference.
 type AccountInstallWallPaperRequest struct {
@@ -206,11 +206,10 @@ func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings)
 // Install wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
-//
-//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
 //
 // See https://core.telegram.org/method/account.installWallPaper for reference.
 func (c *Client) AccountInstallWallPaper(ctx context.Context, request *AccountInstallWallPaperRequest) (bool, error) {

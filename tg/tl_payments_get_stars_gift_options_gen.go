@@ -35,8 +35,8 @@ var (
 // Obtain a list of Telegram Stars gift options »¹ as starsGiftOption² constructors.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
-//  2. https://core.telegram.org/constructor/starsGiftOption
+//  1) https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  2) https://core.telegram.org/constructor/starsGiftOption
 //
 // See https://core.telegram.org/method/payments.getStarsGiftOptions for reference.
 type PaymentsGetStarsGiftOptionsRequest struct {
@@ -216,13 +216,12 @@ func (g *PaymentsGetStarsGiftOptionsRequest) GetUserID() (value InputUserClass, 
 // Obtain a list of Telegram Stars gift options »¹ as starsGiftOption² constructors.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
-//  2. https://core.telegram.org/constructor/starsGiftOption
+//  1) https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  2) https://core.telegram.org/constructor/starsGiftOption
 //
 // Possible errors:
-//
-//	400 USER_GIFT_UNAVAILABLE: Gifts are not available in the current region (stars_gifts_enabled is equal to false).
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 USER_GIFT_UNAVAILABLE: Gifts are not available in the current region (stars_gifts_enabled is equal to false).
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsGiftOptions for reference.
 func (c *Client) PaymentsGetStarsGiftOptions(ctx context.Context, request *PaymentsGetStarsGiftOptionsRequest) ([]StarsGiftOption, error) {

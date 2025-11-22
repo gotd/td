@@ -37,9 +37,9 @@ var (
 // Changing it will emit an updateUser¹ update.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/profile#personal-channel
-//  3. https://core.telegram.org/constructor/updateUser
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/profile#personal-channel
+//  3) https://core.telegram.org/constructor/updateUser
 //
 // See https://core.telegram.org/method/account.updatePersonalChannel for reference.
 type AccountUpdatePersonalChannelRequest struct {
@@ -187,9 +187,9 @@ func (u *AccountUpdatePersonalChannelRequest) GetChannelAsNotEmpty() (NotEmptyIn
 // Changing it will emit an updateUser¹ update.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/profile#personal-channel
-//  3. https://core.telegram.org/constructor/updateUser
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/profile#personal-channel
+//  3) https://core.telegram.org/constructor/updateUser
 //
 // See https://core.telegram.org/method/account.updatePersonalChannel for reference.
 func (c *Client) AccountUpdatePersonalChannel(ctx context.Context, channel InputChannelClass) (bool, error) {

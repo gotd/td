@@ -35,7 +35,7 @@ var (
 // Info about one or more boosts¹ applied by a specific user.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/boost for reference.
 type Boost struct {

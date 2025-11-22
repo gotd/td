@@ -35,7 +35,7 @@ var (
 // Search for custom emoji stickersets »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.searchEmojiStickerSets for reference.
 type MessagesSearchEmojiStickerSetsRequest struct {
@@ -254,7 +254,7 @@ func (s *MessagesSearchEmojiStickerSetsRequest) GetHash() (value int64) {
 // Search for custom emoji stickersets »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.searchEmojiStickerSets for reference.
 func (c *Client) MessagesSearchEmojiStickerSets(ctx context.Context, request *MessagesSearchEmojiStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {

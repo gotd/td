@@ -371,9 +371,8 @@ func (t *PhoneToggleGroupCallSettingsRequest) GetSendPaidMessagesStars() (value 
 // Change group call settings
 //
 // Possible errors:
-//
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
-//	400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//  400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
 func (c *Client) PhoneToggleGroupCallSettings(ctx context.Context, request *PhoneToggleGroupCallSettingsRequest) (UpdatesClass, error) {

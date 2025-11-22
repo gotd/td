@@ -35,7 +35,7 @@ var (
 // A story found using global story search »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#searching-stories
+//  1) https://core.telegram.org/api/stories#searching-stories
 //
 // See https://core.telegram.org/constructor/foundStory for reference.
 type FoundStory struct {

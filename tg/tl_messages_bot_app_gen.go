@@ -35,7 +35,7 @@ var (
 // Contains information about a direct link Mini App¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/constructor/messages.botApp for reference.
 type MessagesBotApp struct {

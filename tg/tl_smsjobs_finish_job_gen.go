@@ -234,8 +234,7 @@ func (f *SMSJobsFinishJobRequest) GetError() (value string, ok bool) {
 // Finish an SMS job (official clients only).
 //
 // Possible errors:
-//
-//	400 SMSJOB_ID_INVALID: The specified job ID is invalid.
+//  400 SMSJOB_ID_INVALID: The specified job ID is invalid.
 //
 // See https://core.telegram.org/method/smsjobs.finishJob for reference.
 func (c *Client) SMSJobsFinishJob(ctx context.Context, request *SMSJobsFinishJobRequest) (bool, error) {

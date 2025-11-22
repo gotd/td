@@ -35,7 +35,7 @@ var (
 // Future auth token »¹ to be used on subsequent authorizations
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#future-auth-tokens
+//  1) https://core.telegram.org/api/auth#future-auth-tokens
 //
 // See https://core.telegram.org/constructor/auth.loggedOut for reference.
 type AuthLoggedOut struct {

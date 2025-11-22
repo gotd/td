@@ -1254,26 +1254,25 @@ const EncryptedChatClassName = "EncryptedChat"
 // See https://core.telegram.org/type/EncryptedChat for reference.
 //
 // Constructors:
-//   - [EncryptedChatEmpty]
-//   - [EncryptedChatWaiting]
-//   - [EncryptedChatRequested]
-//   - [EncryptedChat]
-//   - [EncryptedChatDiscarded]
+//  - [EncryptedChatEmpty]
+//  - [EncryptedChatWaiting]
+//  - [EncryptedChatRequested]
+//  - [EncryptedChat]
+//  - [EncryptedChatDiscarded]
 //
 // Example:
-//
-//	g, err := tg.DecodeEncryptedChat(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EncryptedChatEmpty: // encryptedChatEmpty#ab7ec0a0
-//	case *tg.EncryptedChatWaiting: // encryptedChatWaiting#66b25953
-//	case *tg.EncryptedChatRequested: // encryptedChatRequested#48f1d94c
-//	case *tg.EncryptedChat: // encryptedChat#61f0d4c7
-//	case *tg.EncryptedChatDiscarded: // encryptedChatDiscarded#1e1c7c45
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEncryptedChat(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EncryptedChatEmpty: // encryptedChatEmpty#ab7ec0a0
+//  case *tg.EncryptedChatWaiting: // encryptedChatWaiting#66b25953
+//  case *tg.EncryptedChatRequested: // encryptedChatRequested#48f1d94c
+//  case *tg.EncryptedChat: // encryptedChat#61f0d4c7
+//  case *tg.EncryptedChatDiscarded: // encryptedChatDiscarded#1e1c7c45
+//  default: panic(v)
+//  }
 type EncryptedChatClass interface {
 	bin.Encoder
 	bin.Decoder

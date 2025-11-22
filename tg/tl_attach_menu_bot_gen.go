@@ -37,7 +37,7 @@ var (
 // set.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBot for reference.
 type AttachMenuBot struct {

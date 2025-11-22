@@ -36,7 +36,7 @@ var (
 // list of saved notification sounds.
 //
 // Links:
-//  1. https://core.telegram.org/method/account.saveRingtone
+//  1) https://core.telegram.org/method/account.saveRingtone
 //
 // See https://core.telegram.org/method/account.uploadRingtone for reference.
 type AccountUploadRingtoneRequest struct {
@@ -229,11 +229,10 @@ func (u *AccountUploadRingtoneRequest) GetMimeType() (value string) {
 // list of saved notification sounds.
 //
 // Links:
-//  1. https://core.telegram.org/method/account.saveRingtone
+//  1) https://core.telegram.org/method/account.saveRingtone
 //
 // Possible errors:
-//
-//	400 RINGTONE_MIME_INVALID: The MIME type for the ringtone is invalid.
+//  400 RINGTONE_MIME_INVALID: The MIME type for the ringtone is invalid.
 //
 // See https://core.telegram.org/method/account.uploadRingtone for reference.
 func (c *Client) AccountUploadRingtone(ctx context.Context, request *AccountUploadRingtoneRequest) (DocumentClass, error) {

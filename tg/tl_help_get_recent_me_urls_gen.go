@@ -41,8 +41,8 @@ var (
 // Telegram.
 //
 // Links:
-//  1. https://t.me
-//  2. https://t.me
+//  1) https://t.me
+//  2) https://t.me
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 type HelpGetRecentMeURLsRequest struct {
@@ -181,8 +181,8 @@ func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
 // Telegram.
 //
 // Links:
-//  1. https://t.me
-//  2. https://t.me
+//  1) https://t.me
+//  2) https://t.me
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 func (c *Client) HelpGetRecentMeURLs(ctx context.Context, referer string) (*HelpRecentMeURLs, error) {

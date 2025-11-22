@@ -35,7 +35,7 @@ var (
 // Fetch one or more factchecks, see here »¹ for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/factcheck
+//  1) https://core.telegram.org/api/factcheck
 //
 // See https://core.telegram.org/method/messages.getFactCheck for reference.
 type MessagesGetFactCheckRequest struct {
@@ -216,11 +216,10 @@ func (g *MessagesGetFactCheckRequest) GetMsgID() (value []int) {
 // Fetch one or more factchecks, see here »¹ for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/factcheck
+//  1) https://core.telegram.org/api/factcheck
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getFactCheck for reference.
 func (c *Client) MessagesGetFactCheck(ctx context.Context, request *MessagesGetFactCheckRequest) ([]FactCheck, error) {

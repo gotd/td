@@ -35,7 +35,7 @@ var (
 // Contains info about business chat deep links »¹ created by the current account.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/constructor/account.businessChatLinks for reference.
 type AccountBusinessChatLinks struct {

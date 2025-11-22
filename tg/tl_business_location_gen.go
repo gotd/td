@@ -35,7 +35,7 @@ var (
 // Represents the location of a Telegram Business »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#location
+//  1) https://core.telegram.org/api/business#location
 //
 // See https://core.telegram.org/constructor/businessLocation for reference.
 type BusinessLocation struct {

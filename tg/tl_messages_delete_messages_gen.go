@@ -234,9 +234,8 @@ func (d *MessagesDeleteMessagesRequest) GetID() (value []int) {
 // Deletes messages by their identifiers.
 //
 // Possible errors:
-//
-//	403 MESSAGE_DELETE_FORBIDDEN: You can't delete one of the messages you tried to delete, most likely because it is a service message.
-//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  403 MESSAGE_DELETE_FORBIDDEN: You can't delete one of the messages you tried to delete, most likely because it is a service message.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteMessages for reference.
 // Can be used by bots.

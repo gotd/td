@@ -316,20 +316,19 @@ const StoriesAlbumsClassName = "stories.Albums"
 // See https://core.telegram.org/type/stories.Albums for reference.
 //
 // Constructors:
-//   - [StoriesAlbumsNotModified]
-//   - [StoriesAlbums]
+//  - [StoriesAlbumsNotModified]
+//  - [StoriesAlbums]
 //
 // Example:
-//
-//	g, err := tg.DecodeStoriesAlbums(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StoriesAlbumsNotModified: // stories.albumsNotModified#564edaeb
-//	case *tg.StoriesAlbums: // stories.albums#c3987a3a
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStoriesAlbums(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StoriesAlbumsNotModified: // stories.albumsNotModified#564edaeb
+//  case *tg.StoriesAlbums: // stories.albums#c3987a3a
+//  default: panic(v)
+//  }
 type StoriesAlbumsClass interface {
 	bin.Encoder
 	bin.Decoder

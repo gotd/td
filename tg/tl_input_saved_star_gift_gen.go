@@ -473,22 +473,21 @@ const InputSavedStarGiftClassName = "InputSavedStarGift"
 // See https://core.telegram.org/type/InputSavedStarGift for reference.
 //
 // Constructors:
-//   - [InputSavedStarGiftUser]
-//   - [InputSavedStarGiftChat]
-//   - [InputSavedStarGiftSlug]
+//  - [InputSavedStarGiftUser]
+//  - [InputSavedStarGiftChat]
+//  - [InputSavedStarGiftSlug]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputSavedStarGift(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputSavedStarGiftUser: // inputSavedStarGiftUser#69279795
-//	case *tg.InputSavedStarGiftChat: // inputSavedStarGiftChat#f101aa7f
-//	case *tg.InputSavedStarGiftSlug: // inputSavedStarGiftSlug#2085c238
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputSavedStarGift(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputSavedStarGiftUser: // inputSavedStarGiftUser#69279795
+//  case *tg.InputSavedStarGiftChat: // inputSavedStarGiftChat#f101aa7f
+//  case *tg.InputSavedStarGiftSlug: // inputSavedStarGiftSlug#2085c238
+//  default: panic(v)
+//  }
 type InputSavedStarGiftClass interface {
 	bin.Encoder
 	bin.Decoder

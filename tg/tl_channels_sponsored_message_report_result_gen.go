@@ -37,7 +37,7 @@ var (
 // the option's option field to the option param of the method.
 //
 // Links:
-//  1. https://core.telegram.org/method/channels.reportSponsoredMessage
+//  1) https://core.telegram.org/method/channels.reportSponsoredMessage
 //
 // See https://core.telegram.org/constructor/channels.sponsoredMessageReportResultChooseOption for reference.
 type ChannelsSponsoredMessageReportResultChooseOption struct {
@@ -431,22 +431,21 @@ const ChannelsSponsoredMessageReportResultClassName = "channels.SponsoredMessage
 // See https://core.telegram.org/type/channels.SponsoredMessageReportResult for reference.
 //
 // Constructors:
-//   - [ChannelsSponsoredMessageReportResultChooseOption]
-//   - [ChannelsSponsoredMessageReportResultAdsHidden]
-//   - [ChannelsSponsoredMessageReportResultReported]
+//  - [ChannelsSponsoredMessageReportResultChooseOption]
+//  - [ChannelsSponsoredMessageReportResultAdsHidden]
+//  - [ChannelsSponsoredMessageReportResultReported]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelsSponsoredMessageReportResult(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelsSponsoredMessageReportResultChooseOption: // channels.sponsoredMessageReportResultChooseOption#846f9e42
-//	case *tg.ChannelsSponsoredMessageReportResultAdsHidden: // channels.sponsoredMessageReportResultAdsHidden#3e3bcf2f
-//	case *tg.ChannelsSponsoredMessageReportResultReported: // channels.sponsoredMessageReportResultReported#ad798849
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelsSponsoredMessageReportResult(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelsSponsoredMessageReportResultChooseOption: // channels.sponsoredMessageReportResultChooseOption#846f9e42
+//  case *tg.ChannelsSponsoredMessageReportResultAdsHidden: // channels.sponsoredMessageReportResultAdsHidden#3e3bcf2f
+//  case *tg.ChannelsSponsoredMessageReportResultReported: // channels.sponsoredMessageReportResultReported#ad798849
+//  default: panic(v)
+//  }
 type ChannelsSponsoredMessageReportResultClass interface {
 	bin.Encoder
 	bin.Decoder

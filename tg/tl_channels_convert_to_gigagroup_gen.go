@@ -35,9 +35,9 @@ var (
 // Convert a supergroup¹ to a gigagroup², when requested by channel suggestions³.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/channel
-//  3. https://core.telegram.org/api/config#channel-suggestions
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/channel
+//  3) https://core.telegram.org/api/config#channel-suggestions
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 type ChannelsConvertToGigagroupRequest struct {
@@ -183,18 +183,17 @@ func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 // Convert a supergroup¹ to a gigagroup², when requested by channel suggestions³.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/channel
-//  3. https://core.telegram.org/api/config#channel-suggestions
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/channel
+//  3) https://core.telegram.org/api/config#channel-suggestions
 //
 // Possible errors:
-//
-//	400 CHANNEL_ID_INVALID: The specified supergroup ID is invalid.
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//	400 FORUM_ENABLED: You can't execute the specified action because the group is a forum, disable forum functionality to continue.
-//	400 PARTICIPANTS_TOO_FEW: Not enough participants.
+//  400 CHANNEL_ID_INVALID: The specified supergroup ID is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 FORUM_ENABLED: You can't execute the specified action because the group is a forum, disable forum functionality to continue.
+//  400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 func (c *Client) ChannelsConvertToGigagroup(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {

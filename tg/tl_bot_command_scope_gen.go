@@ -239,7 +239,7 @@ func (b *BotCommandScopeUsers) DecodeBare(buf *bin.Buffer) error {
 // The specified bot commands will be valid in all groups and supergroups¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopeChats for reference.
 type BotCommandScopeChats struct {
@@ -345,7 +345,7 @@ func (b *BotCommandScopeChats) DecodeBare(buf *bin.Buffer) error {
 // and supergroups¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopeChatAdmins for reference.
 type BotCommandScopeChatAdmins struct {
@@ -591,7 +591,7 @@ func (b *BotCommandScopePeer) GetPeer() (value InputPeerClass) {
 // supergroup¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopePeerAdmins for reference.
 type BotCommandScopePeerAdmins struct {
@@ -735,7 +735,7 @@ func (b *BotCommandScopePeerAdmins) GetPeer() (value InputPeerClass) {
 // group or supergroup¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopePeerUser for reference.
 type BotCommandScopePeerUser struct {
@@ -914,30 +914,29 @@ const BotCommandScopeClassName = "BotCommandScope"
 // See https://core.telegram.org/type/BotCommandScope for reference.
 //
 // Constructors:
-//   - [BotCommandScopeDefault]
-//   - [BotCommandScopeUsers]
-//   - [BotCommandScopeChats]
-//   - [BotCommandScopeChatAdmins]
-//   - [BotCommandScopePeer]
-//   - [BotCommandScopePeerAdmins]
-//   - [BotCommandScopePeerUser]
+//  - [BotCommandScopeDefault]
+//  - [BotCommandScopeUsers]
+//  - [BotCommandScopeChats]
+//  - [BotCommandScopeChatAdmins]
+//  - [BotCommandScopePeer]
+//  - [BotCommandScopePeerAdmins]
+//  - [BotCommandScopePeerUser]
 //
 // Example:
-//
-//	g, err := tg.DecodeBotCommandScope(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.BotCommandScopeDefault: // botCommandScopeDefault#2f6cb2ab
-//	case *tg.BotCommandScopeUsers: // botCommandScopeUsers#3c4f04d8
-//	case *tg.BotCommandScopeChats: // botCommandScopeChats#6fe1a881
-//	case *tg.BotCommandScopeChatAdmins: // botCommandScopeChatAdmins#b9aa606a
-//	case *tg.BotCommandScopePeer: // botCommandScopePeer#db9d897d
-//	case *tg.BotCommandScopePeerAdmins: // botCommandScopePeerAdmins#3fd863d1
-//	case *tg.BotCommandScopePeerUser: // botCommandScopePeerUser#a1321f3
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeBotCommandScope(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.BotCommandScopeDefault: // botCommandScopeDefault#2f6cb2ab
+//  case *tg.BotCommandScopeUsers: // botCommandScopeUsers#3c4f04d8
+//  case *tg.BotCommandScopeChats: // botCommandScopeChats#6fe1a881
+//  case *tg.BotCommandScopeChatAdmins: // botCommandScopeChatAdmins#b9aa606a
+//  case *tg.BotCommandScopePeer: // botCommandScopePeer#db9d897d
+//  case *tg.BotCommandScopePeerAdmins: // botCommandScopePeerAdmins#3fd863d1
+//  case *tg.BotCommandScopePeerUser: // botCommandScopePeerUser#a1321f3
+//  default: panic(v)
+//  }
 type BotCommandScopeClass interface {
 	bin.Encoder
 	bin.Decoder

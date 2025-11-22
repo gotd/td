@@ -1777,7 +1777,7 @@ func (c *ChannelAdminLogEventActionParticipantInvite) GetParticipant() (value Ch
 // The banned rights¹ of a user were changed
 //
 // Links:
-//  1. https://core.telegram.org/api/rights
+//  1) https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
@@ -1954,7 +1954,7 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) GetNewParticipant() (va
 // The admin rights¹ of a user were changed
 //
 // Links:
-//  1. https://core.telegram.org/api/rights
+//  1) https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
@@ -2305,7 +2305,7 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) GetNewStickerset() (value I
 // The hidden prehistory setting was changed¹
 //
 // Links:
-//  1. https://core.telegram.org/method/channels.togglePreHistoryHidden
+//  1) https://core.telegram.org/method/channels.togglePreHistoryHidden
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
@@ -3093,7 +3093,7 @@ func (c *ChannelAdminLogEventActionChangeLocation) GetNewValue() (value ChannelL
 // Slow mode setting for supergroups was changed¹
 //
 // Links:
-//  1. https://core.telegram.org/method/channels.toggleSlowMode
+//  1) https://core.telegram.org/method/channels.toggleSlowMode
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {
@@ -3955,7 +3955,7 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value
 // A user joined the supergroup/channel¹ using a specific invite link
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
@@ -5368,7 +5368,7 @@ func (c *ChannelAdminLogEventActionSendMessage) GetMessage() (value MessageClass
 // The set of allowed message reactions »¹ for this channel has changed
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions for reference.
 type ChannelAdminLogEventActionChangeAvailableReactions struct {
@@ -5735,7 +5735,7 @@ func (c *ChannelAdminLogEventActionChangeUsernames) GetNewValue() (value []strin
 // Forum¹ functionality was enabled or disabled.
 //
 // Links:
-//  1. https://core.telegram.org/api/forum
+//  1) https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleForum for reference.
 type ChannelAdminLogEventActionToggleForum struct {
@@ -5876,7 +5876,7 @@ func (c *ChannelAdminLogEventActionToggleForum) GetNewValue() (value bool) {
 // A forum topic¹ was created
 //
 // Links:
-//  1. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionCreateTopic for reference.
 type ChannelAdminLogEventActionCreateTopic struct {
@@ -6022,7 +6022,7 @@ func (c *ChannelAdminLogEventActionCreateTopic) GetTopic() (value ForumTopicClas
 // A forum topic¹ was edited
 //
 // Links:
-//  1. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditTopic for reference.
 type ChannelAdminLogEventActionEditTopic struct {
@@ -6197,7 +6197,7 @@ func (c *ChannelAdminLogEventActionEditTopic) GetNewTopic() (value ForumTopicCla
 // A forum topic¹ was deleted
 //
 // Links:
-//  1. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteTopic for reference.
 type ChannelAdminLogEventActionDeleteTopic struct {
@@ -6343,7 +6343,7 @@ func (c *ChannelAdminLogEventActionDeleteTopic) GetTopic() (value ForumTopicClas
 // A forum topic¹ was pinned or unpinned
 //
 // Links:
-//  1. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionPinTopic for reference.
 type ChannelAdminLogEventActionPinTopic struct {
@@ -6581,7 +6581,7 @@ func (c *ChannelAdminLogEventActionPinTopic) GetNewTopic() (value ForumTopicClas
 // Native antispam¹ functionality was enabled or disabled.
 //
 // Links:
-//  1. https://core.telegram.org/api/antispam
+//  1) https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam for reference.
 type ChannelAdminLogEventActionToggleAntiSpam struct {
@@ -6721,7 +6721,7 @@ func (c *ChannelAdminLogEventActionToggleAntiSpam) GetNewValue() (value bool) {
 // The message accent color¹ was changed
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePeerColor for reference.
 type ChannelAdminLogEventActionChangePeerColor struct {
@@ -6898,7 +6898,7 @@ func (c *ChannelAdminLogEventActionChangePeerColor) GetNewValue() (value PeerCol
 // The profile accent color¹ was changed
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeProfilePeerColor for reference.
 type ChannelAdminLogEventActionChangeProfilePeerColor struct {
@@ -7075,7 +7075,7 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetNewValue() (value 
 // The wallpaper¹ was changed
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeWallpaper for reference.
 type ChannelAdminLogEventActionChangeWallpaper struct {
@@ -7252,7 +7252,7 @@ func (c *ChannelAdminLogEventActionChangeWallpaper) GetNewValue() (value WallPap
 // The emoji status¹ was changed
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStatus for reference.
 type ChannelAdminLogEventActionChangeEmojiStatus struct {
@@ -7429,7 +7429,7 @@ func (c *ChannelAdminLogEventActionChangeEmojiStatus) GetNewValue() (value Emoji
 // The supergroup's custom emoji stickerset¹ was changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost#setting-a-custom-emoji-stickerset-for-supergroups
+//  1) https://core.telegram.org/api/boost#setting-a-custom-emoji-stickerset-for-supergroups
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStickerSet for reference.
 type ChannelAdminLogEventActionChangeEmojiStickerSet struct {
@@ -7743,7 +7743,7 @@ func (c *ChannelAdminLogEventActionToggleSignatureProfiles) GetNewValue() (value
 // A paid subscriber has extended their Telegram Star subscription »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#star-subscriptions
+//  1) https://core.telegram.org/api/stars#star-subscriptions
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend for reference.
 type ChannelAdminLogEventActionParticipantSubExtend struct {
@@ -8060,118 +8060,117 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
 //
 // Constructors:
-//   - [ChannelAdminLogEventActionChangeTitle]
-//   - [ChannelAdminLogEventActionChangeAbout]
-//   - [ChannelAdminLogEventActionChangeUsername]
-//   - [ChannelAdminLogEventActionChangePhoto]
-//   - [ChannelAdminLogEventActionToggleInvites]
-//   - [ChannelAdminLogEventActionToggleSignatures]
-//   - [ChannelAdminLogEventActionUpdatePinned]
-//   - [ChannelAdminLogEventActionEditMessage]
-//   - [ChannelAdminLogEventActionDeleteMessage]
-//   - [ChannelAdminLogEventActionParticipantJoin]
-//   - [ChannelAdminLogEventActionParticipantLeave]
-//   - [ChannelAdminLogEventActionParticipantInvite]
-//   - [ChannelAdminLogEventActionParticipantToggleBan]
-//   - [ChannelAdminLogEventActionParticipantToggleAdmin]
-//   - [ChannelAdminLogEventActionChangeStickerSet]
-//   - [ChannelAdminLogEventActionTogglePreHistoryHidden]
-//   - [ChannelAdminLogEventActionDefaultBannedRights]
-//   - [ChannelAdminLogEventActionStopPoll]
-//   - [ChannelAdminLogEventActionChangeLinkedChat]
-//   - [ChannelAdminLogEventActionChangeLocation]
-//   - [ChannelAdminLogEventActionToggleSlowMode]
-//   - [ChannelAdminLogEventActionStartGroupCall]
-//   - [ChannelAdminLogEventActionDiscardGroupCall]
-//   - [ChannelAdminLogEventActionParticipantMute]
-//   - [ChannelAdminLogEventActionParticipantUnmute]
-//   - [ChannelAdminLogEventActionToggleGroupCallSetting]
-//   - [ChannelAdminLogEventActionParticipantJoinByInvite]
-//   - [ChannelAdminLogEventActionExportedInviteDelete]
-//   - [ChannelAdminLogEventActionExportedInviteRevoke]
-//   - [ChannelAdminLogEventActionExportedInviteEdit]
-//   - [ChannelAdminLogEventActionParticipantVolume]
-//   - [ChannelAdminLogEventActionChangeHistoryTTL]
-//   - [ChannelAdminLogEventActionParticipantJoinByRequest]
-//   - [ChannelAdminLogEventActionToggleNoForwards]
-//   - [ChannelAdminLogEventActionSendMessage]
-//   - [ChannelAdminLogEventActionChangeAvailableReactions]
-//   - [ChannelAdminLogEventActionChangeUsernames]
-//   - [ChannelAdminLogEventActionToggleForum]
-//   - [ChannelAdminLogEventActionCreateTopic]
-//   - [ChannelAdminLogEventActionEditTopic]
-//   - [ChannelAdminLogEventActionDeleteTopic]
-//   - [ChannelAdminLogEventActionPinTopic]
-//   - [ChannelAdminLogEventActionToggleAntiSpam]
-//   - [ChannelAdminLogEventActionChangePeerColor]
-//   - [ChannelAdminLogEventActionChangeProfilePeerColor]
-//   - [ChannelAdminLogEventActionChangeWallpaper]
-//   - [ChannelAdminLogEventActionChangeEmojiStatus]
-//   - [ChannelAdminLogEventActionChangeEmojiStickerSet]
-//   - [ChannelAdminLogEventActionToggleSignatureProfiles]
-//   - [ChannelAdminLogEventActionParticipantSubExtend]
-//   - [ChannelAdminLogEventActionToggleAutotranslation]
+//  - [ChannelAdminLogEventActionChangeTitle]
+//  - [ChannelAdminLogEventActionChangeAbout]
+//  - [ChannelAdminLogEventActionChangeUsername]
+//  - [ChannelAdminLogEventActionChangePhoto]
+//  - [ChannelAdminLogEventActionToggleInvites]
+//  - [ChannelAdminLogEventActionToggleSignatures]
+//  - [ChannelAdminLogEventActionUpdatePinned]
+//  - [ChannelAdminLogEventActionEditMessage]
+//  - [ChannelAdminLogEventActionDeleteMessage]
+//  - [ChannelAdminLogEventActionParticipantJoin]
+//  - [ChannelAdminLogEventActionParticipantLeave]
+//  - [ChannelAdminLogEventActionParticipantInvite]
+//  - [ChannelAdminLogEventActionParticipantToggleBan]
+//  - [ChannelAdminLogEventActionParticipantToggleAdmin]
+//  - [ChannelAdminLogEventActionChangeStickerSet]
+//  - [ChannelAdminLogEventActionTogglePreHistoryHidden]
+//  - [ChannelAdminLogEventActionDefaultBannedRights]
+//  - [ChannelAdminLogEventActionStopPoll]
+//  - [ChannelAdminLogEventActionChangeLinkedChat]
+//  - [ChannelAdminLogEventActionChangeLocation]
+//  - [ChannelAdminLogEventActionToggleSlowMode]
+//  - [ChannelAdminLogEventActionStartGroupCall]
+//  - [ChannelAdminLogEventActionDiscardGroupCall]
+//  - [ChannelAdminLogEventActionParticipantMute]
+//  - [ChannelAdminLogEventActionParticipantUnmute]
+//  - [ChannelAdminLogEventActionToggleGroupCallSetting]
+//  - [ChannelAdminLogEventActionParticipantJoinByInvite]
+//  - [ChannelAdminLogEventActionExportedInviteDelete]
+//  - [ChannelAdminLogEventActionExportedInviteRevoke]
+//  - [ChannelAdminLogEventActionExportedInviteEdit]
+//  - [ChannelAdminLogEventActionParticipantVolume]
+//  - [ChannelAdminLogEventActionChangeHistoryTTL]
+//  - [ChannelAdminLogEventActionParticipantJoinByRequest]
+//  - [ChannelAdminLogEventActionToggleNoForwards]
+//  - [ChannelAdminLogEventActionSendMessage]
+//  - [ChannelAdminLogEventActionChangeAvailableReactions]
+//  - [ChannelAdminLogEventActionChangeUsernames]
+//  - [ChannelAdminLogEventActionToggleForum]
+//  - [ChannelAdminLogEventActionCreateTopic]
+//  - [ChannelAdminLogEventActionEditTopic]
+//  - [ChannelAdminLogEventActionDeleteTopic]
+//  - [ChannelAdminLogEventActionPinTopic]
+//  - [ChannelAdminLogEventActionToggleAntiSpam]
+//  - [ChannelAdminLogEventActionChangePeerColor]
+//  - [ChannelAdminLogEventActionChangeProfilePeerColor]
+//  - [ChannelAdminLogEventActionChangeWallpaper]
+//  - [ChannelAdminLogEventActionChangeEmojiStatus]
+//  - [ChannelAdminLogEventActionChangeEmojiStickerSet]
+//  - [ChannelAdminLogEventActionToggleSignatureProfiles]
+//  - [ChannelAdminLogEventActionParticipantSubExtend]
+//  - [ChannelAdminLogEventActionToggleAutotranslation]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelAdminLogEventAction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelAdminLogEventActionChangeTitle: // channelAdminLogEventActionChangeTitle#e6dfb825
-//	case *tg.ChannelAdminLogEventActionChangeAbout: // channelAdminLogEventActionChangeAbout#55188a2e
-//	case *tg.ChannelAdminLogEventActionChangeUsername: // channelAdminLogEventActionChangeUsername#6a4afc38
-//	case *tg.ChannelAdminLogEventActionChangePhoto: // channelAdminLogEventActionChangePhoto#434bd2af
-//	case *tg.ChannelAdminLogEventActionToggleInvites: // channelAdminLogEventActionToggleInvites#1b7907ae
-//	case *tg.ChannelAdminLogEventActionToggleSignatures: // channelAdminLogEventActionToggleSignatures#26ae0971
-//	case *tg.ChannelAdminLogEventActionUpdatePinned: // channelAdminLogEventActionUpdatePinned#e9e82c18
-//	case *tg.ChannelAdminLogEventActionEditMessage: // channelAdminLogEventActionEditMessage#709b2405
-//	case *tg.ChannelAdminLogEventActionDeleteMessage: // channelAdminLogEventActionDeleteMessage#42e047bb
-//	case *tg.ChannelAdminLogEventActionParticipantJoin: // channelAdminLogEventActionParticipantJoin#183040d3
-//	case *tg.ChannelAdminLogEventActionParticipantLeave: // channelAdminLogEventActionParticipantLeave#f89777f2
-//	case *tg.ChannelAdminLogEventActionParticipantInvite: // channelAdminLogEventActionParticipantInvite#e31c34d8
-//	case *tg.ChannelAdminLogEventActionParticipantToggleBan: // channelAdminLogEventActionParticipantToggleBan#e6d83d7e
-//	case *tg.ChannelAdminLogEventActionParticipantToggleAdmin: // channelAdminLogEventActionParticipantToggleAdmin#d5676710
-//	case *tg.ChannelAdminLogEventActionChangeStickerSet: // channelAdminLogEventActionChangeStickerSet#b1c3caa7
-//	case *tg.ChannelAdminLogEventActionTogglePreHistoryHidden: // channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1
-//	case *tg.ChannelAdminLogEventActionDefaultBannedRights: // channelAdminLogEventActionDefaultBannedRights#2df5fc0a
-//	case *tg.ChannelAdminLogEventActionStopPoll: // channelAdminLogEventActionStopPoll#8f079643
-//	case *tg.ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#50c7ac8
-//	case *tg.ChannelAdminLogEventActionChangeLocation: // channelAdminLogEventActionChangeLocation#e6b76ae
-//	case *tg.ChannelAdminLogEventActionToggleSlowMode: // channelAdminLogEventActionToggleSlowMode#53909779
-//	case *tg.ChannelAdminLogEventActionStartGroupCall: // channelAdminLogEventActionStartGroupCall#23209745
-//	case *tg.ChannelAdminLogEventActionDiscardGroupCall: // channelAdminLogEventActionDiscardGroupCall#db9f9140
-//	case *tg.ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
-//	case *tg.ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
-//	case *tg.ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
-//	case *tg.ChannelAdminLogEventActionParticipantJoinByInvite: // channelAdminLogEventActionParticipantJoinByInvite#fe9fc158
-//	case *tg.ChannelAdminLogEventActionExportedInviteDelete: // channelAdminLogEventActionExportedInviteDelete#5a50fca4
-//	case *tg.ChannelAdminLogEventActionExportedInviteRevoke: // channelAdminLogEventActionExportedInviteRevoke#410a134e
-//	case *tg.ChannelAdminLogEventActionExportedInviteEdit: // channelAdminLogEventActionExportedInviteEdit#e90ebb59
-//	case *tg.ChannelAdminLogEventActionParticipantVolume: // channelAdminLogEventActionParticipantVolume#3e7f6847
-//	case *tg.ChannelAdminLogEventActionChangeHistoryTTL: // channelAdminLogEventActionChangeHistoryTTL#6e941a38
-//	case *tg.ChannelAdminLogEventActionParticipantJoinByRequest: // channelAdminLogEventActionParticipantJoinByRequest#afb6144a
-//	case *tg.ChannelAdminLogEventActionToggleNoForwards: // channelAdminLogEventActionToggleNoForwards#cb2ac766
-//	case *tg.ChannelAdminLogEventActionSendMessage: // channelAdminLogEventActionSendMessage#278f2868
-//	case *tg.ChannelAdminLogEventActionChangeAvailableReactions: // channelAdminLogEventActionChangeAvailableReactions#be4e0ef8
-//	case *tg.ChannelAdminLogEventActionChangeUsernames: // channelAdminLogEventActionChangeUsernames#f04fb3a9
-//	case *tg.ChannelAdminLogEventActionToggleForum: // channelAdminLogEventActionToggleForum#2cc6383
-//	case *tg.ChannelAdminLogEventActionCreateTopic: // channelAdminLogEventActionCreateTopic#58707d28
-//	case *tg.ChannelAdminLogEventActionEditTopic: // channelAdminLogEventActionEditTopic#f06fe208
-//	case *tg.ChannelAdminLogEventActionDeleteTopic: // channelAdminLogEventActionDeleteTopic#ae168909
-//	case *tg.ChannelAdminLogEventActionPinTopic: // channelAdminLogEventActionPinTopic#5d8d353b
-//	case *tg.ChannelAdminLogEventActionToggleAntiSpam: // channelAdminLogEventActionToggleAntiSpam#64f36dfc
-//	case *tg.ChannelAdminLogEventActionChangePeerColor: // channelAdminLogEventActionChangePeerColor#5796e780
-//	case *tg.ChannelAdminLogEventActionChangeProfilePeerColor: // channelAdminLogEventActionChangeProfilePeerColor#5e477b25
-//	case *tg.ChannelAdminLogEventActionChangeWallpaper: // channelAdminLogEventActionChangeWallpaper#31bb5d52
-//	case *tg.ChannelAdminLogEventActionChangeEmojiStatus: // channelAdminLogEventActionChangeEmojiStatus#3ea9feb1
-//	case *tg.ChannelAdminLogEventActionChangeEmojiStickerSet: // channelAdminLogEventActionChangeEmojiStickerSet#46d840ab
-//	case *tg.ChannelAdminLogEventActionToggleSignatureProfiles: // channelAdminLogEventActionToggleSignatureProfiles#60a79c79
-//	case *tg.ChannelAdminLogEventActionParticipantSubExtend: // channelAdminLogEventActionParticipantSubExtend#64642db3
-//	case *tg.ChannelAdminLogEventActionToggleAutotranslation: // channelAdminLogEventActionToggleAutotranslation#c517f77e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelAdminLogEventAction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelAdminLogEventActionChangeTitle: // channelAdminLogEventActionChangeTitle#e6dfb825
+//  case *tg.ChannelAdminLogEventActionChangeAbout: // channelAdminLogEventActionChangeAbout#55188a2e
+//  case *tg.ChannelAdminLogEventActionChangeUsername: // channelAdminLogEventActionChangeUsername#6a4afc38
+//  case *tg.ChannelAdminLogEventActionChangePhoto: // channelAdminLogEventActionChangePhoto#434bd2af
+//  case *tg.ChannelAdminLogEventActionToggleInvites: // channelAdminLogEventActionToggleInvites#1b7907ae
+//  case *tg.ChannelAdminLogEventActionToggleSignatures: // channelAdminLogEventActionToggleSignatures#26ae0971
+//  case *tg.ChannelAdminLogEventActionUpdatePinned: // channelAdminLogEventActionUpdatePinned#e9e82c18
+//  case *tg.ChannelAdminLogEventActionEditMessage: // channelAdminLogEventActionEditMessage#709b2405
+//  case *tg.ChannelAdminLogEventActionDeleteMessage: // channelAdminLogEventActionDeleteMessage#42e047bb
+//  case *tg.ChannelAdminLogEventActionParticipantJoin: // channelAdminLogEventActionParticipantJoin#183040d3
+//  case *tg.ChannelAdminLogEventActionParticipantLeave: // channelAdminLogEventActionParticipantLeave#f89777f2
+//  case *tg.ChannelAdminLogEventActionParticipantInvite: // channelAdminLogEventActionParticipantInvite#e31c34d8
+//  case *tg.ChannelAdminLogEventActionParticipantToggleBan: // channelAdminLogEventActionParticipantToggleBan#e6d83d7e
+//  case *tg.ChannelAdminLogEventActionParticipantToggleAdmin: // channelAdminLogEventActionParticipantToggleAdmin#d5676710
+//  case *tg.ChannelAdminLogEventActionChangeStickerSet: // channelAdminLogEventActionChangeStickerSet#b1c3caa7
+//  case *tg.ChannelAdminLogEventActionTogglePreHistoryHidden: // channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1
+//  case *tg.ChannelAdminLogEventActionDefaultBannedRights: // channelAdminLogEventActionDefaultBannedRights#2df5fc0a
+//  case *tg.ChannelAdminLogEventActionStopPoll: // channelAdminLogEventActionStopPoll#8f079643
+//  case *tg.ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#50c7ac8
+//  case *tg.ChannelAdminLogEventActionChangeLocation: // channelAdminLogEventActionChangeLocation#e6b76ae
+//  case *tg.ChannelAdminLogEventActionToggleSlowMode: // channelAdminLogEventActionToggleSlowMode#53909779
+//  case *tg.ChannelAdminLogEventActionStartGroupCall: // channelAdminLogEventActionStartGroupCall#23209745
+//  case *tg.ChannelAdminLogEventActionDiscardGroupCall: // channelAdminLogEventActionDiscardGroupCall#db9f9140
+//  case *tg.ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
+//  case *tg.ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
+//  case *tg.ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
+//  case *tg.ChannelAdminLogEventActionParticipantJoinByInvite: // channelAdminLogEventActionParticipantJoinByInvite#fe9fc158
+//  case *tg.ChannelAdminLogEventActionExportedInviteDelete: // channelAdminLogEventActionExportedInviteDelete#5a50fca4
+//  case *tg.ChannelAdminLogEventActionExportedInviteRevoke: // channelAdminLogEventActionExportedInviteRevoke#410a134e
+//  case *tg.ChannelAdminLogEventActionExportedInviteEdit: // channelAdminLogEventActionExportedInviteEdit#e90ebb59
+//  case *tg.ChannelAdminLogEventActionParticipantVolume: // channelAdminLogEventActionParticipantVolume#3e7f6847
+//  case *tg.ChannelAdminLogEventActionChangeHistoryTTL: // channelAdminLogEventActionChangeHistoryTTL#6e941a38
+//  case *tg.ChannelAdminLogEventActionParticipantJoinByRequest: // channelAdminLogEventActionParticipantJoinByRequest#afb6144a
+//  case *tg.ChannelAdminLogEventActionToggleNoForwards: // channelAdminLogEventActionToggleNoForwards#cb2ac766
+//  case *tg.ChannelAdminLogEventActionSendMessage: // channelAdminLogEventActionSendMessage#278f2868
+//  case *tg.ChannelAdminLogEventActionChangeAvailableReactions: // channelAdminLogEventActionChangeAvailableReactions#be4e0ef8
+//  case *tg.ChannelAdminLogEventActionChangeUsernames: // channelAdminLogEventActionChangeUsernames#f04fb3a9
+//  case *tg.ChannelAdminLogEventActionToggleForum: // channelAdminLogEventActionToggleForum#2cc6383
+//  case *tg.ChannelAdminLogEventActionCreateTopic: // channelAdminLogEventActionCreateTopic#58707d28
+//  case *tg.ChannelAdminLogEventActionEditTopic: // channelAdminLogEventActionEditTopic#f06fe208
+//  case *tg.ChannelAdminLogEventActionDeleteTopic: // channelAdminLogEventActionDeleteTopic#ae168909
+//  case *tg.ChannelAdminLogEventActionPinTopic: // channelAdminLogEventActionPinTopic#5d8d353b
+//  case *tg.ChannelAdminLogEventActionToggleAntiSpam: // channelAdminLogEventActionToggleAntiSpam#64f36dfc
+//  case *tg.ChannelAdminLogEventActionChangePeerColor: // channelAdminLogEventActionChangePeerColor#5796e780
+//  case *tg.ChannelAdminLogEventActionChangeProfilePeerColor: // channelAdminLogEventActionChangeProfilePeerColor#5e477b25
+//  case *tg.ChannelAdminLogEventActionChangeWallpaper: // channelAdminLogEventActionChangeWallpaper#31bb5d52
+//  case *tg.ChannelAdminLogEventActionChangeEmojiStatus: // channelAdminLogEventActionChangeEmojiStatus#3ea9feb1
+//  case *tg.ChannelAdminLogEventActionChangeEmojiStickerSet: // channelAdminLogEventActionChangeEmojiStickerSet#46d840ab
+//  case *tg.ChannelAdminLogEventActionToggleSignatureProfiles: // channelAdminLogEventActionToggleSignatureProfiles#60a79c79
+//  case *tg.ChannelAdminLogEventActionParticipantSubExtend: // channelAdminLogEventActionParticipantSubExtend#64642db3
+//  case *tg.ChannelAdminLogEventActionToggleAutotranslation: // channelAdminLogEventActionToggleAutotranslation#c517f77e
+//  default: panic(v)
+//  }
 type ChannelAdminLogEventActionClass interface {
 	bin.Encoder
 	bin.Decoder

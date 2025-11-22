@@ -550,22 +550,21 @@ const StoryReactionClassName = "StoryReaction"
 // See https://core.telegram.org/type/StoryReaction for reference.
 //
 // Constructors:
-//   - [StoryReaction]
-//   - [StoryReactionPublicForward]
-//   - [StoryReactionPublicRepost]
+//  - [StoryReaction]
+//  - [StoryReactionPublicForward]
+//  - [StoryReactionPublicRepost]
 //
 // Example:
-//
-//	g, err := tg.DecodeStoryReaction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StoryReaction: // storyReaction#6090d6d5
-//	case *tg.StoryReactionPublicForward: // storyReactionPublicForward#bbab2643
-//	case *tg.StoryReactionPublicRepost: // storyReactionPublicRepost#cfcd0f13
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStoryReaction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StoryReaction: // storyReaction#6090d6d5
+//  case *tg.StoryReactionPublicForward: // storyReactionPublicForward#bbab2643
+//  case *tg.StoryReactionPublicRepost: // storyReactionPublicRepost#cfcd0f13
+//  default: panic(v)
+//  }
 type StoryReactionClass interface {
 	bin.Encoder
 	bin.Decoder

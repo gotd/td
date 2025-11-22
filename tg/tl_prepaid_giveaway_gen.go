@@ -35,7 +35,7 @@ var (
 // Contains info about a prepaid giveaway »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/prepaidGiveaway for reference.
 type PrepaidGiveaway struct {
@@ -260,7 +260,7 @@ func (p *PrepaidGiveaway) GetDate() (value int) {
 // Contains info about a prepaid Telegram Star giveaway »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways#star-giveaways
+//  1) https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/constructor/prepaidStarsGiveaway for reference.
 type PrepaidStarsGiveaway struct {
@@ -513,20 +513,19 @@ const PrepaidGiveawayClassName = "PrepaidGiveaway"
 // See https://core.telegram.org/type/PrepaidGiveaway for reference.
 //
 // Constructors:
-//   - [PrepaidGiveaway]
-//   - [PrepaidStarsGiveaway]
+//  - [PrepaidGiveaway]
+//  - [PrepaidStarsGiveaway]
 //
 // Example:
-//
-//	g, err := tg.DecodePrepaidGiveaway(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PrepaidGiveaway: // prepaidGiveaway#b2539d54
-//	case *tg.PrepaidStarsGiveaway: // prepaidStarsGiveaway#9a9d77e0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePrepaidGiveaway(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PrepaidGiveaway: // prepaidGiveaway#b2539d54
+//  case *tg.PrepaidStarsGiveaway: // prepaidStarsGiveaway#9a9d77e0
+//  default: panic(v)
+//  }
 type PrepaidGiveawayClass interface {
 	bin.Encoder
 	bin.Decoder

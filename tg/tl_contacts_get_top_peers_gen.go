@@ -567,8 +567,7 @@ func (g *ContactsGetTopPeersRequest) GetHash() (value int64) {
 // Get most used peers
 //
 // Possible errors:
-//
-//	400 TYPES_EMPTY: No top peer type was provided.
+//  400 TYPES_EMPTY: No top peer type was provided.
 //
 // See https://core.telegram.org/method/contacts.getTopPeers for reference.
 func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {

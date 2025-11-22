@@ -35,7 +35,7 @@ var (
 // The server-side list of emoji statuses¹ hasn't changed
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/account.emojiStatusesNotModified for reference.
 type AccountEmojiStatusesNotModified struct {
@@ -140,7 +140,7 @@ func (e *AccountEmojiStatusesNotModified) DecodeBare(b *bin.Buffer) error {
 // A list of emoji statuses¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/account.emojiStatuses for reference.
 type AccountEmojiStatuses struct {
@@ -338,20 +338,19 @@ const AccountEmojiStatusesClassName = "account.EmojiStatuses"
 // See https://core.telegram.org/type/account.EmojiStatuses for reference.
 //
 // Constructors:
-//   - [AccountEmojiStatusesNotModified]
-//   - [AccountEmojiStatuses]
+//  - [AccountEmojiStatusesNotModified]
+//  - [AccountEmojiStatuses]
 //
 // Example:
-//
-//	g, err := tg.DecodeAccountEmojiStatuses(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AccountEmojiStatusesNotModified: // account.emojiStatusesNotModified#d08ce645
-//	case *tg.AccountEmojiStatuses: // account.emojiStatuses#90c467d1
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAccountEmojiStatuses(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AccountEmojiStatusesNotModified: // account.emojiStatusesNotModified#d08ce645
+//  case *tg.AccountEmojiStatuses: // account.emojiStatuses#90c467d1
+//  default: panic(v)
+//  }
 type AccountEmojiStatusesClass interface {
 	bin.Encoder
 	bin.Decoder

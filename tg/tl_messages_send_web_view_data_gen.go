@@ -36,7 +36,7 @@ var (
 // that owns it.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
+//  1) https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 type MessagesSendWebViewDataRequest struct {
@@ -262,11 +262,10 @@ func (s *MessagesSendWebViewDataRequest) GetData() (value string) {
 // that owns it.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
+//  1) https://core.telegram.org/api/bots/webapps
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 func (c *Client) MessagesSendWebViewData(ctx context.Context, request *MessagesSendWebViewDataRequest) (UpdatesClass, error) {

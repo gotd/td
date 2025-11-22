@@ -35,7 +35,7 @@ var (
 // Obtain info about Telegram Star transactions »¹ using specific transaction IDs.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
+//  1) https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // See https://core.telegram.org/method/payments.getStarsTransactionsByID for reference.
 type PaymentsGetStarsTransactionsByIDRequest struct {
@@ -271,12 +271,11 @@ func (g *PaymentsGetStarsTransactionsByIDRequest) GetID() (value []InputStarsTra
 // Obtain info about Telegram Star transactions »¹ using specific transaction IDs.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
+//  1) https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 TRANSACTION_ID_INVALID: The specified transaction ID is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 TRANSACTION_ID_INVALID: The specified transaction ID is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsTransactionsByID for reference.
 func (c *Client) PaymentsGetStarsTransactionsByID(ctx context.Context, request *PaymentsGetStarsTransactionsByIDRequest) (*PaymentsStarsStatus, error) {

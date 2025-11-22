@@ -35,7 +35,7 @@ var (
 // Contains info about the current boost status¹ of a peer.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/premium.boostsStatus for reference.
 type PremiumBoostsStatus struct {

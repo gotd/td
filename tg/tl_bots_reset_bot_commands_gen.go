@@ -197,9 +197,8 @@ func (r *BotsResetBotCommandsRequest) GetLangCode() (value string) {
 // Clear bot commands for the specified bot scope and language code
 //
 // Possible errors:
-//
-//	400 LANG_CODE_INVALID: The specified language code is invalid.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 LANG_CODE_INVALID: The specified language code is invalid.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.resetBotCommands for reference.
 // Can be used by bots.

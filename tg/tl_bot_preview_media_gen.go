@@ -35,7 +35,7 @@ var (
 // Represents a Main Mini App preview media, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/constructor/botPreviewMedia for reference.
 type BotPreviewMedia struct {

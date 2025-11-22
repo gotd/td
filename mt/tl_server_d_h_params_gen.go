@@ -387,20 +387,19 @@ const ServerDHParamsClassName = "Server_DH_Params"
 // ServerDHParamsClass represents Server_DH_Params generic type.
 //
 // Constructors:
-//   - [ServerDHParamsFail]
-//   - [ServerDHParamsOk]
+//  - [ServerDHParamsFail]
+//  - [ServerDHParamsOk]
 //
 // Example:
-//
-//	g, err := mt.DecodeServerDHParams(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *mt.ServerDHParamsFail: // server_DH_params_fail#79cb045d
-//	case *mt.ServerDHParamsOk: // server_DH_params_ok#d0e8075c
-//	default: panic(v)
-//	}
+//  g, err := mt.DecodeServerDHParams(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *mt.ServerDHParamsFail: // server_DH_params_fail#79cb045d
+//  case *mt.ServerDHParamsOk: // server_DH_params_ok#d0e8075c
+//  default: panic(v)
+//  }
 type ServerDHParamsClass interface {
 	bin.Encoder
 	bin.Decoder

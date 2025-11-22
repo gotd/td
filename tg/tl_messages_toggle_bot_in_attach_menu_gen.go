@@ -35,7 +35,7 @@ var (
 // Enable or disable web bot attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 type MessagesToggleBotInAttachMenuRequest struct {
@@ -260,11 +260,10 @@ func (t *MessagesToggleBotInAttachMenuRequest) GetEnabled() (value bool) {
 // Enable or disable web bot attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 func (c *Client) MessagesToggleBotInAttachMenu(ctx context.Context, request *MessagesToggleBotInAttachMenuRequest) (bool, error) {

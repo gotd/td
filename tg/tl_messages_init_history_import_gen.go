@@ -36,7 +36,7 @@ var (
 // for more info about imported chats »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/import
+//  1) https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.initHistoryImport for reference.
 type MessagesInitHistoryImportRequest struct {
@@ -241,16 +241,15 @@ func (i *MessagesInitHistoryImportRequest) GetMediaCount() (value int) {
 // for more info about imported chats »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/import
+//  1) https://core.telegram.org/api/import
 //
 // Possible errors:
-//
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 IMPORT_FILE_INVALID: The specified chat export file is invalid.
-//	400 IMPORT_FORMAT_DATE_INVALID: The date specified in the import file is invalid.
-//	400 IMPORT_FORMAT_UNRECOGNIZED: The specified chat export file was exported from an unsupported chat app.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN: Import for this chat is already in progress, wait %d minutes before starting a new one.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 IMPORT_FILE_INVALID: The specified chat export file is invalid.
+//  400 IMPORT_FORMAT_DATE_INVALID: The date specified in the import file is invalid.
+//  400 IMPORT_FORMAT_UNRECOGNIZED: The specified chat export file was exported from an unsupported chat app.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN: Import for this chat is already in progress, wait %d minutes before starting a new one.
 //
 // See https://core.telegram.org/method/messages.initHistoryImport for reference.
 func (c *Client) MessagesInitHistoryImport(ctx context.Context, request *MessagesInitHistoryImportRequest) (*MessagesHistoryImport, error) {

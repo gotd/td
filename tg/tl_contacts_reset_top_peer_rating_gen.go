@@ -35,7 +35,7 @@ var (
 // Reset rating¹ of top peer
 //
 // Links:
-//  1. https://core.telegram.org/api/top-rating
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 type ContactsResetTopPeerRatingRequest struct {
@@ -205,11 +205,10 @@ func (r *ContactsResetTopPeerRatingRequest) GetPeer() (value InputPeerClass) {
 // Reset rating¹ of top peer
 //
 // Links:
-//  1. https://core.telegram.org/api/top-rating
+//  1) https://core.telegram.org/api/top-rating
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 func (c *Client) ContactsResetTopPeerRating(ctx context.Context, request *ContactsResetTopPeerRatingRequest) (bool, error) {

@@ -35,7 +35,7 @@ var (
 // Telegram Stars gift option¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  1) https://core.telegram.org/api/stars#buying-or-gifting-stars
 //
 // See https://core.telegram.org/constructor/starsGiftOption for reference.
 type StarsGiftOption struct {

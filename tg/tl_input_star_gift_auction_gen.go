@@ -307,20 +307,19 @@ const InputStarGiftAuctionClassName = "InputStarGiftAuction"
 // See https://core.telegram.org/type/InputStarGiftAuction for reference.
 //
 // Constructors:
-//   - [InputStarGiftAuction]
-//   - [InputStarGiftAuctionSlug]
+//  - [InputStarGiftAuction]
+//  - [InputStarGiftAuctionSlug]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputStarGiftAuction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputStarGiftAuction: // inputStarGiftAuction#2e16c98
-//	case *tg.InputStarGiftAuctionSlug: // inputStarGiftAuctionSlug#7ab58308
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputStarGiftAuction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputStarGiftAuction: // inputStarGiftAuction#2e16c98
+//  case *tg.InputStarGiftAuctionSlug: // inputStarGiftAuctionSlug#7ab58308
+//  default: panic(v)
+//  }
 type InputStarGiftAuctionClass interface {
 	bin.Encoder
 	bin.Decoder

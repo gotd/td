@@ -37,7 +37,7 @@ var (
 // specified peer, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#paying-for-ads
+//  1) https://core.telegram.org/api/stars#paying-for-ads
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueAdsAccountUrl for reference.
 type PaymentsGetStarsRevenueAdsAccountURLRequest struct {
@@ -177,12 +177,11 @@ func (g *PaymentsGetStarsRevenueAdsAccountURLRequest) GetPeer() (value InputPeer
 // specified peer, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#paying-for-ads
+//  1) https://core.telegram.org/api/stars#paying-for-ads
 //
 // Possible errors:
-//
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueAdsAccountUrl for reference.
 func (c *Client) PaymentsGetStarsRevenueAdsAccountURL(ctx context.Context, peer InputPeerClass) (*PaymentsStarsRevenueAdsAccountURL, error) {

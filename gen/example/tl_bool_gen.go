@@ -241,20 +241,19 @@ const BoolClassName = "Bool"
 // See https://localhost:80/doc/type/Bool for reference.
 //
 // Constructors:
-//   - [False]
-//   - [True]
+//  - [False]
+//  - [True]
 //
 // Example:
-//
-//	g, err := td.DecodeBool(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *td.False: // false#bc799737
-//	case *td.True: // true#997275b5
-//	default: panic(v)
-//	}
+//  g, err := td.DecodeBool(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *td.False: // false#bc799737
+//  case *td.True: // true#997275b5
+//  default: panic(v)
+//  }
 type BoolClass interface {
 	bin.Encoder
 	bin.Decoder

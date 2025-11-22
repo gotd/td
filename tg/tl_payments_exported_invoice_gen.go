@@ -35,7 +35,7 @@ var (
 // Exported invoice deep link¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#invoice-links
+//  1) https://core.telegram.org/api/links#invoice-links
 //
 // See https://core.telegram.org/constructor/payments.exportedInvoice for reference.
 type PaymentsExportedInvoice struct {

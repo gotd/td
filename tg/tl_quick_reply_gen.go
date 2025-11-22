@@ -35,7 +35,7 @@ var (
 // A quick reply shortcut¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/constructor/quickReply for reference.
 type QuickReply struct {

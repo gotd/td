@@ -35,7 +35,7 @@ var (
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/srp
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 type AccountCancelPasswordEmailRequest struct {
@@ -135,11 +135,10 @@ func (c *AccountCancelPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/srp
+//  1) https://core.telegram.org/api/srp
 //
 // Possible errors:
-//
-//	400 EMAIL_HASH_EXPIRED: Email hash expired.
+//  400 EMAIL_HASH_EXPIRED: Email hash expired.
 //
 // See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 func (c *Client) AccountCancelPasswordEmail(ctx context.Context) (bool, error) {

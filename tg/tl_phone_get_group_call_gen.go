@@ -200,9 +200,8 @@ func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
 // Get info about a group call
 //
 // Possible errors:
-//
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//  403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 func (c *Client) PhoneGetGroupCall(ctx context.Context, request *PhoneGetGroupCallRequest) (*PhoneGroupCall, error) {

@@ -35,7 +35,7 @@ var (
 // Aggregated view and reaction information of a story¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/storyViews for reference.
 type StoryViews struct {

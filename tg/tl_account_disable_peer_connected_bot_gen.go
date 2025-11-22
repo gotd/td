@@ -38,9 +38,9 @@ var (
 // user must reconnect the entire bot by invoking account.updateConnectedBot »³.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
-//  2. https://core.telegram.org/method/account.updateConnectedBot
-//  3. https://core.telegram.org/method/account.updateConnectedBot
+//  1) https://core.telegram.org/api/business#connected-bots
+//  2) https://core.telegram.org/method/account.updateConnectedBot
+//  3) https://core.telegram.org/method/account.updateConnectedBot
 //
 // See https://core.telegram.org/method/account.disablePeerConnectedBot for reference.
 type AccountDisablePeerConnectedBotRequest struct {
@@ -181,15 +181,14 @@ func (d *AccountDisablePeerConnectedBotRequest) GetPeer() (value InputPeerClass)
 // user must reconnect the entire bot by invoking account.updateConnectedBot »³.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
-//  2. https://core.telegram.org/method/account.updateConnectedBot
-//  3. https://core.telegram.org/method/account.updateConnectedBot
+//  1) https://core.telegram.org/api/business#connected-bots
+//  2) https://core.telegram.org/method/account.updateConnectedBot
+//  3) https://core.telegram.org/method/account.updateConnectedBot
 //
 // Possible errors:
-//
-//	400 BOT_ALREADY_DISABLED: The connected business bot was already disabled for the specified peer.
-//	400 BOT_NOT_CONNECTED_YET: No business bot is connected to the currently logged in user.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 BOT_ALREADY_DISABLED: The connected business bot was already disabled for the specified peer.
+//  400 BOT_NOT_CONNECTED_YET: No business bot is connected to the currently logged in user.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/account.disablePeerConnectedBot for reference.
 func (c *Client) AccountDisablePeerConnectedBot(ctx context.Context, peer InputPeerClass) (bool, error) {

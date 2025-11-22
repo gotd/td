@@ -36,8 +36,8 @@ var (
 // it on top of the comment section, without actually joining the group
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
-//  2. https://core.telegram.org/api/discussion
+//  1) https://core.telegram.org/api/threads
+//  2) https://core.telegram.org/api/discussion
 //
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 type MessagesGetDiscussionMessageRequest struct {
@@ -206,16 +206,15 @@ func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
 // it on top of the comment section, without actually joining the group
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
-//  2. https://core.telegram.org/api/discussion
+//  1) https://core.telegram.org/api/threads
+//  2) https://core.telegram.org/api/discussion
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 TOPIC_ID_INVALID: The specified topic ID is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 TOPIC_ID_INVALID: The specified topic ID is invalid.
 //
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 func (c *Client) MessagesGetDiscussionMessage(ctx context.Context, request *MessagesGetDiscussionMessageRequest) (*MessagesDiscussionMessage, error) {

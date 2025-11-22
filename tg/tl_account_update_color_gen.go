@@ -35,7 +35,7 @@ var (
 // Update the accent color and background custom emoji »¹ of the current account.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/account.updateColor for reference.
 type AccountUpdateColorRequest struct {
@@ -255,12 +255,11 @@ func (u *AccountUpdateColorRequest) GetColor() (value PeerColorClass, ok bool) {
 // Update the accent color and background custom emoji »¹ of the current account.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // Possible errors:
-//
-//	400 COLOR_INVALID: The specified color palette ID was invalid.
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 COLOR_INVALID: The specified color palette ID was invalid.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.updateColor for reference.
 func (c *Client) AccountUpdateColor(ctx context.Context, request *AccountUpdateColorRequest) (bool, error) {

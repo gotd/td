@@ -36,8 +36,8 @@ var (
 // This will emit an updateQuickReplies² update to other logged-in sessions.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateQuickReplies
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateQuickReplies
 //
 // See https://core.telegram.org/method/messages.editQuickReplyShortcut for reference.
 type MessagesEditQuickReplyShortcutRequest struct {
@@ -201,13 +201,12 @@ func (e *MessagesEditQuickReplyShortcutRequest) GetShortcut() (value string) {
 // This will emit an updateQuickReplies² update to other logged-in sessions.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateQuickReplies
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateQuickReplies
 //
 // Possible errors:
-//
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	400 SHORTCUT_INVALID: The specified shortcut is invalid.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 SHORTCUT_INVALID: The specified shortcut is invalid.
 //
 // See https://core.telegram.org/method/messages.editQuickReplyShortcut for reference.
 func (c *Client) MessagesEditQuickReplyShortcut(ctx context.Context, request *MessagesEditQuickReplyShortcutRequest) (bool, error) {

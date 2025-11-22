@@ -35,7 +35,7 @@ var (
 // Show or hide the real-time chat translation popup¹ for a certain chat
 //
 // Links:
-//  1. https://core.telegram.org/api/translation
+//  1) https://core.telegram.org/api/translation
 //
 // See https://core.telegram.org/method/messages.togglePeerTranslations for reference.
 type MessagesTogglePeerTranslationsRequest struct {
@@ -229,11 +229,10 @@ func (t *MessagesTogglePeerTranslationsRequest) GetPeer() (value InputPeerClass)
 // Show or hide the real-time chat translation popup¹ for a certain chat
 //
 // Links:
-//  1. https://core.telegram.org/api/translation
+//  1) https://core.telegram.org/api/translation
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.togglePeerTranslations for reference.
 func (c *Client) MessagesTogglePeerTranslations(ctx context.Context, request *MessagesTogglePeerTranslationsRequest) (bool, error) {

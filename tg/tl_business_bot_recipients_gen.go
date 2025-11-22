@@ -36,7 +36,7 @@ var (
 // and interact with.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1) https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/constructor/businessBotRecipients for reference.
 type BusinessBotRecipients struct {

@@ -36,8 +36,8 @@ var (
 // emoji statuses »².
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getChannelRestrictedStatusEmojis for reference.
 type AccountGetChannelRestrictedStatusEmojisRequest struct {
@@ -174,8 +174,8 @@ func (g *AccountGetChannelRestrictedStatusEmojisRequest) GetHash() (value int64)
 // emoji statuses »².
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getChannelRestrictedStatusEmojis for reference.
 func (c *Client) AccountGetChannelRestrictedStatusEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {

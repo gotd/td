@@ -37,7 +37,7 @@ var (
 // both incoming and outgoing transactions are fetched.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
+//  1) https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // See https://core.telegram.org/method/payments.getStarsTransactions for reference.
 type PaymentsGetStarsTransactionsRequest struct {
@@ -453,12 +453,11 @@ func (g *PaymentsGetStarsTransactionsRequest) GetLimit() (value int) {
 // both incoming and outgoing transactions are fetched.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#balance-and-transaction-history
+//  1) https://core.telegram.org/api/stars#balance-and-transaction-history
 //
 // Possible errors:
-//
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsTransactions for reference.
 // Can be used by bots.

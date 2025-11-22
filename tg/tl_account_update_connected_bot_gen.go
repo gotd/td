@@ -36,7 +36,7 @@ var (
 // connection settings.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1) https://core.telegram.org/api/business#connected-bots
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 type AccountUpdateConnectedBotRequest struct {
@@ -306,13 +306,12 @@ func (u *AccountUpdateConnectedBotRequest) GetRecipients() (value InputBusinessB
 // connection settings.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1) https://core.telegram.org/api/business#connected-bots
 //
 // Possible errors:
-//
-//	400 BOT_BUSINESS_MISSING: The specified bot is not a business bot (the user.bot_business flag is not set).
-//	400 BUSINESS_RECIPIENTS_EMPTY: You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with any peer.
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 BOT_BUSINESS_MISSING: The specified bot is not a business bot (the user.bot_business flag is not set).
+//  400 BUSINESS_RECIPIENTS_EMPTY: You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with any peer.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 func (c *Client) AccountUpdateConnectedBot(ctx context.Context, request *AccountUpdateConnectedBotRequest) (UpdatesClass, error) {

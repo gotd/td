@@ -170,8 +170,7 @@ func (a *BotsAllowSendMessageRequest) GetBot() (value InputUserClass) {
 // Allow the specified bot to send us messages
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.allowSendMessage for reference.
 func (c *Client) BotsAllowSendMessage(ctx context.Context, bot InputUserClass) (UpdatesClass, error) {

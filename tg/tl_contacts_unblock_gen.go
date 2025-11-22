@@ -35,7 +35,7 @@ var (
 // Deletes a peer from a blocklist, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/block
+//  1) https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
@@ -233,14 +233,13 @@ func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
 // Deletes a peer from a blocklist, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/block
+//  1) https://core.telegram.org/api/block
 //
 // Possible errors:
-//
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CONTACT_ID_INVALID: The provided contact ID is invalid.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CONTACT_ID_INVALID: The provided contact ID is invalid.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
 func (c *Client) ContactsUnblock(ctx context.Context, request *ContactsUnblockRequest) (bool, error) {

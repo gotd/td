@@ -35,7 +35,7 @@ var (
 // The server-side list of message reactions¹ hasn't changed
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messages.reactionsNotModified for reference.
 type MessagesReactionsNotModified struct {
@@ -140,7 +140,7 @@ func (r *MessagesReactionsNotModified) DecodeBare(b *bin.Buffer) error {
 // List of message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messages.reactions for reference.
 type MessagesReactions struct {
@@ -335,20 +335,19 @@ const MessagesReactionsClassName = "messages.Reactions"
 // See https://core.telegram.org/type/messages.Reactions for reference.
 //
 // Constructors:
-//   - [MessagesReactionsNotModified]
-//   - [MessagesReactions]
+//  - [MessagesReactionsNotModified]
+//  - [MessagesReactions]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesReactions(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesReactionsNotModified: // messages.reactionsNotModified#b06fdbdf
-//	case *tg.MessagesReactions: // messages.reactions#eafdf716
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesReactions(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesReactionsNotModified: // messages.reactionsNotModified#b06fdbdf
+//  case *tg.MessagesReactions: // messages.reactions#eafdf716
+//  default: panic(v)
+//  }
 type MessagesReactionsClass interface {
 	bin.Encoder
 	bin.Decoder

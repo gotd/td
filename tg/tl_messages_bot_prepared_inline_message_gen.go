@@ -36,7 +36,7 @@ var (
 // app »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
+//  1) https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
 //
 // See https://core.telegram.org/constructor/messages.botPreparedInlineMessage for reference.
 type MessagesBotPreparedInlineMessage struct {

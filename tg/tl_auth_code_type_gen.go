@@ -446,7 +446,7 @@ func (c *AuthCodeTypeMissedCall) DecodeBare(b *bin.Buffer) error {
 // The next time, the authentication code will be delivered via fragment.com¹
 //
 // Links:
-//  1. https://fragment.com
+//  1) https://fragment.com
 //
 // See https://core.telegram.org/constructor/auth.codeTypeFragmentSms for reference.
 type AuthCodeTypeFragmentSMS struct {
@@ -555,26 +555,25 @@ const AuthCodeTypeClassName = "auth.CodeType"
 // See https://core.telegram.org/type/auth.CodeType for reference.
 //
 // Constructors:
-//   - [AuthCodeTypeSMS]
-//   - [AuthCodeTypeCall]
-//   - [AuthCodeTypeFlashCall]
-//   - [AuthCodeTypeMissedCall]
-//   - [AuthCodeTypeFragmentSMS]
+//  - [AuthCodeTypeSMS]
+//  - [AuthCodeTypeCall]
+//  - [AuthCodeTypeFlashCall]
+//  - [AuthCodeTypeMissedCall]
+//  - [AuthCodeTypeFragmentSMS]
 //
 // Example:
-//
-//	g, err := tg.DecodeAuthCodeType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AuthCodeTypeSMS: // auth.codeTypeSms#72a3158c
-//	case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
-//	case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
-//	case *tg.AuthCodeTypeMissedCall: // auth.codeTypeMissedCall#d61ad6ee
-//	case *tg.AuthCodeTypeFragmentSMS: // auth.codeTypeFragmentSms#6ed998c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAuthCodeType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AuthCodeTypeSMS: // auth.codeTypeSms#72a3158c
+//  case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
+//  case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
+//  case *tg.AuthCodeTypeMissedCall: // auth.codeTypeMissedCall#d61ad6ee
+//  case *tg.AuthCodeTypeFragmentSMS: // auth.codeTypeFragmentSms#6ed998c
+//  default: panic(v)
+//  }
 type AuthCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder

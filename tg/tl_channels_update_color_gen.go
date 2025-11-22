@@ -35,7 +35,7 @@ var (
 // Update the accent color and background custom emoji »¹ of a channel.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/channels.updateColor for reference.
 type ChannelsUpdateColorRequest struct {
@@ -341,12 +341,11 @@ func (u *ChannelsUpdateColorRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 // Update the accent color and background custom emoji »¹ of a channel.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // Possible errors:
-//
-//	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.updateColor for reference.
 func (c *Client) ChannelsUpdateColor(ctx context.Context, request *ChannelsUpdateColorRequest) (UpdatesClass, error) {

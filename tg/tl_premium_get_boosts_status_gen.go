@@ -35,7 +35,7 @@ var (
 // Gets the current number of boosts¹ of a channel/supergroup.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/method/premium.getBoostsStatus for reference.
 type PremiumGetBoostsStatusRequest struct {
@@ -173,12 +173,11 @@ func (g *PremiumGetBoostsStatusRequest) GetPeer() (value InputPeerClass) {
 // Gets the current number of boosts¹ of a channel/supergroup.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/premium.getBoostsStatus for reference.
 func (c *Client) PremiumGetBoostsStatus(ctx context.Context, peer InputPeerClass) (*PremiumBoostsStatus, error) {

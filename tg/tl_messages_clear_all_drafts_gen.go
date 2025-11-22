@@ -35,7 +35,7 @@ var (
 // Clear all drafts¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/drafts
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.clearAllDrafts for reference.
 type MessagesClearAllDraftsRequest struct {
@@ -135,7 +135,7 @@ func (c *MessagesClearAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
 // Clear all drafts¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/drafts
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.clearAllDrafts for reference.
 func (c *Client) MessagesClearAllDrafts(ctx context.Context) (bool, error) {

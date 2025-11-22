@@ -341,20 +341,19 @@ const MessagesSentEncryptedMessageClassName = "messages.SentEncryptedMessage"
 // See https://core.telegram.org/type/messages.SentEncryptedMessage for reference.
 //
 // Constructors:
-//   - [MessagesSentEncryptedMessage]
-//   - [MessagesSentEncryptedFile]
+//  - [MessagesSentEncryptedMessage]
+//  - [MessagesSentEncryptedFile]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesSentEncryptedMessage(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesSentEncryptedMessage: // messages.sentEncryptedMessage#560f8935
-//	case *tg.MessagesSentEncryptedFile: // messages.sentEncryptedFile#9493ff32
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesSentEncryptedMessage(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesSentEncryptedMessage: // messages.sentEncryptedMessage#560f8935
+//  case *tg.MessagesSentEncryptedFile: // messages.sentEncryptedFile#9493ff32
+//  default: panic(v)
+//  }
 type MessagesSentEncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder

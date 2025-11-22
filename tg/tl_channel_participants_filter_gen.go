@@ -884,8 +884,8 @@ func (c *ChannelParticipantsContacts) GetQ() (value string) {
 // section² of a channel.
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
-//  2. https://core.telegram.org/api/threads#channel-comments
+//  1) https://core.telegram.org/api/threads
+//  2) https://core.telegram.org/api/threads#channel-comments
 //
 // See https://core.telegram.org/constructor/channelParticipantsMentions for reference.
 type ChannelParticipantsMentions struct {
@@ -1120,32 +1120,31 @@ const ChannelParticipantsFilterClassName = "ChannelParticipantsFilter"
 // See https://core.telegram.org/type/ChannelParticipantsFilter for reference.
 //
 // Constructors:
-//   - [ChannelParticipantsRecent]
-//   - [ChannelParticipantsAdmins]
-//   - [ChannelParticipantsKicked]
-//   - [ChannelParticipantsBots]
-//   - [ChannelParticipantsBanned]
-//   - [ChannelParticipantsSearch]
-//   - [ChannelParticipantsContacts]
-//   - [ChannelParticipantsMentions]
+//  - [ChannelParticipantsRecent]
+//  - [ChannelParticipantsAdmins]
+//  - [ChannelParticipantsKicked]
+//  - [ChannelParticipantsBots]
+//  - [ChannelParticipantsBanned]
+//  - [ChannelParticipantsSearch]
+//  - [ChannelParticipantsContacts]
+//  - [ChannelParticipantsMentions]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelParticipantsFilter(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelParticipantsRecent: // channelParticipantsRecent#de3f3c79
-//	case *tg.ChannelParticipantsAdmins: // channelParticipantsAdmins#b4608969
-//	case *tg.ChannelParticipantsKicked: // channelParticipantsKicked#a3b54985
-//	case *tg.ChannelParticipantsBots: // channelParticipantsBots#b0d1865b
-//	case *tg.ChannelParticipantsBanned: // channelParticipantsBanned#1427a5e1
-//	case *tg.ChannelParticipantsSearch: // channelParticipantsSearch#656ac4b
-//	case *tg.ChannelParticipantsContacts: // channelParticipantsContacts#bb6ae88d
-//	case *tg.ChannelParticipantsMentions: // channelParticipantsMentions#e04b5ceb
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelParticipantsFilter(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelParticipantsRecent: // channelParticipantsRecent#de3f3c79
+//  case *tg.ChannelParticipantsAdmins: // channelParticipantsAdmins#b4608969
+//  case *tg.ChannelParticipantsKicked: // channelParticipantsKicked#a3b54985
+//  case *tg.ChannelParticipantsBots: // channelParticipantsBots#b0d1865b
+//  case *tg.ChannelParticipantsBanned: // channelParticipantsBanned#1427a5e1
+//  case *tg.ChannelParticipantsSearch: // channelParticipantsSearch#656ac4b
+//  case *tg.ChannelParticipantsContacts: // channelParticipantsContacts#bb6ae88d
+//  case *tg.ChannelParticipantsMentions: // channelParticipantsMentions#e04b5ceb
+//  default: panic(v)
+//  }
 type ChannelParticipantsFilterClass interface {
 	bin.Encoder
 	bin.Decoder

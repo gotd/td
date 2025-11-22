@@ -35,7 +35,7 @@ var (
 // Obtain user info from a temporary profile link¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#temporary-profile-links
+//  1) https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/method/contacts.importContactToken for reference.
 type ContactsImportContactTokenRequest struct {
@@ -171,11 +171,10 @@ func (i *ContactsImportContactTokenRequest) GetToken() (value string) {
 // Obtain user info from a temporary profile link¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#temporary-profile-links
+//  1) https://core.telegram.org/api/links#temporary-profile-links
 //
 // Possible errors:
-//
-//	400 IMPORT_TOKEN_INVALID: The specified token is invalid.
+//  400 IMPORT_TOKEN_INVALID: The specified token is invalid.
 //
 // See https://core.telegram.org/method/contacts.importContactToken for reference.
 func (c *Client) ContactsImportContactToken(ctx context.Context, token string) (UserClass, error) {

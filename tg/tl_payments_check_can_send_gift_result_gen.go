@@ -276,20 +276,19 @@ const PaymentsCheckCanSendGiftResultClassName = "payments.CheckCanSendGiftResult
 // See https://core.telegram.org/type/payments.CheckCanSendGiftResult for reference.
 //
 // Constructors:
-//   - [PaymentsCheckCanSendGiftResultOk]
-//   - [PaymentsCheckCanSendGiftResultFail]
+//  - [PaymentsCheckCanSendGiftResultOk]
+//  - [PaymentsCheckCanSendGiftResultFail]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsCheckCanSendGiftResult(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsCheckCanSendGiftResultOk: // payments.checkCanSendGiftResultOk#374fa7ad
-//	case *tg.PaymentsCheckCanSendGiftResultFail: // payments.checkCanSendGiftResultFail#d5e58274
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsCheckCanSendGiftResult(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsCheckCanSendGiftResultOk: // payments.checkCanSendGiftResultOk#374fa7ad
+//  case *tg.PaymentsCheckCanSendGiftResultFail: // payments.checkCanSendGiftResultFail#d5e58274
+//  default: panic(v)
+//  }
 type PaymentsCheckCanSendGiftResultClass interface {
 	bin.Encoder
 	bin.Decoder

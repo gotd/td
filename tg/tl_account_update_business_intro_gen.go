@@ -35,7 +35,7 @@ var (
 // Set or remove the Telegram Business introduction »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-introduction
+//  1) https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/method/account.updateBusinessIntro for reference.
 type AccountUpdateBusinessIntroRequest struct {
@@ -210,7 +210,7 @@ func (u *AccountUpdateBusinessIntroRequest) GetIntro() (value InputBusinessIntro
 // Set or remove the Telegram Business introduction »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-introduction
+//  1) https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/method/account.updateBusinessIntro for reference.
 func (c *Client) AccountUpdateBusinessIntro(ctx context.Context, request *AccountUpdateBusinessIntroRequest) (bool, error) {

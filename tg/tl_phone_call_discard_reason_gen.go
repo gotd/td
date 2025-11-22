@@ -583,26 +583,25 @@ const PhoneCallDiscardReasonClassName = "PhoneCallDiscardReason"
 // See https://core.telegram.org/type/PhoneCallDiscardReason for reference.
 //
 // Constructors:
-//   - [PhoneCallDiscardReasonMissed]
-//   - [PhoneCallDiscardReasonDisconnect]
-//   - [PhoneCallDiscardReasonHangup]
-//   - [PhoneCallDiscardReasonBusy]
-//   - [PhoneCallDiscardReasonMigrateConferenceCall]
+//  - [PhoneCallDiscardReasonMissed]
+//  - [PhoneCallDiscardReasonDisconnect]
+//  - [PhoneCallDiscardReasonHangup]
+//  - [PhoneCallDiscardReasonBusy]
+//  - [PhoneCallDiscardReasonMigrateConferenceCall]
 //
 // Example:
-//
-//	g, err := tg.DecodePhoneCallDiscardReason(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PhoneCallDiscardReasonMissed: // phoneCallDiscardReasonMissed#85e42301
-//	case *tg.PhoneCallDiscardReasonDisconnect: // phoneCallDiscardReasonDisconnect#e095c1a0
-//	case *tg.PhoneCallDiscardReasonHangup: // phoneCallDiscardReasonHangup#57adc690
-//	case *tg.PhoneCallDiscardReasonBusy: // phoneCallDiscardReasonBusy#faf7e8c9
-//	case *tg.PhoneCallDiscardReasonMigrateConferenceCall: // phoneCallDiscardReasonMigrateConferenceCall#9fbbf1f7
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePhoneCallDiscardReason(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PhoneCallDiscardReasonMissed: // phoneCallDiscardReasonMissed#85e42301
+//  case *tg.PhoneCallDiscardReasonDisconnect: // phoneCallDiscardReasonDisconnect#e095c1a0
+//  case *tg.PhoneCallDiscardReasonHangup: // phoneCallDiscardReasonHangup#57adc690
+//  case *tg.PhoneCallDiscardReasonBusy: // phoneCallDiscardReasonBusy#faf7e8c9
+//  case *tg.PhoneCallDiscardReasonMigrateConferenceCall: // phoneCallDiscardReasonMigrateConferenceCall#9fbbf1f7
+//  default: panic(v)
+//  }
 type PhoneCallDiscardReasonClass interface {
 	bin.Encoder
 	bin.Decoder

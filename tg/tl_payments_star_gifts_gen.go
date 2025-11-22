@@ -35,7 +35,7 @@ var (
 // The list of available gifts »¹ hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.starGiftsNotModified for reference.
 type PaymentsStarGiftsNotModified struct {
@@ -140,7 +140,7 @@ func (s *PaymentsStarGiftsNotModified) DecodeBare(b *bin.Buffer) error {
 // Available gifts »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.starGifts for reference.
 type PaymentsStarGifts struct {
@@ -435,20 +435,19 @@ const PaymentsStarGiftsClassName = "payments.StarGifts"
 // See https://core.telegram.org/type/payments.StarGifts for reference.
 //
 // Constructors:
-//   - [PaymentsStarGiftsNotModified]
-//   - [PaymentsStarGifts]
+//  - [PaymentsStarGiftsNotModified]
+//  - [PaymentsStarGifts]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsStarGifts(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsStarGiftsNotModified: // payments.starGiftsNotModified#a388a368
-//	case *tg.PaymentsStarGifts: // payments.starGifts#2ed82995
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsStarGifts(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsStarGiftsNotModified: // payments.starGiftsNotModified#a388a368
+//  case *tg.PaymentsStarGifts: // payments.starGifts#2ed82995
+//  default: panic(v)
+//  }
 type PaymentsStarGiftsClass interface {
 	bin.Encoder
 	bin.Decoder

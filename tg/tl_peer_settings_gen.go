@@ -36,8 +36,8 @@ var (
 // suggested actions in the chat action bar »¹, see here »² for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/action-bar
-//  2. https://core.telegram.org/api/action-bar
+//  1) https://core.telegram.org/api/action-bar
+//  2) https://core.telegram.org/api/action-bar
 //
 // See https://core.telegram.org/constructor/peerSettings for reference.
 type PeerSettings struct {

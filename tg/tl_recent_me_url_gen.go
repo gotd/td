@@ -832,26 +832,25 @@ const RecentMeURLClassName = "RecentMeUrl"
 // See https://core.telegram.org/type/RecentMeUrl for reference.
 //
 // Constructors:
-//   - [RecentMeURLUnknown]
-//   - [RecentMeURLUser]
-//   - [RecentMeURLChat]
-//   - [RecentMeURLChatInvite]
-//   - [RecentMeURLStickerSet]
+//  - [RecentMeURLUnknown]
+//  - [RecentMeURLUser]
+//  - [RecentMeURLChat]
+//  - [RecentMeURLChatInvite]
+//  - [RecentMeURLStickerSet]
 //
 // Example:
-//
-//	g, err := tg.DecodeRecentMeURL(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.RecentMeURLUnknown: // recentMeUrlUnknown#46e1d13d
-//	case *tg.RecentMeURLUser: // recentMeUrlUser#b92c09e2
-//	case *tg.RecentMeURLChat: // recentMeUrlChat#b2da71d2
-//	case *tg.RecentMeURLChatInvite: // recentMeUrlChatInvite#eb49081d
-//	case *tg.RecentMeURLStickerSet: // recentMeUrlStickerSet#bc0a57dc
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeRecentMeURL(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.RecentMeURLUnknown: // recentMeUrlUnknown#46e1d13d
+//  case *tg.RecentMeURLUser: // recentMeUrlUser#b92c09e2
+//  case *tg.RecentMeURLChat: // recentMeUrlChat#b2da71d2
+//  case *tg.RecentMeURLChatInvite: // recentMeUrlChatInvite#eb49081d
+//  case *tg.RecentMeURLStickerSet: // recentMeUrlStickerSet#bc0a57dc
+//  default: panic(v)
+//  }
 type RecentMeURLClass interface {
 	bin.Encoder
 	bin.Decoder

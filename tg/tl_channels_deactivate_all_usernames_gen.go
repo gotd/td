@@ -175,8 +175,7 @@ func (d *ChannelsDeactivateAllUsernamesRequest) GetChannelAsNotEmpty() (NotEmpty
 // Disable all purchased usernames of a supergroup or channel
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.deactivateAllUsernames for reference.
 func (c *Client) ChannelsDeactivateAllUsernames(ctx context.Context, channel InputChannelClass) (bool, error) {

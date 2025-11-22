@@ -35,7 +35,7 @@ var (
 // Specifies a set of Telegram Business opening hours¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/constructor/businessWorkHours for reference.
 type BusinessWorkHours struct {

@@ -408,22 +408,21 @@ const InputChatThemeClassName = "InputChatTheme"
 // See https://core.telegram.org/type/InputChatTheme for reference.
 //
 // Constructors:
-//   - [InputChatThemeEmpty]
-//   - [InputChatTheme]
-//   - [InputChatThemeUniqueGift]
+//  - [InputChatThemeEmpty]
+//  - [InputChatTheme]
+//  - [InputChatThemeUniqueGift]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputChatTheme(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputChatThemeEmpty: // inputChatThemeEmpty#83268483
-//	case *tg.InputChatTheme: // inputChatTheme#c93de95c
-//	case *tg.InputChatThemeUniqueGift: // inputChatThemeUniqueGift#87e5dfe4
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputChatTheme(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputChatThemeEmpty: // inputChatThemeEmpty#83268483
+//  case *tg.InputChatTheme: // inputChatTheme#c93de95c
+//  case *tg.InputChatThemeUniqueGift: // inputChatThemeUniqueGift#87e5dfe4
+//  default: panic(v)
+//  }
 type InputChatThemeClass interface {
 	bin.Encoder
 	bin.Decoder

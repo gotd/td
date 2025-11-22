@@ -203,10 +203,9 @@ func (g *AccountGetTmpPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPassw
 // Get temporary payment password
 //
 // Possible errors:
-//
-//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
-//	400 SRP_A_INVALID: The specified inputCheckPasswordSRP.A value is invalid.
-//	400 TMP_PASSWORD_DISABLED: The temporary password is disabled.
+//  400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
+//  400 SRP_A_INVALID: The specified inputCheckPasswordSRP.A value is invalid.
+//  400 TMP_PASSWORD_DISABLED: The temporary password is disabled.
 //
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 func (c *Client) AccountGetTmpPassword(ctx context.Context, request *AccountGetTmpPasswordRequest) (*AccountTmpPassword, error) {

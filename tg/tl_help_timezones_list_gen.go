@@ -138,7 +138,7 @@ func (t *HelpTimezonesListNotModified) DecodeBare(b *bin.Buffer) error {
 // Business opening hours »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/constructor/help.timezonesList for reference.
 type HelpTimezonesList struct {
@@ -325,20 +325,19 @@ const HelpTimezonesListClassName = "help.TimezonesList"
 // See https://core.telegram.org/type/help.TimezonesList for reference.
 //
 // Constructors:
-//   - [HelpTimezonesListNotModified]
-//   - [HelpTimezonesList]
+//  - [HelpTimezonesListNotModified]
+//  - [HelpTimezonesList]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpTimezonesList(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpTimezonesListNotModified: // help.timezonesListNotModified#970708cc
-//	case *tg.HelpTimezonesList: // help.timezonesList#7b74ed71
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpTimezonesList(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpTimezonesListNotModified: // help.timezonesListNotModified#970708cc
+//  case *tg.HelpTimezonesList: // help.timezonesList#7b74ed71
+//  default: panic(v)
+//  }
 type HelpTimezonesListClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -36,7 +36,7 @@ var (
 // attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
 type MessagesGetAttachMenuBotRequest struct {
@@ -175,11 +175,10 @@ func (g *MessagesGetAttachMenuBotRequest) GetBot() (value InputUserClass) {
 // attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
 func (c *Client) MessagesGetAttachMenuBot(ctx context.Context, bot InputUserClass) (*AttachMenuBotsBot, error) {

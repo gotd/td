@@ -1009,24 +1009,23 @@ const StarGiftAttributeClassName = "StarGiftAttribute"
 // See https://core.telegram.org/type/StarGiftAttribute for reference.
 //
 // Constructors:
-//   - [StarGiftAttributeModel]
-//   - [StarGiftAttributePattern]
-//   - [StarGiftAttributeBackdrop]
-//   - [StarGiftAttributeOriginalDetails]
+//  - [StarGiftAttributeModel]
+//  - [StarGiftAttributePattern]
+//  - [StarGiftAttributeBackdrop]
+//  - [StarGiftAttributeOriginalDetails]
 //
 // Example:
-//
-//	g, err := tg.DecodeStarGiftAttribute(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StarGiftAttributeModel: // starGiftAttributeModel#39d99013
-//	case *tg.StarGiftAttributePattern: // starGiftAttributePattern#13acff19
-//	case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#d93d859c
-//	case *tg.StarGiftAttributeOriginalDetails: // starGiftAttributeOriginalDetails#e0bff26c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStarGiftAttribute(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StarGiftAttributeModel: // starGiftAttributeModel#39d99013
+//  case *tg.StarGiftAttributePattern: // starGiftAttributePattern#13acff19
+//  case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#d93d859c
+//  case *tg.StarGiftAttributeOriginalDetails: // starGiftAttributeOriginalDetails#e0bff26c
+//  default: panic(v)
+//  }
 type StarGiftAttributeClass interface {
 	bin.Encoder
 	bin.Decoder

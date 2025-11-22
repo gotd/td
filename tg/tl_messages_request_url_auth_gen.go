@@ -36,7 +36,7 @@ var (
 // click here »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/url-authorization
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestURLAuthRequest struct {
@@ -364,7 +364,7 @@ func (r *MessagesRequestURLAuthRequest) GetURL() (value string, ok bool) {
 // click here »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/url-authorization
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 func (c *Client) MessagesRequestURLAuth(ctx context.Context, request *MessagesRequestURLAuthRequest) (URLAuthResultClass, error) {

@@ -35,7 +35,7 @@ var (
 // Fetch (a subset or all) messages in a quick reply shortcut »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.getQuickReplyMessages for reference.
 type MessagesGetQuickReplyMessagesRequest struct {
@@ -280,11 +280,10 @@ func (g *MessagesGetQuickReplyMessagesRequest) GetHash() (value int64) {
 // Fetch (a subset or all) messages in a quick reply shortcut »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // Possible errors:
-//
-//	400 SHORTCUT_INVALID: The specified shortcut is invalid.
+//  400 SHORTCUT_INVALID: The specified shortcut is invalid.
 //
 // See https://core.telegram.org/method/messages.getQuickReplyMessages for reference.
 func (c *Client) MessagesGetQuickReplyMessages(ctx context.Context, request *MessagesGetQuickReplyMessagesRequest) (MessagesMessagesClass, error) {

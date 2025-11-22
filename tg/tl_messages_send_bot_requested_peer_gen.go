@@ -35,7 +35,7 @@ var (
 // Send one or more chosen peers, as requested by a keyboardButtonRequestPeer¹ button.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
+//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 type MessagesSendBotRequestedPeerRequest struct {
@@ -287,12 +287,11 @@ func (s *MessagesSendBotRequestedPeerRequest) MapRequestedPeers() (value InputPe
 // Send one or more chosen peers, as requested by a keyboardButtonRequestPeer¹ button.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
+//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // Possible errors:
-//
-//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 func (c *Client) MessagesSendBotRequestedPeer(ctx context.Context, request *MessagesSendBotRequestedPeerRequest) (UpdatesClass, error) {

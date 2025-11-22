@@ -36,7 +36,7 @@ var (
 // full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/fragment#fetching-info-about-fragment-collectibles
+//  1) https://core.telegram.org/api/fragment#fetching-info-about-fragment-collectibles
 //
 // See https://core.telegram.org/method/fragment.getCollectibleInfo for reference.
 type FragmentGetCollectibleInfoRequest struct {
@@ -175,12 +175,11 @@ func (g *FragmentGetCollectibleInfoRequest) GetCollectible() (value InputCollect
 // full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/fragment#fetching-info-about-fragment-collectibles
+//  1) https://core.telegram.org/api/fragment#fetching-info-about-fragment-collectibles
 //
 // Possible errors:
-//
-//	400 COLLECTIBLE_INVALID: The specified collectible is invalid.
-//	400 COLLECTIBLE_NOT_FOUND: The specified collectible could not be found.
+//  400 COLLECTIBLE_INVALID: The specified collectible is invalid.
+//  400 COLLECTIBLE_NOT_FOUND: The specified collectible could not be found.
 //
 // See https://core.telegram.org/method/fragment.getCollectibleInfo for reference.
 func (c *Client) FragmentGetCollectibleInfo(ctx context.Context, collectible InputCollectibleClass) (*FragmentCollectibleInfo, error) {

@@ -35,7 +35,7 @@ var (
 // Get message reactions »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 type MessagesGetMessagesReactionsRequest struct {
@@ -213,12 +213,11 @@ func (g *MessagesGetMessagesReactionsRequest) GetID() (value []int) {
 // Get message reactions »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 func (c *Client) MessagesGetMessagesReactions(ctx context.Context, request *MessagesGetMessagesReactionsRequest) (UpdatesClass, error) {

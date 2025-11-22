@@ -35,7 +35,7 @@ var (
 // Enable or disable the native antispam system¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/antispam
+//  1) https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/method/channels.toggleAntiSpam for reference.
 type ChannelsToggleAntiSpamRequest struct {
@@ -210,12 +210,11 @@ func (t *ChannelsToggleAntiSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Enable or disable the native antispam system¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/antispam
+//  1) https://core.telegram.org/api/antispam
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //
 // See https://core.telegram.org/method/channels.toggleAntiSpam for reference.
 func (c *Client) ChannelsToggleAntiSpam(ctx context.Context, request *ChannelsToggleAntiSpamRequest) (UpdatesClass, error) {

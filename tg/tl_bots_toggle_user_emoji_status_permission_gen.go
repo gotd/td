@@ -35,7 +35,7 @@ var (
 // Allow or prevent a bot from changing our emoji status »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
+//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 //
 // See https://core.telegram.org/method/bots.toggleUserEmojiStatusPermission for reference.
 type BotsToggleUserEmojiStatusPermissionRequest struct {
@@ -200,11 +200,10 @@ func (t *BotsToggleUserEmojiStatusPermissionRequest) GetEnabled() (value bool) {
 // Allow or prevent a bot from changing our emoji status »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
+//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.toggleUserEmojiStatusPermission for reference.
 func (c *Client) BotsToggleUserEmojiStatusPermission(ctx context.Context, request *BotsToggleUserEmojiStatusPermissionRequest) (bool, error) {

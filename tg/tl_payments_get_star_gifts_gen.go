@@ -35,7 +35,7 @@ var (
 // Get a list of available gifts, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getStarGifts for reference.
 type PaymentsGetStarGiftsRequest struct {
@@ -173,7 +173,7 @@ func (g *PaymentsGetStarGiftsRequest) GetHash() (value int) {
 // Get a list of available gifts, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getStarGifts for reference.
 func (c *Client) PaymentsGetStarGifts(ctx context.Context, hash int) (PaymentsStarGiftsClass, error) {

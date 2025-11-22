@@ -266,8 +266,7 @@ func (r *AccountReportProfilePhotoRequest) GetPhotoIDAsNotEmpty() (*InputPhoto, 
 // Report a profile photo of a dialog
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/account.reportProfilePhoto for reference.
 func (c *Client) AccountReportProfilePhoto(ctx context.Context, request *AccountReportProfilePhotoRequest) (bool, error) {

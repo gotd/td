@@ -197,10 +197,9 @@ func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
 // Set maximum Time-To-Live of all messages in the specified chat
 //
 // Possible errors:
-//
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 TTL_PERIOD_INVALID: The specified TTL period is invalid.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 TTL_PERIOD_INVALID: The specified TTL period is invalid.
 //
 // See https://core.telegram.org/method/messages.setHistoryTTL for reference.
 func (c *Client) MessagesSetHistoryTTL(ctx context.Context, request *MessagesSetHistoryTTLRequest) (UpdatesClass, error) {

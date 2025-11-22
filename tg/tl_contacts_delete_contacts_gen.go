@@ -188,8 +188,7 @@ func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassArray) {
 // Deletes several contacts from the list.
 //
 // Possible errors:
-//
-//	400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/contacts.deleteContacts for reference.
 func (c *Client) ContactsDeleteContacts(ctx context.Context, id []InputUserClass) (UpdatesClass, error) {

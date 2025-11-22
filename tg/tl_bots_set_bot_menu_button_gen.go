@@ -35,7 +35,7 @@ var (
 // Sets the menu button action »¹ for a given user or for all users
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/menu
+//  1) https://core.telegram.org/api/bots/menu
 //
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
 type BotsSetBotMenuButtonRequest struct {
@@ -205,13 +205,12 @@ func (s *BotsSetBotMenuButtonRequest) GetButton() (value BotMenuButtonClass) {
 // Sets the menu button action »¹ for a given user or for all users
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/menu
+//  1) https://core.telegram.org/api/bots/menu
 //
 // Possible errors:
-//
-//	400 BUTTON_TEXT_INVALID: The specified button text is invalid.
-//	400 BUTTON_URL_INVALID: Button URL invalid.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 BUTTON_TEXT_INVALID: The specified button text is invalid.
+//  400 BUTTON_URL_INVALID: Button URL invalid.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
 // Can be used by bots.

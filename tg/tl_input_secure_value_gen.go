@@ -35,7 +35,7 @@ var (
 // Secure value, for more info see the passport docs »¹
 //
 // Links:
-//  1. https://core.telegram.org/passport/encryption#encryption
+//  1) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/constructor/inputSecureValue for reference.
 type InputSecureValue struct {

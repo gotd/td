@@ -308,20 +308,19 @@ const ChannelLocationClassName = "ChannelLocation"
 // See https://core.telegram.org/type/ChannelLocation for reference.
 //
 // Constructors:
-//   - [ChannelLocationEmpty]
-//   - [ChannelLocation]
+//  - [ChannelLocationEmpty]
+//  - [ChannelLocation]
 //
 // Example:
-//
-//	g, err := tg.DecodeChannelLocation(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChannelLocationEmpty: // channelLocationEmpty#bfb5ad8b
-//	case *tg.ChannelLocation: // channelLocation#209b82db
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChannelLocation(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChannelLocationEmpty: // channelLocationEmpty#bfb5ad8b
+//  case *tg.ChannelLocation: // channelLocation#209b82db
+//  default: panic(v)
+//  }
 type ChannelLocationClass interface {
 	bin.Encoder
 	bin.Decoder

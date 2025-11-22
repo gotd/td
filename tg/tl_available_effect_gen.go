@@ -38,10 +38,10 @@ var (
 // See here »¹ for more info on how to use following fields.
 //
 // Links:
-//  1. https://core.telegram.org/api/effects
-//  2. https://core.telegram.org/constructor/document
-//  3. https://core.telegram.org/constructor/messages.availableEffects
-//  4. https://core.telegram.org/api/effects
+//  1) https://core.telegram.org/api/effects
+//  2) https://core.telegram.org/constructor/document
+//  3) https://core.telegram.org/constructor/messages.availableEffects
+//  4) https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/constructor/availableEffect for reference.
 type AvailableEffect struct {

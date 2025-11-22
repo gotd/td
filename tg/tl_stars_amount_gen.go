@@ -35,7 +35,7 @@ var (
 // Describes a real (i.e. possibly decimal) amount of Telegram Stars¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsAmount for reference.
 type StarsAmount struct {
@@ -340,20 +340,19 @@ const StarsAmountClassName = "StarsAmount"
 // See https://core.telegram.org/type/StarsAmount for reference.
 //
 // Constructors:
-//   - [StarsAmount]
-//   - [StarsTonAmount]
+//  - [StarsAmount]
+//  - [StarsTonAmount]
 //
 // Example:
-//
-//	g, err := tg.DecodeStarsAmount(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StarsAmount: // starsAmount#bbb6b4a3
-//	case *tg.StarsTonAmount: // starsTonAmount#74aee3e0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStarsAmount(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StarsAmount: // starsAmount#bbb6b4a3
+//  case *tg.StarsTonAmount: // starsTonAmount#74aee3e0
+//  default: panic(v)
+//  }
 type StarsAmountClass interface {
 	bin.Encoder
 	bin.Decoder

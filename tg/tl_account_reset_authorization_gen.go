@@ -35,7 +35,7 @@ var (
 // Log out an active authorized session¹ by its hash
 //
 // Links:
-//  1. https://core.telegram.org/api/auth
+//  1) https://core.telegram.org/api/auth
 //
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 type AccountResetAuthorizationRequest struct {
@@ -168,12 +168,11 @@ func (r *AccountResetAuthorizationRequest) GetHash() (value int64) {
 // Log out an active authorized session¹ by its hash
 //
 // Links:
-//  1. https://core.telegram.org/api/auth
+//  1) https://core.telegram.org/api/auth
 //
 // Possible errors:
-//
-//	406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
-//	400 HASH_INVALID: The provided hash is invalid.
+//  406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
+//  400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 func (c *Client) AccountResetAuthorization(ctx context.Context, hash int64) (bool, error) {

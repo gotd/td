@@ -279,13 +279,12 @@ func (s *MessagesSendEncryptedRequest) GetData() (value []byte) {
 // Sends a text message to a secret chat.
 //
 // Possible errors:
-//
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 DATA_INVALID: Encrypted data invalid.
-//	400 DATA_TOO_LONG: Data too long.
-//	400 ENCRYPTION_DECLINED: The secret chat was declined.
-//	500 MSG_WAIT_FAILED: A waiting call returned an error.
-//	403 USER_IS_BLOCKED: You were blocked by this user.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 DATA_INVALID: Encrypted data invalid.
+//  400 DATA_TOO_LONG: Data too long.
+//  400 ENCRYPTION_DECLINED: The secret chat was declined.
+//  500 MSG_WAIT_FAILED: A waiting call returned an error.
+//  403 USER_IS_BLOCKED: You were blocked by this user.
 //
 // See https://core.telegram.org/method/messages.sendEncrypted for reference.
 func (c *Client) MessagesSendEncrypted(ctx context.Context, request *MessagesSendEncryptedRequest) (MessagesSentEncryptedMessageClass, error) {

@@ -35,7 +35,7 @@ var (
 // Address optionally associated to a geoPoint¹.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/geoPoint
+//  1) https://core.telegram.org/constructor/geoPoint
 //
 // See https://core.telegram.org/constructor/geoPointAddress for reference.
 type GeoPointAddress struct {

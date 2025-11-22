@@ -36,7 +36,7 @@ var (
 // full flow)
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
+//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 //
 // See https://core.telegram.org/method/bots.updateUserEmojiStatus for reference.
 type BotsUpdateUserEmojiStatusRequest struct {
@@ -212,12 +212,11 @@ func (u *BotsUpdateUserEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 // full flow)
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
+//  1) https://core.telegram.org/api/emoji-status#setting-an-emoji-status-from-a-bot
 //
 // Possible errors:
-//
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/bots.updateUserEmojiStatus for reference.
 // Can be used by bots.

@@ -35,7 +35,7 @@ var (
 // Delete a folder imported using a chat folder deep link »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.leaveChatlist for reference.
 type ChatlistsLeaveChatlistRequest struct {
@@ -218,11 +218,10 @@ func (l *ChatlistsLeaveChatlistRequest) MapPeers() (value InputPeerClassArray) {
 // Delete a folder imported using a chat folder deep link »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
-//
-//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
 //
 // See https://core.telegram.org/method/chatlists.leaveChatlist for reference.
 func (c *Client) ChatlistsLeaveChatlist(ctx context.Context, request *ChatlistsLeaveChatlistRequest) (UpdatesClass, error) {

@@ -319,20 +319,19 @@ const InputStickeredMediaClassName = "InputStickeredMedia"
 // See https://core.telegram.org/type/InputStickeredMedia for reference.
 //
 // Constructors:
-//   - [InputStickeredMediaPhoto]
-//   - [InputStickeredMediaDocument]
+//  - [InputStickeredMediaPhoto]
+//  - [InputStickeredMediaDocument]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputStickeredMedia(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputStickeredMediaPhoto: // inputStickeredMediaPhoto#4a992157
-//	case *tg.InputStickeredMediaDocument: // inputStickeredMediaDocument#438865b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputStickeredMedia(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputStickeredMediaPhoto: // inputStickeredMediaPhoto#4a992157
+//  case *tg.InputStickeredMediaDocument: // inputStickeredMediaDocument#438865b
+//  default: panic(v)
+//  }
 type InputStickeredMediaClass interface {
 	bin.Encoder
 	bin.Decoder

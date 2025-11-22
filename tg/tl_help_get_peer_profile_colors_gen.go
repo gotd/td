@@ -35,7 +35,7 @@ var (
 // Get the set of accent color palettes »¹ that can be used in profile page backgrounds.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/help.getPeerProfileColors for reference.
 type HelpGetPeerProfileColorsRequest struct {
@@ -171,7 +171,7 @@ func (g *HelpGetPeerProfileColorsRequest) GetHash() (value int) {
 // Get the set of accent color palettes »¹ that can be used in profile page backgrounds.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/help.getPeerProfileColors for reference.
 func (c *Client) HelpGetPeerProfileColors(ctx context.Context, hash int) (HelpPeerColorsClass, error) {

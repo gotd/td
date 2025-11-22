@@ -39,7 +39,7 @@ var (
 // was sent.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/updateBotPrecheckoutQuery
+//  1) https://core.telegram.org/constructor/updateBotPrecheckoutQuery
 //
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 type MessagesSetBotPrecheckoutResultsRequest struct {
@@ -286,12 +286,11 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok b
 // was sent.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/updateBotPrecheckoutQuery
+//  1) https://core.telegram.org/constructor/updateBotPrecheckoutQuery
 //
 // Possible errors:
-//
-//	400 ERROR_TEXT_EMPTY: The provided error message is empty.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 ERROR_TEXT_EMPTY: The provided error message is empty.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 // Can be used by bots.

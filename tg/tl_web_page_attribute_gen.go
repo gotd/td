@@ -535,10 +535,10 @@ func (w *WebPageAttributeStory) GetStory() (value StoryItemClass, ok bool) {
 // link »³ (the webPage⁴ will have a type of telegram_stickerset).
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers
-//  2. https://core.telegram.org/constructor/webPage
-//  3. https://core.telegram.org/api/links#stickerset-links
-//  4. https://core.telegram.org/constructor/webPage
+//  1) https://core.telegram.org/api/stickers
+//  2) https://core.telegram.org/constructor/webPage
+//  3) https://core.telegram.org/api/links#stickerset-links
+//  4) https://core.telegram.org/constructor/webPage
 //
 // See https://core.telegram.org/constructor/webPageAttributeStickerSet for reference.
 type WebPageAttributeStickerSet struct {
@@ -1342,28 +1342,27 @@ const WebPageAttributeClassName = "WebPageAttribute"
 // See https://core.telegram.org/type/WebPageAttribute for reference.
 //
 // Constructors:
-//   - [WebPageAttributeTheme]
-//   - [WebPageAttributeStory]
-//   - [WebPageAttributeStickerSet]
-//   - [WebPageAttributeUniqueStarGift]
-//   - [WebPageAttributeStarGiftCollection]
-//   - [WebPageAttributeStarGiftAuction]
+//  - [WebPageAttributeTheme]
+//  - [WebPageAttributeStory]
+//  - [WebPageAttributeStickerSet]
+//  - [WebPageAttributeUniqueStarGift]
+//  - [WebPageAttributeStarGiftCollection]
+//  - [WebPageAttributeStarGiftAuction]
 //
 // Example:
-//
-//	g, err := tg.DecodeWebPageAttribute(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.WebPageAttributeTheme: // webPageAttributeTheme#54b56617
-//	case *tg.WebPageAttributeStory: // webPageAttributeStory#2e94c3e7
-//	case *tg.WebPageAttributeStickerSet: // webPageAttributeStickerSet#50cc03d3
-//	case *tg.WebPageAttributeUniqueStarGift: // webPageAttributeUniqueStarGift#cf6f6db8
-//	case *tg.WebPageAttributeStarGiftCollection: // webPageAttributeStarGiftCollection#31cad303
-//	case *tg.WebPageAttributeStarGiftAuction: // webPageAttributeStarGiftAuction#34986ab
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeWebPageAttribute(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.WebPageAttributeTheme: // webPageAttributeTheme#54b56617
+//  case *tg.WebPageAttributeStory: // webPageAttributeStory#2e94c3e7
+//  case *tg.WebPageAttributeStickerSet: // webPageAttributeStickerSet#50cc03d3
+//  case *tg.WebPageAttributeUniqueStarGift: // webPageAttributeUniqueStarGift#cf6f6db8
+//  case *tg.WebPageAttributeStarGiftCollection: // webPageAttributeStarGiftCollection#31cad303
+//  case *tg.WebPageAttributeStarGiftAuction: // webPageAttributeStarGiftAuction#34986ab
+//  default: panic(v)
+//  }
 type WebPageAttributeClass interface {
 	bin.Encoder
 	bin.Decoder

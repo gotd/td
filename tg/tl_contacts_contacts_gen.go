@@ -368,20 +368,19 @@ const ContactsContactsClassName = "contacts.Contacts"
 // See https://core.telegram.org/type/contacts.Contacts for reference.
 //
 // Constructors:
-//   - [ContactsContactsNotModified]
-//   - [ContactsContacts]
+//  - [ContactsContactsNotModified]
+//  - [ContactsContacts]
 //
 // Example:
-//
-//	g, err := tg.DecodeContactsContacts(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ContactsContactsNotModified: // contacts.contactsNotModified#b74ba9d2
-//	case *tg.ContactsContacts: // contacts.contacts#eae87e42
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeContactsContacts(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ContactsContactsNotModified: // contacts.contactsNotModified#b74ba9d2
+//  case *tg.ContactsContacts: // contacts.contacts#eae87e42
+//  default: panic(v)
+//  }
 type ContactsContactsClass interface {
 	bin.Encoder
 	bin.Decoder

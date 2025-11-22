@@ -410,20 +410,19 @@ const MessagesStickerSetClassName = "messages.StickerSet"
 // See https://core.telegram.org/type/messages.StickerSet for reference.
 //
 // Constructors:
-//   - [MessagesStickerSet]
-//   - [MessagesStickerSetNotModified]
+//  - [MessagesStickerSet]
+//  - [MessagesStickerSetNotModified]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesStickerSet(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesStickerSet: // messages.stickerSet#6e153f16
-//	case *tg.MessagesStickerSetNotModified: // messages.stickerSetNotModified#d3f924eb
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesStickerSet(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesStickerSet: // messages.stickerSet#6e153f16
+//  case *tg.MessagesStickerSetNotModified: // messages.stickerSetNotModified#d3f924eb
+//  default: panic(v)
+//  }
 type MessagesStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder

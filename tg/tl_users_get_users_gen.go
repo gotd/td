@@ -188,13 +188,12 @@ func (g *UsersGetUsersRequest) MapID() (value InputUserClassArray) {
 // Returns basic user info according to their identifiers.
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/users.getUsers for reference.
 // Can be used by bots.

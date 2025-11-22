@@ -299,7 +299,7 @@ func (i *InputStickerSetID) GetAccessHash() (value int64) {
 // Stickerset by short name, from a stickerset deep link »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#stickerset-links
+//  1) https://core.telegram.org/api/links#stickerset-links
 //
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
@@ -542,7 +542,7 @@ func (i *InputStickerSetAnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 // Used for fetching animated dice stickers¹
 //
 // Links:
-//  1. https://core.telegram.org/api/dice
+//  1) https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/inputStickerSetDice for reference.
 type InputStickerSetDice struct {
@@ -886,7 +886,7 @@ func (i *InputStickerSetPremiumGifts) DecodeBare(b *bin.Buffer) error {
 // using a normal emoji without a custom animation¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiGenericAnimations for reference.
 type InputStickerSetEmojiGenericAnimations struct {
@@ -991,7 +991,7 @@ func (i *InputStickerSetEmojiGenericAnimations) DecodeBare(b *bin.Buffer) error 
 // Default custom emoji status¹ stickerset
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiDefaultStatuses for reference.
 type InputStickerSetEmojiDefaultStatuses struct {
@@ -1096,8 +1096,8 @@ func (i *InputStickerSetEmojiDefaultStatuses) DecodeBare(b *bin.Buffer) error {
 // Default custom emoji¹ stickerset for forum topic icons²
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiDefaultTopicIcons for reference.
 type InputStickerSetEmojiDefaultTopicIcons struct {
@@ -1202,7 +1202,7 @@ func (i *InputStickerSetEmojiDefaultTopicIcons) DecodeBare(b *bin.Buffer) error 
 // Default custom emoji status¹ stickerset for channel statuses
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiChannelDefaultStatuses for reference.
 type InputStickerSetEmojiChannelDefaultStatuses struct {
@@ -1412,40 +1412,39 @@ const InputStickerSetClassName = "InputStickerSet"
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
 // Constructors:
-//   - [InputStickerSetEmpty]
-//   - [InputStickerSetID]
-//   - [InputStickerSetShortName]
-//   - [InputStickerSetAnimatedEmoji]
-//   - [InputStickerSetDice]
-//   - [InputStickerSetAnimatedEmojiAnimations]
-//   - [InputStickerSetPremiumGifts]
-//   - [InputStickerSetEmojiGenericAnimations]
-//   - [InputStickerSetEmojiDefaultStatuses]
-//   - [InputStickerSetEmojiDefaultTopicIcons]
-//   - [InputStickerSetEmojiChannelDefaultStatuses]
-//   - [InputStickerSetTonGifts]
+//  - [InputStickerSetEmpty]
+//  - [InputStickerSetID]
+//  - [InputStickerSetShortName]
+//  - [InputStickerSetAnimatedEmoji]
+//  - [InputStickerSetDice]
+//  - [InputStickerSetAnimatedEmojiAnimations]
+//  - [InputStickerSetPremiumGifts]
+//  - [InputStickerSetEmojiGenericAnimations]
+//  - [InputStickerSetEmojiDefaultStatuses]
+//  - [InputStickerSetEmojiDefaultTopicIcons]
+//  - [InputStickerSetEmojiChannelDefaultStatuses]
+//  - [InputStickerSetTonGifts]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputStickerSet(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
-//	case *tg.InputStickerSetID: // inputStickerSetID#9de7a269
-//	case *tg.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
-//	case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
-//	case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
-//	case *tg.InputStickerSetAnimatedEmojiAnimations: // inputStickerSetAnimatedEmojiAnimations#cde3739
-//	case *tg.InputStickerSetPremiumGifts: // inputStickerSetPremiumGifts#c88b3b02
-//	case *tg.InputStickerSetEmojiGenericAnimations: // inputStickerSetEmojiGenericAnimations#4c4d4ce
-//	case *tg.InputStickerSetEmojiDefaultStatuses: // inputStickerSetEmojiDefaultStatuses#29d0f5ee
-//	case *tg.InputStickerSetEmojiDefaultTopicIcons: // inputStickerSetEmojiDefaultTopicIcons#44c1f8e9
-//	case *tg.InputStickerSetEmojiChannelDefaultStatuses: // inputStickerSetEmojiChannelDefaultStatuses#49748553
-//	case *tg.InputStickerSetTonGifts: // inputStickerSetTonGifts#1cf671a0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputStickerSet(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
+//  case *tg.InputStickerSetID: // inputStickerSetID#9de7a269
+//  case *tg.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
+//  case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
+//  case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
+//  case *tg.InputStickerSetAnimatedEmojiAnimations: // inputStickerSetAnimatedEmojiAnimations#cde3739
+//  case *tg.InputStickerSetPremiumGifts: // inputStickerSetPremiumGifts#c88b3b02
+//  case *tg.InputStickerSetEmojiGenericAnimations: // inputStickerSetEmojiGenericAnimations#4c4d4ce
+//  case *tg.InputStickerSetEmojiDefaultStatuses: // inputStickerSetEmojiDefaultStatuses#29d0f5ee
+//  case *tg.InputStickerSetEmojiDefaultTopicIcons: // inputStickerSetEmojiDefaultTopicIcons#44c1f8e9
+//  case *tg.InputStickerSetEmojiChannelDefaultStatuses: // inputStickerSetEmojiChannelDefaultStatuses#49748553
+//  case *tg.InputStickerSetTonGifts: // inputStickerSetTonGifts#1cf671a0
+//  default: panic(v)
+//  }
 type InputStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder

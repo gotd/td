@@ -35,7 +35,7 @@ var (
 // Get recently used emoji statuses¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getRecentEmojiStatuses for reference.
 type AccountGetRecentEmojiStatusesRequest struct {
@@ -171,7 +171,7 @@ func (g *AccountGetRecentEmojiStatusesRequest) GetHash() (value int64) {
 // Get recently used emoji statuses¹
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getRecentEmojiStatuses for reference.
 func (c *Client) AccountGetRecentEmojiStatuses(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error) {

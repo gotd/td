@@ -469,22 +469,21 @@ const InputGroupCallClassName = "InputGroupCall"
 // See https://core.telegram.org/type/InputGroupCall for reference.
 //
 // Constructors:
-//   - [InputGroupCall]
-//   - [InputGroupCallSlug]
-//   - [InputGroupCallInviteMessage]
+//  - [InputGroupCall]
+//  - [InputGroupCallSlug]
+//  - [InputGroupCallInviteMessage]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputGroupCall(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputGroupCall: // inputGroupCall#d8aa840f
-//	case *tg.InputGroupCallSlug: // inputGroupCallSlug#fe06823f
-//	case *tg.InputGroupCallInviteMessage: // inputGroupCallInviteMessage#8c10603f
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputGroupCall(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputGroupCall: // inputGroupCall#d8aa840f
+//  case *tg.InputGroupCallSlug: // inputGroupCallSlug#fe06823f
+//  case *tg.InputGroupCallInviteMessage: // inputGroupCallInviteMessage#8c10603f
+//  default: panic(v)
+//  }
 type InputGroupCallClass interface {
 	bin.Encoder
 	bin.Decoder

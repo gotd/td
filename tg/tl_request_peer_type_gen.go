@@ -984,22 +984,21 @@ const RequestPeerTypeClassName = "RequestPeerType"
 // See https://core.telegram.org/type/RequestPeerType for reference.
 //
 // Constructors:
-//   - [RequestPeerTypeUser]
-//   - [RequestPeerTypeChat]
-//   - [RequestPeerTypeBroadcast]
+//  - [RequestPeerTypeUser]
+//  - [RequestPeerTypeChat]
+//  - [RequestPeerTypeBroadcast]
 //
 // Example:
-//
-//	g, err := tg.DecodeRequestPeerType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.RequestPeerTypeUser: // requestPeerTypeUser#5f3b8a00
-//	case *tg.RequestPeerTypeChat: // requestPeerTypeChat#c9f06e1b
-//	case *tg.RequestPeerTypeBroadcast: // requestPeerTypeBroadcast#339bef6c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeRequestPeerType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.RequestPeerTypeUser: // requestPeerTypeUser#5f3b8a00
+//  case *tg.RequestPeerTypeChat: // requestPeerTypeChat#c9f06e1b
+//  case *tg.RequestPeerTypeBroadcast: // requestPeerTypeBroadcast#339bef6c
+//  default: panic(v)
+//  }
 type RequestPeerTypeClass interface {
 	bin.Encoder
 	bin.Decoder

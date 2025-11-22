@@ -35,7 +35,7 @@ var (
 // Info about why a specific user could not be invited »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/invites#direct-invites
+//  1) https://core.telegram.org/api/invites#direct-invites
 //
 // See https://core.telegram.org/constructor/missingInvitee for reference.
 type MissingInvitee struct {

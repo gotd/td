@@ -290,9 +290,8 @@ func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCreden
 // service
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 PUBLIC_KEY_REQUIRED: A public key is required.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 PUBLIC_KEY_REQUIRED: A public key is required.
 //
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 func (c *Client) AccountAcceptAuthorization(ctx context.Context, request *AccountAcceptAuthorizationRequest) (bool, error) {

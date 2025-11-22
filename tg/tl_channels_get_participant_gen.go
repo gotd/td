@@ -35,7 +35,7 @@ var (
 // Get info about a channel/supergroup¹ participant
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 type ChannelsGetParticipantRequest struct {
@@ -210,17 +210,16 @@ func (g *ChannelsGetParticipantRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Get info about a channel/supergroup¹ participant
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
-//	400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
 //
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 // Can be used by bots.

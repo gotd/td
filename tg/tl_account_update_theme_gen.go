@@ -439,8 +439,7 @@ func (u *AccountUpdateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, boo
 // Update theme
 //
 // Possible errors:
-//
-//	400 THEME_INVALID: Invalid theme provided.
+//  400 THEME_INVALID: Invalid theme provided.
 //
 // See https://core.telegram.org/method/account.updateTheme for reference.
 func (c *Client) AccountUpdateTheme(ctx context.Context, request *AccountUpdateThemeRequest) (*Theme, error) {

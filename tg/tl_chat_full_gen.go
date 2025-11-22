@@ -38,8 +38,8 @@ var (
 // removing fields that aren't set in the new constructor).
 //
 // Links:
-//  1. https://core.telegram.org/api/channel#basic-groups
-//  2. https://core.telegram.org/api/peers
+//  1) https://core.telegram.org/api/channel#basic-groups
+//  2) https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
@@ -1095,10 +1095,10 @@ func (c *ChatFull) GetReactionsLimit() (value int, ok bool) {
 // removing fields that aren't set in the new constructor).
 //
 // Links:
-//  1. https://core.telegram.org/api/channel#channels
-//  2. https://core.telegram.org/api/channel#supergroups
-//  3. https://core.telegram.org/api/channel#gigagroups
-//  4. https://core.telegram.org/api/peers
+//  1) https://core.telegram.org/api/channel#channels
+//  2) https://core.telegram.org/api/channel#supergroups
+//  3) https://core.telegram.org/api/channel#gigagroups
+//  4) https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
@@ -4151,20 +4151,19 @@ const ChatFullClassName = "ChatFull"
 // See https://core.telegram.org/type/ChatFull for reference.
 //
 // Constructors:
-//   - [ChatFull]
-//   - [ChannelFull]
+//  - [ChatFull]
+//  - [ChannelFull]
 //
 // Example:
-//
-//	g, err := tg.DecodeChatFull(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatFull: // chatFull#2633421b
-//	case *tg.ChannelFull: // channelFull#e4e0b29d
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChatFull(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatFull: // chatFull#2633421b
+//  case *tg.ChannelFull: // channelFull#e4e0b29d
+//  default: panic(v)
+//  }
 type ChatFullClass interface {
 	bin.Encoder
 	bin.Decoder

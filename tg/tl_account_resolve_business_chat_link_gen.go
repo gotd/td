@@ -35,7 +35,7 @@ var (
 // Resolve a business chat deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/method/account.resolveBusinessChatLink for reference.
 type AccountResolveBusinessChatLinkRequest struct {
@@ -171,12 +171,11 @@ func (r *AccountResolveBusinessChatLinkRequest) GetSlug() (value string) {
 // Resolve a business chat deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // Possible errors:
-//
-//	400 CHATLINK_SLUG_EMPTY: The specified slug is empty.
-//	400 CHATLINK_SLUG_EXPIRED: The specified business chat link has expired.
+//  400 CHATLINK_SLUG_EMPTY: The specified slug is empty.
+//  400 CHATLINK_SLUG_EXPIRED: The specified business chat link has expired.
 //
 // See https://core.telegram.org/method/account.resolveBusinessChatLink for reference.
 func (c *Client) AccountResolveBusinessChatLink(ctx context.Context, slug string) (*AccountResolvedBusinessChatLinks, error) {

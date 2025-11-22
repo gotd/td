@@ -275,8 +275,7 @@ func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
 // Rate a call, returns info about the rating message sent to the official VoIP bot.
 //
 // Possible errors:
-//
-//	400 CALL_PEER_INVALID: The provided call peer object is invalid.
+//  400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //
 // See https://core.telegram.org/method/phone.setCallRating for reference.
 func (c *Client) PhoneSetCallRating(ctx context.Context, request *PhoneSetCallRatingRequest) (UpdatesClass, error) {

@@ -35,7 +35,7 @@ var (
 // Get pinned saved dialogs, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.getPinnedSavedDialogs for reference.
 type MessagesGetPinnedSavedDialogsRequest struct {
@@ -135,7 +135,7 @@ func (g *MessagesGetPinnedSavedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 // Get pinned saved dialogs, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.getPinnedSavedDialogs for reference.
 func (c *Client) MessagesGetPinnedSavedDialogs(ctx context.Context) (MessagesSavedDialogsClass, error) {

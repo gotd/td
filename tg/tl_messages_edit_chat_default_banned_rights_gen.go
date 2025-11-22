@@ -35,7 +35,7 @@ var (
 // Edit the default banned rights of a channel/supergroup/group¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
 type MessagesEditChatDefaultBannedRightsRequest struct {
@@ -200,18 +200,17 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value Ch
 // Edit the default banned rights of a channel/supergroup/group¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//
-//	400 BANNED_RIGHTS_INVALID: You provided some invalid flags in the banned rights.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 UNTIL_DATE_INVALID: Invalid until date provided.
+//  400 BANNED_RIGHTS_INVALID: You provided some invalid flags in the banned rights.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 UNTIL_DATE_INVALID: Invalid until date provided.
 //
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
 // Can be used by bots.

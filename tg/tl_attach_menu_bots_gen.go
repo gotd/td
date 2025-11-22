@@ -137,7 +137,7 @@ func (a *AttachMenuBotsNotModified) DecodeBare(b *bin.Buffer) error {
 // Represents a list of bot mini apps that can be launched from the attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBots for reference.
 type AttachMenuBots struct {
@@ -377,20 +377,19 @@ const AttachMenuBotsClassName = "AttachMenuBots"
 // See https://core.telegram.org/type/AttachMenuBots for reference.
 //
 // Constructors:
-//   - [AttachMenuBotsNotModified]
-//   - [AttachMenuBots]
+//  - [AttachMenuBotsNotModified]
+//  - [AttachMenuBots]
 //
 // Example:
-//
-//	g, err := tg.DecodeAttachMenuBots(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AttachMenuBotsNotModified: // attachMenuBotsNotModified#f1d88a5c
-//	case *tg.AttachMenuBots: // attachMenuBots#3c4301c0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAttachMenuBots(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AttachMenuBotsNotModified: // attachMenuBotsNotModified#f1d88a5c
+//  case *tg.AttachMenuBots: // attachMenuBots#3c4301c0
+//  default: panic(v)
+//  }
 type AttachMenuBotsClass interface {
 	bin.Encoder
 	bin.Decoder

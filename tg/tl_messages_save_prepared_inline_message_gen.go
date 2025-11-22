@@ -36,8 +36,8 @@ var (
 // web_app_send_prepared_message event²
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
-//  2. https://core.telegram.org/api/web-events#web-app-send-prepared-message
+//  1) https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
+//  2) https://core.telegram.org/api/web-events#web-app-send-prepared-message
 //
 // See https://core.telegram.org/method/messages.savePreparedInlineMessage for reference.
 type MessagesSavePreparedInlineMessageRequest struct {
@@ -306,14 +306,13 @@ func (s *MessagesSavePreparedInlineMessageRequest) MapPeerTypes() (value InlineQ
 // web_app_send_prepared_message event²
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
-//  2. https://core.telegram.org/api/web-events#web-app-send-prepared-message
+//  1) https://core.telegram.org/api/bots/inline#21-using-a-prepared-inline-message
+//  2) https://core.telegram.org/api/web-events#web-app-send-prepared-message
 //
 // Possible errors:
-//
-//	400 RESULT_ID_INVALID: One of the specified result IDs is invalid.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 RESULT_ID_INVALID: One of the specified result IDs is invalid.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.savePreparedInlineMessage for reference.
 // Can be used by bots.

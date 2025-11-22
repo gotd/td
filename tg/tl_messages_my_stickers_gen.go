@@ -35,7 +35,7 @@ var (
 // The list of stickersets owned by the current account »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers
+//  1) https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/constructor/messages.myStickers for reference.
 type MessagesMyStickers struct {

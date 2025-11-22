@@ -409,8 +409,7 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // If the method returns a QUERY_ID_INVALID error, the webview must be closed.
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 func (c *Client) MessagesProlongWebView(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error) {

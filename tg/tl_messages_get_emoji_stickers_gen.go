@@ -35,7 +35,7 @@ var (
 // Gets the list of currently installed custom emoji stickersets¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.getEmojiStickers for reference.
 type MessagesGetEmojiStickersRequest struct {
@@ -171,7 +171,7 @@ func (g *MessagesGetEmojiStickersRequest) GetHash() (value int64) {
 // Gets the list of currently installed custom emoji stickersets¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.getEmojiStickers for reference.
 func (c *Client) MessagesGetEmojiStickers(ctx context.Context, hash int64) (MessagesAllStickersClass, error) {

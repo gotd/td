@@ -396,20 +396,19 @@ const MessagesDhConfigClassName = "messages.DhConfig"
 // See https://core.telegram.org/type/messages.DhConfig for reference.
 //
 // Constructors:
-//   - [MessagesDhConfigNotModified]
-//   - [MessagesDhConfig]
+//  - [MessagesDhConfigNotModified]
+//  - [MessagesDhConfig]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesDhConfig(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesDhConfigNotModified: // messages.dhConfigNotModified#c0e24635
-//	case *tg.MessagesDhConfig: // messages.dhConfig#2c221edd
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesDhConfig(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesDhConfigNotModified: // messages.dhConfigNotModified#c0e24635
+//  case *tg.MessagesDhConfig: // messages.dhConfig#2c221edd
+//  default: panic(v)
+//  }
 type MessagesDhConfigClass interface {
 	bin.Encoder
 	bin.Decoder

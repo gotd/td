@@ -35,7 +35,7 @@ var (
 // Stickerset by short name, from a stickerset deep link »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#stickerset-links
+//  1) https://core.telegram.org/api/links#stickerset-links
 //
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
@@ -275,20 +275,19 @@ const InputStickerSetClassName = "InputStickerSet"
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
 // Constructors:
-//   - [InputStickerSetShortName]
-//   - [InputStickerSetEmpty]
+//  - [InputStickerSetShortName]
+//  - [InputStickerSetEmpty]
 //
 // Example:
-//
-//	g, err := e2e.DecodeInputStickerSet(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *e2e.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
-//	case *e2e.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
-//	default: panic(v)
-//	}
+//  g, err := e2e.DecodeInputStickerSet(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *e2e.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
+//  case *e2e.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
+//  default: panic(v)
+//  }
 type InputStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder

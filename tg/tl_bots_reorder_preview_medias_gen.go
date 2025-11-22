@@ -37,8 +37,8 @@ var (
 // »¹ for more info on how to check if you can invoke this method.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
-//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/method/bots.reorderPreviewMedias for reference.
 type BotsReorderPreviewMediasRequest struct {
@@ -255,12 +255,11 @@ func (r *BotsReorderPreviewMediasRequest) MapOrder() (value InputMediaClassArray
 // »¹ for more info on how to check if you can invoke this method.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
-//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.reorderPreviewMedias for reference.
 func (c *Client) BotsReorderPreviewMedias(ctx context.Context, request *BotsReorderPreviewMediasRequest) (bool, error) {

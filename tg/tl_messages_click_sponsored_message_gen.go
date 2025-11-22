@@ -36,7 +36,7 @@ var (
 // ways listed here »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages#clicking-on-sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages#clicking-on-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.clickSponsoredMessage for reference.
 type MessagesClickSponsoredMessageRequest struct {
@@ -261,7 +261,7 @@ func (c *MessagesClickSponsoredMessageRequest) GetRandomID() (value []byte) {
 // ways listed here »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages#clicking-on-sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages#clicking-on-sponsored-messages
 //
 // See https://core.telegram.org/method/messages.clickSponsoredMessage for reference.
 func (c *Client) MessagesClickSponsoredMessage(ctx context.Context, request *MessagesClickSponsoredMessageRequest) (bool, error) {

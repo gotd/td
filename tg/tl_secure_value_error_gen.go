@@ -1925,34 +1925,33 @@ const SecureValueErrorClassName = "SecureValueError"
 // See https://core.telegram.org/type/SecureValueError for reference.
 //
 // Constructors:
-//   - [SecureValueErrorData]
-//   - [SecureValueErrorFrontSide]
-//   - [SecureValueErrorReverseSide]
-//   - [SecureValueErrorSelfie]
-//   - [SecureValueErrorFile]
-//   - [SecureValueErrorFiles]
-//   - [SecureValueError]
-//   - [SecureValueErrorTranslationFile]
-//   - [SecureValueErrorTranslationFiles]
+//  - [SecureValueErrorData]
+//  - [SecureValueErrorFrontSide]
+//  - [SecureValueErrorReverseSide]
+//  - [SecureValueErrorSelfie]
+//  - [SecureValueErrorFile]
+//  - [SecureValueErrorFiles]
+//  - [SecureValueError]
+//  - [SecureValueErrorTranslationFile]
+//  - [SecureValueErrorTranslationFiles]
 //
 // Example:
-//
-//	g, err := tg.DecodeSecureValueError(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.SecureValueErrorData: // secureValueErrorData#e8a40bd9
-//	case *tg.SecureValueErrorFrontSide: // secureValueErrorFrontSide#be3dfa
-//	case *tg.SecureValueErrorReverseSide: // secureValueErrorReverseSide#868a2aa5
-//	case *tg.SecureValueErrorSelfie: // secureValueErrorSelfie#e537ced6
-//	case *tg.SecureValueErrorFile: // secureValueErrorFile#7a700873
-//	case *tg.SecureValueErrorFiles: // secureValueErrorFiles#666220e9
-//	case *tg.SecureValueError: // secureValueError#869d758f
-//	case *tg.SecureValueErrorTranslationFile: // secureValueErrorTranslationFile#a1144770
-//	case *tg.SecureValueErrorTranslationFiles: // secureValueErrorTranslationFiles#34636dd8
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeSecureValueError(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.SecureValueErrorData: // secureValueErrorData#e8a40bd9
+//  case *tg.SecureValueErrorFrontSide: // secureValueErrorFrontSide#be3dfa
+//  case *tg.SecureValueErrorReverseSide: // secureValueErrorReverseSide#868a2aa5
+//  case *tg.SecureValueErrorSelfie: // secureValueErrorSelfie#e537ced6
+//  case *tg.SecureValueErrorFile: // secureValueErrorFile#7a700873
+//  case *tg.SecureValueErrorFiles: // secureValueErrorFiles#666220e9
+//  case *tg.SecureValueError: // secureValueError#869d758f
+//  case *tg.SecureValueErrorTranslationFile: // secureValueErrorTranslationFile#a1144770
+//  case *tg.SecureValueErrorTranslationFiles: // secureValueErrorTranslationFiles#34636dd8
+//  default: panic(v)
+//  }
 type SecureValueErrorClass interface {
 	bin.Encoder
 	bin.Decoder

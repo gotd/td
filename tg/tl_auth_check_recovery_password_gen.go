@@ -36,9 +36,9 @@ var (
 // before passing it to auth.recoverPassword³.
 //
 // Links:
-//  1. https://core.telegram.org/api/srp
-//  2. https://core.telegram.org/method/auth.requestPasswordRecovery
-//  3. https://core.telegram.org/method/auth.recoverPassword
+//  1) https://core.telegram.org/api/srp
+//  2) https://core.telegram.org/method/auth.requestPasswordRecovery
+//  3) https://core.telegram.org/method/auth.recoverPassword
 //
 // See https://core.telegram.org/method/auth.checkRecoveryPassword for reference.
 type AuthCheckRecoveryPasswordRequest struct {
@@ -172,14 +172,13 @@ func (c *AuthCheckRecoveryPasswordRequest) GetCode() (value string) {
 // before passing it to auth.recoverPassword³.
 //
 // Links:
-//  1. https://core.telegram.org/api/srp
-//  2. https://core.telegram.org/method/auth.requestPasswordRecovery
-//  3. https://core.telegram.org/method/auth.recoverPassword
+//  1) https://core.telegram.org/api/srp
+//  2) https://core.telegram.org/method/auth.requestPasswordRecovery
+//  3) https://core.telegram.org/method/auth.recoverPassword
 //
 // Possible errors:
-//
-//	400 CODE_EMPTY: The provided code is empty.
-//	400 PASSWORD_RECOVERY_EXPIRED: The recovery code has expired.
+//  400 CODE_EMPTY: The provided code is empty.
+//  400 PASSWORD_RECOVERY_EXPIRED: The recovery code has expired.
 //
 // See https://core.telegram.org/method/auth.checkRecoveryPassword for reference.
 func (c *Client) AuthCheckRecoveryPassword(ctx context.Context, code string) (bool, error) {

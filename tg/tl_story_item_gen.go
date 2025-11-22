@@ -172,7 +172,7 @@ func (s *StoryItemDeleted) GetID() (value int) {
 // story when and if needed.
 //
 // Links:
-//  1. https://core.telegram.org/method/stories.getStoriesByID
+//  1) https://core.telegram.org/method/stories.getStoriesByID
 //
 // See https://core.telegram.org/constructor/storyItemSkipped for reference.
 type StoryItemSkipped struct {
@@ -459,7 +459,7 @@ func (s *StoryItemSkipped) GetExpireDate() (value int) {
 // Represents a story¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/storyItem for reference.
 type StoryItem struct {
@@ -1581,22 +1581,21 @@ const StoryItemClassName = "StoryItem"
 // See https://core.telegram.org/type/StoryItem for reference.
 //
 // Constructors:
-//   - [StoryItemDeleted]
-//   - [StoryItemSkipped]
-//   - [StoryItem]
+//  - [StoryItemDeleted]
+//  - [StoryItemSkipped]
+//  - [StoryItem]
 //
 // Example:
-//
-//	g, err := tg.DecodeStoryItem(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StoryItemDeleted: // storyItemDeleted#51e6ee4f
-//	case *tg.StoryItemSkipped: // storyItemSkipped#ffadc913
-//	case *tg.StoryItem: // storyItem#edf164f1
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStoryItem(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StoryItemDeleted: // storyItemDeleted#51e6ee4f
+//  case *tg.StoryItemSkipped: // storyItemSkipped#ffadc913
+//  case *tg.StoryItem: // storyItem#edf164f1
+//  default: panic(v)
+//  }
 type StoryItemClass interface {
 	bin.Encoder
 	bin.Decoder

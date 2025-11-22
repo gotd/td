@@ -37,7 +37,7 @@ var (
 // The n position indicates where the mask should be placed:
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers#attached-stickers
+//  1) https://core.telegram.org/api/stickers#attached-stickers
 //
 // See https://core.telegram.org/constructor/maskCoords for reference.
 type MaskCoords struct {

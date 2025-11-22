@@ -198,8 +198,8 @@ func (i *InputWebFileLocation) GetAccessHash() (value int64) {
 // the webfile docs for more info »².
 //
 // Links:
-//  1. https://core.telegram.org/constructor/geoPoint
-//  2. https://core.telegram.org/api/files#downloading-webfiles
+//  1) https://core.telegram.org/constructor/geoPoint
+//  2) https://core.telegram.org/api/files#downloading-webfiles
 //
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
@@ -484,8 +484,8 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 // webfile docs for more info »².
 //
 // Links:
-//  1. https://core.telegram.org/method/upload.getWebFile
-//  2. https://core.telegram.org/api/files#downloading-webfiles
+//  1) https://core.telegram.org/method/upload.getWebFile
+//  2) https://core.telegram.org/api/files#downloading-webfiles
 //
 // See https://core.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation for reference.
 type InputWebFileAudioAlbumThumbLocation struct {
@@ -808,22 +808,21 @@ const InputWebFileLocationClassName = "InputWebFileLocation"
 // See https://core.telegram.org/type/InputWebFileLocation for reference.
 //
 // Constructors:
-//   - [InputWebFileLocation]
-//   - [InputWebFileGeoPointLocation]
-//   - [InputWebFileAudioAlbumThumbLocation]
+//  - [InputWebFileLocation]
+//  - [InputWebFileGeoPointLocation]
+//  - [InputWebFileAudioAlbumThumbLocation]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputWebFileLocation(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputWebFileLocation: // inputWebFileLocation#c239d686
-//	case *tg.InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
-//	case *tg.InputWebFileAudioAlbumThumbLocation: // inputWebFileAudioAlbumThumbLocation#f46fe924
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputWebFileLocation(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputWebFileLocation: // inputWebFileLocation#c239d686
+//  case *tg.InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
+//  case *tg.InputWebFileAudioAlbumThumbLocation: // inputWebFileAudioAlbumThumbLocation#f46fe924
+//  default: panic(v)
+//  }
 type InputWebFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder

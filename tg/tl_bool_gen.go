@@ -243,20 +243,19 @@ const BoolClassName = "Bool"
 // See https://core.telegram.org/type/Bool for reference.
 //
 // Constructors:
-//   - [BoolFalse]
-//   - [BoolTrue]
+//  - [BoolFalse]
+//  - [BoolTrue]
 //
 // Example:
-//
-//	g, err := tg.DecodeBool(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.BoolFalse: // boolFalse#bc799737
-//	case *tg.BoolTrue: // boolTrue#997275b5
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeBool(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.BoolFalse: // boolFalse#bc799737
+//  case *tg.BoolTrue: // boolTrue#997275b5
+//  default: panic(v)
+//  }
 type BoolClass interface {
 	bin.Encoder
 	bin.Decoder

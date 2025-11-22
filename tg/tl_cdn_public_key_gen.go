@@ -35,7 +35,7 @@ var (
 // Public key to use only during handshakes to CDN¹ DCs.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/cdnPublicKey for reference.
 type CDNPublicKey struct {

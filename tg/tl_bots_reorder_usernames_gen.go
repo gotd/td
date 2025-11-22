@@ -210,9 +210,8 @@ func (r *BotsReorderUsernamesRequest) GetOrder() (value []string) {
 // Reorder usernames associated to a bot we own.
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 USERNAME_NOT_MODIFIED: The username was not modified.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 USERNAME_NOT_MODIFIED: The username was not modified.
 //
 // See https://core.telegram.org/method/bots.reorderUsernames for reference.
 func (c *Client) BotsReorderUsernames(ctx context.Context, request *BotsReorderUsernamesRequest) (bool, error) {

@@ -366,9 +366,8 @@ func (r *AuthRequestFirebaseSMSRequest) GetIosPushSecret() (value string, ok boo
 // Request an SMS code via Firebase.
 //
 // Possible errors:
-//
-//	400 PHONE_CODE_EMPTY: phone_code is missing.
-//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//  400 PHONE_CODE_EMPTY: phone_code is missing.
+//  400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/auth.requestFirebaseSms for reference.
 func (c *Client) AuthRequestFirebaseSMS(ctx context.Context, request *AuthRequestFirebaseSMSRequest) (bool, error) {

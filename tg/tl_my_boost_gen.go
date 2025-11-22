@@ -35,7 +35,7 @@ var (
 // Contains information about a single boost slot »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/myBoost for reference.
 type MyBoost struct {

@@ -443,7 +443,7 @@ func (s *SecureValueTypeIdentityCard) DecodeBare(b *bin.Buffer) error {
 // Internal passport¹
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/secureValueTypeInternalPassport for reference.
 type SecureValueTypeInternalPassport struct {
@@ -956,7 +956,7 @@ func (s *SecureValueTypeRentalAgreement) DecodeBare(b *bin.Buffer) error {
 // Internal registration passport¹
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/secureValueTypePassportRegistration for reference.
 type SecureValueTypePassportRegistration struct {
@@ -1371,42 +1371,41 @@ const SecureValueTypeClassName = "SecureValueType"
 // See https://core.telegram.org/type/SecureValueType for reference.
 //
 // Constructors:
-//   - [SecureValueTypePersonalDetails]
-//   - [SecureValueTypePassport]
-//   - [SecureValueTypeDriverLicense]
-//   - [SecureValueTypeIdentityCard]
-//   - [SecureValueTypeInternalPassport]
-//   - [SecureValueTypeAddress]
-//   - [SecureValueTypeUtilityBill]
-//   - [SecureValueTypeBankStatement]
-//   - [SecureValueTypeRentalAgreement]
-//   - [SecureValueTypePassportRegistration]
-//   - [SecureValueTypeTemporaryRegistration]
-//   - [SecureValueTypePhone]
-//   - [SecureValueTypeEmail]
+//  - [SecureValueTypePersonalDetails]
+//  - [SecureValueTypePassport]
+//  - [SecureValueTypeDriverLicense]
+//  - [SecureValueTypeIdentityCard]
+//  - [SecureValueTypeInternalPassport]
+//  - [SecureValueTypeAddress]
+//  - [SecureValueTypeUtilityBill]
+//  - [SecureValueTypeBankStatement]
+//  - [SecureValueTypeRentalAgreement]
+//  - [SecureValueTypePassportRegistration]
+//  - [SecureValueTypeTemporaryRegistration]
+//  - [SecureValueTypePhone]
+//  - [SecureValueTypeEmail]
 //
 // Example:
-//
-//	g, err := tg.DecodeSecureValueType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.SecureValueTypePersonalDetails: // secureValueTypePersonalDetails#9d2a81e3
-//	case *tg.SecureValueTypePassport: // secureValueTypePassport#3dac6a00
-//	case *tg.SecureValueTypeDriverLicense: // secureValueTypeDriverLicense#6e425c4
-//	case *tg.SecureValueTypeIdentityCard: // secureValueTypeIdentityCard#a0d0744b
-//	case *tg.SecureValueTypeInternalPassport: // secureValueTypeInternalPassport#99a48f23
-//	case *tg.SecureValueTypeAddress: // secureValueTypeAddress#cbe31e26
-//	case *tg.SecureValueTypeUtilityBill: // secureValueTypeUtilityBill#fc36954e
-//	case *tg.SecureValueTypeBankStatement: // secureValueTypeBankStatement#89137c0d
-//	case *tg.SecureValueTypeRentalAgreement: // secureValueTypeRentalAgreement#8b883488
-//	case *tg.SecureValueTypePassportRegistration: // secureValueTypePassportRegistration#99e3806a
-//	case *tg.SecureValueTypeTemporaryRegistration: // secureValueTypeTemporaryRegistration#ea02ec33
-//	case *tg.SecureValueTypePhone: // secureValueTypePhone#b320aadb
-//	case *tg.SecureValueTypeEmail: // secureValueTypeEmail#8e3ca7ee
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeSecureValueType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.SecureValueTypePersonalDetails: // secureValueTypePersonalDetails#9d2a81e3
+//  case *tg.SecureValueTypePassport: // secureValueTypePassport#3dac6a00
+//  case *tg.SecureValueTypeDriverLicense: // secureValueTypeDriverLicense#6e425c4
+//  case *tg.SecureValueTypeIdentityCard: // secureValueTypeIdentityCard#a0d0744b
+//  case *tg.SecureValueTypeInternalPassport: // secureValueTypeInternalPassport#99a48f23
+//  case *tg.SecureValueTypeAddress: // secureValueTypeAddress#cbe31e26
+//  case *tg.SecureValueTypeUtilityBill: // secureValueTypeUtilityBill#fc36954e
+//  case *tg.SecureValueTypeBankStatement: // secureValueTypeBankStatement#89137c0d
+//  case *tg.SecureValueTypeRentalAgreement: // secureValueTypeRentalAgreement#8b883488
+//  case *tg.SecureValueTypePassportRegistration: // secureValueTypePassportRegistration#99e3806a
+//  case *tg.SecureValueTypeTemporaryRegistration: // secureValueTypeTemporaryRegistration#ea02ec33
+//  case *tg.SecureValueTypePhone: // secureValueTypePhone#b320aadb
+//  case *tg.SecureValueTypeEmail: // secureValueTypeEmail#8e3ca7ee
+//  default: panic(v)
+//  }
 type SecureValueTypeClass interface {
 	bin.Encoder
 	bin.Decoder

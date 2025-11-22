@@ -36,7 +36,7 @@ var (
 // same parameters
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.search
+//  1) https://core.telegram.org/method/messages.search
 //
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 type MessagesGetSearchCountersRequest struct {
@@ -353,11 +353,10 @@ func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterCla
 // same parameters
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.search
+//  1) https://core.telegram.org/method/messages.search
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *MessagesGetSearchCountersRequest) ([]MessagesSearchCounter, error) {

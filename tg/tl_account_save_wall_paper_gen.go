@@ -35,7 +35,7 @@ var (
 // Install/uninstall wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
@@ -230,11 +230,10 @@ func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
 // Install/uninstall wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
-//
-//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
 //
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 func (c *Client) AccountSaveWallPaper(ctx context.Context, request *AccountSaveWallPaperRequest) (bool, error) {

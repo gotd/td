@@ -38,7 +38,7 @@ var (
 // As usual, the media DC is preferred, if available.
 //
 // Links:
-//  1. https://core.telegram.org/api/files#downloading-files
+//  1) https://core.telegram.org/api/files#downloading-files
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
 type PhoneGetGroupCallStreamChannelsRequest struct {
@@ -179,12 +179,11 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) GetCall() (value InputGroupCall
 // As usual, the media DC is preferred, if available.
 //
 // Links:
-//  1. https://core.telegram.org/api/files#downloading-files
+//  1) https://core.telegram.org/api/files#downloading-files
 //
 // Possible errors:
-//
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
-//	400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//  400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
 func (c *Client) PhoneGetGroupCallStreamChannels(ctx context.Context, call InputGroupCallClass) (*PhoneGroupCallStreamChannels, error) {

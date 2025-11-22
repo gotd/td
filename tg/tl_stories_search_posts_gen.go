@@ -37,9 +37,9 @@ var (
 // Either hashtag or area must be set when invoking the method.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
-//  2. https://core.telegram.org/api/stories#location-tags
-//  3. https://core.telegram.org/api/stories#searching-stories
+//  1) https://core.telegram.org/api/stories
+//  2) https://core.telegram.org/api/stories#location-tags
+//  3) https://core.telegram.org/api/stories#searching-stories
 //
 // See https://core.telegram.org/method/stories.searchPosts for reference.
 type StoriesSearchPostsRequest struct {
@@ -390,13 +390,12 @@ func (s *StoriesSearchPostsRequest) GetLimit() (value int) {
 // Either hashtag or area must be set when invoking the method.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
-//  2. https://core.telegram.org/api/stories#location-tags
-//  3. https://core.telegram.org/api/stories#searching-stories
+//  1) https://core.telegram.org/api/stories
+//  2) https://core.telegram.org/api/stories#location-tags
+//  3) https://core.telegram.org/api/stories#searching-stories
 //
 // Possible errors:
-//
-//	400 HASHTAG_INVALID: The specified hashtag is invalid.
+//  400 HASHTAG_INVALID: The specified hashtag is invalid.
 //
 // See https://core.telegram.org/method/stories.searchPosts for reference.
 func (c *Client) StoriesSearchPosts(ctx context.Context, request *StoriesSearchPostsRequest) (*StoriesFoundStories, error) {

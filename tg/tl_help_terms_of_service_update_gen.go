@@ -176,7 +176,7 @@ func (t *HelpTermsOfServiceUpdateEmpty) GetExpires() (value int) {
 // "Decline ToS update"
 //
 // Links:
-//  1. https://core.telegram.org/method/account.deleteAccount
+//  1) https://core.telegram.org/method/account.deleteAccount
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdate for reference.
 type HelpTermsOfServiceUpdate struct {
@@ -349,20 +349,19 @@ const HelpTermsOfServiceUpdateClassName = "help.TermsOfServiceUpdate"
 // See https://core.telegram.org/type/help.TermsOfServiceUpdate for reference.
 //
 // Constructors:
-//   - [HelpTermsOfServiceUpdateEmpty]
-//   - [HelpTermsOfServiceUpdate]
+//  - [HelpTermsOfServiceUpdateEmpty]
+//  - [HelpTermsOfServiceUpdate]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpTermsOfServiceUpdate(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpTermsOfServiceUpdateEmpty: // help.termsOfServiceUpdateEmpty#e3309f7f
-//	case *tg.HelpTermsOfServiceUpdate: // help.termsOfServiceUpdate#28ecf961
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpTermsOfServiceUpdate(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpTermsOfServiceUpdateEmpty: // help.termsOfServiceUpdateEmpty#e3309f7f
+//  case *tg.HelpTermsOfServiceUpdate: // help.termsOfServiceUpdate#28ecf961
+//  default: panic(v)
+//  }
 type HelpTermsOfServiceUpdateClass interface {
 	bin.Encoder
 	bin.Decoder

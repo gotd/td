@@ -39,9 +39,9 @@ var (
 // bots.getPreviewMedias² if you're not the owner of the bot.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
-//  2. https://core.telegram.org/method/bots.getPreviewMedias
-//  3. https://core.telegram.org/method/bots.getPreviewMedias
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2) https://core.telegram.org/method/bots.getPreviewMedias
+//  3) https://core.telegram.org/method/bots.getPreviewMedias
 //
 // See https://core.telegram.org/method/bots.getPreviewInfo for reference.
 type BotsGetPreviewInfoRequest struct {
@@ -210,13 +210,12 @@ func (g *BotsGetPreviewInfoRequest) GetLangCode() (value string) {
 // bots.getPreviewMedias² if you're not the owner of the bot.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
-//  2. https://core.telegram.org/method/bots.getPreviewMedias
-//  3. https://core.telegram.org/method/bots.getPreviewMedias
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2) https://core.telegram.org/method/bots.getPreviewMedias
+//  3) https://core.telegram.org/method/bots.getPreviewMedias
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.getPreviewInfo for reference.
 func (c *Client) BotsGetPreviewInfo(ctx context.Context, request *BotsGetPreviewInfoRequest) (*BotsPreviewInfo, error) {

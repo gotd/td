@@ -170,10 +170,9 @@ func (g *AccountGetNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass)
 // Gets current notification settings for a given user/group, from all users/all groups.
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
 func (c *Client) AccountGetNotifySettings(ctx context.Context, peer InputNotifyPeerClass) (*PeerNotifySettings, error) {

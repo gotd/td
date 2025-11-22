@@ -170,8 +170,7 @@ func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall
 // Stop screen sharing in a group call
 //
 // Possible errors:
-//
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.leaveGroupCallPresentation for reference.
 func (c *Client) PhoneLeaveGroupCallPresentation(ctx context.Context, call InputGroupCallClass) (UpdatesClass, error) {

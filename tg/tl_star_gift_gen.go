@@ -35,7 +35,7 @@ var (
 // Represents a star gift, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/starGift for reference.
 type StarGift struct {
@@ -2267,20 +2267,19 @@ const StarGiftClassName = "StarGift"
 // See https://core.telegram.org/type/StarGift for reference.
 //
 // Constructors:
-//   - [StarGift]
-//   - [StarGiftUnique]
+//  - [StarGift]
+//  - [StarGiftUnique]
 //
 // Example:
-//
-//	g, err := tg.DecodeStarGift(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StarGift: // starGift#1b9a4d7f
-//	case *tg.StarGiftUnique: // starGiftUnique#b0bf741b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStarGift(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StarGift: // starGift#1b9a4d7f
+//  case *tg.StarGiftUnique: // starGiftUnique#b0bf741b
+//  default: panic(v)
+//  }
 type StarGiftClass interface {
 	bin.Encoder
 	bin.Decoder

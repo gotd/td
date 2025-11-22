@@ -35,7 +35,7 @@ var (
 // Open a Main Mini App¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 //
 // See https://core.telegram.org/method/messages.requestMainWebView for reference.
 type MessagesRequestMainWebViewRequest struct {
@@ -438,11 +438,10 @@ func (r *MessagesRequestMainWebViewRequest) GetPlatform() (value string) {
 // Open a Main Mini App¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/messages.requestMainWebView for reference.
 func (c *Client) MessagesRequestMainWebView(ctx context.Context, request *MessagesRequestMainWebViewRequest) (*WebViewResultURL, error) {

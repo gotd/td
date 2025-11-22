@@ -35,8 +35,8 @@ var (
 // Popular Main Mini Apps¹, to be used in the apps tab of global search »².
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-apps
-//  2. https://core.telegram.org/api/search#apps-tab
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
+//  2) https://core.telegram.org/api/search#apps-tab
 //
 // See https://core.telegram.org/constructor/bots.popularAppBots for reference.
 type BotsPopularAppBots struct {

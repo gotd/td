@@ -35,7 +35,7 @@ var (
 // Transcribe voice message¹
 //
 // Links:
-//  1. https://core.telegram.org/api/transcribe
+//  1) https://core.telegram.org/api/transcribe
 //
 // See https://core.telegram.org/method/messages.transcribeAudio for reference.
 type MessagesTranscribeAudioRequest struct {
@@ -200,13 +200,12 @@ func (t *MessagesTranscribeAudioRequest) GetMsgID() (value int) {
 // Transcribe voice message¹
 //
 // Links:
-//  1. https://core.telegram.org/api/transcribe
+//  1) https://core.telegram.org/api/transcribe
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	400 TRANSCRIPTION_FAILED: Audio transcription failed.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 TRANSCRIPTION_FAILED: Audio transcription failed.
 //
 // See https://core.telegram.org/method/messages.transcribeAudio for reference.
 func (c *Client) MessagesTranscribeAudio(ctx context.Context, request *MessagesTranscribeAudioRequest) (*MessagesTranscribedAudio, error) {

@@ -37,9 +37,9 @@ var (
 // parameter.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/boost
-//  3. https://core.telegram.org/api/config#group-emoji-stickers-level-min
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/boost
+//  3) https://core.telegram.org/api/config#group-emoji-stickers-level-min
 //
 // See https://core.telegram.org/method/channels.setEmojiStickers for reference.
 type ChannelsSetEmojiStickersRequest struct {
@@ -216,13 +216,12 @@ func (s *ChannelsSetEmojiStickersRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // parameter.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/boost
-//  3. https://core.telegram.org/api/config#group-emoji-stickers-level-min
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/boost
+//  3) https://core.telegram.org/api/config#group-emoji-stickers-level-min
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.setEmojiStickers for reference.
 func (c *Client) ChannelsSetEmojiStickers(ctx context.Context, request *ChannelsSetEmojiStickersRequest) (bool, error) {

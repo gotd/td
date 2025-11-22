@@ -39,8 +39,8 @@ var (
 // number of messages matching the filter that were sent on a specific day.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/messages.searchResultsCalendar
-//  2. https://core.telegram.org/constructor/messages.searchResultsCalendar
+//  1) https://core.telegram.org/constructor/messages.searchResultsCalendar
+//  2) https://core.telegram.org/constructor/messages.searchResultsCalendar
 //
 // See https://core.telegram.org/constructor/searchResultsCalendarPeriod for reference.
 type SearchResultsCalendarPeriod struct {

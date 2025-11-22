@@ -36,7 +36,7 @@ var (
 // list.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#inline-mode-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#inline-mode-mini-apps
 //
 // See https://core.telegram.org/constructor/inlineBotWebView for reference.
 type InlineBotWebView struct {

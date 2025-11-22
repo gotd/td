@@ -272,7 +272,7 @@ func (r *ReactionEmoji) GetEmoticon() (value string) {
 // Custom emoji¹ message reaction
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/reactionCustomEmoji for reference.
 type ReactionCustomEmoji struct {
@@ -413,7 +413,7 @@ func (r *ReactionCustomEmoji) GetDocumentID() (value int64) {
 // Represents a paid Telegram Star reaction »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#paid-reactions
+//  1) https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/constructor/reactionPaid for reference.
 type ReactionPaid struct {
@@ -522,24 +522,23 @@ const ReactionClassName = "Reaction"
 // See https://core.telegram.org/type/Reaction for reference.
 //
 // Constructors:
-//   - [ReactionEmpty]
-//   - [ReactionEmoji]
-//   - [ReactionCustomEmoji]
-//   - [ReactionPaid]
+//  - [ReactionEmpty]
+//  - [ReactionEmoji]
+//  - [ReactionCustomEmoji]
+//  - [ReactionPaid]
 //
 // Example:
-//
-//	g, err := tg.DecodeReaction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ReactionEmpty: // reactionEmpty#79f5d419
-//	case *tg.ReactionEmoji: // reactionEmoji#1b2286b8
-//	case *tg.ReactionCustomEmoji: // reactionCustomEmoji#8935fc73
-//	case *tg.ReactionPaid: // reactionPaid#523da4eb
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeReaction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ReactionEmpty: // reactionEmpty#79f5d419
+//  case *tg.ReactionEmoji: // reactionEmoji#1b2286b8
+//  case *tg.ReactionCustomEmoji: // reactionCustomEmoji#8935fc73
+//  case *tg.ReactionPaid: // reactionPaid#523da4eb
+//  default: panic(v)
+//  }
 type ReactionClass interface {
 	bin.Encoder
 	bin.Decoder

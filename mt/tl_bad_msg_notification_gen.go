@@ -412,20 +412,19 @@ const BadMsgNotificationClassName = "BadMsgNotification"
 // BadMsgNotificationClass represents BadMsgNotification generic type.
 //
 // Constructors:
-//   - [BadMsgNotification]
-//   - [BadServerSalt]
+//  - [BadMsgNotification]
+//  - [BadServerSalt]
 //
 // Example:
-//
-//	g, err := mt.DecodeBadMsgNotification(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *mt.BadMsgNotification: // bad_msg_notification#a7eff811
-//	case *mt.BadServerSalt: // bad_server_salt#edab447b
-//	default: panic(v)
-//	}
+//  g, err := mt.DecodeBadMsgNotification(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *mt.BadMsgNotification: // bad_msg_notification#a7eff811
+//  case *mt.BadServerSalt: // bad_server_salt#edab447b
+//  default: panic(v)
+//  }
 type BadMsgNotificationClass interface {
 	bin.Encoder
 	bin.Decoder

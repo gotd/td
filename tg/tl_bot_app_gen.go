@@ -137,7 +137,7 @@ func (b *BotAppNotModified) DecodeBare(buf *bin.Buffer) error {
 // Contains information about a direct link Mini App¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/constructor/botApp for reference.
 type BotApp struct {
@@ -527,20 +527,19 @@ const BotAppClassName = "BotApp"
 // See https://core.telegram.org/type/BotApp for reference.
 //
 // Constructors:
-//   - [BotAppNotModified]
-//   - [BotApp]
+//  - [BotAppNotModified]
+//  - [BotApp]
 //
 // Example:
-//
-//	g, err := tg.DecodeBotApp(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.BotAppNotModified: // botAppNotModified#5da674b7
-//	case *tg.BotApp: // botApp#95fcd1d6
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeBotApp(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.BotAppNotModified: // botAppNotModified#5da674b7
+//  case *tg.BotApp: // botApp#95fcd1d6
+//  default: panic(v)
+//  }
 type BotAppClass interface {
 	bin.Encoder
 	bin.Decoder

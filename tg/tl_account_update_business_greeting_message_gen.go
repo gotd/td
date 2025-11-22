@@ -35,7 +35,7 @@ var (
 // Set a list of Telegram Business greeting messages¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#greeting-messages
+//  1) https://core.telegram.org/api/business#greeting-messages
 //
 // See https://core.telegram.org/method/account.updateBusinessGreetingMessage for reference.
 type AccountUpdateBusinessGreetingMessageRequest struct {
@@ -210,7 +210,7 @@ func (u *AccountUpdateBusinessGreetingMessageRequest) GetMessage() (value InputB
 // Set a list of Telegram Business greeting messages¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#greeting-messages
+//  1) https://core.telegram.org/api/business#greeting-messages
 //
 // See https://core.telegram.org/method/account.updateBusinessGreetingMessage for reference.
 func (c *Client) AccountUpdateBusinessGreetingMessage(ctx context.Context, request *AccountUpdateBusinessGreetingMessageRequest) (bool, error) {

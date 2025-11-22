@@ -467,22 +467,21 @@ const ChatReactionsClassName = "ChatReactions"
 // See https://core.telegram.org/type/ChatReactions for reference.
 //
 // Constructors:
-//   - [ChatReactionsNone]
-//   - [ChatReactionsAll]
-//   - [ChatReactionsSome]
+//  - [ChatReactionsNone]
+//  - [ChatReactionsAll]
+//  - [ChatReactionsSome]
 //
 // Example:
-//
-//	g, err := tg.DecodeChatReactions(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatReactionsNone: // chatReactionsNone#eafc32bc
-//	case *tg.ChatReactionsAll: // chatReactionsAll#52928bca
-//	case *tg.ChatReactionsSome: // chatReactionsSome#661d4037
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChatReactions(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatReactionsNone: // chatReactionsNone#eafc32bc
+//  case *tg.ChatReactionsAll: // chatReactionsAll#52928bca
+//  case *tg.ChatReactionsSome: // chatReactionsSome#661d4037
+//  default: panic(v)
+//  }
 type ChatReactionsClass interface {
 	bin.Encoder
 	bin.Decoder

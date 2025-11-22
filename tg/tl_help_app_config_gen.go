@@ -137,7 +137,7 @@ func (a *HelpAppConfigNotModified) DecodeBare(b *bin.Buffer) error {
 // Contains various client configuration parameters¹
 //
 // Links:
-//  1. https://core.telegram.org/api/config#client-configuration
+//  1) https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/constructor/help.appConfig for reference.
 type HelpAppConfig struct {
@@ -317,20 +317,19 @@ const HelpAppConfigClassName = "help.AppConfig"
 // See https://core.telegram.org/type/help.AppConfig for reference.
 //
 // Constructors:
-//   - [HelpAppConfigNotModified]
-//   - [HelpAppConfig]
+//  - [HelpAppConfigNotModified]
+//  - [HelpAppConfig]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpAppConfig(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpAppConfigNotModified: // help.appConfigNotModified#7cde641d
-//	case *tg.HelpAppConfig: // help.appConfig#dd18782e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpAppConfig(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpAppConfigNotModified: // help.appConfigNotModified#7cde641d
+//  case *tg.HelpAppConfig: // help.appConfig#dd18782e
+//  default: panic(v)
+//  }
 type HelpAppConfigClass interface {
 	bin.Encoder
 	bin.Decoder

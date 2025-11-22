@@ -35,7 +35,7 @@ var (
 // Get changed emoji keywords »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
+//  1) https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 type MessagesGetEmojiKeywordsDifferenceRequest struct {
@@ -195,7 +195,7 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int)
 // Get changed emoji keywords »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
+//  1) https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 func (c *Client) MessagesGetEmojiKeywordsDifference(ctx context.Context, request *MessagesGetEmojiKeywordsDifferenceRequest) (*EmojiKeywordsDifference, error) {

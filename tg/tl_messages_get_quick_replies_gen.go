@@ -35,7 +35,7 @@ var (
 // Fetch basic info about all existing quick reply shortcuts¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.getQuickReplies for reference.
 type MessagesGetQuickRepliesRequest struct {
@@ -172,7 +172,7 @@ func (g *MessagesGetQuickRepliesRequest) GetHash() (value int64) {
 // Fetch basic info about all existing quick reply shortcuts¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 //
 // See https://core.telegram.org/method/messages.getQuickReplies for reference.
 func (c *Client) MessagesGetQuickReplies(ctx context.Context, hash int64) (MessagesQuickRepliesClass, error) {

@@ -35,7 +35,7 @@ var (
 // Enable/disable top peers¹
 //
 // Links:
-//  1. https://core.telegram.org/api/top-rating
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 type ContactsToggleTopPeersRequest struct {
@@ -168,7 +168,7 @@ func (t *ContactsToggleTopPeersRequest) GetEnabled() (value bool) {
 // Enable/disable top peers¹
 //
 // Links:
-//  1. https://core.telegram.org/api/top-rating
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 func (c *Client) ContactsToggleTopPeers(ctx context.Context, enabled bool) (bool, error) {

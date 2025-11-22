@@ -36,8 +36,8 @@ var (
 // handling web_app_request_file_download events »²
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/web-events#web-app-request-file-download
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/web-events#web-app-request-file-download
 //
 // See https://core.telegram.org/method/bots.checkDownloadFileParams for reference.
 type BotsCheckDownloadFileParamsRequest struct {
@@ -239,12 +239,11 @@ func (c *BotsCheckDownloadFileParamsRequest) GetURL() (value string) {
 // handling web_app_request_file_download events »²
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/web-events#web-app-request-file-download
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/web-events#web-app-request-file-download
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.checkDownloadFileParams for reference.
 func (c *Client) BotsCheckDownloadFileParams(ctx context.Context, request *BotsCheckDownloadFileParamsRequest) (bool, error) {

@@ -35,7 +35,7 @@ var (
 // Invalidate the specified login codes, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#invalidating-login-codes
+//  1) https://core.telegram.org/api/auth#invalidating-login-codes
 //
 // See https://core.telegram.org/method/account.invalidateSignInCodes for reference.
 type AccountInvalidateSignInCodesRequest struct {
@@ -181,7 +181,7 @@ func (i *AccountInvalidateSignInCodesRequest) GetCodes() (value []string) {
 // Invalidate the specified login codes, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#invalidating-login-codes
+//  1) https://core.telegram.org/api/auth#invalidating-login-codes
 //
 // See https://core.telegram.org/method/account.invalidateSignInCodes for reference.
 func (c *Client) AccountInvalidateSignInCodes(ctx context.Context, codes []string) (bool, error) {

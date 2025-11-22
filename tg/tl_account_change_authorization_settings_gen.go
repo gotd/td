@@ -327,8 +327,7 @@ func (c *AccountChangeAuthorizationSettingsRequest) GetCallRequestsDisabled() (v
 // Change settings related to a session.
 //
 // Possible errors:
-//
-//	400 HASH_INVALID: The provided hash is invalid.
+//  400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.changeAuthorizationSettings for reference.
 func (c *Client) AccountChangeAuthorizationSettings(ctx context.Context, request *AccountChangeAuthorizationSettingsRequest) (bool, error) {

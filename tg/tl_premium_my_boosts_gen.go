@@ -35,8 +35,8 @@ var (
 // A list of peers we are currently boosting¹, and how many boost slots² we have left.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
-//  2. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
+//  2) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/premium.myBoosts for reference.
 type PremiumMyBoosts struct {

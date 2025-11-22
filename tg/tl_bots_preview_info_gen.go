@@ -35,7 +35,7 @@ var (
 // Contains info about Main Mini App previews, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/constructor/bots.previewInfo for reference.
 type BotsPreviewInfo struct {

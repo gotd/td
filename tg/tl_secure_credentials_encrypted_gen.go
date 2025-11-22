@@ -35,7 +35,7 @@ var (
 // Encrypted credentials required to decrypt telegram passport¹ data.
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/secureCredentialsEncrypted for reference.
 type SecureCredentialsEncrypted struct {

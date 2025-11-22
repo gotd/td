@@ -35,7 +35,7 @@ var (
 // Get the current reaction notification settings »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#notifications-about-reactions
+//  1) https://core.telegram.org/api/reactions#notifications-about-reactions
 //
 // See https://core.telegram.org/method/account.getReactionsNotifySettings for reference.
 type AccountGetReactionsNotifySettingsRequest struct {
@@ -135,7 +135,7 @@ func (g *AccountGetReactionsNotifySettingsRequest) DecodeBare(b *bin.Buffer) err
 // Get the current reaction notification settings »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions#notifications-about-reactions
+//  1) https://core.telegram.org/api/reactions#notifications-about-reactions
 //
 // See https://core.telegram.org/method/account.getReactionsNotifySettings for reference.
 func (c *Client) AccountGetReactionsNotifySettings(ctx context.Context) (*ReactionsNotifySettings, error) {

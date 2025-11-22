@@ -35,7 +35,7 @@ var (
 // Represents a bot logged in using the Telegram login widget¹
 //
 // Links:
-//  1. https://core.telegram.org/widgets/login
+//  1) https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {

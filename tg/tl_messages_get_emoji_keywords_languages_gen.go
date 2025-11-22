@@ -38,7 +38,7 @@ var (
 // language codes for similar languages (if applicable).
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
+//  1) https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsLanguages for reference.
 type MessagesGetEmojiKeywordsLanguagesRequest struct {
@@ -187,7 +187,7 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) GetLangCodes() (value []strin
 // language codes for similar languages (if applicable).
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
+//  1) https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsLanguages for reference.
 func (c *Client) MessagesGetEmojiKeywordsLanguages(ctx context.Context, langcodes []string) ([]EmojiLanguage, error) {

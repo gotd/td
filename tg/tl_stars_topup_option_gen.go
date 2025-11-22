@@ -35,7 +35,7 @@ var (
 // Telegram Stars topup option¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTopupOption for reference.
 type StarsTopupOption struct {

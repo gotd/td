@@ -35,7 +35,7 @@ var (
 // Get info about an unsupported deep link, see here for more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#unsupported-links
+//  1) https://core.telegram.org/api/links#unsupported-links
 //
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 type HelpGetDeepLinkInfoRequest struct {
@@ -168,7 +168,7 @@ func (g *HelpGetDeepLinkInfoRequest) GetPath() (value string) {
 // Get info about an unsupported deep link, see here for more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#unsupported-links
+//  1) https://core.telegram.org/api/links#unsupported-links
 //
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 func (c *Client) HelpGetDeepLinkInfo(ctx context.Context, path string) (HelpDeepLinkInfoClass, error) {

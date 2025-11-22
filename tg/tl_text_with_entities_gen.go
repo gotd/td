@@ -35,7 +35,7 @@ var (
 // Styled text with message entities¹
 //
 // Links:
-//  1. https://core.telegram.org/api/entities
+//  1) https://core.telegram.org/api/entities
 //
 // See https://core.telegram.org/constructor/textWithEntities for reference.
 type TextWithEntities struct {

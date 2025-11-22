@@ -318,20 +318,19 @@ const AuthClassName = "Auth"
 // See https://localhost:80/doc/type/Auth for reference.
 //
 // Constructors:
-//   - [Auth]
-//   - [AuthPassword]
+//  - [Auth]
+//  - [AuthPassword]
 //
 // Example:
-//
-//	g, err := td.DecodeAuth(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *td.Auth: // auth#f8bb4a38
-//	case *td.AuthPassword: // authPassword#29bacabb
-//	default: panic(v)
-//	}
+//  g, err := td.DecodeAuth(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *td.Auth: // auth#f8bb4a38
+//  case *td.AuthPassword: // authPassword#29bacabb
+//  default: panic(v)
+//  }
 type AuthClass interface {
 	bin.Encoder
 	bin.Decoder

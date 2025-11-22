@@ -699,20 +699,19 @@ const PhoneConnectionClassName = "PhoneConnection"
 // See https://core.telegram.org/type/PhoneConnection for reference.
 //
 // Constructors:
-//   - [PhoneConnection]
-//   - [PhoneConnectionWebrtc]
+//  - [PhoneConnection]
+//  - [PhoneConnectionWebrtc]
 //
 // Example:
-//
-//	g, err := tg.DecodePhoneConnection(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PhoneConnection: // phoneConnection#9cc123c7
-//	case *tg.PhoneConnectionWebrtc: // phoneConnectionWebrtc#635fe375
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePhoneConnection(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PhoneConnection: // phoneConnection#9cc123c7
+//  case *tg.PhoneConnectionWebrtc: // phoneConnectionWebrtc#635fe375
+//  default: panic(v)
+//  }
 type PhoneConnectionClass interface {
 	bin.Encoder
 	bin.Decoder

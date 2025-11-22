@@ -39,8 +39,8 @@ var (
 // See here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/user
-//  2. https://core.telegram.org/api/profile#birthday
+//  1) https://core.telegram.org/constructor/user
+//  2) https://core.telegram.org/api/profile#birthday
 //
 // See https://core.telegram.org/method/contacts.getBirthdays for reference.
 type ContactsGetBirthdaysRequest struct {
@@ -144,8 +144,8 @@ func (g *ContactsGetBirthdaysRequest) DecodeBare(b *bin.Buffer) error {
 // See here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/user
-//  2. https://core.telegram.org/api/profile#birthday
+//  1) https://core.telegram.org/constructor/user
+//  2) https://core.telegram.org/api/profile#birthday
 //
 // See https://core.telegram.org/method/contacts.getBirthdays for reference.
 func (c *Client) ContactsGetBirthdays(ctx context.Context) (*ContactsContactBirthdays, error) {

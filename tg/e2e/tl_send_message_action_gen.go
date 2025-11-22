@@ -1264,40 +1264,39 @@ const SendMessageActionClassName = "SendMessageAction"
 // See https://core.telegram.org/type/SendMessageAction for reference.
 //
 // Constructors:
-//   - [SendMessageTypingAction]
-//   - [SendMessageCancelAction]
-//   - [SendMessageRecordVideoAction]
-//   - [SendMessageUploadVideoAction]
-//   - [SendMessageRecordAudioAction]
-//   - [SendMessageUploadAudioAction]
-//   - [SendMessageUploadPhotoAction]
-//   - [SendMessageUploadDocumentAction]
-//   - [SendMessageGeoLocationAction]
-//   - [SendMessageChooseContactAction]
-//   - [SendMessageRecordRoundAction]
-//   - [SendMessageUploadRoundAction]
+//  - [SendMessageTypingAction]
+//  - [SendMessageCancelAction]
+//  - [SendMessageRecordVideoAction]
+//  - [SendMessageUploadVideoAction]
+//  - [SendMessageRecordAudioAction]
+//  - [SendMessageUploadAudioAction]
+//  - [SendMessageUploadPhotoAction]
+//  - [SendMessageUploadDocumentAction]
+//  - [SendMessageGeoLocationAction]
+//  - [SendMessageChooseContactAction]
+//  - [SendMessageRecordRoundAction]
+//  - [SendMessageUploadRoundAction]
 //
 // Example:
-//
-//	g, err := e2e.DecodeSendMessageAction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *e2e.SendMessageTypingAction: // sendMessageTypingAction#16bf744e
-//	case *e2e.SendMessageCancelAction: // sendMessageCancelAction#fd5ec8f5
-//	case *e2e.SendMessageRecordVideoAction: // sendMessageRecordVideoAction#a187d66f
-//	case *e2e.SendMessageUploadVideoAction: // sendMessageUploadVideoAction#92042ff7
-//	case *e2e.SendMessageRecordAudioAction: // sendMessageRecordAudioAction#d52f73f7
-//	case *e2e.SendMessageUploadAudioAction: // sendMessageUploadAudioAction#e6ac8a6f
-//	case *e2e.SendMessageUploadPhotoAction: // sendMessageUploadPhotoAction#990a3c1a
-//	case *e2e.SendMessageUploadDocumentAction: // sendMessageUploadDocumentAction#8faee98e
-//	case *e2e.SendMessageGeoLocationAction: // sendMessageGeoLocationAction#176f8ba1
-//	case *e2e.SendMessageChooseContactAction: // sendMessageChooseContactAction#628cbc6f
-//	case *e2e.SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
-//	case *e2e.SendMessageUploadRoundAction: // sendMessageUploadRoundAction#bb718624
-//	default: panic(v)
-//	}
+//  g, err := e2e.DecodeSendMessageAction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *e2e.SendMessageTypingAction: // sendMessageTypingAction#16bf744e
+//  case *e2e.SendMessageCancelAction: // sendMessageCancelAction#fd5ec8f5
+//  case *e2e.SendMessageRecordVideoAction: // sendMessageRecordVideoAction#a187d66f
+//  case *e2e.SendMessageUploadVideoAction: // sendMessageUploadVideoAction#92042ff7
+//  case *e2e.SendMessageRecordAudioAction: // sendMessageRecordAudioAction#d52f73f7
+//  case *e2e.SendMessageUploadAudioAction: // sendMessageUploadAudioAction#e6ac8a6f
+//  case *e2e.SendMessageUploadPhotoAction: // sendMessageUploadPhotoAction#990a3c1a
+//  case *e2e.SendMessageUploadDocumentAction: // sendMessageUploadDocumentAction#8faee98e
+//  case *e2e.SendMessageGeoLocationAction: // sendMessageGeoLocationAction#176f8ba1
+//  case *e2e.SendMessageChooseContactAction: // sendMessageChooseContactAction#628cbc6f
+//  case *e2e.SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
+//  case *e2e.SendMessageUploadRoundAction: // sendMessageUploadRoundAction#bb718624
+//  default: panic(v)
+//  }
 type SendMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder

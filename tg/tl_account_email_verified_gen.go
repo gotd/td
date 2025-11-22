@@ -344,20 +344,19 @@ const AccountEmailVerifiedClassName = "account.EmailVerified"
 // See https://core.telegram.org/type/account.EmailVerified for reference.
 //
 // Constructors:
-//   - [AccountEmailVerified]
-//   - [AccountEmailVerifiedLogin]
+//  - [AccountEmailVerified]
+//  - [AccountEmailVerifiedLogin]
 //
 // Example:
-//
-//	g, err := tg.DecodeAccountEmailVerified(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AccountEmailVerified: // account.emailVerified#2b96cd1b
-//	case *tg.AccountEmailVerifiedLogin: // account.emailVerifiedLogin#e1bb0d61
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAccountEmailVerified(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AccountEmailVerified: // account.emailVerified#2b96cd1b
+//  case *tg.AccountEmailVerifiedLogin: // account.emailVerifiedLogin#e1bb0d61
+//  default: panic(v)
+//  }
 type AccountEmailVerifiedClass interface {
 	bin.Encoder
 	bin.Decoder

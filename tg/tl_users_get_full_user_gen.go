@@ -170,12 +170,11 @@ func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
 // Returns extended user info by ID.
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 USERNAME_OCCUPIED: The provided username is already occupied.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 USERNAME_OCCUPIED: The provided username is already occupied.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.getFullUser for reference.
 // Can be used by bots.

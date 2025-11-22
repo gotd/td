@@ -195,8 +195,8 @@ func (m *MessageEntityUnknown) GetLength() (value int) {
 // be used to mention users by their ID.
 //
 // Links:
-//  1. https://core.telegram.org/api/mentions
-//  2. https://core.telegram.org/constructor/messageEntityMentionName
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/messageEntityMentionName
 //
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
@@ -677,9 +677,9 @@ func (m *MessageEntityBotCommand) GetLength() (value int) {
 // messageEntityTextUrl³.
 //
 // Links:
-//  1. https://google.com
-//  2. https://google.com
-//  3. https://core.telegram.org/constructor/messageEntityTextUrl
+//  1) https://google.com
+//  2) https://google.com
+//  3) https://core.telegram.org/constructor/messageEntityTextUrl
 //
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityURL struct {
@@ -841,7 +841,7 @@ func (m *MessageEntityURL) GetLength() (value int) {
 // Message entity representing an email@example.com¹.
 //
 // Links:
-//  1. https://core.telegram.orgmailto:email@example.com
+//  1) https://core.telegram.orgmailto:email@example.com
 //
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
@@ -1669,10 +1669,10 @@ func (m *MessageEntityPre) GetLanguage() (value string) {
 // the domain whitelist documentation »¹.
 //
 // Links:
-//  1. https://google.com
-//  2. https://google.com
-//  3. https://core.telegram.org/constructor/messageEntityUrl
-//  4. https://core.telegram.org/api/config#whitelisted-domains
+//  1) https://google.com
+//  2) https://google.com
+//  3) https://core.telegram.org/constructor/messageEntityUrl
+//  4) https://core.telegram.org/api/config#whitelisted-domains
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextURL struct {
@@ -1860,8 +1860,8 @@ func (m *MessageEntityTextURL) GetURL() (value string) {
 // inputMessageEntityMentionName².
 //
 // Links:
-//  1. https://core.telegram.org/api/mentions
-//  2. https://core.telegram.org/constructor/inputMessageEntityMentionName
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/inputMessageEntityMentionName
 //
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
@@ -3164,7 +3164,7 @@ func (m *MessageEntitySpoiler) GetLength() (value int) {
 // ignore it.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/documentAttributeCustomEmoji
+//  1) https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/constructor/messageEntityCustomEmoji for reference.
 type MessageEntityCustomEmoji struct {
@@ -3360,56 +3360,55 @@ const MessageEntityClassName = "MessageEntity"
 // See https://core.telegram.org/type/MessageEntity for reference.
 //
 // Constructors:
-//   - [MessageEntityUnknown]
-//   - [MessageEntityMention]
-//   - [MessageEntityHashtag]
-//   - [MessageEntityBotCommand]
-//   - [MessageEntityURL]
-//   - [MessageEntityEmail]
-//   - [MessageEntityBold]
-//   - [MessageEntityItalic]
-//   - [MessageEntityCode]
-//   - [MessageEntityPre]
-//   - [MessageEntityTextURL]
-//   - [MessageEntityMentionName]
-//   - [MessageEntityPhone]
-//   - [MessageEntityCashtag]
-//   - [MessageEntityBankCard]
-//   - [MessageEntityUnderline]
-//   - [MessageEntityStrike]
-//   - [MessageEntityBlockquote]
-//   - [MessageEntitySpoiler]
-//   - [MessageEntityCustomEmoji]
+//  - [MessageEntityUnknown]
+//  - [MessageEntityMention]
+//  - [MessageEntityHashtag]
+//  - [MessageEntityBotCommand]
+//  - [MessageEntityURL]
+//  - [MessageEntityEmail]
+//  - [MessageEntityBold]
+//  - [MessageEntityItalic]
+//  - [MessageEntityCode]
+//  - [MessageEntityPre]
+//  - [MessageEntityTextURL]
+//  - [MessageEntityMentionName]
+//  - [MessageEntityPhone]
+//  - [MessageEntityCashtag]
+//  - [MessageEntityBankCard]
+//  - [MessageEntityUnderline]
+//  - [MessageEntityStrike]
+//  - [MessageEntityBlockquote]
+//  - [MessageEntitySpoiler]
+//  - [MessageEntityCustomEmoji]
 //
 // Example:
-//
-//	g, err := e2e.DecodeMessageEntity(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *e2e.MessageEntityUnknown: // messageEntityUnknown#bb92ba95
-//	case *e2e.MessageEntityMention: // messageEntityMention#fa04579d
-//	case *e2e.MessageEntityHashtag: // messageEntityHashtag#6f635b0d
-//	case *e2e.MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
-//	case *e2e.MessageEntityURL: // messageEntityUrl#6ed02538
-//	case *e2e.MessageEntityEmail: // messageEntityEmail#64e475c2
-//	case *e2e.MessageEntityBold: // messageEntityBold#bd610bc9
-//	case *e2e.MessageEntityItalic: // messageEntityItalic#826f8b60
-//	case *e2e.MessageEntityCode: // messageEntityCode#28a20571
-//	case *e2e.MessageEntityPre: // messageEntityPre#73924be0
-//	case *e2e.MessageEntityTextURL: // messageEntityTextUrl#76a6d327
-//	case *e2e.MessageEntityMentionName: // messageEntityMentionName#352dca58
-//	case *e2e.MessageEntityPhone: // messageEntityPhone#9b69e34b
-//	case *e2e.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
-//	case *e2e.MessageEntityBankCard: // messageEntityBankCard#761e6af4
-//	case *e2e.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
-//	case *e2e.MessageEntityStrike: // messageEntityStrike#bf0693d4
-//	case *e2e.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
-//	case *e2e.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
-//	case *e2e.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
-//	default: panic(v)
-//	}
+//  g, err := e2e.DecodeMessageEntity(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *e2e.MessageEntityUnknown: // messageEntityUnknown#bb92ba95
+//  case *e2e.MessageEntityMention: // messageEntityMention#fa04579d
+//  case *e2e.MessageEntityHashtag: // messageEntityHashtag#6f635b0d
+//  case *e2e.MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
+//  case *e2e.MessageEntityURL: // messageEntityUrl#6ed02538
+//  case *e2e.MessageEntityEmail: // messageEntityEmail#64e475c2
+//  case *e2e.MessageEntityBold: // messageEntityBold#bd610bc9
+//  case *e2e.MessageEntityItalic: // messageEntityItalic#826f8b60
+//  case *e2e.MessageEntityCode: // messageEntityCode#28a20571
+//  case *e2e.MessageEntityPre: // messageEntityPre#73924be0
+//  case *e2e.MessageEntityTextURL: // messageEntityTextUrl#76a6d327
+//  case *e2e.MessageEntityMentionName: // messageEntityMentionName#352dca58
+//  case *e2e.MessageEntityPhone: // messageEntityPhone#9b69e34b
+//  case *e2e.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
+//  case *e2e.MessageEntityBankCard: // messageEntityBankCard#761e6af4
+//  case *e2e.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
+//  case *e2e.MessageEntityStrike: // messageEntityStrike#bf0693d4
+//  case *e2e.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
+//  case *e2e.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
+//  case *e2e.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
+//  default: panic(v)
+//  }
 type MessageEntityClass interface {
 	bin.Encoder
 	bin.Decoder

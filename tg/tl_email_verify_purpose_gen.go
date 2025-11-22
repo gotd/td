@@ -302,7 +302,7 @@ func (e *EmailVerifyPurposeLoginChange) DecodeBare(b *bin.Buffer) error {
 // Verify an email for use in telegram passport¹
 //
 // Links:
-//  1. https://core.telegram.org/api/passport
+//  1) https://core.telegram.org/api/passport
 //
 // See https://core.telegram.org/constructor/emailVerifyPurposePassport for reference.
 type EmailVerifyPurposePassport struct {
@@ -411,22 +411,21 @@ const EmailVerifyPurposeClassName = "EmailVerifyPurpose"
 // See https://core.telegram.org/type/EmailVerifyPurpose for reference.
 //
 // Constructors:
-//   - [EmailVerifyPurposeLoginSetup]
-//   - [EmailVerifyPurposeLoginChange]
-//   - [EmailVerifyPurposePassport]
+//  - [EmailVerifyPurposeLoginSetup]
+//  - [EmailVerifyPurposeLoginChange]
+//  - [EmailVerifyPurposePassport]
 //
 // Example:
-//
-//	g, err := tg.DecodeEmailVerifyPurpose(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EmailVerifyPurposeLoginSetup: // emailVerifyPurposeLoginSetup#4345be73
-//	case *tg.EmailVerifyPurposeLoginChange: // emailVerifyPurposeLoginChange#527d22eb
-//	case *tg.EmailVerifyPurposePassport: // emailVerifyPurposePassport#bbf51685
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEmailVerifyPurpose(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EmailVerifyPurposeLoginSetup: // emailVerifyPurposeLoginSetup#4345be73
+//  case *tg.EmailVerifyPurposeLoginChange: // emailVerifyPurposeLoginChange#527d22eb
+//  case *tg.EmailVerifyPurposePassport: // emailVerifyPurposePassport#bbf51685
+//  default: panic(v)
+//  }
 type EmailVerifyPurposeClass interface {
 	bin.Encoder
 	bin.Decoder

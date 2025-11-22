@@ -35,7 +35,7 @@ var (
 // Unpin¹ all pinned messages
 //
 // Links:
-//  1. https://core.telegram.org/api/pin
+//  1) https://core.telegram.org/api/pin
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
@@ -298,13 +298,12 @@ func (u *MessagesUnpinAllMessagesRequest) GetSavedPeerID() (value InputPeerClass
 // Unpin¹ all pinned messages
 //
 // Links:
-//  1. https://core.telegram.org/api/pin
+//  1) https://core.telegram.org/api/pin
 //
 // Possible errors:
-//
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 // Can be used by bots.

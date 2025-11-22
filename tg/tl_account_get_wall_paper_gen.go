@@ -35,7 +35,7 @@ var (
 // Get info about a certain wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getWallPaper for reference.
 type AccountGetWallPaperRequest struct {
@@ -176,11 +176,10 @@ func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) 
 // Get info about a certain wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
-//
-//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
 //
 // See https://core.telegram.org/method/account.getWallPaper for reference.
 func (c *Client) AccountGetWallPaper(ctx context.Context, wallpaper InputWallPaperClass) (WallPaperClass, error) {

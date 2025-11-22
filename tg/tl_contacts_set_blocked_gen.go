@@ -35,7 +35,7 @@ var (
 // Replace the contents of an entire blocklist, see here for more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/block
+//  1) https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.setBlocked for reference.
 type ContactsSetBlockedRequest struct {
@@ -281,7 +281,7 @@ func (s *ContactsSetBlockedRequest) MapID() (value InputPeerClassArray) {
 // Replace the contents of an entire blocklist, see here for more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/block
+//  1) https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.setBlocked for reference.
 func (c *Client) ContactsSetBlocked(ctx context.Context, request *ContactsSetBlockedRequest) (bool, error) {

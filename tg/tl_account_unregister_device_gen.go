@@ -238,8 +238,7 @@ func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int64) {
 // Deletes a device by its token, stops sending PUSH-notifications to it.
 //
 // Possible errors:
-//
-//	400 TOKEN_INVALID: The provided token is invalid.
+//  400 TOKEN_INVALID: The provided token is invalid.
 //
 // See https://core.telegram.org/method/account.unregisterDevice for reference.
 func (c *Client) AccountUnregisterDevice(ctx context.Context, request *AccountUnregisterDeviceRequest) (bool, error) {

@@ -35,7 +35,7 @@ var (
 // Set a custom wallpaper »¹ in a specific private chat with another user.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 type MessagesSetChatWallPaperRequest struct {
@@ -435,13 +435,12 @@ func (s *MessagesSetChatWallPaperRequest) GetID() (value int, ok bool) {
 // Set a custom wallpaper »¹ in a specific private chat with another user.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
-//	400 WALLPAPER_NOT_FOUND: The specified wallpaper could not be found.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//  400 WALLPAPER_NOT_FOUND: The specified wallpaper could not be found.
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 func (c *Client) MessagesSetChatWallPaper(ctx context.Context, request *MessagesSetChatWallPaperRequest) (UpdatesClass, error) {

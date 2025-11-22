@@ -243,20 +243,19 @@ const ReactionNotificationsFromClassName = "ReactionNotificationsFrom"
 // See https://core.telegram.org/type/ReactionNotificationsFrom for reference.
 //
 // Constructors:
-//   - [ReactionNotificationsFromContacts]
-//   - [ReactionNotificationsFromAll]
+//  - [ReactionNotificationsFromContacts]
+//  - [ReactionNotificationsFromAll]
 //
 // Example:
-//
-//	g, err := tg.DecodeReactionNotificationsFrom(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ReactionNotificationsFromContacts: // reactionNotificationsFromContacts#bac3a61a
-//	case *tg.ReactionNotificationsFromAll: // reactionNotificationsFromAll#4b9e22a0
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeReactionNotificationsFrom(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ReactionNotificationsFromContacts: // reactionNotificationsFromContacts#bac3a61a
+//  case *tg.ReactionNotificationsFromAll: // reactionNotificationsFromAll#4b9e22a0
+//  default: panic(v)
+//  }
 type ReactionNotificationsFromClass interface {
 	bin.Encoder
 	bin.Decoder

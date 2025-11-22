@@ -291,20 +291,19 @@ const PaymentsStarGiftCollectionsClassName = "payments.StarGiftCollections"
 // See https://core.telegram.org/type/payments.StarGiftCollections for reference.
 //
 // Constructors:
-//   - [PaymentsStarGiftCollectionsNotModified]
-//   - [PaymentsStarGiftCollections]
+//  - [PaymentsStarGiftCollectionsNotModified]
+//  - [PaymentsStarGiftCollections]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsStarGiftCollections(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsStarGiftCollectionsNotModified: // payments.starGiftCollectionsNotModified#a0ba4f17
-//	case *tg.PaymentsStarGiftCollections: // payments.starGiftCollections#8a2932f3
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsStarGiftCollections(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsStarGiftCollectionsNotModified: // payments.starGiftCollectionsNotModified#a0ba4f17
+//  case *tg.PaymentsStarGiftCollections: // payments.starGiftCollections#8a2932f3
+//  default: panic(v)
+//  }
 type PaymentsStarGiftCollectionsClass interface {
 	bin.Encoder
 	bin.Decoder

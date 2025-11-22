@@ -170,8 +170,7 @@ func (g *HelpGetUserInfoRequest) GetUserID() (value InputUserClass) {
 // Can only be used by TSF members to obtain internal information.
 //
 // Possible errors:
-//
-//	403 USER_INVALID: Invalid user provided.
+//  403 USER_INVALID: Invalid user provided.
 //
 // See https://core.telegram.org/method/help.getUserInfo for reference.
 func (c *Client) HelpGetUserInfo(ctx context.Context, userid InputUserClass) (HelpUserInfoClass, error) {

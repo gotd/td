@@ -230,7 +230,7 @@ func (m *MessagePeerVote) GetDate() (value int) {
 // messages.getPollVotes¹)
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.getPollVotes
+//  1) https://core.telegram.org/method/messages.getPollVotes
 //
 // See https://core.telegram.org/constructor/messagePeerVoteInputOption for reference.
 type MessagePeerVoteInputOption struct {
@@ -611,22 +611,21 @@ const MessagePeerVoteClassName = "MessagePeerVote"
 // See https://core.telegram.org/type/MessagePeerVote for reference.
 //
 // Constructors:
-//   - [MessagePeerVote]
-//   - [MessagePeerVoteInputOption]
-//   - [MessagePeerVoteMultiple]
+//  - [MessagePeerVote]
+//  - [MessagePeerVoteInputOption]
+//  - [MessagePeerVoteMultiple]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagePeerVote(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagePeerVote: // messagePeerVote#b6cc2d5c
-//	case *tg.MessagePeerVoteInputOption: // messagePeerVoteInputOption#74cda504
-//	case *tg.MessagePeerVoteMultiple: // messagePeerVoteMultiple#4628f6e6
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagePeerVote(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagePeerVote: // messagePeerVote#b6cc2d5c
+//  case *tg.MessagePeerVoteInputOption: // messagePeerVoteInputOption#74cda504
+//  case *tg.MessagePeerVoteMultiple: // messagePeerVoteMultiple#4628f6e6
+//  default: panic(v)
+//  }
 type MessagePeerVoteClass interface {
 	bin.Encoder
 	bin.Decoder

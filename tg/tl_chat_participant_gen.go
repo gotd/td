@@ -552,22 +552,21 @@ const ChatParticipantClassName = "ChatParticipant"
 // See https://core.telegram.org/type/ChatParticipant for reference.
 //
 // Constructors:
-//   - [ChatParticipant]
-//   - [ChatParticipantCreator]
-//   - [ChatParticipantAdmin]
+//  - [ChatParticipant]
+//  - [ChatParticipantCreator]
+//  - [ChatParticipantAdmin]
 //
 // Example:
-//
-//	g, err := tg.DecodeChatParticipant(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatParticipant: // chatParticipant#c02d4007
-//	case *tg.ChatParticipantCreator: // chatParticipantCreator#e46bcee4
-//	case *tg.ChatParticipantAdmin: // chatParticipantAdmin#a0933f5b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChatParticipant(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatParticipant: // chatParticipant#c02d4007
+//  case *tg.ChatParticipantCreator: // chatParticipantCreator#e46bcee4
+//  case *tg.ChatParticipantAdmin: // chatParticipantAdmin#a0933f5b
+//  default: panic(v)
+//  }
 type ChatParticipantClass interface {
 	bin.Encoder
 	bin.Decoder

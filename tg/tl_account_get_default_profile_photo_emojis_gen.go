@@ -35,8 +35,8 @@ var (
 // Get a set of suggested custom emoji stickers¹ that can be used as profile picture²
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/files#sticker-profile-pictures
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/account.getDefaultProfilePhotoEmojis for reference.
 type AccountGetDefaultProfilePhotoEmojisRequest struct {
@@ -172,8 +172,8 @@ func (g *AccountGetDefaultProfilePhotoEmojisRequest) GetHash() (value int64) {
 // Get a set of suggested custom emoji stickers¹ that can be used as profile picture²
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/api/files#sticker-profile-pictures
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/account.getDefaultProfilePhotoEmojis for reference.
 func (c *Client) AccountGetDefaultProfilePhotoEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {

@@ -35,7 +35,7 @@ var (
 // Information about the current stealth mode¹ session.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#stealth-mode
+//  1) https://core.telegram.org/api/stories#stealth-mode
 //
 // See https://core.telegram.org/constructor/storiesStealthMode for reference.
 type StoriesStealthMode struct {

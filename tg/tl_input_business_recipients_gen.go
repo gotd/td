@@ -38,10 +38,10 @@ var (
 // away »¹ and greeting »² messages.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
-//  2. https://core.telegram.org/api/business#greeting-messages
-//  3. https://core.telegram.org/api/business#away-messages
-//  4. https://core.telegram.org/api/business#greeting-messages
+//  1) https://core.telegram.org/api/business#away-messages
+//  2) https://core.telegram.org/api/business#greeting-messages
+//  3) https://core.telegram.org/api/business#away-messages
+//  4) https://core.telegram.org/api/business#greeting-messages
 //
 // See https://core.telegram.org/constructor/inputBusinessRecipients for reference.
 type InputBusinessRecipients struct {

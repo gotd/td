@@ -35,7 +35,7 @@ var (
 // Generate an invoice deep link¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#invoice-links
+//  1) https://core.telegram.org/api/links#invoice-links
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 type PaymentsExportInvoiceRequest struct {
@@ -173,17 +173,16 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 // Generate an invoice deep link¹
 //
 // Links:
-//  1. https://core.telegram.org/api/links#invoice-links
+//  1) https://core.telegram.org/api/links#invoice-links
 //
 // Possible errors:
-//
-//	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
-//	400 INVOICE_PAYLOAD_INVALID: The specified invoice payload is invalid.
-//	400 MEDIA_INVALID: Media invalid.
-//	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
-//	400 STARS_INVOICE_INVALID: The specified Telegram Star invoice is invalid.
-//	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
-//	400 WEBDOCUMENT_URL_EMPTY: The passed web document URL is empty.
+//  400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
+//  400 INVOICE_PAYLOAD_INVALID: The specified invoice payload is invalid.
+//  400 MEDIA_INVALID: Media invalid.
+//  400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
+//  400 STARS_INVOICE_INVALID: The specified Telegram Star invoice is invalid.
+//  400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
+//  400 WEBDOCUMENT_URL_EMPTY: The passed web document URL is empty.
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 // Can be used by bots.

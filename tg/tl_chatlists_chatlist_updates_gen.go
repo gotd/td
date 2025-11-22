@@ -35,7 +35,7 @@ var (
 // Updated information about a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.chatlistUpdates for reference.
 type ChatlistsChatlistUpdates struct {

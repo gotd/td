@@ -35,7 +35,7 @@ var (
 // Set an emoji status¹ for a channel or supergroup.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/channels.updateEmojiStatus for reference.
 type ChannelsUpdateEmojiStatusRequest struct {
@@ -223,11 +223,10 @@ func (u *ChannelsUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 // Set an emoji status¹ for a channel or supergroup.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-status
+//  1) https://core.telegram.org/api/emoji-status
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.updateEmojiStatus for reference.
 func (c *Client) ChannelsUpdateEmojiStatus(ctx context.Context, request *ChannelsUpdateEmojiStatusRequest) (UpdatesClass, error) {

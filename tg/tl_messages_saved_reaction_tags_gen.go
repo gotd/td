@@ -35,7 +35,7 @@ var (
 // The list of reaction tag »¹ names assigned by the user hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/constructor/messages.savedReactionTagsNotModified for reference.
 type MessagesSavedReactionTagsNotModified struct {
@@ -140,7 +140,7 @@ func (s *MessagesSavedReactionTagsNotModified) DecodeBare(b *bin.Buffer) error {
 // List of reaction tag »¹ names assigned by the user.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/constructor/messages.savedReactionTags for reference.
 type MessagesSavedReactionTags struct {
@@ -327,20 +327,19 @@ const MessagesSavedReactionTagsClassName = "messages.SavedReactionTags"
 // See https://core.telegram.org/type/messages.SavedReactionTags for reference.
 //
 // Constructors:
-//   - [MessagesSavedReactionTagsNotModified]
-//   - [MessagesSavedReactionTags]
+//  - [MessagesSavedReactionTagsNotModified]
+//  - [MessagesSavedReactionTags]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesSavedReactionTags(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesSavedReactionTagsNotModified: // messages.savedReactionTagsNotModified#889b59ef
-//	case *tg.MessagesSavedReactionTags: // messages.savedReactionTags#3259950a
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesSavedReactionTags(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesSavedReactionTagsNotModified: // messages.savedReactionTagsNotModified#889b59ef
+//  case *tg.MessagesSavedReactionTags: // messages.savedReactionTags#3259950a
+//  default: panic(v)
+//  }
 type MessagesSavedReactionTagsClass interface {
 	bin.Encoder
 	bin.Decoder

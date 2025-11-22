@@ -38,8 +38,8 @@ var (
 // user, according to the parameters of the requesting inputKeyboardButtonRequestPeer¹.
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.sendBotRequestedPeer
-//  2. https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
+//  1) https://core.telegram.org/method/messages.sendBotRequestedPeer
+//  2) https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
 //
 // See https://core.telegram.org/constructor/requestedPeerUser for reference.
 type RequestedPeerUser struct {
@@ -398,9 +398,9 @@ func (r *RequestedPeerUser) GetPhoto() (value PhotoClass, ok bool) {
 // chat, according to the parameters of the requesting inputKeyboardButtonRequestPeer¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/method/messages.sendBotRequestedPeer
-//  3. https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/method/messages.sendBotRequestedPeer
+//  3) https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
 //
 // See https://core.telegram.org/constructor/requestedPeerChat for reference.
 type RequestedPeerChat struct {
@@ -664,9 +664,9 @@ func (r *RequestedPeerChat) GetPhoto() (value PhotoClass, ok bool) {
 // inputKeyboardButtonRequestPeer¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/method/messages.sendBotRequestedPeer
-//  3. https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/method/messages.sendBotRequestedPeer
+//  3) https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
 //
 // See https://core.telegram.org/constructor/requestedPeerChannel for reference.
 type RequestedPeerChannel struct {
@@ -978,22 +978,21 @@ const RequestedPeerClassName = "RequestedPeer"
 // See https://core.telegram.org/type/RequestedPeer for reference.
 //
 // Constructors:
-//   - [RequestedPeerUser]
-//   - [RequestedPeerChat]
-//   - [RequestedPeerChannel]
+//  - [RequestedPeerUser]
+//  - [RequestedPeerChat]
+//  - [RequestedPeerChannel]
 //
 // Example:
-//
-//	g, err := tg.DecodeRequestedPeer(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.RequestedPeerUser: // requestedPeerUser#d62ff46a
-//	case *tg.RequestedPeerChat: // requestedPeerChat#7307544f
-//	case *tg.RequestedPeerChannel: // requestedPeerChannel#8ba403e4
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeRequestedPeer(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.RequestedPeerUser: // requestedPeerUser#d62ff46a
+//  case *tg.RequestedPeerChat: // requestedPeerChat#7307544f
+//  case *tg.RequestedPeerChannel: // requestedPeerChannel#8ba403e4
+//  default: panic(v)
+//  }
 type RequestedPeerClass interface {
 	bin.Encoder
 	bin.Decoder

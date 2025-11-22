@@ -35,7 +35,7 @@ var (
 // Describes Telegram Star revenue balances »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsRevenueStatus for reference.
 type StarsRevenueStatus struct {

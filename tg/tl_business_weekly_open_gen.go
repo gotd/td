@@ -37,7 +37,7 @@ var (
 // transformed before uploading them to the server, as specified here »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/constructor/businessWeeklyOpen for reference.
 type BusinessWeeklyOpen struct {

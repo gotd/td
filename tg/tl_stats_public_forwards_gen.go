@@ -36,7 +36,7 @@ var (
 // by public channels.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stats.publicForwards for reference.
 type StatsPublicForwards struct {

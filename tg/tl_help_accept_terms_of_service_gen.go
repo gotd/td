@@ -165,8 +165,7 @@ func (a *HelpAcceptTermsOfServiceRequest) GetID() (value DataJSON) {
 // Accept the new terms of service
 //
 // Possible errors:
-//
-//	400 DATA_JSON_INVALID: The provided JSON data is invalid.
+//  400 DATA_JSON_INVALID: The provided JSON data is invalid.
 //
 // See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 func (c *Client) HelpAcceptTermsOfService(ctx context.Context, id DataJSON) (bool, error) {

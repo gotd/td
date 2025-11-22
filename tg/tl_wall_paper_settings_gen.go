@@ -35,7 +35,7 @@ var (
 // Wallpaper¹ rendering information.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/wallPaperSettings for reference.
 type WallPaperSettings struct {

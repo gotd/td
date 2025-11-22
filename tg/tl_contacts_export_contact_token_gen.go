@@ -35,7 +35,7 @@ var (
 // Generates a temporary profile link¹ for the currently logged-in user.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#temporary-profile-links
+//  1) https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/method/contacts.exportContactToken for reference.
 type ContactsExportContactTokenRequest struct {
@@ -135,7 +135,7 @@ func (e *ContactsExportContactTokenRequest) DecodeBare(b *bin.Buffer) error {
 // Generates a temporary profile link¹ for the currently logged-in user.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#temporary-profile-links
+//  1) https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/method/contacts.exportContactToken for reference.
 func (c *Client) ContactsExportContactToken(ctx context.Context) (*ExportedContactToken, error) {

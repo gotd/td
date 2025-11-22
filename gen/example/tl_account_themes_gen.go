@@ -307,20 +307,19 @@ const AccountThemesClassName = "account.Themes"
 // See https://localhost:80/doc/type/account.Themes for reference.
 //
 // Constructors:
-//   - [AccountThemesNotModified]
-//   - [AccountThemes]
+//  - [AccountThemesNotModified]
+//  - [AccountThemes]
 //
 // Example:
-//
-//	g, err := td.DecodeAccountThemes(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *td.AccountThemesNotModified: // account.themesNotModified#f41eb622
-//	case *td.AccountThemes: // account.themes#7f676421
-//	default: panic(v)
-//	}
+//  g, err := td.DecodeAccountThemes(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *td.AccountThemesNotModified: // account.themesNotModified#f41eb622
+//  case *td.AccountThemes: // account.themes#7f676421
+//  default: panic(v)
+//  }
 type AccountThemesClass interface {
 	bin.Encoder
 	bin.Decoder

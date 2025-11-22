@@ -35,7 +35,7 @@ var (
 // Reorder folders¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.updateDialogFiltersOrder for reference.
 type MessagesUpdateDialogFiltersOrderRequest struct {
@@ -184,7 +184,7 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) GetOrder() (value []int) {
 // Reorder folders¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.updateDialogFiltersOrder for reference.
 func (c *Client) MessagesUpdateDialogFiltersOrder(ctx context.Context, order []int) (bool, error) {

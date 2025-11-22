@@ -35,7 +35,7 @@ var (
 // List of peers that reacted to or intercated with a specific story¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stories.storyReactionsList for reference.
 type StoriesStoryReactionsList struct {

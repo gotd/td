@@ -1059,36 +1059,35 @@ const ReportReasonClassName = "ReportReason"
 // See https://core.telegram.org/type/ReportReason for reference.
 //
 // Constructors:
-//   - [InputReportReasonSpam]
-//   - [InputReportReasonViolence]
-//   - [InputReportReasonPornography]
-//   - [InputReportReasonChildAbuse]
-//   - [InputReportReasonOther]
-//   - [InputReportReasonCopyright]
-//   - [InputReportReasonGeoIrrelevant]
-//   - [InputReportReasonFake]
-//   - [InputReportReasonIllegalDrugs]
-//   - [InputReportReasonPersonalDetails]
+//  - [InputReportReasonSpam]
+//  - [InputReportReasonViolence]
+//  - [InputReportReasonPornography]
+//  - [InputReportReasonChildAbuse]
+//  - [InputReportReasonOther]
+//  - [InputReportReasonCopyright]
+//  - [InputReportReasonGeoIrrelevant]
+//  - [InputReportReasonFake]
+//  - [InputReportReasonIllegalDrugs]
+//  - [InputReportReasonPersonalDetails]
 //
 // Example:
-//
-//	g, err := tg.DecodeReportReason(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputReportReasonSpam: // inputReportReasonSpam#58dbcab8
-//	case *tg.InputReportReasonViolence: // inputReportReasonViolence#1e22c78d
-//	case *tg.InputReportReasonPornography: // inputReportReasonPornography#2e59d922
-//	case *tg.InputReportReasonChildAbuse: // inputReportReasonChildAbuse#adf44ee3
-//	case *tg.InputReportReasonOther: // inputReportReasonOther#c1e4a2b1
-//	case *tg.InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
-//	case *tg.InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
-//	case *tg.InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
-//	case *tg.InputReportReasonIllegalDrugs: // inputReportReasonIllegalDrugs#a8eb2be
-//	case *tg.InputReportReasonPersonalDetails: // inputReportReasonPersonalDetails#9ec7863d
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeReportReason(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputReportReasonSpam: // inputReportReasonSpam#58dbcab8
+//  case *tg.InputReportReasonViolence: // inputReportReasonViolence#1e22c78d
+//  case *tg.InputReportReasonPornography: // inputReportReasonPornography#2e59d922
+//  case *tg.InputReportReasonChildAbuse: // inputReportReasonChildAbuse#adf44ee3
+//  case *tg.InputReportReasonOther: // inputReportReasonOther#c1e4a2b1
+//  case *tg.InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
+//  case *tg.InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
+//  case *tg.InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
+//  case *tg.InputReportReasonIllegalDrugs: // inputReportReasonIllegalDrugs#a8eb2be
+//  case *tg.InputReportReasonPersonalDetails: // inputReportReasonPersonalDetails#9ec7863d
+//  default: panic(v)
+//  }
 type ReportReasonClass interface {
 	bin.Encoder
 	bin.Decoder

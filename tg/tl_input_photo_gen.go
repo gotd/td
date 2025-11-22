@@ -336,20 +336,19 @@ const InputPhotoClassName = "InputPhoto"
 // See https://core.telegram.org/type/InputPhoto for reference.
 //
 // Constructors:
-//   - [InputPhotoEmpty]
-//   - [InputPhoto]
+//  - [InputPhotoEmpty]
+//  - [InputPhoto]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputPhoto(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputPhotoEmpty: // inputPhotoEmpty#1cd7bf0d
-//	case *tg.InputPhoto: // inputPhoto#3bb3b94a
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputPhoto(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputPhotoEmpty: // inputPhotoEmpty#1cd7bf0d
+//  case *tg.InputPhoto: // inputPhoto#3bb3b94a
+//  default: panic(v)
+//  }
 type InputPhotoClass interface {
 	bin.Encoder
 	bin.Decoder

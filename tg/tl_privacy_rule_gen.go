@@ -1035,7 +1035,7 @@ func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 // Allow only close friends »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/privacy
+//  1) https://core.telegram.org/api/privacy
 //
 // See https://core.telegram.org/constructor/privacyValueAllowCloseFriends for reference.
 type PrivacyValueAllowCloseFriends struct {
@@ -1141,8 +1141,8 @@ func (p *PrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
 // inputPrivacyKeyChatInvite².
 //
 // Links:
-//  1. https://core.telegram.org/api/premium
-//  2. https://core.telegram.org/constructor/inputPrivacyKeyChatInvite
+//  1) https://core.telegram.org/api/premium
+//  2) https://core.telegram.org/constructor/inputPrivacyKeyChatInvite
 //
 // See https://core.telegram.org/constructor/privacyValueAllowPremium for reference.
 type PrivacyValueAllowPremium struct {
@@ -1455,40 +1455,39 @@ const PrivacyRuleClassName = "PrivacyRule"
 // See https://core.telegram.org/type/PrivacyRule for reference.
 //
 // Constructors:
-//   - [PrivacyValueAllowContacts]
-//   - [PrivacyValueAllowAll]
-//   - [PrivacyValueAllowUsers]
-//   - [PrivacyValueDisallowContacts]
-//   - [PrivacyValueDisallowAll]
-//   - [PrivacyValueDisallowUsers]
-//   - [PrivacyValueAllowChatParticipants]
-//   - [PrivacyValueDisallowChatParticipants]
-//   - [PrivacyValueAllowCloseFriends]
-//   - [PrivacyValueAllowPremium]
-//   - [PrivacyValueAllowBots]
-//   - [PrivacyValueDisallowBots]
+//  - [PrivacyValueAllowContacts]
+//  - [PrivacyValueAllowAll]
+//  - [PrivacyValueAllowUsers]
+//  - [PrivacyValueDisallowContacts]
+//  - [PrivacyValueDisallowAll]
+//  - [PrivacyValueDisallowUsers]
+//  - [PrivacyValueAllowChatParticipants]
+//  - [PrivacyValueDisallowChatParticipants]
+//  - [PrivacyValueAllowCloseFriends]
+//  - [PrivacyValueAllowPremium]
+//  - [PrivacyValueAllowBots]
+//  - [PrivacyValueDisallowBots]
 //
 // Example:
-//
-//	g, err := tg.DecodePrivacyRule(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PrivacyValueAllowContacts: // privacyValueAllowContacts#fffe1bac
-//	case *tg.PrivacyValueAllowAll: // privacyValueAllowAll#65427b82
-//	case *tg.PrivacyValueAllowUsers: // privacyValueAllowUsers#b8905fb2
-//	case *tg.PrivacyValueDisallowContacts: // privacyValueDisallowContacts#f888fa1a
-//	case *tg.PrivacyValueDisallowAll: // privacyValueDisallowAll#8b73e763
-//	case *tg.PrivacyValueDisallowUsers: // privacyValueDisallowUsers#e4621141
-//	case *tg.PrivacyValueAllowChatParticipants: // privacyValueAllowChatParticipants#6b134e8e
-//	case *tg.PrivacyValueDisallowChatParticipants: // privacyValueDisallowChatParticipants#41c87565
-//	case *tg.PrivacyValueAllowCloseFriends: // privacyValueAllowCloseFriends#f7e8d89b
-//	case *tg.PrivacyValueAllowPremium: // privacyValueAllowPremium#ece9814b
-//	case *tg.PrivacyValueAllowBots: // privacyValueAllowBots#21461b5d
-//	case *tg.PrivacyValueDisallowBots: // privacyValueDisallowBots#f6a5f82f
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePrivacyRule(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PrivacyValueAllowContacts: // privacyValueAllowContacts#fffe1bac
+//  case *tg.PrivacyValueAllowAll: // privacyValueAllowAll#65427b82
+//  case *tg.PrivacyValueAllowUsers: // privacyValueAllowUsers#b8905fb2
+//  case *tg.PrivacyValueDisallowContacts: // privacyValueDisallowContacts#f888fa1a
+//  case *tg.PrivacyValueDisallowAll: // privacyValueDisallowAll#8b73e763
+//  case *tg.PrivacyValueDisallowUsers: // privacyValueDisallowUsers#e4621141
+//  case *tg.PrivacyValueAllowChatParticipants: // privacyValueAllowChatParticipants#6b134e8e
+//  case *tg.PrivacyValueDisallowChatParticipants: // privacyValueDisallowChatParticipants#41c87565
+//  case *tg.PrivacyValueAllowCloseFriends: // privacyValueAllowCloseFriends#f7e8d89b
+//  case *tg.PrivacyValueAllowPremium: // privacyValueAllowPremium#ece9814b
+//  case *tg.PrivacyValueAllowBots: // privacyValueAllowBots#21461b5d
+//  case *tg.PrivacyValueDisallowBots: // privacyValueDisallowBots#f6a5f82f
+//  default: panic(v)
+//  }
 type PrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder

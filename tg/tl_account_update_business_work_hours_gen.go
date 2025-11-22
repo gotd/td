@@ -40,9 +40,9 @@ var (
 // transformed before invoking the method, as specified here »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
-//  2. https://core.telegram.org/constructor/userFull
-//  3. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
+//  2) https://core.telegram.org/constructor/userFull
+//  3) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/method/account.updateBusinessWorkHours for reference.
 type AccountUpdateBusinessWorkHoursRequest struct {
@@ -222,15 +222,14 @@ func (u *AccountUpdateBusinessWorkHoursRequest) GetBusinessWorkHours() (value Bu
 // transformed before invoking the method, as specified here »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
-//  2. https://core.telegram.org/constructor/userFull
-//  3. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
+//  2) https://core.telegram.org/constructor/userFull
+//  3) https://core.telegram.org/api/business#opening-hours
 //
 // Possible errors:
-//
-//	400 BUSINESS_WORK_HOURS_EMPTY: No work hours were specified.
-//	400 BUSINESS_WORK_HOURS_PERIOD_INVALID: The specified work hours are invalid, see here » for the exact requirements.
-//	400 TIMEZONE_INVALID: The specified timezone does not exist.
+//  400 BUSINESS_WORK_HOURS_EMPTY: No work hours were specified.
+//  400 BUSINESS_WORK_HOURS_PERIOD_INVALID: The specified work hours are invalid, see here » for the exact requirements.
+//  400 TIMEZONE_INVALID: The specified timezone does not exist.
 //
 // See https://core.telegram.org/method/account.updateBusinessWorkHours for reference.
 func (c *Client) AccountUpdateBusinessWorkHours(ctx context.Context, request *AccountUpdateBusinessWorkHoursRequest) (bool, error) {

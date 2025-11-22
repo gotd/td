@@ -35,7 +35,7 @@ var (
 // Describes a temporary profile link¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#temporary-profile-links
+//  1) https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/constructor/exportedContactToken for reference.
 type ExportedContactToken struct {

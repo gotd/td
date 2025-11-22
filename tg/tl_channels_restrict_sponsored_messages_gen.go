@@ -37,8 +37,8 @@ var (
 // channel_restrict_sponsored_level_min »² config parameter.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
-//  2. https://core.telegram.org/api/config#channel-restrict-sponsored-level-min
+//  1) https://core.telegram.org/api/boost
+//  2) https://core.telegram.org/api/config#channel-restrict-sponsored-level-min
 //
 // See https://core.telegram.org/method/channels.restrictSponsoredMessages for reference.
 type ChannelsRestrictSponsoredMessagesRequest struct {
@@ -210,12 +210,11 @@ func (r *ChannelsRestrictSponsoredMessagesRequest) GetChannelAsNotEmpty() (NotEm
 // channel_restrict_sponsored_level_min »² config parameter.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
-//  2. https://core.telegram.org/api/config#channel-restrict-sponsored-level-min
+//  1) https://core.telegram.org/api/boost
+//  2) https://core.telegram.org/api/config#channel-restrict-sponsored-level-min
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.restrictSponsoredMessages for reference.
 func (c *Client) ChannelsRestrictSponsoredMessages(ctx context.Context, request *ChannelsRestrictSponsoredMessagesRequest) (UpdatesClass, error) {

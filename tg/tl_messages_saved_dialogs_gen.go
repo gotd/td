@@ -35,7 +35,7 @@ var (
 // Represents some saved message dialogs »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/messages.savedDialogs for reference.
 type MessagesSavedDialogs struct {
@@ -349,7 +349,7 @@ func (s *MessagesSavedDialogs) MapUsers() (value UserClassArray) {
 // Incomplete list of saved message dialogs »¹ with messages and auxiliary data.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/messages.savedDialogsSlice for reference.
 type MessagesSavedDialogsSlice struct {
@@ -829,22 +829,21 @@ const MessagesSavedDialogsClassName = "messages.SavedDialogs"
 // See https://core.telegram.org/type/messages.SavedDialogs for reference.
 //
 // Constructors:
-//   - [MessagesSavedDialogs]
-//   - [MessagesSavedDialogsSlice]
-//   - [MessagesSavedDialogsNotModified]
+//  - [MessagesSavedDialogs]
+//  - [MessagesSavedDialogsSlice]
+//  - [MessagesSavedDialogsNotModified]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesSavedDialogs(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesSavedDialogs: // messages.savedDialogs#f83ae221
-//	case *tg.MessagesSavedDialogsSlice: // messages.savedDialogsSlice#44ba9dd9
-//	case *tg.MessagesSavedDialogsNotModified: // messages.savedDialogsNotModified#c01f6fe8
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesSavedDialogs(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesSavedDialogs: // messages.savedDialogs#f83ae221
+//  case *tg.MessagesSavedDialogsSlice: // messages.savedDialogsSlice#44ba9dd9
+//  case *tg.MessagesSavedDialogsNotModified: // messages.savedDialogsNotModified#c01f6fe8
+//  default: panic(v)
+//  }
 type MessagesSavedDialogsClass interface {
 	bin.Encoder
 	bin.Decoder

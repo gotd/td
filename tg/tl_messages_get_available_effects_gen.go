@@ -35,7 +35,7 @@ var (
 // Fetch the full list of usable animated message effects »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/effects
+//  1) https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/method/messages.getAvailableEffects for reference.
 type MessagesGetAvailableEffectsRequest struct {
@@ -171,7 +171,7 @@ func (g *MessagesGetAvailableEffectsRequest) GetHash() (value int) {
 // Fetch the full list of usable animated message effects »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/effects
+//  1) https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/method/messages.getAvailableEffects for reference.
 func (c *Client) MessagesGetAvailableEffects(ctx context.Context, hash int) (MessagesAvailableEffectsClass, error) {

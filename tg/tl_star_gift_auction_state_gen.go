@@ -733,22 +733,21 @@ const StarGiftAuctionStateClassName = "StarGiftAuctionState"
 // See https://core.telegram.org/type/StarGiftAuctionState for reference.
 //
 // Constructors:
-//   - [StarGiftAuctionStateNotModified]
-//   - [StarGiftAuctionState]
-//   - [StarGiftAuctionStateFinished]
+//  - [StarGiftAuctionStateNotModified]
+//  - [StarGiftAuctionState]
+//  - [StarGiftAuctionStateFinished]
 //
 // Example:
-//
-//	g, err := tg.DecodeStarGiftAuctionState(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StarGiftAuctionStateNotModified: // starGiftAuctionStateNotModified#fe333952
-//	case *tg.StarGiftAuctionState: // starGiftAuctionState#5db04f4b
-//	case *tg.StarGiftAuctionStateFinished: // starGiftAuctionStateFinished#7d967c3a
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStarGiftAuctionState(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StarGiftAuctionStateNotModified: // starGiftAuctionStateNotModified#fe333952
+//  case *tg.StarGiftAuctionState: // starGiftAuctionState#5db04f4b
+//  case *tg.StarGiftAuctionStateFinished: // starGiftAuctionStateFinished#7d967c3a
+//  default: panic(v)
+//  }
 type StarGiftAuctionStateClass interface {
 	bin.Encoder
 	bin.Decoder

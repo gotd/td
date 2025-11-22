@@ -35,7 +35,7 @@ var (
 // List of boosts¹ that were applied to a peer by multiple users.
 //
 // Links:
-//  1. https://core.telegram.org/api/boost
+//  1) https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/premium.boostsList for reference.
 type PremiumBoostsList struct {

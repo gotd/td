@@ -35,7 +35,7 @@ var (
 // Exported chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/exportedChatlistInvite for reference.
 type ExportedChatlistInvite struct {

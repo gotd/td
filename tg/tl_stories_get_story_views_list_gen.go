@@ -35,7 +35,7 @@ var (
 // Obtain the list of users that have viewed a specific story we posted¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 type StoriesGetStoryViewsListRequest struct {
@@ -445,12 +445,11 @@ func (g *StoriesGetStoryViewsListRequest) GetLimit() (value int) {
 // Obtain the list of users that have viewed a specific story we posted¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 STORY_ID_INVALID: The specified story ID is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 STORY_ID_INVALID: The specified story ID is invalid.
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 func (c *Client) StoriesGetStoryViewsList(ctx context.Context, request *StoriesGetStoryViewsListRequest) (*StoriesStoryViewsList, error) {

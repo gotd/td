@@ -35,7 +35,7 @@ var (
 // Obtain information about a direct link Mini App¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 type MessagesGetBotAppRequest struct {
@@ -206,13 +206,12 @@ func (g *MessagesGetBotAppRequest) GetHash() (value int64) {
 // Obtain information about a direct link Mini App¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
+//  1) https://core.telegram.org/api/bots/webapps#direct-link-mini-apps
 //
 // Possible errors:
-//
-//	400 BOT_APP_BOT_INVALID: The bot_id passed in the inputBotAppShortName constructor is invalid.
-//	400 BOT_APP_INVALID: The specified bot app is invalid.
-//	400 BOT_APP_SHORTNAME_INVALID: The specified bot app short name is invalid.
+//  400 BOT_APP_BOT_INVALID: The bot_id passed in the inputBotAppShortName constructor is invalid.
+//  400 BOT_APP_INVALID: The specified bot app is invalid.
+//  400 BOT_APP_SHORTNAME_INVALID: The specified bot app short name is invalid.
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 func (c *Client) MessagesGetBotApp(ctx context.Context, request *MessagesGetBotAppRequest) (*MessagesBotApp, error) {

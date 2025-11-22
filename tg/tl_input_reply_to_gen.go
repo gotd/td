@@ -888,22 +888,21 @@ const InputReplyToClassName = "InputReplyTo"
 // See https://core.telegram.org/type/InputReplyTo for reference.
 //
 // Constructors:
-//   - [InputReplyToMessage]
-//   - [InputReplyToStory]
-//   - [InputReplyToMonoForum]
+//  - [InputReplyToMessage]
+//  - [InputReplyToStory]
+//  - [InputReplyToMonoForum]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputReplyTo(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputReplyToMessage: // inputReplyToMessage#869fbe10
-//	case *tg.InputReplyToStory: // inputReplyToStory#5881323a
-//	case *tg.InputReplyToMonoForum: // inputReplyToMonoForum#69d66c45
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputReplyTo(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputReplyToMessage: // inputReplyToMessage#869fbe10
+//  case *tg.InputReplyToStory: // inputReplyToStory#5881323a
+//  case *tg.InputReplyToMonoForum: // inputReplyToMonoForum#69d66c45
+//  default: panic(v)
+//  }
 type InputReplyToClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Mark a specific sponsored message »¹ as read
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/method/messages.viewSponsoredMessage for reference.
 type MessagesViewSponsoredMessageRequest struct {
@@ -168,7 +168,7 @@ func (v *MessagesViewSponsoredMessageRequest) GetRandomID() (value []byte) {
 // Mark a specific sponsored message »¹ as read
 //
 // Links:
-//  1. https://core.telegram.org/api/sponsored-messages
+//  1) https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/method/messages.viewSponsoredMessage for reference.
 func (c *Client) MessagesViewSponsoredMessage(ctx context.Context, randomid []byte) (bool, error) {

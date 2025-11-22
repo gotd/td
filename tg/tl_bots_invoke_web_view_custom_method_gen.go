@@ -38,10 +38,10 @@ var (
 // more info on the flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/web-events#web-app-invoke-custom-method
-//  3. https://core.telegram.org/api/bots/webapps#custom-method-invoked
-//  4. https://core.telegram.org/api/web-events#web-app-invoke-custom-method
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/web-events#web-app-invoke-custom-method
+//  3) https://core.telegram.org/api/bots/webapps#custom-method-invoked
+//  4) https://core.telegram.org/api/web-events#web-app-invoke-custom-method
 //
 // See https://core.telegram.org/method/bots.invokeWebViewCustomMethod for reference.
 type BotsInvokeWebViewCustomMethodRequest struct {
@@ -239,16 +239,15 @@ func (i *BotsInvokeWebViewCustomMethodRequest) GetParams() (value DataJSON) {
 // more info on the flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/web-events#web-app-invoke-custom-method
-//  3. https://core.telegram.org/api/bots/webapps#custom-method-invoked
-//  4. https://core.telegram.org/api/web-events#web-app-invoke-custom-method
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/web-events#web-app-invoke-custom-method
+//  3) https://core.telegram.org/api/bots/webapps#custom-method-invoked
+//  4) https://core.telegram.org/api/web-events#web-app-invoke-custom-method
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 DATA_JSON_INVALID: The provided JSON data is invalid.
-//	400 METHOD_INVALID: The specified method is invalid.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 DATA_JSON_INVALID: The provided JSON data is invalid.
+//  400 METHOD_INVALID: The specified method is invalid.
 //
 // See https://core.telegram.org/method/bots.invokeWebViewCustomMethod for reference.
 func (c *Client) BotsInvokeWebViewCustomMethod(ctx context.Context, request *BotsInvokeWebViewCustomMethodRequest) (*DataJSON, error) {

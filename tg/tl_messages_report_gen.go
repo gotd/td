@@ -264,11 +264,10 @@ func (r *MessagesReportRequest) GetMessage() (value string) {
 // Report a message in a chat for violation of telegram's Terms of Service
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 OPTION_INVALID: Invalid option selected.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 OPTION_INVALID: Invalid option selected.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.report for reference.
 func (c *Client) MessagesReport(ctx context.Context, request *MessagesReportRequest) (ReportResultClass, error) {

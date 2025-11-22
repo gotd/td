@@ -210,9 +210,8 @@ func (i *StoriesIncrementStoryViewsRequest) GetID() (value []int) {
 // Increment the view counter of one or more stories.
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 STORY_ID_EMPTY: You specified no story IDs.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 STORY_ID_EMPTY: You specified no story IDs.
 //
 // See https://core.telegram.org/method/stories.incrementStoryViews for reference.
 func (c *Client) StoriesIncrementStoryViews(ctx context.Context, request *StoriesIncrementStoryViewsRequest) (bool, error) {

@@ -745,7 +745,7 @@ func (c *ChatInviteExported) GetSubscriptionPricing() (value StarsSubscriptionPr
 // or has joined a discussion group¹
 //
 // Links:
-//  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
+//  1) https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
 // See https://core.telegram.org/constructor/chatInvitePublicJoinRequests for reference.
 type ChatInvitePublicJoinRequests struct {
@@ -854,20 +854,19 @@ const ExportedChatInviteClassName = "ExportedChatInvite"
 // See https://core.telegram.org/type/ExportedChatInvite for reference.
 //
 // Constructors:
-//   - [ChatInviteExported]
-//   - [ChatInvitePublicJoinRequests]
+//  - [ChatInviteExported]
+//  - [ChatInvitePublicJoinRequests]
 //
 // Example:
-//
-//	g, err := tg.DecodeExportedChatInvite(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatInviteExported: // chatInviteExported#a22cbd96
-//	case *tg.ChatInvitePublicJoinRequests: // chatInvitePublicJoinRequests#ed107ab7
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeExportedChatInvite(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatInviteExported: // chatInviteExported#a22cbd96
+//  case *tg.ChatInvitePublicJoinRequests: // chatInvitePublicJoinRequests#ed107ab7
+//  default: panic(v)
+//  }
 type ExportedChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder

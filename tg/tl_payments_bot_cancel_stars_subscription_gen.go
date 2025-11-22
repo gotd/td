@@ -35,7 +35,7 @@ var (
 // Cancel a bot subscription¹
 //
 // Links:
-//  1. https://core.telegram.org/api/subscriptions#bot-subscriptions
+//  1) https://core.telegram.org/api/subscriptions#bot-subscriptions
 //
 // See https://core.telegram.org/method/payments.botCancelStarsSubscription for reference.
 type PaymentsBotCancelStarsSubscriptionRequest struct {
@@ -267,11 +267,10 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) GetChargeID() (value string)
 // Cancel a bot subscription¹
 //
 // Links:
-//  1. https://core.telegram.org/api/subscriptions#bot-subscriptions
+//  1) https://core.telegram.org/api/subscriptions#bot-subscriptions
 //
 // Possible errors:
-//
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/payments.botCancelStarsSubscription for reference.
 func (c *Client) PaymentsBotCancelStarsSubscription(ctx context.Context, request *PaymentsBotCancelStarsSubscriptionRequest) (bool, error) {

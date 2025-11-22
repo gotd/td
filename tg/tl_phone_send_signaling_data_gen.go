@@ -192,8 +192,7 @@ func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
 // Send VoIP signaling data
 //
 // Possible errors:
-//
-//	400 CALL_PEER_INVALID: The provided call peer object is invalid.
+//  400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
 func (c *Client) PhoneSendSignalingData(ctx context.Context, request *PhoneSendSignalingDataRequest) (bool, error) {

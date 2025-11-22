@@ -40,10 +40,10 @@ var (
 // channelFull¹ or dialog² and emit an updateChannelViewForumAsMessages³.
 //
 // Links:
-//  1. https://core.telegram.org/api/forum
-//  2. https://core.telegram.org/constructor/channelFull
-//  3. https://core.telegram.org/constructor/dialog
-//  4. https://core.telegram.org/constructor/updateChannelViewForumAsMessages
+//  1) https://core.telegram.org/api/forum
+//  2) https://core.telegram.org/constructor/channelFull
+//  3) https://core.telegram.org/constructor/dialog
+//  4) https://core.telegram.org/constructor/updateChannelViewForumAsMessages
 //
 // See https://core.telegram.org/method/channels.toggleViewForumAsMessages for reference.
 type ChannelsToggleViewForumAsMessagesRequest struct {
@@ -218,14 +218,13 @@ func (t *ChannelsToggleViewForumAsMessagesRequest) GetChannelAsNotEmpty() (NotEm
 // channelFull¹ or dialog² and emit an updateChannelViewForumAsMessages³.
 //
 // Links:
-//  1. https://core.telegram.org/api/forum
-//  2. https://core.telegram.org/constructor/channelFull
-//  3. https://core.telegram.org/constructor/dialog
-//  4. https://core.telegram.org/constructor/updateChannelViewForumAsMessages
+//  1) https://core.telegram.org/api/forum
+//  2) https://core.telegram.org/constructor/channelFull
+//  3) https://core.telegram.org/constructor/dialog
+//  4) https://core.telegram.org/constructor/updateChannelViewForumAsMessages
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.toggleViewForumAsMessages for reference.
 func (c *Client) ChannelsToggleViewForumAsMessages(ctx context.Context, request *ChannelsToggleViewForumAsMessagesRequest) (UpdatesClass, error) {

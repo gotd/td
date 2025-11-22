@@ -35,7 +35,7 @@ var (
 // Returns a list of available wallpapers¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
 type AccountGetWallPapersRequest struct {
@@ -171,7 +171,7 @@ func (g *AccountGetWallPapersRequest) GetHash() (value int64) {
 // Returns a list of available wallpapers¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
 func (c *Client) AccountGetWallPapers(ctx context.Context, hash int64) (AccountWallPapersClass, error) {

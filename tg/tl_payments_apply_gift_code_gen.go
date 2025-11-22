@@ -35,7 +35,7 @@ var (
 // Apply a Telegram Premium giftcode »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.applyGiftCode for reference.
 type PaymentsApplyGiftCodeRequest struct {
@@ -168,13 +168,12 @@ func (a *PaymentsApplyGiftCodeRequest) GetSlug() (value string) {
 // Apply a Telegram Premium giftcode »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // Possible errors:
-//
-//	400 GIFT_SLUG_EXPIRED: The specified gift slug has expired.
-//	400 GIFT_SLUG_INVALID: The specified slug is invalid.
-//	420 PREMIUM_SUB_ACTIVE_UNTIL_%d: You already have a premium subscription active until unixtime %d .
+//  400 GIFT_SLUG_EXPIRED: The specified gift slug has expired.
+//  400 GIFT_SLUG_INVALID: The specified slug is invalid.
+//  420 PREMIUM_SUB_ACTIVE_UNTIL_%d: You already have a premium subscription active until unixtime %d .
 //
 // See https://core.telegram.org/method/payments.applyGiftCode for reference.
 func (c *Client) PaymentsApplyGiftCode(ctx context.Context, slug string) (UpdatesClass, error) {

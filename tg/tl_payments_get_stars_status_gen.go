@@ -36,8 +36,8 @@ var (
 // peer=inputPeerSelf²), or the stars balance of the bot specified in peer.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://core.telegram.org/constructor/inputPeerSelf
+//  1) https://core.telegram.org/api/stars
+//  2) https://core.telegram.org/constructor/inputPeerSelf
 //
 // See https://core.telegram.org/method/payments.getStarsStatus for reference.
 type PaymentsGetStarsStatusRequest struct {
@@ -232,12 +232,11 @@ func (g *PaymentsGetStarsStatusRequest) GetPeer() (value InputPeerClass) {
 // peer=inputPeerSelf²), or the stars balance of the bot specified in peer.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://core.telegram.org/constructor/inputPeerSelf
+//  1) https://core.telegram.org/api/stars
+//  2) https://core.telegram.org/constructor/inputPeerSelf
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsStatus for reference.
 func (c *Client) PaymentsGetStarsStatus(ctx context.Context, request *PaymentsGetStarsStatusRequest) (*PaymentsStarsStatus, error) {

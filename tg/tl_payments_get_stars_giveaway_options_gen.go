@@ -35,7 +35,7 @@ var (
 // Fetch a list of star giveaway options »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways#star-giveaways
+//  1) https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/method/payments.getStarsGiveawayOptions for reference.
 type PaymentsGetStarsGiveawayOptionsRequest struct {
@@ -135,7 +135,7 @@ func (g *PaymentsGetStarsGiveawayOptionsRequest) DecodeBare(b *bin.Buffer) error
 // Fetch a list of star giveaway options »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways#star-giveaways
+//  1) https://core.telegram.org/api/giveaways#star-giveaways
 //
 // See https://core.telegram.org/method/payments.getStarsGiveawayOptions for reference.
 func (c *Client) PaymentsGetStarsGiveawayOptions(ctx context.Context) ([]StarsGiveawayOption, error) {

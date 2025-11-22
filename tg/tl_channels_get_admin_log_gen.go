@@ -35,7 +35,7 @@ var (
 // Get the admin log of a channel/supergroup¹
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getAdminLog for reference.
 type ChannelsGetAdminLogRequest struct {
@@ -438,15 +438,14 @@ func (g *ChannelsGetAdminLogRequest) MapAdmins() (value InputUserClassArray, ok 
 // Get the admin log of a channel/supergroup¹
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/channels.getAdminLog for reference.
 func (c *Client) ChannelsGetAdminLog(ctx context.Context, request *ChannelsGetAdminLogRequest) (*ChannelsAdminLogResults, error) {

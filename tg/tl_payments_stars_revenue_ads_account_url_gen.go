@@ -36,7 +36,7 @@ var (
 // channel/bot, paying using Telegram Stars¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#paying-for-ads
+//  1) https://core.telegram.org/api/stars#paying-for-ads
 //
 // See https://core.telegram.org/constructor/payments.starsRevenueAdsAccountUrl for reference.
 type PaymentsStarsRevenueAdsAccountURL struct {

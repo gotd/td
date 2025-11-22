@@ -35,7 +35,7 @@ var (
 // Set a list of Telegram Business away messages¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
+//  1) https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/method/account.updateBusinessAwayMessage for reference.
 type AccountUpdateBusinessAwayMessageRequest struct {
@@ -210,7 +210,7 @@ func (u *AccountUpdateBusinessAwayMessageRequest) GetMessage() (value InputBusin
 // Set a list of Telegram Business away messages¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#away-messages
+//  1) https://core.telegram.org/api/business#away-messages
 //
 // See https://core.telegram.org/method/account.updateBusinessAwayMessage for reference.
 func (c *Client) AccountUpdateBusinessAwayMessage(ctx context.Context, request *AccountUpdateBusinessAwayMessageRequest) (bool, error) {

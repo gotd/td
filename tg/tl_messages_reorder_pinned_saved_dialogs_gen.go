@@ -35,7 +35,7 @@ var (
 // Reorder pinned saved message dialogs »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.reorderPinnedSavedDialogs for reference.
 type MessagesReorderPinnedSavedDialogsRequest struct {
@@ -247,7 +247,7 @@ func (r *MessagesReorderPinnedSavedDialogsRequest) MapOrder() (value InputDialog
 // Reorder pinned saved message dialogs »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.reorderPinnedSavedDialogs for reference.
 func (c *Client) MessagesReorderPinnedSavedDialogs(ctx context.Context, request *MessagesReorderPinnedSavedDialogsRequest) (bool, error) {

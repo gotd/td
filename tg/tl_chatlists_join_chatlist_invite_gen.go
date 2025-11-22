@@ -35,7 +35,7 @@ var (
 // Import a chat folder deep link »¹, joining some or all the chats in the folder.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistInvite for reference.
 type ChatlistsJoinChatlistInviteRequest struct {
@@ -226,13 +226,12 @@ func (j *ChatlistsJoinChatlistInviteRequest) MapPeers() (value InputPeerClassArr
 // Import a chat folder deep link »¹, joining some or all the chats in the folder.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
-//
-//	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
-//	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
-//	400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
+//  400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
+//  400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
+//  400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistInvite for reference.
 func (c *Client) ChatlistsJoinChatlistInvite(ctx context.Context, request *ChatlistsJoinChatlistInviteRequest) (UpdatesClass, error) {

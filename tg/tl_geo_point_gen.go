@@ -399,20 +399,19 @@ const GeoPointClassName = "GeoPoint"
 // See https://core.telegram.org/type/GeoPoint for reference.
 //
 // Constructors:
-//   - [GeoPointEmpty]
-//   - [GeoPoint]
+//  - [GeoPointEmpty]
+//  - [GeoPoint]
 //
 // Example:
-//
-//	g, err := tg.DecodeGeoPoint(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.GeoPointEmpty: // geoPointEmpty#1117dd5f
-//	case *tg.GeoPoint: // geoPoint#b2a2f663
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeGeoPoint(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.GeoPointEmpty: // geoPointEmpty#1117dd5f
+//  case *tg.GeoPoint: // geoPoint#b2a2f663
+//  default: panic(v)
+//  }
 type GeoPointClass interface {
 	bin.Encoder
 	bin.Decoder

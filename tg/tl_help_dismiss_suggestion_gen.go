@@ -35,7 +35,7 @@ var (
 // Dismiss a suggestion, see here for more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#suggestions
+//  1) https://core.telegram.org/api/config#suggestions
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
@@ -206,7 +206,7 @@ func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
 // Dismiss a suggestion, see here for more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#suggestions
+//  1) https://core.telegram.org/api/config#suggestions
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 func (c *Client) HelpDismissSuggestion(ctx context.Context, request *HelpDismissSuggestionRequest) (bool, error) {

@@ -35,8 +35,8 @@ var (
 // A single media in an album or grouped media¹ sent with messages.sendMultiMedia².
 //
 // Links:
-//  1. https://core.telegram.org/api/files#albums-grouped-media
-//  2. https://core.telegram.org/method/messages.sendMultiMedia
+//  1) https://core.telegram.org/api/files#albums-grouped-media
+//  2) https://core.telegram.org/method/messages.sendMultiMedia
 //
 // See https://core.telegram.org/constructor/inputSingleMedia for reference.
 type InputSingleMedia struct {

@@ -413,22 +413,21 @@ const AccountResetPasswordResultClassName = "account.ResetPasswordResult"
 // See https://core.telegram.org/type/account.ResetPasswordResult for reference.
 //
 // Constructors:
-//   - [AccountResetPasswordFailedWait]
-//   - [AccountResetPasswordRequestedWait]
-//   - [AccountResetPasswordOk]
+//  - [AccountResetPasswordFailedWait]
+//  - [AccountResetPasswordRequestedWait]
+//  - [AccountResetPasswordOk]
 //
 // Example:
-//
-//	g, err := tg.DecodeAccountResetPasswordResult(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AccountResetPasswordFailedWait: // account.resetPasswordFailedWait#e3779861
-//	case *tg.AccountResetPasswordRequestedWait: // account.resetPasswordRequestedWait#e9effc7d
-//	case *tg.AccountResetPasswordOk: // account.resetPasswordOk#e926d63e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAccountResetPasswordResult(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AccountResetPasswordFailedWait: // account.resetPasswordFailedWait#e3779861
+//  case *tg.AccountResetPasswordRequestedWait: // account.resetPasswordRequestedWait#e9effc7d
+//  case *tg.AccountResetPasswordOk: // account.resetPasswordOk#e926d63e
+//  default: panic(v)
+//  }
 type AccountResetPasswordResultClass interface {
 	bin.Encoder
 	bin.Decoder

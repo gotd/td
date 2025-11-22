@@ -192,10 +192,9 @@ func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
 // Marks message history within a secret chat as read.
 //
 // Possible errors:
-//
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 MAX_DATE_INVALID: The specified maximum date is invalid.
-//	400 MSG_WAIT_FAILED: A waiting call returned an error.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 MAX_DATE_INVALID: The specified maximum date is invalid.
+//  400 MSG_WAIT_FAILED: A waiting call returned an error.
 //
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 func (c *Client) MessagesReadEncryptedHistory(ctx context.Context, request *MessagesReadEncryptedHistoryRequest) (bool, error) {

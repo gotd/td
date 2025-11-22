@@ -42,10 +42,10 @@ var (
 // userStatusLastWeek², userStatusLastMonth³ will be set.
 //
 // Links:
-//  1. https://core.telegram.org/api/premium
-//  2. https://core.telegram.org/constructor/userStatusRecently
-//  3. https://core.telegram.org/constructor/userStatusLastWeek
-//  4. https://core.telegram.org/constructor/userStatusLastMonth
+//  1) https://core.telegram.org/api/premium
+//  2) https://core.telegram.org/constructor/userStatusRecently
+//  3) https://core.telegram.org/constructor/userStatusLastWeek
+//  4) https://core.telegram.org/constructor/userStatusLastMonth
 //
 // See https://core.telegram.org/constructor/privacyKeyStatusTimestamp for reference.
 type PrivacyKeyStatusTimestamp struct {
@@ -456,7 +456,7 @@ func (p *PrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 // Whether messages forwarded from the user will be anonymously forwarded¹
 //
 // Links:
-//  1. https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
+//  1) https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
 //
 // See https://core.telegram.org/constructor/privacyKeyForwards for reference.
 type PrivacyKeyForwards struct {
@@ -1173,7 +1173,7 @@ func (p *PrivacyKeyBirthday) DecodeBare(b *bin.Buffer) error {
 // Whether received gifts¹ will be automatically displayed on our profile
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/privacyKeyStarGiftsAutoSave for reference.
 type PrivacyKeyStarGiftsAutoSave struct {
@@ -1484,44 +1484,43 @@ const PrivacyKeyClassName = "PrivacyKey"
 // See https://core.telegram.org/type/PrivacyKey for reference.
 //
 // Constructors:
-//   - [PrivacyKeyStatusTimestamp]
-//   - [PrivacyKeyChatInvite]
-//   - [PrivacyKeyPhoneCall]
-//   - [PrivacyKeyPhoneP2P]
-//   - [PrivacyKeyForwards]
-//   - [PrivacyKeyProfilePhoto]
-//   - [PrivacyKeyPhoneNumber]
-//   - [PrivacyKeyAddedByPhone]
-//   - [PrivacyKeyVoiceMessages]
-//   - [PrivacyKeyAbout]
-//   - [PrivacyKeyBirthday]
-//   - [PrivacyKeyStarGiftsAutoSave]
-//   - [PrivacyKeyNoPaidMessages]
-//   - [PrivacyKeySavedMusic]
+//  - [PrivacyKeyStatusTimestamp]
+//  - [PrivacyKeyChatInvite]
+//  - [PrivacyKeyPhoneCall]
+//  - [PrivacyKeyPhoneP2P]
+//  - [PrivacyKeyForwards]
+//  - [PrivacyKeyProfilePhoto]
+//  - [PrivacyKeyPhoneNumber]
+//  - [PrivacyKeyAddedByPhone]
+//  - [PrivacyKeyVoiceMessages]
+//  - [PrivacyKeyAbout]
+//  - [PrivacyKeyBirthday]
+//  - [PrivacyKeyStarGiftsAutoSave]
+//  - [PrivacyKeyNoPaidMessages]
+//  - [PrivacyKeySavedMusic]
 //
 // Example:
-//
-//	g, err := tg.DecodePrivacyKey(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PrivacyKeyStatusTimestamp: // privacyKeyStatusTimestamp#bc2eab30
-//	case *tg.PrivacyKeyChatInvite: // privacyKeyChatInvite#500e6dfa
-//	case *tg.PrivacyKeyPhoneCall: // privacyKeyPhoneCall#3d662b7b
-//	case *tg.PrivacyKeyPhoneP2P: // privacyKeyPhoneP2P#39491cc8
-//	case *tg.PrivacyKeyForwards: // privacyKeyForwards#69ec56a3
-//	case *tg.PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
-//	case *tg.PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
-//	case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
-//	case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
-//	case *tg.PrivacyKeyAbout: // privacyKeyAbout#a486b761
-//	case *tg.PrivacyKeyBirthday: // privacyKeyBirthday#2000a518
-//	case *tg.PrivacyKeyStarGiftsAutoSave: // privacyKeyStarGiftsAutoSave#2ca4fdf8
-//	case *tg.PrivacyKeyNoPaidMessages: // privacyKeyNoPaidMessages#17d348d2
-//	case *tg.PrivacyKeySavedMusic: // privacyKeySavedMusic#ff7a571b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePrivacyKey(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PrivacyKeyStatusTimestamp: // privacyKeyStatusTimestamp#bc2eab30
+//  case *tg.PrivacyKeyChatInvite: // privacyKeyChatInvite#500e6dfa
+//  case *tg.PrivacyKeyPhoneCall: // privacyKeyPhoneCall#3d662b7b
+//  case *tg.PrivacyKeyPhoneP2P: // privacyKeyPhoneP2P#39491cc8
+//  case *tg.PrivacyKeyForwards: // privacyKeyForwards#69ec56a3
+//  case *tg.PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
+//  case *tg.PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
+//  case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
+//  case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
+//  case *tg.PrivacyKeyAbout: // privacyKeyAbout#a486b761
+//  case *tg.PrivacyKeyBirthday: // privacyKeyBirthday#2000a518
+//  case *tg.PrivacyKeyStarGiftsAutoSave: // privacyKeyStarGiftsAutoSave#2ca4fdf8
+//  case *tg.PrivacyKeyNoPaidMessages: // privacyKeyNoPaidMessages#17d348d2
+//  case *tg.PrivacyKeySavedMusic: // privacyKeySavedMusic#ff7a571b
+//  default: panic(v)
+//  }
 type PrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder

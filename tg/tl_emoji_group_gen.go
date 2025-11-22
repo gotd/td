@@ -35,7 +35,7 @@ var (
 // Represents an emoji category¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
+//  1) https://core.telegram.org/api/emoji-categories
 //
 // See https://core.telegram.org/constructor/emojiGroup for reference.
 type EmojiGroup struct {
@@ -241,8 +241,8 @@ func (e *EmojiGroup) GetEmoticons() (value []string) {
 // choosing a sticker for a business introduction²
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
-//  2. https://core.telegram.org/api/business#business-introduction
+//  1) https://core.telegram.org/api/emoji-categories
+//  2) https://core.telegram.org/api/business#business-introduction
 //
 // See https://core.telegram.org/constructor/emojiGroupGreeting for reference.
 type EmojiGroupGreeting struct {
@@ -449,12 +449,12 @@ func (e *EmojiGroupGreeting) GetEmoticons() (value []string) {
 // documentAttributeCustomEmoji⁶.free flag is not set)
 //
 // Links:
-//  1. https://core.telegram.org/api/emoji-categories
-//  2. https://core.telegram.org/api/premium
-//  3. https://core.telegram.org/api/stickers#premium-animated-sticker-effects
-//  4. https://core.telegram.org/api/premium
-//  5. https://core.telegram.org/api/custom-emoji
-//  6. https://core.telegram.org/constructor/documentAttributeCustomEmoji
+//  1) https://core.telegram.org/api/emoji-categories
+//  2) https://core.telegram.org/api/premium
+//  3) https://core.telegram.org/api/stickers#premium-animated-sticker-effects
+//  4) https://core.telegram.org/api/premium
+//  5) https://core.telegram.org/api/custom-emoji
+//  6) https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/constructor/emojiGroupPremium for reference.
 type EmojiGroupPremium struct {
@@ -623,22 +623,21 @@ const EmojiGroupClassName = "EmojiGroup"
 // See https://core.telegram.org/type/EmojiGroup for reference.
 //
 // Constructors:
-//   - [EmojiGroup]
-//   - [EmojiGroupGreeting]
-//   - [EmojiGroupPremium]
+//  - [EmojiGroup]
+//  - [EmojiGroupGreeting]
+//  - [EmojiGroupPremium]
 //
 // Example:
-//
-//	g, err := tg.DecodeEmojiGroup(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EmojiGroup: // emojiGroup#7a9abda9
-//	case *tg.EmojiGroupGreeting: // emojiGroupGreeting#80d26cc7
-//	case *tg.EmojiGroupPremium: // emojiGroupPremium#93bcf34
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEmojiGroup(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EmojiGroup: // emojiGroup#7a9abda9
+//  case *tg.EmojiGroupGreeting: // emojiGroupGreeting#80d26cc7
+//  case *tg.EmojiGroupPremium: // emojiGroupPremium#93bcf34
+//  default: panic(v)
+//  }
 type EmojiGroupClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -36,8 +36,8 @@ var (
 // list of updateReadStories¹ updates, see here »² for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/updateReadStories
-//  2. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/constructor/updateReadStories
+//  2) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllReadPeerStories for reference.
 type StoriesGetAllReadPeerStoriesRequest struct {
@@ -138,8 +138,8 @@ func (g *StoriesGetAllReadPeerStoriesRequest) DecodeBare(b *bin.Buffer) error {
 // list of updateReadStories¹ updates, see here »² for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/updateReadStories
-//  2. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/constructor/updateReadStories
+//  2) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllReadPeerStories for reference.
 func (c *Client) StoriesGetAllReadPeerStories(ctx context.Context) (UpdatesClass, error) {

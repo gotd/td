@@ -35,7 +35,7 @@ var (
 // Contains info about a color palette »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColorOption for reference.
 type HelpPeerColorOption struct {

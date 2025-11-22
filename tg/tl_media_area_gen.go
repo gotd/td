@@ -35,7 +35,7 @@ var (
 // Represents a location tag attached to a story¹, with additional venue information.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/mediaAreaVenue for reference.
 type MediaAreaVenue struct {
@@ -341,8 +341,8 @@ func (m *MediaAreaVenue) GetVenueType() (value string) {
 // Represents a location tag¹ attached to a story², with additional venue information.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#media-areas
-//  2. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories#media-areas
+//  2) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/inputMediaAreaVenue for reference.
 type InputMediaAreaVenue struct {
@@ -542,7 +542,7 @@ func (i *InputMediaAreaVenue) GetResultID() (value string) {
 // Represents a geolocation tag attached to a story¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/mediaAreaGeoPoint for reference.
 type MediaAreaGeoPoint struct {
@@ -1428,7 +1428,7 @@ func (i *InputMediaAreaChannelPost) GetMsgID() (value int) {
 // Represents a URL media area¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#urls
+//  1) https://core.telegram.org/api/stories#urls
 //
 // See https://core.telegram.org/constructor/mediaAreaUrl for reference.
 type MediaAreaURL struct {
@@ -1594,7 +1594,7 @@ func (m *MediaAreaURL) GetURL() (value string) {
 // Represents a weather widget »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#weather
+//  1) https://core.telegram.org/api/stories#weather
 //
 // See https://core.telegram.org/constructor/mediaAreaWeather for reference.
 type MediaAreaWeather struct {
@@ -1982,34 +1982,33 @@ const MediaAreaClassName = "MediaArea"
 // See https://core.telegram.org/type/MediaArea for reference.
 //
 // Constructors:
-//   - [MediaAreaVenue]
-//   - [InputMediaAreaVenue]
-//   - [MediaAreaGeoPoint]
-//   - [MediaAreaSuggestedReaction]
-//   - [MediaAreaChannelPost]
-//   - [InputMediaAreaChannelPost]
-//   - [MediaAreaURL]
-//   - [MediaAreaWeather]
-//   - [MediaAreaStarGift]
+//  - [MediaAreaVenue]
+//  - [InputMediaAreaVenue]
+//  - [MediaAreaGeoPoint]
+//  - [MediaAreaSuggestedReaction]
+//  - [MediaAreaChannelPost]
+//  - [InputMediaAreaChannelPost]
+//  - [MediaAreaURL]
+//  - [MediaAreaWeather]
+//  - [MediaAreaStarGift]
 //
 // Example:
-//
-//	g, err := tg.DecodeMediaArea(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MediaAreaVenue: // mediaAreaVenue#be82db9c
-//	case *tg.InputMediaAreaVenue: // inputMediaAreaVenue#b282217f
-//	case *tg.MediaAreaGeoPoint: // mediaAreaGeoPoint#cad5452d
-//	case *tg.MediaAreaSuggestedReaction: // mediaAreaSuggestedReaction#14455871
-//	case *tg.MediaAreaChannelPost: // mediaAreaChannelPost#770416af
-//	case *tg.InputMediaAreaChannelPost: // inputMediaAreaChannelPost#2271f2bf
-//	case *tg.MediaAreaURL: // mediaAreaUrl#37381085
-//	case *tg.MediaAreaWeather: // mediaAreaWeather#49a6549c
-//	case *tg.MediaAreaStarGift: // mediaAreaStarGift#5787686d
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMediaArea(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MediaAreaVenue: // mediaAreaVenue#be82db9c
+//  case *tg.InputMediaAreaVenue: // inputMediaAreaVenue#b282217f
+//  case *tg.MediaAreaGeoPoint: // mediaAreaGeoPoint#cad5452d
+//  case *tg.MediaAreaSuggestedReaction: // mediaAreaSuggestedReaction#14455871
+//  case *tg.MediaAreaChannelPost: // mediaAreaChannelPost#770416af
+//  case *tg.InputMediaAreaChannelPost: // inputMediaAreaChannelPost#2271f2bf
+//  case *tg.MediaAreaURL: // mediaAreaUrl#37381085
+//  case *tg.MediaAreaWeather: // mediaAreaWeather#49a6549c
+//  case *tg.MediaAreaStarGift: // mediaAreaStarGift#5787686d
+//  default: panic(v)
+//  }
 type MediaAreaClass interface {
 	bin.Encoder
 	bin.Decoder

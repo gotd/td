@@ -36,8 +36,8 @@ var (
 // This will emit an updateQuickReplies¹ update to other logged-in sessions.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateQuickReplies
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateQuickReplies
 //
 // See https://core.telegram.org/method/messages.reorderQuickReplies for reference.
 type MessagesReorderQuickRepliesRequest struct {
@@ -187,12 +187,11 @@ func (r *MessagesReorderQuickRepliesRequest) GetOrder() (value []int) {
 // This will emit an updateQuickReplies¹ update to other logged-in sessions.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#quick-reply-shortcuts
-//  2. https://core.telegram.org/constructor/updateQuickReplies
+//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
+//  2) https://core.telegram.org/constructor/updateQuickReplies
 //
 // Possible errors:
-//
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/messages.reorderQuickReplies for reference.
 func (c *Client) MessagesReorderQuickReplies(ctx context.Context, order []int) (bool, error) {

@@ -36,8 +36,8 @@ var (
 // privacy, see here »² for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/updatePaidReactionPrivacy
-//  2. https://core.telegram.org/api/reactions#paid-reactions
+//  1) https://core.telegram.org/constructor/updatePaidReactionPrivacy
+//  2) https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.getPaidReactionPrivacy for reference.
 type MessagesGetPaidReactionPrivacyRequest struct {
@@ -138,8 +138,8 @@ func (g *MessagesGetPaidReactionPrivacyRequest) DecodeBare(b *bin.Buffer) error 
 // privacy, see here »² for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/updatePaidReactionPrivacy
-//  2. https://core.telegram.org/api/reactions#paid-reactions
+//  1) https://core.telegram.org/constructor/updatePaidReactionPrivacy
+//  2) https://core.telegram.org/api/reactions#paid-reactions
 //
 // See https://core.telegram.org/method/messages.getPaidReactionPrivacy for reference.
 func (c *Client) MessagesGetPaidReactionPrivacy(ctx context.Context) (UpdatesClass, error) {

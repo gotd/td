@@ -35,7 +35,7 @@ var (
 // Uploaded secure file, for more info see the passport docs »¹
 //
 // Links:
-//  1. https://core.telegram.org/passport/encryption#inputsecurefile
+//  1) https://core.telegram.org/passport/encryption#inputsecurefile
 //
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
@@ -281,8 +281,8 @@ func (i *InputSecureFileUploaded) GetSecret() (value []byte) {
 // Pre-uploaded passport¹ file, for more info see the passport docs »²
 //
 // Links:
-//  1. https://core.telegram.org/passport
-//  2. https://core.telegram.org/passport/encryption#inputsecurefile
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#inputsecurefile
 //
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
@@ -451,20 +451,19 @@ const InputSecureFileClassName = "InputSecureFile"
 // See https://core.telegram.org/type/InputSecureFile for reference.
 //
 // Constructors:
-//   - [InputSecureFileUploaded]
-//   - [InputSecureFile]
+//  - [InputSecureFileUploaded]
+//  - [InputSecureFile]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputSecureFile(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputSecureFileUploaded: // inputSecureFileUploaded#3334b0f0
-//	case *tg.InputSecureFile: // inputSecureFile#5367e5be
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputSecureFile(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputSecureFileUploaded: // inputSecureFileUploaded#3334b0f0
+//  case *tg.InputSecureFile: // inputSecureFile#5367e5be
+//  default: panic(v)
+//  }
 type InputSecureFileClass interface {
 	bin.Encoder
 	bin.Decoder

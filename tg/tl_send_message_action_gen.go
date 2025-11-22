@@ -1867,7 +1867,7 @@ func (s *SendMessageChooseStickerAction) DecodeBare(b *bin.Buffer) error {
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/animated-emojis#emoji-reactions
+//  1) https://core.telegram.org/api/animated-emojis#emoji-reactions
 //
 // See https://core.telegram.org/constructor/sendMessageEmojiInteraction for reference.
 type SendMessageEmojiInteraction struct {
@@ -2063,7 +2063,7 @@ func (s *SendMessageEmojiInteraction) GetInteraction() (value DataJSON) {
 // more info »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/animated-emojis#emoji-reactions
+//  1) https://core.telegram.org/api/animated-emojis#emoji-reactions
 //
 // See https://core.telegram.org/constructor/sendMessageEmojiInteractionSeen for reference.
 type SendMessageEmojiInteractionSeen struct {
@@ -2366,54 +2366,53 @@ const SendMessageActionClassName = "SendMessageAction"
 // See https://core.telegram.org/type/SendMessageAction for reference.
 //
 // Constructors:
-//   - [SendMessageTypingAction]
-//   - [SendMessageCancelAction]
-//   - [SendMessageRecordVideoAction]
-//   - [SendMessageUploadVideoAction]
-//   - [SendMessageRecordAudioAction]
-//   - [SendMessageUploadAudioAction]
-//   - [SendMessageUploadPhotoAction]
-//   - [SendMessageUploadDocumentAction]
-//   - [SendMessageGeoLocationAction]
-//   - [SendMessageChooseContactAction]
-//   - [SendMessageGamePlayAction]
-//   - [SendMessageRecordRoundAction]
-//   - [SendMessageUploadRoundAction]
-//   - [SpeakingInGroupCallAction]
-//   - [SendMessageHistoryImportAction]
-//   - [SendMessageChooseStickerAction]
-//   - [SendMessageEmojiInteraction]
-//   - [SendMessageEmojiInteractionSeen]
-//   - [SendMessageTextDraftAction]
+//  - [SendMessageTypingAction]
+//  - [SendMessageCancelAction]
+//  - [SendMessageRecordVideoAction]
+//  - [SendMessageUploadVideoAction]
+//  - [SendMessageRecordAudioAction]
+//  - [SendMessageUploadAudioAction]
+//  - [SendMessageUploadPhotoAction]
+//  - [SendMessageUploadDocumentAction]
+//  - [SendMessageGeoLocationAction]
+//  - [SendMessageChooseContactAction]
+//  - [SendMessageGamePlayAction]
+//  - [SendMessageRecordRoundAction]
+//  - [SendMessageUploadRoundAction]
+//  - [SpeakingInGroupCallAction]
+//  - [SendMessageHistoryImportAction]
+//  - [SendMessageChooseStickerAction]
+//  - [SendMessageEmojiInteraction]
+//  - [SendMessageEmojiInteractionSeen]
+//  - [SendMessageTextDraftAction]
 //
 // Example:
-//
-//	g, err := tg.DecodeSendMessageAction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.SendMessageTypingAction: // sendMessageTypingAction#16bf744e
-//	case *tg.SendMessageCancelAction: // sendMessageCancelAction#fd5ec8f5
-//	case *tg.SendMessageRecordVideoAction: // sendMessageRecordVideoAction#a187d66f
-//	case *tg.SendMessageUploadVideoAction: // sendMessageUploadVideoAction#e9763aec
-//	case *tg.SendMessageRecordAudioAction: // sendMessageRecordAudioAction#d52f73f7
-//	case *tg.SendMessageUploadAudioAction: // sendMessageUploadAudioAction#f351d7ab
-//	case *tg.SendMessageUploadPhotoAction: // sendMessageUploadPhotoAction#d1d34a26
-//	case *tg.SendMessageUploadDocumentAction: // sendMessageUploadDocumentAction#aa0cd9e4
-//	case *tg.SendMessageGeoLocationAction: // sendMessageGeoLocationAction#176f8ba1
-//	case *tg.SendMessageChooseContactAction: // sendMessageChooseContactAction#628cbc6f
-//	case *tg.SendMessageGamePlayAction: // sendMessageGamePlayAction#dd6a8f48
-//	case *tg.SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
-//	case *tg.SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
-//	case *tg.SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
-//	case *tg.SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
-//	case *tg.SendMessageChooseStickerAction: // sendMessageChooseStickerAction#b05ac6b1
-//	case *tg.SendMessageEmojiInteraction: // sendMessageEmojiInteraction#25972bcb
-//	case *tg.SendMessageEmojiInteractionSeen: // sendMessageEmojiInteractionSeen#b665902e
-//	case *tg.SendMessageTextDraftAction: // sendMessageTextDraftAction#376d975c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeSendMessageAction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.SendMessageTypingAction: // sendMessageTypingAction#16bf744e
+//  case *tg.SendMessageCancelAction: // sendMessageCancelAction#fd5ec8f5
+//  case *tg.SendMessageRecordVideoAction: // sendMessageRecordVideoAction#a187d66f
+//  case *tg.SendMessageUploadVideoAction: // sendMessageUploadVideoAction#e9763aec
+//  case *tg.SendMessageRecordAudioAction: // sendMessageRecordAudioAction#d52f73f7
+//  case *tg.SendMessageUploadAudioAction: // sendMessageUploadAudioAction#f351d7ab
+//  case *tg.SendMessageUploadPhotoAction: // sendMessageUploadPhotoAction#d1d34a26
+//  case *tg.SendMessageUploadDocumentAction: // sendMessageUploadDocumentAction#aa0cd9e4
+//  case *tg.SendMessageGeoLocationAction: // sendMessageGeoLocationAction#176f8ba1
+//  case *tg.SendMessageChooseContactAction: // sendMessageChooseContactAction#628cbc6f
+//  case *tg.SendMessageGamePlayAction: // sendMessageGamePlayAction#dd6a8f48
+//  case *tg.SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
+//  case *tg.SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
+//  case *tg.SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
+//  case *tg.SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
+//  case *tg.SendMessageChooseStickerAction: // sendMessageChooseStickerAction#b05ac6b1
+//  case *tg.SendMessageEmojiInteraction: // sendMessageEmojiInteraction#25972bcb
+//  case *tg.SendMessageEmojiInteractionSeen: // sendMessageEmojiInteractionSeen#b665902e
+//  case *tg.SendMessageTextDraftAction: // sendMessageTextDraftAction#376d975c
+//  default: panic(v)
+//  }
 type SendMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder

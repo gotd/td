@@ -1266,24 +1266,23 @@ const InputBotInlineResultClassName = "InputBotInlineResult"
 // See https://core.telegram.org/type/InputBotInlineResult for reference.
 //
 // Constructors:
-//   - [InputBotInlineResult]
-//   - [InputBotInlineResultPhoto]
-//   - [InputBotInlineResultDocument]
-//   - [InputBotInlineResultGame]
+//  - [InputBotInlineResult]
+//  - [InputBotInlineResultPhoto]
+//  - [InputBotInlineResultDocument]
+//  - [InputBotInlineResultGame]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputBotInlineResult(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputBotInlineResult: // inputBotInlineResult#88bf9319
-//	case *tg.InputBotInlineResultPhoto: // inputBotInlineResultPhoto#a8d864a7
-//	case *tg.InputBotInlineResultDocument: // inputBotInlineResultDocument#fff8fdc4
-//	case *tg.InputBotInlineResultGame: // inputBotInlineResultGame#4fa417f2
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputBotInlineResult(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputBotInlineResult: // inputBotInlineResult#88bf9319
+//  case *tg.InputBotInlineResultPhoto: // inputBotInlineResultPhoto#a8d864a7
+//  case *tg.InputBotInlineResultDocument: // inputBotInlineResultDocument#fff8fdc4
+//  case *tg.InputBotInlineResultGame: // inputBotInlineResultGame#4fa417f2
+//  default: panic(v)
+//  }
 type InputBotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder

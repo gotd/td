@@ -807,7 +807,7 @@ func (p *PaymentsPaymentForm) MapUsers() (value UserClassArray) {
 // more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/payments.paymentFormStars for reference.
 type PaymentsPaymentFormStars struct {
@@ -1177,7 +1177,7 @@ func (p *PaymentsPaymentFormStars) MapUsers() (value UserClassArray) {
 // Represents a payment form for a gift, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1) https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/payments.paymentFormStarGift for reference.
 type PaymentsPaymentFormStarGift struct {
@@ -1346,22 +1346,21 @@ const PaymentsPaymentFormClassName = "payments.PaymentForm"
 // See https://core.telegram.org/type/payments.PaymentForm for reference.
 //
 // Constructors:
-//   - [PaymentsPaymentForm]
-//   - [PaymentsPaymentFormStars]
-//   - [PaymentsPaymentFormStarGift]
+//  - [PaymentsPaymentForm]
+//  - [PaymentsPaymentFormStars]
+//  - [PaymentsPaymentFormStarGift]
 //
 // Example:
-//
-//	g, err := tg.DecodePaymentsPaymentForm(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PaymentsPaymentForm: // payments.paymentForm#a0058751
-//	case *tg.PaymentsPaymentFormStars: // payments.paymentFormStars#7bf6b15c
-//	case *tg.PaymentsPaymentFormStarGift: // payments.paymentFormStarGift#b425cfe1
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePaymentsPaymentForm(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PaymentsPaymentForm: // payments.paymentForm#a0058751
+//  case *tg.PaymentsPaymentFormStars: // payments.paymentFormStars#7bf6b15c
+//  case *tg.PaymentsPaymentFormStarGift: // payments.paymentFormStarGift#b425cfe1
+//  default: panic(v)
+//  }
 type PaymentsPaymentFormClass interface {
 	bin.Encoder
 	bin.Decoder

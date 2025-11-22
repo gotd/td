@@ -37,8 +37,8 @@ var (
 // »¹ for more info on how to check if you can invoke this method.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
-//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // See https://core.telegram.org/method/bots.addPreviewMedia for reference.
 type BotsAddPreviewMediaRequest struct {
@@ -240,12 +240,11 @@ func (a *BotsAddPreviewMediaRequest) GetMedia() (value InputMediaClass) {
 // »¹ for more info on how to check if you can invoke this method.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
-//  2. https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  1) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
+//  2) https://core.telegram.org/api/bots/webapps#main-mini-app-previews
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.addPreviewMedia for reference.
 func (c *Client) BotsAddPreviewMedia(ctx context.Context, request *BotsAddPreviewMediaRequest) (*BotPreviewMedia, error) {

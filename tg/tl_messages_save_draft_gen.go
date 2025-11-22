@@ -35,7 +35,7 @@ var (
 // Save a message draft¹ associated to a chat.
 //
 // Links:
-//  1. https://core.telegram.org/api/drafts
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.saveDraft for reference.
 type MessagesSaveDraftRequest struct {
@@ -575,13 +575,12 @@ func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray,
 // Save a message draft¹ associated to a chat.
 //
 // Links:
-//  1. https://core.telegram.org/api/drafts
+//  1) https://core.telegram.org/api/drafts
 //
 // Possible errors:
-//
-//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.saveDraft for reference.
 func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (bool, error) {

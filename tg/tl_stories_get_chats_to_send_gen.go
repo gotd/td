@@ -35,7 +35,7 @@ var (
 // Obtain a list of channels where the user can post stories¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getChatsToSend for reference.
 type StoriesGetChatsToSendRequest struct {
@@ -135,7 +135,7 @@ func (g *StoriesGetChatsToSendRequest) DecodeBare(b *bin.Buffer) error {
 // Obtain a list of channels where the user can post stories¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getChatsToSend for reference.
 func (c *Client) StoriesGetChatsToSend(ctx context.Context) (MessagesChatsClass, error) {

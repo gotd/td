@@ -35,7 +35,7 @@ var (
 // Represents an attachment menu icon for bot mini apps »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/attach
+//  1) https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBotIcon for reference.
 type AttachMenuBotIcon struct {

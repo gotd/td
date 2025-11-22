@@ -35,7 +35,7 @@ var (
 // Wallpaper¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
@@ -203,8 +203,8 @@ func (i *InputWallPaper) GetAccessHash() (value int64) {
 // Wallpaper¹ by slug (a unique ID, obtained from a wallpaper link »²)
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
-//  2. https://core.telegram.org/api/links#wallpaper-links
+//  1) https://core.telegram.org/api/wallpapers
+//  2) https://core.telegram.org/api/links#wallpaper-links
 //
 // See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
@@ -343,8 +343,8 @@ func (i *InputWallPaperSlug) GetSlug() (value string) {
 // wallpapers using account.saveWallPaper², specifying just the wallpaper ID.
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
-//  2. https://core.telegram.org/method/account.saveWallPaper
+//  1) https://core.telegram.org/api/wallpapers
+//  2) https://core.telegram.org/method/account.saveWallPaper
 //
 // See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {
@@ -486,22 +486,21 @@ const InputWallPaperClassName = "InputWallPaper"
 // See https://core.telegram.org/type/InputWallPaper for reference.
 //
 // Constructors:
-//   - [InputWallPaper]
-//   - [InputWallPaperSlug]
-//   - [InputWallPaperNoFile]
+//  - [InputWallPaper]
+//  - [InputWallPaperSlug]
+//  - [InputWallPaperNoFile]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputWallPaper(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputWallPaper: // inputWallPaper#e630b979
-//	case *tg.InputWallPaperSlug: // inputWallPaperSlug#72091c80
-//	case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#967a462e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputWallPaper(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputWallPaper: // inputWallPaper#e630b979
+//  case *tg.InputWallPaperSlug: // inputWallPaperSlug#72091c80
+//  case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#967a462e
+//  default: panic(v)
+//  }
 type InputWallPaperClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Update the description of a saved message tag »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // See https://core.telegram.org/method/messages.updateSavedReactionTag for reference.
 type MessagesUpdateSavedReactionTagRequest struct {
@@ -246,12 +246,11 @@ func (u *MessagesUpdateSavedReactionTagRequest) GetTitle() (value string, ok boo
 // Update the description of a saved message tag »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages#tags
+//  1) https://core.telegram.org/api/saved-messages#tags
 //
 // Possible errors:
-//
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	400 REACTION_INVALID: The specified reaction is invalid.
+//  403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 REACTION_INVALID: The specified reaction is invalid.
 //
 // See https://core.telegram.org/method/messages.updateSavedReactionTag for reference.
 func (c *Client) MessagesUpdateSavedReactionTag(ctx context.Context, request *MessagesUpdateSavedReactionTagRequest) (bool, error) {

@@ -862,22 +862,21 @@ const PQInnerDataClassName = "P_Q_inner_data"
 // PQInnerDataClass represents P_Q_inner_data generic type.
 //
 // Constructors:
-//   - [PQInnerData]
-//   - [PQInnerDataDC]
-//   - [PQInnerDataTempDC]
+//  - [PQInnerData]
+//  - [PQInnerDataDC]
+//  - [PQInnerDataTempDC]
 //
 // Example:
-//
-//	g, err := mt.DecodePQInnerData(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *mt.PQInnerData: // p_q_inner_data#83c95aec
-//	case *mt.PQInnerDataDC: // p_q_inner_data_dc#a9f55f95
-//	case *mt.PQInnerDataTempDC: // p_q_inner_data_temp_dc#56fddf88
-//	default: panic(v)
-//	}
+//  g, err := mt.DecodePQInnerData(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *mt.PQInnerData: // p_q_inner_data#83c95aec
+//  case *mt.PQInnerDataDC: // p_q_inner_data_dc#a9f55f95
+//  case *mt.PQInnerDataTempDC: // p_q_inner_data_temp_dc#56fddf88
+//  default: panic(v)
+//  }
 type PQInnerDataClass interface {
 	bin.Encoder
 	bin.Decoder

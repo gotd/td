@@ -344,11 +344,10 @@ func (s *MessagesSetBotCallbackAnswerRequest) GetCacheTime() (value int) {
 // Set the callback answer to a user button press (bots only)
 //
 // Possible errors:
-//
-//	400 MESSAGE_TOO_LONG: The provided message is too long.
-//	400 QUERY_ID_INVALID: The query ID is invalid.
-//	400 URL_INVALID: Invalid URL provided.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 MESSAGE_TOO_LONG: The provided message is too long.
+//  400 QUERY_ID_INVALID: The query ID is invalid.
+//  400 URL_INVALID: Invalid URL provided.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setBotCallbackAnswer for reference.
 // Can be used by bots.

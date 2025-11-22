@@ -237,8 +237,7 @@ func (t *StoriesTogglePinnedRequest) GetPinned() (value bool) {
 // Pin or unpin one or more stories
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.togglePinned for reference.
 func (c *Client) StoriesTogglePinned(ctx context.Context, request *StoriesTogglePinnedRequest) ([]int, error) {

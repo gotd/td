@@ -921,28 +921,27 @@ const UserStatusClassName = "UserStatus"
 // See https://core.telegram.org/type/UserStatus for reference.
 //
 // Constructors:
-//   - [UserStatusEmpty]
-//   - [UserStatusOnline]
-//   - [UserStatusOffline]
-//   - [UserStatusRecently]
-//   - [UserStatusLastWeek]
-//   - [UserStatusLastMonth]
+//  - [UserStatusEmpty]
+//  - [UserStatusOnline]
+//  - [UserStatusOffline]
+//  - [UserStatusRecently]
+//  - [UserStatusLastWeek]
+//  - [UserStatusLastMonth]
 //
 // Example:
-//
-//	g, err := tg.DecodeUserStatus(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UserStatusEmpty: // userStatusEmpty#9d05049
-//	case *tg.UserStatusOnline: // userStatusOnline#edb93949
-//	case *tg.UserStatusOffline: // userStatusOffline#8c703f
-//	case *tg.UserStatusRecently: // userStatusRecently#7b197dc8
-//	case *tg.UserStatusLastWeek: // userStatusLastWeek#541a1d1a
-//	case *tg.UserStatusLastMonth: // userStatusLastMonth#65899777
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUserStatus(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UserStatusEmpty: // userStatusEmpty#9d05049
+//  case *tg.UserStatusOnline: // userStatusOnline#edb93949
+//  case *tg.UserStatusOffline: // userStatusOffline#8c703f
+//  case *tg.UserStatusRecently: // userStatusRecently#7b197dc8
+//  case *tg.UserStatusLastWeek: // userStatusLastWeek#541a1d1a
+//  case *tg.UserStatusLastMonth: // userStatusLastMonth#65899777
+//  default: panic(v)
+//  }
 type UserStatusClass interface {
 	bin.Encoder
 	bin.Decoder

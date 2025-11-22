@@ -35,7 +35,7 @@ var (
 // Activate or deactivate a Telegram Star subscription »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/invites#paid-invite-links
+//  1) https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/method/payments.changeStarsSubscription for reference.
 type PaymentsChangeStarsSubscriptionRequest struct {
@@ -272,11 +272,10 @@ func (c *PaymentsChangeStarsSubscriptionRequest) GetCanceled() (value bool, ok b
 // Activate or deactivate a Telegram Star subscription »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/invites#paid-invite-links
+//  1) https://core.telegram.org/api/invites#paid-invite-links
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.changeStarsSubscription for reference.
 func (c *Client) PaymentsChangeStarsSubscription(ctx context.Context, request *PaymentsChangeStarsSubscriptionRequest) (bool, error) {

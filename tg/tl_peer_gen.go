@@ -444,22 +444,21 @@ const PeerClassName = "Peer"
 // See https://core.telegram.org/type/Peer for reference.
 //
 // Constructors:
-//   - [PeerUser]
-//   - [PeerChat]
-//   - [PeerChannel]
+//  - [PeerUser]
+//  - [PeerChat]
+//  - [PeerChannel]
 //
 // Example:
-//
-//	g, err := tg.DecodePeer(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.PeerUser: // peerUser#59511722
-//	case *tg.PeerChat: // peerChat#36c6019a
-//	case *tg.PeerChannel: // peerChannel#a2a5371e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodePeer(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.PeerUser: // peerUser#59511722
+//  case *tg.PeerChat: // peerChat#36c6019a
+//  case *tg.PeerChannel: // peerChannel#a2a5371e
+//  default: panic(v)
+//  }
 type PeerClass interface {
 	bin.Encoder
 	bin.Decoder

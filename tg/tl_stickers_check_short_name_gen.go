@@ -165,9 +165,8 @@ func (c *StickersCheckShortNameRequest) GetShortName() (value string) {
 // Check whether the given short name is available
 //
 // Possible errors:
-//
-//	400 SHORT_NAME_INVALID: The specified short name is invalid.
-//	400 SHORT_NAME_OCCUPIED: The specified short name is already in use.
+//  400 SHORT_NAME_INVALID: The specified short name is invalid.
+//  400 SHORT_NAME_OCCUPIED: The specified short name is already in use.
 //
 // See https://core.telegram.org/method/stickers.checkShortName for reference.
 func (c *Client) StickersCheckShortName(ctx context.Context, shortname string) (bool, error) {

@@ -35,7 +35,7 @@ var (
 // Get an invite link¹ for a group call or livestream
 //
 // Links:
-//  1. https://core.telegram.org/api/links#video-chat-livestream-links
+//  1) https://core.telegram.org/api/links#video-chat-livestream-links
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.
 type PhoneExportGroupCallInviteRequest struct {
@@ -231,12 +231,11 @@ func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCallClass
 // Get an invite link¹ for a group call or livestream
 //
 // Links:
-//  1. https://core.telegram.org/api/links#video-chat-livestream-links
+//  1) https://core.telegram.org/api/links#video-chat-livestream-links
 //
 // Possible errors:
-//
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
-//	403 PUBLIC_CHANNEL_MISSING: You can only export group call invite links for public chats or channels.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//  403 PUBLIC_CHANNEL_MISSING: You can only export group call invite links for public chats or channels.
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.
 func (c *Client) PhoneExportGroupCallInvite(ctx context.Context, request *PhoneExportGroupCallInviteRequest) (*PhoneExportedGroupCallInvite, error) {

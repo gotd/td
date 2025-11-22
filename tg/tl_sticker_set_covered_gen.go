@@ -389,8 +389,8 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 // messages.getStickerSet².
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/method/messages.getStickerSet
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/method/messages.getStickerSet
 //
 // See https://core.telegram.org/constructor/stickerSetFullCovered for reference.
 type StickerSetFullCovered struct {
@@ -801,24 +801,23 @@ const StickerSetCoveredClassName = "StickerSetCovered"
 // See https://core.telegram.org/type/StickerSetCovered for reference.
 //
 // Constructors:
-//   - [StickerSetCovered]
-//   - [StickerSetMultiCovered]
-//   - [StickerSetFullCovered]
-//   - [StickerSetNoCovered]
+//  - [StickerSetCovered]
+//  - [StickerSetMultiCovered]
+//  - [StickerSetFullCovered]
+//  - [StickerSetNoCovered]
 //
 // Example:
-//
-//	g, err := tg.DecodeStickerSetCovered(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
-//	case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
-//	case *tg.StickerSetFullCovered: // stickerSetFullCovered#40d13c0e
-//	case *tg.StickerSetNoCovered: // stickerSetNoCovered#77b15d1c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStickerSetCovered(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
+//  case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
+//  case *tg.StickerSetFullCovered: // stickerSetFullCovered#40d13c0e
+//  case *tg.StickerSetNoCovered: // stickerSetNoCovered#77b15d1c
+//  default: panic(v)
+//  }
 type StickerSetCoveredClass interface {
 	bin.Encoder
 	bin.Decoder

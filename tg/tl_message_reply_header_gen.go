@@ -35,7 +35,7 @@ var (
 // Message replies and thread¹ information
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/messageReplyHeader for reference.
 type MessageReplyHeader struct {
@@ -758,7 +758,7 @@ func (m *MessageReplyHeader) MapQuoteEntities() (value MessageEntityClassArray, 
 // Represents a reply to a story¹
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/messageReplyStoryHeader for reference.
 type MessageReplyStoryHeader struct {
@@ -932,20 +932,19 @@ const MessageReplyHeaderClassName = "MessageReplyHeader"
 // See https://core.telegram.org/type/MessageReplyHeader for reference.
 //
 // Constructors:
-//   - [MessageReplyHeader]
-//   - [MessageReplyStoryHeader]
+//  - [MessageReplyHeader]
+//  - [MessageReplyStoryHeader]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessageReplyHeader(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessageReplyHeader: // messageReplyHeader#6917560b
-//	case *tg.MessageReplyStoryHeader: // messageReplyStoryHeader#e5af939
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessageReplyHeader(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessageReplyHeader: // messageReplyHeader#6917560b
+//  case *tg.MessageReplyStoryHeader: // messageReplyStoryHeader#e5af939
+//  default: panic(v)
+//  }
 type MessageReplyHeaderClass interface {
 	bin.Encoder
 	bin.Decoder

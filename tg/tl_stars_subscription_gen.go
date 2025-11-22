@@ -35,7 +35,7 @@ var (
 // Represents a Telegram Star subscription »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/invites#paid-invite-links
+//  1) https://core.telegram.org/api/invites#paid-invite-links
 //
 // See https://core.telegram.org/constructor/starsSubscription for reference.
 type StarsSubscription struct {

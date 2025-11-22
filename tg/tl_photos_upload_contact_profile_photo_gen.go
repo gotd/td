@@ -493,9 +493,8 @@ func (u *PhotosUploadContactProfilePhotoRequest) GetVideoEmojiMarkup() (value Vi
 // The file, video and video_emoji_markup flags are mutually exclusive.
 //
 // Possible errors:
-//
-//	400 CONTACT_MISSING: The specified user is not a contact.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 CONTACT_MISSING: The specified user is not a contact.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadContactProfilePhoto for reference.
 func (c *Client) PhotosUploadContactProfilePhoto(ctx context.Context, request *PhotosUploadContactProfilePhotoRequest) (*PhotosPhoto, error) {

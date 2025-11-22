@@ -43,7 +43,7 @@ var (
 // hardcoded in the client.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#restriction-add-platforms
+//  1) https://core.telegram.org/api/config#restriction-add-platforms
 //
 // See https://core.telegram.org/constructor/restrictionReason for reference.
 type RestrictionReason struct {

@@ -197,9 +197,8 @@ func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
 // Start screen sharing in a call
 //
 // Possible errors:
-//
-//	400 GROUPCALL_INVALID: The specified group call is invalid.
-//	403 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//  403 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
 //
 // See https://core.telegram.org/method/phone.joinGroupCallPresentation for reference.
 func (c *Client) PhoneJoinGroupCallPresentation(ctx context.Context, request *PhoneJoinGroupCallPresentationRequest) (UpdatesClass, error) {

@@ -35,7 +35,7 @@ var (
 // Pin or unpin a saved message dialog »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.toggleSavedDialogPin for reference.
 type MessagesToggleSavedDialogPinRequest struct {
@@ -229,11 +229,10 @@ func (t *MessagesToggleSavedDialogPinRequest) GetPeer() (value InputDialogPeerCl
 // Pin or unpin a saved message dialog »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.toggleSavedDialogPin for reference.
 func (c *Client) MessagesToggleSavedDialogPin(ctx context.Context, request *MessagesToggleSavedDialogPinRequest) (bool, error) {

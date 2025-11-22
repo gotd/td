@@ -35,7 +35,7 @@ var (
 // Represents a username fragment collectible¹
 //
 // Links:
-//  1. https://core.telegram.org/api/fragment
+//  1) https://core.telegram.org/api/fragment
 //
 // See https://core.telegram.org/constructor/inputCollectibleUsername for reference.
 type InputCollectibleUsername struct {
@@ -173,7 +173,7 @@ func (i *InputCollectibleUsername) GetUsername() (value string) {
 // Represents a phone number fragment collectible¹
 //
 // Links:
-//  1. https://core.telegram.org/api/fragment
+//  1) https://core.telegram.org/api/fragment
 //
 // See https://core.telegram.org/constructor/inputCollectiblePhone for reference.
 type InputCollectiblePhone struct {
@@ -315,20 +315,19 @@ const InputCollectibleClassName = "InputCollectible"
 // See https://core.telegram.org/type/InputCollectible for reference.
 //
 // Constructors:
-//   - [InputCollectibleUsername]
-//   - [InputCollectiblePhone]
+//  - [InputCollectibleUsername]
+//  - [InputCollectiblePhone]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputCollectible(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputCollectibleUsername: // inputCollectibleUsername#e39460a9
-//	case *tg.InputCollectiblePhone: // inputCollectiblePhone#a2e214a4
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputCollectible(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputCollectibleUsername: // inputCollectibleUsername#e39460a9
+//  case *tg.InputCollectiblePhone: // inputCollectiblePhone#a2e214a4
+//  default: panic(v)
+//  }
 type InputCollectibleClass interface {
 	bin.Encoder
 	bin.Decoder

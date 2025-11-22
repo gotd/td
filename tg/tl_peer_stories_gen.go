@@ -35,7 +35,7 @@ var (
 // Stories¹ associated to a peer
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/peerStories for reference.
 type PeerStories struct {

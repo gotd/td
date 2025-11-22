@@ -383,20 +383,19 @@ const HelpUserInfoClassName = "help.UserInfo"
 // See https://core.telegram.org/type/help.UserInfo for reference.
 //
 // Constructors:
-//   - [HelpUserInfoEmpty]
-//   - [HelpUserInfo]
+//  - [HelpUserInfoEmpty]
+//  - [HelpUserInfo]
 //
 // Example:
-//
-//	g, err := tg.DecodeHelpUserInfo(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.HelpUserInfoEmpty: // help.userInfoEmpty#f3ae2eed
-//	case *tg.HelpUserInfo: // help.userInfo#1eb3758
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeHelpUserInfo(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.HelpUserInfoEmpty: // help.userInfoEmpty#f3ae2eed
+//  case *tg.HelpUserInfo: // help.userInfo#1eb3758
+//  default: panic(v)
+//  }
 type HelpUserInfoClass interface {
 	bin.Encoder
 	bin.Decoder

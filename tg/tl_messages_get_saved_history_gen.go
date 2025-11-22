@@ -35,7 +35,7 @@ var (
 // Returns saved messages »¹ forwarded from a specific peer
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.getSavedHistory for reference.
 type MessagesGetSavedHistoryRequest struct {
@@ -441,11 +441,10 @@ func (g *MessagesGetSavedHistoryRequest) GetHash() (value int64) {
 // Returns saved messages »¹ forwarded from a specific peer
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1) https://core.telegram.org/api/saved-messages
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getSavedHistory for reference.
 func (c *Client) MessagesGetSavedHistory(ctx context.Context, request *MessagesGetSavedHistoryRequest) (MessagesMessagesClass, error) {

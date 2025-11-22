@@ -441,22 +441,21 @@ const StarGiftAttributeIDClassName = "StarGiftAttributeId"
 // See https://core.telegram.org/type/StarGiftAttributeId for reference.
 //
 // Constructors:
-//   - [StarGiftAttributeIDModel]
-//   - [StarGiftAttributeIDPattern]
-//   - [StarGiftAttributeIDBackdrop]
+//  - [StarGiftAttributeIDModel]
+//  - [StarGiftAttributeIDPattern]
+//  - [StarGiftAttributeIDBackdrop]
 //
 // Example:
-//
-//	g, err := tg.DecodeStarGiftAttributeID(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StarGiftAttributeIDModel: // starGiftAttributeIdModel#48aaae3c
-//	case *tg.StarGiftAttributeIDPattern: // starGiftAttributeIdPattern#4a162433
-//	case *tg.StarGiftAttributeIDBackdrop: // starGiftAttributeIdBackdrop#1f01c757
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStarGiftAttributeID(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StarGiftAttributeIDModel: // starGiftAttributeIdModel#48aaae3c
+//  case *tg.StarGiftAttributeIDPattern: // starGiftAttributeIdPattern#4a162433
+//  case *tg.StarGiftAttributeIDBackdrop: // starGiftAttributeIdBackdrop#1f01c757
+//  default: panic(v)
+//  }
 type StarGiftAttributeIDClass interface {
 	bin.Encoder
 	bin.Decoder

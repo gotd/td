@@ -36,7 +36,7 @@ var (
 // info & so on)
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.getPasswordSettings for reference.
 type AccountGetPasswordSettingsRequest struct {
@@ -183,11 +183,10 @@ func (g *AccountGetPasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheck
 // info & so on)
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // Possible errors:
-//
-//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
+//  400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
 //
 // See https://core.telegram.org/method/account.getPasswordSettings for reference.
 func (c *Client) AccountGetPasswordSettings(ctx context.Context, password InputCheckPasswordSRPClass) (*AccountPasswordSettings, error) {

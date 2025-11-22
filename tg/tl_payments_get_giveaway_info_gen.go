@@ -35,7 +35,7 @@ var (
 // Obtain information about a Telegram Premium giveaway »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.getGiveawayInfo for reference.
 type PaymentsGetGiveawayInfoRequest struct {
@@ -203,11 +203,10 @@ func (g *PaymentsGetGiveawayInfoRequest) GetMsgID() (value int) {
 // Obtain information about a Telegram Premium giveaway »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getGiveawayInfo for reference.
 func (c *Client) PaymentsGetGiveawayInfo(ctx context.Context, request *PaymentsGetGiveawayInfoRequest) (PaymentsGiveawayInfoClass, error) {

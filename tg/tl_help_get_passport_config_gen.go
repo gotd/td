@@ -35,7 +35,7 @@ var (
 // Get passport¹ configuration
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/help.getPassportConfig for reference.
 type HelpGetPassportConfigRequest struct {
@@ -171,7 +171,7 @@ func (g *HelpGetPassportConfigRequest) GetHash() (value int) {
 // Get passport¹ configuration
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/help.getPassportConfig for reference.
 func (c *Client) HelpGetPassportConfig(ctx context.Context, hash int) (HelpPassportConfigClass, error) {

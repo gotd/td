@@ -36,8 +36,8 @@ var (
 // re-invoked, passing the option's option identifier to messages.report².option.
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.report
-//  2. https://core.telegram.org/method/messages.report
+//  1) https://core.telegram.org/method/messages.report
+//  2) https://core.telegram.org/method/messages.report
 //
 // See https://core.telegram.org/constructor/reportResultChooseOption for reference.
 type ReportResultChooseOption struct {
@@ -218,8 +218,8 @@ func (r *ReportResultChooseOption) GetOptions() (value []MessageReportOption) {
 // report¹ must be re-invoked, passing the comment to messages.report².message.
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.report
-//  2. https://core.telegram.org/method/messages.report
+//  1) https://core.telegram.org/method/messages.report
+//  2) https://core.telegram.org/method/messages.report
 //
 // See https://core.telegram.org/constructor/reportResultAddComment for reference.
 type ReportResultAddComment struct {
@@ -526,22 +526,21 @@ const ReportResultClassName = "ReportResult"
 // See https://core.telegram.org/type/ReportResult for reference.
 //
 // Constructors:
-//   - [ReportResultChooseOption]
-//   - [ReportResultAddComment]
-//   - [ReportResultReported]
+//  - [ReportResultChooseOption]
+//  - [ReportResultAddComment]
+//  - [ReportResultReported]
 //
 // Example:
-//
-//	g, err := tg.DecodeReportResult(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ReportResultChooseOption: // reportResultChooseOption#f0e4e0b6
-//	case *tg.ReportResultAddComment: // reportResultAddComment#6f09ac31
-//	case *tg.ReportResultReported: // reportResultReported#8db33c4b
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeReportResult(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ReportResultChooseOption: // reportResultChooseOption#f0e4e0b6
+//  case *tg.ReportResultAddComment: // reportResultAddComment#6f09ac31
+//  case *tg.ReportResultReported: // reportResultReported#8db33c4b
+//  default: panic(v)
+//  }
 type ReportResultClass interface {
 	bin.Encoder
 	bin.Decoder

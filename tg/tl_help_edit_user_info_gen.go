@@ -250,9 +250,8 @@ func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassArray) 
 // Internal use
 //
 // Possible errors:
-//
-//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
-//	403 USER_INVALID: Invalid user provided.
+//  400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//  403 USER_INVALID: Invalid user provided.
 //
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {

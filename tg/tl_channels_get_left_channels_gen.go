@@ -36,8 +36,8 @@ var (
 // for more info².
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/takeout
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/takeout
 //
 // See https://core.telegram.org/method/channels.getLeftChannels for reference.
 type ChannelsGetLeftChannelsRequest struct {
@@ -174,12 +174,11 @@ func (g *ChannelsGetLeftChannelsRequest) GetOffset() (value int) {
 // for more info².
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/takeout
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/takeout
 //
 // Possible errors:
-//
-//	403 TAKEOUT_REQUIRED: A takeout session needs to be initialized first, see here » for more info.
+//  403 TAKEOUT_REQUIRED: A takeout session needs to be initialized first, see here » for more info.
 //
 // See https://core.telegram.org/method/channels.getLeftChannels for reference.
 func (c *Client) ChannelsGetLeftChannels(ctx context.Context, offset int) (MessagesChatsClass, error) {

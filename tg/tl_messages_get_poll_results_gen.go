@@ -197,9 +197,8 @@ func (g *MessagesGetPollResultsRequest) GetMsgID() (value int) {
 // Get poll results
 //
 // Possible errors:
-//
-//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getPollResults for reference.
 func (c *Client) MessagesGetPollResults(ctx context.Context, request *MessagesGetPollResultsRequest) (UpdatesClass, error) {

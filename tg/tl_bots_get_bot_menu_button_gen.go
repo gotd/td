@@ -36,8 +36,8 @@ var (
 // bots.setBotMenuButton¹; users can see this information in the botInfo² constructor.
 //
 // Links:
-//  1. https://core.telegram.org/method/bots.setBotMenuButton
-//  2. https://core.telegram.org/constructor/botInfo
+//  1) https://core.telegram.org/method/bots.setBotMenuButton
+//  2) https://core.telegram.org/constructor/botInfo
 //
 // See https://core.telegram.org/method/bots.getBotMenuButton for reference.
 type BotsGetBotMenuButtonRequest struct {
@@ -176,12 +176,11 @@ func (g *BotsGetBotMenuButtonRequest) GetUserID() (value InputUserClass) {
 // bots.setBotMenuButton¹; users can see this information in the botInfo² constructor.
 //
 // Links:
-//  1. https://core.telegram.org/method/bots.setBotMenuButton
-//  2. https://core.telegram.org/constructor/botInfo
+//  1) https://core.telegram.org/method/bots.setBotMenuButton
+//  2) https://core.telegram.org/constructor/botInfo
 //
 // Possible errors:
-//
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.getBotMenuButton for reference.
 // Can be used by bots.

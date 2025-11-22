@@ -36,7 +36,7 @@ var (
 // account.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#business-chat-links
+//  1) https://core.telegram.org/api/business#business-chat-links
 //
 // See https://core.telegram.org/constructor/inputBusinessChatLink for reference.
 type InputBusinessChatLink struct {

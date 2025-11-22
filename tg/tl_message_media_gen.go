@@ -2691,7 +2691,7 @@ func (m *MessageMediaInvoice) GetExtendedMedia() (value MessageExtendedMediaClas
 // Indicates a live geolocation¹
 //
 // Links:
-//  1. https://core.telegram.org/api/live-location
+//  1) https://core.telegram.org/api/live-location
 //
 // See https://core.telegram.org/constructor/messageMediaGeoLive for reference.
 type MessageMediaGeoLive struct {
@@ -3147,7 +3147,7 @@ func (m *MessageMediaPoll) GetResults() (value PollResults) {
 // Dice-based animated sticker¹
 //
 // Links:
-//  1. https://core.telegram.org/api/dice
+//  1) https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
@@ -3315,7 +3315,7 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 // Represents a forwarded story¹ or a story mention.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/messageMediaStory for reference.
 type MessageMediaStory struct {
@@ -3600,7 +3600,7 @@ func (m *MessageMediaStory) GetStory() (value StoryItemClass, ok bool) {
 // Contains info about a giveaway, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/messageMediaGiveaway for reference.
 type MessageMediaGiveaway struct {
@@ -4119,7 +4119,7 @@ func (m *MessageMediaGiveaway) GetUntilDate() (value int) {
 // the winners.
 //
 // Links:
-//  1. https://core.telegram.org/api/giveaways
+//  1) https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/messageMediaGiveawayResults for reference.
 type MessageMediaGiveawayResults struct {
@@ -4700,7 +4700,7 @@ func (m *MessageMediaGiveawayResults) GetUntilDate() (value int) {
 // Paid media, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/paid-media
+//  1) https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/messageMediaPaidMedia for reference.
 type MessageMediaPaidMedia struct {
@@ -5309,54 +5309,53 @@ const MessageMediaClassName = "MessageMedia"
 // See https://core.telegram.org/type/MessageMedia for reference.
 //
 // Constructors:
-//   - [MessageMediaEmpty]
-//   - [MessageMediaPhoto]
-//   - [MessageMediaGeo]
-//   - [MessageMediaContact]
-//   - [MessageMediaUnsupported]
-//   - [MessageMediaDocument]
-//   - [MessageMediaWebPage]
-//   - [MessageMediaVenue]
-//   - [MessageMediaGame]
-//   - [MessageMediaInvoice]
-//   - [MessageMediaGeoLive]
-//   - [MessageMediaPoll]
-//   - [MessageMediaDice]
-//   - [MessageMediaStory]
-//   - [MessageMediaGiveaway]
-//   - [MessageMediaGiveawayResults]
-//   - [MessageMediaPaidMedia]
-//   - [MessageMediaToDo]
-//   - [MessageMediaVideoStream]
+//  - [MessageMediaEmpty]
+//  - [MessageMediaPhoto]
+//  - [MessageMediaGeo]
+//  - [MessageMediaContact]
+//  - [MessageMediaUnsupported]
+//  - [MessageMediaDocument]
+//  - [MessageMediaWebPage]
+//  - [MessageMediaVenue]
+//  - [MessageMediaGame]
+//  - [MessageMediaInvoice]
+//  - [MessageMediaGeoLive]
+//  - [MessageMediaPoll]
+//  - [MessageMediaDice]
+//  - [MessageMediaStory]
+//  - [MessageMediaGiveaway]
+//  - [MessageMediaGiveawayResults]
+//  - [MessageMediaPaidMedia]
+//  - [MessageMediaToDo]
+//  - [MessageMediaVideoStream]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessageMedia(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessageMediaEmpty: // messageMediaEmpty#3ded6320
-//	case *tg.MessageMediaPhoto: // messageMediaPhoto#695150d7
-//	case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
-//	case *tg.MessageMediaContact: // messageMediaContact#70322949
-//	case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
-//	case *tg.MessageMediaDocument: // messageMediaDocument#52d8ccd9
-//	case *tg.MessageMediaWebPage: // messageMediaWebPage#ddf10c3b
-//	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
-//	case *tg.MessageMediaGame: // messageMediaGame#fdb19008
-//	case *tg.MessageMediaInvoice: // messageMediaInvoice#f6a548d3
-//	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
-//	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
-//	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
-//	case *tg.MessageMediaStory: // messageMediaStory#68cb6283
-//	case *tg.MessageMediaGiveaway: // messageMediaGiveaway#aa073beb
-//	case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#ceaa3ea1
-//	case *tg.MessageMediaPaidMedia: // messageMediaPaidMedia#a8852491
-//	case *tg.MessageMediaToDo: // messageMediaToDo#8a53b014
-//	case *tg.MessageMediaVideoStream: // messageMediaVideoStream#ca5cab89
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessageMedia(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessageMediaEmpty: // messageMediaEmpty#3ded6320
+//  case *tg.MessageMediaPhoto: // messageMediaPhoto#695150d7
+//  case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
+//  case *tg.MessageMediaContact: // messageMediaContact#70322949
+//  case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
+//  case *tg.MessageMediaDocument: // messageMediaDocument#52d8ccd9
+//  case *tg.MessageMediaWebPage: // messageMediaWebPage#ddf10c3b
+//  case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
+//  case *tg.MessageMediaGame: // messageMediaGame#fdb19008
+//  case *tg.MessageMediaInvoice: // messageMediaInvoice#f6a548d3
+//  case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
+//  case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
+//  case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
+//  case *tg.MessageMediaStory: // messageMediaStory#68cb6283
+//  case *tg.MessageMediaGiveaway: // messageMediaGiveaway#aa073beb
+//  case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#ceaa3ea1
+//  case *tg.MessageMediaPaidMedia: // messageMediaPaidMedia#a8852491
+//  case *tg.MessageMediaToDo: // messageMediaToDo#8a53b014
+//  case *tg.MessageMediaVideoStream: // messageMediaVideoStream#ca5cab89
+//  default: panic(v)
+//  }
 type MessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder

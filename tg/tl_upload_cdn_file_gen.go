@@ -36,7 +36,7 @@ var (
 // re-uploaded.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.cdnFileReuploadNeeded for reference.
 type UploadCDNFileReuploadNeeded struct {
@@ -177,7 +177,7 @@ func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
 // Represent a chunk of a CDN¹ file.
 //
 // Links:
-//  1. https://core.telegram.org/cdn
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.cdnFile for reference.
 type UploadCDNFile struct {
@@ -319,20 +319,19 @@ const UploadCDNFileClassName = "upload.CdnFile"
 // See https://core.telegram.org/type/upload.CdnFile for reference.
 //
 // Constructors:
-//   - [UploadCDNFileReuploadNeeded]
-//   - [UploadCDNFile]
+//  - [UploadCDNFileReuploadNeeded]
+//  - [UploadCDNFile]
 //
 // Example:
-//
-//	g, err := tg.DecodeUploadCDNFile(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UploadCDNFileReuploadNeeded: // upload.cdnFileReuploadNeeded#eea8e46e
-//	case *tg.UploadCDNFile: // upload.cdnFile#a99fca4f
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUploadCDNFile(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UploadCDNFileReuploadNeeded: // upload.cdnFileReuploadNeeded#eea8e46e
+//  case *tg.UploadCDNFile: // upload.cdnFile#a99fca4f
+//  default: panic(v)
+//  }
 type UploadCDNFileClass interface {
 	bin.Encoder
 	bin.Decoder

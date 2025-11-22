@@ -39,8 +39,8 @@ var (
 // being used.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
-//  2. https://core.telegram.org/constructor/botBusinessConnection
+//  1) https://core.telegram.org/api/business#connected-bots
+//  2) https://core.telegram.org/constructor/botBusinessConnection
 //
 // See https://core.telegram.org/constructor/invokeWithBusinessConnection for reference.
 type InvokeWithBusinessConnectionRequest struct {

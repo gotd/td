@@ -35,7 +35,7 @@ var (
 // The full list of usable animated message effects »¹ hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/effects
+//  1) https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/constructor/messages.availableEffectsNotModified for reference.
 type MessagesAvailableEffectsNotModified struct {
@@ -140,7 +140,7 @@ func (a *MessagesAvailableEffectsNotModified) DecodeBare(b *bin.Buffer) error {
 // The full list of usable animated message effects »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/effects
+//  1) https://core.telegram.org/api/effects
 //
 // See https://core.telegram.org/constructor/messages.availableEffects for reference.
 type MessagesAvailableEffects struct {
@@ -377,20 +377,19 @@ const MessagesAvailableEffectsClassName = "messages.AvailableEffects"
 // See https://core.telegram.org/type/messages.AvailableEffects for reference.
 //
 // Constructors:
-//   - [MessagesAvailableEffectsNotModified]
-//   - [MessagesAvailableEffects]
+//  - [MessagesAvailableEffectsNotModified]
+//  - [MessagesAvailableEffects]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesAvailableEffects(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesAvailableEffectsNotModified: // messages.availableEffectsNotModified#d1ed9a5b
-//	case *tg.MessagesAvailableEffects: // messages.availableEffects#bddb616e
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesAvailableEffects(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesAvailableEffectsNotModified: // messages.availableEffectsNotModified#d1ed9a5b
+//  case *tg.MessagesAvailableEffects: // messages.availableEffects#bddb616e
+//  default: panic(v)
+//  }
 type MessagesAvailableEffectsClass interface {
 	bin.Encoder
 	bin.Decoder

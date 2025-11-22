@@ -36,7 +36,7 @@ var (
 // layer.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerUnsupported for reference.
 type StarsTransactionPeerUnsupported struct {
@@ -142,7 +142,7 @@ func (s *StarsTransactionPeerUnsupported) DecodeBare(b *bin.Buffer) error {
 // Telegram Stars through the App Store.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerAppStore for reference.
 type StarsTransactionPeerAppStore struct {
@@ -248,7 +248,7 @@ func (s *StarsTransactionPeerAppStore) DecodeBare(b *bin.Buffer) error {
 // Telegram Stars through the Play Store.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerPlayMarket for reference.
 type StarsTransactionPeerPlayMarket struct {
@@ -354,10 +354,10 @@ func (s *StarsTransactionPeerPlayMarket) DecodeBare(b *bin.Buffer) error {
 // inputInvoiceStars³ flow described here »⁴).
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://t.me/premiumbot
-//  3. https://core.telegram.org/constructor/inputInvoiceStars
-//  4. https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  1) https://core.telegram.org/api/stars
+//  2) https://t.me/premiumbot
+//  3) https://core.telegram.org/constructor/inputInvoiceStars
+//  4) https://core.telegram.org/api/stars#buying-or-gifting-stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerPremiumBot for reference.
 type StarsTransactionPeerPremiumBot struct {
@@ -463,9 +463,9 @@ func (s *StarsTransactionPeerPremiumBot) DecodeBare(b *bin.Buffer) error {
 // Stars through Fragment³.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://fragment.com
-//  3. https://fragment.com
+//  1) https://core.telegram.org/api/stars
+//  2) https://fragment.com
+//  3) https://fragment.com
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerFragment for reference.
 type StarsTransactionPeerFragment struct {
@@ -570,7 +570,7 @@ func (s *StarsTransactionPeerFragment) DecodeBare(b *bin.Buffer) error {
 // Describes a Telegram Star¹ transaction with another peer.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/starsTransactionPeer for reference.
 type StarsTransactionPeer struct {
@@ -714,8 +714,8 @@ func (s *StarsTransactionPeer) GetPeer() (value PeerClass) {
 // »².
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://core.telegram.org/api/stars#paying-for-ads
+//  1) https://core.telegram.org/api/stars
+//  2) https://core.telegram.org/api/stars#paying-for-ads
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerAds for reference.
 type StarsTransactionPeerAds struct {
@@ -821,8 +821,8 @@ func (s *StarsTransactionPeerAds) DecodeBare(b *bin.Buffer) error {
 // bot broadcasts².
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
-//  2. https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once
+//  1) https://core.telegram.org/api/stars
+//  2) https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once
 //
 // See https://core.telegram.org/constructor/starsTransactionPeerAPI for reference.
 type StarsTransactionPeerAPI struct {
@@ -931,32 +931,31 @@ const StarsTransactionPeerClassName = "StarsTransactionPeer"
 // See https://core.telegram.org/type/StarsTransactionPeer for reference.
 //
 // Constructors:
-//   - [StarsTransactionPeerUnsupported]
-//   - [StarsTransactionPeerAppStore]
-//   - [StarsTransactionPeerPlayMarket]
-//   - [StarsTransactionPeerPremiumBot]
-//   - [StarsTransactionPeerFragment]
-//   - [StarsTransactionPeer]
-//   - [StarsTransactionPeerAds]
-//   - [StarsTransactionPeerAPI]
+//  - [StarsTransactionPeerUnsupported]
+//  - [StarsTransactionPeerAppStore]
+//  - [StarsTransactionPeerPlayMarket]
+//  - [StarsTransactionPeerPremiumBot]
+//  - [StarsTransactionPeerFragment]
+//  - [StarsTransactionPeer]
+//  - [StarsTransactionPeerAds]
+//  - [StarsTransactionPeerAPI]
 //
 // Example:
-//
-//	g, err := tg.DecodeStarsTransactionPeer(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StarsTransactionPeerUnsupported: // starsTransactionPeerUnsupported#95f2bfe4
-//	case *tg.StarsTransactionPeerAppStore: // starsTransactionPeerAppStore#b457b375
-//	case *tg.StarsTransactionPeerPlayMarket: // starsTransactionPeerPlayMarket#7b560a0b
-//	case *tg.StarsTransactionPeerPremiumBot: // starsTransactionPeerPremiumBot#250dbaf8
-//	case *tg.StarsTransactionPeerFragment: // starsTransactionPeerFragment#e92fd902
-//	case *tg.StarsTransactionPeer: // starsTransactionPeer#d80da15d
-//	case *tg.StarsTransactionPeerAds: // starsTransactionPeerAds#60682812
-//	case *tg.StarsTransactionPeerAPI: // starsTransactionPeerAPI#f9677aad
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStarsTransactionPeer(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StarsTransactionPeerUnsupported: // starsTransactionPeerUnsupported#95f2bfe4
+//  case *tg.StarsTransactionPeerAppStore: // starsTransactionPeerAppStore#b457b375
+//  case *tg.StarsTransactionPeerPlayMarket: // starsTransactionPeerPlayMarket#7b560a0b
+//  case *tg.StarsTransactionPeerPremiumBot: // starsTransactionPeerPremiumBot#250dbaf8
+//  case *tg.StarsTransactionPeerFragment: // starsTransactionPeerFragment#e92fd902
+//  case *tg.StarsTransactionPeer: // starsTransactionPeer#d80da15d
+//  case *tg.StarsTransactionPeerAds: // starsTransactionPeerAds#60682812
+//  case *tg.StarsTransactionPeerAPI: // starsTransactionPeerAPI#f9677aad
+//  default: panic(v)
+//  }
 type StarsTransactionPeerClass interface {
 	bin.Encoder
 	bin.Decoder

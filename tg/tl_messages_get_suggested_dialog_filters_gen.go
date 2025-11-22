@@ -35,7 +35,7 @@ var (
 // Get suggested folders¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
 type MessagesGetSuggestedDialogFiltersRequest struct {
@@ -135,7 +135,7 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) DecodeBare(b *bin.Buffer) err
 // Get suggested folders¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
 func (c *Client) MessagesGetSuggestedDialogFilters(ctx context.Context) ([]DialogFilterSuggested, error) {

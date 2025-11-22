@@ -37,8 +37,8 @@ var (
 // prolongWebView¹ must be called every 60 seconds.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
-//  2. https://core.telegram.org/method/messages.prolongWebView
+//  1) https://core.telegram.org/bots/webapps
+//  2) https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 type MessagesRequestWebViewRequest struct {
@@ -689,21 +689,20 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // prolongWebView¹ must be called every 60 seconds.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
-//  2. https://core.telegram.org/method/messages.prolongWebView
+//  1) https://core.telegram.org/bots/webapps
+//  2) https://core.telegram.org/method/messages.prolongWebView
 //
 // Possible errors:
-//
-//	400 BOT_INVALID: This is not a valid bot.
-//	400 BOT_WEBVIEW_DISABLED: A webview cannot be opened in the specified conditions: emitted for example if from_bot_menu or url are set and peer is not the chat with the bot.
-//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
-//	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
-//	400 THEME_PARAMS_INVALID: The specified theme_params field is invalid.
-//	400 URL_INVALID: Invalid URL provided.
-//	400 YOU_BLOCKED_USER: You blocked this user.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 BOT_WEBVIEW_DISABLED: A webview cannot be opened in the specified conditions: emitted for example if from_bot_menu or url are set and peer is not the chat with the bot.
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//  400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
+//  400 THEME_PARAMS_INVALID: The specified theme_params field is invalid.
+//  400 URL_INVALID: Invalid URL provided.
+//  400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 func (c *Client) MessagesRequestWebView(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error) {

@@ -544,24 +544,23 @@ const NotificationSoundClassName = "NotificationSound"
 // See https://core.telegram.org/type/NotificationSound for reference.
 //
 // Constructors:
-//   - [NotificationSoundDefault]
-//   - [NotificationSoundNone]
-//   - [NotificationSoundLocal]
-//   - [NotificationSoundRingtone]
+//  - [NotificationSoundDefault]
+//  - [NotificationSoundNone]
+//  - [NotificationSoundLocal]
+//  - [NotificationSoundRingtone]
 //
 // Example:
-//
-//	g, err := tg.DecodeNotificationSound(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.NotificationSoundDefault: // notificationSoundDefault#97e8bebe
-//	case *tg.NotificationSoundNone: // notificationSoundNone#6f0c34df
-//	case *tg.NotificationSoundLocal: // notificationSoundLocal#830b9ae4
-//	case *tg.NotificationSoundRingtone: // notificationSoundRingtone#ff6c8049
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeNotificationSound(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.NotificationSoundDefault: // notificationSoundDefault#97e8bebe
+//  case *tg.NotificationSoundNone: // notificationSoundNone#6f0c34df
+//  case *tg.NotificationSoundLocal: // notificationSoundLocal#830b9ae4
+//  case *tg.NotificationSoundRingtone: // notificationSoundRingtone#ff6c8049
+//  default: panic(v)
+//  }
 type NotificationSoundClass interface {
 	bin.Encoder
 	bin.Decoder

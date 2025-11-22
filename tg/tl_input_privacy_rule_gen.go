@@ -1055,7 +1055,7 @@ func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 // Allow only close friends »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/privacy
+//  1) https://core.telegram.org/api/privacy
 //
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowCloseFriends for reference.
 type InputPrivacyValueAllowCloseFriends struct {
@@ -1161,8 +1161,8 @@ func (i *InputPrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
 // inputPrivacyKeyChatInvite².
 //
 // Links:
-//  1. https://core.telegram.org/api/premium
-//  2. https://core.telegram.org/constructor/inputPrivacyKeyChatInvite
+//  1) https://core.telegram.org/api/premium
+//  2) https://core.telegram.org/constructor/inputPrivacyKeyChatInvite
 //
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowPremium for reference.
 type InputPrivacyValueAllowPremium struct {
@@ -1475,40 +1475,39 @@ const InputPrivacyRuleClassName = "InputPrivacyRule"
 // See https://core.telegram.org/type/InputPrivacyRule for reference.
 //
 // Constructors:
-//   - [InputPrivacyValueAllowContacts]
-//   - [InputPrivacyValueAllowAll]
-//   - [InputPrivacyValueAllowUsers]
-//   - [InputPrivacyValueDisallowContacts]
-//   - [InputPrivacyValueDisallowAll]
-//   - [InputPrivacyValueDisallowUsers]
-//   - [InputPrivacyValueAllowChatParticipants]
-//   - [InputPrivacyValueDisallowChatParticipants]
-//   - [InputPrivacyValueAllowCloseFriends]
-//   - [InputPrivacyValueAllowPremium]
-//   - [InputPrivacyValueAllowBots]
-//   - [InputPrivacyValueDisallowBots]
+//  - [InputPrivacyValueAllowContacts]
+//  - [InputPrivacyValueAllowAll]
+//  - [InputPrivacyValueAllowUsers]
+//  - [InputPrivacyValueDisallowContacts]
+//  - [InputPrivacyValueDisallowAll]
+//  - [InputPrivacyValueDisallowUsers]
+//  - [InputPrivacyValueAllowChatParticipants]
+//  - [InputPrivacyValueDisallowChatParticipants]
+//  - [InputPrivacyValueAllowCloseFriends]
+//  - [InputPrivacyValueAllowPremium]
+//  - [InputPrivacyValueAllowBots]
+//  - [InputPrivacyValueDisallowBots]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputPrivacyRule(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputPrivacyValueAllowContacts: // inputPrivacyValueAllowContacts#d09e07b
-//	case *tg.InputPrivacyValueAllowAll: // inputPrivacyValueAllowAll#184b35ce
-//	case *tg.InputPrivacyValueAllowUsers: // inputPrivacyValueAllowUsers#131cc67f
-//	case *tg.InputPrivacyValueDisallowContacts: // inputPrivacyValueDisallowContacts#ba52007
-//	case *tg.InputPrivacyValueDisallowAll: // inputPrivacyValueDisallowAll#d66b66c9
-//	case *tg.InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
-//	case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#840649cf
-//	case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
-//	case *tg.InputPrivacyValueAllowCloseFriends: // inputPrivacyValueAllowCloseFriends#2f453e49
-//	case *tg.InputPrivacyValueAllowPremium: // inputPrivacyValueAllowPremium#77cdc9f1
-//	case *tg.InputPrivacyValueAllowBots: // inputPrivacyValueAllowBots#5a4fcce5
-//	case *tg.InputPrivacyValueDisallowBots: // inputPrivacyValueDisallowBots#c4e57915
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputPrivacyRule(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputPrivacyValueAllowContacts: // inputPrivacyValueAllowContacts#d09e07b
+//  case *tg.InputPrivacyValueAllowAll: // inputPrivacyValueAllowAll#184b35ce
+//  case *tg.InputPrivacyValueAllowUsers: // inputPrivacyValueAllowUsers#131cc67f
+//  case *tg.InputPrivacyValueDisallowContacts: // inputPrivacyValueDisallowContacts#ba52007
+//  case *tg.InputPrivacyValueDisallowAll: // inputPrivacyValueDisallowAll#d66b66c9
+//  case *tg.InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
+//  case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#840649cf
+//  case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
+//  case *tg.InputPrivacyValueAllowCloseFriends: // inputPrivacyValueAllowCloseFriends#2f453e49
+//  case *tg.InputPrivacyValueAllowPremium: // inputPrivacyValueAllowPremium#77cdc9f1
+//  case *tg.InputPrivacyValueAllowBots: // inputPrivacyValueAllowBots#5a4fcce5
+//  case *tg.InputPrivacyValueDisallowBots: // inputPrivacyValueDisallowBots#c4e57915
+//  default: panic(v)
+//  }
 type InputPrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -1807,42 +1807,41 @@ const DecryptedMessageActionClassName = "DecryptedMessageAction"
 // See https://core.telegram.org/type/DecryptedMessageAction for reference.
 //
 // Constructors:
-//   - [DecryptedMessageActionSetMessageTTL]
-//   - [DecryptedMessageActionReadMessages]
-//   - [DecryptedMessageActionDeleteMessages]
-//   - [DecryptedMessageActionScreenshotMessages]
-//   - [DecryptedMessageActionFlushHistory]
-//   - [DecryptedMessageActionResend]
-//   - [DecryptedMessageActionNotifyLayer]
-//   - [DecryptedMessageActionTyping]
-//   - [DecryptedMessageActionRequestKey]
-//   - [DecryptedMessageActionAcceptKey]
-//   - [DecryptedMessageActionAbortKey]
-//   - [DecryptedMessageActionCommitKey]
-//   - [DecryptedMessageActionNoop]
+//  - [DecryptedMessageActionSetMessageTTL]
+//  - [DecryptedMessageActionReadMessages]
+//  - [DecryptedMessageActionDeleteMessages]
+//  - [DecryptedMessageActionScreenshotMessages]
+//  - [DecryptedMessageActionFlushHistory]
+//  - [DecryptedMessageActionResend]
+//  - [DecryptedMessageActionNotifyLayer]
+//  - [DecryptedMessageActionTyping]
+//  - [DecryptedMessageActionRequestKey]
+//  - [DecryptedMessageActionAcceptKey]
+//  - [DecryptedMessageActionAbortKey]
+//  - [DecryptedMessageActionCommitKey]
+//  - [DecryptedMessageActionNoop]
 //
 // Example:
-//
-//	g, err := e2e.DecodeDecryptedMessageAction(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *e2e.DecryptedMessageActionSetMessageTTL: // decryptedMessageActionSetMessageTTL#a1733aec
-//	case *e2e.DecryptedMessageActionReadMessages: // decryptedMessageActionReadMessages#c4f40be
-//	case *e2e.DecryptedMessageActionDeleteMessages: // decryptedMessageActionDeleteMessages#65614304
-//	case *e2e.DecryptedMessageActionScreenshotMessages: // decryptedMessageActionScreenshotMessages#8ac1f475
-//	case *e2e.DecryptedMessageActionFlushHistory: // decryptedMessageActionFlushHistory#6719e45c
-//	case *e2e.DecryptedMessageActionResend: // decryptedMessageActionResend#511110b0
-//	case *e2e.DecryptedMessageActionNotifyLayer: // decryptedMessageActionNotifyLayer#f3048883
-//	case *e2e.DecryptedMessageActionTyping: // decryptedMessageActionTyping#ccb27641
-//	case *e2e.DecryptedMessageActionRequestKey: // decryptedMessageActionRequestKey#f3c9611b
-//	case *e2e.DecryptedMessageActionAcceptKey: // decryptedMessageActionAcceptKey#6fe1735b
-//	case *e2e.DecryptedMessageActionAbortKey: // decryptedMessageActionAbortKey#dd05ec6b
-//	case *e2e.DecryptedMessageActionCommitKey: // decryptedMessageActionCommitKey#ec2e0b9b
-//	case *e2e.DecryptedMessageActionNoop: // decryptedMessageActionNoop#a82fdd63
-//	default: panic(v)
-//	}
+//  g, err := e2e.DecodeDecryptedMessageAction(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *e2e.DecryptedMessageActionSetMessageTTL: // decryptedMessageActionSetMessageTTL#a1733aec
+//  case *e2e.DecryptedMessageActionReadMessages: // decryptedMessageActionReadMessages#c4f40be
+//  case *e2e.DecryptedMessageActionDeleteMessages: // decryptedMessageActionDeleteMessages#65614304
+//  case *e2e.DecryptedMessageActionScreenshotMessages: // decryptedMessageActionScreenshotMessages#8ac1f475
+//  case *e2e.DecryptedMessageActionFlushHistory: // decryptedMessageActionFlushHistory#6719e45c
+//  case *e2e.DecryptedMessageActionResend: // decryptedMessageActionResend#511110b0
+//  case *e2e.DecryptedMessageActionNotifyLayer: // decryptedMessageActionNotifyLayer#f3048883
+//  case *e2e.DecryptedMessageActionTyping: // decryptedMessageActionTyping#ccb27641
+//  case *e2e.DecryptedMessageActionRequestKey: // decryptedMessageActionRequestKey#f3c9611b
+//  case *e2e.DecryptedMessageActionAcceptKey: // decryptedMessageActionAcceptKey#6fe1735b
+//  case *e2e.DecryptedMessageActionAbortKey: // decryptedMessageActionAbortKey#dd05ec6b
+//  case *e2e.DecryptedMessageActionCommitKey: // decryptedMessageActionCommitKey#ec2e0b9b
+//  case *e2e.DecryptedMessageActionNoop: // decryptedMessageActionNoop#a82fdd63
+//  default: panic(v)
+//  }
 type DecryptedMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder

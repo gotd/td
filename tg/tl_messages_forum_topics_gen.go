@@ -35,7 +35,7 @@ var (
 // Contains information about multiple forum topics¹
 //
 // Links:
-//  1. https://core.telegram.org/api/forum#forum-topics
+//  1) https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/messages.forumTopics for reference.
 type MessagesForumTopics struct {

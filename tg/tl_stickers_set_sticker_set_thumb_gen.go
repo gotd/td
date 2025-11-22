@@ -305,10 +305,9 @@ func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument
 // Set stickerset thumbnail
 //
 // Possible errors:
-//
-//	400 STICKERSET_INVALID: The provided sticker set is invalid.
-//	400 STICKER_THUMB_PNG_NOPNG: Incorrect stickerset thumb file provided, PNG / WEBP expected.
-//	400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.
+//  400 STICKERSET_INVALID: The provided sticker set is invalid.
+//  400 STICKER_THUMB_PNG_NOPNG: Incorrect stickerset thumb file provided, PNG / WEBP expected.
+//  400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 // Can be used by bots.

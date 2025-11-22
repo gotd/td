@@ -35,7 +35,7 @@ var (
 // Fetch all stickersets »¹ owned by the current user.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers
+//  1) https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/method/messages.getMyStickers for reference.
 type MessagesGetMyStickersRequest struct {
@@ -201,7 +201,7 @@ func (g *MessagesGetMyStickersRequest) GetLimit() (value int) {
 // Fetch all stickersets »¹ owned by the current user.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers
+//  1) https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/method/messages.getMyStickers for reference.
 func (c *Client) MessagesGetMyStickers(ctx context.Context, request *MessagesGetMyStickersRequest) (*MessagesMyStickers, error) {

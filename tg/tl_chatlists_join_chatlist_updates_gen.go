@@ -35,7 +35,7 @@ var (
 // Join channels and supergroups recently added to a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
 type ChatlistsJoinChatlistUpdatesRequest struct {
@@ -223,12 +223,11 @@ func (j *ChatlistsJoinChatlistUpdatesRequest) MapPeers() (value InputPeerClassAr
 // Join channels and supergroups recently added to a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
-//
-//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
-//	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
 func (c *Client) ChatlistsJoinChatlistUpdates(ctx context.Context, request *ChatlistsJoinChatlistUpdatesRequest) (UpdatesClass, error) {

@@ -463,20 +463,19 @@ const SecureRequiredTypeClassName = "SecureRequiredType"
 // See https://core.telegram.org/type/SecureRequiredType for reference.
 //
 // Constructors:
-//   - [SecureRequiredType]
-//   - [SecureRequiredTypeOneOf]
+//  - [SecureRequiredType]
+//  - [SecureRequiredTypeOneOf]
 //
 // Example:
-//
-//	g, err := tg.DecodeSecureRequiredType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.SecureRequiredType: // secureRequiredType#829d99da
-//	case *tg.SecureRequiredTypeOneOf: // secureRequiredTypeOneOf#27477b4
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeSecureRequiredType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.SecureRequiredType: // secureRequiredType#829d99da
+//  case *tg.SecureRequiredTypeOneOf: // secureRequiredTypeOneOf#27477b4
+//  default: panic(v)
+//  }
 type SecureRequiredTypeClass interface {
 	bin.Encoder
 	bin.Decoder

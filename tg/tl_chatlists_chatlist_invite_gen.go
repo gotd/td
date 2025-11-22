@@ -35,7 +35,7 @@ var (
 // Updated info about a chat folder deep link »¹ we already imported.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.chatlistInviteAlready for reference.
 type ChatlistsChatlistInviteAlready struct {
@@ -373,7 +373,7 @@ func (c *ChatlistsChatlistInviteAlready) MapUsers() (value UserClassArray) {
 // Info about a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.chatlistInvite for reference.
 type ChatlistsChatlistInvite struct {
@@ -769,20 +769,19 @@ const ChatlistsChatlistInviteClassName = "chatlists.ChatlistInvite"
 // See https://core.telegram.org/type/chatlists.ChatlistInvite for reference.
 //
 // Constructors:
-//   - [ChatlistsChatlistInviteAlready]
-//   - [ChatlistsChatlistInvite]
+//  - [ChatlistsChatlistInviteAlready]
+//  - [ChatlistsChatlistInvite]
 //
 // Example:
-//
-//	g, err := tg.DecodeChatlistsChatlistInvite(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatlistsChatlistInviteAlready: // chatlists.chatlistInviteAlready#fa87f659
-//	case *tg.ChatlistsChatlistInvite: // chatlists.chatlistInvite#f10ece2f
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChatlistsChatlistInvite(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatlistsChatlistInviteAlready: // chatlists.chatlistInviteAlready#fa87f659
+//  case *tg.ChatlistsChatlistInvite: // chatlists.chatlistInvite#f10ece2f
+//  default: panic(v)
+//  }
 type ChatlistsChatlistInviteClass interface {
 	bin.Encoder
 	bin.Decoder

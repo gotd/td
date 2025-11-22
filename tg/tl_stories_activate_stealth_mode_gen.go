@@ -36,9 +36,9 @@ var (
 // Will return an updateStoriesStealthMode¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#stealth-mode
-//  2. https://core.telegram.org/api/stories#stealth-mode
-//  3. https://core.telegram.org/constructor/updateStoriesStealthMode
+//  1) https://core.telegram.org/api/stories#stealth-mode
+//  2) https://core.telegram.org/api/stories#stealth-mode
+//  3) https://core.telegram.org/constructor/updateStoriesStealthMode
 //
 // See https://core.telegram.org/method/stories.activateStealthMode for reference.
 type StoriesActivateStealthModeRequest struct {
@@ -246,13 +246,12 @@ func (a *StoriesActivateStealthModeRequest) GetFuture() (value bool) {
 // Will return an updateStoriesStealthMode¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#stealth-mode
-//  2. https://core.telegram.org/api/stories#stealth-mode
-//  3. https://core.telegram.org/constructor/updateStoriesStealthMode
+//  1) https://core.telegram.org/api/stories#stealth-mode
+//  2) https://core.telegram.org/api/stories#stealth-mode
+//  3) https://core.telegram.org/constructor/updateStoriesStealthMode
 //
 // Possible errors:
-//
-//	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//  400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/stories.activateStealthMode for reference.
 func (c *Client) StoriesActivateStealthMode(ctx context.Context, request *StoriesActivateStealthModeRequest) (UpdatesClass, error) {

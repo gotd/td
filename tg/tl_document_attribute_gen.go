@@ -1873,32 +1873,31 @@ const DocumentAttributeClassName = "DocumentAttribute"
 // See https://core.telegram.org/type/DocumentAttribute for reference.
 //
 // Constructors:
-//   - [DocumentAttributeImageSize]
-//   - [DocumentAttributeAnimated]
-//   - [DocumentAttributeSticker]
-//   - [DocumentAttributeVideo]
-//   - [DocumentAttributeAudio]
-//   - [DocumentAttributeFilename]
-//   - [DocumentAttributeHasStickers]
-//   - [DocumentAttributeCustomEmoji]
+//  - [DocumentAttributeImageSize]
+//  - [DocumentAttributeAnimated]
+//  - [DocumentAttributeSticker]
+//  - [DocumentAttributeVideo]
+//  - [DocumentAttributeAudio]
+//  - [DocumentAttributeFilename]
+//  - [DocumentAttributeHasStickers]
+//  - [DocumentAttributeCustomEmoji]
 //
 // Example:
-//
-//	g, err := tg.DecodeDocumentAttribute(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
-//	case *tg.DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
-//	case *tg.DocumentAttributeSticker: // documentAttributeSticker#6319d612
-//	case *tg.DocumentAttributeVideo: // documentAttributeVideo#43c57c48
-//	case *tg.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
-//	case *tg.DocumentAttributeFilename: // documentAttributeFilename#15590068
-//	case *tg.DocumentAttributeHasStickers: // documentAttributeHasStickers#9801d2f7
-//	case *tg.DocumentAttributeCustomEmoji: // documentAttributeCustomEmoji#fd149899
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeDocumentAttribute(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
+//  case *tg.DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
+//  case *tg.DocumentAttributeSticker: // documentAttributeSticker#6319d612
+//  case *tg.DocumentAttributeVideo: // documentAttributeVideo#43c57c48
+//  case *tg.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
+//  case *tg.DocumentAttributeFilename: // documentAttributeFilename#15590068
+//  case *tg.DocumentAttributeHasStickers: // documentAttributeHasStickers#9801d2f7
+//  case *tg.DocumentAttributeCustomEmoji: // documentAttributeCustomEmoji#fd149899
+//  default: panic(v)
+//  }
 type DocumentAttributeClass interface {
 	bin.Encoder
 	bin.Decoder

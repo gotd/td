@@ -35,7 +35,7 @@ var (
 // Defines a file saved in parts using the method upload.saveFilePart¹.
 //
 // Links:
-//  1. https://core.telegram.org/method/upload.saveFilePart
+//  1) https://core.telegram.org/method/upload.saveFilePart
 //
 // See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
@@ -259,7 +259,7 @@ func (i *InputFile) GetMD5Checksum() (value string) {
 // saveBigFilePart¹.
 //
 // Links:
-//  1. https://core.telegram.org/method/upload.saveBigFilePart
+//  1) https://core.telegram.org/method/upload.saveBigFilePart
 //
 // See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {
@@ -452,7 +452,7 @@ func (i *InputFileBig) GetName() (value string) {
 // the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#editing-stories
+//  1) https://core.telegram.org/api/stories#editing-stories
 //
 // See https://core.telegram.org/constructor/inputFileStoryDocument for reference.
 type InputFileStoryDocument struct {
@@ -599,22 +599,21 @@ const InputFileClassName = "InputFile"
 // See https://core.telegram.org/type/InputFile for reference.
 //
 // Constructors:
-//   - [InputFile]
-//   - [InputFileBig]
-//   - [InputFileStoryDocument]
+//  - [InputFile]
+//  - [InputFileBig]
+//  - [InputFileStoryDocument]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputFile(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputFile: // inputFile#f52ff27f
-//	case *tg.InputFileBig: // inputFileBig#fa4f0bb5
-//	case *tg.InputFileStoryDocument: // inputFileStoryDocument#62dc8b48
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputFile(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputFile: // inputFile#f52ff27f
+//  case *tg.InputFileBig: // inputFileBig#fa4f0bb5
+//  case *tg.InputFileStoryDocument: // inputFileStoryDocument#62dc8b48
+//  default: panic(v)
+//  }
 type InputFileClass interface {
 	bin.Encoder
 	bin.Decoder

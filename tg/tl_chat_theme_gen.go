@@ -354,20 +354,19 @@ const ChatThemeClassName = "ChatTheme"
 // See https://core.telegram.org/type/ChatTheme for reference.
 //
 // Constructors:
-//   - [ChatTheme]
-//   - [ChatThemeUniqueGift]
+//  - [ChatTheme]
+//  - [ChatThemeUniqueGift]
 //
 // Example:
-//
-//	g, err := tg.DecodeChatTheme(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.ChatTheme: // chatTheme#c3dffc04
-//	case *tg.ChatThemeUniqueGift: // chatThemeUniqueGift#3458f9c8
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeChatTheme(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatTheme: // chatTheme#c3dffc04
+//  case *tg.ChatThemeUniqueGift: // chatThemeUniqueGift#3458f9c8
+//  default: panic(v)
+//  }
 type ChatThemeClass interface {
 	bin.Encoder
 	bin.Decoder

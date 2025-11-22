@@ -36,7 +36,7 @@ var (
 // Note that all balances and currency amounts and graph values are in Stars.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars
+//  1) https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/payments.starsRevenueStats for reference.
 type PaymentsStarsRevenueStats struct {

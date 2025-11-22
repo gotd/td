@@ -287,20 +287,19 @@ const AccountSavedMusicIDsClassName = "account.SavedMusicIds"
 // See https://core.telegram.org/type/account.SavedMusicIds for reference.
 //
 // Constructors:
-//   - [AccountSavedMusicIDsNotModified]
-//   - [AccountSavedMusicIDs]
+//  - [AccountSavedMusicIDsNotModified]
+//  - [AccountSavedMusicIDs]
 //
 // Example:
-//
-//	g, err := tg.DecodeAccountSavedMusicIDs(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AccountSavedMusicIDsNotModified: // account.savedMusicIdsNotModified#4fc81d6e
-//	case *tg.AccountSavedMusicIDs: // account.savedMusicIds#998d6636
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAccountSavedMusicIDs(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AccountSavedMusicIDsNotModified: // account.savedMusicIdsNotModified#4fc81d6e
+//  case *tg.AccountSavedMusicIDs: // account.savedMusicIds#998d6636
+//  default: panic(v)
+//  }
 type AccountSavedMusicIDsClass interface {
 	bin.Encoder
 	bin.Decoder

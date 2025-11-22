@@ -1498,24 +1498,23 @@ const MessagesMessagesClassName = "messages.Messages"
 // See https://core.telegram.org/type/messages.Messages for reference.
 //
 // Constructors:
-//   - [MessagesMessages]
-//   - [MessagesMessagesSlice]
-//   - [MessagesChannelMessages]
-//   - [MessagesMessagesNotModified]
+//  - [MessagesMessages]
+//  - [MessagesMessagesSlice]
+//  - [MessagesChannelMessages]
+//  - [MessagesMessagesNotModified]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesMessages(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesMessages: // messages.messages#1d73e7ea
-//	case *tg.MessagesMessagesSlice: // messages.messagesSlice#5f206716
-//	case *tg.MessagesChannelMessages: // messages.channelMessages#c776ba4e
-//	case *tg.MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesMessages(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesMessages: // messages.messages#1d73e7ea
+//  case *tg.MessagesMessagesSlice: // messages.messagesSlice#5f206716
+//  case *tg.MessagesChannelMessages: // messages.channelMessages#c776ba4e
+//  case *tg.MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
+//  default: panic(v)
+//  }
 type MessagesMessagesClass interface {
 	bin.Encoder
 	bin.Decoder

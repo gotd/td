@@ -37,7 +37,7 @@ var (
 // after generation.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
+//  1) https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
@@ -172,7 +172,7 @@ func (g *MessagesGetEmojiURLRequest) GetLangCode() (value string) {
 // after generation.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
+//  1) https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 func (c *Client) MessagesGetEmojiURL(ctx context.Context, langcode string) (*EmojiURL, error) {

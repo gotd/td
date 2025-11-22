@@ -35,7 +35,7 @@ var (
 // Dialog filter AKA folder¹
 //
 // Links:
-//  1. https://core.telegram.org/api/folders
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/dialogFilter for reference.
 type DialogFilter struct {
@@ -926,7 +926,7 @@ func (d *DialogFilterDefault) DecodeBare(b *bin.Buffer) error {
 // A folder imported using a chat folder deep link »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
+//  1) https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/dialogFilterChatlist for reference.
 type DialogFilterChatlist struct {
@@ -1392,22 +1392,21 @@ const DialogFilterClassName = "DialogFilter"
 // See https://core.telegram.org/type/DialogFilter for reference.
 //
 // Constructors:
-//   - [DialogFilter]
-//   - [DialogFilterDefault]
-//   - [DialogFilterChatlist]
+//  - [DialogFilter]
+//  - [DialogFilterDefault]
+//  - [DialogFilterChatlist]
 //
 // Example:
-//
-//	g, err := tg.DecodeDialogFilter(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.DialogFilter: // dialogFilter#aa472651
-//	case *tg.DialogFilterDefault: // dialogFilterDefault#363293ae
-//	case *tg.DialogFilterChatlist: // dialogFilterChatlist#96537bd7
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeDialogFilter(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.DialogFilter: // dialogFilter#aa472651
+//  case *tg.DialogFilterDefault: // dialogFilterDefault#363293ae
+//  case *tg.DialogFilterChatlist: // dialogFilterChatlist#96537bd7
+//  default: panic(v)
+//  }
 type DialogFilterClass interface {
 	bin.Encoder
 	bin.Decoder

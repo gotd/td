@@ -41,7 +41,7 @@ var (
 // the error message to make sure the user knows how to correct the issues.
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 type UsersSetSecureValueErrorsRequest struct {
@@ -235,13 +235,12 @@ func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorCl
 // the error message to make sure the user knows how to correct the issues.
 //
 // Links:
-//  1. https://core.telegram.org/passport
+//  1) https://core.telegram.org/passport
 //
 // Possible errors:
-//
-//	403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 // Can be used by bots.

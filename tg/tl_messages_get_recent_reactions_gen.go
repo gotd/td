@@ -35,7 +35,7 @@ var (
 // Get recently used message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getRecentReactions for reference.
 type MessagesGetRecentReactionsRequest struct {
@@ -201,7 +201,7 @@ func (g *MessagesGetRecentReactionsRequest) GetHash() (value int64) {
 // Get recently used message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getRecentReactions for reference.
 func (c *Client) MessagesGetRecentReactions(ctx context.Context, request *MessagesGetRecentReactionsRequest) (MessagesReactionsClass, error) {

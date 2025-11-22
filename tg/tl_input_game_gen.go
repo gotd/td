@@ -377,20 +377,19 @@ const InputGameClassName = "InputGame"
 // See https://core.telegram.org/type/InputGame for reference.
 //
 // Constructors:
-//   - [InputGameID]
-//   - [InputGameShortName]
+//  - [InputGameID]
+//  - [InputGameShortName]
 //
 // Example:
-//
-//	g, err := tg.DecodeInputGame(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.InputGameID: // inputGameID#32c3e77
-//	case *tg.InputGameShortName: // inputGameShortName#c331e80a
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeInputGame(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.InputGameID: // inputGameID#32c3e77
+//  case *tg.InputGameShortName: // inputGameShortName#c331e80a
+//  default: panic(v)
+//  }
 type InputGameClass interface {
 	bin.Encoder
 	bin.Decoder

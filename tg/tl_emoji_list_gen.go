@@ -35,7 +35,7 @@ var (
 // The list of custom emojis¹ hasn't changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/emojiListNotModified for reference.
 type EmojiListNotModified struct {
@@ -140,7 +140,7 @@ func (e *EmojiListNotModified) DecodeBare(b *bin.Buffer) error {
 // Represents a list of custom emojis¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/emojiList for reference.
 type EmojiList struct {
@@ -325,20 +325,19 @@ const EmojiListClassName = "EmojiList"
 // See https://core.telegram.org/type/EmojiList for reference.
 //
 // Constructors:
-//   - [EmojiListNotModified]
-//   - [EmojiList]
+//  - [EmojiListNotModified]
+//  - [EmojiList]
 //
 // Example:
-//
-//	g, err := tg.DecodeEmojiList(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.EmojiListNotModified: // emojiListNotModified#481eadfa
-//	case *tg.EmojiList: // emojiList#7a1e11d1
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeEmojiList(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.EmojiListNotModified: // emojiListNotModified#481eadfa
+//  case *tg.EmojiList: // emojiList#7a1e11d1
+//  default: panic(v)
+//  }
 type EmojiListClass interface {
 	bin.Encoder
 	bin.Decoder

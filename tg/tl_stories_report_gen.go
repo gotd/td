@@ -264,8 +264,7 @@ func (r *StoriesReportRequest) GetMessage() (value string) {
 // Report a story.
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.report for reference.
 func (c *Client) StoriesReport(ctx context.Context, request *StoriesReportRequest) (ReportResultClass, error) {

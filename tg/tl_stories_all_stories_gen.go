@@ -35,7 +35,7 @@ var (
 // The list of active (or active and hidden) stories¹ has not changed.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/constructor/stories.allStoriesNotModified for reference.
 type StoriesAllStoriesNotModified struct {
@@ -224,7 +224,7 @@ func (a *StoriesAllStoriesNotModified) GetStealthMode() (value StoriesStealthMod
 // Full list of active (or active and hidden) stories¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stories#watching-stories
+//  1) https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/constructor/stories.allStories for reference.
 type StoriesAllStories struct {
@@ -624,20 +624,19 @@ const StoriesAllStoriesClassName = "stories.AllStories"
 // See https://core.telegram.org/type/stories.AllStories for reference.
 //
 // Constructors:
-//   - [StoriesAllStoriesNotModified]
-//   - [StoriesAllStories]
+//  - [StoriesAllStoriesNotModified]
+//  - [StoriesAllStories]
 //
 // Example:
-//
-//	g, err := tg.DecodeStoriesAllStories(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StoriesAllStoriesNotModified: // stories.allStoriesNotModified#1158fe3e
-//	case *tg.StoriesAllStories: // stories.allStories#6efc5e81
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStoriesAllStories(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StoriesAllStoriesNotModified: // stories.allStoriesNotModified#1158fe3e
+//  case *tg.StoriesAllStories: // stories.allStories#6efc5e81
+//  default: panic(v)
+//  }
 type StoriesAllStoriesClass interface {
 	bin.Encoder
 	bin.Decoder

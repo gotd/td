@@ -169,8 +169,7 @@ func (r *ContactsResolvePhoneRequest) GetPhone() (value string) {
 // Resolve a phone number to get user info, if their privacy settings allow it.
 //
 // Possible errors:
-//
-//	400 PHONE_NOT_OCCUPIED: No user is associated to the specified phone number.
+//  400 PHONE_NOT_OCCUPIED: No user is associated to the specified phone number.
 //
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 func (c *Client) ContactsResolvePhone(ctx context.Context, phone string) (*ContactsResolvedPeer, error) {

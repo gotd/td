@@ -35,7 +35,7 @@ var (
 // Got popular message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getTopReactions for reference.
 type MessagesGetTopReactionsRequest struct {
@@ -201,7 +201,7 @@ func (g *MessagesGetTopReactionsRequest) GetHash() (value int64) {
 // Got popular message reactions¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getTopReactions for reference.
 func (c *Client) MessagesGetTopReactions(ctx context.Context, request *MessagesGetTopReactionsRequest) (MessagesReactionsClass, error) {

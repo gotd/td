@@ -37,8 +37,8 @@ var (
 // configuration parameter »²).
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
-//  2. https://core.telegram.org/api/config#chatlist-update-period
+//  1) https://core.telegram.org/api/links#chat-folder-links
+//  2) https://core.telegram.org/api/config#chatlist-update-period
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
 type ChatlistsGetChatlistUpdatesRequest struct {
@@ -173,14 +173,13 @@ func (g *ChatlistsGetChatlistUpdatesRequest) GetChatlist() (value InputChatlistD
 // configuration parameter »²).
 //
 // Links:
-//  1. https://core.telegram.org/api/links#chat-folder-links
-//  2. https://core.telegram.org/api/config#chatlist-update-period
+//  1) https://core.telegram.org/api/links#chat-folder-links
+//  2) https://core.telegram.org/api/config#chatlist-update-period
 //
 // Possible errors:
-//
-//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
-//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
-//	400 INPUT_CHATLIST_INVALID: The specified folder is invalid.
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//  400 INPUT_CHATLIST_INVALID: The specified folder is invalid.
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
 func (c *Client) ChatlistsGetChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsChatlistUpdates, error) {

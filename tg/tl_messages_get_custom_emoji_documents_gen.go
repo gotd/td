@@ -38,9 +38,9 @@ var (
 // emoji stickerset this custom emoji belongs to.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/constructor/document
-//  3. https://core.telegram.org/constructor/documentAttributeCustomEmoji
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/constructor/document
+//  3) https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/method/messages.getCustomEmojiDocuments for reference.
 type MessagesGetCustomEmojiDocumentsRequest struct {
@@ -193,9 +193,9 @@ func (g *MessagesGetCustomEmojiDocumentsRequest) GetDocumentID() (value []int64)
 // emoji stickerset this custom emoji belongs to.
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
-//  2. https://core.telegram.org/constructor/document
-//  3. https://core.telegram.org/constructor/documentAttributeCustomEmoji
+//  1) https://core.telegram.org/api/custom-emoji
+//  2) https://core.telegram.org/constructor/document
+//  3) https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/method/messages.getCustomEmojiDocuments for reference.
 // Can be used by bots.

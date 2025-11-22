@@ -274,8 +274,7 @@ func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerC
 // Reorder pinned dialogs
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (bool, error) {

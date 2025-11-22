@@ -35,7 +35,7 @@ var (
 // No new wallpapers¹ were found
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/account.wallPapersNotModified for reference.
 type AccountWallPapersNotModified struct {
@@ -140,7 +140,7 @@ func (w *AccountWallPapersNotModified) DecodeBare(b *bin.Buffer) error {
 // Installed wallpapers¹
 //
 // Links:
-//  1. https://core.telegram.org/api/wallpapers
+//  1) https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/account.wallPapers for reference.
 type AccountWallPapers struct {
@@ -338,20 +338,19 @@ const AccountWallPapersClassName = "account.WallPapers"
 // See https://core.telegram.org/type/account.WallPapers for reference.
 //
 // Constructors:
-//   - [AccountWallPapersNotModified]
-//   - [AccountWallPapers]
+//  - [AccountWallPapersNotModified]
+//  - [AccountWallPapers]
 //
 // Example:
-//
-//	g, err := tg.DecodeAccountWallPapers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AccountWallPapersNotModified: // account.wallPapersNotModified#1c199183
-//	case *tg.AccountWallPapers: // account.wallPapers#cdc3858c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAccountWallPapers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AccountWallPapersNotModified: // account.wallPapersNotModified#1c199183
+//  case *tg.AccountWallPapers: // account.wallPapers#cdc3858c
+//  default: panic(v)
+//  }
 type AccountWallPapersClass interface {
 	bin.Encoder
 	bin.Decoder

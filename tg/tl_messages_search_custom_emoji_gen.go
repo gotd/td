@@ -35,7 +35,7 @@ var (
 // Look for custom emojis¹ associated to a UTF8 emoji
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
 type MessagesSearchCustomEmojiRequest struct {
@@ -198,11 +198,10 @@ func (s *MessagesSearchCustomEmojiRequest) GetHash() (value int64) {
 // Look for custom emojis¹ associated to a UTF8 emoji
 //
 // Links:
-//  1. https://core.telegram.org/api/custom-emoji
+//  1) https://core.telegram.org/api/custom-emoji
 //
 // Possible errors:
-//
-//	400 EMOTICON_EMPTY: The emoji is empty.
+//  400 EMOTICON_EMPTY: The emoji is empty.
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
 func (c *Client) MessagesSearchCustomEmoji(ctx context.Context, request *MessagesSearchCustomEmojiRequest) (EmojiListClass, error) {

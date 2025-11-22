@@ -219,8 +219,7 @@ func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
 // Get a document by its SHA256 hash, mainly used for gifs
 //
 // Possible errors:
-//
-//	400 SHA256_HASH_INVALID: The provided SHA256 hash is invalid.
+//  400 SHA256_HASH_INVALID: The provided SHA256 hash is invalid.
 //
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 // Can be used by bots.

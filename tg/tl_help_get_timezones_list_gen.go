@@ -36,7 +36,7 @@ var (
 // Telegram Business opening hours »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/method/help.getTimezonesList for reference.
 type HelpGetTimezonesListRequest struct {
@@ -173,7 +173,7 @@ func (g *HelpGetTimezonesListRequest) GetHash() (value int) {
 // Telegram Business opening hours »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#opening-hours
+//  1) https://core.telegram.org/api/business#opening-hours
 //
 // See https://core.telegram.org/method/help.getTimezonesList for reference.
 func (c *Client) HelpGetTimezonesList(ctx context.Context, hash int) (HelpTimezonesListClass, error) {

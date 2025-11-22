@@ -35,7 +35,7 @@ var (
 // Paid media preview for not yet purchased paid media, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/paid-media
+//  1) https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/messageExtendedMediaPreview for reference.
 type MessageExtendedMediaPreview struct {
@@ -367,7 +367,7 @@ func (m *MessageExtendedMediaPreview) GetVideoDuration() (value int, ok bool) {
 // Already purchased paid media, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/paid-media
+//  1) https://core.telegram.org/api/paid-media
 //
 // See https://core.telegram.org/constructor/messageExtendedMedia for reference.
 type MessageExtendedMedia struct {
@@ -514,20 +514,19 @@ const MessageExtendedMediaClassName = "MessageExtendedMedia"
 // See https://core.telegram.org/type/MessageExtendedMedia for reference.
 //
 // Constructors:
-//   - [MessageExtendedMediaPreview]
-//   - [MessageExtendedMedia]
+//  - [MessageExtendedMediaPreview]
+//  - [MessageExtendedMedia]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessageExtendedMedia(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessageExtendedMediaPreview: // messageExtendedMediaPreview#ad628cc8
-//	case *tg.MessageExtendedMedia: // messageExtendedMedia#ee479c64
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessageExtendedMedia(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessageExtendedMediaPreview: // messageExtendedMediaPreview#ad628cc8
+//  case *tg.MessageExtendedMedia: // messageExtendedMedia#ee479c64
+//  default: panic(v)
+//  }
 type MessageExtendedMediaClass interface {
 	bin.Encoder
 	bin.Decoder

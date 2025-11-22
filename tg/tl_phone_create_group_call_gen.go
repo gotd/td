@@ -357,13 +357,12 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 // Create a group call or livestream
 //
 // Possible errors:
-//
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CREATE_CALL_FAILED: An error occurred while creating the call.
-//	400 GROUPCALL_ALREADY_DISCARDED: The group call was already discarded.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CREATE_CALL_FAILED: An error occurred while creating the call.
+//  400 GROUPCALL_ALREADY_DISCARDED: The group call was already discarded.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 func (c *Client) PhoneCreateGroupCall(ctx context.Context, request *PhoneCreateGroupCallRequest) (UpdatesClass, error) {

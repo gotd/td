@@ -35,7 +35,7 @@ var (
 // Join a bot's affiliate program, becoming an affiliate »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
+//  1) https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
 //
 // See https://core.telegram.org/method/payments.connectStarRefBot for reference.
 type PaymentsConnectStarRefBotRequest struct {
@@ -206,7 +206,7 @@ func (c *PaymentsConnectStarRefBotRequest) GetBot() (value InputUserClass) {
 // Join a bot's affiliate program, becoming an affiliate »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
+//  1) https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
 //
 // See https://core.telegram.org/method/payments.connectStarRefBot for reference.
 func (c *Client) PaymentsConnectStarRefBot(ctx context.Context, request *PaymentsConnectStarRefBotRequest) (*PaymentsConnectedStarRefBots, error) {

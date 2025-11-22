@@ -35,8 +35,8 @@ var (
 // Obtain a list of Telegram Stars topup options »¹ as starsTopupOption² constructors.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
-//  2. https://core.telegram.org/constructor/starsTopupOption
+//  1) https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  2) https://core.telegram.org/constructor/starsTopupOption
 //
 // See https://core.telegram.org/method/payments.getStarsTopupOptions for reference.
 type PaymentsGetStarsTopupOptionsRequest struct {
@@ -136,8 +136,8 @@ func (g *PaymentsGetStarsTopupOptionsRequest) DecodeBare(b *bin.Buffer) error {
 // Obtain a list of Telegram Stars topup options »¹ as starsTopupOption² constructors.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#buying-or-gifting-stars
-//  2. https://core.telegram.org/constructor/starsTopupOption
+//  1) https://core.telegram.org/api/stars#buying-or-gifting-stars
+//  2) https://core.telegram.org/constructor/starsTopupOption
 //
 // See https://core.telegram.org/method/payments.getStarsTopupOptions for reference.
 func (c *Client) PaymentsGetStarsTopupOptions(ctx context.Context) ([]StarsTopupOption, error) {

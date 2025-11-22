@@ -485,20 +485,19 @@ const MessagesFeaturedStickersClassName = "messages.FeaturedStickers"
 // See https://core.telegram.org/type/messages.FeaturedStickers for reference.
 //
 // Constructors:
-//   - [MessagesFeaturedStickersNotModified]
-//   - [MessagesFeaturedStickers]
+//  - [MessagesFeaturedStickersNotModified]
+//  - [MessagesFeaturedStickers]
 //
 // Example:
-//
-//	g, err := tg.DecodeMessagesFeaturedStickers(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.MessagesFeaturedStickersNotModified: // messages.featuredStickersNotModified#c6dc0c66
-//	case *tg.MessagesFeaturedStickers: // messages.featuredStickers#be382906
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeMessagesFeaturedStickers(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.MessagesFeaturedStickersNotModified: // messages.featuredStickersNotModified#c6dc0c66
+//  case *tg.MessagesFeaturedStickers: // messages.featuredStickers#be382906
+//  default: panic(v)
+//  }
 type MessagesFeaturedStickersClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -38,7 +38,7 @@ var (
 // removing fields that aren't set in the new constructor).
 //
 // Links:
-//  1. https://core.telegram.org/api/peers
+//  1) https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/userFull for reference.
 type UserFull struct {

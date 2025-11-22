@@ -35,7 +35,7 @@ var (
 // Reset the login email »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#email-verification
+//  1) https://core.telegram.org/api/auth#email-verification
 //
 // See https://core.telegram.org/method/auth.resetLoginEmail for reference.
 type AuthResetLoginEmailRequest struct {
@@ -198,12 +198,11 @@ func (r *AuthResetLoginEmailRequest) GetPhoneCodeHash() (value string) {
 // Reset the login email »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#email-verification
+//  1) https://core.telegram.org/api/auth#email-verification
 //
 // Possible errors:
-//
-//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
-//	400 TASK_ALREADY_EXISTS: An email reset was already requested.
+//  400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//  400 TASK_ALREADY_EXISTS: An email reset was already requested.
 //
 // See https://core.telegram.org/method/auth.resetLoginEmail for reference.
 func (c *Client) AuthResetLoginEmail(ctx context.Context, request *AuthResetLoginEmailRequest) (AuthSentCodeClass, error) {

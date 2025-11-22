@@ -35,7 +35,7 @@ var (
 // Leave a bot's affiliate program »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
+//  1) https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
 //
 // See https://core.telegram.org/method/payments.editConnectedStarRefBot for reference.
 type PaymentsEditConnectedStarRefBotRequest struct {
@@ -256,11 +256,10 @@ func (e *PaymentsEditConnectedStarRefBotRequest) GetLink() (value string) {
 // Leave a bot's affiliate program »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
+//  1) https://core.telegram.org/api/bots/referrals#becoming-an-affiliate
 //
 // Possible errors:
-//
-//	400 STARREF_HASH_REVOKED: The specified affiliate link was already revoked.
+//  400 STARREF_HASH_REVOKED: The specified affiliate link was already revoked.
 //
 // See https://core.telegram.org/method/payments.editConnectedStarRefBot for reference.
 func (c *Client) PaymentsEditConnectedStarRefBot(ctx context.Context, request *PaymentsEditConnectedStarRefBotRequest) (*PaymentsConnectedStarRefBots, error) {

@@ -1059,36 +1059,35 @@ const StorageFileTypeClassName = "storage.FileType"
 // See https://core.telegram.org/type/storage.FileType for reference.
 //
 // Constructors:
-//   - [StorageFileUnknown]
-//   - [StorageFilePartial]
-//   - [StorageFileJpeg]
-//   - [StorageFileGif]
-//   - [StorageFilePng]
-//   - [StorageFilePdf]
-//   - [StorageFileMp3]
-//   - [StorageFileMov]
-//   - [StorageFileMp4]
-//   - [StorageFileWebp]
+//  - [StorageFileUnknown]
+//  - [StorageFilePartial]
+//  - [StorageFileJpeg]
+//  - [StorageFileGif]
+//  - [StorageFilePng]
+//  - [StorageFilePdf]
+//  - [StorageFileMp3]
+//  - [StorageFileMov]
+//  - [StorageFileMp4]
+//  - [StorageFileWebp]
 //
 // Example:
-//
-//	g, err := tg.DecodeStorageFileType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StorageFileUnknown: // storage.fileUnknown#aa963b05
-//	case *tg.StorageFilePartial: // storage.filePartial#40bc6f52
-//	case *tg.StorageFileJpeg: // storage.fileJpeg#7efe0e
-//	case *tg.StorageFileGif: // storage.fileGif#cae1aadf
-//	case *tg.StorageFilePng: // storage.filePng#a4f63c0
-//	case *tg.StorageFilePdf: // storage.filePdf#ae1e508d
-//	case *tg.StorageFileMp3: // storage.fileMp3#528a0677
-//	case *tg.StorageFileMov: // storage.fileMov#4b09ebbc
-//	case *tg.StorageFileMp4: // storage.fileMp4#b3cea0e4
-//	case *tg.StorageFileWebp: // storage.fileWebp#1081464c
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStorageFileType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StorageFileUnknown: // storage.fileUnknown#aa963b05
+//  case *tg.StorageFilePartial: // storage.filePartial#40bc6f52
+//  case *tg.StorageFileJpeg: // storage.fileJpeg#7efe0e
+//  case *tg.StorageFileGif: // storage.fileGif#cae1aadf
+//  case *tg.StorageFilePng: // storage.filePng#a4f63c0
+//  case *tg.StorageFilePdf: // storage.filePdf#ae1e508d
+//  case *tg.StorageFileMp3: // storage.fileMp3#528a0677
+//  case *tg.StorageFileMov: // storage.fileMov#4b09ebbc
+//  case *tg.StorageFileMp4: // storage.fileMp4#b3cea0e4
+//  case *tg.StorageFileWebp: // storage.fileWebp#1081464c
+//  default: panic(v)
+//  }
 type StorageFileTypeClass interface {
 	bin.Encoder
 	bin.Decoder

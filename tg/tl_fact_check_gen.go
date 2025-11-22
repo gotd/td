@@ -35,7 +35,7 @@ var (
 // Represents a fact-check »¹ created by an independent fact-checker.
 //
 // Links:
-//  1. https://core.telegram.org/api/factcheck
+//  1) https://core.telegram.org/api/factcheck
 //
 // See https://core.telegram.org/constructor/factCheck for reference.
 type FactCheck struct {

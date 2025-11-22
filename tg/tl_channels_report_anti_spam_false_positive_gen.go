@@ -35,7 +35,7 @@ var (
 // Report a native antispam¹ false positive
 //
 // Links:
-//  1. https://core.telegram.org/api/antispam
+//  1) https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/method/channels.reportAntiSpamFalsePositive for reference.
 type ChannelsReportAntiSpamFalsePositiveRequest struct {
@@ -210,11 +210,10 @@ func (r *ChannelsReportAntiSpamFalsePositiveRequest) GetChannelAsNotEmpty() (Not
 // Report a native antispam¹ false positive
 //
 // Links:
-//  1. https://core.telegram.org/api/antispam
+//  1) https://core.telegram.org/api/antispam
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.reportAntiSpamFalsePositive for reference.
 func (c *Client) ChannelsReportAntiSpamFalsePositive(ctx context.Context, request *ChannelsReportAntiSpamFalsePositiveRequest) (bool, error) {

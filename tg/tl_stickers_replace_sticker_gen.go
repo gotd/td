@@ -35,7 +35,7 @@ var (
 // Replace a sticker in a stickerset »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers
+//  1) https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/method/stickers.replaceSticker for reference.
 type StickersReplaceStickerRequest struct {
@@ -205,11 +205,10 @@ func (r *StickersReplaceStickerRequest) GetStickerAsNotEmpty() (*InputDocument, 
 // Replace a sticker in a stickerset »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stickers
+//  1) https://core.telegram.org/api/stickers
 //
 // Possible errors:
-//
-//	400 STICKER_INVALID: The provided sticker is invalid.
+//  400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.replaceSticker for reference.
 // Can be used by bots.

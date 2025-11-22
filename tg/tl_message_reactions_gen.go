@@ -35,7 +35,7 @@ var (
 // Message reactions »¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messageReactions for reference.
 type MessageReactions struct {

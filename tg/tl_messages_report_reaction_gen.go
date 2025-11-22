@@ -35,7 +35,7 @@ var (
 // Report a message reaction¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.reportReaction for reference.
 type MessagesReportReactionRequest struct {
@@ -232,13 +232,12 @@ func (r *MessagesReportReactionRequest) GetReactionPeer() (value InputPeerClass)
 // Report a message reaction¹
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // Possible errors:
-//
-//	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.reportReaction for reference.
 func (c *Client) MessagesReportReaction(ctx context.Context, request *MessagesReportReactionRequest) (bool, error) {

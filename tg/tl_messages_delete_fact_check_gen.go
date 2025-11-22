@@ -37,8 +37,8 @@ var (
 // can_edit_factcheck¹ configuration flag.
 //
 // Links:
-//  1. https://core.telegram.org/api/factcheck
-//  2. https://core.telegram.org/api/config#can-edit-factcheck
+//  1) https://core.telegram.org/api/factcheck
+//  2) https://core.telegram.org/api/config#can-edit-factcheck
 //
 // See https://core.telegram.org/method/messages.deleteFactCheck for reference.
 type MessagesDeleteFactCheckRequest struct {
@@ -205,13 +205,12 @@ func (d *MessagesDeleteFactCheckRequest) GetMsgID() (value int) {
 // can_edit_factcheck¹ configuration flag.
 //
 // Links:
-//  1. https://core.telegram.org/api/factcheck
-//  2. https://core.telegram.org/api/config#can-edit-factcheck
+//  1) https://core.telegram.org/api/factcheck
+//  2) https://core.telegram.org/api/config#can-edit-factcheck
 //
 // Possible errors:
-//
-//	403 CHAT_ACTION_FORBIDDEN: You cannot execute this action.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  403 CHAT_ACTION_FORBIDDEN: You cannot execute this action.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteFactCheck for reference.
 func (c *Client) MessagesDeleteFactCheck(ctx context.Context, request *MessagesDeleteFactCheckRequest) (UpdatesClass, error) {

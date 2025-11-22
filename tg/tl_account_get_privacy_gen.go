@@ -170,8 +170,7 @@ func (g *AccountGetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
 // Get privacy settings of current account
 //
 // Possible errors:
-//
-//	400 PRIVACY_KEY_INVALID: The privacy key is invalid.
+//  400 PRIVACY_KEY_INVALID: The privacy key is invalid.
 //
 // See https://core.telegram.org/method/account.getPrivacy for reference.
 func (c *Client) AccountGetPrivacy(ctx context.Context, key InputPrivacyKeyClass) (*AccountPrivacyRules, error) {

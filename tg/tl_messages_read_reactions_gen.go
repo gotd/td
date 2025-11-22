@@ -35,7 +35,7 @@ var (
 // Mark message reactions »¹ as read
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 type MessagesReadReactionsRequest struct {
@@ -298,11 +298,10 @@ func (r *MessagesReadReactionsRequest) GetSavedPeerID() (value InputPeerClass, o
 // Mark message reactions »¹ as read
 //
 // Links:
-//  1. https://core.telegram.org/api/reactions
+//  1) https://core.telegram.org/api/reactions
 //
 // Possible errors:
-//
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 func (c *Client) MessagesReadReactions(ctx context.Context, request *MessagesReadReactionsRequest) (*MessagesAffectedHistory, error) {

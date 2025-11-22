@@ -35,7 +35,7 @@ var (
 // Send whatever media is attached to the botInlineMediaResult¹
 //
 // Links:
-//  1. https://core.telegram.org/constructor/botInlineMediaResult
+//  1) https://core.telegram.org/constructor/botInlineMediaResult
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaAuto for reference.
 type BotInlineMessageMediaAuto struct {
@@ -2644,30 +2644,29 @@ const BotInlineMessageClassName = "BotInlineMessage"
 // See https://core.telegram.org/type/BotInlineMessage for reference.
 //
 // Constructors:
-//   - [BotInlineMessageMediaAuto]
-//   - [BotInlineMessageText]
-//   - [BotInlineMessageMediaGeo]
-//   - [BotInlineMessageMediaVenue]
-//   - [BotInlineMessageMediaContact]
-//   - [BotInlineMessageMediaInvoice]
-//   - [BotInlineMessageMediaWebPage]
+//  - [BotInlineMessageMediaAuto]
+//  - [BotInlineMessageText]
+//  - [BotInlineMessageMediaGeo]
+//  - [BotInlineMessageMediaVenue]
+//  - [BotInlineMessageMediaContact]
+//  - [BotInlineMessageMediaInvoice]
+//  - [BotInlineMessageMediaWebPage]
 //
 // Example:
-//
-//	g, err := tg.DecodeBotInlineMessage(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.BotInlineMessageMediaAuto: // botInlineMessageMediaAuto#764cf810
-//	case *tg.BotInlineMessageText: // botInlineMessageText#8c7f65e2
-//	case *tg.BotInlineMessageMediaGeo: // botInlineMessageMediaGeo#51846fd
-//	case *tg.BotInlineMessageMediaVenue: // botInlineMessageMediaVenue#8a86659c
-//	case *tg.BotInlineMessageMediaContact: // botInlineMessageMediaContact#18d1cdc2
-//	case *tg.BotInlineMessageMediaInvoice: // botInlineMessageMediaInvoice#354a9b09
-//	case *tg.BotInlineMessageMediaWebPage: // botInlineMessageMediaWebPage#809ad9a6
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeBotInlineMessage(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.BotInlineMessageMediaAuto: // botInlineMessageMediaAuto#764cf810
+//  case *tg.BotInlineMessageText: // botInlineMessageText#8c7f65e2
+//  case *tg.BotInlineMessageMediaGeo: // botInlineMessageMediaGeo#51846fd
+//  case *tg.BotInlineMessageMediaVenue: // botInlineMessageMediaVenue#8a86659c
+//  case *tg.BotInlineMessageMediaContact: // botInlineMessageMediaContact#18d1cdc2
+//  case *tg.BotInlineMessageMediaInvoice: // botInlineMessageMediaInvoice#354a9b09
+//  case *tg.BotInlineMessageMediaWebPage: // botInlineMessageMediaWebPage#809ad9a6
+//  default: panic(v)
+//  }
 type BotInlineMessageClass interface {
 	bin.Encoder
 	bin.Decoder

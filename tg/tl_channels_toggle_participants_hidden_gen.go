@@ -37,8 +37,8 @@ var (
 // to use this method, as specified by the client configuration parameters »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/config#client-configuration
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
 type ChannelsToggleParticipantsHiddenRequest struct {
@@ -210,16 +210,15 @@ func (t *ChannelsToggleParticipantsHiddenRequest) GetChannelAsNotEmpty() (NotEmp
 // to use this method, as specified by the client configuration parameters »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
-//  2. https://core.telegram.org/api/config#client-configuration
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/config#client-configuration
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
-//	400 PARTICIPANTS_TOO_FEW: Not enough participants.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//  400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
 func (c *Client) ChannelsToggleParticipantsHidden(ctx context.Context, request *ChannelsToggleParticipantsHiddenRequest) (UpdatesClass, error) {

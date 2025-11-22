@@ -37,11 +37,11 @@ var (
 // restrictions, see here »⁵ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/chatAdminRights
-//  2. https://core.telegram.org/api/boost
-//  3. https://core.telegram.org/method/channels.toggleSlowMode
-//  4. https://core.telegram.org/api/rights#default-rights
-//  5. https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
+//  1) https://core.telegram.org/constructor/chatAdminRights
+//  2) https://core.telegram.org/api/boost
+//  3) https://core.telegram.org/method/channels.toggleSlowMode
+//  4) https://core.telegram.org/api/rights#default-rights
+//  5) https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
 //
 // See https://core.telegram.org/method/channels.setBoostsToUnblockRestrictions for reference.
 type ChannelsSetBoostsToUnblockRestrictionsRequest struct {
@@ -213,15 +213,14 @@ func (s *ChannelsSetBoostsToUnblockRestrictionsRequest) GetChannelAsNotEmpty() (
 // restrictions, see here »⁵ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/chatAdminRights
-//  2. https://core.telegram.org/api/boost
-//  3. https://core.telegram.org/method/channels.toggleSlowMode
-//  4. https://core.telegram.org/api/rights#default-rights
-//  5. https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
+//  1) https://core.telegram.org/constructor/chatAdminRights
+//  2) https://core.telegram.org/api/boost
+//  3) https://core.telegram.org/method/channels.toggleSlowMode
+//  4) https://core.telegram.org/api/rights#default-rights
+//  5) https://core.telegram.org/api/boost#bypass-slowmode-and-chat-restrictions
 //
 // Possible errors:
-//
-//	400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.setBoostsToUnblockRestrictions for reference.
 func (c *Client) ChannelsSetBoostsToUnblockRestrictions(ctx context.Context, request *ChannelsSetBoostsToUnblockRestrictionsRequest) (UpdatesClass, error) {

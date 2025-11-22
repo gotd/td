@@ -452,20 +452,19 @@ const UserProfilePhotoClassName = "UserProfilePhoto"
 // See https://core.telegram.org/type/UserProfilePhoto for reference.
 //
 // Constructors:
-//   - [UserProfilePhotoEmpty]
-//   - [UserProfilePhoto]
+//  - [UserProfilePhotoEmpty]
+//  - [UserProfilePhoto]
 //
 // Example:
-//
-//	g, err := tg.DecodeUserProfilePhoto(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.UserProfilePhotoEmpty: // userProfilePhotoEmpty#4f11bae1
-//	case *tg.UserProfilePhoto: // userProfilePhoto#82d1f706
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeUserProfilePhoto(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.UserProfilePhotoEmpty: // userProfilePhotoEmpty#4f11bae1
+//  case *tg.UserProfilePhoto: // userProfilePhoto#82d1f706
+//  default: panic(v)
+//  }
 type UserProfilePhotoClass interface {
 	bin.Encoder
 	bin.Decoder

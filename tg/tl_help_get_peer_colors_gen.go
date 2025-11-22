@@ -35,7 +35,7 @@ var (
 // Get the set of accent color palettes »¹ that can be used for message accents.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/help.getPeerColors for reference.
 type HelpGetPeerColorsRequest struct {
@@ -171,7 +171,7 @@ func (g *HelpGetPeerColorsRequest) GetHash() (value int) {
 // Get the set of accent color palettes »¹ that can be used for message accents.
 //
 // Links:
-//  1. https://core.telegram.org/api/colors
+//  1) https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/help.getPeerColors for reference.
 func (c *Client) HelpGetPeerColors(ctx context.Context, hash int) (HelpPeerColorsClass, error) {

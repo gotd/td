@@ -36,7 +36,7 @@ var (
 // us in private for the first time, or after a certain inactivity period.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#greeting-messages
+//  1) https://core.telegram.org/api/business#greeting-messages
 //
 // See https://core.telegram.org/constructor/inputBusinessGreetingMessage for reference.
 type InputBusinessGreetingMessage struct {

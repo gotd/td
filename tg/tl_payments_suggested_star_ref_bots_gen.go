@@ -35,8 +35,8 @@ var (
 // A list of suggested mini apps¹ with available affiliate programs²
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps
-//  2. https://core.telegram.org/api/bots/referrals
+//  1) https://core.telegram.org/api/bots/webapps
+//  2) https://core.telegram.org/api/bots/referrals
 //
 // See https://core.telegram.org/constructor/payments.suggestedStarRefBots for reference.
 type PaymentsSuggestedStarRefBots struct {

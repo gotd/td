@@ -35,7 +35,7 @@ var (
 // Get full info about a basic group¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel#basic-groups
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/method/messages.getFullChat for reference.
 type MessagesGetFullChatRequest struct {
@@ -171,12 +171,11 @@ func (g *MessagesGetFullChatRequest) GetChatID() (value int64) {
 // Get full info about a basic group¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel#basic-groups
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // Possible errors:
-//
-//	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getFullChat for reference.
 // Can be used by bots.

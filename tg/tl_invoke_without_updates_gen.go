@@ -36,8 +36,8 @@ var (
 // enabled by default for file queries²).
 //
 // Links:
-//  1. https://core.telegram.org/api/updates
-//  2. https://core.telegram.org/api/files
+//  1) https://core.telegram.org/api/updates
+//  2) https://core.telegram.org/api/files
 //
 // See https://core.telegram.org/constructor/invokeWithoutUpdates for reference.
 type InvokeWithoutUpdatesRequest struct {

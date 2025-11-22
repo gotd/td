@@ -35,7 +35,7 @@ var (
 // Story¹ view date and reaction information
 //
 // Links:
-//  1. https://core.telegram.org/api/stories
+//  1) https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/storyView for reference.
 type StoryView struct {
@@ -863,22 +863,21 @@ const StoryViewClassName = "StoryView"
 // See https://core.telegram.org/type/StoryView for reference.
 //
 // Constructors:
-//   - [StoryView]
-//   - [StoryViewPublicForward]
-//   - [StoryViewPublicRepost]
+//  - [StoryView]
+//  - [StoryViewPublicForward]
+//  - [StoryViewPublicRepost]
 //
 // Example:
-//
-//	g, err := tg.DecodeStoryView(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.StoryView: // storyView#b0bdeac5
-//	case *tg.StoryViewPublicForward: // storyViewPublicForward#9083670b
-//	case *tg.StoryViewPublicRepost: // storyViewPublicRepost#bd74cf49
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeStoryView(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.StoryView: // storyView#b0bdeac5
+//  case *tg.StoryViewPublicForward: // storyViewPublicForward#9083670b
+//  case *tg.StoryViewPublicRepost: // storyViewPublicRepost#bd74cf49
+//  default: panic(v)
+//  }
 type StoryViewClass interface {
 	bin.Encoder
 	bin.Decoder

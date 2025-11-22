@@ -343,7 +343,7 @@ func (a *AttachMenuPeerTypePM) DecodeBare(b *bin.Buffer) error {
 // The bot attachment menu entry is available in groups and supergroups¹
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/attachMenuPeerTypeChat for reference.
 type AttachMenuPeerTypeChat struct {
@@ -554,26 +554,25 @@ const AttachMenuPeerTypeClassName = "AttachMenuPeerType"
 // See https://core.telegram.org/type/AttachMenuPeerType for reference.
 //
 // Constructors:
-//   - [AttachMenuPeerTypeSameBotPM]
-//   - [AttachMenuPeerTypeBotPM]
-//   - [AttachMenuPeerTypePM]
-//   - [AttachMenuPeerTypeChat]
-//   - [AttachMenuPeerTypeBroadcast]
+//  - [AttachMenuPeerTypeSameBotPM]
+//  - [AttachMenuPeerTypeBotPM]
+//  - [AttachMenuPeerTypePM]
+//  - [AttachMenuPeerTypeChat]
+//  - [AttachMenuPeerTypeBroadcast]
 //
 // Example:
-//
-//	g, err := tg.DecodeAttachMenuPeerType(buf)
-//	if err != nil {
-//	    panic(err)
-//	}
-//	switch v := g.(type) {
-//	case *tg.AttachMenuPeerTypeSameBotPM: // attachMenuPeerTypeSameBotPM#7d6be90e
-//	case *tg.AttachMenuPeerTypeBotPM: // attachMenuPeerTypeBotPM#c32bfa1a
-//	case *tg.AttachMenuPeerTypePM: // attachMenuPeerTypePM#f146d31f
-//	case *tg.AttachMenuPeerTypeChat: // attachMenuPeerTypeChat#509113f
-//	case *tg.AttachMenuPeerTypeBroadcast: // attachMenuPeerTypeBroadcast#7bfbdefc
-//	default: panic(v)
-//	}
+//  g, err := tg.DecodeAttachMenuPeerType(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.AttachMenuPeerTypeSameBotPM: // attachMenuPeerTypeSameBotPM#7d6be90e
+//  case *tg.AttachMenuPeerTypeBotPM: // attachMenuPeerTypeBotPM#c32bfa1a
+//  case *tg.AttachMenuPeerTypePM: // attachMenuPeerTypePM#f146d31f
+//  case *tg.AttachMenuPeerTypeChat: // attachMenuPeerTypeChat#509113f
+//  case *tg.AttachMenuPeerTypeBroadcast: // attachMenuPeerTypeBroadcast#7bfbdefc
+//  default: panic(v)
+//  }
 type AttachMenuPeerTypeClass interface {
 	bin.Encoder
 	bin.Decoder
