@@ -167,7 +167,13 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 		return errors.Wrap(err, "waitSession")
 	}
 
-	return c.proto.Invoke(ctx, c.wrapRequest(noopDecoder{input}), output)
+	q := c.wrapRequest(noopDecoder{input})
+	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
+		Layer: tg.Layer,
+		Query: q,
+	})
+
+	return c.proto.Invoke(ctx, req, output)
 }
 
 // OnMessage implements mtproto.Handler.
