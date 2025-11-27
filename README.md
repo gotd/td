@@ -169,6 +169,37 @@ client.Run(ctx, func(ctx context.Context) error {
 })
 ```
 
+### Using MTProto JSON format
+
+You can invoke methods using MTProto JSON format with `InvokeJSON`.
+This accepts JSON with `@type` field in MTProto format (e.g., `"messages.sendMessage"`)
+and returns JSON response in MTProto format.
+
+```go
+client := telegram.NewClient(appID, appHash, telegram.Options{})
+client.Run(ctx, func(ctx context.Context) error {
+  if _, err := client.Auth().Bot(ctx, "token:12345"); err != nil {
+    return err
+  }
+
+  // Send message using MTProto JSON format
+  jsonReq := `{
+    "@type": "messages.sendMessage",
+    "peer": {"@type": "inputPeerUser", "user_id": 123456789, "access_hash": 0},
+    "message": "Hello from MTProto JSON!",
+    "random_id": 0
+  }`
+
+  jsonResp, err := client.API().InvokeJSON(ctx, jsonReq, true)
+  if err != nil {
+    return err
+  }
+  // jsonResp contains MTProto JSON response with snake_case field names
+  // {"@type":"messages.sentMessage",...} or error response
+  return nil
+})
+```
+
 ### Generated code
 
 The code output of `gotdgen` contains references to TL types, examples, URL to
