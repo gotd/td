@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#41d41ade`.
+// MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#13704a7c`.
 // Forwards messages by their IDs.
 //
 // See https://core.telegram.org/method/messages.forwardMessages for reference.
@@ -103,6 +103,10 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
 	QuickReplyShortcut InputQuickReplyShortcutClass
+	// Effect field of MessagesForwardMessagesRequest.
+	//
+	// Use SetEffect and GetEffect helpers.
+	Effect int64
 	// VideoTimestamp field of MessagesForwardMessagesRequest.
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
@@ -118,7 +122,7 @@ type MessagesForwardMessagesRequest struct {
 }
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
-const MessagesForwardMessagesRequestTypeID = 0x41d41ade
+const MessagesForwardMessagesRequestTypeID = 0x13704a7c
 
 // Ensuring interfaces in compile-time for MessagesForwardMessagesRequest.
 var (
@@ -186,6 +190,9 @@ func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if !(f.QuickReplyShortcut == nil) {
 		return false
 	}
+	if !(f.Effect == 0) {
+		return false
+	}
 	if !(f.VideoTimestamp == 0) {
 		return false
 	}
@@ -227,6 +234,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetScheduleRepeatPeriod() (value int, ok bool)
 	GetSendAs() (value InputPeerClass, ok bool)
 	GetQuickReplyShortcut() (value InputQuickReplyShortcutClass, ok bool)
+	GetEffect() (value int64, ok bool)
 	GetVideoTimestamp() (value int, ok bool)
 	GetAllowPaidStars() (value int64, ok bool)
 	GetSuggestedPost() (value SuggestedPost, ok bool)
@@ -264,6 +272,10 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 
 	if val, ok := from.GetQuickReplyShortcut(); ok {
 		f.QuickReplyShortcut = val
+	}
+
+	if val, ok := from.GetEffect(); ok {
+		f.Effect = val
 	}
 
 	if val, ok := from.GetVideoTimestamp(); ok {
@@ -385,6 +397,11 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 			Null:       !f.Flags.Has(17),
 		},
 		{
+			Name:       "Effect",
+			SchemaName: "effect",
+			Null:       !f.Flags.Has(18),
+		},
+		{
 			Name:       "VideoTimestamp",
 			SchemaName: "video_timestamp",
 			Null:       !f.Flags.Has(20),
@@ -444,6 +461,9 @@ func (f *MessagesForwardMessagesRequest) SetFlags() {
 	if !(f.QuickReplyShortcut == nil) {
 		f.Flags.Set(17)
 	}
+	if !(f.Effect == 0) {
+		f.Flags.Set(18)
+	}
 	if !(f.VideoTimestamp == 0) {
 		f.Flags.Set(20)
 	}
@@ -458,7 +478,7 @@ func (f *MessagesForwardMessagesRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#41d41ade as nil")
+		return fmt.Errorf("can't encode messages.forwardMessages#13704a7c as nil")
 	}
 	b.PutID(MessagesForwardMessagesRequestTypeID)
 	return f.EncodeBare(b)
@@ -467,17 +487,17 @@ func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#41d41ade as nil")
+		return fmt.Errorf("can't encode messages.forwardMessages#13704a7c as nil")
 	}
 	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field flags: %w", err)
 	}
 	if f.FromPeer == nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field from_peer is nil")
+		return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field from_peer is nil")
 	}
 	if err := f.FromPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field from_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field from_peer: %w", err)
 	}
 	b.PutVectorHeader(len(f.ID))
 	for _, v := range f.ID {
@@ -488,20 +508,20 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	if f.ToPeer == nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field to_peer is nil")
+		return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field to_peer is nil")
 	}
 	if err := f.ToPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field to_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field to_peer: %w", err)
 	}
 	if f.Flags.Has(9) {
 		b.PutInt(f.TopMsgID)
 	}
 	if f.Flags.Has(22) {
 		if f.ReplyTo == nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field reply_to is nil")
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field reply_to is nil")
 		}
 		if err := f.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field reply_to: %w", err)
 		}
 	}
 	if f.Flags.Has(10) {
@@ -512,19 +532,22 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if f.Flags.Has(13) {
 		if f.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field send_as is nil")
 		}
 		if err := f.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field send_as: %w", err)
 		}
 	}
 	if f.Flags.Has(17) {
 		if f.QuickReplyShortcut == nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field quick_reply_shortcut is nil")
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field quick_reply_shortcut is nil")
 		}
 		if err := f.QuickReplyShortcut.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field quick_reply_shortcut: %w", err)
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field quick_reply_shortcut: %w", err)
 		}
+	}
+	if f.Flags.Has(18) {
+		b.PutLong(f.Effect)
 	}
 	if f.Flags.Has(20) {
 		b.PutInt(f.VideoTimestamp)
@@ -534,7 +557,7 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if f.Flags.Has(23) {
 		if err := f.SuggestedPost.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forwardMessages#41d41ade: field suggested_post: %w", err)
+			return fmt.Errorf("unable to encode messages.forwardMessages#13704a7c: field suggested_post: %w", err)
 		}
 	}
 	return nil
@@ -543,10 +566,10 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forwardMessages#41d41ade to nil")
+		return fmt.Errorf("can't decode messages.forwardMessages#13704a7c to nil")
 	}
 	if err := b.ConsumeID(MessagesForwardMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: %w", err)
+		return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -554,11 +577,11 @@ func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forwardMessages#41d41ade to nil")
+		return fmt.Errorf("can't decode messages.forwardMessages#13704a7c to nil")
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field flags: %w", err)
 		}
 	}
 	f.Silent = f.Flags.Has(5)
@@ -571,14 +594,14 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field from_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field from_peer: %w", err)
 		}
 		f.FromPeer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -587,7 +610,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field id: %w", err)
+				return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field id: %w", err)
 			}
 			f.ID = append(f.ID, value)
 		}
@@ -595,7 +618,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field random_id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -604,7 +627,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field random_id: %w", err)
+				return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field random_id: %w", err)
 			}
 			f.RandomID = append(f.RandomID, value)
 		}
@@ -612,69 +635,76 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field to_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field to_peer: %w", err)
 		}
 		f.ToPeer = value
 	}
 	if f.Flags.Has(9) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field top_msg_id: %w", err)
 		}
 		f.TopMsgID = value
 	}
 	if f.Flags.Has(22) {
 		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field reply_to: %w", err)
 		}
 		f.ReplyTo = value
 	}
 	if f.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field schedule_date: %w", err)
 		}
 		f.ScheduleDate = value
 	}
 	if f.Flags.Has(24) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field schedule_repeat_period: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field schedule_repeat_period: %w", err)
 		}
 		f.ScheduleRepeatPeriod = value
 	}
 	if f.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field send_as: %w", err)
 		}
 		f.SendAs = value
 	}
 	if f.Flags.Has(17) {
 		value, err := DecodeInputQuickReplyShortcut(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field quick_reply_shortcut: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field quick_reply_shortcut: %w", err)
 		}
 		f.QuickReplyShortcut = value
+	}
+	if f.Flags.Has(18) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field effect: %w", err)
+		}
+		f.Effect = value
 	}
 	if f.Flags.Has(20) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field video_timestamp: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field video_timestamp: %w", err)
 		}
 		f.VideoTimestamp = value
 	}
 	if f.Flags.Has(21) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field allow_paid_stars: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field allow_paid_stars: %w", err)
 		}
 		f.AllowPaidStars = value
 	}
 	if f.Flags.Has(23) {
 		if err := f.SuggestedPost.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.forwardMessages#41d41ade: field suggested_post: %w", err)
+			return fmt.Errorf("unable to decode messages.forwardMessages#13704a7c: field suggested_post: %w", err)
 		}
 	}
 	return nil
@@ -953,6 +983,24 @@ func (f *MessagesForwardMessagesRequest) GetQuickReplyShortcut() (value InputQui
 	return f.QuickReplyShortcut, true
 }
 
+// SetEffect sets value of Effect conditional field.
+func (f *MessagesForwardMessagesRequest) SetEffect(value int64) {
+	f.Flags.Set(18)
+	f.Effect = value
+}
+
+// GetEffect returns value of Effect conditional field and
+// boolean which is true if field was set.
+func (f *MessagesForwardMessagesRequest) GetEffect() (value int64, ok bool) {
+	if f == nil {
+		return
+	}
+	if !f.Flags.Has(18) {
+		return value, false
+	}
+	return f.Effect, true
+}
+
 // SetVideoTimestamp sets value of VideoTimestamp conditional field.
 func (f *MessagesForwardMessagesRequest) SetVideoTimestamp(value int) {
 	f.Flags.Set(20)
@@ -1007,7 +1055,7 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 	return f.SuggestedPost, true
 }
 
-// MessagesForwardMessages invokes method messages.forwardMessages#41d41ade returning error if any.
+// MessagesForwardMessages invokes method messages.forwardMessages#13704a7c returning error if any.
 // Forwards messages by their IDs.
 //
 // Possible errors:

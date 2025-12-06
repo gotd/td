@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsStarGiftAuctionState represents TL type `payments.starGiftAuctionState#e98e474`.
+// PaymentsStarGiftAuctionState represents TL type `payments.starGiftAuctionState#6b39f4ec`.
 //
 // See https://core.telegram.org/constructor/payments.starGiftAuctionState for reference.
 type PaymentsStarGiftAuctionState struct {
@@ -45,10 +45,12 @@ type PaymentsStarGiftAuctionState struct {
 	Timeout int
 	// Users field of PaymentsStarGiftAuctionState.
 	Users []UserClass
+	// Chats field of PaymentsStarGiftAuctionState.
+	Chats []ChatClass
 }
 
 // PaymentsStarGiftAuctionStateTypeID is TL type id of PaymentsStarGiftAuctionState.
-const PaymentsStarGiftAuctionStateTypeID = 0xe98e474
+const PaymentsStarGiftAuctionStateTypeID = 0x6b39f4ec
 
 // Ensuring interfaces in compile-time for PaymentsStarGiftAuctionState.
 var (
@@ -77,6 +79,9 @@ func (s *PaymentsStarGiftAuctionState) Zero() bool {
 	if !(s.Users == nil) {
 		return false
 	}
+	if !(s.Chats == nil) {
+		return false
+	}
 
 	return true
 }
@@ -97,12 +102,14 @@ func (s *PaymentsStarGiftAuctionState) FillFrom(from interface {
 	GetUserState() (value StarGiftAuctionUserState)
 	GetTimeout() (value int)
 	GetUsers() (value []UserClass)
+	GetChats() (value []ChatClass)
 }) {
 	s.Gift = from.GetGift()
 	s.State = from.GetState()
 	s.UserState = from.GetUserState()
 	s.Timeout = from.GetTimeout()
 	s.Users = from.GetUsers()
+	s.Chats = from.GetChats()
 }
 
 // TypeID returns type id in TL schema.
@@ -148,6 +155,10 @@ func (s *PaymentsStarGiftAuctionState) TypeInfo() tdp.Type {
 			Name:       "Users",
 			SchemaName: "users",
 		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
 	}
 	return typ
 }
@@ -155,7 +166,7 @@ func (s *PaymentsStarGiftAuctionState) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PaymentsStarGiftAuctionState) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGiftAuctionState#e98e474 as nil")
+		return fmt.Errorf("can't encode payments.starGiftAuctionState#6b39f4ec as nil")
 	}
 	b.PutID(PaymentsStarGiftAuctionStateTypeID)
 	return s.EncodeBare(b)
@@ -164,31 +175,40 @@ func (s *PaymentsStarGiftAuctionState) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsStarGiftAuctionState) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGiftAuctionState#e98e474 as nil")
+		return fmt.Errorf("can't encode payments.starGiftAuctionState#6b39f4ec as nil")
 	}
 	if s.Gift == nil {
-		return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field gift is nil")
+		return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field gift is nil")
 	}
 	if err := s.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field gift: %w", err)
+		return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field gift: %w", err)
 	}
 	if s.State == nil {
-		return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field state is nil")
+		return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field state is nil")
 	}
 	if err := s.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field state: %w", err)
+		return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field state: %w", err)
 	}
 	if err := s.UserState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field user_state: %w", err)
+		return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field user_state: %w", err)
 	}
 	b.PutInt(s.Timeout)
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starGiftAuctionState#e98e474: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field users element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Chats))
+	for idx, v := range s.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starGiftAuctionState#6b39f4ec: field chats element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -197,10 +217,10 @@ func (s *PaymentsStarGiftAuctionState) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsStarGiftAuctionState) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGiftAuctionState#e98e474 to nil")
+		return fmt.Errorf("can't decode payments.starGiftAuctionState#6b39f4ec to nil")
 	}
 	if err := b.ConsumeID(PaymentsStarGiftAuctionStateTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: %w", err)
+		return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -208,38 +228,38 @@ func (s *PaymentsStarGiftAuctionState) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsStarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGiftAuctionState#e98e474 to nil")
+		return fmt.Errorf("can't decode payments.starGiftAuctionState#6b39f4ec to nil")
 	}
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: field gift: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field gift: %w", err)
 		}
 		s.Gift = value
 	}
 	{
 		value, err := DecodeStarGiftAuctionState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: field state: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field state: %w", err)
 		}
 		s.State = value
 	}
 	{
 		if err := s.UserState.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: field user_state: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field user_state: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: field timeout: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field timeout: %w", err)
 		}
 		s.Timeout = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: field users: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -248,9 +268,26 @@ func (s *PaymentsStarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.starGiftAuctionState#e98e474: field users: %w", err)
+				return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.starGiftAuctionState#6b39f4ec: field chats: %w", err)
+			}
+			s.Chats = append(s.Chats, value)
 		}
 	}
 	return nil
@@ -296,6 +333,14 @@ func (s *PaymentsStarGiftAuctionState) GetUsers() (value []UserClass) {
 	return s.Users
 }
 
+// GetChats returns value of Chats field.
+func (s *PaymentsStarGiftAuctionState) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
+	return s.Chats
+}
+
 // GetStateAsModified returns mapped value of State field.
 func (s *PaymentsStarGiftAuctionState) GetStateAsModified() (ModifiedStarGiftAuctionState, bool) {
 	return s.State.AsModified()
@@ -304,4 +349,9 @@ func (s *PaymentsStarGiftAuctionState) GetStateAsModified() (ModifiedStarGiftAuc
 // MapUsers returns field Users wrapped in UserClassArray helper.
 func (s *PaymentsStarGiftAuctionState) MapUsers() (value UserClassArray) {
 	return UserClassArray(s.Users)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (s *PaymentsStarGiftAuctionState) MapChats() (value ChatClassArray) {
+	return ChatClassArray(s.Chats)
 }

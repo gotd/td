@@ -1087,7 +1087,7 @@ func (w *WebPageAttributeStarGiftCollection) MapIcons() (value DocumentClassArra
 	return DocumentClassArray(w.Icons)
 }
 
-// WebPageAttributeStarGiftAuction represents TL type `webPageAttributeStarGiftAuction#34986ab`.
+// WebPageAttributeStarGiftAuction represents TL type `webPageAttributeStarGiftAuction#1c641c2`.
 //
 // See https://core.telegram.org/constructor/webPageAttributeStarGiftAuction for reference.
 type WebPageAttributeStarGiftAuction struct {
@@ -1095,16 +1095,10 @@ type WebPageAttributeStarGiftAuction struct {
 	Gift StarGiftClass
 	// EndDate field of WebPageAttributeStarGiftAuction.
 	EndDate int
-	// CenterColor field of WebPageAttributeStarGiftAuction.
-	CenterColor int
-	// EdgeColor field of WebPageAttributeStarGiftAuction.
-	EdgeColor int
-	// TextColor field of WebPageAttributeStarGiftAuction.
-	TextColor int
 }
 
 // WebPageAttributeStarGiftAuctionTypeID is TL type id of WebPageAttributeStarGiftAuction.
-const WebPageAttributeStarGiftAuctionTypeID = 0x34986ab
+const WebPageAttributeStarGiftAuctionTypeID = 0x1c641c2
 
 // construct implements constructor of WebPageAttributeClass.
 func (w WebPageAttributeStarGiftAuction) construct() WebPageAttributeClass { return &w }
@@ -1129,15 +1123,6 @@ func (w *WebPageAttributeStarGiftAuction) Zero() bool {
 	if !(w.EndDate == 0) {
 		return false
 	}
-	if !(w.CenterColor == 0) {
-		return false
-	}
-	if !(w.EdgeColor == 0) {
-		return false
-	}
-	if !(w.TextColor == 0) {
-		return false
-	}
 
 	return true
 }
@@ -1155,15 +1140,9 @@ func (w *WebPageAttributeStarGiftAuction) String() string {
 func (w *WebPageAttributeStarGiftAuction) FillFrom(from interface {
 	GetGift() (value StarGiftClass)
 	GetEndDate() (value int)
-	GetCenterColor() (value int)
-	GetEdgeColor() (value int)
-	GetTextColor() (value int)
 }) {
 	w.Gift = from.GetGift()
 	w.EndDate = from.GetEndDate()
-	w.CenterColor = from.GetCenterColor()
-	w.EdgeColor = from.GetEdgeColor()
-	w.TextColor = from.GetTextColor()
 }
 
 // TypeID returns type id in TL schema.
@@ -1197,18 +1176,6 @@ func (w *WebPageAttributeStarGiftAuction) TypeInfo() tdp.Type {
 			Name:       "EndDate",
 			SchemaName: "end_date",
 		},
-		{
-			Name:       "CenterColor",
-			SchemaName: "center_color",
-		},
-		{
-			Name:       "EdgeColor",
-			SchemaName: "edge_color",
-		},
-		{
-			Name:       "TextColor",
-			SchemaName: "text_color",
-		},
 	}
 	return typ
 }
@@ -1216,7 +1183,7 @@ func (w *WebPageAttributeStarGiftAuction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPageAttributeStarGiftAuction) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageAttributeStarGiftAuction#34986ab as nil")
+		return fmt.Errorf("can't encode webPageAttributeStarGiftAuction#1c641c2 as nil")
 	}
 	b.PutID(WebPageAttributeStarGiftAuctionTypeID)
 	return w.EncodeBare(b)
@@ -1225,28 +1192,25 @@ func (w *WebPageAttributeStarGiftAuction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageAttributeStarGiftAuction) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageAttributeStarGiftAuction#34986ab as nil")
+		return fmt.Errorf("can't encode webPageAttributeStarGiftAuction#1c641c2 as nil")
 	}
 	if w.Gift == nil {
-		return fmt.Errorf("unable to encode webPageAttributeStarGiftAuction#34986ab: field gift is nil")
+		return fmt.Errorf("unable to encode webPageAttributeStarGiftAuction#1c641c2: field gift is nil")
 	}
 	if err := w.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPageAttributeStarGiftAuction#34986ab: field gift: %w", err)
+		return fmt.Errorf("unable to encode webPageAttributeStarGiftAuction#1c641c2: field gift: %w", err)
 	}
 	b.PutInt(w.EndDate)
-	b.PutInt(w.CenterColor)
-	b.PutInt(w.EdgeColor)
-	b.PutInt(w.TextColor)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (w *WebPageAttributeStarGiftAuction) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageAttributeStarGiftAuction#34986ab to nil")
+		return fmt.Errorf("can't decode webPageAttributeStarGiftAuction#1c641c2 to nil")
 	}
 	if err := b.ConsumeID(WebPageAttributeStarGiftAuctionTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#34986ab: %w", err)
+		return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#1c641c2: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -1254,42 +1218,21 @@ func (w *WebPageAttributeStarGiftAuction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageAttributeStarGiftAuction) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageAttributeStarGiftAuction#34986ab to nil")
+		return fmt.Errorf("can't decode webPageAttributeStarGiftAuction#1c641c2 to nil")
 	}
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#34986ab: field gift: %w", err)
+			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#1c641c2: field gift: %w", err)
 		}
 		w.Gift = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#34986ab: field end_date: %w", err)
+			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#1c641c2: field end_date: %w", err)
 		}
 		w.EndDate = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#34986ab: field center_color: %w", err)
-		}
-		w.CenterColor = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#34986ab: field edge_color: %w", err)
-		}
-		w.EdgeColor = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStarGiftAuction#34986ab: field text_color: %w", err)
-		}
-		w.TextColor = value
 	}
 	return nil
 }
@@ -1308,30 +1251,6 @@ func (w *WebPageAttributeStarGiftAuction) GetEndDate() (value int) {
 		return
 	}
 	return w.EndDate
-}
-
-// GetCenterColor returns value of CenterColor field.
-func (w *WebPageAttributeStarGiftAuction) GetCenterColor() (value int) {
-	if w == nil {
-		return
-	}
-	return w.CenterColor
-}
-
-// GetEdgeColor returns value of EdgeColor field.
-func (w *WebPageAttributeStarGiftAuction) GetEdgeColor() (value int) {
-	if w == nil {
-		return
-	}
-	return w.EdgeColor
-}
-
-// GetTextColor returns value of TextColor field.
-func (w *WebPageAttributeStarGiftAuction) GetTextColor() (value int) {
-	if w == nil {
-		return
-	}
-	return w.TextColor
 }
 
 // WebPageAttributeClassName is schema name of WebPageAttributeClass.
@@ -1361,7 +1280,7 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //	case *tg.WebPageAttributeStickerSet: // webPageAttributeStickerSet#50cc03d3
 //	case *tg.WebPageAttributeUniqueStarGift: // webPageAttributeUniqueStarGift#cf6f6db8
 //	case *tg.WebPageAttributeStarGiftCollection: // webPageAttributeStarGiftCollection#31cad303
-//	case *tg.WebPageAttributeStarGiftAuction: // webPageAttributeStarGiftAuction#34986ab
+//	case *tg.WebPageAttributeStarGiftAuction: // webPageAttributeStarGiftAuction#1c641c2
 //	default: panic(v)
 //	}
 type WebPageAttributeClass interface {
@@ -1426,7 +1345,7 @@ func DecodeWebPageAttribute(buf *bin.Buffer) (WebPageAttributeClass, error) {
 		}
 		return &v, nil
 	case WebPageAttributeStarGiftAuctionTypeID:
-		// Decoding webPageAttributeStarGiftAuction#34986ab.
+		// Decoding webPageAttributeStarGiftAuction#1c641c2.
 		v := WebPageAttributeStarGiftAuction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
