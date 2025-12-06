@@ -41,8 +41,6 @@ type GroupCallDonor struct {
 	Top bool
 	// My field of GroupCallDonor.
 	My bool
-	// Anonymous field of GroupCallDonor.
-	Anonymous bool
 	// PeerID field of GroupCallDonor.
 	//
 	// Use SetPeerID and GetPeerID helpers.
@@ -75,9 +73,6 @@ func (g *GroupCallDonor) Zero() bool {
 	if !(g.My == false) {
 		return false
 	}
-	if !(g.Anonymous == false) {
-		return false
-	}
 	if !(g.PeerID == nil) {
 		return false
 	}
@@ -101,13 +96,11 @@ func (g *GroupCallDonor) String() string {
 func (g *GroupCallDonor) FillFrom(from interface {
 	GetTop() (value bool)
 	GetMy() (value bool)
-	GetAnonymous() (value bool)
 	GetPeerID() (value PeerClass, ok bool)
 	GetStars() (value int64)
 }) {
 	g.Top = from.GetTop()
 	g.My = from.GetMy()
-	g.Anonymous = from.GetAnonymous()
 	if val, ok := from.GetPeerID(); ok {
 		g.PeerID = val
 	}
@@ -149,11 +142,6 @@ func (g *GroupCallDonor) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(1),
 		},
 		{
-			Name:       "Anonymous",
-			SchemaName: "anonymous",
-			Null:       !g.Flags.Has(2),
-		},
-		{
 			Name:       "PeerID",
 			SchemaName: "peer_id",
 			Null:       !g.Flags.Has(3),
@@ -173,9 +161,6 @@ func (g *GroupCallDonor) SetFlags() {
 	}
 	if !(g.My == false) {
 		g.Flags.Set(1)
-	}
-	if !(g.Anonymous == false) {
-		g.Flags.Set(2)
 	}
 	if !(g.PeerID == nil) {
 		g.Flags.Set(3)
@@ -235,7 +220,6 @@ func (g *GroupCallDonor) DecodeBare(b *bin.Buffer) error {
 	}
 	g.Top = g.Flags.Has(0)
 	g.My = g.Flags.Has(1)
-	g.Anonymous = g.Flags.Has(2)
 	if g.Flags.Has(3) {
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -289,25 +273,6 @@ func (g *GroupCallDonor) GetMy() (value bool) {
 		return
 	}
 	return g.Flags.Has(1)
-}
-
-// SetAnonymous sets value of Anonymous conditional field.
-func (g *GroupCallDonor) SetAnonymous(value bool) {
-	if value {
-		g.Flags.Set(2)
-		g.Anonymous = true
-	} else {
-		g.Flags.Unset(2)
-		g.Anonymous = false
-	}
-}
-
-// GetAnonymous returns value of Anonymous conditional field.
-func (g *GroupCallDonor) GetAnonymous() (value bool) {
-	if g == nil {
-		return
-	}
-	return g.Flags.Has(2)
 }
 
 // SetPeerID sets value of PeerID conditional field.

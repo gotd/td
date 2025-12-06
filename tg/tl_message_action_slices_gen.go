@@ -779,6 +779,32 @@ func (s MessageActionClassArray) AsMessageActionSuggestBirthday() (to MessageAct
 	return to
 }
 
+// AsMessageActionStarGiftPurchaseOffer returns copy with only MessageActionStarGiftPurchaseOffer constructors.
+func (s MessageActionClassArray) AsMessageActionStarGiftPurchaseOffer() (to MessageActionStarGiftPurchaseOfferArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionStarGiftPurchaseOffer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionStarGiftPurchaseOfferDeclined returns copy with only MessageActionStarGiftPurchaseOfferDeclined constructors.
+func (s MessageActionClassArray) AsMessageActionStarGiftPurchaseOfferDeclined() (to MessageActionStarGiftPurchaseOfferDeclinedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionStarGiftPurchaseOfferDeclined)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -4949,6 +4975,170 @@ func (s *MessageActionSuggestBirthdayArray) PopFirst() (v MessageActionSuggestBi
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionSuggestBirthdayArray) Pop() (v MessageActionSuggestBirthday, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionStarGiftPurchaseOfferArray is adapter for slice of MessageActionStarGiftPurchaseOffer.
+type MessageActionStarGiftPurchaseOfferArray []MessageActionStarGiftPurchaseOffer
+
+// Sort sorts slice of MessageActionStarGiftPurchaseOffer.
+func (s MessageActionStarGiftPurchaseOfferArray) Sort(less func(a, b MessageActionStarGiftPurchaseOffer) bool) MessageActionStarGiftPurchaseOfferArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionStarGiftPurchaseOffer.
+func (s MessageActionStarGiftPurchaseOfferArray) SortStable(less func(a, b MessageActionStarGiftPurchaseOffer) bool) MessageActionStarGiftPurchaseOfferArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionStarGiftPurchaseOffer.
+func (s MessageActionStarGiftPurchaseOfferArray) Retain(keep func(x MessageActionStarGiftPurchaseOffer) bool) MessageActionStarGiftPurchaseOfferArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionStarGiftPurchaseOfferArray) First() (v MessageActionStarGiftPurchaseOffer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionStarGiftPurchaseOfferArray) Last() (v MessageActionStarGiftPurchaseOffer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftPurchaseOfferArray) PopFirst() (v MessageActionStarGiftPurchaseOffer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionStarGiftPurchaseOffer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftPurchaseOfferArray) Pop() (v MessageActionStarGiftPurchaseOffer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionStarGiftPurchaseOfferDeclinedArray is adapter for slice of MessageActionStarGiftPurchaseOfferDeclined.
+type MessageActionStarGiftPurchaseOfferDeclinedArray []MessageActionStarGiftPurchaseOfferDeclined
+
+// Sort sorts slice of MessageActionStarGiftPurchaseOfferDeclined.
+func (s MessageActionStarGiftPurchaseOfferDeclinedArray) Sort(less func(a, b MessageActionStarGiftPurchaseOfferDeclined) bool) MessageActionStarGiftPurchaseOfferDeclinedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionStarGiftPurchaseOfferDeclined.
+func (s MessageActionStarGiftPurchaseOfferDeclinedArray) SortStable(less func(a, b MessageActionStarGiftPurchaseOfferDeclined) bool) MessageActionStarGiftPurchaseOfferDeclinedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionStarGiftPurchaseOfferDeclined.
+func (s MessageActionStarGiftPurchaseOfferDeclinedArray) Retain(keep func(x MessageActionStarGiftPurchaseOfferDeclined) bool) MessageActionStarGiftPurchaseOfferDeclinedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionStarGiftPurchaseOfferDeclinedArray) First() (v MessageActionStarGiftPurchaseOfferDeclined, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionStarGiftPurchaseOfferDeclinedArray) Last() (v MessageActionStarGiftPurchaseOfferDeclined, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftPurchaseOfferDeclinedArray) PopFirst() (v MessageActionStarGiftPurchaseOfferDeclined, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionStarGiftPurchaseOfferDeclined
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftPurchaseOfferDeclinedArray) Pop() (v MessageActionStarGiftPurchaseOfferDeclined, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

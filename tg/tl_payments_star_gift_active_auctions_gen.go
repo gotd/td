@@ -134,7 +134,7 @@ func (s *PaymentsStarGiftActiveAuctionsNotModified) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// PaymentsStarGiftActiveAuctions represents TL type `payments.starGiftActiveAuctions#97f187d8`.
+// PaymentsStarGiftActiveAuctions represents TL type `payments.starGiftActiveAuctions#aef6abbc`.
 //
 // See https://core.telegram.org/constructor/payments.starGiftActiveAuctions for reference.
 type PaymentsStarGiftActiveAuctions struct {
@@ -142,10 +142,12 @@ type PaymentsStarGiftActiveAuctions struct {
 	Auctions []StarGiftActiveAuctionState
 	// Users field of PaymentsStarGiftActiveAuctions.
 	Users []UserClass
+	// Chats field of PaymentsStarGiftActiveAuctions.
+	Chats []ChatClass
 }
 
 // PaymentsStarGiftActiveAuctionsTypeID is TL type id of PaymentsStarGiftActiveAuctions.
-const PaymentsStarGiftActiveAuctionsTypeID = 0x97f187d8
+const PaymentsStarGiftActiveAuctionsTypeID = 0xaef6abbc
 
 // construct implements constructor of PaymentsStarGiftActiveAuctionsClass.
 func (s PaymentsStarGiftActiveAuctions) construct() PaymentsStarGiftActiveAuctionsClass { return &s }
@@ -170,6 +172,9 @@ func (s *PaymentsStarGiftActiveAuctions) Zero() bool {
 	if !(s.Users == nil) {
 		return false
 	}
+	if !(s.Chats == nil) {
+		return false
+	}
 
 	return true
 }
@@ -187,9 +192,11 @@ func (s *PaymentsStarGiftActiveAuctions) String() string {
 func (s *PaymentsStarGiftActiveAuctions) FillFrom(from interface {
 	GetAuctions() (value []StarGiftActiveAuctionState)
 	GetUsers() (value []UserClass)
+	GetChats() (value []ChatClass)
 }) {
 	s.Auctions = from.GetAuctions()
 	s.Users = from.GetUsers()
+	s.Chats = from.GetChats()
 }
 
 // TypeID returns type id in TL schema.
@@ -223,6 +230,10 @@ func (s *PaymentsStarGiftActiveAuctions) TypeInfo() tdp.Type {
 			Name:       "Users",
 			SchemaName: "users",
 		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
 	}
 	return typ
 }
@@ -230,7 +241,7 @@ func (s *PaymentsStarGiftActiveAuctions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *PaymentsStarGiftActiveAuctions) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGiftActiveAuctions#97f187d8 as nil")
+		return fmt.Errorf("can't encode payments.starGiftActiveAuctions#aef6abbc as nil")
 	}
 	b.PutID(PaymentsStarGiftActiveAuctionsTypeID)
 	return s.EncodeBare(b)
@@ -239,21 +250,30 @@ func (s *PaymentsStarGiftActiveAuctions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsStarGiftActiveAuctions) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.starGiftActiveAuctions#97f187d8 as nil")
+		return fmt.Errorf("can't encode payments.starGiftActiveAuctions#aef6abbc as nil")
 	}
 	b.PutVectorHeader(len(s.Auctions))
 	for idx, v := range s.Auctions {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#97f187d8: field auctions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#aef6abbc: field auctions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#97f187d8: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#aef6abbc: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#97f187d8: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#aef6abbc: field users element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Chats))
+	for idx, v := range s.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#aef6abbc: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.starGiftActiveAuctions#aef6abbc: field chats element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -262,10 +282,10 @@ func (s *PaymentsStarGiftActiveAuctions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsStarGiftActiveAuctions) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGiftActiveAuctions#97f187d8 to nil")
+		return fmt.Errorf("can't decode payments.starGiftActiveAuctions#aef6abbc to nil")
 	}
 	if err := b.ConsumeID(PaymentsStarGiftActiveAuctionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#97f187d8: %w", err)
+		return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -273,12 +293,12 @@ func (s *PaymentsStarGiftActiveAuctions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsStarGiftActiveAuctions) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.starGiftActiveAuctions#97f187d8 to nil")
+		return fmt.Errorf("can't decode payments.starGiftActiveAuctions#aef6abbc to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#97f187d8: field auctions: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: field auctions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -287,7 +307,7 @@ func (s *PaymentsStarGiftActiveAuctions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StarGiftActiveAuctionState
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#97f187d8: field auctions: %w", err)
+				return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: field auctions: %w", err)
 			}
 			s.Auctions = append(s.Auctions, value)
 		}
@@ -295,7 +315,7 @@ func (s *PaymentsStarGiftActiveAuctions) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#97f187d8: field users: %w", err)
+			return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -304,9 +324,26 @@ func (s *PaymentsStarGiftActiveAuctions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#97f187d8: field users: %w", err)
+				return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode payments.starGiftActiveAuctions#aef6abbc: field chats: %w", err)
+			}
+			s.Chats = append(s.Chats, value)
 		}
 	}
 	return nil
@@ -328,9 +365,22 @@ func (s *PaymentsStarGiftActiveAuctions) GetUsers() (value []UserClass) {
 	return s.Users
 }
 
+// GetChats returns value of Chats field.
+func (s *PaymentsStarGiftActiveAuctions) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
+	return s.Chats
+}
+
 // MapUsers returns field Users wrapped in UserClassArray helper.
 func (s *PaymentsStarGiftActiveAuctions) MapUsers() (value UserClassArray) {
 	return UserClassArray(s.Users)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (s *PaymentsStarGiftActiveAuctions) MapChats() (value ChatClassArray) {
+	return ChatClassArray(s.Chats)
 }
 
 // PaymentsStarGiftActiveAuctionsClassName is schema name of PaymentsStarGiftActiveAuctionsClass.
@@ -352,7 +402,7 @@ const PaymentsStarGiftActiveAuctionsClassName = "payments.StarGiftActiveAuctions
 //	}
 //	switch v := g.(type) {
 //	case *tg.PaymentsStarGiftActiveAuctionsNotModified: // payments.starGiftActiveAuctionsNotModified#db33dad0
-//	case *tg.PaymentsStarGiftActiveAuctions: // payments.starGiftActiveAuctions#97f187d8
+//	case *tg.PaymentsStarGiftActiveAuctions: // payments.starGiftActiveAuctions#aef6abbc
 //	default: panic(v)
 //	}
 type PaymentsStarGiftActiveAuctionsClass interface {
@@ -402,7 +452,7 @@ func DecodePaymentsStarGiftActiveAuctions(buf *bin.Buffer) (PaymentsStarGiftActi
 		}
 		return &v, nil
 	case PaymentsStarGiftActiveAuctionsTypeID:
-		// Decoding payments.starGiftActiveAuctions#97f187d8.
+		// Decoding payments.starGiftActiveAuctions#aef6abbc.
 		v := PaymentsStarGiftActiveAuctions{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentsStarGiftActiveAuctionsClass: %w", err)

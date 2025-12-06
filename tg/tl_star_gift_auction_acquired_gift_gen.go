@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarGiftAuctionAcquiredGift represents TL type `starGiftAuctionAcquiredGift#ab60e20b`.
+// StarGiftAuctionAcquiredGift represents TL type `starGiftAuctionAcquiredGift#42b00348`.
 //
 // See https://core.telegram.org/constructor/starGiftAuctionAcquiredGift for reference.
 type StarGiftAuctionAcquiredGift struct {
@@ -53,10 +53,14 @@ type StarGiftAuctionAcquiredGift struct {
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
+	// GiftNum field of StarGiftAuctionAcquiredGift.
+	//
+	// Use SetGiftNum and GetGiftNum helpers.
+	GiftNum int
 }
 
 // StarGiftAuctionAcquiredGiftTypeID is TL type id of StarGiftAuctionAcquiredGift.
-const StarGiftAuctionAcquiredGiftTypeID = 0xab60e20b
+const StarGiftAuctionAcquiredGiftTypeID = 0x42b00348
 
 // Ensuring interfaces in compile-time for StarGiftAuctionAcquiredGift.
 var (
@@ -94,6 +98,9 @@ func (s *StarGiftAuctionAcquiredGift) Zero() bool {
 	if !(s.Message.Zero()) {
 		return false
 	}
+	if !(s.GiftNum == 0) {
+		return false
+	}
 
 	return true
 }
@@ -116,6 +123,7 @@ func (s *StarGiftAuctionAcquiredGift) FillFrom(from interface {
 	GetRound() (value int)
 	GetPos() (value int)
 	GetMessage() (value TextWithEntities, ok bool)
+	GetGiftNum() (value int, ok bool)
 }) {
 	s.NameHidden = from.GetNameHidden()
 	s.Peer = from.GetPeer()
@@ -125,6 +133,10 @@ func (s *StarGiftAuctionAcquiredGift) FillFrom(from interface {
 	s.Pos = from.GetPos()
 	if val, ok := from.GetMessage(); ok {
 		s.Message = val
+	}
+
+	if val, ok := from.GetGiftNum(); ok {
+		s.GiftNum = val
 	}
 
 }
@@ -182,6 +194,11 @@ func (s *StarGiftAuctionAcquiredGift) TypeInfo() tdp.Type {
 			SchemaName: "message",
 			Null:       !s.Flags.Has(1),
 		},
+		{
+			Name:       "GiftNum",
+			SchemaName: "gift_num",
+			Null:       !s.Flags.Has(2),
+		},
 	}
 	return typ
 }
@@ -194,12 +211,15 @@ func (s *StarGiftAuctionAcquiredGift) SetFlags() {
 	if !(s.Message.Zero()) {
 		s.Flags.Set(1)
 	}
+	if !(s.GiftNum == 0) {
+		s.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StarGiftAuctionAcquiredGift) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAuctionAcquiredGift#ab60e20b as nil")
+		return fmt.Errorf("can't encode starGiftAuctionAcquiredGift#42b00348 as nil")
 	}
 	b.PutID(StarGiftAuctionAcquiredGiftTypeID)
 	return s.EncodeBare(b)
@@ -208,17 +228,17 @@ func (s *StarGiftAuctionAcquiredGift) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAuctionAcquiredGift) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAuctionAcquiredGift#ab60e20b as nil")
+		return fmt.Errorf("can't encode starGiftAuctionAcquiredGift#42b00348 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#ab60e20b: field flags: %w", err)
+		return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#42b00348: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#ab60e20b: field peer is nil")
+		return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#42b00348: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#ab60e20b: field peer: %w", err)
+		return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#42b00348: field peer: %w", err)
 	}
 	b.PutInt(s.Date)
 	b.PutLong(s.BidAmount)
@@ -226,8 +246,11 @@ func (s *StarGiftAuctionAcquiredGift) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(s.Pos)
 	if s.Flags.Has(1) {
 		if err := s.Message.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#ab60e20b: field message: %w", err)
+			return fmt.Errorf("unable to encode starGiftAuctionAcquiredGift#42b00348: field message: %w", err)
 		}
+	}
+	if s.Flags.Has(2) {
+		b.PutInt(s.GiftNum)
 	}
 	return nil
 }
@@ -235,10 +258,10 @@ func (s *StarGiftAuctionAcquiredGift) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StarGiftAuctionAcquiredGift) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAuctionAcquiredGift#ab60e20b to nil")
+		return fmt.Errorf("can't decode starGiftAuctionAcquiredGift#42b00348 to nil")
 	}
 	if err := b.ConsumeID(StarGiftAuctionAcquiredGiftTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: %w", err)
+		return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -246,53 +269,60 @@ func (s *StarGiftAuctionAcquiredGift) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAuctionAcquiredGift) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAuctionAcquiredGift#ab60e20b to nil")
+		return fmt.Errorf("can't decode starGiftAuctionAcquiredGift#42b00348 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field flags: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field flags: %w", err)
 		}
 	}
 	s.NameHidden = s.Flags.Has(0)
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field peer: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field date: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field date: %w", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field bid_amount: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field bid_amount: %w", err)
 		}
 		s.BidAmount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field round: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field round: %w", err)
 		}
 		s.Round = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field pos: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field pos: %w", err)
 		}
 		s.Pos = value
 	}
 	if s.Flags.Has(1) {
 		if err := s.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#ab60e20b: field message: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field message: %w", err)
 		}
+	}
+	if s.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionAcquiredGift#42b00348: field gift_num: %w", err)
+		}
+		s.GiftNum = value
 	}
 	return nil
 }
@@ -372,4 +402,22 @@ func (s *StarGiftAuctionAcquiredGift) GetMessage() (value TextWithEntities, ok b
 		return value, false
 	}
 	return s.Message, true
+}
+
+// SetGiftNum sets value of GiftNum conditional field.
+func (s *StarGiftAuctionAcquiredGift) SetGiftNum(value int) {
+	s.Flags.Set(2)
+	s.GiftNum = value
+}
+
+// GetGiftNum returns value of GiftNum conditional field and
+// boolean which is true if field was set.
+func (s *StarGiftAuctionAcquiredGift) GetGiftNum() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.GiftNum, true
 }

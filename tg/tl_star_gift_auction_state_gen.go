@@ -132,7 +132,7 @@ func (s *StarGiftAuctionStateNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// StarGiftAuctionState represents TL type `starGiftAuctionState#5db04f4b`.
+// StarGiftAuctionState represents TL type `starGiftAuctionState#771a4e66`.
 //
 // See https://core.telegram.org/constructor/starGiftAuctionState for reference.
 type StarGiftAuctionState struct {
@@ -150,16 +150,20 @@ type StarGiftAuctionState struct {
 	TopBidders []int64
 	// NextRoundAt field of StarGiftAuctionState.
 	NextRoundAt int
+	// LastGiftNum field of StarGiftAuctionState.
+	LastGiftNum int
 	// GiftsLeft field of StarGiftAuctionState.
 	GiftsLeft int
 	// CurrentRound field of StarGiftAuctionState.
 	CurrentRound int
 	// TotalRounds field of StarGiftAuctionState.
 	TotalRounds int
+	// Rounds field of StarGiftAuctionState.
+	Rounds []StarGiftAuctionRoundClass
 }
 
 // StarGiftAuctionStateTypeID is TL type id of StarGiftAuctionState.
-const StarGiftAuctionStateTypeID = 0x5db04f4b
+const StarGiftAuctionStateTypeID = 0x771a4e66
 
 // construct implements constructor of StarGiftAuctionStateClass.
 func (s StarGiftAuctionState) construct() StarGiftAuctionStateClass { return &s }
@@ -199,6 +203,9 @@ func (s *StarGiftAuctionState) Zero() bool {
 	if !(s.NextRoundAt == 0) {
 		return false
 	}
+	if !(s.LastGiftNum == 0) {
+		return false
+	}
 	if !(s.GiftsLeft == 0) {
 		return false
 	}
@@ -206,6 +213,9 @@ func (s *StarGiftAuctionState) Zero() bool {
 		return false
 	}
 	if !(s.TotalRounds == 0) {
+		return false
+	}
+	if !(s.Rounds == nil) {
 		return false
 	}
 
@@ -230,9 +240,11 @@ func (s *StarGiftAuctionState) FillFrom(from interface {
 	GetBidLevels() (value []AuctionBidLevel)
 	GetTopBidders() (value []int64)
 	GetNextRoundAt() (value int)
+	GetLastGiftNum() (value int)
 	GetGiftsLeft() (value int)
 	GetCurrentRound() (value int)
 	GetTotalRounds() (value int)
+	GetRounds() (value []StarGiftAuctionRoundClass)
 }) {
 	s.Version = from.GetVersion()
 	s.StartDate = from.GetStartDate()
@@ -241,9 +253,11 @@ func (s *StarGiftAuctionState) FillFrom(from interface {
 	s.BidLevels = from.GetBidLevels()
 	s.TopBidders = from.GetTopBidders()
 	s.NextRoundAt = from.GetNextRoundAt()
+	s.LastGiftNum = from.GetLastGiftNum()
 	s.GiftsLeft = from.GetGiftsLeft()
 	s.CurrentRound = from.GetCurrentRound()
 	s.TotalRounds = from.GetTotalRounds()
+	s.Rounds = from.GetRounds()
 }
 
 // TypeID returns type id in TL schema.
@@ -298,6 +312,10 @@ func (s *StarGiftAuctionState) TypeInfo() tdp.Type {
 			SchemaName: "next_round_at",
 		},
 		{
+			Name:       "LastGiftNum",
+			SchemaName: "last_gift_num",
+		},
+		{
 			Name:       "GiftsLeft",
 			SchemaName: "gifts_left",
 		},
@@ -309,6 +327,10 @@ func (s *StarGiftAuctionState) TypeInfo() tdp.Type {
 			Name:       "TotalRounds",
 			SchemaName: "total_rounds",
 		},
+		{
+			Name:       "Rounds",
+			SchemaName: "rounds",
+		},
 	}
 	return typ
 }
@@ -316,7 +338,7 @@ func (s *StarGiftAuctionState) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarGiftAuctionState) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAuctionState#5db04f4b as nil")
+		return fmt.Errorf("can't encode starGiftAuctionState#771a4e66 as nil")
 	}
 	b.PutID(StarGiftAuctionStateTypeID)
 	return s.EncodeBare(b)
@@ -325,7 +347,7 @@ func (s *StarGiftAuctionState) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAuctionState) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAuctionState#5db04f4b as nil")
+		return fmt.Errorf("can't encode starGiftAuctionState#771a4e66 as nil")
 	}
 	b.PutInt(s.Version)
 	b.PutInt(s.StartDate)
@@ -334,7 +356,7 @@ func (s *StarGiftAuctionState) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(s.BidLevels))
 	for idx, v := range s.BidLevels {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode starGiftAuctionState#5db04f4b: field bid_levels element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode starGiftAuctionState#771a4e66: field bid_levels element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.TopBidders))
@@ -342,19 +364,29 @@ func (s *StarGiftAuctionState) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	b.PutInt(s.NextRoundAt)
+	b.PutInt(s.LastGiftNum)
 	b.PutInt(s.GiftsLeft)
 	b.PutInt(s.CurrentRound)
 	b.PutInt(s.TotalRounds)
+	b.PutVectorHeader(len(s.Rounds))
+	for idx, v := range s.Rounds {
+		if v == nil {
+			return fmt.Errorf("unable to encode starGiftAuctionState#771a4e66: field rounds element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode starGiftAuctionState#771a4e66: field rounds element with index %d: %w", idx, err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGiftAuctionState) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAuctionState#5db04f4b to nil")
+		return fmt.Errorf("can't decode starGiftAuctionState#771a4e66 to nil")
 	}
 	if err := b.ConsumeID(StarGiftAuctionStateTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: %w", err)
+		return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -362,40 +394,40 @@ func (s *StarGiftAuctionState) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAuctionState#5db04f4b to nil")
+		return fmt.Errorf("can't decode starGiftAuctionState#771a4e66 to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field version: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field version: %w", err)
 		}
 		s.Version = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field start_date: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field start_date: %w", err)
 		}
 		s.StartDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field end_date: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field end_date: %w", err)
 		}
 		s.EndDate = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field min_bid_amount: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field min_bid_amount: %w", err)
 		}
 		s.MinBidAmount = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field bid_levels: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field bid_levels: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -404,7 +436,7 @@ func (s *StarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value AuctionBidLevel
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field bid_levels: %w", err)
+				return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field bid_levels: %w", err)
 			}
 			s.BidLevels = append(s.BidLevels, value)
 		}
@@ -412,7 +444,7 @@ func (s *StarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field top_bidders: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field top_bidders: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -421,7 +453,7 @@ func (s *StarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field top_bidders: %w", err)
+				return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field top_bidders: %w", err)
 			}
 			s.TopBidders = append(s.TopBidders, value)
 		}
@@ -429,30 +461,54 @@ func (s *StarGiftAuctionState) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field next_round_at: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field next_round_at: %w", err)
 		}
 		s.NextRoundAt = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field gifts_left: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field last_gift_num: %w", err)
+		}
+		s.LastGiftNum = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field gifts_left: %w", err)
 		}
 		s.GiftsLeft = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field current_round: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field current_round: %w", err)
 		}
 		s.CurrentRound = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionState#5db04f4b: field total_rounds: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field total_rounds: %w", err)
 		}
 		s.TotalRounds = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field rounds: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Rounds = make([]StarGiftAuctionRoundClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeStarGiftAuctionRound(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode starGiftAuctionState#771a4e66: field rounds: %w", err)
+			}
+			s.Rounds = append(s.Rounds, value)
+		}
 	}
 	return nil
 }
@@ -513,6 +569,14 @@ func (s *StarGiftAuctionState) GetNextRoundAt() (value int) {
 	return s.NextRoundAt
 }
 
+// GetLastGiftNum returns value of LastGiftNum field.
+func (s *StarGiftAuctionState) GetLastGiftNum() (value int) {
+	if s == nil {
+		return
+	}
+	return s.LastGiftNum
+}
+
 // GetGiftsLeft returns value of GiftsLeft field.
 func (s *StarGiftAuctionState) GetGiftsLeft() (value int) {
 	if s == nil {
@@ -537,20 +601,47 @@ func (s *StarGiftAuctionState) GetTotalRounds() (value int) {
 	return s.TotalRounds
 }
 
-// StarGiftAuctionStateFinished represents TL type `starGiftAuctionStateFinished#7d967c3a`.
+// GetRounds returns value of Rounds field.
+func (s *StarGiftAuctionState) GetRounds() (value []StarGiftAuctionRoundClass) {
+	if s == nil {
+		return
+	}
+	return s.Rounds
+}
+
+// MapRounds returns field Rounds wrapped in StarGiftAuctionRoundClassArray helper.
+func (s *StarGiftAuctionState) MapRounds() (value StarGiftAuctionRoundClassArray) {
+	return StarGiftAuctionRoundClassArray(s.Rounds)
+}
+
+// StarGiftAuctionStateFinished represents TL type `starGiftAuctionStateFinished#972dabbf`.
 //
 // See https://core.telegram.org/constructor/starGiftAuctionStateFinished for reference.
 type StarGiftAuctionStateFinished struct {
+	// Flags field of StarGiftAuctionStateFinished.
+	Flags bin.Fields
 	// StartDate field of StarGiftAuctionStateFinished.
 	StartDate int
 	// EndDate field of StarGiftAuctionStateFinished.
 	EndDate int
 	// AveragePrice field of StarGiftAuctionStateFinished.
 	AveragePrice int64
+	// ListedCount field of StarGiftAuctionStateFinished.
+	//
+	// Use SetListedCount and GetListedCount helpers.
+	ListedCount int
+	// FragmentListedCount field of StarGiftAuctionStateFinished.
+	//
+	// Use SetFragmentListedCount and GetFragmentListedCount helpers.
+	FragmentListedCount int
+	// FragmentListedURL field of StarGiftAuctionStateFinished.
+	//
+	// Use SetFragmentListedURL and GetFragmentListedURL helpers.
+	FragmentListedURL string
 }
 
 // StarGiftAuctionStateFinishedTypeID is TL type id of StarGiftAuctionStateFinished.
-const StarGiftAuctionStateFinishedTypeID = 0x7d967c3a
+const StarGiftAuctionStateFinishedTypeID = 0x972dabbf
 
 // construct implements constructor of StarGiftAuctionStateClass.
 func (s StarGiftAuctionStateFinished) construct() StarGiftAuctionStateClass { return &s }
@@ -569,6 +660,9 @@ func (s *StarGiftAuctionStateFinished) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
 	if !(s.StartDate == 0) {
 		return false
 	}
@@ -576,6 +670,15 @@ func (s *StarGiftAuctionStateFinished) Zero() bool {
 		return false
 	}
 	if !(s.AveragePrice == 0) {
+		return false
+	}
+	if !(s.ListedCount == 0) {
+		return false
+	}
+	if !(s.FragmentListedCount == 0) {
+		return false
+	}
+	if !(s.FragmentListedURL == "") {
 		return false
 	}
 
@@ -596,10 +699,25 @@ func (s *StarGiftAuctionStateFinished) FillFrom(from interface {
 	GetStartDate() (value int)
 	GetEndDate() (value int)
 	GetAveragePrice() (value int64)
+	GetListedCount() (value int, ok bool)
+	GetFragmentListedCount() (value int, ok bool)
+	GetFragmentListedURL() (value string, ok bool)
 }) {
 	s.StartDate = from.GetStartDate()
 	s.EndDate = from.GetEndDate()
 	s.AveragePrice = from.GetAveragePrice()
+	if val, ok := from.GetListedCount(); ok {
+		s.ListedCount = val
+	}
+
+	if val, ok := from.GetFragmentListedCount(); ok {
+		s.FragmentListedCount = val
+	}
+
+	if val, ok := from.GetFragmentListedURL(); ok {
+		s.FragmentListedURL = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -637,14 +755,42 @@ func (s *StarGiftAuctionStateFinished) TypeInfo() tdp.Type {
 			Name:       "AveragePrice",
 			SchemaName: "average_price",
 		},
+		{
+			Name:       "ListedCount",
+			SchemaName: "listed_count",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "FragmentListedCount",
+			SchemaName: "fragment_listed_count",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "FragmentListedURL",
+			SchemaName: "fragment_listed_url",
+			Null:       !s.Flags.Has(1),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *StarGiftAuctionStateFinished) SetFlags() {
+	if !(s.ListedCount == 0) {
+		s.Flags.Set(0)
+	}
+	if !(s.FragmentListedCount == 0) {
+		s.Flags.Set(1)
+	}
+	if !(s.FragmentListedURL == "") {
+		s.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StarGiftAuctionStateFinished) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAuctionStateFinished#7d967c3a as nil")
+		return fmt.Errorf("can't encode starGiftAuctionStateFinished#972dabbf as nil")
 	}
 	b.PutID(StarGiftAuctionStateFinishedTypeID)
 	return s.EncodeBare(b)
@@ -653,21 +799,34 @@ func (s *StarGiftAuctionStateFinished) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAuctionStateFinished) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAuctionStateFinished#7d967c3a as nil")
+		return fmt.Errorf("can't encode starGiftAuctionStateFinished#972dabbf as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starGiftAuctionStateFinished#972dabbf: field flags: %w", err)
 	}
 	b.PutInt(s.StartDate)
 	b.PutInt(s.EndDate)
 	b.PutLong(s.AveragePrice)
+	if s.Flags.Has(0) {
+		b.PutInt(s.ListedCount)
+	}
+	if s.Flags.Has(1) {
+		b.PutInt(s.FragmentListedCount)
+	}
+	if s.Flags.Has(1) {
+		b.PutString(s.FragmentListedURL)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGiftAuctionStateFinished) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAuctionStateFinished#7d967c3a to nil")
+		return fmt.Errorf("can't decode starGiftAuctionStateFinished#972dabbf to nil")
 	}
 	if err := b.ConsumeID(StarGiftAuctionStateFinishedTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAuctionStateFinished#7d967c3a: %w", err)
+		return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -675,28 +834,54 @@ func (s *StarGiftAuctionStateFinished) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAuctionStateFinished) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAuctionStateFinished#7d967c3a to nil")
+		return fmt.Errorf("can't decode starGiftAuctionStateFinished#972dabbf to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#7d967c3a: field start_date: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field start_date: %w", err)
 		}
 		s.StartDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#7d967c3a: field end_date: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field end_date: %w", err)
 		}
 		s.EndDate = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#7d967c3a: field average_price: %w", err)
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field average_price: %w", err)
 		}
 		s.AveragePrice = value
+	}
+	if s.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field listed_count: %w", err)
+		}
+		s.ListedCount = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field fragment_listed_count: %w", err)
+		}
+		s.FragmentListedCount = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode starGiftAuctionStateFinished#972dabbf: field fragment_listed_url: %w", err)
+		}
+		s.FragmentListedURL = value
 	}
 	return nil
 }
@@ -725,6 +910,60 @@ func (s *StarGiftAuctionStateFinished) GetAveragePrice() (value int64) {
 	return s.AveragePrice
 }
 
+// SetListedCount sets value of ListedCount conditional field.
+func (s *StarGiftAuctionStateFinished) SetListedCount(value int) {
+	s.Flags.Set(0)
+	s.ListedCount = value
+}
+
+// GetListedCount returns value of ListedCount conditional field and
+// boolean which is true if field was set.
+func (s *StarGiftAuctionStateFinished) GetListedCount() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.ListedCount, true
+}
+
+// SetFragmentListedCount sets value of FragmentListedCount conditional field.
+func (s *StarGiftAuctionStateFinished) SetFragmentListedCount(value int) {
+	s.Flags.Set(1)
+	s.FragmentListedCount = value
+}
+
+// GetFragmentListedCount returns value of FragmentListedCount conditional field and
+// boolean which is true if field was set.
+func (s *StarGiftAuctionStateFinished) GetFragmentListedCount() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.FragmentListedCount, true
+}
+
+// SetFragmentListedURL sets value of FragmentListedURL conditional field.
+func (s *StarGiftAuctionStateFinished) SetFragmentListedURL(value string) {
+	s.Flags.Set(1)
+	s.FragmentListedURL = value
+}
+
+// GetFragmentListedURL returns value of FragmentListedURL conditional field and
+// boolean which is true if field was set.
+func (s *StarGiftAuctionStateFinished) GetFragmentListedURL() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.FragmentListedURL, true
+}
+
 // StarGiftAuctionStateClassName is schema name of StarGiftAuctionStateClass.
 const StarGiftAuctionStateClassName = "StarGiftAuctionState"
 
@@ -745,8 +984,8 @@ const StarGiftAuctionStateClassName = "StarGiftAuctionState"
 //	}
 //	switch v := g.(type) {
 //	case *tg.StarGiftAuctionStateNotModified: // starGiftAuctionStateNotModified#fe333952
-//	case *tg.StarGiftAuctionState: // starGiftAuctionState#5db04f4b
-//	case *tg.StarGiftAuctionStateFinished: // starGiftAuctionStateFinished#7d967c3a
+//	case *tg.StarGiftAuctionState: // starGiftAuctionState#771a4e66
+//	case *tg.StarGiftAuctionStateFinished: // starGiftAuctionStateFinished#972dabbf
 //	default: panic(v)
 //	}
 type StarGiftAuctionStateClass interface {
@@ -830,14 +1069,14 @@ func DecodeStarGiftAuctionState(buf *bin.Buffer) (StarGiftAuctionStateClass, err
 		}
 		return &v, nil
 	case StarGiftAuctionStateTypeID:
-		// Decoding starGiftAuctionState#5db04f4b.
+		// Decoding starGiftAuctionState#771a4e66.
 		v := StarGiftAuctionState{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAuctionStateClass: %w", err)
 		}
 		return &v, nil
 	case StarGiftAuctionStateFinishedTypeID:
-		// Decoding starGiftAuctionStateFinished#7d967c3a.
+		// Decoding starGiftAuctionStateFinished#972dabbf.
 		v := StarGiftAuctionStateFinished{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAuctionStateClass: %w", err)
