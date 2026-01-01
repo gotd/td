@@ -14,11 +14,18 @@ type ForwardBuilder struct {
 	from        tg.InputPeerClass
 	ids         []int
 	withMyScore bool
+	dropAuthor  bool
 }
 
 // WithMyScore sets flag to include your score in the forwarded game.
 func (b *ForwardBuilder) WithMyScore() *ForwardBuilder {
 	b.withMyScore = true
+	return b
+}
+
+// DropAuthor sets flag to forward messages without quoting the original author.
+func (b *ForwardBuilder) DropAuthor() *ForwardBuilder {
+	b.dropAuthor = true
 	return b
 }
 
@@ -37,6 +44,7 @@ func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 		ID:           b.ids,
 		ToPeer:       p,
 		ScheduleDate: b.builder.scheduleDate,
+		DropAuthor:   b.dropAuthor,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "send inline bot result")
