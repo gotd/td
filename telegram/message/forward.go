@@ -23,7 +23,7 @@ func (b *ForwardBuilder) WithMyScore() *ForwardBuilder {
 	return b
 }
 
-// DropAuthor sets flag to include your score in the forwarded game.
+// DropAuthor sets flag to forward messages without quoting the original author.
 func (b *ForwardBuilder) DropAuthor() *ForwardBuilder {
 	b.dropAuthor = true
 	return b
