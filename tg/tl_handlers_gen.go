@@ -1610,6 +1610,16 @@ func (u UpdateDispatcher) OnStarGiftAuctionUserState(handler StarGiftAuctionUser
 	}
 }
 
+// EmojiGameInfoHandler is a EmojiGameInfo event handler.
+type EmojiGameInfoHandler func(ctx context.Context, e Entities, update *UpdateEmojiGameInfo) error
+
+// OnEmojiGameInfo sets EmojiGameInfo handler.
+func (u UpdateDispatcher) OnEmojiGameInfo(handler EmojiGameInfoHandler) {
+	u.handlers[UpdateEmojiGameInfoTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEmojiGameInfo))
+	}
+}
+
 // OnFallback sets fallback handler.
 func (u *UpdateDispatcher) OnFallback(handler Handler) {
 	u.fallback = handler

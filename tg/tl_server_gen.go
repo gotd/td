@@ -2795,7 +2795,7 @@ func (s *ServerDispatcher) OnAccountInitPasskeyRegistration(f func(ctx context.C
 	s.handlers[AccountInitPasskeyRegistrationRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountRegisterPasskey(f func(ctx context.Context, credential InputPasskeyCredentialPublicKey) (*Passkey, error)) {
+func (s *ServerDispatcher) OnAccountRegisterPasskey(f func(ctx context.Context, credential InputPasskeyCredentialClass) (*Passkey, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountRegisterPasskeyRequest
 		if err := request.Decode(b); err != nil {
@@ -7740,6 +7740,40 @@ func (s *ServerDispatcher) OnMessagesDeleteTopicHistory(f func(ctx context.Conte
 	}
 
 	s.handlers[MessagesDeleteTopicHistoryRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetEmojiGameInfo(f func(ctx context.Context) (MessagesEmojiGameInfoClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetEmojiGameInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesEmojiGameInfoBox{EmojiGameInfo: response}, nil
+	}
+
+	s.handlers[MessagesGetEmojiGameInfoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSummarizeText(f func(ctx context.Context, request *MessagesSummarizeTextRequest) (*TextWithEntities, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSummarizeTextRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesSummarizeTextRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {

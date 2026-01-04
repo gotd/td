@@ -38,7 +38,7 @@ type AuthFinishPasskeyLoginRequest struct {
 	// Flags field of AuthFinishPasskeyLoginRequest.
 	Flags bin.Fields
 	// Credential field of AuthFinishPasskeyLoginRequest.
-	Credential InputPasskeyCredentialPublicKey
+	Credential InputPasskeyCredentialClass
 	// FromDCID field of AuthFinishPasskeyLoginRequest.
 	//
 	// Use SetFromDCID and GetFromDCID helpers.
@@ -67,7 +67,7 @@ func (f *AuthFinishPasskeyLoginRequest) Zero() bool {
 	if !(f.Flags.Zero()) {
 		return false
 	}
-	if !(f.Credential.Zero()) {
+	if !(f.Credential == nil) {
 		return false
 	}
 	if !(f.FromDCID == 0) {
@@ -91,7 +91,7 @@ func (f *AuthFinishPasskeyLoginRequest) String() string {
 
 // FillFrom fills AuthFinishPasskeyLoginRequest from given interface.
 func (f *AuthFinishPasskeyLoginRequest) FillFrom(from interface {
-	GetCredential() (value InputPasskeyCredentialPublicKey)
+	GetCredential() (value InputPasskeyCredentialClass)
 	GetFromDCID() (value int, ok bool)
 	GetFromAuthKeyID() (value int64, ok bool)
 }) {
@@ -175,6 +175,9 @@ func (f *AuthFinishPasskeyLoginRequest) EncodeBare(b *bin.Buffer) error {
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.finishPasskeyLogin#9857ad07: field flags: %w", err)
 	}
+	if f.Credential == nil {
+		return fmt.Errorf("unable to encode auth.finishPasskeyLogin#9857ad07: field credential is nil")
+	}
 	if err := f.Credential.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.finishPasskeyLogin#9857ad07: field credential: %w", err)
 	}
@@ -209,9 +212,11 @@ func (f *AuthFinishPasskeyLoginRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		if err := f.Credential.Decode(b); err != nil {
+		value, err := DecodeInputPasskeyCredential(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode auth.finishPasskeyLogin#9857ad07: field credential: %w", err)
 		}
+		f.Credential = value
 	}
 	if f.Flags.Has(0) {
 		value, err := b.Int()
@@ -231,7 +236,7 @@ func (f *AuthFinishPasskeyLoginRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCredential returns value of Credential field.
-func (f *AuthFinishPasskeyLoginRequest) GetCredential() (value InputPasskeyCredentialPublicKey) {
+func (f *AuthFinishPasskeyLoginRequest) GetCredential() (value InputPasskeyCredentialClass) {
 	if f == nil {
 		return
 	}
