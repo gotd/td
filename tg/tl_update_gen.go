@@ -30670,6 +30670,145 @@ func (u *UpdateStarGiftAuctionUserState) GetUserState() (value StarGiftAuctionUs
 	return u.UserState
 }
 
+// UpdateEmojiGameInfo represents TL type `updateEmojiGameInfo#fb9c547a`.
+//
+// See https://core.telegram.org/constructor/updateEmojiGameInfo for reference.
+type UpdateEmojiGameInfo struct {
+	// Info field of UpdateEmojiGameInfo.
+	Info MessagesEmojiGameInfoClass
+}
+
+// UpdateEmojiGameInfoTypeID is TL type id of UpdateEmojiGameInfo.
+const UpdateEmojiGameInfoTypeID = 0xfb9c547a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEmojiGameInfo) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEmojiGameInfo.
+var (
+	_ bin.Encoder     = &UpdateEmojiGameInfo{}
+	_ bin.Decoder     = &UpdateEmojiGameInfo{}
+	_ bin.BareEncoder = &UpdateEmojiGameInfo{}
+	_ bin.BareDecoder = &UpdateEmojiGameInfo{}
+
+	_ UpdateClass = &UpdateEmojiGameInfo{}
+)
+
+func (u *UpdateEmojiGameInfo) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Info == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateEmojiGameInfo) String() string {
+	if u == nil {
+		return "UpdateEmojiGameInfo(nil)"
+	}
+	type Alias UpdateEmojiGameInfo
+	return fmt.Sprintf("UpdateEmojiGameInfo%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateEmojiGameInfo from given interface.
+func (u *UpdateEmojiGameInfo) FillFrom(from interface {
+	GetInfo() (value MessagesEmojiGameInfoClass)
+}) {
+	u.Info = from.GetInfo()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateEmojiGameInfo) TypeID() uint32 {
+	return UpdateEmojiGameInfoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateEmojiGameInfo) TypeName() string {
+	return "updateEmojiGameInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEmojiGameInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEmojiGameInfo",
+		ID:   UpdateEmojiGameInfoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Info",
+			SchemaName: "info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateEmojiGameInfo) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateEmojiGameInfo#fb9c547a as nil")
+	}
+	b.PutID(UpdateEmojiGameInfoTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateEmojiGameInfo) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateEmojiGameInfo#fb9c547a as nil")
+	}
+	if u.Info == nil {
+		return fmt.Errorf("unable to encode updateEmojiGameInfo#fb9c547a: field info is nil")
+	}
+	if err := u.Info.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateEmojiGameInfo#fb9c547a: field info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateEmojiGameInfo) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateEmojiGameInfo#fb9c547a to nil")
+	}
+	if err := b.ConsumeID(UpdateEmojiGameInfoTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateEmojiGameInfo#fb9c547a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateEmojiGameInfo) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateEmojiGameInfo#fb9c547a to nil")
+	}
+	{
+		value, err := DecodeMessagesEmojiGameInfo(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEmojiGameInfo#fb9c547a: field info: %w", err)
+		}
+		u.Info = value
+	}
+	return nil
+}
+
+// GetInfo returns value of Info field.
+func (u *UpdateEmojiGameInfo) GetInfo() (value MessagesEmojiGameInfoClass) {
+	if u == nil {
+		return
+	}
+	return u.Info
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -30828,6 +30967,7 @@ const UpdateClassName = "Update"
 //   - [UpdateDeleteGroupCallMessages]
 //   - [UpdateStarGiftAuctionState]
 //   - [UpdateStarGiftAuctionUserState]
+//   - [UpdateEmojiGameInfo]
 //
 // Example:
 //
@@ -30986,6 +31126,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateDeleteGroupCallMessages: // updateDeleteGroupCallMessages#3e85e92c
 //	case *tg.UpdateStarGiftAuctionState: // updateStarGiftAuctionState#48e246c2
 //	case *tg.UpdateStarGiftAuctionUserState: // updateStarGiftAuctionUserState#dc58f31e
+//	case *tg.UpdateEmojiGameInfo: // updateEmojiGameInfo#fb9c547a
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -32060,6 +32201,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateStarGiftAuctionUserStateTypeID:
 		// Decoding updateStarGiftAuctionUserState#dc58f31e.
 		v := UpdateStarGiftAuctionUserState{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateEmojiGameInfoTypeID:
+		// Decoding updateEmojiGameInfo#fb9c547a.
+		v := UpdateEmojiGameInfo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

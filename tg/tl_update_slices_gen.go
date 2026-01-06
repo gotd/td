@@ -1858,6 +1858,19 @@ func (s UpdateClassArray) AsUpdateStarGiftAuctionUserState() (to UpdateStarGiftA
 	return to
 }
 
+// AsUpdateEmojiGameInfo returns copy with only UpdateEmojiGameInfo constructors.
+func (s UpdateClassArray) AsUpdateEmojiGameInfo() (to UpdateEmojiGameInfoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateEmojiGameInfo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -13100,6 +13113,88 @@ func (s *UpdateStarGiftAuctionUserStateArray) PopFirst() (v UpdateStarGiftAuctio
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateStarGiftAuctionUserStateArray) Pop() (v UpdateStarGiftAuctionUserState, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateEmojiGameInfoArray is adapter for slice of UpdateEmojiGameInfo.
+type UpdateEmojiGameInfoArray []UpdateEmojiGameInfo
+
+// Sort sorts slice of UpdateEmojiGameInfo.
+func (s UpdateEmojiGameInfoArray) Sort(less func(a, b UpdateEmojiGameInfo) bool) UpdateEmojiGameInfoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateEmojiGameInfo.
+func (s UpdateEmojiGameInfoArray) SortStable(less func(a, b UpdateEmojiGameInfo) bool) UpdateEmojiGameInfoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateEmojiGameInfo.
+func (s UpdateEmojiGameInfoArray) Retain(keep func(x UpdateEmojiGameInfo) bool) UpdateEmojiGameInfoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateEmojiGameInfoArray) First() (v UpdateEmojiGameInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateEmojiGameInfoArray) Last() (v UpdateEmojiGameInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateEmojiGameInfoArray) PopFirst() (v UpdateEmojiGameInfo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateEmojiGameInfo
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateEmojiGameInfoArray) Pop() (v UpdateEmojiGameInfo, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -3143,7 +3143,7 @@ func (m *MessageMediaPoll) GetResults() (value PollResults) {
 	return m.Results
 }
 
-// MessageMediaDice represents TL type `messageMediaDice#3f7ee58b`.
+// MessageMediaDice represents TL type `messageMediaDice#8cbec07`.
 // Dice-based animated sticker¹
 //
 // Links:
@@ -3151,6 +3151,8 @@ func (m *MessageMediaPoll) GetResults() (value PollResults) {
 //
 // See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
+	// Flags field of MessageMediaDice.
+	Flags bin.Fields
 	// Dice value¹
 	//
 	// Links:
@@ -3158,10 +3160,14 @@ type MessageMediaDice struct {
 	Value int
 	// The emoji, for now ,  and  are supported
 	Emoticon string
+	// GameOutcome field of MessageMediaDice.
+	//
+	// Use SetGameOutcome and GetGameOutcome helpers.
+	GameOutcome MessagesEmojiGameOutcome
 }
 
 // MessageMediaDiceTypeID is TL type id of MessageMediaDice.
-const MessageMediaDiceTypeID = 0x3f7ee58b
+const MessageMediaDiceTypeID = 0x8cbec07
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaDice) construct() MessageMediaClass { return &m }
@@ -3180,10 +3186,16 @@ func (m *MessageMediaDice) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
 	if !(m.Value == 0) {
 		return false
 	}
 	if !(m.Emoticon == "") {
+		return false
+	}
+	if !(m.GameOutcome.Zero()) {
 		return false
 	}
 
@@ -3203,9 +3215,14 @@ func (m *MessageMediaDice) String() string {
 func (m *MessageMediaDice) FillFrom(from interface {
 	GetValue() (value int)
 	GetEmoticon() (value string)
+	GetGameOutcome() (value MessagesEmojiGameOutcome, ok bool)
 }) {
 	m.Value = from.GetValue()
 	m.Emoticon = from.GetEmoticon()
+	if val, ok := from.GetGameOutcome(); ok {
+		m.GameOutcome = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -3239,14 +3256,26 @@ func (m *MessageMediaDice) TypeInfo() tdp.Type {
 			Name:       "Emoticon",
 			SchemaName: "emoticon",
 		},
+		{
+			Name:       "GameOutcome",
+			SchemaName: "game_outcome",
+			Null:       !m.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaDice) SetFlags() {
+	if !(m.GameOutcome.Zero()) {
+		m.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaDice) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaDice#3f7ee58b as nil")
+		return fmt.Errorf("can't encode messageMediaDice#8cbec07 as nil")
 	}
 	b.PutID(MessageMediaDiceTypeID)
 	return m.EncodeBare(b)
@@ -3255,20 +3284,29 @@ func (m *MessageMediaDice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaDice) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaDice#3f7ee58b as nil")
+		return fmt.Errorf("can't encode messageMediaDice#8cbec07 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaDice#8cbec07: field flags: %w", err)
 	}
 	b.PutInt(m.Value)
 	b.PutString(m.Emoticon)
+	if m.Flags.Has(0) {
+		if err := m.GameOutcome.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageMediaDice#8cbec07: field game_outcome: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageMediaDice) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaDice#3f7ee58b to nil")
+		return fmt.Errorf("can't decode messageMediaDice#8cbec07 to nil")
 	}
 	if err := b.ConsumeID(MessageMediaDiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaDice#3f7ee58b: %w", err)
+		return fmt.Errorf("unable to decode messageMediaDice#8cbec07: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -3276,21 +3314,31 @@ func (m *MessageMediaDice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaDice) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaDice#3f7ee58b to nil")
+		return fmt.Errorf("can't decode messageMediaDice#8cbec07 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaDice#8cbec07: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDice#3f7ee58b: field value: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDice#8cbec07: field value: %w", err)
 		}
 		m.Value = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDice#3f7ee58b: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDice#8cbec07: field emoticon: %w", err)
 		}
 		m.Emoticon = value
+	}
+	if m.Flags.Has(0) {
+		if err := m.GameOutcome.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaDice#8cbec07: field game_outcome: %w", err)
+		}
 	}
 	return nil
 }
@@ -3309,6 +3357,24 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 		return
 	}
 	return m.Emoticon
+}
+
+// SetGameOutcome sets value of GameOutcome conditional field.
+func (m *MessageMediaDice) SetGameOutcome(value MessagesEmojiGameOutcome) {
+	m.Flags.Set(0)
+	m.GameOutcome = value
+}
+
+// GetGameOutcome returns value of GameOutcome conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaDice) GetGameOutcome() (value MessagesEmojiGameOutcome, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.GameOutcome, true
 }
 
 // MessageMediaStory represents TL type `messageMediaStory#68cb6283`.
@@ -5348,7 +5414,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaInvoice: // messageMediaInvoice#f6a548d3
 //	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
 //	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
-//	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
+//	case *tg.MessageMediaDice: // messageMediaDice#8cbec07
 //	case *tg.MessageMediaStory: // messageMediaStory#68cb6283
 //	case *tg.MessageMediaGiveaway: // messageMediaGiveaway#aa073beb
 //	case *tg.MessageMediaGiveawayResults: // messageMediaGiveawayResults#ceaa3ea1
@@ -5468,7 +5534,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaDiceTypeID:
-		// Decoding messageMediaDice#3f7ee58b.
+		// Decoding messageMediaDice#8cbec07.
 		v := MessageMediaDice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)

@@ -5209,6 +5209,194 @@ func (i *InputMediaTodo) GetTodo() (value TodoList) {
 	return i.Todo
 }
 
+// InputMediaStakeDice represents TL type `inputMediaStakeDice#f3a9244a`.
+//
+// See https://core.telegram.org/constructor/inputMediaStakeDice for reference.
+type InputMediaStakeDice struct {
+	// GameHash field of InputMediaStakeDice.
+	GameHash string
+	// TonAmount field of InputMediaStakeDice.
+	TonAmount int64
+	// ClientSeed field of InputMediaStakeDice.
+	ClientSeed []byte
+}
+
+// InputMediaStakeDiceTypeID is TL type id of InputMediaStakeDice.
+const InputMediaStakeDiceTypeID = 0xf3a9244a
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaStakeDice) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaStakeDice.
+var (
+	_ bin.Encoder     = &InputMediaStakeDice{}
+	_ bin.Decoder     = &InputMediaStakeDice{}
+	_ bin.BareEncoder = &InputMediaStakeDice{}
+	_ bin.BareDecoder = &InputMediaStakeDice{}
+
+	_ InputMediaClass = &InputMediaStakeDice{}
+)
+
+func (i *InputMediaStakeDice) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.GameHash == "") {
+		return false
+	}
+	if !(i.TonAmount == 0) {
+		return false
+	}
+	if !(i.ClientSeed == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMediaStakeDice) String() string {
+	if i == nil {
+		return "InputMediaStakeDice(nil)"
+	}
+	type Alias InputMediaStakeDice
+	return fmt.Sprintf("InputMediaStakeDice%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaStakeDice from given interface.
+func (i *InputMediaStakeDice) FillFrom(from interface {
+	GetGameHash() (value string)
+	GetTonAmount() (value int64)
+	GetClientSeed() (value []byte)
+}) {
+	i.GameHash = from.GetGameHash()
+	i.TonAmount = from.GetTonAmount()
+	i.ClientSeed = from.GetClientSeed()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMediaStakeDice) TypeID() uint32 {
+	return InputMediaStakeDiceTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMediaStakeDice) TypeName() string {
+	return "inputMediaStakeDice"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaStakeDice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaStakeDice",
+		ID:   InputMediaStakeDiceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GameHash",
+			SchemaName: "game_hash",
+		},
+		{
+			Name:       "TonAmount",
+			SchemaName: "ton_amount",
+		},
+		{
+			Name:       "ClientSeed",
+			SchemaName: "client_seed",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaStakeDice) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaStakeDice#f3a9244a as nil")
+	}
+	b.PutID(InputMediaStakeDiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaStakeDice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaStakeDice#f3a9244a as nil")
+	}
+	b.PutString(i.GameHash)
+	b.PutLong(i.TonAmount)
+	b.PutBytes(i.ClientSeed)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMediaStakeDice) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaStakeDice#f3a9244a to nil")
+	}
+	if err := b.ConsumeID(InputMediaStakeDiceTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaStakeDice#f3a9244a: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaStakeDice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaStakeDice#f3a9244a to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaStakeDice#f3a9244a: field game_hash: %w", err)
+		}
+		i.GameHash = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaStakeDice#f3a9244a: field ton_amount: %w", err)
+		}
+		i.TonAmount = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaStakeDice#f3a9244a: field client_seed: %w", err)
+		}
+		i.ClientSeed = value
+	}
+	return nil
+}
+
+// GetGameHash returns value of GameHash field.
+func (i *InputMediaStakeDice) GetGameHash() (value string) {
+	if i == nil {
+		return
+	}
+	return i.GameHash
+}
+
+// GetTonAmount returns value of TonAmount field.
+func (i *InputMediaStakeDice) GetTonAmount() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.TonAmount
+}
+
+// GetClientSeed returns value of ClientSeed field.
+func (i *InputMediaStakeDice) GetClientSeed() (value []byte) {
+	if i == nil {
+		return
+	}
+	return i.ClientSeed
+}
+
 // InputMediaClassName is schema name of InputMediaClass.
 const InputMediaClassName = "InputMedia"
 
@@ -5236,6 +5424,7 @@ const InputMediaClassName = "InputMedia"
 //   - [InputMediaWebPage]
 //   - [InputMediaPaidMedia]
 //   - [InputMediaTodo]
+//   - [InputMediaStakeDice]
 //
 // Example:
 //
@@ -5263,6 +5452,7 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaWebPage: // inputMediaWebPage#c21b8849
 //	case *tg.InputMediaPaidMedia: // inputMediaPaidMedia#c4103386
 //	case *tg.InputMediaTodo: // inputMediaTodo#9fc55fde
+//	case *tg.InputMediaStakeDice: // inputMediaStakeDice#f3a9244a
 //	default: panic(v)
 //	}
 type InputMediaClass interface {
@@ -5420,6 +5610,13 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 	case InputMediaTodoTypeID:
 		// Decoding inputMediaTodo#9fc55fde.
 		v := InputMediaTodo{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+		}
+		return &v, nil
+	case InputMediaStakeDiceTypeID:
+		// Decoding inputMediaStakeDice#f3a9244a.
+		v := InputMediaStakeDice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
 		}

@@ -350,6 +350,19 @@ func (s InputMediaClassArray) AsInputMediaTodo() (to InputMediaTodoArray) {
 	return to
 }
 
+// AsInputMediaStakeDice returns copy with only InputMediaStakeDice constructors.
+func (s InputMediaClassArray) AsInputMediaStakeDice() (to InputMediaStakeDiceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputMediaStakeDice)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputMediaUploadedPhotoArray is adapter for slice of InputMediaUploadedPhoto.
 type InputMediaUploadedPhotoArray []InputMediaUploadedPhoto
 
@@ -1842,6 +1855,88 @@ func (s *InputMediaTodoArray) PopFirst() (v InputMediaTodo, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputMediaTodoArray) Pop() (v InputMediaTodo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputMediaStakeDiceArray is adapter for slice of InputMediaStakeDice.
+type InputMediaStakeDiceArray []InputMediaStakeDice
+
+// Sort sorts slice of InputMediaStakeDice.
+func (s InputMediaStakeDiceArray) Sort(less func(a, b InputMediaStakeDice) bool) InputMediaStakeDiceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputMediaStakeDice.
+func (s InputMediaStakeDiceArray) SortStable(less func(a, b InputMediaStakeDice) bool) InputMediaStakeDiceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputMediaStakeDice.
+func (s InputMediaStakeDiceArray) Retain(keep func(x InputMediaStakeDice) bool) InputMediaStakeDiceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputMediaStakeDiceArray) First() (v InputMediaStakeDice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputMediaStakeDiceArray) Last() (v InputMediaStakeDice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputMediaStakeDiceArray) PopFirst() (v InputMediaStakeDice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputMediaStakeDice
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputMediaStakeDiceArray) Pop() (v InputMediaStakeDice, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
