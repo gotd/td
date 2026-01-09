@@ -88,6 +88,19 @@ func (c *Client) SendCode(ctx context.Context, phone string, options SendCodeOpt
 	return sentCode, nil
 }
 
+func (c *Client) ResendCode(ctx context.Context, phone string, hash string) (tg.AuthSentCodeClass, error) {
+	sentCode, err := c.api.AuthResendCode(ctx, &tg.AuthResendCodeRequest{
+		PhoneNumber:   phone,
+		PhoneCodeHash: hash,
+	})
+
+	if err != nil {
+		return nil, errors.Wrap(err, "resend code")
+	}
+
+	return sentCode, nil
+}
+
 // ErrPasswordAuthNeeded means that 2FA auth is required.
 //
 // Call Client.Password to provide 2FA password.
