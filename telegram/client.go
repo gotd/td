@@ -62,7 +62,7 @@ type Client struct {
 	connsCounter   atomic.Int64
 	create         connConstructor        // immutable
 	resolver       dcs.Resolver           // immutable
-	onDead         func()                 // immutable
+	onDead         func(error)            // immutable
 	newConnBackoff func() backoff.BackOff // immutable
 	defaultMode    manager.ConnMode       // immutable
 
