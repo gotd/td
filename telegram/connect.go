@@ -39,6 +39,10 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				return nil
 			}
 
+			if h := c.onSelfSuccess; h != nil {
+				h(self)
+			}
+
 			c.log.Info("Got self", zap.String("username", self.Username))
 			return nil
 		})

@@ -108,6 +108,9 @@ type Options struct {
 	// non-nil error on first connection before auth, so it's safe to return nil until
 	// first successful auth.
 	OnSelfError func(ctx context.Context, err error) error
+
+	// OnSelfSuccess is called when client get self calling Self() on connect.
+	OnSelfSuccess func(self *tg.User)
 }
 
 func (opt *Options) setDefaults() {
