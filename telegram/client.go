@@ -137,6 +137,9 @@ type Client struct {
 
 	// onSelfError is called on error calling Self().
 	onSelfError func(ctx context.Context, err error) error
+
+	// onSelfSuccess is called on success calling Self().
+	onSelfSuccess func(self *tg.User)
 }
 
 // NewClient creates new unstarted client.
@@ -173,6 +176,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		mw:               opt.Middlewares,
 		onTransfer:       opt.OnTransfer,
 		onSelfError:      opt.OnSelfError,
+		onSelfSuccess:    opt.OnSelfSuccess,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
