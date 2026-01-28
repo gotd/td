@@ -75,7 +75,7 @@ func (c *Client) createConn(
 	id int64,
 	mode manager.ConnMode,
 	setup manager.SetupCallback,
-	onDead func(),
+	onDead func(error),
 ) pool.Conn {
 	opts, s := c.session.Options(c.opts)
 	opts.Logger = c.log.Named("conn").With(
