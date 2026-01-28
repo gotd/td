@@ -109,7 +109,7 @@ type Options struct {
 	// first successful auth.
 	OnSelfError func(ctx context.Context, err error) error
 
-	// OnSelfError is called when client get self calling Self() on connect.
+	// OnSelfSuccess is called when client get self calling Self() on connect.
 	OnSelfSuccess func(self *tg.User)
 }
 
