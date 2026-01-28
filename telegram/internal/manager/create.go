@@ -22,7 +22,7 @@ type ConnOptions struct {
 	Device  DeviceConfig
 	Handler Handler
 	Setup   SetupCallback
-	OnDead  func()
+	OnDead  func(error)
 	Backoff func(ctx context.Context) backoff.BackOff
 }
 
