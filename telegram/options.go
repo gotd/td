@@ -49,7 +49,7 @@ type Options struct {
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
 	// OnDead will be called on connection dead.
-	OnDead func()
+	OnDead func(error)
 	// MigrationTimeout configures migration timeout.
 	MigrationTimeout time.Duration
 

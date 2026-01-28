@@ -54,7 +54,7 @@ type Conn struct {
 	setup SetupCallback // nilable
 
 	// onDead is called on connection death.
-	onDead func()
+	onDead func(error)
 
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
@@ -127,7 +127,7 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 		if err != nil && ctx.Err() == nil {
 			c.log.Debug("Connection dead", zap.Error(err))
 			if c.onDead != nil {
-				c.onDead()
+				c.onDead(err)
 			}
 		}
 	}()
