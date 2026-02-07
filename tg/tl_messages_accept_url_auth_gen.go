@@ -47,6 +47,8 @@ type MessagesAcceptURLAuthRequest struct {
 	Flags bin.Fields
 	// Set this flag to allow the bot to send messages to you (if requested)
 	WriteAllowed bool
+	// SharePhoneNumber field of MessagesAcceptURLAuthRequest.
+	SharePhoneNumber bool
 	// The location of the message
 	//
 	// Use SetPeer and GetPeer helpers.
@@ -89,6 +91,9 @@ func (a *MessagesAcceptURLAuthRequest) Zero() bool {
 	if !(a.WriteAllowed == false) {
 		return false
 	}
+	if !(a.SharePhoneNumber == false) {
+		return false
+	}
 	if !(a.Peer == nil) {
 		return false
 	}
@@ -117,12 +122,14 @@ func (a *MessagesAcceptURLAuthRequest) String() string {
 // FillFrom fills MessagesAcceptURLAuthRequest from given interface.
 func (a *MessagesAcceptURLAuthRequest) FillFrom(from interface {
 	GetWriteAllowed() (value bool)
+	GetSharePhoneNumber() (value bool)
 	GetPeer() (value InputPeerClass, ok bool)
 	GetMsgID() (value int, ok bool)
 	GetButtonID() (value int, ok bool)
 	GetURL() (value string, ok bool)
 }) {
 	a.WriteAllowed = from.GetWriteAllowed()
+	a.SharePhoneNumber = from.GetSharePhoneNumber()
 	if val, ok := from.GetPeer(); ok {
 		a.Peer = val
 	}
@@ -170,6 +177,11 @@ func (a *MessagesAcceptURLAuthRequest) TypeInfo() tdp.Type {
 			Null:       !a.Flags.Has(0),
 		},
 		{
+			Name:       "SharePhoneNumber",
+			SchemaName: "share_phone_number",
+			Null:       !a.Flags.Has(3),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 			Null:       !a.Flags.Has(1),
@@ -197,6 +209,9 @@ func (a *MessagesAcceptURLAuthRequest) TypeInfo() tdp.Type {
 func (a *MessagesAcceptURLAuthRequest) SetFlags() {
 	if !(a.WriteAllowed == false) {
 		a.Flags.Set(0)
+	}
+	if !(a.SharePhoneNumber == false) {
+		a.Flags.Set(3)
 	}
 	if !(a.Peer == nil) {
 		a.Flags.Set(1)
@@ -272,6 +287,7 @@ func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	a.WriteAllowed = a.Flags.Has(0)
+	a.SharePhoneNumber = a.Flags.Has(3)
 	if a.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -320,6 +336,25 @@ func (a *MessagesAcceptURLAuthRequest) GetWriteAllowed() (value bool) {
 		return
 	}
 	return a.Flags.Has(0)
+}
+
+// SetSharePhoneNumber sets value of SharePhoneNumber conditional field.
+func (a *MessagesAcceptURLAuthRequest) SetSharePhoneNumber(value bool) {
+	if value {
+		a.Flags.Set(3)
+		a.SharePhoneNumber = true
+	} else {
+		a.Flags.Unset(3)
+		a.SharePhoneNumber = false
+	}
+}
+
+// GetSharePhoneNumber returns value of SharePhoneNumber conditional field.
+func (a *MessagesAcceptURLAuthRequest) GetSharePhoneNumber() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.Flags.Has(3)
 }
 
 // SetPeer sets value of Peer conditional field.

@@ -805,6 +805,32 @@ func (s MessageActionClassArray) AsMessageActionStarGiftPurchaseOfferDeclined() 
 	return to
 }
 
+// AsMessageActionNewCreatorPending returns copy with only MessageActionNewCreatorPending constructors.
+func (s MessageActionClassArray) AsMessageActionNewCreatorPending() (to MessageActionNewCreatorPendingArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionNewCreatorPending)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionChangeCreator returns copy with only MessageActionChangeCreator constructors.
+func (s MessageActionClassArray) AsMessageActionChangeCreator() (to MessageActionChangeCreatorArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionChangeCreator)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -5139,6 +5165,170 @@ func (s *MessageActionStarGiftPurchaseOfferDeclinedArray) PopFirst() (v MessageA
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionStarGiftPurchaseOfferDeclinedArray) Pop() (v MessageActionStarGiftPurchaseOfferDeclined, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionNewCreatorPendingArray is adapter for slice of MessageActionNewCreatorPending.
+type MessageActionNewCreatorPendingArray []MessageActionNewCreatorPending
+
+// Sort sorts slice of MessageActionNewCreatorPending.
+func (s MessageActionNewCreatorPendingArray) Sort(less func(a, b MessageActionNewCreatorPending) bool) MessageActionNewCreatorPendingArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionNewCreatorPending.
+func (s MessageActionNewCreatorPendingArray) SortStable(less func(a, b MessageActionNewCreatorPending) bool) MessageActionNewCreatorPendingArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionNewCreatorPending.
+func (s MessageActionNewCreatorPendingArray) Retain(keep func(x MessageActionNewCreatorPending) bool) MessageActionNewCreatorPendingArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionNewCreatorPendingArray) First() (v MessageActionNewCreatorPending, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionNewCreatorPendingArray) Last() (v MessageActionNewCreatorPending, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionNewCreatorPendingArray) PopFirst() (v MessageActionNewCreatorPending, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionNewCreatorPending
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionNewCreatorPendingArray) Pop() (v MessageActionNewCreatorPending, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionChangeCreatorArray is adapter for slice of MessageActionChangeCreator.
+type MessageActionChangeCreatorArray []MessageActionChangeCreator
+
+// Sort sorts slice of MessageActionChangeCreator.
+func (s MessageActionChangeCreatorArray) Sort(less func(a, b MessageActionChangeCreator) bool) MessageActionChangeCreatorArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionChangeCreator.
+func (s MessageActionChangeCreatorArray) SortStable(less func(a, b MessageActionChangeCreator) bool) MessageActionChangeCreatorArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionChangeCreator.
+func (s MessageActionChangeCreatorArray) Retain(keep func(x MessageActionChangeCreator) bool) MessageActionChangeCreatorArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionChangeCreatorArray) First() (v MessageActionChangeCreator, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionChangeCreatorArray) Last() (v MessageActionChangeCreator, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionChangeCreatorArray) PopFirst() (v MessageActionChangeCreator, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionChangeCreator
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionChangeCreatorArray) Pop() (v MessageActionChangeCreator, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

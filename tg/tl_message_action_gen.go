@@ -10400,7 +10400,7 @@ func (m *MessageActionStarGift) GetGiftNum() (value int, ok bool) {
 	return m.GiftNum, true
 }
 
-// MessageActionStarGiftUnique represents TL type `messageActionStarGiftUnique#95728543`.
+// MessageActionStarGiftUnique represents TL type `messageActionStarGiftUnique#e6c31522`.
 //
 // See https://core.telegram.org/constructor/messageActionStarGiftUnique for reference.
 type MessageActionStarGiftUnique struct {
@@ -10423,6 +10423,8 @@ type MessageActionStarGiftUnique struct {
 	Assigned bool
 	// FromOffer field of MessageActionStarGiftUnique.
 	FromOffer bool
+	// Craft field of MessageActionStarGiftUnique.
+	Craft bool
 	// Gift field of MessageActionStarGiftUnique.
 	Gift StarGiftClass
 	// CanExportAt field of MessageActionStarGiftUnique.
@@ -10461,10 +10463,14 @@ type MessageActionStarGiftUnique struct {
 	//
 	// Use SetDropOriginalDetailsStars and GetDropOriginalDetailsStars helpers.
 	DropOriginalDetailsStars int64
+	// CanCraftAt field of MessageActionStarGiftUnique.
+	//
+	// Use SetCanCraftAt and GetCanCraftAt helpers.
+	CanCraftAt int
 }
 
 // MessageActionStarGiftUniqueTypeID is TL type id of MessageActionStarGiftUnique.
-const MessageActionStarGiftUniqueTypeID = 0x95728543
+const MessageActionStarGiftUniqueTypeID = 0xe6c31522
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionStarGiftUnique) construct() MessageActionClass { return &m }
@@ -10507,6 +10513,9 @@ func (m *MessageActionStarGiftUnique) Zero() bool {
 	if !(m.FromOffer == false) {
 		return false
 	}
+	if !(m.Craft == false) {
+		return false
+	}
 	if !(m.Gift == nil) {
 		return false
 	}
@@ -10537,6 +10546,9 @@ func (m *MessageActionStarGiftUnique) Zero() bool {
 	if !(m.DropOriginalDetailsStars == 0) {
 		return false
 	}
+	if !(m.CanCraftAt == 0) {
+		return false
+	}
 
 	return true
 }
@@ -10559,6 +10571,7 @@ func (m *MessageActionStarGiftUnique) FillFrom(from interface {
 	GetPrepaidUpgrade() (value bool)
 	GetAssigned() (value bool)
 	GetFromOffer() (value bool)
+	GetCraft() (value bool)
 	GetGift() (value StarGiftClass)
 	GetCanExportAt() (value int, ok bool)
 	GetTransferStars() (value int64, ok bool)
@@ -10569,6 +10582,7 @@ func (m *MessageActionStarGiftUnique) FillFrom(from interface {
 	GetCanTransferAt() (value int, ok bool)
 	GetCanResellAt() (value int, ok bool)
 	GetDropOriginalDetailsStars() (value int64, ok bool)
+	GetCanCraftAt() (value int, ok bool)
 }) {
 	m.Upgrade = from.GetUpgrade()
 	m.Transferred = from.GetTransferred()
@@ -10577,6 +10591,7 @@ func (m *MessageActionStarGiftUnique) FillFrom(from interface {
 	m.PrepaidUpgrade = from.GetPrepaidUpgrade()
 	m.Assigned = from.GetAssigned()
 	m.FromOffer = from.GetFromOffer()
+	m.Craft = from.GetCraft()
 	m.Gift = from.GetGift()
 	if val, ok := from.GetCanExportAt(); ok {
 		m.CanExportAt = val
@@ -10612,6 +10627,10 @@ func (m *MessageActionStarGiftUnique) FillFrom(from interface {
 
 	if val, ok := from.GetDropOriginalDetailsStars(); ok {
 		m.DropOriginalDetailsStars = val
+	}
+
+	if val, ok := from.GetCanCraftAt(); ok {
+		m.CanCraftAt = val
 	}
 
 }
@@ -10675,6 +10694,11 @@ func (m *MessageActionStarGiftUnique) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(14),
 		},
 		{
+			Name:       "Craft",
+			SchemaName: "craft",
+			Null:       !m.Flags.Has(16),
+		},
+		{
 			Name:       "Gift",
 			SchemaName: "gift",
 		},
@@ -10723,6 +10747,11 @@ func (m *MessageActionStarGiftUnique) TypeInfo() tdp.Type {
 			SchemaName: "drop_original_details_stars",
 			Null:       !m.Flags.Has(12),
 		},
+		{
+			Name:       "CanCraftAt",
+			SchemaName: "can_craft_at",
+			Null:       !m.Flags.Has(15),
+		},
 	}
 	return typ
 }
@@ -10749,6 +10778,9 @@ func (m *MessageActionStarGiftUnique) SetFlags() {
 	}
 	if !(m.FromOffer == false) {
 		m.Flags.Set(14)
+	}
+	if !(m.Craft == false) {
+		m.Flags.Set(16)
 	}
 	if !(m.CanExportAt == 0) {
 		m.Flags.Set(3)
@@ -10777,12 +10809,15 @@ func (m *MessageActionStarGiftUnique) SetFlags() {
 	if !(m.DropOriginalDetailsStars == 0) {
 		m.Flags.Set(12)
 	}
+	if !(m.CanCraftAt == 0) {
+		m.Flags.Set(15)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionStarGiftUnique) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionStarGiftUnique#95728543 as nil")
+		return fmt.Errorf("can't encode messageActionStarGiftUnique#e6c31522 as nil")
 	}
 	b.PutID(MessageActionStarGiftUniqueTypeID)
 	return m.EncodeBare(b)
@@ -10791,17 +10826,17 @@ func (m *MessageActionStarGiftUnique) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionStarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionStarGiftUnique#95728543 as nil")
+		return fmt.Errorf("can't encode messageActionStarGiftUnique#e6c31522 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field flags: %w", err)
 	}
 	if m.Gift == nil {
-		return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field gift is nil")
+		return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field gift is nil")
 	}
 	if err := m.Gift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field gift: %w", err)
+		return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field gift: %w", err)
 	}
 	if m.Flags.Has(3) {
 		b.PutInt(m.CanExportAt)
@@ -10811,18 +10846,18 @@ func (m *MessageActionStarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(6) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field from_id is nil")
+			return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field from_id is nil")
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field from_id: %w", err)
+			return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field from_id: %w", err)
 		}
 	}
 	if m.Flags.Has(7) {
 		if m.Peer == nil {
-			return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field peer is nil")
+			return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field peer is nil")
 		}
 		if err := m.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field peer: %w", err)
+			return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field peer: %w", err)
 		}
 	}
 	if m.Flags.Has(7) {
@@ -10830,10 +10865,10 @@ func (m *MessageActionStarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(8) {
 		if m.ResaleAmount == nil {
-			return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field resale_amount is nil")
+			return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field resale_amount is nil")
 		}
 		if err := m.ResaleAmount.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageActionStarGiftUnique#95728543: field resale_amount: %w", err)
+			return fmt.Errorf("unable to encode messageActionStarGiftUnique#e6c31522: field resale_amount: %w", err)
 		}
 	}
 	if m.Flags.Has(9) {
@@ -10845,16 +10880,19 @@ func (m *MessageActionStarGiftUnique) EncodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(12) {
 		b.PutLong(m.DropOriginalDetailsStars)
 	}
+	if m.Flags.Has(15) {
+		b.PutInt(m.CanCraftAt)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionStarGiftUnique) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionStarGiftUnique#95728543 to nil")
+		return fmt.Errorf("can't decode messageActionStarGiftUnique#e6c31522 to nil")
 	}
 	if err := b.ConsumeID(MessageActionStarGiftUniqueTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: %w", err)
+		return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -10862,11 +10900,11 @@ func (m *MessageActionStarGiftUnique) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionStarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionStarGiftUnique#95728543 to nil")
+		return fmt.Errorf("can't decode messageActionStarGiftUnique#e6c31522 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field flags: %w", err)
 		}
 	}
 	m.Upgrade = m.Flags.Has(0)
@@ -10876,75 +10914,83 @@ func (m *MessageActionStarGiftUnique) DecodeBare(b *bin.Buffer) error {
 	m.PrepaidUpgrade = m.Flags.Has(11)
 	m.Assigned = m.Flags.Has(13)
 	m.FromOffer = m.Flags.Has(14)
+	m.Craft = m.Flags.Has(16)
 	{
 		value, err := DecodeStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field gift: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field gift: %w", err)
 		}
 		m.Gift = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field can_export_at: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field can_export_at: %w", err)
 		}
 		m.CanExportAt = value
 	}
 	if m.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field transfer_stars: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field transfer_stars: %w", err)
 		}
 		m.TransferStars = value
 	}
 	if m.Flags.Has(6) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field from_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field from_id: %w", err)
 		}
 		m.FromID = value
 	}
 	if m.Flags.Has(7) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field peer: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field peer: %w", err)
 		}
 		m.Peer = value
 	}
 	if m.Flags.Has(7) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field saved_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field saved_id: %w", err)
 		}
 		m.SavedID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodeStarsAmount(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field resale_amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field resale_amount: %w", err)
 		}
 		m.ResaleAmount = value
 	}
 	if m.Flags.Has(9) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field can_transfer_at: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field can_transfer_at: %w", err)
 		}
 		m.CanTransferAt = value
 	}
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field can_resell_at: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field can_resell_at: %w", err)
 		}
 		m.CanResellAt = value
 	}
 	if m.Flags.Has(12) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionStarGiftUnique#95728543: field drop_original_details_stars: %w", err)
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field drop_original_details_stars: %w", err)
 		}
 		m.DropOriginalDetailsStars = value
+	}
+	if m.Flags.Has(15) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionStarGiftUnique#e6c31522: field can_craft_at: %w", err)
+		}
+		m.CanCraftAt = value
 	}
 	return nil
 }
@@ -11080,6 +11126,25 @@ func (m *MessageActionStarGiftUnique) GetFromOffer() (value bool) {
 		return
 	}
 	return m.Flags.Has(14)
+}
+
+// SetCraft sets value of Craft conditional field.
+func (m *MessageActionStarGiftUnique) SetCraft(value bool) {
+	if value {
+		m.Flags.Set(16)
+		m.Craft = true
+	} else {
+		m.Flags.Unset(16)
+		m.Craft = false
+	}
+}
+
+// GetCraft returns value of Craft conditional field.
+func (m *MessageActionStarGiftUnique) GetCraft() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(16)
 }
 
 // GetGift returns value of Gift field.
@@ -11250,6 +11315,24 @@ func (m *MessageActionStarGiftUnique) GetDropOriginalDetailsStars() (value int64
 		return value, false
 	}
 	return m.DropOriginalDetailsStars, true
+}
+
+// SetCanCraftAt sets value of CanCraftAt conditional field.
+func (m *MessageActionStarGiftUnique) SetCanCraftAt(value int) {
+	m.Flags.Set(15)
+	m.CanCraftAt = value
+}
+
+// GetCanCraftAt returns value of CanCraftAt conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionStarGiftUnique) GetCanCraftAt() (value int, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(15) {
+		return value, false
+	}
+	return m.CanCraftAt, true
 }
 
 // MessageActionPaidMessagesRefunded represents TL type `messageActionPaidMessagesRefunded#ac1f1fcd`.
@@ -13898,6 +13981,274 @@ func (m *MessageActionStarGiftPurchaseOfferDeclined) GetPrice() (value StarsAmou
 	return m.Price
 }
 
+// MessageActionNewCreatorPending represents TL type `messageActionNewCreatorPending#b07ed085`.
+//
+// See https://core.telegram.org/constructor/messageActionNewCreatorPending for reference.
+type MessageActionNewCreatorPending struct {
+	// NewCreatorID field of MessageActionNewCreatorPending.
+	NewCreatorID int64
+}
+
+// MessageActionNewCreatorPendingTypeID is TL type id of MessageActionNewCreatorPending.
+const MessageActionNewCreatorPendingTypeID = 0xb07ed085
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionNewCreatorPending) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionNewCreatorPending.
+var (
+	_ bin.Encoder     = &MessageActionNewCreatorPending{}
+	_ bin.Decoder     = &MessageActionNewCreatorPending{}
+	_ bin.BareEncoder = &MessageActionNewCreatorPending{}
+	_ bin.BareDecoder = &MessageActionNewCreatorPending{}
+
+	_ MessageActionClass = &MessageActionNewCreatorPending{}
+)
+
+func (m *MessageActionNewCreatorPending) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.NewCreatorID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionNewCreatorPending) String() string {
+	if m == nil {
+		return "MessageActionNewCreatorPending(nil)"
+	}
+	type Alias MessageActionNewCreatorPending
+	return fmt.Sprintf("MessageActionNewCreatorPending%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionNewCreatorPending from given interface.
+func (m *MessageActionNewCreatorPending) FillFrom(from interface {
+	GetNewCreatorID() (value int64)
+}) {
+	m.NewCreatorID = from.GetNewCreatorID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionNewCreatorPending) TypeID() uint32 {
+	return MessageActionNewCreatorPendingTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionNewCreatorPending) TypeName() string {
+	return "messageActionNewCreatorPending"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionNewCreatorPending) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionNewCreatorPending",
+		ID:   MessageActionNewCreatorPendingTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewCreatorID",
+			SchemaName: "new_creator_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionNewCreatorPending) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionNewCreatorPending#b07ed085 as nil")
+	}
+	b.PutID(MessageActionNewCreatorPendingTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionNewCreatorPending) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionNewCreatorPending#b07ed085 as nil")
+	}
+	b.PutLong(m.NewCreatorID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionNewCreatorPending) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionNewCreatorPending#b07ed085 to nil")
+	}
+	if err := b.ConsumeID(MessageActionNewCreatorPendingTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionNewCreatorPending#b07ed085: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionNewCreatorPending) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionNewCreatorPending#b07ed085 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionNewCreatorPending#b07ed085: field new_creator_id: %w", err)
+		}
+		m.NewCreatorID = value
+	}
+	return nil
+}
+
+// GetNewCreatorID returns value of NewCreatorID field.
+func (m *MessageActionNewCreatorPending) GetNewCreatorID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.NewCreatorID
+}
+
+// MessageActionChangeCreator represents TL type `messageActionChangeCreator#e188503b`.
+//
+// See https://core.telegram.org/constructor/messageActionChangeCreator for reference.
+type MessageActionChangeCreator struct {
+	// NewCreatorID field of MessageActionChangeCreator.
+	NewCreatorID int64
+}
+
+// MessageActionChangeCreatorTypeID is TL type id of MessageActionChangeCreator.
+const MessageActionChangeCreatorTypeID = 0xe188503b
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChangeCreator) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChangeCreator.
+var (
+	_ bin.Encoder     = &MessageActionChangeCreator{}
+	_ bin.Decoder     = &MessageActionChangeCreator{}
+	_ bin.BareEncoder = &MessageActionChangeCreator{}
+	_ bin.BareDecoder = &MessageActionChangeCreator{}
+
+	_ MessageActionClass = &MessageActionChangeCreator{}
+)
+
+func (m *MessageActionChangeCreator) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.NewCreatorID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionChangeCreator) String() string {
+	if m == nil {
+		return "MessageActionChangeCreator(nil)"
+	}
+	type Alias MessageActionChangeCreator
+	return fmt.Sprintf("MessageActionChangeCreator%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionChangeCreator from given interface.
+func (m *MessageActionChangeCreator) FillFrom(from interface {
+	GetNewCreatorID() (value int64)
+}) {
+	m.NewCreatorID = from.GetNewCreatorID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionChangeCreator) TypeID() uint32 {
+	return MessageActionChangeCreatorTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionChangeCreator) TypeName() string {
+	return "messageActionChangeCreator"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChangeCreator) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChangeCreator",
+		ID:   MessageActionChangeCreatorTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewCreatorID",
+			SchemaName: "new_creator_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionChangeCreator) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionChangeCreator#e188503b as nil")
+	}
+	b.PutID(MessageActionChangeCreatorTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionChangeCreator) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionChangeCreator#e188503b as nil")
+	}
+	b.PutLong(m.NewCreatorID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionChangeCreator) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionChangeCreator#e188503b to nil")
+	}
+	if err := b.ConsumeID(MessageActionChangeCreatorTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionChangeCreator#e188503b: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionChangeCreator) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionChangeCreator#e188503b to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionChangeCreator#e188503b: field new_creator_id: %w", err)
+		}
+		m.NewCreatorID = value
+	}
+	return nil
+}
+
+// GetNewCreatorID returns value of NewCreatorID field.
+func (m *MessageActionChangeCreator) GetNewCreatorID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.NewCreatorID
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -13966,6 +14317,8 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionSuggestBirthday]
 //   - [MessageActionStarGiftPurchaseOffer]
 //   - [MessageActionStarGiftPurchaseOfferDeclined]
+//   - [MessageActionNewCreatorPending]
+//   - [MessageActionChangeCreator]
 //
 // Example:
 //
@@ -14021,7 +14374,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionGiftStars: // messageActionGiftStars#45d5b021
 //	case *tg.MessageActionPrizeStars: // messageActionPrizeStars#b00c47a2
 //	case *tg.MessageActionStarGift: // messageActionStarGift#ea2c31d3
-//	case *tg.MessageActionStarGiftUnique: // messageActionStarGiftUnique#95728543
+//	case *tg.MessageActionStarGiftUnique: // messageActionStarGiftUnique#e6c31522
 //	case *tg.MessageActionPaidMessagesRefunded: // messageActionPaidMessagesRefunded#ac1f1fcd
 //	case *tg.MessageActionPaidMessagesPrice: // messageActionPaidMessagesPrice#84b88578
 //	case *tg.MessageActionConferenceCall: // messageActionConferenceCall#2ffe2f7a
@@ -14034,6 +14387,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionSuggestBirthday: // messageActionSuggestBirthday#2c8f2a25
 //	case *tg.MessageActionStarGiftPurchaseOffer: // messageActionStarGiftPurchaseOffer#774278d4
 //	case *tg.MessageActionStarGiftPurchaseOfferDeclined: // messageActionStarGiftPurchaseOfferDeclined#73ada76b
+//	case *tg.MessageActionNewCreatorPending: // messageActionNewCreatorPending#b07ed085
+//	case *tg.MessageActionChangeCreator: // messageActionChangeCreator#e188503b
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -14392,7 +14747,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionStarGiftUniqueTypeID:
-		// Decoding messageActionStarGiftUnique#95728543.
+		// Decoding messageActionStarGiftUnique#e6c31522.
 		v := MessageActionStarGiftUnique{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
@@ -14478,6 +14833,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionStarGiftPurchaseOfferDeclinedTypeID:
 		// Decoding messageActionStarGiftPurchaseOfferDeclined#73ada76b.
 		v := MessageActionStarGiftPurchaseOfferDeclined{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionNewCreatorPendingTypeID:
+		// Decoding messageActionNewCreatorPending#b07ed085.
+		v := MessageActionNewCreatorPending{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionChangeCreatorTypeID:
+		// Decoding messageActionChangeCreator#e188503b.
+		v := MessageActionChangeCreator{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

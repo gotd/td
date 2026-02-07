@@ -3259,6 +3259,8 @@ type ChannelForbidden struct {
 	Broadcast bool
 	// Is this a supergroup
 	Megagroup bool
+	// Monoforum field of ChannelForbidden.
+	Monoforum bool
 	// Channel ID
 	ID int64
 	// Access hash
@@ -3300,6 +3302,9 @@ func (c *ChannelForbidden) Zero() bool {
 	if !(c.Megagroup == false) {
 		return false
 	}
+	if !(c.Monoforum == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -3329,6 +3334,7 @@ func (c *ChannelForbidden) String() string {
 func (c *ChannelForbidden) FillFrom(from interface {
 	GetBroadcast() (value bool)
 	GetMegagroup() (value bool)
+	GetMonoforum() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetTitle() (value string)
@@ -3336,6 +3342,7 @@ func (c *ChannelForbidden) FillFrom(from interface {
 }) {
 	c.Broadcast = from.GetBroadcast()
 	c.Megagroup = from.GetMegagroup()
+	c.Monoforum = from.GetMonoforum()
 	c.ID = from.GetID()
 	c.AccessHash = from.GetAccessHash()
 	c.Title = from.GetTitle()
@@ -3379,6 +3386,11 @@ func (c *ChannelForbidden) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(8),
 		},
 		{
+			Name:       "Monoforum",
+			SchemaName: "monoforum",
+			Null:       !c.Flags.Has(10),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -3406,6 +3418,9 @@ func (c *ChannelForbidden) SetFlags() {
 	}
 	if !(c.Megagroup == false) {
 		c.Flags.Set(8)
+	}
+	if !(c.Monoforum == false) {
+		c.Flags.Set(10)
 	}
 	if !(c.UntilDate == 0) {
 		c.Flags.Set(16)
@@ -3462,6 +3477,7 @@ func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
 	}
 	c.Broadcast = c.Flags.Has(5)
 	c.Megagroup = c.Flags.Has(8)
+	c.Monoforum = c.Flags.Has(10)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3529,6 +3545,25 @@ func (c *ChannelForbidden) GetMegagroup() (value bool) {
 		return
 	}
 	return c.Flags.Has(8)
+}
+
+// SetMonoforum sets value of Monoforum conditional field.
+func (c *ChannelForbidden) SetMonoforum(value bool) {
+	if value {
+		c.Flags.Set(10)
+		c.Monoforum = true
+	} else {
+		c.Flags.Unset(10)
+		c.Monoforum = false
+	}
+}
+
+// GetMonoforum returns value of Monoforum conditional field.
+func (c *ChannelForbidden) GetMonoforum() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(10)
 }
 
 // GetID returns value of ID field.

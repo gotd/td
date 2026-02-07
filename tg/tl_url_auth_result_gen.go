@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// URLAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
+// URLAuthResultRequest represents TL type `urlAuthResultRequest#32fabf1a`.
 // Details about the authorization request, for more info click here »¹
 //
 // Links:
@@ -46,6 +46,8 @@ type URLAuthResultRequest struct {
 	Flags bin.Fields
 	// Whether the bot would like to send messages to the user
 	RequestWriteAccess bool
+	// RequestPhoneNumber field of URLAuthResultRequest.
+	RequestPhoneNumber bool
 	// Username of a bot, which will be used for user authorization. If not specified, the
 	// current bot's username will be assumed. The url's domain must be the same as the
 	// domain linked with the bot. See Linking your domain to the bot¹ for more details.
@@ -55,10 +57,26 @@ type URLAuthResultRequest struct {
 	Bot UserClass
 	// The domain name of the website on which the user will log in.
 	Domain string
+	// Browser field of URLAuthResultRequest.
+	//
+	// Use SetBrowser and GetBrowser helpers.
+	Browser string
+	// Platform field of URLAuthResultRequest.
+	//
+	// Use SetPlatform and GetPlatform helpers.
+	Platform string
+	// IP field of URLAuthResultRequest.
+	//
+	// Use SetIP and GetIP helpers.
+	IP string
+	// Region field of URLAuthResultRequest.
+	//
+	// Use SetRegion and GetRegion helpers.
+	Region string
 }
 
 // URLAuthResultRequestTypeID is TL type id of URLAuthResultRequest.
-const URLAuthResultRequestTypeID = 0x92d33a0e
+const URLAuthResultRequestTypeID = 0x32fabf1a
 
 // construct implements constructor of URLAuthResultClass.
 func (u URLAuthResultRequest) construct() URLAuthResultClass { return &u }
@@ -83,10 +101,25 @@ func (u *URLAuthResultRequest) Zero() bool {
 	if !(u.RequestWriteAccess == false) {
 		return false
 	}
+	if !(u.RequestPhoneNumber == false) {
+		return false
+	}
 	if !(u.Bot == nil) {
 		return false
 	}
 	if !(u.Domain == "") {
+		return false
+	}
+	if !(u.Browser == "") {
+		return false
+	}
+	if !(u.Platform == "") {
+		return false
+	}
+	if !(u.IP == "") {
+		return false
+	}
+	if !(u.Region == "") {
 		return false
 	}
 
@@ -105,12 +138,34 @@ func (u *URLAuthResultRequest) String() string {
 // FillFrom fills URLAuthResultRequest from given interface.
 func (u *URLAuthResultRequest) FillFrom(from interface {
 	GetRequestWriteAccess() (value bool)
+	GetRequestPhoneNumber() (value bool)
 	GetBot() (value UserClass)
 	GetDomain() (value string)
+	GetBrowser() (value string, ok bool)
+	GetPlatform() (value string, ok bool)
+	GetIP() (value string, ok bool)
+	GetRegion() (value string, ok bool)
 }) {
 	u.RequestWriteAccess = from.GetRequestWriteAccess()
+	u.RequestPhoneNumber = from.GetRequestPhoneNumber()
 	u.Bot = from.GetBot()
 	u.Domain = from.GetDomain()
+	if val, ok := from.GetBrowser(); ok {
+		u.Browser = val
+	}
+
+	if val, ok := from.GetPlatform(); ok {
+		u.Platform = val
+	}
+
+	if val, ok := from.GetIP(); ok {
+		u.IP = val
+	}
+
+	if val, ok := from.GetRegion(); ok {
+		u.Region = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -142,12 +197,37 @@ func (u *URLAuthResultRequest) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "RequestPhoneNumber",
+			SchemaName: "request_phone_number",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},
 		{
 			Name:       "Domain",
 			SchemaName: "domain",
+		},
+		{
+			Name:       "Browser",
+			SchemaName: "browser",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Platform",
+			SchemaName: "platform",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Region",
+			SchemaName: "region",
+			Null:       !u.Flags.Has(2),
 		},
 	}
 	return typ
@@ -158,12 +238,27 @@ func (u *URLAuthResultRequest) SetFlags() {
 	if !(u.RequestWriteAccess == false) {
 		u.Flags.Set(0)
 	}
+	if !(u.RequestPhoneNumber == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Browser == "") {
+		u.Flags.Set(2)
+	}
+	if !(u.Platform == "") {
+		u.Flags.Set(2)
+	}
+	if !(u.IP == "") {
+		u.Flags.Set(2)
+	}
+	if !(u.Region == "") {
+		u.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
+		return fmt.Errorf("can't encode urlAuthResultRequest#32fabf1a as nil")
 	}
 	b.PutID(URLAuthResultRequestTypeID)
 	return u.EncodeBare(b)
@@ -172,29 +267,41 @@ func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
+		return fmt.Errorf("can't encode urlAuthResultRequest#32fabf1a as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field flags: %w", err)
+		return fmt.Errorf("unable to encode urlAuthResultRequest#32fabf1a: field flags: %w", err)
 	}
 	if u.Bot == nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field bot is nil")
+		return fmt.Errorf("unable to encode urlAuthResultRequest#32fabf1a: field bot is nil")
 	}
 	if err := u.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field bot: %w", err)
+		return fmt.Errorf("unable to encode urlAuthResultRequest#32fabf1a: field bot: %w", err)
 	}
 	b.PutString(u.Domain)
+	if u.Flags.Has(2) {
+		b.PutString(u.Browser)
+	}
+	if u.Flags.Has(2) {
+		b.PutString(u.Platform)
+	}
+	if u.Flags.Has(2) {
+		b.PutString(u.IP)
+	}
+	if u.Flags.Has(2) {
+		b.PutString(u.Region)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultRequest#92d33a0e to nil")
+		return fmt.Errorf("can't decode urlAuthResultRequest#32fabf1a to nil")
 	}
 	if err := b.ConsumeID(URLAuthResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: %w", err)
+		return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -202,27 +309,56 @@ func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultRequest#92d33a0e to nil")
+		return fmt.Errorf("can't decode urlAuthResultRequest#32fabf1a to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field flags: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field flags: %w", err)
 		}
 	}
 	u.RequestWriteAccess = u.Flags.Has(0)
+	u.RequestPhoneNumber = u.Flags.Has(1)
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field bot: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field bot: %w", err)
 		}
 		u.Bot = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field domain: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field domain: %w", err)
 		}
 		u.Domain = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field browser: %w", err)
+		}
+		u.Browser = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field platform: %w", err)
+		}
+		u.Platform = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field ip: %w", err)
+		}
+		u.IP = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultRequest#32fabf1a: field region: %w", err)
+		}
+		u.Region = value
 	}
 	return nil
 }
@@ -246,6 +382,25 @@ func (u *URLAuthResultRequest) GetRequestWriteAccess() (value bool) {
 	return u.Flags.Has(0)
 }
 
+// SetRequestPhoneNumber sets value of RequestPhoneNumber conditional field.
+func (u *URLAuthResultRequest) SetRequestPhoneNumber(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.RequestPhoneNumber = true
+	} else {
+		u.Flags.Unset(1)
+		u.RequestPhoneNumber = false
+	}
+}
+
+// GetRequestPhoneNumber returns value of RequestPhoneNumber conditional field.
+func (u *URLAuthResultRequest) GetRequestPhoneNumber() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
+}
+
 // GetBot returns value of Bot field.
 func (u *URLAuthResultRequest) GetBot() (value UserClass) {
 	if u == nil {
@@ -262,7 +417,79 @@ func (u *URLAuthResultRequest) GetDomain() (value string) {
 	return u.Domain
 }
 
-// URLAuthResultAccepted represents TL type `urlAuthResultAccepted#8f8c0e4e`.
+// SetBrowser sets value of Browser conditional field.
+func (u *URLAuthResultRequest) SetBrowser(value string) {
+	u.Flags.Set(2)
+	u.Browser = value
+}
+
+// GetBrowser returns value of Browser conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultRequest) GetBrowser() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Browser, true
+}
+
+// SetPlatform sets value of Platform conditional field.
+func (u *URLAuthResultRequest) SetPlatform(value string) {
+	u.Flags.Set(2)
+	u.Platform = value
+}
+
+// GetPlatform returns value of Platform conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultRequest) GetPlatform() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Platform, true
+}
+
+// SetIP sets value of IP conditional field.
+func (u *URLAuthResultRequest) SetIP(value string) {
+	u.Flags.Set(2)
+	u.IP = value
+}
+
+// GetIP returns value of IP conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultRequest) GetIP() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.IP, true
+}
+
+// SetRegion sets value of Region conditional field.
+func (u *URLAuthResultRequest) SetRegion(value string) {
+	u.Flags.Set(2)
+	u.Region = value
+}
+
+// GetRegion returns value of Region conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultRequest) GetRegion() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Region, true
+}
+
+// URLAuthResultAccepted represents TL type `urlAuthResultAccepted#623a8fa0`.
 // Details about an accepted authorization request, for more info click here »¹
 //
 // Links:
@@ -270,12 +497,16 @@ func (u *URLAuthResultRequest) GetDomain() (value string) {
 //
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type URLAuthResultAccepted struct {
+	// Flags field of URLAuthResultAccepted.
+	Flags bin.Fields
 	// The URL name of the website on which the user has logged in.
+	//
+	// Use SetURL and GetURL helpers.
 	URL string
 }
 
 // URLAuthResultAcceptedTypeID is TL type id of URLAuthResultAccepted.
-const URLAuthResultAcceptedTypeID = 0x8f8c0e4e
+const URLAuthResultAcceptedTypeID = 0x623a8fa0
 
 // construct implements constructor of URLAuthResultClass.
 func (u URLAuthResultAccepted) construct() URLAuthResultClass { return &u }
@@ -293,6 +524,9 @@ var (
 func (u *URLAuthResultAccepted) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
 	}
 	if !(u.URL == "") {
 		return false
@@ -312,9 +546,12 @@ func (u *URLAuthResultAccepted) String() string {
 
 // FillFrom fills URLAuthResultAccepted from given interface.
 func (u *URLAuthResultAccepted) FillFrom(from interface {
-	GetURL() (value string)
+	GetURL() (value string, ok bool)
 }) {
-	u.URL = from.GetURL()
+	if val, ok := from.GetURL(); ok {
+		u.URL = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -343,15 +580,23 @@ func (u *URLAuthResultAccepted) TypeInfo() tdp.Type {
 		{
 			Name:       "URL",
 			SchemaName: "url",
+			Null:       !u.Flags.Has(0),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *URLAuthResultAccepted) SetFlags() {
+	if !(u.URL == "") {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *URLAuthResultAccepted) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultAccepted#8f8c0e4e as nil")
+		return fmt.Errorf("can't encode urlAuthResultAccepted#623a8fa0 as nil")
 	}
 	b.PutID(URLAuthResultAcceptedTypeID)
 	return u.EncodeBare(b)
@@ -360,19 +605,25 @@ func (u *URLAuthResultAccepted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *URLAuthResultAccepted) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultAccepted#8f8c0e4e as nil")
+		return fmt.Errorf("can't encode urlAuthResultAccepted#623a8fa0 as nil")
 	}
-	b.PutString(u.URL)
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode urlAuthResultAccepted#623a8fa0: field flags: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutString(u.URL)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *URLAuthResultAccepted) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultAccepted#8f8c0e4e to nil")
+		return fmt.Errorf("can't decode urlAuthResultAccepted#623a8fa0 to nil")
 	}
 	if err := b.ConsumeID(URLAuthResultAcceptedTypeID); err != nil {
-		return fmt.Errorf("unable to decode urlAuthResultAccepted#8f8c0e4e: %w", err)
+		return fmt.Errorf("unable to decode urlAuthResultAccepted#623a8fa0: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -380,24 +631,39 @@ func (u *URLAuthResultAccepted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *URLAuthResultAccepted) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultAccepted#8f8c0e4e to nil")
+		return fmt.Errorf("can't decode urlAuthResultAccepted#623a8fa0 to nil")
 	}
 	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultAccepted#623a8fa0: field flags: %w", err)
+		}
+	}
+	if u.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultAccepted#8f8c0e4e: field url: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultAccepted#623a8fa0: field url: %w", err)
 		}
 		u.URL = value
 	}
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (u *URLAuthResultAccepted) GetURL() (value string) {
+// SetURL sets value of URL conditional field.
+func (u *URLAuthResultAccepted) SetURL(value string) {
+	u.Flags.Set(0)
+	u.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultAccepted) GetURL() (value string, ok bool) {
 	if u == nil {
 		return
 	}
-	return u.URL
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.URL, true
 }
 
 // URLAuthResultDefault represents TL type `urlAuthResultDefault#a9d6db1f`.
@@ -524,8 +790,8 @@ const URLAuthResultClassName = "UrlAuthResult"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.URLAuthResultRequest: // urlAuthResultRequest#92d33a0e
-//	case *tg.URLAuthResultAccepted: // urlAuthResultAccepted#8f8c0e4e
+//	case *tg.URLAuthResultRequest: // urlAuthResultRequest#32fabf1a
+//	case *tg.URLAuthResultAccepted: // urlAuthResultAccepted#623a8fa0
 //	case *tg.URLAuthResultDefault: // urlAuthResultDefault#a9d6db1f
 //	default: panic(v)
 //	}
@@ -556,14 +822,14 @@ func DecodeURLAuthResult(buf *bin.Buffer) (URLAuthResultClass, error) {
 	}
 	switch id {
 	case URLAuthResultRequestTypeID:
-		// Decoding urlAuthResultRequest#92d33a0e.
+		// Decoding urlAuthResultRequest#32fabf1a.
 		v := URLAuthResultRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", err)
 		}
 		return &v, nil
 	case URLAuthResultAcceptedTypeID:
-		// Decoding urlAuthResultAccepted#8f8c0e4e.
+		// Decoding urlAuthResultAccepted#623a8fa0.
 		v := URLAuthResultAccepted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", err)

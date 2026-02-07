@@ -1620,6 +1620,16 @@ func (u UpdateDispatcher) OnEmojiGameInfo(handler EmojiGameInfoHandler) {
 	}
 }
 
+// StarGiftCraftFailHandler is a StarGiftCraftFail event handler.
+type StarGiftCraftFailHandler func(ctx context.Context, e Entities, update *UpdateStarGiftCraftFail) error
+
+// OnStarGiftCraftFail sets StarGiftCraftFail handler.
+func (u UpdateDispatcher) OnStarGiftCraftFail(handler StarGiftCraftFailHandler) {
+	u.handlers[UpdateStarGiftCraftFailTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStarGiftCraftFail))
+	}
+}
+
 // OnFallback sets fallback handler.
 func (u *UpdateDispatcher) OnFallback(handler Handler) {
 	u.fallback = handler

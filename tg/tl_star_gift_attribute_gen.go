@@ -31,20 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StarGiftAttributeModel represents TL type `starGiftAttributeModel#39d99013`.
+// StarGiftAttributeModel represents TL type `starGiftAttributeModel#565251e2`.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeModel for reference.
 type StarGiftAttributeModel struct {
+	// Flags field of StarGiftAttributeModel.
+	Flags bin.Fields
+	// Crafted field of StarGiftAttributeModel.
+	Crafted bool
 	// Name field of StarGiftAttributeModel.
 	Name string
 	// Document field of StarGiftAttributeModel.
 	Document DocumentClass
-	// RarityPermille field of StarGiftAttributeModel.
-	RarityPermille int
+	// Rarity field of StarGiftAttributeModel.
+	Rarity StarGiftAttributeRarityClass
 }
 
 // StarGiftAttributeModelTypeID is TL type id of StarGiftAttributeModel.
-const StarGiftAttributeModelTypeID = 0x39d99013
+const StarGiftAttributeModelTypeID = 0x565251e2
 
 // construct implements constructor of StarGiftAttributeClass.
 func (s StarGiftAttributeModel) construct() StarGiftAttributeClass { return &s }
@@ -63,13 +67,19 @@ func (s *StarGiftAttributeModel) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Crafted == false) {
+		return false
+	}
 	if !(s.Name == "") {
 		return false
 	}
 	if !(s.Document == nil) {
 		return false
 	}
-	if !(s.RarityPermille == 0) {
+	if !(s.Rarity == nil) {
 		return false
 	}
 
@@ -87,13 +97,15 @@ func (s *StarGiftAttributeModel) String() string {
 
 // FillFrom fills StarGiftAttributeModel from given interface.
 func (s *StarGiftAttributeModel) FillFrom(from interface {
+	GetCrafted() (value bool)
 	GetName() (value string)
 	GetDocument() (value DocumentClass)
-	GetRarityPermille() (value int)
+	GetRarity() (value StarGiftAttributeRarityClass)
 }) {
+	s.Crafted = from.GetCrafted()
 	s.Name = from.GetName()
 	s.Document = from.GetDocument()
-	s.RarityPermille = from.GetRarityPermille()
+	s.Rarity = from.GetRarity()
 }
 
 // TypeID returns type id in TL schema.
@@ -120,6 +132,11 @@ func (s *StarGiftAttributeModel) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Crafted",
+			SchemaName: "crafted",
+			Null:       !s.Flags.Has(0),
+		},
+		{
 			Name:       "Name",
 			SchemaName: "name",
 		},
@@ -128,17 +145,24 @@ func (s *StarGiftAttributeModel) TypeInfo() tdp.Type {
 			SchemaName: "document",
 		},
 		{
-			Name:       "RarityPermille",
-			SchemaName: "rarity_permille",
+			Name:       "Rarity",
+			SchemaName: "rarity",
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *StarGiftAttributeModel) SetFlags() {
+	if !(s.Crafted == false) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *StarGiftAttributeModel) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeModel#39d99013 as nil")
+		return fmt.Errorf("can't encode starGiftAttributeModel#565251e2 as nil")
 	}
 	b.PutID(StarGiftAttributeModelTypeID)
 	return s.EncodeBare(b)
@@ -147,26 +171,35 @@ func (s *StarGiftAttributeModel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAttributeModel) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeModel#39d99013 as nil")
+		return fmt.Errorf("can't encode starGiftAttributeModel#565251e2 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starGiftAttributeModel#565251e2: field flags: %w", err)
 	}
 	b.PutString(s.Name)
 	if s.Document == nil {
-		return fmt.Errorf("unable to encode starGiftAttributeModel#39d99013: field document is nil")
+		return fmt.Errorf("unable to encode starGiftAttributeModel#565251e2: field document is nil")
 	}
 	if err := s.Document.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGiftAttributeModel#39d99013: field document: %w", err)
+		return fmt.Errorf("unable to encode starGiftAttributeModel#565251e2: field document: %w", err)
 	}
-	b.PutInt(s.RarityPermille)
+	if s.Rarity == nil {
+		return fmt.Errorf("unable to encode starGiftAttributeModel#565251e2: field rarity is nil")
+	}
+	if err := s.Rarity.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starGiftAttributeModel#565251e2: field rarity: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGiftAttributeModel) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeModel#39d99013 to nil")
+		return fmt.Errorf("can't decode starGiftAttributeModel#565251e2 to nil")
 	}
 	if err := b.ConsumeID(StarGiftAttributeModelTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAttributeModel#39d99013: %w", err)
+		return fmt.Errorf("unable to decode starGiftAttributeModel#565251e2: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -174,30 +207,55 @@ func (s *StarGiftAttributeModel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAttributeModel) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeModel#39d99013 to nil")
+		return fmt.Errorf("can't decode starGiftAttributeModel#565251e2 to nil")
 	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode starGiftAttributeModel#565251e2: field flags: %w", err)
+		}
+	}
+	s.Crafted = s.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeModel#39d99013: field name: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeModel#565251e2: field name: %w", err)
 		}
 		s.Name = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeModel#39d99013: field document: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeModel#565251e2: field document: %w", err)
 		}
 		s.Document = value
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodeStarGiftAttributeRarity(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeModel#39d99013: field rarity_permille: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeModel#565251e2: field rarity: %w", err)
 		}
-		s.RarityPermille = value
+		s.Rarity = value
 	}
 	return nil
+}
+
+// SetCrafted sets value of Crafted conditional field.
+func (s *StarGiftAttributeModel) SetCrafted(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Crafted = true
+	} else {
+		s.Flags.Unset(0)
+		s.Crafted = false
+	}
+}
+
+// GetCrafted returns value of Crafted conditional field.
+func (s *StarGiftAttributeModel) GetCrafted() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
 }
 
 // GetName returns value of Name field.
@@ -216,15 +274,15 @@ func (s *StarGiftAttributeModel) GetDocument() (value DocumentClass) {
 	return s.Document
 }
 
-// GetRarityPermille returns value of RarityPermille field.
-func (s *StarGiftAttributeModel) GetRarityPermille() (value int) {
+// GetRarity returns value of Rarity field.
+func (s *StarGiftAttributeModel) GetRarity() (value StarGiftAttributeRarityClass) {
 	if s == nil {
 		return
 	}
-	return s.RarityPermille
+	return s.Rarity
 }
 
-// StarGiftAttributePattern represents TL type `starGiftAttributePattern#13acff19`.
+// StarGiftAttributePattern represents TL type `starGiftAttributePattern#4e7085ea`.
 //
 // See https://core.telegram.org/constructor/starGiftAttributePattern for reference.
 type StarGiftAttributePattern struct {
@@ -232,12 +290,12 @@ type StarGiftAttributePattern struct {
 	Name string
 	// Document field of StarGiftAttributePattern.
 	Document DocumentClass
-	// RarityPermille field of StarGiftAttributePattern.
-	RarityPermille int
+	// Rarity field of StarGiftAttributePattern.
+	Rarity StarGiftAttributeRarityClass
 }
 
 // StarGiftAttributePatternTypeID is TL type id of StarGiftAttributePattern.
-const StarGiftAttributePatternTypeID = 0x13acff19
+const StarGiftAttributePatternTypeID = 0x4e7085ea
 
 // construct implements constructor of StarGiftAttributeClass.
 func (s StarGiftAttributePattern) construct() StarGiftAttributeClass { return &s }
@@ -262,7 +320,7 @@ func (s *StarGiftAttributePattern) Zero() bool {
 	if !(s.Document == nil) {
 		return false
 	}
-	if !(s.RarityPermille == 0) {
+	if !(s.Rarity == nil) {
 		return false
 	}
 
@@ -282,11 +340,11 @@ func (s *StarGiftAttributePattern) String() string {
 func (s *StarGiftAttributePattern) FillFrom(from interface {
 	GetName() (value string)
 	GetDocument() (value DocumentClass)
-	GetRarityPermille() (value int)
+	GetRarity() (value StarGiftAttributeRarityClass)
 }) {
 	s.Name = from.GetName()
 	s.Document = from.GetDocument()
-	s.RarityPermille = from.GetRarityPermille()
+	s.Rarity = from.GetRarity()
 }
 
 // TypeID returns type id in TL schema.
@@ -321,8 +379,8 @@ func (s *StarGiftAttributePattern) TypeInfo() tdp.Type {
 			SchemaName: "document",
 		},
 		{
-			Name:       "RarityPermille",
-			SchemaName: "rarity_permille",
+			Name:       "Rarity",
+			SchemaName: "rarity",
 		},
 	}
 	return typ
@@ -331,7 +389,7 @@ func (s *StarGiftAttributePattern) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarGiftAttributePattern) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributePattern#13acff19 as nil")
+		return fmt.Errorf("can't encode starGiftAttributePattern#4e7085ea as nil")
 	}
 	b.PutID(StarGiftAttributePatternTypeID)
 	return s.EncodeBare(b)
@@ -340,26 +398,31 @@ func (s *StarGiftAttributePattern) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAttributePattern) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributePattern#13acff19 as nil")
+		return fmt.Errorf("can't encode starGiftAttributePattern#4e7085ea as nil")
 	}
 	b.PutString(s.Name)
 	if s.Document == nil {
-		return fmt.Errorf("unable to encode starGiftAttributePattern#13acff19: field document is nil")
+		return fmt.Errorf("unable to encode starGiftAttributePattern#4e7085ea: field document is nil")
 	}
 	if err := s.Document.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode starGiftAttributePattern#13acff19: field document: %w", err)
+		return fmt.Errorf("unable to encode starGiftAttributePattern#4e7085ea: field document: %w", err)
 	}
-	b.PutInt(s.RarityPermille)
+	if s.Rarity == nil {
+		return fmt.Errorf("unable to encode starGiftAttributePattern#4e7085ea: field rarity is nil")
+	}
+	if err := s.Rarity.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starGiftAttributePattern#4e7085ea: field rarity: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGiftAttributePattern) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributePattern#13acff19 to nil")
+		return fmt.Errorf("can't decode starGiftAttributePattern#4e7085ea to nil")
 	}
 	if err := b.ConsumeID(StarGiftAttributePatternTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAttributePattern#13acff19: %w", err)
+		return fmt.Errorf("unable to decode starGiftAttributePattern#4e7085ea: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -367,28 +430,28 @@ func (s *StarGiftAttributePattern) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAttributePattern) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributePattern#13acff19 to nil")
+		return fmt.Errorf("can't decode starGiftAttributePattern#4e7085ea to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributePattern#13acff19: field name: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributePattern#4e7085ea: field name: %w", err)
 		}
 		s.Name = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributePattern#13acff19: field document: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributePattern#4e7085ea: field document: %w", err)
 		}
 		s.Document = value
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodeStarGiftAttributeRarity(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributePattern#13acff19: field rarity_permille: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributePattern#4e7085ea: field rarity: %w", err)
 		}
-		s.RarityPermille = value
+		s.Rarity = value
 	}
 	return nil
 }
@@ -409,15 +472,15 @@ func (s *StarGiftAttributePattern) GetDocument() (value DocumentClass) {
 	return s.Document
 }
 
-// GetRarityPermille returns value of RarityPermille field.
-func (s *StarGiftAttributePattern) GetRarityPermille() (value int) {
+// GetRarity returns value of Rarity field.
+func (s *StarGiftAttributePattern) GetRarity() (value StarGiftAttributeRarityClass) {
 	if s == nil {
 		return
 	}
-	return s.RarityPermille
+	return s.Rarity
 }
 
-// StarGiftAttributeBackdrop represents TL type `starGiftAttributeBackdrop#d93d859c`.
+// StarGiftAttributeBackdrop represents TL type `starGiftAttributeBackdrop#9f2504e4`.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeBackdrop for reference.
 type StarGiftAttributeBackdrop struct {
@@ -433,12 +496,12 @@ type StarGiftAttributeBackdrop struct {
 	PatternColor int
 	// TextColor field of StarGiftAttributeBackdrop.
 	TextColor int
-	// RarityPermille field of StarGiftAttributeBackdrop.
-	RarityPermille int
+	// Rarity field of StarGiftAttributeBackdrop.
+	Rarity StarGiftAttributeRarityClass
 }
 
 // StarGiftAttributeBackdropTypeID is TL type id of StarGiftAttributeBackdrop.
-const StarGiftAttributeBackdropTypeID = 0xd93d859c
+const StarGiftAttributeBackdropTypeID = 0x9f2504e4
 
 // construct implements constructor of StarGiftAttributeClass.
 func (s StarGiftAttributeBackdrop) construct() StarGiftAttributeClass { return &s }
@@ -475,7 +538,7 @@ func (s *StarGiftAttributeBackdrop) Zero() bool {
 	if !(s.TextColor == 0) {
 		return false
 	}
-	if !(s.RarityPermille == 0) {
+	if !(s.Rarity == nil) {
 		return false
 	}
 
@@ -499,7 +562,7 @@ func (s *StarGiftAttributeBackdrop) FillFrom(from interface {
 	GetEdgeColor() (value int)
 	GetPatternColor() (value int)
 	GetTextColor() (value int)
-	GetRarityPermille() (value int)
+	GetRarity() (value StarGiftAttributeRarityClass)
 }) {
 	s.Name = from.GetName()
 	s.BackdropID = from.GetBackdropID()
@@ -507,7 +570,7 @@ func (s *StarGiftAttributeBackdrop) FillFrom(from interface {
 	s.EdgeColor = from.GetEdgeColor()
 	s.PatternColor = from.GetPatternColor()
 	s.TextColor = from.GetTextColor()
-	s.RarityPermille = from.GetRarityPermille()
+	s.Rarity = from.GetRarity()
 }
 
 // TypeID returns type id in TL schema.
@@ -558,8 +621,8 @@ func (s *StarGiftAttributeBackdrop) TypeInfo() tdp.Type {
 			SchemaName: "text_color",
 		},
 		{
-			Name:       "RarityPermille",
-			SchemaName: "rarity_permille",
+			Name:       "Rarity",
+			SchemaName: "rarity",
 		},
 	}
 	return typ
@@ -568,7 +631,7 @@ func (s *StarGiftAttributeBackdrop) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StarGiftAttributeBackdrop) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeBackdrop#d93d859c as nil")
+		return fmt.Errorf("can't encode starGiftAttributeBackdrop#9f2504e4 as nil")
 	}
 	b.PutID(StarGiftAttributeBackdropTypeID)
 	return s.EncodeBare(b)
@@ -577,7 +640,7 @@ func (s *StarGiftAttributeBackdrop) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StarGiftAttributeBackdrop) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode starGiftAttributeBackdrop#d93d859c as nil")
+		return fmt.Errorf("can't encode starGiftAttributeBackdrop#9f2504e4 as nil")
 	}
 	b.PutString(s.Name)
 	b.PutInt(s.BackdropID)
@@ -585,17 +648,22 @@ func (s *StarGiftAttributeBackdrop) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(s.EdgeColor)
 	b.PutInt(s.PatternColor)
 	b.PutInt(s.TextColor)
-	b.PutInt(s.RarityPermille)
+	if s.Rarity == nil {
+		return fmt.Errorf("unable to encode starGiftAttributeBackdrop#9f2504e4: field rarity is nil")
+	}
+	if err := s.Rarity.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode starGiftAttributeBackdrop#9f2504e4: field rarity: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StarGiftAttributeBackdrop) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeBackdrop#d93d859c to nil")
+		return fmt.Errorf("can't decode starGiftAttributeBackdrop#9f2504e4 to nil")
 	}
 	if err := b.ConsumeID(StarGiftAttributeBackdropTypeID); err != nil {
-		return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: %w", err)
+		return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -603,56 +671,56 @@ func (s *StarGiftAttributeBackdrop) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StarGiftAttributeBackdrop) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode starGiftAttributeBackdrop#d93d859c to nil")
+		return fmt.Errorf("can't decode starGiftAttributeBackdrop#9f2504e4 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field name: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field name: %w", err)
 		}
 		s.Name = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field backdrop_id: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field backdrop_id: %w", err)
 		}
 		s.BackdropID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field center_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field center_color: %w", err)
 		}
 		s.CenterColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field edge_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field edge_color: %w", err)
 		}
 		s.EdgeColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field pattern_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field pattern_color: %w", err)
 		}
 		s.PatternColor = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field text_color: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field text_color: %w", err)
 		}
 		s.TextColor = value
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodeStarGiftAttributeRarity(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#d93d859c: field rarity_permille: %w", err)
+			return fmt.Errorf("unable to decode starGiftAttributeBackdrop#9f2504e4: field rarity: %w", err)
 		}
-		s.RarityPermille = value
+		s.Rarity = value
 	}
 	return nil
 }
@@ -705,12 +773,12 @@ func (s *StarGiftAttributeBackdrop) GetTextColor() (value int) {
 	return s.TextColor
 }
 
-// GetRarityPermille returns value of RarityPermille field.
-func (s *StarGiftAttributeBackdrop) GetRarityPermille() (value int) {
+// GetRarity returns value of Rarity field.
+func (s *StarGiftAttributeBackdrop) GetRarity() (value StarGiftAttributeRarityClass) {
 	if s == nil {
 		return
 	}
-	return s.RarityPermille
+	return s.Rarity
 }
 
 // StarGiftAttributeOriginalDetails represents TL type `starGiftAttributeOriginalDetails#e0bff26c`.
@@ -1021,9 +1089,9 @@ const StarGiftAttributeClassName = "StarGiftAttribute"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.StarGiftAttributeModel: // starGiftAttributeModel#39d99013
-//	case *tg.StarGiftAttributePattern: // starGiftAttributePattern#13acff19
-//	case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#d93d859c
+//	case *tg.StarGiftAttributeModel: // starGiftAttributeModel#565251e2
+//	case *tg.StarGiftAttributePattern: // starGiftAttributePattern#4e7085ea
+//	case *tg.StarGiftAttributeBackdrop: // starGiftAttributeBackdrop#9f2504e4
 //	case *tg.StarGiftAttributeOriginalDetails: // starGiftAttributeOriginalDetails#e0bff26c
 //	default: panic(v)
 //	}
@@ -1054,21 +1122,21 @@ func DecodeStarGiftAttribute(buf *bin.Buffer) (StarGiftAttributeClass, error) {
 	}
 	switch id {
 	case StarGiftAttributeModelTypeID:
-		// Decoding starGiftAttributeModel#39d99013.
+		// Decoding starGiftAttributeModel#565251e2.
 		v := StarGiftAttributeModel{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAttributeClass: %w", err)
 		}
 		return &v, nil
 	case StarGiftAttributePatternTypeID:
-		// Decoding starGiftAttributePattern#13acff19.
+		// Decoding starGiftAttributePattern#4e7085ea.
 		v := StarGiftAttributePattern{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAttributeClass: %w", err)
 		}
 		return &v, nil
 	case StarGiftAttributeBackdropTypeID:
-		// Decoding starGiftAttributeBackdrop#d93d859c.
+		// Decoding starGiftAttributeBackdrop#9f2504e4.
 		v := StarGiftAttributeBackdrop{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StarGiftAttributeClass: %w", err)
