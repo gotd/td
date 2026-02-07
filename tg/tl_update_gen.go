@@ -30809,6 +30809,107 @@ func (u *UpdateEmojiGameInfo) GetInfo() (value MessagesEmojiGameInfoClass) {
 	return u.Info
 }
 
+// UpdateStarGiftCraftFail represents TL type `updateStarGiftCraftFail#ac072444`.
+//
+// See https://core.telegram.org/constructor/updateStarGiftCraftFail for reference.
+type UpdateStarGiftCraftFail struct {
+}
+
+// UpdateStarGiftCraftFailTypeID is TL type id of UpdateStarGiftCraftFail.
+const UpdateStarGiftCraftFailTypeID = 0xac072444
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStarGiftCraftFail) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStarGiftCraftFail.
+var (
+	_ bin.Encoder     = &UpdateStarGiftCraftFail{}
+	_ bin.Decoder     = &UpdateStarGiftCraftFail{}
+	_ bin.BareEncoder = &UpdateStarGiftCraftFail{}
+	_ bin.BareDecoder = &UpdateStarGiftCraftFail{}
+
+	_ UpdateClass = &UpdateStarGiftCraftFail{}
+)
+
+func (u *UpdateStarGiftCraftFail) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateStarGiftCraftFail) String() string {
+	if u == nil {
+		return "UpdateStarGiftCraftFail(nil)"
+	}
+	type Alias UpdateStarGiftCraftFail
+	return fmt.Sprintf("UpdateStarGiftCraftFail%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateStarGiftCraftFail) TypeID() uint32 {
+	return UpdateStarGiftCraftFailTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateStarGiftCraftFail) TypeName() string {
+	return "updateStarGiftCraftFail"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStarGiftCraftFail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStarGiftCraftFail",
+		ID:   UpdateStarGiftCraftFailTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateStarGiftCraftFail) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarGiftCraftFail#ac072444 as nil")
+	}
+	b.PutID(UpdateStarGiftCraftFailTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateStarGiftCraftFail) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStarGiftCraftFail#ac072444 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateStarGiftCraftFail) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarGiftCraftFail#ac072444 to nil")
+	}
+	if err := b.ConsumeID(UpdateStarGiftCraftFailTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateStarGiftCraftFail#ac072444: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateStarGiftCraftFail) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStarGiftCraftFail#ac072444 to nil")
+	}
+	return nil
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -30968,6 +31069,7 @@ const UpdateClassName = "Update"
 //   - [UpdateStarGiftAuctionState]
 //   - [UpdateStarGiftAuctionUserState]
 //   - [UpdateEmojiGameInfo]
+//   - [UpdateStarGiftCraftFail]
 //
 // Example:
 //
@@ -31127,6 +31229,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStarGiftAuctionState: // updateStarGiftAuctionState#48e246c2
 //	case *tg.UpdateStarGiftAuctionUserState: // updateStarGiftAuctionUserState#dc58f31e
 //	case *tg.UpdateEmojiGameInfo: // updateEmojiGameInfo#fb9c547a
+//	case *tg.UpdateStarGiftCraftFail: // updateStarGiftCraftFail#ac072444
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -32208,6 +32311,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateEmojiGameInfoTypeID:
 		// Decoding updateEmojiGameInfo#fb9c547a.
 		v := UpdateEmojiGameInfo{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateStarGiftCraftFailTypeID:
+		// Decoding updateStarGiftCraftFail#ac072444.
+		v := UpdateStarGiftCraftFail{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -9560,6 +9560,23 @@ func (s *ServerDispatcher) OnChannelsSetMainProfileTab(f func(ctx context.Contex
 	s.handlers[ChannelsSetMainProfileTabRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsGetFutureCreatorAfterLeave(f func(ctx context.Context, channel InputChannelClass) (UserClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsGetFutureCreatorAfterLeaveRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Channel)
+		if err != nil {
+			return nil, err
+		}
+		return &UserBox{User: response}, nil
+	}
+
+	s.handlers[ChannelsGetFutureCreatorAfterLeaveRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -11247,6 +11264,40 @@ func (s *ServerDispatcher) OnPaymentsGetStarGiftUpgradeAttributes(f func(ctx con
 	}
 
 	s.handlers[PaymentsGetStarGiftUpgradeAttributesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetCraftStarGifts(f func(ctx context.Context, request *PaymentsGetCraftStarGiftsRequest) (*PaymentsSavedStarGifts, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetCraftStarGiftsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetCraftStarGiftsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsCraftStarGift(f func(ctx context.Context, stargift []InputSavedStarGiftClass) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsCraftStarGiftRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Stargift)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[PaymentsCraftStarGiftRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {
