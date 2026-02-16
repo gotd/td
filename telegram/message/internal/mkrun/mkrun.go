@@ -46,24 +46,24 @@ func generate(w io.Writer, pkgName string, g Generator) error {
 		},
 	}).Parse(g.Template())
 	if err != nil {
-		return errors.Errorf("parse: %w", err)
+		return errors.Wrap(err, "parse template")
 	}
 
 	if err := t.Execute(&buf, Config{
 		PackageName: pkgName,
 		Data:        data,
 	}); err != nil {
-		return errors.Errorf("execute: %w", err)
+		return errors.Wrap(err, "execute template")
 	}
 
 	formatted, err := format.Source(buf.Bytes())
 	if err != nil {
 		_, _ = os.Stderr.Write(buf.Bytes())
-		return errors.Errorf("format: %w", err)
+		return errors.Wrap(err, "format source")
 	}
 
 	if _, err := w.Write(formatted); err != nil {
-		return errors.Errorf("write: %w", err)
+		return errors.Wrap(err, "write")
 	}
 	writeTime := time.Since(start)
 

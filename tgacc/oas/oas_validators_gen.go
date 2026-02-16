@@ -111,13 +111,17 @@ func (s *ReceiveTelegramCodeOK) Validate() error {
 		if value, ok := s.Code.Get(); ok {
 			if err := func() error {
 				if err := (validate.String{
-					MinLength:    0,
-					MinLengthSet: false,
-					MaxLength:    0,
-					MaxLengthSet: false,
-					Email:        false,
-					Hostname:     false,
-					Regex:        regexMap["^[0-9]{3,6}$"],
+					MinLength:     0,
+					MinLengthSet:  false,
+					MaxLength:     0,
+					MaxLengthSet:  false,
+					Email:         false,
+					Hostname:      false,
+					Regex:         regexMap["^[0-9]{3,6}$"],
+					MinNumeric:    0,
+					MinNumericSet: false,
+					MaxNumeric:    0,
+					MaxNumericSet: false,
 				}).Validate(string(value)); err != nil {
 					return errors.Wrap(err, "string")
 				}
@@ -142,13 +146,17 @@ func (s *ReceiveTelegramCodeOK) Validate() error {
 func (s SpanID) Validate() error {
 	alias := (string)(s)
 	if err := (validate.String{
-		MinLength:    0,
-		MinLengthSet: false,
-		MaxLength:    0,
-		MaxLengthSet: false,
-		Email:        false,
-		Hostname:     false,
-		Regex:        regexMap["[[:xdigit:]]{16}"],
+		MinLength:     0,
+		MinLengthSet:  false,
+		MaxLength:     0,
+		MaxLengthSet:  false,
+		Email:         false,
+		Hostname:      false,
+		Regex:         regexMap["[[:xdigit:]]{16}"],
+		MinNumeric:    0,
+		MinNumericSet: false,
+		MaxNumeric:    0,
+		MaxNumericSet: false,
 	}).Validate(string(alias)); err != nil {
 		return errors.Wrap(err, "string")
 	}
@@ -158,13 +166,17 @@ func (s SpanID) Validate() error {
 func (s TelegramAccountID) Validate() error {
 	alias := (string)(s)
 	if err := (validate.String{
-		MinLength:    0,
-		MinLengthSet: false,
-		MaxLength:    0,
-		MaxLengthSet: false,
-		Email:        false,
-		Hostname:     false,
-		Regex:        regexMap["^[0-9]{7,15}$"],
+		MinLength:     0,
+		MinLengthSet:  false,
+		MaxLength:     0,
+		MaxLengthSet:  false,
+		Email:         false,
+		Hostname:      false,
+		Regex:         regexMap["^[0-9]{7,15}$"],
+		MinNumeric:    0,
+		MinNumericSet: false,
+		MaxNumeric:    0,
+		MaxNumericSet: false,
 	}).Validate(string(alias)); err != nil {
 		return errors.Wrap(err, "string")
 	}
@@ -174,13 +186,17 @@ func (s TelegramAccountID) Validate() error {
 func (s TraceID) Validate() error {
 	alias := (string)(s)
 	if err := (validate.String{
-		MinLength:    0,
-		MinLengthSet: false,
-		MaxLength:    0,
-		MaxLengthSet: false,
-		Email:        false,
-		Hostname:     false,
-		Regex:        regexMap["[[:xdigit:]]{32}"],
+		MinLength:     0,
+		MinLengthSet:  false,
+		MaxLength:     0,
+		MaxLengthSet:  false,
+		Email:         false,
+		Hostname:      false,
+		Regex:         regexMap["[[:xdigit:]]{32}"],
+		MinNumeric:    0,
+		MinNumericSet: false,
+		MaxNumeric:    0,
+		MaxNumericSet: false,
 	}).Validate(string(alias)); err != nil {
 		return errors.Wrap(err, "string")
 	}
