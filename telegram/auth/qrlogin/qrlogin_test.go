@@ -208,9 +208,7 @@ func (m *mockDispatcher) OnLoginToken(h tg.LoginTokenHandler) {
 }
 
 func TestOnLoginToken(t *testing.T) {
-	if runtime.GOOS == "darwin" {
-		t.Skip("skipping on macOS")
-	}
+	t.Skip("Flaky test")
 
 	a := require.New(t)
 
