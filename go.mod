@@ -18,7 +18,7 @@ require (
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.1
 	github.com/klauspost/compress v1.18.4
-	github.com/ogen-go/ogen v1.16.0
+	github.com/ogen-go/ogen v1.19.0
 	github.com/rogpeppe/go-internal v1.14.1
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel v1.40.0
