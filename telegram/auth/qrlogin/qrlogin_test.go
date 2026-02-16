@@ -2,14 +2,12 @@ package qrlogin
 
 import (
 	"context"
-	"runtime"
 	"testing"
 	"time"
 
+	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
 	"rsc.io/qr"
-
-	"github.com/gotd/neo"
 
 	"github.com/gotd/td/constant"
 	"github.com/gotd/td/testutil"
