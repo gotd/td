@@ -118,7 +118,7 @@ func (m *MTPDCOptions) deserialize(r *qtReader) error {
 	for i := 0; i < int(count); i++ {
 		var o MTPDCOption
 		if err := o.deserialize(r, version); err != nil {
-			return errors.Errorf("read option %d: %w", i, err)
+			return errors.Wrapf(err, "read option %d", i)
 		}
 		m.Options = append(m.Options, o)
 	}
