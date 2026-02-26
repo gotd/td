@@ -120,6 +120,11 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 		// this code branch should be unreachable.
 		c.log.Warn("BUG: zero session id found")
 	}
+	if c.pfs {
+		// In PFS mode 404 most likely means lost temporary key, so caller should
+		// recreate transport and re-bind, not regenerate permanent key in-place.
+		return errors.Wrap(ErrPFSReconnectRequired, "temporary auth key not found in pfs mode")
+	}
 	c.log.Warn("Re-generating keys (server not found key that we provided)")
 	if err := c.createAuthKey(ctx); err != nil {
 		return errors.Wrap(err, "unable to create auth key")

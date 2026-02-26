@@ -168,12 +168,25 @@ SendResPQ:
 			return ServerExchangeResult{}, err
 		}
 
-		if innerDataDC, ok := d.(*mt.PQInnerDataDC); ok && innerDataDC.DC != s.dc {
-			err := errors.Errorf(
-				"wrong DC ID, want %d, got %d",
-				s.dc, innerDataDC.DC,
-			)
-			return ServerExchangeResult{}, serverError(codec.CodeWrongDC, err)
+		switch innerDataDC := d.(type) {
+		case *mt.PQInnerDataDC:
+			// Legacy/permanent flow.
+			if innerDataDC.DC != s.dc {
+				err := errors.Errorf(
+					"wrong DC ID, want %d, got %d",
+					s.dc, innerDataDC.DC,
+				)
+				return ServerExchangeResult{}, serverError(codec.CodeWrongDC, err)
+			}
+		case *mt.PQInnerDataTempDC:
+			// PFS flow: same DC validation, plus ExpiresIn is consumed by TG side.
+			if innerDataDC.DC != s.dc {
+				err := errors.Errorf(
+					"wrong DC ID, want %d, got %d",
+					s.dc, innerDataDC.DC,
+				)
+				return ServerExchangeResult{}, serverError(codec.CodeWrongDC, err)
+			}
 		}
 
 		innerData = mt.PQInnerData{

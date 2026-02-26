@@ -65,7 +65,9 @@ type Conn struct {
 	handler Handler // immutable
 
 	// State fields.
-	cfg     tg.Config
+	cfg tg.Config
+	// pending buffers OnSession events until initConnection config is available.
+	pending []mtproto.Session
 	ongoing int
 	latest  time.Time
 	mux     sync.Mutex
@@ -82,18 +84,48 @@ func (c *Conn) OnSession(session mtproto.Session) error {
 	c.log.Info("SessionInit")
 	c.sessionInit.Signal()
 
-	// Waiting for config, because OnSession can occur before we set config.
-	select {
-	case <-c.gotConfig.Ready():
-	case <-c.dead.Ready():
-		return nil
-	}
-
+	// Quote (PFS): "Once auth.bindTempAuthKey has been executed successfully,
+	// the client can continue generating API calls as usual."
+	// Link: https://core.telegram.org/api/pfs
+	//
+	// In PFS mode bind is performed before initConnection, so OnSession can happen
+	// before config is ready. We must not block read-loop handler here.
 	c.mux.Lock()
-	cfg := c.cfg
+	c.pending = append(c.pending, session)
 	c.mux.Unlock()
 
-	return c.handler.OnSession(cfg, session)
+	if !c.configReady() {
+		return nil
+	}
+	return c.flushPendingSession()
+}
+
+func (c *Conn) configReady() bool {
+	select {
+	case <-c.gotConfig.Ready():
+		return true
+	default:
+		return false
+	}
+}
+
+func (c *Conn) flushPendingSession() error {
+	c.mux.Lock()
+	pending := append([]mtproto.Session(nil), c.pending...)
+	cfg := c.cfg
+	c.pending = c.pending[:0]
+	c.mux.Unlock()
+	if len(pending) == 0 {
+		return nil
+	}
+	for _, s := range pending {
+		// Preserve event ordering in case multiple session events arrive before
+		// config is ready.
+		if err := c.handler.OnSession(cfg, s); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (c *Conn) trackInvoke() func() {
@@ -132,8 +164,7 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 		}
 	}()
 	return c.proto.Run(ctx, func(ctx context.Context) error {
-		// Signal death on init error. Otherwise connection shutdown
-		// deadlocks in OnSession that occurs before init fails.
+		// Signal death on init error to unblock waiters in waitSession/OnSession.
 		err := c.init(ctx)
 		if err != nil {
 			c.dead.Signal()
@@ -144,7 +175,8 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 
 func (c *Conn) waitSession(ctx context.Context) error {
 	select {
-	case <-c.sessionInit.Ready():
+	// Connection is considered ready only after initConnection succeeded.
+	case <-c.gotConfig.Ready():
 		return nil
 	case <-c.dead.Ready():
 		return pool.ErrConnDead
@@ -156,7 +188,8 @@ func (c *Conn) waitSession(ctx context.Context) error {
 // Ready returns channel to determine connection readiness.
 // Useful for pooling.
 func (c *Conn) Ready() <-chan struct{} {
-	return c.sessionInit.Ready()
+	// Pool should expose readiness only when Invoke can send API calls.
+	return c.gotConfig.Ready()
 }
 
 // Invoke implements Invoker.
@@ -254,7 +287,7 @@ func (c *Conn) init(ctx context.Context) error {
 	c.mux.Unlock()
 
 	c.gotConfig.Signal()
-	return nil
+	return c.flushPendingSession()
 }
 
 // Ping calls ping for underlying protocol connection.

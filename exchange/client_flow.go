@@ -86,15 +86,35 @@ Loop:
 		return ClientExchangeResult{}, errors.Wrap(err, "generate new nonce")
 	}
 
-	var encryptedData []byte
-	pqInnerData := &mt.PQInnerDataDC{
-		Pq:          res.Pq,
-		Nonce:       nonce,
-		NewNonce:    newNonce,
-		ServerNonce: serverNonce,
-		P:           pBytes,
-		Q:           qBytes,
-		DC:          c.dc,
+	var (
+		encryptedData []byte
+		pqInnerData   bin.Encoder
+	)
+	switch c.mode {
+	case ExchangeModeTemporary:
+		// Temporary auth key exchange uses p_q_inner_data_temp_dc so Telegram
+		// associates ttl with the generated auth_key.
+		pqInnerData = &mt.PQInnerDataTempDC{
+			Pq:          res.Pq,
+			Nonce:       nonce,
+			NewNonce:    newNonce,
+			ServerNonce: serverNonce,
+			P:           pBytes,
+			Q:           qBytes,
+			DC:          c.dc,
+			ExpiresIn:   c.expiresIn,
+		}
+	default:
+		// Permanent key exchange keeps legacy p_q_inner_data_dc payload.
+		pqInnerData = &mt.PQInnerDataDC{
+			Pq:          res.Pq,
+			Nonce:       nonce,
+			NewNonce:    newNonce,
+			ServerNonce: serverNonce,
+			P:           pBytes,
+			Q:           qBytes,
+			DC:          c.dc,
+		}
 	}
 	b.Reset()
 	if err := pqInnerData.Encode(b); err != nil {
@@ -258,11 +278,17 @@ Loop:
 				return ClientExchangeResult{}, err
 			}
 
-			return ClientExchangeResult{
+			result := ClientExchangeResult{
 				AuthKey:    crypto.AuthKey{Value: key, ID: authKeyID},
 				SessionID:  sessionID,
 				ServerSalt: serverSalt,
-			}, nil
+			}
+			if c.mode == ExchangeModeTemporary {
+				// Telegram does not return absolute expiry timestamp here, so we
+				// keep a local estimate to schedule renewal/bind in upper layers.
+				result.ExpiresAt = c.clock.Now().Unix() + int64(c.expiresIn)
+			}
+			return result, nil
 		case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
 			return ClientExchangeResult{}, errors.Errorf("retry required: %x", v.NewNonceHash2)
 		case *mt.DhGenFail: // dh_gen_fail#a69dae02

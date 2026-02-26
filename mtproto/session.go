@@ -7,6 +7,8 @@ type Session struct {
 	ID   int64
 	Key  crypto.AuthKey
 	Salt int64
+	// PermKey is non-zero only in PFS mode and is used for bindTempAuthKey.
+	PermKey crypto.AuthKey
 }
 
 // Session returns current connection session info.
@@ -16,9 +18,10 @@ func (c *Conn) session() Session {
 	c.sessionMux.RLock()
 	defer c.sessionMux.RUnlock()
 	return Session{
-		Key:  c.authKey,
-		Salt: c.salt,
-		ID:   c.sessionID,
+		Key:     c.authKey,
+		Salt:    c.salt,
+		ID:      c.sessionID,
+		PermKey: c.permKey,
 	}
 }
 
