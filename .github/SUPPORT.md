@@ -59,7 +59,6 @@ So, here's a summary:
 2. Use bots whenever possible.
 3. If you still want to automate things with a user, use it passively (i.e. receive more than sending).
 4. When using it with a user:
-   * Do not use QR code login, this will result in permaban.
    * Do it with extreme care.
    * Do not use VoIP numbers.
    * Do not abuse, spam or use it for other suspicious activities.
