@@ -17,6 +17,16 @@ import (
 // DefaultTimeout is default WithTimeout parameter value.
 const DefaultTimeout = 1 * time.Minute
 
+// ExchangeMode controls type of generated auth key.
+type ExchangeMode int
+
+const (
+	// ExchangeModePermanent creates permanent authorization key.
+	ExchangeModePermanent ExchangeMode = iota
+	// ExchangeModeTemporary creates temporary authorization key.
+	ExchangeModeTemporary
+)
+
 // Exchanger is builder for key exchangers.
 type Exchanger struct {
 	conn transport.Conn
@@ -26,6 +36,9 @@ type Exchanger struct {
 	log     *zap.Logger
 	timeout time.Duration
 	dc      int
+	// mode/expires define auth key type produced by client exchange.
+	mode    ExchangeMode
+	expires int
 }
 
 // WithClock sets exchange flow clock.
@@ -52,6 +65,17 @@ func (e Exchanger) WithTimeout(timeout time.Duration) Exchanger {
 	return e
 }
 
+// WithTempMode configures temporary authorization key exchange.
+//
+// expiresIn is temporary key lifetime in seconds.
+func (e Exchanger) WithTempMode(expiresIn int) Exchanger {
+	// Switching mode changes only client flow payload type; server flow remains
+	// backward-compatible and accepts both variants.
+	e.mode = ExchangeModeTemporary
+	e.expires = expiresIn
+	return e
+}
+
 // NewExchanger creates new Exchanger.
 func NewExchanger(conn transport.Conn, dc int) Exchanger {
 	return Exchanger{
@@ -62,6 +86,9 @@ func NewExchanger(conn transport.Conn, dc int) Exchanger {
 		log:     zap.NewNop(),
 		timeout: DefaultTimeout,
 		dc:      dc,
+		// Preserve old behavior by default: generate permanent key unless
+		// caller explicitly requests temporary mode.
+		mode: ExchangeModePermanent,
 	}
 }
 
@@ -86,6 +113,9 @@ func (e Exchanger) Client(keys []PublicKey) ClientExchange {
 		log:  e.log,
 		keys: keys,
 		dc:   e.dc,
+		mode: e.mode,
+
+		expiresIn: e.expires,
 	}
 }
 

@@ -16,6 +16,12 @@ type ClientExchange struct {
 
 	keys []PublicKey
 	dc   int
+
+	// mode selects permanent vs temporary auth-key generation path.
+	mode ExchangeMode
+	// expiresIn is only meaningful in temporary mode and forwarded into
+	// p_q_inner_data_temp_dc payload.
+	expiresIn int
 }
 
 // ClientExchangeResult contains client part of key exchange result.
@@ -23,4 +29,6 @@ type ClientExchangeResult struct {
 	AuthKey    crypto.AuthKey
 	SessionID  int64
 	ServerSalt int64
+	// ExpiresAt is unix timestamp for temporary keys, zero for permanent.
+	ExpiresAt int64
 }

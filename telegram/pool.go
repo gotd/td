@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"sync/atomic"
 
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
@@ -45,7 +46,13 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 	s := c.session.Load()
 	return c.createPool(s.DC, max, func() pool.Conn {
 		id := c.connsCounter.Inc()
-		return c.createConn(id, manager.ConnModeData, nil, c.onDead)
+		return c.createConn(id, manager.ConnModeData, nil, func(err error) {
+			// Primary pool connections share persisted primary session state.
+			c.handlePrimaryConnDead(err)
+			if c.onDead != nil {
+				c.onDead(err)
+			}
+		})
 	})
 }
 
@@ -65,18 +72,27 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 	)
 
 	opts := c.opts
+	// suppressSetup temporarily disables per-connection transfer hook while
+	// explicit first transfer below is running, avoiding duplicate import.
+	var suppressSetup atomic.Bool
 	p, err := c.createPool(dcID, max, func() pool.Conn {
 		id := c.connsCounter.Inc()
 
 		c.sessionsMux.Lock()
 		session, ok := c.sessions[dcID]
 		if !ok {
-			session = pool.NewSyncSession(pool.Session{})
+			session = pool.NewSyncSession(pool.Session{DC: dcID})
 			c.sessions[dcID] = session
 		}
 		c.sessionsMux.Unlock()
 
-		options, _ := session.Options(opts)
+		options, data := session.Options(opts)
+		setup := manager.SetupCallback(nil)
+		if data.AuthKey.Zero() && c.session.Load().DC != dcID && !suppressSetup.Load() {
+			// Non-main DC key must be authorized via auth.export/import after
+			// local key generation.
+			setup = c.dcTransferSetup(dcID)
+		}
 		options.Logger = c.log.Named("conn").With(
 			zap.Int64("conn_id", id),
 			zap.Int("dc_id", dcID),
@@ -87,7 +103,10 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 				DC:      dcID,
 				Device:  c.device,
 				Handler: c.asHandler(),
-				OnDead:  c.onDead,
+				Setup:   setup,
+				OnDead: func(err error) {
+					c.handleDCConnDead(dcID, err)
+				},
 			},
 		)
 	})
@@ -95,7 +114,12 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 		return nil, errors.Wrap(err, "create pool")
 	}
 
+	// First transfer is done explicitly to preserve old behavior: return
+	// transfer errors from DC pool creation. Setup callback remains enabled for
+	// future reconnections when keys are re-generated inside the pool.
+	suppressSetup.Store(true)
 	_, err = c.transfer(ctx, tg.NewClient(p), dcID)
+	suppressSetup.Store(false)
 	if err != nil {
 		// Ignore case then we are not authorized.
 		if auth.IsUnauthorized(err) {

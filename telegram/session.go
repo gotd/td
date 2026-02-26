@@ -77,8 +77,13 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 
 	// Updating previous data.
 	data.Config = session.ConfigFromTG(cfg)
-	data.AuthKey = s.Key.Value[:]
-	data.AuthKeyID = s.Key.ID[:]
+	keyToSave := s.Key
+	if !s.PermKey.Zero() {
+		// Persist permanent key in PFS mode: temporary key is expected to rotate.
+		keyToSave = s.PermKey
+	}
+	data.AuthKey = keyToSave.Value[:]
+	data.AuthKeyID = keyToSave.ID[:]
 	data.DC = cfg.ThisDC
 	data.Salt = s.Salt
 
@@ -93,11 +98,17 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 }
 
 func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
+	keyToStore := s.Key
+	if !s.PermKey.Zero() {
+		// Keep in-memory/persisted key format backward-compatible: one key slot.
+		keyToStore = s.PermKey
+	}
+
 	c.sessionsMux.Lock()
 	c.sessions[cfg.ThisDC] = pool.NewSyncSession(pool.Session{
 		DC:      cfg.ThisDC,
 		Salt:    s.Salt,
-		AuthKey: s.Key,
+		AuthKey: keyToStore,
 	})
 	c.sessionsMux.Unlock()
 
@@ -111,7 +122,7 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	c.session.Store(pool.Session{
 		DC:      cfg.ThisDC,
 		Salt:    s.Salt,
-		AuthKey: s.Key,
+		AuthKey: keyToStore,
 	})
 	c.cfg.Store(cfg)
 	c.onReady()

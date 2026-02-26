@@ -49,7 +49,15 @@ func (s *SyncSession) Options(opts mtproto.Options) (mtproto.Options, Session) {
 	data := s.data
 	s.mux.RUnlock()
 
-	opts.Key = data.AuthKey
+	if opts.EnablePFS {
+		// Stored key in pool/session remains backward-compatible single "AuthKey".
+		// In PFS mode this persisted key is treated as permanent key, while
+		// temporary key is always generated per runtime connection.
+		opts.PermKey = data.AuthKey
+		opts.Key = crypto.AuthKey{}
+	} else {
+		opts.Key = data.AuthKey
+	}
 	opts.Salt = data.Salt
 	return opts, data
 }

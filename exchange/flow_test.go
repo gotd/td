@@ -18,7 +18,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func testExchange(rsaPad bool) func(t *testing.T) {
+func testExchange(tempMode bool) func(t *testing.T) {
 	return func(t *testing.T) {
 		a := require.New(t)
 		log := zaptest.NewLogger(t)
@@ -37,13 +37,18 @@ func testExchange(rsaPad bool) func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
 
+		var clientResult ClientExchangeResult
 		g := tdsync.NewCancellableGroup(ctx)
 		g.Go(func(ctx context.Context) error {
-			_, err := NewExchanger(client, dc).
+			ex := NewExchanger(client, dc).
 				WithLogger(log.Named("client")).
-				WithRand(reader).
-				Client([]PublicKey{privateKey.Public()}).
-				Run(ctx)
+				WithRand(reader)
+			if tempMode {
+				// Force temporary key path to ensure p_q_inner_data_temp_dc wiring.
+				ex = ex.WithTempMode(60)
+			}
+			r, err := ex.Client([]PublicKey{privateKey.Public()}).Run(ctx)
+			clientResult = r
 			return err
 		})
 
@@ -57,6 +62,11 @@ func testExchange(rsaPad bool) func(t *testing.T) {
 		})
 
 		a.NoError(g.Wait())
+		if tempMode {
+			a.NotZero(clientResult.ExpiresAt)
+		} else {
+			a.Zero(clientResult.ExpiresAt)
+		}
 	}
 }
 

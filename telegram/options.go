@@ -80,6 +80,12 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
+	// EnablePFS enables Perfect Forward Secrecy with temporary auth keys.
+	EnablePFS bool
+	// TempKeyTTL controls temporary key lifetime in seconds.
+	// Default: 86400 (24h).
+	// The value is clamped in mtproto layer to keep protocol-safe bounds.
+	TempKeyTTL int
 
 	// CompressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using GZIP.
