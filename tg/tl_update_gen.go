@@ -30910,6 +30910,221 @@ func (u *UpdateStarGiftCraftFail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UpdateChatParticipantRank represents TL type `updateChatParticipantRank#bd8367b9`.
+//
+// See https://core.telegram.org/constructor/updateChatParticipantRank for reference.
+type UpdateChatParticipantRank struct {
+	// ChatID field of UpdateChatParticipantRank.
+	ChatID int64
+	// UserID field of UpdateChatParticipantRank.
+	UserID int64
+	// Rank field of UpdateChatParticipantRank.
+	Rank string
+	// Version field of UpdateChatParticipantRank.
+	Version int
+}
+
+// UpdateChatParticipantRankTypeID is TL type id of UpdateChatParticipantRank.
+const UpdateChatParticipantRankTypeID = 0xbd8367b9
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipantRank) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipantRank.
+var (
+	_ bin.Encoder     = &UpdateChatParticipantRank{}
+	_ bin.Decoder     = &UpdateChatParticipantRank{}
+	_ bin.BareEncoder = &UpdateChatParticipantRank{}
+	_ bin.BareDecoder = &UpdateChatParticipantRank{}
+
+	_ UpdateClass = &UpdateChatParticipantRank{}
+)
+
+func (u *UpdateChatParticipantRank) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Rank == "") {
+		return false
+	}
+	if !(u.Version == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatParticipantRank) String() string {
+	if u == nil {
+		return "UpdateChatParticipantRank(nil)"
+	}
+	type Alias UpdateChatParticipantRank
+	return fmt.Sprintf("UpdateChatParticipantRank%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChatParticipantRank from given interface.
+func (u *UpdateChatParticipantRank) FillFrom(from interface {
+	GetChatID() (value int64)
+	GetUserID() (value int64)
+	GetRank() (value string)
+	GetVersion() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+	u.UserID = from.GetUserID()
+	u.Rank = from.GetRank()
+	u.Version = from.GetVersion()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatParticipantRank) TypeID() uint32 {
+	return UpdateChatParticipantRankTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatParticipantRank) TypeName() string {
+	return "updateChatParticipantRank"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatParticipantRank) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatParticipantRank",
+		ID:   UpdateChatParticipantRankTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatParticipantRank) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatParticipantRank#bd8367b9 as nil")
+	}
+	b.PutID(UpdateChatParticipantRankTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatParticipantRank) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatParticipantRank#bd8367b9 as nil")
+	}
+	b.PutLong(u.ChatID)
+	b.PutLong(u.UserID)
+	b.PutString(u.Rank)
+	b.PutInt(u.Version)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatParticipantRank) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatParticipantRank#bd8367b9 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatParticipantRankTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatParticipantRank#bd8367b9: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatParticipantRank) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatParticipantRank#bd8367b9 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipantRank#bd8367b9: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipantRank#bd8367b9: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipantRank#bd8367b9: field rank: %w", err)
+		}
+		u.Rank = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipantRank#bd8367b9: field version: %w", err)
+		}
+		u.Version = value
+	}
+	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantRank) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantRank) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetRank returns value of Rank field.
+func (u *UpdateChatParticipantRank) GetRank() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Rank
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantRank) GetVersion() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Version
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -31070,6 +31285,7 @@ const UpdateClassName = "Update"
 //   - [UpdateStarGiftAuctionUserState]
 //   - [UpdateEmojiGameInfo]
 //   - [UpdateStarGiftCraftFail]
+//   - [UpdateChatParticipantRank]
 //
 // Example:
 //
@@ -31230,6 +31446,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStarGiftAuctionUserState: // updateStarGiftAuctionUserState#dc58f31e
 //	case *tg.UpdateEmojiGameInfo: // updateEmojiGameInfo#fb9c547a
 //	case *tg.UpdateStarGiftCraftFail: // updateStarGiftCraftFail#ac072444
+//	case *tg.UpdateChatParticipantRank: // updateChatParticipantRank#bd8367b9
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -32318,6 +32535,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateStarGiftCraftFailTypeID:
 		// Decoding updateStarGiftCraftFail#ac072444.
 		v := UpdateStarGiftCraftFail{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatParticipantRankTypeID:
+		// Decoding updateChatParticipantRank#bd8367b9.
+		v := UpdateChatParticipantRank{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

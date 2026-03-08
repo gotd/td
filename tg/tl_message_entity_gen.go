@@ -3801,6 +3801,422 @@ func (m *MessageEntityBlockquote) GetLength() (value int) {
 	return m.Length
 }
 
+// MessageEntityFormattedDate represents TL type `messageEntityFormattedDate#904ac7c7`.
+//
+// See https://core.telegram.org/constructor/messageEntityFormattedDate for reference.
+type MessageEntityFormattedDate struct {
+	// Flags field of MessageEntityFormattedDate.
+	Flags bin.Fields
+	// Relative field of MessageEntityFormattedDate.
+	Relative bool
+	// ShortTime field of MessageEntityFormattedDate.
+	ShortTime bool
+	// LongTime field of MessageEntityFormattedDate.
+	LongTime bool
+	// ShortDate field of MessageEntityFormattedDate.
+	ShortDate bool
+	// LongDate field of MessageEntityFormattedDate.
+	LongDate bool
+	// DayOfWeek field of MessageEntityFormattedDate.
+	DayOfWeek bool
+	// Offset field of MessageEntityFormattedDate.
+	Offset int
+	// Length field of MessageEntityFormattedDate.
+	Length int
+	// Date field of MessageEntityFormattedDate.
+	Date int
+}
+
+// MessageEntityFormattedDateTypeID is TL type id of MessageEntityFormattedDate.
+const MessageEntityFormattedDateTypeID = 0x904ac7c7
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityFormattedDate) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityFormattedDate.
+var (
+	_ bin.Encoder     = &MessageEntityFormattedDate{}
+	_ bin.Decoder     = &MessageEntityFormattedDate{}
+	_ bin.BareEncoder = &MessageEntityFormattedDate{}
+	_ bin.BareDecoder = &MessageEntityFormattedDate{}
+
+	_ MessageEntityClass = &MessageEntityFormattedDate{}
+)
+
+func (m *MessageEntityFormattedDate) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Relative == false) {
+		return false
+	}
+	if !(m.ShortTime == false) {
+		return false
+	}
+	if !(m.LongTime == false) {
+		return false
+	}
+	if !(m.ShortDate == false) {
+		return false
+	}
+	if !(m.LongDate == false) {
+		return false
+	}
+	if !(m.DayOfWeek == false) {
+		return false
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityFormattedDate) String() string {
+	if m == nil {
+		return "MessageEntityFormattedDate(nil)"
+	}
+	type Alias MessageEntityFormattedDate
+	return fmt.Sprintf("MessageEntityFormattedDate%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityFormattedDate from given interface.
+func (m *MessageEntityFormattedDate) FillFrom(from interface {
+	GetRelative() (value bool)
+	GetShortTime() (value bool)
+	GetLongTime() (value bool)
+	GetShortDate() (value bool)
+	GetLongDate() (value bool)
+	GetDayOfWeek() (value bool)
+	GetOffset() (value int)
+	GetLength() (value int)
+	GetDate() (value int)
+}) {
+	m.Relative = from.GetRelative()
+	m.ShortTime = from.GetShortTime()
+	m.LongTime = from.GetLongTime()
+	m.ShortDate = from.GetShortDate()
+	m.LongDate = from.GetLongDate()
+	m.DayOfWeek = from.GetDayOfWeek()
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+	m.Date = from.GetDate()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityFormattedDate) TypeID() uint32 {
+	return MessageEntityFormattedDateTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityFormattedDate) TypeName() string {
+	return "messageEntityFormattedDate"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityFormattedDate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityFormattedDate",
+		ID:   MessageEntityFormattedDateTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Relative",
+			SchemaName: "relative",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "ShortTime",
+			SchemaName: "short_time",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "LongTime",
+			SchemaName: "long_time",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "ShortDate",
+			SchemaName: "short_date",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "LongDate",
+			SchemaName: "long_date",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "DayOfWeek",
+			SchemaName: "day_of_week",
+			Null:       !m.Flags.Has(5),
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageEntityFormattedDate) SetFlags() {
+	if !(m.Relative == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.ShortTime == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.LongTime == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.ShortDate == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.LongDate == false) {
+		m.Flags.Set(4)
+	}
+	if !(m.DayOfWeek == false) {
+		m.Flags.Set(5)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityFormattedDate) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityFormattedDate#904ac7c7 as nil")
+	}
+	b.PutID(MessageEntityFormattedDateTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityFormattedDate) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityFormattedDate#904ac7c7 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageEntityFormattedDate#904ac7c7: field flags: %w", err)
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	b.PutInt(m.Date)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityFormattedDate) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityFormattedDate#904ac7c7 to nil")
+	}
+	if err := b.ConsumeID(MessageEntityFormattedDateTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityFormattedDate#904ac7c7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityFormattedDate) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityFormattedDate#904ac7c7 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageEntityFormattedDate#904ac7c7: field flags: %w", err)
+		}
+	}
+	m.Relative = m.Flags.Has(0)
+	m.ShortTime = m.Flags.Has(1)
+	m.LongTime = m.Flags.Has(2)
+	m.ShortDate = m.Flags.Has(3)
+	m.LongDate = m.Flags.Has(4)
+	m.DayOfWeek = m.Flags.Has(5)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityFormattedDate#904ac7c7: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityFormattedDate#904ac7c7: field length: %w", err)
+		}
+		m.Length = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityFormattedDate#904ac7c7: field date: %w", err)
+		}
+		m.Date = value
+	}
+	return nil
+}
+
+// SetRelative sets value of Relative conditional field.
+func (m *MessageEntityFormattedDate) SetRelative(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Relative = true
+	} else {
+		m.Flags.Unset(0)
+		m.Relative = false
+	}
+}
+
+// GetRelative returns value of Relative conditional field.
+func (m *MessageEntityFormattedDate) GetRelative() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetShortTime sets value of ShortTime conditional field.
+func (m *MessageEntityFormattedDate) SetShortTime(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.ShortTime = true
+	} else {
+		m.Flags.Unset(1)
+		m.ShortTime = false
+	}
+}
+
+// GetShortTime returns value of ShortTime conditional field.
+func (m *MessageEntityFormattedDate) GetShortTime() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// SetLongTime sets value of LongTime conditional field.
+func (m *MessageEntityFormattedDate) SetLongTime(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.LongTime = true
+	} else {
+		m.Flags.Unset(2)
+		m.LongTime = false
+	}
+}
+
+// GetLongTime returns value of LongTime conditional field.
+func (m *MessageEntityFormattedDate) GetLongTime() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
+}
+
+// SetShortDate sets value of ShortDate conditional field.
+func (m *MessageEntityFormattedDate) SetShortDate(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.ShortDate = true
+	} else {
+		m.Flags.Unset(3)
+		m.ShortDate = false
+	}
+}
+
+// GetShortDate returns value of ShortDate conditional field.
+func (m *MessageEntityFormattedDate) GetShortDate() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
+}
+
+// SetLongDate sets value of LongDate conditional field.
+func (m *MessageEntityFormattedDate) SetLongDate(value bool) {
+	if value {
+		m.Flags.Set(4)
+		m.LongDate = true
+	} else {
+		m.Flags.Unset(4)
+		m.LongDate = false
+	}
+}
+
+// GetLongDate returns value of LongDate conditional field.
+func (m *MessageEntityFormattedDate) GetLongDate() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(4)
+}
+
+// SetDayOfWeek sets value of DayOfWeek conditional field.
+func (m *MessageEntityFormattedDate) SetDayOfWeek(value bool) {
+	if value {
+		m.Flags.Set(5)
+		m.DayOfWeek = true
+	} else {
+		m.Flags.Unset(5)
+		m.DayOfWeek = false
+	}
+}
+
+// GetDayOfWeek returns value of DayOfWeek conditional field.
+func (m *MessageEntityFormattedDate) GetDayOfWeek() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(5)
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityFormattedDate) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityFormattedDate) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
+// GetDate returns value of Date field.
+func (m *MessageEntityFormattedDate) GetDate() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Date
+}
+
 // MessageEntityClassName is schema name of MessageEntityClass.
 const MessageEntityClassName = "MessageEntity"
 
@@ -3830,6 +4246,7 @@ const MessageEntityClassName = "MessageEntity"
 //   - [MessageEntitySpoiler]
 //   - [MessageEntityCustomEmoji]
 //   - [MessageEntityBlockquote]
+//   - [MessageEntityFormattedDate]
 //
 // Example:
 //
@@ -3859,6 +4276,7 @@ const MessageEntityClassName = "MessageEntity"
 //	case *tg.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
 //	case *tg.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
 //	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#f1ccaaac
+//	case *tg.MessageEntityFormattedDate: // messageEntityFormattedDate#904ac7c7
 //	default: panic(v)
 //	}
 type MessageEntityClass interface {
@@ -4042,6 +4460,13 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 	case MessageEntityBlockquoteTypeID:
 		// Decoding messageEntityBlockquote#f1ccaaac.
 		v := MessageEntityBlockquote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityFormattedDateTypeID:
+		// Decoding messageEntityFormattedDate#904ac7c7.
+		v := MessageEntityFormattedDate{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}

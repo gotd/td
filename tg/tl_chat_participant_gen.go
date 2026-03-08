@@ -31,21 +31,27 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatParticipant represents TL type `chatParticipant#c02d4007`.
+// ChatParticipant represents TL type `chatParticipant#38e79fde`.
 // Group member.
 //
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
+	// Flags field of ChatParticipant.
+	Flags bin.Fields
 	// Member user ID
 	UserID int64
 	// ID of the user that added the member to the group
 	InviterID int64
 	// Date added to the group
 	Date int
+	// Rank field of ChatParticipant.
+	//
+	// Use SetRank and GetRank helpers.
+	Rank string
 }
 
 // ChatParticipantTypeID is TL type id of ChatParticipant.
-const ChatParticipantTypeID = 0xc02d4007
+const ChatParticipantTypeID = 0x38e79fde
 
 // construct implements constructor of ChatParticipantClass.
 func (c ChatParticipant) construct() ChatParticipantClass { return &c }
@@ -64,6 +70,9 @@ func (c *ChatParticipant) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
 	if !(c.UserID == 0) {
 		return false
 	}
@@ -71,6 +80,9 @@ func (c *ChatParticipant) Zero() bool {
 		return false
 	}
 	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.Rank == "") {
 		return false
 	}
 
@@ -91,10 +103,15 @@ func (c *ChatParticipant) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetInviterID() (value int64)
 	GetDate() (value int)
+	GetRank() (value string, ok bool)
 }) {
 	c.UserID = from.GetUserID()
 	c.InviterID = from.GetInviterID()
 	c.Date = from.GetDate()
+	if val, ok := from.GetRank(); ok {
+		c.Rank = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -132,14 +149,26 @@ func (c *ChatParticipant) TypeInfo() tdp.Type {
 			Name:       "Date",
 			SchemaName: "date",
 		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *ChatParticipant) SetFlags() {
+	if !(c.Rank == "") {
+		c.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChatParticipant) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipant#c02d4007 as nil")
+		return fmt.Errorf("can't encode chatParticipant#38e79fde as nil")
 	}
 	b.PutID(ChatParticipantTypeID)
 	return c.EncodeBare(b)
@@ -148,21 +177,28 @@ func (c *ChatParticipant) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatParticipant) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipant#c02d4007 as nil")
+		return fmt.Errorf("can't encode chatParticipant#38e79fde as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatParticipant#38e79fde: field flags: %w", err)
 	}
 	b.PutLong(c.UserID)
 	b.PutLong(c.InviterID)
 	b.PutInt(c.Date)
+	if c.Flags.Has(0) {
+		b.PutString(c.Rank)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatParticipant) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipant#c02d4007 to nil")
+		return fmt.Errorf("can't decode chatParticipant#38e79fde to nil")
 	}
 	if err := b.ConsumeID(ChatParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatParticipant#c02d4007: %w", err)
+		return fmt.Errorf("unable to decode chatParticipant#38e79fde: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -170,28 +206,40 @@ func (c *ChatParticipant) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatParticipant) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipant#c02d4007 to nil")
+		return fmt.Errorf("can't decode chatParticipant#38e79fde to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatParticipant#38e79fde: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipant#c02d4007: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipant#38e79fde: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipant#c02d4007: field inviter_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipant#38e79fde: field inviter_id: %w", err)
 		}
 		c.InviterID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipant#c02d4007: field date: %w", err)
+			return fmt.Errorf("unable to decode chatParticipant#38e79fde: field date: %w", err)
 		}
 		c.Date = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatParticipant#38e79fde: field rank: %w", err)
+		}
+		c.Rank = value
 	}
 	return nil
 }
@@ -220,17 +268,41 @@ func (c *ChatParticipant) GetDate() (value int) {
 	return c.Date
 }
 
-// ChatParticipantCreator represents TL type `chatParticipantCreator#e46bcee4`.
+// SetRank sets value of Rank conditional field.
+func (c *ChatParticipant) SetRank(value string) {
+	c.Flags.Set(0)
+	c.Rank = value
+}
+
+// GetRank returns value of Rank conditional field and
+// boolean which is true if field was set.
+func (c *ChatParticipant) GetRank() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Rank, true
+}
+
+// ChatParticipantCreator represents TL type `chatParticipantCreator#e1f867b8`.
 // Represents the creator of the group
 //
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
+	// Flags field of ChatParticipantCreator.
+	Flags bin.Fields
 	// ID of the user that created the group
 	UserID int64
+	// Rank field of ChatParticipantCreator.
+	//
+	// Use SetRank and GetRank helpers.
+	Rank string
 }
 
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
-const ChatParticipantCreatorTypeID = 0xe46bcee4
+const ChatParticipantCreatorTypeID = 0xe1f867b8
 
 // construct implements constructor of ChatParticipantClass.
 func (c ChatParticipantCreator) construct() ChatParticipantClass { return &c }
@@ -249,7 +321,13 @@ func (c *ChatParticipantCreator) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
 	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.Rank == "") {
 		return false
 	}
 
@@ -268,8 +346,13 @@ func (c *ChatParticipantCreator) String() string {
 // FillFrom fills ChatParticipantCreator from given interface.
 func (c *ChatParticipantCreator) FillFrom(from interface {
 	GetUserID() (value int64)
+	GetRank() (value string, ok bool)
 }) {
 	c.UserID = from.GetUserID()
+	if val, ok := from.GetRank(); ok {
+		c.Rank = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -299,14 +382,26 @@ func (c *ChatParticipantCreator) TypeInfo() tdp.Type {
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *ChatParticipantCreator) SetFlags() {
+	if !(c.Rank == "") {
+		c.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChatParticipantCreator) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipantCreator#e46bcee4 as nil")
+		return fmt.Errorf("can't encode chatParticipantCreator#e1f867b8 as nil")
 	}
 	b.PutID(ChatParticipantCreatorTypeID)
 	return c.EncodeBare(b)
@@ -315,19 +410,26 @@ func (c *ChatParticipantCreator) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatParticipantCreator) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipantCreator#e46bcee4 as nil")
+		return fmt.Errorf("can't encode chatParticipantCreator#e1f867b8 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatParticipantCreator#e1f867b8: field flags: %w", err)
 	}
 	b.PutLong(c.UserID)
+	if c.Flags.Has(0) {
+		b.PutString(c.Rank)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatParticipantCreator) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipantCreator#e46bcee4 to nil")
+		return fmt.Errorf("can't decode chatParticipantCreator#e1f867b8 to nil")
 	}
 	if err := b.ConsumeID(ChatParticipantCreatorTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatParticipantCreator#e46bcee4: %w", err)
+		return fmt.Errorf("unable to decode chatParticipantCreator#e1f867b8: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -335,14 +437,26 @@ func (c *ChatParticipantCreator) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatParticipantCreator) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipantCreator#e46bcee4 to nil")
+		return fmt.Errorf("can't decode chatParticipantCreator#e1f867b8 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatParticipantCreator#e1f867b8: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipantCreator#e46bcee4: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantCreator#e1f867b8: field user_id: %w", err)
 		}
 		c.UserID = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatParticipantCreator#e1f867b8: field rank: %w", err)
+		}
+		c.Rank = value
 	}
 	return nil
 }
@@ -355,21 +469,45 @@ func (c *ChatParticipantCreator) GetUserID() (value int64) {
 	return c.UserID
 }
 
-// ChatParticipantAdmin represents TL type `chatParticipantAdmin#a0933f5b`.
+// SetRank sets value of Rank conditional field.
+func (c *ChatParticipantCreator) SetRank(value string) {
+	c.Flags.Set(0)
+	c.Rank = value
+}
+
+// GetRank returns value of Rank conditional field and
+// boolean which is true if field was set.
+func (c *ChatParticipantCreator) GetRank() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Rank, true
+}
+
+// ChatParticipantAdmin represents TL type `chatParticipantAdmin#360d5d2`.
 // Chat admin
 //
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
+	// Flags field of ChatParticipantAdmin.
+	Flags bin.Fields
 	// ID of a group member that is admin
 	UserID int64
 	// ID of the user that added the member to the group
 	InviterID int64
 	// Date when the user was added
 	Date int
+	// Rank field of ChatParticipantAdmin.
+	//
+	// Use SetRank and GetRank helpers.
+	Rank string
 }
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
-const ChatParticipantAdminTypeID = 0xa0933f5b
+const ChatParticipantAdminTypeID = 0x360d5d2
 
 // construct implements constructor of ChatParticipantClass.
 func (c ChatParticipantAdmin) construct() ChatParticipantClass { return &c }
@@ -388,6 +526,9 @@ func (c *ChatParticipantAdmin) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
 	if !(c.UserID == 0) {
 		return false
 	}
@@ -395,6 +536,9 @@ func (c *ChatParticipantAdmin) Zero() bool {
 		return false
 	}
 	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.Rank == "") {
 		return false
 	}
 
@@ -415,10 +559,15 @@ func (c *ChatParticipantAdmin) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetInviterID() (value int64)
 	GetDate() (value int)
+	GetRank() (value string, ok bool)
 }) {
 	c.UserID = from.GetUserID()
 	c.InviterID = from.GetInviterID()
 	c.Date = from.GetDate()
+	if val, ok := from.GetRank(); ok {
+		c.Rank = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -456,14 +605,26 @@ func (c *ChatParticipantAdmin) TypeInfo() tdp.Type {
 			Name:       "Date",
 			SchemaName: "date",
 		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *ChatParticipantAdmin) SetFlags() {
+	if !(c.Rank == "") {
+		c.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChatParticipantAdmin) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipantAdmin#a0933f5b as nil")
+		return fmt.Errorf("can't encode chatParticipantAdmin#360d5d2 as nil")
 	}
 	b.PutID(ChatParticipantAdminTypeID)
 	return c.EncodeBare(b)
@@ -472,21 +633,28 @@ func (c *ChatParticipantAdmin) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatParticipantAdmin) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipantAdmin#a0933f5b as nil")
+		return fmt.Errorf("can't encode chatParticipantAdmin#360d5d2 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatParticipantAdmin#360d5d2: field flags: %w", err)
 	}
 	b.PutLong(c.UserID)
 	b.PutLong(c.InviterID)
 	b.PutInt(c.Date)
+	if c.Flags.Has(0) {
+		b.PutString(c.Rank)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatParticipantAdmin) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipantAdmin#a0933f5b to nil")
+		return fmt.Errorf("can't decode chatParticipantAdmin#360d5d2 to nil")
 	}
 	if err := b.ConsumeID(ChatParticipantAdminTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatParticipantAdmin#a0933f5b: %w", err)
+		return fmt.Errorf("unable to decode chatParticipantAdmin#360d5d2: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -494,28 +662,40 @@ func (c *ChatParticipantAdmin) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatParticipantAdmin) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipantAdmin#a0933f5b to nil")
+		return fmt.Errorf("can't decode chatParticipantAdmin#360d5d2 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatParticipantAdmin#360d5d2: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipantAdmin#a0933f5b: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantAdmin#360d5d2: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipantAdmin#a0933f5b: field inviter_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantAdmin#360d5d2: field inviter_id: %w", err)
 		}
 		c.InviterID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipantAdmin#a0933f5b: field date: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantAdmin#360d5d2: field date: %w", err)
 		}
 		c.Date = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatParticipantAdmin#360d5d2: field rank: %w", err)
+		}
+		c.Rank = value
 	}
 	return nil
 }
@@ -544,6 +724,24 @@ func (c *ChatParticipantAdmin) GetDate() (value int) {
 	return c.Date
 }
 
+// SetRank sets value of Rank conditional field.
+func (c *ChatParticipantAdmin) SetRank(value string) {
+	c.Flags.Set(0)
+	c.Rank = value
+}
+
+// GetRank returns value of Rank conditional field and
+// boolean which is true if field was set.
+func (c *ChatParticipantAdmin) GetRank() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Rank, true
+}
+
 // ChatParticipantClassName is schema name of ChatParticipantClass.
 const ChatParticipantClassName = "ChatParticipant"
 
@@ -563,9 +761,9 @@ const ChatParticipantClassName = "ChatParticipant"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.ChatParticipant: // chatParticipant#c02d4007
-//	case *tg.ChatParticipantCreator: // chatParticipantCreator#e46bcee4
-//	case *tg.ChatParticipantAdmin: // chatParticipantAdmin#a0933f5b
+//	case *tg.ChatParticipant: // chatParticipant#38e79fde
+//	case *tg.ChatParticipantCreator: // chatParticipantCreator#e1f867b8
+//	case *tg.ChatParticipantAdmin: // chatParticipantAdmin#360d5d2
 //	default: panic(v)
 //	}
 type ChatParticipantClass interface {
@@ -588,6 +786,9 @@ type ChatParticipantClass interface {
 
 	// Member user ID
 	GetUserID() (value int64)
+
+	// Rank field of ChatParticipant.
+	GetRank() (value string, ok bool)
 }
 
 // DecodeChatParticipant implements binary de-serialization for ChatParticipantClass.
@@ -598,21 +799,21 @@ func DecodeChatParticipant(buf *bin.Buffer) (ChatParticipantClass, error) {
 	}
 	switch id {
 	case ChatParticipantTypeID:
-		// Decoding chatParticipant#c02d4007.
+		// Decoding chatParticipant#38e79fde.
 		v := ChatParticipant{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatParticipantClass: %w", err)
 		}
 		return &v, nil
 	case ChatParticipantCreatorTypeID:
-		// Decoding chatParticipantCreator#e46bcee4.
+		// Decoding chatParticipantCreator#e1f867b8.
 		v := ChatParticipantCreator{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatParticipantClass: %w", err)
 		}
 		return &v, nil
 	case ChatParticipantAdminTypeID:
-		// Decoding chatParticipantAdmin#a0933f5b.
+		// Decoding chatParticipantAdmin#360d5d2.
 		v := ChatParticipantAdmin{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatParticipantClass: %w", err)

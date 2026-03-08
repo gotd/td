@@ -7776,6 +7776,99 @@ func (s *ServerDispatcher) OnMessagesSummarizeText(f func(ctx context.Context, r
 	s.handlers[MessagesSummarizeTextRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesEditChatCreator(f func(ctx context.Context, request *MessagesEditChatCreatorRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesEditChatCreatorRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesEditChatCreatorRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetFutureChatCreatorAfterLeave(f func(ctx context.Context, peer InputPeerClass) (UserClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetFutureChatCreatorAfterLeaveRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Peer)
+		if err != nil {
+			return nil, err
+		}
+		return &UserBox{User: response}, nil
+	}
+
+	s.handlers[MessagesGetFutureChatCreatorAfterLeaveRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesEditChatParticipantRank(f func(ctx context.Context, request *MessagesEditChatParticipantRankRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesEditChatParticipantRankRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesEditChatParticipantRankRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesDeclineURLAuth(f func(ctx context.Context, url string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesDeclineURLAuthRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.URL)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesDeclineURLAuthRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesCheckURLAuthMatchCode(f func(ctx context.Context, request *MessagesCheckURLAuthMatchCodeRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesCheckURLAuthMatchCodeRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesCheckURLAuthMatchCodeRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -9039,23 +9132,6 @@ func (s *ServerDispatcher) OnChannelsSetDiscussionGroup(f func(ctx context.Conte
 	s.handlers[ChannelsSetDiscussionGroupRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsEditCreator(f func(ctx context.Context, request *ChannelsEditCreatorRequest) (UpdatesClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsEditCreatorRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		return &UpdatesBox{Updates: response}, nil
-	}
-
-	s.handlers[ChannelsEditCreatorRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnChannelsEditLocation(f func(ctx context.Context, request *ChannelsEditLocationRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsEditLocationRequest
@@ -9558,23 +9634,6 @@ func (s *ServerDispatcher) OnChannelsSetMainProfileTab(f func(ctx context.Contex
 	}
 
 	s.handlers[ChannelsSetMainProfileTabRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnChannelsGetFutureCreatorAfterLeave(f func(ctx context.Context, channel InputChannelClass) (UserClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsGetFutureCreatorAfterLeaveRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.Channel)
-		if err != nil {
-			return nil, err
-		}
-		return &UserBox{User: response}, nil
-	}
-
-	s.handlers[ChannelsGetFutureCreatorAfterLeaveRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {

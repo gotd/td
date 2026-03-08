@@ -389,6 +389,19 @@ func (s MessageEntityClassArray) AsMessageEntityBlockquote() (to MessageEntityBl
 	return to
 }
 
+// AsMessageEntityFormattedDate returns copy with only MessageEntityFormattedDate constructors.
+func (s MessageEntityClassArray) AsMessageEntityFormattedDate() (to MessageEntityFormattedDateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageEntityFormattedDate)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageEntityUnknownArray is adapter for slice of MessageEntityUnknown.
 type MessageEntityUnknownArray []MessageEntityUnknown
 
@@ -2109,4 +2122,100 @@ func (s *MessageEntityBlockquoteArray) Pop() (v MessageEntityBlockquote, ok bool
 	*s = a
 
 	return v, true
+}
+
+// MessageEntityFormattedDateArray is adapter for slice of MessageEntityFormattedDate.
+type MessageEntityFormattedDateArray []MessageEntityFormattedDate
+
+// Sort sorts slice of MessageEntityFormattedDate.
+func (s MessageEntityFormattedDateArray) Sort(less func(a, b MessageEntityFormattedDate) bool) MessageEntityFormattedDateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageEntityFormattedDate.
+func (s MessageEntityFormattedDateArray) SortStable(less func(a, b MessageEntityFormattedDate) bool) MessageEntityFormattedDateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageEntityFormattedDate.
+func (s MessageEntityFormattedDateArray) Retain(keep func(x MessageEntityFormattedDate) bool) MessageEntityFormattedDateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageEntityFormattedDateArray) First() (v MessageEntityFormattedDate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageEntityFormattedDateArray) Last() (v MessageEntityFormattedDate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageEntityFormattedDateArray) PopFirst() (v MessageEntityFormattedDate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageEntityFormattedDate
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageEntityFormattedDateArray) Pop() (v MessageEntityFormattedDate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of MessageEntityFormattedDate by Date.
+func (s MessageEntityFormattedDateArray) SortByDate() MessageEntityFormattedDateArray {
+	return s.Sort(func(a, b MessageEntityFormattedDate) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of MessageEntityFormattedDate by Date.
+func (s MessageEntityFormattedDateArray) SortStableByDate() MessageEntityFormattedDateArray {
+	return s.SortStable(func(a, b MessageEntityFormattedDate) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }

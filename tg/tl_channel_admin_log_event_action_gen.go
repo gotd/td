@@ -8052,6 +8052,196 @@ func (c *ChannelAdminLogEventActionToggleAutotranslation) GetNewValue() (value b
 	return c.NewValue
 }
 
+// ChannelAdminLogEventActionParticipantEditRank represents TL type `channelAdminLogEventActionParticipantEditRank#5806b4ec`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantEditRank for reference.
+type ChannelAdminLogEventActionParticipantEditRank struct {
+	// UserID field of ChannelAdminLogEventActionParticipantEditRank.
+	UserID int64
+	// PrevRank field of ChannelAdminLogEventActionParticipantEditRank.
+	PrevRank string
+	// NewRank field of ChannelAdminLogEventActionParticipantEditRank.
+	NewRank string
+}
+
+// ChannelAdminLogEventActionParticipantEditRankTypeID is TL type id of ChannelAdminLogEventActionParticipantEditRank.
+const ChannelAdminLogEventActionParticipantEditRankTypeID = 0x5806b4ec
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantEditRank) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantEditRank.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantEditRank{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantEditRank{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantEditRank{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantEditRank{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantEditRank{}
+)
+
+func (c *ChannelAdminLogEventActionParticipantEditRank) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.PrevRank == "") {
+		return false
+	}
+	if !(c.NewRank == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantEditRank) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantEditRank(nil)"
+	}
+	type Alias ChannelAdminLogEventActionParticipantEditRank
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantEditRank%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionParticipantEditRank from given interface.
+func (c *ChannelAdminLogEventActionParticipantEditRank) FillFrom(from interface {
+	GetUserID() (value int64)
+	GetPrevRank() (value string)
+	GetNewRank() (value string)
+}) {
+	c.UserID = from.GetUserID()
+	c.PrevRank = from.GetPrevRank()
+	c.NewRank = from.GetNewRank()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionParticipantEditRank) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantEditRankTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionParticipantEditRank) TypeName() string {
+	return "channelAdminLogEventActionParticipantEditRank"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantEditRank) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantEditRank",
+		ID:   ChannelAdminLogEventActionParticipantEditRankTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "PrevRank",
+			SchemaName: "prev_rank",
+		},
+		{
+			Name:       "NewRank",
+			SchemaName: "new_rank",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionParticipantEditRank) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantEditRank#5806b4ec as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionParticipantEditRankTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantEditRank) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantEditRank#5806b4ec as nil")
+	}
+	b.PutLong(c.UserID)
+	b.PutString(c.PrevRank)
+	b.PutString(c.NewRank)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionParticipantEditRank) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantEditRank#5806b4ec to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantEditRankTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantEditRank#5806b4ec: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantEditRank) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantEditRank#5806b4ec to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantEditRank#5806b4ec: field user_id: %w", err)
+		}
+		c.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantEditRank#5806b4ec: field prev_rank: %w", err)
+		}
+		c.PrevRank = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantEditRank#5806b4ec: field new_rank: %w", err)
+		}
+		c.NewRank = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelAdminLogEventActionParticipantEditRank) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.UserID
+}
+
+// GetPrevRank returns value of PrevRank field.
+func (c *ChannelAdminLogEventActionParticipantEditRank) GetPrevRank() (value string) {
+	if c == nil {
+		return
+	}
+	return c.PrevRank
+}
+
+// GetNewRank returns value of NewRank field.
+func (c *ChannelAdminLogEventActionParticipantEditRank) GetNewRank() (value string) {
+	if c == nil {
+		return
+	}
+	return c.NewRank
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -8111,6 +8301,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //   - [ChannelAdminLogEventActionToggleSignatureProfiles]
 //   - [ChannelAdminLogEventActionParticipantSubExtend]
 //   - [ChannelAdminLogEventActionToggleAutotranslation]
+//   - [ChannelAdminLogEventActionParticipantEditRank]
 //
 // Example:
 //
@@ -8170,6 +8361,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //	case *tg.ChannelAdminLogEventActionToggleSignatureProfiles: // channelAdminLogEventActionToggleSignatureProfiles#60a79c79
 //	case *tg.ChannelAdminLogEventActionParticipantSubExtend: // channelAdminLogEventActionParticipantSubExtend#64642db3
 //	case *tg.ChannelAdminLogEventActionToggleAutotranslation: // channelAdminLogEventActionToggleAutotranslation#c517f77e
+//	case *tg.ChannelAdminLogEventActionParticipantEditRank: // channelAdminLogEventActionParticipantEditRank#5806b4ec
 //	default: panic(v)
 //	}
 type ChannelAdminLogEventActionClass interface {
@@ -8551,6 +8743,13 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionToggleAutotranslationTypeID:
 		// Decoding channelAdminLogEventActionToggleAutotranslation#c517f77e.
 		v := ChannelAdminLogEventActionToggleAutotranslation{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionParticipantEditRankTypeID:
+		// Decoding channelAdminLogEventActionParticipantEditRank#5806b4ec.
+		v := ChannelAdminLogEventActionParticipantEditRank{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

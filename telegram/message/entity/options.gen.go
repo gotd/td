@@ -396,3 +396,29 @@ func Blockquote(collapsed bool) Formatter {
 func (b *Builder) Blockquote(s string, collapsed bool) *Builder {
 	return b.Format(s, Blockquote(collapsed))
 }
+
+// FormattedDate creates Formatter of FormattedDate message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityFormattedDate.
+func FormattedDate(relative bool, shortTime bool, longTime bool, shortDate bool, longDate bool, dayOfWeek bool, date int) Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityFormattedDate{
+			Offset:    offset,
+			Length:    length,
+			Relative:  relative,
+			ShortTime: shortTime,
+			LongTime:  longTime,
+			ShortDate: shortDate,
+			LongDate:  longDate,
+			DayOfWeek: dayOfWeek,
+			Date:      date,
+		}
+	}
+}
+
+// FormattedDate adds and formats message as FormattedDate message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityFormattedDate.
+func (b *Builder) FormattedDate(s string, relative bool, shortTime bool, longTime bool, shortDate bool, longDate bool, dayOfWeek bool, date int) *Builder {
+	return b.Format(s, FormattedDate(relative, shortTime, longTime, shortDate, longDate, dayOfWeek, date))
+}

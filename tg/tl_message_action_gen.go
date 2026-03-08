@@ -14249,6 +14249,381 @@ func (m *MessageActionChangeCreator) GetNewCreatorID() (value int64) {
 	return m.NewCreatorID
 }
 
+// MessageActionNoForwardsToggle represents TL type `messageActionNoForwardsToggle#bf7d6572`.
+//
+// See https://core.telegram.org/constructor/messageActionNoForwardsToggle for reference.
+type MessageActionNoForwardsToggle struct {
+	// PrevValue field of MessageActionNoForwardsToggle.
+	PrevValue bool
+	// NewValue field of MessageActionNoForwardsToggle.
+	NewValue bool
+}
+
+// MessageActionNoForwardsToggleTypeID is TL type id of MessageActionNoForwardsToggle.
+const MessageActionNoForwardsToggleTypeID = 0xbf7d6572
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionNoForwardsToggle) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionNoForwardsToggle.
+var (
+	_ bin.Encoder     = &MessageActionNoForwardsToggle{}
+	_ bin.Decoder     = &MessageActionNoForwardsToggle{}
+	_ bin.BareEncoder = &MessageActionNoForwardsToggle{}
+	_ bin.BareDecoder = &MessageActionNoForwardsToggle{}
+
+	_ MessageActionClass = &MessageActionNoForwardsToggle{}
+)
+
+func (m *MessageActionNoForwardsToggle) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.PrevValue == false) {
+		return false
+	}
+	if !(m.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionNoForwardsToggle) String() string {
+	if m == nil {
+		return "MessageActionNoForwardsToggle(nil)"
+	}
+	type Alias MessageActionNoForwardsToggle
+	return fmt.Sprintf("MessageActionNoForwardsToggle%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionNoForwardsToggle from given interface.
+func (m *MessageActionNoForwardsToggle) FillFrom(from interface {
+	GetPrevValue() (value bool)
+	GetNewValue() (value bool)
+}) {
+	m.PrevValue = from.GetPrevValue()
+	m.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionNoForwardsToggle) TypeID() uint32 {
+	return MessageActionNoForwardsToggleTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionNoForwardsToggle) TypeName() string {
+	return "messageActionNoForwardsToggle"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionNoForwardsToggle) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionNoForwardsToggle",
+		ID:   MessageActionNoForwardsToggleTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionNoForwardsToggle) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionNoForwardsToggle#bf7d6572 as nil")
+	}
+	b.PutID(MessageActionNoForwardsToggleTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionNoForwardsToggle) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionNoForwardsToggle#bf7d6572 as nil")
+	}
+	b.PutBool(m.PrevValue)
+	b.PutBool(m.NewValue)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionNoForwardsToggle) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionNoForwardsToggle#bf7d6572 to nil")
+	}
+	if err := b.ConsumeID(MessageActionNoForwardsToggleTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionNoForwardsToggle#bf7d6572: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionNoForwardsToggle) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionNoForwardsToggle#bf7d6572 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionNoForwardsToggle#bf7d6572: field prev_value: %w", err)
+		}
+		m.PrevValue = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionNoForwardsToggle#bf7d6572: field new_value: %w", err)
+		}
+		m.NewValue = value
+	}
+	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (m *MessageActionNoForwardsToggle) GetPrevValue() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (m *MessageActionNoForwardsToggle) GetNewValue() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.NewValue
+}
+
+// MessageActionNoForwardsRequest represents TL type `messageActionNoForwardsRequest#3e2793ba`.
+//
+// See https://core.telegram.org/constructor/messageActionNoForwardsRequest for reference.
+type MessageActionNoForwardsRequest struct {
+	// Flags field of MessageActionNoForwardsRequest.
+	Flags bin.Fields
+	// Expired field of MessageActionNoForwardsRequest.
+	Expired bool
+	// PrevValue field of MessageActionNoForwardsRequest.
+	PrevValue bool
+	// NewValue field of MessageActionNoForwardsRequest.
+	NewValue bool
+}
+
+// MessageActionNoForwardsRequestTypeID is TL type id of MessageActionNoForwardsRequest.
+const MessageActionNoForwardsRequestTypeID = 0x3e2793ba
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionNoForwardsRequest) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionNoForwardsRequest.
+var (
+	_ bin.Encoder     = &MessageActionNoForwardsRequest{}
+	_ bin.Decoder     = &MessageActionNoForwardsRequest{}
+	_ bin.BareEncoder = &MessageActionNoForwardsRequest{}
+	_ bin.BareDecoder = &MessageActionNoForwardsRequest{}
+
+	_ MessageActionClass = &MessageActionNoForwardsRequest{}
+)
+
+func (m *MessageActionNoForwardsRequest) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Expired == false) {
+		return false
+	}
+	if !(m.PrevValue == false) {
+		return false
+	}
+	if !(m.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionNoForwardsRequest) String() string {
+	if m == nil {
+		return "MessageActionNoForwardsRequest(nil)"
+	}
+	type Alias MessageActionNoForwardsRequest
+	return fmt.Sprintf("MessageActionNoForwardsRequest%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionNoForwardsRequest from given interface.
+func (m *MessageActionNoForwardsRequest) FillFrom(from interface {
+	GetExpired() (value bool)
+	GetPrevValue() (value bool)
+	GetNewValue() (value bool)
+}) {
+	m.Expired = from.GetExpired()
+	m.PrevValue = from.GetPrevValue()
+	m.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionNoForwardsRequest) TypeID() uint32 {
+	return MessageActionNoForwardsRequestTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionNoForwardsRequest) TypeName() string {
+	return "messageActionNoForwardsRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionNoForwardsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionNoForwardsRequest",
+		ID:   MessageActionNoForwardsRequestTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expired",
+			SchemaName: "expired",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionNoForwardsRequest) SetFlags() {
+	if !(m.Expired == false) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionNoForwardsRequest) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionNoForwardsRequest#3e2793ba as nil")
+	}
+	b.PutID(MessageActionNoForwardsRequestTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionNoForwardsRequest) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionNoForwardsRequest#3e2793ba as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionNoForwardsRequest#3e2793ba: field flags: %w", err)
+	}
+	b.PutBool(m.PrevValue)
+	b.PutBool(m.NewValue)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionNoForwardsRequest) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionNoForwardsRequest#3e2793ba to nil")
+	}
+	if err := b.ConsumeID(MessageActionNoForwardsRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionNoForwardsRequest#3e2793ba: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionNoForwardsRequest) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionNoForwardsRequest#3e2793ba to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionNoForwardsRequest#3e2793ba: field flags: %w", err)
+		}
+	}
+	m.Expired = m.Flags.Has(0)
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionNoForwardsRequest#3e2793ba: field prev_value: %w", err)
+		}
+		m.PrevValue = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionNoForwardsRequest#3e2793ba: field new_value: %w", err)
+		}
+		m.NewValue = value
+	}
+	return nil
+}
+
+// SetExpired sets value of Expired conditional field.
+func (m *MessageActionNoForwardsRequest) SetExpired(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Expired = true
+	} else {
+		m.Flags.Unset(0)
+		m.Expired = false
+	}
+}
+
+// GetExpired returns value of Expired conditional field.
+func (m *MessageActionNoForwardsRequest) GetExpired() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (m *MessageActionNoForwardsRequest) GetPrevValue() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (m *MessageActionNoForwardsRequest) GetNewValue() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.NewValue
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -14319,6 +14694,8 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionStarGiftPurchaseOfferDeclined]
 //   - [MessageActionNewCreatorPending]
 //   - [MessageActionChangeCreator]
+//   - [MessageActionNoForwardsToggle]
+//   - [MessageActionNoForwardsRequest]
 //
 // Example:
 //
@@ -14389,6 +14766,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionStarGiftPurchaseOfferDeclined: // messageActionStarGiftPurchaseOfferDeclined#73ada76b
 //	case *tg.MessageActionNewCreatorPending: // messageActionNewCreatorPending#b07ed085
 //	case *tg.MessageActionChangeCreator: // messageActionChangeCreator#e188503b
+//	case *tg.MessageActionNoForwardsToggle: // messageActionNoForwardsToggle#bf7d6572
+//	case *tg.MessageActionNoForwardsRequest: // messageActionNoForwardsRequest#3e2793ba
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -14847,6 +15226,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionChangeCreatorTypeID:
 		// Decoding messageActionChangeCreator#e188503b.
 		v := MessageActionChangeCreator{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionNoForwardsToggleTypeID:
+		// Decoding messageActionNoForwardsToggle#bf7d6572.
+		v := MessageActionNoForwardsToggle{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionNoForwardsRequestTypeID:
+		// Decoding messageActionNoForwardsRequest#3e2793ba.
+		v := MessageActionNoForwardsRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
