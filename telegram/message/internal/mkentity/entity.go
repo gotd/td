@@ -20,7 +20,7 @@ var (
 // {{ $helperName }} creates Formatter of {{ $helperName }} message entity.
 //
 // See https://core.telegram.org/constructor/{{ $typ.SchemaType.Name }}.
-func {{ $helperName }}({{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }} {{ $f.Type }}{{- end }}) Formatter {
+func {{ $helperName }}({{- range $f := $typ.Fields }} {{ lowerFirst $f.Name }} {{ $f.Type }},{{- end }}) Formatter {
 	return func(offset, length int) tg.MessageEntityClass {
 		return &tg.{{ $typ.Name }}{
 			Offset: offset,
@@ -36,7 +36,7 @@ func {{ $helperName }}({{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }} {{
 //
 // See https://core.telegram.org/constructor/{{ $typ.SchemaType.Name }}.
 func (b *Builder) {{ $helperName }}(s string,
-{{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }} {{ $f.Type }}{{- end }}) *Builder {
+{{- range $f := $typ.Fields }} {{ lowerFirst $f.Name }} {{ $f.Type }},{{- end }}) *Builder {
 	return b.Format(s, {{ $helperName }}({{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }},{{- end }}))
 }
 {{- end }}
