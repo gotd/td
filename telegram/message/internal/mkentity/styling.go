@@ -21,7 +21,7 @@ var (
 //
 // See https://core.telegram.org/constructor/{{ $typ.SchemaType.Name }}.
 func {{ $helperName }}(s string,
-{{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }} {{ $f.Type }}{{- end }}) StyledTextOption {
+{{- range $f := $typ.Fields }} {{ lowerFirst $f.Name }} {{ $f.Type }},{{- end }}) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
 		b.{{ $helperName }}(s, {{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }},{{- end }})
 		return nil

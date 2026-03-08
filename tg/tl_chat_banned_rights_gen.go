@@ -145,6 +145,8 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	SendPlain bool
+	// EditRank field of ChatBannedRights.
+	EditRank bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds
 	// or more then 366 days).
 	UntilDate int
@@ -228,6 +230,9 @@ func (c *ChatBannedRights) Zero() bool {
 	if !(c.SendPlain == false) {
 		return false
 	}
+	if !(c.EditRank == false) {
+		return false
+	}
 	if !(c.UntilDate == 0) {
 		return false
 	}
@@ -266,6 +271,7 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	GetSendVoices() (value bool)
 	GetSendDocs() (value bool)
 	GetSendPlain() (value bool)
+	GetEditRank() (value bool)
 	GetUntilDate() (value int)
 }) {
 	c.ViewMessages = from.GetViewMessages()
@@ -288,6 +294,7 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	c.SendVoices = from.GetSendVoices()
 	c.SendDocs = from.GetSendDocs()
 	c.SendPlain = from.GetSendPlain()
+	c.EditRank = from.GetEditRank()
 	c.UntilDate = from.GetUntilDate()
 }
 
@@ -415,6 +422,11 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(25),
 		},
 		{
+			Name:       "EditRank",
+			SchemaName: "edit_rank",
+			Null:       !c.Flags.Has(26),
+		},
+		{
 			Name:       "UntilDate",
 			SchemaName: "until_date",
 		},
@@ -484,6 +496,9 @@ func (c *ChatBannedRights) SetFlags() {
 	if !(c.SendPlain == false) {
 		c.Flags.Set(25)
 	}
+	if !(c.EditRank == false) {
+		c.Flags.Set(26)
+	}
 }
 
 // Encode implements bin.Encoder.
@@ -549,6 +564,7 @@ func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
 	c.SendVoices = c.Flags.Has(23)
 	c.SendDocs = c.Flags.Has(24)
 	c.SendPlain = c.Flags.Has(25)
+	c.EditRank = c.Flags.Has(26)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -937,6 +953,25 @@ func (c *ChatBannedRights) GetSendPlain() (value bool) {
 		return
 	}
 	return c.Flags.Has(25)
+}
+
+// SetEditRank sets value of EditRank conditional field.
+func (c *ChatBannedRights) SetEditRank(value bool) {
+	if value {
+		c.Flags.Set(26)
+		c.EditRank = true
+	} else {
+		c.Flags.Unset(26)
+		c.EditRank = false
+	}
+}
+
+// GetEditRank returns value of EditRank conditional field.
+func (c *ChatBannedRights) GetEditRank() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(26)
 }
 
 // GetUntilDate returns value of UntilDate field.

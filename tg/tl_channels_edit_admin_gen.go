@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsEditAdminRequest represents TL type `channels.editAdmin#d33c8902`.
+// ChannelsEditAdminRequest represents TL type `channels.editAdmin#9a98ad68`.
 // Modify the admin rights of a user in a supergroup/channel¹.
 //
 // Links:
@@ -39,6 +39,8 @@ var (
 //
 // See https://core.telegram.org/method/channels.editAdmin for reference.
 type ChannelsEditAdminRequest struct {
+	// Flags field of ChannelsEditAdminRequest.
+	Flags bin.Fields
 	// The supergroup/channel¹.
 	//
 	// Links:
@@ -49,11 +51,13 @@ type ChannelsEditAdminRequest struct {
 	// The admin rights
 	AdminRights ChatAdminRights
 	// Indicates the role (rank) of the admin in the group: just an arbitrary string
+	//
+	// Use SetRank and GetRank helpers.
 	Rank string
 }
 
 // ChannelsEditAdminRequestTypeID is TL type id of ChannelsEditAdminRequest.
-const ChannelsEditAdminRequestTypeID = 0xd33c8902
+const ChannelsEditAdminRequestTypeID = 0x9a98ad68
 
 // Ensuring interfaces in compile-time for ChannelsEditAdminRequest.
 var (
@@ -66,6 +70,9 @@ var (
 func (e *ChannelsEditAdminRequest) Zero() bool {
 	if e == nil {
 		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
 	}
 	if !(e.Channel == nil) {
 		return false
@@ -97,12 +104,15 @@ func (e *ChannelsEditAdminRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
 	GetUserID() (value InputUserClass)
 	GetAdminRights() (value ChatAdminRights)
-	GetRank() (value string)
+	GetRank() (value string, ok bool)
 }) {
 	e.Channel = from.GetChannel()
 	e.UserID = from.GetUserID()
 	e.AdminRights = from.GetAdminRights()
-	e.Rank = from.GetRank()
+	if val, ok := from.GetRank(); ok {
+		e.Rank = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -143,15 +153,23 @@ func (e *ChannelsEditAdminRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "Rank",
 			SchemaName: "rank",
+			Null:       !e.Flags.Has(0),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (e *ChannelsEditAdminRequest) SetFlags() {
+	if !(e.Rank == "") {
+		e.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editAdmin#d33c8902 as nil")
+		return fmt.Errorf("can't encode channels.editAdmin#9a98ad68 as nil")
 	}
 	b.PutID(ChannelsEditAdminRequestTypeID)
 	return e.EncodeBare(b)
@@ -160,34 +178,40 @@ func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditAdminRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editAdmin#d33c8902 as nil")
+		return fmt.Errorf("can't encode channels.editAdmin#9a98ad68 as nil")
+	}
+	e.SetFlags()
+	if err := e.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.editAdmin#9a98ad68: field flags: %w", err)
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field channel is nil")
+		return fmt.Errorf("unable to encode channels.editAdmin#9a98ad68: field channel is nil")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.editAdmin#9a98ad68: field channel: %w", err)
 	}
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field user_id is nil")
+		return fmt.Errorf("unable to encode channels.editAdmin#9a98ad68: field user_id is nil")
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field user_id: %w", err)
+		return fmt.Errorf("unable to encode channels.editAdmin#9a98ad68: field user_id: %w", err)
 	}
 	if err := e.AdminRights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field admin_rights: %w", err)
+		return fmt.Errorf("unable to encode channels.editAdmin#9a98ad68: field admin_rights: %w", err)
 	}
-	b.PutString(e.Rank)
+	if e.Flags.Has(0) {
+		b.PutString(e.Rank)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editAdmin#d33c8902 to nil")
+		return fmt.Errorf("can't decode channels.editAdmin#9a98ad68 to nil")
 	}
 	if err := b.ConsumeID(ChannelsEditAdminRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: %w", err)
+		return fmt.Errorf("unable to decode channels.editAdmin#9a98ad68: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -195,31 +219,36 @@ func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditAdminRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editAdmin#d33c8902 to nil")
+		return fmt.Errorf("can't decode channels.editAdmin#9a98ad68 to nil")
+	}
+	{
+		if err := e.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.editAdmin#9a98ad68: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.editAdmin#9a98ad68: field channel: %w", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channels.editAdmin#9a98ad68: field user_id: %w", err)
 		}
 		e.UserID = value
 	}
 	{
 		if err := e.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field admin_rights: %w", err)
+			return fmt.Errorf("unable to decode channels.editAdmin#9a98ad68: field admin_rights: %w", err)
 		}
 	}
-	{
+	if e.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: field rank: %w", err)
+			return fmt.Errorf("unable to decode channels.editAdmin#9a98ad68: field rank: %w", err)
 		}
 		e.Rank = value
 	}
@@ -250,12 +279,22 @@ func (e *ChannelsEditAdminRequest) GetAdminRights() (value ChatAdminRights) {
 	return e.AdminRights
 }
 
-// GetRank returns value of Rank field.
-func (e *ChannelsEditAdminRequest) GetRank() (value string) {
+// SetRank sets value of Rank conditional field.
+func (e *ChannelsEditAdminRequest) SetRank(value string) {
+	e.Flags.Set(0)
+	e.Rank = value
+}
+
+// GetRank returns value of Rank conditional field and
+// boolean which is true if field was set.
+func (e *ChannelsEditAdminRequest) GetRank() (value string, ok bool) {
 	if e == nil {
 		return
 	}
-	return e.Rank
+	if !e.Flags.Has(0) {
+		return value, false
+	}
+	return e.Rank, true
 }
 
 // GetChannelAsNotEmpty returns mapped value of Channel field.
@@ -263,7 +302,7 @@ func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel,
 	return e.Channel.AsNotEmpty()
 }
 
-// ChannelsEditAdmin invokes method channels.editAdmin#d33c8902 returning error if any.
+// ChannelsEditAdmin invokes method channels.editAdmin#9a98ad68 returning error if any.
 // Modify the admin rights of a user in a supergroup/channel¹.
 //
 // Links:

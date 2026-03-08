@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesRequestURLAuthRequest represents TL type `messages.requestUrlAuth#198fb446`.
+// MessagesRequestURLAuthRequest represents TL type `messages.requestUrlAuth#894cc99c`.
 // Get more info about a Seamless Telegram Login authorization request, for more info
 // click here »¹
 //
@@ -64,10 +64,14 @@ type MessagesRequestURLAuthRequest struct {
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
+	// InAppOrigin field of MessagesRequestURLAuthRequest.
+	//
+	// Use SetInAppOrigin and GetInAppOrigin helpers.
+	InAppOrigin string
 }
 
 // MessagesRequestURLAuthRequestTypeID is TL type id of MessagesRequestURLAuthRequest.
-const MessagesRequestURLAuthRequestTypeID = 0x198fb446
+const MessagesRequestURLAuthRequestTypeID = 0x894cc99c
 
 // Ensuring interfaces in compile-time for MessagesRequestURLAuthRequest.
 var (
@@ -96,6 +100,9 @@ func (r *MessagesRequestURLAuthRequest) Zero() bool {
 	if !(r.URL == "") {
 		return false
 	}
+	if !(r.InAppOrigin == "") {
+		return false
+	}
 
 	return true
 }
@@ -115,6 +122,7 @@ func (r *MessagesRequestURLAuthRequest) FillFrom(from interface {
 	GetMsgID() (value int, ok bool)
 	GetButtonID() (value int, ok bool)
 	GetURL() (value string, ok bool)
+	GetInAppOrigin() (value string, ok bool)
 }) {
 	if val, ok := from.GetPeer(); ok {
 		r.Peer = val
@@ -130,6 +138,10 @@ func (r *MessagesRequestURLAuthRequest) FillFrom(from interface {
 
 	if val, ok := from.GetURL(); ok {
 		r.URL = val
+	}
+
+	if val, ok := from.GetInAppOrigin(); ok {
+		r.InAppOrigin = val
 	}
 
 }
@@ -177,6 +189,11 @@ func (r *MessagesRequestURLAuthRequest) TypeInfo() tdp.Type {
 			SchemaName: "url",
 			Null:       !r.Flags.Has(2),
 		},
+		{
+			Name:       "InAppOrigin",
+			SchemaName: "in_app_origin",
+			Null:       !r.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -195,12 +212,15 @@ func (r *MessagesRequestURLAuthRequest) SetFlags() {
 	if !(r.URL == "") {
 		r.Flags.Set(2)
 	}
+	if !(r.InAppOrigin == "") {
+		r.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestUrlAuth#198fb446 as nil")
+		return fmt.Errorf("can't encode messages.requestUrlAuth#894cc99c as nil")
 	}
 	b.PutID(MessagesRequestURLAuthRequestTypeID)
 	return r.EncodeBare(b)
@@ -209,18 +229,18 @@ func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRequestURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestUrlAuth#198fb446 as nil")
+		return fmt.Errorf("can't encode messages.requestUrlAuth#894cc99c as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.requestUrlAuth#894cc99c: field flags: %w", err)
 	}
 	if r.Flags.Has(1) {
 		if r.Peer == nil {
-			return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field peer is nil")
+			return fmt.Errorf("unable to encode messages.requestUrlAuth#894cc99c: field peer is nil")
 		}
 		if err := r.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field peer: %w", err)
+			return fmt.Errorf("unable to encode messages.requestUrlAuth#894cc99c: field peer: %w", err)
 		}
 	}
 	if r.Flags.Has(1) {
@@ -232,16 +252,19 @@ func (r *MessagesRequestURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if r.Flags.Has(2) {
 		b.PutString(r.URL)
 	}
+	if r.Flags.Has(3) {
+		b.PutString(r.InAppOrigin)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
+		return fmt.Errorf("can't decode messages.requestUrlAuth#894cc99c to nil")
 	}
 	if err := b.ConsumeID(MessagesRequestURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: %w", err)
+		return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -249,40 +272,47 @@ func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRequestURLAuthRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
+		return fmt.Errorf("can't decode messages.requestUrlAuth#894cc99c to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: field flags: %w", err)
 		}
 	}
 	if r.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: field peer: %w", err)
 		}
 		r.Peer = value
 	}
 	if r.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: field msg_id: %w", err)
 		}
 		r.MsgID = value
 	}
 	if r.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field button_id: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: field button_id: %w", err)
 		}
 		r.ButtonID = value
 	}
 	if r.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field url: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: field url: %w", err)
 		}
 		r.URL = value
+	}
+	if r.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#894cc99c: field in_app_origin: %w", err)
+		}
+		r.InAppOrigin = value
 	}
 	return nil
 }
@@ -359,7 +389,25 @@ func (r *MessagesRequestURLAuthRequest) GetURL() (value string, ok bool) {
 	return r.URL, true
 }
 
-// MessagesRequestURLAuth invokes method messages.requestUrlAuth#198fb446 returning error if any.
+// SetInAppOrigin sets value of InAppOrigin conditional field.
+func (r *MessagesRequestURLAuthRequest) SetInAppOrigin(value string) {
+	r.Flags.Set(3)
+	r.InAppOrigin = value
+}
+
+// GetInAppOrigin returns value of InAppOrigin conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestURLAuthRequest) GetInAppOrigin() (value string, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(3) {
+		return value, false
+	}
+	return r.InAppOrigin, true
+}
+
+// MessagesRequestURLAuth invokes method messages.requestUrlAuth#894cc99c returning error if any.
 // Get more info about a Seamless Telegram Login authorization request, for more info
 // click here »¹
 //

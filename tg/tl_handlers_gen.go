@@ -1630,6 +1630,16 @@ func (u UpdateDispatcher) OnStarGiftCraftFail(handler StarGiftCraftFailHandler) 
 	}
 }
 
+// ChatParticipantRankHandler is a ChatParticipantRank event handler.
+type ChatParticipantRankHandler func(ctx context.Context, e Entities, update *UpdateChatParticipantRank) error
+
+// OnChatParticipantRank sets ChatParticipantRank handler.
+func (u UpdateDispatcher) OnChatParticipantRank(handler ChatParticipantRankHandler) {
+	u.handlers[UpdateChatParticipantRankTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatParticipantRank))
+	}
+}
+
 // OnFallback sets fallback handler.
 func (u *UpdateDispatcher) OnFallback(handler Handler) {
 	u.fallback = handler

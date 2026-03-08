@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesToggleNoForwardsRequest represents TL type `messages.toggleNoForwards#b11eafa2`.
+// MessagesToggleNoForwardsRequest represents TL type `messages.toggleNoForwards#b2081a35`.
 // Enable or disable content protection¹ on a channel or chat
 //
 // Links:
@@ -39,14 +39,20 @@ var (
 //
 // See https://core.telegram.org/method/messages.toggleNoForwards for reference.
 type MessagesToggleNoForwardsRequest struct {
+	// Flags field of MessagesToggleNoForwardsRequest.
+	Flags bin.Fields
 	// The chat or channel
 	Peer InputPeerClass
 	// Enable or disable content protection
 	Enabled bool
+	// RequestMsgID field of MessagesToggleNoForwardsRequest.
+	//
+	// Use SetRequestMsgID and GetRequestMsgID helpers.
+	RequestMsgID int
 }
 
 // MessagesToggleNoForwardsRequestTypeID is TL type id of MessagesToggleNoForwardsRequest.
-const MessagesToggleNoForwardsRequestTypeID = 0xb11eafa2
+const MessagesToggleNoForwardsRequestTypeID = 0xb2081a35
 
 // Ensuring interfaces in compile-time for MessagesToggleNoForwardsRequest.
 var (
@@ -60,10 +66,16 @@ func (t *MessagesToggleNoForwardsRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
 	if !(t.Peer == nil) {
 		return false
 	}
 	if !(t.Enabled == false) {
+		return false
+	}
+	if !(t.RequestMsgID == 0) {
 		return false
 	}
 
@@ -83,9 +95,14 @@ func (t *MessagesToggleNoForwardsRequest) String() string {
 func (t *MessagesToggleNoForwardsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetEnabled() (value bool)
+	GetRequestMsgID() (value int, ok bool)
 }) {
 	t.Peer = from.GetPeer()
 	t.Enabled = from.GetEnabled()
+	if val, ok := from.GetRequestMsgID(); ok {
+		t.RequestMsgID = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -119,14 +136,26 @@ func (t *MessagesToggleNoForwardsRequest) TypeInfo() tdp.Type {
 			Name:       "Enabled",
 			SchemaName: "enabled",
 		},
+		{
+			Name:       "RequestMsgID",
+			SchemaName: "request_msg_id",
+			Null:       !t.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (t *MessagesToggleNoForwardsRequest) SetFlags() {
+	if !(t.RequestMsgID == 0) {
+		t.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (t *MessagesToggleNoForwardsRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleNoForwards#b11eafa2 as nil")
+		return fmt.Errorf("can't encode messages.toggleNoForwards#b2081a35 as nil")
 	}
 	b.PutID(MessagesToggleNoForwardsRequestTypeID)
 	return t.EncodeBare(b)
@@ -135,25 +164,32 @@ func (t *MessagesToggleNoForwardsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesToggleNoForwardsRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleNoForwards#b11eafa2 as nil")
+		return fmt.Errorf("can't encode messages.toggleNoForwards#b2081a35 as nil")
+	}
+	t.SetFlags()
+	if err := t.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.toggleNoForwards#b2081a35: field flags: %w", err)
 	}
 	if t.Peer == nil {
-		return fmt.Errorf("unable to encode messages.toggleNoForwards#b11eafa2: field peer is nil")
+		return fmt.Errorf("unable to encode messages.toggleNoForwards#b2081a35: field peer is nil")
 	}
 	if err := t.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.toggleNoForwards#b11eafa2: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.toggleNoForwards#b2081a35: field peer: %w", err)
 	}
 	b.PutBool(t.Enabled)
+	if t.Flags.Has(0) {
+		b.PutInt(t.RequestMsgID)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *MessagesToggleNoForwardsRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleNoForwards#b11eafa2 to nil")
+		return fmt.Errorf("can't decode messages.toggleNoForwards#b2081a35 to nil")
 	}
 	if err := b.ConsumeID(MessagesToggleNoForwardsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.toggleNoForwards#b11eafa2: %w", err)
+		return fmt.Errorf("unable to decode messages.toggleNoForwards#b2081a35: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -161,21 +197,33 @@ func (t *MessagesToggleNoForwardsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesToggleNoForwardsRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleNoForwards#b11eafa2 to nil")
+		return fmt.Errorf("can't decode messages.toggleNoForwards#b2081a35 to nil")
+	}
+	{
+		if err := t.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.toggleNoForwards#b2081a35: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleNoForwards#b11eafa2: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.toggleNoForwards#b2081a35: field peer: %w", err)
 		}
 		t.Peer = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleNoForwards#b11eafa2: field enabled: %w", err)
+			return fmt.Errorf("unable to decode messages.toggleNoForwards#b2081a35: field enabled: %w", err)
 		}
 		t.Enabled = value
+	}
+	if t.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.toggleNoForwards#b2081a35: field request_msg_id: %w", err)
+		}
+		t.RequestMsgID = value
 	}
 	return nil
 }
@@ -196,7 +244,25 @@ func (t *MessagesToggleNoForwardsRequest) GetEnabled() (value bool) {
 	return t.Enabled
 }
 
-// MessagesToggleNoForwards invokes method messages.toggleNoForwards#b11eafa2 returning error if any.
+// SetRequestMsgID sets value of RequestMsgID conditional field.
+func (t *MessagesToggleNoForwardsRequest) SetRequestMsgID(value int) {
+	t.Flags.Set(0)
+	t.RequestMsgID = value
+}
+
+// GetRequestMsgID returns value of RequestMsgID conditional field and
+// boolean which is true if field was set.
+func (t *MessagesToggleNoForwardsRequest) GetRequestMsgID() (value int, ok bool) {
+	if t == nil {
+		return
+	}
+	if !t.Flags.Has(0) {
+		return value, false
+	}
+	return t.RequestMsgID, true
+}
+
+// MessagesToggleNoForwards invokes method messages.toggleNoForwards#b2081a35 returning error if any.
 // Enable or disable content protection¹ on a channel or chat
 //
 // Links:

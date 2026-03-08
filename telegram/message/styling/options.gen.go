@@ -211,3 +211,13 @@ func Blockquote(s string, collapsed bool) StyledTextOption {
 		return nil
 	})
 }
+
+// FormattedDate formats text as FormattedDate entity.
+//
+// See https://core.telegram.org/constructor/messageEntityFormattedDate.
+func FormattedDate(s string, relative bool, shortTime bool, longTime bool, shortDate bool, longDate bool, dayOfWeek bool, date int) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.FormattedDate(s, relative, shortTime, longTime, shortDate, longDate, dayOfWeek, date)
+		return nil
+	})
+}

@@ -144,6 +144,8 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend
 	SubExtend bool
+	// EditRank field of ChannelAdminLogEventsFilter.
+	EditRank bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -221,6 +223,9 @@ func (c *ChannelAdminLogEventsFilter) Zero() bool {
 	if !(c.SubExtend == false) {
 		return false
 	}
+	if !(c.EditRank == false) {
+		return false
+	}
 
 	return true
 }
@@ -255,6 +260,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	GetSend() (value bool)
 	GetForums() (value bool)
 	GetSubExtend() (value bool)
+	GetEditRank() (value bool)
 }) {
 	c.Join = from.GetJoin()
 	c.Leave = from.GetLeave()
@@ -275,6 +281,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	c.Send = from.GetSend()
 	c.Forums = from.GetForums()
 	c.SubExtend = from.GetSubExtend()
+	c.EditRank = from.GetEditRank()
 }
 
 // TypeID returns type id in TL schema.
@@ -395,6 +402,11 @@ func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
 			SchemaName: "sub_extend",
 			Null:       !c.Flags.Has(18),
 		},
+		{
+			Name:       "EditRank",
+			SchemaName: "edit_rank",
+			Null:       !c.Flags.Has(19),
+		},
 	}
 	return typ
 }
@@ -457,6 +469,9 @@ func (c *ChannelAdminLogEventsFilter) SetFlags() {
 	}
 	if !(c.SubExtend == false) {
 		c.Flags.Set(18)
+	}
+	if !(c.EditRank == false) {
+		c.Flags.Set(19)
 	}
 }
 
@@ -521,6 +536,7 @@ func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
 	c.Send = c.Flags.Has(16)
 	c.Forums = c.Flags.Has(17)
 	c.SubExtend = c.Flags.Has(18)
+	c.EditRank = c.Flags.Has(19)
 	return nil
 }
 
@@ -883,4 +899,23 @@ func (c *ChannelAdminLogEventsFilter) GetSubExtend() (value bool) {
 		return
 	}
 	return c.Flags.Has(18)
+}
+
+// SetEditRank sets value of EditRank conditional field.
+func (c *ChannelAdminLogEventsFilter) SetEditRank(value bool) {
+	if value {
+		c.Flags.Set(19)
+		c.EditRank = true
+	} else {
+		c.Flags.Unset(19)
+		c.EditRank = false
+	}
+}
+
+// GetEditRank returns value of EditRank conditional field.
+func (c *ChannelAdminLogEventsFilter) GetEditRank() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(19)
 }

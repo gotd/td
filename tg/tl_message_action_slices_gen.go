@@ -831,6 +831,32 @@ func (s MessageActionClassArray) AsMessageActionChangeCreator() (to MessageActio
 	return to
 }
 
+// AsMessageActionNoForwardsToggle returns copy with only MessageActionNoForwardsToggle constructors.
+func (s MessageActionClassArray) AsMessageActionNoForwardsToggle() (to MessageActionNoForwardsToggleArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionNoForwardsToggle)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionNoForwardsRequest returns copy with only MessageActionNoForwardsRequest constructors.
+func (s MessageActionClassArray) AsMessageActionNoForwardsRequest() (to MessageActionNoForwardsRequestArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionNoForwardsRequest)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -5329,6 +5355,170 @@ func (s *MessageActionChangeCreatorArray) PopFirst() (v MessageActionChangeCreat
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionChangeCreatorArray) Pop() (v MessageActionChangeCreator, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionNoForwardsToggleArray is adapter for slice of MessageActionNoForwardsToggle.
+type MessageActionNoForwardsToggleArray []MessageActionNoForwardsToggle
+
+// Sort sorts slice of MessageActionNoForwardsToggle.
+func (s MessageActionNoForwardsToggleArray) Sort(less func(a, b MessageActionNoForwardsToggle) bool) MessageActionNoForwardsToggleArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionNoForwardsToggle.
+func (s MessageActionNoForwardsToggleArray) SortStable(less func(a, b MessageActionNoForwardsToggle) bool) MessageActionNoForwardsToggleArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionNoForwardsToggle.
+func (s MessageActionNoForwardsToggleArray) Retain(keep func(x MessageActionNoForwardsToggle) bool) MessageActionNoForwardsToggleArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionNoForwardsToggleArray) First() (v MessageActionNoForwardsToggle, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionNoForwardsToggleArray) Last() (v MessageActionNoForwardsToggle, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionNoForwardsToggleArray) PopFirst() (v MessageActionNoForwardsToggle, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionNoForwardsToggle
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionNoForwardsToggleArray) Pop() (v MessageActionNoForwardsToggle, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionNoForwardsRequestArray is adapter for slice of MessageActionNoForwardsRequest.
+type MessageActionNoForwardsRequestArray []MessageActionNoForwardsRequest
+
+// Sort sorts slice of MessageActionNoForwardsRequest.
+func (s MessageActionNoForwardsRequestArray) Sort(less func(a, b MessageActionNoForwardsRequest) bool) MessageActionNoForwardsRequestArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionNoForwardsRequest.
+func (s MessageActionNoForwardsRequestArray) SortStable(less func(a, b MessageActionNoForwardsRequest) bool) MessageActionNoForwardsRequestArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionNoForwardsRequest.
+func (s MessageActionNoForwardsRequestArray) Retain(keep func(x MessageActionNoForwardsRequest) bool) MessageActionNoForwardsRequestArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionNoForwardsRequestArray) First() (v MessageActionNoForwardsRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionNoForwardsRequestArray) Last() (v MessageActionNoForwardsRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionNoForwardsRequestArray) PopFirst() (v MessageActionNoForwardsRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionNoForwardsRequest
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionNoForwardsRequestArray) Pop() (v MessageActionNoForwardsRequest, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
