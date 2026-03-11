@@ -55,23 +55,20 @@ type MessagesSendPaidReactionRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stars
 	Count int
-	// Unique client message ID required to prevent message resending
+	// Unique client message ID required to prevent message resending. Note: this argument
+	// must be composed of a 64-bit integer where the lower 32 bits are random, and the
+	// higher 32 bits are equal to the current unixtime, i.e. uint64_t random_id = (time() <<
+	// 32) | ((uint64_t)random_uint32_t()): this differs from the random_id format of all
+	// other methods in the API, which just take 64 random bits.
 	RandomID int64
 	// Each post with star reactions has a leaderboard with the top senders, but users can
-	// opt out of appearing there if they prefer more privacy.  If the user explicitly chose
-	// to make their paid reaction(s) private, pass boolTrue¹ to messages.sendPaidReaction²
-	// private.  If the user explicitly chose to make their paid reaction(s) not private,
-	// pass boolFalse³ to messages.sendPaidReaction⁴.private.  If the user did not make
-	// any explicit choice about the privacy of their paid reaction(s) (i.e. when reacting by
-	// clicking on an existing star reaction on a message), do not populate the messages
-	// sendPaidReaction⁵.private flag.
+	// opt out of appearing there if they prefer more privacy. Not populating this field will
+	// use the default reaction privacy, stored on the server and synced to clients using
+	// updatePaidReactionPrivacy¹ (see here² for more info).
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/boolTrue
-	//  2) https://core.telegram.org/method/messages.sendPaidReaction
-	//  3) https://core.telegram.org/constructor/boolTrue
-	//  4) https://core.telegram.org/method/messages.sendPaidReaction
-	//  5) https://core.telegram.org/method/messages.sendPaidReaction
+	//  1) https://core.telegram.org/constructor/updatePaidReactionPrivacy
+	//  2) https://core.telegram.org/api/reactions#paid-reaction-privacy
 	//
 	// Use SetPrivate and GetPrivate helpers.
 	Private PaidReactionPrivacyClass
@@ -353,7 +350,15 @@ func (s *MessagesSendPaidReactionRequest) GetPrivate() (value PaidReactionPrivac
 //
 // Possible errors:
 //
+//	400 BALANCE_TOO_LOW: The transaction cannot be completed because the current Telegram Stars balance is too low.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 RANDOM_ID_EMPTY: Random ID empty.
+//	400 RANDOM_ID_EXPIRED: The specified random_id was expired (most likely it didn't follow the required uint64_t random_id = (time() << 32) | ((uint64_t)random_uint32_t()) format, or the specified time is too far in the past).
+//	400 REACTIONS_COUNT_INVALID: The specified number of reactions is invalid.
+//	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //
 // See https://core.telegram.org/method/messages.sendPaidReaction for reference.
 func (c *Client) MessagesSendPaidReaction(ctx context.Context, request *MessagesSendPaidReactionRequest) (UpdatesClass, error) {

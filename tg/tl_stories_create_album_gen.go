@@ -32,14 +32,18 @@ var (
 )
 
 // StoriesCreateAlbumRequest represents TL type `stories.createAlbum#a36396e5`.
+// Creates a story album¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/method/stories.createAlbum for reference.
 type StoriesCreateAlbumRequest struct {
-	// Peer field of StoriesCreateAlbumRequest.
+	// The owned peer where to create the album.
 	Peer InputPeerClass
-	// Title field of StoriesCreateAlbumRequest.
+	// Album name.
 	Title string
-	// Stories field of StoriesCreateAlbumRequest.
+	// Stories to add to the album.
 	Stories []int
 }
 
@@ -233,6 +237,14 @@ func (c *StoriesCreateAlbumRequest) GetStories() (value []int) {
 }
 
 // StoriesCreateAlbum invokes method stories.createAlbum#a36396e5 returning error if any.
+// Creates a story album¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.createAlbum for reference.
 func (c *Client) StoriesCreateAlbum(ctx context.Context, request *StoriesCreateAlbumRequest) (*StoryAlbum, error) {

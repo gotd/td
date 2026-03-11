@@ -262,7 +262,6 @@ func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
 //	400 API_ID_PUBLISHED_FLOOD: This API id was published somewhere, you can't use it now.
 //
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
-// Can be used by bots.
 func (c *Client) AuthImportBotAuthorization(ctx context.Context, request *AuthImportBotAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 

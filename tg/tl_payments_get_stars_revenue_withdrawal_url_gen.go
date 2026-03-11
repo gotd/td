@@ -35,7 +35,7 @@ var (
 // Withdraw funds from a channel or bot's star balance »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#withdrawing-stars
+//  1. https://core.telegram.org/api/stars#withdrawing-revenue
 //
 // See https://core.telegram.org/method/payments.getStarsRevenueWithdrawalUrl for reference.
 type PaymentsGetStarsRevenueWithdrawalURLRequest struct {
@@ -44,11 +44,11 @@ type PaymentsGetStarsRevenueWithdrawalURLRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Ton field of PaymentsGetStarsRevenueWithdrawalURLRequest.
+	// If set, withdraws channel/ad revenue in TON.
 	Ton bool
 	// Channel or bot from which to withdraw funds.
 	Peer InputPeerClass
-	// Amount field of PaymentsGetStarsRevenueWithdrawalURLRequest.
+	// The amount of stars or nanotons to withdraw.
 	//
 	// Use SetAmount and GetAmount helpers.
 	Amount int64
@@ -317,7 +317,7 @@ func (g *PaymentsGetStarsRevenueWithdrawalURLRequest) GetPasswordAsNotEmpty() (*
 // Withdraw funds from a channel or bot's star balance »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/stars#withdrawing-stars
+//  1. https://core.telegram.org/api/stars#withdrawing-revenue
 //
 // Possible errors:
 //

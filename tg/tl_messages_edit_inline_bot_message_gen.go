@@ -500,7 +500,6 @@ func (e *MessagesEditInlineBotMessageRequest) MapEntities() (value MessageEntity
 //	400 MESSAGE_NOT_MODIFIED: The provided message data is identical to the previous message data, the message wasn't modified.
 //
 // See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
-// Can be used by bots.
 func (c *Client) MessagesEditInlineBotMessage(ctx context.Context, request *MessagesEditInlineBotMessageRequest) (bool, error) {
 	var result BoolBox
 

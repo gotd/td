@@ -32,10 +32,15 @@ var (
 )
 
 // InputSavedStarGiftUser represents TL type `inputSavedStarGiftUser#69279795`.
+// A gift received in a private chat with another user.
 //
 // See https://core.telegram.org/constructor/inputSavedStarGiftUser for reference.
 type InputSavedStarGiftUser struct {
-	// MsgID field of InputSavedStarGiftUser.
+	// ID of the messageService¹ with the messageActionStarGift² with the gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageService
+	//  2) https://core.telegram.org/constructor/messageActionStarGift
 	MsgID int
 }
 
@@ -166,12 +171,18 @@ func (i *InputSavedStarGiftUser) GetMsgID() (value int) {
 }
 
 // InputSavedStarGiftChat represents TL type `inputSavedStarGiftChat#f101aa7f`.
+// A gift received by a channel we own.
 //
 // See https://core.telegram.org/constructor/inputSavedStarGiftChat for reference.
 type InputSavedStarGiftChat struct {
-	// Peer field of InputSavedStarGiftChat.
+	// The channel.
 	Peer InputPeerClass
-	// SavedID field of InputSavedStarGiftChat.
+	// ID of the gift, must be the saved_id of a
+	// messageActionStarGift¹/messageActionStarGiftUnique² constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageActionStarGift
+	//  2) https://core.telegram.org/constructor/messageActionStarGiftUnique
 	SavedID int64
 }
 
@@ -332,10 +343,14 @@ func (i *InputSavedStarGiftChat) GetSavedID() (value int64) {
 }
 
 // InputSavedStarGiftSlug represents TL type `inputSavedStarGiftSlug#2085c238`.
+// Points to a collectible gift obtained from a collectible gift link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#collectible-gift-link
 //
 // See https://core.telegram.org/constructor/inputSavedStarGiftSlug for reference.
 type InputSavedStarGiftSlug struct {
-	// Slug field of InputSavedStarGiftSlug.
+	// Slug from the link.
 	Slug string
 }
 

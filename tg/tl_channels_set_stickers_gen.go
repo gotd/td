@@ -214,7 +214,6 @@ func (s *ChannelsSetStickersRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 //	406 STICKERSET_OWNER_ANONYMOUS: Provided stickerset can't be installed as group stickerset to prevent admin deanonymization.
 //
 // See https://core.telegram.org/method/channels.setStickers for reference.
-// Can be used by bots.
 func (c *Client) ChannelsSetStickers(ctx context.Context, request *ChannelsSetStickersRequest) (bool, error) {
 	var result BoolBox
 

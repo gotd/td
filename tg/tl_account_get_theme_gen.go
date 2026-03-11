@@ -200,6 +200,7 @@ func (g *AccountGetThemeRequest) GetTheme() (value InputThemeClass) {
 //
 //	400 THEME_FORMAT_INVALID: Invalid theme format provided.
 //	400 THEME_INVALID: Invalid theme provided.
+//	400 THEME_SLUG_INVALID: The specified theme slug is invalid.
 //
 // See https://core.telegram.org/method/account.getTheme for reference.
 func (c *Client) AccountGetTheme(ctx context.Context, request *AccountGetThemeRequest) (*Theme, error) {

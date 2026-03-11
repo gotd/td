@@ -1278,6 +1278,10 @@ func (i *InputPrivacyKeyStarGiftsAutoSave) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyNoPaidMessages represents TL type `inputPrivacyKeyNoPaidMessages#bdc597b4`.
+// Who can send you messages without paying, if paid messages »¹ are enabled.
+//
+// Links:
+//  1. https://core.telegram.org/api/paid-messages
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyNoPaidMessages for reference.
 type InputPrivacyKeyNoPaidMessages struct {

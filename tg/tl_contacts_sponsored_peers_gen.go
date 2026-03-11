@@ -32,6 +32,7 @@ var (
 )
 
 // ContactsSponsoredPeersEmpty represents TL type `contacts.sponsoredPeersEmpty#ea32b4b1`.
+// There are no sponsored peers for this query.
 //
 // See https://core.telegram.org/constructor/contacts.sponsoredPeersEmpty for reference.
 type ContactsSponsoredPeersEmpty struct {
@@ -133,14 +134,15 @@ func (s *ContactsSponsoredPeersEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // ContactsSponsoredPeers represents TL type `contacts.sponsoredPeers#eb032884`.
+// Sponsored peers.
 //
 // See https://core.telegram.org/constructor/contacts.sponsoredPeers for reference.
 type ContactsSponsoredPeers struct {
-	// Peers field of ContactsSponsoredPeers.
+	// Sponsored peers.
 	Peers []SponsoredPeer
-	// Chats field of ContactsSponsoredPeers.
+	// Info about sponsored chats and channels
 	Chats []ChatClass
-	// Users field of ContactsSponsoredPeers.
+	// Info about sponsored users
 	Users []UserClass
 }
 

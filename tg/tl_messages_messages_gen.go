@@ -363,11 +363,16 @@ type MessagesMessagesSlice struct {
 	// Indicates the absolute position of messages[0] within the total result set with count
 	// count. This is useful, for example, if the result was fetched using offset_id, and we
 	// need to display a progress/total counter (like photo 134 of 200, for all media in a
-	// chat, we could simply use photo ${offset_id_offset} of ${count}.
+	// chat, we could simply use photo ${offset_id_offset} of ${count}).
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
 	OffsetIDOffset int
-	// SearchFlood field of MessagesMessagesSlice.
+	// For global post searches »¹, the remaining amount of free searches, here
+	// query_is_free is related to the current call only, not to the next paginated call, and
+	// all subsequent pagination calls will always be free.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/search#posts-tab
 	//
 	// Use SetSearchFlood and GetSearchFlood helpers.
 	SearchFlood SearchPostsFlood

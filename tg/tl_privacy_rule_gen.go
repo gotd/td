@@ -740,7 +740,13 @@ func (p *PrivacyValueDisallowUsers) GetUsers() (value []int64) {
 //
 // See https://core.telegram.org/constructor/privacyValueAllowChatParticipants for reference.
 type PrivacyValueAllowChatParticipants struct {
-	// Allowed chats
+	// Allowed chat IDs (either a chat¹ or a supergroup² ID, verbatim the way it is
+	// received in the constructor (i.e. unlike with bot API IDs, here group and supergroup
+	// IDs should be treated in the same way)).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/chat
+	//  2) https://core.telegram.org/constructor/channel
 	Chats []int64
 }
 
@@ -888,7 +894,13 @@ func (p *PrivacyValueAllowChatParticipants) GetChats() (value []int64) {
 //
 // See https://core.telegram.org/constructor/privacyValueDisallowChatParticipants for reference.
 type PrivacyValueDisallowChatParticipants struct {
-	// Disallowed chats
+	// Disallowed chats IDs (either a chat¹ or a supergroup² ID, verbatim the way it is
+	// received in the constructor (i.e. unlike with bot API IDs, here group and supergroup
+	// IDs should be treated in the same way)).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/chat
+	//  2) https://core.telegram.org/constructor/channel
 	Chats []int64
 }
 

@@ -32,6 +32,10 @@ var (
 )
 
 // ProfileTabPosts represents TL type `profileTabPosts#b98cd696`.
+// Represents the stories¹ tab of a profile page.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/profileTabPosts for reference.
 type ProfileTabPosts struct {
@@ -133,6 +137,10 @@ func (p *ProfileTabPosts) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabGifts represents TL type `profileTabGifts#4d4bd46a`.
+// Represents the gifts¹ tab of a profile page.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/constructor/profileTabGifts for reference.
 type ProfileTabGifts struct {
@@ -234,6 +242,7 @@ func (p *ProfileTabGifts) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabMedia represents TL type `profileTabMedia#72c64955`.
+// Represents the media tab of a profile page.
 //
 // See https://core.telegram.org/constructor/profileTabMedia for reference.
 type ProfileTabMedia struct {
@@ -335,6 +344,7 @@ func (p *ProfileTabMedia) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabFiles represents TL type `profileTabFiles#ab339c00`.
+// Represents the shared files tab of a profile.
 //
 // See https://core.telegram.org/constructor/profileTabFiles for reference.
 type ProfileTabFiles struct {
@@ -436,6 +446,10 @@ func (p *ProfileTabFiles) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabMusic represents TL type `profileTabMusic#9f27d26e`.
+// Represents the music¹ tab of a profile page.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/constructor/profileTabMusic for reference.
 type ProfileTabMusic struct {
@@ -537,6 +551,7 @@ func (p *ProfileTabMusic) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabVoice represents TL type `profileTabVoice#e477092e`.
+// Represents the voice messages tab of a profile page.
 //
 // See https://core.telegram.org/constructor/profileTabVoice for reference.
 type ProfileTabVoice struct {
@@ -638,6 +653,7 @@ func (p *ProfileTabVoice) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabLinks represents TL type `profileTabLinks#d3656499`.
+// Represents the shared links tab of a profile page.
 //
 // See https://core.telegram.org/constructor/profileTabLinks for reference.
 type ProfileTabLinks struct {
@@ -739,6 +755,7 @@ func (p *ProfileTabLinks) DecodeBare(b *bin.Buffer) error {
 }
 
 // ProfileTabGifs represents TL type `profileTabGifs#a2c0f695`.
+// Represents the gifs tab of a profile page.
 //
 // See https://core.telegram.org/constructor/profileTabGifs for reference.
 type ProfileTabGifs struct {

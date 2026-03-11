@@ -32,14 +32,18 @@ var (
 )
 
 // BotVerification represents TL type `botVerification#f93cd45c`.
+// Describes a bot verification icon »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/verification
 //
 // See https://core.telegram.org/constructor/botVerification for reference.
 type BotVerification struct {
-	// BotID field of BotVerification.
+	// ID of the bot that verified this peer
 	BotID int64
-	// Icon field of BotVerification.
+	// Verification icon
 	Icon int64
-	// Description field of BotVerification.
+	// Verification description
 	Description string
 }
 

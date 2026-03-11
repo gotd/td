@@ -457,7 +457,6 @@ func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok boo
 //	400 USAGE_LIMIT_INVALID: The specified usage limit is invalid.
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
-// Can be used by bots.
 func (c *Client) MessagesEditExportedChatInvite(ctx context.Context, request *MessagesEditExportedChatInviteRequest) (MessagesExportedChatInviteClass, error) {
 	var result MessagesExportedChatInviteBox
 

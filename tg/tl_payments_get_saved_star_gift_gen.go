@@ -32,10 +32,16 @@ var (
 )
 
 // PaymentsGetSavedStarGiftRequest represents TL type `payments.getSavedStarGift#b455a106`.
+// Fetch info about specific gifts¹ owned by a peer we control.
+// Note that unlike what the name suggests, the method can be used to fetch both "saved"
+// and "unsaved" gifts (aka gifts both pinned and not pinned to the profile).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.getSavedStarGift for reference.
 type PaymentsGetSavedStarGiftRequest struct {
-	// Stargift field of PaymentsGetSavedStarGiftRequest.
+	// List of gifts to fetch info about.
 	Stargift []InputSavedStarGiftClass
 }
 
@@ -184,9 +190,19 @@ func (g *PaymentsGetSavedStarGiftRequest) MapStargift() (value InputSavedStarGif
 }
 
 // PaymentsGetSavedStarGift invokes method payments.getSavedStarGift#b455a106 returning error if any.
+// Fetch info about specific gifts¹ owned by a peer we control.
+// Note that unlike what the name suggests, the method can be used to fetch both "saved"
+// and "unsaved" gifts (aka gifts both pinned and not pinned to the profile).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//
+// Possible errors:
+//
+//	400 SAVED_ID_EMPTY: The passed inputSavedStarGiftChat.saved_id is empty.
+//	400 STARGIFT_SLUG_INVALID: The specified gift slug is invalid.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGift for reference.
-// Can be used by bots.
 func (c *Client) PaymentsGetSavedStarGift(ctx context.Context, stargift []InputSavedStarGiftClass) (*PaymentsSavedStarGifts, error) {
 	var result PaymentsSavedStarGifts
 

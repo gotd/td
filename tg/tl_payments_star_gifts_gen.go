@@ -151,9 +151,9 @@ type PaymentsStarGifts struct {
 	Hash int
 	// List of available gifts.
 	Gifts []StarGiftClass
-	// Chats field of PaymentsStarGifts.
+	// Chats mentioned in the gifts field.
 	Chats []ChatClass
-	// Users field of PaymentsStarGifts.
+	// Users mentioned in the gifts field.
 	Users []UserClass
 }
 

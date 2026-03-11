@@ -179,7 +179,6 @@ func (g *MessagesGetFullChatRequest) GetChatID() (value int64) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getFullChat for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetFullChat(ctx context.Context, chatid int64) (*MessagesChatFull, error) {
 	var result MessagesChatFull
 

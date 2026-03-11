@@ -32,6 +32,7 @@ var (
 )
 
 // AccountChatThemesNotModified represents TL type `account.chatThemesNotModified#e011e1c4`.
+// The available chat themes were not modified
 //
 // See https://core.telegram.org/constructor/account.chatThemesNotModified for reference.
 type AccountChatThemesNotModified struct {
@@ -133,20 +134,28 @@ func (c *AccountChatThemesNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountChatThemes represents TL type `account.chatThemes#be098173`.
+// Available chat themes¹
+//
+// Links:
+//  1. https://core.telegram.org/api/themes#chat-themes
 //
 // See https://core.telegram.org/constructor/account.chatThemes for reference.
 type AccountChatThemes struct {
-	// Flags field of AccountChatThemes.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Hash field of AccountChatThemes.
+	// Hash to pass to the method that returned this constructor, to avoid refetching the
+	// result if it hasn't changed.
 	Hash int64
-	// Themes field of AccountChatThemes.
+	// Themes.
 	Themes []ChatThemeClass
-	// Chats field of AccountChatThemes.
+	// Chats mentioned in the themes field.
 	Chats []ChatClass
-	// Users field of AccountChatThemes.
+	// Users mentioned in the themes field.
 	Users []UserClass
-	// NextOffset field of AccountChatThemes.
+	// Next offset for pagination.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

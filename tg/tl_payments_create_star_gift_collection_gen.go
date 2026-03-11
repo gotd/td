@@ -32,14 +32,18 @@ var (
 )
 
 // PaymentsCreateStarGiftCollectionRequest represents TL type `payments.createStarGiftCollection#1f4a0e87`.
+// Create a star gift collection »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
 //
 // See https://core.telegram.org/method/payments.createStarGiftCollection for reference.
 type PaymentsCreateStarGiftCollectionRequest struct {
-	// Peer field of PaymentsCreateStarGiftCollectionRequest.
+	// Peer where to create the collection.
 	Peer InputPeerClass
-	// Title field of PaymentsCreateStarGiftCollectionRequest.
+	// Title of the collection.
 	Title string
-	// Stargift field of PaymentsCreateStarGiftCollectionRequest.
+	// Gifts added to the collection.
 	Stargift []InputSavedStarGiftClass
 }
 
@@ -243,6 +247,14 @@ func (c *PaymentsCreateStarGiftCollectionRequest) MapStargift() (value InputSave
 }
 
 // PaymentsCreateStarGiftCollection invokes method payments.createStarGiftCollection#1f4a0e87 returning error if any.
+// Create a star gift collection »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.createStarGiftCollection for reference.
 func (c *Client) PaymentsCreateStarGiftCollection(ctx context.Context, request *PaymentsCreateStarGiftCollectionRequest) (*StarGiftCollection, error) {

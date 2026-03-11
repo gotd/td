@@ -218,9 +218,9 @@ func (u *BotsUpdateUserEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 //
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
+//	403 USER_PERMISSION_DENIED: The user hasn't granted or has revoked the bot's access to change their emoji status using bots.toggleUserEmojiStatusPermission.
 //
 // See https://core.telegram.org/method/bots.updateUserEmojiStatus for reference.
-// Can be used by bots.
 func (c *Client) BotsUpdateUserEmojiStatus(ctx context.Context, request *BotsUpdateUserEmojiStatusRequest) (bool, error) {
 	var result BoolBox
 

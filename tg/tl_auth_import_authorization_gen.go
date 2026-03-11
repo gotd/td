@@ -197,7 +197,6 @@ func (i *AuthImportAuthorizationRequest) GetBytes() (value []byte) {
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
-// Can be used by bots.
 func (c *Client) AuthImportAuthorization(ctx context.Context, request *AuthImportAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 

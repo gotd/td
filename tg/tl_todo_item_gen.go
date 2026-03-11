@@ -32,12 +32,19 @@ var (
 )
 
 // TodoItem represents TL type `todoItem#cba9a52f`.
+// An item of a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/todoItem for reference.
 type TodoItem struct {
-	// ID field of TodoItem.
+	// ID of the item, a positive (non-zero) integer unique within the current list.
 	ID int
-	// Title field of TodoItem.
+	// Text of the item, maximum length equal to todo_item_length_max »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#todo-item-length-max
 	Title TextWithEntities
 }
 

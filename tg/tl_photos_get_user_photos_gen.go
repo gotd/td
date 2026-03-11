@@ -46,7 +46,7 @@ type PhotosGetUserPhotosRequest struct {
 	// in max_id can be fetched.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/file_reference
+	//  1) https://core.telegram.org/api/file-references
 	//  2) https://core.telegram.org/constructor/photo
 	MaxID int64
 	// Number of list elements to be returned
@@ -264,7 +264,6 @@ func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
-// Can be used by bots.
 func (c *Client) PhotosGetUserPhotos(ctx context.Context, request *PhotosGetUserPhotosRequest) (PhotosPhotosClass, error) {
 	var result PhotosPhotosBox
 

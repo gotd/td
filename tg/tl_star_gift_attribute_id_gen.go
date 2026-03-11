@@ -32,10 +32,17 @@ var (
 )
 
 // StarGiftAttributeIDModel represents TL type `starGiftAttributeIdModel#48aaae3c`.
+// The ID of a model of a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributeIdModel for reference.
 type StarGiftAttributeIDModel struct {
-	// DocumentID field of StarGiftAttributeIDModel.
+	// The sticker¹ representing the upgraded gift
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	DocumentID int64
 }
 
@@ -166,10 +173,17 @@ func (s *StarGiftAttributeIDModel) GetDocumentID() (value int64) {
 }
 
 // StarGiftAttributeIDPattern represents TL type `starGiftAttributeIdPattern#4a162433`.
+// The ID of a pattern of a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributeIdPattern for reference.
 type StarGiftAttributeIDPattern struct {
-	// DocumentID field of StarGiftAttributeIDPattern.
+	// The sticker¹ representing the symbol
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	DocumentID int64
 }
 
@@ -300,10 +314,14 @@ func (s *StarGiftAttributeIDPattern) GetDocumentID() (value int64) {
 }
 
 // StarGiftAttributeIDBackdrop represents TL type `starGiftAttributeIdBackdrop#1f01c757`.
+// The ID of a backdrop of a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftAttributeIdBackdrop for reference.
 type StarGiftAttributeIDBackdrop struct {
-	// BackdropID field of StarGiftAttributeIDBackdrop.
+	// Unique ID of the backdrop.
 	BackdropID int
 }
 

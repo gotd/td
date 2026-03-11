@@ -183,7 +183,7 @@ type Document struct {
 	// File reference¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/file_reference
+	//  1) https://core.telegram.org/api/file-references
 	FileReference []byte
 	// Creation date
 	Date int

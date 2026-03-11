@@ -169,7 +169,6 @@ func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
 //	400 DC_ID_INVALID: The provided DC ID is invalid.
 //
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
-// Can be used by bots.
 func (c *Client) AuthExportAuthorization(ctx context.Context, dcid int) (*AuthExportedAuthorization, error) {
 	var result AuthExportedAuthorization
 

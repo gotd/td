@@ -239,12 +239,12 @@ func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorCl
 //
 // Possible errors:
 //
-//	403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
+//	400 DATA_HASH_SIZE_INVALID: The size of the specified secureValueErrorData.data_hash is invalid.
+//	400 HASH_SIZE_INVALID: The size of the specified secureValueError.hash is invalid.
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
-// Can be used by bots.
 func (c *Client) UsersSetSecureValueErrors(ctx context.Context, request *UsersSetSecureValueErrorsRequest) (bool, error) {
 	var result BoolBox
 

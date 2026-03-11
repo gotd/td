@@ -32,10 +32,11 @@ var (
 )
 
 // ChatTheme represents TL type `chatTheme#c3dffc04`.
+// A chat theme
 //
 // See https://core.telegram.org/constructor/chatTheme for reference.
 type ChatTheme struct {
-	// Emoticon field of ChatTheme.
+	// The emoji identifying the chat theme.
 	Emoticon string
 }
 
@@ -166,12 +167,20 @@ func (c *ChatTheme) GetEmoticon() (value string) {
 }
 
 // ChatThemeUniqueGift represents TL type `chatThemeUniqueGift#3458f9c8`.
+// A chat theme based on a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/chatThemeUniqueGift for reference.
 type ChatThemeUniqueGift struct {
-	// Gift field of ChatThemeUniqueGift.
+	// The owned collectible gift on which this theme is based, as a starGiftUnique¹
+	// constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	Gift StarGiftClass
-	// ThemeSettings field of ChatThemeUniqueGift.
+	// Theme settings.
 	ThemeSettings []ThemeSettings
 }
 

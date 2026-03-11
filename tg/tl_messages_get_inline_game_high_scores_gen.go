@@ -207,7 +207,6 @@ func (g *MessagesGetInlineGameHighScoresRequest) GetUserID() (value InputUserCla
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetInlineGameHighScores(ctx context.Context, request *MessagesGetInlineGameHighScoresRequest) (*MessagesHighScores, error) {
 	var result MessagesHighScores
 

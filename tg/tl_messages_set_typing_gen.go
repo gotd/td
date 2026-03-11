@@ -283,6 +283,7 @@ func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
 //
 // Possible errors:
 //
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
 //	400 BUSINESS_PEER_USAGE_MISSING: You cannot send a message to a user through a business connection if the user hasn't recently contacted us.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
@@ -293,13 +294,12 @@ func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
 //	403 GROUPCALL_FORBIDDEN: The group call has already ended.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
-//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	406 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
 //
 // See https://core.telegram.org/method/messages.setTyping for reference.
-// Can be used by bots.
 func (c *Client) MessagesSetTyping(ctx context.Context, request *MessagesSetTypingRequest) (bool, error) {
 	var result BoolBox
 

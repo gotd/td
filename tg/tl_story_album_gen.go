@@ -32,20 +32,27 @@ var (
 )
 
 // StoryAlbum represents TL type `storyAlbum#9325705a`.
+// Represents a story album »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/constructor/storyAlbum for reference.
 type StoryAlbum struct {
-	// Flags field of StoryAlbum.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AlbumID field of StoryAlbum.
+	// ID of the album.
 	AlbumID int
-	// Title field of StoryAlbum.
+	// Name of the album.
 	Title string
-	// IconPhoto field of StoryAlbum.
+	// Photo from the first story of the album, if it's a photo.
 	//
 	// Use SetIconPhoto and GetIconPhoto helpers.
 	IconPhoto PhotoClass
-	// IconVideo field of StoryAlbum.
+	// Video from the first story of the album, if it's a video.
 	//
 	// Use SetIconVideo and GetIconVideo helpers.
 	IconVideo DocumentClass

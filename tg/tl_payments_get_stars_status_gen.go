@@ -46,7 +46,7 @@ type PaymentsGetStarsStatusRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Ton field of PaymentsGetStarsStatusRequest.
+	// If set, returns the channel/ad revenue balance in nanotons.
 	Ton bool
 	// Peer of which to get the balance.
 	Peer InputPeerClass
@@ -237,6 +237,8 @@ func (g *PaymentsGetStarsStatusRequest) GetPeer() (value InputPeerClass) {
 //
 // Possible errors:
 //
+//	403 BOT_ACCESS_FORBIDDEN: The specified method can be used over a business connection for some operations, but the specified query attempted an operation that is not allowed over a business connection.
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarsStatus for reference.

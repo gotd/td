@@ -205,6 +205,7 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value Ch
 // Possible errors:
 //
 //	400 BANNED_RIGHTS_INVALID: You provided some invalid flags in the banned rights.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
@@ -214,7 +215,6 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value Ch
 //	400 UNTIL_DATE_INVALID: Invalid until date provided.
 //
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
-// Can be used by bots.
 func (c *Client) MessagesEditChatDefaultBannedRights(ctx context.Context, request *MessagesEditChatDefaultBannedRightsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

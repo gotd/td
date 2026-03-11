@@ -1358,7 +1358,10 @@ func (i *InputStorePaymentPremiumGiveaway) MapAdditionalPeers() (value InputPeer
 //
 // See https://core.telegram.org/constructor/inputStorePaymentStarsTopup for reference.
 type InputStorePaymentStarsTopup struct {
-	// Flags field of InputStorePaymentStarsTopup.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Amount of stars to topup
 	Stars int64
@@ -1375,7 +1378,10 @@ type InputStorePaymentStarsTopup struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	// SpendPurposePeer field of InputStorePaymentStarsTopup.
+	// Should be populated with the peer where the topup process was initiated due to low
+	// funds (i.e. a bot for bot payments, a channel for paid media/reactions, etc); leave
+	// this flag unpopulated if the topup flow was not initated when attempting to spend more
+	// Stars than currently available on the account's balance.
 	//
 	// Use SetSpendPurposePeer and GetSpendPurposePeer helpers.
 	SpendPurposePeer InputPeerClass
@@ -2467,6 +2473,7 @@ func (i *InputStorePaymentStarsGiveaway) MapAdditionalPeers() (value InputPeerCl
 }
 
 // InputStorePaymentAuthCode represents TL type `inputStorePaymentAuthCode#9bb2636d`.
+// Indicates payment for a login code.
 //
 // See https://core.telegram.org/constructor/inputStorePaymentAuthCode for reference.
 type InputStorePaymentAuthCode struct {
@@ -2475,15 +2482,27 @@ type InputStorePaymentAuthCode struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Restore field of InputStorePaymentAuthCode.
+	// Set this flag to restore a previously made purchase.
 	Restore bool
-	// PhoneNumber field of InputStorePaymentAuthCode.
+	// Phone number.
 	PhoneNumber string
-	// PhoneCodeHash field of InputStorePaymentAuthCode.
+	// phone_code_hash returned by auth.sendCode¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
-	// Currency field of InputStorePaymentAuthCode.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of InputStorePaymentAuthCode.
+	// Price of the product in the smallest units of the currency (integer, not float/double)
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

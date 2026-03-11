@@ -32,7 +32,8 @@ var (
 )
 
 // MessagesUploadEncryptedFileRequest represents TL type `messages.uploadEncryptedFile#5057c497`.
-// Upload encrypted file and associate it to a secret chat
+// Upload encrypted file and associate it to a secret chat (without actually sending it
+// to the chat).
 //
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 type MessagesUploadEncryptedFileRequest struct {
@@ -199,7 +200,8 @@ func (u *MessagesUploadEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputE
 }
 
 // MessagesUploadEncryptedFile invokes method messages.uploadEncryptedFile#5057c497 returning error if any.
-// Upload encrypted file and associate it to a secret chat
+// Upload encrypted file and associate it to a secret chat (without actually sending it
+// to the chat).
 //
 // Possible errors:
 //

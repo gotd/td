@@ -35,7 +35,7 @@ var (
 // Contains info about a bot business connection¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/botBusinessConnection for reference.
 type BotBusinessConnection struct {
@@ -50,7 +50,7 @@ type BotBusinessConnection struct {
 	// reply to them as specified here »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	ConnectionID string
 	// ID of the user that the bot is connected to via this connection.
 	UserID int64
@@ -59,11 +59,11 @@ type BotBusinessConnection struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/invokeWithBusinessConnection
-	//  2) https://core.telegram.org/api/business#connected-bots
+	//  2) https://core.telegram.org/api/bots/connected-business-bots
 	DCID int
 	// When was the connection created.
 	Date int
-	// Rights field of BotBusinessConnection.
+	// Business bot rights.
 	//
 	// Use SetRights and GetRights helpers.
 	Rights BusinessBotRights

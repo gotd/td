@@ -32,6 +32,10 @@ var (
 )
 
 // SuggestedPost represents TL type `suggestedPost#e8e37e5`.
+// Contains info about a suggested post »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/suggested-posts
 //
 // See https://core.telegram.org/constructor/suggestedPost for reference.
 type SuggestedPost struct {
@@ -40,15 +44,15 @@ type SuggestedPost struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Accepted field of SuggestedPost.
+	// Whether the suggested post was accepted.
 	Accepted bool
-	// Rejected field of SuggestedPost.
+	// Whether the suggested post was rejected.
 	Rejected bool
-	// Price field of SuggestedPost.
+	// Price of the suggested post.
 	//
 	// Use SetPrice and GetPrice helpers.
 	Price StarsAmountClass
-	// ScheduleDate field of SuggestedPost.
+	// Scheduling date.
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int

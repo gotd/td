@@ -257,7 +257,6 @@ func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/channels.editBanned for reference.
-// Can be used by bots.
 func (c *Client) ChannelsEditBanned(ctx context.Context, request *ChannelsEditBannedRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

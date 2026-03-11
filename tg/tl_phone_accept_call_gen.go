@@ -229,6 +229,7 @@ func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
 //	400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //	406 CALL_PROTOCOL_COMPAT_LAYER_INVALID: The other side of the call does not support any of the VoIP protocols supported by the local client, as specified by the protocol.layer and protocol.library_versions fields.
 //	400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid.
+//	400 CALL_PROTOCOL_LAYER_INVALID: The specified protocol layer version range is invalid.
 //
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 func (c *Client) PhoneAcceptCall(ctx context.Context, request *PhoneAcceptCallRequest) (*PhonePhoneCall, error) {

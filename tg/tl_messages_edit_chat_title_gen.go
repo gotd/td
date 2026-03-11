@@ -200,7 +200,6 @@ func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
-// Can be used by bots.
 func (c *Client) MessagesEditChatTitle(ctx context.Context, request *MessagesEditChatTitleRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

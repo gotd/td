@@ -32,10 +32,11 @@ var (
 )
 
 // PaymentsStarGiftWithdrawalURL represents TL type `payments.starGiftWithdrawalUrl#84aa3a9c`.
+// A URL that can be used to import the exported NFT on Fragment.
 //
 // See https://core.telegram.org/constructor/payments.starGiftWithdrawalUrl for reference.
 type PaymentsStarGiftWithdrawalURL struct {
-	// URL field of PaymentsStarGiftWithdrawalURL.
+	// The URL to open.
 	URL string
 }
 

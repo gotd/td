@@ -204,7 +204,6 @@ func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int64) {
 //	400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
-// Can be used by bots.
 func (c *Client) UploadGetCDNFileHashes(ctx context.Context, request *UploadGetCDNFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
 

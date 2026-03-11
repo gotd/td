@@ -32,16 +32,20 @@ var (
 )
 
 // MessagesToggleTodoCompletedRequest represents TL type `messages.toggleTodoCompleted#d3e03124`.
+// Mark one or more items of a todo list »¹ as completed or not completed.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/method/messages.toggleTodoCompleted for reference.
 type MessagesToggleTodoCompletedRequest struct {
-	// Peer field of MessagesToggleTodoCompletedRequest.
+	// Peer where the todo list was posted.
 	Peer InputPeerClass
-	// MsgID field of MessagesToggleTodoCompletedRequest.
+	// ID of the message with the todo list.
 	MsgID int
-	// Completed field of MessagesToggleTodoCompletedRequest.
+	// Items to mark as completed.
 	Completed []int
-	// Incompleted field of MessagesToggleTodoCompletedRequest.
+	// Items to mark as not completed.
 	Incompleted []int
 }
 
@@ -273,9 +277,16 @@ func (t *MessagesToggleTodoCompletedRequest) GetIncompleted() (value []int) {
 }
 
 // MessagesToggleTodoCompleted invokes method messages.toggleTodoCompleted#d3e03124 returning error if any.
+// Mark one or more items of a todo list »¹ as completed or not completed.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.toggleTodoCompleted for reference.
-// Can be used by bots.
 func (c *Client) MessagesToggleTodoCompleted(ctx context.Context, request *MessagesToggleTodoCompletedRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

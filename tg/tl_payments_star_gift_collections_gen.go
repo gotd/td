@@ -32,6 +32,10 @@ var (
 )
 
 // PaymentsStarGiftCollectionsNotModified represents TL type `payments.starGiftCollectionsNotModified#a0ba4f17`.
+// The list of star gift collections »¹ hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
 //
 // See https://core.telegram.org/constructor/payments.starGiftCollectionsNotModified for reference.
 type PaymentsStarGiftCollectionsNotModified struct {
@@ -135,10 +139,14 @@ func (s *PaymentsStarGiftCollectionsNotModified) DecodeBare(b *bin.Buffer) error
 }
 
 // PaymentsStarGiftCollections represents TL type `payments.starGiftCollections#8a2932f3`.
+// Represents a list of star gift collections »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
 //
 // See https://core.telegram.org/constructor/payments.starGiftCollections for reference.
 type PaymentsStarGiftCollections struct {
-	// Collections field of PaymentsStarGiftCollections.
+	// Star gift collections.
 	Collections []StarGiftCollection
 }
 

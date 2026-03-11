@@ -94,7 +94,12 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
 	QuickReplyShortcut InputQuickReplyShortcutClass
-	// AllowPaidStars field of MessagesSendInlineBotResultRequest.
+	// For paid messages »¹, specifies the amount of Telegram Stars² the user has agreed
+	// to pay in order to send the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
@@ -692,6 +697,7 @@ func (s *MessagesSendInlineBotResultRequest) GetAllowPaidStars() (value int64, o
 //
 // Possible errors:
 //
+//	403 ALLOW_PAYMENT_REQUIRED_%d: This peer charges %d Telegram Stars per message, but the allow_paid_stars was not set or its value is smaller than %d.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
@@ -713,6 +719,7 @@ func (s *MessagesSendInlineBotResultRequest) GetAllowPaidStars() (value int64, o
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	400 QUERY_ID_EMPTY: The query ID is empty.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
@@ -721,6 +728,7 @@ func (s *MessagesSendInlineBotResultRequest) GetAllowPaidStars() (value int64, o
 //	400 RESULT_ID_INVALID: One of the specified result IDs is invalid.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
+//	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	500 SEND_MEDIA_INVALID: The specified media is invalid.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 //	400 TOPIC_DELETED: The specified topic was deleted.

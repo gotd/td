@@ -32,10 +32,12 @@ var (
 )
 
 // MessagesDeleteSavedHistoryRequest represents TL type `messages.deleteSavedHistory#4dc5085f`.
-// Deletes messages forwarded from a specific peer to saved messages »¹.
+// Deletes messages from a monoforum topic »¹, or deletes messages forwarded from a
+// specific peer to saved messages »².
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1. https://core.telegram.org/api/monoforum
+//  2. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.deleteSavedHistory for reference.
 type MessagesDeleteSavedHistoryRequest struct {
@@ -44,11 +46,16 @@ type MessagesDeleteSavedHistoryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ParentPeer field of MessagesDeleteSavedHistoryRequest.
+	// If set, affects the messages of the passed monoforum topic »¹, otherwise affects
+	// saved messages »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
+	//  2) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetParentPeer and GetParentPeer helpers.
 	ParentPeer InputPeerClass
-	// Peer, whose messages will be deleted from saved messages »¹
+	// Peer, whose messages will be deleted from saved messages »¹, or the ID of the topic.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/saved-messages
@@ -370,10 +377,12 @@ func (d *MessagesDeleteSavedHistoryRequest) GetMaxDate() (value int, ok bool) {
 }
 
 // MessagesDeleteSavedHistory invokes method messages.deleteSavedHistory#4dc5085f returning error if any.
-// Deletes messages forwarded from a specific peer to saved messages »¹.
+// Deletes messages from a monoforum topic »¹, or deletes messages forwarded from a
+// specific peer to saved messages »².
 //
 // Links:
-//  1. https://core.telegram.org/api/saved-messages
+//  1. https://core.telegram.org/api/monoforum
+//  2. https://core.telegram.org/api/saved-messages
 //
 // Possible errors:
 //

@@ -146,10 +146,12 @@ func (s *MessagesSavedReactionTagsNotModified) DecodeBare(b *bin.Buffer) error {
 type MessagesSavedReactionTags struct {
 	// Saved reaction tags.
 	Tags []SavedReactionTag
-	// Hash used for caching, for more info click here¹
+	// Hash used for caching, for more info click here¹. Can also be manually regenerated,
+	// if needed, using the custom algorithm specified here »².
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
+	//  2) https://core.telegram.org/api/saved-messages#tags
 	Hash int64
 }
 

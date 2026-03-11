@@ -95,11 +95,19 @@ type SponsoredMessage struct {
 	//
 	// Use SetAdditionalInfo and GetAdditionalInfo helpers.
 	AdditionalInfo string
-	// MinDisplayDuration field of SponsoredMessage.
+	// For sponsored messages to show on channel videos »¹, allow the user to hide the ad
+	// only after the specified amount of seconds.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements
 	//
 	// Use SetMinDisplayDuration and GetMinDisplayDuration helpers.
 	MinDisplayDuration int
-	// MaxDisplayDuration field of SponsoredMessage.
+	// For sponsored messages to show on channel videos »¹, autohide the ad after after the
+	// specified amount of seconds.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements
 	//
 	// Use SetMaxDisplayDuration and GetMaxDisplayDuration helpers.
 	MaxDisplayDuration int

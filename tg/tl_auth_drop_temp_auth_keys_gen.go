@@ -178,7 +178,6 @@ func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
 // Delete all temporary authorization keys except for the ones specified
 //
 // See https://core.telegram.org/method/auth.dropTempAuthKeys for reference.
-// Can be used by bots.
 func (c *Client) AuthDropTempAuthKeys(ctx context.Context, exceptauthkeys []int64) (bool, error) {
 	var result BoolBox
 

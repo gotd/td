@@ -32,12 +32,16 @@ var (
 )
 
 // PaymentsDeleteStarGiftCollectionRequest represents TL type `payments.deleteStarGiftCollection#ad5648e8`.
+// Delete a star gift collection »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
 //
 // See https://core.telegram.org/method/payments.deleteStarGiftCollection for reference.
 type PaymentsDeleteStarGiftCollectionRequest struct {
-	// Peer field of PaymentsDeleteStarGiftCollectionRequest.
+	// Peer that owns the collection.
 	Peer InputPeerClass
-	// CollectionID field of PaymentsDeleteStarGiftCollectionRequest.
+	// ID of the collection.
 	CollectionID int
 }
 
@@ -193,6 +197,14 @@ func (d *PaymentsDeleteStarGiftCollectionRequest) GetCollectionID() (value int) 
 }
 
 // PaymentsDeleteStarGiftCollection invokes method payments.deleteStarGiftCollection#ad5648e8 returning error if any.
+// Delete a star gift collection »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.deleteStarGiftCollection for reference.
 func (c *Client) PaymentsDeleteStarGiftCollection(ctx context.Context, request *PaymentsDeleteStarGiftCollectionRequest) (bool, error) {

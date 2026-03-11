@@ -32,14 +32,18 @@ var (
 )
 
 // TodoCompletion represents TL type `todoCompletion#221bb5e4`.
+// A completed todo list »¹ item.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/todoCompletion for reference.
 type TodoCompletion struct {
-	// ID field of TodoCompletion.
+	// The ID of the completed item.
 	ID int
-	// CompletedBy field of TodoCompletion.
+	// ID of the user that completed the item.
 	CompletedBy PeerClass
-	// Date field of TodoCompletion.
+	// When was the item completed.
 	Date int
 }
 

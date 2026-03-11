@@ -35,7 +35,7 @@ var (
 // Contains info about a connected business bot »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/connectedBot for reference.
 type ConnectedBot struct {
@@ -50,9 +50,9 @@ type ConnectedBot struct {
 	// and interact with.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/business#connected-bots
+	//  1) https://core.telegram.org/api/bots/connected-business-bots
 	Recipients BusinessBotRecipients
-	// Rights field of ConnectedBot.
+	// Business bot rights.
 	Rights BusinessBotRights
 }
 

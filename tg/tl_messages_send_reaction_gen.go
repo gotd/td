@@ -57,7 +57,12 @@ type MessagesSendReactionRequest struct {
 	Peer InputPeerClass
 	// Message ID to react to
 	MsgID int
-	// A list of reactions
+	// A list of reactions (doesn't accept reactionPaid¹ constructors, use messages
+	// sendPaidReaction² to send paid reactions, instead).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/reactionPaid
+	//  2) https://core.telegram.org/method/messages.sendPaidReaction
 	//
 	// Use SetReaction and GetReaction helpers.
 	Reaction []ReactionClass

@@ -522,6 +522,7 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 //	400 PACK_SHORT_NAME_INVALID: Short pack name invalid.
 //	400 PACK_SHORT_NAME_OCCUPIED: A stickerpack with this name already exists.
 //	400 PACK_TITLE_INVALID: The stickerpack title is invalid.
+//	400 PACK_TYPE_INVALID: The masks and emojis flags are mutually exclusive.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 STICKERS_EMPTY: No sticker provided.
 //	400 STICKER_EMOJI_INVALID: Sticker emoji invalid.
@@ -539,7 +540,6 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
-// Can be used by bots.
 func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

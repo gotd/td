@@ -36,7 +36,7 @@ var (
 // connection settings.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 type AccountUpdateConnectedBotRequest struct {
@@ -47,7 +47,7 @@ type AccountUpdateConnectedBotRequest struct {
 	Flags bin.Fields
 	// Whether to fully disconnect the bot from the current account.
 	Deleted bool
-	// Rights field of AccountUpdateConnectedBotRequest.
+	// Business bot rights.
 	//
 	// Use SetRights and GetRights helpers.
 	Rights BusinessBotRights
@@ -306,7 +306,7 @@ func (u *AccountUpdateConnectedBotRequest) GetRecipients() (value InputBusinessB
 // connection settings.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // Possible errors:
 //

@@ -197,7 +197,6 @@ func (g *UsersGetUsersRequest) MapID() (value InputUserClassArray) {
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/users.getUsers for reference.
-// Can be used by bots.
 func (c *Client) UsersGetUsers(ctx context.Context, id []InputUserClass) ([]UserClass, error) {
 	var result UserClassVector
 

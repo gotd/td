@@ -835,9 +835,12 @@ type InputInvoiceStarGift struct {
 	// If set, your name will be hidden if the destination user decides to display the gift
 	// on their profile (they will still see that you sent the gift)
 	HideName bool
-	// IncludeUpgrade field of InputInvoiceStarGift.
+	// Also pay for an eventual upgrade of the gift to a collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	IncludeUpgrade bool
-	// Peer field of InputInvoiceStarGift.
+	// Receiver of the gift.
 	Peer InputPeerClass
 	// Identifier of the gift, from starGift¹.id
 	//
@@ -1137,6 +1140,12 @@ func (i *InputInvoiceStarGift) GetMessage() (value TextWithEntities, ok bool) {
 }
 
 // InputInvoiceStarGiftUpgrade represents TL type `inputInvoiceStarGiftUpgrade#4d818d5d`.
+// Used to pay to upgrade a Gift to a collectible gift¹, see the collectible gifts »²
+// documentation for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftUpgrade for reference.
 type InputInvoiceStarGiftUpgrade struct {
@@ -1145,9 +1154,13 @@ type InputInvoiceStarGiftUpgrade struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// KeepOriginalDetails field of InputInvoiceStarGiftUpgrade.
+	// Set this flag to keep the original gift text, sender and receiver in the upgraded gift
+	// as a starGiftAttributeOriginalDetails¹ attribute.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
 	KeepOriginalDetails bool
-	// Stargift field of InputInvoiceStarGiftUpgrade.
+	// The identifier of the received gift to upgrade.
 	Stargift InputSavedStarGiftClass
 }
 
@@ -1332,12 +1345,18 @@ func (i *InputInvoiceStarGiftUpgrade) GetStargift() (value InputSavedStarGiftCla
 }
 
 // InputInvoiceStarGiftTransfer represents TL type `inputInvoiceStarGiftTransfer#4a5f5bd9`.
+// Used to pay to transfer a collectible gift to another peer¹, see the gifts »²
+// documentation for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#transferring-collectible-gifts
+//  2. https://core.telegram.org/api/gifts#transferring-collectible-gifts
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftTransfer for reference.
 type InputInvoiceStarGiftTransfer struct {
-	// Stargift field of InputInvoiceStarGiftTransfer.
+	// The identifier of the received gift
 	Stargift InputSavedStarGiftClass
-	// ToID field of InputInvoiceStarGiftTransfer.
+	// The destination peer
 	ToID InputPeerClass
 }
 
@@ -1503,6 +1522,12 @@ func (i *InputInvoiceStarGiftTransfer) GetToID() (value InputPeerClass) {
 }
 
 // InputInvoicePremiumGiftStars represents TL type `inputInvoicePremiumGiftStars#dabab2ef`.
+// Used to gift a Telegram Premium¹ subscription to another user, paying with Telegram
+// Stars².
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/api/stars
 //
 // See https://core.telegram.org/constructor/inputInvoicePremiumGiftStars for reference.
 type InputInvoicePremiumGiftStars struct {
@@ -1511,11 +1536,15 @@ type InputInvoicePremiumGiftStars struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// UserID field of InputInvoicePremiumGiftStars.
+	// Who will receive the gifted subscription.
 	UserID InputUserClass
-	// Months field of InputInvoicePremiumGiftStars.
+	// Duration of the subscription in months, must be one of the options with currency ==
+	// "XTR" returned by payments.getPremiumGiftCodeOptions¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getPremiumGiftCodeOptions
 	Months int
-	// Message field of InputInvoicePremiumGiftStars.
+	// Message attached with the gift.
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
@@ -1738,12 +1767,22 @@ func (i *InputInvoicePremiumGiftStars) GetMessage() (value TextWithEntities, ok 
 }
 
 // InputInvoiceBusinessBotTransferStars represents TL type `inputInvoiceBusinessBotTransferStars#f4997e42`.
+// Transfer stars from the balance of a user account connected to a business bot¹, to
+// the balance of the business bot², see here »³ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/connected-business-bots
+//  2. https://core.telegram.org/api/bots/connected-business-bots
+//  3. https://core.telegram.org/api/stars#transferring-stars-from-a-business-account-to-the-business-bot
 //
 // See https://core.telegram.org/constructor/inputInvoiceBusinessBotTransferStars for reference.
 type InputInvoiceBusinessBotTransferStars struct {
-	// Bot field of InputInvoiceBusinessBotTransferStars.
+	// Always inputUserSelf¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputUserSelf
 	Bot InputUserClass
-	// Stars field of InputInvoiceBusinessBotTransferStars.
+	// The number of stars to transfer.
 	Stars int64
 }
 
@@ -1904,16 +1943,25 @@ func (i *InputInvoiceBusinessBotTransferStars) GetStars() (value int64) {
 }
 
 // InputInvoiceStarGiftResale represents TL type `inputInvoiceStarGiftResale#c39f5324`.
+// Used to buy a collectible gift¹ currently up on resale, see here² for more info on
+// the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/api/gifts#reselling-collectible-gifts
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftResale for reference.
 type InputInvoiceStarGiftResale struct {
-	// Flags field of InputInvoiceStarGiftResale.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Ton field of InputInvoiceStarGiftResale.
+	// Buy the gift using TON.
 	Ton bool
-	// Slug field of InputInvoiceStarGiftResale.
+	// Slug of the gift to buy.
 	Slug string
-	// ToID field of InputInvoiceStarGiftResale.
+	// The receiver of the gift.
 	ToID InputPeerClass
 }
 
@@ -2123,12 +2171,21 @@ func (i *InputInvoiceStarGiftResale) GetToID() (value InputPeerClass) {
 }
 
 // InputInvoiceStarGiftPrepaidUpgrade represents TL type `inputInvoiceStarGiftPrepaidUpgrade#9a0b48b8`.
+// Separately prepay for the upgrade of a gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftPrepaidUpgrade for reference.
 type InputInvoiceStarGiftPrepaidUpgrade struct {
-	// Peer field of InputInvoiceStarGiftPrepaidUpgrade.
+	// The peer that owns the gift.
 	Peer InputPeerClass
-	// Hash field of InputInvoiceStarGiftPrepaidUpgrade.
+	// The upgrade hash from messageActionStarGift¹.prepaid_upgrade_hash or savedStarGift²
+	// prepaid_upgrade_hash.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageActionStarGift
+	//  2) https://core.telegram.org/constructor/savedStarGift
 	Hash string
 }
 

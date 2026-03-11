@@ -32,6 +32,10 @@ var (
 )
 
 // StoriesAlbumsNotModified represents TL type `stories.albumsNotModified#564edaeb`.
+// The story album list »¹ hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/constructor/stories.albumsNotModified for reference.
 type StoriesAlbumsNotModified struct {
@@ -133,12 +137,20 @@ func (a *StoriesAlbumsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // StoriesAlbums represents TL type `stories.albums#c3987a3a`.
+// Story albums »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/constructor/stories.albums for reference.
 type StoriesAlbums struct {
-	// Hash field of StoriesAlbums.
+	// Hash to pass to stories.getAlbums¹ to avoid returning any results if they haven't
+	// changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/stories.getAlbums
 	Hash int64
-	// Albums field of StoriesAlbums.
+	// The albums.
 	Albums []StoryAlbum
 }
 

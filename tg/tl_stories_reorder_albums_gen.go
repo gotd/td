@@ -32,12 +32,16 @@ var (
 )
 
 // StoriesReorderAlbumsRequest represents TL type `stories.reorderAlbums#8535fbd9`.
+// Reorder story albums on a profile »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/method/stories.reorderAlbums for reference.
 type StoriesReorderAlbumsRequest struct {
-	// Peer field of StoriesReorderAlbumsRequest.
+	// Peer where the albums are located.
 	Peer InputPeerClass
-	// Order field of StoriesReorderAlbumsRequest.
+	// New order of the albums.
 	Order []int
 }
 
@@ -206,6 +210,14 @@ func (r *StoriesReorderAlbumsRequest) GetOrder() (value []int) {
 }
 
 // StoriesReorderAlbums invokes method stories.reorderAlbums#8535fbd9 returning error if any.
+// Reorder story albums on a profile »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.reorderAlbums for reference.
 func (c *Client) StoriesReorderAlbums(ctx context.Context, request *StoriesReorderAlbumsRequest) (bool, error) {

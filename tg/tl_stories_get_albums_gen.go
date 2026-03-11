@@ -32,12 +32,20 @@ var (
 )
 
 // StoriesGetAlbumsRequest represents TL type `stories.getAlbums#25b3eac7`.
+// Get story albums¹ created by a peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
 //
 // See https://core.telegram.org/method/stories.getAlbums for reference.
 type StoriesGetAlbumsRequest struct {
-	// Peer field of StoriesGetAlbumsRequest.
+	// The peer.
 	Peer InputPeerClass
-	// Hash field of StoriesGetAlbumsRequest.
+	// The hash from a previously returned stories.albums¹, to avoid returning any results
+	// if they haven't changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/stories.albums
 	Hash int64
 }
 
@@ -193,6 +201,14 @@ func (g *StoriesGetAlbumsRequest) GetHash() (value int64) {
 }
 
 // StoriesGetAlbums invokes method stories.getAlbums#25b3eac7 returning error if any.
+// Get story albums¹ created by a peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-albums
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.getAlbums for reference.
 func (c *Client) StoriesGetAlbums(ctx context.Context, request *StoriesGetAlbumsRequest) (StoriesAlbumsClass, error) {
