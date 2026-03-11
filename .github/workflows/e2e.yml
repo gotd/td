@@ -19,7 +19,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.26.x'
+          go-version: stable
           cache: false
 
       # Note that we deliberately don’t restore GOCACHE.
