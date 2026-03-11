@@ -256,9 +256,9 @@ type GroupCall struct {
 	// Links:
 	//  1) https://core.telegram.org/method/phone.getGroupParticipants
 	ListenersHidden bool
-	// Conference field of GroupCall.
+	// Whether this is an E2E conference call.
 	Conference bool
-	// Creator field of GroupCall.
+	// Whether we're created this group call.
 	Creator bool
 	// MessagesEnabled field of GroupCall.
 	MessagesEnabled bool
@@ -296,7 +296,7 @@ type GroupCall struct {
 	UnmutedVideoLimit int
 	// Version
 	Version int
-	// InviteLink field of GroupCall.
+	// Invitation link for the conference.
 	//
 	// Use SetInviteLink and GetInviteLink helpers.
 	InviteLink string

@@ -174,7 +174,6 @@ func (d *StickersDeleteStickerSetRequest) GetStickerset() (value InputStickerSet
 //	400 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/stickers.deleteStickerSet for reference.
-// Can be used by bots.
 func (c *Client) StickersDeleteStickerSet(ctx context.Context, stickerset InputStickerSetClass) (bool, error) {
 	var result BoolBox
 

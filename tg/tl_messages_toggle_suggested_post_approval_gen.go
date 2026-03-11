@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesToggleSuggestedPostApprovalRequest represents TL type `messages.toggleSuggestedPostApproval#8107455c`.
+// Approve or reject a suggested post »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/suggested-posts
 //
 // See https://core.telegram.org/method/messages.toggleSuggestedPostApproval for reference.
 type MessagesToggleSuggestedPostApprovalRequest struct {
@@ -40,17 +44,21 @@ type MessagesToggleSuggestedPostApprovalRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Reject field of MessagesToggleSuggestedPostApprovalRequest.
+	// Reject the suggested post.
 	Reject bool
-	// Peer field of MessagesToggleSuggestedPostApprovalRequest.
+	// Both for users and channels, must contain the ID of the direct messages monoforum »¹
+	// (for channels, the topic ID is extracted automatically from the msg_id).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	Peer InputPeerClass
-	// MsgID field of MessagesToggleSuggestedPostApprovalRequest.
+	// ID of the suggestion message.
 	MsgID int
-	// ScheduleDate field of MessagesToggleSuggestedPostApprovalRequest.
+	// Custom scheduling date.
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// RejectComment field of MessagesToggleSuggestedPostApprovalRequest.
+	// Optional comment for rejections (can only be used if reject is set).
 	//
 	// Use SetRejectComment and GetRejectComment helpers.
 	RejectComment string
@@ -345,9 +353,16 @@ func (t *MessagesToggleSuggestedPostApprovalRequest) GetRejectComment() (value s
 }
 
 // MessagesToggleSuggestedPostApproval invokes method messages.toggleSuggestedPostApproval#8107455c returning error if any.
+// Approve or reject a suggested post »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/suggested-posts
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.toggleSuggestedPostApproval for reference.
-// Can be used by bots.
 func (c *Client) MessagesToggleSuggestedPostApproval(ctx context.Context, request *MessagesToggleSuggestedPostApprovalRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

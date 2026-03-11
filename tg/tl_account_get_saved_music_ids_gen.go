@@ -32,10 +32,18 @@ var (
 )
 
 // AccountGetSavedMusicIDsRequest represents TL type `account.getSavedMusicIds#e09d5faf`.
+// Fetch the full list of only the IDs of songs currently added to the profile, see here
+// »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/method/account.getSavedMusicIds for reference.
 type AccountGetSavedMusicIDsRequest struct {
-	// Hash field of AccountGetSavedMusicIDsRequest.
+	// Hash generated »¹ from the previously returned list of IDs.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,6 +169,11 @@ func (g *AccountGetSavedMusicIDsRequest) GetHash() (value int64) {
 }
 
 // AccountGetSavedMusicIDs invokes method account.getSavedMusicIds#e09d5faf returning error if any.
+// Fetch the full list of only the IDs of songs currently added to the profile, see here
+// »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/method/account.getSavedMusicIds for reference.
 func (c *Client) AccountGetSavedMusicIDs(ctx context.Context, hash int64) (AccountSavedMusicIDsClass, error) {

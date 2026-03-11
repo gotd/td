@@ -462,6 +462,7 @@ func (e *MessagesExportChatInviteRequest) GetSubscriptionPricing() (value StarsS
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_MONOFORUM_UNSUPPORTED: Monoforums do not support this feature.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
@@ -474,7 +475,6 @@ func (e *MessagesExportChatInviteRequest) GetSubscriptionPricing() (value StarsS
 //	400 USAGE_LIMIT_INVALID: The specified usage limit is invalid.
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
-// Can be used by bots.
 func (c *Client) MessagesExportChatInvite(ctx context.Context, request *MessagesExportChatInviteRequest) (ExportedChatInviteClass, error) {
 	var result ExportedChatInviteBox
 

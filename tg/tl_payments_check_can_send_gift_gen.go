@@ -32,10 +32,14 @@ var (
 )
 
 // PaymentsCheckCanSendGiftRequest represents TL type `payments.checkCanSendGift#c0c4edc9`.
+// Check if the specified gift »¹ can be sent.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
 //
 // See https://core.telegram.org/method/payments.checkCanSendGift for reference.
 type PaymentsCheckCanSendGiftRequest struct {
-	// GiftID field of PaymentsCheckCanSendGiftRequest.
+	// Gift ID.
 	GiftID int64
 }
 
@@ -161,6 +165,14 @@ func (c *PaymentsCheckCanSendGiftRequest) GetGiftID() (value int64) {
 }
 
 // PaymentsCheckCanSendGift invokes method payments.checkCanSendGift#c0c4edc9 returning error if any.
+// Check if the specified gift »¹ can be sent.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//
+// Possible errors:
+//
+//	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.checkCanSendGift for reference.
 func (c *Client) PaymentsCheckCanSendGift(ctx context.Context, giftid int64) (PaymentsCheckCanSendGiftResultClass, error) {

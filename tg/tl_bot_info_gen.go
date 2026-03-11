@@ -87,7 +87,11 @@ type BotInfo struct {
 	//
 	// Use SetAppSettings and GetAppSettings helpers.
 	AppSettings BotAppSettings
-	// VerifierSettings field of BotInfo.
+	// This bot can verify peers¹: this field contains more info about the verification the
+	// bot can assign to peers.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/verification
 	//
 	// Use SetVerifierSettings and GetVerifierSettings helpers.
 	VerifierSettings BotVerifierSettings

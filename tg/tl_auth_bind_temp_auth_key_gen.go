@@ -269,11 +269,11 @@ func (b *AuthBindTempAuthKeyRequest) GetEncryptedMessage() (value []byte) {
 // Possible errors:
 //
 //	400 ENCRYPTED_MESSAGE_INVALID: Encrypted message invalid.
+//	400 EXPIRES_AT_INVALID: The specified expires_at timestamp is invalid.
 //	400 TEMP_AUTH_KEY_ALREADY_BOUND: The passed temporary key is already bound to another perm_auth_key_id.
 //	400 TEMP_AUTH_KEY_EMPTY: No temporary auth key provided.
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
-// Can be used by bots.
 func (c *Client) AuthBindTempAuthKey(ctx context.Context, request *AuthBindTempAuthKeyRequest) (bool, error) {
 	var result BoolBox
 

@@ -32,10 +32,18 @@ var (
 )
 
 // AccountGetCollectibleEmojiStatusesRequest represents TL type `account.getCollectibleEmojiStatuses#2e7b4543`.
+// Obtain a list of emoji statuses »¹ for owned collectible gifts².
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/method/account.getCollectibleEmojiStatuses for reference.
 type AccountGetCollectibleEmojiStatusesRequest struct {
-	// Hash field of AccountGetCollectibleEmojiStatusesRequest.
+	// Hash for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Hash int64
 }
 
@@ -161,9 +169,13 @@ func (g *AccountGetCollectibleEmojiStatusesRequest) GetHash() (value int64) {
 }
 
 // AccountGetCollectibleEmojiStatuses invokes method account.getCollectibleEmojiStatuses#2e7b4543 returning error if any.
+// Obtain a list of emoji statuses »¹ for owned collectible gifts².
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/method/account.getCollectibleEmojiStatuses for reference.
-// Can be used by bots.
 func (c *Client) AccountGetCollectibleEmojiStatuses(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error) {
 	var result AccountEmojiStatusesBox
 

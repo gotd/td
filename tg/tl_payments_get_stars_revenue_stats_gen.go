@@ -46,7 +46,7 @@ type PaymentsGetStarsRevenueStatsRequest struct {
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
-	// Ton field of PaymentsGetStarsRevenueStatsRequest.
+	// If set, fetches channel/bot ad revenue statistics in TON.
 	Ton bool
 	// Get statistics for the specified bot, channel or ourselves (inputPeerSelf¹).
 	//

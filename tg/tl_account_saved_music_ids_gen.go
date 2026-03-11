@@ -32,6 +32,11 @@ var (
 )
 
 // AccountSavedMusicIDsNotModified represents TL type `account.savedMusicIdsNotModified#4fc81d6e`.
+// The list of IDs of songs (document¹.ids) currently pinned on our profile hasn't
+// changed.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/document
 //
 // See https://core.telegram.org/constructor/account.savedMusicIdsNotModified for reference.
 type AccountSavedMusicIDsNotModified struct {
@@ -133,10 +138,19 @@ func (s *AccountSavedMusicIDsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountSavedMusicIDs represents TL type `account.savedMusicIds#998d6636`.
+// List of IDs of songs (document¹.ids) currently pinned on our profile, see here »²
+// for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/document
+//  2. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/constructor/account.savedMusicIds for reference.
 type AccountSavedMusicIDs struct {
-	// IDs field of AccountSavedMusicIDs.
+	// Full list of document¹.ids
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/document
 	IDs []int64
 }
 

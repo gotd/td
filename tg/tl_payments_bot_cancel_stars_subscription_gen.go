@@ -271,6 +271,7 @@ func (b *PaymentsBotCancelStarsSubscriptionRequest) GetChargeID() (value string)
 //
 // Possible errors:
 //
+//	400 CHARGE_ID_INVALID: The specified charge_id is invalid.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/payments.botCancelStarsSubscription for reference.

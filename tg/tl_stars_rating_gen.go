@@ -32,18 +32,25 @@ var (
 )
 
 // StarsRating represents TL type `starsRating#1b0e4f07`.
+// Represents the profile's star rating, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars#star-rating
 //
 // See https://core.telegram.org/constructor/starsRating for reference.
 type StarsRating struct {
-	// Flags field of StarsRating.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Level field of StarsRating.
+	// The current level, may be negative.
 	Level int
-	// CurrentLevelStars field of StarsRating.
+	// The numerical value of the rating required for the current level.
 	CurrentLevelStars int64
-	// Stars field of StarsRating.
+	// Numerical value of the current rating.
 	Stars int64
-	// NextLevelStars field of StarsRating.
+	// The numerical value of the rating required for the next level.
 	//
 	// Use SetNextLevelStars and GetNextLevelStars helpers.
 	NextLevelStars int64

@@ -207,7 +207,6 @@ func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem
 //	400 STICKER_TGS_NOTGS: Invalid TGS sticker provided.
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
-// Can be used by bots.
 func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

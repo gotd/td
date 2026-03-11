@@ -78,11 +78,18 @@ type InputReplyToMessage struct {
 	//
 	// Use SetQuoteOffset and GetQuoteOffset helpers.
 	QuoteOffset int
-	// MonoforumPeerID field of InputReplyToMessage.
+	// Must be set to the ID of the topic when replying to a message within a monoforum
+	// topic¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetMonoforumPeerID and GetMonoforumPeerID helpers.
 	MonoforumPeerID InputPeerClass
-	// TodoItemID field of InputReplyToMessage.
+	// Can be set to reply to the specified item of a todo list »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/todo
 	//
 	// Use SetTodoItemID and GetTodoItemID helpers.
 	TodoItemID int
@@ -742,10 +749,14 @@ func (i *InputReplyToStory) GetStoryID() (value int) {
 }
 
 // InputReplyToMonoForum represents TL type `inputReplyToMonoForum#69d66c45`.
+// Used to send messages to a monoforum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/constructor/inputReplyToMonoForum for reference.
 type InputReplyToMonoForum struct {
-	// MonoforumPeerID field of InputReplyToMonoForum.
+	// The topic ID.
 	MonoforumPeerID InputPeerClass
 }
 

@@ -32,6 +32,14 @@ var (
 )
 
 // PaymentsUpgradeStarGiftRequest represents TL type `payments.upgradeStarGift#aed6e4f5`.
+// Upgrade a gift¹ to a collectible gift²: can only be used if the upgrade was already
+// paid by the gift sender; see here »³ for more info on the full flow (including the
+// different flow to use in case the upgrade was not paid by the gift sender).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
+//  3. https://core.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift
 //
 // See https://core.telegram.org/method/payments.upgradeStarGift for reference.
 type PaymentsUpgradeStarGiftRequest struct {
@@ -40,9 +48,13 @@ type PaymentsUpgradeStarGiftRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// KeepOriginalDetails field of PaymentsUpgradeStarGiftRequest.
+	// Set this flag to keep the original gift text, sender and receiver in the upgraded gift
+	// as a starGiftAttributeOriginalDetails¹ attribute.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
 	KeepOriginalDetails bool
-	// Stargift field of PaymentsUpgradeStarGiftRequest.
+	// The gift to upgrade
 	Stargift InputSavedStarGiftClass
 }
 
@@ -222,10 +234,24 @@ func (u *PaymentsUpgradeStarGiftRequest) GetStargift() (value InputSavedStarGift
 }
 
 // PaymentsUpgradeStarGift invokes method payments.upgradeStarGift#aed6e4f5 returning error if any.
+// Upgrade a gift¹ to a collectible gift²: can only be used if the upgrade was already
+// paid by the gift sender; see here »³ for more info on the full flow (including the
+// different flow to use in case the upgrade was not paid by the gift sender).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
+//  3. https://core.telegram.org/api/gifts#upgrade-a-gift-to-a-collectible-gift
 //
 // Possible errors:
 //
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PAYMENT_REQUIRED: Payment is required for this action, see here » for more info.
+//	400 SAVED_ID_EMPTY: The passed inputSavedStarGiftChat.saved_id is empty.
+//	400 STARGIFT_ALREADY_CONVERTED: The specified star gift was already converted to Stars.
+//	400 STARGIFT_ALREADY_UPGRADED: The specified gift was already upgraded to a collectible gift.
+//	400 STARGIFT_UPGRADE_UNAVAILABLE: A received gift can only be upgraded to a collectible gift if the messageActionStarGift/savedStarGift.can_upgrade flag is set.
 //
 // See https://core.telegram.org/method/payments.upgradeStarGift for reference.
 func (c *Client) PaymentsUpgradeStarGift(ctx context.Context, request *PaymentsUpgradeStarGiftRequest) (UpdatesClass, error) {

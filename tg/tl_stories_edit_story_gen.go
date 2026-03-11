@@ -33,9 +33,16 @@ var (
 
 // StoriesEditStoryRequest represents TL type `stories.editStory#b583ba46`.
 // Edit an uploaded story¹
+// May also be used in a business connection¹, not by wrapping the query in
+// invokeWithBusinessConnection »², but rather by specifying the ID of a controlled
+// business user in peer: in this context, the method can only be used to edit stories
+// posted by the same business bot on behalf of the user with stories.sendStory³.
 //
 // Links:
 //  1. https://core.telegram.org/api/stories
+//  2. https://core.telegram.org/api/bots/connected-business-bots
+//  3. https://core.telegram.org/method/invokeWithBusinessConnection
+//  4. https://core.telegram.org/method/stories.sendStory
 //
 // See https://core.telegram.org/method/stories.editStory for reference.
 type StoriesEditStoryRequest struct {
@@ -555,9 +562,16 @@ func (e *StoriesEditStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 
 // StoriesEditStory invokes method stories.editStory#b583ba46 returning error if any.
 // Edit an uploaded story¹
+// May also be used in a business connection¹, not by wrapping the query in
+// invokeWithBusinessConnection »², but rather by specifying the ID of a controlled
+// business user in peer: in this context, the method can only be used to edit stories
+// posted by the same business bot on behalf of the user with stories.sendStory³.
 //
 // Links:
 //  1. https://core.telegram.org/api/stories
+//  2. https://core.telegram.org/api/bots/connected-business-bots
+//  3. https://core.telegram.org/method/invokeWithBusinessConnection
+//  4. https://core.telegram.org/method/stories.sendStory
 //
 // Possible errors:
 //

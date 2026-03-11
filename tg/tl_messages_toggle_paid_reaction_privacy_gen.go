@@ -238,6 +238,7 @@ func (t *MessagesTogglePaidReactionPrivacyRequest) GetPrivate() (value PaidReact
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 REACTION_EMPTY: Empty reaction provided.
 //
 // See https://core.telegram.org/method/messages.togglePaidReactionPrivacy for reference.
 func (c *Client) MessagesTogglePaidReactionPrivacy(ctx context.Context, request *MessagesTogglePaidReactionPrivacyRequest) (bool, error) {

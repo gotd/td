@@ -232,6 +232,7 @@ func (r *MessagesRequestEncryptionRequest) GetGA() (value []byte) {
 //	400 DH_G_A_INVALID: g_a invalid.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
+//	403 USER_IS_BLOCKED: You were blocked by this user.
 //
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 func (c *Client) MessagesRequestEncryption(ctx context.Context, request *MessagesRequestEncryptionRequest) (EncryptedChatClass, error) {

@@ -1814,12 +1814,20 @@ func (m *MediaAreaWeather) GetColor() (value int) {
 }
 
 // MediaAreaStarGift represents TL type `mediaAreaStarGift#5787686d`.
+// Represents a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/mediaAreaStarGift for reference.
 type MediaAreaStarGift struct {
-	// Coordinates field of MediaAreaStarGift.
+	// Coordinates of the media area.
 	Coordinates MediaAreaCoordinates
-	// Slug field of MediaAreaStarGift.
+	// slug from starGiftUnique¹.slug, that can be resolved as specified here »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
+	//  2) https://core.telegram.org/api/gifts#sharing-and-getting-info-about-a-collectible-gift
 	Slug string
 }
 

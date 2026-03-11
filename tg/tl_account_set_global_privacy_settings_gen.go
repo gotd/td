@@ -167,6 +167,8 @@ func (s *AccountSetGlobalPrivacySettingsRequest) GetSettings() (value GlobalPriv
 // Possible errors:
 //
 //	400 AUTOARCHIVE_NOT_AVAILABLE: The autoarchive setting is not available at this time: please check the value of the autoarchive_setting_available field in client config » before calling this method.
+//	403 BOT_ACCESS_FORBIDDEN: The specified method can be used over a business connection for some operations, but the specified query attempted an operation that is not allowed over a business connection.
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.

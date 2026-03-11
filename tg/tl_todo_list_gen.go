@@ -32,6 +32,10 @@ var (
 )
 
 // TodoList represents TL type `todoList#49b92a26`.
+// Represents a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/todoList for reference.
 type TodoList struct {
@@ -40,13 +44,16 @@ type TodoList struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OthersCanAppend field of TodoList.
+	// If set, users different from the creator of the list can append items to the list.
 	OthersCanAppend bool
-	// OthersCanComplete field of TodoList.
+	// If set, users different from the creator of the list can complete items in the list.
 	OthersCanComplete bool
-	// Title field of TodoList.
+	// Title of the todo list, maximum length equal to todo_title_length_max »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#todo-title-length-max
 	Title TextWithEntities
-	// List field of TodoList.
+	// Items of the list.
 	List []TodoItem
 }
 

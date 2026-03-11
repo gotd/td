@@ -244,7 +244,6 @@ func (r *ContactsResolveUsernameRequest) GetReferer() (value string, ok bool) {
 //	400 USERNAME_NOT_OCCUPIED: The provided username is not occupied.
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
-// Can be used by bots.
 func (c *Client) ContactsResolveUsername(ctx context.Context, request *ContactsResolveUsernameRequest) (*ContactsResolvedPeer, error) {
 	var result ContactsResolvedPeer
 

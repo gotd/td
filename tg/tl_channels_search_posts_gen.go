@@ -33,24 +33,33 @@ var (
 
 // ChannelsSearchPostsRequest represents TL type `channels.searchPosts#f2c4f24d`.
 // Globally search for posts from public channels »¹ (including those we aren't a
-// member of) containing a specific hashtag.
+// member of) containing either a specific hashtag, or a full text query.
+// Exactly one of query and hashtag must be set.
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 type ChannelsSearchPostsRequest struct {
-	// Flags field of ChannelsSearchPostsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The hashtag to search, without the # character.
 	//
 	// Use SetHashtag and GetHashtag helpers.
 	Hashtag string
-	// Query field of ChannelsSearchPostsRequest.
+	// The full text query: each user has a limited amount of free full text search slots,
+	// after which payment is required, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/search#posts-tab
 	//
 	// Use SetQuery and GetQuery helpers.
 	Query string
-	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
+	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹, or if
+	// that is absent, the date of the last returned message.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
@@ -70,7 +79,11 @@ type ChannelsSearchPostsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// AllowPaidStars field of ChannelsSearchPostsRequest.
+	// For full text post searches (query), allows payment of the specified amount of Stars
+	// for the search, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/search#posts-tab
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
@@ -427,10 +440,15 @@ func (s *ChannelsSearchPostsRequest) GetAllowPaidStars() (value int64, ok bool) 
 
 // ChannelsSearchPosts invokes method channels.searchPosts#f2c4f24d returning error if any.
 // Globally search for posts from public channels »¹ (including those we aren't a
-// member of) containing a specific hashtag.
+// member of) containing either a specific hashtag, or a full text query.
+// Exactly one of query and hashtag must be set.
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
+//
+// Possible errors:
+//
+//	420 FROZEN_METHOD_INVALID: The current account is frozen, and thus cannot execute the specified action.
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 func (c *Client) ChannelsSearchPosts(ctx context.Context, request *ChannelsSearchPostsRequest) (MessagesMessagesClass, error) {

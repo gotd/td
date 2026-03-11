@@ -43,7 +43,11 @@ type MessagesMarkDialogUnreadRequest struct {
 	Flags bin.Fields
 	// Mark as unread/read
 	Unread bool
-	// ParentPeer field of MessagesMarkDialogUnreadRequest.
+	// If set, must be equal to the ID of a monoforum¹, and will affect the monoforum topic
+	// passed in peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	//
 	// Use SetParentPeer and GetParentPeer helpers.
 	ParentPeer InputPeerClass

@@ -43,9 +43,9 @@ type AuthAuthorization struct {
 	Flags bin.Fields
 	// Suggests the user to set up a 2-step verification password to be able to log in again
 	SetupPasswordRequired bool
-	// Iff setup_password_required is set and the user declines to set a 2-step verification
-	// password, they will be able to log into their account via SMS again only after this
-	// many days pass.
+	// If and only if setup_password_required is set and the user declines to set a 2-step
+	// verification password, they will be able to log into their account via SMS again only
+	// after this many days pass.
 	//
 	// Use SetOtherwiseReloginDays and GetOtherwiseReloginDays helpers.
 	OtherwiseReloginDays int

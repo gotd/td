@@ -32,6 +32,7 @@ var (
 )
 
 // PaymentsCheckCanSendGiftResultOk represents TL type `payments.checkCanSendGiftResultOk#374fa7ad`.
+// The specified gift can be sent.
 //
 // See https://core.telegram.org/constructor/payments.checkCanSendGiftResultOk for reference.
 type PaymentsCheckCanSendGiftResultOk struct {
@@ -133,10 +134,11 @@ func (c *PaymentsCheckCanSendGiftResultOk) DecodeBare(b *bin.Buffer) error {
 }
 
 // PaymentsCheckCanSendGiftResultFail represents TL type `payments.checkCanSendGiftResultFail#d5e58274`.
+// The specified gift cannot be sent yet for the specified reason.
 //
 // See https://core.telegram.org/constructor/payments.checkCanSendGiftResultFail for reference.
 type PaymentsCheckCanSendGiftResultFail struct {
-	// Reason field of PaymentsCheckCanSendGiftResultFail.
+	// The reason why it can't be sent yet.
 	Reason TextWithEntities
 }
 

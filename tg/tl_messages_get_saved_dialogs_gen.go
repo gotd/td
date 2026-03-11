@@ -32,10 +32,11 @@ var (
 )
 
 // MessagesGetSavedDialogsRequest represents TL type `messages.getSavedDialogs#1e91fc99`.
-// Returns the current saved dialog list, see here »¹ for more info.
+// Returns the current saved dialog list »¹ or monoforum topic list »².
 //
 // Links:
 //  1. https://core.telegram.org/api/saved-messages
+//  2. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/method/messages.getSavedDialogs for reference.
 type MessagesGetSavedDialogsRequest struct {
@@ -46,7 +47,8 @@ type MessagesGetSavedDialogsRequest struct {
 	Flags bin.Fields
 	// Exclude pinned dialogs
 	ExcludePinned bool
-	// ParentPeer field of MessagesGetSavedDialogsRequest.
+	// If set, fetches the topic list of the passed monoforum, otherwise fetches the saved
+	// dialog list.
 	//
 	// Use SetParentPeer and GetParentPeer helpers.
 	ParentPeer InputPeerClass
@@ -400,10 +402,11 @@ func (g *MessagesGetSavedDialogsRequest) GetHash() (value int64) {
 }
 
 // MessagesGetSavedDialogs invokes method messages.getSavedDialogs#1e91fc99 returning error if any.
-// Returns the current saved dialog list, see here »¹ for more info.
+// Returns the current saved dialog list »¹ or monoforum topic list »².
 //
 // Links:
 //  1. https://core.telegram.org/api/saved-messages
+//  2. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/method/messages.getSavedDialogs for reference.
 func (c *Client) MessagesGetSavedDialogs(ctx context.Context, request *MessagesGetSavedDialogsRequest) (MessagesSavedDialogsClass, error) {

@@ -32,10 +32,11 @@ var (
 )
 
 // UsersUsers represents TL type `users.users#62d706b8`.
+// Describes a list of users (or bots).
 //
 // See https://core.telegram.org/constructor/users.users for reference.
 type UsersUsers struct {
-	// Users field of UsersUsers.
+	// Users
 	Users []UserClass
 }
 
@@ -189,12 +190,13 @@ func (u *UsersUsers) MapUsers() (value UserClassArray) {
 }
 
 // UsersUsersSlice represents TL type `users.usersSlice#315a4974`.
+// Describes a partial list of users.
 //
 // See https://core.telegram.org/constructor/users.usersSlice for reference.
 type UsersUsersSlice struct {
-	// Count field of UsersUsersSlice.
+	// Total number of users (bigger than the users specified in users)
 	Count int
-	// Users field of UsersUsersSlice.
+	// Subset of users.
 	Users []UserClass
 }
 
@@ -412,9 +414,9 @@ type UsersUsersClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Users field of UsersUsers.
+	// Users
 	GetUsers() (value []UserClass)
-	// Users field of UsersUsers.
+	// Users
 	MapUsers() (value UserClassArray)
 }
 

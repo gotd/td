@@ -288,6 +288,7 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 // Possible errors:
 //
 //	400 ALBUM_PHOTOS_TOO_MANY: You have uploaded too many profile photos, delete some before retrying.
+//	400 BOT_FALLBACK_UNSUPPORTED: The fallback flag can't be set for bots.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 LOCATION_INVALID: The provided location is invalid.
@@ -296,7 +297,6 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 //	400 PHOTO_ID_INVALID: Photo ID invalid.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
-// Can be used by bots.
 func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, request *PhotosUpdateProfilePhotoRequest) (*PhotosPhoto, error) {
 	var result PhotosPhoto
 

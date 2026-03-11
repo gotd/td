@@ -32,6 +32,7 @@ var (
 )
 
 // RequirementToContactEmpty represents TL type `requirementToContactEmpty#50a9839`.
+// This user can be freely contacted.
 //
 // See https://core.telegram.org/constructor/requirementToContactEmpty for reference.
 type RequirementToContactEmpty struct {
@@ -133,6 +134,10 @@ func (r *RequirementToContactEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // RequirementToContactPremium represents TL type `requirementToContactPremium#e581e4e9`.
+// This user requires us to buy a Premium¹ subscription in order to contact them.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
 //
 // See https://core.telegram.org/constructor/requirementToContactPremium for reference.
 type RequirementToContactPremium struct {
@@ -234,10 +239,19 @@ func (r *RequirementToContactPremium) DecodeBare(b *bin.Buffer) error {
 }
 
 // RequirementToContactPaidMessages represents TL type `requirementToContactPaidMessages#b4f67e93`.
+// This user requires us to pay the specified amount of Telegram Stars¹ to send them a
+// message, see here »² for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/stars
+//  2. https://core.telegram.org/api/paid-messages
 //
 // See https://core.telegram.org/constructor/requirementToContactPaidMessages for reference.
 type RequirementToContactPaidMessages struct {
-	// StarsAmount field of RequirementToContactPaidMessages.
+	// The required amount of Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	StarsAmount int64
 }
 

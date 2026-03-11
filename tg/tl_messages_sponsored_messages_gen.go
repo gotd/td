@@ -46,11 +46,19 @@ type MessagesSponsoredMessages struct {
 	//
 	// Use SetPostsBetween and GetPostsBetween helpers.
 	PostsBetween int
-	// StartDelay field of MessagesSponsoredMessages.
+	// For sponsored messages to show on channel videos »¹, the number of seconds to wait
+	// before showing the first ad.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements
 	//
 	// Use SetStartDelay and GetStartDelay helpers.
 	StartDelay int
-	// BetweenDelay field of MessagesSponsoredMessages.
+	// For sponsored messages to show on channel videos »¹, the number of seconds to wait
+	// after the previous ad is hidden, before showing the next ad.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/sponsored-messages#getting-sponsored-video-advertisements
 	//
 	// Use SetBetweenDelay and GetBetweenDelay helpers.
 	BetweenDelay int

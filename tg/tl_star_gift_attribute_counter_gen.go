@@ -32,12 +32,13 @@ var (
 )
 
 // StarGiftAttributeCounter represents TL type `starGiftAttributeCounter#2eb1b658`.
+// Indicates the total number of gifts that have the specified attribute.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeCounter for reference.
 type StarGiftAttributeCounter struct {
-	// Attribute field of StarGiftAttributeCounter.
+	// The attribute (just the ID, without the attribute itself).
 	Attribute StarGiftAttributeIDClass
-	// Count field of StarGiftAttributeCounter.
+	// Total number of gifts with this attribute.
 	Count int
 }
 

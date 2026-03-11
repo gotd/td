@@ -50,10 +50,11 @@ type MessagesGetQuickReplyMessagesRequest struct {
 	//
 	// Use SetID and GetID helpers.
 	ID []int
-	// Hash used for caching, for more info click here¹
+	// Hash for pagination, generated as specified here »¹ (not the usual algorithm used
+	// for hash generation).
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/offsets#hash-generation
+	//  1) https://core.telegram.org/api/business#quick-reply-shortcuts
 	Hash int64
 }
 

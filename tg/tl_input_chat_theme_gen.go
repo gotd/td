@@ -32,6 +32,7 @@ var (
 )
 
 // InputChatThemeEmpty represents TL type `inputChatThemeEmpty#83268483`.
+// Remove any currently configured theme.
 //
 // See https://core.telegram.org/constructor/inputChatThemeEmpty for reference.
 type InputChatThemeEmpty struct {
@@ -133,10 +134,14 @@ func (i *InputChatThemeEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputChatTheme represents TL type `inputChatTheme#c93de95c`.
+// Set an emoji-based chat theme, returned by account.getChatThemes¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/account.getChatThemes
 //
 // See https://core.telegram.org/constructor/inputChatTheme for reference.
 type InputChatTheme struct {
-	// Emoticon field of InputChatTheme.
+	// The emoji.
 	Emoticon string
 }
 
@@ -267,10 +272,19 @@ func (i *InputChatTheme) GetEmoticon() (value string) {
 }
 
 // InputChatThemeUniqueGift represents TL type `inputChatThemeUniqueGift#87e5dfe4`.
+// Set a theme based on an owned collectible gift »¹, returned by account
+// getUniqueGiftChatThemes².
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/method/account.getUniqueGiftChatThemes
 //
 // See https://core.telegram.org/constructor/inputChatThemeUniqueGift for reference.
 type InputChatThemeUniqueGift struct {
-	// Slug field of InputChatThemeUniqueGift.
+	// The slug from starGiftUnique¹.slug.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	Slug string
 }
 

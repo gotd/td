@@ -207,11 +207,11 @@ func (r *PaymentsRefundStarsChargeRequest) GetChargeID() (value string) {
 // Possible errors:
 //
 //	400 CHARGE_ALREADY_REFUNDED: The transaction was already refunded.
+//	400 CHARGE_ID_EMPTY: The specified charge_id is empty.
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/payments.refundStarsCharge for reference.
-// Can be used by bots.
 func (c *Client) PaymentsRefundStarsCharge(ctx context.Context, request *PaymentsRefundStarsChargeRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

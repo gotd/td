@@ -45,7 +45,7 @@ type InputFileLocation struct {
 	// File reference¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/file_reference
+	//  1) https://core.telegram.org/api/file-references
 	FileReference []byte
 }
 
@@ -433,7 +433,7 @@ type InputDocumentFileLocation struct {
 	// File reference¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/file_reference
+	//  1) https://core.telegram.org/api/file-references
 	FileReference []byte
 	// Thumbnail size to download the thumbnail
 	ThumbSize string
@@ -940,7 +940,7 @@ type InputPhotoFileLocation struct {
 	// File reference¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/file_reference
+	//  1) https://core.telegram.org/api/file-references
 	FileReference []byte
 	// The PhotoSize¹ to download: must be set to the type field of the desired PhotoSize
 	// object of the photo²

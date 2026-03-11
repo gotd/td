@@ -41,7 +41,8 @@ type MessagesGetDialogUnreadMarksRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ParentPeer field of MessagesGetDialogUnreadMarksRequest.
+	// Can be equal to the ID of a monoforum, to fetch monoforum topics manually marked as
+	// unread.
 	//
 	// Use SetParentPeer and GetParentPeer helpers.
 	ParentPeer InputPeerClass

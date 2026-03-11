@@ -35,7 +35,7 @@ var (
 // Specifies the private chats that a connected business bot »¹ may interact with.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/constructor/inputBusinessBotRecipients for reference.
 type InputBusinessBotRecipients struct {

@@ -32,10 +32,16 @@ var (
 )
 
 // StoriesCanSendStoryCount represents TL type `stories.canSendStoryCount#c387c04e`.
+// Contains the number of available active story slots (equal to the value of the
+// story_expiring_limit_* client configuration parameter¹ minus the number of currently
+// active stories).
+//
+// Links:
+//  1. https://core.telegram.org/api/config#story-expiring-limit-default
 //
 // See https://core.telegram.org/constructor/stories.canSendStoryCount for reference.
 type StoriesCanSendStoryCount struct {
-	// CountRemains field of StoriesCanSendStoryCount.
+	// Remaining active story slots.
 	CountRemains int
 }
 

@@ -32,13 +32,16 @@ var (
 )
 
 // MessagesSetChatThemeRequest represents TL type `messages.setChatTheme#81202c9`.
-// Change the chat theme of a certain chat
+// Change the chat theme of a certain chat, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/themes#chat-themes
 //
 // See https://core.telegram.org/method/messages.setChatTheme for reference.
 type MessagesSetChatThemeRequest struct {
 	// Private chat where to change theme
 	Peer InputPeerClass
-	// Theme field of MessagesSetChatThemeRequest.
+	// The theme to set.
 	Theme InputChatThemeClass
 }
 
@@ -199,7 +202,10 @@ func (s *MessagesSetChatThemeRequest) GetTheme() (value InputChatThemeClass) {
 }
 
 // MessagesSetChatTheme invokes method messages.setChatTheme#81202c9 returning error if any.
-// Change the chat theme of a certain chat
+// Change the chat theme of a certain chat, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/themes#chat-themes
 //
 // Possible errors:
 //

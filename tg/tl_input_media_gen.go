@@ -1092,11 +1092,11 @@ type InputMediaUploadedDocument struct {
 	//
 	// Use SetStickers and GetStickers helpers.
 	Stickers []InputDocumentClass
-	// VideoCover field of InputMediaUploadedDocument.
+	// Start playing the video at the specified timestamp (seconds).
 	//
 	// Use SetVideoCover and GetVideoCover helpers.
 	VideoCover InputPhotoClass
-	// VideoTimestamp field of InputMediaUploadedDocument.
+	// Start playing the video at the specified timestamp (seconds).
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
@@ -1695,11 +1695,11 @@ type InputMediaDocument struct {
 	Spoiler bool
 	// The document to be forwarded.
 	ID InputDocumentClass
-	// VideoCover field of InputMediaDocument.
+	// Custom video cover.
 	//
 	// Use SetVideoCover and GetVideoCover helpers.
 	VideoCover InputPhotoClass
-	// VideoTimestamp field of InputMediaDocument.
+	// Start playing the video at the specified timestamp (seconds).
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
@@ -2608,11 +2608,11 @@ type InputMediaDocumentExternal struct {
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
-	// VideoCover field of InputMediaDocumentExternal.
+	// Custom video cover.
 	//
 	// Use SetVideoCover and GetVideoCover helpers.
 	VideoCover InputPhotoClass
-	// VideoTimestamp field of InputMediaDocumentExternal.
+	// Start playing the video at the specified timestamp (seconds).
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
@@ -5076,10 +5076,14 @@ func (i *InputMediaPaidMedia) MapExtendedMedia() (value InputMediaClassArray) {
 }
 
 // InputMediaTodo represents TL type `inputMediaTodo#9fc55fde`.
+// Creates a todo list »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/todo
 //
 // See https://core.telegram.org/constructor/inputMediaTodo for reference.
 type InputMediaTodo struct {
-	// Todo field of InputMediaTodo.
+	// The todo list.
 	Todo TodoList
 }
 

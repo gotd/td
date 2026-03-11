@@ -253,7 +253,10 @@ type DraftMessage struct {
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
-	// SuggestedPost field of DraftMessage.
+	// Used to suggest a post to a channel, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/suggested-posts
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost

@@ -207,7 +207,6 @@ func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
 //	400 PHOTO_INVALID: Photo invalid.
 //
 // See https://core.telegram.org/method/messages.editChatPhoto for reference.
-// Can be used by bots.
 func (c *Client) MessagesEditChatPhoto(ctx context.Context, request *MessagesEditChatPhotoRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

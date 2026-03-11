@@ -32,12 +32,16 @@ var (
 )
 
 // ChannelsSetMainProfileTabRequest represents TL type `channels.setMainProfileTab#3583fcb1`.
+// Changes the main profile tab of a channel, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#tabs
 //
 // See https://core.telegram.org/method/channels.setMainProfileTab for reference.
 type ChannelsSetMainProfileTabRequest struct {
-	// Channel field of ChannelsSetMainProfileTabRequest.
+	// The channel.
 	Channel InputChannelClass
-	// Tab field of ChannelsSetMainProfileTabRequest.
+	// The tab to set as main tab.
 	Tab ProfileTabClass
 }
 
@@ -203,6 +207,14 @@ func (s *ChannelsSetMainProfileTabRequest) GetChannelAsNotEmpty() (NotEmptyInput
 }
 
 // ChannelsSetMainProfileTab invokes method channels.setMainProfileTab#3583fcb1 returning error if any.
+// Changes the main profile tab of a channel, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#tabs
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.setMainProfileTab for reference.
 func (c *Client) ChannelsSetMainProfileTab(ctx context.Context, request *ChannelsSetMainProfileTabRequest) (bool, error) {

@@ -32,14 +32,19 @@ var (
 )
 
 // MessagesWebPagePreview represents TL type `messages.webPagePreview#8c9a88ac`.
+// Represents a webpage preview.
 //
 // See https://core.telegram.org/constructor/messages.webPagePreview for reference.
 type MessagesWebPagePreview struct {
-	// Media field of MessagesWebPagePreview.
+	// The messageMediaWebPage¹ or a messageMediaEmpty² if there is no preview.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaWebPage
+	//  2) https://core.telegram.org/constructor/messageMediaEmpty
 	Media MessageMediaClass
-	// Chats field of MessagesWebPagePreview.
+	// Chats mentioned in the gift field.
 	Chats []ChatClass
-	// Users field of MessagesWebPagePreview.
+	// Users mentioned within the media object.
 	Users []UserClass
 }
 

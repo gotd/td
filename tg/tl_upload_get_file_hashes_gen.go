@@ -201,7 +201,6 @@ func (g *UploadGetFileHashesRequest) GetOffset() (value int64) {
 //	400 LOCATION_INVALID: The provided location is invalid.
 //
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
-// Can be used by bots.
 func (c *Client) UploadGetFileHashes(ctx context.Context, request *UploadGetFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
 

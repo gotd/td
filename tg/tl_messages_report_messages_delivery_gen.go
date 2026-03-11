@@ -32,6 +32,15 @@ var (
 )
 
 // MessagesReportMessagesDeliveryRequest represents TL type `messages.reportMessagesDelivery#5a6d7395`.
+// Used for Telegram Gateway verification messages »¹: indicate to the server that one
+// or more message²s were received by the client, if requested by the message³
+// report_delivery_until_date flag or the equivalent flag in push notifications⁴.
+//
+// Links:
+//  1. https://telegram.org/blog/star-messages-gateway-2-0-and-more#save-even-more-on-user-verification
+//  2. https://core.telegram.org/constructor/message
+//  3. https://core.telegram.org/constructor/message
+//  4. https://core.telegram.org/api/push-updates
 //
 // See https://core.telegram.org/method/messages.reportMessagesDelivery for reference.
 type MessagesReportMessagesDeliveryRequest struct {
@@ -40,11 +49,14 @@ type MessagesReportMessagesDeliveryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Push field of MessagesReportMessagesDeliveryRequest.
+	// Must be set if the messages were received from a push notification¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/push-updates
 	Push bool
-	// Peer field of MessagesReportMessagesDeliveryRequest.
+	// The peer where the messages were received.
 	Peer InputPeerClass
-	// ID field of MessagesReportMessagesDeliveryRequest.
+	// The IDs of the received messages.
 	ID []int
 }
 
@@ -262,6 +274,15 @@ func (r *MessagesReportMessagesDeliveryRequest) GetID() (value []int) {
 }
 
 // MessagesReportMessagesDelivery invokes method messages.reportMessagesDelivery#5a6d7395 returning error if any.
+// Used for Telegram Gateway verification messages »¹: indicate to the server that one
+// or more message²s were received by the client, if requested by the message³
+// report_delivery_until_date flag or the equivalent flag in push notifications⁴.
+//
+// Links:
+//  1. https://telegram.org/blog/star-messages-gateway-2-0-and-more#save-even-more-on-user-verification
+//  2. https://core.telegram.org/constructor/message
+//  3. https://core.telegram.org/constructor/message
+//  4. https://core.telegram.org/api/push-updates
 //
 // Possible errors:
 //

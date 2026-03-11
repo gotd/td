@@ -382,7 +382,8 @@ type ChatlistsChatlistInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// TitleNoanimate field of ChatlistsChatlistInvite.
+	// If set, any animated emojis present in title should not be animated and should be
+	// instead frozen on the first frame.
 	TitleNoanimate bool
 	// Name of the link
 	Title TextWithEntities

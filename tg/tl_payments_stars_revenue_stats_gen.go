@@ -45,7 +45,7 @@ type PaymentsStarsRevenueStats struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// TopHoursGraph field of PaymentsStarsRevenueStats.
+	// For ad revenue statistics, ad impressions graph
 	//
 	// Use SetTopHoursGraph and GetTopHoursGraph helpers.
 	TopHoursGraph StatsGraphClass

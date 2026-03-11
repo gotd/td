@@ -792,10 +792,21 @@ func (w *WebPageAttributeStickerSet) MapStickers() (value DocumentClassArray) {
 }
 
 // WebPageAttributeUniqueStarGift represents TL type `webPageAttributeUniqueStarGift#cf6f6db8`.
+// Contains info about collectible gift »¹ for a webPage² preview of a collectible
+// gift »³ (the webPage⁴ will have a type of telegram_nft).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/webPage
+//  3. https://core.telegram.org/api/gifts#collectible-gifts
+//  4. https://core.telegram.org/constructor/webPage
 //
 // See https://core.telegram.org/constructor/webPageAttributeUniqueStarGift for reference.
 type WebPageAttributeUniqueStarGift struct {
-	// Gift field of WebPageAttributeUniqueStarGift.
+	// The starGiftUnique¹ constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	Gift StarGiftClass
 }
 
@@ -931,10 +942,18 @@ func (w *WebPageAttributeUniqueStarGift) GetGift() (value StarGiftClass) {
 }
 
 // WebPageAttributeStarGiftCollection represents TL type `webPageAttributeStarGiftCollection#31cad303`.
+// Contains info about a gift collection »¹ for a webPage² preview of a gift
+// collection »³ (the webPage⁴ will have a type of telegram_collection).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#gift-collections
+//  2. https://core.telegram.org/constructor/webPage
+//  3. https://core.telegram.org/api/gifts#gift-collections
+//  4. https://core.telegram.org/constructor/webPage
 //
 // See https://core.telegram.org/constructor/webPageAttributeStarGiftCollection for reference.
 type WebPageAttributeStarGiftCollection struct {
-	// Icons field of WebPageAttributeStarGiftCollection.
+	// Gifts in the collection.
 	Icons []DocumentClass
 }
 

@@ -109,7 +109,12 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
-	// AllowPaidStars field of MessagesSendMultiMediaRequest.
+	// For paid messages »¹, specifies the amount of Telegram Stars² the user has agreed
+	// to pay in order to send the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
@@ -815,6 +820,8 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //
 // Possible errors:
 //
+//	403 ALLOW_PAYMENT_REQUIRED_%d: This peer charges %d Telegram Stars per message, but the allow_paid_stars was not set or its value is smaller than %d.
+//	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
@@ -824,8 +831,9 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //	403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
 //	403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 EFFECT_ID_INVALID: The specified effect ID is invalid.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
-//	400 FILE_REFERENCE_%d_EXPIRED: The file reference of the media file at index %d in the passed media array expired, it must be refreshed.
+//	400 FILE_REFERENCE_%d_EXPIRED: The file reference of the media file at index %d in the passed media array expired, it must be refreshed as specified in the documentation. .
 //	400 FILE_REFERENCE_%d_INVALID: The file reference of the media file at index %d in the passed media array is invalid.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
@@ -833,6 +841,7 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 RANDOM_ID_EMPTY: Random ID empty.
@@ -847,7 +856,6 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
-// Can be used by bots.
 func (c *Client) MessagesSendMultiMedia(ctx context.Context, request *MessagesSendMultiMediaRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

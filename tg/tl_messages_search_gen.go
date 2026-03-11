@@ -740,6 +740,7 @@ func (s *MessagesSearchRequest) MapSavedReaction() (value ReactionClassArray, ok
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PEER_ID_NOT_SUPPORTED: The provided peer ID is not supported.
 //	400 SEARCH_QUERY_EMPTY: The search query is empty.
+//	400 TAKEOUT_INVALID: The specified takeout ID is invalid.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.search for reference.

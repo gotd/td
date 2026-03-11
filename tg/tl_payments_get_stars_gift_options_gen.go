@@ -221,6 +221,7 @@ func (g *PaymentsGetStarsGiftOptionsRequest) GetUserID() (value InputUserClass, 
 //
 // Possible errors:
 //
+//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 USER_GIFT_UNAVAILABLE: Gifts are not available in the current region (stars_gifts_enabled is equal to false).
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //

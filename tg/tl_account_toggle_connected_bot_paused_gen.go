@@ -36,7 +36,7 @@ var (
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // See https://core.telegram.org/method/account.toggleConnectedBotPaused for reference.
 type AccountToggleConnectedBotPausedRequest struct {
@@ -202,7 +202,7 @@ func (t *AccountToggleConnectedBotPausedRequest) GetPaused() (value bool) {
 // »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/business#connected-bots
+//  1. https://core.telegram.org/api/bots/connected-business-bots
 //
 // Possible errors:
 //

@@ -39,8 +39,9 @@ type MessagesGetScheduledHistoryRequest struct {
 	// Peer
 	Peer InputPeerClass
 	// Hash used for caching, for more info click here¹. To generate the hash, populate the
-	// ids array with the id, date and edit_date (in this order) of the previously returned
-	// messages (in order, i.e. ids = [id1, date1, edit_date1, id2, date2, edit_date2, ...]).
+	// ids array with the id, edit_date (0 if unedited) and date (in this order) of the
+	// previously returned messages (in order, i.e. ids = [id1, (edit_date1 ?? 0), date1, id2
+	// (edit_date2 ?? 0), date2, ...]).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation

@@ -1304,6 +1304,7 @@ func (i *InputStickerSetEmojiChannelDefaultStatuses) DecodeBare(b *bin.Buffer) e
 }
 
 // InputStickerSetTonGifts represents TL type `inputStickerSetTonGifts#1cf671a0`.
+// TON gifts stickerset.
 //
 // See https://core.telegram.org/constructor/inputStickerSetTonGifts for reference.
 type InputStickerSetTonGifts struct {

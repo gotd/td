@@ -198,7 +198,6 @@ func (g *MessagesGetCustomEmojiDocumentsRequest) GetDocumentID() (value []int64)
 //  3. https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/method/messages.getCustomEmojiDocuments for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetCustomEmojiDocuments(ctx context.Context, documentid []int64) ([]DocumentClass, error) {
 	var result DocumentClassVector
 

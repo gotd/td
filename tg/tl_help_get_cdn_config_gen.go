@@ -138,7 +138,6 @@ func (g *HelpGetCDNConfigRequest) DecodeBare(b *bin.Buffer) error {
 //  1. https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
-// Can be used by bots.
 func (c *Client) HelpGetCDNConfig(ctx context.Context) (*CDNConfig, error) {
 	var result CDNConfig
 

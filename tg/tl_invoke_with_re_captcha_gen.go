@@ -32,12 +32,15 @@ var (
 )
 
 // InvokeWithReCaptchaRequest represents TL type `invokeWithReCaptcha#adbb0f94`.
+// Official clients only: re-execute a method call that required reCAPTCHA verification
+// via a RECAPTCHA_CHECK_%s__%s, where the first placeholder is the action, and the
+// second one is the reCAPTCHA key ID.
 //
 // See https://core.telegram.org/constructor/invokeWithReCaptcha for reference.
 type InvokeWithReCaptchaRequest struct {
-	// Token field of InvokeWithReCaptchaRequest.
+	// reCAPTCHA token received after verification.
 	Token string
-	// Query field of InvokeWithReCaptchaRequest.
+	// The original method call.
 	Query bin.Object
 }
 

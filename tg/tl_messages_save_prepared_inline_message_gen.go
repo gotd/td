@@ -312,11 +312,11 @@ func (s *MessagesSavePreparedInlineMessageRequest) MapPeerTypes() (value InlineQ
 // Possible errors:
 //
 //	400 RESULT_ID_INVALID: One of the specified result IDs is invalid.
+//	400 SEND_MESSAGE_GAME_INVALID: An inputBotInlineMessageGame can only be contained in an inputBotInlineResultGame, not in an inputBotInlineResult/inputBotInlineResultPhoto/etc.
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.savePreparedInlineMessage for reference.
-// Can be used by bots.
 func (c *Client) MessagesSavePreparedInlineMessage(ctx context.Context, request *MessagesSavePreparedInlineMessageRequest) (*MessagesBotPreparedInlineMessage, error) {
 	var result MessagesBotPreparedInlineMessage
 

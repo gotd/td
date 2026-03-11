@@ -32,7 +32,7 @@ var (
 )
 
 // MediaAreaCoordinates represents TL type `mediaAreaCoordinates#cfc9e002`.
-// Coordinates and size of a clicable rectangular area on top of a story.
+// Coordinates and size of a clickable rectangular area on top of a story.
 //
 // See https://core.telegram.org/constructor/mediaAreaCoordinates for reference.
 type MediaAreaCoordinates struct {

@@ -151,7 +151,7 @@ type EmojiStatus struct {
 	// Links:
 	//  1) https://core.telegram.org/api/custom-emoji
 	DocumentID int64
-	// Until field of EmojiStatus.
+	// If set, the emoji status will be active until the specified unixtime.
 	//
 	// Use SetUntil and GetUntil helpers.
 	Until int
@@ -344,6 +344,14 @@ func (e *EmojiStatus) GetUntil() (value int, ok bool) {
 }
 
 // EmojiStatusCollectible represents TL type `emojiStatusCollectible#7184603b`.
+// An owned collectible gift »¹ as emoji status.
+// Cannot be passed to account.updateEmojiStatus¹, must be converted to an
+// inputEmojiStatusCollectible² first before passing it to that method.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/method/account.updateEmojiStatus
+//  3. https://core.telegram.org/constructor/inputEmojiStatusCollectible
 //
 // See https://core.telegram.org/constructor/emojiStatusCollectible for reference.
 type EmojiStatusCollectible struct {
@@ -352,25 +360,57 @@ type EmojiStatusCollectible struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CollectibleID field of EmojiStatusCollectible.
+	// ID of the collectible (from starGiftUnique¹.id).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	CollectibleID int64
-	// DocumentID field of EmojiStatusCollectible.
+	// ID of the custom emoji¹ representing the status.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	DocumentID int64
-	// Title field of EmojiStatusCollectible.
+	// Name of the collectible.
 	Title string
-	// Slug field of EmojiStatusCollectible.
+	// Unique identifier of the collectible that may be used to create a collectible gift
+	// link »¹ for the current collectible, or to fetch further info about the collectible
+	// using payments.getUniqueStarGift².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#collectible-gift-link
+	//  2) https://core.telegram.org/method/payments.getUniqueStarGift
 	Slug string
-	// PatternDocumentID field of EmojiStatusCollectible.
+	// The ID of a pattern to apply on the profile's backdrop, correlated to the
+	// starGiftAttributePattern¹ from the gift in slug.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributePattern
 	PatternDocumentID int64
-	// CenterColor field of EmojiStatusCollectible.
+	// Color of the center of the profile backdrop in RGB24 format, from the gift's
+	// starGiftAttributeBackdrop¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeBackdrop
 	CenterColor int
-	// EdgeColor field of EmojiStatusCollectible.
+	// Color of the edges of the profile backdrop in RGB24 format, from the gift's
+	// starGiftAttributeBackdrop¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeBackdrop
 	EdgeColor int
-	// PatternColor field of EmojiStatusCollectible.
+	// Color of the pattern_document_id applied on the profile backdrop in RGB24 format, from
+	// the gift's starGiftAttributeBackdrop¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeBackdrop
 	PatternColor int
-	// TextColor field of EmojiStatusCollectible.
+	// Color of text on the profile backdrop in RGB24 format, from the gift's
+	// starGiftAttributeBackdrop¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeBackdrop
 	TextColor int
-	// Until field of EmojiStatusCollectible.
+	// If set, the emoji status will be active until the specified unixtime.
 	//
 	// Use SetUntil and GetUntil helpers.
 	Until int
@@ -763,6 +803,18 @@ func (e *EmojiStatusCollectible) GetUntil() (value int, ok bool) {
 }
 
 // InputEmojiStatusCollectible represents TL type `inputEmojiStatusCollectible#7141dbf`.
+// An owned collectible gift »¹ as emoji status: can only be used in account
+// updateEmojiStatus², is never returned by the API.
+// Note that once set, the status will be returned to users as a emojiStatusCollectible¹
+// constructor, instead (which cannot be passed to account.updateEmojiStatus², and must
+// be converted to an inputEmojiStatusCollectible³ first).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/method/account.updateEmojiStatus
+//  3. https://core.telegram.org/constructor/emojiStatusCollectible
+//  4. https://core.telegram.org/method/account.updateEmojiStatus
+//  5. https://core.telegram.org/constructor/inputEmojiStatusCollectible
 //
 // See https://core.telegram.org/constructor/inputEmojiStatusCollectible for reference.
 type InputEmojiStatusCollectible struct {
@@ -771,9 +823,12 @@ type InputEmojiStatusCollectible struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CollectibleID field of InputEmojiStatusCollectible.
+	// ID of the collectible (from starGiftUnique¹.id).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	CollectibleID int64
-	// Until field of InputEmojiStatusCollectible.
+	// If set, the emoji status will be active until the specified unixtime.
 	//
 	// Use SetUntil and GetUntil helpers.
 	Until int
@@ -1032,7 +1087,7 @@ type NotEmptyEmojiStatus interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Until field of EmojiStatus.
+	// If set, the emoji status will be active until the specified unixtime.
 	GetUntil() (value int, ok bool)
 }
 

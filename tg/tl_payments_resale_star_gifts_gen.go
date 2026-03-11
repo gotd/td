@@ -32,6 +32,10 @@ var (
 )
 
 // PaymentsResaleStarGifts represents TL type `payments.resaleStarGifts#947a12df`.
+// List of gifts currently on resale »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#reselling-collectible-gifts
 //
 // See https://core.telegram.org/constructor/payments.resaleStarGifts for reference.
 type PaymentsResaleStarGifts struct {
@@ -40,29 +44,48 @@ type PaymentsResaleStarGifts struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of PaymentsResaleStarGifts.
+	// Total number of results.
 	Count int
-	// Gifts field of PaymentsResaleStarGifts.
+	// Collectible gifts on resale (may be less than count, in which case next_offset will be
+	// set).
 	Gifts []StarGiftClass
-	// NextOffset field of PaymentsResaleStarGifts.
+	// Offset for pagination, pass this to payments.getResaleStarGifts¹.offset to fetch the
+	// next results.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getResaleStarGifts
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Attributes field of PaymentsResaleStarGifts.
+	// Possible gift attributes, only set if payments.getResaleStarGifts¹.attributes_hash is
+	// set (on the first call, it must be equal to 0).
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getResaleStarGifts
 	//
 	// Use SetAttributes and GetAttributes helpers.
 	Attributes []StarGiftAttributeClass
-	// AttributesHash field of PaymentsResaleStarGifts.
+	// Hash of the attributes field, pass this to payments.getResaleStarGifts¹
+	// attributes_hash to avoid returning any attributes (flag not set) if they haven't
+	// changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getResaleStarGifts
 	//
 	// Use SetAttributesHash and GetAttributesHash helpers.
 	AttributesHash int64
-	// Chats field of PaymentsResaleStarGifts.
+	// Chats mentioned in the attributes.
 	Chats []ChatClass
-	// Counters field of PaymentsResaleStarGifts.
+	// Indicates the total number of gifts that have a specific attribute, only set if
+	// payments.getResaleStarGifts¹.offset is empty (since this field is not related to the
+	// current result page but to all of them, it's only returned on the first page).
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getResaleStarGifts
 	//
 	// Use SetCounters and GetCounters helpers.
 	Counters []StarGiftAttributeCounter
-	// Users field of PaymentsResaleStarGifts.
+	// Users mentioned in the attributes.
 	Users []UserClass
 }
 
