@@ -3,6 +3,7 @@ package obfuscated2
 import (
 	"bytes"
 	"encoding/hex"
+	"io"
 	"strings"
 	"testing"
 
@@ -67,6 +68,74 @@ func TestEncrypt(t *testing.T) {
 
 	k.decrypt.XORKeyStream(encrypted[:], payload)
 	a.Equal([]byte{143, 113, 25, 130}, encrypted[:])
+}
+
+// chunkedReadWriter wraps a ReadWriter to return at most chunkSize bytes per Read.
+// This simulates FakeTLS behavior where reads return one TLS record at a time.
+type chunkedReadWriter struct {
+	buf       bytes.Buffer
+	chunkSize int
+}
+
+func (c *chunkedReadWriter) Write(p []byte) (int, error) {
+	return c.buf.Write(p)
+}
+
+func (c *chunkedReadWriter) Read(p []byte) (int, error) {
+	if len(p) > c.chunkSize {
+		p = p[:c.chunkSize]
+	}
+	return c.buf.Read(p)
+}
+
+// TestReadPartialChunks verifies that Obfuscated2 correctly decrypts data
+// when the underlying reader returns fewer bytes than requested (as FakeTLS
+// does when a large payload spans multiple TLS records).
+//
+// This is a regression test for a bug where XORKeyStream was called on the
+// full buffer slice instead of only the bytes actually read, causing the
+// AES-CTR stream to advance too far and corrupt subsequent decryption.
+func TestReadPartialChunks(t *testing.T) {
+	a := require.New(t)
+
+	// Create matching AES-CTR streams for encrypt and decrypt.
+	key := make([]byte, 32)
+	iv := make([]byte, 16)
+	for i := range key {
+		key[i] = byte(i + 1)
+	}
+
+	encStream, err := createCTR(key, iv)
+	a.NoError(err)
+	decStream, err := createCTR(key, iv)
+	a.NoError(err)
+
+	// Create a large payload (50KB) that will require multiple partial reads.
+	const payloadSize = 50000
+	payload := make([]byte, payloadSize)
+	for i := range payload {
+		payload[i] = byte(i % 251) // deterministic pattern
+	}
+
+	// Encrypt the payload.
+	encrypted := make([]byte, payloadSize)
+	encStream.XORKeyStream(encrypted, payload)
+
+	// Read through Obfuscated2 with a chunked underlying reader (16KB chunks).
+	// This simulates FakeTLS returning one TLS record at a time.
+	readBuf := &chunkedReadWriter{chunkSize: 16384}
+	readBuf.buf.Write(encrypted)
+
+	reader := &Obfuscated2{conn: readBuf, keys: keys{decrypt: decStream}}
+
+	// Use io.ReadFull which passes large buffer slices to Read().
+	// Before the fix, XORKeyStream(b, b) would advance the stream by len(b)
+	// instead of n, corrupting all subsequent decryption.
+	result := make([]byte, payloadSize)
+	n, err := io.ReadFull(reader, result)
+	a.NoError(err)
+	a.Equal(payloadSize, n)
+	a.Equal(payload, result, "decrypted data should match original payload")
 }
 
 func Test_getDecryptInit(t *testing.T) {
