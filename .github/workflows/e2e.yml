@@ -36,7 +36,7 @@ jobs:
             e2e-${{ runner.os }}-go-
 
       - name: Install latest mtg proxy
-        run: go install -v github.com/9seconds/mtg/v2@latest
+        run: go install -v github.com/9seconds/mtg/v2@v2.1.13
 
       # Run all tests that start with "TestExternalE2E".
       - name: Run tests
