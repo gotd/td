@@ -98,19 +98,9 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 }
 
 func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
-	keyToStore := s.Key
-	if !s.PermKey.Zero() {
-		// Keep in-memory/persisted key format backward-compatible: one key slot.
-		keyToStore = s.PermKey
-	}
-
-	c.sessionsMux.Lock()
-	c.sessions[cfg.ThisDC] = pool.NewSyncSession(pool.Session{
-		DC:      cfg.ThisDC,
-		Salt:    s.Salt,
-		AuthKey: keyToStore,
-	})
-	c.sessionsMux.Unlock()
+	sessionData := dcSessionFromMTProto(cfg.ThisDC, s)
+	// Track per-DC session in memory for pool reconnections/migrations.
+	c.storeDCSess(c.sessions, sessionData)
 
 	primaryDC := c.session.Load().DC
 	// Do not save session for non-primary DC.
@@ -119,11 +109,7 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	}
 
 	c.connMux.Lock()
-	c.session.Store(pool.Session{
-		DC:      cfg.ThisDC,
-		Salt:    s.Salt,
-		AuthKey: keyToStore,
-	})
+	c.session.Store(sessionData)
 	c.cfg.Store(cfg)
 	c.onReady()
 	c.connMux.Unlock()
@@ -133,4 +119,37 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	}
 
 	return nil
+}
+
+func (c *Client) onCDNSession(cfg tg.Config, s mtproto.Session) error {
+	// CDN sessions are isolated from regular DC map because lifecycle and reset
+	// triggers differ (fingerprint misses, CDN-specific reconnects).
+	c.storeDCSess(c.cdnSessions, dcSessionFromMTProto(cfg.ThisDC, s))
+	return nil
+}
+
+func (c *Client) storeDCSess(target map[int]*pool.SyncSession, data pool.Session) {
+	c.sessionsMux.Lock()
+	if existing, ok := target[data.DC]; ok {
+		existing.Store(data)
+		c.sessionsMux.Unlock()
+		return
+	}
+	target[data.DC] = pool.NewSyncSession(data)
+	c.sessionsMux.Unlock()
+}
+
+func dcSessionFromMTProto(dc int, s mtproto.Session) pool.Session {
+	keyToStore := s.Key
+	if !s.PermKey.Zero() {
+		// Keep in-memory/persisted key format backward-compatible: one key slot.
+		// In PFS mode temp key rotates, so we pin permanent key.
+		keyToStore = s.PermKey
+	}
+
+	return pool.Session{
+		DC:      dc,
+		Salt:    s.Salt,
+		AuthKey: keyToStore,
+	}
 }

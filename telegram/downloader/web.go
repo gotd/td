@@ -14,11 +14,24 @@ var errHashesNotSupported = errors.New("this schema does not support hashes fetc
 // See https://core.telegram.org/api/files#downloading-webfiles.
 type web struct {
 	client Client
+	// retryHandler observes retried transient downloader errors.
+	retryHandler RetryHandler
 
 	location tg.InputWebFileLocationClass
 }
 
 var _ schema = web{}
+
+func (w web) reportRetry(operation string, attempt int, err error) {
+	if attempt < 1 || err == nil || w.retryHandler == nil {
+		return
+	}
+	w.retryHandler(RetryEvent{
+		Operation: operation,
+		Attempt:   attempt,
+		Err:       err,
+	})
+}
 
 func (w web) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	file, err := w.client.UploadGetWebFile(ctx, &tg.UploadGetWebFileRequest{

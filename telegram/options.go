@@ -46,6 +46,14 @@ type Options struct {
 	// Enabled by default if no UpdateHandler is provided.
 	NoUpdates bool
 
+	// AllowCDN enables downloader CDN redirect flow for clients that support
+	// downloader integration.
+	//
+	// If false, downloader will stay on the master DC path (legacy behavior).
+	// If true and server does not return redirect, requests still go through the
+	// same master path (no extra CDN round-trips).
+	// Default is false.
+	AllowCDN bool
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
 	// OnDead will be called on connection dead.

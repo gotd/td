@@ -61,7 +61,9 @@ func CreateConn(
 ) *Conn {
 	connOpts.setDefaults(opts.Clock)
 	conn := &Conn{
-		mode:        mode,
+		mode: mode,
+		// Store real DC id for mode-specific init shortcuts (CDN mode).
+		dc:          connOpts.DC,
 		appID:       appID,
 		device:      connOpts.Device,
 		clock:       opts.Clock,
@@ -72,6 +74,9 @@ func CreateConn(
 		setup:       connOpts.Setup,
 		onDead:      connOpts.OnDead,
 		connBackoff: connOpts.Backoff,
+	}
+	if mode == ConnModeCDN {
+		conn.cdnNeedsInit.Store(true)
 	}
 
 	conn.log = opts.Logger

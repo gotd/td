@@ -2,6 +2,7 @@ package downloader
 
 import (
 	"context"
+	"io"
 
 	"github.com/gotd/td/tg"
 )
@@ -20,6 +21,13 @@ type Client interface {
 	UploadGetCDNFileHashes(ctx context.Context, request *tg.UploadGetCDNFileHashesRequest) ([]tg.FileHash, error)
 
 	UploadGetWebFile(ctx context.Context, request *tg.UploadGetWebFileRequest) (*tg.UploadWebFile, error)
+}
+
+// CDNProvider creates client bound to requested CDN DC.
+// Returned closer is schema-scoped; for shared client-level pool adapters this
+// can be a no-op closer.
+type CDNProvider interface {
+	CDN(ctx context.Context, dc int, max int64) (CDN, io.Closer, error)
 }
 
 type chunk struct {

@@ -6,6 +6,7 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/telegram/internal/manager"
 )
 
 func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, output bin.Decoder) error {
@@ -17,7 +18,8 @@ func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, outpu
 		return conn.Invoke(ctx, input, output)
 	}
 
-	conn, err := c.dc(ctx, dc, 1, c.primaryDC(dc))
+	// Sub-invoker is regular data connection to target DC.
+	conn, err := c.dc(ctx, dc, 1, c.primaryDC(dc), manager.ConnModeData)
 	if err != nil {
 		c.subConnsMux.Unlock()
 		return errors.Wrapf(err, "create connection to DC %d", dc)

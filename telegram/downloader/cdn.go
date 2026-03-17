@@ -1,98 +1,176 @@
 package downloader
 
 import (
-	"context"
-	"crypto/aes"
-	"crypto/cipher"
-	"encoding/binary"
+	"io"
+	"sync"
 
-	"github.com/go-faster/errors"
+	"golang.org/x/sync/singleflight"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
 
-// ExpiredTokenError error is returned when Downloader get expired file token for CDN.
-// See https://core.telegram.org/constructor/upload.fileCdnRedirect.
-type ExpiredTokenError struct {
-	*tg.UploadCDNFileReuploadNeeded
-}
-
-// Error implements error interface.
-func (r *ExpiredTokenError) Error() string {
-	return "redirect to master DC for requesting new file token"
-}
-
-// cdn is a CDN DC download schema.
-// See https://core.telegram.org/cdn#getting-files-from-a-cdn.
+// cdn is a download schema that starts on the master DC and switches to CDN on
+// upload.fileCdnRedirect without losing the original request.
 type cdn struct {
-	cdn      CDN
+	provider CDNProvider
 	client   Client
 	pool     *bin.Pool
-	redirect *tg.UploadFileCDNRedirect
+	// retryHandler observes retried transient downloader errors.
+	retryHandler RetryHandler
+
+	// master preserves regular path that may return redirect errors when
+	// allowCDN=true.
+	master master
+	// max is forwarded to provider pool creation, usually mapped from number of
+	// download threads.
+	max int64
+	// verify enables inline verification for decrypted CDN chunks.
+	verify bool
+
+	// stateMux guards mode/redirect/client pointer/revision.
+	stateMux sync.RWMutex
+	// refreshMux serializes redirect refreshes so only one goroutine asks master
+	// for new token when CDN reports token invalid.
+	refreshMux sync.Mutex
+	// clientMux serializes CDN client (re)creation per schema instance.
+	clientMux sync.Mutex
+	// hashesMux guards in-memory cache of CDN hashes by offset.
+	hashesMux sync.RWMutex
+	// windowsMux guards bounded cache of verified CDN hash windows used to
+	// handle custom part sizes that split hash windows.
+	windowsMux sync.Mutex
+	// windowsLoad deduplicates concurrent fetches of the same full hash window.
+	windowsLoad singleflight.Group
+
+	mode        cdnMode
+	redirect    *tg.UploadFileCDNRedirect
+	cdn         CDN
+	closer      io.Closer
+	clientDC    int
+	rev         uint64
+	hashes      map[int64]tg.FileHash
+	hashOffsets []int64
+	windows     map[int64][]byte
+	windowsFIFO []int64
 }
 
-var _ schema = cdn{}
+var _ schema = (*cdn)(nil)
 
-// decrypt decrypts file chunk from Telegram CDN.
-// See https://core.telegram.org/cdn#decrypting-files.
-func (c cdn) decrypt(src []byte, offset int64) ([]byte, error) {
-	block, err := aes.NewCipher(c.redirect.EncryptionKey)
-	if err != nil {
-		return nil, errors.Wrap(err, "create cipher")
+type cdnMode uint8
+
+const (
+	// modeMaster means request master first and switch only on redirect.
+	modeMaster cdnMode = iota
+	// modeCDN means active redirect exists and chunks should be fetched from CDN.
+	modeCDN
+)
+
+// maxVerifiedWindowCache bounds memory used by split-window verification.
+//
+// Split windows are needed only when downloader part size does not align with
+// Telegram CDN hash window size (typically 128KB). In that case we may fetch a
+// full hash window once, verify it, and reuse verified bytes for neighboring
+// chunks. A small bounded cache is enough because sequential/parallel readers
+// usually work on nearby offsets.
+const maxVerifiedWindowCache = 16
+
+func newCDNSchema(
+	masterSchema master,
+	provider CDNProvider,
+	pool *bin.Pool,
+	max int64,
+	verifyCDNInline bool,
+	retryHandler RetryHandler,
+) *cdn {
+	if max < 1 {
+		max = 1
 	}
 
-	if block.BlockSize() != len(c.redirect.EncryptionIv) {
-		return nil, errors.Errorf(
-			"invalid IV or key length, block size %d != IV %d",
-			block.BlockSize(), len(c.redirect.EncryptionIv),
-		)
+	return &cdn{
+		provider:     provider,
+		client:       masterSchema.client,
+		pool:         pool,
+		retryHandler: retryHandler,
+		master:       masterSchema,
+		max:          max,
+		verify:       verifyCDNInline,
+		mode:         modeMaster,
 	}
-
-	// Copy IV to buffer from Pool.
-	iv := c.pool.GetSize(len(c.redirect.EncryptionIv))
-	defer c.pool.Put(iv)
-	copy(iv.Buf, c.redirect.EncryptionIv)
-
-	// For IV, it should use the value of encryption_iv, modified in the following manner:
-	// for each offset replace the last 4 bytes of the encryption_iv with offset / 16 in big-endian.
-	binary.BigEndian.PutUint32(iv.Buf[iv.Len()-4:], uint32(offset/16))
-
-	dst := make([]byte, len(src))
-	cipher.NewCTR(block, iv.Buf).XORKeyStream(dst, src)
-	return dst, nil
 }
 
-func (c cdn) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
-	r, err := c.cdn.UploadGetCDNFile(ctx, &tg.UploadGetCDNFileRequest{
-		Offset:    offset,
-		Limit:     limit,
-		FileToken: c.redirect.FileToken,
+func (c *cdn) reportRetry(operation string, attempt int, err error) {
+	if attempt < 1 || err == nil || c.retryHandler == nil {
+		return
+	}
+	c.retryHandler(RetryEvent{
+		Operation: operation,
+		Attempt:   attempt,
+		Err:       err,
 	})
-	if err != nil {
-		return chunk{}, err
+}
+
+func (c *cdn) Close() error {
+	// Close is called by Builder defer path and should release only schema-local
+	// CDN resources. Shared client-level pools are managed in telegram package.
+	c.stateMux.Lock()
+	closer := c.closer
+	c.cdn = nil
+	c.closer = nil
+	c.clientDC = 0
+	c.stateMux.Unlock()
+
+	if closer != nil {
+		return closer.Close()
 	}
+	return nil
+}
 
-	switch result := r.(type) {
-	case *tg.UploadCDNFile:
-		data, err := c.decrypt(result.Bytes, offset)
-		if err != nil {
-			return chunk{}, err
-		}
+func (c *cdn) closeClient() {
+	// Internal best-effort close used on fingerprint/token recovery loops.
+	c.stateMux.Lock()
+	closer := c.closer
+	c.cdn = nil
+	c.closer = nil
+	c.clientDC = 0
+	c.stateMux.Unlock()
 
-		return chunk{
-			data: data,
-		}, nil
-	case *tg.UploadCDNFileReuploadNeeded:
-		return chunk{}, &ExpiredTokenError{UploadCDNFileReuploadNeeded: result}
-	default:
-		return chunk{}, errors.Errorf("unexpected type %T", r)
+	if closer != nil {
+		_ = closer.Close()
 	}
 }
 
-func (c cdn) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
-	return c.client.UploadGetCDNFileHashes(ctx, &tg.UploadGetCDNFileHashesRequest{
-		FileToken: c.redirect.FileToken,
-		Offset:    offset,
-	})
+func (c *cdn) snapshot() (mode cdnMode, redirect *tg.UploadFileCDNRedirect, rev uint64) {
+	c.stateMux.RLock()
+	defer c.stateMux.RUnlock()
+
+	return c.mode, c.redirect, c.rev
+}
+
+func (c *cdn) setRedirect(redirect *tg.UploadFileCDNRedirect) {
+	c.stateMux.Lock()
+	c.mode = modeCDN
+	c.redirect = redirect
+	c.rev++
+	c.stateMux.Unlock()
+
+	// Redirect update invalidates hash cache scope (file token / offset range
+	// may change). Seed with hashes returned in redirect when available.
+	c.resetHashes()
+	c.resetWindows()
+	if redirect != nil {
+		c.cacheHashes(redirect.FileHashes)
+	}
+}
+
+func (c *cdn) setMaster() {
+	c.stateMux.Lock()
+	c.mode = modeMaster
+	c.redirect = nil
+	c.rev++
+	c.stateMux.Unlock()
+
+	// Leaving CDN mode invalidates CDN hash cache.
+	c.resetHashes()
+	c.resetWindows()
 }
