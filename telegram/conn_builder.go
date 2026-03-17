@@ -32,6 +32,26 @@ func (c *Client) asHandler() manager.Handler {
 	}
 }
 
+type cdnClientHandler struct {
+	client *Client
+}
+
+func (c cdnClientHandler) OnSession(cfg tg.Config, s mtproto.Session) error {
+	// CDN sessions are stored separately from regular DC sessions.
+	return c.client.onCDNSession(cfg, s)
+}
+
+func (cdnClientHandler) OnMessage(*bin.Buffer) error {
+	// CDN connections never deliver updates.
+	return nil
+}
+
+func (c *Client) asCDNHandler() manager.Handler {
+	return cdnClientHandler{
+		client: c,
+	}
+}
+
 type connConstructor func(
 	create mtproto.Dialer,
 	mode manager.ConnMode,

@@ -10,6 +10,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
+	"golang.org/x/sync/singleflight"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -102,8 +103,22 @@ type Client struct {
 	// Connections to non-primary DC.
 	subConns    map[int]CloseInvoker
 	subConnsMux sync.Mutex
-	sessions    map[int]*pool.SyncSession
+	// Shared CDN pools and handle references.
+	cdnPools cdnPoolManager
+	// sessions stores regular non-primary DC sessions.
+	sessions map[int]*pool.SyncSession
+	// cdnSessions stores session state for CDN pools separately from regular DCs.
+	cdnSessions map[int]*pool.SyncSession
 	sessionsMux sync.Mutex
+	// CDN public keys loaded from help.getCdnConfig and cached per CDN DC.
+	cdnKeys     []PublicKey
+	cdnKeysByDC map[int][]PublicKey
+	cdnKeysSet  bool
+	// cdnKeysGen increments on cache invalidation to avoid storing stale
+	// singleflight result after fingerprint miss.
+	cdnKeysGen  uint64
+	cdnKeysMux  sync.Mutex
+	cdnKeysLoad singleflight.Group
 
 	// Wrappers for external world, like logs or PRNG.
 	rand  io.Reader   // immutable
@@ -117,6 +132,8 @@ type Client struct {
 	// Client config.
 	appID   int    // immutable
 	appHash string // immutable
+	// allowCDN is the explicit downloader policy copied from Options.AllowCDN.
+	allowCDN bool // immutable
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
@@ -155,6 +172,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		log:           opt.Logger,
 		appID:         appID,
 		appHash:       appHash,
+		allowCDN:      opt.AllowCDN,
 		updateHandler: opt.UpdateHandler,
 		session: pool.NewSyncSession(pool.Session{
 			DC: opt.DC,
@@ -232,7 +250,15 @@ func (c *Client) init() {
 	c.restart = make(chan struct{})
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
+	c.cdnSessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
+	c.cdnPools = newCDNPoolManager()
+	// CDN key cache is cold-started and filled lazily on first CDN pool create.
+	c.cdnKeys = nil
+	c.cdnKeysByDC = nil
+	c.cdnKeysSet = false
+	c.cdnKeysGen = 0
+	c.cdnKeysLoad = singleflight.Group{}
 	c.invoker = chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...)
 	c.tg = tg.NewClient(c.invoker)
 }

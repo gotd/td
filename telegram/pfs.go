@@ -1,16 +1,11 @@
 package telegram
 
 import (
-	"context"
-
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
-	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/telegram/internal/manager"
-	"github.com/gotd/td/tg"
 )
 
 func (c *Client) handlePrimaryConnDead(err error) {
@@ -55,16 +50,5 @@ func (c *Client) handleDCConnDead(dcID int, err error) {
 
 	if c.onDead != nil {
 		c.onDead(err)
-	}
-}
-
-func (c *Client) dcTransferSetup(dcID int) manager.SetupCallback {
-	return func(ctx context.Context, invoker tg.Invoker) error {
-		// Run export/import authorization only when the connection is already up.
-		_, err := c.transfer(ctx, tg.NewClient(invoker), dcID)
-		if auth.IsUnauthorized(err) {
-			return nil
-		}
-		return err
 	}
 }

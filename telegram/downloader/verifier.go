@@ -19,7 +19,9 @@ var ErrHashMismatch = errors.New("file hash mismatch")
 type verifier struct {
 	client schema
 
+	// hashes is ordered queue consumed by reader.
 	hashes []tg.FileHash
+	// offset points to next hash window to request from server.
 	offset int64
 	mux    sync.Mutex
 }
@@ -31,8 +33,22 @@ func newVerifier(client schema, hashes ...tg.FileHash) *verifier {
 	sort.SliceStable(r, func(i, j int) bool {
 		return r[i].Offset < r[j].Offset
 	})
+	var nextOffset int64
+	for _, hash := range r {
+		if hash.Limit <= 0 {
+			continue
+		}
+		end := hash.Offset + int64(hash.Limit)
+		if end > nextOffset {
+			nextOffset = end
+		}
+	}
 
-	return &verifier{client: client, hashes: r}
+	return &verifier{
+		client: client,
+		hashes: r,
+		offset: nextOffset,
+	}
 }
 
 func (v *verifier) pop() (tg.FileHash, bool) {
@@ -85,10 +101,14 @@ func (v *verifier) next(ctx context.Context) (tg.FileHash, bool, error) {
 		return hash, ok, nil
 	}
 
+	retryAttempt := 0
 	for {
 		hashes, err := v.client.Hashes(ctx, v.offset)
 		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
 			if flood || tgerr.Is(err, tg.ErrTimeout) {
+				// Keep retrying transient server throttling/timeouts.
+				retryAttempt++
+				reportSchemaRetry(v.client, RetryOperationReaderHashes, retryAttempt, err)
 				continue
 			}
 			return tg.FileHash{}, false, errors.Wrap(err, "get hashes")

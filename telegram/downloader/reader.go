@@ -88,11 +88,14 @@ func (r *reader) nextPlain(ctx context.Context) (block, error) {
 }
 
 func (r *reader) next(ctx context.Context, offset int64, limit int) (block, error) {
+	retryAttempt := 0
 	for {
 		ch, err := r.sch.Chunk(ctx, offset, limit)
 
 		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
 			if flood || tgerr.Is(err, tg.ErrTimeout) {
+				retryAttempt++
+				reportSchemaRetry(r.sch, RetryOperationReaderChunk, retryAttempt, err)
 				continue
 			}
 			return block{}, errors.Wrap(err, "get next chunk")

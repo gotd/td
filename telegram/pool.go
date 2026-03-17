@@ -56,7 +56,13 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 	})
 }
 
-func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dialer) (*pool.DC, error) {
+func (c *Client) dc(
+	ctx context.Context,
+	dcID int,
+	max int64,
+	dialer mtproto.Dialer,
+	mode manager.ConnMode,
+) (*pool.DC, error) {
 	if max < 0 {
 		return nil, errors.Errorf("invalid max value %d", max)
 	}
@@ -72,6 +78,24 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 	)
 
 	opts := c.opts
+	if mode == manager.ConnModeCDN {
+		// TDesktop-compatible gate: CDN connection is allowed only when keyset
+		// for requested CDN DC is present (or can be fetched).
+		cdnKeys, set := c.cachedCDNKeysForDC(dcID)
+		if !set || len(cdnKeys) == 0 {
+			fetched, err := c.fetchCDNKeysForDC(ctx, dcID)
+			if err != nil {
+				return nil, errors.Wrapf(err, "fetch CDN public keys for DC %d", dcID)
+			}
+			cdnKeys = fetched
+		}
+		if len(cdnKeys) == 0 {
+			return nil, errors.Errorf("no CDN public keys available for CDN DC %d", dcID)
+		}
+		// Keep CDN keys first and extend with bundled keys for fingerprint
+		// compatibility fallback, matching TDesktop key lookup behavior.
+		opts.PublicKeys = mergePublicKeys(cdnKeys, opts.PublicKeys)
+	}
 	// suppressSetup temporarily disables per-connection transfer hook while
 	// explicit first transfer below is running, avoiding duplicate import.
 	var suppressSetup atomic.Bool
@@ -79,32 +103,50 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 		id := c.connsCounter.Inc()
 
 		c.sessionsMux.Lock()
-		session, ok := c.sessions[dcID]
+		sessions := c.sessions
+		if mode == manager.ConnModeCDN {
+			// Keep CDN auth key lifecycle separated from regular DC sessions.
+			sessions = c.cdnSessions
+		}
+		session, ok := sessions[dcID]
 		if !ok {
 			session = pool.NewSyncSession(pool.Session{DC: dcID})
-			c.sessions[dcID] = session
+			sessions[dcID] = session
 		}
 		c.sessionsMux.Unlock()
 
 		options, data := session.Options(opts)
 		setup := manager.SetupCallback(nil)
-		if data.AuthKey.Zero() && c.session.Load().DC != dcID && !suppressSetup.Load() {
+		handler := c.asHandler()
+		if mode != manager.ConnModeCDN &&
+			data.AuthKey.Zero() &&
+			c.session.Load().DC != dcID &&
+			!suppressSetup.Load() {
 			// Non-main DC key must be authorized via auth.export/import after
 			// local key generation.
 			setup = c.dcTransferSetup(dcID)
+		}
+		if mode == manager.ConnModeCDN {
+			// CDN pools do not process updates and use dedicated session store.
+			handler = c.asCDNHandler()
 		}
 		options.Logger = c.log.Named("conn").With(
 			zap.Int64("conn_id", id),
 			zap.Int("dc_id", dcID),
 		)
 		return c.create(
-			dialer, manager.ConnModeData, c.appID,
+			dialer, mode, c.appID,
 			options, manager.ConnOptions{
 				DC:      dcID,
 				Device:  c.device,
-				Handler: c.asHandler(),
+				Handler: handler,
 				Setup:   setup,
 				OnDead: func(err error) {
+					if mode == manager.ConnModeCDN {
+						// CDN dead handler also manages CDN key invalidation.
+						c.handleCDNConnDead(dcID, err)
+						return
+					}
 					c.handleDCConnDead(dcID, err)
 				},
 			},
@@ -112,6 +154,12 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "create pool")
+	}
+
+	if mode == manager.ConnModeCDN {
+		// No auth transfer for CDN mode: CDN API uses file tokens and does not
+		// require auth.export/import bootstrap.
+		return p, nil
 	}
 
 	// First transfer is done explicitly to preserve old behavior: return
@@ -136,7 +184,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 
 // DC creates new multi-connection invoker to given DC.
 func (c *Client) DC(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
-	return c.dc(ctx, dc, max, c.primaryDC(dc))
+	return c.dc(ctx, dc, max, c.primaryDC(dc), manager.ConnModeData)
 }
 
 // MediaOnly creates new multi-connection invoker to given DC ID.
@@ -144,5 +192,35 @@ func (c *Client) DC(ctx context.Context, dc int, max int64) (CloseInvoker, error
 func (c *Client) MediaOnly(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
 	return c.dc(ctx, dc, max, func(ctx context.Context) (transport.Conn, error) {
 		return c.resolver.MediaOnly(ctx, dc, c.dcList())
-	})
+	}, manager.ConnModeData)
+}
+
+// CDN creates new multi-connection invoker to given CDN DC ID.
+// It connects to CDN DCs.
+func (c *Client) CDN(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
+	if max < 0 {
+		return nil, errors.Errorf("invalid max value %d", max)
+	}
+	need := normalizeCDNPoolMax(max)
+
+	if cached, ok := c.cdnPools.acquire(dc, need); ok {
+		// Reuse existing pool to avoid extra TCP/MTProto handshakes.
+		return cached, nil
+	}
+
+	// Keep shared CDN pools per DC with max-aware reuse.
+	created, err := c.dc(ctx, dc, need, func(ctx context.Context) (transport.Conn, error) {
+		return c.resolver.CDN(ctx, dc, c.dcList())
+	}, manager.ConnModeCDN)
+	if err != nil {
+		return nil, err
+	}
+
+	handle, reused := c.cdnPools.publishOrAcquire(dc, need, created)
+	if reused {
+		// Lost race: another goroutine already published suitable pool.
+		_ = created.Close()
+		return handle, nil
+	}
+	return handle, nil
 }

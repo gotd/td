@@ -27,10 +27,23 @@ type master struct {
 
 	precise  bool
 	allowCDN bool
-	location tg.InputFileLocationClass
+	// retryHandler observes retried transient downloader errors.
+	retryHandler RetryHandler
+	location     tg.InputFileLocationClass
 }
 
 var _ schema = master{}
+
+func (c master) reportRetry(operation string, attempt int, err error) {
+	if attempt < 1 || err == nil || c.retryHandler == nil {
+		return
+	}
+	c.retryHandler(RetryEvent{
+		Operation: operation,
+		Attempt:   attempt,
+		Err:       err,
+	})
+}
 
 func (c master) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	req := &tg.UploadGetFileRequest{

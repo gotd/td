@@ -3,6 +3,7 @@ package manager
 import (
 	"context"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
@@ -42,6 +43,7 @@ const (
 type Conn struct {
 	// Connection parameters.
 	mode ConnMode // immutable
+	dc   int      // immutable
 	// MTProto connection.
 	proto protoConn // immutable
 
@@ -66,6 +68,9 @@ type Conn struct {
 
 	// State fields.
 	cfg tg.Config
+	// cdnNeedsInit mirrors TDesktop connectionInited state for CDN transport.
+	// true means requests must go via invokeWithLayer(initConnection).
+	cdnNeedsInit atomic.Bool
 	// pending buffers OnSession events until initConnection config is available.
 	pending []mtproto.Session
 	ongoing int
@@ -175,7 +180,7 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 
 func (c *Conn) waitSession(ctx context.Context) error {
 	select {
-	// Connection is considered ready only after initConnection succeeded.
+	// Connection is considered ready only after mode-specific init succeeded.
 	case <-c.gotConfig.Ready():
 		return nil
 	case <-c.dead.Ready():
@@ -200,13 +205,76 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 		return errors.Wrap(err, "waitSession")
 	}
 
+	if c.mode == ConnModeCDN {
+		// CDN mode has dedicated request wrapping rules (see invokeCDN).
+		err := c.invokeCDN(ctx, input, output)
+		return err
+	}
 	q := c.wrapRequest(noopDecoder{input})
 	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
 		Layer: tg.Layer,
 		Query: q,
 	})
+	err := c.proto.Invoke(ctx, req, output)
+	return err
+}
+func (c *Conn) invokeCDN(
+	ctx context.Context,
+	input bin.Encoder,
+	output bin.Decoder,
+) error {
+	// TDesktop model:
+	// - while connection is "not inited": wrap every query in invokeWithLayer(initConnection);
+	// - after first successful reply: use raw CDN methods;
+	// - if server returns CONNECTION_NOT_INITED/LAYER_INVALID on raw call:
+	//   mark "not inited" and retry wrapped once.
+	if c.cdnNeedsInit.Load() {
+		err := c.invokeCDNWrapped(ctx, input, output)
+		if err == nil {
+			c.cdnNeedsInit.Store(false)
+			return nil
+		}
+		return err
+	}
 
+	err := c.invokeCDNRaw(ctx, input, output)
+	if err == nil {
+		return nil
+	}
+	if c.shouldCDNRetryWrapped(err) {
+		c.cdnNeedsInit.Store(true)
+		retryErr := c.invokeCDNWrapped(ctx, input, output)
+		if retryErr == nil {
+			c.cdnNeedsInit.Store(false)
+			return nil
+		}
+		return retryErr
+	}
+	return err
+}
+func (c *Conn) invokeCDNWrapped(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	req := &tg.InvokeWithLayerRequest{
+		Layer: tg.Layer,
+		Query: c.cdnInitRequest(noopDecoder{input}),
+	}
 	return c.proto.Invoke(ctx, req, output)
+}
+func (c *Conn) invokeCDNRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return c.proto.Invoke(ctx, input, output)
+}
+func (c *Conn) shouldCDNRetryWrapped(err error) bool {
+	if err == nil {
+		return false
+	}
+	if rpcErr, ok := tgerr.As(err); ok {
+		// Retry wrapped only for not-inited/layer-invalid transport state.
+		v := rpcErr.IsOneOf(
+			"CONNECTION_NOT_INITED",
+			"CONNECTION_LAYER_INVALID",
+		)
+		return v
+	}
+	return false
 }
 
 // OnMessage implements mtproto.Handler.
@@ -223,7 +291,7 @@ func (n noopDecoder) Decode(b *bin.Buffer) error {
 }
 
 func (c *Conn) wrapRequest(req bin.Object) bin.Object {
-	if c.mode != ConnModeUpdates {
+	if c.mode == ConnModeData {
 		return &tg.InvokeWithoutUpdatesRequest{
 			Query: req,
 		}
@@ -232,9 +300,38 @@ func (c *Conn) wrapRequest(req bin.Object) bin.Object {
 	return req
 }
 
+func (c *Conn) cdnInitRequest(query bin.Object) bin.Object {
+	// Match TDesktop CDN init wrapper:
+	// only device/system are anonymized, the rest of initConnection
+	// parameters stay aligned with regular connection settings.
+	return &tg.InitConnectionRequest{
+		APIID:          c.appID,
+		DeviceModel:    "n/a",
+		SystemVersion:  "n/a",
+		AppVersion:     c.device.AppVersion,
+		SystemLangCode: c.device.SystemLangCode,
+		LangPack:       c.device.LangPack,
+		LangCode:       c.device.LangCode,
+		Proxy:          c.device.Proxy,
+		Params:         c.device.Params,
+		Query:          query,
+	}
+}
 func (c *Conn) init(ctx context.Context) error {
 	c.log.Debug("Initializing")
 
+	if c.mode == ConnModeCDN {
+		// CDN connections skip help.getConfig init flow and become ready
+		// immediately after MTProto auth-key exchange.
+		c.cdnNeedsInit.Store(true)
+		c.mux.Lock()
+		c.latest = c.clock.Now()
+		c.cfg = tg.Config{ThisDC: c.dc}
+		c.mux.Unlock()
+		c.gotConfig.Signal()
+		err := c.flushPendingSession()
+		return err
+	}
 	q := c.wrapRequest(&tg.InitConnectionRequest{
 		APIID:          c.appID,
 		DeviceModel:    c.device.DeviceModel,
@@ -287,7 +384,8 @@ func (c *Conn) init(ctx context.Context) error {
 	c.mux.Unlock()
 
 	c.gotConfig.Signal()
-	return c.flushPendingSession()
+	err := c.flushPendingSession()
+	return err
 }
 
 // Ping calls ping for underlying protocol connection.

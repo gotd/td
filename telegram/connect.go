@@ -142,18 +142,32 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 
 	c.log.Info("Starting")
 	defer c.log.Info("Closed")
-	// Cancel client on exit.
-	defer c.cancel()
 	defer func() {
 		c.subConnsMux.Lock()
-		defer c.subConnsMux.Unlock()
-
+		subConns := make([]CloseInvoker, 0, len(c.subConns))
 		for _, conn := range c.subConns {
+			subConns = append(subConns, conn)
+		}
+		c.subConns = map[int]CloseInvoker{}
+		c.subConnsMux.Unlock()
+
+		cdnConns := c.cdnPools.drain()
+
+		// Close outside locks to avoid lock inversion with pool callbacks.
+		for _, conn := range subConns {
+			if closeErr := conn.Close(); !errors.Is(closeErr, context.Canceled) {
+				multierr.AppendInto(&err, closeErr)
+			}
+		}
+		for _, conn := range cdnConns {
 			if closeErr := conn.Close(); !errors.Is(closeErr, context.Canceled) {
 				multierr.AppendInto(&err, closeErr)
 			}
 		}
 	}()
+	// Cancel client before deferred cleanup snapshot to block concurrent pool
+	// creations while we are draining cached connections.
+	defer c.cancel()
 
 	c.resetReady()
 	if err := c.restoreConnection(ctx); err != nil {
