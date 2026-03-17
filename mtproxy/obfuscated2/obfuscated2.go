@@ -53,7 +53,7 @@ func (o *Obfuscated2) Read(b []byte) (int, error) {
 		return n, err
 	}
 	if n > 0 {
-		o.decrypt.XORKeyStream(b, b)
+		o.decrypt.XORKeyStream(b[:n], b[:n])
 	}
 	return n, err
 }
