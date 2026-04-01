@@ -14774,6 +14774,418 @@ func (m *MessageActionNoForwardsRequest) GetNewValue() (value bool) {
 	return m.NewValue
 }
 
+// MessageActionPollAppendAnswer represents TL type `messageActionPollAppendAnswer#9da1cd6c`.
+//
+// See https://core.telegram.org/constructor/messageActionPollAppendAnswer for reference.
+type MessageActionPollAppendAnswer struct {
+	// Answer field of MessageActionPollAppendAnswer.
+	Answer PollAnswerClass
+}
+
+// MessageActionPollAppendAnswerTypeID is TL type id of MessageActionPollAppendAnswer.
+const MessageActionPollAppendAnswerTypeID = 0x9da1cd6c
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPollAppendAnswer) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPollAppendAnswer.
+var (
+	_ bin.Encoder     = &MessageActionPollAppendAnswer{}
+	_ bin.Decoder     = &MessageActionPollAppendAnswer{}
+	_ bin.BareEncoder = &MessageActionPollAppendAnswer{}
+	_ bin.BareDecoder = &MessageActionPollAppendAnswer{}
+
+	_ MessageActionClass = &MessageActionPollAppendAnswer{}
+)
+
+func (m *MessageActionPollAppendAnswer) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Answer == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionPollAppendAnswer) String() string {
+	if m == nil {
+		return "MessageActionPollAppendAnswer(nil)"
+	}
+	type Alias MessageActionPollAppendAnswer
+	return fmt.Sprintf("MessageActionPollAppendAnswer%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPollAppendAnswer from given interface.
+func (m *MessageActionPollAppendAnswer) FillFrom(from interface {
+	GetAnswer() (value PollAnswerClass)
+}) {
+	m.Answer = from.GetAnswer()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionPollAppendAnswer) TypeID() uint32 {
+	return MessageActionPollAppendAnswerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionPollAppendAnswer) TypeName() string {
+	return "messageActionPollAppendAnswer"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPollAppendAnswer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPollAppendAnswer",
+		ID:   MessageActionPollAppendAnswerTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Answer",
+			SchemaName: "answer",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionPollAppendAnswer) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPollAppendAnswer#9da1cd6c as nil")
+	}
+	b.PutID(MessageActionPollAppendAnswerTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionPollAppendAnswer) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPollAppendAnswer#9da1cd6c as nil")
+	}
+	if m.Answer == nil {
+		return fmt.Errorf("unable to encode messageActionPollAppendAnswer#9da1cd6c: field answer is nil")
+	}
+	if err := m.Answer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPollAppendAnswer#9da1cd6c: field answer: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionPollAppendAnswer) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPollAppendAnswer#9da1cd6c to nil")
+	}
+	if err := b.ConsumeID(MessageActionPollAppendAnswerTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionPollAppendAnswer#9da1cd6c: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionPollAppendAnswer) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPollAppendAnswer#9da1cd6c to nil")
+	}
+	{
+		value, err := DecodePollAnswer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPollAppendAnswer#9da1cd6c: field answer: %w", err)
+		}
+		m.Answer = value
+	}
+	return nil
+}
+
+// GetAnswer returns value of Answer field.
+func (m *MessageActionPollAppendAnswer) GetAnswer() (value PollAnswerClass) {
+	if m == nil {
+		return
+	}
+	return m.Answer
+}
+
+// MessageActionPollDeleteAnswer represents TL type `messageActionPollDeleteAnswer#399674dc`.
+//
+// See https://core.telegram.org/constructor/messageActionPollDeleteAnswer for reference.
+type MessageActionPollDeleteAnswer struct {
+	// Answer field of MessageActionPollDeleteAnswer.
+	Answer PollAnswerClass
+}
+
+// MessageActionPollDeleteAnswerTypeID is TL type id of MessageActionPollDeleteAnswer.
+const MessageActionPollDeleteAnswerTypeID = 0x399674dc
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPollDeleteAnswer) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPollDeleteAnswer.
+var (
+	_ bin.Encoder     = &MessageActionPollDeleteAnswer{}
+	_ bin.Decoder     = &MessageActionPollDeleteAnswer{}
+	_ bin.BareEncoder = &MessageActionPollDeleteAnswer{}
+	_ bin.BareDecoder = &MessageActionPollDeleteAnswer{}
+
+	_ MessageActionClass = &MessageActionPollDeleteAnswer{}
+)
+
+func (m *MessageActionPollDeleteAnswer) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Answer == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionPollDeleteAnswer) String() string {
+	if m == nil {
+		return "MessageActionPollDeleteAnswer(nil)"
+	}
+	type Alias MessageActionPollDeleteAnswer
+	return fmt.Sprintf("MessageActionPollDeleteAnswer%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPollDeleteAnswer from given interface.
+func (m *MessageActionPollDeleteAnswer) FillFrom(from interface {
+	GetAnswer() (value PollAnswerClass)
+}) {
+	m.Answer = from.GetAnswer()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionPollDeleteAnswer) TypeID() uint32 {
+	return MessageActionPollDeleteAnswerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionPollDeleteAnswer) TypeName() string {
+	return "messageActionPollDeleteAnswer"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPollDeleteAnswer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPollDeleteAnswer",
+		ID:   MessageActionPollDeleteAnswerTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Answer",
+			SchemaName: "answer",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionPollDeleteAnswer) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPollDeleteAnswer#399674dc as nil")
+	}
+	b.PutID(MessageActionPollDeleteAnswerTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionPollDeleteAnswer) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionPollDeleteAnswer#399674dc as nil")
+	}
+	if m.Answer == nil {
+		return fmt.Errorf("unable to encode messageActionPollDeleteAnswer#399674dc: field answer is nil")
+	}
+	if err := m.Answer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPollDeleteAnswer#399674dc: field answer: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionPollDeleteAnswer) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPollDeleteAnswer#399674dc to nil")
+	}
+	if err := b.ConsumeID(MessageActionPollDeleteAnswerTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionPollDeleteAnswer#399674dc: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionPollDeleteAnswer) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPollDeleteAnswer#399674dc to nil")
+	}
+	{
+		value, err := DecodePollAnswer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPollDeleteAnswer#399674dc: field answer: %w", err)
+		}
+		m.Answer = value
+	}
+	return nil
+}
+
+// GetAnswer returns value of Answer field.
+func (m *MessageActionPollDeleteAnswer) GetAnswer() (value PollAnswerClass) {
+	if m == nil {
+		return
+	}
+	return m.Answer
+}
+
+// MessageActionManagedBotCreated represents TL type `messageActionManagedBotCreated#16605e3e`.
+//
+// See https://core.telegram.org/constructor/messageActionManagedBotCreated for reference.
+type MessageActionManagedBotCreated struct {
+	// BotID field of MessageActionManagedBotCreated.
+	BotID int64
+}
+
+// MessageActionManagedBotCreatedTypeID is TL type id of MessageActionManagedBotCreated.
+const MessageActionManagedBotCreatedTypeID = 0x16605e3e
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionManagedBotCreated) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionManagedBotCreated.
+var (
+	_ bin.Encoder     = &MessageActionManagedBotCreated{}
+	_ bin.Decoder     = &MessageActionManagedBotCreated{}
+	_ bin.BareEncoder = &MessageActionManagedBotCreated{}
+	_ bin.BareDecoder = &MessageActionManagedBotCreated{}
+
+	_ MessageActionClass = &MessageActionManagedBotCreated{}
+)
+
+func (m *MessageActionManagedBotCreated) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.BotID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionManagedBotCreated) String() string {
+	if m == nil {
+		return "MessageActionManagedBotCreated(nil)"
+	}
+	type Alias MessageActionManagedBotCreated
+	return fmt.Sprintf("MessageActionManagedBotCreated%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionManagedBotCreated from given interface.
+func (m *MessageActionManagedBotCreated) FillFrom(from interface {
+	GetBotID() (value int64)
+}) {
+	m.BotID = from.GetBotID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionManagedBotCreated) TypeID() uint32 {
+	return MessageActionManagedBotCreatedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionManagedBotCreated) TypeName() string {
+	return "messageActionManagedBotCreated"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionManagedBotCreated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionManagedBotCreated",
+		ID:   MessageActionManagedBotCreatedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionManagedBotCreated) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionManagedBotCreated#16605e3e as nil")
+	}
+	b.PutID(MessageActionManagedBotCreatedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionManagedBotCreated) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionManagedBotCreated#16605e3e as nil")
+	}
+	b.PutLong(m.BotID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionManagedBotCreated) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionManagedBotCreated#16605e3e to nil")
+	}
+	if err := b.ConsumeID(MessageActionManagedBotCreatedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionManagedBotCreated#16605e3e: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionManagedBotCreated) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionManagedBotCreated#16605e3e to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionManagedBotCreated#16605e3e: field bot_id: %w", err)
+		}
+		m.BotID = value
+	}
+	return nil
+}
+
+// GetBotID returns value of BotID field.
+func (m *MessageActionManagedBotCreated) GetBotID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.BotID
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -14846,6 +15258,9 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionChangeCreator]
 //   - [MessageActionNoForwardsToggle]
 //   - [MessageActionNoForwardsRequest]
+//   - [MessageActionPollAppendAnswer]
+//   - [MessageActionPollDeleteAnswer]
+//   - [MessageActionManagedBotCreated]
 //
 // Example:
 //
@@ -14918,6 +15333,9 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionChangeCreator: // messageActionChangeCreator#e188503b
 //	case *tg.MessageActionNoForwardsToggle: // messageActionNoForwardsToggle#bf7d6572
 //	case *tg.MessageActionNoForwardsRequest: // messageActionNoForwardsRequest#3e2793ba
+//	case *tg.MessageActionPollAppendAnswer: // messageActionPollAppendAnswer#9da1cd6c
+//	case *tg.MessageActionPollDeleteAnswer: // messageActionPollDeleteAnswer#399674dc
+//	case *tg.MessageActionManagedBotCreated: // messageActionManagedBotCreated#16605e3e
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -15390,6 +15808,27 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionNoForwardsRequestTypeID:
 		// Decoding messageActionNoForwardsRequest#3e2793ba.
 		v := MessageActionNoForwardsRequest{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionPollAppendAnswerTypeID:
+		// Decoding messageActionPollAppendAnswer#9da1cd6c.
+		v := MessageActionPollAppendAnswer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionPollDeleteAnswerTypeID:
+		// Decoding messageActionPollDeleteAnswer#399674dc.
+		v := MessageActionPollDeleteAnswer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionManagedBotCreatedTypeID:
+		// Decoding messageActionManagedBotCreated#16605e3e.
+		v := MessageActionManagedBotCreated{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

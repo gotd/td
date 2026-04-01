@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSummarizeTextRequest represents TL type `messages.summarizeText#9d4104e2`.
+// MessagesSummarizeTextRequest represents TL type `messages.summarizeText#abbbd346`.
 //
 // See https://core.telegram.org/method/messages.summarizeText for reference.
 type MessagesSummarizeTextRequest struct {
@@ -45,10 +45,14 @@ type MessagesSummarizeTextRequest struct {
 	//
 	// Use SetToLang and GetToLang helpers.
 	ToLang string
+	// Tone field of MessagesSummarizeTextRequest.
+	//
+	// Use SetTone and GetTone helpers.
+	Tone string
 }
 
 // MessagesSummarizeTextRequestTypeID is TL type id of MessagesSummarizeTextRequest.
-const MessagesSummarizeTextRequestTypeID = 0x9d4104e2
+const MessagesSummarizeTextRequestTypeID = 0xabbbd346
 
 // Ensuring interfaces in compile-time for MessagesSummarizeTextRequest.
 var (
@@ -74,6 +78,9 @@ func (s *MessagesSummarizeTextRequest) Zero() bool {
 	if !(s.ToLang == "") {
 		return false
 	}
+	if !(s.Tone == "") {
+		return false
+	}
 
 	return true
 }
@@ -92,11 +99,16 @@ func (s *MessagesSummarizeTextRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetID() (value int)
 	GetToLang() (value string, ok bool)
+	GetTone() (value string, ok bool)
 }) {
 	s.Peer = from.GetPeer()
 	s.ID = from.GetID()
 	if val, ok := from.GetToLang(); ok {
 		s.ToLang = val
+	}
+
+	if val, ok := from.GetTone(); ok {
+		s.Tone = val
 	}
 
 }
@@ -137,6 +149,11 @@ func (s *MessagesSummarizeTextRequest) TypeInfo() tdp.Type {
 			SchemaName: "to_lang",
 			Null:       !s.Flags.Has(0),
 		},
+		{
+			Name:       "Tone",
+			SchemaName: "tone",
+			Null:       !s.Flags.Has(2),
+		},
 	}
 	return typ
 }
@@ -146,12 +163,15 @@ func (s *MessagesSummarizeTextRequest) SetFlags() {
 	if !(s.ToLang == "") {
 		s.Flags.Set(0)
 	}
+	if !(s.Tone == "") {
+		s.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSummarizeTextRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.summarizeText#9d4104e2 as nil")
+		return fmt.Errorf("can't encode messages.summarizeText#abbbd346 as nil")
 	}
 	b.PutID(MessagesSummarizeTextRequestTypeID)
 	return s.EncodeBare(b)
@@ -160,21 +180,24 @@ func (s *MessagesSummarizeTextRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSummarizeTextRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.summarizeText#9d4104e2 as nil")
+		return fmt.Errorf("can't encode messages.summarizeText#abbbd346 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.summarizeText#9d4104e2: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.summarizeText#abbbd346: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.summarizeText#9d4104e2: field peer is nil")
+		return fmt.Errorf("unable to encode messages.summarizeText#abbbd346: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.summarizeText#9d4104e2: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.summarizeText#abbbd346: field peer: %w", err)
 	}
 	b.PutInt(s.ID)
 	if s.Flags.Has(0) {
 		b.PutString(s.ToLang)
+	}
+	if s.Flags.Has(2) {
+		b.PutString(s.Tone)
 	}
 	return nil
 }
@@ -182,10 +205,10 @@ func (s *MessagesSummarizeTextRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSummarizeTextRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.summarizeText#9d4104e2 to nil")
+		return fmt.Errorf("can't decode messages.summarizeText#abbbd346 to nil")
 	}
 	if err := b.ConsumeID(MessagesSummarizeTextRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.summarizeText#9d4104e2: %w", err)
+		return fmt.Errorf("unable to decode messages.summarizeText#abbbd346: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -193,33 +216,40 @@ func (s *MessagesSummarizeTextRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSummarizeTextRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.summarizeText#9d4104e2 to nil")
+		return fmt.Errorf("can't decode messages.summarizeText#abbbd346 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.summarizeText#9d4104e2: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.summarizeText#abbbd346: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.summarizeText#9d4104e2: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.summarizeText#abbbd346: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.summarizeText#9d4104e2: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.summarizeText#abbbd346: field id: %w", err)
 		}
 		s.ID = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.summarizeText#9d4104e2: field to_lang: %w", err)
+			return fmt.Errorf("unable to decode messages.summarizeText#abbbd346: field to_lang: %w", err)
 		}
 		s.ToLang = value
+	}
+	if s.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.summarizeText#abbbd346: field tone: %w", err)
+		}
+		s.Tone = value
 	}
 	return nil
 }
@@ -258,7 +288,25 @@ func (s *MessagesSummarizeTextRequest) GetToLang() (value string, ok bool) {
 	return s.ToLang, true
 }
 
-// MessagesSummarizeText invokes method messages.summarizeText#9d4104e2 returning error if any.
+// SetTone sets value of Tone conditional field.
+func (s *MessagesSummarizeTextRequest) SetTone(value string) {
+	s.Flags.Set(2)
+	s.Tone = value
+}
+
+// GetTone returns value of Tone conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSummarizeTextRequest) GetTone() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.Tone, true
+}
+
+// MessagesSummarizeText invokes method messages.summarizeText#abbbd346 returning error if any.
 //
 // See https://core.telegram.org/method/messages.summarizeText for reference.
 func (c *Client) MessagesSummarizeText(ctx context.Context, request *MessagesSummarizeTextRequest) (*TextWithEntities, error) {

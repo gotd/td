@@ -1830,6 +1830,107 @@ func (i *InputMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputMessagesFilterPoll represents TL type `inputMessagesFilterPoll#fa2bc90a`.
+//
+// See https://core.telegram.org/constructor/inputMessagesFilterPoll for reference.
+type InputMessagesFilterPoll struct {
+}
+
+// InputMessagesFilterPollTypeID is TL type id of InputMessagesFilterPoll.
+const InputMessagesFilterPollTypeID = 0xfa2bc90a
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterPoll) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterPoll.
+var (
+	_ bin.Encoder     = &InputMessagesFilterPoll{}
+	_ bin.Decoder     = &InputMessagesFilterPoll{}
+	_ bin.BareEncoder = &InputMessagesFilterPoll{}
+	_ bin.BareDecoder = &InputMessagesFilterPoll{}
+
+	_ MessagesFilterClass = &InputMessagesFilterPoll{}
+)
+
+func (i *InputMessagesFilterPoll) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterPoll) String() string {
+	if i == nil {
+		return "InputMessagesFilterPoll(nil)"
+	}
+	type Alias InputMessagesFilterPoll
+	return fmt.Sprintf("InputMessagesFilterPoll%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMessagesFilterPoll) TypeID() uint32 {
+	return InputMessagesFilterPollTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMessagesFilterPoll) TypeName() string {
+	return "inputMessagesFilterPoll"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMessagesFilterPoll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMessagesFilterPoll",
+		ID:   InputMessagesFilterPollTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMessagesFilterPoll) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterPoll#fa2bc90a as nil")
+	}
+	b.PutID(InputMessagesFilterPollTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterPoll) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterPoll#fa2bc90a as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMessagesFilterPoll) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterPoll#fa2bc90a to nil")
+	}
+	if err := b.ConsumeID(InputMessagesFilterPollTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMessagesFilterPoll#fa2bc90a: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterPoll) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterPoll#fa2bc90a to nil")
+	}
+	return nil
+}
+
 // MessagesFilterClassName is schema name of MessagesFilterClass.
 const MessagesFilterClassName = "MessagesFilter"
 
@@ -1855,6 +1956,7 @@ const MessagesFilterClassName = "MessagesFilter"
 //   - [InputMessagesFilterGeo]
 //   - [InputMessagesFilterContacts]
 //   - [InputMessagesFilterPinned]
+//   - [InputMessagesFilterPoll]
 //
 // Example:
 //
@@ -1880,6 +1982,7 @@ const MessagesFilterClassName = "MessagesFilter"
 //	case *tg.InputMessagesFilterGeo: // inputMessagesFilterGeo#e7026d0d
 //	case *tg.InputMessagesFilterContacts: // inputMessagesFilterContacts#e062db83
 //	case *tg.InputMessagesFilterPinned: // inputMessagesFilterPinned#1bb00451
+//	case *tg.InputMessagesFilterPoll: // inputMessagesFilterPoll#fa2bc90a
 //	default: panic(v)
 //	}
 type MessagesFilterClass interface {
@@ -2023,6 +2126,13 @@ func DecodeMessagesFilter(buf *bin.Buffer) (MessagesFilterClass, error) {
 	case InputMessagesFilterPinnedTypeID:
 		// Decoding inputMessagesFilterPinned#1bb00451.
 		v := InputMessagesFilterPinned{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
+		}
+		return &v, nil
+	case InputMessagesFilterPollTypeID:
+		// Decoding inputMessagesFilterPoll#fa2bc90a.
+		v := InputMessagesFilterPoll{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
 		}

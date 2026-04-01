@@ -976,6 +976,262 @@ func (r *RequestPeerTypeBroadcast) GetBotAdminRights() (value ChatAdminRights, o
 	return r.BotAdminRights, true
 }
 
+// RequestPeerTypeCreateBot represents TL type `requestPeerTypeCreateBot#3e81e078`.
+//
+// See https://core.telegram.org/constructor/requestPeerTypeCreateBot for reference.
+type RequestPeerTypeCreateBot struct {
+	// Flags field of RequestPeerTypeCreateBot.
+	Flags bin.Fields
+	// BotManaged field of RequestPeerTypeCreateBot.
+	BotManaged bool
+	// SuggestedName field of RequestPeerTypeCreateBot.
+	//
+	// Use SetSuggestedName and GetSuggestedName helpers.
+	SuggestedName string
+	// SuggestedUsername field of RequestPeerTypeCreateBot.
+	//
+	// Use SetSuggestedUsername and GetSuggestedUsername helpers.
+	SuggestedUsername string
+}
+
+// RequestPeerTypeCreateBotTypeID is TL type id of RequestPeerTypeCreateBot.
+const RequestPeerTypeCreateBotTypeID = 0x3e81e078
+
+// construct implements constructor of RequestPeerTypeClass.
+func (r RequestPeerTypeCreateBot) construct() RequestPeerTypeClass { return &r }
+
+// Ensuring interfaces in compile-time for RequestPeerTypeCreateBot.
+var (
+	_ bin.Encoder     = &RequestPeerTypeCreateBot{}
+	_ bin.Decoder     = &RequestPeerTypeCreateBot{}
+	_ bin.BareEncoder = &RequestPeerTypeCreateBot{}
+	_ bin.BareDecoder = &RequestPeerTypeCreateBot{}
+
+	_ RequestPeerTypeClass = &RequestPeerTypeCreateBot{}
+)
+
+func (r *RequestPeerTypeCreateBot) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.BotManaged == false) {
+		return false
+	}
+	if !(r.SuggestedName == "") {
+		return false
+	}
+	if !(r.SuggestedUsername == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (r *RequestPeerTypeCreateBot) String() string {
+	if r == nil {
+		return "RequestPeerTypeCreateBot(nil)"
+	}
+	type Alias RequestPeerTypeCreateBot
+	return fmt.Sprintf("RequestPeerTypeCreateBot%+v", Alias(*r))
+}
+
+// FillFrom fills RequestPeerTypeCreateBot from given interface.
+func (r *RequestPeerTypeCreateBot) FillFrom(from interface {
+	GetBotManaged() (value bool)
+	GetSuggestedName() (value string, ok bool)
+	GetSuggestedUsername() (value string, ok bool)
+}) {
+	r.BotManaged = from.GetBotManaged()
+	if val, ok := from.GetSuggestedName(); ok {
+		r.SuggestedName = val
+	}
+
+	if val, ok := from.GetSuggestedUsername(); ok {
+		r.SuggestedUsername = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*RequestPeerTypeCreateBot) TypeID() uint32 {
+	return RequestPeerTypeCreateBotTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*RequestPeerTypeCreateBot) TypeName() string {
+	return "requestPeerTypeCreateBot"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RequestPeerTypeCreateBot) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "requestPeerTypeCreateBot",
+		ID:   RequestPeerTypeCreateBotTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotManaged",
+			SchemaName: "bot_managed",
+			Null:       !r.Flags.Has(0),
+		},
+		{
+			Name:       "SuggestedName",
+			SchemaName: "suggested_name",
+			Null:       !r.Flags.Has(1),
+		},
+		{
+			Name:       "SuggestedUsername",
+			SchemaName: "suggested_username",
+			Null:       !r.Flags.Has(2),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (r *RequestPeerTypeCreateBot) SetFlags() {
+	if !(r.BotManaged == false) {
+		r.Flags.Set(0)
+	}
+	if !(r.SuggestedName == "") {
+		r.Flags.Set(1)
+	}
+	if !(r.SuggestedUsername == "") {
+		r.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (r *RequestPeerTypeCreateBot) Encode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode requestPeerTypeCreateBot#3e81e078 as nil")
+	}
+	b.PutID(RequestPeerTypeCreateBotTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RequestPeerTypeCreateBot) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode requestPeerTypeCreateBot#3e81e078 as nil")
+	}
+	r.SetFlags()
+	if err := r.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode requestPeerTypeCreateBot#3e81e078: field flags: %w", err)
+	}
+	if r.Flags.Has(1) {
+		b.PutString(r.SuggestedName)
+	}
+	if r.Flags.Has(2) {
+		b.PutString(r.SuggestedUsername)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (r *RequestPeerTypeCreateBot) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode requestPeerTypeCreateBot#3e81e078 to nil")
+	}
+	if err := b.ConsumeID(RequestPeerTypeCreateBotTypeID); err != nil {
+		return fmt.Errorf("unable to decode requestPeerTypeCreateBot#3e81e078: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RequestPeerTypeCreateBot) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode requestPeerTypeCreateBot#3e81e078 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode requestPeerTypeCreateBot#3e81e078: field flags: %w", err)
+		}
+	}
+	r.BotManaged = r.Flags.Has(0)
+	if r.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode requestPeerTypeCreateBot#3e81e078: field suggested_name: %w", err)
+		}
+		r.SuggestedName = value
+	}
+	if r.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode requestPeerTypeCreateBot#3e81e078: field suggested_username: %w", err)
+		}
+		r.SuggestedUsername = value
+	}
+	return nil
+}
+
+// SetBotManaged sets value of BotManaged conditional field.
+func (r *RequestPeerTypeCreateBot) SetBotManaged(value bool) {
+	if value {
+		r.Flags.Set(0)
+		r.BotManaged = true
+	} else {
+		r.Flags.Unset(0)
+		r.BotManaged = false
+	}
+}
+
+// GetBotManaged returns value of BotManaged conditional field.
+func (r *RequestPeerTypeCreateBot) GetBotManaged() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(0)
+}
+
+// SetSuggestedName sets value of SuggestedName conditional field.
+func (r *RequestPeerTypeCreateBot) SetSuggestedName(value string) {
+	r.Flags.Set(1)
+	r.SuggestedName = value
+}
+
+// GetSuggestedName returns value of SuggestedName conditional field and
+// boolean which is true if field was set.
+func (r *RequestPeerTypeCreateBot) GetSuggestedName() (value string, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(1) {
+		return value, false
+	}
+	return r.SuggestedName, true
+}
+
+// SetSuggestedUsername sets value of SuggestedUsername conditional field.
+func (r *RequestPeerTypeCreateBot) SetSuggestedUsername(value string) {
+	r.Flags.Set(2)
+	r.SuggestedUsername = value
+}
+
+// GetSuggestedUsername returns value of SuggestedUsername conditional field and
+// boolean which is true if field was set.
+func (r *RequestPeerTypeCreateBot) GetSuggestedUsername() (value string, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(2) {
+		return value, false
+	}
+	return r.SuggestedUsername, true
+}
+
 // RequestPeerTypeClassName is schema name of RequestPeerTypeClass.
 const RequestPeerTypeClassName = "RequestPeerType"
 
@@ -987,6 +1243,7 @@ const RequestPeerTypeClassName = "RequestPeerType"
 //   - [RequestPeerTypeUser]
 //   - [RequestPeerTypeChat]
 //   - [RequestPeerTypeBroadcast]
+//   - [RequestPeerTypeCreateBot]
 //
 // Example:
 //
@@ -998,6 +1255,7 @@ const RequestPeerTypeClassName = "RequestPeerType"
 //	case *tg.RequestPeerTypeUser: // requestPeerTypeUser#5f3b8a00
 //	case *tg.RequestPeerTypeChat: // requestPeerTypeChat#c9f06e1b
 //	case *tg.RequestPeerTypeBroadcast: // requestPeerTypeBroadcast#339bef6c
+//	case *tg.RequestPeerTypeCreateBot: // requestPeerTypeCreateBot#3e81e078
 //	default: panic(v)
 //	}
 type RequestPeerTypeClass interface {
@@ -1043,6 +1301,13 @@ func DecodeRequestPeerType(buf *bin.Buffer) (RequestPeerTypeClass, error) {
 	case RequestPeerTypeBroadcastTypeID:
 		// Decoding requestPeerTypeBroadcast#339bef6c.
 		v := RequestPeerTypeBroadcast{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RequestPeerTypeClass: %w", err)
+		}
+		return &v, nil
+	case RequestPeerTypeCreateBotTypeID:
+		// Decoding requestPeerTypeCreateBot#3e81e078.
+		v := RequestPeerTypeCreateBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode RequestPeerTypeClass: %w", err)
 		}

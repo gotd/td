@@ -4217,6 +4217,516 @@ func (m *MessageEntityFormattedDate) GetDate() (value int) {
 	return m.Date
 }
 
+// MessageEntityDiffInsert represents TL type `messageEntityDiffInsert#71777116`.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffInsert for reference.
+type MessageEntityDiffInsert struct {
+	// Offset field of MessageEntityDiffInsert.
+	Offset int
+	// Length field of MessageEntityDiffInsert.
+	Length int
+}
+
+// MessageEntityDiffInsertTypeID is TL type id of MessageEntityDiffInsert.
+const MessageEntityDiffInsertTypeID = 0x71777116
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityDiffInsert) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityDiffInsert.
+var (
+	_ bin.Encoder     = &MessageEntityDiffInsert{}
+	_ bin.Decoder     = &MessageEntityDiffInsert{}
+	_ bin.BareEncoder = &MessageEntityDiffInsert{}
+	_ bin.BareDecoder = &MessageEntityDiffInsert{}
+
+	_ MessageEntityClass = &MessageEntityDiffInsert{}
+)
+
+func (m *MessageEntityDiffInsert) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityDiffInsert) String() string {
+	if m == nil {
+		return "MessageEntityDiffInsert(nil)"
+	}
+	type Alias MessageEntityDiffInsert
+	return fmt.Sprintf("MessageEntityDiffInsert%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityDiffInsert from given interface.
+func (m *MessageEntityDiffInsert) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityDiffInsert) TypeID() uint32 {
+	return MessageEntityDiffInsertTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityDiffInsert) TypeName() string {
+	return "messageEntityDiffInsert"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityDiffInsert) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityDiffInsert",
+		ID:   MessageEntityDiffInsertTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityDiffInsert) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityDiffInsert#71777116 as nil")
+	}
+	b.PutID(MessageEntityDiffInsertTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityDiffInsert) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityDiffInsert#71777116 as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityDiffInsert) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityDiffInsert#71777116 to nil")
+	}
+	if err := b.ConsumeID(MessageEntityDiffInsertTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityDiffInsert#71777116: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityDiffInsert) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityDiffInsert#71777116 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffInsert#71777116: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffInsert#71777116: field length: %w", err)
+		}
+		m.Length = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityDiffInsert) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityDiffInsert) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
+// MessageEntityDiffReplace represents TL type `messageEntityDiffReplace#c6c1e5a7`.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffReplace for reference.
+type MessageEntityDiffReplace struct {
+	// Offset field of MessageEntityDiffReplace.
+	Offset int
+	// Length field of MessageEntityDiffReplace.
+	Length int
+	// OldText field of MessageEntityDiffReplace.
+	OldText string
+}
+
+// MessageEntityDiffReplaceTypeID is TL type id of MessageEntityDiffReplace.
+const MessageEntityDiffReplaceTypeID = 0xc6c1e5a7
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityDiffReplace) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityDiffReplace.
+var (
+	_ bin.Encoder     = &MessageEntityDiffReplace{}
+	_ bin.Decoder     = &MessageEntityDiffReplace{}
+	_ bin.BareEncoder = &MessageEntityDiffReplace{}
+	_ bin.BareDecoder = &MessageEntityDiffReplace{}
+
+	_ MessageEntityClass = &MessageEntityDiffReplace{}
+)
+
+func (m *MessageEntityDiffReplace) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+	if !(m.OldText == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityDiffReplace) String() string {
+	if m == nil {
+		return "MessageEntityDiffReplace(nil)"
+	}
+	type Alias MessageEntityDiffReplace
+	return fmt.Sprintf("MessageEntityDiffReplace%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityDiffReplace from given interface.
+func (m *MessageEntityDiffReplace) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+	GetOldText() (value string)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+	m.OldText = from.GetOldText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityDiffReplace) TypeID() uint32 {
+	return MessageEntityDiffReplaceTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityDiffReplace) TypeName() string {
+	return "messageEntityDiffReplace"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityDiffReplace) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityDiffReplace",
+		ID:   MessageEntityDiffReplaceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+		{
+			Name:       "OldText",
+			SchemaName: "old_text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityDiffReplace) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityDiffReplace#c6c1e5a7 as nil")
+	}
+	b.PutID(MessageEntityDiffReplaceTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityDiffReplace) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityDiffReplace#c6c1e5a7 as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	b.PutString(m.OldText)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityDiffReplace) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityDiffReplace#c6c1e5a7 to nil")
+	}
+	if err := b.ConsumeID(MessageEntityDiffReplaceTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityDiffReplace#c6c1e5a7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityDiffReplace) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityDiffReplace#c6c1e5a7 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffReplace#c6c1e5a7: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffReplace#c6c1e5a7: field length: %w", err)
+		}
+		m.Length = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffReplace#c6c1e5a7: field old_text: %w", err)
+		}
+		m.OldText = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityDiffReplace) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityDiffReplace) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
+// GetOldText returns value of OldText field.
+func (m *MessageEntityDiffReplace) GetOldText() (value string) {
+	if m == nil {
+		return
+	}
+	return m.OldText
+}
+
+// MessageEntityDiffDelete represents TL type `messageEntityDiffDelete#652c1c5`.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffDelete for reference.
+type MessageEntityDiffDelete struct {
+	// Offset field of MessageEntityDiffDelete.
+	Offset int
+	// Length field of MessageEntityDiffDelete.
+	Length int
+}
+
+// MessageEntityDiffDeleteTypeID is TL type id of MessageEntityDiffDelete.
+const MessageEntityDiffDeleteTypeID = 0x652c1c5
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityDiffDelete) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityDiffDelete.
+var (
+	_ bin.Encoder     = &MessageEntityDiffDelete{}
+	_ bin.Decoder     = &MessageEntityDiffDelete{}
+	_ bin.BareEncoder = &MessageEntityDiffDelete{}
+	_ bin.BareDecoder = &MessageEntityDiffDelete{}
+
+	_ MessageEntityClass = &MessageEntityDiffDelete{}
+)
+
+func (m *MessageEntityDiffDelete) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityDiffDelete) String() string {
+	if m == nil {
+		return "MessageEntityDiffDelete(nil)"
+	}
+	type Alias MessageEntityDiffDelete
+	return fmt.Sprintf("MessageEntityDiffDelete%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityDiffDelete from given interface.
+func (m *MessageEntityDiffDelete) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityDiffDelete) TypeID() uint32 {
+	return MessageEntityDiffDeleteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityDiffDelete) TypeName() string {
+	return "messageEntityDiffDelete"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityDiffDelete) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityDiffDelete",
+		ID:   MessageEntityDiffDeleteTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityDiffDelete) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityDiffDelete#652c1c5 as nil")
+	}
+	b.PutID(MessageEntityDiffDeleteTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityDiffDelete) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityDiffDelete#652c1c5 as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityDiffDelete) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityDiffDelete#652c1c5 to nil")
+	}
+	if err := b.ConsumeID(MessageEntityDiffDeleteTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityDiffDelete#652c1c5: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityDiffDelete) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityDiffDelete#652c1c5 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffDelete#652c1c5: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityDiffDelete#652c1c5: field length: %w", err)
+		}
+		m.Length = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityDiffDelete) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityDiffDelete) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
 // MessageEntityClassName is schema name of MessageEntityClass.
 const MessageEntityClassName = "MessageEntity"
 
@@ -4247,6 +4757,9 @@ const MessageEntityClassName = "MessageEntity"
 //   - [MessageEntityCustomEmoji]
 //   - [MessageEntityBlockquote]
 //   - [MessageEntityFormattedDate]
+//   - [MessageEntityDiffInsert]
+//   - [MessageEntityDiffReplace]
+//   - [MessageEntityDiffDelete]
 //
 // Example:
 //
@@ -4277,6 +4790,9 @@ const MessageEntityClassName = "MessageEntity"
 //	case *tg.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
 //	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#f1ccaaac
 //	case *tg.MessageEntityFormattedDate: // messageEntityFormattedDate#904ac7c7
+//	case *tg.MessageEntityDiffInsert: // messageEntityDiffInsert#71777116
+//	case *tg.MessageEntityDiffReplace: // messageEntityDiffReplace#c6c1e5a7
+//	case *tg.MessageEntityDiffDelete: // messageEntityDiffDelete#652c1c5
 //	default: panic(v)
 //	}
 type MessageEntityClass interface {
@@ -4467,6 +4983,27 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 	case MessageEntityFormattedDateTypeID:
 		// Decoding messageEntityFormattedDate#904ac7c7.
 		v := MessageEntityFormattedDate{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityDiffInsertTypeID:
+		// Decoding messageEntityDiffInsert#71777116.
+		v := MessageEntityDiffInsert{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityDiffReplaceTypeID:
+		// Decoding messageEntityDiffReplace#c6c1e5a7.
+		v := MessageEntityDiffReplace{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityDiffDeleteTypeID:
+		// Decoding messageEntityDiffDelete#652c1c5.
+		v := MessageEntityDiffDelete{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetPollResultsRequest represents TL type `messages.getPollResults#73bb643b`.
+// MessagesGetPollResultsRequest represents TL type `messages.getPollResults#eda3e33b`.
 // Get poll results
 //
 // See https://core.telegram.org/method/messages.getPollResults for reference.
@@ -40,10 +40,12 @@ type MessagesGetPollResultsRequest struct {
 	Peer InputPeerClass
 	// Message ID of poll message
 	MsgID int
+	// PollHash field of MessagesGetPollResultsRequest.
+	PollHash int64
 }
 
 // MessagesGetPollResultsRequestTypeID is TL type id of MessagesGetPollResultsRequest.
-const MessagesGetPollResultsRequestTypeID = 0x73bb643b
+const MessagesGetPollResultsRequestTypeID = 0xeda3e33b
 
 // Ensuring interfaces in compile-time for MessagesGetPollResultsRequest.
 var (
@@ -63,6 +65,9 @@ func (g *MessagesGetPollResultsRequest) Zero() bool {
 	if !(g.MsgID == 0) {
 		return false
 	}
+	if !(g.PollHash == 0) {
+		return false
+	}
 
 	return true
 }
@@ -80,9 +85,11 @@ func (g *MessagesGetPollResultsRequest) String() string {
 func (g *MessagesGetPollResultsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
+	GetPollHash() (value int64)
 }) {
 	g.Peer = from.GetPeer()
 	g.MsgID = from.GetMsgID()
+	g.PollHash = from.GetPollHash()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,6 +123,10 @@ func (g *MessagesGetPollResultsRequest) TypeInfo() tdp.Type {
 			Name:       "MsgID",
 			SchemaName: "msg_id",
 		},
+		{
+			Name:       "PollHash",
+			SchemaName: "poll_hash",
+		},
 	}
 	return typ
 }
@@ -123,7 +134,7 @@ func (g *MessagesGetPollResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPollResults#73bb643b as nil")
+		return fmt.Errorf("can't encode messages.getPollResults#eda3e33b as nil")
 	}
 	b.PutID(MessagesGetPollResultsRequestTypeID)
 	return g.EncodeBare(b)
@@ -132,25 +143,26 @@ func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPollResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPollResults#73bb643b as nil")
+		return fmt.Errorf("can't encode messages.getPollResults#eda3e33b as nil")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getPollResults#73bb643b: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getPollResults#eda3e33b: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getPollResults#73bb643b: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getPollResults#eda3e33b: field peer: %w", err)
 	}
 	b.PutInt(g.MsgID)
+	b.PutLong(g.PollHash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPollResults#73bb643b to nil")
+		return fmt.Errorf("can't decode messages.getPollResults#eda3e33b to nil")
 	}
 	if err := b.ConsumeID(MessagesGetPollResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: %w", err)
+		return fmt.Errorf("unable to decode messages.getPollResults#eda3e33b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -158,21 +170,28 @@ func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPollResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPollResults#73bb643b to nil")
+		return fmt.Errorf("can't decode messages.getPollResults#eda3e33b to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getPollResults#eda3e33b: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getPollResults#eda3e33b: field msg_id: %w", err)
 		}
 		g.MsgID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getPollResults#eda3e33b: field poll_hash: %w", err)
+		}
+		g.PollHash = value
 	}
 	return nil
 }
@@ -193,7 +212,15 @@ func (g *MessagesGetPollResultsRequest) GetMsgID() (value int) {
 	return g.MsgID
 }
 
-// MessagesGetPollResults invokes method messages.getPollResults#73bb643b returning error if any.
+// GetPollHash returns value of PollHash field.
+func (g *MessagesGetPollResultsRequest) GetPollHash() (value int64) {
+	if g == nil {
+		return
+	}
+	return g.PollHash
+}
+
+// MessagesGetPollResults invokes method messages.getPollResults#eda3e33b returning error if any.
 // Get poll results
 //
 // Possible errors:

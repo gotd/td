@@ -155,6 +155,19 @@ func (s RequestPeerTypeClassArray) AsRequestPeerTypeBroadcast() (to RequestPeerT
 	return to
 }
 
+// AsRequestPeerTypeCreateBot returns copy with only RequestPeerTypeCreateBot constructors.
+func (s RequestPeerTypeClassArray) AsRequestPeerTypeCreateBot() (to RequestPeerTypeCreateBotArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RequestPeerTypeCreateBot)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // RequestPeerTypeUserArray is adapter for slice of RequestPeerTypeUser.
 type RequestPeerTypeUserArray []RequestPeerTypeUser
 
@@ -389,6 +402,88 @@ func (s *RequestPeerTypeBroadcastArray) PopFirst() (v RequestPeerTypeBroadcast, 
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *RequestPeerTypeBroadcastArray) Pop() (v RequestPeerTypeBroadcast, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// RequestPeerTypeCreateBotArray is adapter for slice of RequestPeerTypeCreateBot.
+type RequestPeerTypeCreateBotArray []RequestPeerTypeCreateBot
+
+// Sort sorts slice of RequestPeerTypeCreateBot.
+func (s RequestPeerTypeCreateBotArray) Sort(less func(a, b RequestPeerTypeCreateBot) bool) RequestPeerTypeCreateBotArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RequestPeerTypeCreateBot.
+func (s RequestPeerTypeCreateBotArray) SortStable(less func(a, b RequestPeerTypeCreateBot) bool) RequestPeerTypeCreateBotArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RequestPeerTypeCreateBot.
+func (s RequestPeerTypeCreateBotArray) Retain(keep func(x RequestPeerTypeCreateBot) bool) RequestPeerTypeCreateBotArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RequestPeerTypeCreateBotArray) First() (v RequestPeerTypeCreateBot, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RequestPeerTypeCreateBotArray) Last() (v RequestPeerTypeCreateBot, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RequestPeerTypeCreateBotArray) PopFirst() (v RequestPeerTypeCreateBot, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RequestPeerTypeCreateBot
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RequestPeerTypeCreateBotArray) Pop() (v RequestPeerTypeCreateBot, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
