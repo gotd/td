@@ -23,7 +23,7 @@ type PollAnswerOption func(p *pollAnswerBuilder)
 // RawPollAnswer creates new raw poll answer option.
 func RawPollAnswer(poll tg.PollAnswer) PollAnswerOption {
 	return func(p *pollAnswerBuilder) {
-		p.input.Poll.Answers = append(p.input.Poll.Answers, poll)
+		p.input.Poll.Answers = append(p.input.Poll.Answers, &poll)
 	}
 }
 
@@ -31,7 +31,7 @@ func RawPollAnswer(poll tg.PollAnswer) PollAnswerOption {
 func PollAnswer(text string, entities ...tg.MessageEntityClass) PollAnswerOption {
 	return func(p *pollAnswerBuilder) {
 		i := len(p.input.Poll.Answers)
-		p.input.Poll.Answers = append(p.input.Poll.Answers, tg.PollAnswer{
+		p.input.Poll.Answers = append(p.input.Poll.Answers, &tg.PollAnswer{
 			Text:   tg.TextWithEntities{Text: text, Entities: entities},
 			Option: []byte(strconv.Itoa(i)),
 		})
@@ -44,11 +44,11 @@ func CorrectPollAnswer(text string, entities ...tg.MessageEntityClass) PollAnswe
 		p.input.Poll.Quiz = true
 		i := len(p.input.Poll.Answers)
 		option := []byte(strconv.Itoa(i))
-		p.input.Poll.Answers = append(p.input.Poll.Answers, tg.PollAnswer{
+		p.input.Poll.Answers = append(p.input.Poll.Answers, &tg.PollAnswer{
 			Text:   tg.TextWithEntities{Text: text, Entities: entities},
 			Option: option,
 		})
-		p.input.CorrectAnswers = append(p.input.CorrectAnswers, option)
+		p.input.CorrectAnswers = append(p.input.CorrectAnswers, i)
 	}
 }
 
