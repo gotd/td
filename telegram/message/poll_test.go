@@ -26,7 +26,7 @@ func TestPoll(t *testing.T) {
 		id = m.Poll.ID
 		require.Len(t, m.Poll.Answers, 3)
 		require.Len(t, m.CorrectAnswers, 1)
-		require.Equal(t, m.Poll.Answers[0].Option, m.CorrectAnswers[0])
+		require.Equal(t, 0, m.CorrectAnswers[0])
 	}).ThenResult(&tg.Updates{})
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMediaRequest)
