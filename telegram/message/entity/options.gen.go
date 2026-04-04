@@ -422,3 +422,61 @@ func FormattedDate(relative bool, shortTime bool, longTime bool, shortDate bool,
 func (b *Builder) FormattedDate(s string, relative bool, shortTime bool, longTime bool, shortDate bool, longDate bool, dayOfWeek bool, date int) *Builder {
 	return b.Format(s, FormattedDate(relative, shortTime, longTime, shortDate, longDate, dayOfWeek, date))
 }
+
+// DiffInsert creates Formatter of DiffInsert message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffInsert.
+func DiffInsert() Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityDiffInsert{
+			Offset: offset,
+			Length: length,
+		}
+	}
+}
+
+// DiffInsert adds and formats message as DiffInsert message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffInsert.
+func (b *Builder) DiffInsert(s string) *Builder {
+	return b.Format(s, DiffInsert())
+}
+
+// DiffReplace creates Formatter of DiffReplace message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffReplace.
+func DiffReplace(oldText string) Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityDiffReplace{
+			Offset:  offset,
+			Length:  length,
+			OldText: oldText,
+		}
+	}
+}
+
+// DiffReplace adds and formats message as DiffReplace message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffReplace.
+func (b *Builder) DiffReplace(s string, oldText string) *Builder {
+	return b.Format(s, DiffReplace(oldText))
+}
+
+// DiffDelete creates Formatter of DiffDelete message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffDelete.
+func DiffDelete() Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityDiffDelete{
+			Offset: offset,
+			Length: length,
+		}
+	}
+}
+
+// DiffDelete adds and formats message as DiffDelete message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffDelete.
+func (b *Builder) DiffDelete(s string) *Builder {
+	return b.Format(s, DiffDelete())
+}

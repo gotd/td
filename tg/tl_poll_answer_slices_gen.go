@@ -33,3 +33,275 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// PollAnswerClassArray is adapter for slice of PollAnswerClass.
+type PollAnswerClassArray []PollAnswerClass
+
+// Sort sorts slice of PollAnswerClass.
+func (s PollAnswerClassArray) Sort(less func(a, b PollAnswerClass) bool) PollAnswerClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PollAnswerClass.
+func (s PollAnswerClassArray) SortStable(less func(a, b PollAnswerClass) bool) PollAnswerClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PollAnswerClass.
+func (s PollAnswerClassArray) Retain(keep func(x PollAnswerClass) bool) PollAnswerClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PollAnswerClassArray) First() (v PollAnswerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PollAnswerClassArray) Last() (v PollAnswerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PollAnswerClassArray) PopFirst() (v PollAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PollAnswerClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PollAnswerClassArray) Pop() (v PollAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPollAnswer returns copy with only PollAnswer constructors.
+func (s PollAnswerClassArray) AsPollAnswer() (to PollAnswerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PollAnswer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPollAnswer returns copy with only InputPollAnswer constructors.
+func (s PollAnswerClassArray) AsInputPollAnswer() (to InputPollAnswerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPollAnswer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PollAnswerArray is adapter for slice of PollAnswer.
+type PollAnswerArray []PollAnswer
+
+// Sort sorts slice of PollAnswer.
+func (s PollAnswerArray) Sort(less func(a, b PollAnswer) bool) PollAnswerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PollAnswer.
+func (s PollAnswerArray) SortStable(less func(a, b PollAnswer) bool) PollAnswerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PollAnswer.
+func (s PollAnswerArray) Retain(keep func(x PollAnswer) bool) PollAnswerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PollAnswerArray) First() (v PollAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PollAnswerArray) Last() (v PollAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PollAnswerArray) PopFirst() (v PollAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PollAnswer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PollAnswerArray) Pop() (v PollAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPollAnswerArray is adapter for slice of InputPollAnswer.
+type InputPollAnswerArray []InputPollAnswer
+
+// Sort sorts slice of InputPollAnswer.
+func (s InputPollAnswerArray) Sort(less func(a, b InputPollAnswer) bool) InputPollAnswerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPollAnswer.
+func (s InputPollAnswerArray) SortStable(less func(a, b InputPollAnswer) bool) InputPollAnswerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPollAnswer.
+func (s InputPollAnswerArray) Retain(keep func(x InputPollAnswer) bool) InputPollAnswerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPollAnswerArray) First() (v InputPollAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPollAnswerArray) Last() (v InputPollAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPollAnswerArray) PopFirst() (v InputPollAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPollAnswer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPollAnswerArray) Pop() (v InputPollAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

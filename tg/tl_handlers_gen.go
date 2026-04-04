@@ -1640,6 +1640,16 @@ func (u UpdateDispatcher) OnChatParticipantRank(handler ChatParticipantRankHandl
 	}
 }
 
+// ManagedBotHandler is a ManagedBot event handler.
+type ManagedBotHandler func(ctx context.Context, e Entities, update *UpdateManagedBot) error
+
+// OnManagedBot sets ManagedBot handler.
+func (u UpdateDispatcher) OnManagedBot(handler ManagedBotHandler) {
+	u.handlers[UpdateManagedBotTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateManagedBot))
+	}
+}
+
 // OnFallback sets fallback handler.
 func (u *UpdateDispatcher) OnFallback(handler Handler) {
 	u.fallback = handler

@@ -166,7 +166,7 @@ func (f *ForumTopicDeleted) GetID() (value int) {
 	return f.ID
 }
 
-// ForumTopic represents TL type `forumTopic#cdff0eca`.
+// ForumTopic represents TL type `forumTopic#fcdad815`.
 // Represents a forum topic¹.
 //
 // Links:
@@ -236,6 +236,8 @@ type ForumTopic struct {
 	UnreadMentionsCount int
 	// Number of unread reactions to messages you sent
 	UnreadReactionsCount int
+	// UnreadPollVotesCount field of ForumTopic.
+	UnreadPollVotesCount int
 	// ID of the peer that created the topic
 	FromID PeerClass
 	// Notification settings
@@ -250,7 +252,7 @@ type ForumTopic struct {
 }
 
 // ForumTopicTypeID is TL type id of ForumTopic.
-const ForumTopicTypeID = 0xcdff0eca
+const ForumTopicTypeID = 0xfcdad815
 
 // construct implements constructor of ForumTopicClass.
 func (f ForumTopic) construct() ForumTopicClass { return &f }
@@ -326,6 +328,9 @@ func (f *ForumTopic) Zero() bool {
 	if !(f.UnreadReactionsCount == 0) {
 		return false
 	}
+	if !(f.UnreadPollVotesCount == 0) {
+		return false
+	}
 	if !(f.FromID == nil) {
 		return false
 	}
@@ -368,6 +373,7 @@ func (f *ForumTopic) FillFrom(from interface {
 	GetUnreadCount() (value int)
 	GetUnreadMentionsCount() (value int)
 	GetUnreadReactionsCount() (value int)
+	GetUnreadPollVotesCount() (value int)
 	GetFromID() (value PeerClass)
 	GetNotifySettings() (value PeerNotifySettings)
 	GetDraft() (value DraftMessageClass, ok bool)
@@ -393,6 +399,7 @@ func (f *ForumTopic) FillFrom(from interface {
 	f.UnreadCount = from.GetUnreadCount()
 	f.UnreadMentionsCount = from.GetUnreadMentionsCount()
 	f.UnreadReactionsCount = from.GetUnreadReactionsCount()
+	f.UnreadPollVotesCount = from.GetUnreadPollVotesCount()
 	f.FromID = from.GetFromID()
 	f.NotifySettings = from.GetNotifySettings()
 	if val, ok := from.GetDraft(); ok {
@@ -504,6 +511,10 @@ func (f *ForumTopic) TypeInfo() tdp.Type {
 			SchemaName: "unread_reactions_count",
 		},
 		{
+			Name:       "UnreadPollVotesCount",
+			SchemaName: "unread_poll_votes_count",
+		},
+		{
 			Name:       "FromID",
 			SchemaName: "from_id",
 		},
@@ -551,7 +562,7 @@ func (f *ForumTopic) SetFlags() {
 // Encode implements bin.Encoder.
 func (f *ForumTopic) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forumTopic#cdff0eca as nil")
+		return fmt.Errorf("can't encode forumTopic#fcdad815 as nil")
 	}
 	b.PutID(ForumTopicTypeID)
 	return f.EncodeBare(b)
@@ -560,19 +571,19 @@ func (f *ForumTopic) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *ForumTopic) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forumTopic#cdff0eca as nil")
+		return fmt.Errorf("can't encode forumTopic#fcdad815 as nil")
 	}
 	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopic#cdff0eca: field flags: %w", err)
+		return fmt.Errorf("unable to encode forumTopic#fcdad815: field flags: %w", err)
 	}
 	b.PutInt(f.ID)
 	b.PutInt(f.Date)
 	if f.Peer == nil {
-		return fmt.Errorf("unable to encode forumTopic#cdff0eca: field peer is nil")
+		return fmt.Errorf("unable to encode forumTopic#fcdad815: field peer is nil")
 	}
 	if err := f.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopic#cdff0eca: field peer: %w", err)
+		return fmt.Errorf("unable to encode forumTopic#fcdad815: field peer: %w", err)
 	}
 	b.PutString(f.Title)
 	b.PutInt(f.IconColor)
@@ -585,21 +596,22 @@ func (f *ForumTopic) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(f.UnreadCount)
 	b.PutInt(f.UnreadMentionsCount)
 	b.PutInt(f.UnreadReactionsCount)
+	b.PutInt(f.UnreadPollVotesCount)
 	if f.FromID == nil {
-		return fmt.Errorf("unable to encode forumTopic#cdff0eca: field from_id is nil")
+		return fmt.Errorf("unable to encode forumTopic#fcdad815: field from_id is nil")
 	}
 	if err := f.FromID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopic#cdff0eca: field from_id: %w", err)
+		return fmt.Errorf("unable to encode forumTopic#fcdad815: field from_id: %w", err)
 	}
 	if err := f.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopic#cdff0eca: field notify_settings: %w", err)
+		return fmt.Errorf("unable to encode forumTopic#fcdad815: field notify_settings: %w", err)
 	}
 	if f.Flags.Has(4) {
 		if f.Draft == nil {
-			return fmt.Errorf("unable to encode forumTopic#cdff0eca: field draft is nil")
+			return fmt.Errorf("unable to encode forumTopic#fcdad815: field draft is nil")
 		}
 		if err := f.Draft.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode forumTopic#cdff0eca: field draft: %w", err)
+			return fmt.Errorf("unable to encode forumTopic#fcdad815: field draft: %w", err)
 		}
 	}
 	return nil
@@ -608,10 +620,10 @@ func (f *ForumTopic) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *ForumTopic) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forumTopic#cdff0eca to nil")
+		return fmt.Errorf("can't decode forumTopic#fcdad815 to nil")
 	}
 	if err := b.ConsumeID(ForumTopicTypeID); err != nil {
-		return fmt.Errorf("unable to decode forumTopic#cdff0eca: %w", err)
+		return fmt.Errorf("unable to decode forumTopic#fcdad815: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -619,11 +631,11 @@ func (f *ForumTopic) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *ForumTopic) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forumTopic#cdff0eca to nil")
+		return fmt.Errorf("can't decode forumTopic#fcdad815 to nil")
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field flags: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field flags: %w", err)
 		}
 	}
 	f.My = f.Flags.Has(1)
@@ -635,103 +647,110 @@ func (f *ForumTopic) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field id: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field id: %w", err)
 		}
 		f.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field date: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field date: %w", err)
 		}
 		f.Date = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field peer: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field peer: %w", err)
 		}
 		f.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field title: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field title: %w", err)
 		}
 		f.Title = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field icon_color: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field icon_color: %w", err)
 		}
 		f.IconColor = value
 	}
 	if f.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field icon_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field icon_emoji_id: %w", err)
 		}
 		f.IconEmojiID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field top_message: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field top_message: %w", err)
 		}
 		f.TopMessage = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field read_inbox_max_id: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field read_inbox_max_id: %w", err)
 		}
 		f.ReadInboxMaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field read_outbox_max_id: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field read_outbox_max_id: %w", err)
 		}
 		f.ReadOutboxMaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field unread_count: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field unread_count: %w", err)
 		}
 		f.UnreadCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field unread_mentions_count: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field unread_mentions_count: %w", err)
 		}
 		f.UnreadMentionsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field unread_reactions_count: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field unread_reactions_count: %w", err)
 		}
 		f.UnreadReactionsCount = value
 	}
 	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field unread_poll_votes_count: %w", err)
+		}
+		f.UnreadPollVotesCount = value
+	}
+	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field from_id: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field from_id: %w", err)
 		}
 		f.FromID = value
 	}
 	{
 		if err := f.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field notify_settings: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field notify_settings: %w", err)
 		}
 	}
 	if f.Flags.Has(4) {
 		value, err := DecodeDraftMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopic#cdff0eca: field draft: %w", err)
+			return fmt.Errorf("unable to decode forumTopic#fcdad815: field draft: %w", err)
 		}
 		f.Draft = value
 	}
@@ -958,6 +977,14 @@ func (f *ForumTopic) GetUnreadReactionsCount() (value int) {
 	return f.UnreadReactionsCount
 }
 
+// GetUnreadPollVotesCount returns value of UnreadPollVotesCount field.
+func (f *ForumTopic) GetUnreadPollVotesCount() (value int) {
+	if f == nil {
+		return
+	}
+	return f.UnreadPollVotesCount
+}
+
 // GetFromID returns value of FromID field.
 func (f *ForumTopic) GetFromID() (value PeerClass) {
 	if f == nil {
@@ -1011,7 +1038,7 @@ const ForumTopicClassName = "ForumTopic"
 //	}
 //	switch v := g.(type) {
 //	case *tg.ForumTopicDeleted: // forumTopicDeleted#23f109b
-//	case *tg.ForumTopic: // forumTopic#cdff0eca
+//	case *tg.ForumTopic: // forumTopic#fcdad815
 //	default: panic(v)
 //	}
 type ForumTopicClass interface {
@@ -1051,7 +1078,7 @@ func DecodeForumTopic(buf *bin.Buffer) (ForumTopicClass, error) {
 		}
 		return &v, nil
 	case ForumTopicTypeID:
-		// Decoding forumTopic#cdff0eca.
+		// Decoding forumTopic#fcdad815.
 		v := ForumTopic{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ForumTopicClass: %w", err)

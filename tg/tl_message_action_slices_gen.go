@@ -857,6 +857,45 @@ func (s MessageActionClassArray) AsMessageActionNoForwardsRequest() (to MessageA
 	return to
 }
 
+// AsMessageActionPollAppendAnswer returns copy with only MessageActionPollAppendAnswer constructors.
+func (s MessageActionClassArray) AsMessageActionPollAppendAnswer() (to MessageActionPollAppendAnswerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionPollAppendAnswer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionPollDeleteAnswer returns copy with only MessageActionPollDeleteAnswer constructors.
+func (s MessageActionClassArray) AsMessageActionPollDeleteAnswer() (to MessageActionPollDeleteAnswerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionPollDeleteAnswer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionManagedBotCreated returns copy with only MessageActionManagedBotCreated constructors.
+func (s MessageActionClassArray) AsMessageActionManagedBotCreated() (to MessageActionManagedBotCreatedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionManagedBotCreated)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -5519,6 +5558,252 @@ func (s *MessageActionNoForwardsRequestArray) PopFirst() (v MessageActionNoForwa
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionNoForwardsRequestArray) Pop() (v MessageActionNoForwardsRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionPollAppendAnswerArray is adapter for slice of MessageActionPollAppendAnswer.
+type MessageActionPollAppendAnswerArray []MessageActionPollAppendAnswer
+
+// Sort sorts slice of MessageActionPollAppendAnswer.
+func (s MessageActionPollAppendAnswerArray) Sort(less func(a, b MessageActionPollAppendAnswer) bool) MessageActionPollAppendAnswerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionPollAppendAnswer.
+func (s MessageActionPollAppendAnswerArray) SortStable(less func(a, b MessageActionPollAppendAnswer) bool) MessageActionPollAppendAnswerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionPollAppendAnswer.
+func (s MessageActionPollAppendAnswerArray) Retain(keep func(x MessageActionPollAppendAnswer) bool) MessageActionPollAppendAnswerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionPollAppendAnswerArray) First() (v MessageActionPollAppendAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionPollAppendAnswerArray) Last() (v MessageActionPollAppendAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionPollAppendAnswerArray) PopFirst() (v MessageActionPollAppendAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionPollAppendAnswer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionPollAppendAnswerArray) Pop() (v MessageActionPollAppendAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionPollDeleteAnswerArray is adapter for slice of MessageActionPollDeleteAnswer.
+type MessageActionPollDeleteAnswerArray []MessageActionPollDeleteAnswer
+
+// Sort sorts slice of MessageActionPollDeleteAnswer.
+func (s MessageActionPollDeleteAnswerArray) Sort(less func(a, b MessageActionPollDeleteAnswer) bool) MessageActionPollDeleteAnswerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionPollDeleteAnswer.
+func (s MessageActionPollDeleteAnswerArray) SortStable(less func(a, b MessageActionPollDeleteAnswer) bool) MessageActionPollDeleteAnswerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionPollDeleteAnswer.
+func (s MessageActionPollDeleteAnswerArray) Retain(keep func(x MessageActionPollDeleteAnswer) bool) MessageActionPollDeleteAnswerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionPollDeleteAnswerArray) First() (v MessageActionPollDeleteAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionPollDeleteAnswerArray) Last() (v MessageActionPollDeleteAnswer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionPollDeleteAnswerArray) PopFirst() (v MessageActionPollDeleteAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionPollDeleteAnswer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionPollDeleteAnswerArray) Pop() (v MessageActionPollDeleteAnswer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionManagedBotCreatedArray is adapter for slice of MessageActionManagedBotCreated.
+type MessageActionManagedBotCreatedArray []MessageActionManagedBotCreated
+
+// Sort sorts slice of MessageActionManagedBotCreated.
+func (s MessageActionManagedBotCreatedArray) Sort(less func(a, b MessageActionManagedBotCreated) bool) MessageActionManagedBotCreatedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionManagedBotCreated.
+func (s MessageActionManagedBotCreatedArray) SortStable(less func(a, b MessageActionManagedBotCreated) bool) MessageActionManagedBotCreatedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionManagedBotCreated.
+func (s MessageActionManagedBotCreatedArray) Retain(keep func(x MessageActionManagedBotCreated) bool) MessageActionManagedBotCreatedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionManagedBotCreatedArray) First() (v MessageActionManagedBotCreated, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionManagedBotCreatedArray) Last() (v MessageActionManagedBotCreated, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionManagedBotCreatedArray) PopFirst() (v MessageActionManagedBotCreated, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionManagedBotCreated
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionManagedBotCreatedArray) Pop() (v MessageActionManagedBotCreated, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReactionsNotifySettings represents TL type `reactionsNotifySettings#56e34970`.
+// ReactionsNotifySettings represents TL type `reactionsNotifySettings#71e4ea58`.
 // Reaction notification settings, see here »¹ for more info.
 //
 // Links:
@@ -54,6 +54,10 @@ type ReactionsNotifySettings struct {
 	//
 	// Use SetStoriesNotifyFrom and GetStoriesNotifyFrom helpers.
 	StoriesNotifyFrom ReactionNotificationsFromClass
+	// PollVotesNotifyFrom field of ReactionsNotifySettings.
+	//
+	// Use SetPollVotesNotifyFrom and GetPollVotesNotifyFrom helpers.
+	PollVotesNotifyFrom ReactionNotificationsFromClass
 	// Notification sound for reactions »¹
 	//
 	// Links:
@@ -69,7 +73,7 @@ type ReactionsNotifySettings struct {
 }
 
 // ReactionsNotifySettingsTypeID is TL type id of ReactionsNotifySettings.
-const ReactionsNotifySettingsTypeID = 0x56e34970
+const ReactionsNotifySettingsTypeID = 0x71e4ea58
 
 // Ensuring interfaces in compile-time for ReactionsNotifySettings.
 var (
@@ -90,6 +94,9 @@ func (r *ReactionsNotifySettings) Zero() bool {
 		return false
 	}
 	if !(r.StoriesNotifyFrom == nil) {
+		return false
+	}
+	if !(r.PollVotesNotifyFrom == nil) {
 		return false
 	}
 	if !(r.Sound == nil) {
@@ -115,6 +122,7 @@ func (r *ReactionsNotifySettings) String() string {
 func (r *ReactionsNotifySettings) FillFrom(from interface {
 	GetMessagesNotifyFrom() (value ReactionNotificationsFromClass, ok bool)
 	GetStoriesNotifyFrom() (value ReactionNotificationsFromClass, ok bool)
+	GetPollVotesNotifyFrom() (value ReactionNotificationsFromClass, ok bool)
 	GetSound() (value NotificationSoundClass)
 	GetShowPreviews() (value bool)
 }) {
@@ -124,6 +132,10 @@ func (r *ReactionsNotifySettings) FillFrom(from interface {
 
 	if val, ok := from.GetStoriesNotifyFrom(); ok {
 		r.StoriesNotifyFrom = val
+	}
+
+	if val, ok := from.GetPollVotesNotifyFrom(); ok {
+		r.PollVotesNotifyFrom = val
 	}
 
 	r.Sound = from.GetSound()
@@ -164,6 +176,11 @@ func (r *ReactionsNotifySettings) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(1),
 		},
 		{
+			Name:       "PollVotesNotifyFrom",
+			SchemaName: "poll_votes_notify_from",
+			Null:       !r.Flags.Has(2),
+		},
+		{
 			Name:       "Sound",
 			SchemaName: "sound",
 		},
@@ -183,12 +200,15 @@ func (r *ReactionsNotifySettings) SetFlags() {
 	if !(r.StoriesNotifyFrom == nil) {
 		r.Flags.Set(1)
 	}
+	if !(r.PollVotesNotifyFrom == nil) {
+		r.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (r *ReactionsNotifySettings) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reactionsNotifySettings#56e34970 as nil")
+		return fmt.Errorf("can't encode reactionsNotifySettings#71e4ea58 as nil")
 	}
 	b.PutID(ReactionsNotifySettingsTypeID)
 	return r.EncodeBare(b)
@@ -197,33 +217,41 @@ func (r *ReactionsNotifySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReactionsNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reactionsNotifySettings#56e34970 as nil")
+		return fmt.Errorf("can't encode reactionsNotifySettings#71e4ea58 as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field flags: %w", err)
+		return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field flags: %w", err)
 	}
 	if r.Flags.Has(0) {
 		if r.MessagesNotifyFrom == nil {
-			return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field messages_notify_from is nil")
+			return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field messages_notify_from is nil")
 		}
 		if err := r.MessagesNotifyFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field messages_notify_from: %w", err)
+			return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field messages_notify_from: %w", err)
 		}
 	}
 	if r.Flags.Has(1) {
 		if r.StoriesNotifyFrom == nil {
-			return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field stories_notify_from is nil")
+			return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field stories_notify_from is nil")
 		}
 		if err := r.StoriesNotifyFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field stories_notify_from: %w", err)
+			return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field stories_notify_from: %w", err)
+		}
+	}
+	if r.Flags.Has(2) {
+		if r.PollVotesNotifyFrom == nil {
+			return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field poll_votes_notify_from is nil")
+		}
+		if err := r.PollVotesNotifyFrom.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field poll_votes_notify_from: %w", err)
 		}
 	}
 	if r.Sound == nil {
-		return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field sound is nil")
+		return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field sound is nil")
 	}
 	if err := r.Sound.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reactionsNotifySettings#56e34970: field sound: %w", err)
+		return fmt.Errorf("unable to encode reactionsNotifySettings#71e4ea58: field sound: %w", err)
 	}
 	b.PutBool(r.ShowPreviews)
 	return nil
@@ -232,10 +260,10 @@ func (r *ReactionsNotifySettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReactionsNotifySettings) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reactionsNotifySettings#56e34970 to nil")
+		return fmt.Errorf("can't decode reactionsNotifySettings#71e4ea58 to nil")
 	}
 	if err := b.ConsumeID(ReactionsNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode reactionsNotifySettings#56e34970: %w", err)
+		return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -243,38 +271,45 @@ func (r *ReactionsNotifySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReactionsNotifySettings) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reactionsNotifySettings#56e34970 to nil")
+		return fmt.Errorf("can't decode reactionsNotifySettings#71e4ea58 to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reactionsNotifySettings#56e34970: field flags: %w", err)
+			return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: field flags: %w", err)
 		}
 	}
 	if r.Flags.Has(0) {
 		value, err := DecodeReactionNotificationsFrom(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode reactionsNotifySettings#56e34970: field messages_notify_from: %w", err)
+			return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: field messages_notify_from: %w", err)
 		}
 		r.MessagesNotifyFrom = value
 	}
 	if r.Flags.Has(1) {
 		value, err := DecodeReactionNotificationsFrom(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode reactionsNotifySettings#56e34970: field stories_notify_from: %w", err)
+			return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: field stories_notify_from: %w", err)
 		}
 		r.StoriesNotifyFrom = value
+	}
+	if r.Flags.Has(2) {
+		value, err := DecodeReactionNotificationsFrom(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: field poll_votes_notify_from: %w", err)
+		}
+		r.PollVotesNotifyFrom = value
 	}
 	{
 		value, err := DecodeNotificationSound(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode reactionsNotifySettings#56e34970: field sound: %w", err)
+			return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: field sound: %w", err)
 		}
 		r.Sound = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode reactionsNotifySettings#56e34970: field show_previews: %w", err)
+			return fmt.Errorf("unable to decode reactionsNotifySettings#71e4ea58: field show_previews: %w", err)
 		}
 		r.ShowPreviews = value
 	}
@@ -315,6 +350,24 @@ func (r *ReactionsNotifySettings) GetStoriesNotifyFrom() (value ReactionNotifica
 		return value, false
 	}
 	return r.StoriesNotifyFrom, true
+}
+
+// SetPollVotesNotifyFrom sets value of PollVotesNotifyFrom conditional field.
+func (r *ReactionsNotifySettings) SetPollVotesNotifyFrom(value ReactionNotificationsFromClass) {
+	r.Flags.Set(2)
+	r.PollVotesNotifyFrom = value
+}
+
+// GetPollVotesNotifyFrom returns value of PollVotesNotifyFrom conditional field and
+// boolean which is true if field was set.
+func (r *ReactionsNotifySettings) GetPollVotesNotifyFrom() (value ReactionNotificationsFromClass, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(2) {
+		return value, false
+	}
+	return r.PollVotesNotifyFrom, true
 }
 
 // GetSound returns value of Sound field.

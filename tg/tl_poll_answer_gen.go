@@ -31,11 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PollAnswer represents TL type `pollAnswer#ff16e2ca`.
+// PollAnswer represents TL type `pollAnswer#4b7d786a`.
 // A possible answer of a poll
 //
 // See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
+	// Flags field of PollAnswer.
+	Flags bin.Fields
 	// Textual representation of the answer (only Premium¹ users can use custom emoji
 	// entities² here).
 	//
@@ -48,10 +50,25 @@ type PollAnswer struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
 	Option []byte
+	// Media field of PollAnswer.
+	//
+	// Use SetMedia and GetMedia helpers.
+	Media MessageMediaClass
+	// AddedBy field of PollAnswer.
+	//
+	// Use SetAddedBy and GetAddedBy helpers.
+	AddedBy PeerClass
+	// Date field of PollAnswer.
+	//
+	// Use SetDate and GetDate helpers.
+	Date int
 }
 
 // PollAnswerTypeID is TL type id of PollAnswer.
-const PollAnswerTypeID = 0xff16e2ca
+const PollAnswerTypeID = 0x4b7d786a
+
+// construct implements constructor of PollAnswerClass.
+func (p PollAnswer) construct() PollAnswerClass { return &p }
 
 // Ensuring interfaces in compile-time for PollAnswer.
 var (
@@ -59,16 +76,30 @@ var (
 	_ bin.Decoder     = &PollAnswer{}
 	_ bin.BareEncoder = &PollAnswer{}
 	_ bin.BareDecoder = &PollAnswer{}
+
+	_ PollAnswerClass = &PollAnswer{}
 )
 
 func (p *PollAnswer) Zero() bool {
 	if p == nil {
 		return true
 	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
 	if !(p.Text.Zero()) {
 		return false
 	}
 	if !(p.Option == nil) {
+		return false
+	}
+	if !(p.Media == nil) {
+		return false
+	}
+	if !(p.AddedBy == nil) {
+		return false
+	}
+	if !(p.Date == 0) {
 		return false
 	}
 
@@ -88,9 +119,24 @@ func (p *PollAnswer) String() string {
 func (p *PollAnswer) FillFrom(from interface {
 	GetText() (value TextWithEntities)
 	GetOption() (value []byte)
+	GetMedia() (value MessageMediaClass, ok bool)
+	GetAddedBy() (value PeerClass, ok bool)
+	GetDate() (value int, ok bool)
 }) {
 	p.Text = from.GetText()
 	p.Option = from.GetOption()
+	if val, ok := from.GetMedia(); ok {
+		p.Media = val
+	}
+
+	if val, ok := from.GetAddedBy(); ok {
+		p.AddedBy = val
+	}
+
+	if val, ok := from.GetDate(); ok {
+		p.Date = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -124,14 +170,42 @@ func (p *PollAnswer) TypeInfo() tdp.Type {
 			Name:       "Option",
 			SchemaName: "option",
 		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "AddedBy",
+			SchemaName: "added_by",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+			Null:       !p.Flags.Has(1),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PollAnswer) SetFlags() {
+	if !(p.Media == nil) {
+		p.Flags.Set(0)
+	}
+	if !(p.AddedBy == nil) {
+		p.Flags.Set(1)
+	}
+	if !(p.Date == 0) {
+		p.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PollAnswer) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswer#ff16e2ca as nil")
+		return fmt.Errorf("can't encode pollAnswer#4b7d786a as nil")
 	}
 	b.PutID(PollAnswerTypeID)
 	return p.EncodeBare(b)
@@ -140,22 +214,45 @@ func (p *PollAnswer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PollAnswer) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswer#ff16e2ca as nil")
+		return fmt.Errorf("can't encode pollAnswer#4b7d786a as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pollAnswer#4b7d786a: field flags: %w", err)
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pollAnswer#ff16e2ca: field text: %w", err)
+		return fmt.Errorf("unable to encode pollAnswer#4b7d786a: field text: %w", err)
 	}
 	b.PutBytes(p.Option)
+	if p.Flags.Has(0) {
+		if p.Media == nil {
+			return fmt.Errorf("unable to encode pollAnswer#4b7d786a: field media is nil")
+		}
+		if err := p.Media.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode pollAnswer#4b7d786a: field media: %w", err)
+		}
+	}
+	if p.Flags.Has(1) {
+		if p.AddedBy == nil {
+			return fmt.Errorf("unable to encode pollAnswer#4b7d786a: field added_by is nil")
+		}
+		if err := p.AddedBy.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode pollAnswer#4b7d786a: field added_by: %w", err)
+		}
+	}
+	if p.Flags.Has(1) {
+		b.PutInt(p.Date)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *PollAnswer) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswer#ff16e2ca to nil")
+		return fmt.Errorf("can't decode pollAnswer#4b7d786a to nil")
 	}
 	if err := b.ConsumeID(PollAnswerTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollAnswer#ff16e2ca: %w", err)
+		return fmt.Errorf("unable to decode pollAnswer#4b7d786a: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -163,19 +260,45 @@ func (p *PollAnswer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PollAnswer) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswer#ff16e2ca to nil")
+		return fmt.Errorf("can't decode pollAnswer#4b7d786a to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pollAnswer#4b7d786a: field flags: %w", err)
+		}
 	}
 	{
 		if err := p.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pollAnswer#ff16e2ca: field text: %w", err)
+			return fmt.Errorf("unable to decode pollAnswer#4b7d786a: field text: %w", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswer#ff16e2ca: field option: %w", err)
+			return fmt.Errorf("unable to decode pollAnswer#4b7d786a: field option: %w", err)
 		}
 		p.Option = value
+	}
+	if p.Flags.Has(0) {
+		value, err := DecodeMessageMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pollAnswer#4b7d786a: field media: %w", err)
+		}
+		p.Media = value
+	}
+	if p.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pollAnswer#4b7d786a: field added_by: %w", err)
+		}
+		p.AddedBy = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollAnswer#4b7d786a: field date: %w", err)
+		}
+		p.Date = value
 	}
 	return nil
 }
@@ -194,4 +317,364 @@ func (p *PollAnswer) GetOption() (value []byte) {
 		return
 	}
 	return p.Option
+}
+
+// SetMedia sets value of Media conditional field.
+func (p *PollAnswer) SetMedia(value MessageMediaClass) {
+	p.Flags.Set(0)
+	p.Media = value
+}
+
+// GetMedia returns value of Media conditional field and
+// boolean which is true if field was set.
+func (p *PollAnswer) GetMedia() (value MessageMediaClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.Media, true
+}
+
+// SetAddedBy sets value of AddedBy conditional field.
+func (p *PollAnswer) SetAddedBy(value PeerClass) {
+	p.Flags.Set(1)
+	p.AddedBy = value
+}
+
+// GetAddedBy returns value of AddedBy conditional field and
+// boolean which is true if field was set.
+func (p *PollAnswer) GetAddedBy() (value PeerClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.AddedBy, true
+}
+
+// SetDate sets value of Date conditional field.
+func (p *PollAnswer) SetDate(value int) {
+	p.Flags.Set(1)
+	p.Date = value
+}
+
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (p *PollAnswer) GetDate() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.Date, true
+}
+
+// InputPollAnswer represents TL type `inputPollAnswer#199fed96`.
+//
+// See https://core.telegram.org/constructor/inputPollAnswer for reference.
+type InputPollAnswer struct {
+	// Flags field of InputPollAnswer.
+	Flags bin.Fields
+	// Text field of InputPollAnswer.
+	Text TextWithEntities
+	// Media field of InputPollAnswer.
+	//
+	// Use SetMedia and GetMedia helpers.
+	Media InputMediaClass
+}
+
+// InputPollAnswerTypeID is TL type id of InputPollAnswer.
+const InputPollAnswerTypeID = 0x199fed96
+
+// construct implements constructor of PollAnswerClass.
+func (i InputPollAnswer) construct() PollAnswerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPollAnswer.
+var (
+	_ bin.Encoder     = &InputPollAnswer{}
+	_ bin.Decoder     = &InputPollAnswer{}
+	_ bin.BareEncoder = &InputPollAnswer{}
+	_ bin.BareDecoder = &InputPollAnswer{}
+
+	_ PollAnswerClass = &InputPollAnswer{}
+)
+
+func (i *InputPollAnswer) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Text.Zero()) {
+		return false
+	}
+	if !(i.Media == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPollAnswer) String() string {
+	if i == nil {
+		return "InputPollAnswer(nil)"
+	}
+	type Alias InputPollAnswer
+	return fmt.Sprintf("InputPollAnswer%+v", Alias(*i))
+}
+
+// FillFrom fills InputPollAnswer from given interface.
+func (i *InputPollAnswer) FillFrom(from interface {
+	GetText() (value TextWithEntities)
+	GetMedia() (value InputMediaClass, ok bool)
+}) {
+	i.Text = from.GetText()
+	if val, ok := from.GetMedia(); ok {
+		i.Media = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPollAnswer) TypeID() uint32 {
+	return InputPollAnswerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPollAnswer) TypeName() string {
+	return "inputPollAnswer"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPollAnswer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPollAnswer",
+		ID:   InputPollAnswerTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputPollAnswer) SetFlags() {
+	if !(i.Media == nil) {
+		i.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPollAnswer) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPollAnswer#199fed96 as nil")
+	}
+	b.PutID(InputPollAnswerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPollAnswer) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPollAnswer#199fed96 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPollAnswer#199fed96: field flags: %w", err)
+	}
+	if err := i.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPollAnswer#199fed96: field text: %w", err)
+	}
+	if i.Flags.Has(0) {
+		if i.Media == nil {
+			return fmt.Errorf("unable to encode inputPollAnswer#199fed96: field media is nil")
+		}
+		if err := i.Media.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputPollAnswer#199fed96: field media: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPollAnswer) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPollAnswer#199fed96 to nil")
+	}
+	if err := b.ConsumeID(InputPollAnswerTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPollAnswer#199fed96: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPollAnswer) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPollAnswer#199fed96 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPollAnswer#199fed96: field flags: %w", err)
+		}
+	}
+	{
+		if err := i.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPollAnswer#199fed96: field text: %w", err)
+		}
+	}
+	if i.Flags.Has(0) {
+		value, err := DecodeInputMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPollAnswer#199fed96: field media: %w", err)
+		}
+		i.Media = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (i *InputPollAnswer) GetText() (value TextWithEntities) {
+	if i == nil {
+		return
+	}
+	return i.Text
+}
+
+// SetMedia sets value of Media conditional field.
+func (i *InputPollAnswer) SetMedia(value InputMediaClass) {
+	i.Flags.Set(0)
+	i.Media = value
+}
+
+// GetMedia returns value of Media conditional field and
+// boolean which is true if field was set.
+func (i *InputPollAnswer) GetMedia() (value InputMediaClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Media, true
+}
+
+// PollAnswerClassName is schema name of PollAnswerClass.
+const PollAnswerClassName = "PollAnswer"
+
+// PollAnswerClass represents PollAnswer generic type.
+//
+// See https://core.telegram.org/type/PollAnswer for reference.
+//
+// Constructors:
+//   - [PollAnswer]
+//   - [InputPollAnswer]
+//
+// Example:
+//
+//	g, err := tg.DecodePollAnswer(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PollAnswer: // pollAnswer#4b7d786a
+//	case *tg.InputPollAnswer: // inputPollAnswer#199fed96
+//	default: panic(v)
+//	}
+type PollAnswerClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() PollAnswerClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// Textual representation of the answer (only Premium¹ users can use custom emoji
+	// entities² here).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/api/custom-emoji
+	GetText() (value TextWithEntities)
+}
+
+// DecodePollAnswer implements binary de-serialization for PollAnswerClass.
+func DecodePollAnswer(buf *bin.Buffer) (PollAnswerClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case PollAnswerTypeID:
+		// Decoding pollAnswer#4b7d786a.
+		v := PollAnswer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PollAnswerClass: %w", err)
+		}
+		return &v, nil
+	case InputPollAnswerTypeID:
+		// Decoding inputPollAnswer#199fed96.
+		v := InputPollAnswer{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PollAnswerClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PollAnswerClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// PollAnswer boxes the PollAnswerClass providing a helper.
+type PollAnswerBox struct {
+	PollAnswer PollAnswerClass
+}
+
+// Decode implements bin.Decoder for PollAnswerBox.
+func (b *PollAnswerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PollAnswerBox to nil")
+	}
+	v, err := DecodePollAnswer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PollAnswer = v
+	return nil
+}
+
+// Encode implements bin.Encode for PollAnswerBox.
+func (b *PollAnswerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PollAnswer == nil {
+		return fmt.Errorf("unable to encode PollAnswerClass as nil")
+	}
+	return b.PollAnswer.Encode(buf)
 }
