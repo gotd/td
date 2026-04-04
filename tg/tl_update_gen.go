@@ -13021,7 +13021,7 @@ func (u *UpdateDialogUnreadMark) GetSavedPeerID() (value PeerClass, ok bool) {
 	return u.SavedPeerID, true
 }
 
-// UpdateMessagePoll represents TL type `updateMessagePoll#aca1657b`.
+// UpdateMessagePoll represents TL type `updateMessagePoll#d64c522b`.
 // The results of a poll have changed
 //
 // See https://core.telegram.org/constructor/updateMessagePoll for reference.
@@ -13031,6 +13031,18 @@ type UpdateMessagePoll struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Peer field of UpdateMessagePoll.
+	//
+	// Use SetPeer and GetPeer helpers.
+	Peer PeerClass
+	// MsgID field of UpdateMessagePoll.
+	//
+	// Use SetMsgID and GetMsgID helpers.
+	MsgID int
+	// TopMsgID field of UpdateMessagePoll.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 	// Poll ID
 	PollID int64
 	// If the server knows the client hasn't cached this poll yet, the poll itself
@@ -13042,7 +13054,7 @@ type UpdateMessagePoll struct {
 }
 
 // UpdateMessagePollTypeID is TL type id of UpdateMessagePoll.
-const UpdateMessagePollTypeID = 0xaca1657b
+const UpdateMessagePollTypeID = 0xd64c522b
 
 // construct implements constructor of UpdateClass.
 func (u UpdateMessagePoll) construct() UpdateClass { return &u }
@@ -13062,6 +13074,15 @@ func (u *UpdateMessagePoll) Zero() bool {
 		return true
 	}
 	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.TopMsgID == 0) {
 		return false
 	}
 	if !(u.PollID == 0) {
@@ -13088,10 +13109,25 @@ func (u *UpdateMessagePoll) String() string {
 
 // FillFrom fills UpdateMessagePoll from given interface.
 func (u *UpdateMessagePoll) FillFrom(from interface {
+	GetPeer() (value PeerClass, ok bool)
+	GetMsgID() (value int, ok bool)
+	GetTopMsgID() (value int, ok bool)
 	GetPollID() (value int64)
 	GetPoll() (value Poll, ok bool)
 	GetResults() (value PollResults)
 }) {
+	if val, ok := from.GetPeer(); ok {
+		u.Peer = val
+	}
+
+	if val, ok := from.GetMsgID(); ok {
+		u.MsgID = val
+	}
+
+	if val, ok := from.GetTopMsgID(); ok {
+		u.TopMsgID = val
+	}
+
 	u.PollID = from.GetPollID()
 	if val, ok := from.GetPoll(); ok {
 		u.Poll = val
@@ -13124,6 +13160,21 @@ func (u *UpdateMessagePoll) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Peer",
+			SchemaName: "peer",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !u.Flags.Has(2),
+		},
+		{
 			Name:       "PollID",
 			SchemaName: "poll_id",
 		},
@@ -13142,6 +13193,15 @@ func (u *UpdateMessagePoll) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (u *UpdateMessagePoll) SetFlags() {
+	if !(u.Peer == nil) {
+		u.Flags.Set(1)
+	}
+	if !(u.MsgID == 0) {
+		u.Flags.Set(1)
+	}
+	if !(u.TopMsgID == 0) {
+		u.Flags.Set(2)
+	}
 	if !(u.Poll.Zero()) {
 		u.Flags.Set(0)
 	}
@@ -13150,7 +13210,7 @@ func (u *UpdateMessagePoll) SetFlags() {
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessagePoll#aca1657b as nil")
+		return fmt.Errorf("can't encode updateMessagePoll#d64c522b as nil")
 	}
 	b.PutID(UpdateMessagePollTypeID)
 	return u.EncodeBare(b)
@@ -13159,20 +13219,34 @@ func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateMessagePoll) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessagePoll#aca1657b as nil")
+		return fmt.Errorf("can't encode updateMessagePoll#d64c522b as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessagePoll#aca1657b: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateMessagePoll#d64c522b: field flags: %w", err)
+	}
+	if u.Flags.Has(1) {
+		if u.Peer == nil {
+			return fmt.Errorf("unable to encode updateMessagePoll#d64c522b: field peer is nil")
+		}
+		if err := u.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateMessagePoll#d64c522b: field peer: %w", err)
+		}
+	}
+	if u.Flags.Has(1) {
+		b.PutInt(u.MsgID)
+	}
+	if u.Flags.Has(2) {
+		b.PutInt(u.TopMsgID)
 	}
 	b.PutLong(u.PollID)
 	if u.Flags.Has(0) {
 		if err := u.Poll.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateMessagePoll#aca1657b: field poll: %w", err)
+			return fmt.Errorf("unable to encode updateMessagePoll#d64c522b: field poll: %w", err)
 		}
 	}
 	if err := u.Results.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessagePoll#aca1657b: field results: %w", err)
+		return fmt.Errorf("unable to encode updateMessagePoll#d64c522b: field results: %w", err)
 	}
 	return nil
 }
@@ -13180,10 +13254,10 @@ func (u *UpdateMessagePoll) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateMessagePoll) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessagePoll#aca1657b to nil")
+		return fmt.Errorf("can't decode updateMessagePoll#d64c522b to nil")
 	}
 	if err := b.ConsumeID(UpdateMessagePollTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: %w", err)
+		return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -13191,31 +13265,106 @@ func (u *UpdateMessagePoll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateMessagePoll) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessagePoll#aca1657b to nil")
+		return fmt.Errorf("can't decode updateMessagePoll#d64c522b to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field flags: %w", err)
 		}
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field msg_id: %w", err)
+		}
+		u.MsgID = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field top_msg_id: %w", err)
+		}
+		u.TopMsgID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: field poll_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field poll_id: %w", err)
 		}
 		u.PollID = value
 	}
 	if u.Flags.Has(0) {
 		if err := u.Poll.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: field poll: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field poll: %w", err)
 		}
 	}
 	{
 		if err := u.Results.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: field results: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePoll#d64c522b: field results: %w", err)
 		}
 	}
 	return nil
+}
+
+// SetPeer sets value of Peer conditional field.
+func (u *UpdateMessagePoll) SetPeer(value PeerClass) {
+	u.Flags.Set(1)
+	u.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessagePoll) GetPeer() (value PeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Peer, true
+}
+
+// SetMsgID sets value of MsgID conditional field.
+func (u *UpdateMessagePoll) SetMsgID(value int) {
+	u.Flags.Set(1)
+	u.MsgID = value
+}
+
+// GetMsgID returns value of MsgID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessagePoll) GetMsgID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.MsgID, true
+}
+
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (u *UpdateMessagePoll) SetTopMsgID(value int) {
+	u.Flags.Set(2)
+	u.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessagePoll) GetTopMsgID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.TopMsgID, true
 }
 
 // GetPollID returns value of PollID field.
@@ -14806,7 +14955,7 @@ func (u *UpdateLoginToken) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// UpdateMessagePollVote represents TL type `updateMessagePollVote#24f40e77`.
+// UpdateMessagePollVote represents TL type `updateMessagePollVote#7699f014`.
 // A specific peer has voted in a poll
 //
 // See https://core.telegram.org/constructor/updateMessagePollVote for reference.
@@ -14817,6 +14966,8 @@ type UpdateMessagePollVote struct {
 	Peer PeerClass
 	// Chosen option(s)
 	Options [][]byte
+	// Positions field of UpdateMessagePollVote.
+	Positions []int
 	// New qts value, see updates »¹ for more info.
 	//
 	// Links:
@@ -14825,7 +14976,7 @@ type UpdateMessagePollVote struct {
 }
 
 // UpdateMessagePollVoteTypeID is TL type id of UpdateMessagePollVote.
-const UpdateMessagePollVoteTypeID = 0x24f40e77
+const UpdateMessagePollVoteTypeID = 0x7699f014
 
 // construct implements constructor of UpdateClass.
 func (u UpdateMessagePollVote) construct() UpdateClass { return &u }
@@ -14853,6 +15004,9 @@ func (u *UpdateMessagePollVote) Zero() bool {
 	if !(u.Options == nil) {
 		return false
 	}
+	if !(u.Positions == nil) {
+		return false
+	}
 	if !(u.Qts == 0) {
 		return false
 	}
@@ -14874,11 +15028,13 @@ func (u *UpdateMessagePollVote) FillFrom(from interface {
 	GetPollID() (value int64)
 	GetPeer() (value PeerClass)
 	GetOptions() (value [][]byte)
+	GetPositions() (value []int)
 	GetQts() (value int)
 }) {
 	u.PollID = from.GetPollID()
 	u.Peer = from.GetPeer()
 	u.Options = from.GetOptions()
+	u.Positions = from.GetPositions()
 	u.Qts = from.GetQts()
 }
 
@@ -14918,6 +15074,10 @@ func (u *UpdateMessagePollVote) TypeInfo() tdp.Type {
 			SchemaName: "options",
 		},
 		{
+			Name:       "Positions",
+			SchemaName: "positions",
+		},
+		{
 			Name:       "Qts",
 			SchemaName: "qts",
 		},
@@ -14928,7 +15088,7 @@ func (u *UpdateMessagePollVote) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessagePollVote#24f40e77 as nil")
+		return fmt.Errorf("can't encode updateMessagePollVote#7699f014 as nil")
 	}
 	b.PutID(UpdateMessagePollVoteTypeID)
 	return u.EncodeBare(b)
@@ -14937,18 +15097,22 @@ func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateMessagePollVote) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessagePollVote#24f40e77 as nil")
+		return fmt.Errorf("can't encode updateMessagePollVote#7699f014 as nil")
 	}
 	b.PutLong(u.PollID)
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateMessagePollVote#24f40e77: field peer is nil")
+		return fmt.Errorf("unable to encode updateMessagePollVote#7699f014: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessagePollVote#24f40e77: field peer: %w", err)
+		return fmt.Errorf("unable to encode updateMessagePollVote#7699f014: field peer: %w", err)
 	}
 	b.PutVectorHeader(len(u.Options))
 	for _, v := range u.Options {
 		b.PutBytes(v)
+	}
+	b.PutVectorHeader(len(u.Positions))
+	for _, v := range u.Positions {
+		b.PutInt(v)
 	}
 	b.PutInt(u.Qts)
 	return nil
@@ -14957,10 +15121,10 @@ func (u *UpdateMessagePollVote) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateMessagePollVote) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessagePollVote#24f40e77 to nil")
+		return fmt.Errorf("can't decode updateMessagePollVote#7699f014 to nil")
 	}
 	if err := b.ConsumeID(UpdateMessagePollVoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateMessagePollVote#24f40e77: %w", err)
+		return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -14968,26 +15132,26 @@ func (u *UpdateMessagePollVote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateMessagePollVote) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessagePollVote#24f40e77 to nil")
+		return fmt.Errorf("can't decode updateMessagePollVote#7699f014 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#24f40e77: field poll_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field poll_id: %w", err)
 		}
 		u.PollID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#24f40e77: field peer: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#24f40e77: field options: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field options: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -14996,15 +15160,32 @@ func (u *UpdateMessagePollVote) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateMessagePollVote#24f40e77: field options: %w", err)
+				return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field options: %w", err)
 			}
 			u.Options = append(u.Options, value)
 		}
 	}
 	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field positions: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Positions = make([]int, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field positions: %w", err)
+			}
+			u.Positions = append(u.Positions, value)
+		}
+	}
+	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessagePollVote#24f40e77: field qts: %w", err)
+			return fmt.Errorf("unable to decode updateMessagePollVote#7699f014: field qts: %w", err)
 		}
 		u.Qts = value
 	}
@@ -15033,6 +15214,14 @@ func (u *UpdateMessagePollVote) GetOptions() (value [][]byte) {
 		return
 	}
 	return u.Options
+}
+
+// GetPositions returns value of Positions field.
+func (u *UpdateMessagePollVote) GetPositions() (value []int) {
+	if u == nil {
+		return
+	}
+	return u.Positions
 }
 
 // GetQts returns value of Qts field.
@@ -31162,6 +31351,194 @@ func (u *UpdateChatParticipantRank) GetVersion() (value int) {
 	return u.Version
 }
 
+// UpdateManagedBot represents TL type `updateManagedBot#4880ed9a`.
+//
+// See https://core.telegram.org/constructor/updateManagedBot for reference.
+type UpdateManagedBot struct {
+	// UserID field of UpdateManagedBot.
+	UserID int64
+	// BotID field of UpdateManagedBot.
+	BotID int64
+	// Qts field of UpdateManagedBot.
+	Qts int
+}
+
+// UpdateManagedBotTypeID is TL type id of UpdateManagedBot.
+const UpdateManagedBotTypeID = 0x4880ed9a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateManagedBot) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateManagedBot.
+var (
+	_ bin.Encoder     = &UpdateManagedBot{}
+	_ bin.Decoder     = &UpdateManagedBot{}
+	_ bin.BareEncoder = &UpdateManagedBot{}
+	_ bin.BareDecoder = &UpdateManagedBot{}
+
+	_ UpdateClass = &UpdateManagedBot{}
+)
+
+func (u *UpdateManagedBot) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.BotID == 0) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateManagedBot) String() string {
+	if u == nil {
+		return "UpdateManagedBot(nil)"
+	}
+	type Alias UpdateManagedBot
+	return fmt.Sprintf("UpdateManagedBot%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateManagedBot from given interface.
+func (u *UpdateManagedBot) FillFrom(from interface {
+	GetUserID() (value int64)
+	GetBotID() (value int64)
+	GetQts() (value int)
+}) {
+	u.UserID = from.GetUserID()
+	u.BotID = from.GetBotID()
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateManagedBot) TypeID() uint32 {
+	return UpdateManagedBotTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateManagedBot) TypeName() string {
+	return "updateManagedBot"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateManagedBot) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateManagedBot",
+		ID:   UpdateManagedBotTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateManagedBot) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateManagedBot#4880ed9a as nil")
+	}
+	b.PutID(UpdateManagedBotTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateManagedBot) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateManagedBot#4880ed9a as nil")
+	}
+	b.PutLong(u.UserID)
+	b.PutLong(u.BotID)
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateManagedBot) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateManagedBot#4880ed9a to nil")
+	}
+	if err := b.ConsumeID(UpdateManagedBotTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateManagedBot#4880ed9a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateManagedBot) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateManagedBot#4880ed9a to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateManagedBot#4880ed9a: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateManagedBot#4880ed9a: field bot_id: %w", err)
+		}
+		u.BotID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateManagedBot#4880ed9a: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateManagedBot) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetBotID returns value of BotID field.
+func (u *UpdateManagedBot) GetBotID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.BotID
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateManagedBot) GetQts() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Qts
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -31323,6 +31700,7 @@ const UpdateClassName = "Update"
 //   - [UpdateEmojiGameInfo]
 //   - [UpdateStarGiftCraftFail]
 //   - [UpdateChatParticipantRank]
+//   - [UpdateManagedBot]
 //
 // Example:
 //
@@ -31393,7 +31771,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateContactsReset: // updateContactsReset#7084a7be
 //	case *tg.UpdateChannelAvailableMessages: // updateChannelAvailableMessages#b23fc698
 //	case *tg.UpdateDialogUnreadMark: // updateDialogUnreadMark#b658f23e
-//	case *tg.UpdateMessagePoll: // updateMessagePoll#aca1657b
+//	case *tg.UpdateMessagePoll: // updateMessagePoll#d64c522b
 //	case *tg.UpdateChatDefaultBannedRights: // updateChatDefaultBannedRights#54c01850
 //	case *tg.UpdateFolderPeers: // updateFolderPeers#19360dc0
 //	case *tg.UpdatePeerSettings: // updatePeerSettings#6a7e7366
@@ -31403,7 +31781,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateTheme: // updateTheme#8216fba3
 //	case *tg.UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
 //	case *tg.UpdateLoginToken: // updateLoginToken#564fe691
-//	case *tg.UpdateMessagePollVote: // updateMessagePollVote#24f40e77
+//	case *tg.UpdateMessagePollVote: // updateMessagePollVote#7699f014
 //	case *tg.UpdateDialogFilter: // updateDialogFilter#26ffde7d
 //	case *tg.UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
 //	case *tg.UpdateDialogFilters: // updateDialogFilters#3504914f
@@ -31484,6 +31862,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateEmojiGameInfo: // updateEmojiGameInfo#fb9c547a
 //	case *tg.UpdateStarGiftCraftFail: // updateStarGiftCraftFail#ac072444
 //	case *tg.UpdateChatParticipantRank: // updateChatParticipantRank#bd8367b9
+//	case *tg.UpdateManagedBot: // updateManagedBot#4880ed9a
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -31947,7 +32326,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateMessagePollTypeID:
-		// Decoding updateMessagePoll#aca1657b.
+		// Decoding updateMessagePoll#d64c522b.
 		v := UpdateMessagePoll{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -32017,7 +32396,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateMessagePollVoteTypeID:
-		// Decoding updateMessagePollVote#24f40e77.
+		// Decoding updateMessagePollVote#7699f014.
 		v := UpdateMessagePollVote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -32579,6 +32958,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatParticipantRankTypeID:
 		// Decoding updateChatParticipantRank#bd8367b9.
 		v := UpdateChatParticipantRank{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateManagedBotTypeID:
+		// Decoding updateManagedBot#4880ed9a.
+		v := UpdateManagedBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

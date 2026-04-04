@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PollResults represents TL type `pollResults#7adf2420`.
+// PollResults represents TL type `pollResults#ba7bb15e`.
 // Results of poll
 //
 // See https://core.telegram.org/constructor/pollResults for reference.
@@ -49,6 +49,8 @@ type PollResults struct {
 	//  1) https://core.telegram.org/api/min
 	//  2) https://core.telegram.org/method/messages.getPollResults
 	Min bool
+	// HasUnreadVotes field of PollResults.
+	HasUnreadVotes bool
 	// Poll results
 	//
 	// Use SetResults and GetResults helpers.
@@ -72,10 +74,14 @@ type PollResults struct {
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass
+	// SolutionMedia field of PollResults.
+	//
+	// Use SetSolutionMedia and GetSolutionMedia helpers.
+	SolutionMedia MessageMediaClass
 }
 
 // PollResultsTypeID is TL type id of PollResults.
-const PollResultsTypeID = 0x7adf2420
+const PollResultsTypeID = 0xba7bb15e
 
 // Ensuring interfaces in compile-time for PollResults.
 var (
@@ -95,6 +101,9 @@ func (p *PollResults) Zero() bool {
 	if !(p.Min == false) {
 		return false
 	}
+	if !(p.HasUnreadVotes == false) {
+		return false
+	}
 	if !(p.Results == nil) {
 		return false
 	}
@@ -108,6 +117,9 @@ func (p *PollResults) Zero() bool {
 		return false
 	}
 	if !(p.SolutionEntities == nil) {
+		return false
+	}
+	if !(p.SolutionMedia == nil) {
 		return false
 	}
 
@@ -126,13 +138,16 @@ func (p *PollResults) String() string {
 // FillFrom fills PollResults from given interface.
 func (p *PollResults) FillFrom(from interface {
 	GetMin() (value bool)
+	GetHasUnreadVotes() (value bool)
 	GetResults() (value []PollAnswerVoters, ok bool)
 	GetTotalVoters() (value int, ok bool)
 	GetRecentVoters() (value []PeerClass, ok bool)
 	GetSolution() (value string, ok bool)
 	GetSolutionEntities() (value []MessageEntityClass, ok bool)
+	GetSolutionMedia() (value MessageMediaClass, ok bool)
 }) {
 	p.Min = from.GetMin()
+	p.HasUnreadVotes = from.GetHasUnreadVotes()
 	if val, ok := from.GetResults(); ok {
 		p.Results = val
 	}
@@ -151,6 +166,10 @@ func (p *PollResults) FillFrom(from interface {
 
 	if val, ok := from.GetSolutionEntities(); ok {
 		p.SolutionEntities = val
+	}
+
+	if val, ok := from.GetSolutionMedia(); ok {
+		p.SolutionMedia = val
 	}
 
 }
@@ -184,6 +203,11 @@ func (p *PollResults) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(0),
 		},
 		{
+			Name:       "HasUnreadVotes",
+			SchemaName: "has_unread_votes",
+			Null:       !p.Flags.Has(6),
+		},
+		{
 			Name:       "Results",
 			SchemaName: "results",
 			Null:       !p.Flags.Has(1),
@@ -208,6 +232,11 @@ func (p *PollResults) TypeInfo() tdp.Type {
 			SchemaName: "solution_entities",
 			Null:       !p.Flags.Has(4),
 		},
+		{
+			Name:       "SolutionMedia",
+			SchemaName: "solution_media",
+			Null:       !p.Flags.Has(5),
+		},
 	}
 	return typ
 }
@@ -216,6 +245,9 @@ func (p *PollResults) TypeInfo() tdp.Type {
 func (p *PollResults) SetFlags() {
 	if !(p.Min == false) {
 		p.Flags.Set(0)
+	}
+	if !(p.HasUnreadVotes == false) {
+		p.Flags.Set(6)
 	}
 	if !(p.Results == nil) {
 		p.Flags.Set(1)
@@ -232,12 +264,15 @@ func (p *PollResults) SetFlags() {
 	if !(p.SolutionEntities == nil) {
 		p.Flags.Set(4)
 	}
+	if !(p.SolutionMedia == nil) {
+		p.Flags.Set(5)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PollResults) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollResults#7adf2420 as nil")
+		return fmt.Errorf("can't encode pollResults#ba7bb15e as nil")
 	}
 	b.PutID(PollResultsTypeID)
 	return p.EncodeBare(b)
@@ -246,17 +281,17 @@ func (p *PollResults) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PollResults) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollResults#7adf2420 as nil")
+		return fmt.Errorf("can't encode pollResults#ba7bb15e as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pollResults#7adf2420: field flags: %w", err)
+		return fmt.Errorf("unable to encode pollResults#ba7bb15e: field flags: %w", err)
 	}
 	if p.Flags.Has(1) {
 		b.PutVectorHeader(len(p.Results))
 		for idx, v := range p.Results {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode pollResults#7adf2420: field results element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode pollResults#ba7bb15e: field results element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -267,10 +302,10 @@ func (p *PollResults) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(p.RecentVoters))
 		for idx, v := range p.RecentVoters {
 			if v == nil {
-				return fmt.Errorf("unable to encode pollResults#7adf2420: field recent_voters element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode pollResults#ba7bb15e: field recent_voters element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode pollResults#7adf2420: field recent_voters element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode pollResults#ba7bb15e: field recent_voters element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -281,11 +316,19 @@ func (p *PollResults) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(p.SolutionEntities))
 		for idx, v := range p.SolutionEntities {
 			if v == nil {
-				return fmt.Errorf("unable to encode pollResults#7adf2420: field solution_entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode pollResults#ba7bb15e: field solution_entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode pollResults#7adf2420: field solution_entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode pollResults#ba7bb15e: field solution_entities element with index %d: %w", idx, err)
 			}
+		}
+	}
+	if p.Flags.Has(5) {
+		if p.SolutionMedia == nil {
+			return fmt.Errorf("unable to encode pollResults#ba7bb15e: field solution_media is nil")
+		}
+		if err := p.SolutionMedia.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode pollResults#ba7bb15e: field solution_media: %w", err)
 		}
 	}
 	return nil
@@ -294,10 +337,10 @@ func (p *PollResults) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PollResults) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollResults#7adf2420 to nil")
+		return fmt.Errorf("can't decode pollResults#ba7bb15e to nil")
 	}
 	if err := b.ConsumeID(PollResultsTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollResults#7adf2420: %w", err)
+		return fmt.Errorf("unable to decode pollResults#ba7bb15e: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -305,18 +348,19 @@ func (p *PollResults) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollResults#7adf2420 to nil")
+		return fmt.Errorf("can't decode pollResults#ba7bb15e to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pollResults#7adf2420: field flags: %w", err)
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field flags: %w", err)
 		}
 	}
 	p.Min = p.Flags.Has(0)
+	p.HasUnreadVotes = p.Flags.Has(6)
 	if p.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#7adf2420: field results: %w", err)
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field results: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -325,7 +369,7 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollAnswerVoters
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode pollResults#7adf2420: field results: %w", err)
+				return fmt.Errorf("unable to decode pollResults#ba7bb15e: field results: %w", err)
 			}
 			p.Results = append(p.Results, value)
 		}
@@ -333,14 +377,14 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#7adf2420: field total_voters: %w", err)
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field total_voters: %w", err)
 		}
 		p.TotalVoters = value
 	}
 	if p.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#7adf2420: field recent_voters: %w", err)
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field recent_voters: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -349,7 +393,7 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pollResults#7adf2420: field recent_voters: %w", err)
+				return fmt.Errorf("unable to decode pollResults#ba7bb15e: field recent_voters: %w", err)
 			}
 			p.RecentVoters = append(p.RecentVoters, value)
 		}
@@ -357,14 +401,14 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#7adf2420: field solution: %w", err)
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field solution: %w", err)
 		}
 		p.Solution = value
 	}
 	if p.Flags.Has(4) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollResults#7adf2420: field solution_entities: %w", err)
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field solution_entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -373,10 +417,17 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pollResults#7adf2420: field solution_entities: %w", err)
+				return fmt.Errorf("unable to decode pollResults#ba7bb15e: field solution_entities: %w", err)
 			}
 			p.SolutionEntities = append(p.SolutionEntities, value)
 		}
+	}
+	if p.Flags.Has(5) {
+		value, err := DecodeMessageMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pollResults#ba7bb15e: field solution_media: %w", err)
+		}
+		p.SolutionMedia = value
 	}
 	return nil
 }
@@ -398,6 +449,25 @@ func (p *PollResults) GetMin() (value bool) {
 		return
 	}
 	return p.Flags.Has(0)
+}
+
+// SetHasUnreadVotes sets value of HasUnreadVotes conditional field.
+func (p *PollResults) SetHasUnreadVotes(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.HasUnreadVotes = true
+	} else {
+		p.Flags.Unset(6)
+		p.HasUnreadVotes = false
+	}
+}
+
+// GetHasUnreadVotes returns value of HasUnreadVotes conditional field.
+func (p *PollResults) GetHasUnreadVotes() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(6)
 }
 
 // SetResults sets value of Results conditional field.
@@ -488,6 +558,24 @@ func (p *PollResults) GetSolutionEntities() (value []MessageEntityClass, ok bool
 		return value, false
 	}
 	return p.SolutionEntities, true
+}
+
+// SetSolutionMedia sets value of SolutionMedia conditional field.
+func (p *PollResults) SetSolutionMedia(value MessageMediaClass) {
+	p.Flags.Set(5)
+	p.SolutionMedia = value
+}
+
+// GetSolutionMedia returns value of SolutionMedia conditional field and
+// boolean which is true if field was set.
+func (p *PollResults) GetSolutionMedia() (value MessageMediaClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(5) {
+		return value, false
+	}
+	return p.SolutionMedia, true
 }
 
 // MapRecentVoters returns field RecentVoters wrapped in PeerClassArray helper.

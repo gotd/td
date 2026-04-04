@@ -221,3 +221,33 @@ func FormattedDate(s string, relative bool, shortTime bool, longTime bool, short
 		return nil
 	})
 }
+
+// DiffInsert formats text as DiffInsert entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffInsert.
+func DiffInsert(s string) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.DiffInsert(s)
+		return nil
+	})
+}
+
+// DiffReplace formats text as DiffReplace entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffReplace.
+func DiffReplace(s string, oldText string) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.DiffReplace(s, oldText)
+		return nil
+	})
+}
+
+// DiffDelete formats text as DiffDelete entity.
+//
+// See https://core.telegram.org/constructor/messageEntityDiffDelete.
+func DiffDelete(s string) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.DiffDelete(s)
+		return nil
+	})
+}

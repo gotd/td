@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesTranslateTextRequest represents TL type `messages.translateText#63183030`.
+// MessagesTranslateTextRequest represents TL type `messages.translateText#a5eec345`.
 // Translate a given text.
 // Styled text entities¹ will only be preserved for Telegram Premium² users.
 //
@@ -60,10 +60,14 @@ type MessagesTranslateTextRequest struct {
 	Text []TextWithEntities
 	// Two-letter ISO 639-1 language code of the language to which the message is translated
 	ToLang string
+	// Tone field of MessagesTranslateTextRequest.
+	//
+	// Use SetTone and GetTone helpers.
+	Tone string
 }
 
 // MessagesTranslateTextRequestTypeID is TL type id of MessagesTranslateTextRequest.
-const MessagesTranslateTextRequestTypeID = 0x63183030
+const MessagesTranslateTextRequestTypeID = 0xa5eec345
 
 // Ensuring interfaces in compile-time for MessagesTranslateTextRequest.
 var (
@@ -92,6 +96,9 @@ func (t *MessagesTranslateTextRequest) Zero() bool {
 	if !(t.ToLang == "") {
 		return false
 	}
+	if !(t.Tone == "") {
+		return false
+	}
 
 	return true
 }
@@ -111,6 +118,7 @@ func (t *MessagesTranslateTextRequest) FillFrom(from interface {
 	GetID() (value []int, ok bool)
 	GetText() (value []TextWithEntities, ok bool)
 	GetToLang() (value string)
+	GetTone() (value string, ok bool)
 }) {
 	if val, ok := from.GetPeer(); ok {
 		t.Peer = val
@@ -125,6 +133,10 @@ func (t *MessagesTranslateTextRequest) FillFrom(from interface {
 	}
 
 	t.ToLang = from.GetToLang()
+	if val, ok := from.GetTone(); ok {
+		t.Tone = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -169,6 +181,11 @@ func (t *MessagesTranslateTextRequest) TypeInfo() tdp.Type {
 			Name:       "ToLang",
 			SchemaName: "to_lang",
 		},
+		{
+			Name:       "Tone",
+			SchemaName: "tone",
+			Null:       !t.Flags.Has(2),
+		},
 	}
 	return typ
 }
@@ -184,12 +201,15 @@ func (t *MessagesTranslateTextRequest) SetFlags() {
 	if !(t.Text == nil) {
 		t.Flags.Set(1)
 	}
+	if !(t.Tone == "") {
+		t.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (t *MessagesTranslateTextRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.translateText#63183030 as nil")
+		return fmt.Errorf("can't encode messages.translateText#a5eec345 as nil")
 	}
 	b.PutID(MessagesTranslateTextRequestTypeID)
 	return t.EncodeBare(b)
@@ -198,18 +218,18 @@ func (t *MessagesTranslateTextRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesTranslateTextRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.translateText#63183030 as nil")
+		return fmt.Errorf("can't encode messages.translateText#a5eec345 as nil")
 	}
 	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.translateText#63183030: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.translateText#a5eec345: field flags: %w", err)
 	}
 	if t.Flags.Has(0) {
 		if t.Peer == nil {
-			return fmt.Errorf("unable to encode messages.translateText#63183030: field peer is nil")
+			return fmt.Errorf("unable to encode messages.translateText#a5eec345: field peer is nil")
 		}
 		if err := t.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.translateText#63183030: field peer: %w", err)
+			return fmt.Errorf("unable to encode messages.translateText#a5eec345: field peer: %w", err)
 		}
 	}
 	if t.Flags.Has(0) {
@@ -222,21 +242,24 @@ func (t *MessagesTranslateTextRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(t.Text))
 		for idx, v := range t.Text {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.translateText#63183030: field text element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messages.translateText#a5eec345: field text element with index %d: %w", idx, err)
 			}
 		}
 	}
 	b.PutString(t.ToLang)
+	if t.Flags.Has(2) {
+		b.PutString(t.Tone)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *MessagesTranslateTextRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.translateText#63183030 to nil")
+		return fmt.Errorf("can't decode messages.translateText#a5eec345 to nil")
 	}
 	if err := b.ConsumeID(MessagesTranslateTextRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.translateText#63183030: %w", err)
+		return fmt.Errorf("unable to decode messages.translateText#a5eec345: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -244,24 +267,24 @@ func (t *MessagesTranslateTextRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesTranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.translateText#63183030 to nil")
+		return fmt.Errorf("can't decode messages.translateText#a5eec345 to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.translateText#63183030: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.translateText#a5eec345: field flags: %w", err)
 		}
 	}
 	if t.Flags.Has(0) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.translateText#63183030: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.translateText#a5eec345: field peer: %w", err)
 		}
 		t.Peer = value
 	}
 	if t.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.translateText#63183030: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.translateText#a5eec345: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -270,7 +293,7 @@ func (t *MessagesTranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.translateText#63183030: field id: %w", err)
+				return fmt.Errorf("unable to decode messages.translateText#a5eec345: field id: %w", err)
 			}
 			t.ID = append(t.ID, value)
 		}
@@ -278,7 +301,7 @@ func (t *MessagesTranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 	if t.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.translateText#63183030: field text: %w", err)
+			return fmt.Errorf("unable to decode messages.translateText#a5eec345: field text: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -287,7 +310,7 @@ func (t *MessagesTranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value TextWithEntities
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.translateText#63183030: field text: %w", err)
+				return fmt.Errorf("unable to decode messages.translateText#a5eec345: field text: %w", err)
 			}
 			t.Text = append(t.Text, value)
 		}
@@ -295,9 +318,16 @@ func (t *MessagesTranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.translateText#63183030: field to_lang: %w", err)
+			return fmt.Errorf("unable to decode messages.translateText#a5eec345: field to_lang: %w", err)
 		}
 		t.ToLang = value
+	}
+	if t.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.translateText#a5eec345: field tone: %w", err)
+		}
+		t.Tone = value
 	}
 	return nil
 }
@@ -364,7 +394,25 @@ func (t *MessagesTranslateTextRequest) GetToLang() (value string) {
 	return t.ToLang
 }
 
-// MessagesTranslateText invokes method messages.translateText#63183030 returning error if any.
+// SetTone sets value of Tone conditional field.
+func (t *MessagesTranslateTextRequest) SetTone(value string) {
+	t.Flags.Set(2)
+	t.Tone = value
+}
+
+// GetTone returns value of Tone conditional field and
+// boolean which is true if field was set.
+func (t *MessagesTranslateTextRequest) GetTone() (value string, ok bool) {
+	if t == nil {
+		return
+	}
+	if !t.Flags.Has(2) {
+		return value, false
+	}
+	return t.Tone, true
+}
+
+// MessagesTranslateText invokes method messages.translateText#a5eec345 returning error if any.
 // Translate a given text.
 // Styled text entities¹ will only be preserved for Telegram Premium² users.
 //

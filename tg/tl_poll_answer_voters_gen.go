@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PollAnswerVoters represents TL type `pollAnswerVoters#3b6ddad2`.
+// PollAnswerVoters represents TL type `pollAnswerVoters#3645230a`.
 // A poll answer, and how users voted on it
 //
 // See https://core.telegram.org/constructor/pollAnswerVoters for reference.
@@ -51,11 +51,17 @@ type PollAnswerVoters struct {
 	//  1) https://core.telegram.org/method/messages.sendVote
 	Option []byte
 	// How many users voted for this option
+	//
+	// Use SetVoters and GetVoters helpers.
 	Voters int
+	// RecentVoters field of PollAnswerVoters.
+	//
+	// Use SetRecentVoters and GetRecentVoters helpers.
+	RecentVoters []PeerClass
 }
 
 // PollAnswerVotersTypeID is TL type id of PollAnswerVoters.
-const PollAnswerVotersTypeID = 0x3b6ddad2
+const PollAnswerVotersTypeID = 0x3645230a
 
 // Ensuring interfaces in compile-time for PollAnswerVoters.
 var (
@@ -84,6 +90,9 @@ func (p *PollAnswerVoters) Zero() bool {
 	if !(p.Voters == 0) {
 		return false
 	}
+	if !(p.RecentVoters == nil) {
+		return false
+	}
 
 	return true
 }
@@ -102,12 +111,20 @@ func (p *PollAnswerVoters) FillFrom(from interface {
 	GetChosen() (value bool)
 	GetCorrect() (value bool)
 	GetOption() (value []byte)
-	GetVoters() (value int)
+	GetVoters() (value int, ok bool)
+	GetRecentVoters() (value []PeerClass, ok bool)
 }) {
 	p.Chosen = from.GetChosen()
 	p.Correct = from.GetCorrect()
 	p.Option = from.GetOption()
-	p.Voters = from.GetVoters()
+	if val, ok := from.GetVoters(); ok {
+		p.Voters = val
+	}
+
+	if val, ok := from.GetRecentVoters(); ok {
+		p.RecentVoters = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -150,6 +167,12 @@ func (p *PollAnswerVoters) TypeInfo() tdp.Type {
 		{
 			Name:       "Voters",
 			SchemaName: "voters",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "RecentVoters",
+			SchemaName: "recent_voters",
+			Null:       !p.Flags.Has(2),
 		},
 	}
 	return typ
@@ -163,12 +186,18 @@ func (p *PollAnswerVoters) SetFlags() {
 	if !(p.Correct == false) {
 		p.Flags.Set(1)
 	}
+	if !(p.Voters == 0) {
+		p.Flags.Set(2)
+	}
+	if !(p.RecentVoters == nil) {
+		p.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
+		return fmt.Errorf("can't encode pollAnswerVoters#3645230a as nil")
 	}
 	b.PutID(PollAnswerVotersTypeID)
 	return p.EncodeBare(b)
@@ -177,24 +206,37 @@ func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PollAnswerVoters) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
+		return fmt.Errorf("can't encode pollAnswerVoters#3645230a as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pollAnswerVoters#3b6ddad2: field flags: %w", err)
+		return fmt.Errorf("unable to encode pollAnswerVoters#3645230a: field flags: %w", err)
 	}
 	b.PutBytes(p.Option)
-	b.PutInt(p.Voters)
+	if p.Flags.Has(2) {
+		b.PutInt(p.Voters)
+	}
+	if p.Flags.Has(2) {
+		b.PutVectorHeader(len(p.RecentVoters))
+		for idx, v := range p.RecentVoters {
+			if v == nil {
+				return fmt.Errorf("unable to encode pollAnswerVoters#3645230a: field recent_voters element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode pollAnswerVoters#3645230a: field recent_voters element with index %d: %w", idx, err)
+			}
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+		return fmt.Errorf("can't decode pollAnswerVoters#3645230a to nil")
 	}
 	if err := b.ConsumeID(PollAnswerVotersTypeID); err != nil {
-		return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: %w", err)
+		return fmt.Errorf("unable to decode pollAnswerVoters#3645230a: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -202,11 +244,11 @@ func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+		return fmt.Errorf("can't decode pollAnswerVoters#3645230a to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field flags: %w", err)
+			return fmt.Errorf("unable to decode pollAnswerVoters#3645230a: field flags: %w", err)
 		}
 	}
 	p.Chosen = p.Flags.Has(0)
@@ -214,16 +256,33 @@ func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field option: %w", err)
+			return fmt.Errorf("unable to decode pollAnswerVoters#3645230a: field option: %w", err)
 		}
 		p.Option = value
 	}
-	{
+	if p.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field voters: %w", err)
+			return fmt.Errorf("unable to decode pollAnswerVoters#3645230a: field voters: %w", err)
 		}
 		p.Voters = value
+	}
+	if p.Flags.Has(2) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode pollAnswerVoters#3645230a: field recent_voters: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.RecentVoters = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodePeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pollAnswerVoters#3645230a: field recent_voters: %w", err)
+			}
+			p.RecentVoters = append(p.RecentVoters, value)
+		}
 	}
 	return nil
 }
@@ -274,10 +333,46 @@ func (p *PollAnswerVoters) GetOption() (value []byte) {
 	return p.Option
 }
 
-// GetVoters returns value of Voters field.
-func (p *PollAnswerVoters) GetVoters() (value int) {
+// SetVoters sets value of Voters conditional field.
+func (p *PollAnswerVoters) SetVoters(value int) {
+	p.Flags.Set(2)
+	p.Voters = value
+}
+
+// GetVoters returns value of Voters conditional field and
+// boolean which is true if field was set.
+func (p *PollAnswerVoters) GetVoters() (value int, ok bool) {
 	if p == nil {
 		return
 	}
-	return p.Voters
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.Voters, true
+}
+
+// SetRecentVoters sets value of RecentVoters conditional field.
+func (p *PollAnswerVoters) SetRecentVoters(value []PeerClass) {
+	p.Flags.Set(2)
+	p.RecentVoters = value
+}
+
+// GetRecentVoters returns value of RecentVoters conditional field and
+// boolean which is true if field was set.
+func (p *PollAnswerVoters) GetRecentVoters() (value []PeerClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.RecentVoters, true
+}
+
+// MapRecentVoters returns field RecentVoters wrapped in PeerClassArray helper.
+func (p *PollAnswerVoters) MapRecentVoters() (value PeerClassArray, ok bool) {
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return PeerClassArray(p.RecentVoters), true
 }

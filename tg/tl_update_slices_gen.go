@@ -1884,6 +1884,19 @@ func (s UpdateClassArray) AsUpdateChatParticipantRank() (to UpdateChatParticipan
 	return to
 }
 
+// AsUpdateManagedBot returns copy with only UpdateManagedBot constructors.
+func (s UpdateClassArray) AsUpdateManagedBot() (to UpdateManagedBotArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateManagedBot)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -13290,6 +13303,88 @@ func (s *UpdateChatParticipantRankArray) PopFirst() (v UpdateChatParticipantRank
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateChatParticipantRankArray) Pop() (v UpdateChatParticipantRank, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateManagedBotArray is adapter for slice of UpdateManagedBot.
+type UpdateManagedBotArray []UpdateManagedBot
+
+// Sort sorts slice of UpdateManagedBot.
+func (s UpdateManagedBotArray) Sort(less func(a, b UpdateManagedBot) bool) UpdateManagedBotArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateManagedBot.
+func (s UpdateManagedBotArray) SortStable(less func(a, b UpdateManagedBot) bool) UpdateManagedBotArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateManagedBot.
+func (s UpdateManagedBotArray) Retain(keep func(x UpdateManagedBot) bool) UpdateManagedBotArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateManagedBotArray) First() (v UpdateManagedBot, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateManagedBotArray) Last() (v UpdateManagedBot, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateManagedBotArray) PopFirst() (v UpdateManagedBot, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateManagedBot
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateManagedBotArray) Pop() (v UpdateManagedBot, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

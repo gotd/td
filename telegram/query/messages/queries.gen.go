@@ -692,6 +692,112 @@ func (b *GetUnreadMentionsQueryBuilder) Collect(ctx context.Context) ([]Elem, er
 	return r, iter.Err()
 }
 
+// GetUnreadPollVotesQueryBuilder is query builder of MessagesGetUnreadPollVotes.
+type GetUnreadPollVotesQueryBuilder struct {
+	raw       *tg.Client
+	req       tg.MessagesGetUnreadPollVotesRequest
+	batchSize int
+	addOffset int
+	offsetID  int
+}
+
+// GetUnreadPollVotes creates query builder of MessagesGetUnreadPollVotes.
+func (q *QueryBuilder) GetUnreadPollVotes(paramPeer tg.InputPeerClass) *GetUnreadPollVotesQueryBuilder {
+	b := &GetUnreadPollVotesQueryBuilder{
+		raw:       q.raw,
+		batchSize: 1,
+		req: tg.MessagesGetUnreadPollVotesRequest{
+			Peer: &tg.InputPeerEmpty{},
+		},
+	}
+
+	b.req.Peer = paramPeer
+	return b
+}
+
+// BatchSize sets buffer of message loaded from one request.
+// Be carefully, when set this limit, because Telegram does not return error if limit is too big,
+// so results can be incorrect.
+func (b *GetUnreadPollVotesQueryBuilder) BatchSize(batchSize int) *GetUnreadPollVotesQueryBuilder {
+	b.batchSize = batchSize
+	return b
+}
+
+// OffsetID sets offsetID from which iterate start.
+func (b *GetUnreadPollVotesQueryBuilder) OffsetID(offsetID int) *GetUnreadPollVotesQueryBuilder {
+	b.offsetID = offsetID
+	return b
+}
+
+// Peer sets Peer field of GetUnreadPollVotes query.
+func (b *GetUnreadPollVotesQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetUnreadPollVotesQueryBuilder {
+	b.req.Peer = paramPeer
+	return b
+}
+
+// TopMsgID sets TopMsgID field of GetUnreadPollVotes query.
+func (b *GetUnreadPollVotesQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadPollVotesQueryBuilder {
+	b.req.TopMsgID = paramTopMsgID
+	return b
+}
+
+// Query implements Query interface.
+func (b *GetUnreadPollVotesQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
+	r := &tg.MessagesGetUnreadPollVotesRequest{
+		Limit: req.Limit,
+	}
+
+	r.Peer = b.req.Peer
+	r.TopMsgID = b.req.TopMsgID
+	r.AddOffset = req.AddOffset
+	r.OffsetID = req.OffsetID
+	return b.raw.MessagesGetUnreadPollVotes(ctx, r)
+}
+
+// Iter returns iterator using built query.
+func (b *GetUnreadPollVotesQueryBuilder) Iter() *Iterator {
+	iter := NewIterator(b, b.batchSize)
+	iter = iter.OffsetID(b.offsetID)
+	return iter
+}
+
+// ForEach calls given callback on each iterator element.
+func (b *GetUnreadPollVotesQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
+	iter := b.Iter()
+	for iter.Next(ctx) {
+		if err := cb(ctx, iter.Value()); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetUnreadPollVotesQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, errors.Wrap(err, "get total")
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetUnreadPollVotesQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get total")
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // GetUnreadReactionsQueryBuilder is query builder of MessagesGetUnreadReactions.
 type GetUnreadReactionsQueryBuilder struct {
 	raw       *tg.Client
@@ -968,6 +1074,12 @@ func (b *SearchQueryBuilder) Pinned() *SearchQueryBuilder {
 	return b
 }
 
+// Poll sets Filter field of Search query.
+func (b *SearchQueryBuilder) Poll() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPoll{}
+	return b
+}
+
 // RoundVideo sets Filter field of Search query.
 func (b *SearchQueryBuilder) RoundVideo() *SearchQueryBuilder {
 	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
@@ -1215,6 +1327,12 @@ func (b *SearchGlobalQueryBuilder) Pinned() *SearchGlobalQueryBuilder {
 	return b
 }
 
+// Poll sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Poll() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPoll{}
+	return b
+}
+
 // RoundVideo sets Filter field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) RoundVideo() *SearchGlobalQueryBuilder {
 	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
@@ -1414,6 +1532,12 @@ func (b *SearchSentMediaQueryBuilder) Photos() *SearchSentMediaQueryBuilder {
 // Pinned sets Filter field of SearchSentMedia query.
 func (b *SearchSentMediaQueryBuilder) Pinned() *SearchSentMediaQueryBuilder {
 	b.req.Filter = &tg.InputMessagesFilterPinned{}
+	return b
+}
+
+// Poll sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Poll() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPoll{}
 	return b
 }
 
