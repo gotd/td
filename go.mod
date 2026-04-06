@@ -16,7 +16,7 @@ require (
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.1
 	github.com/klauspost/compress v1.18.5
-	github.com/ogen-go/ogen v1.19.0
+	github.com/ogen-go/ogen v1.20.2
 	github.com/rogpeppe/go-internal v1.14.1
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel v1.43.0
@@ -41,7 +41,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.5 // indirect
-	github.com/fatih/color v1.18.0 // indirect
+	github.com/fatih/color v1.19.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-faster/sdk v0.34.0 // indirect
 	github.com/go-faster/yaml v0.4.6 // indirect
