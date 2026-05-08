@@ -1110,6 +1110,90 @@ func (s *AccountGetWallPapers) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerAicomposeGetTones struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AicomposeTones
+}
+
+type AicomposeGetTones struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAicomposeGetTones creates new AicomposeGetTones.
+func NewAicomposeGetTones(raw *tg.Client) *AicomposeGetTones {
+	q := &AicomposeGetTones{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AicomposeGetTones) store(v innerAicomposeGetTones) {
+	s.last.Store(v)
+}
+
+func (s *AicomposeGetTones) load() (innerAicomposeGetTones, bool) {
+	v, ok := s.last.Load().(innerAicomposeGetTones)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AicomposeTones must not be mutated.
+func (s *AicomposeGetTones) Value() *tg.AicomposeTones {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AicomposeGetTones) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AicomposeGetTones) Get(ctx context.Context) (*tg.AicomposeTones, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AicomposeGetTones) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AicomposeGetTones(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AicomposeGetTones")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AicomposeTones:
+		hash := variant.Hash
+
+		s.store(innerAicomposeGetTones{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AicomposeTonesNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerContactsGetContacts struct {
 	// Last received hash.
 	hash int64

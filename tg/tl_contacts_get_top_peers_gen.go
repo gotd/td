@@ -62,6 +62,8 @@ type ContactsGetTopPeersRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	BotsApp bool
+	// BotsGuestchat field of ContactsGetTopPeersRequest.
+	BotsGuestchat bool
 	// Offset for pagination¹
 	//
 	// Links:
@@ -124,6 +126,9 @@ func (g *ContactsGetTopPeersRequest) Zero() bool {
 	if !(g.BotsApp == false) {
 		return false
 	}
+	if !(g.BotsGuestchat == false) {
+		return false
+	}
 	if !(g.Offset == 0) {
 		return false
 	}
@@ -157,6 +162,7 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 	GetGroups() (value bool)
 	GetChannels() (value bool)
 	GetBotsApp() (value bool)
+	GetBotsGuestchat() (value bool)
 	GetOffset() (value int)
 	GetLimit() (value int)
 	GetHash() (value int64)
@@ -170,6 +176,7 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 	g.Groups = from.GetGroups()
 	g.Channels = from.GetChannels()
 	g.BotsApp = from.GetBotsApp()
+	g.BotsGuestchat = from.GetBotsGuestchat()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 	g.Hash = from.GetHash()
@@ -244,6 +251,11 @@ func (g *ContactsGetTopPeersRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(16),
 		},
 		{
+			Name:       "BotsGuestchat",
+			SchemaName: "bots_guestchat",
+			Null:       !g.Flags.Has(17),
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -287,6 +299,9 @@ func (g *ContactsGetTopPeersRequest) SetFlags() {
 	}
 	if !(g.BotsApp == false) {
 		g.Flags.Set(16)
+	}
+	if !(g.BotsGuestchat == false) {
+		g.Flags.Set(17)
 	}
 }
 
@@ -344,6 +359,7 @@ func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 	g.Groups = g.Flags.Has(10)
 	g.Channels = g.Flags.Has(15)
 	g.BotsApp = g.Flags.Has(16)
+	g.BotsGuestchat = g.Flags.Has(17)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -537,6 +553,25 @@ func (g *ContactsGetTopPeersRequest) GetBotsApp() (value bool) {
 		return
 	}
 	return g.Flags.Has(16)
+}
+
+// SetBotsGuestchat sets value of BotsGuestchat conditional field.
+func (g *ContactsGetTopPeersRequest) SetBotsGuestchat(value bool) {
+	if value {
+		g.Flags.Set(17)
+		g.BotsGuestchat = true
+	} else {
+		g.Flags.Unset(17)
+		g.BotsGuestchat = false
+	}
+}
+
+// GetBotsGuestchat returns value of BotsGuestchat conditional field.
+func (g *ContactsGetTopPeersRequest) GetBotsGuestchat() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(17)
 }
 
 // GetOffset returns value of Offset field.

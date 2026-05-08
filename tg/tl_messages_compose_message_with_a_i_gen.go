@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesComposeMessageWithAIRequest represents TL type `messages.composeMessageWithAI#fd426afe`.
+// MessagesComposeMessageWithAIRequest represents TL type `messages.composeMessageWithAI#daecc589`.
 //
 // See https://core.telegram.org/method/messages.composeMessageWithAI for reference.
 type MessagesComposeMessageWithAIRequest struct {
@@ -47,14 +47,14 @@ type MessagesComposeMessageWithAIRequest struct {
 	//
 	// Use SetTranslateToLang and GetTranslateToLang helpers.
 	TranslateToLang string
-	// ChangeTone field of MessagesComposeMessageWithAIRequest.
+	// Tone field of MessagesComposeMessageWithAIRequest.
 	//
-	// Use SetChangeTone and GetChangeTone helpers.
-	ChangeTone string
+	// Use SetTone and GetTone helpers.
+	Tone InputAiComposeToneClass
 }
 
 // MessagesComposeMessageWithAIRequestTypeID is TL type id of MessagesComposeMessageWithAIRequest.
-const MessagesComposeMessageWithAIRequestTypeID = 0xfd426afe
+const MessagesComposeMessageWithAIRequestTypeID = 0xdaecc589
 
 // Ensuring interfaces in compile-time for MessagesComposeMessageWithAIRequest.
 var (
@@ -83,7 +83,7 @@ func (c *MessagesComposeMessageWithAIRequest) Zero() bool {
 	if !(c.TranslateToLang == "") {
 		return false
 	}
-	if !(c.ChangeTone == "") {
+	if !(c.Tone == nil) {
 		return false
 	}
 
@@ -105,7 +105,7 @@ func (c *MessagesComposeMessageWithAIRequest) FillFrom(from interface {
 	GetEmojify() (value bool)
 	GetText() (value TextWithEntities)
 	GetTranslateToLang() (value string, ok bool)
-	GetChangeTone() (value string, ok bool)
+	GetTone() (value InputAiComposeToneClass, ok bool)
 }) {
 	c.Proofread = from.GetProofread()
 	c.Emojify = from.GetEmojify()
@@ -114,8 +114,8 @@ func (c *MessagesComposeMessageWithAIRequest) FillFrom(from interface {
 		c.TranslateToLang = val
 	}
 
-	if val, ok := from.GetChangeTone(); ok {
-		c.ChangeTone = val
+	if val, ok := from.GetTone(); ok {
+		c.Tone = val
 	}
 
 }
@@ -163,8 +163,8 @@ func (c *MessagesComposeMessageWithAIRequest) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(1),
 		},
 		{
-			Name:       "ChangeTone",
-			SchemaName: "change_tone",
+			Name:       "Tone",
+			SchemaName: "tone",
 			Null:       !c.Flags.Has(2),
 		},
 	}
@@ -182,7 +182,7 @@ func (c *MessagesComposeMessageWithAIRequest) SetFlags() {
 	if !(c.TranslateToLang == "") {
 		c.Flags.Set(1)
 	}
-	if !(c.ChangeTone == "") {
+	if !(c.Tone == nil) {
 		c.Flags.Set(2)
 	}
 }
@@ -190,7 +190,7 @@ func (c *MessagesComposeMessageWithAIRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *MessagesComposeMessageWithAIRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.composeMessageWithAI#fd426afe as nil")
+		return fmt.Errorf("can't encode messages.composeMessageWithAI#daecc589 as nil")
 	}
 	b.PutID(MessagesComposeMessageWithAIRequestTypeID)
 	return c.EncodeBare(b)
@@ -199,20 +199,25 @@ func (c *MessagesComposeMessageWithAIRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesComposeMessageWithAIRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.composeMessageWithAI#fd426afe as nil")
+		return fmt.Errorf("can't encode messages.composeMessageWithAI#daecc589 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.composeMessageWithAI#fd426afe: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.composeMessageWithAI#daecc589: field flags: %w", err)
 	}
 	if err := c.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.composeMessageWithAI#fd426afe: field text: %w", err)
+		return fmt.Errorf("unable to encode messages.composeMessageWithAI#daecc589: field text: %w", err)
 	}
 	if c.Flags.Has(1) {
 		b.PutString(c.TranslateToLang)
 	}
 	if c.Flags.Has(2) {
-		b.PutString(c.ChangeTone)
+		if c.Tone == nil {
+			return fmt.Errorf("unable to encode messages.composeMessageWithAI#daecc589: field tone is nil")
+		}
+		if err := c.Tone.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.composeMessageWithAI#daecc589: field tone: %w", err)
+		}
 	}
 	return nil
 }
@@ -220,10 +225,10 @@ func (c *MessagesComposeMessageWithAIRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *MessagesComposeMessageWithAIRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.composeMessageWithAI#fd426afe to nil")
+		return fmt.Errorf("can't decode messages.composeMessageWithAI#daecc589 to nil")
 	}
 	if err := b.ConsumeID(MessagesComposeMessageWithAIRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.composeMessageWithAI#fd426afe: %w", err)
+		return fmt.Errorf("unable to decode messages.composeMessageWithAI#daecc589: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -231,33 +236,33 @@ func (c *MessagesComposeMessageWithAIRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesComposeMessageWithAIRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.composeMessageWithAI#fd426afe to nil")
+		return fmt.Errorf("can't decode messages.composeMessageWithAI#daecc589 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.composeMessageWithAI#fd426afe: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.composeMessageWithAI#daecc589: field flags: %w", err)
 		}
 	}
 	c.Proofread = c.Flags.Has(0)
 	c.Emojify = c.Flags.Has(3)
 	{
 		if err := c.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.composeMessageWithAI#fd426afe: field text: %w", err)
+			return fmt.Errorf("unable to decode messages.composeMessageWithAI#daecc589: field text: %w", err)
 		}
 	}
 	if c.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.composeMessageWithAI#fd426afe: field translate_to_lang: %w", err)
+			return fmt.Errorf("unable to decode messages.composeMessageWithAI#daecc589: field translate_to_lang: %w", err)
 		}
 		c.TranslateToLang = value
 	}
 	if c.Flags.Has(2) {
-		value, err := b.String()
+		value, err := DecodeInputAiComposeTone(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.composeMessageWithAI#fd426afe: field change_tone: %w", err)
+			return fmt.Errorf("unable to decode messages.composeMessageWithAI#daecc589: field tone: %w", err)
 		}
-		c.ChangeTone = value
+		c.Tone = value
 	}
 	return nil
 }
@@ -326,25 +331,25 @@ func (c *MessagesComposeMessageWithAIRequest) GetTranslateToLang() (value string
 	return c.TranslateToLang, true
 }
 
-// SetChangeTone sets value of ChangeTone conditional field.
-func (c *MessagesComposeMessageWithAIRequest) SetChangeTone(value string) {
+// SetTone sets value of Tone conditional field.
+func (c *MessagesComposeMessageWithAIRequest) SetTone(value InputAiComposeToneClass) {
 	c.Flags.Set(2)
-	c.ChangeTone = value
+	c.Tone = value
 }
 
-// GetChangeTone returns value of ChangeTone conditional field and
+// GetTone returns value of Tone conditional field and
 // boolean which is true if field was set.
-func (c *MessagesComposeMessageWithAIRequest) GetChangeTone() (value string, ok bool) {
+func (c *MessagesComposeMessageWithAIRequest) GetTone() (value InputAiComposeToneClass, ok bool) {
 	if c == nil {
 		return
 	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
-	return c.ChangeTone, true
+	return c.Tone, true
 }
 
-// MessagesComposeMessageWithAI invokes method messages.composeMessageWithAI#fd426afe returning error if any.
+// MessagesComposeMessageWithAI invokes method messages.composeMessageWithAI#daecc589 returning error if any.
 //
 // See https://core.telegram.org/method/messages.composeMessageWithAI for reference.
 func (c *Client) MessagesComposeMessageWithAI(ctx context.Context, request *MessagesComposeMessageWithAIRequest) (*MessagesComposedMessageWithAI, error) {

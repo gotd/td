@@ -315,6 +315,8 @@ type User struct {
 	BotForumCanManageTopics bool
 	// BotCanManageBots field of User.
 	BotCanManageBots bool
+	// BotGuestchat field of User.
+	BotGuestchat bool
 	// ID of the user, see here »¹ for more info and the available ID range.
 	//
 	// Links:
@@ -603,6 +605,9 @@ func (u *User) Zero() bool {
 	if !(u.BotCanManageBots == false) {
 		return false
 	}
+	if !(u.BotGuestchat == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -706,6 +711,7 @@ func (u *User) FillFrom(from interface {
 	GetBotForumView() (value bool)
 	GetBotForumCanManageTopics() (value bool)
 	GetBotCanManageBots() (value bool)
+	GetBotGuestchat() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -755,6 +761,7 @@ func (u *User) FillFrom(from interface {
 	u.BotForumView = from.GetBotForumView()
 	u.BotForumCanManageTopics = from.GetBotForumCanManageTopics()
 	u.BotCanManageBots = from.GetBotCanManageBots()
+	u.BotGuestchat = from.GetBotGuestchat()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -998,6 +1005,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags2.Has(18),
 		},
 		{
+			Name:       "BotGuestchat",
+			SchemaName: "bot_guestchat",
+			Null:       !u.Flags2.Has(19),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1185,6 +1197,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.BotCanManageBots == false) {
 		u.Flags2.Set(18)
+	}
+	if !(u.BotGuestchat == false) {
+		u.Flags2.Set(19)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -1418,6 +1433,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.BotForumView = u.Flags2.Has(16)
 	u.BotForumCanManageTopics = u.Flags2.Has(17)
 	u.BotCanManageBots = u.Flags2.Has(18)
+	u.BotGuestchat = u.Flags2.Has(19)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2109,6 +2125,25 @@ func (u *User) GetBotCanManageBots() (value bool) {
 		return
 	}
 	return u.Flags2.Has(18)
+}
+
+// SetBotGuestchat sets value of BotGuestchat conditional field.
+func (u *User) SetBotGuestchat(value bool) {
+	if value {
+		u.Flags2.Set(19)
+		u.BotGuestchat = true
+	} else {
+		u.Flags2.Unset(19)
+		u.BotGuestchat = false
+	}
+}
+
+// GetBotGuestchat returns value of BotGuestchat conditional field.
+func (u *User) GetBotGuestchat() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(19)
 }
 
 // GetID returns value of ID field.

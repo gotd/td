@@ -51,6 +51,8 @@ type PollResults struct {
 	Min bool
 	// HasUnreadVotes field of PollResults.
 	HasUnreadVotes bool
+	// CanViewStats field of PollResults.
+	CanViewStats bool
 	// Poll results
 	//
 	// Use SetResults and GetResults helpers.
@@ -104,6 +106,9 @@ func (p *PollResults) Zero() bool {
 	if !(p.HasUnreadVotes == false) {
 		return false
 	}
+	if !(p.CanViewStats == false) {
+		return false
+	}
 	if !(p.Results == nil) {
 		return false
 	}
@@ -139,6 +144,7 @@ func (p *PollResults) String() string {
 func (p *PollResults) FillFrom(from interface {
 	GetMin() (value bool)
 	GetHasUnreadVotes() (value bool)
+	GetCanViewStats() (value bool)
 	GetResults() (value []PollAnswerVoters, ok bool)
 	GetTotalVoters() (value int, ok bool)
 	GetRecentVoters() (value []PeerClass, ok bool)
@@ -148,6 +154,7 @@ func (p *PollResults) FillFrom(from interface {
 }) {
 	p.Min = from.GetMin()
 	p.HasUnreadVotes = from.GetHasUnreadVotes()
+	p.CanViewStats = from.GetCanViewStats()
 	if val, ok := from.GetResults(); ok {
 		p.Results = val
 	}
@@ -208,6 +215,11 @@ func (p *PollResults) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(6),
 		},
 		{
+			Name:       "CanViewStats",
+			SchemaName: "can_view_stats",
+			Null:       !p.Flags.Has(7),
+		},
+		{
 			Name:       "Results",
 			SchemaName: "results",
 			Null:       !p.Flags.Has(1),
@@ -248,6 +260,9 @@ func (p *PollResults) SetFlags() {
 	}
 	if !(p.HasUnreadVotes == false) {
 		p.Flags.Set(6)
+	}
+	if !(p.CanViewStats == false) {
+		p.Flags.Set(7)
 	}
 	if !(p.Results == nil) {
 		p.Flags.Set(1)
@@ -357,6 +372,7 @@ func (p *PollResults) DecodeBare(b *bin.Buffer) error {
 	}
 	p.Min = p.Flags.Has(0)
 	p.HasUnreadVotes = p.Flags.Has(6)
+	p.CanViewStats = p.Flags.Has(7)
 	if p.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -468,6 +484,25 @@ func (p *PollResults) GetHasUnreadVotes() (value bool) {
 		return
 	}
 	return p.Flags.Has(6)
+}
+
+// SetCanViewStats sets value of CanViewStats conditional field.
+func (p *PollResults) SetCanViewStats(value bool) {
+	if value {
+		p.Flags.Set(7)
+		p.CanViewStats = true
+	} else {
+		p.Flags.Unset(7)
+		p.CanViewStats = false
+	}
+}
+
+// GetCanViewStats returns value of CanViewStats conditional field.
+func (p *PollResults) GetCanViewStats() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(7)
 }
 
 // SetResults sets value of Results conditional field.
