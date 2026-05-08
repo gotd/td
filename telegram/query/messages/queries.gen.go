@@ -267,6 +267,92 @@ func (b *GetHistoryQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 	return r, iter.Err()
 }
 
+// GetPersonalChannelHistoryQueryBuilder is query builder of MessagesGetPersonalChannelHistory.
+type GetPersonalChannelHistoryQueryBuilder struct {
+	raw       *tg.Client
+	req       tg.MessagesGetPersonalChannelHistoryRequest
+	batchSize int
+}
+
+// GetPersonalChannelHistory creates query builder of MessagesGetPersonalChannelHistory.
+func (q *QueryBuilder) GetPersonalChannelHistory(paramUserID tg.InputUserClass) *GetPersonalChannelHistoryQueryBuilder {
+	b := &GetPersonalChannelHistoryQueryBuilder{
+		raw:       q.raw,
+		batchSize: 1,
+		req:       tg.MessagesGetPersonalChannelHistoryRequest{},
+	}
+
+	b.req.UserID = paramUserID
+	return b
+}
+
+// BatchSize sets buffer of message loaded from one request.
+// Be carefully, when set this limit, because Telegram does not return error if limit is too big,
+// so results can be incorrect.
+func (b *GetPersonalChannelHistoryQueryBuilder) BatchSize(batchSize int) *GetPersonalChannelHistoryQueryBuilder {
+	b.batchSize = batchSize
+	return b
+}
+
+// UserID sets UserID field of GetPersonalChannelHistory query.
+func (b *GetPersonalChannelHistoryQueryBuilder) UserID(paramUserID tg.InputUserClass) *GetPersonalChannelHistoryQueryBuilder {
+	b.req.UserID = paramUserID
+	return b
+}
+
+// Query implements Query interface.
+func (b *GetPersonalChannelHistoryQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
+	r := &tg.MessagesGetPersonalChannelHistoryRequest{
+		Limit: req.Limit,
+	}
+
+	r.UserID = b.req.UserID
+	return b.raw.MessagesGetPersonalChannelHistory(ctx, r)
+}
+
+// Iter returns iterator using built query.
+func (b *GetPersonalChannelHistoryQueryBuilder) Iter() *Iterator {
+	iter := NewIterator(b, b.batchSize)
+	return iter
+}
+
+// ForEach calls given callback on each iterator element.
+func (b *GetPersonalChannelHistoryQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
+	iter := b.Iter()
+	for iter.Next(ctx) {
+		if err := cb(ctx, iter.Value()); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetPersonalChannelHistoryQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, errors.Wrap(err, "get total")
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetPersonalChannelHistoryQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get total")
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // GetRecentLocationsQueryBuilder is query builder of MessagesGetRecentLocations.
 type GetRecentLocationsQueryBuilder struct {
 	raw       *tg.Client

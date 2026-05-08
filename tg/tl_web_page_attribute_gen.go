@@ -1272,6 +1272,140 @@ func (w *WebPageAttributeStarGiftAuction) GetEndDate() (value int) {
 	return w.EndDate
 }
 
+// WebPageAttributeAiComposeTone represents TL type `webPageAttributeAiComposeTone#7781fe18`.
+//
+// See https://core.telegram.org/constructor/webPageAttributeAiComposeTone for reference.
+type WebPageAttributeAiComposeTone struct {
+	// EmojiID field of WebPageAttributeAiComposeTone.
+	EmojiID int64
+}
+
+// WebPageAttributeAiComposeToneTypeID is TL type id of WebPageAttributeAiComposeTone.
+const WebPageAttributeAiComposeToneTypeID = 0x7781fe18
+
+// construct implements constructor of WebPageAttributeClass.
+func (w WebPageAttributeAiComposeTone) construct() WebPageAttributeClass { return &w }
+
+// Ensuring interfaces in compile-time for WebPageAttributeAiComposeTone.
+var (
+	_ bin.Encoder     = &WebPageAttributeAiComposeTone{}
+	_ bin.Decoder     = &WebPageAttributeAiComposeTone{}
+	_ bin.BareEncoder = &WebPageAttributeAiComposeTone{}
+	_ bin.BareDecoder = &WebPageAttributeAiComposeTone{}
+
+	_ WebPageAttributeClass = &WebPageAttributeAiComposeTone{}
+)
+
+func (w *WebPageAttributeAiComposeTone) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.EmojiID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (w *WebPageAttributeAiComposeTone) String() string {
+	if w == nil {
+		return "WebPageAttributeAiComposeTone(nil)"
+	}
+	type Alias WebPageAttributeAiComposeTone
+	return fmt.Sprintf("WebPageAttributeAiComposeTone%+v", Alias(*w))
+}
+
+// FillFrom fills WebPageAttributeAiComposeTone from given interface.
+func (w *WebPageAttributeAiComposeTone) FillFrom(from interface {
+	GetEmojiID() (value int64)
+}) {
+	w.EmojiID = from.GetEmojiID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*WebPageAttributeAiComposeTone) TypeID() uint32 {
+	return WebPageAttributeAiComposeToneTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*WebPageAttributeAiComposeTone) TypeName() string {
+	return "webPageAttributeAiComposeTone"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPageAttributeAiComposeTone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPageAttributeAiComposeTone",
+		ID:   WebPageAttributeAiComposeToneTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "EmojiID",
+			SchemaName: "emoji_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (w *WebPageAttributeAiComposeTone) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeAiComposeTone#7781fe18 as nil")
+	}
+	b.PutID(WebPageAttributeAiComposeToneTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPageAttributeAiComposeTone) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeAiComposeTone#7781fe18 as nil")
+	}
+	b.PutLong(w.EmojiID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (w *WebPageAttributeAiComposeTone) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeAiComposeTone#7781fe18 to nil")
+	}
+	if err := b.ConsumeID(WebPageAttributeAiComposeToneTypeID); err != nil {
+		return fmt.Errorf("unable to decode webPageAttributeAiComposeTone#7781fe18: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPageAttributeAiComposeTone) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeAiComposeTone#7781fe18 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPageAttributeAiComposeTone#7781fe18: field emoji_id: %w", err)
+		}
+		w.EmojiID = value
+	}
+	return nil
+}
+
+// GetEmojiID returns value of EmojiID field.
+func (w *WebPageAttributeAiComposeTone) GetEmojiID() (value int64) {
+	if w == nil {
+		return
+	}
+	return w.EmojiID
+}
+
 // WebPageAttributeClassName is schema name of WebPageAttributeClass.
 const WebPageAttributeClassName = "WebPageAttribute"
 
@@ -1286,6 +1420,7 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //   - [WebPageAttributeUniqueStarGift]
 //   - [WebPageAttributeStarGiftCollection]
 //   - [WebPageAttributeStarGiftAuction]
+//   - [WebPageAttributeAiComposeTone]
 //
 // Example:
 //
@@ -1300,6 +1435,7 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //	case *tg.WebPageAttributeUniqueStarGift: // webPageAttributeUniqueStarGift#cf6f6db8
 //	case *tg.WebPageAttributeStarGiftCollection: // webPageAttributeStarGiftCollection#31cad303
 //	case *tg.WebPageAttributeStarGiftAuction: // webPageAttributeStarGiftAuction#1c641c2
+//	case *tg.WebPageAttributeAiComposeTone: // webPageAttributeAiComposeTone#7781fe18
 //	default: panic(v)
 //	}
 type WebPageAttributeClass interface {
@@ -1366,6 +1502,13 @@ func DecodeWebPageAttribute(buf *bin.Buffer) (WebPageAttributeClass, error) {
 	case WebPageAttributeStarGiftAuctionTypeID:
 		// Decoding webPageAttributeStarGiftAuction#1c641c2.
 		v := WebPageAttributeStarGiftAuction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
+		}
+		return &v, nil
+	case WebPageAttributeAiComposeToneTypeID:
+		// Decoding webPageAttributeAiComposeTone#7781fe18.
+		v := WebPageAttributeAiComposeTone{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)
 		}

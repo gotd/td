@@ -31539,6 +31539,392 @@ func (u *UpdateManagedBot) GetQts() (value int) {
 	return u.Qts
 }
 
+// UpdateBotGuestChatQuery represents TL type `updateBotGuestChatQuery#cdd4093d`.
+//
+// See https://core.telegram.org/constructor/updateBotGuestChatQuery for reference.
+type UpdateBotGuestChatQuery struct {
+	// Flags field of UpdateBotGuestChatQuery.
+	Flags bin.Fields
+	// QueryID field of UpdateBotGuestChatQuery.
+	QueryID int64
+	// Message field of UpdateBotGuestChatQuery.
+	Message MessageClass
+	// ReferenceMessages field of UpdateBotGuestChatQuery.
+	//
+	// Use SetReferenceMessages and GetReferenceMessages helpers.
+	ReferenceMessages []MessageClass
+	// Qts field of UpdateBotGuestChatQuery.
+	Qts int
+}
+
+// UpdateBotGuestChatQueryTypeID is TL type id of UpdateBotGuestChatQuery.
+const UpdateBotGuestChatQueryTypeID = 0xcdd4093d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotGuestChatQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotGuestChatQuery.
+var (
+	_ bin.Encoder     = &UpdateBotGuestChatQuery{}
+	_ bin.Decoder     = &UpdateBotGuestChatQuery{}
+	_ bin.BareEncoder = &UpdateBotGuestChatQuery{}
+	_ bin.BareDecoder = &UpdateBotGuestChatQuery{}
+
+	_ UpdateClass = &UpdateBotGuestChatQuery{}
+)
+
+func (u *UpdateBotGuestChatQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+	if !(u.ReferenceMessages == nil) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotGuestChatQuery) String() string {
+	if u == nil {
+		return "UpdateBotGuestChatQuery(nil)"
+	}
+	type Alias UpdateBotGuestChatQuery
+	return fmt.Sprintf("UpdateBotGuestChatQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotGuestChatQuery from given interface.
+func (u *UpdateBotGuestChatQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetMessage() (value MessageClass)
+	GetReferenceMessages() (value []MessageClass, ok bool)
+	GetQts() (value int)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.Message = from.GetMessage()
+	if val, ok := from.GetReferenceMessages(); ok {
+		u.ReferenceMessages = val
+	}
+
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotGuestChatQuery) TypeID() uint32 {
+	return UpdateBotGuestChatQueryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotGuestChatQuery) TypeName() string {
+	return "updateBotGuestChatQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotGuestChatQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotGuestChatQuery",
+		ID:   UpdateBotGuestChatQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "ReferenceMessages",
+			SchemaName: "reference_messages",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotGuestChatQuery) SetFlags() {
+	if !(u.ReferenceMessages == nil) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotGuestChatQuery) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotGuestChatQuery#cdd4093d as nil")
+	}
+	b.PutID(UpdateBotGuestChatQueryTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotGuestChatQuery) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotGuestChatQuery#cdd4093d as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotGuestChatQuery#cdd4093d: field flags: %w", err)
+	}
+	b.PutLong(u.QueryID)
+	if u.Message == nil {
+		return fmt.Errorf("unable to encode updateBotGuestChatQuery#cdd4093d: field message is nil")
+	}
+	if err := u.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotGuestChatQuery#cdd4093d: field message: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutVectorHeader(len(u.ReferenceMessages))
+		for idx, v := range u.ReferenceMessages {
+			if v == nil {
+				return fmt.Errorf("unable to encode updateBotGuestChatQuery#cdd4093d: field reference_messages element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode updateBotGuestChatQuery#cdd4093d: field reference_messages element with index %d: %w", idx, err)
+			}
+		}
+	}
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotGuestChatQuery) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotGuestChatQuery#cdd4093d to nil")
+	}
+	if err := b.ConsumeID(UpdateBotGuestChatQueryTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotGuestChatQuery) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotGuestChatQuery#cdd4093d to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	{
+		value, err := DecodeMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: field message: %w", err)
+		}
+		u.Message = value
+	}
+	if u.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: field reference_messages: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.ReferenceMessages = make([]MessageClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessage(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: field reference_messages: %w", err)
+			}
+			u.ReferenceMessages = append(u.ReferenceMessages, value)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotGuestChatQuery#cdd4093d: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotGuestChatQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateBotGuestChatQuery) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
+	return u.Message
+}
+
+// SetReferenceMessages sets value of ReferenceMessages conditional field.
+func (u *UpdateBotGuestChatQuery) SetReferenceMessages(value []MessageClass) {
+	u.Flags.Set(0)
+	u.ReferenceMessages = value
+}
+
+// GetReferenceMessages returns value of ReferenceMessages conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotGuestChatQuery) GetReferenceMessages() (value []MessageClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.ReferenceMessages, true
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotGuestChatQuery) GetQts() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Qts
+}
+
+// MapReferenceMessages returns field ReferenceMessages wrapped in MessageClassArray helper.
+func (u *UpdateBotGuestChatQuery) MapReferenceMessages() (value MessageClassArray, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return MessageClassArray(u.ReferenceMessages), true
+}
+
+// UpdateAiComposeTones represents TL type `updateAiComposeTones#8c0f91fb`.
+//
+// See https://core.telegram.org/constructor/updateAiComposeTones for reference.
+type UpdateAiComposeTones struct {
+}
+
+// UpdateAiComposeTonesTypeID is TL type id of UpdateAiComposeTones.
+const UpdateAiComposeTonesTypeID = 0x8c0f91fb
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAiComposeTones) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAiComposeTones.
+var (
+	_ bin.Encoder     = &UpdateAiComposeTones{}
+	_ bin.Decoder     = &UpdateAiComposeTones{}
+	_ bin.BareEncoder = &UpdateAiComposeTones{}
+	_ bin.BareDecoder = &UpdateAiComposeTones{}
+
+	_ UpdateClass = &UpdateAiComposeTones{}
+)
+
+func (u *UpdateAiComposeTones) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAiComposeTones) String() string {
+	if u == nil {
+		return "UpdateAiComposeTones(nil)"
+	}
+	type Alias UpdateAiComposeTones
+	return fmt.Sprintf("UpdateAiComposeTones%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAiComposeTones) TypeID() uint32 {
+	return UpdateAiComposeTonesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAiComposeTones) TypeName() string {
+	return "updateAiComposeTones"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAiComposeTones) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAiComposeTones",
+		ID:   UpdateAiComposeTonesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAiComposeTones) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAiComposeTones#8c0f91fb as nil")
+	}
+	b.PutID(UpdateAiComposeTonesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAiComposeTones) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAiComposeTones#8c0f91fb as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAiComposeTones) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAiComposeTones#8c0f91fb to nil")
+	}
+	if err := b.ConsumeID(UpdateAiComposeTonesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAiComposeTones#8c0f91fb: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAiComposeTones) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAiComposeTones#8c0f91fb to nil")
+	}
+	return nil
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -31701,6 +32087,8 @@ const UpdateClassName = "Update"
 //   - [UpdateStarGiftCraftFail]
 //   - [UpdateChatParticipantRank]
 //   - [UpdateManagedBot]
+//   - [UpdateBotGuestChatQuery]
+//   - [UpdateAiComposeTones]
 //
 // Example:
 //
@@ -31863,6 +32251,8 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStarGiftCraftFail: // updateStarGiftCraftFail#ac072444
 //	case *tg.UpdateChatParticipantRank: // updateChatParticipantRank#bd8367b9
 //	case *tg.UpdateManagedBot: // updateManagedBot#4880ed9a
+//	case *tg.UpdateBotGuestChatQuery: // updateBotGuestChatQuery#cdd4093d
+//	case *tg.UpdateAiComposeTones: // updateAiComposeTones#8c0f91fb
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -32965,6 +33355,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateManagedBotTypeID:
 		// Decoding updateManagedBot#4880ed9a.
 		v := UpdateManagedBot{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotGuestChatQueryTypeID:
+		// Decoding updateBotGuestChatQuery#cdd4093d.
+		v := UpdateBotGuestChatQuery{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateAiComposeTonesTypeID:
+		// Decoding updateAiComposeTones#8c0f91fb.
+		v := UpdateAiComposeTones{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
