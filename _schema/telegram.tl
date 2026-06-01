@@ -3,7 +3,7 @@
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/SourceFiles/mtproto/scheme/api.tl
 // Merge:  _schema/legacy.tl
 // Layer:  225
-// SHA256: 168ecdb1fa323cefac6359a3d25c7dd9b3517a0061941f6325ea6bc6e5c6dd10
+// SHA256: 539272f5ad8992ee97b61bd134fcf3a28a41ce720e806d0e7dc0e2e408c581f9
 
 boolFalse#bc799737 = Bool;
 
@@ -4046,7 +4046,7 @@ messages.getUnreadPollVotes#43286cf2 flags:# peer:InputPeer top_msg_id:flags.0?i
 
 messages.readPollVotes#1720b4d8 flags:# peer:InputPeer top_msg_id:flags.0?int = messages.AffectedHistory;
 
-messages.setBotGuestChatResult#52b08db query_id:long result:InputBotInlineResult = Bool;
+messages.setBotGuestChatResult#b8f106e3 query_id:long result:InputBotInlineResult = InputBotInlineMessageID;
 
 messages.deleteParticipantReactions#a0b80cf8 peer:InputPeer participant:InputPeer = Bool;
 

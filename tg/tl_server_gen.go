@@ -7996,7 +7996,7 @@ func (s *ServerDispatcher) OnMessagesReadPollVotes(f func(ctx context.Context, r
 	s.handlers[MessagesReadPollVotesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesSetBotGuestChatResult(f func(ctx context.Context, request *MessagesSetBotGuestChatResultRequest) (bool, error)) {
+func (s *ServerDispatcher) OnMessagesSetBotGuestChatResult(f func(ctx context.Context, request *MessagesSetBotGuestChatResultRequest) (InputBotInlineMessageIDClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesSetBotGuestChatResultRequest
 		if err := request.Decode(b); err != nil {
@@ -8007,11 +8007,7 @@ func (s *ServerDispatcher) OnMessagesSetBotGuestChatResult(f func(ctx context.Co
 		if err != nil {
 			return nil, err
 		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
+		return &InputBotInlineMessageIDBox{InputBotInlineMessageID: response}, nil
 	}
 
 	s.handlers[MessagesSetBotGuestChatResultRequestTypeID] = handler
