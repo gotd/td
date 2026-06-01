@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSetBotGuestChatResultRequest represents TL type `messages.setBotGuestChatResult#52b08db`.
+// MessagesSetBotGuestChatResultRequest represents TL type `messages.setBotGuestChatResult#b8f106e3`.
 //
 // See https://core.telegram.org/method/messages.setBotGuestChatResult for reference.
 type MessagesSetBotGuestChatResultRequest struct {
@@ -42,7 +42,7 @@ type MessagesSetBotGuestChatResultRequest struct {
 }
 
 // MessagesSetBotGuestChatResultRequestTypeID is TL type id of MessagesSetBotGuestChatResultRequest.
-const MessagesSetBotGuestChatResultRequestTypeID = 0x52b08db
+const MessagesSetBotGuestChatResultRequestTypeID = 0xb8f106e3
 
 // Ensuring interfaces in compile-time for MessagesSetBotGuestChatResultRequest.
 var (
@@ -122,7 +122,7 @@ func (s *MessagesSetBotGuestChatResultRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotGuestChatResultRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setBotGuestChatResult#52b08db as nil")
+		return fmt.Errorf("can't encode messages.setBotGuestChatResult#b8f106e3 as nil")
 	}
 	b.PutID(MessagesSetBotGuestChatResultRequestTypeID)
 	return s.EncodeBare(b)
@@ -131,14 +131,14 @@ func (s *MessagesSetBotGuestChatResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetBotGuestChatResultRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setBotGuestChatResult#52b08db as nil")
+		return fmt.Errorf("can't encode messages.setBotGuestChatResult#b8f106e3 as nil")
 	}
 	b.PutLong(s.QueryID)
 	if s.Result == nil {
-		return fmt.Errorf("unable to encode messages.setBotGuestChatResult#52b08db: field result is nil")
+		return fmt.Errorf("unable to encode messages.setBotGuestChatResult#b8f106e3: field result is nil")
 	}
 	if err := s.Result.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setBotGuestChatResult#52b08db: field result: %w", err)
+		return fmt.Errorf("unable to encode messages.setBotGuestChatResult#b8f106e3: field result: %w", err)
 	}
 	return nil
 }
@@ -146,10 +146,10 @@ func (s *MessagesSetBotGuestChatResultRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSetBotGuestChatResultRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotGuestChatResult#52b08db to nil")
+		return fmt.Errorf("can't decode messages.setBotGuestChatResult#b8f106e3 to nil")
 	}
 	if err := b.ConsumeID(MessagesSetBotGuestChatResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setBotGuestChatResult#52b08db: %w", err)
+		return fmt.Errorf("unable to decode messages.setBotGuestChatResult#b8f106e3: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -157,19 +157,19 @@ func (s *MessagesSetBotGuestChatResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetBotGuestChatResultRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setBotGuestChatResult#52b08db to nil")
+		return fmt.Errorf("can't decode messages.setBotGuestChatResult#b8f106e3 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotGuestChatResult#52b08db: field query_id: %w", err)
+			return fmt.Errorf("unable to decode messages.setBotGuestChatResult#b8f106e3: field query_id: %w", err)
 		}
 		s.QueryID = value
 	}
 	{
 		value, err := DecodeInputBotInlineResult(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setBotGuestChatResult#52b08db: field result: %w", err)
+			return fmt.Errorf("unable to decode messages.setBotGuestChatResult#b8f106e3: field result: %w", err)
 		}
 		s.Result = value
 	}
@@ -192,15 +192,14 @@ func (s *MessagesSetBotGuestChatResultRequest) GetResult() (value InputBotInline
 	return s.Result
 }
 
-// MessagesSetBotGuestChatResult invokes method messages.setBotGuestChatResult#52b08db returning error if any.
+// MessagesSetBotGuestChatResult invokes method messages.setBotGuestChatResult#b8f106e3 returning error if any.
 //
 // See https://core.telegram.org/method/messages.setBotGuestChatResult for reference.
-func (c *Client) MessagesSetBotGuestChatResult(ctx context.Context, request *MessagesSetBotGuestChatResultRequest) (bool, error) {
-	var result BoolBox
+func (c *Client) MessagesSetBotGuestChatResult(ctx context.Context, request *MessagesSetBotGuestChatResultRequest) (InputBotInlineMessageIDClass, error) {
+	var result InputBotInlineMessageIDBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return result.InputBotInlineMessageID, nil
 }

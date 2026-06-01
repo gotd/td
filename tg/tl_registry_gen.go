@@ -2056,7 +2056,7 @@ func TypesMap() map[uint32]string {
 		MessagesDeletePollAnswerRequestTypeID:                                   "messages.deletePollAnswer#ac8505a5",
 		MessagesGetUnreadPollVotesRequestTypeID:                                 "messages.getUnreadPollVotes#43286cf2",
 		MessagesReadPollVotesRequestTypeID:                                      "messages.readPollVotes#1720b4d8",
-		MessagesSetBotGuestChatResultRequestTypeID:                              "messages.setBotGuestChatResult#52b08db",
+		MessagesSetBotGuestChatResultRequestTypeID:                              "messages.setBotGuestChatResult#b8f106e3",
 		MessagesDeleteParticipantReactionsRequestTypeID:                         "messages.deleteParticipantReactions#a0b80cf8",
 		MessagesDeleteParticipantReactionRequestTypeID:                          "messages.deleteParticipantReaction#e3b7f82c",
 		MessagesGetPersonalChannelHistoryRequestTypeID:                          "messages.getPersonalChannelHistory#55fb0996",
