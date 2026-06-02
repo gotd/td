@@ -256,17 +256,15 @@ func (s *channelState) getDifference(ctx context.Context) error {
 	switch diff := diff.(type) {
 	case *tg.UpdatesChannelDifference:
 		if len(diff.OtherUpdates) > 0 {
-			select {
-			case s.out <- tracedUpdate{
+			if err := s.sendOut(ctx, tracedUpdate{
 				span: trace.SpanContextFromContext(ctx),
 				update: &tg.Updates{
 					Updates: diff.OtherUpdates,
 					Users:   diff.Users,
 					Chats:   diff.Chats,
 				},
-			}:
-			case <-ctx.Done():
-				return ctx.Err()
+			}); err != nil {
+				return err
 			}
 		}
 
@@ -328,6 +326,33 @@ func (s *channelState) getDifference(ctx context.Context) error {
 
 	default:
 		return errors.Errorf("unexpected channel diff type: %T", diff)
+	}
+}
+
+// sendOut hands off updates to the *internalState worker via s.out.
+//
+// While waiting for the worker to accept the update, it keeps draining its own
+// input queue. Otherwise the worker may block pushing into s.updates while this
+// goroutine blocks pushing into s.out, producing a deadlock (both queues are
+// bounded and the worker is the only reader of s.out).
+//
+// Drained updates are ignored on purpose: they are restored by a future
+// getChannelDifference call, same as in the diffTimeout wait above.
+func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
+	for {
+		select {
+		case s.out <- out:
+			return nil
+		case u, ok := <-s.updates:
+			if !ok {
+				continue
+			}
+			s.log.Debug("Ignoring update while sending channel difference",
+				zap.Any("update", u.update),
+			)
+		case <-ctx.Done():
+			return ctx.Err()
+		}
 	}
 }
 
