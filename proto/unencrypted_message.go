@@ -1,6 +1,8 @@
 package proto
 
 import (
+	"io"
+
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
@@ -36,6 +38,15 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 	dataLen, err := b.Int32()
 	if err != nil {
 		return err
+	}
+	if dataLen < 0 {
+		return &bin.InvalidLengthError{
+			Length: int(dataLen),
+			Where:  "plaintext message data",
+		}
+	}
+	if int(dataLen) > b.Len() {
+		return errors.Wrap(io.ErrUnexpectedEOF, "consume payload")
 	}
 	u.MessageData = append(u.MessageData[:0], make([]byte, dataLen)...)
 	if err := b.ConsumeN(u.MessageData, int(dataLen)); err != nil {
