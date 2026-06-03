@@ -14,6 +14,13 @@ type handler struct {
 	mux      sync.Mutex
 }
 
+// messageCount returns the number of received messages.
+func (h *handler) messageCount() int {
+	h.mux.Lock()
+	defer h.mux.Unlock()
+	return h.messages.count()
+}
+
 func newHandler() *handler {
 	return &handler{
 		messages: &messageDatabase{

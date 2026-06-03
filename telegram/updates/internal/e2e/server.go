@@ -34,6 +34,13 @@ func newServer() *server {
 	}
 }
 
+// messageCount returns the total number of messages on the server.
+func (s *server) messageCount() int {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	return s.messages.count()
+}
+
 // UpdatesGetState returns current remote state.
 func (s *server) UpdatesGetState(ctx context.Context) (*tg.UpdatesState, error) {
 	s.mux.Lock()

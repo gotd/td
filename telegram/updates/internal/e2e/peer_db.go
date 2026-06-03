@@ -8,6 +8,15 @@ type messageDatabase struct {
 	channels map[int64][]tg.MessageClass
 }
 
+// count returns the total number of stored messages.
+func (db *messageDatabase) count() int {
+	n := len(db.common) + len(db.secret)
+	for _, msgs := range db.channels {
+		n += len(msgs)
+	}
+	return n
+}
+
 type peerDatabase struct {
 	users    map[int64]*tg.User
 	chats    map[int64]*tg.Chat
