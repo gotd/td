@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"sync"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
@@ -16,6 +17,28 @@ import (
 	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
 )
+
+// waitCatchUp blocks until the handler has received as many messages as the
+// server holds, or the context is cancelled, or the deadline expires.
+func waitCatchUp(ctx context.Context, s *server, h *handler) error {
+	want := s.messageCount()
+
+	timeout := time.NewTimer(10 * time.Second)
+	defer timeout.Stop()
+	tick := time.NewTicker(time.Millisecond)
+	defer tick.Stop()
+
+	for h.messageCount() < want {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-timeout.C:
+			return fmt.Errorf("timeout: handler caught up %d/%d messages", h.messageCount(), want)
+		case <-tick.C:
+		}
+	}
+	return nil
+}
 
 func TestE2E(t *testing.T) {
 	testManager(t, func(s *server, storage updates.StateStorage) chan *tg.Updates {
@@ -177,9 +200,16 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 
 		t.Log("Handle")
 
-		return e.Handle(ctx, &tg.Updates{
+		if err := e.Handle(ctx, &tg.Updates{
 			Updates: ups,
-		})
+		}); err != nil {
+			return err
+		}
+
+		// e.Handle only enqueues the recovery updates; wait for the manager to
+		// actually process them and catch up before tearing down. Otherwise
+		// cancellation races with recovery and randomly drops the last updates.
+		return waitCatchUp(ctx, s, h)
 	})
 
 	t.Log("Waiting for shutdown")
