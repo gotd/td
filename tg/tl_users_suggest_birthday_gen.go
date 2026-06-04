@@ -32,12 +32,17 @@ var (
 )
 
 // UsersSuggestBirthdayRequest represents TL type `users.suggestBirthday#fc533372`.
+// Suggest a birthday to another user, see here »¹ for more info on birthdays in the
+// API.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#birthday
 //
 // See https://core.telegram.org/method/users.suggestBirthday for reference.
 type UsersSuggestBirthdayRequest struct {
-	// ID field of UsersSuggestBirthdayRequest.
+	// The user that will receive the suggested birthday date.
 	ID InputUserClass
-	// Birthday field of UsersSuggestBirthdayRequest.
+	// The birthday to suggest.
 	Birthday Birthday
 }
 
@@ -193,6 +198,15 @@ func (s *UsersSuggestBirthdayRequest) GetBirthday() (value Birthday) {
 }
 
 // UsersSuggestBirthday invokes method users.suggestBirthday#fc533372 returning error if any.
+// Suggest a birthday to another user, see here »¹ for more info on birthdays in the
+// API.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#birthday
+//
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.suggestBirthday for reference.
 func (c *Client) UsersSuggestBirthday(ctx context.Context, request *UsersSuggestBirthdayRequest) (UpdatesClass, error) {

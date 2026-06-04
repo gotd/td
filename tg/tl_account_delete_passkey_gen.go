@@ -32,10 +32,19 @@ var (
 )
 
 // AccountDeletePasskeyRequest represents TL type `account.deletePasskey#f5b5563f`.
+// Delete a passkey associated to the current account, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#delete-passkeys
 //
 // See https://core.telegram.org/method/account.deletePasskey for reference.
 type AccountDeletePasskeyRequest struct {
-	// ID field of AccountDeletePasskeyRequest.
+	// Identifier of the passkey to delete, taken from passkey¹.id, usually obtained using
+	// account.getPasskeys².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/passkey
+	//  2) https://core.telegram.org/method/account.getPasskeys
 	ID string
 }
 
@@ -161,6 +170,10 @@ func (d *AccountDeletePasskeyRequest) GetID() (value string) {
 }
 
 // AccountDeletePasskey invokes method account.deletePasskey#f5b5563f returning error if any.
+// Delete a passkey associated to the current account, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#delete-passkeys
 //
 // See https://core.telegram.org/method/account.deletePasskey for reference.
 func (c *Client) AccountDeletePasskey(ctx context.Context, id string) (bool, error) {

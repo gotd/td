@@ -32,14 +32,18 @@ var (
 )
 
 // MessagesEditChatParticipantRankRequest represents TL type `messages.editChatParticipantRank#a00f32b0`.
+// Edit a group participant's tag »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/rank
 //
 // See https://core.telegram.org/method/messages.editChatParticipantRank for reference.
 type MessagesEditChatParticipantRankRequest struct {
-	// Peer field of MessagesEditChatParticipantRankRequest.
+	// The basic group/supergroup.
 	Peer InputPeerClass
-	// Participant field of MessagesEditChatParticipantRankRequest.
+	// The participant.
 	Participant InputPeerClass
-	// Rank field of MessagesEditChatParticipantRankRequest.
+	// The new tag.
 	Rank string
 }
 
@@ -225,6 +229,10 @@ func (e *MessagesEditChatParticipantRankRequest) GetRank() (value string) {
 }
 
 // MessagesEditChatParticipantRank invokes method messages.editChatParticipantRank#a00f32b0 returning error if any.
+// Edit a group participant's tag »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/rank
 //
 // See https://core.telegram.org/method/messages.editChatParticipantRank for reference.
 func (c *Client) MessagesEditChatParticipantRank(ctx context.Context, request *MessagesEditChatParticipantRankRequest) (UpdatesClass, error) {

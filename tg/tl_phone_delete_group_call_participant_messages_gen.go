@@ -32,10 +32,18 @@ var (
 )
 
 // PhoneDeleteGroupCallParticipantMessagesRequest represents TL type `phone.deleteGroupCallParticipantMessages#1dbfeca0`.
+// Delete all messages from a specific participant in the in-call message overlay of a
+// group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.deleteGroupCallParticipantMessages for reference.
 type PhoneDeleteGroupCallParticipantMessagesRequest struct {
-	// Flags field of PhoneDeleteGroupCallParticipantMessagesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ReportSpam field of PhoneDeleteGroupCallParticipantMessagesRequest.
 	ReportSpam bool
@@ -251,6 +259,15 @@ func (d *PhoneDeleteGroupCallParticipantMessagesRequest) GetParticipant() (value
 }
 
 // PhoneDeleteGroupCallParticipantMessages invokes method phone.deleteGroupCallParticipantMessages#1dbfeca0 returning error if any.
+// Delete all messages from a specific participant in the in-call message overlay of a
+// group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
+//
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.deleteGroupCallParticipantMessages for reference.
 func (c *Client) PhoneDeleteGroupCallParticipantMessages(ctx context.Context, request *PhoneDeleteGroupCallParticipantMessagesRequest) (UpdatesClass, error) {

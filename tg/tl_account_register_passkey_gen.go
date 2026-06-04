@@ -32,10 +32,15 @@ var (
 )
 
 // AccountRegisterPasskeyRequest represents TL type `account.registerPasskey#55b41fd6`.
+// Complete passkey registration for the current account, see here »¹ for more info on
+// the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
 //
 // See https://core.telegram.org/method/account.registerPasskey for reference.
 type AccountRegisterPasskeyRequest struct {
-	// Credential field of AccountRegisterPasskeyRequest.
+	// Registration result.
 	Credential InputPasskeyCredentialClass
 }
 
@@ -166,6 +171,15 @@ func (r *AccountRegisterPasskeyRequest) GetCredential() (value InputPasskeyCrede
 }
 
 // AccountRegisterPasskey invokes method account.registerPasskey#55b41fd6 returning error if any.
+// Complete passkey registration for the current account, see here »¹ for more info on
+// the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
+//
+// Possible errors:
+//
+//	400 CREDENTIAL_INVALID:
 //
 // See https://core.telegram.org/method/account.registerPasskey for reference.
 func (c *Client) AccountRegisterPasskey(ctx context.Context, credential InputPasskeyCredentialClass) (*Passkey, error) {

@@ -84,13 +84,24 @@ type StarsTransaction struct {
 	// Links:
 	//  1) https://core.telegram.org/api/gifts#prepaying-for-someone-elses-upgrade
 	StargiftPrepaidUpgrade bool
-	// StargiftDropOriginalDetails field of StarsTransaction.
+	// Represents payment for the removal of the starGiftAttributeOriginalDetails¹ attribute
+	// from a gift, see here »² for the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
+	//  2) https://core.telegram.org/api/gifts#dropping-the-original-details-of-an-upgraded-gift
 	StargiftDropOriginalDetails bool
 	// PhonegroupMessage field of StarsTransaction.
 	PhonegroupMessage bool
-	// StargiftAuctionBid field of StarsTransaction.
+	// Represents payment for placing a collectible gift auction bid »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	StargiftAuctionBid bool
-	// Offer field of StarsTransaction.
+	// Represents payment for a collectible gift purchase offer »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
 	Offer bool
 	// Transaction ID.
 	ID string

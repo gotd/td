@@ -33,6 +33,8 @@ var (
 
 // ContactsResolvePhoneRequest represents TL type `contacts.resolvePhone#8af94344`.
 // Resolve a phone number to get user info, if their privacy settings allow it.
+// Make sure to implement client-side ratelimiting/debounce for this method, allowing at
+// most 1 call every 3 seconds.
 //
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 type ContactsResolvePhoneRequest struct {
@@ -167,6 +169,8 @@ func (r *ContactsResolvePhoneRequest) GetPhone() (value string) {
 
 // ContactsResolvePhone invokes method contacts.resolvePhone#8af94344 returning error if any.
 // Resolve a phone number to get user info, if their privacy settings allow it.
+// Make sure to implement client-side ratelimiting/debounce for this method, allowing at
+// most 1 call every 3 seconds.
 //
 // Possible errors:
 //

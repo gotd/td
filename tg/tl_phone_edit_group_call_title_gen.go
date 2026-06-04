@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneEditGroupCallTitleRequest represents TL type `phone.editGroupCallTitle#1ca6ac0a`.
-// Edit the title of a group call or livestream
+// Edit the title of a group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.editGroupCallTitle for reference.
 type PhoneEditGroupCallTitleRequest struct {
@@ -194,7 +197,10 @@ func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
 }
 
 // PhoneEditGroupCallTitle invokes method phone.editGroupCallTitle#1ca6ac0a returning error if any.
-// Edit the title of a group call or livestream
+// Edit the title of a group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

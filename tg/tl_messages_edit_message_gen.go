@@ -76,7 +76,12 @@ type MessagesEditMessageRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// ScheduleRepeatPeriod field of MessagesEditMessageRequest.
+	// Once sent, this message will be automatically re-scheduled to be re-sent again this
+	// many seconds in the future, see here »¹ for more info on repeating scheduled
+	// messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages#repeating-scheduled-messages
 	//
 	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
 	ScheduleRepeatPeriod int
@@ -709,6 +714,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	500 MSG_WAIT_FAILED: A waiting call returned an error.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PEER_TYPES_INVALID: The passed keyboardButtonSwitchInline.peer_types field is invalid.
+//	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.
 //	400 PHOTO_INVALID_DIMENSIONS: The photo dimensions are invalid.
 //	400 PHOTO_SAVE_FILE_INVALID: Internal issues, try again later.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.

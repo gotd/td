@@ -283,7 +283,7 @@ type Message struct {
 	// should be kept in RAM, et cetera).
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// If set, any eventual webpage preview will be shown on top of the message instead of at
 	// the bottom.
@@ -341,7 +341,13 @@ type Message struct {
 	//
 	// Use SetFromBoostsApplied and GetFromBoostsApplied helpers.
 	FromBoostsApplied int
-	// FromRank field of Message.
+	// Only in supergroups »¹ (never basic groups, where this information is contained
+	// elsewhere »²), contains the sender's tag »³.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel#supergroups
+	//  2) https://core.telegram.org/api/rank
+	//  3) https://core.telegram.org/api/rank
 	//
 	// Use SetFromRank and GetFromRank helpers.
 	FromRank string
@@ -494,7 +500,12 @@ type Message struct {
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
-	// ScheduleRepeatPeriod field of Message.
+	// Once sent, this message will be automatically re-scheduled to be re-sent again this
+	// many seconds in the future, see here »¹ for more info on repeating scheduled
+	// messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages#repeating-scheduled-messages
 	//
 	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
 	ScheduleRepeatPeriod int

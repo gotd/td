@@ -32,10 +32,18 @@ var (
 )
 
 // AccountPasskeyRegistrationOptions represents TL type `account.passkeyRegistrationOptions#e16b5ce1`.
+// Passkey registration options, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
 //
 // See https://core.telegram.org/constructor/account.passkeyRegistrationOptions for reference.
 type AccountPasskeyRegistrationOptions struct {
-	// Options field of AccountPasskeyRegistrationOptions.
+	// JSON-encoded object whose publicKey field contains a
+	// PublicKeyCredentialCreationOptions¹ object.
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialCreationOptions
 	Options DataJSON
 }
 

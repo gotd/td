@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneAcceptCallRequest represents TL type `phone.acceptCall#3bd2b4a0`.
-// Accept incoming call
+// Accept incoming call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 type PhoneAcceptCallRequest struct {
@@ -219,7 +222,10 @@ func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
 }
 
 // PhoneAcceptCall invokes method phone.acceptCall#3bd2b4a0 returning error if any.
-// Accept incoming call
+// Accept incoming call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // Possible errors:
 //

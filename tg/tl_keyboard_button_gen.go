@@ -36,9 +36,15 @@ var (
 //
 // See https://core.telegram.org/constructor/keyboardButton for reference.
 type KeyboardButton struct {
-	// Flags field of KeyboardButton.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButton.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -237,9 +243,15 @@ func (k *KeyboardButton) GetText() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonUrl for reference.
 type KeyboardButtonURL struct {
-	// Flags field of KeyboardButtonURL.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonURL.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -482,7 +494,10 @@ type KeyboardButtonCallback struct {
 	//  3) https://core.telegram.org/api/srp
 	//  4) https://t.me/botfather
 	RequiresPassword bool
-	// Style field of KeyboardButtonCallback.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -741,9 +756,15 @@ func (k *KeyboardButtonCallback) GetData() (value []byte) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPhone for reference.
 type KeyboardButtonRequestPhone struct {
-	// Flags field of KeyboardButtonRequestPhone.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonRequestPhone.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -942,9 +963,15 @@ func (k *KeyboardButtonRequestPhone) GetText() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestGeoLocation for reference.
 type KeyboardButtonRequestGeoLocation struct {
-	// Flags field of KeyboardButtonRequestGeoLocation.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonRequestGeoLocation.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -1153,7 +1180,10 @@ type KeyboardButtonSwitchInline struct {
 	// If set, pressing the button will insert the bot's username and the specified inline
 	// query in the current chat's input field.
 	SamePeer bool
-	// Style field of KeyboardButtonSwitchInline.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -1486,9 +1516,15 @@ func (k *KeyboardButtonSwitchInline) MapPeerTypes() (value InlineQueryPeerTypeCl
 //
 // See https://core.telegram.org/constructor/keyboardButtonGame for reference.
 type KeyboardButtonGame struct {
-	// Flags field of KeyboardButtonGame.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonGame.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -1687,9 +1723,15 @@ func (k *KeyboardButtonGame) GetText() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonBuy for reference.
 type KeyboardButtonBuy struct {
-	// Flags field of KeyboardButtonBuy.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonBuy.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -1911,7 +1953,10 @@ type KeyboardButtonURLAuth struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonURLAuth.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -2235,7 +2280,10 @@ type InputKeyboardButtonURLAuth struct {
 	Flags bin.Fields
 	// Set this flag to request the permission for your bot to send messages to the user.
 	RequestWriteAccess bool
-	// Style field of InputKeyboardButtonURLAuth.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -2596,7 +2644,10 @@ type KeyboardButtonRequestPoll struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonRequestPoll.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -2843,9 +2894,15 @@ func (k *KeyboardButtonRequestPoll) GetText() (value string) {
 //
 // See https://core.telegram.org/constructor/inputKeyboardButtonUserProfile for reference.
 type InputKeyboardButtonUserProfile struct {
-	// Flags field of InputKeyboardButtonUserProfile.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of InputKeyboardButtonUserProfile.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -3076,9 +3133,15 @@ func (i *InputKeyboardButtonUserProfile) GetUserID() (value InputUserClass) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonUserProfile for reference.
 type KeyboardButtonUserProfile struct {
-	// Flags field of KeyboardButtonUserProfile.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonUserProfile.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -3312,9 +3375,15 @@ func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonWebView for reference.
 type KeyboardButtonWebView struct {
-	// Flags field of KeyboardButtonWebView.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonWebView.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -3551,9 +3620,15 @@ func (k *KeyboardButtonWebView) GetURL() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonSimpleWebView for reference.
 type KeyboardButtonSimpleWebView struct {
-	// Flags field of KeyboardButtonSimpleWebView.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonSimpleWebView.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -3786,9 +3861,15 @@ func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPeer for reference.
 type KeyboardButtonRequestPeer struct {
-	// Flags field of KeyboardButtonRequestPeer.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonRequestPeer.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -4094,7 +4175,10 @@ type InputKeyboardButtonRequestPeer struct {
 	UsernameRequested bool
 	// Set this flag to request the peer's photo (if any).
 	PhotoRequested bool
-	// Style field of InputKeyboardButtonRequestPeer.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -4484,9 +4568,15 @@ func (i *InputKeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonCopy for reference.
 type KeyboardButtonCopy struct {
-	// Flags field of KeyboardButtonCopy.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Style field of KeyboardButtonCopy.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	//
 	// Use SetStyle and GetStyle helpers.
 	Style KeyboardButtonStyle
@@ -4779,7 +4869,10 @@ type KeyboardButtonClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Style field of KeyboardButton.
+	// Button style, see here »¹ for more info on button styles.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#button-styles
 	GetStyle() (value KeyboardButtonStyle, ok bool)
 
 	// Button text

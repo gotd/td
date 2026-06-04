@@ -605,11 +605,17 @@ func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
 //
 // See https://core.telegram.org/constructor/updateUserTyping for reference.
 type UpdateUserTyping struct {
-	// Flags field of UpdateUserTyping.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// User id
 	UserID int64
-	// TopMsgID field of UpdateUserTyping.
+	// If set, this notification was sent within a bot forum topic »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -1035,11 +1041,18 @@ func (u *UpdateChatUserTyping) GetAction() (value SendMessageActionClass) {
 }
 
 // UpdateChatParticipants represents TL type `updateChatParticipants#7761198`.
-// Composition of chat participants changed.
+// The participants of a basic group »¹ changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatParticipants for reference.
 type UpdateChatParticipants struct {
-	// Updated chat participants
+	// Updated chat participants (also contains the version used to deduplicate/update
+	// outdated chat information as specified here »¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#basic-group-updates
 	Participants ChatParticipantsClass
 }
 
@@ -2597,7 +2610,11 @@ type UpdateChatParticipantAdd struct {
 	InviterID int64
 	// When was the participant added
 	Date int
-	// Chat version number
+	// Used similarly to pts values to deduplicate/update outdated chat information as
+	// specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#basic-group-updates
 	Version int
 }
 
@@ -2828,7 +2845,10 @@ func (u *UpdateChatParticipantAdd) GetVersion() (value int) {
 }
 
 // UpdateChatParticipantDelete represents TL type `updateChatParticipantDelete#e32f3d77`.
-// A member has left the group.
+// A member has left the basic group¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatParticipantDelete for reference.
 type UpdateChatParticipantDelete struct {
@@ -2836,7 +2856,11 @@ type UpdateChatParticipantDelete struct {
 	ChatID int64
 	// ID of the user
 	UserID int64
-	// Used in basic groups to reorder updates and make sure that all of them was received.
+	// Used similarly to pts values to deduplicate/update outdated chat information as
+	// specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#basic-group-updates
 	Version int
 }
 
@@ -4103,7 +4127,10 @@ type UpdateReadHistoryInbox struct {
 	FolderID int
 	// Peer
 	Peer PeerClass
-	// TopMsgID field of UpdateReadHistoryInbox.
+	// If set, the messages were read only within the specified bot forum topic »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -5172,9 +5199,19 @@ func (u *UpdateReadMessagesContents) GetDate() (value int, ok bool) {
 }
 
 // UpdateChannelTooLong represents TL type `updateChannelTooLong#108d941f`.
-// There are new updates in the specified channel, the client must fetch them.
-// If the difference is too long or if the channel isn't currently in the states, start
-// fetching from the specified pts.
+// There are new updates in the specified channel, the client must fetch them manually by
+// invoking updates.getChannelDifference¹ as specified in the documentation »².
+// If the channel's PTS isn't currently stored in the database (i.e. we joined this
+// channel on another client while the current client was offline), start fetching from
+// the specified pts.
+// Does not necessarily indicate the channel message box size limit was reached¹, it
+// simply indicates that the number of queued updates in a message box is too large to be
+// delivered passively through the socket.
+//
+// Links:
+//  1. https://core.telegram.org/method/updates.getChannelDifference
+//  2. https://core.telegram.org/api/updates
+//  3. https://core.telegram.org/api/updates#recovering-gaps-for-very-old-messages
 //
 // See https://core.telegram.org/constructor/updateChannelTooLong for reference.
 type UpdateChannelTooLong struct {
@@ -6468,7 +6505,11 @@ type UpdateChatParticipantAdmin struct {
 	UserID int64
 	// Whether the user was rendered admin
 	IsAdmin bool
-	// Used in basic groups to reorder updates and make sure that all of them was received.
+	// Used similarly to pts values to deduplicate/update outdated chat information as
+	// specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#basic-group-updates
 	Version int
 }
 
@@ -13402,10 +13443,10 @@ func (u *UpdateMessagePoll) GetResults() (value PollResults) {
 }
 
 // UpdateChatDefaultBannedRights represents TL type `updateChatDefaultBannedRights#54c01850`.
-// Default banned rights in a normal chat¹ were updated
+// Default banned rights in a basic group¹ were updated
 //
 // Links:
-//  1. https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatDefaultBannedRights for reference.
 type UpdateChatDefaultBannedRights struct {
@@ -13413,7 +13454,11 @@ type UpdateChatDefaultBannedRights struct {
 	Peer PeerClass
 	// New default banned rights
 	DefaultBannedRights ChatBannedRights
-	// Version
+	// Used similarly to pts values to deduplicate/update outdated chat information as
+	// specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#basic-group-updates
 	Version int
 }
 
@@ -17841,7 +17886,10 @@ func (u *UpdateChat) GetChatID() (value int64) {
 }
 
 // UpdateGroupCallParticipants represents TL type `updateGroupCallParticipants#f2ebdb4e`.
-// The participant list of a certain group call has changed
+// The participant list of a group call¹ has changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#applying-group-call-updates
 //
 // See https://core.telegram.org/constructor/updateGroupCallParticipants for reference.
 type UpdateGroupCallParticipants struct {
@@ -18050,7 +18098,10 @@ func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
 }
 
 // UpdateGroupCall represents TL type `updateGroupCall#9d2216e0`.
-// A new groupcall was started
+// Info about a group call¹ was updated.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/constructor/updateGroupCall for reference.
 type UpdateGroupCall struct {
@@ -18508,7 +18559,10 @@ func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
 }
 
 // UpdateChatParticipant represents TL type `updateChatParticipant#d087663a`.
-// A user has joined or left a specific chat
+// A user has joined or left a specific basic group »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatParticipant for reference.
 type UpdateChatParticipant struct {
@@ -19628,7 +19682,10 @@ func (u *UpdateBotStopped) GetQts() (value int) {
 }
 
 // UpdateGroupCallConnection represents TL type `updateGroupCallConnection#b783982`.
-// New WebRTC parameters
+// New WebRTC connection parameters for the currently joined group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/constructor/updateGroupCallConnection for reference.
 type UpdateGroupCallConnection struct {
@@ -29590,6 +29647,12 @@ func (u *UpdateMonoForumNoPaidException) GetSavedPeerID() (value PeerClass) {
 }
 
 // UpdateGroupCallMessage represents TL type `updateGroupCallMessage#d8326f0d`.
+// A new in-call message was received in a group call or livestream¹, sent using phone
+// sendGroupCallMessage².
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
+//  2. https://core.telegram.org/method/phone.sendGroupCallMessage
 //
 // See https://core.telegram.org/constructor/updateGroupCallMessage for reference.
 type UpdateGroupCallMessage struct {
@@ -29756,6 +29819,12 @@ func (u *UpdateGroupCallMessage) GetMessage() (value GroupCallMessage) {
 }
 
 // UpdateGroupCallEncryptedMessage represents TL type `updateGroupCallEncryptedMessage#c957a766`.
+// A new E2E-encrypted message was received in a conference call¹, sent using phone
+// sendGroupCallEncryptedMessage².
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  2. https://core.telegram.org/method/phone.sendGroupCallEncryptedMessage
 //
 // See https://core.telegram.org/constructor/updateGroupCallEncryptedMessage for reference.
 type UpdateGroupCallEncryptedMessage struct {
@@ -29954,16 +30023,24 @@ func (u *UpdateGroupCallEncryptedMessage) GetEncryptedMessage() (value []byte) {
 }
 
 // UpdatePinnedForumTopic represents TL type `updatePinnedForumTopic#683b2c52`.
+// A forum topic »¹ was pinned or unpinned.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/updatePinnedForumTopic for reference.
 type UpdatePinnedForumTopic struct {
-	// Flags field of UpdatePinnedForumTopic.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of UpdatePinnedForumTopic.
+	// Whether the topic was pinned or unpinned
 	Pinned bool
-	// Peer field of UpdatePinnedForumTopic.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer PeerClass
-	// TopicID field of UpdatePinnedForumTopic.
+	// The topic ID
 	TopicID int
 }
 
@@ -30173,14 +30250,22 @@ func (u *UpdatePinnedForumTopic) GetTopicID() (value int) {
 }
 
 // UpdatePinnedForumTopics represents TL type `updatePinnedForumTopics#def143d0`.
+// The pinned topics¹ of a forum have changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/updatePinnedForumTopics for reference.
 type UpdatePinnedForumTopics struct {
-	// Flags field of UpdatePinnedForumTopics.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of UpdatePinnedForumTopics.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer PeerClass
-	// Order field of UpdatePinnedForumTopics.
+	// Ordered list containing the IDs of all pinned topics.
 	//
 	// Use SetOrder and GetOrder helpers.
 	Order []int
@@ -30570,12 +30655,20 @@ func (u *UpdateDeleteGroupCallMessages) GetMessages() (value []int) {
 }
 
 // UpdateStarGiftAuctionState represents TL type `updateStarGiftAuctionState#48e246c2`.
+// Contains updates to auction state, see here »¹ for more info on how to enable these
+// updates.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/updateStarGiftAuctionState for reference.
 type UpdateStarGiftAuctionState struct {
-	// GiftID field of UpdateStarGiftAuctionState.
+	// ID of the collectible gift »¹ currently being distributed in the auction.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	GiftID int64
-	// State field of UpdateStarGiftAuctionState.
+	// Auction state.
 	State StarGiftAuctionStateClass
 }
 
@@ -30736,12 +30829,21 @@ func (u *UpdateStarGiftAuctionState) GetState() (value StarGiftAuctionStateClass
 }
 
 // UpdateStarGiftAuctionUserState represents TL type `updateStarGiftAuctionUserState#dc58f31e`.
+// Contains updates to auction state related to the current user, see here »¹ for more
+// info on how to enable these updates.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/updateStarGiftAuctionUserState for reference.
 type UpdateStarGiftAuctionUserState struct {
-	// GiftID field of UpdateStarGiftAuctionUserState.
+	// ID of the collectible gift »¹ currently being distributed in the auction.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	GiftID int64
-	// UserState field of UpdateStarGiftAuctionUserState.
+	// Auction state related to the current user (i.e. info about placed bids, won gifts and
+	// so on).
 	UserState StarGiftAuctionUserState
 }
 
@@ -31036,6 +31138,10 @@ func (u *UpdateEmojiGameInfo) GetInfo() (value MessagesEmojiGameInfoClass) {
 }
 
 // UpdateStarGiftCraftFail represents TL type `updateStarGiftCraftFail#ac072444`.
+// Indicates that a crafting »¹ attempt did not produce a new collectible gift.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#crafting-collectible-gifts
 //
 // See https://core.telegram.org/constructor/updateStarGiftCraftFail for reference.
 type UpdateStarGiftCraftFail struct {
@@ -31137,16 +31243,25 @@ func (u *UpdateStarGiftCraftFail) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateChatParticipantRank represents TL type `updateChatParticipantRank#bd8367b9`.
+// The tag »¹ of a participant of a basic group »² has changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/rank
+//  2. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatParticipantRank for reference.
 type UpdateChatParticipantRank struct {
-	// ChatID field of UpdateChatParticipantRank.
+	// Basic group ID.
 	ChatID int64
-	// UserID field of UpdateChatParticipantRank.
+	// User ID.
 	UserID int64
-	// Rank field of UpdateChatParticipantRank.
+	// The new tag.
 	Rank string
-	// Version field of UpdateChatParticipantRank.
+	// Used similarly to pts values to deduplicate/update outdated chat information as
+	// specified here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#basic-group-updates
 	Version int
 }
 

@@ -32,12 +32,13 @@ var (
 )
 
 // PhoneEditGroupCallParticipantRequest represents TL type `phone.editGroupCallParticipant#a5273abf`.
-// Edit information about a given group call participant
+// Edit information about a given group call¹ participant.
 // Note: flags¹.N?Bool² parameters can have three possible values:
 //
 // Links:
-//  1. https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-//  2. https://core.telegram.org/type/Bool
+//  1. https://core.telegram.org/api/group-calls
+//  2. https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+//  3. https://core.telegram.org/type/Bool
 //
 // See https://core.telegram.org/method/phone.editGroupCallParticipant for reference.
 type PhoneEditGroupCallParticipantRequest struct {
@@ -513,12 +514,13 @@ func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bo
 }
 
 // PhoneEditGroupCallParticipant invokes method phone.editGroupCallParticipant#a5273abf returning error if any.
-// Edit information about a given group call participant
+// Edit information about a given group call¹ participant.
 // Note: flags¹.N?Bool² parameters can have three possible values:
 //
 // Links:
-//  1. https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-//  2. https://core.telegram.org/type/Bool
+//  1. https://core.telegram.org/api/group-calls
+//  2. https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+//  3. https://core.telegram.org/type/Bool
 //
 // Possible errors:
 //

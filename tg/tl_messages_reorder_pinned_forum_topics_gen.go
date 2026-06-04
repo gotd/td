@@ -32,16 +32,29 @@ var (
 )
 
 // MessagesReorderPinnedForumTopicsRequest represents TL type `messages.reorderPinnedForumTopics#e7841f0`.
+// Reorder pinned forum topics
 //
 // See https://core.telegram.org/method/messages.reorderPinnedForumTopics for reference.
 type MessagesReorderPinnedForumTopicsRequest struct {
-	// Flags field of MessagesReorderPinnedForumTopicsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Force field of MessagesReorderPinnedForumTopicsRequest.
+	// If not set, the order of only the topics present both server-side and in order will be
+	// changed (i.e. mentioning topics not pinned server-side in order will not pin them, and
+	// not mentioning topics pinned server-side will not unpin them).  If set, the entire
+	// server-side pinned topic list will be replaced with order (i.e. mentioning topics not
+	// pinned server-side in order will pin them, and not mentioning topics pinned
+	// server-side will unpin them)
 	Force bool
-	// Peer field of MessagesReorderPinnedForumTopicsRequest.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer InputPeerClass
-	// Order field of MessagesReorderPinnedForumTopicsRequest.
+	// Topic IDs »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	Order []int
 }
 
@@ -259,6 +272,11 @@ func (r *MessagesReorderPinnedForumTopicsRequest) GetOrder() (value []int) {
 }
 
 // MessagesReorderPinnedForumTopics invokes method messages.reorderPinnedForumTopics#e7841f0 returning error if any.
+// Reorder pinned forum topics
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.reorderPinnedForumTopics for reference.
 func (c *Client) MessagesReorderPinnedForumTopics(ctx context.Context, request *MessagesReorderPinnedForumTopicsRequest) (UpdatesClass, error) {

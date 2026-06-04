@@ -53,7 +53,10 @@ type ChannelParticipant struct {
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
-	// Rank field of ChannelParticipant.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -340,7 +343,10 @@ type ChannelParticipantSelf struct {
 	//
 	// Use SetSubscriptionUntilDate and GetSubscriptionUntilDate helpers.
 	SubscriptionUntilDate int
-	// Rank field of ChannelParticipantSelf.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -673,8 +679,10 @@ type ChannelParticipantCreator struct {
 	UserID int64
 	// Creator admin rights
 	AdminRights ChatAdminRights
-	// The role (rank) of the group creator in the group: just an arbitrary string, admin by
-	// default
+	// The participant's tag »¹, defaults to "Owner" if not set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -920,7 +928,10 @@ type ChannelParticipantAdmin struct {
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	AdminRights ChatAdminRights
-	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
+	// The participant's tag »¹, defaults to "Admin" if not set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -1320,7 +1331,10 @@ type ChannelParticipantBanned struct {
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	BannedRights ChatBannedRights
-	// Rank field of ChannelParticipantBanned.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string

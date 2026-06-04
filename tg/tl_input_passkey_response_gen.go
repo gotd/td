@@ -32,12 +32,27 @@ var (
 )
 
 // InputPasskeyResponseRegister represents TL type `inputPasskeyResponseRegister#3e63935c`.
+// WebAuthn registration response used when registering a new passkey, see here »¹ for
+// more info on the full flow.
+// Generated from the AuthenticatorAttestationResponse¹ object.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
+//  2. https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse
 //
 // See https://core.telegram.org/constructor/inputPasskeyResponseRegister for reference.
 type InputPasskeyResponseRegister struct {
-	// ClientData field of InputPasskeyResponseRegister.
+	// Base64url-decoded clientDataJSON field of an AuthenticatorAttestationResponse¹,
+	// wrapped in dataJSON²
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse
+	//  2) https://core.telegram.org/constructor/dataJSON
 	ClientData DataJSON
-	// AttestationData field of InputPasskeyResponseRegister.
+	// Base64url-decoded attestationObject field of an AuthenticatorAttestationResponse¹
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse
 	AttestationData []byte
 }
 
@@ -193,16 +208,38 @@ func (i *InputPasskeyResponseRegister) GetAttestationData() (value []byte) {
 }
 
 // InputPasskeyResponseLogin represents TL type `inputPasskeyResponseLogin#c31fc14a`.
+// WebAuthn authentication response used when logging in with a passkey, see here »¹
+// for more info on the full flow.
+// Generated from the AuthenticatorAssertionResponse¹ object.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#logging-in-with-a-passkey
+//  2. https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse
 //
 // See https://core.telegram.org/constructor/inputPasskeyResponseLogin for reference.
 type InputPasskeyResponseLogin struct {
-	// ClientData field of InputPasskeyResponseLogin.
+	// Base64url-decoded clientDataJSON field of an AuthenticatorAssertionResponse¹, wrapped
+	// in dataJSON²
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse
+	//  2) https://core.telegram.org/constructor/dataJSON
 	ClientData DataJSON
-	// AuthenticatorData field of InputPasskeyResponseLogin.
+	// Base64url-decoded authenticatorData field of an AuthenticatorAssertionResponse¹
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse
 	AuthenticatorData []byte
-	// Signature field of InputPasskeyResponseLogin.
+	// Base64url-decoded signature field of an AuthenticatorAssertionResponse¹
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse
 	Signature []byte
-	// UserHandle field of InputPasskeyResponseLogin.
+	// Base64url-decoded userHandle field of an AuthenticatorAssertionResponse¹. The user
+	// handle specified by the server is in <dc_id>:<user_id> format.
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse
 	UserHandle string
 }
 
@@ -447,7 +484,12 @@ type InputPasskeyResponseClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// ClientData field of InputPasskeyResponseRegister.
+	// Base64url-decoded clientDataJSON field of an AuthenticatorAttestationResponse¹,
+	// wrapped in dataJSON²
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse
+	//  2) https://core.telegram.org/constructor/dataJSON
 	GetClientData() (value DataJSON)
 }
 

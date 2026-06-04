@@ -32,7 +32,11 @@ var (
 )
 
 // ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#8763d3e1`.
-// Info on members is unavailable
+// The full list of members of basic groups »¹ is not available to you, because you
+// were banned.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatParticipantsForbidden for reference.
 type ChatParticipantsForbidden struct {
@@ -241,7 +245,11 @@ func (c *ChatParticipantsForbidden) GetSelfParticipant() (value ChatParticipantC
 }
 
 // ChatParticipants represents TL type `chatParticipants#3cbc93f8`.
-// Group members.
+// Contains the full list of members of basic groups »¹; is NOT usable for
+// supergroups/channels.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {

@@ -51,7 +51,7 @@ type MessagesSendMediaRequest struct {
 	// destination chat doesn't have content protection¹ enabled
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// Whether to move used stickersets to top, see here for more info on this flag »¹
 	//
@@ -99,7 +99,12 @@ type MessagesSendMediaRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// ScheduleRepeatPeriod field of MessagesSendMediaRequest.
+	// Once sent, this message will be automatically re-scheduled to be re-sent again this
+	// many seconds in the future, see here »¹ for more info on repeating scheduled
+	// messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages#repeating-scheduled-messages
 	//
 	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
 	ScheduleRepeatPeriod int
@@ -1090,6 +1095,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN: You can't forward polls with public voters.
 //	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
+//	400 BUSINESS_PEER_USAGE_MISSING: You cannot send a message to a user through a business connection if the user hasn't recently contacted us.
 //	400 BUTTON_COPY_TEXT_INVALID: The specified keyboardButtonCopy.copy_text is invalid.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_POS_INVALID: The position of one of the keyboard buttons is invalid (i.e. a Game or Pay button not in the first position, and so on...).
@@ -1116,10 +1122,12 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
+//	400 EFFECT_CHAT_INVALID:
 //	400 EFFECT_ID_INVALID: The specified effect ID is invalid.
 //	400 EMOTICON_INVALID: The specified emoji is invalid.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 EXTENDED_MEDIA_AMOUNT_INVALID: The specified stars_amount of the passed inputMediaPaidMedia is invalid.
+//	400 EXTENDED_MEDIA_EMPTY:
 //	400 EXTENDED_MEDIA_INVALID: The specified paid media is invalid.
 //	400 EXTERNAL_URL_INVALID: External URL invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
@@ -1162,6 +1170,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
 //	400 REPLY_MESSAGE_ID_INVALID: The specified reply-to message ID is invalid.
+//	400 REPLY_TO_MONOFORUM_PEER_INVALID: The specified inputReplyToMonoForum.monoforum_peer_id is invalid.
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.

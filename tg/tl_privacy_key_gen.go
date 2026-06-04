@@ -1380,6 +1380,10 @@ func (p *PrivacyKeyNoPaidMessages) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeySavedMusic represents TL type `privacyKeySavedMusic#ff7a571b`.
+// Whether the user can see the songs we pinned to our profile »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/constructor/privacyKeySavedMusic for reference.
 type PrivacyKeySavedMusic struct {

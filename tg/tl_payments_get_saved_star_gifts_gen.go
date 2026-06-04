@@ -652,6 +652,8 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetLimit() (value int) {
 // Possible errors:
 //
 //	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
+//	400 COLLECTION_ID_INVALID:
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.

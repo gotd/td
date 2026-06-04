@@ -32,10 +32,23 @@ var (
 )
 
 // PaymentsGetStarGiftUpgradeAttributesRequest represents TL type `payments.getStarGiftUpgradeAttributes#6d038b58`.
+// Obtains the full list of just the collectible attributes that may appear for a gift
+// type once it's upgraded to a collectible gift »¹.
+// The result may also include starGiftAttributeModel¹ constructors with the crafted
+// flag set: these models are reserved for crafting »² and should be filtered out from
+// regular upgrade previews (and vice versa).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/starGiftAttributeModel
+//  3. https://core.telegram.org/api/gifts#crafting-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.getStarGiftUpgradeAttributes for reference.
 type PaymentsGetStarGiftUpgradeAttributesRequest struct {
-	// GiftID field of PaymentsGetStarGiftUpgradeAttributesRequest.
+	// Non-collectible base gift ID, from starGift¹.id
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
 	GiftID int64
 }
 
@@ -161,6 +174,20 @@ func (g *PaymentsGetStarGiftUpgradeAttributesRequest) GetGiftID() (value int64) 
 }
 
 // PaymentsGetStarGiftUpgradeAttributes invokes method payments.getStarGiftUpgradeAttributes#6d038b58 returning error if any.
+// Obtains the full list of just the collectible attributes that may appear for a gift
+// type once it's upgraded to a collectible gift »¹.
+// The result may also include starGiftAttributeModel¹ constructors with the crafted
+// flag set: these models are reserved for crafting »² and should be filtered out from
+// regular upgrade previews (and vice versa).
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/starGiftAttributeModel
+//  3. https://core.telegram.org/api/gifts#crafting-collectible-gifts
+//
+// Possible errors:
+//
+//	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarGiftUpgradeAttributes for reference.
 func (c *Client) PaymentsGetStarGiftUpgradeAttributes(ctx context.Context, giftid int64) (*PaymentsStarGiftUpgradeAttributes, error) {

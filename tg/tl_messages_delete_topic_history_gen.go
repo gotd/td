@@ -32,12 +32,17 @@ var (
 )
 
 // MessagesDeleteTopicHistoryRequest represents TL type `messages.deleteTopicHistory#d2816f10`.
+// Delete message history of a forum topic¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/messages.deleteTopicHistory for reference.
 type MessagesDeleteTopicHistoryRequest struct {
-	// Peer field of MessagesDeleteTopicHistoryRequest.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer InputPeerClass
-	// TopMsgID field of MessagesDeleteTopicHistoryRequest.
+	// Topic ID
 	TopMsgID int
 }
 
@@ -193,6 +198,14 @@ func (d *MessagesDeleteTopicHistoryRequest) GetTopMsgID() (value int) {
 }
 
 // MessagesDeleteTopicHistory invokes method messages.deleteTopicHistory#d2816f10 returning error if any.
+// Delete message history of a forum topic¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteTopicHistory for reference.
 func (c *Client) MessagesDeleteTopicHistory(ctx context.Context, request *MessagesDeleteTopicHistoryRequest) (*MessagesAffectedHistory, error) {

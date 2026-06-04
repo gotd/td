@@ -219,6 +219,7 @@ func (g *MessagesGetMessagesReactionsRequest) GetID() (value []int) {
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 func (c *Client) MessagesGetMessagesReactions(ctx context.Context, request *MessagesGetMessagesReactionsRequest) (UpdatesClass, error) {

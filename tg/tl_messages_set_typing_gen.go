@@ -293,6 +293,7 @@ func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	403 GROUPCALL_FORBIDDEN: The group call has already ended.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	406 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.

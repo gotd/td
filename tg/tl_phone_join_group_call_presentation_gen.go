@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneJoinGroupCallPresentationRequest represents TL type `phone.joinGroupCallPresentation#cbea6bc4`.
-// Start screen sharing in a call
+// Start screen sharing in a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.joinGroupCallPresentation for reference.
 type PhoneJoinGroupCallPresentationRequest struct {
@@ -194,7 +197,10 @@ func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
 }
 
 // PhoneJoinGroupCallPresentation invokes method phone.joinGroupCallPresentation#cbea6bc4 returning error if any.
-// Start screen sharing in a call
+// Start screen sharing in a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

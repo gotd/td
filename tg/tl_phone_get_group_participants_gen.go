@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneGetGroupParticipantsRequest represents TL type `phone.getGroupParticipants#c558d8ab`.
-// Get group call participants
+// Get group call¹ participants.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
@@ -42,14 +45,16 @@ type PhoneGetGroupParticipantsRequest struct {
 	IDs []InputPeerClass
 	// If specified, will fetch group participant info about the specified WebRTC source IDs
 	Sources []int
-	// Offset for results, taken from the next_offset field of phone.groupParticipants¹,
-	// initially an empty string. Note: if no more results are available, the method call
-	// will return an empty next_offset; thus, avoid providing the next_offset returned in
-	// phone.groupParticipants² if it is empty, to avoid an infinite loop.
+	// Offset for results, taken from the next_offset field of phone.groupParticipants¹ or
+	// the participants_next_offset field of phone.groupCall², initially an empty string.
+	// Note: if no more results are available, the method call will return an empty
+	// next_offset; thus, avoid providing the next_offset returned in phone
+	// groupParticipants³ if it is empty, to avoid an infinite loop.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/phone.groupParticipants
-	//  2) https://core.telegram.org/constructor/phone.groupParticipants
+	//  2) https://core.telegram.org/constructor/phone.groupCall
+	//  3) https://core.telegram.org/constructor/phone.groupParticipants
 	Offset string
 	// Maximum number of results to return, see pagination¹
 	//
@@ -321,7 +326,10 @@ func (g *PhoneGetGroupParticipantsRequest) MapIDs() (value InputPeerClassArray) 
 }
 
 // PhoneGetGroupParticipants invokes method phone.getGroupParticipants#c558d8ab returning error if any.
-// Get group call participants
+// Get group call¹ participants.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 //
 // Possible errors:
 //

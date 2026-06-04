@@ -46,11 +46,22 @@ type URLAuthResultRequest struct {
 	Flags bin.Fields
 	// Whether the bot would like to send messages to the user
 	RequestWriteAccess bool
-	// RequestPhoneNumber field of URLAuthResultRequest.
+	// The app/website is requesting the user's phone number; if the user consents, set
+	// share_phone_number when calling messages.acceptUrlAuth¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.acceptUrlAuth
 	RequestPhoneNumber bool
-	// MatchCodesFirst field of URLAuthResultRequest.
+	// Can only be set if match_codes is also set; if set, clients must ask the user to
+	// select the matching code before showing the rest of the login confirmation UI, and
+	// must validate the selection with messages.checkUrlAuthMatchCode¹ before proceeding
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.checkUrlAuthMatchCode
 	MatchCodesFirst bool
-	// IsApp field of URLAuthResultRequest.
+	// Set if an OAuth request originated from an app rather than a website; when set, domain
+	// must be replaced in the confirmation prompt by verified_app_name (if present) or
+	// "Unverified App"
 	IsApp bool
 	// Username of a bot, which will be used for user authorization. If not specified, the
 	// current bot's username will be assumed. The url's domain must be the same as the
@@ -61,31 +72,42 @@ type URLAuthResultRequest struct {
 	Bot UserClass
 	// The domain name of the website on which the user will log in.
 	Domain string
-	// Browser field of URLAuthResultRequest.
+	// The browser the user used to make the OAuth request
 	//
 	// Use SetBrowser and GetBrowser helpers.
 	Browser string
-	// Platform field of URLAuthResultRequest.
+	// The platform (operating system) of the user that made the OAuth request
 	//
 	// Use SetPlatform and GetPlatform helpers.
 	Platform string
-	// IP field of URLAuthResultRequest.
+	// The IP address of the user making the OAuth request
 	//
 	// Use SetIP and GetIP helpers.
 	IP string
-	// Region field of URLAuthResultRequest.
+	// The location of the user, inferred from the IP address
 	//
 	// Use SetRegion and GetRegion helpers.
 	Region string
-	// MatchCodes field of URLAuthResultRequest.
+	// A list of emojis or codes, one of which is currently being shown on the login page of
+	// the website/app; the user must select the matching one and pass it to messages
+	// acceptUrlAuth¹.match_code
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.acceptUrlAuth
 	//
 	// Use SetMatchCodes and GetMatchCodes helpers.
 	MatchCodes []string
-	// UserIDHint field of URLAuthResultRequest.
+	// May contain the ID of the account for which the login request was created; if it
+	// matches a logged-in account, clients should automatically switch to that account and
+	// re-invoke messages.requestUrlAuth¹ before showing the prompt
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.requestUrlAuth
 	//
 	// Use SetUserIDHint and GetUserIDHint helpers.
 	UserIDHint int64
-	// VerifiedAppName field of URLAuthResultRequest.
+	// Can only be set if is_app is set and the app is verified; must replace domain in the
+	// confirmation prompt when present
 	//
 	// Use SetVerifiedAppName and GetVerifiedAppName helpers.
 	VerifiedAppName string
@@ -724,9 +746,19 @@ func (u *URLAuthResultRequest) GetVerifiedAppName() (value string, ok bool) {
 //
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type URLAuthResultAccepted struct {
-	// Flags field of URLAuthResultAccepted.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// The URL name of the website on which the user has logged in.
+	// If present, the URL to open in the external browser (may use a custom scheme for
+	// direct switching to another app); if absent, the login succeeded and clients should
+	// simply show a confirmation toast. Always set for bot button URL authorization¹ and
+	// link URL authorization².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/url-authorization#bot-button-url-authorization
+	//  2) https://core.telegram.org/api/url-authorization#link-url-authorization
 	//
 	// Use SetURL and GetURL helpers.
 	URL string

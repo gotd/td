@@ -32,13 +32,16 @@ var (
 )
 
 // PhoneSaveCallDebugRequest represents TL type `phone.saveCallDebug#277add7e`.
-// Send phone call debug data to server
+// Send phone call¹ debug data to server.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#call-debug
 //
 // See https://core.telegram.org/method/phone.saveCallDebug for reference.
 type PhoneSaveCallDebugRequest struct {
 	// Phone call
 	Peer InputPhoneCall
-	// Debug statistics obtained from libtgvoip
+	// Debug statistics obtained from tgcalls
 	Debug DataJSON
 }
 
@@ -189,7 +192,10 @@ func (s *PhoneSaveCallDebugRequest) GetDebug() (value DataJSON) {
 }
 
 // PhoneSaveCallDebug invokes method phone.saveCallDebug#277add7e returning error if any.
-// Send phone call debug data to server
+// Send phone call¹ debug data to server.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#call-debug
 //
 // Possible errors:
 //

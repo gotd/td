@@ -32,12 +32,23 @@ var (
 )
 
 // AuthInitPasskeyLoginRequest represents TL type `auth.initPasskeyLogin#518ad0b7`.
+// Initialize login with a passkey over an unauthenticated connection, see here »¹ for
+// more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#logging-in-with-a-passkey
 //
 // See https://core.telegram.org/method/auth.initPasskeyLogin for reference.
 type AuthInitPasskeyLoginRequest struct {
-	// APIID field of AuthInitPasskeyLoginRequest.
+	// Application identifier (see App configuration¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/myapp
 	APIID int
-	// APIHash field of AuthInitPasskeyLoginRequest.
+	// Application identifier hash (see App configuration¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/myapp
 	APIHash string
 }
 
@@ -188,6 +199,17 @@ func (i *AuthInitPasskeyLoginRequest) GetAPIHash() (value string) {
 }
 
 // AuthInitPasskeyLogin invokes method auth.initPasskeyLogin#518ad0b7 returning error if any.
+// Initialize login with a passkey over an unauthenticated connection, see here »¹ for
+// more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#logging-in-with-a-passkey
+//
+// Possible errors:
+//
+//	400 API_ID_INVALID: API ID invalid.
+//	500 AUTH_RESTART: Restart the authorization process.
+//	500 PASSKEY_AUTH_RESTART:
 //
 // See https://core.telegram.org/method/auth.initPasskeyLogin for reference.
 func (c *Client) AuthInitPasskeyLogin(ctx context.Context, request *AuthInitPasskeyLoginRequest) (*AuthPasskeyLoginOptions, error) {

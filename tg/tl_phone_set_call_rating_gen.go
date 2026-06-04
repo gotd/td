@@ -32,7 +32,11 @@ var (
 )
 
 // PhoneSetCallRatingRequest represents TL type `phone.setCallRating#59ead627`.
-// Rate a call, returns info about the rating message sent to the official VoIP bot.
+// Rate a call, returns info about the rating message sent to the official VoIP bot, see
+// here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#call-rating
 //
 // See https://core.telegram.org/method/phone.setCallRating for reference.
 type PhoneSetCallRatingRequest struct {
@@ -41,13 +45,21 @@ type PhoneSetCallRatingRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the user decided on their own initiative to rate the call
+	// Whether the user decided on their own initiative to rate the call, must NOT be set if
+	// rating was requested by the server with phoneCallDiscarded¹.need_rating.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/phoneCallDiscarded
 	UserInitiative bool
 	// The call to rate
 	Peer InputPhoneCall
 	// Rating in 1-5 stars
 	Rating int
-	// An additional comment
+	// An additional comment with problem hashtags, see here »¹ for more info on the full
+	// flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/calls#call-rating
 	Comment string
 }
 
@@ -272,7 +284,11 @@ func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
 }
 
 // PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.
-// Rate a call, returns info about the rating message sent to the official VoIP bot.
+// Rate a call, returns info about the rating message sent to the official VoIP bot, see
+// here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#call-rating
 //
 // Possible errors:
 //

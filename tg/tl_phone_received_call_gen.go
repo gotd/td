@@ -33,7 +33,11 @@ var (
 
 // PhoneReceivedCallRequest represents TL type `phone.receivedCall#17d54f61`.
 // Optional: notify the server that the user is currently busy in a call: this will
-// automatically refuse all incoming phone calls until the current phone call is ended.
+// automatically refuse all incoming phone calls until the current phone call is ended,
+// see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // See https://core.telegram.org/method/phone.receivedCall for reference.
 type PhoneReceivedCallRequest struct {
@@ -164,7 +168,11 @@ func (r *PhoneReceivedCallRequest) GetPeer() (value InputPhoneCall) {
 
 // PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.
 // Optional: notify the server that the user is currently busy in a call: this will
-// automatically refuse all incoming phone calls until the current phone call is ended.
+// automatically refuse all incoming phone calls until the current phone call is ended,
+// see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // Possible errors:
 //

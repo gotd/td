@@ -32,22 +32,38 @@ var (
 )
 
 // Passkey represents TL type `passkey#98613ebf`.
+// Human-readable info about a passkey associated to an account, returned when creating a
+// passkey »¹ or listing passkeys »².
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
+//  2. https://core.telegram.org/api/passkeys#list-passkeys
 //
 // See https://core.telegram.org/constructor/passkey for reference.
 type Passkey struct {
-	// Flags field of Passkey.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ID field of Passkey.
+	// Unique passkey ID, usable for example in account.deletePasskey¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.deletePasskey
 	ID string
-	// Name field of Passkey.
+	// Human-readable passkey name
 	Name string
-	// Date field of Passkey.
+	// Creation date of the passkey
 	Date int
-	// SoftwareEmojiID field of Passkey.
+	// ID of the custom emoji¹ used as icon for the software or password manager that
+	// created the passkey
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetSoftwareEmojiID and GetSoftwareEmojiID helpers.
 	SoftwareEmojiID int64
-	// LastUsageDate field of Passkey.
+	// Date when the passkey was last used to log in
 	//
 	// Use SetLastUsageDate and GetLastUsageDate helpers.
 	LastUsageDate int

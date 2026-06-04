@@ -32,7 +32,7 @@ var (
 )
 
 // StarRefProgram represents TL type `starRefProgram#dd0c66f2`.
-// Indo about an affiliate program offered by a bot¹
+// Info about an affiliate program offered by a bot¹
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/referrals

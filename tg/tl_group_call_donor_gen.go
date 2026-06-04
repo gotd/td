@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/groupCallDonor for reference.
 type GroupCallDonor struct {
-	// Flags field of GroupCallDonor.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Top field of GroupCallDonor.
 	Top bool

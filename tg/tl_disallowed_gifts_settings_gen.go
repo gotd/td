@@ -66,7 +66,7 @@ type DisallowedGiftsSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	DisallowPremiumGifts bool
-	// DisallowStargiftsFromChannels field of DisallowedGiftsSettings.
+	// Disallow the reception of gifts sent by channels.
 	DisallowStargiftsFromChannels bool
 }
 

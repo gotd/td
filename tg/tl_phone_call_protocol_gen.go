@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneCallProtocol represents TL type `phoneCallProtocol#fc878fc8`.
-// Protocol info for libtgvoip
+// Protocol info for the VoIP library, see here »¹ for details on how to populate it.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#populating-phonecallprotocol
 //
 // See https://core.telegram.org/constructor/phoneCallProtocol for reference.
 type PhoneCallProtocol struct {

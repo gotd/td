@@ -32,28 +32,36 @@ var (
 )
 
 // StarGiftAuctionAcquiredGift represents TL type `starGiftAuctionAcquiredGift#42b00348`.
+// Describes a gift that the current user won in an auction.
 //
 // See https://core.telegram.org/constructor/starGiftAuctionAcquiredGift for reference.
 type StarGiftAuctionAcquiredGift struct {
-	// Flags field of StarGiftAuctionAcquiredGift.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// NameHidden field of StarGiftAuctionAcquiredGift.
+	// If set, your name will be hidden if the destination peer decides to display the gift
+	// on their profile (they will still see that you sent the gift).
 	NameHidden bool
-	// Peer field of StarGiftAuctionAcquiredGift.
+	// The peer that received the gift.
 	Peer PeerClass
-	// Date field of StarGiftAuctionAcquiredGift.
+	// When was the gift obtained.
 	Date int
-	// BidAmount field of StarGiftAuctionAcquiredGift.
+	// The amount in Telegram Stars¹ that was bid in order to obtain the gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	BidAmount int64
-	// Round field of StarGiftAuctionAcquiredGift.
+	// The round number where the gift was obtained.
 	Round int
-	// Pos field of StarGiftAuctionAcquiredGift.
+	// The position of the gift in the auction.
 	Pos int
-	// Message field of StarGiftAuctionAcquiredGift.
+	// Optional message that attached with the gift, passed when making the bid.
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
-	// GiftNum field of StarGiftAuctionAcquiredGift.
+	// If set, the collectible number of the won gift among all collectibles of the same type.
 	//
 	// Use SetGiftNum and GetGiftNum helpers.
 	GiftNum int

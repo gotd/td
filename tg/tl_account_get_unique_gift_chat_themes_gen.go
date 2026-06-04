@@ -40,12 +40,16 @@ var (
 //
 // See https://core.telegram.org/method/account.getUniqueGiftChatThemes for reference.
 type AccountGetUniqueGiftChatThemesRequest struct {
-	// Offset for pagination¹.
+	// Offset for pagination¹, intially an empty string, then equal the value of the last
+	// returned account.chatThemes².next_offset (if set).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
+	//  2) https://core.telegram.org/constructor/account.chatThemes
 	Offset string
-	// Maximum number of results to return, see pagination¹
+	// Maximum number of results to return, see pagination¹. Note that the server may return
+	// less than limit results, even if the actual number of remaining results is >= limit,
+	// paginate to fetch them all.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets

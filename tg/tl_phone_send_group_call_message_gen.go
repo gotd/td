@@ -32,10 +32,17 @@ var (
 )
 
 // PhoneSendGroupCallMessageRequest represents TL type `phone.sendGroupCallMessage#b1d11410`.
+// Send a transient in-call message to all participants of a group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.sendGroupCallMessage for reference.
 type PhoneSendGroupCallMessageRequest struct {
-	// Flags field of PhoneSendGroupCallMessageRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Call field of PhoneSendGroupCallMessageRequest.
 	Call InputGroupCallClass
@@ -339,6 +346,14 @@ func (s *PhoneSendGroupCallMessageRequest) GetSendAs() (value InputPeerClass, ok
 }
 
 // PhoneSendGroupCallMessage invokes method phone.sendGroupCallMessage#b1d11410 returning error if any.
+// Send a transient in-call message to all participants of a group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
+//
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.sendGroupCallMessage for reference.
 func (c *Client) PhoneSendGroupCallMessage(ctx context.Context, request *PhoneSendGroupCallMessageRequest) (UpdatesClass, error) {

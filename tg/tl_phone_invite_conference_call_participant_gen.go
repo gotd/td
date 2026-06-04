@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneInviteConferenceCallParticipantRequest represents TL type `phone.inviteConferenceCallParticipant#bcf22685`.
-// Invite a user to a conference call.
+// Invite a user to a conference call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.inviteConferenceCallParticipant for reference.
 type PhoneInviteConferenceCallParticipantRequest struct {
@@ -255,7 +258,10 @@ func (i *PhoneInviteConferenceCallParticipantRequest) GetUserID() (value InputUs
 }
 
 // PhoneInviteConferenceCallParticipant invokes method phone.inviteConferenceCallParticipant#bcf22685 returning error if any.
-// Invite a user to a conference call.
+// Invite a user to a conference call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // Possible errors:
 //

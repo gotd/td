@@ -32,10 +32,17 @@ var (
 )
 
 // PaymentsGetStarGiftActiveAuctionsRequest represents TL type `payments.getStarGiftActiveAuctions#a5d0514d`.
+// Fetches all currently active gift auctions¹ where the user has placed a bid.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/method/payments.getStarGiftActiveAuctions for reference.
 type PaymentsGetStarGiftActiveAuctionsRequest struct {
-	// Hash field of PaymentsGetStarGiftActiveAuctionsRequest.
+	// Hash generated as specified here »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	Hash int64
 }
 
@@ -161,6 +168,10 @@ func (g *PaymentsGetStarGiftActiveAuctionsRequest) GetHash() (value int64) {
 }
 
 // PaymentsGetStarGiftActiveAuctions invokes method payments.getStarGiftActiveAuctions#a5d0514d returning error if any.
+// Fetches all currently active gift auctions¹ where the user has placed a bid.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/method/payments.getStarGiftActiveAuctions for reference.
 func (c *Client) PaymentsGetStarGiftActiveAuctions(ctx context.Context, hash int64) (PaymentsStarGiftActiveAuctionsClass, error) {

@@ -32,10 +32,11 @@ var (
 )
 
 // StarGiftAttributeRarity represents TL type `starGiftAttributeRarity#36437737`.
+// Exact rarity value for a collectible gift attribute.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeRarity for reference.
 type StarGiftAttributeRarity struct {
-	// Permille field of StarGiftAttributeRarity.
+	// Probability of this attribute, in permille
 	Permille int
 }
 
@@ -166,6 +167,7 @@ func (s *StarGiftAttributeRarity) GetPermille() (value int) {
 }
 
 // StarGiftAttributeRarityUncommon represents TL type `starGiftAttributeRarityUncommon#dbce6389`.
+// Represents uncommon collectible gift attribute rarity.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeRarityUncommon for reference.
 type StarGiftAttributeRarityUncommon struct {
@@ -267,6 +269,7 @@ func (s *StarGiftAttributeRarityUncommon) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarGiftAttributeRarityRare represents TL type `starGiftAttributeRarityRare#f08d516b`.
+// Represents rare collectible gift attribute rarity.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeRarityRare for reference.
 type StarGiftAttributeRarityRare struct {
@@ -368,6 +371,7 @@ func (s *StarGiftAttributeRarityRare) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarGiftAttributeRarityEpic represents TL type `starGiftAttributeRarityEpic#78fbf3a8`.
+// Represents epic collectible gift attribute rarity.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeRarityEpic for reference.
 type StarGiftAttributeRarityEpic struct {
@@ -469,6 +473,7 @@ func (s *StarGiftAttributeRarityEpic) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarGiftAttributeRarityLegendary represents TL type `starGiftAttributeRarityLegendary#cef7e7a8`.
+// Represents legendary collectible gift attribute rarity.
 //
 // See https://core.telegram.org/constructor/starGiftAttributeRarityLegendary for reference.
 type StarGiftAttributeRarityLegendary struct {

@@ -309,9 +309,16 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	BotHasMainApp bool
-	// BotForumView field of User.
+	// If set, this bot supports bot forum topics »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	BotForumView bool
-	// BotForumCanManageTopics field of User.
+	// If set, this bot supports bot forum topics »¹, and users (not just the bot!) are
+	// allowed to create and manage bot forum topics in their private chat with the bot.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	BotForumCanManageTopics bool
 	// BotCanManageBots field of User.
 	BotCanManageBots bool

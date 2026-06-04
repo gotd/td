@@ -247,6 +247,7 @@ func (r *MessagesReadMentionsRequest) GetTopMsgID() (value int, ok bool) {
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 SAVED_PEER_INVALID:
 //
 // See https://core.telegram.org/method/messages.readMentions for reference.
 func (c *Client) MessagesReadMentions(ctx context.Context, request *MessagesReadMentionsRequest) (*MessagesAffectedHistory, error) {

@@ -53,7 +53,7 @@ type MessagesSendMessageRequest struct {
 	// destination chat doesn't have content protection¹ enabled
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// Whether to move used stickersets to top, see here for more info on this flag »¹
 	//
@@ -99,7 +99,12 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// ScheduleRepeatPeriod field of MessagesSendMessageRequest.
+	// Once sent, this message will be automatically re-scheduled to be re-sent again this
+	// many seconds in the future, see here »¹ for more info on repeating scheduled
+	// messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages#repeating-scheduled-messages
 	//
 	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
 	ScheduleRepeatPeriod int
@@ -1113,6 +1118,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	403 CHAT_SEND_PLAIN_FORBIDDEN: You can't send non-media (text) messages in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
+//	400 EFFECT_CHAT_INVALID:
 //	400 ENCRYPTION_DECLINED: The secret chat was declined.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
@@ -1129,7 +1135,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	406 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUOTE_TEXT_INVALID: The specified reply_to.quote_text field is invalid.

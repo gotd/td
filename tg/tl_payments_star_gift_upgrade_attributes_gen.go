@@ -32,10 +32,21 @@ var (
 )
 
 // PaymentsStarGiftUpgradeAttributes represents TL type `payments.starGiftUpgradeAttributes#46c6e36f`.
+// List of just the collectible attributes that may appear for a gift type once it's
+// upgraded to a collectible gift »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/payments.starGiftUpgradeAttributes for reference.
 type PaymentsStarGiftUpgradeAttributes struct {
-	// Attributes field of PaymentsStarGiftUpgradeAttributes.
+	// Full list of possible attributes that may be assigned when gifts of the specified type
+	// are turned into collectible gifts »¹, including craft-only models marked with
+	// starGiftAttributeModel².crafted.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
+	//  2) https://core.telegram.org/constructor/starGiftAttributeModel
 	Attributes []StarGiftAttributeClass
 }
 

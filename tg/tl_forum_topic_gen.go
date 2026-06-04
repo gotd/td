@@ -189,12 +189,12 @@ type ForumTopic struct {
 	// only the my, closed, id, date, title, icon_color, icon_emoji_id and from_id parameters
 	// will contain valid information. Reduced info is usually only returned in topic-related
 	// admin log events »¹ and in the messages.channelMessages² constructor: if needed,
-	// full information can be fetched using channels.getForumTopicsByID³.
+	// full information can be fetched using messages.getForumTopicsByID³.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/recent-actions
 	//  2) https://core.telegram.org/constructor/messages.channelMessages
-	//  3) https://core.telegram.org/method/channels.getForumTopicsByID
+	//  3) https://core.telegram.org/method/messages.getForumTopicsByID
 	Short bool
 	// Whether the topic is hidden (only valid for the "General" topic, id=1)
 	Hidden bool
@@ -207,7 +207,7 @@ type ForumTopic struct {
 	ID int
 	// Topic creation date
 	Date int
-	// Peer field of ForumTopic.
+	// Contains the supergroup/private chat where the topic is located.
 	Peer PeerClass
 	// Topic title
 	Title string

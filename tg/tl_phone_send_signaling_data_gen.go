@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneSendSignalingDataRequest represents TL type `phone.sendSignalingData#ff7a9383`.
-// Send VoIP signaling data
+// Send VoIP signaling data¹ for an ongoing phone call.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#signaling-data
 //
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
 type PhoneSendSignalingDataRequest struct {
@@ -189,7 +192,10 @@ func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
 }
 
 // PhoneSendSignalingData invokes method phone.sendSignalingData#ff7a9383 returning error if any.
-// Send VoIP signaling data
+// Send VoIP signaling data¹ for an ongoing phone call.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#signaling-data
 //
 // Possible errors:
 //

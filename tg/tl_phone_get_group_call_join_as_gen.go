@@ -32,8 +32,11 @@ var (
 )
 
 // PhoneGetGroupCallJoinAsRequest represents TL type `phone.getGroupCallJoinAs#ef7c213a`.
-// Get a list of peers that can be used to join a group call, presenting yourself as a
+// Get a list of peers that can be used to join a group call¹, presenting yourself as a
 // specific user/channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
 //
 // See https://core.telegram.org/method/phone.getGroupCallJoinAs for reference.
 type PhoneGetGroupCallJoinAsRequest struct {
@@ -168,8 +171,11 @@ func (g *PhoneGetGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
 }
 
 // PhoneGetGroupCallJoinAs invokes method phone.getGroupCallJoinAs#ef7c213a returning error if any.
-// Get a list of peers that can be used to join a group call, presenting yourself as a
+// Get a list of peers that can be used to join a group call¹, presenting yourself as a
 // specific user/channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
 //
 // Possible errors:
 //

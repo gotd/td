@@ -32,14 +32,22 @@ var (
 )
 
 // MessagesEditChatCreatorRequest represents TL type `messages.editChatCreator#f743b857`.
+// Transfer the ownership of a basic group, supergroup or channel to another user, see
+// here »¹ for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#transferring-ownership-of-a-groupchannel
 //
 // See https://core.telegram.org/method/messages.editChatCreator for reference.
 type MessagesEditChatCreatorRequest struct {
-	// Peer field of MessagesEditChatCreatorRequest.
+	// Owned group/supergroup/channel.
 	Peer InputPeerClass
-	// UserID field of MessagesEditChatCreatorRequest.
+	// ID of the new owner.
 	UserID InputUserClass
-	// Password field of MessagesEditChatCreatorRequest.
+	// The current account's 2FA password¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	Password InputCheckPasswordSRPClass
 }
 
@@ -235,6 +243,11 @@ func (e *MessagesEditChatCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPas
 }
 
 // MessagesEditChatCreator invokes method messages.editChatCreator#f743b857 returning error if any.
+// Transfer the ownership of a basic group, supergroup or channel to another user, see
+// here »¹ for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#transferring-ownership-of-a-groupchannel
 //
 // See https://core.telegram.org/method/messages.editChatCreator for reference.
 func (c *Client) MessagesEditChatCreator(ctx context.Context, request *MessagesEditChatCreatorRequest) (UpdatesClass, error) {

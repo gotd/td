@@ -2346,10 +2346,18 @@ func (i *InputInvoiceStarGiftPrepaidUpgrade) GetHash() (value string) {
 }
 
 // InputInvoicePremiumAuthCode represents TL type `inputInvoicePremiumAuthCode#3e77f614`.
+// Used to pay for login codes, in case of high cost of SMS verification codes for the
+// user's country/provider, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/auth#paid-auth
 //
 // See https://core.telegram.org/constructor/inputInvoicePremiumAuthCode for reference.
 type InputInvoicePremiumAuthCode struct {
-	// Purpose field of InputInvoicePremiumAuthCode.
+	// Must contain an inputStorePaymentAuthCode¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputStorePaymentAuthCode
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -2485,10 +2493,20 @@ func (i *InputInvoicePremiumAuthCode) GetPurpose() (value InputStorePaymentPurpo
 }
 
 // InputInvoiceStarGiftDropOriginalDetails represents TL type `inputInvoiceStarGiftDropOriginalDetails#923d8d1`.
+// Used to pay for for the removal of the starGiftAttributeOriginalDetails¹ attribute
+// from a collectible gift, see here »² for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
+//  2. https://core.telegram.org/api/gifts#dropping-the-original-details-of-an-upgraded-gift
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftDropOriginalDetails for reference.
 type InputInvoiceStarGiftDropOriginalDetails struct {
-	// Stargift field of InputInvoiceStarGiftDropOriginalDetails.
+	// The collectible gift whose starGiftAttributeOriginalDetails¹ attribute should be
+	// removed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
 	Stargift InputSavedStarGiftClass
 }
 
@@ -2624,24 +2642,49 @@ func (i *InputInvoiceStarGiftDropOriginalDetails) GetStargift() (value InputSave
 }
 
 // InputInvoiceStarGiftAuctionBid represents TL type `inputInvoiceStarGiftAuctionBid#1ecafa10`.
+// Used to place a bid in a collectible gift auction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/inputInvoiceStarGiftAuctionBid for reference.
 type InputInvoiceStarGiftAuctionBid struct {
-	// Flags field of InputInvoiceStarGiftAuctionBid.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HideName field of InputInvoiceStarGiftAuctionBid.
+	// If set, your name will be hidden if the destination peer decides to display the gift
+	// on their profile (they will still see that you sent the gift).    Must not be set when
+	// updating an existing bid, as the value cannot be changed for existing bids.
 	HideName bool
-	// UpdateBid field of InputInvoiceStarGiftAuctionBid.
+	// Must be set when increasing an already existing bid.
 	UpdateBid bool
-	// Peer field of InputInvoiceStarGiftAuctionBid.
+	// Identifier of the user or channel (only if channelFull¹.stargifts_available is set)
+	// that will receive the gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelFull
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
-	// GiftID field of InputInvoiceStarGiftAuctionBid.
+	// Identifier of the gift, from starGift¹.id
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
 	GiftID int64
-	// BidAmount field of InputInvoiceStarGiftAuctionBid.
+	// Total amount of the bid in Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	BidAmount int64
-	// Message field of InputInvoiceStarGiftAuctionBid.
+	// Optional message that will be attached with the gift if we end up winning this round:
+	// the maximum length for this field is specified in the stargifts_message_length_max
+	// client configuration value »¹.    Must not be set when updating an existing bid, as
+	// the value cannot be changed for existing bids.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#stargifts-message-length-max
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities

@@ -32,8 +32,11 @@ var (
 )
 
 // PhoneDeleteConferenceCallParticipantsRequest represents TL type `phone.deleteConferenceCallParticipants#8ca60525`.
-// Remove participants from a conference call.
+// Remove participants from a conference call¹.
 // Exactly one of the only_left and kick flags must be set.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.deleteConferenceCallParticipants for reference.
 type PhoneDeleteConferenceCallParticipantsRequest struct {
@@ -329,8 +332,11 @@ func (d *PhoneDeleteConferenceCallParticipantsRequest) GetBlock() (value []byte)
 }
 
 // PhoneDeleteConferenceCallParticipants invokes method phone.deleteConferenceCallParticipants#8ca60525 returning error if any.
-// Remove participants from a conference call.
+// Remove participants from a conference call¹.
 // Exactly one of the only_left and kick flags must be set.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // Possible errors:
 //

@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
-	// Flags field of PollAnswer.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Textual representation of the answer (only Premium¹ users can use custom emoji
 	// entities² here).

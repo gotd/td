@@ -140,9 +140,15 @@ type UserFull struct {
 	//  2) https://core.telegram.org/api/premium
 	//  3) https://core.telegram.org/api/gifts
 	DisplayGiftsButton bool
-	// NoforwardsMyEnabled field of UserFull.
+	// If set, content protection »¹ was enabled in this private chat by us.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/content-protection#for-users
 	NoforwardsMyEnabled bool
-	// NoforwardsPeerEnabled field of UserFull.
+	// If set, content protection »¹ was enabled in this private chat by this user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/content-protection#for-users
 	NoforwardsPeerEnabled bool
 	// UnofficialSecurityRisk field of UserFull.
 	UnofficialSecurityRisk bool
@@ -370,7 +376,11 @@ type UserFull struct {
 	//
 	// Use SetSavedMusic and GetSavedMusic helpers.
 	SavedMusic DocumentClass
-	// Note field of UserFull.
+	// A private note for this contact, only visible to us; see here »¹ for more info on
+	// contact notes.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/contacts#private-notes-for-contacts
 	//
 	// Use SetNote and GetNote helpers.
 	Note TextWithEntities

@@ -8057,14 +8057,18 @@ func (c *ChannelAdminLogEventActionToggleAutotranslation) GetNewValue() (value b
 }
 
 // ChannelAdminLogEventActionParticipantEditRank represents TL type `channelAdminLogEventActionParticipantEditRank#5806b4ec`.
+// A participant's tag »¹ was changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/rank
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantEditRank for reference.
 type ChannelAdminLogEventActionParticipantEditRank struct {
-	// UserID field of ChannelAdminLogEventActionParticipantEditRank.
+	// The user ID.
 	UserID int64
-	// PrevRank field of ChannelAdminLogEventActionParticipantEditRank.
+	// The previous tag.
 	PrevRank string
-	// NewRank field of ChannelAdminLogEventActionParticipantEditRank.
+	// The new tag.
 	NewRank string
 }
 

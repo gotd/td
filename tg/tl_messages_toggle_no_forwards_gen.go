@@ -32,20 +32,27 @@ var (
 )
 
 // MessagesToggleNoForwardsRequest represents TL type `messages.toggleNoForwards#b2081a35`.
-// Enable or disable content protection¹ on a channel or chat
+// Enable or disable content protection¹ on a channel, group or private chat.
 //
 // Links:
-//  1. https://telegram.org/blog/protected-content-delete-by-date-and-more
+//  1. https://core.telegram.org/api/content-protection
 //
 // See https://core.telegram.org/method/messages.toggleNoForwards for reference.
 type MessagesToggleNoForwardsRequest struct {
-	// Flags field of MessagesToggleNoForwardsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The chat or channel
 	Peer InputPeerClass
 	// Enable or disable content protection
 	Enabled bool
-	// RequestMsgID field of MessagesToggleNoForwardsRequest.
+	// Used only inside private chats to accept or refuse a request to disable content
+	// protection, see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/content-protection#for-users
 	//
 	// Use SetRequestMsgID and GetRequestMsgID helpers.
 	RequestMsgID int
@@ -263,10 +270,10 @@ func (t *MessagesToggleNoForwardsRequest) GetRequestMsgID() (value int, ok bool)
 }
 
 // MessagesToggleNoForwards invokes method messages.toggleNoForwards#b2081a35 returning error if any.
-// Enable or disable content protection¹ on a channel or chat
+// Enable or disable content protection¹ on a channel, group or private chat.
 //
 // Links:
-//  1. https://telegram.org/blog/protected-content-delete-by-date-and-more
+//  1. https://core.telegram.org/api/content-protection
 //
 // Possible errors:
 //

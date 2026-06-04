@@ -57,7 +57,11 @@ type ContactsAddContactRequest struct {
 	// User's phone number, may be omitted to simply add the user to the contact list,
 	// without a phone number.
 	Phone string
-	// Note field of ContactsAddContactRequest.
+	// A private note for this contact, only visible to us; see here »¹ for more info on
+	// contact notes.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/contacts#private-notes-for-contacts
 	//
 	// Use SetNote and GetNote helpers.
 	Note TextWithEntities

@@ -1107,12 +1107,20 @@ func (w *WebPageAttributeStarGiftCollection) MapIcons() (value DocumentClassArra
 }
 
 // WebPageAttributeStarGiftAuction represents TL type `webPageAttributeStarGiftAuction#1c641c2`.
+// Contains info about a collectible gift auction »¹ for a webPage² preview of an
+// auction »³ (the webPage⁴ will have a type of telegram_auction).
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
+//  2. https://core.telegram.org/constructor/webPage
+//  3. https://core.telegram.org/api/auctions
+//  4. https://core.telegram.org/constructor/webPage
 //
 // See https://core.telegram.org/constructor/webPageAttributeStarGiftAuction for reference.
 type WebPageAttributeStarGiftAuction struct {
-	// Gift field of WebPageAttributeStarGiftAuction.
+	// The gift linked to the auction
 	Gift StarGiftClass
-	// EndDate field of WebPageAttributeStarGiftAuction.
+	// Date when the auction will end (UNIX timestamp)
 	EndDate int
 }
 

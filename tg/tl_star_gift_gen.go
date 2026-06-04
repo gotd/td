@@ -59,9 +59,17 @@ type StarGift struct {
 	// limited and specified in per_user_total, and the remaining slots for the current user
 	// in per_user_remains.
 	LimitedPerUser bool
-	// PeerColorAvailable field of StarGift.
+	// If set, collectible gifts of this type may be used to generate a message color palette
+	// and pattern »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors#collectible-message-palettes
 	PeerColorAvailable bool
-	// Auction field of StarGift.
+	// If set, this is a collectible gift that can only be bought through a collectible gift
+	// auction »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	Auction bool
 	// Identifier of the gift
 	ID int64
@@ -146,23 +154,41 @@ type StarGift struct {
 	//
 	// Use SetLockedUntilDate and GetLockedUntilDate helpers.
 	LockedUntilDate int
-	// AuctionSlug field of StarGift.
+	// Always set for gifts that can be bought on auctions »¹, contains the auction deep
+	// link slug »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
+	//  2) https://core.telegram.org/api/links#auction-links
 	//
 	// Use SetAuctionSlug and GetAuctionSlug helpers.
 	AuctionSlug string
-	// GiftsPerRound field of StarGift.
+	// Always set for gifts that can be bought on auctions »¹, contains the number of gifts
+	// of this kind that are distributed on every round.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	//
 	// Use SetGiftsPerRound and GetGiftsPerRound helpers.
 	GiftsPerRound int
-	// AuctionStartDate field of StarGift.
+	// Always set for gifts that can be bought on auctions »¹, contains the UNIX timestamp
+	// indicating when will the auction start (or when the auction started, if it points to
+	// the past).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	//
 	// Use SetAuctionStartDate and GetAuctionStartDate helpers.
 	AuctionStartDate int
-	// UpgradeVariants field of StarGift.
+	// Total number of possible collectible variants »¹ for this gift type.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#listing-all-possible-collectible-variants
 	//
 	// Use SetUpgradeVariants and GetUpgradeVariants helpers.
 	UpgradeVariants int
-	// Background field of StarGift.
+	// Default background palette for this gift type, used when rendering gift cards and
+	// previews before a specific collectible backdrop is chosen.
 	//
 	// Use SetBackground and GetBackground helpers.
 	Background StarGiftBackground
@@ -1403,13 +1429,20 @@ type StarGiftUnique struct {
 	// Links:
 	//  1) https://core.telegram.org/api/themes#chat-themes
 	ThemeAvailable bool
-	// Burned field of StarGiftUnique.
+	// This gift was already used as an ingredient for crafting another collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
 	Burned bool
-	// Crafted field of StarGiftUnique.
+	// This collectible gift was obtained by crafting »¹, not by upgrading a regular gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
 	Crafted bool
-	// Identifier of the collectible gift.
+	// Unique identifier of this collectible gift.
 	ID int64
-	// Unique ID of the gift.
+	// ID of the regular gift from which this gift was upgraded (all collectible gifts
+	// upgraded from the same gift will have the same gift_id, with different attributes).
 	GiftID int64
 	// Collectible title.
 	Title string
@@ -1466,15 +1499,15 @@ type StarGiftUnique struct {
 	//
 	// Use SetReleasedBy and GetReleasedBy helpers.
 	ReleasedBy PeerClass
-	// Price of the gift.
+	// Estimated price of the gift.
 	//
 	// Use SetValueAmount and GetValueAmount helpers.
 	ValueAmount int64
-	// Currency for the gift's price.
+	// Currency for the gift's estimated price.
 	//
 	// Use SetValueCurrency and GetValueCurrency helpers.
 	ValueCurrency string
-	// ValueUsdAmount field of StarGiftUnique.
+	// Estimated price of the gift in USD cents.
 	//
 	// Use SetValueUsdAmount and GetValueUsdAmount helpers.
 	ValueUsdAmount int64
@@ -1486,19 +1519,33 @@ type StarGiftUnique struct {
 	//
 	// Use SetThemePeer and GetThemePeer helpers.
 	ThemePeer PeerClass
-	// PeerColor field of StarGiftUnique.
+	// Can contain a collectible message palette »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors#collectible-message-palettes
 	//
 	// Use SetPeerColor and GetPeerColor helpers.
 	PeerColor PeerColorClass
-	// HostID field of StarGiftUnique.
+	// If set, the gift is currently hosted on the specified user or channel profile even
+	// though ownership belongs to a TON wallet. The owner may transfer, resell or export the
+	// gift, while the host or owner may show it on the profile, use it as a theme/status and
+	// add it to a collection.
 	//
 	// Use SetHostID and GetHostID helpers.
 	HostID PeerClass
-	// OfferMinStars field of StarGiftUnique.
+	// If set, you can send a purchase offer for this gift »¹: the minimum offer price is
+	// specified in this flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
 	//
 	// Use SetOfferMinStars and GetOfferMinStars helpers.
 	OfferMinStars int
-	// CraftChancePermille field of StarGiftUnique.
+	// Success probability, per 1000, contributed by this gift when it is used for crafting
+	// »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
 	//
 	// Use SetCraftChancePermille and GetCraftChancePermille helpers.
 	CraftChancePermille int

@@ -136,7 +136,10 @@ func (e *MessagesEmojiGameUnavailable) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/messages.emojiGameDiceInfo for reference.
 type MessagesEmojiGameDiceInfo struct {
-	// Flags field of MessagesEmojiGameDiceInfo.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// GameHash field of MessagesEmojiGameDiceInfo.
 	GameHash string

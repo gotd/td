@@ -90,22 +90,22 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	SendPolls bool
-	// If set, does not allow any user to change the description of a supergroup/chat¹
+	// If set, does not allow a user to change the description of a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	ChangeInfo bool
-	// If set, does not allow any user to invite users in a supergroup/chat¹
+	// If set, does not allow a user to invite users in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	InviteUsers bool
-	// If set, does not allow any user to pin messages in a supergroup/chat¹
+	// If set, does not allow a user to pin messages in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// If set, does not allow any user to create, delete or modify forum topics »¹.
+	// If set, does not allow a user to create, delete or modify forum topics »¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics

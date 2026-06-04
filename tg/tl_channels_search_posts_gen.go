@@ -449,6 +449,7 @@ func (s *ChannelsSearchPostsRequest) GetAllowPaidStars() (value int64, ok bool) 
 // Possible errors:
 //
 //	420 FROZEN_METHOD_INVALID: The current account is frozen, and thus cannot execute the specified action.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/channels.searchPosts for reference.
 func (c *Client) ChannelsSearchPosts(ctx context.Context, request *ChannelsSearchPostsRequest) (MessagesMessagesClass, error) {

@@ -2198,12 +2198,20 @@ func (s *SendMessageEmojiInteractionSeen) GetEmoticon() (value string) {
 }
 
 // SendMessageTextDraftAction represents TL type `sendMessageTextDraftAction#376d975c`.
+// Used by bots to implement live message streaming »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/ai#live-message-streaming
 //
 // See https://core.telegram.org/constructor/sendMessageTextDraftAction for reference.
 type SendMessageTextDraftAction struct {
-	// RandomID field of SendMessageTextDraftAction.
+	// Live draft ID: used by graphical clients to slightly change the rendering behavior,
+	// see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/ai#live-message-streaming
 	RandomID int64
-	// Text field of SendMessageTextDraftAction.
+	// The contents of the live draft.
 	Text TextWithEntities
 }
 

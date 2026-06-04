@@ -32,10 +32,18 @@ var (
 )
 
 // AuthPasskeyLoginOptions represents TL type `auth.passkeyLoginOptions#e2037789`.
+// Passkey login options, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#logging-in-with-a-passkey
 //
 // See https://core.telegram.org/constructor/auth.passkeyLoginOptions for reference.
 type AuthPasskeyLoginOptions struct {
-	// Options field of AuthPasskeyLoginOptions.
+	// JSON-encoded object whose publicKey field contains a
+	// PublicKeyCredentialRequestOptions¹ object.
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialRequestOptions
 	Options DataJSON
 }
 

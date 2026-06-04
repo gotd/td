@@ -156,15 +156,24 @@ type SavedStarGift struct {
 	//
 	// Use SetPrepaidUpgradeHash and GetPrepaidUpgradeHash helpers.
 	PrepaidUpgradeHash string
-	// DropOriginalDetailsStars field of SavedStarGift.
+	// If set, the starGiftAttributeOriginalDetails¹ attribute of this gift may be removed
+	// by paying the specified amount of stars, see here »² for the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
+	//  2) https://core.telegram.org/api/gifts#dropping-the-original-details-of-an-upgraded-gift
 	//
 	// Use SetDropOriginalDetailsStars and GetDropOriginalDetailsStars helpers.
 	DropOriginalDetailsStars int64
-	// GiftNum field of SavedStarGift.
+	// Collectible number assigned to the gift, if already known.
 	//
 	// Use SetGiftNum and GetGiftNum helpers.
 	GiftNum int
-	// CanCraftAt field of SavedStarGift.
+	// If set, this gift can be used for crafting »¹ only starting from the specified
+	// unixtime.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
 	//
 	// Use SetCanCraftAt and GetCanCraftAt helpers.
 	CanCraftAt int

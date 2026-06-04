@@ -267,26 +267,50 @@ func (p *PeerColor) GetBackgroundEmojiID() (value int64, ok bool) {
 }
 
 // PeerColorCollectible represents TL type `peerColorCollectible#b9c0639a`.
+// Represents a color palette »¹ associated to a collectible gift »², see here »³
+// for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
+//  3. https://core.telegram.org/api/colors#collectible-gift-palettes
 //
 // See https://core.telegram.org/constructor/peerColorCollectible for reference.
 type PeerColorCollectible struct {
-	// Flags field of PeerColorCollectible.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// CollectibleID field of PeerColorCollectible.
+	// ID of the collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	CollectibleID int64
-	// GiftEmojiID field of PeerColorCollectible.
+	// Custom emoji ID »¹ of the collectible gift: a single copy of this custom emoji
+	// should be displayed as-is (without recoloring it, unlike for background_emoji_id) in
+	// the top-right corner of the palette.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	GiftEmojiID int64
-	// BackgroundEmojiID field of PeerColorCollectible.
+	// Custom emoji ID »¹ used to generate the pattern.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	BackgroundEmojiID int64
-	// AccentColor field of PeerColorCollectible.
+	// Accent color in RGB24 format, used for reply backgrounds and the user's name in
+	// messages.
 	AccentColor int
-	// Colors field of PeerColorCollectible.
+	// 1-3 RGB24 colors to be used in the reply strip.
 	Colors []int
-	// DarkAccentColor field of PeerColorCollectible.
+	// Accent color in RGB24 format, used for reply backgrounds and the user's name in
+	// messages in dark mode (fallback to accent_color if absent).
 	//
 	// Use SetDarkAccentColor and GetDarkAccentColor helpers.
 	DarkAccentColor int
-	// DarkColors field of PeerColorCollectible.
+	// 1-3 RGB24 colors to be used in the reply strip in dark mode (fallback to colors if
+	// absent).
 	//
 	// Use SetDarkColors and GetDarkColors helpers.
 	DarkColors []int
@@ -649,10 +673,20 @@ func (p *PeerColorCollectible) GetDarkColors() (value []int, ok bool) {
 }
 
 // InputPeerColorCollectible represents TL type `inputPeerColorCollectible#b8ea86a9`.
+// Represents a color palette »¹ associated to a collectible gift »², see here »³
+// for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
+//  2. https://core.telegram.org/api/gifts#collectible-gifts
+//  3. https://core.telegram.org/api/colors#collectible-gift-palettes
 //
 // See https://core.telegram.org/constructor/inputPeerColorCollectible for reference.
 type InputPeerColorCollectible struct {
-	// CollectibleID field of InputPeerColorCollectible.
+	// ID of the collectible gift »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	CollectibleID int64
 }
 

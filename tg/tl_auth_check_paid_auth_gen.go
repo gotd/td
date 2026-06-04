@@ -32,14 +32,24 @@ var (
 )
 
 // AuthCheckPaidAuthRequest represents TL type `auth.checkPaidAuth#56e59f9c`.
+// Checks the status of a login payment¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auth#paid-auth
 //
 // See https://core.telegram.org/method/auth.checkPaidAuth for reference.
 type AuthCheckPaidAuthRequest struct {
-	// PhoneNumber field of AuthCheckPaidAuthRequest.
+	// Phone number
 	PhoneNumber string
-	// PhoneCodeHash field of AuthCheckPaidAuthRequest.
+	// The phone code hash obtained from auth.sendCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
-	// FormID field of AuthCheckPaidAuthRequest.
+	// The payment form ID passed to payments.sendPaymentForm¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.sendPaymentForm
 	FormID int64
 }
 
@@ -215,6 +225,14 @@ func (c *AuthCheckPaidAuthRequest) GetFormID() (value int64) {
 }
 
 // AuthCheckPaidAuth invokes method auth.checkPaidAuth#56e59f9c returning error if any.
+// Checks the status of a login payment¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auth#paid-auth
+//
+// Possible errors:
+//
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/auth.checkPaidAuth for reference.
 func (c *Client) AuthCheckPaidAuth(ctx context.Context, request *AuthCheckPaidAuthRequest) (AuthSentCodeClass, error) {

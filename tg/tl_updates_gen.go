@@ -32,10 +32,17 @@ var (
 )
 
 // UpdatesTooLong represents TL type `updatesTooLong#e317af7e`.
-// Too many updates, it is necessary to execute updates.getDifference¹.
+// The number of queued updates in the common message box is too large to be delivered
+// passively through the socket, invoke updates.getDifference¹ to fetch the difference
+// as specified in the documentation »².
+// Does not necessarily indicate the message box size limit was reached¹, it simply
+// indicates that the number of queued updates in a message box is too large to be
+// delivered passively through the socket.
 //
 // Links:
 //  1. https://core.telegram.org/method/updates.getDifference
+//  2. https://core.telegram.org/api/updates
+//  3. https://core.telegram.org/api/updates#recovering-gaps-for-very-old-messages
 //
 // See https://core.telegram.org/constructor/updatesTooLong for reference.
 type UpdatesTooLong struct {

@@ -32,12 +32,29 @@ var (
 )
 
 // MessagesCheckURLAuthMatchCodeRequest represents TL type `messages.checkUrlAuthMatchCode#c9a47b0b`.
+// Validate the match code selected by the user against the code shown on the login page,
+// as part of the OAuth authorization flow »¹.
+// Only usable when both match_codes and match_codes_first are set in the
+// urlAuthResultRequest¹ returned by messages.requestUrlAuth².
+// If boolTrue³ is returned, proceed with the login flow and pass the verified code to
+// messages.acceptUrlAuth⁴.match_code.
+//
+// Links:
+//  1. https://core.telegram.org/api/url-authorization#oauth-authorization
+//  2. https://core.telegram.org/constructor/urlAuthResultRequest
+//  3. https://core.telegram.org/method/messages.requestUrlAuth
+//  4. https://core.telegram.org/constructor/boolTrue
+//  5. https://core.telegram.org/method/messages.acceptUrlAuth
 //
 // See https://core.telegram.org/method/messages.checkUrlAuthMatchCode for reference.
 type MessagesCheckURLAuthMatchCodeRequest struct {
-	// URL field of MessagesCheckURLAuthMatchCodeRequest.
+	// The OAuth deep link
 	URL string
-	// MatchCode field of MessagesCheckURLAuthMatchCodeRequest.
+	// The emoji or code selected by the user from the list in urlAuthResultRequest¹
+	// match_codes
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/urlAuthResultRequest
 	MatchCode string
 }
 
@@ -188,6 +205,19 @@ func (c *MessagesCheckURLAuthMatchCodeRequest) GetMatchCode() (value string) {
 }
 
 // MessagesCheckURLAuthMatchCode invokes method messages.checkUrlAuthMatchCode#c9a47b0b returning error if any.
+// Validate the match code selected by the user against the code shown on the login page,
+// as part of the OAuth authorization flow »¹.
+// Only usable when both match_codes and match_codes_first are set in the
+// urlAuthResultRequest¹ returned by messages.requestUrlAuth².
+// If boolTrue³ is returned, proceed with the login flow and pass the verified code to
+// messages.acceptUrlAuth⁴.match_code.
+//
+// Links:
+//  1. https://core.telegram.org/api/url-authorization#oauth-authorization
+//  2. https://core.telegram.org/constructor/urlAuthResultRequest
+//  3. https://core.telegram.org/method/messages.requestUrlAuth
+//  4. https://core.telegram.org/constructor/boolTrue
+//  5. https://core.telegram.org/method/messages.acceptUrlAuth
 //
 // See https://core.telegram.org/method/messages.checkUrlAuthMatchCode for reference.
 func (c *Client) MessagesCheckURLAuthMatchCode(ctx context.Context, request *MessagesCheckURLAuthMatchCodeRequest) (bool, error) {

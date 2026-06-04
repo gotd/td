@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneInviteToGroupCallRequest represents TL type `phone.inviteToGroupCall#7b393160`.
-// Invite a set of users to a group call.
+// Invite a set of users to a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
@@ -217,7 +220,10 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 }
 
 // PhoneInviteToGroupCall invokes method phone.inviteToGroupCall#7b393160 returning error if any.
-// Invite a set of users to a group call.
+// Invite a set of users to a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

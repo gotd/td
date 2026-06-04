@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/stories.startLive for reference.
 type StoriesStartLiveRequest struct {
-	// Flags field of StoriesStartLiveRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Pinned field of StoriesStartLiveRequest.
 	Pinned bool
@@ -49,7 +52,10 @@ type StoriesStartLiveRequest struct {
 	//
 	// Use SetCaption and GetCaption helpers.
 	Caption string
-	// Entities field of StoriesStartLiveRequest.
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -584,6 +590,10 @@ func (s *StoriesStartLiveRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 }
 
 // StoriesStartLive invokes method stories.startLive#d069ccde returning error if any.
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.startLive for reference.
 func (c *Client) StoriesStartLive(ctx context.Context, request *StoriesStartLiveRequest) (UpdatesClass, error) {

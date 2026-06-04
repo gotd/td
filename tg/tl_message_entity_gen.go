@@ -3802,28 +3802,53 @@ func (m *MessageEntityBlockquote) GetLength() (value int) {
 }
 
 // MessageEntityFormattedDate represents TL type `messageEntityFormattedDate#904ac7c7`.
+// Represents a specific point in time, rendered as specified here »¹
+// All flags are optional, with the following limitations:
+// If any of the flags are combined, their rendering order in the text is the following:
+//
+// Links:
+//  1. https://core.telegram.org/api/entities#date-entities
 //
 // See https://core.telegram.org/constructor/messageEntityFormattedDate for reference.
 type MessageEntityFormattedDate struct {
-	// Flags field of MessageEntityFormattedDate.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Relative field of MessageEntityFormattedDate.
+	// If set, render a relative date, see here »¹ for more info. Cannot be combined with
+	// any of the other flags.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#date-entities
 	Relative bool
-	// ShortTime field of MessageEntityFormattedDate.
+	// Renders the time in short format: hours and minutes, according to the user's locale
+	// settings; cannot be combined with long_time.
 	ShortTime bool
-	// LongTime field of MessageEntityFormattedDate.
+	// Renders the time in long format: hours, minutes, seconds and maybe timezone, according
+	// to the user's locale settings; cannot be combined with short_time.
 	LongTime bool
-	// ShortDate field of MessageEntityFormattedDate.
+	// Renders the time in short format: month, date, (and year, if different from the
+	// current one), all according the user's locale settings; cannot be combined with
+	// long_date.
 	ShortDate bool
-	// LongDate field of MessageEntityFormattedDate.
+	// Renders the time in long format: always month, date and year, all according the user's
+	// locale settings; cannot be combined with short_date.
 	LongDate bool
-	// DayOfWeek field of MessageEntityFormattedDate.
+	// Renders the day of the week according to the user's locale settings.
 	DayOfWeek bool
-	// Offset field of MessageEntityFormattedDate.
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length field of MessageEntityFormattedDate.
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
-	// Date field of MessageEntityFormattedDate.
+	// The date as a UNIX timestamp: the allowed value ranges from 0 to the current date plus
+	// 1098 days (time()+1098*86400).
 	Date int
 }
 

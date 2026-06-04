@@ -32,14 +32,22 @@ var (
 )
 
 // MessagesUpdatePinnedForumTopicRequest represents TL type `messages.updatePinnedForumTopic#175df251`.
+// Pin or unpin forum topics¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/messages.updatePinnedForumTopic for reference.
 type MessagesUpdatePinnedForumTopicRequest struct {
-	// Peer field of MessagesUpdatePinnedForumTopicRequest.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer InputPeerClass
-	// TopicID field of MessagesUpdatePinnedForumTopicRequest.
+	// Forum topic ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	TopicID int
-	// Pinned field of MessagesUpdatePinnedForumTopicRequest.
+	// Whether to pin or unpin the topic
 	Pinned bool
 }
 
@@ -220,6 +228,14 @@ func (u *MessagesUpdatePinnedForumTopicRequest) GetPinned() (value bool) {
 }
 
 // MessagesUpdatePinnedForumTopic invokes method messages.updatePinnedForumTopic#175df251 returning error if any.
+// Pin or unpin forum topics¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.updatePinnedForumTopic for reference.
 func (c *Client) MessagesUpdatePinnedForumTopic(ctx context.Context, request *MessagesUpdatePinnedForumTopicRequest) (UpdatesClass, error) {

@@ -32,16 +32,29 @@ var (
 )
 
 // PhoneGetGroupCallRequest represents TL type `phone.getGroupCall#41845db`.
-// Get info about a group call
+// Get info about a group call¹ and its participants.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 type PhoneGetGroupCallRequest struct {
 	// The group call
 	Call InputGroupCallClass
-	// Maximum number of results to return, see pagination¹
+	// Maximum number of participants to return in this call (0 to return a server-defined
+	// amount). If the number of returned participants is less than groupCall¹
+	// participants_count, paginate through the remaining participants using phone
+	// getGroupParticipants², passing to offset the phone.groupCall³
+	// participants_next_offset returned by this call. This parameter behaves in a different
+	// way compared to the limit of phone.getGroupParticipants⁴, see here »⁵ for more
+	// info.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/offsets
+	//  1) https://core.telegram.org/constructor/groupCall
+	//  2) https://core.telegram.org/method/phone.getGroupParticipants
+	//  3) https://core.telegram.org/constructor/phone.groupCall
+	//  4) https://core.telegram.org/method/phone.getGroupParticipants
+	//  5) https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 	Limit int
 }
 
@@ -197,7 +210,10 @@ func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
 }
 
 // PhoneGetGroupCall invokes method phone.getGroupCall#41845db returning error if any.
-// Get info about a group call
+// Get info about a group call¹ and its participants.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 //
 // Possible errors:
 //

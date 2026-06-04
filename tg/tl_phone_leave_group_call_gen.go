@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneLeaveGroupCallRequest represents TL type `phone.leaveGroupCall#500377f9`.
-// Leave a group call
+// Leave a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 type PhoneLeaveGroupCallRequest struct {
@@ -194,7 +197,10 @@ func (l *PhoneLeaveGroupCallRequest) GetSource() (value int) {
 }
 
 // PhoneLeaveGroupCall invokes method phone.leaveGroupCall#500377f9 returning error if any.
-// Leave a group call
+// Leave a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

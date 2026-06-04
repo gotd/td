@@ -1128,10 +1128,11 @@ type ChannelFull struct {
 	//  1) https://core.telegram.org/api/stats
 	CanViewStats bool
 	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive
-	// messages from anonymous group admins in discussion replies via @replies¹
+	// messages from anonymous group admins »¹ in discussion replies via @replies²
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/discussion
+	//  1) https://core.telegram.org/api/rights#anonymous-admins
+	//  2) https://core.telegram.org/api/discussion
 	Blocked bool
 	// Flags, see TL conditional fields¹
 	//

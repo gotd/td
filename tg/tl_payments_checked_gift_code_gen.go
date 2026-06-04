@@ -63,7 +63,7 @@ type PaymentsCheckedGiftCode struct {
 	ToID int64
 	// Creation date of the gift code.
 	Date int
-	// Days field of PaymentsCheckedGiftCode.
+	// Duration of the gifted Telegram Premium subscription, in days.
 	Days int
 	// When was the giftcode imported, if it was imported.
 	//

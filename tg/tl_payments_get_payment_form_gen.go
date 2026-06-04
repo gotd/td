@@ -249,21 +249,28 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 //	400 BOT_INVOICE_INVALID: The specified invoice is invalid.
 //	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
 //	400 GIFT_MONTHS_INVALID: The value passed in invoice.inputInvoicePremiumGiftStars.months is invalid.
+//	400 GIFT_STARS_INVALID: The specified amount of stars is invalid.
 //	400 INVOICE_INVALID: The specified invoice is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MONTH_INVALID: The number of months specified in inputInvoicePremiumGiftStars.months is invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 NO_PAYMENT_NEEDED: The upgrade/transfer of the specified gift was already paid for or is free.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 PREMIUM_PURPOSE_INVALID:
 //	400 SLUG_INVALID: The specified invoice slug is invalid.
 //	400 STARGIFT_ALREADY_CONVERTED: The specified star gift was already converted to Stars.
 //	400 STARGIFT_ALREADY_REFUNDED: The specified star gift was already refunded.
 //	400 STARGIFT_ALREADY_UPGRADED: The specified gift was already upgraded to a collectible gift.
 //	406 STARGIFT_EXPORT_IN_PROGRESS: A gift export is in progress, a detailed and localized description for the error will be emitted via an updateServiceNotification as specified here ».
 //	400 STARGIFT_INVALID: The passed gift is invalid.
+//	400 STARGIFT_MESSAGE_INVALID:
 //	400 STARGIFT_NOT_FOUND: The specified gift was not found.
+//	400 STARGIFT_NOT_OWNER:
 //	400 STARGIFT_OWNER_INVALID: You cannot transfer or sell a gift owned by another user.
 //	400 STARGIFT_PEER_INVALID: The specified inputSavedStarGiftChat.peer is invalid.
 //	400 STARGIFT_RESELL_CURRENCY_NOT_ALLOWED: You can't buy the gift using the specified currency (i.e. trying to pay in Stars for TON gifts).
+//	400 STARGIFT_RESELL_TOO_EARLY_%d:
 //	400 STARGIFT_SLUG_INVALID: The specified gift slug is invalid.
 //	400 STARGIFT_TRANSFER_TOO_EARLY_%d: You cannot transfer this gift yet, wait %d seconds.
 //	400 STARGIFT_UPGRADE_UNAVAILABLE: A received gift can only be upgraded to a collectible gift if the messageActionStarGift/savedStarGift.can_upgrade flag is set.

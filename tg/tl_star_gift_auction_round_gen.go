@@ -32,12 +32,20 @@ var (
 )
 
 // StarGiftAuctionRound represents TL type `starGiftAuctionRound#3aae0528`.
+// Describes one or more collectible gift auction rounds »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/starGiftAuctionRound for reference.
 type StarGiftAuctionRound struct {
-	// Num field of StarGiftAuctionRound.
+	// This object describes all rounds starting from num up until next.num-1 inclusively
+	// (next is the next StarGiftAuctionRound¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/StarGiftAuctionRound
 	Num int
-	// Duration field of StarGiftAuctionRound.
+	// Duration in seconds of the round(s).
 	Duration int
 }
 
@@ -193,16 +201,26 @@ func (s *StarGiftAuctionRound) GetDuration() (value int) {
 }
 
 // StarGiftAuctionRoundExtendable represents TL type `starGiftAuctionRoundExtendable#aa021e5`.
+// Describes one or more extendable collectible gift auction rounds »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/starGiftAuctionRoundExtendable for reference.
 type StarGiftAuctionRoundExtendable struct {
-	// Num field of StarGiftAuctionRoundExtendable.
+	// This object describes all rounds starting from num up until next.num-1 inclusively
+	// (next is the next StarGiftAuctionRound¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/StarGiftAuctionRound
 	Num int
-	// Duration field of StarGiftAuctionRoundExtendable.
+	// Duration in seconds of the round(s).
 	Duration int
-	// ExtendTop field of StarGiftAuctionRoundExtendable.
+	// The round(s) will be extended by extend_window if a bid changes the composition/order
+	// of the top extend_top bidders.
 	ExtendTop int
-	// ExtendWindow field of StarGiftAuctionRoundExtendable.
+	// The round(s) will be extended by this many seconds if a bid changes the
+	// composition/order of the top extend_top bidders.
 	ExtendWindow int
 }
 
@@ -447,10 +465,14 @@ type StarGiftAuctionRoundClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Num field of StarGiftAuctionRound.
+	// This object describes all rounds starting from num up until next.num-1 inclusively
+	// (next is the next StarGiftAuctionRound¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/StarGiftAuctionRound
 	GetNum() (value int)
 
-	// Duration field of StarGiftAuctionRound.
+	// Duration in seconds of the round(s).
 	GetDuration() (value int)
 }
 

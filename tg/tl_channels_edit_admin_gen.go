@@ -39,7 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/channels.editAdmin for reference.
 type ChannelsEditAdminRequest struct {
-	// Flags field of ChannelsEditAdminRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The supergroup/channel¹.
 	//
@@ -50,7 +53,8 @@ type ChannelsEditAdminRequest struct {
 	UserID InputUserClass
 	// The admin rights
 	AdminRights ChatAdminRights
-	// Indicates the role (rank) of the admin in the group: just an arbitrary string
+	// Indicates the role (rank) of the admin in the group: just an arbitrary string. If the
+	// flag is not set, the rank is left unchanged.
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -332,6 +336,7 @@ func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel,
 //	403 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.
 //	400 USER_CREATOR: For channels.editAdmin: you've tried to edit the admin rights of the owner, but you're not the owner; for channels.leaveChannel: you can't leave this channel, because you're its creator.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
+//	400 USER_KICKED: This user was kicked from this supergroup/channel.
 //	403 USER_NOT_MUTUAL_CONTACT: The provided user is not a mutual contact.
 //	403 USER_PRIVACY_RESTRICTED: The user's privacy settings do not allow you to do this.
 //	403 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
