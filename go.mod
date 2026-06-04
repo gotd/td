@@ -17,7 +17,7 @@ require (
 	github.com/k0kubun/pp/v3 v3.5.1
 	github.com/klauspost/compress v1.18.5
 	github.com/ogen-go/ogen v1.20.3
-	github.com/rogpeppe/go-internal v1.14.1
+	github.com/rogpeppe/go-internal v1.15.0
 	github.com/stretchr/testify v1.11.1
 	github.com/yuin/goldmark v1.7.8
 	go.opentelemetry.io/otel v1.42.0
