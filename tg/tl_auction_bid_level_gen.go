@@ -32,14 +32,21 @@ var (
 )
 
 // AuctionBidLevel represents TL type `auctionBidLevel#310240cc`.
+// Describes a bid in an auction¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/auctionBidLevel for reference.
 type AuctionBidLevel struct {
-	// Pos field of AuctionBidLevel.
+	// Position of the bid.
 	Pos int
-	// Amount field of AuctionBidLevel.
+	// Amount of the bid in Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	Amount int64
-	// Date field of AuctionBidLevel.
+	// Date when the bid was placed.
 	Date int
 }
 

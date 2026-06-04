@@ -32,12 +32,16 @@ var (
 )
 
 // StarGiftUpgradePrice represents TL type `starGiftUpgradePrice#99ea331d`.
+// Indicates the price for a gift upgrade »¹ starting from a specific point in time.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
 //
 // See https://core.telegram.org/constructor/starGiftUpgradePrice for reference.
 type StarGiftUpgradePrice struct {
-	// Date field of StarGiftUpgradePrice.
+	// UNIX timestamp indicating when the price will be in effect.
 	Date int
-	// UpgradeStars field of StarGiftUpgradePrice.
+	// Upgrade price.
 	UpgradeStars int64
 }
 

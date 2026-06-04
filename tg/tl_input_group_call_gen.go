@@ -32,7 +32,10 @@ var (
 )
 
 // InputGroupCall represents TL type `inputGroupCall#d8aa840f`.
-// Points to a specific group call
+// Points to a specific group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/constructor/inputGroupCall for reference.
 type InputGroupCall struct {

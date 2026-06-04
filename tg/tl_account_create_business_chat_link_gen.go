@@ -173,6 +173,7 @@ func (c *AccountCreateBusinessChatLinkRequest) GetLink() (value InputBusinessCha
 // Possible errors:
 //
 //	400 CHATLINKS_TOO_MUCH: Too many business chat links were created, please delete some older links.
+//	400 DOCUMENT_INVALID: The specified document is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.createBusinessChatLink for reference.

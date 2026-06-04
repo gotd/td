@@ -33,7 +33,7 @@ var (
 
 // PaymentsGetStarsStatusRequest represents TL type `payments.getStarsStatus#4ea9b3bf`.
 // Get the current Telegram Stars balance¹ of the current account (with
-// peer=inputPeerSelf²), or the stars balance of the bot specified in peer.
+// peer=inputPeerSelf²), or the stars balance of the bot or channel specified in peer.
 //
 // Links:
 //  1. https://core.telegram.org/api/stars
@@ -229,7 +229,7 @@ func (g *PaymentsGetStarsStatusRequest) GetPeer() (value InputPeerClass) {
 
 // PaymentsGetStarsStatus invokes method payments.getStarsStatus#4ea9b3bf returning error if any.
 // Get the current Telegram Stars balance¹ of the current account (with
-// peer=inputPeerSelf²), or the stars balance of the bot specified in peer.
+// peer=inputPeerSelf²), or the stars balance of the bot or channel specified in peer.
 //
 // Links:
 //  1. https://core.telegram.org/api/stars

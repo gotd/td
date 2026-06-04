@@ -54,9 +54,18 @@ type PaymentsGetResaleStarGiftsRequest struct {
 	SortByPrice bool
 	// Sort gifts by number (ascending).
 	SortByNum bool
-	// ForCraft field of PaymentsGetResaleStarGiftsRequest.
+	// Only return collectible gifts that can be bought and used for crafting »¹; render
+	// each returned gift's starGiftUnique².craft_chance_permille as its crafting success
+	// contribution.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
+	//  2) https://core.telegram.org/constructor/starGiftUnique
 	ForCraft bool
-	// StarsOnly field of PaymentsGetResaleStarGiftsRequest.
+	// Only return gifts that can be bought using Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	StarsOnly bool
 	// If a previous call to the method was made and payments.resaleStarGifts¹
 	// attributes_hash was set, pass it here to avoid returning any results if they haven't
@@ -539,6 +548,7 @@ func (g *PaymentsGetResaleStarGiftsRequest) MapAttributes() (value StarGiftAttri
 //
 // Possible errors:
 //
+//	400 STARGIFT_ATTRIBUTE_INVALID:
 //	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.getResaleStarGifts for reference.

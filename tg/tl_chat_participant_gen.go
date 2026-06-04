@@ -32,11 +32,17 @@ var (
 )
 
 // ChatParticipant represents TL type `chatParticipant#38e79fde`.
-// Group member.
+// Basic group¹ member (not usable by supergroups).
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
-	// Flags field of ChatParticipant.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Member user ID
 	UserID int64
@@ -44,7 +50,10 @@ type ChatParticipant struct {
 	InviterID int64
 	// Date added to the group
 	Date int
-	// Rank field of ChatParticipant.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -287,15 +296,24 @@ func (c *ChatParticipant) GetRank() (value string, ok bool) {
 }
 
 // ChatParticipantCreator represents TL type `chatParticipantCreator#e1f867b8`.
-// Represents the creator of the group
+// Represents the creator of the basic group »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
-	// Flags field of ChatParticipantCreator.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ID of the user that created the group
 	UserID int64
-	// Rank field of ChatParticipantCreator.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -488,11 +506,17 @@ func (c *ChatParticipantCreator) GetRank() (value string, ok bool) {
 }
 
 // ChatParticipantAdmin represents TL type `chatParticipantAdmin#360d5d2`.
-// Chat admin
+// Basic group¹ admin (not usable by supergroups).
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
-	// Flags field of ChatParticipantAdmin.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ID of a group member that is admin
 	UserID int64
@@ -500,7 +524,10 @@ type ChatParticipantAdmin struct {
 	InviterID int64
 	// Date when the user was added
 	Date int
-	// Rank field of ChatParticipantAdmin.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -787,7 +814,10 @@ type ChatParticipantClass interface {
 	// Member user ID
 	GetUserID() (value int64)
 
-	// Rank field of ChatParticipant.
+	// The participant's tag »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	GetRank() (value string, ok bool)
 }
 

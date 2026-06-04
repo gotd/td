@@ -32,28 +32,44 @@ var (
 )
 
 // MessagesCreateForumTopicRequest represents TL type `messages.createForumTopic#2f98c3d5`.
+// Create a forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/messages.createForumTopic for reference.
 type MessagesCreateForumTopicRequest struct {
-	// Flags field of MessagesCreateForumTopicRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// TitleMissing field of MessagesCreateForumTopicRequest.
 	TitleMissing bool
-	// Peer field of MessagesCreateForumTopicRequest.
+	// The supergroup, private chat (for forum-enabled bots) or forum bot (for users) where
+	// to create the topic.
 	Peer InputPeerClass
-	// Title field of MessagesCreateForumTopicRequest.
+	// Topic title (maximum UTF-8 length: 128)
 	Title string
-	// IconColor field of MessagesCreateForumTopicRequest.
+	// If no custom emoji icon is specified, specifies the color of the fallback topic icon
+	// (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.
 	//
 	// Use SetIconColor and GetIconColor helpers.
 	IconColor int
-	// IconEmojiID field of MessagesCreateForumTopicRequest.
+	// ID of the custom emoji¹ used as topic icon. Telegram Premium² users can use any
+	// custom emoji, other users can only use the custom emojis contained in the
+	// inputStickerSetEmojiDefaultTopicIcons³ emoji pack.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
+	//  2) https://core.telegram.org/api/premium
+	//  3) https://core.telegram.org/constructor/inputStickerSetEmojiDefaultTopicIcons
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// RandomID field of MessagesCreateForumTopicRequest.
+	// Unique client message ID to prevent duplicate sending of the same event
 	RandomID int64
-	// SendAs field of MessagesCreateForumTopicRequest.
+	// Create the topic as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -422,6 +438,16 @@ func (c *MessagesCreateForumTopicRequest) GetSendAs() (value InputPeerClass, ok 
 }
 
 // MessagesCreateForumTopic invokes method messages.createForumTopic#2f98c3d5 returning error if any.
+// Create a forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.createForumTopic for reference.
 func (c *Client) MessagesCreateForumTopic(ctx context.Context, request *MessagesCreateForumTopicRequest) (UpdatesClass, error) {

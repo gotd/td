@@ -32,10 +32,14 @@ var (
 )
 
 // AccountPasskeys represents TL type `account.passkeys#f8e0aa1c`.
+// List of passkeys »¹ associated to the current account.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#list-passkeys
 //
 // See https://core.telegram.org/constructor/account.passkeys for reference.
 type AccountPasskeys struct {
-	// Passkeys field of AccountPasskeys.
+	// List of passkeys that can be used to log into the current account
 	Passkeys []Passkey
 }
 

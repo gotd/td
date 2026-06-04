@@ -32,6 +32,10 @@ var (
 )
 
 // PhoneGetGroupCallStarsRequest represents TL type `phone.getGroupCallStars#6f636302`.
+// Fetch the livestream¹ donor and paid-message leaderboard.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#livestreams
 //
 // See https://core.telegram.org/method/phone.getGroupCallStars for reference.
 type PhoneGetGroupCallStarsRequest struct {
@@ -166,6 +170,14 @@ func (g *PhoneGetGroupCallStarsRequest) GetCall() (value InputGroupCallClass) {
 }
 
 // PhoneGetGroupCallStars invokes method phone.getGroupCallStars#6f636302 returning error if any.
+// Fetch the livestream¹ donor and paid-message leaderboard.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#livestreams
+//
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.getGroupCallStars for reference.
 func (c *Client) PhoneGetGroupCallStars(ctx context.Context, call InputGroupCallClass) (*PhoneGroupCallStars, error) {

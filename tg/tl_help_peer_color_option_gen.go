@@ -51,11 +51,11 @@ type HelpPeerColorOption struct {
 	ColorID int
 	// Light mode palette. Will be empty for IDs 0 to 6 inclusive, in which case a palette
 	// containing a single color from the following colors should be used: red, orange,
-	// violet, green, cyan, blue, pink for indexes 0 to 6 (i.e. the same colors used for
-	// randomized fallback message accent colors¹).
+	// violet, green, cyan, blue, pink for indexes 0 to 6 (i.e. the same colors used for the
+	// randomized fallback color palette¹).
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/colors
+	//  1) https://core.telegram.org/api/colors#randomized-fallback-color-palette
 	//
 	// Use SetColors and GetColors helpers.
 	Colors HelpPeerColorSetClass

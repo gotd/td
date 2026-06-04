@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneStartScheduledGroupCallRequest represents TL type `phone.startScheduledGroupCall#5680e342`.
-// Start a scheduled group call.
+// Start a scheduled group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // See https://core.telegram.org/method/phone.startScheduledGroupCall for reference.
 type PhoneStartScheduledGroupCallRequest struct {
@@ -167,7 +170,10 @@ func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCallCla
 }
 
 // PhoneStartScheduledGroupCall invokes method phone.startScheduledGroupCall#5680e342 returning error if any.
-// Start a scheduled group call.
+// Start a scheduled group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // Possible errors:
 //

@@ -32,14 +32,28 @@ var (
 )
 
 // InputPasskeyCredentialPublicKey represents TL type `inputPasskeyCredentialPublicKey#3c27b78f`.
+// Public-key passkey credential used both for registration and for login, see creating a
+// passkey »¹ and logging in with a passkey »² for the full flows.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
+//  2. https://core.telegram.org/api/passkeys#logging-in-with-a-passkey
 //
 // See https://core.telegram.org/constructor/inputPasskeyCredentialPublicKey for reference.
 type InputPasskeyCredentialPublicKey struct {
-	// ID field of InputPasskeyCredentialPublicKey.
+	// id field of a PublicKeyCredential¹, passed as-is without base64url-decoding when
+	// using the JSON representation
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential
 	ID string
-	// RawID field of InputPasskeyCredentialPublicKey.
+	// rawId field of a PublicKeyCredential¹, passed as-is without base64url-decoding when
+	// using the JSON representation
+	//
+	// Links:
+	//  1) https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential
 	RawID string
-	// Response field of InputPasskeyCredentialPublicKey.
+	// Registration or login response.
 	Response InputPasskeyResponseClass
 }
 

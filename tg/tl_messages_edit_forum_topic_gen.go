@@ -32,28 +32,44 @@ var (
 )
 
 // MessagesEditForumTopicRequest represents TL type `messages.editForumTopic#cecc1134`.
+// Edit forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/messages.editForumTopic for reference.
 type MessagesEditForumTopicRequest struct {
-	// Flags field of MessagesEditForumTopicRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesEditForumTopicRequest.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer InputPeerClass
-	// TopicID field of MessagesEditForumTopicRequest.
+	// Topic ID
 	TopicID int
-	// Title field of MessagesEditForumTopicRequest.
+	// If present, will update the topic title (maximum UTF-8 length: 128).
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// IconEmojiID field of MessagesEditForumTopicRequest.
+	// If present, updates the custom emoji¹ used as topic icon. Telegram Premium² users
+	// can use any custom emoji, other users can only use the custom emojis contained in the
+	// inputStickerSetEmojiDefaultTopicIcons³ emoji pack. Pass 0 to switch to the fallback
+	// topic icon.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
+	//  2) https://core.telegram.org/api/premium
+	//  3) https://core.telegram.org/constructor/inputStickerSetEmojiDefaultTopicIcons
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// Closed field of MessagesEditForumTopicRequest.
+	// If present, will update the open/closed status of the topic.
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	// Hidden field of MessagesEditForumTopicRequest.
+	// If present, will hide/unhide the topic (only valid for the "General" topic, id=1).
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool
@@ -403,6 +419,14 @@ func (e *MessagesEditForumTopicRequest) GetHidden() (value bool, ok bool) {
 }
 
 // MessagesEditForumTopic invokes method messages.editForumTopic#cecc1134 returning error if any.
+// Edit forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.editForumTopic for reference.
 func (c *Client) MessagesEditForumTopic(ctx context.Context, request *MessagesEditForumTopicRequest) (UpdatesClass, error) {

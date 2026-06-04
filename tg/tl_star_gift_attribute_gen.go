@@ -39,9 +39,16 @@ var (
 //
 // See https://core.telegram.org/constructor/starGiftAttributeModel for reference.
 type StarGiftAttributeModel struct {
-	// Flags field of StarGiftAttributeModel.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Crafted field of StarGiftAttributeModel.
+	// This model is reserved for crafting »¹, and should be filtered out from regular
+	// upgrade previews.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
 	Crafted bool
 	// Name of the model
 	Name string
@@ -50,7 +57,7 @@ type StarGiftAttributeModel struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stickers
 	Document DocumentClass
-	// Rarity field of StarGiftAttributeModel.
+	// Rarity of this model.
 	Rarity StarGiftAttributeRarityClass
 }
 
@@ -303,7 +310,7 @@ type StarGiftAttributePattern struct {
 	Name string
 	// The symbol
 	Document DocumentClass
-	// Rarity field of StarGiftAttributePattern.
+	// Rarity of this pattern.
 	Rarity StarGiftAttributeRarityClass
 }
 
@@ -516,7 +523,7 @@ type StarGiftAttributeBackdrop struct {
 	PatternColor int
 	// Color of the text on the backdrop in RGB24 format.
 	TextColor int
-	// Rarity field of StarGiftAttributeBackdrop.
+	// Rarity of this backdrop.
 	Rarity StarGiftAttributeRarityClass
 }
 

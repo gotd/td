@@ -473,14 +473,16 @@ func (s *AuthSentCodeSuccess) GetAuthorization() (value AuthAuthorizationClass) 
 // AuthSentCodePaymentRequired represents TL type `auth.sentCodePaymentRequired#f8827ebf`.
 // Official apps may receive this constructor, indicating that due to the high cost of
 // SMS verification codes for the user's country/provider, the user must purchase a
-// Telegram Premium¹ subscription in order to proceed with the login/signup.
+// Telegram Premium¹ subscription in order to proceed with the login/signup, see here
+// »² for more info.
 //
 // Links:
 //  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/api/auth#paid-auth
 //
 // See https://core.telegram.org/constructor/auth.sentCodePaymentRequired for reference.
 type AuthSentCodePaymentRequired struct {
-	// Store identifier of the Telegram Premium subscription.
+	// For official apps, tore identifier of the Telegram Premium subscription.
 	StoreProduct string
 	// Phone code hash, to be stored and later re-used with auth.signIn¹
 	//
@@ -493,9 +495,18 @@ type AuthSentCodePaymentRequired struct {
 	SupportEmailSubject string
 	// PremiumDays field of AuthSentCodePaymentRequired.
 	PremiumDays int
-	// Currency field of AuthSentCodePaymentRequired.
+	// Three-letter ISO 4217 currency¹ code.
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of AuthSentCodePaymentRequired.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

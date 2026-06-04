@@ -47,7 +47,11 @@ type MessagesAcceptURLAuthRequest struct {
 	Flags bin.Fields
 	// Set this flag to allow the bot to send messages to you (if requested)
 	WriteAllowed bool
-	// SharePhoneNumber field of MessagesAcceptURLAuthRequest.
+	// Set this flag to share the user's phone number with the bot (if requested via
+	// urlAuthResultRequest¹.request_phone_number and consented to by the user)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/urlAuthResultRequest
 	SharePhoneNumber bool
 	// The location of the message
 	//
@@ -68,7 +72,14 @@ type MessagesAcceptURLAuthRequest struct {
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// MatchCode field of MessagesAcceptURLAuthRequest.
+	// If urlAuthResultRequest¹.match_codes was set, the emoji or code selected by the user
+	// from the provided list; must always be provided when match_codes is set, even if
+	// match_codes_first was set and the code was already validated via messages
+	// checkUrlAuthMatchCode²
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/urlAuthResultRequest
+	//  2) https://core.telegram.org/method/messages.checkUrlAuthMatchCode
 	//
 	// Use SetMatchCode and GetMatchCode helpers.
 	MatchCode string

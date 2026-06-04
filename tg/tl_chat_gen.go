@@ -202,7 +202,7 @@ type Chat struct {
 	// Whether this group is protected¹, thus does not allow forwarding messages from it
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// ID of the group, see here »¹ for more info and the available ID range.
 	//
@@ -1111,7 +1111,7 @@ type Channel struct {
 	// from it
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// Whether a user needs to join the supergroup before they can send messages: can be
 	// false only for discussion groups »¹, toggle using channels.toggleJoinToSend²Changes
@@ -3295,7 +3295,10 @@ type ChannelForbidden struct {
 	Broadcast bool
 	// Is this a supergroup
 	Megagroup bool
-	// Monoforum field of ChannelForbidden.
+	// If set, this is a monoforum »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/monoforum
 	Monoforum bool
 	// Channel ID
 	ID int64
@@ -3877,7 +3880,7 @@ type FullChat interface {
 	// Whether this group is protected¹, thus does not allow forwarding messages from it
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	GetNoforwards() (value bool)
 
 	// ID of the group, see here »¹ for more info and the available ID range.

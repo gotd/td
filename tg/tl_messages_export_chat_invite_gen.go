@@ -468,6 +468,7 @@ func (e *MessagesExportChatInviteRequest) GetSubscriptionPricing() (value StarsS
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 EXPIRE_DATE_INVALID: The specified expiration date is invalid.
+//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PRICING_CHAT_INVALID: The pricing for the subscription is invalid, the maximum price is specified in the stars_subscription_amount_max config key ».

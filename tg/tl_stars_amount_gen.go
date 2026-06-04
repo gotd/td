@@ -42,8 +42,8 @@ type StarsAmount struct {
 	// The integer amount of Telegram Stars.
 	Amount int64
 	// The decimal amount of Telegram Stars, expressed as nanostars (i.e. 1 nanostar is equal
-	// to 1/1'000'000'000th (one billionth) of a Telegram Star). This field may also be
-	// negative (the allowed range is -999999999 to 999999999).
+	// to 1/1_000_000_000th (one billionth) of a Telegram Star). This field may also be
+	// negative (the allowed range is from -999_999_999 to 999_999_999).
 	Nanos int
 }
 

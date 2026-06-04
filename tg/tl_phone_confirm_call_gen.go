@@ -32,10 +32,12 @@ var (
 )
 
 // PhoneConfirmCallRequest represents TL type `phone.confirmCall#2efe1722`.
-// Complete phone call E2E encryption key exchange »¹
+// Complete phone call E2E encryption key exchange »¹, see here »² for more info on
+// the full flow.
 //
 // Links:
 //  1. https://core.telegram.org/api/end-to-end/voice-calls
+//  2. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 type PhoneConfirmCallRequest struct {
@@ -249,10 +251,12 @@ func (c *PhoneConfirmCallRequest) GetProtocol() (value PhoneCallProtocol) {
 }
 
 // PhoneConfirmCall invokes method phone.confirmCall#2efe1722 returning error if any.
-// Complete phone call E2E encryption key exchange »¹
+// Complete phone call E2E encryption key exchange »¹, see here »² for more info on
+// the full flow.
 //
 // Links:
 //  1. https://core.telegram.org/api/end-to-end/voice-calls
+//  2. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // Possible errors:
 //

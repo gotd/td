@@ -499,6 +499,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //	400 FILE_CONTENT_TYPE_INVALID: File content-type is invalid.
 //	400 FILE_TITLE_EMPTY: An empty file title was specified.
 //	400 GIF_CONTENT_TYPE_INVALID: GIF content-type invalid.
+//	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MESSAGE_EMPTY: The provided message is empty.
 //	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 NEXT_OFFSET_INVALID: The specified offset is longer than 64 bytes.

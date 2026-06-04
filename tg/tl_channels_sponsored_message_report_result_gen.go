@@ -33,11 +33,11 @@ var (
 
 // ChannelsSponsoredMessageReportResultChooseOption represents TL type `channels.sponsoredMessageReportResultChooseOption#846f9e42`.
 // The user must choose a report option from the localized options available in options,
-// and after selection, channels.reportSponsoredMessage¹ must be invoked again, passing
+// and after selection, messages.reportSponsoredMessage¹ must be invoked again, passing
 // the option's option field to the option param of the method.
 //
 // Links:
-//  1. https://core.telegram.org/method/channels.reportSponsoredMessage
+//  1. https://core.telegram.org/method/messages.reportSponsoredMessage
 //
 // See https://core.telegram.org/constructor/channels.sponsoredMessageReportResultChooseOption for reference.
 type ChannelsSponsoredMessageReportResultChooseOption struct {

@@ -32,22 +32,44 @@ var (
 )
 
 // PaymentsSendStarGiftOfferRequest represents TL type `payments.sendStarGiftOffer#8fb86b41`.
+// Send an offer to purchase a collectible gift »¹, see here »² for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
+//  2. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
 //
 // See https://core.telegram.org/method/payments.sendStarGiftOffer for reference.
 type PaymentsSendStarGiftOfferRequest struct {
-	// Flags field of PaymentsSendStarGiftOfferRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of PaymentsSendStarGiftOfferRequest.
+	// Owner of the collectible gift: equal to starGiftUnique¹.owner_id.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	Peer InputPeerClass
-	// Slug field of PaymentsSendStarGiftOfferRequest.
+	// Identifier of the collectible gift: equal to starGiftUnique¹.slug.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	Slug string
-	// Price field of PaymentsSendStarGiftOfferRequest.
+	// Offer price, in stars or TON.
 	Price StarsAmountClass
-	// Duration field of PaymentsSendStarGiftOfferRequest.
+	// Duration of the offer, in seconds: must be one of 21600, 43200, 86400, 129600, 172800,
+	// or 259200; can also be 120 in test mode.
 	Duration int
-	// RandomID field of PaymentsSendStarGiftOfferRequest.
+	// Random 64-bit identifier used to avoid sending the same offer twice in case of network
+	// issues.
 	RandomID int64
-	// AllowPaidStars field of PaymentsSendStarGiftOfferRequest.
+	// If the destination peer has paid messages »¹ enabled, specifies the amount of
+	// Telegram Stars² the sending user has agreed to pay in order to send the offer (in
+	// addition to the amount for the offer itself, contained in price).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/paid-messages
+	//  2) https://core.telegram.org/api/stars
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
@@ -345,6 +367,23 @@ func (s *PaymentsSendStarGiftOfferRequest) GetAllowPaidStars() (value int64, ok 
 }
 
 // PaymentsSendStarGiftOffer invokes method payments.sendStarGiftOffer#8fb86b41 returning error if any.
+// Send an offer to purchase a collectible gift »¹, see here »² for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
+//  2. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
+//
+// Possible errors:
+//
+//	400 INPUT_STARS_AMOUNT_INVALID:
+//	400 INPUT_STARS_NANOS_INVALID:
+//	400 INVOICE_INVALID: The specified invoice is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 RESELL_STARS_TOO_FEW:
+//	400 RESELL_STARS_TOO_MUCH:
+//	400 STARGIFT_OFFER_INVALID:
+//	400 STARGIFT_OFFER_NOT_ALLOWED:
+//	400 STARGIFT_SLUG_INVALID: The specified gift slug is invalid.
 //
 // See https://core.telegram.org/method/payments.sendStarGiftOffer for reference.
 func (c *Client) PaymentsSendStarGiftOffer(ctx context.Context, request *PaymentsSendStarGiftOfferRequest) (UpdatesClass, error) {

@@ -32,7 +32,8 @@ var (
 )
 
 // PhoneConnection represents TL type `phoneConnection#9cc123c7`.
-// Identifies an endpoint that can be used to connect to the other user in a phone call
+// DEPRECATED (libtgvoip): Identifies an endpoint that can be used to connect to the
+// other user in a phone call
 //
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
@@ -331,7 +332,10 @@ func (p *PhoneConnection) GetPeerTag() (value []byte) {
 }
 
 // PhoneConnectionWebrtc represents TL type `phoneConnectionWebrtc#635fe375`.
-// WebRTC connection parameters
+// WebRTC connection parameters for a phone call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls
 //
 // See https://core.telegram.org/constructor/phoneConnectionWebrtc for reference.
 type PhoneConnectionWebrtc struct {

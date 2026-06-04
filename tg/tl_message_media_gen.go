@@ -3074,7 +3074,10 @@ func (m *MessageMediaGeoLive) GetProximityNotificationRadius() (value int, ok bo
 //
 // See https://core.telegram.org/constructor/messageMediaPoll for reference.
 type MessageMediaPoll struct {
-	// Flags field of MessageMediaPoll.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The poll
 	Poll Poll
@@ -3310,7 +3313,10 @@ func (m *MessageMediaPoll) GetAttachedMedia() (value MessageMediaClass, ok bool)
 //
 // See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
-	// Flags field of MessageMediaDice.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Dice value¹
 	//
@@ -5342,7 +5348,10 @@ func (m *MessageMediaToDo) GetCompletions() (value []TodoCompletion, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageMediaVideoStream for reference.
 type MessageMediaVideoStream struct {
-	// Flags field of MessageMediaVideoStream.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// RtmpStream field of MessageMediaVideoStream.
 	RtmpStream bool

@@ -32,14 +32,18 @@ var (
 )
 
 // PaymentsStarGiftAuctionAcquiredGifts represents TL type `payments.starGiftAuctionAcquiredGifts#7d5bd1f0`.
+// Describes all the gifts that the current user won in an auction¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/payments.starGiftAuctionAcquiredGifts for reference.
 type PaymentsStarGiftAuctionAcquiredGifts struct {
-	// Gifts field of PaymentsStarGiftAuctionAcquiredGifts.
+	// The gifts
 	Gifts []StarGiftAuctionAcquiredGift
-	// Users field of PaymentsStarGiftAuctionAcquiredGifts.
+	// Mentioned users
 	Users []UserClass
-	// Chats field of PaymentsStarGiftAuctionAcquiredGifts.
+	// Mentioned chats
 	Chats []ChatClass
 }
 

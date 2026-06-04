@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneDeclineConferenceCallInviteRequest represents TL type `phone.declineConferenceCallInvite#3c479971`.
-// Declines a conference call invite.
+// Decline a conference call¹ invite.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.declineConferenceCallInvite for reference.
 type PhoneDeclineConferenceCallInviteRequest struct {
@@ -165,7 +168,10 @@ func (d *PhoneDeclineConferenceCallInviteRequest) GetMsgID() (value int) {
 }
 
 // PhoneDeclineConferenceCallInvite invokes method phone.declineConferenceCallInvite#3c479971 returning error if any.
-// Declines a conference call invite.
+// Decline a conference call¹ invite.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // Possible errors:
 //

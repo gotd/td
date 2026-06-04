@@ -32,10 +32,20 @@ var (
 )
 
 // MessagesDeclineURLAuthRequest represents TL type `messages.declineUrlAuth#35436bbc`.
+// Decline an incoming OAuth authorization request »¹, notifying the server that the
+// user refused the login request.
+//
+// Links:
+//  1. https://core.telegram.org/api/url-authorization#oauth-authorization
 //
 // See https://core.telegram.org/method/messages.declineUrlAuth for reference.
 type MessagesDeclineURLAuthRequest struct {
-	// URL field of MessagesDeclineURLAuthRequest.
+	// The OAuth deep link from the OAUTH_REQUEST push notification¹ or the oauth_request
+	// web event²
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/push-updates#oauth-request
+	//  2) https://core.telegram.org/api/web-events#oauth-request
 	URL string
 }
 
@@ -161,6 +171,11 @@ func (d *MessagesDeclineURLAuthRequest) GetURL() (value string) {
 }
 
 // MessagesDeclineURLAuth invokes method messages.declineUrlAuth#35436bbc returning error if any.
+// Decline an incoming OAuth authorization request »¹, notifying the server that the
+// user refused the login request.
+//
+// Links:
+//  1. https://core.telegram.org/api/url-authorization#oauth-authorization
 //
 // See https://core.telegram.org/method/messages.declineUrlAuth for reference.
 func (c *Client) MessagesDeclineURLAuth(ctx context.Context, url string) (bool, error) {

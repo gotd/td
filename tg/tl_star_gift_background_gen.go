@@ -32,14 +32,18 @@ var (
 )
 
 // StarGiftBackground represents TL type `starGiftBackground#aff56398`.
+// Contains the default background palette of a gift type »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#listing-all-possible-collectible-variants
 //
 // See https://core.telegram.org/constructor/starGiftBackground for reference.
 type StarGiftBackground struct {
-	// CenterColor field of StarGiftBackground.
+	// Center color of the background palette, in RGB24 format.
 	CenterColor int
-	// EdgeColor field of StarGiftBackground.
+	// Edge color of the background palette, in RGB24 format.
 	EdgeColor int
-	// TextColor field of StarGiftBackground.
+	// Text color to use on top of the background palette, in RGB24 format.
 	TextColor int
 }
 

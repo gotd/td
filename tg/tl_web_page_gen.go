@@ -495,13 +495,14 @@ type WebPage struct {
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// Type of the web page. One of the following: - app- article- document- gif- photo-
-	// profile- telegram_album- telegram_background- telegram_bot- telegram_botapp-
-	// telegram_call- telegram_channel- telegram_channel_boost- telegram_channel_direct-
-	// telegram_channel_request- telegram_chat- telegram_chat_request- telegram_chatlist-
-	// telegram_collection- telegram_community- telegram_giftcode- telegram_group_boost-
-	// telegram_livestream- telegram_megagroup- telegram_megagroup_request- telegram_message-
-	// telegram_nft- telegram_stickerset- telegram_story- telegram_story_album-
-	// telegram_theme- telegram_user- telegram_videochat- telegram_voicechat- video
+	// profile- telegram_album- telegram_auction- telegram_background- telegram_bot-
+	// telegram_botapp- telegram_call- telegram_channel- telegram_channel_boost-
+	// telegram_channel_direct- telegram_channel_request- telegram_chat-
+	// telegram_chat_request- telegram_chatlist- telegram_collection- telegram_community-
+	// telegram_giftcode- telegram_group_boost- telegram_livestream- telegram_megagroup-
+	// telegram_megagroup_request- telegram_message- telegram_newbot- telegram_nft-
+	// telegram_stickerset- telegram_story- telegram_story_album- telegram_theme-
+	// telegram_user- telegram_videochat- telegram_voicechat- video
 	//
 	// Use SetType and GetType helpers.
 	Type string

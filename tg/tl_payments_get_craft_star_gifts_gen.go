@@ -32,14 +32,27 @@ var (
 )
 
 // PaymentsGetCraftStarGiftsRequest represents TL type `payments.getCraftStarGifts#fd05dd00`.
+// Obtain owned collectible gifts »¹ of a specific type that can be used for crafting
+// »².
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/api/gifts#crafting-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.getCraftStarGifts for reference.
 type PaymentsGetCraftStarGiftsRequest struct {
-	// GiftID field of PaymentsGetCraftStarGiftsRequest.
+	// Identifier of the base gift type, equal to starGiftUnique¹.gift_id of the first
+	// selected gift.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftUnique
 	GiftID int64
-	// Offset field of PaymentsGetCraftStarGiftsRequest.
+	// Offset for pagination.
 	Offset string
-	// Limit field of PaymentsGetCraftStarGiftsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -215,6 +228,16 @@ func (g *PaymentsGetCraftStarGiftsRequest) GetLimit() (value int) {
 }
 
 // PaymentsGetCraftStarGifts invokes method payments.getCraftStarGifts#fd05dd00 returning error if any.
+// Obtain owned collectible gifts »¹ of a specific type that can be used for crafting
+// »².
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/api/gifts#crafting-collectible-gifts
+//
+// Possible errors:
+//
+//	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.getCraftStarGifts for reference.
 func (c *Client) PaymentsGetCraftStarGifts(ctx context.Context, request *PaymentsGetCraftStarGiftsRequest) (*PaymentsSavedStarGifts, error) {

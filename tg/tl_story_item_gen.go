@@ -489,7 +489,7 @@ type StoryItem struct {
 	// should be kept in RAM, et cetera).
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// Indicates whether the story was edited.
 	Edited bool

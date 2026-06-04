@@ -32,8 +32,11 @@ var (
 )
 
 // PhoneToggleGroupCallRecordRequest represents TL type `phone.toggleGroupCallRecord#f128c708`.
-// Start or stop recording a group call: the recorded audio and video streams will be
+// Start or stop recording a group call¹: the recorded audio and video streams will be
 // automatically sent to Saved messages (the chat with ourselves).
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallRecord for reference.
 type PhoneToggleGroupCallRecordRequest struct {
@@ -355,8 +358,11 @@ func (t *PhoneToggleGroupCallRecordRequest) GetVideoPortrait() (value bool, ok b
 }
 
 // PhoneToggleGroupCallRecord invokes method phone.toggleGroupCallRecord#f128c708 returning error if any.
-// Start or stop recording a group call: the recorded audio and video streams will be
+// Start or stop recording a group call¹: the recorded audio and video streams will be
 // automatically sent to Saved messages (the chat with ourselves).
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

@@ -32,6 +32,11 @@ var (
 )
 
 // PaymentsStarGiftActiveAuctionsNotModified represents TL type `payments.starGiftActiveAuctionsNotModified#db33dad0`.
+// The list of currently active gift auctions¹ where the user has placed a bid hasn't
+// changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/payments.starGiftActiveAuctionsNotModified for reference.
 type PaymentsStarGiftActiveAuctionsNotModified struct {
@@ -135,14 +140,18 @@ func (s *PaymentsStarGiftActiveAuctionsNotModified) DecodeBare(b *bin.Buffer) er
 }
 
 // PaymentsStarGiftActiveAuctions represents TL type `payments.starGiftActiveAuctions#aef6abbc`.
+// Describes all currently active gift auctions¹ where the user has placed a bid.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/payments.starGiftActiveAuctions for reference.
 type PaymentsStarGiftActiveAuctions struct {
-	// Auctions field of PaymentsStarGiftActiveAuctions.
+	// Auctions where the user has placed a bid
 	Auctions []StarGiftActiveAuctionState
-	// Users field of PaymentsStarGiftActiveAuctions.
+	// Mentioned users
 	Users []UserClass
-	// Chats field of PaymentsStarGiftActiveAuctions.
+	// Mentioned chats
 	Chats []ChatClass
 }
 

@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneDiscardCallRequest represents TL type `phone.discardCall#b2cbc1c0`.
-// Refuse or end running call
+// Refuse or end running call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // See https://core.telegram.org/method/phone.discardCall for reference.
 type PhoneDiscardCallRequest struct {
@@ -304,7 +307,10 @@ func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
 }
 
 // PhoneDiscardCall invokes method phone.discardCall#b2cbc1c0 returning error if any.
-// Refuse or end running call
+// Refuse or end running call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls#one-to-one-calls
 //
 // Possible errors:
 //

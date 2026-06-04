@@ -32,14 +32,27 @@ var (
 )
 
 // PaymentsResolveStarGiftOfferRequest represents TL type `payments.resolveStarGiftOffer#e9ce781c`.
+// Accept or decline a previously received collectible gift purchase offer »¹, see here
+// »² for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
+//  2. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
 //
 // See https://core.telegram.org/method/payments.resolveStarGiftOffer for reference.
 type PaymentsResolveStarGiftOfferRequest struct {
-	// Flags field of PaymentsResolveStarGiftOfferRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Decline field of PaymentsResolveStarGiftOfferRequest.
+	// If set, declines the offer; otherwise, accepts it.
 	Decline bool
-	// OfferMsgID field of PaymentsResolveStarGiftOfferRequest.
+	// Identifier of the messageActionStarGiftPurchaseOffer¹ service message describing the
+	// offer to act upon.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageActionStarGiftPurchaseOffer
 	OfferMsgID int
 }
 
@@ -214,6 +227,16 @@ func (r *PaymentsResolveStarGiftOfferRequest) GetOfferMsgID() (value int) {
 }
 
 // PaymentsResolveStarGiftOffer invokes method payments.resolveStarGiftOffer#e9ce781c returning error if any.
+// Accept or decline a previously received collectible gift purchase offer »¹, see here
+// »² for the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
+//  2. https://core.telegram.org/api/gifts#collectible-gift-purchase-offers
+//
+// Possible errors:
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.resolveStarGiftOffer for reference.
 func (c *Client) PaymentsResolveStarGiftOffer(ctx context.Context, request *PaymentsResolveStarGiftOfferRequest) (UpdatesClass, error) {

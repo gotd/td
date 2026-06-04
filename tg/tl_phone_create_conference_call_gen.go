@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneCreateConferenceCallRequest represents TL type `phone.createConferenceCall#7d0444bb`.
-// Create and optionally join a new conference call.
+// Create and optionally join a new conference call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
 type PhoneCreateConferenceCallRequest struct {
@@ -432,7 +435,10 @@ func (c *PhoneCreateConferenceCallRequest) GetParams() (value DataJSON, ok bool)
 }
 
 // PhoneCreateConferenceCall invokes method phone.createConferenceCall#7d0444bb returning error if any.
-// Create and optionally join a new conference call.
+// Create and optionally join a new conference call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.createConferenceCall for reference.
 func (c *Client) PhoneCreateConferenceCall(ctx context.Context, request *PhoneCreateConferenceCallRequest) (UpdatesClass, error) {

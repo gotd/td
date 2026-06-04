@@ -40,7 +40,10 @@ var (
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamRtmpUrl for reference.
 type PhoneGetGroupCallStreamRtmpURLRequest struct {
-	// Flags field of PhoneGetGroupCallStreamRtmpURLRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// LiveStory field of PhoneGetGroupCallStreamRtmpURLRequest.
 	LiveStory bool

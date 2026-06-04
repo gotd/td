@@ -32,6 +32,12 @@ var (
 )
 
 // StarGiftAuctionStateNotModified represents TL type `starGiftAuctionStateNotModified#fe333952`.
+// Returned only by auction methods (never by updates) if the passed version is equal to
+// the remote auction »¹.version, meaning auction information hasn't changed over the
+// locally cached version.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/starGiftAuctionStateNotModified for reference.
 type StarGiftAuctionStateNotModified struct {
@@ -133,32 +139,67 @@ func (s *StarGiftAuctionStateNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // StarGiftAuctionState represents TL type `starGiftAuctionState#771a4e66`.
+// Represents an active or pending auction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/starGiftAuctionState for reference.
 type StarGiftAuctionState struct {
-	// Version field of StarGiftAuctionState.
+	// Only apply incoming starGiftAuctionState¹ constructors if the received version is
+	// bigger than the locally cached version.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAuctionState
 	Version int
-	// StartDate field of StarGiftAuctionState.
+	// UNIX timestamp indicating when the auction will start (or when it started, if it's in
+	// the past).
 	StartDate int
-	// EndDate field of StarGiftAuctionState.
+	// UNIX timestamp indicating when the auction will end
 	EndDate int
-	// MinBidAmount field of StarGiftAuctionState.
+	// Minumum allowed bid amount in Telegram Stars¹: only applicable if the user hasn't
+	// made a bid yet, otherwise must be overridden to the value of
+	// starGiftAuctionUserState².min_bid_amount (which will be set if and only if the user
+	// already made a bid to this auction).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
+	//  2) https://core.telegram.org/constructor/starGiftAuctionUserState
 	MinBidAmount int64
-	// BidLevels field of StarGiftAuctionState.
+	// Contains a sparse list of bids starting from the top bids, a more detailed description
+	// is available in the docs¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	BidLevels []AuctionBidLevel
-	// TopBidders field of StarGiftAuctionState.
+	// User IDs of the top 3 bidders (the user¹ constructors will be returned as min²
+	// constructors in the containing object).
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/user
+	//  2) https://core.telegram.org/api/min
 	TopBidders []int64
-	// NextRoundAt field of StarGiftAuctionState.
+	// UNIX timestamp indicating when the current auction round will end, distributing
+	// starGift¹.gifts_per_round gifts to the top starGift².gifts_per_round bidders.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGift
+	//  2) https://core.telegram.org/constructor/starGift
 	NextRoundAt int
-	// LastGiftNum field of StarGiftAuctionState.
+	// The number of gifts that were distributed in the previous round (also used to compute
+	// the approximated index of the gift that the current user will receive, last_gift_num +
+	// approx_pos, see here »¹ for more info).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	LastGiftNum int
-	// GiftsLeft field of StarGiftAuctionState.
+	// The remaining number of gifts that are yet to be distributed.
 	GiftsLeft int
-	// CurrentRound field of StarGiftAuctionState.
+	// The current round number (starting from 1).
 	CurrentRound int
-	// TotalRounds field of StarGiftAuctionState.
+	// The total number of rounds in this auction.
 	TotalRounds int
-	// Rounds field of StarGiftAuctionState.
+	// Detailed round information.
 	Rounds []StarGiftAuctionRoundClass
 }
 
@@ -615,26 +656,44 @@ func (s *StarGiftAuctionState) MapRounds() (value StarGiftAuctionRoundClassArray
 }
 
 // StarGiftAuctionStateFinished represents TL type `starGiftAuctionStateFinished#972dabbf`.
+// Represents a finished auction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/starGiftAuctionStateFinished for reference.
 type StarGiftAuctionStateFinished struct {
-	// Flags field of StarGiftAuctionStateFinished.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// StartDate field of StarGiftAuctionStateFinished.
+	// UNIX timestamp indicating when the auction started.
 	StartDate int
-	// EndDate field of StarGiftAuctionStateFinished.
+	// UNIX timestamp indicating when the auction ended.
 	EndDate int
-	// AveragePrice field of StarGiftAuctionStateFinished.
+	// Average price of distributed gifts.
 	AveragePrice int64
-	// ListedCount field of StarGiftAuctionStateFinished.
+	// Number of gifts from the auction currently being resold on Telegram: if set, when the
+	// corresponding element is clicked in graphical clients, payments.getResaleStarGifts¹
+	// should be invoked with the ID of the gift associated to this auction, see here »²
+	// for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getResaleStarGifts
+	//  2) https://core.telegram.org/api/auctions
 	//
 	// Use SetListedCount and GetListedCount helpers.
 	ListedCount int
-	// FragmentListedCount field of StarGiftAuctionStateFinished.
+	// Number of gifts from the auction currently being resold on Fragment¹.
+	//
+	// Links:
+	//  1) https://fragment.com
 	//
 	// Use SetFragmentListedCount and GetFragmentListedCount helpers.
 	FragmentListedCount int
-	// FragmentListedURL field of StarGiftAuctionStateFinished.
+	// Only set if fragment_listed_count is set. If set, when the corresponding element is
+	// clicked in graphical clients, this URL should be opened.
 	//
 	// Use SetFragmentListedURL and GetFragmentListedURL helpers.
 	FragmentListedURL string
@@ -1029,10 +1088,11 @@ type ModifiedStarGiftAuctionState interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// StartDate field of StarGiftAuctionState.
+	// UNIX timestamp indicating when the auction will start (or when it started, if it's in
+	// the past).
 	GetStartDate() (value int)
 
-	// EndDate field of StarGiftAuctionState.
+	// UNIX timestamp indicating when the auction will end
 	GetEndDate() (value int)
 }
 

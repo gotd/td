@@ -251,6 +251,7 @@ func (g *MessagesGetSponsoredMessagesRequest) GetMsgID() (value int, ok bool) {
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/messages.getSponsoredMessages for reference.
 func (c *Client) MessagesGetSponsoredMessages(ctx context.Context, request *MessagesGetSponsoredMessagesRequest) (MessagesSponsoredMessagesClass, error) {

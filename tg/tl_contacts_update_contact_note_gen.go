@@ -32,12 +32,16 @@ var (
 )
 
 // ContactsUpdateContactNoteRequest represents TL type `contacts.updateContactNote#139f63fb`.
+// Update the private note associated to a contact; see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/contacts#private-notes-for-contacts
 //
 // See https://core.telegram.org/method/contacts.updateContactNote for reference.
 type ContactsUpdateContactNoteRequest struct {
-	// ID field of ContactsUpdateContactNoteRequest.
+	// The contact.
 	ID InputUserClass
-	// Note field of ContactsUpdateContactNoteRequest.
+	// The note.
 	Note TextWithEntities
 }
 
@@ -193,6 +197,14 @@ func (u *ContactsUpdateContactNoteRequest) GetNote() (value TextWithEntities) {
 }
 
 // ContactsUpdateContactNote invokes method contacts.updateContactNote#139f63fb returning error if any.
+// Update the private note associated to a contact; see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/contacts#private-notes-for-contacts
+//
+// Possible errors:
+//
+//	400 CONTACT_ID_INVALID: The provided contact ID is invalid.
 //
 // See https://core.telegram.org/method/contacts.updateContactNote for reference.
 func (c *Client) ContactsUpdateContactNote(ctx context.Context, request *ContactsUpdateContactNoteRequest) (bool, error) {

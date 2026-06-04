@@ -39,7 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 type MessagesSendBotRequestedPeerRequest struct {
-	// Flags field of MessagesSendBotRequestedPeerRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The bot that sent the keyboardButtonRequestPeer¹ button.
 	//

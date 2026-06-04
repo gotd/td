@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneSaveDefaultGroupCallJoinAsRequest represents TL type `phone.saveDefaultGroupCallJoinAs#575e1f8c`.
-// Set the default peer that will be used to join a group call in a specific dialog.
+// Set the default peer that will be used to join a group call¹ in a specific dialog.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
 //
 // See https://core.telegram.org/method/phone.saveDefaultGroupCallJoinAs for reference.
 type PhoneSaveDefaultGroupCallJoinAsRequest struct {
@@ -200,7 +203,10 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerCla
 }
 
 // PhoneSaveDefaultGroupCallJoinAs invokes method phone.saveDefaultGroupCallJoinAs#575e1f8c returning error if any.
-// Set the default peer that will be used to join a group call in a specific dialog.
+// Set the default peer that will be used to join a group call¹ in a specific dialog.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
 //
 // Possible errors:
 //

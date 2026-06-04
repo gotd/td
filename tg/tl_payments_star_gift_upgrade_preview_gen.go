@@ -44,9 +44,13 @@ var (
 type PaymentsStarGiftUpgradePreview struct {
 	// Possible gift attributes
 	SampleAttributes []StarGiftAttributeClass
-	// Prices field of PaymentsStarGiftUpgradePreview.
+	// Contains a similar list of upgrade prices and timestamps, not as granular as in
+	// next_prices (i.e. prices are approximately 1 month apart), to be used mainly to scale
+	// the price graph, and to show a more general future overview of the upgrade price.
 	Prices []StarGiftUpgradePrice
-	// NextPrices field of PaymentsStarGiftUpgradePreview.
+	// Contains the current upgrade price and a list of future prices, each associated to a
+	// UNIX timestamp that indicates when the price comes in effect (the current price is
+	// valid only until the next one comes into effect, and so on for all prices in the list).
 	NextPrices []StarGiftUpgradePrice
 }
 

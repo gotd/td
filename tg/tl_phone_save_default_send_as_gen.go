@@ -199,6 +199,10 @@ func (s *PhoneSaveDefaultSendAsRequest) GetSendAs() (value InputPeerClass) {
 
 // PhoneSaveDefaultSendAs invokes method phone.saveDefaultSendAs#4167add1 returning error if any.
 //
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
+//
 // See https://core.telegram.org/method/phone.saveDefaultSendAs for reference.
 func (c *Client) PhoneSaveDefaultSendAs(ctx context.Context, request *PhoneSaveDefaultSendAsRequest) (bool, error) {
 	var result BoolBox

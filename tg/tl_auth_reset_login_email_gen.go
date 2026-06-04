@@ -202,6 +202,7 @@ func (r *AuthResetLoginEmailRequest) GetPhoneCodeHash() (value string) {
 //
 // Possible errors:
 //
+//	400 EMAIL_INSTALL_MISSING:
 //	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //	400 TASK_ALREADY_EXISTS: An email reset was already requested.
 //

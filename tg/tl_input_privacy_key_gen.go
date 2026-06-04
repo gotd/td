@@ -1383,6 +1383,10 @@ func (i *InputPrivacyKeyNoPaidMessages) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeySavedMusic represents TL type `inputPrivacyKeySavedMusic#4dbe9226`.
+// Whether the user can see the songs we pinned to our profile »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#music
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeySavedMusic for reference.
 type InputPrivacyKeySavedMusic struct {

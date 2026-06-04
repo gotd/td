@@ -64,7 +64,12 @@ type MessagesRequestURLAuthRequest struct {
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// InAppOrigin field of MessagesRequestURLAuthRequest.
+	// For OAuth authorization from mini apps »¹: the origin of the webview that originated
+	// the OAuth request, in the format scheme://host (or scheme://host:port for non-default
+	// ports)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/url-authorization#oauth-authorization-for-mini-apps
 	//
 	// Use SetInAppOrigin and GetInAppOrigin helpers.
 	InAppOrigin string

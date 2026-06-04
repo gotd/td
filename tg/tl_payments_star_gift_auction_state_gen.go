@@ -32,20 +32,30 @@ var (
 )
 
 // PaymentsStarGiftAuctionState represents TL type `payments.starGiftAuctionState#6b39f4ec`.
+// Describes a collectible gift auction »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/payments.starGiftAuctionState for reference.
 type PaymentsStarGiftAuctionState struct {
-	// Gift field of PaymentsStarGiftAuctionState.
+	// The gift currently being distributed in the auction.
 	Gift StarGiftClass
-	// State field of PaymentsStarGiftAuctionState.
+	// Auction state.
 	State StarGiftAuctionStateClass
-	// UserState field of PaymentsStarGiftAuctionState.
+	// Auction state related to the current user (i.e. info about placed bids, won gifts, and
+	// so on).
 	UserState StarGiftAuctionUserState
-	// Timeout field of PaymentsStarGiftAuctionState.
+	// Re-invoke the payments.getStarGiftAuctionState¹ method after timeout seconds to keep
+	// receiving auction updates, see here »² for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getStarGiftAuctionState
+	//  2) https://core.telegram.org/api/auctions
 	Timeout int
-	// Users field of PaymentsStarGiftAuctionState.
+	// Mentioned users
 	Users []UserClass
-	// Chats field of PaymentsStarGiftAuctionState.
+	// Mentioned chats
 	Chats []ChatClass
 }
 

@@ -56,7 +56,7 @@ type MessagesForwardMessagesRequest struct {
 	// destination chat doesn't have content protection¹ enabled
 	//
 	// Links:
-	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
+	//  1) https://telegram.org/blog/content-protection-delete-by-date-and-more
 	Noforwards bool
 	// Bots only: if set, allows sending up to 1000 messages per second, ignoring
 	// broadcasting limits¹ for a fee of 0.1 Telegram Stars per message. The relevant Stars
@@ -93,7 +93,12 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// ScheduleRepeatPeriod field of MessagesForwardMessagesRequest.
+	// Once sent, this message will be automatically re-scheduled to be re-sent again this
+	// many seconds in the future, see here »¹ for more info on repeating scheduled
+	// messages.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages#repeating-scheduled-messages
 	//
 	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
 	ScheduleRepeatPeriod int
@@ -108,7 +113,10 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Use SetQuickReplyShortcut and GetQuickReplyShortcut helpers.
 	QuickReplyShortcut InputQuickReplyShortcutClass
-	// Effect field of MessagesForwardMessagesRequest.
+	// Specifies a message effect »¹ to use for the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/effects
 	//
 	// Use SetEffect and GetEffect helpers.
 	Effect int64
@@ -1103,10 +1111,11 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	400 MESSAGE_IDS_EMPTY: No message ids were provided.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
+//	500 NEED_DOC_INVALID:
 //	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
 //	406 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
-//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
+//	406 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUIZ_ANSWER_MISSING: You can forward a quiz while hiding the original author only after choosing an option in the quiz.

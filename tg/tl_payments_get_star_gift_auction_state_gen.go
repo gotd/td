@@ -32,12 +32,25 @@ var (
 )
 
 // PaymentsGetStarGiftAuctionStateRequest represents TL type `payments.getStarGiftAuctionState#5c9ff4d6`.
+// Returns info about a collectible gift auction »¹; also subscribes the user to
+// auction updates, see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
+//  2. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/method/payments.getStarGiftAuctionState for reference.
 type PaymentsGetStarGiftAuctionStateRequest struct {
-	// Auction field of PaymentsGetStarGiftAuctionStateRequest.
+	// Either the ID of the gift linked to the auction, or an auction deep link slug »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#auction-links
 	Auction InputStarGiftAuctionClass
-	// Version field of PaymentsGetStarGiftAuctionStateRequest.
+	// Initially 0, then set to the returned starGiftAuctionState¹.version, to avoid
+	// refetching results if they haven't changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAuctionState
 	Version int
 }
 
@@ -193,6 +206,16 @@ func (g *PaymentsGetStarGiftAuctionStateRequest) GetVersion() (value int) {
 }
 
 // PaymentsGetStarGiftAuctionState invokes method payments.getStarGiftAuctionState#5c9ff4d6 returning error if any.
+// Returns info about a collectible gift auction »¹; also subscribes the user to
+// auction updates, see here »² for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
+//  2. https://core.telegram.org/api/auctions
+//
+// Possible errors:
+//
+//	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.getStarGiftAuctionState for reference.
 func (c *Client) PaymentsGetStarGiftAuctionState(ctx context.Context, request *PaymentsGetStarGiftAuctionStateRequest) (*PaymentsStarGiftAuctionState, error) {

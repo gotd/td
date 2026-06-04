@@ -32,6 +32,12 @@ var (
 )
 
 // PhoneSendGroupCallEncryptedMessageRequest represents TL type `phone.sendGroupCallEncryptedMessage#e5afa56d`.
+// Send an E2E-encrypted message to all participants of a conference call¹, using the
+// E2E encryption protocol².
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  2. https://core.telegram.org/api/end-to-end/group-calls#encryption-protocol
 //
 // See https://core.telegram.org/method/phone.sendGroupCallEncryptedMessage for reference.
 type PhoneSendGroupCallEncryptedMessageRequest struct {
@@ -193,6 +199,16 @@ func (s *PhoneSendGroupCallEncryptedMessageRequest) GetEncryptedMessage() (value
 }
 
 // PhoneSendGroupCallEncryptedMessage invokes method phone.sendGroupCallEncryptedMessage#e5afa56d returning error if any.
+// Send an E2E-encrypted message to all participants of a conference call¹, using the
+// E2E encryption protocol².
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  2. https://core.telegram.org/api/end-to-end/group-calls#encryption-protocol
+//
+// Possible errors:
+//
+//	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.sendGroupCallEncryptedMessage for reference.
 func (c *Client) PhoneSendGroupCallEncryptedMessage(ctx context.Context, request *PhoneSendGroupCallEncryptedMessageRequest) (bool, error) {

@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneToggleGroupCallSettingsRequest represents TL type `phone.toggleGroupCallSettings#974392f2`.
-// Change group call settings
+// Change group call¹ settings.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
 type PhoneToggleGroupCallSettingsRequest struct {
@@ -368,7 +371,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) GetSendPaidMessagesStars() (value 
 }
 
 // PhoneToggleGroupCallSettings invokes method phone.toggleGroupCallSettings#974392f2 returning error if any.
-// Change group call settings
+// Change group call¹ settings.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

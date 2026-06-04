@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneLeaveGroupCallPresentationRequest represents TL type `phone.leaveGroupCallPresentation#1c50d144`.
-// Stop screen sharing in a group call
+// Stop screen sharing in a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // See https://core.telegram.org/method/phone.leaveGroupCallPresentation for reference.
 type PhoneLeaveGroupCallPresentationRequest struct {
@@ -167,7 +170,10 @@ func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall
 }
 
 // PhoneLeaveGroupCallPresentation invokes method phone.leaveGroupCallPresentation#1c50d144 returning error if any.
-// Stop screen sharing in a group call
+// Stop screen sharing in a group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls
 //
 // Possible errors:
 //

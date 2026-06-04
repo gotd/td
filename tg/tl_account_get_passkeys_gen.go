@@ -32,6 +32,11 @@ var (
 )
 
 // AccountGetPasskeysRequest represents TL type `account.getPasskeys#ea1f0c52`.
+// List the passkeys associated to the current account that can be used to log in, see
+// here »¹ for more info on passkeys.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#list-passkeys
 //
 // See https://core.telegram.org/method/account.getPasskeys for reference.
 type AccountGetPasskeysRequest struct {
@@ -128,6 +133,11 @@ func (g *AccountGetPasskeysRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountGetPasskeys invokes method account.getPasskeys#ea1f0c52 returning error if any.
+// List the passkeys associated to the current account that can be used to log in, see
+// here »¹ for more info on passkeys.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#list-passkeys
 //
 // See https://core.telegram.org/method/account.getPasskeys for reference.
 func (c *Client) AccountGetPasskeys(ctx context.Context) (*AccountPasskeys, error) {

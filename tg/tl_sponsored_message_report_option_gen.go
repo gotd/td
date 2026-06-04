@@ -41,10 +41,10 @@ var (
 type SponsoredMessageReportOption struct {
 	// Localized description of the option.
 	Text string
-	// Option identifier to pass to channels.reportSponsoredMessage¹.
+	// Option identifier to pass to messages.reportSponsoredMessage¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/method/channels.reportSponsoredMessage
+	//  1) https://core.telegram.org/method/messages.reportSponsoredMessage
 	Option []byte
 }
 

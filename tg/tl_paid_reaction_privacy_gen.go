@@ -239,7 +239,8 @@ func (p *PaidReactionPrivacyAnonymous) DecodeBare(b *bin.Buffer) error {
 }
 
 // PaidReactionPrivacyPeer represents TL type `paidReactionPrivacyPeer#dc6cfcf0`.
-// Send paid reactions as the specified peer, fetched using channels.getSendAs¹.
+// Send paid reactions as the specified peer, fetched using channels.getSendAs¹ with the
+// for_paid_reactions flag set.
 //
 // Links:
 //  1. https://core.telegram.org/method/channels.getSendAs

@@ -167,7 +167,10 @@ func (p *PhoneCallEmpty) GetID() (value int64) {
 }
 
 // PhoneCallWaiting represents TL type `phoneCallWaiting#c5226f17`.
-// Incoming phone call
+// Incoming phone call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls
 //
 // See https://core.telegram.org/constructor/phoneCallWaiting for reference.
 type PhoneCallWaiting struct {
@@ -541,7 +544,10 @@ func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
 }
 
 // PhoneCallRequested represents TL type `phoneCallRequested#14b0ed0c`.
-// Requested phone call
+// Requested phone call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls
 //
 // See https://core.telegram.org/constructor/phoneCallRequested for reference.
 type PhoneCallRequested struct {
@@ -897,7 +903,10 @@ func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
 }
 
 // PhoneCallAccepted represents TL type `phoneCallAccepted#3660c311`.
-// An accepted phone call
+// An accepted phone call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls
 //
 // See https://core.telegram.org/constructor/phoneCallAccepted for reference.
 type PhoneCallAccepted struct {
@@ -1253,7 +1262,10 @@ func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
 }
 
 // PhoneCall represents TL type `phoneCall#30535af5`.
-// Phone call
+// Phone call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls
 //
 // See https://core.telegram.org/constructor/phoneCall for reference.
 type PhoneCall struct {
@@ -1837,7 +1849,10 @@ func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
 }
 
 // PhoneCallDiscarded represents TL type `phoneCallDiscarded#50ca4de1`.
-// Indicates a discarded phone call
+// Indicates a discarded phone call, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/calls
 //
 // See https://core.telegram.org/constructor/phoneCallDiscarded for reference.
 type PhoneCallDiscarded struct {

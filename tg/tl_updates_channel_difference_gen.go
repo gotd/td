@@ -278,12 +278,11 @@ func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
 }
 
 // UpdatesChannelDifferenceTooLong represents TL type `updates.channelDifferenceTooLong#a4bcc6fe`.
-// The provided pts + limit < remote pts. Simply, there are too many updates to be
-// fetched (more than limit), the client has to resolve the update gap in one of the
-// following ways (assuming the existence of a persistent database to locally store
-// messages):
-// It should be also noted that some messages like live location messages shouldn't be
-// deleted.
+// The passed pts is too old: one or more updates starting from the specified PTS were
+// deleted from the message box of this channel.
+// For supergroups/channels, this usually happens for updates older than latestPts -
+// 100000 (though do not rely on this value, it's a server-side implementation detail
+// that may change, and should not be used by clients in any way).
 //
 // See https://core.telegram.org/constructor/updates.channelDifferenceTooLong for reference.
 type UpdatesChannelDifferenceTooLong struct {
@@ -292,7 +291,7 @@ type UpdatesChannelDifferenceTooLong struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether there are more updates that must be fetched (always false)
+	// Whether there are more updates that must be fetched (always set)
 	Final bool
 	// Clients are supposed to refetch the channel difference after timeout seconds have
 	// elapsed
@@ -304,7 +303,7 @@ type UpdatesChannelDifferenceTooLong struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Dialog DialogClass
-	// The latest messages
+	// The latest messages (not starting from the passed pts, just the latest messages).
 	Messages []MessageClass
 	// Chats from messages
 	Chats []ChatClass
@@ -1202,7 +1201,7 @@ type NotEmptyUpdatesChannelDifference interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Whether there are more updates that must be fetched (always false)
+	// Whether there are more updates that must be fetched (always set)
 	GetFinal() (value bool)
 
 	// Clients are supposed to refetch the channel difference after timeout seconds have

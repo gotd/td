@@ -32,18 +32,29 @@ var (
 )
 
 // KeyboardButtonStyle represents TL type `keyboardButtonStyle#4fdd3430`.
+// This constructor allows setting a custom background color and custom emoji label for a
+// button, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/buttons#button-styles
 //
 // See https://core.telegram.org/constructor/keyboardButtonStyle for reference.
 type KeyboardButtonStyle struct {
-	// Flags field of KeyboardButtonStyle.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BgPrimary field of KeyboardButtonStyle.
+	// A dark blue color, recommended for main actions.
 	BgPrimary bool
-	// BgDanger field of KeyboardButtonStyle.
+	// A red color, recommended for destructive actions.
 	BgDanger bool
-	// BgSuccess field of KeyboardButtonStyle.
+	// A green color, recommended for positive actions.
 	BgSuccess bool
-	// Icon field of KeyboardButtonStyle.
+	// The ID of a custom emoji¹ to be displayed before the button's label.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetIcon and GetIcon helpers.
 	Icon int64

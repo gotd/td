@@ -179,6 +179,7 @@ func (g *PaymentsGetStarGiftUpgradePreviewRequest) GetGiftID() (value int64) {
 // Possible errors:
 //
 //	400 STARGIFT_INVALID: The passed gift is invalid.
+//	400 STARGIFT_UPGRADE_UNAVAILABLE: A received gift can only be upgraded to a collectible gift if the messageActionStarGift/savedStarGift.can_upgrade flag is set.
 //
 // See https://core.telegram.org/method/payments.getStarGiftUpgradePreview for reference.
 func (c *Client) PaymentsGetStarGiftUpgradePreview(ctx context.Context, giftid int64) (*PaymentsStarGiftUpgradePreview, error) {

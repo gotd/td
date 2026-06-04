@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/recentStory for reference.
 type RecentStory struct {
-	// Flags field of RecentStory.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Live field of RecentStory.
 	Live bool

@@ -32,12 +32,14 @@ var (
 )
 
 // MessagesGetForumTopicsByIDRequest represents TL type `messages.getForumTopicsByID#af0a4a08`.
+// Get forum topics by their ID
 //
 // See https://core.telegram.org/method/messages.getForumTopicsByID for reference.
 type MessagesGetForumTopicsByIDRequest struct {
-	// Peer field of MessagesGetForumTopicsByIDRequest.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer InputPeerClass
-	// Topics field of MessagesGetForumTopicsByIDRequest.
+	// Topic IDs
 	Topics []int
 }
 
@@ -206,6 +208,11 @@ func (g *MessagesGetForumTopicsByIDRequest) GetTopics() (value []int) {
 }
 
 // MessagesGetForumTopicsByID invokes method messages.getForumTopicsByID#af0a4a08 returning error if any.
+// Get forum topics by their ID
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.getForumTopicsByID for reference.
 func (c *Client) MessagesGetForumTopicsByID(ctx context.Context, request *MessagesGetForumTopicsByIDRequest) (*MessagesForumTopics, error) {

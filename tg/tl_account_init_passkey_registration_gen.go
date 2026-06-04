@@ -32,6 +32,11 @@ var (
 )
 
 // AccountInitPasskeyRegistrationRequest represents TL type `account.initPasskeyRegistration#429547e8`.
+// Initialize passkey registration for the current account, see here »¹ for more info
+// on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
 //
 // See https://core.telegram.org/method/account.initPasskeyRegistration for reference.
 type AccountInitPasskeyRegistrationRequest struct {
@@ -128,6 +133,15 @@ func (i *AccountInitPasskeyRegistrationRequest) DecodeBare(b *bin.Buffer) error 
 }
 
 // AccountInitPasskeyRegistration invokes method account.initPasskeyRegistration#429547e8 returning error if any.
+// Initialize passkey registration for the current account, see here »¹ for more info
+// on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/passkeys#creating-a-passkey
+//
+// Possible errors:
+//
+//	403 ACCESS_DENIED:
 //
 // See https://core.telegram.org/method/account.initPasskeyRegistration for reference.
 func (c *Client) AccountInitPasskeyRegistration(ctx context.Context) (*AccountPasskeyRegistrationOptions, error) {

@@ -32,10 +32,23 @@ var (
 )
 
 // PaymentsCraftStarGiftRequest represents TL type `payments.craftStarGift#b0f9684f`.
+// Craft a new collectible gift »¹ by combining 1 to 4 owned collectible gifts of the
+// same base gift type.
+// The passed gifts must all have the same starGiftUnique¹.gift_id, must be usable for
+// crafting, and must not be blocked by a future can_craft_at timestamp.
+// The first passed gift must not be located on the TON blockchain.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/starGiftUnique
 //
 // See https://core.telegram.org/method/payments.craftStarGift for reference.
 type PaymentsCraftStarGiftRequest struct {
-	// Stargift field of PaymentsCraftStarGiftRequest.
+	// 1 to 4 owned collectible gifts of the same type to use for crafting »¹. The first
+	// gift's ID is reused if crafting succeeds.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#crafting-collectible-gifts
 	Stargift []InputSavedStarGiftClass
 }
 
@@ -184,6 +197,19 @@ func (c *PaymentsCraftStarGiftRequest) MapStargift() (value InputSavedStarGiftCl
 }
 
 // PaymentsCraftStarGift invokes method payments.craftStarGift#b0f9684f returning error if any.
+// Craft a new collectible gift »¹ by combining 1 to 4 owned collectible gifts of the
+// same base gift type.
+// The passed gifts must all have the same starGiftUnique¹.gift_id, must be usable for
+// crafting, and must not be blocked by a future can_craft_at timestamp.
+// The first passed gift must not be located on the TON blockchain.
+//
+// Links:
+//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  2. https://core.telegram.org/constructor/starGiftUnique
+//
+// Possible errors:
+//
+//	400 SAVED_ID_EMPTY: The passed inputSavedStarGiftChat.saved_id is empty.
 //
 // See https://core.telegram.org/method/payments.craftStarGift for reference.
 func (c *Client) PaymentsCraftStarGift(ctx context.Context, stargift []InputSavedStarGiftClass) (UpdatesClass, error) {

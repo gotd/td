@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
-	// Flags field of InputPhoneContact.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// An arbitrary 64-bit integer: it should be set, for example, to an incremental number
 	// when using contacts.importContacts¹, in order to retry importing only the contacts
@@ -53,7 +56,11 @@ type InputPhoneContact struct {
 	FirstName string
 	// Contact's last name
 	LastName string
-	// Note field of InputPhoneContact.
+	// A private note for this contact, only visible to us; see here »¹ for more info on
+	// contact notes.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/contacts#private-notes-for-contacts
 	//
 	// Use SetNote and GetNote helpers.
 	Note TextWithEntities

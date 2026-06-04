@@ -32,14 +32,22 @@ var (
 )
 
 // StarGiftActiveAuctionState represents TL type `starGiftActiveAuctionState#d31bc45d`.
+// Contains info about an auction where the user has placed a bid »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
 //
 // See https://core.telegram.org/constructor/starGiftActiveAuctionState for reference.
 type StarGiftActiveAuctionState struct {
-	// Gift field of StarGiftActiveAuctionState.
+	// The collectible gift »¹ currently being distributed in the auction.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	Gift StarGiftClass
-	// State field of StarGiftActiveAuctionState.
+	// Auction state
 	State StarGiftAuctionStateClass
-	// UserState field of StarGiftActiveAuctionState.
+	// Auction state related to the current user (i.e. info about placed bids, won gifts and
+	// so on).
 	UserState StarGiftAuctionUserState
 }
 

@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneToggleGroupCallStartSubscriptionRequest represents TL type `phone.toggleGroupCallStartSubscription#219c34e6`.
-// Subscribe or unsubscribe to a scheduled group call
+// Subscribe or unsubscribe to a scheduled group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallStartSubscription for reference.
 type PhoneToggleGroupCallStartSubscriptionRequest struct {
@@ -194,7 +197,10 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bo
 }
 
 // PhoneToggleGroupCallStartSubscription invokes method phone.toggleGroupCallStartSubscription#219c34e6 returning error if any.
-// Subscribe or unsubscribe to a scheduled group call
+// Subscribe or unsubscribe to a scheduled group call¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // Possible errors:
 //

@@ -32,30 +32,56 @@ var (
 )
 
 // StarGiftAuctionUserState represents TL type `starGiftAuctionUserState#2eeed1c4`.
+// Contains information about the current user's state in an auction »¹.
+// The bid_amount, bid_date, bid_peer and min_bid_amount flags of
+// starGiftAuctionUserState¹ will all be set if the user placed a bid in the auction.
+//
+// Links:
+//  1. https://core.telegram.org/api/auctions
+//  2. https://core.telegram.org/constructor/starGiftAuctionUserState
 //
 // See https://core.telegram.org/constructor/starGiftAuctionUserState for reference.
 type StarGiftAuctionUserState struct {
-	// Flags field of StarGiftAuctionUserState.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Returned field of StarGiftAuctionUserState.
+	// If set, the placed bid was returned to the user, because it was outbid so much that it
+	// fell out of the top starGiftAuctionState¹.gifts_left positions, meaning that even if
+	// no new bids are placed, the user will never receive any gifts, so the bid was
+	// completely removed from the auction, and in order to participate again the user must
+	// manually make a new bid.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/starGiftAuctionState
 	Returned bool
-	// BidAmount field of StarGiftAuctionUserState.
+	// Contains the amount of the placed bid in Telegram Stars¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
 	//
 	// Use SetBidAmount and GetBidAmount helpers.
 	BidAmount int64
-	// BidDate field of StarGiftAuctionUserState.
+	// Contains a UNIX timestamp, indicating when the bid was placed.
 	//
 	// Use SetBidDate and GetBidDate helpers.
 	BidDate int
-	// MinBidAmount field of StarGiftAuctionUserState.
+	// Contains the minumum allowed bid amount in Telegram Stars¹, if set overrides
+	// starGiftAuctionState².min_bid_amount for the current user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stars
+	//  2) https://core.telegram.org/constructor/starGiftAuctionState
 	//
 	// Use SetMinBidAmount and GetMinBidAmount helpers.
 	MinBidAmount int64
-	// BidPeer field of StarGiftAuctionUserState.
+	// Contains the peer that will receive the gift, if you end up winning this round
 	//
 	// Use SetBidPeer and GetBidPeer helpers.
 	BidPeer PeerClass
-	// AcquiredCount field of StarGiftAuctionUserState.
+	// Contains the number of gifts that were purchased so far in the auction by the current
+	// user.
 	AcquiredCount int
 }
 

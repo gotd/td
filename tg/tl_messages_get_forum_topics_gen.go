@@ -32,24 +32,49 @@ var (
 )
 
 // MessagesGetForumTopicsRequest represents TL type `messages.getForumTopics#3ba47bff`.
+// Get topics of a forum¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/messages.getForumTopics for reference.
 type MessagesGetForumTopicsRequest struct {
-	// Flags field of MessagesGetForumTopicsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesGetForumTopicsRequest.
+	// The supergroup forum, private chat (for forum-enabled bots) or bot forum (for users)
+	// where the topic is located.
 	Peer InputPeerClass
-	// Q field of MessagesGetForumTopicsRequest.
+	// Search query
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// OffsetDate field of MessagesGetForumTopicsRequest.
+	// Offsets for pagination, for more info click here¹, date of the last message of the
+	// last found topic. Use 0 or any date in the future to get results from the last topic.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// OffsetID field of MessagesGetForumTopicsRequest.
+	// Offsets for pagination, for more info click here¹, ID of the last message of the last
+	// found topic (or initially 0).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// OffsetTopic field of MessagesGetForumTopicsRequest.
+	// Offsets for pagination, for more info click here¹, ID of the last found topic (or
+	// initially 0).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetTopic int
-	// Limit field of MessagesGetForumTopicsRequest.
+	// Maximum number of results to return, see pagination¹. For optimal performance, the
+	// number of returned topics is chosen by the server and can be smaller than the
+	// specified limit.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -340,6 +365,14 @@ func (g *MessagesGetForumTopicsRequest) GetLimit() (value int) {
 }
 
 // MessagesGetForumTopics invokes method messages.getForumTopics#3ba47bff returning error if any.
+// Get topics of a forum¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.getForumTopics for reference.
 func (c *Client) MessagesGetForumTopics(ctx context.Context, request *MessagesGetForumTopicsRequest) (*MessagesForumTopics, error) {

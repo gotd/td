@@ -32,10 +32,16 @@ var (
 )
 
 // MessagesGetFutureChatCreatorAfterLeaveRequest represents TL type `messages.getFutureChatCreatorAfterLeave#3b7d0ea6`.
+// Group/channel owners only: returns the ID of the user that will become the new owner
+// of the group if we decide to leave the group, see here »¹ for more info on the full
+// flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#leaving-groups-channels
 //
 // See https://core.telegram.org/method/messages.getFutureChatCreatorAfterLeave for reference.
 type MessagesGetFutureChatCreatorAfterLeaveRequest struct {
-	// Peer field of MessagesGetFutureChatCreatorAfterLeaveRequest.
+	// The basic group/supergroup/channel we're about to leave.
 	Peer InputPeerClass
 }
 
@@ -166,6 +172,12 @@ func (g *MessagesGetFutureChatCreatorAfterLeaveRequest) GetPeer() (value InputPe
 }
 
 // MessagesGetFutureChatCreatorAfterLeave invokes method messages.getFutureChatCreatorAfterLeave#3b7d0ea6 returning error if any.
+// Group/channel owners only: returns the ID of the user that will become the new owner
+// of the group if we decide to leave the group, see here »¹ for more info on the full
+// flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel#leaving-groups-channels
 //
 // See https://core.telegram.org/method/messages.getFutureChatCreatorAfterLeave for reference.
 func (c *Client) MessagesGetFutureChatCreatorAfterLeave(ctx context.Context, peer InputPeerClass) (UserClass, error) {

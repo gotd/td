@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneCreateGroupCallRequest represents TL type `phone.createGroupCall#48cdc6d8`.
-// Create a group call or livestream
+// Create a group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 type PhoneCreateGroupCallRequest struct {
@@ -54,12 +57,13 @@ type PhoneCreateGroupCallRequest struct {
 	Peer InputPeerClass
 	// Unique client message ID required to prevent creation of duplicate group calls
 	RandomID int
-	// Call title
+	// Call title, if not set defaults to the group/channel's name.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// For scheduled group call or livestreams, the absolute date when the group call will
-	// start
+	// For scheduled group call or livestreams, the absolute date (unixtime) when the group
+	// call is expected to start: the date must be at least 10 seconds and at most 8 days in
+	// the future.
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -354,7 +358,10 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 }
 
 // PhoneCreateGroupCall invokes method phone.createGroupCall#48cdc6d8 returning error if any.
-// Create a group call or livestream
+// Create a group call or livestream¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // Possible errors:
 //

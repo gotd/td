@@ -32,13 +32,13 @@ var (
 )
 
 // PhoneSaveCallLogRequest represents TL type `phone.saveCallLog#41248786`.
-// Save phone call debug information
+// Deprecated: send libtgvoip phone call debug information
 //
 // See https://core.telegram.org/method/phone.saveCallLog for reference.
 type PhoneSaveCallLogRequest struct {
 	// Phone call
 	Peer InputPhoneCall
-	// Logs
+	// Libtgvoip logs
 	File InputFileClass
 }
 
@@ -194,7 +194,7 @@ func (s *PhoneSaveCallLogRequest) GetFile() (value InputFileClass) {
 }
 
 // PhoneSaveCallLog invokes method phone.saveCallLog#41248786 returning error if any.
-// Save phone call debug information
+// Deprecated: send libtgvoip phone call debug information
 //
 // Possible errors:
 //
