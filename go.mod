@@ -19,7 +19,7 @@ require (
 	github.com/ogen-go/ogen v1.20.3
 	github.com/rogpeppe/go-internal v1.15.0
 	github.com/stretchr/testify v1.11.1
-	github.com/yuin/goldmark v1.7.8
+	github.com/yuin/goldmark v1.8.2
 	go.opentelemetry.io/otel v1.44.0
 	go.opentelemetry.io/otel/metric v1.44.0
 	go.opentelemetry.io/otel/trace v1.44.0
