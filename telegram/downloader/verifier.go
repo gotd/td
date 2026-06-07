@@ -105,7 +105,7 @@ func (v *verifier) next(ctx context.Context) (tg.FileHash, bool, error) {
 	for {
 		hashes, err := v.client.Hashes(ctx, v.offset)
 		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
-			if flood || tgerr.Is(err, tg.ErrTimeout) {
+			if flood || isRetryableTimeout(ctx, err) {
 				// Keep retrying transient server throttling/timeouts.
 				retryAttempt++
 				reportSchemaRetry(v.client, RetryOperationReaderHashes, retryAttempt, err)

@@ -3,6 +3,7 @@ package downloader
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -41,6 +42,23 @@ func TestRetryRequestTimeoutLimit(t *testing.T) {
 	require.Len(t, attempts, maxRetryAttempts-1)
 	require.Equal(t, maxRetryAttempts-1, attempts[len(attempts)-1])
 	require.Contains(t, err.Error(), "read chunk: retry limit reached")
+}
+
+func TestIsRetryableTimeout(t *testing.T) {
+	require.True(t, isRetryableTimeout(context.Background(), tgerr.New(500, tg.ErrTimeout)))
+	require.True(t, isRetryableTimeout(
+		context.Background(),
+		fmt.Errorf("create connection to DC 1: %w", testTimeoutError{}),
+	))
+	require.True(t, isRetryableTimeout(
+		context.Background(),
+		fmt.Errorf("request attempt: %w", context.DeadlineExceeded),
+	))
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	require.False(t, isRetryableTimeout(ctx, testTimeoutError{}))
+	require.False(t, isRetryableTimeout(context.Background(), errors.New("boom")))
 }
 
 func TestCDNPlanValidationAndSplit(t *testing.T) {

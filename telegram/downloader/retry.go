@@ -2,6 +2,7 @@ package downloader
 
 import (
 	"context"
+	"net"
 
 	"github.com/go-faster/errors"
 
@@ -28,6 +29,21 @@ func isCDNMasterFallbackErr(err error) bool {
 		"FILE_TOKEN_INVALID",
 		"REQUEST_TOKEN_INVALID",
 	)
+}
+
+func isRetryableTimeout(ctx context.Context, err error) bool {
+	if err == nil {
+		return false
+	}
+	if ctx.Err() != nil {
+		return false
+	}
+	if tgerr.Is(err, tg.ErrTimeout) || errors.Is(err, context.DeadlineExceeded) {
+		return true
+	}
+
+	var netErr net.Error
+	return errors.As(err, &netErr) && netErr.Timeout()
 }
 
 func retryRequest[T any](
@@ -57,10 +73,7 @@ func retryRequest[T any](
 				}
 				continue
 			}
-			if tgerr.Is(waitErr, tg.ErrTimeout) {
-				if ctxErr := ctx.Err(); ctxErr != nil {
-					return zero, ctxErr
-				}
+			if isRetryableTimeout(ctx, waitErr) {
 				// Timeout can happen on unstable proxy links; retry with bounded
 				// attempts to avoid infinite tight loops.
 				timeoutRetries++
