@@ -140,6 +140,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			Logger:           m.cfg.Logger,
 			Handler:          m.cfg.Handler,
 			OnChannelTooLong: m.cfg.OnChannelTooLong,
+			OnTooLong:        m.cfg.OnTooLong,
 			Storage:          m.cfg.Storage,
 			Hasher:           m.cfg.AccessHasher,
 			SelfID:           userID,
