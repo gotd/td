@@ -25,6 +25,11 @@ type Config struct {
 	// Callback called if manager cannot
 	// recover channel gap (optional).
 	OnChannelTooLong func(channelID int64)
+	// Callback called when the manager loses access to a channel, detected via
+	// CHANNEL_PRIVATE on updates.getChannelDifference (e.g. the account was
+	// kicked/banned or the channel was deleted). The channel is removed from
+	// the update manager after this call (optional).
+	OnChannelInaccessible func(channelID int64)
 	// Callback called if manager cannot recover
 	// common state gap, i.e. on updates.differenceTooLong (optional).
 	OnTooLong func()
@@ -59,6 +64,12 @@ func (cfg *Config) setDefaults() {
 	if cfg.OnChannelTooLong == nil {
 		cfg.OnChannelTooLong = func(channelID int64) {
 			cfg.Logger.Error("Difference too long", zap.Int64("channel_id", channelID))
+		}
+	}
+	if cfg.OnChannelInaccessible == nil {
+		cfg.OnChannelInaccessible = func(channelID int64) {
+			cfg.Logger.Info("Channel is inaccessible, stopping updates",
+				zap.Int64("channel_id", channelID))
 		}
 	}
 	if cfg.OnTooLong == nil {

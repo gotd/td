@@ -45,19 +45,24 @@ type internalState struct {
 
 	// Channel states.
 	channels map[int64]*channelState
+	// removeChannel receives channel IDs from channel workers that lost access
+	// (CHANNEL_PRIVATE) so they can be dropped from the channels map. Only the
+	// internalState goroutine mutates the map, so this keeps access serialized.
+	removeChannel chan int64
 
 	// Immutable fields.
-	client          API
-	log             *zap.Logger
-	handler         telegram.UpdateHandler
-	onTooLong       func(channelID int64)
-	onCommonTooLong func()
-	storage         StateStorage
-	hasher          ChannelAccessHasher
-	selfID          int64
-	diffLim         int
-	wg              *errgroup.Group
-	tracer          trace.Tracer
+	client                API
+	log                   *zap.Logger
+	handler               telegram.UpdateHandler
+	onTooLong             func(channelID int64)
+	onChannelInaccessible func(channelID int64)
+	onCommonTooLong       func()
+	storage               StateStorage
+	hasher                ChannelAccessHasher
+	selfID                int64
+	diffLim               int
+	wg                    *errgroup.Group
+	tracer                trace.Tracer
 }
 
 type stateConfig struct {
@@ -66,17 +71,18 @@ type stateConfig struct {
 		Pts        int
 		AccessHash int64
 	}
-	RawClient        API
-	Logger           *zap.Logger
-	Tracer           trace.Tracer
-	Handler          telegram.UpdateHandler
-	OnChannelTooLong func(channelID int64)
-	OnTooLong        func()
-	Storage          StateStorage
-	Hasher           ChannelAccessHasher
-	SelfID           int64
-	DiffLimit        int
-	WorkGroup        *errgroup.Group
+	RawClient             API
+	Logger                *zap.Logger
+	Tracer                trace.Tracer
+	Handler               telegram.UpdateHandler
+	OnChannelTooLong      func(channelID int64)
+	OnChannelInaccessible func(channelID int64)
+	OnTooLong             func()
+	Storage               StateStorage
+	Hasher                ChannelAccessHasher
+	SelfID                int64
+	DiffLimit             int
+	WorkGroup             *errgroup.Group
 }
 
 func newState(ctx context.Context, cfg stateConfig) *internalState {
@@ -87,19 +93,21 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		date:        cfg.State.Date,
 		idleTimeout: time.NewTimer(idleTimeout),
 
-		channels: make(map[int64]*channelState),
+		channels:      make(map[int64]*channelState),
+		removeChannel: make(chan int64, 10),
 
-		client:          cfg.RawClient,
-		log:             cfg.Logger,
-		handler:         cfg.Handler,
-		onTooLong:       cfg.OnChannelTooLong,
-		onCommonTooLong: cfg.OnTooLong,
-		storage:         cfg.Storage,
-		hasher:          cfg.Hasher,
-		selfID:          cfg.SelfID,
-		diffLim:         cfg.DiffLimit,
-		wg:              cfg.WorkGroup,
-		tracer:          cfg.Tracer,
+		client:                cfg.RawClient,
+		log:                   cfg.Logger,
+		handler:               cfg.Handler,
+		onTooLong:             cfg.OnChannelTooLong,
+		onChannelInaccessible: cfg.OnChannelInaccessible,
+		onCommonTooLong:       cfg.OnTooLong,
+		storage:               cfg.Storage,
+		hasher:                cfg.Hasher,
+		selfID:                cfg.SelfID,
+		diffLim:               cfg.DiffLimit,
+		wg:                    cfg.WorkGroup,
+		tracer:                cfg.Tracer,
 	}
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
@@ -204,8 +212,23 @@ func (s *internalState) Run(ctx context.Context) error {
 		case <-s.idleTimeout.C:
 			s.log.Debug("Idle timeout")
 			s.getDifferenceLogger(ctx)
+		case channelID := <-s.removeChannel:
+			s.removeChannelState(channelID)
 		}
 	}
+}
+
+// removeChannelState drops a channel from tracking after its worker stopped
+// due to lost access (CHANNEL_PRIVATE). Must be called from the internalState
+// goroutine, which is the sole mutator of the channels map.
+func (s *internalState) removeChannelState(channelID int64) {
+	if _, ok := s.channels[channelID]; !ok {
+		return
+	}
+	delete(s.channels, channelID)
+	s.log.Debug("Removed inaccessible channel from tracking",
+		zap.Int64("channel_id", channelID),
+	)
 }
 
 func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) error {
@@ -361,18 +384,20 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 
 func (s *internalState) newChannelState(channelID, accessHash int64, initialPts int) *channelState {
 	return newChannelState(channelStateConfig{
-		Out:              s.internalQueue,
-		InitialPts:       initialPts,
-		ChannelID:        channelID,
-		AccessHash:       accessHash,
-		SelfID:           s.selfID,
-		Storage:          s.storage,
-		DiffLimit:        s.diffLim,
-		RawClient:        s.client,
-		Handler:          s.handler,
-		OnChannelTooLong: s.onTooLong,
-		Logger:           s.log.Named("channel").With(zap.Int64("channel_id", channelID)),
-		Tracer:           s.tracer,
+		Out:                   s.internalQueue,
+		InitialPts:            initialPts,
+		ChannelID:             channelID,
+		AccessHash:            accessHash,
+		SelfID:                s.selfID,
+		Storage:               s.storage,
+		DiffLimit:             s.diffLim,
+		RawClient:             s.client,
+		Handler:               s.handler,
+		OnChannelTooLong:      s.onTooLong,
+		OnChannelInaccessible: s.onChannelInaccessible,
+		RemoveChannel:         s.removeChannel,
+		Logger:                s.log.Named("channel").With(zap.Int64("channel_id", channelID)),
+		Tracer:                s.tracer,
 	})
 }
 
