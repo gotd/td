@@ -47,16 +47,17 @@ type internalState struct {
 	channels map[int64]*channelState
 
 	// Immutable fields.
-	client    API
-	log       *zap.Logger
-	handler   telegram.UpdateHandler
-	onTooLong func(channelID int64)
-	storage   StateStorage
-	hasher    ChannelAccessHasher
-	selfID    int64
-	diffLim   int
-	wg        *errgroup.Group
-	tracer    trace.Tracer
+	client          API
+	log             *zap.Logger
+	handler         telegram.UpdateHandler
+	onTooLong       func(channelID int64)
+	onCommonTooLong func()
+	storage         StateStorage
+	hasher          ChannelAccessHasher
+	selfID          int64
+	diffLim         int
+	wg              *errgroup.Group
+	tracer          trace.Tracer
 }
 
 type stateConfig struct {
@@ -70,6 +71,7 @@ type stateConfig struct {
 	Tracer           trace.Tracer
 	Handler          telegram.UpdateHandler
 	OnChannelTooLong func(channelID int64)
+	OnTooLong        func()
 	Storage          StateStorage
 	Hasher           ChannelAccessHasher
 	SelfID           int64
@@ -87,16 +89,17 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 
 		channels: make(map[int64]*channelState),
 
-		client:    cfg.RawClient,
-		log:       cfg.Logger,
-		handler:   cfg.Handler,
-		onTooLong: cfg.OnChannelTooLong,
-		storage:   cfg.Storage,
-		hasher:    cfg.Hasher,
-		selfID:    cfg.SelfID,
-		diffLim:   cfg.DiffLimit,
-		wg:        cfg.WorkGroup,
-		tracer:    cfg.Tracer,
+		client:          cfg.RawClient,
+		log:             cfg.Logger,
+		handler:         cfg.Handler,
+		onTooLong:       cfg.OnChannelTooLong,
+		onCommonTooLong: cfg.OnTooLong,
+		storage:         cfg.Storage,
+		hasher:          cfg.Hasher,
+		selfID:          cfg.SelfID,
+		diffLim:         cfg.DiffLimit,
+		wg:              cfg.WorkGroup,
+		tracer:          cfg.Tracer,
 	}
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
@@ -479,6 +482,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 			s.log.Error("SetPts error", zap.Error(err))
 		}
 		s.pts.SetState(diff.Pts, "updates.differenceTooLong")
+		s.onCommonTooLong()
 		return s.getDifference(ctx)
 
 	default:
