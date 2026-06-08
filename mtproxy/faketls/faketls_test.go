@@ -83,3 +83,44 @@ func TestFakeTLSRead_SkipsChangeCipherSpecRecords(t *testing.T) {
 	a.Equal(len("hello"), n)
 	a.Equal("hello", string(got))
 }
+
+func TestFakeTLSRead_RejectsUnexpectedRecordTypes(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		rec  record
+		msg  string
+	}{
+		{
+			name: "handshake",
+			rec: record{
+				Type:    RecordTypeHandshake,
+				Version: Version12Bytes,
+				Data:    []byte{0x01},
+			},
+			msg: "unexpected record type handshake during data phase",
+		},
+		{
+			name: "unsupported",
+			rec: record{
+				Type:    RecordTypeAlert,
+				Version: Version12Bytes,
+				Data:    []byte{0x01},
+			},
+			msg: "unsupported record type",
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			a := require.New(t)
+
+			conn := bytes.NewBuffer(nil)
+			_, err := writeRecord(conn, tc.rec)
+			a.NoError(err)
+
+			f := NewFakeTLS(bytes.NewReader(nil), conn)
+			buf := make([]byte, 1)
+			_, err = f.Read(buf)
+			a.Error(err)
+			a.Contains(err.Error(), tc.msg)
+		})
+	}
+}

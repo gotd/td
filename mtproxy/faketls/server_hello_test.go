@@ -115,3 +115,75 @@ func Test_readServerHello_AllowsAdditionalHandshakeRecords(t *testing.T) {
 
 	a.NoError(readServerHello(bytes.NewReader(raw), clientRandom, secret))
 }
+
+func Test_readServerHello_ErrorPaths(t *testing.T) {
+	clientRandom := [32]byte{}
+	secret := []byte{
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
+	}
+
+	for _, tc := range []struct {
+		name string
+		buf  func(t *testing.T) []byte
+		msg  string
+	}{
+		{
+			name: "first record is not handshake",
+			buf: func(t *testing.T) []byte {
+				t.Helper()
+				b := bytes.NewBuffer(nil)
+				_, err := writeRecord(b, record{Type: RecordTypeApplication, Version: Version12Bytes, Data: []byte{0x01}})
+				require.NoError(t, err)
+				return b.Bytes()
+			},
+			msg: "expected Handshake record first",
+		},
+		{
+			name: "first handshake too short",
+			buf: func(t *testing.T) []byte {
+				t.Helper()
+				b := bytes.NewBuffer(nil)
+				_, err := writeRecord(b, record{Type: RecordTypeHandshake, Version: Version12Bytes, Data: []byte{0x01}})
+				require.NoError(t, err)
+				return b.Bytes()
+			},
+			msg: "first Handshake record too short",
+		},
+		{
+			name: "unexpected record before change cipher",
+			buf: func(t *testing.T) []byte {
+				t.Helper()
+				b := bytes.NewBuffer(nil)
+				_, err := writeRecord(b, record{Type: RecordTypeHandshake, Version: Version12Bytes, Data: make([]byte, 38)})
+				require.NoError(t, err)
+				_, err = writeRecord(b, record{Type: RecordTypeApplication, Version: Version12Bytes, Data: []byte{0x01}})
+				require.NoError(t, err)
+				return b.Bytes()
+			},
+			msg: "unexpected record type",
+		},
+		{
+			name: "application after change cipher is missing",
+			buf: func(t *testing.T) []byte {
+				t.Helper()
+				b := bytes.NewBuffer(nil)
+				_, err := writeRecord(b, record{Type: RecordTypeHandshake, Version: Version12Bytes, Data: make([]byte, 38)})
+				require.NoError(t, err)
+				_, err = writeRecord(b, record{Type: RecordTypeChangeCipherSpec, Version: Version12Bytes, Data: []byte{0x01}})
+				require.NoError(t, err)
+				_, err = writeRecord(b, record{Type: RecordTypeHandshake, Version: Version12Bytes, Data: []byte{0x01}})
+				require.NoError(t, err)
+				return b.Bytes()
+			},
+			msg: "expected Application record after ChangeCipherSpec",
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			a := require.New(t)
+			err := readServerHello(bytes.NewReader(tc.buf(t)), clientRandom, secret)
+			a.Error(err)
+			a.Contains(err.Error(), tc.msg)
+		})
+	}
+}
