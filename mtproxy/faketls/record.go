@@ -8,7 +8,10 @@ import (
 	"github.com/go-faster/errors"
 )
 
-const maxTLSRecordDataLength = 16384 + 24
+// maxTLSRecordDataLength is the upper bound for a single TLS record payload.
+// MTProxy FakeTLS is camouflage rather than strict TLS, so accept any payload
+// that fits into the uint16 length field carried on the wire.
+const maxTLSRecordDataLength = 1<<16 - 1
 
 type record struct {
 	Type    RecordType
@@ -41,7 +44,7 @@ func readRecord(r io.Reader) (record, error) {
 
 	length := binary.BigEndian.Uint16(buf[3:])
 	if length > maxTLSRecordDataLength {
-		return record{}, errors.New("record length is too big")
+		return record{}, errors.Errorf("record length %d is too big (max %d)", length, maxTLSRecordDataLength)
 	}
 
 	rec.Data = make([]byte, length)

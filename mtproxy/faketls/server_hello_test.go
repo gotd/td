@@ -2,6 +2,8 @@ package faketls
 
 import (
 	"bytes"
+	"crypto/hmac"
+	"crypto/sha256"
 	"encoding/hex"
 	"os"
 	"path/filepath"
@@ -54,4 +56,62 @@ func Test_readServerHello(t *testing.T) {
 			a.Zero(r.Len(), "should read all data")
 		})
 	}
+}
+
+func Test_readServerHello_AllowsAdditionalHandshakeRecords(t *testing.T) {
+	a := require.New(t)
+
+	clientRandom := [32]byte{
+		0xa1, 0x32, 0xe3, 0x91, 0x60, 0x83, 0xb3, 0x14, 0xc1, 0xb9, 0x74, 0xd0, 0x57, 0x85, 0xe8, 0xee,
+		0x70, 0x45, 0x6e, 0x5f, 0x86, 0x6d, 0x96, 0x57, 0xd5, 0x0a, 0x5c, 0x08, 0xea, 0x38, 0x31, 0x8e,
+	}
+	secret := []byte{
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
+	}
+
+	packet := bytes.NewBuffer(nil)
+	_, err := writeRecord(packet, record{
+		Type:    RecordTypeHandshake,
+		Version: Version12Bytes,
+		Data:    make([]byte, 38),
+	})
+	a.NoError(err)
+	_, err = writeRecord(packet, record{
+		Type:    RecordTypeHandshake,
+		Version: Version12Bytes,
+		Data:    []byte{0x0b, 0x00, 0x00, 0x00},
+	})
+	a.NoError(err)
+	_, err = writeRecord(packet, record{
+		Type:    RecordTypeHandshake,
+		Version: Version12Bytes,
+		Data:    []byte{0x0c, 0x00, 0x00, 0x00},
+	})
+	a.NoError(err)
+	_, err = writeRecord(packet, record{
+		Type:    RecordTypeChangeCipherSpec,
+		Version: Version12Bytes,
+		Data:    []byte{0x01},
+	})
+	a.NoError(err)
+	_, err = writeRecord(packet, record{
+		Type:    RecordTypeApplication,
+		Version: Version12Bytes,
+		Data:    []byte{0x14, 0x00, 0x00, 0x00},
+	})
+	a.NoError(err)
+
+	raw := packet.Bytes()
+	const serverRandomOffset = 11
+	const serverRandomEnd = serverRandomOffset + 32
+
+	mac := hmac.New(sha256.New, secret)
+	_, err = mac.Write(clientRandom[:])
+	a.NoError(err)
+	_, err = mac.Write(raw)
+	a.NoError(err)
+	copy(raw[serverRandomOffset:serverRandomEnd], mac.Sum(nil))
+
+	a.NoError(readServerHello(bytes.NewReader(raw), clientRandom, secret))
 }

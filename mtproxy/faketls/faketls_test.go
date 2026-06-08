@@ -2,6 +2,7 @@ package faketls
 
 import (
 	"bytes"
+	"io"
 	"testing"
 	"time"
 
@@ -56,4 +57,29 @@ func TestTLS(t *testing.T) {
 		0x00, 0x00, 0x00, 0x00, 0x00,
 	}
 	a.Equal(testVector, b.Bytes())
+}
+
+func TestFakeTLSRead_SkipsChangeCipherSpecRecords(t *testing.T) {
+	a := require.New(t)
+
+	conn := bytes.NewBuffer(nil)
+	_, err := writeRecord(conn, record{
+		Type:    RecordTypeChangeCipherSpec,
+		Version: Version12Bytes,
+		Data:    []byte{0x01},
+	})
+	a.NoError(err)
+	_, err = writeRecord(conn, record{
+		Type:    RecordTypeApplication,
+		Version: Version12Bytes,
+		Data:    []byte("hello"),
+	})
+	a.NoError(err)
+
+	f := NewFakeTLS(bytes.NewReader(nil), conn)
+	got := make([]byte, len("hello"))
+	n, err := io.ReadFull(f, got)
+	a.NoError(err)
+	a.Equal(len("hello"), n)
+	a.Equal("hello", string(got))
 }

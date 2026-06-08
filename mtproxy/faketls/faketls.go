@@ -89,24 +89,25 @@ func (o *FakeTLS) Read(b []byte) (n int, err error) {
 	o.readBufMux.Lock()
 	defer o.readBufMux.Unlock()
 
-	if o.readBuf.Len() > 0 {
-		return o.readBuf.Read(b)
-	}
+	for {
+		if o.readBuf.Len() > 0 {
+			return o.readBuf.Read(b)
+		}
 
-	rec, err := readRecord(o.conn)
-	if err != nil {
-		return 0, errors.Wrap(err, "read TLS record")
-	}
+		rec, err := readRecord(o.conn)
+		if err != nil {
+			return 0, errors.Wrap(err, "read TLS record")
+		}
 
-	switch rec.Type {
-	case RecordTypeChangeCipherSpec:
-	case RecordTypeApplication:
-	case RecordTypeHandshake:
-		return 0, errors.New("unexpected record type handshake")
-	default:
-		return 0, errors.Errorf("unsupported record type %v", rec.Type)
+		switch rec.Type {
+		case RecordTypeChangeCipherSpec:
+			continue
+		case RecordTypeApplication:
+			o.readBuf.Write(rec.Data)
+		case RecordTypeHandshake:
+			return 0, errors.New("unexpected record type handshake during data phase")
+		default:
+			return 0, errors.Errorf("unsupported record type 0x%02x", rec.Type)
+		}
 	}
-	o.readBuf.Write(rec.Data)
-
-	return o.readBuf.Read(b)
 }
