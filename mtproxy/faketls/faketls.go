@@ -103,11 +103,11 @@ func (o *FakeTLS) Read(b []byte) (n int, err error) {
 		case RecordTypeChangeCipherSpec:
 			continue
 		case RecordTypeApplication:
-			o.readBuf.Write(rec.Data)
 		case RecordTypeHandshake:
-			return 0, errors.New("unexpected record type handshake during data phase")
+			return 0, errors.New("unexpected record type handshake")
 		default:
-			return 0, errors.Errorf("unsupported record type 0x%02x", rec.Type)
+			return 0, errors.Errorf("unsupported record type %v", rec.Type)
 		}
+		o.readBuf.Write(rec.Data)
 	}
 }

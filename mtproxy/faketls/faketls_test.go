@@ -97,7 +97,7 @@ func TestFakeTLSRead_RejectsUnexpectedRecordTypes(t *testing.T) {
 				Version: Version12Bytes,
 				Data:    []byte{0x01},
 			},
-			msg: "unexpected record type handshake during data phase",
+			msg: "unexpected record type handshake",
 		},
 		{
 			name: "unsupported",

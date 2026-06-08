@@ -137,7 +137,7 @@ func Test_readServerHello_ErrorPaths(t *testing.T) {
 				require.NoError(t, err)
 				return b.Bytes()
 			},
-			msg: "expected Handshake record first",
+			msg: "unexpected record type",
 		},
 		{
 			name: "first handshake too short",
@@ -148,7 +148,7 @@ func Test_readServerHello_ErrorPaths(t *testing.T) {
 				require.NoError(t, err)
 				return b.Bytes()
 			},
-			msg: "first Handshake record too short",
+			msg: "handshake record is too short",
 		},
 		{
 			name: "unexpected record before change cipher",
@@ -176,7 +176,7 @@ func Test_readServerHello_ErrorPaths(t *testing.T) {
 				require.NoError(t, err)
 				return b.Bytes()
 			},
-			msg: "expected Application record after ChangeCipherSpec",
+			msg: "unexpected record type",
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {

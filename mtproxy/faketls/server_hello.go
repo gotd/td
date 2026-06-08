@@ -9,6 +9,8 @@ import (
 	"github.com/go-faster/errors"
 )
 
+// Sanity limit for the number of extra handshake records before
+// ChangeCipherSpec.
 const maxHandshakeRecords = 16
 
 // readServerHello reads faketls ServerHello.
@@ -16,25 +18,28 @@ func readServerHello(r io.Reader, clientRandom [32]byte, secret []byte) error {
 	packetBuf := bytes.NewBuffer(nil)
 	r = io.TeeReader(r, packetBuf)
 
-	firstRec, err := readRecord(r)
+	handshake, err := readRecord(r)
 	if err != nil {
-		return errors.Wrap(err, "first handshake record")
+		return errors.Wrap(err, "handshake record")
 	}
-	if firstRec.Type != RecordTypeHandshake {
-		return errors.Errorf("expected Handshake record first, got type 0x%02x", firstRec.Type)
+	if handshake.Type != RecordTypeHandshake {
+		return errors.New("unexpected record type")
 	}
 
+	// `$record_header = type 1 byte + version 2 bytes + payload_length 2 bytes = 5 bytes`
+	// `$server_hello_header = type 1 bytes + version 2 bytes + length 3 bytes = 6 bytes`
+	// `$offset = $record_header + $server_hello_header = 11 bytes`
 	const serverRandomOffset = 11
 	const serverRandomEnd = serverRandomOffset + 32
 	if packetBuf.Len() < serverRandomEnd {
-		return errors.Errorf("first Handshake record too short: %d bytes, need at least %d", packetBuf.Len(), serverRandomEnd)
+		return errors.New("handshake record is too short")
 	}
 
 	changeCipherFound := false
-	for i := 1; i <= maxHandshakeRecords; i++ {
+	for i := 0; i < maxHandshakeRecords; i++ {
 		rec, err := readRecord(r)
 		if err != nil {
-			return errors.Wrapf(err, "record[%d]", i)
+			return errors.Wrap(err, "change cipher record")
 		}
 
 		switch rec.Type {
@@ -43,39 +48,37 @@ func readServerHello(r io.Reader, clientRandom [32]byte, secret []byte) error {
 		case RecordTypeChangeCipherSpec:
 			changeCipherFound = true
 		default:
-			return errors.Errorf("unexpected record type 0x%02x before ChangeCipherSpec", rec.Type)
+			return errors.New("unexpected record type")
 		}
 
-		if changeCipherFound {
-			break
-		}
+		break
 	}
 
 	if !changeCipherFound {
-		return errors.Errorf("ChangeCipherSpec not found within %d records", maxHandshakeRecords)
+		return errors.New("unexpected record type")
 	}
 
-	appRec, err := readRecord(r)
+	cert, err := readRecord(r)
 	if err != nil {
-		return errors.Wrap(err, "application record after ChangeCipherSpec")
+		return errors.Wrap(err, "cert record")
 	}
-	if appRec.Type != RecordTypeApplication {
-		return errors.Errorf("expected Application record after ChangeCipherSpec, got type 0x%02x", appRec.Type)
+	if cert.Type != RecordTypeApplication {
+		return errors.New("unexpected record type")
 	}
 
 	packet := packetBuf.Bytes()
 	var originalDigest [32]byte
 	copy(originalDigest[:], packet[serverRandomOffset:serverRandomEnd])
-
+	// Fill original digest by zeros.
 	var zeros [32]byte
 	copy(packet[serverRandomOffset:serverRandomEnd], zeros[:])
 
 	mac := hmac.New(sha256.New, secret)
 	if _, err := mac.Write(clientRandom[:]); err != nil {
-		return errors.Wrap(err, "hmac write clientRandom")
+		return errors.Wrap(err, "hmac write")
 	}
 	if _, err := mac.Write(packet); err != nil {
-		return errors.Wrap(err, "hmac write packet")
+		return errors.Wrap(err, "hmac write")
 	}
 	if !bytes.Equal(mac.Sum(nil), originalDigest[:]) {
 		return errors.New("hmac digest mismatch")
