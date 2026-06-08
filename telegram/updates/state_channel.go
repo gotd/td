@@ -10,7 +10,13 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
+
+// errChannelInaccessible is a sentinel returned by getDifference when the
+// account has lost access to the channel (CHANNEL_PRIVATE). It signals the
+// Run loop to stop the worker instead of logging the error and retrying.
+var errChannelInaccessible = errors.New("channel is inaccessible")
 
 type channelUpdate struct {
 	update   tg.UpdateClass
@@ -29,32 +35,41 @@ type channelState struct {
 	idleTimeout *time.Timer
 	diffTimeout time.Time
 
+	// done is closed when Run returns, so that Push never blocks on a stopped
+	// worker (e.g. after the channel became inaccessible and is pending removal).
+	done chan struct{}
+
 	// Immutable fields.
-	channelID  int64
-	accessHash int64
-	selfID     int64
-	diffLim    int
-	client     API
-	storage    StateStorage
-	log        *zap.Logger
-	tracer     trace.Tracer
-	handler    telegram.UpdateHandler
-	onTooLong  func(channelID int64)
+	channelID      int64
+	accessHash     int64
+	selfID         int64
+	diffLim        int
+	client         API
+	storage        StateStorage
+	log            *zap.Logger
+	tracer         trace.Tracer
+	handler        telegram.UpdateHandler
+	onTooLong      func(channelID int64)
+	onInaccessible func(channelID int64)
+	// removeChannel signals *internalState to drop this channel from tracking.
+	removeChannel chan<- int64
 }
 
 type channelStateConfig struct {
-	Out              chan tracedUpdate
-	InitialPts       int
-	ChannelID        int64
-	AccessHash       int64
-	SelfID           int64
-	DiffLimit        int
-	RawClient        API
-	Storage          StateStorage
-	Handler          telegram.UpdateHandler
-	OnChannelTooLong func(channelID int64)
-	Logger           *zap.Logger
-	Tracer           trace.Tracer
+	Out                   chan tracedUpdate
+	InitialPts            int
+	ChannelID             int64
+	AccessHash            int64
+	SelfID                int64
+	DiffLimit             int
+	RawClient             API
+	Storage               StateStorage
+	Handler               telegram.UpdateHandler
+	OnChannelTooLong      func(channelID int64)
+	OnChannelInaccessible func(channelID int64)
+	RemoveChannel         chan<- int64
+	Logger                *zap.Logger
+	Tracer                trace.Tracer
 }
 
 func newChannelState(cfg channelStateConfig) *channelState {
@@ -63,17 +78,20 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		out:     cfg.Out,
 
 		idleTimeout: time.NewTimer(idleTimeout),
+		done:        make(chan struct{}),
 
-		channelID:  cfg.ChannelID,
-		accessHash: cfg.AccessHash,
-		selfID:     cfg.SelfID,
-		diffLim:    cfg.DiffLimit,
-		client:     cfg.RawClient,
-		storage:    cfg.Storage,
-		log:        cfg.Logger,
-		handler:    cfg.Handler,
-		onTooLong:  cfg.OnChannelTooLong,
-		tracer:     cfg.Tracer,
+		channelID:      cfg.ChannelID,
+		accessHash:     cfg.AccessHash,
+		selfID:         cfg.SelfID,
+		diffLim:        cfg.DiffLimit,
+		client:         cfg.RawClient,
+		storage:        cfg.Storage,
+		log:            cfg.Logger,
+		handler:        cfg.Handler,
+		onTooLong:      cfg.OnChannelTooLong,
+		onInaccessible: cfg.OnChannelInaccessible,
+		removeChannel:  cfg.RemoveChannel,
+		tracer:         cfg.Tracer,
 	}
 
 	state.pts = newSequenceBox(sequenceConfig{
@@ -90,14 +108,24 @@ func (s *channelState) Push(ctx context.Context, u channelUpdate) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
+	case <-s.done:
+		// Worker has stopped (channel inaccessible, pending removal): drop the
+		// update instead of blocking. It is restored by a future subscribe if
+		// access is regained.
+		return nil
 	case s.updates <- u:
 		return nil
 	}
 }
 
 func (s *channelState) Run(ctx context.Context) error {
+	defer close(s.done)
+
 	// Subscribe to channel updates.
 	if err := s.getDifference(ctx); err != nil {
+		if errors.Is(err, errChannelInaccessible) {
+			return nil
+		}
 		s.log.Error("Failed to subscribe to channel updates", zap.Error(err))
 	}
 
@@ -106,11 +134,16 @@ func (s *channelState) Run(ctx context.Context) error {
 		case u := <-s.updates:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdate(ctx, u.update, u.entities); err != nil {
+				if errors.Is(err, errChannelInaccessible) {
+					return nil
+				}
 				s.log.Error("Handle update error", zap.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug("Gap timeout")
-			s.getDifferenceLogger(ctx)
+			if s.getDifferenceLogger(ctx) {
+				return nil
+			}
 		case <-ctx.Done():
 			if len(s.pts.pending) > 0 {
 				// This will probably fail.
@@ -120,7 +153,9 @@ func (s *channelState) Run(ctx context.Context) error {
 		case <-s.idleTimeout.C:
 			s.log.Debug("Idle timeout")
 			s.resetIdleTimer()
-			s.getDifferenceLogger(ctx)
+			if s.getDifferenceLogger(ctx) {
+				return nil
+			}
 		}
 	}
 }
@@ -250,6 +285,9 @@ func (s *channelState) getDifference(ctx context.Context) error {
 		Limit:  s.diffLim,
 	})
 	if err != nil {
+		if tgerr.Is(err, "CHANNEL_PRIVATE") {
+			return s.handleInaccessible(ctx)
+		}
 		return errors.Wrap(err, "get channel difference")
 	}
 
@@ -356,10 +394,33 @@ func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
 	}
 }
 
-func (s *channelState) getDifferenceLogger(ctx context.Context) {
+// getDifferenceLogger calls getDifference, logging any error. It returns true
+// if the channel became inaccessible and the worker should stop.
+func (s *channelState) getDifferenceLogger(ctx context.Context) (stop bool) {
 	if err := s.getDifference(ctx); err != nil {
+		if errors.Is(err, errChannelInaccessible) {
+			return true
+		}
 		s.log.Error("get channel difference error", zap.Error(err))
 	}
+	return false
+}
+
+// handleInaccessible is called when updates.getChannelDifference reports
+// CHANNEL_PRIVATE, i.e. the account has lost access to the channel (kicked,
+// banned, or the channel was deleted).
+//
+// It notifies the inaccessible hook and signals *internalState to remove this
+// channel from tracking, then returns errChannelInaccessible so the Run loop
+// stops the worker.
+func (s *channelState) handleInaccessible(ctx context.Context) error {
+	s.log.Info("Channel is inaccessible, removing from updates manager")
+	s.onInaccessible(s.channelID)
+	select {
+	case s.removeChannel <- s.channelID:
+	case <-ctx.Done():
+	}
+	return errChannelInaccessible
 }
 
 func (s *channelState) resetIdleTimer() {
