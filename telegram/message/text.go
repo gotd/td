@@ -15,21 +15,20 @@ func (b *Builder) sendRequest(
 	msg string,
 	entities []tg.MessageEntityClass,
 ) *tg.MessagesSendMessageRequest {
-	return &tg.MessagesSendMessageRequest{
+	req := &tg.MessagesSendMessageRequest{
 		NoWebpage:    b.noWebpage,
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
-		Noforwards:   b.noForwards,
 		Peer:         p,
-		ReplyTo:      b.replyTo,
 		Message:      msg,
 		RandomID:     0,
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     entities,
 		ScheduleDate: b.scheduleDate,
-		SendAs:       b.sendAs,
 	}
+	b.applyProtectedOptions(req)
+	return req
 }
 
 // Text sends text message.

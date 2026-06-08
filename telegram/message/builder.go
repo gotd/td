@@ -131,3 +131,27 @@ func (b *Builder) SendAs(p tg.InputPeerClass) *Builder {
 	b.sendAs = p
 	return b
 }
+
+type commonSendRequest interface {
+	SetReplyTo(tg.InputReplyToClass)
+	SetSendAs(tg.InputPeerClass)
+}
+
+type protectedSendRequest interface {
+	commonSendRequest
+	SetNoforwards(bool)
+}
+
+func (b *Builder) applyCommonOptions(req commonSendRequest) {
+	if b.replyTo != nil {
+		req.SetReplyTo(b.replyTo)
+	}
+	if b.sendAs != nil {
+		req.SetSendAs(b.sendAs)
+	}
+}
+
+func (b *Builder) applyProtectedOptions(req protectedSendRequest) {
+	b.applyCommonOptions(req)
+	req.SetNoforwards(b.noForwards)
+}

@@ -53,15 +53,16 @@ func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...Mu
 		return nil, err
 	}
 
-	upd, err := b.sender.sendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
+	req := &tg.MessagesSendMultiMediaRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
 		Peer:         p,
-		ReplyTo:      b.replyTo,
 		MultiMedia:   mb,
 		ScheduleDate: b.scheduleDate,
-	})
+	}
+	b.applyProtectedOptions(req)
+	upd, err := b.sender.sendMultiMedia(ctx, req)
 	if err != nil {
 		return nil, errors.Wrap(err, "send album")
 	}
@@ -107,18 +108,19 @@ func (b *Builder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass
 		return nil, err
 	}
 
-	upd, err := b.sender.sendMedia(ctx, &tg.MessagesSendMediaRequest{
+	req := &tg.MessagesSendMediaRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
 		Peer:         p,
-		ReplyTo:      b.replyTo,
 		Media:        attachment.Media,
 		Message:      attachment.Message,
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     attachment.Entities,
 		ScheduleDate: b.scheduleDate,
-	})
+	}
+	b.applyProtectedOptions(req)
+	upd, err := b.sender.sendMedia(ctx, req)
 	if err != nil {
 		return nil, errors.Wrap(err, "send media")
 	}
