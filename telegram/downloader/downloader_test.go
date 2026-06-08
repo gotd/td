@@ -55,6 +55,7 @@ type mock struct {
 	cdnUploadTO    atomic.Bool
 	tokenInvalid   atomic.Bool
 	getTimeout     atomic.Bool
+	getNetTimeout  atomic.Bool
 	cdnGetTimeout  atomic.Bool
 	cdnHashTimeout atomic.Bool
 	cdnFingerprint atomic.Bool
@@ -67,6 +68,20 @@ type mock struct {
 }
 
 var testErr = testutil.TestError()
+
+type testTimeoutError struct{}
+
+func (testTimeoutError) Error() string {
+	return "i/o timeout"
+}
+
+func (testTimeoutError) Timeout() bool {
+	return true
+}
+
+func (testTimeoutError) Temporary() bool {
+	return true
+}
 
 func validCDNRequest(offset int64, limit int) bool {
 	if limit <= 0 {
@@ -115,6 +130,12 @@ func (m *mock) UploadGetFile(ctx context.Context, request *tg.UploadGetFileReque
 	}
 	if m.getTimeout.CompareAndSwap(true, false) {
 		return nil, tgerr.New(500, tg.ErrTimeout)
+	}
+	if m.getNetTimeout.CompareAndSwap(true, false) {
+		return nil, errors.Wrap(
+			testTimeoutError{},
+			"create connection to DC 1: transfer: onTransfer: export to 1",
+		)
 	}
 
 	if request.GetCDNSupported() && m.migrateOnce.CompareAndSwap(true, false) {
@@ -1855,6 +1876,28 @@ func TestDownloader_LegacyRetriesOnTimeout(t *testing.T) {
 		},
 	}
 	m.getTimeout.Store(true)
+
+	output := new(bytes.Buffer)
+	_, err := NewDownloader().Download(m, nil).Stream(ctx, output)
+	require.NoError(t, err)
+	require.Equal(t, data, output.Bytes())
+	require.GreaterOrEqual(t, m.getFileCalls.Load(), int32(2))
+}
+
+func TestDownloader_LegacyRetriesOnNetworkTimeout(t *testing.T) {
+	ctx := context.Background()
+	data := make([]byte, defaultPartSize+13)
+	if _, err := io.ReadFull(rand.Reader, data); err != nil {
+		t.Fatal(err)
+	}
+
+	m := &mock{
+		data: data,
+		hashes: mockHashes{
+			ranges: countHashes(data, 128*1024),
+		},
+	}
+	m.getNetTimeout.Store(true)
 
 	output := new(bytes.Buffer)
 	_, err := NewDownloader().Download(m, nil).Stream(ctx, output)
