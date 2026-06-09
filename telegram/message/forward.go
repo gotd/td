@@ -36,7 +36,7 @@ func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 		return nil, errors.Wrap(err, "peer")
 	}
 
-	upd, err := b.builder.sender.forwardMessages(ctx, &tg.MessagesForwardMessagesRequest{
+	req := &tg.MessagesForwardMessagesRequest{
 		Silent:       b.builder.silent,
 		Background:   b.builder.background,
 		WithMyScore:  b.withMyScore,
@@ -45,7 +45,9 @@ func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 		ToPeer:       p,
 		ScheduleDate: b.builder.scheduleDate,
 		DropAuthor:   b.dropAuthor,
-	})
+	}
+	b.builder.applyProtectedOptions(req)
+	upd, err := b.builder.sender.forwardMessages(ctx, req)
 	if err != nil {
 		return nil, errors.Wrap(err, "send inline bot result")
 	}

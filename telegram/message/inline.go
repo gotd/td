@@ -16,17 +16,18 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 		return nil, errors.Wrap(err, "peer")
 	}
 
-	upd, err := b.sender.sendInlineBotResult(ctx, &tg.MessagesSendInlineBotResultRequest{
+	req := &tg.MessagesSendInlineBotResultRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
 		HideVia:      hideVia,
 		Peer:         p,
-		ReplyTo:      b.replyTo,
 		QueryID:      queryID,
 		ID:           id,
 		ScheduleDate: b.scheduleDate,
-	})
+	}
+	b.applyCommonOptions(req)
+	upd, err := b.sender.sendInlineBotResult(ctx, req)
 	if err != nil {
 		return nil, errors.Wrap(err, "send inline bot result")
 	}
