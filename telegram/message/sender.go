@@ -233,12 +233,29 @@ func (s *Sender) getScheduledMessages(
 	return s.raw.MessagesGetScheduledMessages(ctx, req)
 }
 
+// chatInviteJoinResultUpdates extracts updates from a join result.
+//
+// The messages.chatInviteJoinResultWebView result is returned when the join
+// requires opening a web view and carries no updates.
+func chatInviteJoinResultUpdates(r tg.MessagesChatInviteJoinResultClass) (tg.UpdatesClass, error) {
+	switch r := r.(type) {
+	case *tg.MessagesChatInviteJoinResultOk:
+		return r.Updates, nil
+	default:
+		return nil, errors.Errorf("unexpected join result type %T", r)
+	}
+}
+
 // importChatInvite imports a chat invite and join a private chat/supergroup/channel.
 func (s *Sender) importChatInvite(
 	ctx context.Context,
 	hash string,
 ) (tg.UpdatesClass, error) {
-	return s.raw.MessagesImportChatInvite(ctx, hash)
+	r, err := s.raw.MessagesImportChatInvite(ctx, hash)
+	if err != nil {
+		return nil, err
+	}
+	return chatInviteJoinResultUpdates(r)
 }
 
 // joinChannel joins a channel/supergroup.
@@ -246,7 +263,11 @@ func (s *Sender) joinChannel(
 	ctx context.Context,
 	input tg.InputChannelClass,
 ) (tg.UpdatesClass, error) {
-	return s.raw.ChannelsJoinChannel(ctx, input)
+	r, err := s.raw.ChannelsJoinChannel(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+	return chatInviteJoinResultUpdates(r)
 }
 
 // leaveChannel leaves a channel/supergroup.

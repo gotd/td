@@ -56,9 +56,9 @@ func TestManager_ImportInvite(t *testing.T) {
 
 			expectResult(mock, invite).ExpectCall(&tg.MessagesImportChatInviteRequest{
 				Hash: hash,
-			}).ThenResult(&tg.Updates{
+			}).ThenResult(&tg.MessagesChatInviteJoinResultOk{Updates: &tg.Updates{
 				Chats: []tg.ChatClass{testChat},
-			})
+			}})
 			r, err := m.ImportInvite(ctx, hash)
 			a.NoError(err)
 			a.Equal(testChat.ID, r.ID())

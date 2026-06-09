@@ -167,7 +167,7 @@ func TestChannel_Join(t *testing.T) {
 
 	mock.ExpectCall(&tg.ChannelsJoinChannelRequest{
 		Channel: ch.InputChannel(),
-	}).ThenResult(&tg.Updates{})
+	}).ThenResult(&tg.MessagesChatInviteJoinResultOk{Updates: &tg.Updates{}})
 	a.NoError(ch.Join(ctx))
 }
 

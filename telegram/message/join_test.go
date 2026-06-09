@@ -45,7 +45,7 @@ func TestSender_JoinLink(t *testing.T) {
 				if !wantErr {
 					mock.ExpectCall(&tg.MessagesImportChatInviteRequest{
 						Hash: input.value,
-					}).ThenResult(&tg.Updates{})
+					}).ThenResult(&tg.MessagesChatInviteJoinResultOk{Updates: &tg.Updates{}})
 				}
 
 				_, err := sender.JoinLink(ctx, link)
@@ -72,7 +72,7 @@ func TestRequestBuilder_Join(t *testing.T) {
 			ChannelID:  10,
 			AccessHash: 10,
 		},
-	}).ThenResult(&tg.Updates{})
+	}).ThenResult(&tg.MessagesChatInviteJoinResultOk{Updates: &tg.Updates{}})
 	_, err := sender.To(peer).Join(ctx)
 	require.NoError(t, err)
 
