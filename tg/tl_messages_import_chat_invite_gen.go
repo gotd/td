@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesImportChatInviteRequest represents TL type `messages.importChatInvite#6c50051c`.
+// MessagesImportChatInviteRequest represents TL type `messages.importChatInvite#de91436e`.
 // Import a chat invite and join a private chat/supergroup/channel
 //
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
@@ -44,7 +44,7 @@ type MessagesImportChatInviteRequest struct {
 }
 
 // MessagesImportChatInviteRequestTypeID is TL type id of MessagesImportChatInviteRequest.
-const MessagesImportChatInviteRequestTypeID = 0x6c50051c
+const MessagesImportChatInviteRequestTypeID = 0xde91436e
 
 // Ensuring interfaces in compile-time for MessagesImportChatInviteRequest.
 var (
@@ -115,7 +115,7 @@ func (i *MessagesImportChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.importChatInvite#6c50051c as nil")
+		return fmt.Errorf("can't encode messages.importChatInvite#de91436e as nil")
 	}
 	b.PutID(MessagesImportChatInviteRequestTypeID)
 	return i.EncodeBare(b)
@@ -124,7 +124,7 @@ func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *MessagesImportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode messages.importChatInvite#6c50051c as nil")
+		return fmt.Errorf("can't encode messages.importChatInvite#de91436e as nil")
 	}
 	b.PutString(i.Hash)
 	return nil
@@ -133,10 +133,10 @@ func (i *MessagesImportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *MessagesImportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.importChatInvite#6c50051c to nil")
+		return fmt.Errorf("can't decode messages.importChatInvite#de91436e to nil")
 	}
 	if err := b.ConsumeID(MessagesImportChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.importChatInvite#6c50051c: %w", err)
+		return fmt.Errorf("unable to decode messages.importChatInvite#de91436e: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -144,12 +144,12 @@ func (i *MessagesImportChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *MessagesImportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode messages.importChatInvite#6c50051c to nil")
+		return fmt.Errorf("can't decode messages.importChatInvite#de91436e to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.importChatInvite#6c50051c: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.importChatInvite#de91436e: field hash: %w", err)
 		}
 		i.Hash = value
 	}
@@ -164,7 +164,7 @@ func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
 	return i.Hash
 }
 
-// MessagesImportChatInvite invokes method messages.importChatInvite#6c50051c returning error if any.
+// MessagesImportChatInvite invokes method messages.importChatInvite#de91436e returning error if any.
 // Import a chat invite and join a private chat/supergroup/channel
 //
 // Possible errors:
@@ -185,8 +185,8 @@ func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
 //	400 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.
 //
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
-func (c *Client) MessagesImportChatInvite(ctx context.Context, hash string) (UpdatesClass, error) {
-	var result UpdatesBox
+func (c *Client) MessagesImportChatInvite(ctx context.Context, hash string) (MessagesChatInviteJoinResultClass, error) {
+	var result MessagesChatInviteJoinResultBox
 
 	request := &MessagesImportChatInviteRequest{
 		Hash: hash,
@@ -194,5 +194,5 @@ func (c *Client) MessagesImportChatInvite(ctx context.Context, hash string) (Upd
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Updates, nil
+	return result.ChatInviteJoinResult, nil
 }

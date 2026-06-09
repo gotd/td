@@ -31,17 +31,23 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PageListItemText represents TL type `pageListItemText#b92fb6cd`.
+// PageListItemText represents TL type `pageListItemText#2f58683c`.
 // List item
 //
 // See https://core.telegram.org/constructor/pageListItemText for reference.
 type PageListItemText struct {
+	// Flags field of PageListItemText.
+	Flags bin.Fields
+	// Checkbox field of PageListItemText.
+	Checkbox bool
+	// Checked field of PageListItemText.
+	Checked bool
 	// Text
 	Text RichTextClass
 }
 
 // PageListItemTextTypeID is TL type id of PageListItemText.
-const PageListItemTextTypeID = 0xb92fb6cd
+const PageListItemTextTypeID = 0x2f58683c
 
 // construct implements constructor of PageListItemClass.
 func (p PageListItemText) construct() PageListItemClass { return &p }
@@ -59,6 +65,15 @@ var (
 func (p *PageListItemText) Zero() bool {
 	if p == nil {
 		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Checkbox == false) {
+		return false
+	}
+	if !(p.Checked == false) {
+		return false
 	}
 	if !(p.Text == nil) {
 		return false
@@ -78,8 +93,12 @@ func (p *PageListItemText) String() string {
 
 // FillFrom fills PageListItemText from given interface.
 func (p *PageListItemText) FillFrom(from interface {
+	GetCheckbox() (value bool)
+	GetChecked() (value bool)
 	GetText() (value RichTextClass)
 }) {
+	p.Checkbox = from.GetCheckbox()
+	p.Checked = from.GetChecked()
 	p.Text = from.GetText()
 }
 
@@ -107,6 +126,16 @@ func (p *PageListItemText) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Checkbox",
+			SchemaName: "checkbox",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Checked",
+			SchemaName: "checked",
+			Null:       !p.Flags.Has(1),
+		},
+		{
 			Name:       "Text",
 			SchemaName: "text",
 		},
@@ -114,10 +143,20 @@ func (p *PageListItemText) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageListItemText) SetFlags() {
+	if !(p.Checkbox == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Checked == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageListItemText) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListItemText#b92fb6cd as nil")
+		return fmt.Errorf("can't encode pageListItemText#2f58683c as nil")
 	}
 	b.PutID(PageListItemTextTypeID)
 	return p.EncodeBare(b)
@@ -126,13 +165,17 @@ func (p *PageListItemText) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageListItemText) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListItemText#b92fb6cd as nil")
+		return fmt.Errorf("can't encode pageListItemText#2f58683c as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageListItemText#2f58683c: field flags: %w", err)
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageListItemText#b92fb6cd: field text is nil")
+		return fmt.Errorf("unable to encode pageListItemText#2f58683c: field text is nil")
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageListItemText#b92fb6cd: field text: %w", err)
+		return fmt.Errorf("unable to encode pageListItemText#2f58683c: field text: %w", err)
 	}
 	return nil
 }
@@ -140,10 +183,10 @@ func (p *PageListItemText) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageListItemText) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListItemText#b92fb6cd to nil")
+		return fmt.Errorf("can't decode pageListItemText#2f58683c to nil")
 	}
 	if err := b.ConsumeID(PageListItemTextTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageListItemText#b92fb6cd: %w", err)
+		return fmt.Errorf("unable to decode pageListItemText#2f58683c: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -151,16 +194,61 @@ func (p *PageListItemText) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageListItemText) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListItemText#b92fb6cd to nil")
+		return fmt.Errorf("can't decode pageListItemText#2f58683c to nil")
 	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageListItemText#2f58683c: field flags: %w", err)
+		}
+	}
+	p.Checkbox = p.Flags.Has(0)
+	p.Checked = p.Flags.Has(1)
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageListItemText#b92fb6cd: field text: %w", err)
+			return fmt.Errorf("unable to decode pageListItemText#2f58683c: field text: %w", err)
 		}
 		p.Text = value
 	}
 	return nil
+}
+
+// SetCheckbox sets value of Checkbox conditional field.
+func (p *PageListItemText) SetCheckbox(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Checkbox = true
+	} else {
+		p.Flags.Unset(0)
+		p.Checkbox = false
+	}
+}
+
+// GetCheckbox returns value of Checkbox conditional field.
+func (p *PageListItemText) GetCheckbox() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(0)
+}
+
+// SetChecked sets value of Checked conditional field.
+func (p *PageListItemText) SetChecked(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Checked = true
+	} else {
+		p.Flags.Unset(1)
+		p.Checked = false
+	}
+}
+
+// GetChecked returns value of Checked conditional field.
+func (p *PageListItemText) GetChecked() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(1)
 }
 
 // GetText returns value of Text field.
@@ -171,17 +259,23 @@ func (p *PageListItemText) GetText() (value RichTextClass) {
 	return p.Text
 }
 
-// PageListItemBlocks represents TL type `pageListItemBlocks#25e073fc`.
+// PageListItemBlocks represents TL type `pageListItemBlocks#63ca67aa`.
 // List item
 //
 // See https://core.telegram.org/constructor/pageListItemBlocks for reference.
 type PageListItemBlocks struct {
+	// Flags field of PageListItemBlocks.
+	Flags bin.Fields
+	// Checkbox field of PageListItemBlocks.
+	Checkbox bool
+	// Checked field of PageListItemBlocks.
+	Checked bool
 	// Blocks
 	Blocks []PageBlockClass
 }
 
 // PageListItemBlocksTypeID is TL type id of PageListItemBlocks.
-const PageListItemBlocksTypeID = 0x25e073fc
+const PageListItemBlocksTypeID = 0x63ca67aa
 
 // construct implements constructor of PageListItemClass.
 func (p PageListItemBlocks) construct() PageListItemClass { return &p }
@@ -199,6 +293,15 @@ var (
 func (p *PageListItemBlocks) Zero() bool {
 	if p == nil {
 		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Checkbox == false) {
+		return false
+	}
+	if !(p.Checked == false) {
+		return false
 	}
 	if !(p.Blocks == nil) {
 		return false
@@ -218,8 +321,12 @@ func (p *PageListItemBlocks) String() string {
 
 // FillFrom fills PageListItemBlocks from given interface.
 func (p *PageListItemBlocks) FillFrom(from interface {
+	GetCheckbox() (value bool)
+	GetChecked() (value bool)
 	GetBlocks() (value []PageBlockClass)
 }) {
+	p.Checkbox = from.GetCheckbox()
+	p.Checked = from.GetChecked()
 	p.Blocks = from.GetBlocks()
 }
 
@@ -247,6 +354,16 @@ func (p *PageListItemBlocks) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Checkbox",
+			SchemaName: "checkbox",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Checked",
+			SchemaName: "checked",
+			Null:       !p.Flags.Has(1),
+		},
+		{
 			Name:       "Blocks",
 			SchemaName: "blocks",
 		},
@@ -254,10 +371,20 @@ func (p *PageListItemBlocks) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageListItemBlocks) SetFlags() {
+	if !(p.Checkbox == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Checked == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageListItemBlocks) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListItemBlocks#25e073fc as nil")
+		return fmt.Errorf("can't encode pageListItemBlocks#63ca67aa as nil")
 	}
 	b.PutID(PageListItemBlocksTypeID)
 	return p.EncodeBare(b)
@@ -266,15 +393,19 @@ func (p *PageListItemBlocks) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageListItemBlocks) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListItemBlocks#25e073fc as nil")
+		return fmt.Errorf("can't encode pageListItemBlocks#63ca67aa as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageListItemBlocks#63ca67aa: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(p.Blocks))
 	for idx, v := range p.Blocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageListItemBlocks#25e073fc: field blocks element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode pageListItemBlocks#63ca67aa: field blocks element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageListItemBlocks#25e073fc: field blocks element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode pageListItemBlocks#63ca67aa: field blocks element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -283,10 +414,10 @@ func (p *PageListItemBlocks) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageListItemBlocks) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListItemBlocks#25e073fc to nil")
+		return fmt.Errorf("can't decode pageListItemBlocks#63ca67aa to nil")
 	}
 	if err := b.ConsumeID(PageListItemBlocksTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageListItemBlocks#25e073fc: %w", err)
+		return fmt.Errorf("unable to decode pageListItemBlocks#63ca67aa: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -294,12 +425,19 @@ func (p *PageListItemBlocks) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageListItemBlocks) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListItemBlocks#25e073fc to nil")
+		return fmt.Errorf("can't decode pageListItemBlocks#63ca67aa to nil")
 	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageListItemBlocks#63ca67aa: field flags: %w", err)
+		}
+	}
+	p.Checkbox = p.Flags.Has(0)
+	p.Checked = p.Flags.Has(1)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageListItemBlocks#25e073fc: field blocks: %w", err)
+			return fmt.Errorf("unable to decode pageListItemBlocks#63ca67aa: field blocks: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -308,12 +446,50 @@ func (p *PageListItemBlocks) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageListItemBlocks#25e073fc: field blocks: %w", err)
+				return fmt.Errorf("unable to decode pageListItemBlocks#63ca67aa: field blocks: %w", err)
 			}
 			p.Blocks = append(p.Blocks, value)
 		}
 	}
 	return nil
+}
+
+// SetCheckbox sets value of Checkbox conditional field.
+func (p *PageListItemBlocks) SetCheckbox(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Checkbox = true
+	} else {
+		p.Flags.Unset(0)
+		p.Checkbox = false
+	}
+}
+
+// GetCheckbox returns value of Checkbox conditional field.
+func (p *PageListItemBlocks) GetCheckbox() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(0)
+}
+
+// SetChecked sets value of Checked conditional field.
+func (p *PageListItemBlocks) SetChecked(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Checked = true
+	} else {
+		p.Flags.Unset(1)
+		p.Checked = false
+	}
+}
+
+// GetChecked returns value of Checked conditional field.
+func (p *PageListItemBlocks) GetChecked() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(1)
 }
 
 // GetBlocks returns value of Blocks field.
@@ -347,8 +523,8 @@ const PageListItemClassName = "PageListItem"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.PageListItemText: // pageListItemText#b92fb6cd
-//	case *tg.PageListItemBlocks: // pageListItemBlocks#25e073fc
+//	case *tg.PageListItemText: // pageListItemText#2f58683c
+//	case *tg.PageListItemBlocks: // pageListItemBlocks#63ca67aa
 //	default: panic(v)
 //	}
 type PageListItemClass interface {
@@ -368,6 +544,12 @@ type PageListItemClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Checkbox field of PageListItemText.
+	GetCheckbox() (value bool)
+
+	// Checked field of PageListItemText.
+	GetChecked() (value bool)
 }
 
 // DecodePageListItem implements binary de-serialization for PageListItemClass.
@@ -378,14 +560,14 @@ func DecodePageListItem(buf *bin.Buffer) (PageListItemClass, error) {
 	}
 	switch id {
 	case PageListItemTextTypeID:
-		// Decoding pageListItemText#b92fb6cd.
+		// Decoding pageListItemText#2f58683c.
 		v := PageListItemText{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageListItemClass: %w", err)
 		}
 		return &v, nil
 	case PageListItemBlocksTypeID:
-		// Decoding pageListItemBlocks#25e073fc.
+		// Decoding pageListItemBlocks#63ca67aa.
 		v := PageListItemBlocks{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageListItemClass: %w", err)

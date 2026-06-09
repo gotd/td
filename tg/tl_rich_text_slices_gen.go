@@ -311,6 +311,175 @@ func (s RichTextClassArray) AsTextAnchor() (to TextAnchorArray) {
 	return to
 }
 
+// AsTextMath returns copy with only TextMath constructors.
+func (s RichTextClassArray) AsTextMath() (to TextMathArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextMath)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextCustomEmoji returns copy with only TextCustomEmoji constructors.
+func (s RichTextClassArray) AsTextCustomEmoji() (to TextCustomEmojiArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextCustomEmoji)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextSpoiler returns copy with only TextSpoiler constructors.
+func (s RichTextClassArray) AsTextSpoiler() (to TextSpoilerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextSpoiler)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextMention returns copy with only TextMention constructors.
+func (s RichTextClassArray) AsTextMention() (to TextMentionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextMention)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextHashtag returns copy with only TextHashtag constructors.
+func (s RichTextClassArray) AsTextHashtag() (to TextHashtagArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextHashtag)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextBotCommand returns copy with only TextBotCommand constructors.
+func (s RichTextClassArray) AsTextBotCommand() (to TextBotCommandArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextBotCommand)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextCashtag returns copy with only TextCashtag constructors.
+func (s RichTextClassArray) AsTextCashtag() (to TextCashtagArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextCashtag)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextAutoURL returns copy with only TextAutoURL constructors.
+func (s RichTextClassArray) AsTextAutoURL() (to TextAutoURLArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextAutoURL)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextAutoEmail returns copy with only TextAutoEmail constructors.
+func (s RichTextClassArray) AsTextAutoEmail() (to TextAutoEmailArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextAutoEmail)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextAutoPhone returns copy with only TextAutoPhone constructors.
+func (s RichTextClassArray) AsTextAutoPhone() (to TextAutoPhoneArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextAutoPhone)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextBankCard returns copy with only TextBankCard constructors.
+func (s RichTextClassArray) AsTextBankCard() (to TextBankCardArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextBankCard)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextMentionName returns copy with only TextMentionName constructors.
+func (s RichTextClassArray) AsTextMentionName() (to TextMentionNameArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextMentionName)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextDate returns copy with only TextDate constructors.
+func (s RichTextClassArray) AsTextDate() (to TextDateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextDate)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // TextPlainArray is adapter for slice of TextPlain.
 type TextPlainArray []TextPlain
 
@@ -1539,4 +1708,1084 @@ func (s *TextAnchorArray) Pop() (v TextAnchor, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// TextMathArray is adapter for slice of TextMath.
+type TextMathArray []TextMath
+
+// Sort sorts slice of TextMath.
+func (s TextMathArray) Sort(less func(a, b TextMath) bool) TextMathArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextMath.
+func (s TextMathArray) SortStable(less func(a, b TextMath) bool) TextMathArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextMath.
+func (s TextMathArray) Retain(keep func(x TextMath) bool) TextMathArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextMathArray) First() (v TextMath, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextMathArray) Last() (v TextMath, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextMathArray) PopFirst() (v TextMath, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextMath
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextMathArray) Pop() (v TextMath, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextCustomEmojiArray is adapter for slice of TextCustomEmoji.
+type TextCustomEmojiArray []TextCustomEmoji
+
+// Sort sorts slice of TextCustomEmoji.
+func (s TextCustomEmojiArray) Sort(less func(a, b TextCustomEmoji) bool) TextCustomEmojiArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextCustomEmoji.
+func (s TextCustomEmojiArray) SortStable(less func(a, b TextCustomEmoji) bool) TextCustomEmojiArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextCustomEmoji.
+func (s TextCustomEmojiArray) Retain(keep func(x TextCustomEmoji) bool) TextCustomEmojiArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextCustomEmojiArray) First() (v TextCustomEmoji, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextCustomEmojiArray) Last() (v TextCustomEmoji, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextCustomEmojiArray) PopFirst() (v TextCustomEmoji, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextCustomEmoji
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextCustomEmojiArray) Pop() (v TextCustomEmoji, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextSpoilerArray is adapter for slice of TextSpoiler.
+type TextSpoilerArray []TextSpoiler
+
+// Sort sorts slice of TextSpoiler.
+func (s TextSpoilerArray) Sort(less func(a, b TextSpoiler) bool) TextSpoilerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextSpoiler.
+func (s TextSpoilerArray) SortStable(less func(a, b TextSpoiler) bool) TextSpoilerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextSpoiler.
+func (s TextSpoilerArray) Retain(keep func(x TextSpoiler) bool) TextSpoilerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextSpoilerArray) First() (v TextSpoiler, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextSpoilerArray) Last() (v TextSpoiler, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextSpoilerArray) PopFirst() (v TextSpoiler, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextSpoiler
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextSpoilerArray) Pop() (v TextSpoiler, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextMentionArray is adapter for slice of TextMention.
+type TextMentionArray []TextMention
+
+// Sort sorts slice of TextMention.
+func (s TextMentionArray) Sort(less func(a, b TextMention) bool) TextMentionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextMention.
+func (s TextMentionArray) SortStable(less func(a, b TextMention) bool) TextMentionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextMention.
+func (s TextMentionArray) Retain(keep func(x TextMention) bool) TextMentionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextMentionArray) First() (v TextMention, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextMentionArray) Last() (v TextMention, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextMentionArray) PopFirst() (v TextMention, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextMention
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextMentionArray) Pop() (v TextMention, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextHashtagArray is adapter for slice of TextHashtag.
+type TextHashtagArray []TextHashtag
+
+// Sort sorts slice of TextHashtag.
+func (s TextHashtagArray) Sort(less func(a, b TextHashtag) bool) TextHashtagArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextHashtag.
+func (s TextHashtagArray) SortStable(less func(a, b TextHashtag) bool) TextHashtagArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextHashtag.
+func (s TextHashtagArray) Retain(keep func(x TextHashtag) bool) TextHashtagArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextHashtagArray) First() (v TextHashtag, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextHashtagArray) Last() (v TextHashtag, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextHashtagArray) PopFirst() (v TextHashtag, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextHashtag
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextHashtagArray) Pop() (v TextHashtag, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextBotCommandArray is adapter for slice of TextBotCommand.
+type TextBotCommandArray []TextBotCommand
+
+// Sort sorts slice of TextBotCommand.
+func (s TextBotCommandArray) Sort(less func(a, b TextBotCommand) bool) TextBotCommandArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextBotCommand.
+func (s TextBotCommandArray) SortStable(less func(a, b TextBotCommand) bool) TextBotCommandArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextBotCommand.
+func (s TextBotCommandArray) Retain(keep func(x TextBotCommand) bool) TextBotCommandArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextBotCommandArray) First() (v TextBotCommand, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextBotCommandArray) Last() (v TextBotCommand, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextBotCommandArray) PopFirst() (v TextBotCommand, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextBotCommand
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextBotCommandArray) Pop() (v TextBotCommand, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextCashtagArray is adapter for slice of TextCashtag.
+type TextCashtagArray []TextCashtag
+
+// Sort sorts slice of TextCashtag.
+func (s TextCashtagArray) Sort(less func(a, b TextCashtag) bool) TextCashtagArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextCashtag.
+func (s TextCashtagArray) SortStable(less func(a, b TextCashtag) bool) TextCashtagArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextCashtag.
+func (s TextCashtagArray) Retain(keep func(x TextCashtag) bool) TextCashtagArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextCashtagArray) First() (v TextCashtag, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextCashtagArray) Last() (v TextCashtag, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextCashtagArray) PopFirst() (v TextCashtag, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextCashtag
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextCashtagArray) Pop() (v TextCashtag, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextAutoURLArray is adapter for slice of TextAutoURL.
+type TextAutoURLArray []TextAutoURL
+
+// Sort sorts slice of TextAutoURL.
+func (s TextAutoURLArray) Sort(less func(a, b TextAutoURL) bool) TextAutoURLArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextAutoURL.
+func (s TextAutoURLArray) SortStable(less func(a, b TextAutoURL) bool) TextAutoURLArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextAutoURL.
+func (s TextAutoURLArray) Retain(keep func(x TextAutoURL) bool) TextAutoURLArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextAutoURLArray) First() (v TextAutoURL, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextAutoURLArray) Last() (v TextAutoURL, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextAutoURLArray) PopFirst() (v TextAutoURL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextAutoURL
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextAutoURLArray) Pop() (v TextAutoURL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextAutoEmailArray is adapter for slice of TextAutoEmail.
+type TextAutoEmailArray []TextAutoEmail
+
+// Sort sorts slice of TextAutoEmail.
+func (s TextAutoEmailArray) Sort(less func(a, b TextAutoEmail) bool) TextAutoEmailArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextAutoEmail.
+func (s TextAutoEmailArray) SortStable(less func(a, b TextAutoEmail) bool) TextAutoEmailArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextAutoEmail.
+func (s TextAutoEmailArray) Retain(keep func(x TextAutoEmail) bool) TextAutoEmailArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextAutoEmailArray) First() (v TextAutoEmail, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextAutoEmailArray) Last() (v TextAutoEmail, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextAutoEmailArray) PopFirst() (v TextAutoEmail, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextAutoEmail
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextAutoEmailArray) Pop() (v TextAutoEmail, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextAutoPhoneArray is adapter for slice of TextAutoPhone.
+type TextAutoPhoneArray []TextAutoPhone
+
+// Sort sorts slice of TextAutoPhone.
+func (s TextAutoPhoneArray) Sort(less func(a, b TextAutoPhone) bool) TextAutoPhoneArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextAutoPhone.
+func (s TextAutoPhoneArray) SortStable(less func(a, b TextAutoPhone) bool) TextAutoPhoneArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextAutoPhone.
+func (s TextAutoPhoneArray) Retain(keep func(x TextAutoPhone) bool) TextAutoPhoneArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextAutoPhoneArray) First() (v TextAutoPhone, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextAutoPhoneArray) Last() (v TextAutoPhone, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextAutoPhoneArray) PopFirst() (v TextAutoPhone, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextAutoPhone
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextAutoPhoneArray) Pop() (v TextAutoPhone, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextBankCardArray is adapter for slice of TextBankCard.
+type TextBankCardArray []TextBankCard
+
+// Sort sorts slice of TextBankCard.
+func (s TextBankCardArray) Sort(less func(a, b TextBankCard) bool) TextBankCardArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextBankCard.
+func (s TextBankCardArray) SortStable(less func(a, b TextBankCard) bool) TextBankCardArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextBankCard.
+func (s TextBankCardArray) Retain(keep func(x TextBankCard) bool) TextBankCardArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextBankCardArray) First() (v TextBankCard, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextBankCardArray) Last() (v TextBankCard, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextBankCardArray) PopFirst() (v TextBankCard, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextBankCard
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextBankCardArray) Pop() (v TextBankCard, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextMentionNameArray is adapter for slice of TextMentionName.
+type TextMentionNameArray []TextMentionName
+
+// Sort sorts slice of TextMentionName.
+func (s TextMentionNameArray) Sort(less func(a, b TextMentionName) bool) TextMentionNameArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextMentionName.
+func (s TextMentionNameArray) SortStable(less func(a, b TextMentionName) bool) TextMentionNameArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextMentionName.
+func (s TextMentionNameArray) Retain(keep func(x TextMentionName) bool) TextMentionNameArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextMentionNameArray) First() (v TextMentionName, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextMentionNameArray) Last() (v TextMentionName, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextMentionNameArray) PopFirst() (v TextMentionName, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextMentionName
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextMentionNameArray) Pop() (v TextMentionName, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextDateArray is adapter for slice of TextDate.
+type TextDateArray []TextDate
+
+// Sort sorts slice of TextDate.
+func (s TextDateArray) Sort(less func(a, b TextDate) bool) TextDateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextDate.
+func (s TextDateArray) SortStable(less func(a, b TextDate) bool) TextDateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextDate.
+func (s TextDateArray) Retain(keep func(x TextDate) bool) TextDateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextDateArray) First() (v TextDate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextDateArray) Last() (v TextDate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextDateArray) PopFirst() (v TextDate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextDate
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextDateArray) Pop() (v TextDate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of TextDate by Date.
+func (s TextDateArray) SortByDate() TextDateArray {
+	return s.Sort(func(a, b TextDate) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of TextDate by Date.
+func (s TextDateArray) SortStableByDate() TextDateArray {
+	return s.SortStable(func(a, b TextDate) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }

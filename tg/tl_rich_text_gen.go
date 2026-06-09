@@ -2430,6 +2430,2112 @@ func (t *TextAnchor) GetName() (value string) {
 	return t.Name
 }
 
+// TextMath represents TL type `textMath#9d2eac97`.
+//
+// See https://core.telegram.org/constructor/textMath for reference.
+type TextMath struct {
+	// Source field of TextMath.
+	Source string
+}
+
+// TextMathTypeID is TL type id of TextMath.
+const TextMathTypeID = 0x9d2eac97
+
+// construct implements constructor of RichTextClass.
+func (t TextMath) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextMath.
+var (
+	_ bin.Encoder     = &TextMath{}
+	_ bin.Decoder     = &TextMath{}
+	_ bin.BareEncoder = &TextMath{}
+	_ bin.BareDecoder = &TextMath{}
+
+	_ RichTextClass = &TextMath{}
+)
+
+func (t *TextMath) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Source == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextMath) String() string {
+	if t == nil {
+		return "TextMath(nil)"
+	}
+	type Alias TextMath
+	return fmt.Sprintf("TextMath%+v", Alias(*t))
+}
+
+// FillFrom fills TextMath from given interface.
+func (t *TextMath) FillFrom(from interface {
+	GetSource() (value string)
+}) {
+	t.Source = from.GetSource()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextMath) TypeID() uint32 {
+	return TextMathTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextMath) TypeName() string {
+	return "textMath"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextMath) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textMath",
+		ID:   TextMathTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Source",
+			SchemaName: "source",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextMath) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMath#9d2eac97 as nil")
+	}
+	b.PutID(TextMathTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextMath) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMath#9d2eac97 as nil")
+	}
+	b.PutString(t.Source)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextMath) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMath#9d2eac97 to nil")
+	}
+	if err := b.ConsumeID(TextMathTypeID); err != nil {
+		return fmt.Errorf("unable to decode textMath#9d2eac97: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextMath) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMath#9d2eac97 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode textMath#9d2eac97: field source: %w", err)
+		}
+		t.Source = value
+	}
+	return nil
+}
+
+// GetSource returns value of Source field.
+func (t *TextMath) GetSource() (value string) {
+	if t == nil {
+		return
+	}
+	return t.Source
+}
+
+// TextCustomEmoji represents TL type `textCustomEmoji#a26156c0`.
+//
+// See https://core.telegram.org/constructor/textCustomEmoji for reference.
+type TextCustomEmoji struct {
+	// DocumentID field of TextCustomEmoji.
+	DocumentID int64
+	// Alt field of TextCustomEmoji.
+	Alt string
+}
+
+// TextCustomEmojiTypeID is TL type id of TextCustomEmoji.
+const TextCustomEmojiTypeID = 0xa26156c0
+
+// construct implements constructor of RichTextClass.
+func (t TextCustomEmoji) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextCustomEmoji.
+var (
+	_ bin.Encoder     = &TextCustomEmoji{}
+	_ bin.Decoder     = &TextCustomEmoji{}
+	_ bin.BareEncoder = &TextCustomEmoji{}
+	_ bin.BareDecoder = &TextCustomEmoji{}
+
+	_ RichTextClass = &TextCustomEmoji{}
+)
+
+func (t *TextCustomEmoji) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.DocumentID == 0) {
+		return false
+	}
+	if !(t.Alt == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextCustomEmoji) String() string {
+	if t == nil {
+		return "TextCustomEmoji(nil)"
+	}
+	type Alias TextCustomEmoji
+	return fmt.Sprintf("TextCustomEmoji%+v", Alias(*t))
+}
+
+// FillFrom fills TextCustomEmoji from given interface.
+func (t *TextCustomEmoji) FillFrom(from interface {
+	GetDocumentID() (value int64)
+	GetAlt() (value string)
+}) {
+	t.DocumentID = from.GetDocumentID()
+	t.Alt = from.GetAlt()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextCustomEmoji) TypeID() uint32 {
+	return TextCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextCustomEmoji) TypeName() string {
+	return "textCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textCustomEmoji",
+		ID:   TextCustomEmojiTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DocumentID",
+			SchemaName: "document_id",
+		},
+		{
+			Name:       "Alt",
+			SchemaName: "alt",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextCustomEmoji) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textCustomEmoji#a26156c0 as nil")
+	}
+	b.PutID(TextCustomEmojiTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textCustomEmoji#a26156c0 as nil")
+	}
+	b.PutLong(t.DocumentID)
+	b.PutString(t.Alt)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextCustomEmoji) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textCustomEmoji#a26156c0 to nil")
+	}
+	if err := b.ConsumeID(TextCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode textCustomEmoji#a26156c0: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textCustomEmoji#a26156c0 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode textCustomEmoji#a26156c0: field document_id: %w", err)
+		}
+		t.DocumentID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode textCustomEmoji#a26156c0: field alt: %w", err)
+		}
+		t.Alt = value
+	}
+	return nil
+}
+
+// GetDocumentID returns value of DocumentID field.
+func (t *TextCustomEmoji) GetDocumentID() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.DocumentID
+}
+
+// GetAlt returns value of Alt field.
+func (t *TextCustomEmoji) GetAlt() (value string) {
+	if t == nil {
+		return
+	}
+	return t.Alt
+}
+
+// TextSpoiler represents TL type `textSpoiler#4c2a5d62`.
+//
+// See https://core.telegram.org/constructor/textSpoiler for reference.
+type TextSpoiler struct {
+	// Text field of TextSpoiler.
+	Text RichTextClass
+}
+
+// TextSpoilerTypeID is TL type id of TextSpoiler.
+const TextSpoilerTypeID = 0x4c2a5d62
+
+// construct implements constructor of RichTextClass.
+func (t TextSpoiler) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextSpoiler.
+var (
+	_ bin.Encoder     = &TextSpoiler{}
+	_ bin.Decoder     = &TextSpoiler{}
+	_ bin.BareEncoder = &TextSpoiler{}
+	_ bin.BareDecoder = &TextSpoiler{}
+
+	_ RichTextClass = &TextSpoiler{}
+)
+
+func (t *TextSpoiler) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextSpoiler) String() string {
+	if t == nil {
+		return "TextSpoiler(nil)"
+	}
+	type Alias TextSpoiler
+	return fmt.Sprintf("TextSpoiler%+v", Alias(*t))
+}
+
+// FillFrom fills TextSpoiler from given interface.
+func (t *TextSpoiler) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextSpoiler) TypeID() uint32 {
+	return TextSpoilerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextSpoiler) TypeName() string {
+	return "textSpoiler"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextSpoiler) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textSpoiler",
+		ID:   TextSpoilerTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextSpoiler) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textSpoiler#4c2a5d62 as nil")
+	}
+	b.PutID(TextSpoilerTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextSpoiler) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textSpoiler#4c2a5d62 as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textSpoiler#4c2a5d62: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textSpoiler#4c2a5d62: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextSpoiler) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textSpoiler#4c2a5d62 to nil")
+	}
+	if err := b.ConsumeID(TextSpoilerTypeID); err != nil {
+		return fmt.Errorf("unable to decode textSpoiler#4c2a5d62: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextSpoiler) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textSpoiler#4c2a5d62 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textSpoiler#4c2a5d62: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextSpoiler) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextMention represents TL type `textMention#cd24cf44`.
+//
+// See https://core.telegram.org/constructor/textMention for reference.
+type TextMention struct {
+	// Text field of TextMention.
+	Text RichTextClass
+}
+
+// TextMentionTypeID is TL type id of TextMention.
+const TextMentionTypeID = 0xcd24cf44
+
+// construct implements constructor of RichTextClass.
+func (t TextMention) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextMention.
+var (
+	_ bin.Encoder     = &TextMention{}
+	_ bin.Decoder     = &TextMention{}
+	_ bin.BareEncoder = &TextMention{}
+	_ bin.BareDecoder = &TextMention{}
+
+	_ RichTextClass = &TextMention{}
+)
+
+func (t *TextMention) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextMention) String() string {
+	if t == nil {
+		return "TextMention(nil)"
+	}
+	type Alias TextMention
+	return fmt.Sprintf("TextMention%+v", Alias(*t))
+}
+
+// FillFrom fills TextMention from given interface.
+func (t *TextMention) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextMention) TypeID() uint32 {
+	return TextMentionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextMention) TypeName() string {
+	return "textMention"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextMention) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textMention",
+		ID:   TextMentionTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextMention) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMention#cd24cf44 as nil")
+	}
+	b.PutID(TextMentionTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextMention) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMention#cd24cf44 as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textMention#cd24cf44: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textMention#cd24cf44: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextMention) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMention#cd24cf44 to nil")
+	}
+	if err := b.ConsumeID(TextMentionTypeID); err != nil {
+		return fmt.Errorf("unable to decode textMention#cd24cf44: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextMention) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMention#cd24cf44 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textMention#cd24cf44: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextMention) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextHashtag represents TL type `textHashtag#519524ea`.
+//
+// See https://core.telegram.org/constructor/textHashtag for reference.
+type TextHashtag struct {
+	// Text field of TextHashtag.
+	Text RichTextClass
+}
+
+// TextHashtagTypeID is TL type id of TextHashtag.
+const TextHashtagTypeID = 0x519524ea
+
+// construct implements constructor of RichTextClass.
+func (t TextHashtag) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextHashtag.
+var (
+	_ bin.Encoder     = &TextHashtag{}
+	_ bin.Decoder     = &TextHashtag{}
+	_ bin.BareEncoder = &TextHashtag{}
+	_ bin.BareDecoder = &TextHashtag{}
+
+	_ RichTextClass = &TextHashtag{}
+)
+
+func (t *TextHashtag) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextHashtag) String() string {
+	if t == nil {
+		return "TextHashtag(nil)"
+	}
+	type Alias TextHashtag
+	return fmt.Sprintf("TextHashtag%+v", Alias(*t))
+}
+
+// FillFrom fills TextHashtag from given interface.
+func (t *TextHashtag) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextHashtag) TypeID() uint32 {
+	return TextHashtagTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextHashtag) TypeName() string {
+	return "textHashtag"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextHashtag) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textHashtag",
+		ID:   TextHashtagTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextHashtag) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textHashtag#519524ea as nil")
+	}
+	b.PutID(TextHashtagTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextHashtag) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textHashtag#519524ea as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textHashtag#519524ea: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textHashtag#519524ea: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextHashtag) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textHashtag#519524ea to nil")
+	}
+	if err := b.ConsumeID(TextHashtagTypeID); err != nil {
+		return fmt.Errorf("unable to decode textHashtag#519524ea: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextHashtag) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textHashtag#519524ea to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textHashtag#519524ea: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextHashtag) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextBotCommand represents TL type `textBotCommand#2ff29d3`.
+//
+// See https://core.telegram.org/constructor/textBotCommand for reference.
+type TextBotCommand struct {
+	// Text field of TextBotCommand.
+	Text RichTextClass
+}
+
+// TextBotCommandTypeID is TL type id of TextBotCommand.
+const TextBotCommandTypeID = 0x2ff29d3
+
+// construct implements constructor of RichTextClass.
+func (t TextBotCommand) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextBotCommand.
+var (
+	_ bin.Encoder     = &TextBotCommand{}
+	_ bin.Decoder     = &TextBotCommand{}
+	_ bin.BareEncoder = &TextBotCommand{}
+	_ bin.BareDecoder = &TextBotCommand{}
+
+	_ RichTextClass = &TextBotCommand{}
+)
+
+func (t *TextBotCommand) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextBotCommand) String() string {
+	if t == nil {
+		return "TextBotCommand(nil)"
+	}
+	type Alias TextBotCommand
+	return fmt.Sprintf("TextBotCommand%+v", Alias(*t))
+}
+
+// FillFrom fills TextBotCommand from given interface.
+func (t *TextBotCommand) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextBotCommand) TypeID() uint32 {
+	return TextBotCommandTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextBotCommand) TypeName() string {
+	return "textBotCommand"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextBotCommand) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textBotCommand",
+		ID:   TextBotCommandTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextBotCommand) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textBotCommand#2ff29d3 as nil")
+	}
+	b.PutID(TextBotCommandTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextBotCommand) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textBotCommand#2ff29d3 as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textBotCommand#2ff29d3: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textBotCommand#2ff29d3: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextBotCommand) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textBotCommand#2ff29d3 to nil")
+	}
+	if err := b.ConsumeID(TextBotCommandTypeID); err != nil {
+		return fmt.Errorf("unable to decode textBotCommand#2ff29d3: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextBotCommand) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textBotCommand#2ff29d3 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textBotCommand#2ff29d3: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextBotCommand) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextCashtag represents TL type `textCashtag#7b9e1801`.
+//
+// See https://core.telegram.org/constructor/textCashtag for reference.
+type TextCashtag struct {
+	// Text field of TextCashtag.
+	Text RichTextClass
+}
+
+// TextCashtagTypeID is TL type id of TextCashtag.
+const TextCashtagTypeID = 0x7b9e1801
+
+// construct implements constructor of RichTextClass.
+func (t TextCashtag) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextCashtag.
+var (
+	_ bin.Encoder     = &TextCashtag{}
+	_ bin.Decoder     = &TextCashtag{}
+	_ bin.BareEncoder = &TextCashtag{}
+	_ bin.BareDecoder = &TextCashtag{}
+
+	_ RichTextClass = &TextCashtag{}
+)
+
+func (t *TextCashtag) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextCashtag) String() string {
+	if t == nil {
+		return "TextCashtag(nil)"
+	}
+	type Alias TextCashtag
+	return fmt.Sprintf("TextCashtag%+v", Alias(*t))
+}
+
+// FillFrom fills TextCashtag from given interface.
+func (t *TextCashtag) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextCashtag) TypeID() uint32 {
+	return TextCashtagTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextCashtag) TypeName() string {
+	return "textCashtag"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextCashtag) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textCashtag",
+		ID:   TextCashtagTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextCashtag) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textCashtag#7b9e1801 as nil")
+	}
+	b.PutID(TextCashtagTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextCashtag) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textCashtag#7b9e1801 as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textCashtag#7b9e1801: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textCashtag#7b9e1801: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextCashtag) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textCashtag#7b9e1801 to nil")
+	}
+	if err := b.ConsumeID(TextCashtagTypeID); err != nil {
+		return fmt.Errorf("unable to decode textCashtag#7b9e1801: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextCashtag) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textCashtag#7b9e1801 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textCashtag#7b9e1801: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextCashtag) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextAutoURL represents TL type `textAutoUrl#ac6a83aa`.
+//
+// See https://core.telegram.org/constructor/textAutoUrl for reference.
+type TextAutoURL struct {
+	// Text field of TextAutoURL.
+	Text RichTextClass
+}
+
+// TextAutoURLTypeID is TL type id of TextAutoURL.
+const TextAutoURLTypeID = 0xac6a83aa
+
+// construct implements constructor of RichTextClass.
+func (t TextAutoURL) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextAutoURL.
+var (
+	_ bin.Encoder     = &TextAutoURL{}
+	_ bin.Decoder     = &TextAutoURL{}
+	_ bin.BareEncoder = &TextAutoURL{}
+	_ bin.BareDecoder = &TextAutoURL{}
+
+	_ RichTextClass = &TextAutoURL{}
+)
+
+func (t *TextAutoURL) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextAutoURL) String() string {
+	if t == nil {
+		return "TextAutoURL(nil)"
+	}
+	type Alias TextAutoURL
+	return fmt.Sprintf("TextAutoURL%+v", Alias(*t))
+}
+
+// FillFrom fills TextAutoURL from given interface.
+func (t *TextAutoURL) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextAutoURL) TypeID() uint32 {
+	return TextAutoURLTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextAutoURL) TypeName() string {
+	return "textAutoUrl"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextAutoURL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textAutoUrl",
+		ID:   TextAutoURLTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextAutoURL) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAutoUrl#ac6a83aa as nil")
+	}
+	b.PutID(TextAutoURLTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextAutoURL) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAutoUrl#ac6a83aa as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textAutoUrl#ac6a83aa: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textAutoUrl#ac6a83aa: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextAutoURL) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAutoUrl#ac6a83aa to nil")
+	}
+	if err := b.ConsumeID(TextAutoURLTypeID); err != nil {
+		return fmt.Errorf("unable to decode textAutoUrl#ac6a83aa: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextAutoURL) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAutoUrl#ac6a83aa to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textAutoUrl#ac6a83aa: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextAutoURL) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextAutoEmail represents TL type `textAutoEmail#c556a45d`.
+//
+// See https://core.telegram.org/constructor/textAutoEmail for reference.
+type TextAutoEmail struct {
+	// Text field of TextAutoEmail.
+	Text RichTextClass
+}
+
+// TextAutoEmailTypeID is TL type id of TextAutoEmail.
+const TextAutoEmailTypeID = 0xc556a45d
+
+// construct implements constructor of RichTextClass.
+func (t TextAutoEmail) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextAutoEmail.
+var (
+	_ bin.Encoder     = &TextAutoEmail{}
+	_ bin.Decoder     = &TextAutoEmail{}
+	_ bin.BareEncoder = &TextAutoEmail{}
+	_ bin.BareDecoder = &TextAutoEmail{}
+
+	_ RichTextClass = &TextAutoEmail{}
+)
+
+func (t *TextAutoEmail) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextAutoEmail) String() string {
+	if t == nil {
+		return "TextAutoEmail(nil)"
+	}
+	type Alias TextAutoEmail
+	return fmt.Sprintf("TextAutoEmail%+v", Alias(*t))
+}
+
+// FillFrom fills TextAutoEmail from given interface.
+func (t *TextAutoEmail) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextAutoEmail) TypeID() uint32 {
+	return TextAutoEmailTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextAutoEmail) TypeName() string {
+	return "textAutoEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextAutoEmail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textAutoEmail",
+		ID:   TextAutoEmailTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextAutoEmail) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAutoEmail#c556a45d as nil")
+	}
+	b.PutID(TextAutoEmailTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextAutoEmail) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAutoEmail#c556a45d as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textAutoEmail#c556a45d: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textAutoEmail#c556a45d: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextAutoEmail) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAutoEmail#c556a45d to nil")
+	}
+	if err := b.ConsumeID(TextAutoEmailTypeID); err != nil {
+		return fmt.Errorf("unable to decode textAutoEmail#c556a45d: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextAutoEmail) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAutoEmail#c556a45d to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textAutoEmail#c556a45d: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextAutoEmail) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextAutoPhone represents TL type `textAutoPhone#24c26789`.
+//
+// See https://core.telegram.org/constructor/textAutoPhone for reference.
+type TextAutoPhone struct {
+	// Text field of TextAutoPhone.
+	Text RichTextClass
+}
+
+// TextAutoPhoneTypeID is TL type id of TextAutoPhone.
+const TextAutoPhoneTypeID = 0x24c26789
+
+// construct implements constructor of RichTextClass.
+func (t TextAutoPhone) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextAutoPhone.
+var (
+	_ bin.Encoder     = &TextAutoPhone{}
+	_ bin.Decoder     = &TextAutoPhone{}
+	_ bin.BareEncoder = &TextAutoPhone{}
+	_ bin.BareDecoder = &TextAutoPhone{}
+
+	_ RichTextClass = &TextAutoPhone{}
+)
+
+func (t *TextAutoPhone) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextAutoPhone) String() string {
+	if t == nil {
+		return "TextAutoPhone(nil)"
+	}
+	type Alias TextAutoPhone
+	return fmt.Sprintf("TextAutoPhone%+v", Alias(*t))
+}
+
+// FillFrom fills TextAutoPhone from given interface.
+func (t *TextAutoPhone) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextAutoPhone) TypeID() uint32 {
+	return TextAutoPhoneTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextAutoPhone) TypeName() string {
+	return "textAutoPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextAutoPhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textAutoPhone",
+		ID:   TextAutoPhoneTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextAutoPhone) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAutoPhone#24c26789 as nil")
+	}
+	b.PutID(TextAutoPhoneTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextAutoPhone) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAutoPhone#24c26789 as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textAutoPhone#24c26789: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textAutoPhone#24c26789: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextAutoPhone) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAutoPhone#24c26789 to nil")
+	}
+	if err := b.ConsumeID(TextAutoPhoneTypeID); err != nil {
+		return fmt.Errorf("unable to decode textAutoPhone#24c26789: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextAutoPhone) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAutoPhone#24c26789 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textAutoPhone#24c26789: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextAutoPhone) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextBankCard represents TL type `textBankCard#b956812d`.
+//
+// See https://core.telegram.org/constructor/textBankCard for reference.
+type TextBankCard struct {
+	// Text field of TextBankCard.
+	Text RichTextClass
+}
+
+// TextBankCardTypeID is TL type id of TextBankCard.
+const TextBankCardTypeID = 0xb956812d
+
+// construct implements constructor of RichTextClass.
+func (t TextBankCard) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextBankCard.
+var (
+	_ bin.Encoder     = &TextBankCard{}
+	_ bin.Decoder     = &TextBankCard{}
+	_ bin.BareEncoder = &TextBankCard{}
+	_ bin.BareDecoder = &TextBankCard{}
+
+	_ RichTextClass = &TextBankCard{}
+)
+
+func (t *TextBankCard) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextBankCard) String() string {
+	if t == nil {
+		return "TextBankCard(nil)"
+	}
+	type Alias TextBankCard
+	return fmt.Sprintf("TextBankCard%+v", Alias(*t))
+}
+
+// FillFrom fills TextBankCard from given interface.
+func (t *TextBankCard) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextBankCard) TypeID() uint32 {
+	return TextBankCardTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextBankCard) TypeName() string {
+	return "textBankCard"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextBankCard) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textBankCard",
+		ID:   TextBankCardTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextBankCard) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textBankCard#b956812d as nil")
+	}
+	b.PutID(TextBankCardTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextBankCard) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textBankCard#b956812d as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textBankCard#b956812d: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textBankCard#b956812d: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextBankCard) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textBankCard#b956812d to nil")
+	}
+	if err := b.ConsumeID(TextBankCardTypeID); err != nil {
+		return fmt.Errorf("unable to decode textBankCard#b956812d: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextBankCard) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textBankCard#b956812d to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textBankCard#b956812d: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextBankCard) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// TextMentionName represents TL type `textMentionName#1a9fbfc`.
+//
+// See https://core.telegram.org/constructor/textMentionName for reference.
+type TextMentionName struct {
+	// Text field of TextMentionName.
+	Text RichTextClass
+	// UserID field of TextMentionName.
+	UserID int64
+}
+
+// TextMentionNameTypeID is TL type id of TextMentionName.
+const TextMentionNameTypeID = 0x1a9fbfc
+
+// construct implements constructor of RichTextClass.
+func (t TextMentionName) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextMentionName.
+var (
+	_ bin.Encoder     = &TextMentionName{}
+	_ bin.Decoder     = &TextMentionName{}
+	_ bin.BareEncoder = &TextMentionName{}
+	_ bin.BareDecoder = &TextMentionName{}
+
+	_ RichTextClass = &TextMentionName{}
+)
+
+func (t *TextMentionName) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+	if !(t.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextMentionName) String() string {
+	if t == nil {
+		return "TextMentionName(nil)"
+	}
+	type Alias TextMentionName
+	return fmt.Sprintf("TextMentionName%+v", Alias(*t))
+}
+
+// FillFrom fills TextMentionName from given interface.
+func (t *TextMentionName) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetUserID() (value int64)
+}) {
+	t.Text = from.GetText()
+	t.UserID = from.GetUserID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextMentionName) TypeID() uint32 {
+	return TextMentionNameTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextMentionName) TypeName() string {
+	return "textMentionName"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextMentionName) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textMentionName",
+		ID:   TextMentionNameTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextMentionName) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMentionName#1a9fbfc as nil")
+	}
+	b.PutID(TextMentionNameTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextMentionName) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMentionName#1a9fbfc as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textMentionName#1a9fbfc: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textMentionName#1a9fbfc: field text: %w", err)
+	}
+	b.PutLong(t.UserID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextMentionName) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMentionName#1a9fbfc to nil")
+	}
+	if err := b.ConsumeID(TextMentionNameTypeID); err != nil {
+		return fmt.Errorf("unable to decode textMentionName#1a9fbfc: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextMentionName) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMentionName#1a9fbfc to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textMentionName#1a9fbfc: field text: %w", err)
+		}
+		t.Text = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode textMentionName#1a9fbfc: field user_id: %w", err)
+		}
+		t.UserID = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextMentionName) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// GetUserID returns value of UserID field.
+func (t *TextMentionName) GetUserID() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.UserID
+}
+
+// TextDate represents TL type `textDate#a5b45e2b`.
+//
+// See https://core.telegram.org/constructor/textDate for reference.
+type TextDate struct {
+	// Flags field of TextDate.
+	Flags bin.Fields
+	// Relative field of TextDate.
+	Relative bool
+	// ShortTime field of TextDate.
+	ShortTime bool
+	// LongTime field of TextDate.
+	LongTime bool
+	// ShortDate field of TextDate.
+	ShortDate bool
+	// LongDate field of TextDate.
+	LongDate bool
+	// DayOfWeek field of TextDate.
+	DayOfWeek bool
+	// Text field of TextDate.
+	Text RichTextClass
+	// Date field of TextDate.
+	Date int
+}
+
+// TextDateTypeID is TL type id of TextDate.
+const TextDateTypeID = 0xa5b45e2b
+
+// construct implements constructor of RichTextClass.
+func (t TextDate) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextDate.
+var (
+	_ bin.Encoder     = &TextDate{}
+	_ bin.Decoder     = &TextDate{}
+	_ bin.BareEncoder = &TextDate{}
+	_ bin.BareDecoder = &TextDate{}
+
+	_ RichTextClass = &TextDate{}
+)
+
+func (t *TextDate) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.Relative == false) {
+		return false
+	}
+	if !(t.ShortTime == false) {
+		return false
+	}
+	if !(t.LongTime == false) {
+		return false
+	}
+	if !(t.ShortDate == false) {
+		return false
+	}
+	if !(t.LongDate == false) {
+		return false
+	}
+	if !(t.DayOfWeek == false) {
+		return false
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+	if !(t.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextDate) String() string {
+	if t == nil {
+		return "TextDate(nil)"
+	}
+	type Alias TextDate
+	return fmt.Sprintf("TextDate%+v", Alias(*t))
+}
+
+// FillFrom fills TextDate from given interface.
+func (t *TextDate) FillFrom(from interface {
+	GetRelative() (value bool)
+	GetShortTime() (value bool)
+	GetLongTime() (value bool)
+	GetShortDate() (value bool)
+	GetLongDate() (value bool)
+	GetDayOfWeek() (value bool)
+	GetText() (value RichTextClass)
+	GetDate() (value int)
+}) {
+	t.Relative = from.GetRelative()
+	t.ShortTime = from.GetShortTime()
+	t.LongTime = from.GetLongTime()
+	t.ShortDate = from.GetShortDate()
+	t.LongDate = from.GetLongDate()
+	t.DayOfWeek = from.GetDayOfWeek()
+	t.Text = from.GetText()
+	t.Date = from.GetDate()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextDate) TypeID() uint32 {
+	return TextDateTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextDate) TypeName() string {
+	return "textDate"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextDate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textDate",
+		ID:   TextDateTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Relative",
+			SchemaName: "relative",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "ShortTime",
+			SchemaName: "short_time",
+			Null:       !t.Flags.Has(1),
+		},
+		{
+			Name:       "LongTime",
+			SchemaName: "long_time",
+			Null:       !t.Flags.Has(2),
+		},
+		{
+			Name:       "ShortDate",
+			SchemaName: "short_date",
+			Null:       !t.Flags.Has(3),
+		},
+		{
+			Name:       "LongDate",
+			SchemaName: "long_date",
+			Null:       !t.Flags.Has(4),
+		},
+		{
+			Name:       "DayOfWeek",
+			SchemaName: "day_of_week",
+			Null:       !t.Flags.Has(5),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (t *TextDate) SetFlags() {
+	if !(t.Relative == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.ShortTime == false) {
+		t.Flags.Set(1)
+	}
+	if !(t.LongTime == false) {
+		t.Flags.Set(2)
+	}
+	if !(t.ShortDate == false) {
+		t.Flags.Set(3)
+	}
+	if !(t.LongDate == false) {
+		t.Flags.Set(4)
+	}
+	if !(t.DayOfWeek == false) {
+		t.Flags.Set(5)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (t *TextDate) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textDate#a5b45e2b as nil")
+	}
+	b.PutID(TextDateTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextDate) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textDate#a5b45e2b as nil")
+	}
+	t.SetFlags()
+	if err := t.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textDate#a5b45e2b: field flags: %w", err)
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textDate#a5b45e2b: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textDate#a5b45e2b: field text: %w", err)
+	}
+	b.PutInt(t.Date)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextDate) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textDate#a5b45e2b to nil")
+	}
+	if err := b.ConsumeID(TextDateTypeID); err != nil {
+		return fmt.Errorf("unable to decode textDate#a5b45e2b: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextDate) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textDate#a5b45e2b to nil")
+	}
+	{
+		if err := t.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode textDate#a5b45e2b: field flags: %w", err)
+		}
+	}
+	t.Relative = t.Flags.Has(0)
+	t.ShortTime = t.Flags.Has(1)
+	t.LongTime = t.Flags.Has(2)
+	t.ShortDate = t.Flags.Has(3)
+	t.LongDate = t.Flags.Has(4)
+	t.DayOfWeek = t.Flags.Has(5)
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textDate#a5b45e2b: field text: %w", err)
+		}
+		t.Text = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode textDate#a5b45e2b: field date: %w", err)
+		}
+		t.Date = value
+	}
+	return nil
+}
+
+// SetRelative sets value of Relative conditional field.
+func (t *TextDate) SetRelative(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.Relative = true
+	} else {
+		t.Flags.Unset(0)
+		t.Relative = false
+	}
+}
+
+// GetRelative returns value of Relative conditional field.
+func (t *TextDate) GetRelative() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(0)
+}
+
+// SetShortTime sets value of ShortTime conditional field.
+func (t *TextDate) SetShortTime(value bool) {
+	if value {
+		t.Flags.Set(1)
+		t.ShortTime = true
+	} else {
+		t.Flags.Unset(1)
+		t.ShortTime = false
+	}
+}
+
+// GetShortTime returns value of ShortTime conditional field.
+func (t *TextDate) GetShortTime() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(1)
+}
+
+// SetLongTime sets value of LongTime conditional field.
+func (t *TextDate) SetLongTime(value bool) {
+	if value {
+		t.Flags.Set(2)
+		t.LongTime = true
+	} else {
+		t.Flags.Unset(2)
+		t.LongTime = false
+	}
+}
+
+// GetLongTime returns value of LongTime conditional field.
+func (t *TextDate) GetLongTime() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(2)
+}
+
+// SetShortDate sets value of ShortDate conditional field.
+func (t *TextDate) SetShortDate(value bool) {
+	if value {
+		t.Flags.Set(3)
+		t.ShortDate = true
+	} else {
+		t.Flags.Unset(3)
+		t.ShortDate = false
+	}
+}
+
+// GetShortDate returns value of ShortDate conditional field.
+func (t *TextDate) GetShortDate() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(3)
+}
+
+// SetLongDate sets value of LongDate conditional field.
+func (t *TextDate) SetLongDate(value bool) {
+	if value {
+		t.Flags.Set(4)
+		t.LongDate = true
+	} else {
+		t.Flags.Unset(4)
+		t.LongDate = false
+	}
+}
+
+// GetLongDate returns value of LongDate conditional field.
+func (t *TextDate) GetLongDate() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(4)
+}
+
+// SetDayOfWeek sets value of DayOfWeek conditional field.
+func (t *TextDate) SetDayOfWeek(value bool) {
+	if value {
+		t.Flags.Set(5)
+		t.DayOfWeek = true
+	} else {
+		t.Flags.Unset(5)
+		t.DayOfWeek = false
+	}
+}
+
+// GetDayOfWeek returns value of DayOfWeek conditional field.
+func (t *TextDate) GetDayOfWeek() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(5)
+}
+
+// GetText returns value of Text field.
+func (t *TextDate) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
+// GetDate returns value of Date field.
+func (t *TextDate) GetDate() (value int) {
+	if t == nil {
+		return
+	}
+	return t.Date
+}
+
 // RichTextClassName is schema name of RichTextClass.
 const RichTextClassName = "RichText"
 
@@ -2454,6 +4560,19 @@ const RichTextClassName = "RichText"
 //   - [TextPhone]
 //   - [TextImage]
 //   - [TextAnchor]
+//   - [TextMath]
+//   - [TextCustomEmoji]
+//   - [TextSpoiler]
+//   - [TextMention]
+//   - [TextHashtag]
+//   - [TextBotCommand]
+//   - [TextCashtag]
+//   - [TextAutoURL]
+//   - [TextAutoEmail]
+//   - [TextAutoPhone]
+//   - [TextBankCard]
+//   - [TextMentionName]
+//   - [TextDate]
 //
 // Example:
 //
@@ -2478,6 +4597,19 @@ const RichTextClassName = "RichText"
 //	case *tg.TextPhone: // textPhone#1ccb966a
 //	case *tg.TextImage: // textImage#81ccf4f
 //	case *tg.TextAnchor: // textAnchor#35553762
+//	case *tg.TextMath: // textMath#9d2eac97
+//	case *tg.TextCustomEmoji: // textCustomEmoji#a26156c0
+//	case *tg.TextSpoiler: // textSpoiler#4c2a5d62
+//	case *tg.TextMention: // textMention#cd24cf44
+//	case *tg.TextHashtag: // textHashtag#519524ea
+//	case *tg.TextBotCommand: // textBotCommand#2ff29d3
+//	case *tg.TextCashtag: // textCashtag#7b9e1801
+//	case *tg.TextAutoURL: // textAutoUrl#ac6a83aa
+//	case *tg.TextAutoEmail: // textAutoEmail#c556a45d
+//	case *tg.TextAutoPhone: // textAutoPhone#24c26789
+//	case *tg.TextBankCard: // textBankCard#b956812d
+//	case *tg.TextMentionName: // textMentionName#1a9fbfc
+//	case *tg.TextDate: // textDate#a5b45e2b
 //	default: panic(v)
 //	}
 type RichTextClass interface {
@@ -2614,6 +4746,97 @@ func DecodeRichText(buf *bin.Buffer) (RichTextClass, error) {
 	case TextAnchorTypeID:
 		// Decoding textAnchor#35553762.
 		v := TextAnchor{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextMathTypeID:
+		// Decoding textMath#9d2eac97.
+		v := TextMath{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextCustomEmojiTypeID:
+		// Decoding textCustomEmoji#a26156c0.
+		v := TextCustomEmoji{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextSpoilerTypeID:
+		// Decoding textSpoiler#4c2a5d62.
+		v := TextSpoiler{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextMentionTypeID:
+		// Decoding textMention#cd24cf44.
+		v := TextMention{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextHashtagTypeID:
+		// Decoding textHashtag#519524ea.
+		v := TextHashtag{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextBotCommandTypeID:
+		// Decoding textBotCommand#2ff29d3.
+		v := TextBotCommand{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextCashtagTypeID:
+		// Decoding textCashtag#7b9e1801.
+		v := TextCashtag{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextAutoURLTypeID:
+		// Decoding textAutoUrl#ac6a83aa.
+		v := TextAutoURL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextAutoEmailTypeID:
+		// Decoding textAutoEmail#c556a45d.
+		v := TextAutoEmail{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextAutoPhoneTypeID:
+		// Decoding textAutoPhone#24c26789.
+		v := TextAutoPhone{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextBankCardTypeID:
+		// Decoding textBankCard#b956812d.
+		v := TextBankCard{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextMentionNameTypeID:
+		// Decoding textMentionName#1a9fbfc.
+		v := TextMentionName{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextDateTypeID:
+		// Decoding textDate#a5b45e2b.
+		v := TextDate{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
 		}

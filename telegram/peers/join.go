@@ -67,14 +67,19 @@ func (m *Manager) ImportInvite(ctx context.Context, hash string) (Peer, error) {
 }
 
 func (m *Manager) importInvite(ctx context.Context, hash string) (tg.ChatClass, error) {
-	u, err := m.api.MessagesImportChatInvite(ctx, hash)
+	r, err := m.api.MessagesImportChatInvite(ctx, hash)
 	if err != nil {
 		return nil, errors.Wrap(err, "import invite")
 	}
 
-	updates, ok := u.(updateWithChats)
+	res, ok := r.(*tg.MessagesChatInviteJoinResultOk)
 	if !ok {
-		return nil, errors.Errorf("bad result %T type", u)
+		return nil, errors.Errorf("unexpected join result %T type", r)
+	}
+
+	updates, ok := res.Updates.(updateWithChats)
+	if !ok {
+		return nil, errors.Errorf("bad result %T type", res.Updates)
 	}
 
 	// Do not apply it, update hook already did it.

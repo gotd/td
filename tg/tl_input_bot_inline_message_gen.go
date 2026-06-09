@@ -2753,6 +2753,216 @@ func (i *InputBotInlineMessageMediaWebPage) MapEntities() (value MessageEntityCl
 	return MessageEntityClassArray(i.Entities), true
 }
 
+// InputBotInlineMessageRichMessage represents TL type `inputBotInlineMessageRichMessage#b43df56c`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageRichMessage for reference.
+type InputBotInlineMessageRichMessage struct {
+	// Flags field of InputBotInlineMessageRichMessage.
+	Flags bin.Fields
+	// ReplyMarkup field of InputBotInlineMessageRichMessage.
+	//
+	// Use SetReplyMarkup and GetReplyMarkup helpers.
+	ReplyMarkup ReplyMarkupClass
+	// RichMessage field of InputBotInlineMessageRichMessage.
+	RichMessage InputRichMessageClass
+}
+
+// InputBotInlineMessageRichMessageTypeID is TL type id of InputBotInlineMessageRichMessage.
+const InputBotInlineMessageRichMessageTypeID = 0xb43df56c
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageRichMessage) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageRichMessage.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageRichMessage{}
+	_ bin.Decoder     = &InputBotInlineMessageRichMessage{}
+	_ bin.BareEncoder = &InputBotInlineMessageRichMessage{}
+	_ bin.BareDecoder = &InputBotInlineMessageRichMessage{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageRichMessage{}
+)
+
+func (i *InputBotInlineMessageRichMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ReplyMarkup == nil) {
+		return false
+	}
+	if !(i.RichMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageRichMessage) String() string {
+	if i == nil {
+		return "InputBotInlineMessageRichMessage(nil)"
+	}
+	type Alias InputBotInlineMessageRichMessage
+	return fmt.Sprintf("InputBotInlineMessageRichMessage%+v", Alias(*i))
+}
+
+// FillFrom fills InputBotInlineMessageRichMessage from given interface.
+func (i *InputBotInlineMessageRichMessage) FillFrom(from interface {
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+	GetRichMessage() (value InputRichMessageClass)
+}) {
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
+
+	i.RichMessage = from.GetRichMessage()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputBotInlineMessageRichMessage) TypeID() uint32 {
+	return InputBotInlineMessageRichMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputBotInlineMessageRichMessage) TypeName() string {
+	return "inputBotInlineMessageRichMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageRichMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageRichMessage",
+		ID:   InputBotInlineMessageRichMessageTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "RichMessage",
+			SchemaName: "rich_message",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageRichMessage) SetFlags() {
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputBotInlineMessageRichMessage) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineMessageRichMessage#b43df56c as nil")
+	}
+	b.PutID(InputBotInlineMessageRichMessageTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineMessageRichMessage) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineMessageRichMessage#b43df56c as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputBotInlineMessageRichMessage#b43df56c: field flags: %w", err)
+	}
+	if i.Flags.Has(2) {
+		if i.ReplyMarkup == nil {
+			return fmt.Errorf("unable to encode inputBotInlineMessageRichMessage#b43df56c: field reply_markup is nil")
+		}
+		if err := i.ReplyMarkup.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputBotInlineMessageRichMessage#b43df56c: field reply_markup: %w", err)
+		}
+	}
+	if i.RichMessage == nil {
+		return fmt.Errorf("unable to encode inputBotInlineMessageRichMessage#b43df56c: field rich_message is nil")
+	}
+	if err := i.RichMessage.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputBotInlineMessageRichMessage#b43df56c: field rich_message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputBotInlineMessageRichMessage) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageRichMessage#b43df56c to nil")
+	}
+	if err := b.ConsumeID(InputBotInlineMessageRichMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputBotInlineMessageRichMessage#b43df56c: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineMessageRichMessage) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageRichMessage#b43df56c to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageRichMessage#b43df56c: field flags: %w", err)
+		}
+	}
+	if i.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageRichMessage#b43df56c: field reply_markup: %w", err)
+		}
+		i.ReplyMarkup = value
+	}
+	{
+		value, err := DecodeInputRichMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageRichMessage#b43df56c: field rich_message: %w", err)
+		}
+		i.RichMessage = value
+	}
+	return nil
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageRichMessage) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageRichMessage) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
+
+// GetRichMessage returns value of RichMessage field.
+func (i *InputBotInlineMessageRichMessage) GetRichMessage() (value InputRichMessageClass) {
+	if i == nil {
+		return
+	}
+	return i.RichMessage
+}
+
 // InputBotInlineMessageClassName is schema name of InputBotInlineMessageClass.
 const InputBotInlineMessageClassName = "InputBotInlineMessage"
 
@@ -2769,6 +2979,7 @@ const InputBotInlineMessageClassName = "InputBotInlineMessage"
 //   - [InputBotInlineMessageGame]
 //   - [InputBotInlineMessageMediaInvoice]
 //   - [InputBotInlineMessageMediaWebPage]
+//   - [InputBotInlineMessageRichMessage]
 //
 // Example:
 //
@@ -2785,6 +2996,7 @@ const InputBotInlineMessageClassName = "InputBotInlineMessage"
 //	case *tg.InputBotInlineMessageGame: // inputBotInlineMessageGame#4b425864
 //	case *tg.InputBotInlineMessageMediaInvoice: // inputBotInlineMessageMediaInvoice#d7e78225
 //	case *tg.InputBotInlineMessageMediaWebPage: // inputBotInlineMessageMediaWebPage#bddcc510
+//	case *tg.InputBotInlineMessageRichMessage: // inputBotInlineMessageRichMessage#b43df56c
 //	default: panic(v)
 //	}
 type InputBotInlineMessageClass interface {
@@ -2868,6 +3080,13 @@ func DecodeInputBotInlineMessage(buf *bin.Buffer) (InputBotInlineMessageClass, e
 	case InputBotInlineMessageMediaWebPageTypeID:
 		// Decoding inputBotInlineMessageMediaWebPage#bddcc510.
 		v := InputBotInlineMessageMediaWebPage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+		}
+		return &v, nil
+	case InputBotInlineMessageRichMessageTypeID:
+		// Decoding inputBotInlineMessageRichMessage#b43df56c.
+		v := InputBotInlineMessageRichMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
 		}

@@ -53,6 +53,8 @@ type MessageReplyHeader struct {
 	ForumTopic bool
 	// Whether this message is quoting a part of another message.
 	Quote bool
+	// ReplyToEphemeral field of MessageReplyHeader.
+	ReplyToEphemeral bool
 	// ID of message to which this message is replying
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
@@ -145,6 +147,9 @@ func (m *MessageReplyHeader) Zero() bool {
 	if !(m.Quote == false) {
 		return false
 	}
+	if !(m.ReplyToEphemeral == false) {
+		return false
+	}
 	if !(m.ReplyToMsgID == 0) {
 		return false
 	}
@@ -193,6 +198,7 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 	GetReplyToScheduled() (value bool)
 	GetForumTopic() (value bool)
 	GetQuote() (value bool)
+	GetReplyToEphemeral() (value bool)
 	GetReplyToMsgID() (value int, ok bool)
 	GetReplyToPeerID() (value PeerClass, ok bool)
 	GetReplyFrom() (value MessageFwdHeader, ok bool)
@@ -207,6 +213,7 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 	m.ReplyToScheduled = from.GetReplyToScheduled()
 	m.ForumTopic = from.GetForumTopic()
 	m.Quote = from.GetQuote()
+	m.ReplyToEphemeral = from.GetReplyToEphemeral()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		m.ReplyToMsgID = val
 	}
@@ -288,6 +295,11 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(9),
 		},
 		{
+			Name:       "ReplyToEphemeral",
+			SchemaName: "reply_to_ephemeral",
+			Null:       !m.Flags.Has(13),
+		},
+		{
 			Name:       "ReplyToMsgID",
 			SchemaName: "reply_to_msg_id",
 			Null:       !m.Flags.Has(4),
@@ -351,6 +363,9 @@ func (m *MessageReplyHeader) SetFlags() {
 	}
 	if !(m.Quote == false) {
 		m.Flags.Set(9)
+	}
+	if !(m.ReplyToEphemeral == false) {
+		m.Flags.Set(13)
 	}
 	if !(m.ReplyToMsgID == 0) {
 		m.Flags.Set(4)
@@ -479,6 +494,7 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 	m.ReplyToScheduled = m.Flags.Has(2)
 	m.ForumTopic = m.Flags.Has(3)
 	m.Quote = m.Flags.Has(9)
+	m.ReplyToEphemeral = m.Flags.Has(13)
 	if m.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
@@ -615,6 +631,25 @@ func (m *MessageReplyHeader) GetQuote() (value bool) {
 		return
 	}
 	return m.Flags.Has(9)
+}
+
+// SetReplyToEphemeral sets value of ReplyToEphemeral conditional field.
+func (m *MessageReplyHeader) SetReplyToEphemeral(value bool) {
+	if value {
+		m.Flags.Set(13)
+		m.ReplyToEphemeral = true
+	} else {
+		m.Flags.Unset(13)
+		m.ReplyToEphemeral = false
+	}
+}
+
+// GetReplyToEphemeral returns value of ReplyToEphemeral conditional field.
+func (m *MessageReplyHeader) GetReplyToEphemeral() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(13)
 }
 
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.

@@ -2056,6 +2056,8 @@ type PageBlockPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of PageBlockPhoto.
+	Spoiler bool
 	// Photo ID
 	PhotoID int64
 	// Caption
@@ -2093,6 +2095,9 @@ func (p *PageBlockPhoto) Zero() bool {
 	if !(p.Flags.Zero()) {
 		return false
 	}
+	if !(p.Spoiler == false) {
+		return false
+	}
 	if !(p.PhotoID == 0) {
 		return false
 	}
@@ -2120,11 +2125,13 @@ func (p *PageBlockPhoto) String() string {
 
 // FillFrom fills PageBlockPhoto from given interface.
 func (p *PageBlockPhoto) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetPhotoID() (value int64)
 	GetCaption() (value PageCaption)
 	GetURL() (value string, ok bool)
 	GetWebpageID() (value int64, ok bool)
 }) {
+	p.Spoiler = from.GetSpoiler()
 	p.PhotoID = from.GetPhotoID()
 	p.Caption = from.GetCaption()
 	if val, ok := from.GetURL(); ok {
@@ -2161,6 +2168,11 @@ func (p *PageBlockPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !p.Flags.Has(1),
+		},
+		{
 			Name:       "PhotoID",
 			SchemaName: "photo_id",
 		},
@@ -2184,6 +2196,9 @@ func (p *PageBlockPhoto) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (p *PageBlockPhoto) SetFlags() {
+	if !(p.Spoiler == false) {
+		p.Flags.Set(1)
+	}
 	if !(p.URL == "") {
 		p.Flags.Set(0)
 	}
@@ -2244,6 +2259,7 @@ func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field flags: %w", err)
 		}
 	}
+	p.Spoiler = p.Flags.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2271,6 +2287,25 @@ func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
 		p.WebpageID = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (p *PageBlockPhoto) SetSpoiler(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Spoiler = true
+	} else {
+		p.Flags.Unset(1)
+		p.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (p *PageBlockPhoto) GetSpoiler() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(1)
 }
 
 // GetPhotoID returns value of PhotoID field.
@@ -2339,6 +2374,8 @@ type PageBlockVideo struct {
 	Autoplay bool
 	// Whether the video is set to loop
 	Loop bool
+	// Spoiler field of PageBlockVideo.
+	Spoiler bool
 	// Video ID
 	VideoID int64
 	// Caption
@@ -2374,6 +2411,9 @@ func (p *PageBlockVideo) Zero() bool {
 	if !(p.Loop == false) {
 		return false
 	}
+	if !(p.Spoiler == false) {
+		return false
+	}
 	if !(p.VideoID == 0) {
 		return false
 	}
@@ -2397,11 +2437,13 @@ func (p *PageBlockVideo) String() string {
 func (p *PageBlockVideo) FillFrom(from interface {
 	GetAutoplay() (value bool)
 	GetLoop() (value bool)
+	GetSpoiler() (value bool)
 	GetVideoID() (value int64)
 	GetCaption() (value PageCaption)
 }) {
 	p.Autoplay = from.GetAutoplay()
 	p.Loop = from.GetLoop()
+	p.Spoiler = from.GetSpoiler()
 	p.VideoID = from.GetVideoID()
 	p.Caption = from.GetCaption()
 }
@@ -2440,6 +2482,11 @@ func (p *PageBlockVideo) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(1),
 		},
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !p.Flags.Has(2),
+		},
+		{
 			Name:       "VideoID",
 			SchemaName: "video_id",
 		},
@@ -2458,6 +2505,9 @@ func (p *PageBlockVideo) SetFlags() {
 	}
 	if !(p.Loop == false) {
 		p.Flags.Set(1)
+	}
+	if !(p.Spoiler == false) {
+		p.Flags.Set(2)
 	}
 }
 
@@ -2509,6 +2559,7 @@ func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
 	}
 	p.Autoplay = p.Flags.Has(0)
 	p.Loop = p.Flags.Has(1)
+	p.Spoiler = p.Flags.Has(2)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2560,6 +2611,25 @@ func (p *PageBlockVideo) GetLoop() (value bool) {
 		return
 	}
 	return p.Flags.Has(1)
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (p *PageBlockVideo) SetSpoiler(value bool) {
+	if value {
+		p.Flags.Set(2)
+		p.Spoiler = true
+	} else {
+		p.Flags.Unset(2)
+		p.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (p *PageBlockVideo) GetSpoiler() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(2)
 }
 
 // GetVideoID returns value of VideoID field.
@@ -4592,17 +4662,29 @@ func (p *PageBlockTable) GetRows() (value []PageTableRow) {
 	return p.Rows
 }
 
-// PageBlockOrderedList represents TL type `pageBlockOrderedList#9a8ae1e1`.
+// PageBlockOrderedList represents TL type `pageBlockOrderedList#1fd6f6c1`.
 // Ordered list of IV blocks
 //
 // See https://core.telegram.org/constructor/pageBlockOrderedList for reference.
 type PageBlockOrderedList struct {
+	// Flags field of PageBlockOrderedList.
+	Flags bin.Fields
+	// Reversed field of PageBlockOrderedList.
+	Reversed bool
 	// List items
 	Items []PageListOrderedItemClass
+	// Start field of PageBlockOrderedList.
+	//
+	// Use SetStart and GetStart helpers.
+	Start int
+	// Type field of PageBlockOrderedList.
+	//
+	// Use SetType and GetType helpers.
+	Type string
 }
 
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
-const PageBlockOrderedListTypeID = 0x9a8ae1e1
+const PageBlockOrderedListTypeID = 0x1fd6f6c1
 
 // construct implements constructor of PageBlockClass.
 func (p PageBlockOrderedList) construct() PageBlockClass { return &p }
@@ -4621,7 +4703,19 @@ func (p *PageBlockOrderedList) Zero() bool {
 	if p == nil {
 		return true
 	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Reversed == false) {
+		return false
+	}
 	if !(p.Items == nil) {
+		return false
+	}
+	if !(p.Start == 0) {
+		return false
+	}
+	if !(p.Type == "") {
 		return false
 	}
 
@@ -4639,9 +4733,21 @@ func (p *PageBlockOrderedList) String() string {
 
 // FillFrom fills PageBlockOrderedList from given interface.
 func (p *PageBlockOrderedList) FillFrom(from interface {
+	GetReversed() (value bool)
 	GetItems() (value []PageListOrderedItemClass)
+	GetStart() (value int, ok bool)
+	GetType() (value string, ok bool)
 }) {
+	p.Reversed = from.GetReversed()
 	p.Items = from.GetItems()
+	if val, ok := from.GetStart(); ok {
+		p.Start = val
+	}
+
+	if val, ok := from.GetType(); ok {
+		p.Type = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -4668,17 +4774,45 @@ func (p *PageBlockOrderedList) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Reversed",
+			SchemaName: "reversed",
+			Null:       !p.Flags.Has(2),
+		},
+		{
 			Name:       "Items",
 			SchemaName: "items",
+		},
+		{
+			Name:       "Start",
+			SchemaName: "start",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+			Null:       !p.Flags.Has(1),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockOrderedList) SetFlags() {
+	if !(p.Reversed == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.Start == 0) {
+		p.Flags.Set(0)
+	}
+	if !(p.Type == "") {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockOrderedList#9a8ae1e1 as nil")
+		return fmt.Errorf("can't encode pageBlockOrderedList#1fd6f6c1 as nil")
 	}
 	b.PutID(PageBlockOrderedListTypeID)
 	return p.EncodeBare(b)
@@ -4687,16 +4821,26 @@ func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockOrderedList) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockOrderedList#9a8ae1e1 as nil")
+		return fmt.Errorf("can't encode pageBlockOrderedList#1fd6f6c1 as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockOrderedList#1fd6f6c1: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageBlockOrderedList#9a8ae1e1: field items element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode pageBlockOrderedList#1fd6f6c1: field items element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageBlockOrderedList#9a8ae1e1: field items element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode pageBlockOrderedList#1fd6f6c1: field items element with index %d: %w", idx, err)
 		}
+	}
+	if p.Flags.Has(0) {
+		b.PutInt(p.Start)
+	}
+	if p.Flags.Has(1) {
+		b.PutString(p.Type)
 	}
 	return nil
 }
@@ -4704,10 +4848,10 @@ func (p *PageBlockOrderedList) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockOrderedList#9a8ae1e1 to nil")
+		return fmt.Errorf("can't decode pageBlockOrderedList#1fd6f6c1 to nil")
 	}
 	if err := b.ConsumeID(PageBlockOrderedListTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: %w", err)
+		return fmt.Errorf("unable to decode pageBlockOrderedList#1fd6f6c1: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -4715,12 +4859,18 @@ func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockOrderedList#9a8ae1e1 to nil")
+		return fmt.Errorf("can't decode pageBlockOrderedList#1fd6f6c1 to nil")
 	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockOrderedList#1fd6f6c1: field flags: %w", err)
+		}
+	}
+	p.Reversed = p.Flags.Has(2)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: field items: %w", err)
+			return fmt.Errorf("unable to decode pageBlockOrderedList#1fd6f6c1: field items: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -4729,12 +4879,45 @@ func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageListOrderedItem(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: field items: %w", err)
+				return fmt.Errorf("unable to decode pageBlockOrderedList#1fd6f6c1: field items: %w", err)
 			}
 			p.Items = append(p.Items, value)
 		}
 	}
+	if p.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockOrderedList#1fd6f6c1: field start: %w", err)
+		}
+		p.Start = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockOrderedList#1fd6f6c1: field type: %w", err)
+		}
+		p.Type = value
+	}
 	return nil
+}
+
+// SetReversed sets value of Reversed conditional field.
+func (p *PageBlockOrderedList) SetReversed(value bool) {
+	if value {
+		p.Flags.Set(2)
+		p.Reversed = true
+	} else {
+		p.Flags.Unset(2)
+		p.Reversed = false
+	}
+}
+
+// GetReversed returns value of Reversed conditional field.
+func (p *PageBlockOrderedList) GetReversed() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(2)
 }
 
 // GetItems returns value of Items field.
@@ -4743,6 +4926,42 @@ func (p *PageBlockOrderedList) GetItems() (value []PageListOrderedItemClass) {
 		return
 	}
 	return p.Items
+}
+
+// SetStart sets value of Start conditional field.
+func (p *PageBlockOrderedList) SetStart(value int) {
+	p.Flags.Set(0)
+	p.Start = value
+}
+
+// GetStart returns value of Start conditional field and
+// boolean which is true if field was set.
+func (p *PageBlockOrderedList) GetStart() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.Start, true
+}
+
+// SetType sets value of Type conditional field.
+func (p *PageBlockOrderedList) SetType(value string) {
+	p.Flags.Set(1)
+	p.Type = value
+}
+
+// GetType returns value of Type conditional field and
+// boolean which is true if field was set.
+func (p *PageBlockOrderedList) GetType() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.Type, true
 }
 
 // MapItems returns field Items wrapped in PageListOrderedItemClassArray helper.
@@ -5426,6 +5645,1549 @@ func (p *PageBlockMap) GetCaption() (value PageCaption) {
 	return p.Caption
 }
 
+// PageBlockHeading1 represents TL type `pageBlockHeading1#baff072f`.
+//
+// See https://core.telegram.org/constructor/pageBlockHeading1 for reference.
+type PageBlockHeading1 struct {
+	// Text field of PageBlockHeading1.
+	Text RichTextClass
+}
+
+// PageBlockHeading1TypeID is TL type id of PageBlockHeading1.
+const PageBlockHeading1TypeID = 0xbaff072f
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeading1) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeading1.
+var (
+	_ bin.Encoder     = &PageBlockHeading1{}
+	_ bin.Decoder     = &PageBlockHeading1{}
+	_ bin.BareEncoder = &PageBlockHeading1{}
+	_ bin.BareDecoder = &PageBlockHeading1{}
+
+	_ PageBlockClass = &PageBlockHeading1{}
+)
+
+func (p *PageBlockHeading1) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockHeading1) String() string {
+	if p == nil {
+		return "PageBlockHeading1(nil)"
+	}
+	type Alias PageBlockHeading1
+	return fmt.Sprintf("PageBlockHeading1%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockHeading1 from given interface.
+func (p *PageBlockHeading1) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockHeading1) TypeID() uint32 {
+	return PageBlockHeading1TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockHeading1) TypeName() string {
+	return "pageBlockHeading1"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeading1) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeading1",
+		ID:   PageBlockHeading1TypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockHeading1) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading1#baff072f as nil")
+	}
+	b.PutID(PageBlockHeading1TypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeading1) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading1#baff072f as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockHeading1#baff072f: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockHeading1#baff072f: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockHeading1) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading1#baff072f to nil")
+	}
+	if err := b.ConsumeID(PageBlockHeading1TypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockHeading1#baff072f: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeading1) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading1#baff072f to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockHeading1#baff072f: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeading1) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// PageBlockHeading2 represents TL type `pageBlockHeading2#96b2aec`.
+//
+// See https://core.telegram.org/constructor/pageBlockHeading2 for reference.
+type PageBlockHeading2 struct {
+	// Text field of PageBlockHeading2.
+	Text RichTextClass
+}
+
+// PageBlockHeading2TypeID is TL type id of PageBlockHeading2.
+const PageBlockHeading2TypeID = 0x96b2aec
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeading2) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeading2.
+var (
+	_ bin.Encoder     = &PageBlockHeading2{}
+	_ bin.Decoder     = &PageBlockHeading2{}
+	_ bin.BareEncoder = &PageBlockHeading2{}
+	_ bin.BareDecoder = &PageBlockHeading2{}
+
+	_ PageBlockClass = &PageBlockHeading2{}
+)
+
+func (p *PageBlockHeading2) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockHeading2) String() string {
+	if p == nil {
+		return "PageBlockHeading2(nil)"
+	}
+	type Alias PageBlockHeading2
+	return fmt.Sprintf("PageBlockHeading2%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockHeading2 from given interface.
+func (p *PageBlockHeading2) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockHeading2) TypeID() uint32 {
+	return PageBlockHeading2TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockHeading2) TypeName() string {
+	return "pageBlockHeading2"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeading2) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeading2",
+		ID:   PageBlockHeading2TypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockHeading2) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading2#96b2aec as nil")
+	}
+	b.PutID(PageBlockHeading2TypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeading2) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading2#96b2aec as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockHeading2#96b2aec: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockHeading2#96b2aec: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockHeading2) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading2#96b2aec to nil")
+	}
+	if err := b.ConsumeID(PageBlockHeading2TypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockHeading2#96b2aec: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeading2) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading2#96b2aec to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockHeading2#96b2aec: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeading2) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// PageBlockHeading3 represents TL type `pageBlockHeading3#67e731ad`.
+//
+// See https://core.telegram.org/constructor/pageBlockHeading3 for reference.
+type PageBlockHeading3 struct {
+	// Text field of PageBlockHeading3.
+	Text RichTextClass
+}
+
+// PageBlockHeading3TypeID is TL type id of PageBlockHeading3.
+const PageBlockHeading3TypeID = 0x67e731ad
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeading3) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeading3.
+var (
+	_ bin.Encoder     = &PageBlockHeading3{}
+	_ bin.Decoder     = &PageBlockHeading3{}
+	_ bin.BareEncoder = &PageBlockHeading3{}
+	_ bin.BareDecoder = &PageBlockHeading3{}
+
+	_ PageBlockClass = &PageBlockHeading3{}
+)
+
+func (p *PageBlockHeading3) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockHeading3) String() string {
+	if p == nil {
+		return "PageBlockHeading3(nil)"
+	}
+	type Alias PageBlockHeading3
+	return fmt.Sprintf("PageBlockHeading3%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockHeading3 from given interface.
+func (p *PageBlockHeading3) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockHeading3) TypeID() uint32 {
+	return PageBlockHeading3TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockHeading3) TypeName() string {
+	return "pageBlockHeading3"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeading3) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeading3",
+		ID:   PageBlockHeading3TypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockHeading3) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading3#67e731ad as nil")
+	}
+	b.PutID(PageBlockHeading3TypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeading3) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading3#67e731ad as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockHeading3#67e731ad: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockHeading3#67e731ad: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockHeading3) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading3#67e731ad to nil")
+	}
+	if err := b.ConsumeID(PageBlockHeading3TypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockHeading3#67e731ad: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeading3) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading3#67e731ad to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockHeading3#67e731ad: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeading3) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// PageBlockHeading4 represents TL type `pageBlockHeading4#b532772b`.
+//
+// See https://core.telegram.org/constructor/pageBlockHeading4 for reference.
+type PageBlockHeading4 struct {
+	// Text field of PageBlockHeading4.
+	Text RichTextClass
+}
+
+// PageBlockHeading4TypeID is TL type id of PageBlockHeading4.
+const PageBlockHeading4TypeID = 0xb532772b
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeading4) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeading4.
+var (
+	_ bin.Encoder     = &PageBlockHeading4{}
+	_ bin.Decoder     = &PageBlockHeading4{}
+	_ bin.BareEncoder = &PageBlockHeading4{}
+	_ bin.BareDecoder = &PageBlockHeading4{}
+
+	_ PageBlockClass = &PageBlockHeading4{}
+)
+
+func (p *PageBlockHeading4) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockHeading4) String() string {
+	if p == nil {
+		return "PageBlockHeading4(nil)"
+	}
+	type Alias PageBlockHeading4
+	return fmt.Sprintf("PageBlockHeading4%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockHeading4 from given interface.
+func (p *PageBlockHeading4) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockHeading4) TypeID() uint32 {
+	return PageBlockHeading4TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockHeading4) TypeName() string {
+	return "pageBlockHeading4"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeading4) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeading4",
+		ID:   PageBlockHeading4TypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockHeading4) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading4#b532772b as nil")
+	}
+	b.PutID(PageBlockHeading4TypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeading4) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading4#b532772b as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockHeading4#b532772b: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockHeading4#b532772b: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockHeading4) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading4#b532772b to nil")
+	}
+	if err := b.ConsumeID(PageBlockHeading4TypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockHeading4#b532772b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeading4) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading4#b532772b to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockHeading4#b532772b: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeading4) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// PageBlockHeading5 represents TL type `pageBlockHeading5#dbbe6c6a`.
+//
+// See https://core.telegram.org/constructor/pageBlockHeading5 for reference.
+type PageBlockHeading5 struct {
+	// Text field of PageBlockHeading5.
+	Text RichTextClass
+}
+
+// PageBlockHeading5TypeID is TL type id of PageBlockHeading5.
+const PageBlockHeading5TypeID = 0xdbbe6c6a
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeading5) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeading5.
+var (
+	_ bin.Encoder     = &PageBlockHeading5{}
+	_ bin.Decoder     = &PageBlockHeading5{}
+	_ bin.BareEncoder = &PageBlockHeading5{}
+	_ bin.BareDecoder = &PageBlockHeading5{}
+
+	_ PageBlockClass = &PageBlockHeading5{}
+)
+
+func (p *PageBlockHeading5) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockHeading5) String() string {
+	if p == nil {
+		return "PageBlockHeading5(nil)"
+	}
+	type Alias PageBlockHeading5
+	return fmt.Sprintf("PageBlockHeading5%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockHeading5 from given interface.
+func (p *PageBlockHeading5) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockHeading5) TypeID() uint32 {
+	return PageBlockHeading5TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockHeading5) TypeName() string {
+	return "pageBlockHeading5"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeading5) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeading5",
+		ID:   PageBlockHeading5TypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockHeading5) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading5#dbbe6c6a as nil")
+	}
+	b.PutID(PageBlockHeading5TypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeading5) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading5#dbbe6c6a as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockHeading5#dbbe6c6a: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockHeading5#dbbe6c6a: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockHeading5) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading5#dbbe6c6a to nil")
+	}
+	if err := b.ConsumeID(PageBlockHeading5TypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockHeading5#dbbe6c6a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeading5) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading5#dbbe6c6a to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockHeading5#dbbe6c6a: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeading5) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// PageBlockHeading6 represents TL type `pageBlockHeading6#682a41a9`.
+//
+// See https://core.telegram.org/constructor/pageBlockHeading6 for reference.
+type PageBlockHeading6 struct {
+	// Text field of PageBlockHeading6.
+	Text RichTextClass
+}
+
+// PageBlockHeading6TypeID is TL type id of PageBlockHeading6.
+const PageBlockHeading6TypeID = 0x682a41a9
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeading6) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeading6.
+var (
+	_ bin.Encoder     = &PageBlockHeading6{}
+	_ bin.Decoder     = &PageBlockHeading6{}
+	_ bin.BareEncoder = &PageBlockHeading6{}
+	_ bin.BareDecoder = &PageBlockHeading6{}
+
+	_ PageBlockClass = &PageBlockHeading6{}
+)
+
+func (p *PageBlockHeading6) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockHeading6) String() string {
+	if p == nil {
+		return "PageBlockHeading6(nil)"
+	}
+	type Alias PageBlockHeading6
+	return fmt.Sprintf("PageBlockHeading6%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockHeading6 from given interface.
+func (p *PageBlockHeading6) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockHeading6) TypeID() uint32 {
+	return PageBlockHeading6TypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockHeading6) TypeName() string {
+	return "pageBlockHeading6"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeading6) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeading6",
+		ID:   PageBlockHeading6TypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockHeading6) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading6#682a41a9 as nil")
+	}
+	b.PutID(PageBlockHeading6TypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeading6) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeading6#682a41a9 as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockHeading6#682a41a9: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockHeading6#682a41a9: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockHeading6) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading6#682a41a9 to nil")
+	}
+	if err := b.ConsumeID(PageBlockHeading6TypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockHeading6#682a41a9: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeading6) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeading6#682a41a9 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockHeading6#682a41a9: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeading6) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// PageBlockMath represents TL type `pageBlockMath#59080c20`.
+//
+// See https://core.telegram.org/constructor/pageBlockMath for reference.
+type PageBlockMath struct {
+	// Source field of PageBlockMath.
+	Source string
+}
+
+// PageBlockMathTypeID is TL type id of PageBlockMath.
+const PageBlockMathTypeID = 0x59080c20
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockMath) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockMath.
+var (
+	_ bin.Encoder     = &PageBlockMath{}
+	_ bin.Decoder     = &PageBlockMath{}
+	_ bin.BareEncoder = &PageBlockMath{}
+	_ bin.BareDecoder = &PageBlockMath{}
+
+	_ PageBlockClass = &PageBlockMath{}
+)
+
+func (p *PageBlockMath) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Source == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockMath) String() string {
+	if p == nil {
+		return "PageBlockMath(nil)"
+	}
+	type Alias PageBlockMath
+	return fmt.Sprintf("PageBlockMath%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockMath from given interface.
+func (p *PageBlockMath) FillFrom(from interface {
+	GetSource() (value string)
+}) {
+	p.Source = from.GetSource()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockMath) TypeID() uint32 {
+	return PageBlockMathTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockMath) TypeName() string {
+	return "pageBlockMath"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockMath) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockMath",
+		ID:   PageBlockMathTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Source",
+			SchemaName: "source",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockMath) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockMath#59080c20 as nil")
+	}
+	b.PutID(PageBlockMathTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockMath) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockMath#59080c20 as nil")
+	}
+	b.PutString(p.Source)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockMath) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockMath#59080c20 to nil")
+	}
+	if err := b.ConsumeID(PageBlockMathTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockMath#59080c20: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockMath) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockMath#59080c20 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockMath#59080c20: field source: %w", err)
+		}
+		p.Source = value
+	}
+	return nil
+}
+
+// GetSource returns value of Source field.
+func (p *PageBlockMath) GetSource() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Source
+}
+
+// PageBlockThinking represents TL type `pageBlockThinking#3c29a3e2`.
+//
+// See https://core.telegram.org/constructor/pageBlockThinking for reference.
+type PageBlockThinking struct {
+	// Text field of PageBlockThinking.
+	Text RichTextClass
+}
+
+// PageBlockThinkingTypeID is TL type id of PageBlockThinking.
+const PageBlockThinkingTypeID = 0x3c29a3e2
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockThinking) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockThinking.
+var (
+	_ bin.Encoder     = &PageBlockThinking{}
+	_ bin.Decoder     = &PageBlockThinking{}
+	_ bin.BareEncoder = &PageBlockThinking{}
+	_ bin.BareDecoder = &PageBlockThinking{}
+
+	_ PageBlockClass = &PageBlockThinking{}
+)
+
+func (p *PageBlockThinking) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockThinking) String() string {
+	if p == nil {
+		return "PageBlockThinking(nil)"
+	}
+	type Alias PageBlockThinking
+	return fmt.Sprintf("PageBlockThinking%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockThinking from given interface.
+func (p *PageBlockThinking) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockThinking) TypeID() uint32 {
+	return PageBlockThinkingTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockThinking) TypeName() string {
+	return "pageBlockThinking"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockThinking) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockThinking",
+		ID:   PageBlockThinkingTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockThinking) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockThinking#3c29a3e2 as nil")
+	}
+	b.PutID(PageBlockThinkingTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockThinking) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockThinking#3c29a3e2 as nil")
+	}
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockThinking#3c29a3e2: field text is nil")
+	}
+	if err := p.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockThinking#3c29a3e2: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockThinking) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockThinking#3c29a3e2 to nil")
+	}
+	if err := b.ConsumeID(PageBlockThinkingTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockThinking#3c29a3e2: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockThinking) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockThinking#3c29a3e2 to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockThinking#3c29a3e2: field text: %w", err)
+		}
+		p.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockThinking) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Text
+}
+
+// InputPageBlockMap represents TL type `inputPageBlockMap#574b617f`.
+//
+// See https://core.telegram.org/constructor/inputPageBlockMap for reference.
+type InputPageBlockMap struct {
+	// Geo field of InputPageBlockMap.
+	Geo InputGeoPointClass
+	// Zoom field of InputPageBlockMap.
+	Zoom int
+	// W field of InputPageBlockMap.
+	W int
+	// H field of InputPageBlockMap.
+	H int
+	// Caption field of InputPageBlockMap.
+	Caption PageCaption
+}
+
+// InputPageBlockMapTypeID is TL type id of InputPageBlockMap.
+const InputPageBlockMapTypeID = 0x574b617f
+
+// construct implements constructor of PageBlockClass.
+func (i InputPageBlockMap) construct() PageBlockClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPageBlockMap.
+var (
+	_ bin.Encoder     = &InputPageBlockMap{}
+	_ bin.Decoder     = &InputPageBlockMap{}
+	_ bin.BareEncoder = &InputPageBlockMap{}
+	_ bin.BareDecoder = &InputPageBlockMap{}
+
+	_ PageBlockClass = &InputPageBlockMap{}
+)
+
+func (i *InputPageBlockMap) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Geo == nil) {
+		return false
+	}
+	if !(i.Zoom == 0) {
+		return false
+	}
+	if !(i.W == 0) {
+		return false
+	}
+	if !(i.H == 0) {
+		return false
+	}
+	if !(i.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPageBlockMap) String() string {
+	if i == nil {
+		return "InputPageBlockMap(nil)"
+	}
+	type Alias InputPageBlockMap
+	return fmt.Sprintf("InputPageBlockMap%+v", Alias(*i))
+}
+
+// FillFrom fills InputPageBlockMap from given interface.
+func (i *InputPageBlockMap) FillFrom(from interface {
+	GetGeo() (value InputGeoPointClass)
+	GetZoom() (value int)
+	GetW() (value int)
+	GetH() (value int)
+	GetCaption() (value PageCaption)
+}) {
+	i.Geo = from.GetGeo()
+	i.Zoom = from.GetZoom()
+	i.W = from.GetW()
+	i.H = from.GetH()
+	i.Caption = from.GetCaption()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPageBlockMap) TypeID() uint32 {
+	return InputPageBlockMapTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPageBlockMap) TypeName() string {
+	return "inputPageBlockMap"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPageBlockMap) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPageBlockMap",
+		ID:   InputPageBlockMapTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+		{
+			Name:       "Zoom",
+			SchemaName: "zoom",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPageBlockMap) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPageBlockMap#574b617f as nil")
+	}
+	b.PutID(InputPageBlockMapTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPageBlockMap) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPageBlockMap#574b617f as nil")
+	}
+	if i.Geo == nil {
+		return fmt.Errorf("unable to encode inputPageBlockMap#574b617f: field geo is nil")
+	}
+	if err := i.Geo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPageBlockMap#574b617f: field geo: %w", err)
+	}
+	b.PutInt(i.Zoom)
+	b.PutInt(i.W)
+	b.PutInt(i.H)
+	if err := i.Caption.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPageBlockMap#574b617f: field caption: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPageBlockMap) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPageBlockMap#574b617f to nil")
+	}
+	if err := b.ConsumeID(InputPageBlockMapTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPageBlockMap#574b617f: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPageBlockMap) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPageBlockMap#574b617f to nil")
+	}
+	{
+		value, err := DecodeInputGeoPoint(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPageBlockMap#574b617f: field geo: %w", err)
+		}
+		i.Geo = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPageBlockMap#574b617f: field zoom: %w", err)
+		}
+		i.Zoom = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPageBlockMap#574b617f: field w: %w", err)
+		}
+		i.W = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPageBlockMap#574b617f: field h: %w", err)
+		}
+		i.H = value
+	}
+	{
+		if err := i.Caption.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPageBlockMap#574b617f: field caption: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetGeo returns value of Geo field.
+func (i *InputPageBlockMap) GetGeo() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
+	return i.Geo
+}
+
+// GetZoom returns value of Zoom field.
+func (i *InputPageBlockMap) GetZoom() (value int) {
+	if i == nil {
+		return
+	}
+	return i.Zoom
+}
+
+// GetW returns value of W field.
+func (i *InputPageBlockMap) GetW() (value int) {
+	if i == nil {
+		return
+	}
+	return i.W
+}
+
+// GetH returns value of H field.
+func (i *InputPageBlockMap) GetH() (value int) {
+	if i == nil {
+		return
+	}
+	return i.H
+}
+
+// GetCaption returns value of Caption field.
+func (i *InputPageBlockMap) GetCaption() (value PageCaption) {
+	if i == nil {
+		return
+	}
+	return i.Caption
+}
+
+// PageBlockBlockquoteBlocks represents TL type `pageBlockBlockquoteBlocks#e6e47c4`.
+//
+// See https://core.telegram.org/constructor/pageBlockBlockquoteBlocks for reference.
+type PageBlockBlockquoteBlocks struct {
+	// Blocks field of PageBlockBlockquoteBlocks.
+	Blocks []PageBlockClass
+	// Caption field of PageBlockBlockquoteBlocks.
+	Caption RichTextClass
+}
+
+// PageBlockBlockquoteBlocksTypeID is TL type id of PageBlockBlockquoteBlocks.
+const PageBlockBlockquoteBlocksTypeID = 0xe6e47c4
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockBlockquoteBlocks) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockBlockquoteBlocks.
+var (
+	_ bin.Encoder     = &PageBlockBlockquoteBlocks{}
+	_ bin.Decoder     = &PageBlockBlockquoteBlocks{}
+	_ bin.BareEncoder = &PageBlockBlockquoteBlocks{}
+	_ bin.BareDecoder = &PageBlockBlockquoteBlocks{}
+
+	_ PageBlockClass = &PageBlockBlockquoteBlocks{}
+)
+
+func (p *PageBlockBlockquoteBlocks) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Blocks == nil) {
+		return false
+	}
+	if !(p.Caption == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockBlockquoteBlocks) String() string {
+	if p == nil {
+		return "PageBlockBlockquoteBlocks(nil)"
+	}
+	type Alias PageBlockBlockquoteBlocks
+	return fmt.Sprintf("PageBlockBlockquoteBlocks%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockBlockquoteBlocks from given interface.
+func (p *PageBlockBlockquoteBlocks) FillFrom(from interface {
+	GetBlocks() (value []PageBlockClass)
+	GetCaption() (value RichTextClass)
+}) {
+	p.Blocks = from.GetBlocks()
+	p.Caption = from.GetCaption()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockBlockquoteBlocks) TypeID() uint32 {
+	return PageBlockBlockquoteBlocksTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockBlockquoteBlocks) TypeName() string {
+	return "pageBlockBlockquoteBlocks"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockBlockquoteBlocks) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockBlockquoteBlocks",
+		ID:   PageBlockBlockquoteBlocksTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockBlockquoteBlocks) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockBlockquoteBlocks#e6e47c4 as nil")
+	}
+	b.PutID(PageBlockBlockquoteBlocksTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockBlockquoteBlocks) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockBlockquoteBlocks#e6e47c4 as nil")
+	}
+	b.PutVectorHeader(len(p.Blocks))
+	for idx, v := range p.Blocks {
+		if v == nil {
+			return fmt.Errorf("unable to encode pageBlockBlockquoteBlocks#e6e47c4: field blocks element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode pageBlockBlockquoteBlocks#e6e47c4: field blocks element with index %d: %w", idx, err)
+		}
+	}
+	if p.Caption == nil {
+		return fmt.Errorf("unable to encode pageBlockBlockquoteBlocks#e6e47c4: field caption is nil")
+	}
+	if err := p.Caption.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockBlockquoteBlocks#e6e47c4: field caption: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockBlockquoteBlocks) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockBlockquoteBlocks#e6e47c4 to nil")
+	}
+	if err := b.ConsumeID(PageBlockBlockquoteBlocksTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockBlockquoteBlocks#e6e47c4: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockBlockquoteBlocks) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockBlockquoteBlocks#e6e47c4 to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockBlockquoteBlocks#e6e47c4: field blocks: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Blocks = make([]PageBlockClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodePageBlock(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockBlockquoteBlocks#e6e47c4: field blocks: %w", err)
+			}
+			p.Blocks = append(p.Blocks, value)
+		}
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockBlockquoteBlocks#e6e47c4: field caption: %w", err)
+		}
+		p.Caption = value
+	}
+	return nil
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *PageBlockBlockquoteBlocks) GetBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
+	return p.Blocks
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockBlockquoteBlocks) GetCaption() (value RichTextClass) {
+	if p == nil {
+		return
+	}
+	return p.Caption
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *PageBlockBlockquoteBlocks) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
+
 // PageBlockClassName is schema name of PageBlockClass.
 const PageBlockClassName = "PageBlock"
 
@@ -5463,6 +7225,16 @@ const PageBlockClassName = "PageBlock"
 //   - [PageBlockDetails]
 //   - [PageBlockRelatedArticles]
 //   - [PageBlockMap]
+//   - [PageBlockHeading1]
+//   - [PageBlockHeading2]
+//   - [PageBlockHeading3]
+//   - [PageBlockHeading4]
+//   - [PageBlockHeading5]
+//   - [PageBlockHeading6]
+//   - [PageBlockMath]
+//   - [PageBlockThinking]
+//   - [InputPageBlockMap]
+//   - [PageBlockBlockquoteBlocks]
 //
 // Example:
 //
@@ -5496,10 +7268,20 @@ const PageBlockClassName = "PageBlock"
 //	case *tg.PageBlockAudio: // pageBlockAudio#804361ea
 //	case *tg.PageBlockKicker: // pageBlockKicker#1e148390
 //	case *tg.PageBlockTable: // pageBlockTable#bf4dea82
-//	case *tg.PageBlockOrderedList: // pageBlockOrderedList#9a8ae1e1
+//	case *tg.PageBlockOrderedList: // pageBlockOrderedList#1fd6f6c1
 //	case *tg.PageBlockDetails: // pageBlockDetails#76768bed
 //	case *tg.PageBlockRelatedArticles: // pageBlockRelatedArticles#16115a96
 //	case *tg.PageBlockMap: // pageBlockMap#a44f3ef6
+//	case *tg.PageBlockHeading1: // pageBlockHeading1#baff072f
+//	case *tg.PageBlockHeading2: // pageBlockHeading2#96b2aec
+//	case *tg.PageBlockHeading3: // pageBlockHeading3#67e731ad
+//	case *tg.PageBlockHeading4: // pageBlockHeading4#b532772b
+//	case *tg.PageBlockHeading5: // pageBlockHeading5#dbbe6c6a
+//	case *tg.PageBlockHeading6: // pageBlockHeading6#682a41a9
+//	case *tg.PageBlockMath: // pageBlockMath#59080c20
+//	case *tg.PageBlockThinking: // pageBlockThinking#3c29a3e2
+//	case *tg.InputPageBlockMap: // inputPageBlockMap#574b617f
+//	case *tg.PageBlockBlockquoteBlocks: // pageBlockBlockquoteBlocks#e6e47c4
 //	default: panic(v)
 //	}
 type PageBlockClass interface {
@@ -5704,7 +7486,7 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 		}
 		return &v, nil
 	case PageBlockOrderedListTypeID:
-		// Decoding pageBlockOrderedList#9a8ae1e1.
+		// Decoding pageBlockOrderedList#1fd6f6c1.
 		v := PageBlockOrderedList{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
@@ -5727,6 +7509,76 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 	case PageBlockMapTypeID:
 		// Decoding pageBlockMap#a44f3ef6.
 		v := PageBlockMap{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockHeading1TypeID:
+		// Decoding pageBlockHeading1#baff072f.
+		v := PageBlockHeading1{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockHeading2TypeID:
+		// Decoding pageBlockHeading2#96b2aec.
+		v := PageBlockHeading2{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockHeading3TypeID:
+		// Decoding pageBlockHeading3#67e731ad.
+		v := PageBlockHeading3{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockHeading4TypeID:
+		// Decoding pageBlockHeading4#b532772b.
+		v := PageBlockHeading4{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockHeading5TypeID:
+		// Decoding pageBlockHeading5#dbbe6c6a.
+		v := PageBlockHeading5{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockHeading6TypeID:
+		// Decoding pageBlockHeading6#682a41a9.
+		v := PageBlockHeading6{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockMathTypeID:
+		// Decoding pageBlockMath#59080c20.
+		v := PageBlockMath{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockThinkingTypeID:
+		// Decoding pageBlockThinking#3c29a3e2.
+		v := PageBlockThinking{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case InputPageBlockMapTypeID:
+		// Decoding inputPageBlockMap#574b617f.
+		v := InputPageBlockMap{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockBlockquoteBlocksTypeID:
+		// Decoding pageBlockBlockquoteBlocks#e6e47c4.
+		v := PageBlockBlockquoteBlocks{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
 		}

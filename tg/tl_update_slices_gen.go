@@ -1910,6 +1910,58 @@ func (s UpdateClassArray) AsUpdateBotGuestChatQuery() (to UpdateBotGuestChatQuer
 	return to
 }
 
+// AsUpdateJoinChatWebViewDecision returns copy with only UpdateJoinChatWebViewDecision constructors.
+func (s UpdateClassArray) AsUpdateJoinChatWebViewDecision() (to UpdateJoinChatWebViewDecisionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateJoinChatWebViewDecision)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateNewBotConnection returns copy with only UpdateNewBotConnection constructors.
+func (s UpdateClassArray) AsUpdateNewBotConnection() (to UpdateNewBotConnectionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateNewBotConnection)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateWebBrowserSettings returns copy with only UpdateWebBrowserSettings constructors.
+func (s UpdateClassArray) AsUpdateWebBrowserSettings() (to UpdateWebBrowserSettingsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWebBrowserSettings)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateWebBrowserException returns copy with only UpdateWebBrowserException constructors.
+func (s UpdateClassArray) AsUpdateWebBrowserException() (to UpdateWebBrowserExceptionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWebBrowserException)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -13480,6 +13532,334 @@ func (s *UpdateBotGuestChatQueryArray) PopFirst() (v UpdateBotGuestChatQuery, ok
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateBotGuestChatQueryArray) Pop() (v UpdateBotGuestChatQuery, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateJoinChatWebViewDecisionArray is adapter for slice of UpdateJoinChatWebViewDecision.
+type UpdateJoinChatWebViewDecisionArray []UpdateJoinChatWebViewDecision
+
+// Sort sorts slice of UpdateJoinChatWebViewDecision.
+func (s UpdateJoinChatWebViewDecisionArray) Sort(less func(a, b UpdateJoinChatWebViewDecision) bool) UpdateJoinChatWebViewDecisionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateJoinChatWebViewDecision.
+func (s UpdateJoinChatWebViewDecisionArray) SortStable(less func(a, b UpdateJoinChatWebViewDecision) bool) UpdateJoinChatWebViewDecisionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateJoinChatWebViewDecision.
+func (s UpdateJoinChatWebViewDecisionArray) Retain(keep func(x UpdateJoinChatWebViewDecision) bool) UpdateJoinChatWebViewDecisionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateJoinChatWebViewDecisionArray) First() (v UpdateJoinChatWebViewDecision, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateJoinChatWebViewDecisionArray) Last() (v UpdateJoinChatWebViewDecision, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateJoinChatWebViewDecisionArray) PopFirst() (v UpdateJoinChatWebViewDecision, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateJoinChatWebViewDecision
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateJoinChatWebViewDecisionArray) Pop() (v UpdateJoinChatWebViewDecision, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateNewBotConnectionArray is adapter for slice of UpdateNewBotConnection.
+type UpdateNewBotConnectionArray []UpdateNewBotConnection
+
+// Sort sorts slice of UpdateNewBotConnection.
+func (s UpdateNewBotConnectionArray) Sort(less func(a, b UpdateNewBotConnection) bool) UpdateNewBotConnectionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateNewBotConnection.
+func (s UpdateNewBotConnectionArray) SortStable(less func(a, b UpdateNewBotConnection) bool) UpdateNewBotConnectionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateNewBotConnection.
+func (s UpdateNewBotConnectionArray) Retain(keep func(x UpdateNewBotConnection) bool) UpdateNewBotConnectionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateNewBotConnectionArray) First() (v UpdateNewBotConnection, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateNewBotConnectionArray) Last() (v UpdateNewBotConnection, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateNewBotConnectionArray) PopFirst() (v UpdateNewBotConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateNewBotConnection
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateNewBotConnectionArray) Pop() (v UpdateNewBotConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWebBrowserSettingsArray is adapter for slice of UpdateWebBrowserSettings.
+type UpdateWebBrowserSettingsArray []UpdateWebBrowserSettings
+
+// Sort sorts slice of UpdateWebBrowserSettings.
+func (s UpdateWebBrowserSettingsArray) Sort(less func(a, b UpdateWebBrowserSettings) bool) UpdateWebBrowserSettingsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWebBrowserSettings.
+func (s UpdateWebBrowserSettingsArray) SortStable(less func(a, b UpdateWebBrowserSettings) bool) UpdateWebBrowserSettingsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWebBrowserSettings.
+func (s UpdateWebBrowserSettingsArray) Retain(keep func(x UpdateWebBrowserSettings) bool) UpdateWebBrowserSettingsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWebBrowserSettingsArray) First() (v UpdateWebBrowserSettings, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWebBrowserSettingsArray) Last() (v UpdateWebBrowserSettings, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWebBrowserSettingsArray) PopFirst() (v UpdateWebBrowserSettings, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWebBrowserSettings
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWebBrowserSettingsArray) Pop() (v UpdateWebBrowserSettings, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWebBrowserExceptionArray is adapter for slice of UpdateWebBrowserException.
+type UpdateWebBrowserExceptionArray []UpdateWebBrowserException
+
+// Sort sorts slice of UpdateWebBrowserException.
+func (s UpdateWebBrowserExceptionArray) Sort(less func(a, b UpdateWebBrowserException) bool) UpdateWebBrowserExceptionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWebBrowserException.
+func (s UpdateWebBrowserExceptionArray) SortStable(less func(a, b UpdateWebBrowserException) bool) UpdateWebBrowserExceptionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWebBrowserException.
+func (s UpdateWebBrowserExceptionArray) Retain(keep func(x UpdateWebBrowserException) bool) UpdateWebBrowserExceptionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWebBrowserExceptionArray) First() (v UpdateWebBrowserException, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWebBrowserExceptionArray) Last() (v UpdateWebBrowserException, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWebBrowserExceptionArray) PopFirst() (v UpdateWebBrowserException, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWebBrowserException
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWebBrowserExceptionArray) Pop() (v UpdateWebBrowserException, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

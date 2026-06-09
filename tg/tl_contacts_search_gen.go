@@ -31,11 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ContactsSearchRequest represents TL type `contacts.search#11f812d8`.
+// ContactsSearchRequest represents TL type `contacts.search#5f58d0f`.
 // Returns users found by username substring.
 //
 // See https://core.telegram.org/method/contacts.search for reference.
 type ContactsSearchRequest struct {
+	// Flags field of ContactsSearchRequest.
+	Flags bin.Fields
+	// Broadcasts field of ContactsSearchRequest.
+	Broadcasts bool
+	// Bots field of ContactsSearchRequest.
+	Bots bool
 	// Target substring
 	Q string
 	// Maximum number of users to be returned
@@ -43,7 +49,7 @@ type ContactsSearchRequest struct {
 }
 
 // ContactsSearchRequestTypeID is TL type id of ContactsSearchRequest.
-const ContactsSearchRequestTypeID = 0x11f812d8
+const ContactsSearchRequestTypeID = 0x5f58d0f
 
 // Ensuring interfaces in compile-time for ContactsSearchRequest.
 var (
@@ -56,6 +62,15 @@ var (
 func (s *ContactsSearchRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Broadcasts == false) {
+		return false
+	}
+	if !(s.Bots == false) {
+		return false
 	}
 	if !(s.Q == "") {
 		return false
@@ -78,9 +93,13 @@ func (s *ContactsSearchRequest) String() string {
 
 // FillFrom fills ContactsSearchRequest from given interface.
 func (s *ContactsSearchRequest) FillFrom(from interface {
+	GetBroadcasts() (value bool)
+	GetBots() (value bool)
 	GetQ() (value string)
 	GetLimit() (value int)
 }) {
+	s.Broadcasts = from.GetBroadcasts()
+	s.Bots = from.GetBots()
 	s.Q = from.GetQ()
 	s.Limit = from.GetLimit()
 }
@@ -109,6 +128,16 @@ func (s *ContactsSearchRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Broadcasts",
+			SchemaName: "broadcasts",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Bots",
+			SchemaName: "bots",
+			Null:       !s.Flags.Has(1),
+		},
+		{
 			Name:       "Q",
 			SchemaName: "q",
 		},
@@ -120,10 +149,20 @@ func (s *ContactsSearchRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *ContactsSearchRequest) SetFlags() {
+	if !(s.Broadcasts == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.Bots == false) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode contacts.search#11f812d8 as nil")
+		return fmt.Errorf("can't encode contacts.search#5f58d0f as nil")
 	}
 	b.PutID(ContactsSearchRequestTypeID)
 	return s.EncodeBare(b)
@@ -132,7 +171,11 @@ func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ContactsSearchRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode contacts.search#11f812d8 as nil")
+		return fmt.Errorf("can't encode contacts.search#5f58d0f as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode contacts.search#5f58d0f: field flags: %w", err)
 	}
 	b.PutString(s.Q)
 	b.PutInt(s.Limit)
@@ -142,10 +185,10 @@ func (s *ContactsSearchRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode contacts.search#11f812d8 to nil")
+		return fmt.Errorf("can't decode contacts.search#5f58d0f to nil")
 	}
 	if err := b.ConsumeID(ContactsSearchRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.search#11f812d8: %w", err)
+		return fmt.Errorf("unable to decode contacts.search#5f58d0f: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -153,23 +196,68 @@ func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ContactsSearchRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode contacts.search#11f812d8 to nil")
+		return fmt.Errorf("can't decode contacts.search#5f58d0f to nil")
 	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode contacts.search#5f58d0f: field flags: %w", err)
+		}
+	}
+	s.Broadcasts = s.Flags.Has(0)
+	s.Bots = s.Flags.Has(1)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.search#11f812d8: field q: %w", err)
+			return fmt.Errorf("unable to decode contacts.search#5f58d0f: field q: %w", err)
 		}
 		s.Q = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.search#11f812d8: field limit: %w", err)
+			return fmt.Errorf("unable to decode contacts.search#5f58d0f: field limit: %w", err)
 		}
 		s.Limit = value
 	}
 	return nil
+}
+
+// SetBroadcasts sets value of Broadcasts conditional field.
+func (s *ContactsSearchRequest) SetBroadcasts(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Broadcasts = true
+	} else {
+		s.Flags.Unset(0)
+		s.Broadcasts = false
+	}
+}
+
+// GetBroadcasts returns value of Broadcasts conditional field.
+func (s *ContactsSearchRequest) GetBroadcasts() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
+}
+
+// SetBots sets value of Bots conditional field.
+func (s *ContactsSearchRequest) SetBots(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.Bots = true
+	} else {
+		s.Flags.Unset(1)
+		s.Bots = false
+	}
+}
+
+// GetBots returns value of Bots conditional field.
+func (s *ContactsSearchRequest) GetBots() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
 }
 
 // GetQ returns value of Q field.
@@ -188,7 +276,7 @@ func (s *ContactsSearchRequest) GetLimit() (value int) {
 	return s.Limit
 }
 
-// ContactsSearch invokes method contacts.search#11f812d8 returning error if any.
+// ContactsSearch invokes method contacts.search#5f58d0f returning error if any.
 // Returns users found by username substring.
 //
 // Possible errors:

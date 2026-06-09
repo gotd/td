@@ -45,6 +45,8 @@ type WebViewResultURL struct {
 	Fullsize bool
 	// If set, the app must be opened in fullscreen
 	Fullscreen bool
+	// SameOrigin field of WebViewResultURL.
+	SameOrigin bool
 	// Webview session ID (only returned by inline button mini apps¹, menu button mini
 	// apps², attachment menu mini apps³).
 	//
@@ -83,6 +85,9 @@ func (w *WebViewResultURL) Zero() bool {
 	if !(w.Fullscreen == false) {
 		return false
 	}
+	if !(w.SameOrigin == false) {
+		return false
+	}
 	if !(w.QueryID == 0) {
 		return false
 	}
@@ -106,11 +111,13 @@ func (w *WebViewResultURL) String() string {
 func (w *WebViewResultURL) FillFrom(from interface {
 	GetFullsize() (value bool)
 	GetFullscreen() (value bool)
+	GetSameOrigin() (value bool)
 	GetQueryID() (value int64, ok bool)
 	GetURL() (value string)
 }) {
 	w.Fullsize = from.GetFullsize()
 	w.Fullscreen = from.GetFullscreen()
+	w.SameOrigin = from.GetSameOrigin()
 	if val, ok := from.GetQueryID(); ok {
 		w.QueryID = val
 	}
@@ -152,6 +159,11 @@ func (w *WebViewResultURL) TypeInfo() tdp.Type {
 			Null:       !w.Flags.Has(2),
 		},
 		{
+			Name:       "SameOrigin",
+			SchemaName: "same_origin",
+			Null:       !w.Flags.Has(3),
+		},
+		{
 			Name:       "QueryID",
 			SchemaName: "query_id",
 			Null:       !w.Flags.Has(0),
@@ -171,6 +183,9 @@ func (w *WebViewResultURL) SetFlags() {
 	}
 	if !(w.Fullscreen == false) {
 		w.Flags.Set(2)
+	}
+	if !(w.SameOrigin == false) {
+		w.Flags.Set(3)
 	}
 	if !(w.QueryID == 0) {
 		w.Flags.Set(0)
@@ -225,6 +240,7 @@ func (w *WebViewResultURL) DecodeBare(b *bin.Buffer) error {
 	}
 	w.Fullsize = w.Flags.Has(1)
 	w.Fullscreen = w.Flags.Has(2)
+	w.SameOrigin = w.Flags.Has(3)
 	if w.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
@@ -278,6 +294,25 @@ func (w *WebViewResultURL) GetFullscreen() (value bool) {
 		return
 	}
 	return w.Flags.Has(2)
+}
+
+// SetSameOrigin sets value of SameOrigin conditional field.
+func (w *WebViewResultURL) SetSameOrigin(value bool) {
+	if value {
+		w.Flags.Set(3)
+		w.SameOrigin = true
+	} else {
+		w.Flags.Unset(3)
+		w.SameOrigin = false
+	}
+}
+
+// GetSameOrigin returns value of SameOrigin conditional field.
+func (w *WebViewResultURL) GetSameOrigin() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(3)
 }
 
 // SetQueryID sets value of QueryID conditional field.
