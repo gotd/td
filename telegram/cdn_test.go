@@ -426,10 +426,17 @@ mQIDAQAB
 		secondDone <- fetchResult{keys: keys, err: err}
 	}()
 
+	// Cancel the first caller and wait for it to return before releasing the
+	// in-flight request. The singleflight request is bound to the client
+	// context, not the first caller, so it stays blocked on release; thus the
+	// first caller can only observe its own cancellation here. Releasing before
+	// the first caller returns would race the cancellation against the
+	// successful result in loadCDNKeys' select and intermittently yield a nil
+	// error.
 	firstCancel()
-	close(release)
-
 	first := <-firstDone
+
+	close(release)
 	second := <-secondDone
 
 	a.ErrorIs(first.err, context.Canceled)
