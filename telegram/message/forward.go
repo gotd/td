@@ -49,7 +49,7 @@ func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 	b.builder.applyProtectedOptions(req)
 	upd, err := b.builder.sender.forwardMessages(ctx, req)
 	if err != nil {
-		return nil, errors.Wrap(err, "send inline bot result")
+		return nil, errors.Wrap(err, "forward messages")
 	}
 
 	return upd, nil
