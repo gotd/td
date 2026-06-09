@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsToggleJoinRequestRequest represents TL type `channels.toggleJoinRequest#4c2985b6`.
+// ChannelsToggleJoinRequestRequest represents TL type `channels.toggleJoinRequest#ecc2618`.
 // Set whether all users should request admin approval to join the group »¹.
 //
 // Links:
@@ -39,14 +39,22 @@ var (
 //
 // See https://core.telegram.org/method/channels.toggleJoinRequest for reference.
 type ChannelsToggleJoinRequestRequest struct {
+	// Flags field of ChannelsToggleJoinRequestRequest.
+	Flags bin.Fields
+	// ApplyToInvites field of ChannelsToggleJoinRequestRequest.
+	ApplyToInvites bool
 	// Group
 	Channel InputChannelClass
 	// Toggle
 	Enabled bool
+	// GuardBot field of ChannelsToggleJoinRequestRequest.
+	//
+	// Use SetGuardBot and GetGuardBot helpers.
+	GuardBot InputUserClass
 }
 
 // ChannelsToggleJoinRequestRequestTypeID is TL type id of ChannelsToggleJoinRequestRequest.
-const ChannelsToggleJoinRequestRequestTypeID = 0x4c2985b6
+const ChannelsToggleJoinRequestRequestTypeID = 0xecc2618
 
 // Ensuring interfaces in compile-time for ChannelsToggleJoinRequestRequest.
 var (
@@ -60,10 +68,19 @@ func (t *ChannelsToggleJoinRequestRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.ApplyToInvites == false) {
+		return false
+	}
 	if !(t.Channel == nil) {
 		return false
 	}
 	if !(t.Enabled == false) {
+		return false
+	}
+	if !(t.GuardBot == nil) {
 		return false
 	}
 
@@ -81,11 +98,18 @@ func (t *ChannelsToggleJoinRequestRequest) String() string {
 
 // FillFrom fills ChannelsToggleJoinRequestRequest from given interface.
 func (t *ChannelsToggleJoinRequestRequest) FillFrom(from interface {
+	GetApplyToInvites() (value bool)
 	GetChannel() (value InputChannelClass)
 	GetEnabled() (value bool)
+	GetGuardBot() (value InputUserClass, ok bool)
 }) {
+	t.ApplyToInvites = from.GetApplyToInvites()
 	t.Channel = from.GetChannel()
 	t.Enabled = from.GetEnabled()
+	if val, ok := from.GetGuardBot(); ok {
+		t.GuardBot = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -112,6 +136,11 @@ func (t *ChannelsToggleJoinRequestRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ApplyToInvites",
+			SchemaName: "apply_to_invites",
+			Null:       !t.Flags.Has(1),
+		},
+		{
 			Name:       "Channel",
 			SchemaName: "channel",
 		},
@@ -119,14 +148,29 @@ func (t *ChannelsToggleJoinRequestRequest) TypeInfo() tdp.Type {
 			Name:       "Enabled",
 			SchemaName: "enabled",
 		},
+		{
+			Name:       "GuardBot",
+			SchemaName: "guard_bot",
+			Null:       !t.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (t *ChannelsToggleJoinRequestRequest) SetFlags() {
+	if !(t.ApplyToInvites == false) {
+		t.Flags.Set(1)
+	}
+	if !(t.GuardBot == nil) {
+		t.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleJoinRequestRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleJoinRequest#4c2985b6 as nil")
+		return fmt.Errorf("can't encode channels.toggleJoinRequest#ecc2618 as nil")
 	}
 	b.PutID(ChannelsToggleJoinRequestRequestTypeID)
 	return t.EncodeBare(b)
@@ -135,25 +179,37 @@ func (t *ChannelsToggleJoinRequestRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ChannelsToggleJoinRequestRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleJoinRequest#4c2985b6 as nil")
+		return fmt.Errorf("can't encode channels.toggleJoinRequest#ecc2618 as nil")
+	}
+	t.SetFlags()
+	if err := t.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.toggleJoinRequest#ecc2618: field flags: %w", err)
 	}
 	if t.Channel == nil {
-		return fmt.Errorf("unable to encode channels.toggleJoinRequest#4c2985b6: field channel is nil")
+		return fmt.Errorf("unable to encode channels.toggleJoinRequest#ecc2618: field channel is nil")
 	}
 	if err := t.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.toggleJoinRequest#4c2985b6: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.toggleJoinRequest#ecc2618: field channel: %w", err)
 	}
 	b.PutBool(t.Enabled)
+	if t.Flags.Has(0) {
+		if t.GuardBot == nil {
+			return fmt.Errorf("unable to encode channels.toggleJoinRequest#ecc2618: field guard_bot is nil")
+		}
+		if err := t.GuardBot.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode channels.toggleJoinRequest#ecc2618: field guard_bot: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *ChannelsToggleJoinRequestRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleJoinRequest#4c2985b6 to nil")
+		return fmt.Errorf("can't decode channels.toggleJoinRequest#ecc2618 to nil")
 	}
 	if err := b.ConsumeID(ChannelsToggleJoinRequestRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.toggleJoinRequest#4c2985b6: %w", err)
+		return fmt.Errorf("unable to decode channels.toggleJoinRequest#ecc2618: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -161,23 +217,55 @@ func (t *ChannelsToggleJoinRequestRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ChannelsToggleJoinRequestRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleJoinRequest#4c2985b6 to nil")
+		return fmt.Errorf("can't decode channels.toggleJoinRequest#ecc2618 to nil")
 	}
+	{
+		if err := t.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.toggleJoinRequest#ecc2618: field flags: %w", err)
+		}
+	}
+	t.ApplyToInvites = t.Flags.Has(1)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleJoinRequest#4c2985b6: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.toggleJoinRequest#ecc2618: field channel: %w", err)
 		}
 		t.Channel = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleJoinRequest#4c2985b6: field enabled: %w", err)
+			return fmt.Errorf("unable to decode channels.toggleJoinRequest#ecc2618: field enabled: %w", err)
 		}
 		t.Enabled = value
 	}
+	if t.Flags.Has(0) {
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.toggleJoinRequest#ecc2618: field guard_bot: %w", err)
+		}
+		t.GuardBot = value
+	}
 	return nil
+}
+
+// SetApplyToInvites sets value of ApplyToInvites conditional field.
+func (t *ChannelsToggleJoinRequestRequest) SetApplyToInvites(value bool) {
+	if value {
+		t.Flags.Set(1)
+		t.ApplyToInvites = true
+	} else {
+		t.Flags.Unset(1)
+		t.ApplyToInvites = false
+	}
+}
+
+// GetApplyToInvites returns value of ApplyToInvites conditional field.
+func (t *ChannelsToggleJoinRequestRequest) GetApplyToInvites() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(1)
 }
 
 // GetChannel returns value of Channel field.
@@ -196,12 +284,30 @@ func (t *ChannelsToggleJoinRequestRequest) GetEnabled() (value bool) {
 	return t.Enabled
 }
 
+// SetGuardBot sets value of GuardBot conditional field.
+func (t *ChannelsToggleJoinRequestRequest) SetGuardBot(value InputUserClass) {
+	t.Flags.Set(0)
+	t.GuardBot = value
+}
+
+// GetGuardBot returns value of GuardBot conditional field and
+// boolean which is true if field was set.
+func (t *ChannelsToggleJoinRequestRequest) GetGuardBot() (value InputUserClass, ok bool) {
+	if t == nil {
+		return
+	}
+	if !t.Flags.Has(0) {
+		return value, false
+	}
+	return t.GuardBot, true
+}
+
 // GetChannelAsNotEmpty returns mapped value of Channel field.
 func (t *ChannelsToggleJoinRequestRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
 	return t.Channel.AsNotEmpty()
 }
 
-// ChannelsToggleJoinRequest invokes method channels.toggleJoinRequest#4c2985b6 returning error if any.
+// ChannelsToggleJoinRequest invokes method channels.toggleJoinRequest#ecc2618 returning error if any.
 // Set whether all users should request admin approval to join the group »¹.
 //
 // Links:

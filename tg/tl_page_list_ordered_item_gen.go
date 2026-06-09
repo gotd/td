@@ -31,19 +31,35 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PageListOrderedItemText represents TL type `pageListOrderedItemText#5e068047`.
+// PageListOrderedItemText represents TL type `pageListOrderedItemText#15031189`.
 // Ordered list of text items
 //
 // See https://core.telegram.org/constructor/pageListOrderedItemText for reference.
 type PageListOrderedItemText struct {
+	// Flags field of PageListOrderedItemText.
+	Flags bin.Fields
+	// Checkbox field of PageListOrderedItemText.
+	Checkbox bool
+	// Checked field of PageListOrderedItemText.
+	Checked bool
 	// Number of element within ordered list
+	//
+	// Use SetNum and GetNum helpers.
 	Num string
 	// Text
 	Text RichTextClass
+	// Value field of PageListOrderedItemText.
+	//
+	// Use SetValue and GetValue helpers.
+	Value int
+	// Type field of PageListOrderedItemText.
+	//
+	// Use SetType and GetType helpers.
+	Type string
 }
 
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
-const PageListOrderedItemTextTypeID = 0x5e068047
+const PageListOrderedItemTextTypeID = 0x15031189
 
 // construct implements constructor of PageListOrderedItemClass.
 func (p PageListOrderedItemText) construct() PageListOrderedItemClass { return &p }
@@ -62,10 +78,25 @@ func (p *PageListOrderedItemText) Zero() bool {
 	if p == nil {
 		return true
 	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Checkbox == false) {
+		return false
+	}
+	if !(p.Checked == false) {
+		return false
+	}
 	if !(p.Num == "") {
 		return false
 	}
 	if !(p.Text == nil) {
+		return false
+	}
+	if !(p.Value == 0) {
+		return false
+	}
+	if !(p.Type == "") {
 		return false
 	}
 
@@ -83,11 +114,28 @@ func (p *PageListOrderedItemText) String() string {
 
 // FillFrom fills PageListOrderedItemText from given interface.
 func (p *PageListOrderedItemText) FillFrom(from interface {
-	GetNum() (value string)
+	GetCheckbox() (value bool)
+	GetChecked() (value bool)
+	GetNum() (value string, ok bool)
 	GetText() (value RichTextClass)
+	GetValue() (value int, ok bool)
+	GetType() (value string, ok bool)
 }) {
-	p.Num = from.GetNum()
+	p.Checkbox = from.GetCheckbox()
+	p.Checked = from.GetChecked()
+	if val, ok := from.GetNum(); ok {
+		p.Num = val
+	}
+
 	p.Text = from.GetText()
+	if val, ok := from.GetValue(); ok {
+		p.Value = val
+	}
+
+	if val, ok := from.GetType(); ok {
+		p.Type = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -114,21 +162,61 @@ func (p *PageListOrderedItemText) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Checkbox",
+			SchemaName: "checkbox",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Checked",
+			SchemaName: "checked",
+			Null:       !p.Flags.Has(1),
+		},
+		{
 			Name:       "Num",
 			SchemaName: "num",
+			Null:       !p.Flags.Has(2),
 		},
 		{
 			Name:       "Text",
 			SchemaName: "text",
 		},
+		{
+			Name:       "Value",
+			SchemaName: "value",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+			Null:       !p.Flags.Has(4),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PageListOrderedItemText) SetFlags() {
+	if !(p.Checkbox == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Checked == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.Num == "") {
+		p.Flags.Set(2)
+	}
+	if !(p.Value == 0) {
+		p.Flags.Set(3)
+	}
+	if !(p.Type == "") {
+		p.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PageListOrderedItemText) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListOrderedItemText#5e068047 as nil")
+		return fmt.Errorf("can't encode pageListOrderedItemText#15031189 as nil")
 	}
 	b.PutID(PageListOrderedItemTextTypeID)
 	return p.EncodeBare(b)
@@ -137,14 +225,26 @@ func (p *PageListOrderedItemText) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageListOrderedItemText) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListOrderedItemText#5e068047 as nil")
+		return fmt.Errorf("can't encode pageListOrderedItemText#15031189 as nil")
 	}
-	b.PutString(p.Num)
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageListOrderedItemText#15031189: field flags: %w", err)
+	}
+	if p.Flags.Has(2) {
+		b.PutString(p.Num)
+	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageListOrderedItemText#5e068047: field text is nil")
+		return fmt.Errorf("unable to encode pageListOrderedItemText#15031189: field text is nil")
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageListOrderedItemText#5e068047: field text: %w", err)
+		return fmt.Errorf("unable to encode pageListOrderedItemText#15031189: field text: %w", err)
+	}
+	if p.Flags.Has(3) {
+		b.PutInt(p.Value)
+	}
+	if p.Flags.Has(4) {
+		b.PutString(p.Type)
 	}
 	return nil
 }
@@ -152,10 +252,10 @@ func (p *PageListOrderedItemText) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageListOrderedItemText) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListOrderedItemText#5e068047 to nil")
+		return fmt.Errorf("can't decode pageListOrderedItemText#15031189 to nil")
 	}
 	if err := b.ConsumeID(PageListOrderedItemTextTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageListOrderedItemText#5e068047: %w", err)
+		return fmt.Errorf("unable to decode pageListOrderedItemText#15031189: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -163,31 +263,100 @@ func (p *PageListOrderedItemText) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageListOrderedItemText) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListOrderedItemText#5e068047 to nil")
+		return fmt.Errorf("can't decode pageListOrderedItemText#15031189 to nil")
 	}
 	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageListOrderedItemText#15031189: field flags: %w", err)
+		}
+	}
+	p.Checkbox = p.Flags.Has(0)
+	p.Checked = p.Flags.Has(1)
+	if p.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageListOrderedItemText#5e068047: field num: %w", err)
+			return fmt.Errorf("unable to decode pageListOrderedItemText#15031189: field num: %w", err)
 		}
 		p.Num = value
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageListOrderedItemText#5e068047: field text: %w", err)
+			return fmt.Errorf("unable to decode pageListOrderedItemText#15031189: field text: %w", err)
 		}
 		p.Text = value
+	}
+	if p.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageListOrderedItemText#15031189: field value: %w", err)
+		}
+		p.Value = value
+	}
+	if p.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageListOrderedItemText#15031189: field type: %w", err)
+		}
+		p.Type = value
 	}
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (p *PageListOrderedItemText) GetNum() (value string) {
+// SetCheckbox sets value of Checkbox conditional field.
+func (p *PageListOrderedItemText) SetCheckbox(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Checkbox = true
+	} else {
+		p.Flags.Unset(0)
+		p.Checkbox = false
+	}
+}
+
+// GetCheckbox returns value of Checkbox conditional field.
+func (p *PageListOrderedItemText) GetCheckbox() (value bool) {
 	if p == nil {
 		return
 	}
-	return p.Num
+	return p.Flags.Has(0)
+}
+
+// SetChecked sets value of Checked conditional field.
+func (p *PageListOrderedItemText) SetChecked(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Checked = true
+	} else {
+		p.Flags.Unset(1)
+		p.Checked = false
+	}
+}
+
+// GetChecked returns value of Checked conditional field.
+func (p *PageListOrderedItemText) GetChecked() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(1)
+}
+
+// SetNum sets value of Num conditional field.
+func (p *PageListOrderedItemText) SetNum(value string) {
+	p.Flags.Set(2)
+	p.Num = value
+}
+
+// GetNum returns value of Num conditional field and
+// boolean which is true if field was set.
+func (p *PageListOrderedItemText) GetNum() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.Num, true
 }
 
 // GetText returns value of Text field.
@@ -198,7 +367,43 @@ func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
 	return p.Text
 }
 
-// PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#98dd8936`.
+// SetValue sets value of Value conditional field.
+func (p *PageListOrderedItemText) SetValue(value int) {
+	p.Flags.Set(3)
+	p.Value = value
+}
+
+// GetValue returns value of Value conditional field and
+// boolean which is true if field was set.
+func (p *PageListOrderedItemText) GetValue() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(3) {
+		return value, false
+	}
+	return p.Value, true
+}
+
+// SetType sets value of Type conditional field.
+func (p *PageListOrderedItemText) SetType(value string) {
+	p.Flags.Set(4)
+	p.Type = value
+}
+
+// GetType returns value of Type conditional field and
+// boolean which is true if field was set.
+func (p *PageListOrderedItemText) GetType() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(4) {
+		return value, false
+	}
+	return p.Type, true
+}
+
+// PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#8ff2d5f0`.
 // Ordered list of IV¹ blocks
 //
 // Links:
@@ -206,14 +411,30 @@ func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
 //
 // See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {
+	// Flags field of PageListOrderedItemBlocks.
+	Flags bin.Fields
+	// Checkbox field of PageListOrderedItemBlocks.
+	Checkbox bool
+	// Checked field of PageListOrderedItemBlocks.
+	Checked bool
 	// Number of element within ordered list
+	//
+	// Use SetNum and GetNum helpers.
 	Num string
 	// Item contents
 	Blocks []PageBlockClass
+	// Value field of PageListOrderedItemBlocks.
+	//
+	// Use SetValue and GetValue helpers.
+	Value int
+	// Type field of PageListOrderedItemBlocks.
+	//
+	// Use SetType and GetType helpers.
+	Type string
 }
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
-const PageListOrderedItemBlocksTypeID = 0x98dd8936
+const PageListOrderedItemBlocksTypeID = 0x8ff2d5f0
 
 // construct implements constructor of PageListOrderedItemClass.
 func (p PageListOrderedItemBlocks) construct() PageListOrderedItemClass { return &p }
@@ -232,10 +453,25 @@ func (p *PageListOrderedItemBlocks) Zero() bool {
 	if p == nil {
 		return true
 	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Checkbox == false) {
+		return false
+	}
+	if !(p.Checked == false) {
+		return false
+	}
 	if !(p.Num == "") {
 		return false
 	}
 	if !(p.Blocks == nil) {
+		return false
+	}
+	if !(p.Value == 0) {
+		return false
+	}
+	if !(p.Type == "") {
 		return false
 	}
 
@@ -253,11 +489,28 @@ func (p *PageListOrderedItemBlocks) String() string {
 
 // FillFrom fills PageListOrderedItemBlocks from given interface.
 func (p *PageListOrderedItemBlocks) FillFrom(from interface {
-	GetNum() (value string)
+	GetCheckbox() (value bool)
+	GetChecked() (value bool)
+	GetNum() (value string, ok bool)
 	GetBlocks() (value []PageBlockClass)
+	GetValue() (value int, ok bool)
+	GetType() (value string, ok bool)
 }) {
-	p.Num = from.GetNum()
+	p.Checkbox = from.GetCheckbox()
+	p.Checked = from.GetChecked()
+	if val, ok := from.GetNum(); ok {
+		p.Num = val
+	}
+
 	p.Blocks = from.GetBlocks()
+	if val, ok := from.GetValue(); ok {
+		p.Value = val
+	}
+
+	if val, ok := from.GetType(); ok {
+		p.Type = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -284,21 +537,61 @@ func (p *PageListOrderedItemBlocks) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Checkbox",
+			SchemaName: "checkbox",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Checked",
+			SchemaName: "checked",
+			Null:       !p.Flags.Has(1),
+		},
+		{
 			Name:       "Num",
 			SchemaName: "num",
+			Null:       !p.Flags.Has(2),
 		},
 		{
 			Name:       "Blocks",
 			SchemaName: "blocks",
 		},
+		{
+			Name:       "Value",
+			SchemaName: "value",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+			Null:       !p.Flags.Has(4),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PageListOrderedItemBlocks) SetFlags() {
+	if !(p.Checkbox == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Checked == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.Num == "") {
+		p.Flags.Set(2)
+	}
+	if !(p.Value == 0) {
+		p.Flags.Set(3)
+	}
+	if !(p.Type == "") {
+		p.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PageListOrderedItemBlocks) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListOrderedItemBlocks#98dd8936 as nil")
+		return fmt.Errorf("can't encode pageListOrderedItemBlocks#8ff2d5f0 as nil")
 	}
 	b.PutID(PageListOrderedItemBlocksTypeID)
 	return p.EncodeBare(b)
@@ -307,17 +600,29 @@ func (p *PageListOrderedItemBlocks) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageListOrderedItemBlocks) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageListOrderedItemBlocks#98dd8936 as nil")
+		return fmt.Errorf("can't encode pageListOrderedItemBlocks#8ff2d5f0 as nil")
 	}
-	b.PutString(p.Num)
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageListOrderedItemBlocks#8ff2d5f0: field flags: %w", err)
+	}
+	if p.Flags.Has(2) {
+		b.PutString(p.Num)
+	}
 	b.PutVectorHeader(len(p.Blocks))
 	for idx, v := range p.Blocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode pageListOrderedItemBlocks#98dd8936: field blocks element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode pageListOrderedItemBlocks#8ff2d5f0: field blocks element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode pageListOrderedItemBlocks#98dd8936: field blocks element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode pageListOrderedItemBlocks#8ff2d5f0: field blocks element with index %d: %w", idx, err)
 		}
+	}
+	if p.Flags.Has(3) {
+		b.PutInt(p.Value)
+	}
+	if p.Flags.Has(4) {
+		b.PutString(p.Type)
 	}
 	return nil
 }
@@ -325,10 +630,10 @@ func (p *PageListOrderedItemBlocks) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageListOrderedItemBlocks) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListOrderedItemBlocks#98dd8936 to nil")
+		return fmt.Errorf("can't decode pageListOrderedItemBlocks#8ff2d5f0 to nil")
 	}
 	if err := b.ConsumeID(PageListOrderedItemBlocksTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageListOrderedItemBlocks#98dd8936: %w", err)
+		return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -336,19 +641,26 @@ func (p *PageListOrderedItemBlocks) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageListOrderedItemBlocks) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageListOrderedItemBlocks#98dd8936 to nil")
+		return fmt.Errorf("can't decode pageListOrderedItemBlocks#8ff2d5f0 to nil")
 	}
 	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: field flags: %w", err)
+		}
+	}
+	p.Checkbox = p.Flags.Has(0)
+	p.Checked = p.Flags.Has(1)
+	if p.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#98dd8936: field num: %w", err)
+			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: field num: %w", err)
 		}
 		p.Num = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#98dd8936: field blocks: %w", err)
+			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: field blocks: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -357,20 +669,82 @@ func (p *PageListOrderedItemBlocks) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode pageListOrderedItemBlocks#98dd8936: field blocks: %w", err)
+				return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: field blocks: %w", err)
 			}
 			p.Blocks = append(p.Blocks, value)
 		}
 	}
+	if p.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: field value: %w", err)
+		}
+		p.Value = value
+	}
+	if p.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageListOrderedItemBlocks#8ff2d5f0: field type: %w", err)
+		}
+		p.Type = value
+	}
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (p *PageListOrderedItemBlocks) GetNum() (value string) {
+// SetCheckbox sets value of Checkbox conditional field.
+func (p *PageListOrderedItemBlocks) SetCheckbox(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Checkbox = true
+	} else {
+		p.Flags.Unset(0)
+		p.Checkbox = false
+	}
+}
+
+// GetCheckbox returns value of Checkbox conditional field.
+func (p *PageListOrderedItemBlocks) GetCheckbox() (value bool) {
 	if p == nil {
 		return
 	}
-	return p.Num
+	return p.Flags.Has(0)
+}
+
+// SetChecked sets value of Checked conditional field.
+func (p *PageListOrderedItemBlocks) SetChecked(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Checked = true
+	} else {
+		p.Flags.Unset(1)
+		p.Checked = false
+	}
+}
+
+// GetChecked returns value of Checked conditional field.
+func (p *PageListOrderedItemBlocks) GetChecked() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(1)
+}
+
+// SetNum sets value of Num conditional field.
+func (p *PageListOrderedItemBlocks) SetNum(value string) {
+	p.Flags.Set(2)
+	p.Num = value
+}
+
+// GetNum returns value of Num conditional field and
+// boolean which is true if field was set.
+func (p *PageListOrderedItemBlocks) GetNum() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.Num, true
 }
 
 // GetBlocks returns value of Blocks field.
@@ -379,6 +753,42 @@ func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
 		return
 	}
 	return p.Blocks
+}
+
+// SetValue sets value of Value conditional field.
+func (p *PageListOrderedItemBlocks) SetValue(value int) {
+	p.Flags.Set(3)
+	p.Value = value
+}
+
+// GetValue returns value of Value conditional field and
+// boolean which is true if field was set.
+func (p *PageListOrderedItemBlocks) GetValue() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(3) {
+		return value, false
+	}
+	return p.Value, true
+}
+
+// SetType sets value of Type conditional field.
+func (p *PageListOrderedItemBlocks) SetType(value string) {
+	p.Flags.Set(4)
+	p.Type = value
+}
+
+// GetType returns value of Type conditional field and
+// boolean which is true if field was set.
+func (p *PageListOrderedItemBlocks) GetType() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(4) {
+		return value, false
+	}
+	return p.Type, true
 }
 
 // MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
@@ -404,8 +814,8 @@ const PageListOrderedItemClassName = "PageListOrderedItem"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.PageListOrderedItemText: // pageListOrderedItemText#5e068047
-//	case *tg.PageListOrderedItemBlocks: // pageListOrderedItemBlocks#98dd8936
+//	case *tg.PageListOrderedItemText: // pageListOrderedItemText#15031189
+//	case *tg.PageListOrderedItemBlocks: // pageListOrderedItemBlocks#8ff2d5f0
 //	default: panic(v)
 //	}
 type PageListOrderedItemClass interface {
@@ -426,8 +836,20 @@ type PageListOrderedItemClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
+	// Checkbox field of PageListOrderedItemText.
+	GetCheckbox() (value bool)
+
+	// Checked field of PageListOrderedItemText.
+	GetChecked() (value bool)
+
 	// Number of element within ordered list
-	GetNum() (value string)
+	GetNum() (value string, ok bool)
+
+	// Value field of PageListOrderedItemText.
+	GetValue() (value int, ok bool)
+
+	// Type field of PageListOrderedItemText.
+	GetType() (value string, ok bool)
 }
 
 // DecodePageListOrderedItem implements binary de-serialization for PageListOrderedItemClass.
@@ -438,14 +860,14 @@ func DecodePageListOrderedItem(buf *bin.Buffer) (PageListOrderedItemClass, error
 	}
 	switch id {
 	case PageListOrderedItemTextTypeID:
-		// Decoding pageListOrderedItemText#5e068047.
+		// Decoding pageListOrderedItemText#15031189.
 		v := PageListOrderedItemText{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageListOrderedItemClass: %w", err)
 		}
 		return &v, nil
 	case PageListOrderedItemBlocksTypeID:
-		// Decoding pageListOrderedItemBlocks#98dd8936.
+		// Decoding pageListOrderedItemBlocks#8ff2d5f0.
 		v := PageListOrderedItemBlocks{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageListOrderedItemClass: %w", err)

@@ -20297,7 +20297,7 @@ func (u *UpdatePendingJoinRequests) GetRecentRequesters() (value []int64) {
 	return u.RecentRequesters
 }
 
-// UpdateBotChatInviteRequester represents TL type `updateBotChatInviteRequester#11dfa986`.
+// UpdateBotChatInviteRequester represents TL type `updateBotChatInviteRequester#7cb34d79`.
 // Someone has requested to join a chat or channel (bots only, users will receive an
 // updatePendingJoinRequests¹, instead)
 //
@@ -20306,6 +20306,8 @@ func (u *UpdatePendingJoinRequests) GetRecentRequesters() (value []int64) {
 //
 // See https://core.telegram.org/constructor/updateBotChatInviteRequester for reference.
 type UpdateBotChatInviteRequester struct {
+	// Flags field of UpdateBotChatInviteRequester.
+	Flags bin.Fields
 	// The chat or channel in question
 	Peer PeerClass
 	// When was the join request »¹ made
@@ -20327,10 +20329,14 @@ type UpdateBotChatInviteRequester struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Qts int
+	// QueryID field of UpdateBotChatInviteRequester.
+	//
+	// Use SetQueryID and GetQueryID helpers.
+	QueryID int64
 }
 
 // UpdateBotChatInviteRequesterTypeID is TL type id of UpdateBotChatInviteRequester.
-const UpdateBotChatInviteRequesterTypeID = 0x11dfa986
+const UpdateBotChatInviteRequesterTypeID = 0x7cb34d79
 
 // construct implements constructor of UpdateClass.
 func (u UpdateBotChatInviteRequester) construct() UpdateClass { return &u }
@@ -20349,6 +20355,9 @@ func (u *UpdateBotChatInviteRequester) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
 	if !(u.Peer == nil) {
 		return false
 	}
@@ -20365,6 +20374,9 @@ func (u *UpdateBotChatInviteRequester) Zero() bool {
 		return false
 	}
 	if !(u.Qts == 0) {
+		return false
+	}
+	if !(u.QueryID == 0) {
 		return false
 	}
 
@@ -20388,6 +20400,7 @@ func (u *UpdateBotChatInviteRequester) FillFrom(from interface {
 	GetAbout() (value string)
 	GetInvite() (value ExportedChatInviteClass)
 	GetQts() (value int)
+	GetQueryID() (value int64, ok bool)
 }) {
 	u.Peer = from.GetPeer()
 	u.Date = from.GetDate()
@@ -20395,6 +20408,10 @@ func (u *UpdateBotChatInviteRequester) FillFrom(from interface {
 	u.About = from.GetAbout()
 	u.Invite = from.GetInvite()
 	u.Qts = from.GetQts()
+	if val, ok := from.GetQueryID(); ok {
+		u.QueryID = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -20444,14 +20461,26 @@ func (u *UpdateBotChatInviteRequester) TypeInfo() tdp.Type {
 			Name:       "Qts",
 			SchemaName: "qts",
 		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+			Null:       !u.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotChatInviteRequester) SetFlags() {
+	if !(u.QueryID == 0) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotChatInviteRequester) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateBotChatInviteRequester#11dfa986 as nil")
+		return fmt.Errorf("can't encode updateBotChatInviteRequester#7cb34d79 as nil")
 	}
 	b.PutID(UpdateBotChatInviteRequesterTypeID)
 	return u.EncodeBare(b)
@@ -20460,34 +20489,41 @@ func (u *UpdateBotChatInviteRequester) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateBotChatInviteRequester) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateBotChatInviteRequester#11dfa986 as nil")
+		return fmt.Errorf("can't encode updateBotChatInviteRequester#7cb34d79 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#7cb34d79: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field peer is nil")
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#7cb34d79: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field peer: %w", err)
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#7cb34d79: field peer: %w", err)
 	}
 	b.PutInt(u.Date)
 	b.PutLong(u.UserID)
 	b.PutString(u.About)
 	if u.Invite == nil {
-		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field invite is nil")
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#7cb34d79: field invite is nil")
 	}
 	if err := u.Invite.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field invite: %w", err)
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#7cb34d79: field invite: %w", err)
 	}
 	b.PutInt(u.Qts)
+	if u.Flags.Has(0) {
+		b.PutLong(u.QueryID)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateBotChatInviteRequester) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateBotChatInviteRequester#11dfa986 to nil")
+		return fmt.Errorf("can't decode updateBotChatInviteRequester#7cb34d79 to nil")
 	}
 	if err := b.ConsumeID(UpdateBotChatInviteRequesterTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: %w", err)
+		return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -20495,49 +20531,61 @@ func (u *UpdateBotChatInviteRequester) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateBotChatInviteRequester) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateBotChatInviteRequester#11dfa986 to nil")
+		return fmt.Errorf("can't decode updateBotChatInviteRequester#7cb34d79 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field peer: %w", err)
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field peer: %w", err)
 		}
 		u.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field date: %w", err)
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field date: %w", err)
 		}
 		u.Date = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field user_id: %w", err)
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field user_id: %w", err)
 		}
 		u.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field about: %w", err)
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field about: %w", err)
 		}
 		u.About = value
 	}
 	{
 		value, err := DecodeExportedChatInvite(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field invite: %w", err)
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field invite: %w", err)
 		}
 		u.Invite = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field qts: %w", err)
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field qts: %w", err)
 		}
 		u.Qts = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#7cb34d79: field query_id: %w", err)
+		}
+		u.QueryID = value
 	}
 	return nil
 }
@@ -20588,6 +20636,24 @@ func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
 		return
 	}
 	return u.Qts
+}
+
+// SetQueryID sets value of QueryID conditional field.
+func (u *UpdateBotChatInviteRequester) SetQueryID(value int64) {
+	u.Flags.Set(0)
+	u.QueryID = value
+}
+
+// GetQueryID returns value of QueryID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotChatInviteRequester) GetQueryID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.QueryID, true
 }
 
 // UpdateMessageReactions represents TL type `updateMessageReactions#1e297bfa`.
@@ -32040,6 +32106,965 @@ func (u *UpdateAiComposeTones) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UpdateJoinChatWebViewDecision represents TL type `updateJoinChatWebViewDecision#bdac7e70`.
+//
+// See https://core.telegram.org/constructor/updateJoinChatWebViewDecision for reference.
+type UpdateJoinChatWebViewDecision struct {
+	// Peer field of UpdateJoinChatWebViewDecision.
+	Peer PeerClass
+	// QueryID field of UpdateJoinChatWebViewDecision.
+	QueryID int64
+	// Result field of UpdateJoinChatWebViewDecision.
+	Result JoinChatBotResultClass
+}
+
+// UpdateJoinChatWebViewDecisionTypeID is TL type id of UpdateJoinChatWebViewDecision.
+const UpdateJoinChatWebViewDecisionTypeID = 0xbdac7e70
+
+// construct implements constructor of UpdateClass.
+func (u UpdateJoinChatWebViewDecision) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateJoinChatWebViewDecision.
+var (
+	_ bin.Encoder     = &UpdateJoinChatWebViewDecision{}
+	_ bin.Decoder     = &UpdateJoinChatWebViewDecision{}
+	_ bin.BareEncoder = &UpdateJoinChatWebViewDecision{}
+	_ bin.BareDecoder = &UpdateJoinChatWebViewDecision{}
+
+	_ UpdateClass = &UpdateJoinChatWebViewDecision{}
+)
+
+func (u *UpdateJoinChatWebViewDecision) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.Result == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateJoinChatWebViewDecision) String() string {
+	if u == nil {
+		return "UpdateJoinChatWebViewDecision(nil)"
+	}
+	type Alias UpdateJoinChatWebViewDecision
+	return fmt.Sprintf("UpdateJoinChatWebViewDecision%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateJoinChatWebViewDecision from given interface.
+func (u *UpdateJoinChatWebViewDecision) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetQueryID() (value int64)
+	GetResult() (value JoinChatBotResultClass)
+}) {
+	u.Peer = from.GetPeer()
+	u.QueryID = from.GetQueryID()
+	u.Result = from.GetResult()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateJoinChatWebViewDecision) TypeID() uint32 {
+	return UpdateJoinChatWebViewDecisionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateJoinChatWebViewDecision) TypeName() string {
+	return "updateJoinChatWebViewDecision"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateJoinChatWebViewDecision) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateJoinChatWebViewDecision",
+		ID:   UpdateJoinChatWebViewDecisionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Result",
+			SchemaName: "result",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateJoinChatWebViewDecision) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateJoinChatWebViewDecision#bdac7e70 as nil")
+	}
+	b.PutID(UpdateJoinChatWebViewDecisionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateJoinChatWebViewDecision) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateJoinChatWebViewDecision#bdac7e70 as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateJoinChatWebViewDecision#bdac7e70: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateJoinChatWebViewDecision#bdac7e70: field peer: %w", err)
+	}
+	b.PutLong(u.QueryID)
+	if u.Result == nil {
+		return fmt.Errorf("unable to encode updateJoinChatWebViewDecision#bdac7e70: field result is nil")
+	}
+	if err := u.Result.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateJoinChatWebViewDecision#bdac7e70: field result: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateJoinChatWebViewDecision) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateJoinChatWebViewDecision#bdac7e70 to nil")
+	}
+	if err := b.ConsumeID(UpdateJoinChatWebViewDecisionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateJoinChatWebViewDecision#bdac7e70: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateJoinChatWebViewDecision) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateJoinChatWebViewDecision#bdac7e70 to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateJoinChatWebViewDecision#bdac7e70: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateJoinChatWebViewDecision#bdac7e70: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	{
+		value, err := DecodeJoinChatBotResult(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateJoinChatWebViewDecision#bdac7e70: field result: %w", err)
+		}
+		u.Result = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateJoinChatWebViewDecision) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateJoinChatWebViewDecision) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// GetResult returns value of Result field.
+func (u *UpdateJoinChatWebViewDecision) GetResult() (value JoinChatBotResultClass) {
+	if u == nil {
+		return
+	}
+	return u.Result
+}
+
+// UpdateNewBotConnection represents TL type `updateNewBotConnection#b22083a6`.
+//
+// See https://core.telegram.org/constructor/updateNewBotConnection for reference.
+type UpdateNewBotConnection struct {
+	// Flags field of UpdateNewBotConnection.
+	Flags bin.Fields
+	// Confirmed field of UpdateNewBotConnection.
+	Confirmed bool
+	// BotID field of UpdateNewBotConnection.
+	BotID int64
+	// Date field of UpdateNewBotConnection.
+	//
+	// Use SetDate and GetDate helpers.
+	Date int
+	// Device field of UpdateNewBotConnection.
+	//
+	// Use SetDevice and GetDevice helpers.
+	Device string
+	// Location field of UpdateNewBotConnection.
+	//
+	// Use SetLocation and GetLocation helpers.
+	Location string
+}
+
+// UpdateNewBotConnectionTypeID is TL type id of UpdateNewBotConnection.
+const UpdateNewBotConnectionTypeID = 0xb22083a6
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewBotConnection) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewBotConnection.
+var (
+	_ bin.Encoder     = &UpdateNewBotConnection{}
+	_ bin.Decoder     = &UpdateNewBotConnection{}
+	_ bin.BareEncoder = &UpdateNewBotConnection{}
+	_ bin.BareDecoder = &UpdateNewBotConnection{}
+
+	_ UpdateClass = &UpdateNewBotConnection{}
+)
+
+func (u *UpdateNewBotConnection) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Confirmed == false) {
+		return false
+	}
+	if !(u.BotID == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.Device == "") {
+		return false
+	}
+	if !(u.Location == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateNewBotConnection) String() string {
+	if u == nil {
+		return "UpdateNewBotConnection(nil)"
+	}
+	type Alias UpdateNewBotConnection
+	return fmt.Sprintf("UpdateNewBotConnection%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNewBotConnection from given interface.
+func (u *UpdateNewBotConnection) FillFrom(from interface {
+	GetConfirmed() (value bool)
+	GetBotID() (value int64)
+	GetDate() (value int, ok bool)
+	GetDevice() (value string, ok bool)
+	GetLocation() (value string, ok bool)
+}) {
+	u.Confirmed = from.GetConfirmed()
+	u.BotID = from.GetBotID()
+	if val, ok := from.GetDate(); ok {
+		u.Date = val
+	}
+
+	if val, ok := from.GetDevice(); ok {
+		u.Device = val
+	}
+
+	if val, ok := from.GetLocation(); ok {
+		u.Location = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateNewBotConnection) TypeID() uint32 {
+	return UpdateNewBotConnectionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateNewBotConnection) TypeName() string {
+	return "updateNewBotConnection"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewBotConnection) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewBotConnection",
+		ID:   UpdateNewBotConnectionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Confirmed",
+			SchemaName: "confirmed",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Device",
+			SchemaName: "device",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateNewBotConnection) SetFlags() {
+	if !(u.Confirmed == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Date == 0) {
+		u.Flags.Set(1)
+	}
+	if !(u.Device == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.Location == "") {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateNewBotConnection) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBotConnection#b22083a6 as nil")
+	}
+	b.PutID(UpdateNewBotConnectionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateNewBotConnection) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewBotConnection#b22083a6 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewBotConnection#b22083a6: field flags: %w", err)
+	}
+	b.PutLong(u.BotID)
+	if u.Flags.Has(1) {
+		b.PutInt(u.Date)
+	}
+	if u.Flags.Has(1) {
+		b.PutString(u.Device)
+	}
+	if u.Flags.Has(1) {
+		b.PutString(u.Location)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateNewBotConnection) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBotConnection#b22083a6 to nil")
+	}
+	if err := b.ConsumeID(UpdateNewBotConnectionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateNewBotConnection#b22083a6: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateNewBotConnection) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewBotConnection#b22083a6 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateNewBotConnection#b22083a6: field flags: %w", err)
+		}
+	}
+	u.Confirmed = u.Flags.Has(0)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBotConnection#b22083a6: field bot_id: %w", err)
+		}
+		u.BotID = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBotConnection#b22083a6: field date: %w", err)
+		}
+		u.Date = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBotConnection#b22083a6: field device: %w", err)
+		}
+		u.Device = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewBotConnection#b22083a6: field location: %w", err)
+		}
+		u.Location = value
+	}
+	return nil
+}
+
+// SetConfirmed sets value of Confirmed conditional field.
+func (u *UpdateNewBotConnection) SetConfirmed(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Confirmed = true
+	} else {
+		u.Flags.Unset(0)
+		u.Confirmed = false
+	}
+}
+
+// GetConfirmed returns value of Confirmed conditional field.
+func (u *UpdateNewBotConnection) GetConfirmed() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetBotID returns value of BotID field.
+func (u *UpdateNewBotConnection) GetBotID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.BotID
+}
+
+// SetDate sets value of Date conditional field.
+func (u *UpdateNewBotConnection) SetDate(value int) {
+	u.Flags.Set(1)
+	u.Date = value
+}
+
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (u *UpdateNewBotConnection) GetDate() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Date, true
+}
+
+// SetDevice sets value of Device conditional field.
+func (u *UpdateNewBotConnection) SetDevice(value string) {
+	u.Flags.Set(1)
+	u.Device = value
+}
+
+// GetDevice returns value of Device conditional field and
+// boolean which is true if field was set.
+func (u *UpdateNewBotConnection) GetDevice() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Device, true
+}
+
+// SetLocation sets value of Location conditional field.
+func (u *UpdateNewBotConnection) SetLocation(value string) {
+	u.Flags.Set(1)
+	u.Location = value
+}
+
+// GetLocation returns value of Location conditional field and
+// boolean which is true if field was set.
+func (u *UpdateNewBotConnection) GetLocation() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Location, true
+}
+
+// UpdateWebBrowserSettings represents TL type `updateWebBrowserSettings#c39a2ade`.
+//
+// See https://core.telegram.org/constructor/updateWebBrowserSettings for reference.
+type UpdateWebBrowserSettings struct {
+	// Flags field of UpdateWebBrowserSettings.
+	Flags bin.Fields
+	// OpenExternalBrowser field of UpdateWebBrowserSettings.
+	OpenExternalBrowser bool
+	// DisplayCloseButton field of UpdateWebBrowserSettings.
+	DisplayCloseButton bool
+}
+
+// UpdateWebBrowserSettingsTypeID is TL type id of UpdateWebBrowserSettings.
+const UpdateWebBrowserSettingsTypeID = 0xc39a2ade
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWebBrowserSettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWebBrowserSettings.
+var (
+	_ bin.Encoder     = &UpdateWebBrowserSettings{}
+	_ bin.Decoder     = &UpdateWebBrowserSettings{}
+	_ bin.BareEncoder = &UpdateWebBrowserSettings{}
+	_ bin.BareDecoder = &UpdateWebBrowserSettings{}
+
+	_ UpdateClass = &UpdateWebBrowserSettings{}
+)
+
+func (u *UpdateWebBrowserSettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.OpenExternalBrowser == false) {
+		return false
+	}
+	if !(u.DisplayCloseButton == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWebBrowserSettings) String() string {
+	if u == nil {
+		return "UpdateWebBrowserSettings(nil)"
+	}
+	type Alias UpdateWebBrowserSettings
+	return fmt.Sprintf("UpdateWebBrowserSettings%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWebBrowserSettings from given interface.
+func (u *UpdateWebBrowserSettings) FillFrom(from interface {
+	GetOpenExternalBrowser() (value bool)
+	GetDisplayCloseButton() (value bool)
+}) {
+	u.OpenExternalBrowser = from.GetOpenExternalBrowser()
+	u.DisplayCloseButton = from.GetDisplayCloseButton()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWebBrowserSettings) TypeID() uint32 {
+	return UpdateWebBrowserSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWebBrowserSettings) TypeName() string {
+	return "updateWebBrowserSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWebBrowserSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWebBrowserSettings",
+		ID:   UpdateWebBrowserSettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OpenExternalBrowser",
+			SchemaName: "open_external_browser",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "DisplayCloseButton",
+			SchemaName: "display_close_button",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateWebBrowserSettings) SetFlags() {
+	if !(u.OpenExternalBrowser == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.DisplayCloseButton == false) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWebBrowserSettings) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebBrowserSettings#c39a2ade as nil")
+	}
+	b.PutID(UpdateWebBrowserSettingsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWebBrowserSettings) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebBrowserSettings#c39a2ade as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateWebBrowserSettings#c39a2ade: field flags: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWebBrowserSettings) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebBrowserSettings#c39a2ade to nil")
+	}
+	if err := b.ConsumeID(UpdateWebBrowserSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWebBrowserSettings#c39a2ade: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWebBrowserSettings) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebBrowserSettings#c39a2ade to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateWebBrowserSettings#c39a2ade: field flags: %w", err)
+		}
+	}
+	u.OpenExternalBrowser = u.Flags.Has(0)
+	u.DisplayCloseButton = u.Flags.Has(1)
+	return nil
+}
+
+// SetOpenExternalBrowser sets value of OpenExternalBrowser conditional field.
+func (u *UpdateWebBrowserSettings) SetOpenExternalBrowser(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.OpenExternalBrowser = true
+	} else {
+		u.Flags.Unset(0)
+		u.OpenExternalBrowser = false
+	}
+}
+
+// GetOpenExternalBrowser returns value of OpenExternalBrowser conditional field.
+func (u *UpdateWebBrowserSettings) GetOpenExternalBrowser() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// SetDisplayCloseButton sets value of DisplayCloseButton conditional field.
+func (u *UpdateWebBrowserSettings) SetDisplayCloseButton(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.DisplayCloseButton = true
+	} else {
+		u.Flags.Unset(1)
+		u.DisplayCloseButton = false
+	}
+}
+
+// GetDisplayCloseButton returns value of DisplayCloseButton conditional field.
+func (u *UpdateWebBrowserSettings) GetDisplayCloseButton() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
+}
+
+// UpdateWebBrowserException represents TL type `updateWebBrowserException#140502d1`.
+//
+// See https://core.telegram.org/constructor/updateWebBrowserException for reference.
+type UpdateWebBrowserException struct {
+	// Flags field of UpdateWebBrowserException.
+	Flags bin.Fields
+	// Delete field of UpdateWebBrowserException.
+	Delete bool
+	// OpenExternalBrowser field of UpdateWebBrowserException.
+	//
+	// Use SetOpenExternalBrowser and GetOpenExternalBrowser helpers.
+	OpenExternalBrowser bool
+	// Exception field of UpdateWebBrowserException.
+	Exception WebDomainException
+}
+
+// UpdateWebBrowserExceptionTypeID is TL type id of UpdateWebBrowserException.
+const UpdateWebBrowserExceptionTypeID = 0x140502d1
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWebBrowserException) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWebBrowserException.
+var (
+	_ bin.Encoder     = &UpdateWebBrowserException{}
+	_ bin.Decoder     = &UpdateWebBrowserException{}
+	_ bin.BareEncoder = &UpdateWebBrowserException{}
+	_ bin.BareDecoder = &UpdateWebBrowserException{}
+
+	_ UpdateClass = &UpdateWebBrowserException{}
+)
+
+func (u *UpdateWebBrowserException) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Delete == false) {
+		return false
+	}
+	if !(u.OpenExternalBrowser == false) {
+		return false
+	}
+	if !(u.Exception.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWebBrowserException) String() string {
+	if u == nil {
+		return "UpdateWebBrowserException(nil)"
+	}
+	type Alias UpdateWebBrowserException
+	return fmt.Sprintf("UpdateWebBrowserException%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWebBrowserException from given interface.
+func (u *UpdateWebBrowserException) FillFrom(from interface {
+	GetDelete() (value bool)
+	GetOpenExternalBrowser() (value bool, ok bool)
+	GetException() (value WebDomainException)
+}) {
+	u.Delete = from.GetDelete()
+	if val, ok := from.GetOpenExternalBrowser(); ok {
+		u.OpenExternalBrowser = val
+	}
+
+	u.Exception = from.GetException()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWebBrowserException) TypeID() uint32 {
+	return UpdateWebBrowserExceptionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWebBrowserException) TypeName() string {
+	return "updateWebBrowserException"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWebBrowserException) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWebBrowserException",
+		ID:   UpdateWebBrowserExceptionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Delete",
+			SchemaName: "delete",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "OpenExternalBrowser",
+			SchemaName: "open_external_browser",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Exception",
+			SchemaName: "exception",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateWebBrowserException) SetFlags() {
+	if !(u.Delete == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.OpenExternalBrowser == false) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWebBrowserException) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebBrowserException#140502d1 as nil")
+	}
+	b.PutID(UpdateWebBrowserExceptionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWebBrowserException) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebBrowserException#140502d1 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateWebBrowserException#140502d1: field flags: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutBool(u.OpenExternalBrowser)
+	}
+	if err := u.Exception.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateWebBrowserException#140502d1: field exception: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWebBrowserException) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebBrowserException#140502d1 to nil")
+	}
+	if err := b.ConsumeID(UpdateWebBrowserExceptionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWebBrowserException#140502d1: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWebBrowserException) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebBrowserException#140502d1 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateWebBrowserException#140502d1: field flags: %w", err)
+		}
+	}
+	u.Delete = u.Flags.Has(1)
+	if u.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWebBrowserException#140502d1: field open_external_browser: %w", err)
+		}
+		u.OpenExternalBrowser = value
+	}
+	{
+		if err := u.Exception.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateWebBrowserException#140502d1: field exception: %w", err)
+		}
+	}
+	return nil
+}
+
+// SetDelete sets value of Delete conditional field.
+func (u *UpdateWebBrowserException) SetDelete(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.Delete = true
+	} else {
+		u.Flags.Unset(1)
+		u.Delete = false
+	}
+}
+
+// GetDelete returns value of Delete conditional field.
+func (u *UpdateWebBrowserException) GetDelete() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
+}
+
+// SetOpenExternalBrowser sets value of OpenExternalBrowser conditional field.
+func (u *UpdateWebBrowserException) SetOpenExternalBrowser(value bool) {
+	u.Flags.Set(0)
+	u.OpenExternalBrowser = value
+}
+
+// GetOpenExternalBrowser returns value of OpenExternalBrowser conditional field and
+// boolean which is true if field was set.
+func (u *UpdateWebBrowserException) GetOpenExternalBrowser() (value bool, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.OpenExternalBrowser, true
+}
+
+// GetException returns value of Exception field.
+func (u *UpdateWebBrowserException) GetException() (value WebDomainException) {
+	if u == nil {
+		return
+	}
+	return u.Exception
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -32204,6 +33229,10 @@ const UpdateClassName = "Update"
 //   - [UpdateManagedBot]
 //   - [UpdateBotGuestChatQuery]
 //   - [UpdateAiComposeTones]
+//   - [UpdateJoinChatWebViewDecision]
+//   - [UpdateNewBotConnection]
+//   - [UpdateWebBrowserSettings]
+//   - [UpdateWebBrowserException]
 //
 // Example:
 //
@@ -32306,7 +33335,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateGroupCallConnection: // updateGroupCallConnection#b783982
 //	case *tg.UpdateBotCommands: // updateBotCommands#4d712f2e
 //	case *tg.UpdatePendingJoinRequests: // updatePendingJoinRequests#7063c3db
-//	case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#11dfa986
+//	case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#7cb34d79
 //	case *tg.UpdateMessageReactions: // updateMessageReactions#1e297bfa
 //	case *tg.UpdateAttachMenuBots: // updateAttachMenuBots#17b7a20b
 //	case *tg.UpdateWebViewResultSent: // updateWebViewResultSent#1592b79d
@@ -32368,6 +33397,10 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateManagedBot: // updateManagedBot#4880ed9a
 //	case *tg.UpdateBotGuestChatQuery: // updateBotGuestChatQuery#cdd4093d
 //	case *tg.UpdateAiComposeTones: // updateAiComposeTones#8c0f91fb
+//	case *tg.UpdateJoinChatWebViewDecision: // updateJoinChatWebViewDecision#bdac7e70
+//	case *tg.UpdateNewBotConnection: // updateNewBotConnection#b22083a6
+//	case *tg.UpdateWebBrowserSettings: // updateWebBrowserSettings#c39a2ade
+//	case *tg.UpdateWebBrowserException: // updateWebBrowserException#140502d1
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -33055,7 +34088,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateBotChatInviteRequesterTypeID:
-		// Decoding updateBotChatInviteRequester#11dfa986.
+		// Decoding updateBotChatInviteRequester#7cb34d79.
 		v := UpdateBotChatInviteRequester{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -33484,6 +34517,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateAiComposeTonesTypeID:
 		// Decoding updateAiComposeTones#8c0f91fb.
 		v := UpdateAiComposeTones{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateJoinChatWebViewDecisionTypeID:
+		// Decoding updateJoinChatWebViewDecision#bdac7e70.
+		v := UpdateJoinChatWebViewDecision{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateNewBotConnectionTypeID:
+		// Decoding updateNewBotConnection#b22083a6.
+		v := UpdateNewBotConnection{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWebBrowserSettingsTypeID:
+		// Decoding updateWebBrowserSettings#c39a2ade.
+		v := UpdateWebBrowserSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWebBrowserExceptionTypeID:
+		// Decoding updateWebBrowserException#140502d1.
+		v := UpdateWebBrowserException{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

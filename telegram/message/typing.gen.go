@@ -127,3 +127,19 @@ func (b *TypingActionBuilder) TextDraft(ctx context.Context, randomID int64, tex
 		Text:     text,
 	})
 }
+
+// InputSendMessageRichMessageDraft sends InputSendMessageRichMessageDraftAction.
+func (b *TypingActionBuilder) InputSendMessageRichMessageDraft(ctx context.Context, randomID int64, richMessage tg.InputRichMessageClass) error {
+	return b.send(ctx, &tg.InputSendMessageRichMessageDraftAction{
+		RandomID:    randomID,
+		RichMessage: richMessage,
+	})
+}
+
+// RichMessageDraft sends SendMessageRichMessageDraftAction.
+func (b *TypingActionBuilder) RichMessageDraft(ctx context.Context, randomID int64, richMessage tg.RichMessage) error {
+	return b.send(ctx, &tg.SendMessageRichMessageDraftAction{
+		RandomID:    randomID,
+		RichMessage: richMessage,
+	})
+}

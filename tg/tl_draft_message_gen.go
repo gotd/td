@@ -208,7 +208,7 @@ func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
 	return d.Date, true
 }
 
-// DraftMessage represents TL type `draftMessage#96eaa5eb`.
+// DraftMessage represents TL type `draftMessage#60fe3294`.
 // Represents a message draft¹.
 //
 // Links:
@@ -260,10 +260,14 @@ type DraftMessage struct {
 	//
 	// Use SetSuggestedPost and GetSuggestedPost helpers.
 	SuggestedPost SuggestedPost
+	// RichMessage field of DraftMessage.
+	//
+	// Use SetRichMessage and GetRichMessage helpers.
+	RichMessage RichMessage
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.
-const DraftMessageTypeID = 0x96eaa5eb
+const DraftMessageTypeID = 0x60fe3294
 
 // construct implements constructor of DraftMessageClass.
 func (d DraftMessage) construct() DraftMessageClass { return &d }
@@ -312,6 +316,9 @@ func (d *DraftMessage) Zero() bool {
 	if !(d.SuggestedPost.Zero()) {
 		return false
 	}
+	if !(d.RichMessage.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -336,6 +343,7 @@ func (d *DraftMessage) FillFrom(from interface {
 	GetDate() (value int)
 	GetEffect() (value int64, ok bool)
 	GetSuggestedPost() (value SuggestedPost, ok bool)
+	GetRichMessage() (value RichMessage, ok bool)
 }) {
 	d.NoWebpage = from.GetNoWebpage()
 	d.InvertMedia = from.GetInvertMedia()
@@ -359,6 +367,10 @@ func (d *DraftMessage) FillFrom(from interface {
 
 	if val, ok := from.GetSuggestedPost(); ok {
 		d.SuggestedPost = val
+	}
+
+	if val, ok := from.GetRichMessage(); ok {
+		d.RichMessage = val
 	}
 
 }
@@ -429,6 +441,11 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 			SchemaName: "suggested_post",
 			Null:       !d.Flags.Has(8),
 		},
+		{
+			Name:       "RichMessage",
+			SchemaName: "rich_message",
+			Null:       !d.Flags.Has(9),
+		},
 	}
 	return typ
 }
@@ -456,12 +473,15 @@ func (d *DraftMessage) SetFlags() {
 	if !(d.SuggestedPost.Zero()) {
 		d.Flags.Set(8)
 	}
+	if !(d.RichMessage.Zero()) {
+		d.Flags.Set(9)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#96eaa5eb as nil")
+		return fmt.Errorf("can't encode draftMessage#60fe3294 as nil")
 	}
 	b.PutID(DraftMessageTypeID)
 	return d.EncodeBare(b)
@@ -470,18 +490,18 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#96eaa5eb as nil")
+		return fmt.Errorf("can't encode draftMessage#60fe3294 as nil")
 	}
 	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field flags: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#60fe3294: field flags: %w", err)
 	}
 	if d.Flags.Has(4) {
 		if d.ReplyTo == nil {
-			return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field reply_to is nil")
+			return fmt.Errorf("unable to encode draftMessage#60fe3294: field reply_to is nil")
 		}
 		if err := d.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode draftMessage#60fe3294: field reply_to: %w", err)
 		}
 	}
 	b.PutString(d.Message)
@@ -489,19 +509,19 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(d.Entities))
 		for idx, v := range d.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode draftMessage#60fe3294: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode draftMessage#60fe3294: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if d.Flags.Has(5) {
 		if d.Media == nil {
-			return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field media is nil")
+			return fmt.Errorf("unable to encode draftMessage#60fe3294: field media is nil")
 		}
 		if err := d.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field media: %w", err)
+			return fmt.Errorf("unable to encode draftMessage#60fe3294: field media: %w", err)
 		}
 	}
 	b.PutInt(d.Date)
@@ -510,7 +530,12 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	}
 	if d.Flags.Has(8) {
 		if err := d.SuggestedPost.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode draftMessage#96eaa5eb: field suggested_post: %w", err)
+			return fmt.Errorf("unable to encode draftMessage#60fe3294: field suggested_post: %w", err)
+		}
+	}
+	if d.Flags.Has(9) {
+		if err := d.RichMessage.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode draftMessage#60fe3294: field rich_message: %w", err)
 		}
 	}
 	return nil
@@ -519,10 +544,10 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#96eaa5eb to nil")
+		return fmt.Errorf("can't decode draftMessage#60fe3294 to nil")
 	}
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode draftMessage#96eaa5eb: %w", err)
+		return fmt.Errorf("unable to decode draftMessage#60fe3294: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -530,11 +555,11 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#96eaa5eb to nil")
+		return fmt.Errorf("can't decode draftMessage#60fe3294 to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field flags: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field flags: %w", err)
 		}
 	}
 	d.NoWebpage = d.Flags.Has(1)
@@ -542,21 +567,21 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(4) {
 		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field reply_to: %w", err)
 		}
 		d.ReplyTo = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field message: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field message: %w", err)
 		}
 		d.Message = value
 	}
 	if d.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field entities: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -565,7 +590,7 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field entities: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#60fe3294: field entities: %w", err)
 			}
 			d.Entities = append(d.Entities, value)
 		}
@@ -573,27 +598,32 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(5) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field media: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field media: %w", err)
 		}
 		d.Media = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field date: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field date: %w", err)
 		}
 		d.Date = value
 	}
 	if d.Flags.Has(7) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field effect: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field effect: %w", err)
 		}
 		d.Effect = value
 	}
 	if d.Flags.Has(8) {
 		if err := d.SuggestedPost.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode draftMessage#96eaa5eb: field suggested_post: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field suggested_post: %w", err)
+		}
+	}
+	if d.Flags.Has(9) {
+		if err := d.RichMessage.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode draftMessage#60fe3294: field rich_message: %w", err)
 		}
 	}
 	return nil
@@ -743,6 +773,24 @@ func (d *DraftMessage) GetSuggestedPost() (value SuggestedPost, ok bool) {
 	return d.SuggestedPost, true
 }
 
+// SetRichMessage sets value of RichMessage conditional field.
+func (d *DraftMessage) SetRichMessage(value RichMessage) {
+	d.Flags.Set(9)
+	d.RichMessage = value
+}
+
+// GetRichMessage returns value of RichMessage conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessage) GetRichMessage() (value RichMessage, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(9) {
+		return value, false
+	}
+	return d.RichMessage, true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !d.Flags.Has(3) {
@@ -770,7 +818,7 @@ const DraftMessageClassName = "DraftMessage"
 //	}
 //	switch v := g.(type) {
 //	case *tg.DraftMessageEmpty: // draftMessageEmpty#1b0c841a
-//	case *tg.DraftMessage: // draftMessage#96eaa5eb
+//	case *tg.DraftMessage: // draftMessage#60fe3294
 //	default: panic(v)
 //	}
 type DraftMessageClass interface {
@@ -820,7 +868,7 @@ func DecodeDraftMessage(buf *bin.Buffer) (DraftMessageClass, error) {
 		}
 		return &v, nil
 	case DraftMessageTypeID:
-		// Decoding draftMessage#96eaa5eb.
+		// Decoding draftMessage#60fe3294.
 		v := DraftMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DraftMessageClass: %w", err)

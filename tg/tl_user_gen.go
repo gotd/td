@@ -324,6 +324,8 @@ type User struct {
 	BotCanManageBots bool
 	// BotGuestchat field of User.
 	BotGuestchat bool
+	// BotGuard field of User.
+	BotGuard bool
 	// ID of the user, see here »¹ for more info and the available ID range.
 	//
 	// Links:
@@ -615,6 +617,9 @@ func (u *User) Zero() bool {
 	if !(u.BotGuestchat == false) {
 		return false
 	}
+	if !(u.BotGuard == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -719,6 +724,7 @@ func (u *User) FillFrom(from interface {
 	GetBotForumCanManageTopics() (value bool)
 	GetBotCanManageBots() (value bool)
 	GetBotGuestchat() (value bool)
+	GetBotGuard() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -769,6 +775,7 @@ func (u *User) FillFrom(from interface {
 	u.BotForumCanManageTopics = from.GetBotForumCanManageTopics()
 	u.BotCanManageBots = from.GetBotCanManageBots()
 	u.BotGuestchat = from.GetBotGuestchat()
+	u.BotGuard = from.GetBotGuard()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -1017,6 +1024,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags2.Has(19),
 		},
 		{
+			Name:       "BotGuard",
+			SchemaName: "bot_guard",
+			Null:       !u.Flags2.Has(20),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1207,6 +1219,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.BotGuestchat == false) {
 		u.Flags2.Set(19)
+	}
+	if !(u.BotGuard == false) {
+		u.Flags2.Set(20)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -1441,6 +1456,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.BotForumCanManageTopics = u.Flags2.Has(17)
 	u.BotCanManageBots = u.Flags2.Has(18)
 	u.BotGuestchat = u.Flags2.Has(19)
+	u.BotGuard = u.Flags2.Has(20)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2151,6 +2167,25 @@ func (u *User) GetBotGuestchat() (value bool) {
 		return
 	}
 	return u.Flags2.Has(19)
+}
+
+// SetBotGuard sets value of BotGuard conditional field.
+func (u *User) SetBotGuard(value bool) {
+	if value {
+		u.Flags2.Set(20)
+		u.BotGuard = true
+	} else {
+		u.Flags2.Unset(20)
+		u.BotGuard = false
+	}
+}
+
+// GetBotGuard returns value of BotGuard conditional field.
+func (u *User) GetBotGuard() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(20)
 }
 
 // GetID returns value of ID field.

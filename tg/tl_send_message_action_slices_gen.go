@@ -233,6 +233,32 @@ func (s SendMessageActionClassArray) AsSendMessageTextDraftAction() (to SendMess
 	return to
 }
 
+// AsInputSendMessageRichMessageDraftAction returns copy with only InputSendMessageRichMessageDraftAction constructors.
+func (s SendMessageActionClassArray) AsInputSendMessageRichMessageDraftAction() (to InputSendMessageRichMessageDraftActionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSendMessageRichMessageDraftAction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsSendMessageRichMessageDraftAction returns copy with only SendMessageRichMessageDraftAction constructors.
+func (s SendMessageActionClassArray) AsSendMessageRichMessageDraftAction() (to SendMessageRichMessageDraftActionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*SendMessageRichMessageDraftAction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // SendMessageUploadVideoActionArray is adapter for slice of SendMessageUploadVideoAction.
 type SendMessageUploadVideoActionArray []SendMessageUploadVideoAction
 
@@ -959,6 +985,170 @@ func (s *SendMessageTextDraftActionArray) PopFirst() (v SendMessageTextDraftActi
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *SendMessageTextDraftActionArray) Pop() (v SendMessageTextDraftAction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputSendMessageRichMessageDraftActionArray is adapter for slice of InputSendMessageRichMessageDraftAction.
+type InputSendMessageRichMessageDraftActionArray []InputSendMessageRichMessageDraftAction
+
+// Sort sorts slice of InputSendMessageRichMessageDraftAction.
+func (s InputSendMessageRichMessageDraftActionArray) Sort(less func(a, b InputSendMessageRichMessageDraftAction) bool) InputSendMessageRichMessageDraftActionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputSendMessageRichMessageDraftAction.
+func (s InputSendMessageRichMessageDraftActionArray) SortStable(less func(a, b InputSendMessageRichMessageDraftAction) bool) InputSendMessageRichMessageDraftActionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputSendMessageRichMessageDraftAction.
+func (s InputSendMessageRichMessageDraftActionArray) Retain(keep func(x InputSendMessageRichMessageDraftAction) bool) InputSendMessageRichMessageDraftActionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputSendMessageRichMessageDraftActionArray) First() (v InputSendMessageRichMessageDraftAction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputSendMessageRichMessageDraftActionArray) Last() (v InputSendMessageRichMessageDraftAction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputSendMessageRichMessageDraftActionArray) PopFirst() (v InputSendMessageRichMessageDraftAction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputSendMessageRichMessageDraftAction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputSendMessageRichMessageDraftActionArray) Pop() (v InputSendMessageRichMessageDraftAction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SendMessageRichMessageDraftActionArray is adapter for slice of SendMessageRichMessageDraftAction.
+type SendMessageRichMessageDraftActionArray []SendMessageRichMessageDraftAction
+
+// Sort sorts slice of SendMessageRichMessageDraftAction.
+func (s SendMessageRichMessageDraftActionArray) Sort(less func(a, b SendMessageRichMessageDraftAction) bool) SendMessageRichMessageDraftActionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SendMessageRichMessageDraftAction.
+func (s SendMessageRichMessageDraftActionArray) SortStable(less func(a, b SendMessageRichMessageDraftAction) bool) SendMessageRichMessageDraftActionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SendMessageRichMessageDraftAction.
+func (s SendMessageRichMessageDraftActionArray) Retain(keep func(x SendMessageRichMessageDraftAction) bool) SendMessageRichMessageDraftActionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SendMessageRichMessageDraftActionArray) First() (v SendMessageRichMessageDraftAction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SendMessageRichMessageDraftActionArray) Last() (v SendMessageRichMessageDraftAction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SendMessageRichMessageDraftActionArray) PopFirst() (v SendMessageRichMessageDraftAction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SendMessageRichMessageDraftAction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SendMessageRichMessageDraftActionArray) Pop() (v SendMessageRichMessageDraftAction, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

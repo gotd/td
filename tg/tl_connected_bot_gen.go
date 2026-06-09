@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ConnectedBot represents TL type `connectedBot#cd64636c`.
+// ConnectedBot represents TL type `connectedBot#33ed001`.
 // Contains info about a connected business bot »¹.
 //
 // Links:
@@ -54,10 +54,22 @@ type ConnectedBot struct {
 	Recipients BusinessBotRecipients
 	// Business bot rights.
 	Rights BusinessBotRights
+	// Device field of ConnectedBot.
+	//
+	// Use SetDevice and GetDevice helpers.
+	Device string
+	// Date field of ConnectedBot.
+	//
+	// Use SetDate and GetDate helpers.
+	Date int
+	// Location field of ConnectedBot.
+	//
+	// Use SetLocation and GetLocation helpers.
+	Location string
 }
 
 // ConnectedBotTypeID is TL type id of ConnectedBot.
-const ConnectedBotTypeID = 0xcd64636c
+const ConnectedBotTypeID = 0x33ed001
 
 // Ensuring interfaces in compile-time for ConnectedBot.
 var (
@@ -83,6 +95,15 @@ func (c *ConnectedBot) Zero() bool {
 	if !(c.Rights.Zero()) {
 		return false
 	}
+	if !(c.Device == "") {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.Location == "") {
+		return false
+	}
 
 	return true
 }
@@ -101,10 +122,25 @@ func (c *ConnectedBot) FillFrom(from interface {
 	GetBotID() (value int64)
 	GetRecipients() (value BusinessBotRecipients)
 	GetRights() (value BusinessBotRights)
+	GetDevice() (value string, ok bool)
+	GetDate() (value int, ok bool)
+	GetLocation() (value string, ok bool)
 }) {
 	c.BotID = from.GetBotID()
 	c.Recipients = from.GetRecipients()
 	c.Rights = from.GetRights()
+	if val, ok := from.GetDevice(); ok {
+		c.Device = val
+	}
+
+	if val, ok := from.GetDate(); ok {
+		c.Date = val
+	}
+
+	if val, ok := from.GetLocation(); ok {
+		c.Location = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -142,18 +178,42 @@ func (c *ConnectedBot) TypeInfo() tdp.Type {
 			Name:       "Rights",
 			SchemaName: "rights",
 		},
+		{
+			Name:       "Device",
+			SchemaName: "device",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+			Null:       !c.Flags.Has(2),
+		},
 	}
 	return typ
 }
 
 // SetFlags sets flags for non-zero fields.
 func (c *ConnectedBot) SetFlags() {
+	if !(c.Device == "") {
+		c.Flags.Set(0)
+	}
+	if !(c.Date == 0) {
+		c.Flags.Set(1)
+	}
+	if !(c.Location == "") {
+		c.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ConnectedBot) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode connectedBot#cd64636c as nil")
+		return fmt.Errorf("can't encode connectedBot#33ed001 as nil")
 	}
 	b.PutID(ConnectedBotTypeID)
 	return c.EncodeBare(b)
@@ -162,18 +222,27 @@ func (c *ConnectedBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ConnectedBot) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode connectedBot#cd64636c as nil")
+		return fmt.Errorf("can't encode connectedBot#33ed001 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#cd64636c: field flags: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#33ed001: field flags: %w", err)
 	}
 	b.PutLong(c.BotID)
 	if err := c.Recipients.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#cd64636c: field recipients: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#33ed001: field recipients: %w", err)
 	}
 	if err := c.Rights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedBot#cd64636c: field rights: %w", err)
+		return fmt.Errorf("unable to encode connectedBot#33ed001: field rights: %w", err)
+	}
+	if c.Flags.Has(0) {
+		b.PutString(c.Device)
+	}
+	if c.Flags.Has(1) {
+		b.PutInt(c.Date)
+	}
+	if c.Flags.Has(2) {
+		b.PutString(c.Location)
 	}
 	return nil
 }
@@ -181,10 +250,10 @@ func (c *ConnectedBot) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ConnectedBot) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode connectedBot#cd64636c to nil")
+		return fmt.Errorf("can't decode connectedBot#33ed001 to nil")
 	}
 	if err := b.ConsumeID(ConnectedBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode connectedBot#cd64636c: %w", err)
+		return fmt.Errorf("unable to decode connectedBot#33ed001: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -192,29 +261,50 @@ func (c *ConnectedBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ConnectedBot) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode connectedBot#cd64636c to nil")
+		return fmt.Errorf("can't decode connectedBot#33ed001 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#cd64636c: field flags: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode connectedBot#cd64636c: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field bot_id: %w", err)
 		}
 		c.BotID = value
 	}
 	{
 		if err := c.Recipients.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#cd64636c: field recipients: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field recipients: %w", err)
 		}
 	}
 	{
 		if err := c.Rights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode connectedBot#cd64636c: field rights: %w", err)
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field rights: %w", err)
 		}
+	}
+	if c.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field device: %w", err)
+		}
+		c.Device = value
+	}
+	if c.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field date: %w", err)
+		}
+		c.Date = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode connectedBot#33ed001: field location: %w", err)
+		}
+		c.Location = value
 	}
 	return nil
 }
@@ -241,4 +331,58 @@ func (c *ConnectedBot) GetRights() (value BusinessBotRights) {
 		return
 	}
 	return c.Rights
+}
+
+// SetDevice sets value of Device conditional field.
+func (c *ConnectedBot) SetDevice(value string) {
+	c.Flags.Set(0)
+	c.Device = value
+}
+
+// GetDevice returns value of Device conditional field and
+// boolean which is true if field was set.
+func (c *ConnectedBot) GetDevice() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Device, true
+}
+
+// SetDate sets value of Date conditional field.
+func (c *ConnectedBot) SetDate(value int) {
+	c.Flags.Set(1)
+	c.Date = value
+}
+
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (c *ConnectedBot) GetDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Date, true
+}
+
+// SetLocation sets value of Location conditional field.
+func (c *ConnectedBot) SetLocation(value string) {
+	c.Flags.Set(2)
+	c.Location = value
+}
+
+// GetLocation returns value of Location conditional field and
+// boolean which is true if field was set.
+func (c *ConnectedBot) GetLocation() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(2) {
+		return value, false
+	}
+	return c.Location, true
 }

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsJoinChannelRequest represents TL type `channels.joinChannel#24b524c5`.
+// ChannelsJoinChannelRequest represents TL type `channels.joinChannel#7f6a1e22`.
 // Join a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.joinChannel for reference.
@@ -41,7 +41,7 @@ type ChannelsJoinChannelRequest struct {
 }
 
 // ChannelsJoinChannelRequestTypeID is TL type id of ChannelsJoinChannelRequest.
-const ChannelsJoinChannelRequestTypeID = 0x24b524c5
+const ChannelsJoinChannelRequestTypeID = 0x7f6a1e22
 
 // Ensuring interfaces in compile-time for ChannelsJoinChannelRequest.
 var (
@@ -112,7 +112,7 @@ func (j *ChannelsJoinChannelRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode channels.joinChannel#24b524c5 as nil")
+		return fmt.Errorf("can't encode channels.joinChannel#7f6a1e22 as nil")
 	}
 	b.PutID(ChannelsJoinChannelRequestTypeID)
 	return j.EncodeBare(b)
@@ -121,13 +121,13 @@ func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (j *ChannelsJoinChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't encode channels.joinChannel#24b524c5 as nil")
+		return fmt.Errorf("can't encode channels.joinChannel#7f6a1e22 as nil")
 	}
 	if j.Channel == nil {
-		return fmt.Errorf("unable to encode channels.joinChannel#24b524c5: field channel is nil")
+		return fmt.Errorf("unable to encode channels.joinChannel#7f6a1e22: field channel is nil")
 	}
 	if err := j.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.joinChannel#24b524c5: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.joinChannel#7f6a1e22: field channel: %w", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (j *ChannelsJoinChannelRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode channels.joinChannel#24b524c5 to nil")
+		return fmt.Errorf("can't decode channels.joinChannel#7f6a1e22 to nil")
 	}
 	if err := b.ConsumeID(ChannelsJoinChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.joinChannel#24b524c5: %w", err)
+		return fmt.Errorf("unable to decode channels.joinChannel#7f6a1e22: %w", err)
 	}
 	return j.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (j *ChannelsJoinChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
-		return fmt.Errorf("can't decode channels.joinChannel#24b524c5 to nil")
+		return fmt.Errorf("can't decode channels.joinChannel#7f6a1e22 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.joinChannel#24b524c5: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.joinChannel#7f6a1e22: field channel: %w", err)
 		}
 		j.Channel = value
 	}
@@ -171,7 +171,7 @@ func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 	return j.Channel.AsNotEmpty()
 }
 
-// ChannelsJoinChannel invokes method channels.joinChannel#24b524c5 returning error if any.
+// ChannelsJoinChannel invokes method channels.joinChannel#7f6a1e22 returning error if any.
 // Join a channel/supergroup
 //
 // Possible errors:
@@ -193,8 +193,8 @@ func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 //	400 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.
 //
 // See https://core.telegram.org/method/channels.joinChannel for reference.
-func (c *Client) ChannelsJoinChannel(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {
-	var result UpdatesBox
+func (c *Client) ChannelsJoinChannel(ctx context.Context, channel InputChannelClass) (MessagesChatInviteJoinResultClass, error) {
+	var result MessagesChatInviteJoinResultBox
 
 	request := &ChannelsJoinChannelRequest{
 		Channel: channel,
@@ -202,5 +202,5 @@ func (c *Client) ChannelsJoinChannel(ctx context.Context, channel InputChannelCl
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Updates, nil
+	return result.ChatInviteJoinResult, nil
 }
