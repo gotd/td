@@ -17,7 +17,8 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   (InvertMedia + WebPage link-preview builder), #884 → PR #1745 (GetMediaGroup helper),
   #615 → password recovery helpers (`RequestPasswordRecovery`/`CheckRecoveryPassword`/`RecoverPassword`
   in `telegram/auth/password.go`), #883 → NTP network clock (`clock/ntp`, isolated subpackage so
-  `beevik/ntp` stays out of the core dependency tree).
+  `beevik/ntp` stays out of the core dependency tree), #689 → updates state-load callbacks
+  (`OnLoadUserStateFailed`/`OnLoadChannelStateFailed` in `telegram/updates`).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -124,7 +125,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 816 | uploader: compute part size automatically | open |
 | 788 | invites: support `tg.ChatInvitePublicJoinRequests` | open |
 | 755 | auth: allow safer password passing | open |
-| 689 | Callback if user/channel state fails to load | open |
+| 689 | Callback if user/channel state fails to load | **done — load callbacks added** |
 | 615 | auth: helpers for (re)setting/updating/recovering password | **done — recovery helpers added** |
 | 597 | bot: fix inspection of service messages | open (lives in `gotd/bot`) |
 | 392 | mtproto: containerize small messages | open |
