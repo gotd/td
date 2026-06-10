@@ -58,3 +58,19 @@ func TestShortMessagePeersKnown(t *testing.T) {
 	// selfID is always known without being seeded.
 	require.True(t, s.shortMessagePeersKnown(ctx, &tg.UpdateShortMessage{UserID: selfID}))
 }
+
+func TestUserPeersKnown(t *testing.T) {
+	ctx := context.Background()
+	const selfID = 999
+	hasher := newMemUserAccessHasher()
+	require.NoError(t, hasher.SetUserAccessHash(ctx, selfID, 111, 7777))
+	s := &internalState{
+		selfID:     selfID,
+		userHasher: hasher,
+	}
+
+	require.True(t, s.userPeersKnown(ctx, nil), "no peers are trivially known")
+	// selfID is skipped before the hasher lookup, so it counts as known.
+	require.True(t, s.userPeersKnown(ctx, []int64{selfID, 111}))
+	require.False(t, s.userPeersKnown(ctx, []int64{111, 222}), "an unknown peer makes the batch unknown")
+}
