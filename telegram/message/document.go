@@ -33,6 +33,12 @@ func (u *DocumentBuilder) Query(query string) *DocumentBuilder {
 	return u
 }
 
+// Spoiler sets flag to add spoiler animation (blurred preview) to the document.
+func (u *DocumentBuilder) Spoiler(v bool) *DocumentBuilder {
+	u.doc.Spoiler = v
+	return u
+}
+
 // apply implements MediaOption.
 func (u *DocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
@@ -164,6 +170,12 @@ func (u *DocumentExternalBuilder) TTLSeconds(ttl int) *DocumentExternalBuilder {
 	return u
 }
 
+// Spoiler sets flag to add spoiler animation (blurred preview) to the document.
+func (u *DocumentExternalBuilder) Spoiler(v bool) *DocumentExternalBuilder {
+	u.doc.Spoiler = v
+	return u
+}
+
 // apply implements MediaOption.
 func (u *DocumentExternalBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
@@ -200,6 +212,12 @@ func (u *UploadedDocumentBuilder) NosoundVideo(v bool) *UploadedDocumentBuilder 
 // ForceFile sets flag to force the media file to be uploaded as document.
 func (u *UploadedDocumentBuilder) ForceFile(v bool) *UploadedDocumentBuilder {
 	u.doc.ForceFile = v
+	return u
+}
+
+// Spoiler sets flag to add spoiler animation (blurred preview) to the document.
+func (u *UploadedDocumentBuilder) Spoiler(v bool) *UploadedDocumentBuilder {
+	u.doc.Spoiler = v
 	return u
 }
 

@@ -15,6 +15,12 @@ type PhotoBuilder struct {
 	caption []StyledTextOption
 }
 
+// Spoiler sets flag to add spoiler animation (blurred preview) to the photo.
+func (u *PhotoBuilder) Spoiler(v bool) *PhotoBuilder {
+	u.photo.Spoiler = v
+	return u
+}
+
 // TTL sets time to live of self-destructing photo.
 func (u *PhotoBuilder) TTL(ttl time.Duration) *PhotoBuilder {
 	return u.TTLSeconds(int(ttl.Seconds()))
@@ -63,6 +69,12 @@ type PhotoExternalBuilder struct {
 	caption []StyledTextOption
 }
 
+// Spoiler sets flag to add spoiler animation (blurred preview) to the photo.
+func (u *PhotoExternalBuilder) Spoiler(v bool) *PhotoExternalBuilder {
+	u.doc.Spoiler = v
+	return u
+}
+
 // TTL sets time to live of self-destructing document.
 func (u *PhotoExternalBuilder) TTL(ttl time.Duration) *PhotoExternalBuilder {
 	return u.TTLSeconds(int(ttl.Seconds()))
@@ -106,6 +118,12 @@ type UploadedPhotoBuilder struct {
 // Stickers adds attached mask stickers.
 func (u *UploadedPhotoBuilder) Stickers(stickers ...FileLocation) *UploadedPhotoBuilder {
 	u.photo.Stickers = append(u.photo.Stickers, inputDocuments(stickers...)...)
+	return u
+}
+
+// Spoiler sets flag to add spoiler animation (blurred preview) to the photo.
+func (u *UploadedPhotoBuilder) Spoiler(v bool) *UploadedPhotoBuilder {
+	u.photo.Spoiler = v
 	return u
 }
 
