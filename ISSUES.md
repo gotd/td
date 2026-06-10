@@ -18,7 +18,10 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   #615 → password recovery helpers (`RequestPasswordRecovery`/`CheckRecoveryPassword`/`RecoverPassword`
   in `telegram/auth/password.go`), #883 → NTP network clock (`clock/ntp`, isolated subpackage so
   `beevik/ntp` stays out of the core dependency tree), #689 → updates state-load callbacks
-  (`OnLoadUserStateFailed`/`OnLoadChannelStateFailed` in `telegram/updates`).
+  (`OnLoadUserStateFailed`/`OnLoadChannelStateFailed` in `telegram/updates`), #1030/#1021 →
+  connection-loss recovery: requests not processed by the server (not sent, or sent but not
+  acknowledged) are transparently retried on the new connection (`rpc` close cause,
+  `telegram.Client.invokeConn` wait-for-reconnect, `pool.DC.Invoke` re-acquire).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -106,7 +109,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 1572 | `rpc_result`/`msg_container` decoded as gzip when not compressed | open |
 | 1382 | Update postponed and handled only with next update | open |
 | 1322 | Repeated errors in Updates Recovery for channels becoming private | open |
-| 1030 | client can't recover from connection loss (help wanted) | open |
+| 1030 | client can't recover from connection loss (help wanted) | **done — see Progress** |
 
 ### Enhancements / helpers
 

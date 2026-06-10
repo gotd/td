@@ -420,6 +420,85 @@ func TestDropRPC(t *testing.T) {
 	}, server, client)
 }
 
+func TestEngineForceCloseNotAcked(t *testing.T) {
+	log := zaptest.NewLogger(t)
+	gotRequest := make(chan struct{})
+	result := make(chan error, 1)
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		// Server receives the request, but never acknowledges it.
+		<-incoming
+		close(gotRequest)
+		return nil
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		go func() {
+			result <- e.Do(context.TODO(), Request{
+				MsgID:  msgID,
+				SeqNo:  seqNo,
+				Input:  &mt.PingRequest{PingID: pingID},
+				Output: &mt.Pong{},
+			})
+		}()
+		<-gotRequest
+		e.ForceClose()
+
+		// Sent but not acknowledged request is safe to resend, so the error
+		// must be retryable (ErrEngineClosed) and not a plain cancellation.
+		err := <-result
+		require.ErrorIs(t, err, ErrEngineClosed)
+		require.NotErrorIs(t, err, context.Canceled)
+		return nil
+	}
+
+	runTest(t, Options{
+		RetryInterval: time.Minute,
+		MaxRetries:    2,
+		Logger:        log.Named("rpc"),
+	}, server, client)
+}
+
+func TestEngineForceCloseAcked(t *testing.T) {
+	log := zaptest.NewLogger(t)
+	acked := make(chan struct{})
+	result := make(chan error, 1)
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		// Server acknowledges the request, but never responds.
+		req := <-incoming
+		e.NotifyAcks([]int64{req.MsgID})
+		close(acked)
+		return nil
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		go func() {
+			result <- e.Do(context.TODO(), Request{
+				MsgID:  msgID,
+				SeqNo:  seqNo,
+				Input:  &mt.PingRequest{PingID: pingID},
+				Output: &mt.Pong{},
+			})
+		}()
+		<-acked
+		e.ForceClose()
+
+		// Acknowledged request may be already processed by server, so
+		// transparent resend is not safe: plain cancellation is expected.
+		err := <-result
+		require.ErrorIs(t, err, context.Canceled)
+		require.NotErrorIs(t, err, ErrEngineClosed)
+		return nil
+	}
+
+	runTest(t, Options{
+		RetryInterval: time.Minute,
+		MaxRetries:    2,
+		Logger:        log.Named("rpc"),
+	}, server, client)
+}
+
 func runTest(
 	t *testing.T,
 	cfg Options,

@@ -54,7 +54,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		AuthKey: key,
 		Salt:    data.Salt,
 	})
-	c.conn = c.createPrimaryConn(nil)
+	c.replaceConn(c.createPrimaryConn(nil))
 	c.connMux.Unlock()
 
 	return nil

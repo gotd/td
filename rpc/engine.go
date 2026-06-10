@@ -29,7 +29,7 @@ type Engine struct {
 
 	// Canceling pending requests in ForceClose.
 	reqCtx    context.Context
-	reqCancel context.CancelFunc
+	reqCancel context.CancelCauseFunc
 
 	wg     sync.WaitGroup
 	closed uint32
@@ -44,7 +44,7 @@ func New(send Send, cfg Options) *Engine {
 		zap.Int("max_retries", cfg.MaxRetries),
 	)
 
-	reqCtx, reqCancel := context.WithCancel(context.Background())
+	reqCtx, reqCancel := context.WithCancelCause(context.Background())
 	return &Engine{
 		rpc: map[int64]func(*bin.Buffer, error) error{},
 		ack: map[int64]chan struct{}{},
@@ -165,6 +165,16 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		log.Debug("Request dropped")
 		return ctx.Err()
 	case <-e.reqCtx.Done():
+		select {
+		case <-done:
+			// Result arrived concurrently with close, prefer it.
+			return resultErr
+		default:
+		}
+		// Request was acknowledged by the server, but the response was not
+		// received before close: the server may have already processed it,
+		// so resending is not safe. Report plain context error, callers
+		// should not retry transparently.
 		return errors.Wrap(e.reqCtx.Err(), "engine forcibly closed")
 	case <-done:
 		return resultErr
@@ -201,7 +211,17 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 			case <-ctx.Done():
 				return ctx.Err()
 			case <-e.reqCtx.Done():
-				return errors.Wrap(e.reqCtx.Err(), "engine forcibly closed")
+				select {
+				case <-ackChan:
+					// Acknowledge arrived concurrently with close, prefer it.
+					log.Debug("Acknowledged")
+					return nil
+				default:
+				}
+				// Request was sent, but not yet acknowledged: per MTProto it is
+				// safe to resend it on a new connection, so report ErrEngineClosed
+				// (the cancellation cause) to let callers retry.
+				return errors.Wrap(context.Cause(e.reqCtx), "engine forcibly closed")
 			case <-ackChan:
 				log.Debug("Acknowledged")
 				return nil
@@ -276,6 +296,6 @@ func (e *Engine) Close() {
 // All pending requests will be canceled.
 // All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) ForceClose() {
-	e.reqCancel()
+	e.reqCancel(ErrEngineClosed)
 	e.Close()
 }

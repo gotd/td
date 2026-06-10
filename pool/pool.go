@@ -253,6 +253,19 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 
 		c.log.Debug("DC Invoke")
 		err = conn.Invoke(ctx, input, output)
+		if err != nil && errRetryableOnNewConn(err) && ctx.Err() == nil {
+			// Connection died before the request was processed by the
+			// server, so it is safe to retry it on another connection.
+			//
+			// Mark connection as dead instead of releasing, so it is not
+			// re-acquired and waiters are unblocked to create a new one.
+			c.dead(conn, err)
+			c.log.Debug("DC Invoke failed on dead connection, retrying",
+				zap.Int64("conn_id", conn.id),
+				zap.Error(err),
+			)
+			continue
+		}
 		c.release(conn)
 		if err != nil {
 			c.log.Debug("DC Invoke failed", zap.Error(err))
