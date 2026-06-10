@@ -17,6 +17,7 @@ func (b *Builder) sendRequest(
 ) *tg.MessagesSendMessageRequest {
 	req := &tg.MessagesSendMessageRequest{
 		NoWebpage:    b.noWebpage,
+		InvertMedia:  b.invertMedia,
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
