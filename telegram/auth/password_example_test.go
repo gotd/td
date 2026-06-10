@@ -34,6 +34,48 @@ func ExampleClient_UpdatePassword() {
 	}
 }
 
+func ExampleClient_RecoverPassword() {
+	ctx := context.Background()
+	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{})
+	if err := client.Run(ctx, func(ctx context.Context) error {
+		// Request a recovery code to be sent to the recovery email.
+		recovery, err := client.Auth().RequestPasswordRecovery(ctx)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("Recovery code was sent to %s.\n", recovery.EmailPattern)
+
+		// Code received via the recovery email.
+		code := "123456"
+
+		// Optionally check the code before resetting the password.
+		ok, err := client.Auth().CheckRecoveryPassword(ctx, code)
+		if err != nil {
+			return err
+		}
+		if !ok {
+			fmt.Println("Invalid recovery code.")
+			return nil
+		}
+
+		// Reset the 2FA password using the recovery code and set a new one.
+		//
+		// Leave NewPassword empty to remove the 2FA password instead.
+		if _, err := client.Auth().RecoverPassword(ctx, auth.RecoverPasswordOptions{
+			Code:        code,
+			NewPassword: "new_password",
+			Hint:        "new password hint",
+		}); err != nil {
+			return err
+		}
+
+		fmt.Println("Password was recovered.")
+		return nil
+	}); err != nil {
+		panic(err)
+	}
+}
+
 func ExampleClient_ResetPassword() {
 	ctx := context.Background()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{})

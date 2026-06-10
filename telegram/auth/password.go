@@ -177,3 +177,92 @@ func (c *Client) CancelPasswordReset(ctx context.Context) error {
 	}
 	return nil
 }
+
+// RequestPasswordRecovery requests a recovery code to be sent to the recovery
+// email set up for the 2FA password and returns the pattern of that email.
+//
+// The returned code is used by RecoverPassword and CheckRecoveryPassword.
+//
+// See https://core.telegram.org/method/auth.requestPasswordRecovery.
+func (c *Client) RequestPasswordRecovery(ctx context.Context) (*tg.AuthPasswordRecovery, error) {
+	r, err := c.api.AuthRequestPasswordRecovery(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "request password recovery")
+	}
+	return r, nil
+}
+
+// CheckRecoveryPassword checks whether the recovery code sent to the recovery
+// email (see RequestPasswordRecovery) is valid, without resetting the password.
+//
+// See https://core.telegram.org/method/auth.checkRecoveryPassword.
+func (c *Client) CheckRecoveryPassword(ctx context.Context, code string) (bool, error) {
+	ok, err := c.api.AuthCheckRecoveryPassword(ctx, code)
+	if err != nil {
+		return false, errors.Wrap(err, "check recovery password")
+	}
+	return ok, nil
+}
+
+// RecoverPasswordOptions is options structure for RecoverPassword.
+type RecoverPasswordOptions struct {
+	// Code is the recovery code received via the recovery email.
+	//
+	// Use RequestPasswordRecovery to send a recovery code to the email.
+	Code string
+	// NewPassword, if not empty, sets a new 2FA password after recovery.
+	//
+	// If empty, the 2FA password is removed.
+	NewPassword string
+	// Hint is the new password hint.
+	//
+	// Used only if NewPassword is not empty.
+	Hint string
+}
+
+// RecoverPassword resets the 2FA password using the recovery code sent to the
+// recovery email (see RequestPasswordRecovery) and logs in.
+//
+// If opts.NewPassword is set, it becomes the new 2FA password, otherwise the
+// password is removed.
+//
+// See https://core.telegram.org/method/auth.recoverPassword.
+func (c *Client) RecoverPassword(ctx context.Context, opts RecoverPasswordOptions) (*tg.AuthAuthorization, error) {
+	req := &tg.AuthRecoverPasswordRequest{
+		Code: opts.Code,
+	}
+
+	if opts.NewPassword != "" {
+		p, err := c.api.AccountGetPassword(ctx)
+		if err != nil {
+			return nil, errors.Wrap(err, "get SRP parameters")
+		}
+
+		algo, ok := p.NewAlgo.(*tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow)
+		if !ok {
+			return nil, errors.Errorf("unsupported algo: %T", p.NewAlgo)
+		}
+
+		newHash, err := NewPasswordHash([]byte(opts.NewPassword), algo)
+		if err != nil {
+			return nil, errors.Wrap(err, "compute new password hash")
+		}
+
+		req.SetNewSettings(tg.AccountPasswordInputSettings{
+			NewAlgo:         algo,
+			NewPasswordHash: newHash,
+			Hint:            opts.Hint,
+		})
+	}
+
+	auth, err := c.api.AuthRecoverPassword(ctx, req)
+	if err != nil {
+		return nil, errors.Wrap(err, "recover password")
+	}
+
+	result, err := checkResult(auth)
+	if err != nil {
+		return nil, errors.Wrap(err, "check")
+	}
+	return result, nil
+}

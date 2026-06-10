@@ -167,3 +167,90 @@ func TestClient_CancelPasswordReset(t *testing.T) {
 		a.NoError(client.CancelPasswordReset(ctx))
 	})(t)
 }
+
+func TestClient_RequestPasswordRecovery(t *testing.T) {
+	ctx := context.Background()
+	mockTest(func(a *require.Assertions, mock *tgmock.Mock, client *Client) {
+		mock.ExpectCall(&tg.AuthRequestPasswordRecoveryRequest{}).ThenErr(testutil.TestError())
+		_, err := client.RequestPasswordRecovery(ctx)
+		a.Error(err)
+
+		mock.ExpectCall(&tg.AuthRequestPasswordRecoveryRequest{}).ThenResult(&tg.AuthPasswordRecovery{
+			EmailPattern: "foo@bar.com",
+		})
+		r, err := client.RequestPasswordRecovery(ctx)
+		a.NoError(err)
+		a.Equal("foo@bar.com", r.EmailPattern)
+	})(t)
+}
+
+func TestClient_CheckRecoveryPassword(t *testing.T) {
+	ctx := context.Background()
+	mockTest(func(a *require.Assertions, mock *tgmock.Mock, client *Client) {
+		mock.ExpectCall(&tg.AuthCheckRecoveryPasswordRequest{Code: "code"}).ThenErr(testutil.TestError())
+		_, err := client.CheckRecoveryPassword(ctx, "code")
+		a.Error(err)
+
+		mock.ExpectCall(&tg.AuthCheckRecoveryPasswordRequest{Code: "code"}).ThenTrue()
+		ok, err := client.CheckRecoveryPassword(ctx, "code")
+		a.NoError(err)
+		a.True(ok)
+
+		mock.ExpectCall(&tg.AuthCheckRecoveryPasswordRequest{Code: "bad"}).ThenFalse()
+		ok, err = client.CheckRecoveryPassword(ctx, "bad")
+		a.NoError(err)
+		a.False(ok)
+	})(t)
+}
+
+func TestClient_RecoverPassword(t *testing.T) {
+	ctx := context.Background()
+	auth := &tg.AuthAuthorization{User: &tg.User{ID: 10}}
+
+	t.Run("RemovePassword", mockTest(func(a *require.Assertions, mock *tgmock.Mock, client *Client) {
+		mock.ExpectCall(&tg.AuthRecoverPasswordRequest{Code: "code"}).ThenErr(testutil.TestError())
+		_, err := client.RecoverPassword(ctx, RecoverPasswordOptions{Code: "code"})
+		a.Error(err)
+
+		mock.ExpectCall(&tg.AuthRecoverPasswordRequest{Code: "code"}).ThenResult(auth)
+		r, err := client.RecoverPassword(ctx, RecoverPasswordOptions{Code: "code"})
+		a.NoError(err)
+		a.Equal(int64(10), r.User.GetID())
+	}))
+
+	t.Run("NewPassword", mockTest(func(a *require.Assertions, mock *tgmock.Mock, client *Client) {
+		p := &tg.AccountPassword{
+			NewAlgo:       testAlgo,
+			NewSecureAlgo: &tg.SecurePasswordKdfAlgoUnknown{},
+		}
+		p.SetFlags()
+
+		mock.ExpectCall(&tg.AccountGetPasswordRequest{}).ThenResult(p).
+			ExpectFunc(func(b bin.Encoder) {
+				a.IsType(&tg.AuthRecoverPasswordRequest{}, b)
+				r := b.(*tg.AuthRecoverPasswordRequest)
+				a.Equal("code", r.Code)
+				s, ok := r.GetNewSettings()
+				a.True(ok)
+				a.NotEmpty(s.NewPasswordHash)
+				a.Equal("hint", s.Hint)
+			}).ThenResult(auth)
+
+		r, err := client.RecoverPassword(ctx, RecoverPasswordOptions{
+			Code:        "code",
+			NewPassword: "password",
+			Hint:        "hint",
+		})
+		a.NoError(err)
+		a.Equal(int64(10), r.User.GetID())
+	}))
+
+	t.Run("GetPasswordError", mockTest(func(a *require.Assertions, mock *tgmock.Mock, client *Client) {
+		mock.ExpectCall(&tg.AccountGetPasswordRequest{}).ThenErr(testutil.TestError())
+		_, err := client.RecoverPassword(ctx, RecoverPasswordOptions{
+			Code:        "code",
+			NewPassword: "password",
+		})
+		a.Error(err)
+	}))
+}
