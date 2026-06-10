@@ -33,6 +33,20 @@ type Config struct {
 	// Callback called if manager cannot recover
 	// common state gap, i.e. on updates.differenceTooLong (optional).
 	OnTooLong func()
+	// Callback called when the manager fails to load the locally stored user
+	// state during Run with forget=false (no state found), so the state is
+	// fetched from the server and a full resynchronization is performed.
+	//
+	// Useful to detect that updates missed while offline may need to be fetched
+	// manually, e.g. via messages.getHistory (optional).
+	OnLoadUserStateFailed func()
+	// Callback called when the manager fails to load the locally stored state of
+	// a channel during Run with forget=false (its access hash is missing), so
+	// the channel is skipped.
+	//
+	// Useful to detect that the channel may need to be resynchronized manually
+	// (optional).
+	OnLoadChannelStateFailed func(channelID int64)
 	// State storage.
 	// In-mem used if not provided.
 	Storage StateStorage
@@ -81,6 +95,17 @@ func (cfg *Config) setDefaults() {
 	if cfg.OnTooLong == nil {
 		cfg.OnTooLong = func() {
 			cfg.Logger.Error("Difference too long")
+		}
+	}
+	if cfg.OnLoadUserStateFailed == nil {
+		cfg.OnLoadUserStateFailed = func() {
+			cfg.Logger.Warn("Failed to load user state, fetching from server")
+		}
+	}
+	if cfg.OnLoadChannelStateFailed == nil {
+		cfg.OnLoadChannelStateFailed = func(channelID int64) {
+			cfg.Logger.Warn("Failed to load channel state, skipping channel",
+				zap.Int64("channel_id", channelID))
 		}
 	}
 }
