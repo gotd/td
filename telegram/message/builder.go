@@ -24,6 +24,8 @@ type Builder struct {
 
 	// Set this flag to disable generation of the webpage preview.
 	noWebpage bool
+	// Set this flag to move the media (e.g. link preview) above the message text.
+	invertMedia bool
 	// Send this message silently (no notifications for the receivers).
 	silent bool
 	// Send this message as background message.
@@ -98,6 +100,13 @@ func (b *Builder) Schedule(date time.Time) *Builder {
 // NoWebpage sets flag to disable generation of the webpage preview.
 func (b *Builder) NoWebpage() *Builder {
 	b.noWebpage = true
+	return b
+}
+
+// InvertMedia sets flag to move the media (e.g. link preview) above the message
+// text, instead of below it.
+func (b *Builder) InvertMedia() *Builder {
+	b.invertMedia = true
 	return b
 }
 
