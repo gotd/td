@@ -144,6 +144,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			OnTooLong:             m.cfg.OnTooLong,
 			Storage:               m.cfg.Storage,
 			Hasher:                m.cfg.AccessHasher,
+			UserHasher:            m.cfg.UserAccessHasher,
 			SelfID:                userID,
 			DiffLimit:             diffLim,
 			WorkGroup:             wg,

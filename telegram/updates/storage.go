@@ -43,3 +43,11 @@ type ChannelAccessHasher interface {
 	SetChannelAccessHash(ctx context.Context, userID, channelID, accessHash int64) error
 	GetChannelAccessHash(ctx context.Context, userID, channelID int64) (accessHash int64, found bool, err error)
 }
+
+// UserAccessHasher stores user access hashes observed by the updates manager so
+// it can decide whether an incoming update references a user it already knows.
+// Mirrors ChannelAccessHasher. In-mem used if not provided to Config.
+type UserAccessHasher interface {
+	SetUserAccessHash(ctx context.Context, userID, targetUserID, accessHash int64) error
+	GetUserAccessHash(ctx context.Context, userID, targetUserID int64) (accessHash int64, found bool, err error)
+}

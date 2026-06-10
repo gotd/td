@@ -39,6 +39,9 @@ type Config struct {
 	// Channel access hash storage.
 	// In-mem used if not provided.
 	AccessHasher ChannelAccessHasher
+	// User access hash storage.
+	// In-mem used if not provided.
+	UserAccessHasher UserAccessHasher
 	// Logger (optional).
 	Logger *zap.Logger
 	// TracerProvider (optional).
@@ -51,6 +54,9 @@ func (cfg *Config) setDefaults() {
 	}
 	if cfg.AccessHasher == nil {
 		cfg.AccessHasher = newMemAccessHasher()
+	}
+	if cfg.UserAccessHasher == nil {
+		cfg.UserAccessHasher = newMemUserAccessHasher()
 	}
 	if cfg.Logger == nil {
 		cfg.Logger = zap.NewNop()
