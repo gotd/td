@@ -30,6 +30,12 @@ type VideoDocumentBuilder struct {
 	attr tg.DocumentAttributeVideo
 }
 
+// Spoiler sets flag to add spoiler animation (blurred preview) to the video.
+func (u *VideoDocumentBuilder) Spoiler(v bool) *VideoDocumentBuilder {
+	u.doc.Spoiler(v)
+	return u
+}
+
 // Round sets flag to mark this video as round.
 func (u *VideoDocumentBuilder) Round() *VideoDocumentBuilder {
 	u.attr.RoundMessage = true
