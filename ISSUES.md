@@ -14,7 +14,9 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
 ## Progress
 
 - **Done (PR):** #1474 → PR #1743 (Spoiler on media builders), #1510 → PR #1744
-  (InvertMedia + WebPage link-preview builder), #884 → PR #1745 (GetMediaGroup helper).
+  (InvertMedia + WebPage link-preview builder), #884 → PR #1745 (GetMediaGroup helper),
+  #615 → password recovery helpers (`RequestPasswordRecovery`/`CheckRecoveryPassword`/`RecoverPassword`
+  in `telegram/auth/password.go`).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -122,7 +124,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 788 | invites: support `tg.ChatInvitePublicJoinRequests` | open |
 | 755 | auth: allow safer password passing | open |
 | 689 | Callback if user/channel state fails to load | open |
-| 615 | auth: helpers for (re)setting/updating/recovering password | open (recoverPassword left) |
+| 615 | auth: helpers for (re)setting/updating/recovering password | **done — recovery helpers added** |
 | 597 | bot: fix inspection of service messages | open (lives in `gotd/bot`) |
 | 392 | mtproto: containerize small messages | open |
 | 376 | gen: derive mappings with parameters | open |
@@ -150,7 +152,7 @@ implemented (#214, #189) and one was closed (#824); they are excluded here.
 
 | # | Title | Why easy |
 |---|---|---|
-| 615 | `auth.recoverPassword` helper | Only remaining checklist item; raw methods (`AuthRequestPasswordRecovery`, `AuthRecoverPassword`, `AuthCheckRecoveryPassword`) exist — add wrappers to `telegram/auth/password.go` like `ResetPassword`. |
+| 615 | `auth.recoverPassword` helper | **done** — `RequestPasswordRecovery`/`CheckRecoveryPassword`/`RecoverPassword` added to `telegram/auth/password.go`. |
 | 689 | updates state-load callbacks | Add `OnLoadUserStateFailed`/`OnLoadChannelStateFailed` to `updates.Config` + invoke at load sites, mirroring the existing `OnChannelTooLong`. |
 | 883 | network clock (NTP) | `clock/` already defines the `Clock` interface; NTP impl is self-contained. Friction: adds a `beevik/ntp` dependency. |
 
