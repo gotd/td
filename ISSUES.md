@@ -16,7 +16,8 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
 - **Done (PR):** #1474 → PR #1743 (Spoiler on media builders), #1510 → PR #1744
   (InvertMedia + WebPage link-preview builder), #884 → PR #1745 (GetMediaGroup helper),
   #615 → password recovery helpers (`RequestPasswordRecovery`/`CheckRecoveryPassword`/`RecoverPassword`
-  in `telegram/auth/password.go`).
+  in `telegram/auth/password.go`), #883 → NTP network clock (`clock/ntp`, isolated subpackage so
+  `beevik/ntp` stays out of the core dependency tree).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -118,7 +119,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 1308 | Handling `UpdateConnectionState` | open |
 | 1267 | Channel recommendations pagination | open |
 | 884 | helper: support messages/GetMediaGroup | **done — PR #1745** |
-| 883 | clock: support network clock | open |
+| 883 | clock: support network clock | **done — `clock/ntp`** |
 | 824 | feat: errors with placeholders like `%d` | **closed — already addressed** |
 | 816 | uploader: compute part size automatically | open |
 | 788 | invites: support `tg.ChatInvitePublicJoinRequests` | open |
