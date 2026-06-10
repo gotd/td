@@ -193,3 +193,43 @@ func (m *memAccessHasher) SetChannelAccessHash(ctx context.Context, userID, chan
 	userHashes[channelID] = accessHash
 	return nil
 }
+
+var _ UserAccessHasher = (*memUserAccessHasher)(nil)
+
+type memUserAccessHasher struct {
+	hashes map[int64]map[int64]int64
+	mux    sync.Mutex
+}
+
+func newMemUserAccessHasher() *memUserAccessHasher {
+	return &memUserAccessHasher{
+		hashes: map[int64]map[int64]int64{},
+	}
+}
+
+func (m *memUserAccessHasher) GetUserAccessHash(ctx context.Context, userID, targetUserID int64) (accessHash int64, found bool, err error) {
+	m.mux.Lock()
+	defer m.mux.Unlock()
+
+	userHashes, ok := m.hashes[userID]
+	if !ok {
+		return 0, false, nil
+	}
+
+	accessHash, found = userHashes[targetUserID]
+	return
+}
+
+func (m *memUserAccessHasher) SetUserAccessHash(ctx context.Context, userID, targetUserID, accessHash int64) error {
+	m.mux.Lock()
+	defer m.mux.Unlock()
+
+	userHashes, ok := m.hashes[userID]
+	if !ok {
+		userHashes = map[int64]int64{}
+		m.hashes[userID] = userHashes
+	}
+
+	userHashes[targetUserID] = accessHash
+	return nil
+}

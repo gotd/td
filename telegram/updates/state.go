@@ -59,6 +59,7 @@ type internalState struct {
 	onCommonTooLong       func()
 	storage               StateStorage
 	hasher                ChannelAccessHasher
+	userHasher            UserAccessHasher
 	selfID                int64
 	diffLim               int
 	wg                    *errgroup.Group
@@ -80,6 +81,7 @@ type stateConfig struct {
 	OnTooLong             func()
 	Storage               StateStorage
 	Hasher                ChannelAccessHasher
+	UserHasher            UserAccessHasher
 	SelfID                int64
 	DiffLimit             int
 	WorkGroup             *errgroup.Group
@@ -104,6 +106,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		onCommonTooLong:       cfg.OnTooLong,
 		storage:               cfg.Storage,
 		hasher:                cfg.Hasher,
+		userHasher:            cfg.UserHasher,
 		selfID:                cfg.SelfID,
 		diffLim:               cfg.DiffLimit,
 		wg:                    cfg.WorkGroup,
@@ -240,6 +243,10 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 	switch u := u.(type) {
 	case *tg.Updates:
 		s.saveChannelHashes(ctx, u.Chats)
+		s.saveUserHashes(ctx, u.Users)
+		if !s.messageUpdatesPeersKnown(ctx, u.Updates) {
+			return s.getDifference(ctx)
+		}
 		return s.handleSeq(ctx, &tg.UpdatesCombined{
 			Updates:  u.Updates,
 			Users:    u.Users,
@@ -250,6 +257,10 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 		})
 	case *tg.UpdatesCombined:
 		s.saveChannelHashes(ctx, u.Chats)
+		s.saveUserHashes(ctx, u.Users)
+		if !s.messageUpdatesPeersKnown(ctx, u.Updates) {
+			return s.getDifference(ctx)
+		}
 		return s.handleSeq(ctx, u)
 	case *tg.UpdateShort:
 		return s.handleUpdates(ctx, &tg.UpdatesCombined{
@@ -257,8 +268,14 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 			Date:    u.Date,
 		})
 	case *tg.UpdateShortMessage:
+		if !s.shortMessagePeersKnown(ctx, u) {
+			return s.getDifference(ctx)
+		}
 		return s.handleUpdates(ctx, s.convertShortMessage(u))
 	case *tg.UpdateShortChatMessage:
+		if !s.shortChatMessagePeersKnown(ctx, u) {
+			return s.getDifference(ctx)
+		}
 		return s.handleUpdates(ctx, s.convertShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
 		return s.handleUpdates(ctx, s.convertShortSentMessage(u))
@@ -436,6 +453,11 @@ func (s *internalState) getDifference(ctx context.Context) error {
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesDifference:
+		// Record recovered senders as known before dispatching, so a user
+		// recovered via getDifference does not re-trigger getDifference for the
+		// next short message from the same sender.
+		s.saveUserHashes(ctx, diff.Users)
+
 		if len(diff.OtherUpdates) > 0 {
 			if err := s.handleUpdates(ctx, &tg.UpdatesCombined{
 				Updates: diff.OtherUpdates,
@@ -474,6 +496,11 @@ func (s *internalState) getDifference(ctx context.Context) error {
 
 	// Incomplete list of occurred events.
 	case *tg.UpdatesDifferenceSlice:
+		// Record recovered senders as known before dispatching, so a user
+		// recovered via getDifference does not re-trigger getDifference for the
+		// next short message from the same sender.
+		s.saveUserHashes(ctx, diff.Users)
+
 		if len(diff.OtherUpdates) > 0 {
 			if err := s.handleUpdates(ctx, &tg.UpdatesCombined{
 				Updates: diff.OtherUpdates,
