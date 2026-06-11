@@ -16,16 +16,46 @@ import (
 // You can use strings.TrimSpace(password) for this.
 var ErrPasswordInvalid = errors.New("invalid password")
 
+// PasswordHashFunc computes the SRP answer from the account's password
+// parameters (as returned by account.getPassword).
+//
+// It lets callers keep the plaintext password out of a Go string — which
+// cannot be reliably zeroed (see #755) — for example in locked memory, and
+// turn it into an answer on demand. See the telegram/auth/srpguard subpackage
+// for a memguard-backed implementation.
+type PasswordHashFunc func(ctx context.Context, p *tg.AccountPassword) (*tg.InputCheckPasswordSRP, error)
+
+// PasswordHashFor returns a PasswordHashFunc that hashes the given password.
+//
+// It is the string-based default used by Password; prefer a secret-memory
+// implementation (e.g. telegram/auth/srpguard) when handling sensitive input.
+func PasswordHashFor(password []byte) PasswordHashFunc {
+	return func(ctx context.Context, p *tg.AccountPassword) (*tg.InputCheckPasswordSRP, error) {
+		return PasswordHash(password, p.SRPID, p.SRPB, p.SecureRandom, p.CurrentAlgo)
+	}
+}
+
 // Password performs login via secure remote password (aka 2FA).
 //
 // Method can be called after SignIn to provide password if requested.
+//
+// Note that the password is passed as a string, which cannot be reliably
+// zeroed from memory; use PasswordWith to provide it from protected memory.
 func (c *Client) Password(ctx context.Context, password string) (*tg.AuthAuthorization, error) {
+	return c.PasswordWith(ctx, PasswordHashFor([]byte(password)))
+}
+
+// PasswordWith performs login via secure remote password (aka 2FA), computing
+// the SRP answer via hash so the password never has to be passed as a string.
+//
+// Method can be called after SignIn to provide password if requested.
+func (c *Client) PasswordWith(ctx context.Context, hash PasswordHashFunc) (*tg.AuthAuthorization, error) {
 	p, err := c.api.AccountGetPassword(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "get SRP parameters")
 	}
 
-	a, err := PasswordHash([]byte(password), p.SRPID, p.SRPB, p.SecureRandom, p.CurrentAlgo)
+	a, err := hash(ctx, p)
 	if err != nil {
 		return nil, errors.Wrap(err, "compute password hash")
 	}

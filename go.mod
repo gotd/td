@@ -3,6 +3,7 @@ module github.com/gotd/td
 go 1.25.0
 
 require (
+	github.com/awnumar/memguard v0.23.0
 	github.com/beevik/ntp v1.5.0
 	github.com/cenkalti/backoff/v4 v4.3.0
 	github.com/coder/websocket v1.8.14
@@ -46,6 +47,7 @@ require (
 require (
 	github.com/PuerkitoBio/goquery v1.11.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
+	github.com/awnumar/memcall v0.4.0 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
