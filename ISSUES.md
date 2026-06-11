@@ -23,9 +23,11 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   acknowledged) are transparently retried on the new connection (`rpc` close cause,
   `telegram.Client.invokeConn` wait-for-reconnect, `pool.DC.Invoke` re-acquire), #1308 →
   primary connection state hook (`Options.OnConnectionState` with
-  connecting/ready/disconnected `ConnectionState`), #217 → get-messages-by-ID helper
-  (`messages.QueryBuilder.GetMessages`, channel-aware; users/channels already covered by
-  `telegram/peers`).
+  connecting/ready/disconnected `ConnectionState`), #816 → uploader auto part-size
+  (grows part size from file size to keep parts within the 3999 limit, preventing
+  `FILE_PARTS_INVALID` on large files; explicit `WithPartSize` still respected), #217 →
+  get-messages-by-ID helper (`messages.QueryBuilder.GetMessages`, channel-aware;
+  users/channels already covered by `telegram/peers`).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -129,7 +131,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 884 | helper: support messages/GetMediaGroup | **done — PR #1745** |
 | 883 | clock: support network clock | **done — `clock/ntp`** |
 | 824 | feat: errors with placeholders like `%d` | **closed — already addressed** |
-| 816 | uploader: compute part size automatically | open |
+| 816 | uploader: compute part size automatically | **done — see Progress** |
 | 788 | invites: support `tg.ChatInvitePublicJoinRequests` | open |
 | 755 | auth: allow safer password passing | open |
 | 689 | Callback if user/channel state fails to load | **done — load callbacks added** |
