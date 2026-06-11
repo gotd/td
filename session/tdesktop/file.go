@@ -19,7 +19,14 @@ type tdesktopFile struct {
 }
 
 func open(filesystem fs.FS, fileName string) (*tdesktopFile, error) {
-	suffixes := []string{"0", "1", "s"}
+	// The modern "safe" file (suffix "s") takes precedence over the legacy
+	// "0"/"1" files, matching Telegram Desktop's ReadFile: it prefers the "s"
+	// file and only falls back to the legacy ones. Checking "s" first avoids
+	// reading a stale legacy file left over after the multi-account migration.
+	//
+	// See https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/storage/details/storage_file_utilities.cpp#L474
+	// and https://github.com/gotd/td/issues/825.
+	suffixes := []string{"s", "0", "1"}
 
 	tryRead := func(p string) (_ *tdesktopFile, rErr error) {
 		f, err := filesystem.Open(p)

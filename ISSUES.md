@@ -27,7 +27,10 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   (grows part size from file size to keep parts within the 3999 limit, preventing
   `FILE_PARTS_INVALID` on large files; explicit `WithPartSize` still respected), #217 →
   get-messages-by-ID helper (`messages.QueryBuilder.GetMessages`, channel-aware;
-  users/channels already covered by `telegram/peers`).
+  users/channels already covered by `telegram/peers`), #825 → tdesktop modern `key_datas`
+  layout: `session/tdesktop` now prefers the modern `s`-suffixed file over legacy `0`/`1`
+  (matching Telegram Desktop), so a stale legacy file no longer shadows the current one;
+  added an end-to-end modern-layout read test.
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -96,7 +99,7 @@ Possibly valid once, but tied to old versions/context and now stale or unverifia
 | 1203 | Client ping panics on direct call | `internal/mtproto` restructured since v0.88; needs re-confirm. |
 | 731 | client: bg-run failed | Ancient (v0.55.2, 2022). |
 | 704 | client: rpc not responding | Incomplete, ancient (v0.55.2, 2022). |
-| 825 | feat(tdesktop): support key_datas | "May be no key_data in latest format"; format moved on. |
+| 825 | feat(tdesktop): support key_datas | **done — see Progress** (modern `s`-suffixed file now preferred over legacy `0`/`1`). |
 | 199 | e2e: improve server (epic) | Largely superseded by later server work; stale checklist. |
 
 ---
