@@ -23,7 +23,9 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   acknowledged) are transparently retried on the new connection (`rpc` close cause,
   `telegram.Client.invokeConn` wait-for-reconnect, `pool.DC.Invoke` re-acquire), #1308 →
   primary connection state hook (`Options.OnConnectionState` with
-  connecting/ready/disconnected `ConnectionState`).
+  connecting/ready/disconnected `ConnectionState`), #217 → get-messages-by-ID helper
+  (`messages.QueryBuilder.GetMessages`, channel-aware; users/channels already covered by
+  `telegram/peers`).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -137,7 +139,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 376 | gen: derive mappings with parameters | open |
 | 283 | query: generate resolve helpers when query needs peer parameter | open |
 | 263 | client: improve FLOOD_WAIT handling | open |
-| 217 | client: get-by-id helpers | open |
+| 217 | client: get-by-id helpers | **done — see Progress** |
 | 214 | message: Markdown styling for text messages | **already implemented** (`telegram/message/markdown`) |
 | 189 | message: sticker helpers | **already implemented** (`telegram/query/cached`) |
 | 188 | client: admin helpers | open |
@@ -167,7 +169,7 @@ implemented (#214, #189) and one was closed (#824); they are excluded here.
 
 | # | Title | Note |
 |---|---|---|
-| 217 | get-by-id helpers | Needs ETag-style hashing + batching; new query helpers. |
+| 217 | get-by-id helpers | **done** — `messages.QueryBuilder.GetMessages` (by-ID, channel-aware). Optional hash-based caching left out as a "nice to have". |
 | 788 | `ChatInvitePublicJoinRequests` | Requires loosening the `InviteLink` type, currently hardwired to `ChatInviteExported`. |
 | 1308 | connection-state updates | `OnSession` exists; add a connect/disconnect hook (no TDLib-style state machine). |
 | 755 | safer password passing | Callback-based password hashing in `telegram/auth`. |
