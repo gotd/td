@@ -113,8 +113,6 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	c.cfg.Store(cfg)
 	c.onReady()
 	c.connMux.Unlock()
-	// Notify outside of connMux to allow callback to use the client.
-	c.notifyConnectionState(ConnectionStateReady)
 
 	if err := c.saveSession(cfg, s); err != nil {
 		return errors.Wrap(err, "save")

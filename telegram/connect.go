@@ -18,8 +18,32 @@ import (
 func (c *Client) runUntilRestart(ctx context.Context) error {
 	c.notifyConnectionState(ConnectionStateConnecting)
 
+	c.connMux.Lock()
+	conn := c.conn
+	c.connMux.Unlock()
+
 	g := tdsync.NewCancellableGroup(ctx)
-	g.Go(c.conn.Run)
+	g.Go(conn.Run)
+
+	// Report readiness of this primary connection only.
+	//
+	// We must not emit this from the shared OnSession handler, because it is
+	// also used by pool/sub connections (including same-DC ones), which would
+	// produce spurious ready events. Waiting on the connection's own Ready
+	// channel scopes the event strictly to the primary connection.
+	if c.onConnectionState != nil {
+		if ready, ok := conn.(interface{ Ready() <-chan struct{} }); ok {
+			g.Go(func(ctx context.Context) error {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case <-ready.Ready():
+					c.notifyConnectionState(ConnectionStateReady)
+					return nil
+				}
+			})
+		}
+	}
 
 	// If we don't need updates, so there is no reason to subscribe for it.
 	if !c.noUpdatesMode {
