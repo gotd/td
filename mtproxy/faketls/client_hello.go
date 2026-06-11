@@ -7,118 +7,100 @@ import (
 	"io"
 
 	"github.com/go-faster/errors"
+	utls "github.com/refraction-networking/utls"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 )
 
-const clientHelloLength = 517
+// clientRandomOffset is the offset of the 32-byte ClientRandom field inside a
+// TLS ClientHello record:
+//
+//	5 bytes record header (type + version + length)
+//	1 byte  handshake type
+//	3 bytes handshake length
+//	2 bytes client version
+const (
+	clientRandomOffset = 11
+	clientRandomLength = 32
+)
 
-func createClientHello(b *bin.Buffer, sessionID [32]byte, domain string, key [32]byte) (randomOffset int) {
-	S := func(s string) {
-		b.Buf = append(b.Buf, s...)
-	}
-	Z := func(n int) {
-		randomOffset = len(b.Buf)
-		b.Expand(n)
-	}
-	G := func(_ int) {
-		b.Expand(0)
-	}
-	R := func() {
-		b.Buf = append(b.Buf, sessionID[:]...)
-	}
-	D := func() {
-		b.Buf = append(b.Buf, domain...)
-	}
-	K := func() {
-		b.Buf = append(b.Buf, key[:]...)
-	}
-	var stack []int
-	Open := func() {
-		stack = append(stack, b.Len())
-		b.Expand(2)
-	}
-	Close := func() {
-		lastIdx := len(stack) - 1
-		s := stack[lastIdx]
-		stack = stack[:lastIdx]
-
-		length := b.Len() - (s + 2)
-		binary.BigEndian.PutUint16(b.Buf[s:], uint16(length))
+// generateClientHello builds a browser-like TLS ClientHello record using uTLS.
+//
+// Instead of hand-crafting the bytes (as older clients did), we mimic the
+// fingerprint of a recent Chrome release so that the handshake is
+// indistinguishable from a real browser connecting to the cloak domain. uTLS
+// tracks browser fingerprints upstream, keeping us in line with the approach
+// taken by the official Telegram clients.
+//
+// See https://github.com/refraction-networking/utls and
+// https://github.com/tdlib/td/blob/master/td/mtproto/TlsInit.cpp.
+func generateClientHello(rand io.Reader, domain string) ([]byte, error) {
+	config := &utls.Config{
+		ServerName: domain,
+		// uTLS uses Rand for the ClientHello random, session ID and key shares.
+		Rand: rand,
 	}
 
-	S("\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03")
-	Z(32)
-	S("\x20")
-	R()
-	S("\x00\x20")
-	G(0)
-	S("\x13\x01\x13\x02\x13\x03\xc0\x2b\xc0\x2f\xc0\x2c\xc0\x30\xcc\xa9" +
-		"\xcc\xa8\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00\x2f\x00\x35\x01\x00" +
-		"\x01\x93")
-	G(2)
-	S("\x00\x00\x00\x00")
-	Open()
-	Open()
-	S("\x00")
-	Open()
-	D()
-	Close()
-	Close()
-	Close()
-	S("\x00\x17\x00\x00\xff\x01\x00\x01\x00\x00\x0a\x00\x0a\x00\x08")
-	G(4)
-	S("\x00\x1d\x00\x17\x00\x18\x00\x0b\x00\x02\x01\x00\x00\x23\x00\x00" +
-		"\x00\x10\x00\x0e\x00\x0c\x02\x68\x32\x08\x68\x74\x74\x70\x2f\x31" +
-		"\x2e\x31\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x0d\x00\x12\x00" +
-		"\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06" +
-		"\x01\x00\x12\x00\x00\x00\x33\x00\x2b\x00\x29")
-	G(4)
-	S("\x00\x01\x00\x00\x1d\x00\x20")
-	K()
-	S("\x00\x2d\x00\x02\x01\x01\x00\x2b\x00\x0b\x0a")
-	G(6)
-	S("\x03\x04\x03\x03\x03\x02\x03\x01\x00\x1b\x00\x03\x02\x00\x02")
-	G(3)
-	S("\x00\x01\x00\x00\x15")
-
-	if pad := clientHelloLength - b.Len(); pad > 0 {
-		b.Expand(pad)
+	// The connection is never used: BuildHandshakeState only assembles the
+	// ClientHello in memory, it does not perform any I/O.
+	conn := utls.UClient(nil, config, utls.HelloChrome_Auto)
+	if err := conn.BuildHandshakeState(); err != nil {
+		return nil, errors.Wrap(err, "build handshake state")
 	}
-	return randomOffset
+
+	hello := conn.HandshakeState.Hello.Raw
+	// hello is the handshake message; wrap it into a TLS handshake record.
+	record := make([]byte, 0, 5+len(hello))
+	record = append(record, byte(RecordTypeHandshake), Version10Bytes[0], Version10Bytes[1])
+	record = binary.BigEndian.AppendUint16(record, uint16(len(hello)))
+	record = append(record, hello...)
+	return record, nil
 }
 
 // writeClientHello writes faketls ClientHello.
 //
-// See https://tools.ietf.org/html/rfc5246#section-7.4.1.1.
+// The ClientHello carries the MTProxy digest in its ClientRandom field: the
+// HMAC-SHA256 of the whole record (computed with the ClientRandom zeroed) using
+// the proxy secret as key, with the lower 4 bytes XORed with the current
+// timestamp.
+//
+// See https://github.com/tdlib/td/blob/27d3fdd09d90f6b77ecbcce50b1e86dc4b3dd366/td/mtproto/TlsInit.cpp#L380-L384
+// and https://tools.ietf.org/html/rfc5246#section-7.4.1.1.
 func writeClientHello(
 	w io.Writer,
+	rand io.Reader,
 	now clock.Clock,
-	sessionID [32]byte,
 	domain string,
 	secret []byte,
 ) (r [32]byte, err error) {
-	b := &bin.Buffer{
-		Buf: make([]byte, 0, 576),
+	record, err := generateClientHello(rand, domain)
+	if err != nil {
+		return [32]byte{}, errors.Wrap(err, "generate ClientHello")
 	}
-	randomOffset := createClientHello(b, sessionID, domain, [32]byte{})
+	if len(record) < clientRandomOffset+clientRandomLength {
+		return [32]byte{}, errors.Errorf("ClientHello is too short: %d bytes", len(record))
+	}
 
-	// https://github.com/tdlib/td/blob/27d3fdd09d90f6b77ecbcce50b1e86dc4b3dd366/td/mtproto/TlsInit.cpp#L380-L384
+	random := record[clientRandomOffset : clientRandomOffset+clientRandomLength]
+	// Zero the ClientRandom before computing the digest, exactly as the proxy
+	// does when it validates the handshake.
+	for i := range random {
+		random[i] = 0
+	}
+
 	mac := hmac.New(sha256.New, secret)
-	if _, err := mac.Write(b.Buf); err != nil {
+	if _, err := mac.Write(record); err != nil {
 		return [32]byte{}, errors.Wrap(err, "hmac write")
 	}
+	copy(random, mac.Sum(nil))
 
-	s := mac.Sum(nil)
-	copy(b.Buf[randomOffset:randomOffset+32], s)
 	// Overwrite last 4 bytes using final := original ^ timestamp.
-	old := binary.LittleEndian.Uint32(b.Buf[randomOffset+28 : randomOffset+32])
+	old := binary.LittleEndian.Uint32(random[clientRandomLength-4:])
 	old ^= uint32(now.Now().Unix())
-	binary.LittleEndian.PutUint32(b.Buf[randomOffset+28:randomOffset+32], old)
+	binary.LittleEndian.PutUint32(random[clientRandomLength-4:], old)
 
 	// Copy ClientRandom for later use.
-	copy(r[:], b.Buf[randomOffset:randomOffset+32])
-	_, err = w.Write(b.Buf)
+	copy(r[:], random)
+	_, err = w.Write(record)
 	return r, err
 }

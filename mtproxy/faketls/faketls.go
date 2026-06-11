@@ -41,12 +41,7 @@ func (o *FakeTLS) Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error {
 	o.readBuf.Reset()
 	o.readBufMux.Unlock()
 
-	var sessionID [32]byte
-	if _, err := o.rand.Read(sessionID[:]); err != nil {
-		return errors.Wrap(err, "generate sessionID")
-	}
-
-	clientDigest, err := writeClientHello(o.conn, o.clock, sessionID, s.CloakHost, s.Secret)
+	clientDigest, err := writeClientHello(o.conn, o.rand, o.clock, s.CloakHost, s.Secret)
 	if err != nil {
 		return errors.Wrap(err, "send ClientHello")
 	}
