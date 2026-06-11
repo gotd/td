@@ -99,7 +99,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 		c.connMux.Lock()
 		// Some PFS errors require dropping persisted keys before recreating conn.
 		c.handlePrimaryConnDead(err)
-		c.conn = c.createPrimaryConn(nil)
+		c.replaceConn(c.createPrimaryConn(nil))
 		c.connMux.Unlock()
 	})
 }

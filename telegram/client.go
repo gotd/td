@@ -91,9 +91,12 @@ type Client struct {
 	testDC bool // immutable
 
 	// Connection state. Guarded by connMux.
-	session     *pool.SyncSession
-	cfg         *manager.AtomicConfig
-	conn        clientConn
+	session *pool.SyncSession
+	cfg     *manager.AtomicConfig
+	conn    clientConn
+	// connChanged is closed and re-created on every primary connection
+	// replacement, letting invokeConn wait for reconnect and retry.
+	connChanged chan struct{}
 	connBackoff atomic.Pointer[backoff.BackOff]
 	connMux     sync.Mutex
 
@@ -238,6 +241,16 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	return client
 }
 
+// replaceConn replaces primary connection and notifies invokers waiting for
+// reconnection (see invokeConn).
+//
+// Caller must hold connMux.
+func (c *Client) replaceConn(conn clientConn) {
+	c.conn = conn
+	close(c.connChanged)
+	c.connChanged = make(chan struct{})
+}
+
 // init sets fields which needs explicit initialization, like maps or channels.
 func (c *Client) init() {
 	if c.domains == nil {
@@ -247,6 +260,7 @@ func (c *Client) init() {
 		c.cfg = manager.NewAtomicConfig(tg.Config{})
 	}
 	c.ready = tdsync.NewResetReady()
+	c.connChanged = make(chan struct{})
 	c.restart = make(chan struct{})
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}

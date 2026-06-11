@@ -5,11 +5,14 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/go-faster/errors"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/pool"
+	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
@@ -81,10 +84,44 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 
 // invokeConn directly invokes RPC call on primary connection without any
 // additional handling.
+//
+// If the connection dies before the request is processed by the server,
+// invokeConn waits until the reconnection loop replaces the connection and
+// retries the request on it, see https://github.com/gotd/td/issues/1030.
 func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	c.connMux.Lock()
-	conn := c.conn
-	c.connMux.Unlock()
+	for {
+		c.connMux.Lock()
+		conn := c.conn
+		connChanged := c.connChanged
+		c.connMux.Unlock()
 
-	return conn.Invoke(ctx, input, output)
+		err := conn.Invoke(ctx, input, output)
+		if err == nil || !errRetryableOnNewConn(err) {
+			return err
+		}
+
+		var clientDone <-chan struct{}
+		if c.ctx != nil {
+			clientDone = c.ctx.Done()
+		}
+		c.log.Debug("Primary connection is dead, waiting for new connection to retry",
+			zap.Error(err),
+		)
+		select {
+		case <-ctx.Done():
+			return errors.Wrap(ctx.Err(), "wait for reconnect")
+		case <-clientDone:
+			// Client is closed, no reconnection will happen.
+			return errors.Wrap(c.ctx.Err(), "client closed")
+		case <-connChanged:
+		}
+	}
+}
+
+// errRetryableOnNewConn reports whether request failed because connection
+// died before the request was processed by the server (request was not sent,
+// or sent but not acknowledged), so it is safe to retry the request on a new
+// connection.
+func errRetryableOnNewConn(err error) bool {
+	return errors.Is(err, pool.ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed)
 }

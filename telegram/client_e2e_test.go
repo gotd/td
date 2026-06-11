@@ -3,6 +3,7 @@ package telegram_test
 import (
 	"bytes"
 	"context"
+	"sync"
 	"testing"
 	"time"
 
@@ -227,6 +228,54 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 
 func TestMigrate(t *testing.T) {
 	t.Run("Intermediate", testMigrate(transport.Intermediate))
+}
+
+func testConnectionRecovery(p dcs.Protocol) func(t *testing.T) {
+	return testCluster(p, false, func(s clusterSetup) {
+		c := s.Cluster
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
+
+		var once sync.Once
+		c.Dispatch(2, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+			func(server *tgtest.Server, req *tgtest.Request) error {
+				m := &tg.MessagesSendMessageRequest{}
+				if err := m.Decode(req.Buf); err != nil {
+					return err
+				}
+
+				first := false
+				once.Do(func() {
+					first = true
+				})
+				if first {
+					// Simulate sudden connection loss before the request is
+					// acknowledged, see https://github.com/gotd/td/issues/1030.
+					server.ForceDisconnect(req.Session)
+					return nil
+				}
+				return server.SendGZIP(req, &tg.Updates{})
+			},
+		)
+	}, func(ctx context.Context, c clientSetup) error {
+		client := telegram.NewClient(1, "hash", c.Options)
+		return client.Run(ctx, func(ctx context.Context) error {
+			// Request observes connection loss, but must be transparently
+			// retried on the new connection after reconnect.
+			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+				Peer:    &tg.InputPeerUser{},
+				Message: "abc",
+			}); err != nil {
+				return errors.Wrap(err, "send")
+			}
+
+			c.Complete()
+			return nil
+		})
+	})
+}
+
+func TestConnectionRecovery(t *testing.T) {
+	t.Run("Intermediate", testConnectionRecovery(transport.Intermediate))
 }
 
 func testFiles(p dcs.Protocol) func(t *testing.T) {

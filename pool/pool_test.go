@@ -45,6 +45,66 @@ func (m mockConn) Ready() <-chan struct{} {
 	return m.ready.Ready()
 }
 
+type invokeErrConn struct {
+	mockConn
+	err error
+}
+
+func (m invokeErrConn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return m.err
+}
+
+func TestDC_InvokeRetryOnDeadConn(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+
+	created := 0
+	p := NewDC(ctx, 2, func() Conn {
+		created++
+		if created == 1 {
+			// First connection dies before request is sent.
+			return invokeErrConn{
+				mockConn: newMockConn(true),
+				err:      errors.Wrap(ErrConnDead, "waitSession"),
+			}
+		}
+		return newMockConn(true)
+	}, DCOptions{
+		MaxOpenConnections: 1,
+	})
+	defer func() {
+		a.NoError(p.Close())
+	}()
+
+	// Request must be transparently retried on a new connection.
+	a.NoError(p.Invoke(ctx, nil, nil))
+	a.Equal(2, created, "Pool must create new connection to retry invoke")
+}
+
+func TestDC_InvokeNotRetryable(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	testErr := errors.New("some rpc error")
+
+	created := 0
+	p := NewDC(ctx, 2, func() Conn {
+		created++
+		return invokeErrConn{
+			mockConn: newMockConn(true),
+			err:      testErr,
+		}
+	}, DCOptions{
+		MaxOpenConnections: 1,
+	})
+	defer func() {
+		a.NoError(p.Close())
+	}()
+
+	// Non connection-related errors must be returned as-is.
+	a.ErrorIs(p.Invoke(ctx, nil, nil), testErr)
+	a.Equal(1, created, "Pool must not retry on non-retryable error")
+}
+
 func TestDC_acquire(t *testing.T) {
 	t.Run("AcquireRelease", func(t *testing.T) {
 		a := require.New(t)
