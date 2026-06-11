@@ -31,6 +31,14 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   layout: `session/tdesktop` now prefers the modern `s`-suffixed file over legacy `0`/`1`
   (matching Telegram Desktop), so a stale legacy file no longer shadows the current one;
   added an end-to-end modern-layout read test.
+- **Done (partial — tgtest server epic):** #199 → personal-messages service
+  (`tgtest/services/messages`): implements `messages.sendMessage` (stores the
+  dialog, echoes the sent message back as `UpdateMessageID`+`UpdateNewMessage`)
+  and `messages.getHistory`, and delivers messages to connected recipients as
+  `UpdateNewMessage` updates. Only user peers (`InputPeerSelf`/`InputPeerUser`)
+  are supported. The other epic checklist items were already covered by later
+  work (key exchange → `exchange` pkg, up/downloads → `services/file`, multi-DC
+  → `tgtest/cluster`).
 - **Done (partial — admin helpers):** #188 → channel/supergroup admin helpers in
   `telegram/peers`: username management (`Channel.SetUsername`/`CheckUsername`/`DeactivateAllUsernames`),
   photo (`Channel.SetPhoto`/`DeletePhoto`), supergroup toggles
@@ -115,7 +123,7 @@ Possibly valid once, but tied to old versions/context and now stale or unverifia
 | 731 | client: bg-run failed | Ancient (v0.55.2, 2022). |
 | 704 | client: rpc not responding | Incomplete, ancient (v0.55.2, 2022). |
 | 825 | feat(tdesktop): support key_datas | **done — see Progress** (modern `s`-suffixed file now preferred over legacy `0`/`1`). |
-| 199 | e2e: improve server (epic) | Largely superseded by later server work; stale checklist. |
+| 199 | e2e: improve server (epic) | Largely superseded; remaining gap (personal messages) **done** — `tgtest/services/messages`. |
 
 ---
 
