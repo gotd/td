@@ -40,16 +40,17 @@ func checkPartSize(partSize int) error {
 	return nil
 }
 
-func computeParts(partSize, total int) int {
+func computeParts(partSize int, total int64) int {
 	if total <= 0 {
 		return 0
 	}
 
-	parts := total / partSize
-	if total%partSize != 0 {
+	size := int64(partSize)
+	parts := total / size
+	if total%size != 0 {
 		parts++
 	}
-	return parts
+	return int(parts)
 }
 
 // computePartSize returns the smallest valid part size that keeps the number of
@@ -63,7 +64,7 @@ func computeParts(partSize, total int) int {
 // See https://core.telegram.org/api/files#uploading-files.
 func computePartSize(total int64) int {
 	partSize := defaultPartSize
-	for partSize < MaximumPartSize && computeParts(partSize, int(total)) > partsLimit {
+	for partSize < MaximumPartSize && computeParts(partSize, total) > partsLimit {
 		partSize *= 2
 	}
 	return partSize
@@ -71,7 +72,7 @@ func computePartSize(total int64) int {
 
 func (u *Uploader) initUpload(upload *Upload, partSize int, pool *bin.Pool) error {
 	big := upload.totalBytes > bigFileLimit
-	totalParts := computeParts(partSize, int(upload.totalBytes))
+	totalParts := computeParts(partSize, upload.totalBytes)
 	if !big && totalParts > partsLimit {
 		return errors.Errorf(
 			"part size is too small: total size = %d, part size = %d, %d / %d > %d",
