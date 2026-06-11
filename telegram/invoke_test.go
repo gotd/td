@@ -91,8 +91,10 @@ func TestClient_invokeConnContextCancel(t *testing.T) {
 	cancel()
 
 	// No reconnection happens, so canceled context must stop waiting,
-	// reporting original invoke error.
-	require.ErrorIs(t, client.invokeConn(ctx, nil, nil), pool.ErrConnDead)
+	// reporting context error to keep standard context semantics.
+	err := client.invokeConn(ctx, nil, nil)
+	require.ErrorIs(t, err, context.Canceled)
+	require.NotErrorIs(t, err, pool.ErrConnDead)
 }
 
 func TestClient_invokeConnClientClose(t *testing.T) {
@@ -103,8 +105,11 @@ func TestClient_invokeConnClientClose(t *testing.T) {
 	client.init()
 	client.conn = newNotifyInvokeConn(pool.ErrConnDead)
 
-	// Closed client never reconnects, so waiting must stop immediately.
-	require.ErrorIs(t, client.invokeConn(context.Background(), nil, nil), pool.ErrConnDead)
+	// Closed client never reconnects, so waiting must stop immediately,
+	// reporting client context error.
+	err := client.invokeConn(context.Background(), nil, nil)
+	require.ErrorIs(t, err, context.Canceled)
+	require.NotErrorIs(t, err, pool.ErrConnDead)
 }
 
 func TestClient_invokeConnNotRetryable(t *testing.T) {

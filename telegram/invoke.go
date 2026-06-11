@@ -109,10 +109,10 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 		)
 		select {
 		case <-ctx.Done():
-			return err
+			return errors.Wrap(ctx.Err(), "wait for reconnect")
 		case <-clientDone:
 			// Client is closed, no reconnection will happen.
-			return err
+			return errors.Wrap(c.ctx.Err(), "client closed")
 		case <-connChanged:
 		}
 	}
