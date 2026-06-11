@@ -39,7 +39,6 @@ gh repo clone DrKLO/Telegram android
 gh repo clone tdlib/td tdlib
 gh repo clone tdlib/telegram-bot-api
 gh repo clone TelegramMessenger/Telegram-iOS ios
-gh repo clone tdlib/td tdlib
 gh repo clone TelegramMessenger/tgcalls
 gh repo clone TelegramMessenger/MTProxy
 ```
