@@ -208,6 +208,32 @@ func (c *ChannelMembers) EditAdminRights(
 	return nil
 }
 
+// Promote promotes given user to an admin with the given rights.
+//
+// It is a convenience wrapper around EditAdminRights.
+func (c *ChannelMembers) Promote(ctx context.Context, admin tg.InputUserClass, options AdminRights) error {
+	return c.EditAdminRights(ctx, admin, options)
+}
+
+// Demote removes all admin rights of given user, demoting them to a regular member.
+//
+// It is a convenience wrapper around EditAdminRights with empty rights.
+func (c *ChannelMembers) Demote(ctx context.Context, admin tg.InputUserClass) error {
+	return c.EditAdminRights(ctx, admin, AdminRights{})
+}
+
+// Ban bans given member, denying them access to the channel.
+//
+// It is a convenience wrapper around KickMember.
+func (c *ChannelMembers) Ban(ctx context.Context, member tg.InputPeerClass) error {
+	return c.KickMember(ctx, member)
+}
+
+// Unban lifts all restrictions of given member, allowing them to re-join the channel.
+func (c *ChannelMembers) Unban(ctx context.Context, member tg.InputPeerClass) error {
+	return c.editMemberRights(ctx, member, MemberRights{})
+}
+
 // Channel returns recent channel members.
 func Channel(channel peers.Channel) *ChannelMembers {
 	return ChannelQuery{Channel: channel}.Recent()

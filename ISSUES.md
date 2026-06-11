@@ -31,6 +31,15 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   layout: `session/tdesktop` now prefers the modern `s`-suffixed file over legacy `0`/`1`
   (matching Telegram Desktop), so a stale legacy file no longer shadows the current one;
   added an end-to-end modern-layout read test.
+- **Done (partial — admin helpers):** #188 → channel/supergroup admin helpers in
+  `telegram/peers`: username management (`Channel.SetUsername`/`CheckUsername`/`DeactivateAllUsernames`),
+  photo (`Channel.SetPhoto`/`DeletePhoto`), supergroup toggles
+  (`Supergroup.TogglePreHistoryHidden`/`ToggleJoinToSend`/`ToggleJoinRequest`), recent-actions admin
+  log (`Channel.AdminLog()` query builder with `Search`/`Filter`/`Admins`/`ForEach`/`Fetch`), and
+  member convenience wrappers in `telegram/peers/members`
+  (`ChannelMembers.Promote`/`Demote`/`Ban`/`Unban`). Builds on the already-existing title/description/
+  reactions/slow-mode/signatures/sticker-set/discussion-group helpers; creator transfer
+  (`channels.editCreator`, SRP-gated) intentionally left out.
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -147,7 +156,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 217 | client: get-by-id helpers | **done — see Progress** |
 | 214 | message: Markdown styling for text messages | **already implemented** (`telegram/message/markdown`) |
 | 189 | message: sticker helpers | **already implemented** (`telegram/query/cached`) |
-| 188 | client: admin helpers | open |
+| 188 | client: admin helpers | **done (partial) — see Progress** (username/photo/toggles/admin-log/promote-demote-ban in `telegram/peers`; creator transfer left out) |
 | 172 | client: add OpenTelemetry tracing | open |
 | 166 | doc: add examples for every feature | open |
 | 164 | proto: sequential calls using `invokeAfterMsg(s)` | open |
