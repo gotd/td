@@ -278,6 +278,92 @@ func TestConnectionRecovery(t *testing.T) {
 	t.Run("Intermediate", testConnectionRecovery(transport.Intermediate))
 }
 
+func testConnectionState(p dcs.Protocol) func(t *testing.T) {
+	return testCluster(p, false, func(s clusterSetup) {
+		c := s.Cluster
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
+
+		var once sync.Once
+		c.Dispatch(2, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+			func(server *tgtest.Server, req *tgtest.Request) error {
+				m := &tg.MessagesSendMessageRequest{}
+				if err := m.Decode(req.Buf); err != nil {
+					return err
+				}
+
+				first := false
+				once.Do(func() {
+					first = true
+				})
+				if first {
+					// Simulate sudden connection loss to observe disconnected
+					// and reconnect state transitions.
+					server.ForceDisconnect(req.Session)
+					return nil
+				}
+				return server.SendGZIP(req, &tg.Updates{})
+			},
+		)
+	}, func(ctx context.Context, c clientSetup) error {
+		var (
+			statesMux sync.Mutex
+			states    []telegram.ConnectionState
+		)
+
+		opts := c.Options
+		opts.OnConnectionState = func(state telegram.ConnectionState) {
+			statesMux.Lock()
+			states = append(states, state)
+			statesMux.Unlock()
+		}
+
+		client := telegram.NewClient(1, "hash", opts)
+		if err := client.Run(ctx, func(ctx context.Context) error {
+			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+				Peer:    &tg.InputPeerUser{},
+				Message: "abc",
+			}); err != nil {
+				return errors.Wrap(err, "send")
+			}
+
+			c.Complete()
+			return nil
+		}); err != nil {
+			return err
+		}
+
+		statesMux.Lock()
+		defer statesMux.Unlock()
+		a := require.New(c.TB)
+
+		// Initial connect.
+		a.GreaterOrEqual(len(states), 2)
+		a.Equal(telegram.ConnectionStateConnecting, states[0])
+		a.Equal(telegram.ConnectionStateReady, states[1])
+
+		// Forced disconnect must be observed, followed by reconnect.
+		// Client shutdown may add trailing transitions, so search instead of
+		// comparing the exact sequence.
+		idx := -1
+		for i, state := range states[2:] {
+			if state == telegram.ConnectionStateDisconnected {
+				idx = i + 2
+				break
+			}
+		}
+		a.NotEqual(-1, idx, "expected disconnected state, got: %v", states)
+		a.Less(idx+1, len(states), "expected reconnect after disconnect, got: %v", states)
+		a.Equal(telegram.ConnectionStateConnecting, states[idx+1])
+		a.Contains(states[idx+1:], telegram.ConnectionStateReady, "expected ready after reconnect, got: %v", states)
+
+		return nil
+	})
+}
+
+func TestConnectionState(t *testing.T) {
+	t.Run("Intermediate", testConnectionState(transport.Intermediate))
+}
+
 func testFiles(p dcs.Protocol) func(t *testing.T) {
 	test := func(ws bool) func(t *testing.T) {
 		return testCluster(p, ws, func(s clusterSetup) {
