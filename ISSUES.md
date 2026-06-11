@@ -21,7 +21,9 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   (`OnLoadUserStateFailed`/`OnLoadChannelStateFailed` in `telegram/updates`), #1030/#1021 →
   connection-loss recovery: requests not processed by the server (not sent, or sent but not
   acknowledged) are transparently retried on the new connection (`rpc` close cause,
-  `telegram.Client.invokeConn` wait-for-reconnect, `pool.DC.Invoke` re-acquire).
+  `telegram.Client.invokeConn` wait-for-reconnect, `pool.DC.Invoke` re-acquire), #1308 →
+  primary connection state hook (`Options.OnConnectionState` with
+  connecting/ready/disconnected `ConnectionState`).
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -120,7 +122,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 1474 | Set Spoiler via `UploadedPhotoBuilder` | **done — PR #1743** |
 | 1406 | Update FakeTLS ClientHello to match modern clients | open |
 | 1362 | Phone call function | open |
-| 1308 | Handling `UpdateConnectionState` | open |
+| 1308 | Handling `UpdateConnectionState` | **done — see Progress** |
 | 1267 | Channel recommendations pagination | open |
 | 884 | helper: support messages/GetMediaGroup | **done — PR #1745** |
 | 883 | clock: support network clock | **done — `clock/ntp`** |

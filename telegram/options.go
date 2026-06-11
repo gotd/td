@@ -58,6 +58,13 @@ type Options struct {
 	ReconnectionBackoff func() backoff.BackOff
 	// OnDead will be called on connection dead.
 	OnDead func(error)
+	// OnConnectionState is called when the primary connection state changes:
+	// on every (re)connect start, on successful initialization and on
+	// connection loss. Connection death details are reported via OnDead.
+	//
+	// Called synchronously from connection lifecycle, so the callback must
+	// not block.
+	OnConnectionState func(ConnectionState)
 	// MigrationTimeout configures migration timeout.
 	MigrationTimeout time.Duration
 

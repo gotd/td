@@ -66,6 +66,8 @@ type Client struct {
 	onDead         func(error)            // immutable
 	newConnBackoff func() backoff.BackOff // immutable
 	defaultMode    manager.ConnMode       // immutable
+	// onConnectionState is called on primary connection state change.
+	onConnectionState func(ConnectionState) // immutable
 
 	// Migration state.
 	migrationTimeout time.Duration // immutable
@@ -185,19 +187,20 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cfg: manager.NewAtomicConfig(tg.Config{
 			DCOptions: opt.DCList.Options,
 		}),
-		create:           defaultConstructor(),
-		resolver:         opt.Resolver,
-		defaultMode:      mode,
-		newConnBackoff:   opt.ReconnectionBackoff,
-		onDead:           opt.OnDead,
-		clock:            opt.Clock,
-		device:           opt.Device,
-		migrationTimeout: opt.MigrationTimeout,
-		noUpdatesMode:    opt.NoUpdates,
-		mw:               opt.Middlewares,
-		onTransfer:       opt.OnTransfer,
-		onSelfError:      opt.OnSelfError,
-		onSelfSuccess:    opt.OnSelfSuccess,
+		create:            defaultConstructor(),
+		resolver:          opt.Resolver,
+		defaultMode:       mode,
+		newConnBackoff:    opt.ReconnectionBackoff,
+		onDead:            opt.OnDead,
+		onConnectionState: opt.OnConnectionState,
+		clock:             opt.Clock,
+		device:            opt.Device,
+		migrationTimeout:  opt.MigrationTimeout,
+		noUpdatesMode:     opt.NoUpdates,
+		mw:                opt.Middlewares,
+		onTransfer:        opt.OnTransfer,
+		onSelfError:       opt.OnSelfError,
+		onSelfSuccess:     opt.OnSelfSuccess,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
