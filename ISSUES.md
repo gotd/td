@@ -136,7 +136,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 824 | feat: errors with placeholders like `%d` | **closed — already addressed** |
 | 816 | uploader: compute part size automatically | **done — see Progress** |
 | 788 | invites: support `tg.ChatInvitePublicJoinRequests` | open |
-| 755 | auth: allow safer password passing | open |
+| 755 | auth: allow safer password passing | **done — `PasswordWith` + `telegram/auth/srpguard` (memguard)** |
 | 689 | Callback if user/channel state fails to load | **done — load callbacks added** |
 | 615 | auth: helpers for (re)setting/updating/recovering password | **done — recovery helpers added** |
 | 597 | bot: fix inspection of service messages | open (lives in `gotd/bot`) |
