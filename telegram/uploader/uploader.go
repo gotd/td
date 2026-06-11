@@ -90,20 +90,25 @@ func (u *Uploader) WithPartSize(partSize int) *Uploader {
 
 // Upload uploads data from Upload object.
 func (u *Uploader) Upload(ctx context.Context, upload *Upload) (tg.InputFileClass, error) {
+	// Resolve the effective part size and pool for this upload without mutating
+	// shared Uploader state, so the same Uploader can be used concurrently.
+	partSize, pool := u.partSize, u.pool
+
 	// Automatically grow part size for large files to keep the number of parts
 	// within the limit, unless the part size was set explicitly.
 	// See https://github.com/gotd/td/issues/816.
 	if u.autoPartSize && upload.totalBytes > 0 {
-		if partSize := computePartSize(upload.totalBytes); partSize != u.partSize {
-			u.setPartSize(partSize)
+		if grown := computePartSize(upload.totalBytes); grown != partSize {
+			partSize = grown
+			pool = bin.NewPool(grown)
 		}
 	}
 
-	if err := checkPartSize(u.partSize); err != nil {
+	if err := checkPartSize(partSize); err != nil {
 		return nil, errors.Wrap(err, "invalid part size")
 	}
 
-	if err := u.initUpload(upload); err != nil {
+	if err := u.initUpload(upload, partSize, pool); err != nil {
 		return nil, err
 	}
 	if upload.totalBytes == -1 {

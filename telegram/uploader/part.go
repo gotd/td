@@ -3,6 +3,7 @@ package uploader
 import (
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/constant"
 )
 
@@ -68,13 +69,13 @@ func computePartSize(total int64) int {
 	return partSize
 }
 
-func (u *Uploader) initUpload(upload *Upload) error {
+func (u *Uploader) initUpload(upload *Upload, partSize int, pool *bin.Pool) error {
 	big := upload.totalBytes > bigFileLimit
-	totalParts := computeParts(u.partSize, int(upload.totalBytes))
+	totalParts := computeParts(partSize, int(upload.totalBytes))
 	if !big && totalParts > partsLimit {
 		return errors.Errorf(
 			"part size is too small: total size = %d, part size = %d, %d / %d > %d",
-			upload.totalBytes, u.partSize, upload.totalBytes, u.partSize, partsLimit,
+			upload.totalBytes, partSize, upload.totalBytes, partSize, partsLimit,
 		)
 	}
 
@@ -85,14 +86,15 @@ func (u *Uploader) initUpload(upload *Upload) error {
 		}
 
 		upload.id = id
-		upload.partSize = u.partSize
-	} else if upload.partSize != u.partSize {
+		upload.partSize = partSize
+	} else if upload.partSize != partSize {
 		return errors.Errorf(
 			"previous upload has part size %d, but uploader size is %d",
-			upload.partSize, u.partSize,
+			upload.partSize, partSize,
 		)
 	}
 
+	upload.pool = pool
 	upload.big = big
 	upload.totalParts = totalParts
 	return nil

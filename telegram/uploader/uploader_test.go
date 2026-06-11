@@ -136,14 +136,17 @@ func TestUploader_autoPartSize(t *testing.T) {
 
 		_, err := u.Upload(ctx, up)
 		require.NoError(t, err)
-		require.Equal(t, MaximumPartSize, u.partSize, "part size must grow")
+		require.Equal(t, MaximumPartSize, up.partSize, "part size must grow")
+		require.Equal(t, defaultPartSize, u.partSize, "shared uploader part size must not change")
 		require.LessOrEqual(t, up.totalParts, partsLimit, "parts must stay within limit")
 	})
 
 	t.Run("KeepsDefaultForSmallFile", func(t *testing.T) {
 		u := NewUploader(newMockClient(false))
-		_, err := u.Upload(ctx, NewUpload("small.bin", bytes.NewReader(tinyData), int64(len(tinyData))))
+		up := NewUpload("small.bin", bytes.NewReader(tinyData), int64(len(tinyData)))
+		_, err := u.Upload(ctx, up)
 		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, up.partSize)
 		require.Equal(t, defaultPartSize, u.partSize)
 	})
 
@@ -154,6 +157,7 @@ func TestUploader_autoPartSize(t *testing.T) {
 
 		_, err := u.Upload(ctx, up)
 		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, up.partSize, "explicit part size must not change")
 		require.Equal(t, defaultPartSize, u.partSize, "explicit part size must not change")
 	})
 
@@ -163,6 +167,33 @@ func TestUploader_autoPartSize(t *testing.T) {
 		_, err := u.FromReader(ctx, "stream.bin", bytes.NewReader(tinyData))
 		require.NoError(t, err)
 		require.Equal(t, defaultPartSize, u.partSize)
+	})
+
+	t.Run("ConcurrentReuseKeepsConsistentPartSize", func(t *testing.T) {
+		// The same Uploader must be usable concurrently: one upload growing its
+		// part size must not affect another upload in flight.
+		u := NewUploader(newMockClient(false))
+
+		small := NewUpload("small.bin", bytes.NewReader(tinyData), int64(len(tinyData)))
+		big := NewUpload("big.bin", bytes.NewReader(tinyData), 1536*mb)
+
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go func() {
+			defer wg.Done()
+			_, err := u.Upload(ctx, small)
+			require.NoError(t, err)
+		}()
+		go func() {
+			defer wg.Done()
+			_, err := u.Upload(ctx, big)
+			require.NoError(t, err)
+		}()
+		wg.Wait()
+
+		require.Equal(t, defaultPartSize, small.partSize)
+		require.Equal(t, MaximumPartSize, big.partSize)
+		require.Equal(t, defaultPartSize, u.partSize, "shared uploader part size must not change")
 	})
 }
 
