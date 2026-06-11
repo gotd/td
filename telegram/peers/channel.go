@@ -298,4 +298,53 @@ func (c Channel) DisableReactions(ctx context.Context) error {
 	return c.m.editReactions(ctx, c.InputPeer(), &tg.ChatReactionsNone{})
 }
 
+// SetUsername sets the username of this channel/supergroup.
+//
+// Pass an empty string to remove the username.
+func (c Channel) SetUsername(ctx context.Context, username string) error {
+	if _, err := c.m.api.ChannelsUpdateUsername(ctx, &tg.ChannelsUpdateUsernameRequest{
+		Channel:  c.InputChannel(),
+		Username: username,
+	}); err != nil {
+		return errors.Wrap(err, "update username")
+	}
+	return nil
+}
+
+// CheckUsername checks whether the given username is available for this channel/supergroup.
+func (c Channel) CheckUsername(ctx context.Context, username string) (bool, error) {
+	ok, err := c.m.api.ChannelsCheckUsername(ctx, &tg.ChannelsCheckUsernameRequest{
+		Channel:  c.InputChannel(),
+		Username: username,
+	})
+	if err != nil {
+		return false, errors.Wrap(err, "check username")
+	}
+	return ok, nil
+}
+
+// DeactivateAllUsernames deactivates all purchased usernames of this channel/supergroup.
+func (c Channel) DeactivateAllUsernames(ctx context.Context) error {
+	if _, err := c.m.api.ChannelsDeactivateAllUsernames(ctx, c.InputChannel()); err != nil {
+		return errors.Wrap(err, "deactivate all usernames")
+	}
+	return nil
+}
+
+// SetPhoto sets the profile photo of this channel/supergroup.
+func (c Channel) SetPhoto(ctx context.Context, photo tg.InputChatPhotoClass) error {
+	if _, err := c.m.api.ChannelsEditPhoto(ctx, &tg.ChannelsEditPhotoRequest{
+		Channel: c.InputChannel(),
+		Photo:   photo,
+	}); err != nil {
+		return errors.Wrap(err, "edit photo")
+	}
+	return nil
+}
+
+// DeletePhoto removes the profile photo of this channel/supergroup.
+func (c Channel) DeletePhoto(ctx context.Context) error {
+	return c.SetPhoto(ctx, &tg.InputChatPhotoEmpty{})
+}
+
 // TODO(tdakkota): add more getters, helpers and convertors
