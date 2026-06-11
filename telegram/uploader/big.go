@@ -20,7 +20,7 @@ type part struct {
 }
 
 func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
-	defer u.pool.Put(p.buf)
+	defer p.upload.pool.Put(p.buf)
 
 	// Upload loop.
 	for {
@@ -56,7 +56,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 		totalStreamSize := 0
 
 		for {
-			buf := u.pool.GetSize(u.partSize)
+			buf := upload.pool.GetSize(upload.partSize)
 
 			n, err := io.ReadFull(r, buf.Buf)
 			if n > 0 {
@@ -66,16 +66,16 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 			case errors.Is(err, io.ErrUnexpectedEOF):
 				last = true
 				if upload.totalParts == -1 {
-					totalParts := (totalStreamSize + u.partSize - 1) / u.partSize
+					totalParts := (totalStreamSize + upload.partSize - 1) / upload.partSize
 					upload.totalParts = int(totalParts)
 				}
 			case errors.Is(err, io.EOF):
-				u.pool.Put(buf)
+				upload.pool.Put(buf)
 
 				close(toSend)
 				return nil
 			case err != nil:
-				u.pool.Put(buf)
+				upload.pool.Put(buf)
 
 				return errors.Wrap(err, "read source")
 			}
@@ -94,7 +94,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 					return nil
 				}
 			case <-ctx.Done():
-				u.pool.Put(buf)
+				upload.pool.Put(buf)
 
 				return ctx.Err()
 			}

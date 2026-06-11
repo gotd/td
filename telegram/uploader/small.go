@@ -11,8 +11,8 @@ import (
 )
 
 func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) error {
-	buf := u.pool.GetSize(u.partSize)
-	defer u.pool.Put(buf)
+	buf := upload.pool.GetSize(upload.partSize)
+	defer upload.pool.Put(buf)
 
 	last := false
 

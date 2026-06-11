@@ -6,6 +6,8 @@ import (
 	"sync"
 
 	"go.uber.org/atomic"
+
+	"github.com/gotd/td/bin"
 )
 
 // NewUpload creates new Upload struct using given
@@ -35,8 +37,10 @@ type Upload struct {
 
 	// Total parts.
 	totalParts int
-	// Part size of uploader.
+	// Part size for this upload.
 	partSize int
+	// Buffer pool sized for partSize.
+	pool *bin.Pool
 	// Flag to determine class of size of file.
 	big bool
 

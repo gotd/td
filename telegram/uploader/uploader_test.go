@@ -119,6 +119,84 @@ func (m mockSource) Size() int64 {
 	return m.data.Size()
 }
 
+func TestUploader_autoPartSize(t *testing.T) {
+	ctx := context.Background()
+	const mb = 1024 * 1024
+
+	// tinyData stands in for a large file: the negotiated part size and parts
+	// count are derived from the declared total size, not from the bytes read,
+	// so we can exercise the part-size logic without allocating gigabytes.
+	tinyData := []byte{1, 2, 3}
+
+	t.Run("GrowsForLargeFile", func(t *testing.T) {
+		u := NewUploader(newMockClient(false))
+		// ~1.5 GB would need >3999 parts at the default 128 KB part size and
+		// previously failed with FILE_PARTS_INVALID.
+		up := NewUpload("big.bin", bytes.NewReader(tinyData), 1536*mb)
+
+		_, err := u.Upload(ctx, up)
+		require.NoError(t, err)
+		require.Equal(t, MaximumPartSize, up.partSize, "part size must grow")
+		require.Equal(t, defaultPartSize, u.partSize, "shared uploader part size must not change")
+		require.LessOrEqual(t, up.totalParts, partsLimit, "parts must stay within limit")
+	})
+
+	t.Run("KeepsDefaultForSmallFile", func(t *testing.T) {
+		u := NewUploader(newMockClient(false))
+		up := NewUpload("small.bin", bytes.NewReader(tinyData), int64(len(tinyData)))
+		_, err := u.Upload(ctx, up)
+		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, up.partSize)
+		require.Equal(t, defaultPartSize, u.partSize)
+	})
+
+	t.Run("RespectsExplicitPartSize", func(t *testing.T) {
+		u := NewUploader(newMockClient(false)).WithPartSize(defaultPartSize)
+		// Even for a large declared size, explicit part size must be kept.
+		up := NewUpload("big.bin", bytes.NewReader(tinyData), 1536*mb)
+
+		_, err := u.Upload(ctx, up)
+		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, up.partSize, "explicit part size must not change")
+		require.Equal(t, defaultPartSize, u.partSize, "explicit part size must not change")
+	})
+
+	t.Run("UnaffectedForStream", func(t *testing.T) {
+		u := NewUploader(newMockClient(false))
+		// Unknown size (streamed upload): cannot compute, default is kept.
+		_, err := u.FromReader(ctx, "stream.bin", bytes.NewReader(tinyData))
+		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, u.partSize)
+	})
+
+	t.Run("ConcurrentReuseKeepsConsistentPartSize", func(t *testing.T) {
+		// The same Uploader must be usable concurrently: one upload growing its
+		// part size must not affect another upload in flight.
+		u := NewUploader(newMockClient(false))
+
+		small := NewUpload("small.bin", bytes.NewReader(tinyData), int64(len(tinyData)))
+		big := NewUpload("big.bin", bytes.NewReader(tinyData), 1536*mb)
+
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go func() {
+			defer wg.Done()
+			_, err := u.Upload(ctx, small)
+			require.NoError(t, err)
+		}()
+		go func() {
+			defer wg.Done()
+			_, err := u.Upload(ctx, big)
+			require.NoError(t, err)
+		}()
+		wg.Wait()
+
+		require.Equal(t, defaultPartSize, small.partSize)
+		require.Equal(t, MaximumPartSize, big.partSize)
+		require.Equal(t, defaultPartSize, u.partSize, "shared uploader part size must not change")
+	})
+}
+
 func TestUploader(t *testing.T) {
 	ctx := context.Background()
 
