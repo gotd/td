@@ -128,7 +128,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 1510 | Link Preview Options helper | **done — PR #1744** |
 | 1474 | Set Spoiler via `UploadedPhotoBuilder` | **done — PR #1743** |
 | 1406 | Update FakeTLS ClientHello to match modern clients | open |
-| 1362 | Phone call function | open |
+| 1362 | Phone call function | **in progress — `telegram/calls` (1:1 VoIP, tgcalls v2)** |
 | 1308 | Handling `UpdateConnectionState` | **done — see Progress** |
 | 1267 | Channel recommendations pagination | open |
 | 884 | helper: support messages/GetMediaGroup | **done — PR #1745** |

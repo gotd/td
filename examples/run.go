@@ -4,11 +4,15 @@ import (
 	"context"
 
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 // Run runs f callback with context and logger, panics on error.
 func Run(f func(ctx context.Context, log *zap.Logger) error) {
-	log, err := zap.NewDevelopment()
+	cfg := zap.NewProductionConfig()
+	cfg.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+	cfg.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	log, err := cfg.Build()
 	if err != nil {
 		panic(err)
 	}
