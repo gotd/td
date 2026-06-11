@@ -119,6 +119,53 @@ func (m mockSource) Size() int64 {
 	return m.data.Size()
 }
 
+func TestUploader_autoPartSize(t *testing.T) {
+	ctx := context.Background()
+	const mb = 1024 * 1024
+
+	// tinyData stands in for a large file: the negotiated part size and parts
+	// count are derived from the declared total size, not from the bytes read,
+	// so we can exercise the part-size logic without allocating gigabytes.
+	tinyData := []byte{1, 2, 3}
+
+	t.Run("GrowsForLargeFile", func(t *testing.T) {
+		u := NewUploader(newMockClient(false))
+		// ~1.5 GB would need >3999 parts at the default 128 KB part size and
+		// previously failed with FILE_PARTS_INVALID.
+		up := NewUpload("big.bin", bytes.NewReader(tinyData), 1536*mb)
+
+		_, err := u.Upload(ctx, up)
+		require.NoError(t, err)
+		require.Equal(t, MaximumPartSize, u.partSize, "part size must grow")
+		require.LessOrEqual(t, up.totalParts, partsLimit, "parts must stay within limit")
+	})
+
+	t.Run("KeepsDefaultForSmallFile", func(t *testing.T) {
+		u := NewUploader(newMockClient(false))
+		_, err := u.Upload(ctx, NewUpload("small.bin", bytes.NewReader(tinyData), int64(len(tinyData))))
+		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, u.partSize)
+	})
+
+	t.Run("RespectsExplicitPartSize", func(t *testing.T) {
+		u := NewUploader(newMockClient(false)).WithPartSize(defaultPartSize)
+		// Even for a large declared size, explicit part size must be kept.
+		up := NewUpload("big.bin", bytes.NewReader(tinyData), 1536*mb)
+
+		_, err := u.Upload(ctx, up)
+		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, u.partSize, "explicit part size must not change")
+	})
+
+	t.Run("UnaffectedForStream", func(t *testing.T) {
+		u := NewUploader(newMockClient(false))
+		// Unknown size (streamed upload): cannot compute, default is kept.
+		_, err := u.FromReader(ctx, "stream.bin", bytes.NewReader(tinyData))
+		require.NoError(t, err)
+		require.Equal(t, defaultPartSize, u.partSize)
+	})
+}
+
 func TestUploader(t *testing.T) {
 	ctx := context.Background()
 

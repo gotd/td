@@ -18,22 +18,35 @@ type Uploader struct {
 	rpc      Client
 	id       func() (int64, error)
 	partSize int
-	pool     *bin.Pool
-	threads  int
-	progress Progress
-	src      source.Source
+	// autoPartSize enables automatic part size computation based on file size.
+	// Disabled when the part size is set explicitly via WithPartSize.
+	autoPartSize bool
+	pool         *bin.Pool
+	threads      int
+	progress     Progress
+	src          source.Source
 }
 
 // NewUploader creates new Uploader.
 func NewUploader(rpc Client) *Uploader {
-	return (&Uploader{
+	u := &Uploader{
 		rpc: rpc,
 		id: func() (int64, error) {
 			return crypto.RandInt64(crypto.DefaultRand())
 		},
-		src:     source.NewHTTPSource(),
-		threads: 1,
-	}).WithPartSize(defaultPartSize)
+		src:          source.NewHTTPSource(),
+		threads:      1,
+		autoPartSize: true,
+	}
+	u.setPartSize(defaultPartSize)
+	return u
+}
+
+// setPartSize sets part size and (re)creates the buffer pool, without
+// affecting the autoPartSize flag.
+func (u *Uploader) setPartSize(partSize int) {
+	u.partSize = partSize
+	u.pool = bin.NewPool(partSize)
 }
 
 // WithProgress sets progress callback.
@@ -66,15 +79,26 @@ func (u *Uploader) WithIDGenerator(cb func() (int64, error)) *Uploader {
 // Should be divisible by 1024.
 // 524288 should be divisible by partSize.
 //
+// Setting part size explicitly disables automatic part size computation.
+//
 // See https://core.telegram.org/api/files#uploading-files.
 func (u *Uploader) WithPartSize(partSize int) *Uploader {
-	u.partSize = partSize
-	u.pool = bin.NewPool(partSize)
+	u.autoPartSize = false
+	u.setPartSize(partSize)
 	return u
 }
 
 // Upload uploads data from Upload object.
 func (u *Uploader) Upload(ctx context.Context, upload *Upload) (tg.InputFileClass, error) {
+	// Automatically grow part size for large files to keep the number of parts
+	// within the limit, unless the part size was set explicitly.
+	// See https://github.com/gotd/td/issues/816.
+	if u.autoPartSize && upload.totalBytes > 0 {
+		if partSize := computePartSize(upload.totalBytes); partSize != u.partSize {
+			u.setPartSize(partSize)
+		}
+	}
+
 	if err := checkPartSize(u.partSize); err != nil {
 		return nil, errors.Wrap(err, "invalid part size")
 	}

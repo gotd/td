@@ -51,6 +51,23 @@ func computeParts(partSize, total int) int {
 	return parts
 }
 
+// computePartSize returns the smallest valid part size that keeps the number of
+// parts within partsLimit for the given total size.
+//
+// Starting from defaultPartSize, it doubles the part size (staying a valid
+// power-of-two divisor of MaximumPartSize) until the file fits into partsLimit
+// parts or MaximumPartSize is reached. This prevents FILE_PARTS_INVALID on large
+// files uploaded with the default part size.
+//
+// See https://core.telegram.org/api/files#uploading-files.
+func computePartSize(total int64) int {
+	partSize := defaultPartSize
+	for partSize < MaximumPartSize && computeParts(partSize, int(total)) > partsLimit {
+		partSize *= 2
+	}
+	return partSize
+}
+
 func (u *Uploader) initUpload(upload *Upload) error {
 	big := upload.totalBytes > bigFileLimit
 	totalParts := computeParts(u.partSize, int(upload.totalBytes))
