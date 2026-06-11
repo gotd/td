@@ -86,6 +86,10 @@ go test -race ./mtproto/...
 - **Context error semantics.** On context cancellation, return the wrapped `ctx.Err()`, never the
   underlying transport error.
 
+- **`go-faster/errors.Wrap` does not short-circuit on nil.** `errors.Wrap(nil, msg)` returns a
+  *non-nil* error (unlike `pkg/errors`). Guard with `if err != nil { return errors.Wrap(err, ...) }`
+  before wrapping a result that may be nil.
+
 - New external dependencies should be isolated in a subpackage so they don't leak into the core
   `clock`/`mtproto` tree (e.g. `clock/ntp` keeps `beevik/ntp` out of core).
 
