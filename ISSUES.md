@@ -40,6 +40,12 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   (`ChannelMembers.Promote`/`Demote`/`Ban`/`Unban`). Builds on the already-existing title/description/
   reactions/slow-mode/signatures/sticker-set/discussion-group helpers; creator transfer
   (`channels.editCreator`, SRP-gated) intentionally left out.
+- **Done:** #1267 → channel recommendations helper
+  (`Channel.RecommendedChannels` / `Manager.RecommendedChannels` in `telegram/peers`):
+  the raw `channels.getChannelRecommendations` has no offset/hash, so true pagination
+  isn't an API feature — instead the helper surfaces the total `Count` from
+  `messages.chatsSlice` (Premium gets the full list; others a capped subset) so callers
+  can detect that more recommendations exist.
 - **Closed as already-addressed:** #824 (`tgerr.Error` already extracts `Type`/`Argument`).
 - **Found already implemented** (should be closed, not built): #214 Markdown styling
   (`telegram/message/markdown`), #189 sticker helpers (`telegram/query/cached` generates all 8).
@@ -139,7 +145,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 1406 | Update FakeTLS ClientHello to match modern clients | open |
 | 1362 | Phone call function | **in progress — `telegram/calls` (1:1 VoIP, tgcalls v2)** |
 | 1308 | Handling `UpdateConnectionState` | **done — see Progress** |
-| 1267 | Channel recommendations pagination | open |
+| 1267 | Channel recommendations pagination | **done — `Channel.RecommendedChannels` (+ total Count)** |
 | 884 | helper: support messages/GetMediaGroup | **done — PR #1745** |
 | 883 | clock: support network clock | **done — `clock/ntp`** |
 | 824 | feat: errors with placeholders like `%d` | **closed — already addressed** |
@@ -187,7 +193,7 @@ implemented (#214, #189) and one was closed (#824); they are excluded here.
 | 788 | `ChatInvitePublicJoinRequests` | Requires loosening the `InviteLink` type, currently hardwired to `ChatInviteExported`. |
 | 1308 | connection-state updates | `OnSession` exists; add a connect/disconnect hook (no TDLib-style state machine). |
 | 755 | safer password passing | Callback-based password hashing in `telegram/auth`. |
-| 1267 | recommendations pagination | Raw method exists, no helper; needs limit/more investigation. |
+| 1267 | recommendations pagination | **done** — helper added (`telegram/peers`). No offset/hash on the raw method, so not truly paginable; helper exposes the total `Count` (Premium-gated full list). |
 
 **Tier 3 — hard** (cross-cutting, breaking, or deep):
 
