@@ -528,6 +528,11 @@ func (c *Conn) fireDisconnected() {
 }
 
 // Close tears down the transport.
+//
+// It uses pion's graceful shutdown variants, which block until the ICE agent's
+// asynchronous state-change notifier goroutines have drained. Otherwise the
+// queued "closed" callback could fire (and log) after the caller — e.g. a test
+// — has already returned.
 func (c *Conn) Close() error {
 	c.mu.Lock()
 	dtls, ice, gatherer := c.dtls, c.ice, c.gatherer
@@ -536,10 +541,10 @@ func (c *Conn) Close() error {
 		_ = dtls.Stop()
 	}
 	if ice != nil {
-		_ = ice.Stop()
+		_ = ice.GracefulStop()
 	}
 	if gatherer != nil {
-		_ = gatherer.Close()
+		_ = gatherer.GracefulClose()
 	}
 	return nil
 }
