@@ -26,6 +26,7 @@ require (
 	github.com/pion/rtp v1.10.2
 	github.com/pion/transport/v4 v4.0.2
 	github.com/pion/webrtc/v4 v4.2.15
+	github.com/refraction-networking/utls v1.8.2
 	github.com/rogpeppe/go-internal v1.15.0
 	github.com/stretchr/testify v1.11.1
 	github.com/yuin/goldmark v1.8.2
@@ -46,6 +47,7 @@ require (
 
 require (
 	github.com/PuerkitoBio/goquery v1.11.0 // indirect
+	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/awnumar/memcall v0.4.0 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
