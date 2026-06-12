@@ -153,12 +153,7 @@ func (e Elem) File() (File, bool) {
 		return File{
 			Name:     filename,
 			MIMEType: "image/jpeg",
-			Location: &tg.InputPhotoFileLocation{
-				ID:            photo.ID,
-				AccessHash:    photo.AccessHash,
-				FileReference: photo.FileReference,
-				ThumbSize:     thumbSize,
-			},
+			Location: photo.AsInputPhotoFileLocation(thumbSize),
 		}, true
 	case *tg.MessageMediaDocument:
 		doc, ok := media.Document.AsNotEmpty()
@@ -169,7 +164,8 @@ func (e Elem) File() (File, bool) {
 		return File{
 			Name:     getDocFilename(doc),
 			MIMEType: doc.MimeType,
-			Location: doc.AsInputDocumentFileLocation(),
+			// Empty thumb size downloads the full document, not a thumbnail.
+			Location: doc.AsInputDocumentFileLocation(""),
 		}, true
 	default:
 		return File{}, false

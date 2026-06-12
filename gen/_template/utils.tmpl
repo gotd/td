@@ -34,9 +34,13 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 {{- if not ($mapping.Concrete) }}{{ $mapping.Name }}{{- else }}*{{ $mapping.Name }}{{- end -}}
 {{ end }}
 
+{{ define "mapper_params" }}{{- /*gotype: []github.com/gotd/td/gen.fieldDef*/ -}}
+{{- range $i, $p := . }}{{ if $i }}, {{ end }}{{ camel $p.RawName }} {{ template "print_type" $p }}{{ end }}
+{{- end }}
+
 {{ define "mapper_func_type" }}{{ $mapping := . -}}
 {{- /*gotype: github.com/gotd/td/gen.constructorMapping*/ -}}
-{{- if $mapping.Fields }}As{{ $mapping.MapperName }}() {{ template "print_mapper_type" $mapping }}
+{{- if $mapping.Fields }}As{{ $mapping.MapperName }}({{ template "mapper_params" $mapping.Params }}) {{ template "print_mapper_type" $mapping }}
 {{- else }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
 {{- end }}{{- end }}
 

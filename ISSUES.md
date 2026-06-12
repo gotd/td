@@ -30,7 +30,14 @@ Triage of all open issues as of 2026-06-11. Grouped into **Invalid**, **Already 
   users/channels already covered by `telegram/peers`), #825 → tdesktop modern `key_datas`
   layout: `session/tdesktop` now prefers the modern `s`-suffixed file over legacy `0`/`1`
   (matching Telegram Desktop), so a stale legacy file no longer shadows the current one;
-  added an end-to-end modern-layout read test.
+  added an end-to-end modern-layout read test, #376 → parameterized `As`-mappers: the
+  code generator now exposes target fields that can't be derived from the source
+  constructor as method parameters instead of skipping the mapping. `thumb_size` on
+  file-location inputs is supplied by the caller, so `Document`/`InputDocument` gain
+  `AsInputDocumentFileLocation(thumbSize string)` and `Photo`/`InputPhoto` get a new
+  `AsInputPhotoFileLocation(thumbSize string)` (previously dropped because `thumb_size`
+  is required); `telegram/query/messages` now uses these mappers instead of building the
+  location structs by hand.
 - **Done (partial — tgtest server epic):** #199 → personal-messages service
   (`tgtest/services/messages`): implements `messages.sendMessage` (stores the
   dialog, echoes the sent message back as `UpdateMessageID`+`UpdateNewMessage`)
@@ -164,7 +171,7 @@ Legitimate open bugs and actionable enhancements. Tracked in the backlog issue.
 | 615 | auth: helpers for (re)setting/updating/recovering password | **done — recovery helpers added** |
 | 597 | bot: fix inspection of service messages | open (lives in `gotd/bot`) |
 | 392 | mtproto: containerize small messages | open |
-| 376 | gen: derive mappings with parameters | open |
+| 376 | gen: derive mappings with parameters | **done — see Progress** |
 | 283 | query: generate resolve helpers when query needs peer parameter | open |
 | 263 | client: improve FLOOD_WAIT handling | open |
 | 217 | client: get-by-id helpers | **done — see Progress** |

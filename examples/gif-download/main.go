@@ -165,7 +165,8 @@ func run(ctx context.Context) error {
 					}
 
 					// Downloading gif to gifPath.
-					loc := doc.AsInputDocumentFileLocation()
+					// Empty thumb size downloads the full document, not a thumbnail.
+					loc := doc.AsInputDocumentFileLocation("")
 					if _, err := d.Download(api, loc).ToPath(ctx, gifPath); err != nil {
 						return errors.Wrap(err, "download")
 					}

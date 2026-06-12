@@ -652,6 +652,17 @@ func (p *Photo) AsInput() *InputPhoto {
 	return value
 }
 
+// AsInputPhotoFileLocation tries to map Photo to InputPhotoFileLocation.
+func (p *Photo) AsInputPhotoFileLocation(thumbSize string) *InputPhotoFileLocation {
+	value := new(InputPhotoFileLocation)
+	value.ID = p.GetID()
+	value.AccessHash = p.GetAccessHash()
+	value.FileReference = p.GetFileReference()
+	value.ThumbSize = thumbSize
+
+	return value
+}
+
 // AsNotEmpty tries to map PhotoEmpty to Photo.
 func (p *PhotoEmpty) AsNotEmpty() (*Photo, bool) {
 	return nil, false

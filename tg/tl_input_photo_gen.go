@@ -372,6 +372,17 @@ type InputPhotoClass interface {
 	AsNotEmpty() (*InputPhoto, bool)
 }
 
+// AsInputPhotoFileLocation tries to map InputPhoto to InputPhotoFileLocation.
+func (i *InputPhoto) AsInputPhotoFileLocation(thumbSize string) *InputPhotoFileLocation {
+	value := new(InputPhotoFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+	value.FileReference = i.GetFileReference()
+	value.ThumbSize = thumbSize
+
+	return value
+}
+
 // AsNotEmpty tries to map InputPhotoEmpty to InputPhoto.
 func (i *InputPhotoEmpty) AsNotEmpty() (*InputPhoto, bool) {
 	return nil, false

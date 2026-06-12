@@ -373,11 +373,12 @@ type InputDocumentClass interface {
 }
 
 // AsInputDocumentFileLocation tries to map InputDocument to InputDocumentFileLocation.
-func (i *InputDocument) AsInputDocumentFileLocation() *InputDocumentFileLocation {
+func (i *InputDocument) AsInputDocumentFileLocation(thumbSize string) *InputDocumentFileLocation {
 	value := new(InputDocumentFileLocation)
 	value.ID = i.GetID()
 	value.AccessHash = i.GetAccessHash()
 	value.FileReference = i.GetFileReference()
+	value.ThumbSize = thumbSize
 
 	return value
 }
