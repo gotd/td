@@ -60,16 +60,14 @@ func (m *Message) Input() *tg.InputRichMessage {
 }
 
 // Source describes an HTML or Markdown rich message source to be parsed by
-// Telegram's servers, together with its attachments.
+// Telegram's servers, together with its attached files.
 //
 // The zero value is a valid empty source; configure it with the methods and
 // finalize it with [Source.HTML] or [Source.Markdown].
 type Source struct {
 	rtl        bool
 	noAutoLink bool
-	photos     []tg.InputPhotoClass
-	documents  []tg.InputDocumentClass
-	users      []tg.InputUserClass
+	files      []tg.InputRichFileClass
 }
 
 // Rich starts a server-parsed rich message source.
@@ -90,48 +88,52 @@ func (s *Source) NoAutoLink() *Source {
 	return s
 }
 
-// Photos sets the photos referenced by the message.
-func (s *Source) Photos(photos ...tg.InputPhotoClass) *Source {
-	s.photos = photos
+// Photo attaches a photo referenced by the given id in the message source
+// (inputRichFilePhoto).
+func (s *Source) Photo(id string, photo tg.InputPhotoClass) *Source {
+	s.files = append(s.files, &tg.InputRichFilePhoto{ID: id, Photo: photo})
 	return s
 }
 
-// Documents sets the documents referenced by the message.
-func (s *Source) Documents(documents ...tg.InputDocumentClass) *Source {
-	s.documents = documents
+// Document attaches a document referenced by the given id in the message source
+// (inputRichFileDocument).
+func (s *Source) Document(id string, document tg.InputDocumentClass) *Source {
+	s.files = append(s.files, &tg.InputRichFileDocument{ID: id, Document: document})
 	return s
 }
 
-// Users sets the users referenced by the message.
-func (s *Source) Users(users ...tg.InputUserClass) *Source {
-	s.users = users
+// Files sets the files referenced by the message source.
+func (s *Source) Files(files ...tg.InputRichFileClass) *Source {
+	s.files = files
 	return s
 }
 
 // HTML finalizes the source as an HTML rich message parsed by the server
 // (inputRichMessageHTML).
 func (s *Source) HTML(html string) *tg.InputRichMessageHTML {
-	return &tg.InputRichMessageHTML{
+	msg := &tg.InputRichMessageHTML{
 		Rtl:        s.rtl,
 		Noautolink: s.noAutoLink,
 		HTML:       html,
-		Photos:     s.photos,
-		Documents:  s.documents,
-		Users:      s.users,
 	}
+	if len(s.files) > 0 {
+		msg.SetFiles(s.files)
+	}
+	return msg
 }
 
 // Markdown finalizes the source as a Markdown rich message parsed by the server
 // (inputRichMessageMarkdown).
 func (s *Source) Markdown(markdown string) *tg.InputRichMessageMarkdown {
-	return &tg.InputRichMessageMarkdown{
+	msg := &tg.InputRichMessageMarkdown{
 		Rtl:        s.rtl,
 		Noautolink: s.noAutoLink,
 		Markdown:   markdown,
-		Photos:     s.photos,
-		Documents:  s.documents,
-		Users:      s.users,
 	}
+	if len(s.files) > 0 {
+		msg.SetFiles(s.files)
+	}
+	return msg
 }
 
 // HTML wraps an HTML source into an inputRichMessageHTML to be parsed by
