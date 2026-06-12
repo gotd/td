@@ -7,8 +7,10 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
+
+	"github.com/gotd/log"
+	"github.com/gotd/log/logzap"
 
 	"github.com/gotd/td/fileid"
 	"github.com/gotd/td/telegram"
@@ -16,7 +18,7 @@ import (
 	"github.com/gotd/td/testutil"
 )
 
-func runBot(ctx context.Context, token, fileID string, logger *zap.Logger) error {
+func runBot(ctx context.Context, token, fileID string, logger log.Logger) error {
 	bot := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Logger: logger,
 	})
@@ -81,7 +83,7 @@ func TestExternalE2ECheckFileID(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	if err := runBot(ctx, token, fileID, logger.Named("bot")); err != nil {
+	if err := runBot(ctx, token, fileID, logzap.New(logger.Named("bot"))); err != nil {
 		t.Error(err)
 	}
 }
