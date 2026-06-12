@@ -80,6 +80,14 @@ func (c *Client) dc(
 
 	opts := c.opts
 	if mode == manager.ConnModeCDN {
+		// CDN datacenters reject auth.bindTempAuthKey with CDN_METHOD_INVALID:
+		// a CDN connection must authenticate with a permanent key only, without
+		// PFS. The official clients do the same, forcing perm-key-only on CDN
+		// DCs regardless of the global PFS setting. opts is a local copy of
+		// c.opts, so this disables PFS for the CDN pool only and leaves it
+		// intact for the primary and data connections.
+		opts.EnablePFS = false
+
 		// TDesktop-compatible gate: CDN connection is allowed only when keyset
 		// for requested CDN DC is present (or can be fetched).
 		cdnKeys, set := c.cachedCDNKeysForDC(dcID)

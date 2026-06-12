@@ -408,6 +408,40 @@ func TestClientCDNUsesDCSpecificKeysOverBase(t *testing.T) {
 	require.Equal(t, []PublicKey{cdnKey, baseKey}, got)
 }
 
+func TestClientCDNDisablesPFS(t *testing.T) {
+	c := newCDNPoolTestClient()
+	defer c.cancel()
+
+	// Global PFS is enabled, but CDN connections must still authenticate with a
+	// permanent key only: CDN datacenters reject auth.bindTempAuthKey with
+	// CDN_METHOD_INVALID.
+	c.opts.EnablePFS = true
+
+	captured := make(chan bool, 1)
+	c.create = func(
+		_ mtproto.Dialer,
+		mode manager.ConnMode,
+		_ int,
+		opts mtproto.Options,
+		_ manager.ConnOptions,
+	) pool.Conn {
+		if mode == manager.ConnModeCDN {
+			captured <- opts.EnablePFS
+		}
+		return newIdlePoolConn()
+	}
+
+	inv, err := c.CDN(context.Background(), 203, 1)
+	require.NoError(t, err)
+	require.NotNil(t, inv)
+	defer func() {
+		require.NoError(t, inv.Close())
+	}()
+	require.NoError(t, inv.Invoke(context.Background(), nil, nil))
+
+	require.False(t, <-captured, "CDN connection must not enable PFS")
+}
+
 func TestClientCDNWithoutDCSpecificKeysFailsFast(t *testing.T) {
 	c := newCDNPoolTestClient()
 	defer c.cancel()
