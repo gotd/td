@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
@@ -15,7 +15,7 @@ import (
 func TestClientOnCDNSessionStoresSeparateMap(t *testing.T) {
 	a := require.New(t)
 	c := &Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	c.init()
 
@@ -49,7 +49,7 @@ func TestClientOnCDNSessionStoresSeparateMap(t *testing.T) {
 func TestCDNHandlerUsesCDNSessionPath(t *testing.T) {
 	a := require.New(t)
 	c := &Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	c.init()
 

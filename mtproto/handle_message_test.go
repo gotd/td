@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/neo"
 
 	"github.com/gotd/td/bin"
@@ -55,7 +55,7 @@ func newTestHandler() Handler {
 func TestConnHandleMessage(t *testing.T) {
 	c := &Conn{
 		rand:    Zero{},
-		log:     zap.NewNop(),
+		log:     log.For(log.Nop),
 		handler: newTestHandler(),
 	}
 
@@ -103,7 +103,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 		rpc:        rpc.New(rpc.NopSend, rpc.Options{}),
 		clock:      neo.NewTime(time.Now()),
 		rand:       Zero{},
-		log:        zap.NewNop(),
+		log:        log.For(log.Nop),
 		gotSession: tdsync.NewReady(),
 	}
 

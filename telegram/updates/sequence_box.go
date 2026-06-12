@@ -5,8 +5,8 @@ import (
 	"sort"
 	"time"
 
+	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
 )
 
 type sequenceBox struct {
@@ -16,14 +16,14 @@ type sequenceBox struct {
 	pending    []update
 
 	apply  func(ctx context.Context, state int, updates []update) error
-	log    *zap.Logger
+	log    log.Helper
 	tracer trace.Tracer
 }
 
 type sequenceConfig struct {
 	InitialState int
 	Apply        func(ctx context.Context, state int, updates []update) error
-	Logger       *zap.Logger
+	Logger       log.Logger
 	Tracer       trace.Tracer
 }
 
@@ -32,13 +32,14 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 		panic("Apply func nil")
 	}
 	if cfg.Logger == nil {
-		cfg.Logger = zap.NewNop()
+		cfg.Logger = log.Nop
 	}
 	if cfg.Tracer == nil {
 		cfg.Tracer = trace.NewNoopTracerProvider().Tracer("")
 	}
 
-	cfg.Logger.Debug("Initialized", zap.Int("internalState", cfg.InitialState))
+	logger := log.For(cfg.Logger)
+	logger.Debug(context.Background(), "Initialized", log.Int("internalState", cfg.InitialState))
 
 	t := time.NewTimer(fastgapTimeout)
 	_ = t.Stop()
@@ -46,7 +47,7 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 		state:      cfg.InitialState,
 		gapTimeout: t,
 		apply:      cfg.Apply,
-		log:        cfg.Logger,
+		log:        logger,
 		tracer:     cfg.Tracer,
 	}
 }
@@ -55,23 +56,23 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 	ctx, span := s.tracer.Start(ctx, "sequenceBox.Handle")
 	defer span.End()
 
-	log := s.log.With(zap.Int("upd_from", u.start()), zap.Int("upd_to", u.end()))
+	logger := s.log.With(log.Int("upd_from", u.start()), log.Int("upd_to", u.end()))
 	if checkGap(s.state, u.State, u.Count) == gapIgnore {
-		log.Debug("Outdated update, skipping", zap.Int("internalState", s.state))
+		logger.Debug(ctx, "Outdated update, skipping", log.Int("internalState", s.state))
 		return nil
 	}
 
 	if s.gaps.Has() {
 		s.pending = append(s.pending, u)
 		if accepted := s.gaps.Consume(u); !accepted {
-			log.Debug("Out of gap range, postponed", zap.Array("gaps", s.gaps))
+			logger.Debug(ctx, "Out of gap range, postponed", log.Stringer("gaps", s.gaps))
 			return nil
 		}
 
-		log.Debug("Gap accepted", zap.Array("gaps", s.gaps))
+		logger.Debug(ctx, "Gap accepted", log.Stringer("gaps", s.gaps))
 		if !s.gaps.Has() {
 			_ = s.gapTimeout.Stop()
-			s.log.Debug("Gap was resolved by waiting")
+			s.log.Debug(ctx, "Gap was resolved by waiting")
 			return s.applyPending(ctx)
 		}
 		return nil
@@ -87,7 +88,7 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 			return err
 		}
 
-		log.Debug("Accepted")
+		logger.Debug(ctx, "Accepted")
 		s.setState(u.State, "update")
 		return nil
 	case gapRefetch:
@@ -100,12 +101,12 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 		}
 
 		if !s.gaps.Has() {
-			log.Debug("Gap was resolved by pending updates")
+			logger.Debug(ctx, "Gap was resolved by pending updates")
 			return s.applyPending(ctx)
 		}
 
 		_ = s.gapTimeout.Reset(fastgapTimeout)
-		s.log.Debug("Gap detected", zap.Array("gap", s.gaps))
+		s.log.Debug(ctx, "Gap detected", log.Stringer("gap", s.gaps))
 		return nil
 	default:
 		panic("unreachable")
@@ -154,7 +155,7 @@ loop:
 	}
 	s.pending = s.pending[:trim]
 	if len(accepted) == 0 {
-		s.log.Warn("Empty buffer", zap.Any("pending", s.pending), zap.Int("internalState", s.state))
+		s.log.Warn(ctx, "Empty buffer", log.Any("pending", s.pending), log.Int("internalState", s.state))
 		return nil
 	}
 
@@ -162,10 +163,10 @@ loop:
 		return err
 	}
 
-	s.log.Debug("Pending updates applied",
-		zap.Int("prev_state", s.state),
-		zap.Int("new_state", state),
-		zap.Int("accepted_count", len(accepted)),
+	s.log.Debug(ctx, "Pending updates applied",
+		log.Int("prev_state", s.state),
+		log.Int("new_state", state),
+		log.Int("accepted_count", len(accepted)),
 	)
 
 	s.setState(state, "pending updates")
@@ -181,9 +182,9 @@ func (s *sequenceBox) SetState(state int, reason string) {
 func (s *sequenceBox) setState(state int, reason string) {
 	old := s.state
 	s.state = state
-	s.log.Debug("State changed",
-		zap.Int("old", old),
-		zap.Int("new", state),
-		zap.String("reason", reason),
+	s.log.Debug(context.Background(), "State changed",
+		log.Int("old", old),
+		log.Int("new", state),
+		log.String("reason", reason),
 	)
 }

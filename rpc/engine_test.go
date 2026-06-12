@@ -11,6 +11,7 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/neo"
 
 	"github.com/gotd/td/bin"
@@ -85,7 +86,7 @@ func TestRPCError(t *testing.T) {
 		RetryInterval: time.Second * 3,
 		MaxRetries:    2,
 		Clock:         clock,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -149,7 +150,7 @@ func TestRPCResult(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 		Clock:         clock,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -218,7 +219,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 		Clock:         clock,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -290,7 +291,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    5,
 		Clock:         clock,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -314,10 +315,10 @@ func TestEngineGracefulShutdown(t *testing.T) {
 			batch = append(batch, <-incoming)
 			serverRecv.Done()
 		}
-		e.log.Info("Got all requests")
+		e.log.Info(context.Background(), "Got all requests")
 
 		canSendResponse.Lock()
-		e.log.Info("Sending responses")
+		e.log.Info(context.Background(), "Sending responses")
 		for _, req := range batch {
 			log.Info("send response")
 			e.NotifyError(req.MsgID, expectedErr)
@@ -357,7 +358,7 @@ func TestEngineGracefulShutdown(t *testing.T) {
 	runTest(t, Options{
 		RetryInterval: time.Second * 5,
 		MaxRetries:    5,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -415,7 +416,7 @@ func TestDropRPC(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 		Clock:         clock,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 		DropHandler:   func(req Request) error { dropChan <- req; return nil },
 	}, server, client)
 }
@@ -455,7 +456,7 @@ func TestEngineForceCloseNotAcked(t *testing.T) {
 	runTest(t, Options{
 		RetryInterval: time.Minute,
 		MaxRetries:    2,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -495,7 +496,7 @@ func TestEngineForceCloseAcked(t *testing.T) {
 	runTest(t, Options{
 		RetryInterval: time.Minute,
 		MaxRetries:    2,
-		Logger:        log.Named("rpc"),
+		Logger:        logzap.New(log.Named("rpc")),
 	}, server, client)
 }
 
@@ -532,5 +533,4 @@ func runTest(
 
 	require.NoError(t, g.Wait())
 	e.Close()
-	require.NoError(t, cfg.Logger.Sync())
 }

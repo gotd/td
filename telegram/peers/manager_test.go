@@ -6,6 +6,7 @@ import (
 
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/tgmock"
@@ -14,7 +15,7 @@ import (
 func testManager(t *testing.T) (*tgmock.Mock, *Manager) {
 	mock := tgmock.New(t)
 	return mock, Options{
-		Logger: zaptest.NewLogger(t),
+		Logger: logzap.New(zaptest.NewLogger(t)),
 		Cache:  &InmemoryCache{},
 	}.Build(tg.NewClient(mock))
 }

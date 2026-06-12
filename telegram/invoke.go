@@ -8,7 +8,8 @@ import (
 	"github.com/go-faster/errors"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/pool"
@@ -59,20 +60,20 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && strings.HasSuffix(rpcErr.Type, "_MIGRATE") {
 			targetDC := rpcErr.Argument
-			log := c.log.With(
-				zap.String("error_type", rpcErr.Type),
-				zap.Int("target_dc", targetDC),
+			logger := c.log.With(
+				log.String("error_type", rpcErr.Type),
+				log.Int("target_dc", targetDC),
 			)
 			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
 			// called by authorized client, so we should try to transfer auth to new DC
 			// and create new connection.
 			if rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE") {
-				log.Debug("Invoking on target DC")
+				logger.Debug(ctx, "Invoking on target DC")
 				return c.invokeSub(ctx, targetDC, input, output)
 			}
 
 			// Otherwise we should change primary DC.
-			log.Info("Migrating to target DC")
+			logger.Info(ctx, "Migrating to target DC")
 			return c.invokeMigrate(ctx, targetDC, input, output)
 		}
 
@@ -104,8 +105,8 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 		if c.ctx != nil {
 			clientDone = c.ctx.Done()
 		}
-		c.log.Debug("Primary connection is dead, waiting for new connection to retry",
-			zap.Error(err),
+		c.log.Debug(ctx, "Primary connection is dead, waiting for new connection to retry",
+			log.Error(err),
 		)
 		select {
 		case <-ctx.Done():

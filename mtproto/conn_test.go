@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/mt"
@@ -44,7 +44,7 @@ func newTestClient(h testHandler, opts ...testClientOption) *Conn {
 	}, rpc.Options{})
 
 	opt := Options{
-		Logger:    zap.NewNop(),
+		Logger:    log.Nop,
 		Random:    rand.New(rand.NewSource(1)),
 		Key:       crypto.Key{}.WithID(),
 		MessageID: proto.NewMessageIDGen(time.Now),

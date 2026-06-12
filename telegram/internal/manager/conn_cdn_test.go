@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/tdsync"
@@ -44,7 +44,7 @@ func newTestConn(mode ConnMode, proto protoConn) *Conn {
 		device:      DeviceConfig{AppVersion: "test-app"},
 		proto:       proto,
 		clock:       clock.System,
-		log:         zap.NewNop(),
+		log:         log.For(log.Nop),
 		handler:     NoopHandler{},
 		sessionInit: tdsync.NewReady(),
 		gotConfig:   tdsync.NewReady(),

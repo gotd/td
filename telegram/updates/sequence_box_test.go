@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/gotd/log/logzap"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 )
@@ -22,7 +23,7 @@ func TestSequenceBox(t *testing.T) {
 			updates = append(updates, u...)
 			return nil
 		},
-		Logger: zaptest.NewLogger(t),
+		Logger: logzap.New(zaptest.NewLogger(t)),
 	})
 
 	require.Nil(t, box.Handle(ctx, update{
@@ -157,7 +158,7 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 				applied = append(applied, u...)
 				return nil
 			},
-			Logger: zaptest.NewLogger(t),
+			Logger: logzap.New(zaptest.NewLogger(t)),
 		})
 
 		box.pending = test.Pending

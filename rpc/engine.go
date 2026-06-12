@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -23,7 +23,7 @@ type Engine struct {
 	ack map[int64]chan struct{}
 
 	clock         clock.Clock
-	log           *zap.Logger
+	log           log.Helper
 	retryInterval time.Duration
 	maxRetries    int
 
@@ -39,9 +39,10 @@ type Engine struct {
 func New(send Send, cfg Options) *Engine {
 	cfg.setDefaults()
 
-	cfg.Logger.Info("Initialized",
-		zap.Duration("retry_interval", cfg.RetryInterval),
-		zap.Int("max_retries", cfg.MaxRetries),
+	logger := log.For(cfg.Logger)
+	logger.Info(context.Background(), "Initialized",
+		log.Duration("retry_interval", cfg.RetryInterval),
+		log.Int("max_retries", cfg.MaxRetries),
 	)
 
 	reqCtx, reqCancel := context.WithCancelCause(context.Background())
@@ -52,7 +53,7 @@ func New(send Send, cfg Options) *Engine {
 		send: send,
 		drop: cfg.DropHandler,
 
-		log:           cfg.Logger,
+		log:           logger,
 		maxRetries:    cfg.MaxRetries,
 		retryInterval: cfg.RetryInterval,
 		clock:         cfg.Clock,
@@ -83,8 +84,8 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
-	log := e.log.With(zap.Int64("msg_id", req.MsgID))
-	log.Debug("Do called")
+	logger := e.log.With(log.Int64("msg_id", req.MsgID))
+	logger.Debug(ctx, "Do called")
 
 	done := make(chan struct{})
 
@@ -96,10 +97,10 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	)
 
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
-		log.Debug("Handler called")
+		logger.Debug(ctx, "Handler called")
 
 		if ok := atomic.CompareAndSwapUint32(&handlerCalled, 0, 1); !ok {
-			log.Warn("Handler already called")
+			logger.Warn(ctx, "Handler already called")
 
 			return errors.New("handler already called")
 		}
@@ -158,11 +159,11 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		e.mux.Unlock()
 
 		if err := e.drop(req); err != nil {
-			log.Info("Failed to drop request", zap.Error(err))
+			logger.Info(ctx, "Failed to drop request", log.Error(err))
 			return ctx.Err()
 		}
 
-		log.Debug("Request dropped")
+		logger.Debug(ctx, "Request dropped")
 		return ctx.Err()
 	case <-e.reqCtx.Done():
 		select {
@@ -192,7 +193,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 	var (
 		ackChan = e.waitAck(req.MsgID)
 		retries = 0
-		log     = e.log.Named("retry").With(zap.Int64("msg_id", req.MsgID))
+		logger  = e.log.Named("retry").With(log.Int64("msg_id", req.MsgID))
 	)
 
 	defer e.removeAck(req.MsgID)
@@ -214,7 +215,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 				select {
 				case <-ackChan:
 					// Acknowledge arrived concurrently with close, prefer it.
-					log.Debug("Acknowledged")
+					logger.Debug(ctx, "Acknowledged")
 					return nil
 				default:
 				}
@@ -223,24 +224,24 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 				// (the cancellation cause) to let callers retry.
 				return errors.Wrap(context.Cause(e.reqCtx), "engine forcibly closed")
 			case <-ackChan:
-				log.Debug("Acknowledged")
+				logger.Debug(ctx, "Acknowledged")
 				return nil
 			case <-timer.C():
 				timer.Reset(e.retryInterval)
 
-				log.Debug("Acknowledge timed out, performing retry")
+				logger.Debug(ctx, "Acknowledge timed out, performing retry")
 				if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
 					if errors.Is(err, context.Canceled) {
 						return nil
 					}
 
-					log.Error("Retry failed", zap.Error(err))
+					logger.Error(ctx, "Retry failed", log.Error(err))
 					return err
 				}
 
 				retries++
 				if retries >= e.maxRetries {
-					log.Error("Retry limit reached", zap.Int64("msg_id", req.MsgID))
+					logger.Error(ctx, "Retry limit reached", log.Int64("msg_id", req.MsgID))
 					return &RetryLimitReachedErr{
 						Retries: retries,
 					}
@@ -258,7 +259,7 @@ func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
 	fn, ok := e.rpc[msgID]
 	e.mux.Unlock()
 	if !ok {
-		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
+		e.log.Warn(context.Background(), "rpc callback not set", log.Int64("msg_id", msgID))
 		return nil
 	}
 
@@ -271,7 +272,7 @@ func (e *Engine) NotifyError(msgID int64, rpcErr error) {
 	fn, ok := e.rpc[msgID]
 	e.mux.Unlock()
 	if !ok {
-		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
+		e.log.Warn(context.Background(), "rpc callback not set", log.Int64("msg_id", msgID))
 		return
 	}
 
@@ -288,7 +289,7 @@ func (e *Engine) isClosed() bool {
 // All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) Close() {
 	atomic.StoreUint32(&e.closed, 1)
-	e.log.Info("Close called")
+	e.log.Info(context.Background(), "Close called")
 	e.wg.Wait()
 }
 

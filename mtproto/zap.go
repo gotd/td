@@ -3,8 +3,7 @@ package mtproto
 import (
 	"fmt"
 
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 )
@@ -14,20 +13,20 @@ type logType struct {
 	Name string
 }
 
-func (l logType) MarshalLogObject(e zapcore.ObjectEncoder) error {
-	typeIDStr := fmt.Sprintf("0x%x", l.ID)
-	e.AddString("type_id", typeIDStr)
+// LogAttr returns the type info as an inline log group.
+func (l logType) LogAttr() log.Attr {
+	attrs := []log.Attr{log.String("type_id", fmt.Sprintf("0x%x", l.ID))}
 	if l.Name != "" {
-		e.AddString("type_name", l.Name)
+		attrs = append(attrs, log.String("type_name", l.Name))
 	}
-	return nil
+	return log.Group("", attrs...)
 }
 
-func (c *Conn) logWithBuffer(b *bin.Buffer) *zap.Logger {
-	return c.logWithType(b).With(zap.Int("size_bytes", b.Len()))
+func (c *Conn) logWithBuffer(b *bin.Buffer) log.Helper {
+	return c.logWithType(b).With(log.Int("size_bytes", b.Len()))
 }
 
-func (c *Conn) logWithType(b *bin.Buffer) *zap.Logger {
+func (c *Conn) logWithType(b *bin.Buffer) log.Helper {
 	id, err := b.PeekID()
 	if err != nil {
 		// Type info not available.
@@ -37,9 +36,9 @@ func (c *Conn) logWithType(b *bin.Buffer) *zap.Logger {
 	return c.logWithTypeID(id)
 }
 
-func (c *Conn) logWithTypeID(id uint32) *zap.Logger {
-	return c.log.With(zap.Inline(logType{
+func (c *Conn) logWithTypeID(id uint32) log.Helper {
+	return c.log.With(logType{
 		ID:   id,
 		Name: c.types.Get(id),
-	}))
+	}.LogAttr())
 }

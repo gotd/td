@@ -3,12 +3,12 @@ package calls
 import (
 	"testing"
 
+	"github.com/gotd/log"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 )
 
 func TestConnCallbacksAndState(t *testing.T) {
-	c := newConn(true, zap.NewNop())
+	c := newConn(true, log.For(log.Nop))
 	require.Equal(t, "new", c.State())
 
 	c.addTracks()
@@ -39,7 +39,7 @@ func TestConnCallbacksAndState(t *testing.T) {
 }
 
 func TestConnFireDisconnectedOnce(t *testing.T) {
-	c := newConn(false, zap.NewNop())
+	c := newConn(false, log.For(log.Nop))
 	n := 0
 	c.OnDisconnected(func() { n++ })
 	c.fireDisconnected()
@@ -50,7 +50,7 @@ func TestConnFireDisconnectedOnce(t *testing.T) {
 }
 
 func TestConnEmitJSON(t *testing.T) {
-	c := newConn(true, zap.NewNop())
+	c := newConn(true, log.For(log.Nop))
 	var sent []byte
 	c.emit = func(b []byte) { sent = b }
 	c.emitJSON(map[string]string{"@type": "X"})
@@ -58,7 +58,7 @@ func TestConnEmitJSON(t *testing.T) {
 }
 
 func TestConnOnSignal(t *testing.T) {
-	c := newConn(true, zap.NewNop())
+	c := newConn(true, log.For(log.Nop))
 
 	require.NoError(t, c.onSignal([]byte(`{"@type":"MediaState","videoState":"active"}`)))
 	require.NoError(t, c.onSignal([]byte(`{"@type":"SomethingUnknown"}`)))
@@ -69,7 +69,7 @@ func TestConnOnSignal(t *testing.T) {
 // transport: with DTLS not yet started, maybeCreateChannels returns early, so
 // no pion transport is needed.
 func TestConnHandleNegotiate(t *testing.T) {
-	c := newConn(true, zap.NewNop())
+	c := newConn(true, log.For(log.Nop))
 	c.neg = newContentNegotiation()
 	c.addTracks()
 

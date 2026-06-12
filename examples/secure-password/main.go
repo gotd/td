@@ -17,6 +17,8 @@ import (
 
 	"github.com/awnumar/memguard"
 	"go.uber.org/zap"
+
+	"github.com/gotd/log/logzap"
 	"golang.org/x/term"
 
 	"github.com/gotd/td/examples"
@@ -42,7 +44,7 @@ func main() {
 		fmt.Fprintln(os.Stderr)
 		enclave := memguard.NewEnclave(secret)
 
-		client, err := telegram.ClientFromEnvironment(telegram.Options{Logger: log})
+		client, err := telegram.ClientFromEnvironment(telegram.Options{Logger: logzap.New(log)})
 		if err != nil {
 			return err
 		}

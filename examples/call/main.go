@@ -27,6 +27,8 @@ import (
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth/qrlogin"
@@ -78,7 +80,7 @@ func main() {
 		})
 
 		opts := telegram.Options{
-			Logger:        log,
+			Logger:        logzap.New(log),
 			UpdateHandler: dispatcher,
 		}
 		if *test {
@@ -92,7 +94,7 @@ func main() {
 		}
 		api := client.API()
 
-		callClient := calls.NewClient(api, calls.Options{Logger: log})
+		callClient := calls.NewClient(api, calls.Options{Logger: logzap.New(log)})
 		callClient.Register(dispatcher)
 
 		return client.Run(ctx, func(ctx context.Context) error {

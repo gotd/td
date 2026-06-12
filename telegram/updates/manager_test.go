@@ -7,13 +7,14 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
 
 func newTestManager(t *testing.T, cfg Config) *Manager {
 	cfg.Handler = telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { return nil })
-	cfg.Logger = zaptest.NewLogger(t)
+	cfg.Logger = logzap.New(zaptest.NewLogger(t))
 	return New(cfg)
 }
 

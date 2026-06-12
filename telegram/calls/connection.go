@@ -1,6 +1,7 @@
 package calls
 
 import (
+	"context"
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
@@ -14,7 +15,8 @@ import (
 	"github.com/pion/interceptor"
 	"github.com/pion/transport/v4"
 	"github.com/pion/webrtc/v4"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/tg"
 )
@@ -25,7 +27,7 @@ import (
 // Outgoing media is written to the tracks returned by AudioTrack/VideoTrack;
 // incoming media is delivered to the OnTrack callback.
 type Conn struct {
-	log        *zap.Logger
+	log        log.Helper
 	isOutgoing bool
 
 	// emit sends an encoded JSON signaling message to the peer.
@@ -65,8 +67,8 @@ type Conn struct {
 	onTrack        func(*webrtc.TrackRemote, *webrtc.RTPReceiver)
 }
 
-func newConn(isOutgoing bool, log *zap.Logger) *Conn {
-	return &Conn{isOutgoing: isOutgoing, log: log}
+func newConn(isOutgoing bool, logger log.Helper) *Conn {
+	return &Conn{isOutgoing: isOutgoing, log: logger}
 }
 
 // AudioTrack returns the local audio track; write Opus RTP packets to it.
@@ -173,7 +175,7 @@ func (c *Conn) open(conns []tg.PhoneConnectionClass) error {
 		c.sendCandidate(cand)
 	})
 	c.ice.OnConnectionStateChange(func(s webrtc.ICETransportState) {
-		c.log.Debug("ICE state", zap.Stringer("state", s))
+		c.log.Debug(context.Background(), "ICE state", log.Stringer("state", s))
 		c.mu.Lock()
 		c.iceConnected = s == webrtc.ICETransportStateConnected || s == webrtc.ICETransportStateCompleted
 		c.mu.Unlock()
@@ -183,7 +185,7 @@ func (c *Conn) open(conns []tg.PhoneConnectionClass) error {
 		}
 	})
 	c.dtls.OnStateChange(func(s webrtc.DTLSTransportState) {
-		c.log.Debug("DTLS state", zap.Stringer("state", s))
+		c.log.Debug(context.Background(), "DTLS state", log.Stringer("state", s))
 		c.mu.Lock()
 		c.dtlsConnected = s == webrtc.DTLSTransportStateConnected
 		c.mu.Unlock()
@@ -260,7 +262,7 @@ func (c *Conn) onSignal(data []byte) error {
 	case typeMediaState:
 		return nil
 	default:
-		c.log.Debug("Ignoring signaling type", zap.String("type", typ))
+		c.log.Debug(context.Background(), "Ignoring signaling type", log.String("type", typ))
 		return nil
 	}
 }
@@ -301,11 +303,11 @@ func (c *Conn) handleInitialSetup(data []byte) error {
 
 	go func() {
 		if err := c.ice.Start(c.gatherer, remoteICE, &iceRole); err != nil {
-			c.log.Warn("ICE start", zap.Error(err))
+			c.log.Warn(context.Background(), "ICE start", log.Error(err))
 			return
 		}
 		if err := c.dtls.Start(webrtc.DTLSParameters{Role: remoteRole, Fingerprints: fps}); err != nil {
-			c.log.Warn("DTLS start", zap.Error(err))
+			c.log.Warn(context.Background(), "DTLS start", log.Error(err))
 			return
 		}
 		c.onDTLSStarted()
@@ -352,16 +354,16 @@ func (c *Conn) addRemoteCandidate(ic candidateDescription) {
 	// which is not RFC TURN and which pion cannot use. Skip any non-IP candidate
 	// quietly; connectivity then relies on the direct host/srflx candidates.
 	if addr := candidateAddress(ic.SdpString); addr != "" && net.ParseIP(addr) == nil {
-		c.log.Debug("Skipping non-IP relay (reflector) candidate", zap.String("address", addr))
+		c.log.Debug(context.Background(), "Skipping non-IP relay (reflector) candidate", log.String("address", addr))
 		return
 	}
 	cand, err := parseCandidate(ic.SdpString)
 	if err != nil {
-		c.log.Debug("Skip remote candidate", zap.Error(err))
+		c.log.Debug(context.Background(), "Skip remote candidate", log.Error(err))
 		return
 	}
 	if err := c.ice.AddRemoteCandidate(cand); err != nil {
-		c.log.Debug("Add remote candidate", zap.Error(err))
+		c.log.Debug(context.Background(), "Add remote candidate", log.Error(err))
 	}
 }
 
@@ -425,7 +427,7 @@ func (c *Conn) maybeCreateChannels() {
 func (c *Conn) sendTrack(track *webrtc.TrackLocalStaticRTP, ssrc uint32, pt webrtc.PayloadType) {
 	sender, err := c.api.NewRTPSender(track, c.dtls)
 	if err != nil {
-		c.log.Warn("New RTP sender", zap.Error(err))
+		c.log.Warn(context.Background(), "New RTP sender", log.Error(err))
 		return
 	}
 	if err := sender.Send(webrtc.RTPSendParameters{
@@ -433,7 +435,7 @@ func (c *Conn) sendTrack(track *webrtc.TrackLocalStaticRTP, ssrc uint32, pt webr
 			RTPCodingParameters: webrtc.RTPCodingParameters{SSRC: webrtc.SSRC(ssrc), PayloadType: pt},
 		}},
 	}); err != nil {
-		c.log.Warn("RTP sender send", zap.Error(err))
+		c.log.Warn(context.Background(), "RTP sender send", log.Error(err))
 		return
 	}
 	go drainSenderRTCP(sender)
@@ -445,7 +447,7 @@ func (c *Conn) recvTrack(kind webrtc.RTPCodecType, ssrc uint32) {
 	}
 	receiver, err := c.api.NewRTPReceiver(kind, c.dtls)
 	if err != nil {
-		c.log.Warn("New RTP receiver", zap.Error(err))
+		c.log.Warn(context.Background(), "New RTP receiver", log.Error(err))
 		return
 	}
 	if err := receiver.Receive(webrtc.RTPReceiveParameters{
@@ -453,7 +455,7 @@ func (c *Conn) recvTrack(kind webrtc.RTPCodecType, ssrc uint32) {
 			RTPCodingParameters: webrtc.RTPCodingParameters{SSRC: webrtc.SSRC(ssrc)},
 		}},
 	}); err != nil {
-		c.log.Warn("RTP receiver receive", zap.Error(err))
+		c.log.Warn(context.Background(), "RTP receiver receive", log.Error(err))
 		return
 	}
 	go drainReceiverRTCP(receiver)
@@ -484,7 +486,7 @@ func (c *Conn) sendCandidate(cand *webrtc.ICECandidate) {
 func (c *Conn) emitJSON(v any) {
 	data, err := jsonMarshal(v)
 	if err != nil {
-		c.log.Warn("Encode signaling", zap.Error(err))
+		c.log.Warn(context.Background(), "Encode signaling", log.Error(err))
 		return
 	}
 	if c.emit != nil {

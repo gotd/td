@@ -7,6 +7,8 @@ import (
 
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
+
+	"github.com/gotd/log/logzap"
 	"go.uber.org/zap/zapcore"
 
 	"github.com/gotd/td/examples"
@@ -32,7 +34,7 @@ func run(ctx context.Context) error {
 	d := tg.NewUpdateDispatcher()
 	gaps := updates.New(updates.Config{
 		Handler: d,
-		Logger:  log.Named("gaps"),
+		Logger:  logzap.New(log.Named("gaps")),
 	})
 
 	// Authentication flow handles authentication process, like prompting for code and 2FA password.
@@ -45,7 +47,7 @@ func run(ctx context.Context) error {
 	// 	SESSION_FILE:   path to session file
 	// 	SESSION_DIR:    path to session directory, if SESSION_FILE is not set
 	client, err := telegram.ClientFromEnvironment(telegram.Options{
-		Logger:        log,
+		Logger:        logzap.New(log),
 		UpdateHandler: gaps,
 		Middlewares: []telegram.Middleware{
 			updhook.UpdateHook(gaps.Handle),

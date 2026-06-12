@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
@@ -35,7 +35,7 @@ func (c *Client) Config() tg.Config {
 func (c *Client) fetchConfig(ctx context.Context) {
 	cfg, err := c.tg.HelpGetConfig(ctx)
 	if err != nil {
-		c.log.Warn("Got error on config update", zap.Error(err))
+		c.log.Warn(ctx, "Got error on config update", log.Error(err))
 		return
 	}
 

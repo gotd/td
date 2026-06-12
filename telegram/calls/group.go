@@ -10,7 +10,8 @@ import (
 	"github.com/pion/rtcp"
 	"github.com/pion/rtp"
 	"github.com/pion/webrtc/v4"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/tg"
 )
@@ -24,7 +25,7 @@ import (
 // access, via [GroupCall.AudioTrack].
 type GroupCall struct {
 	api  *tg.Client
-	log  *zap.Logger
+	log  log.Helper
 	conn *groupConn
 
 	mu     sync.Mutex
@@ -43,7 +44,7 @@ type GroupCall struct {
 // NewGroupCall returns a group call bound to the given invoker.
 func NewGroupCall(api *tg.Client, opts Options) *GroupCall {
 	opts.setDefaults()
-	return &GroupCall{api: api, log: opts.Logger}
+	return &GroupCall{api: api, log: log.For(opts.Logger)}
 }
 
 // OnConnected registers a callback fired when the media transport connects.
@@ -250,7 +251,7 @@ func (g *GroupCall) startRTCP() {
 				OctetCount:  g.octets.Load(),
 			}
 			if err := conn.writeRTCP([]rtcp.Packet{sr}); err != nil {
-				g.log.Debug("Write RTCP SR", zap.Error(err))
+				g.log.Debug(context.Background(), "Write RTCP SR", log.Error(err))
 			}
 		}
 	}()

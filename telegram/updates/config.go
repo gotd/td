@@ -3,8 +3,8 @@ package updates
 import (
 	"context"
 
+	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
@@ -57,7 +57,7 @@ type Config struct {
 	// In-mem used if not provided.
 	UserAccessHasher UserAccessHasher
 	// Logger (optional).
-	Logger *zap.Logger
+	Logger log.Logger
 	// TracerProvider (optional).
 	TracerProvider trace.TracerProvider
 }
@@ -73,7 +73,7 @@ func (cfg *Config) setDefaults() {
 		cfg.UserAccessHasher = newMemUserAccessHasher()
 	}
 	if cfg.Logger == nil {
-		cfg.Logger = zap.NewNop()
+		cfg.Logger = log.Nop
 	}
 	if cfg.TracerProvider == nil {
 		cfg.TracerProvider = trace.NewNoopTracerProvider()
@@ -81,31 +81,32 @@ func (cfg *Config) setDefaults() {
 	if cfg.Storage == nil {
 		cfg.Storage = newMemStorage()
 	}
+	lg := log.For(cfg.Logger)
 	if cfg.OnChannelTooLong == nil {
 		cfg.OnChannelTooLong = func(channelID int64) {
-			cfg.Logger.Error("Difference too long", zap.Int64("channel_id", channelID))
+			lg.Error(context.Background(), "Difference too long", log.Int64("channel_id", channelID))
 		}
 	}
 	if cfg.OnChannelInaccessible == nil {
 		cfg.OnChannelInaccessible = func(channelID int64) {
-			cfg.Logger.Info("Channel is inaccessible, stopping updates",
-				zap.Int64("channel_id", channelID))
+			lg.Info(context.Background(), "Channel is inaccessible, stopping updates",
+				log.Int64("channel_id", channelID))
 		}
 	}
 	if cfg.OnTooLong == nil {
 		cfg.OnTooLong = func() {
-			cfg.Logger.Error("Difference too long")
+			lg.Error(context.Background(), "Difference too long")
 		}
 	}
 	if cfg.OnLoadUserStateFailed == nil {
 		cfg.OnLoadUserStateFailed = func() {
-			cfg.Logger.Warn("Failed to load user state, fetching from server")
+			lg.Warn(context.Background(), "Failed to load user state, fetching from server")
 		}
 	}
 	if cfg.OnLoadChannelStateFailed == nil {
 		cfg.OnLoadChannelStateFailed = func(channelID int64) {
-			cfg.Logger.Warn("Failed to load channel state, skipping channel",
-				zap.Int64("channel_id", channelID))
+			lg.Warn(context.Background(), "Failed to load channel state, skipping channel",
+				log.Int64("channel_id", channelID))
 		}
 	}
 }

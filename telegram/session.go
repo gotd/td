@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/mtproto"
@@ -43,9 +44,9 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	}
 
 	// Re-initializing connection from persisted state.
-	c.log.Info("Connection restored from state",
-		zap.String("addr", data.Addr),
-		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
+	c.log.Info(ctx, "Connection restored from state",
+		log.String("addr", data.Addr),
+		log.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
 	)
 
 	c.connMux.Lock()
@@ -91,8 +92,8 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 		return errors.Wrap(err, "save")
 	}
 
-	c.log.Debug("Data saved",
-		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
+	c.log.Debug(c.ctx, "Data saved",
+		log.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
 	)
 	return nil
 }

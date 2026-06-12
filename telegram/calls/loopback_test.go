@@ -11,6 +11,9 @@ import (
 	"github.com/pion/webrtc/v4"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
+
+	"github.com/gotd/log"
+	"github.com/gotd/log/logzap"
 )
 
 // TestConnLoopback runs a full 1:1 call handshake between two Conn instances
@@ -37,10 +40,10 @@ func TestConnLoopback(t *testing.T) {
 	require.NoError(t, router.Start())
 	defer func() { _ = router.Stop() }()
 
-	log := zaptest.NewLogger(t)
-	caller := newConn(true, log.Named("caller"))
+	zapLog := zaptest.NewLogger(t)
+	caller := newConn(true, log.For(logzap.New(zapLog.Named("caller"))))
 	caller.net = callerNet
-	callee := newConn(false, log.Named("callee"))
+	callee := newConn(false, log.For(logzap.New(zapLog.Named("callee"))))
 	callee.net = calleeNet
 	defer func() { _ = caller.Close(); _ = callee.Close() }()
 

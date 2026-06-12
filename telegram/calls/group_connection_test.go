@@ -10,6 +10,9 @@ import (
 	"github.com/pion/webrtc/v4"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
+
+	"github.com/gotd/log"
+	"github.com/gotd/log/logzap"
 )
 
 // TestGroupConnJoinPayload exercises the SFU-side transport setup that does not
@@ -32,7 +35,7 @@ func TestGroupConnJoinPayload(t *testing.T) {
 	require.NoError(t, router.Start())
 	defer func() { _ = router.Stop() }()
 
-	g := newGroupConn(zaptest.NewLogger(t))
+	g := newGroupConn(log.For(logzap.New(zaptest.NewLogger(t))))
 	g.net = nw
 	defer func() { _ = g.close() }()
 
@@ -60,7 +63,7 @@ func TestGroupConnJoinPayload(t *testing.T) {
 }
 
 func TestGroupConnFireOnce(t *testing.T) {
-	g := newGroupConn(zaptest.NewLogger(t))
+	g := newGroupConn(log.For(logzap.New(zaptest.NewLogger(t))))
 
 	connected := 0
 	g.onConnected = func() { connected++ }

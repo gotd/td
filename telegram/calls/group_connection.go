@@ -1,6 +1,7 @@
 package calls
 
 import (
+	"context"
 	"encoding/json"
 	"sync"
 	"time"
@@ -10,13 +11,14 @@ import (
 	"github.com/pion/rtcp"
 	"github.com/pion/transport/v4"
 	"github.com/pion/webrtc/v4"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 )
 
 // groupConn is the media transport for a group call: a single pion
 // PeerConnection that performs SDP offer/answer with the Telegram SFU.
 type groupConn struct {
-	log *zap.Logger
+	log log.Helper
 
 	mu          sync.Mutex
 	pc          *webrtc.PeerConnection
@@ -40,7 +42,7 @@ type groupConn struct {
 	net transport.Net
 }
 
-func newGroupConn(log *zap.Logger) *groupConn { return &groupConn{log: log} }
+func newGroupConn(logger log.Helper) *groupConn { return &groupConn{log: logger} }
 
 // open builds the PeerConnection and installs its state handlers.
 func (g *groupConn) open() error {
@@ -79,7 +81,7 @@ func (g *groupConn) open() error {
 	g.pc = pc
 
 	pc.OnConnectionStateChange(func(s webrtc.PeerConnectionState) {
-		g.log.Debug("Group call connection state", zap.Stringer("state", s))
+		g.log.Debug(context.Background(), "Group call connection state", log.Stringer("state", s))
 		g.mu.Lock()
 		g.state = s.String()
 		onState := g.onStateChange
@@ -149,7 +151,7 @@ func (g *groupConn) buildJoinPayload() (string, error) {
 	select {
 	case <-g.srflxReady:
 	case <-time.After(3 * time.Second):
-		g.log.Warn("No server-reflexive candidate gathered; sending host-only offer")
+		g.log.Warn(context.Background(), "No server-reflexive candidate gathered; sending host-only offer")
 	}
 
 	ufrag, pwd, fingerprint, hash := extractSDPParams(g.pc.LocalDescription().SDP)

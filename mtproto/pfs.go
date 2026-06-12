@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 )
 
 var (
@@ -47,9 +47,9 @@ func (c *Conn) tempKeyRenewalLoop(ctx context.Context) error {
 			return ctx.Err()
 		case <-timer.C():
 		}
-		c.log.Info("Temporary auth key renewal required, reconnecting",
-			zap.Int64("expires_at", expiresAt),
-			zap.Int64("renew_at", renewAt),
+		c.log.Info(ctx, "Temporary auth key renewal required, reconnecting",
+			log.Int64("expires_at", expiresAt),
+			log.Int64("renew_at", renewAt),
 		)
 		return errors.Wrap(ErrPFSReconnectRequired, "temporary auth key renewal required")
 	}

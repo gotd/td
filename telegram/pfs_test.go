@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/exchange"
@@ -19,7 +19,7 @@ import (
 func TestClientHandleDCConnDeadPFSDropResetsSession(t *testing.T) {
 	a := require.New(t)
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -49,7 +49,7 @@ func TestClientHandleDCConnDeadPFSDropResetsSession(t *testing.T) {
 func TestClientHandleDCConnDeadPassThrough(t *testing.T) {
 	a := require.New(t)
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -81,7 +81,7 @@ func TestClientHandleDCConnDeadPassThrough(t *testing.T) {
 func TestClientHandleCDNConnDeadPFSDropResetsCDNSession(t *testing.T) {
 	a := require.New(t)
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -110,7 +110,7 @@ func TestClientHandleCDNConnDeadPFSDropResetsCDNSession(t *testing.T) {
 func TestClientHandleCDNConnDeadDoesNotTouchRegularSession(t *testing.T) {
 	a := require.New(t)
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -173,7 +173,7 @@ func (s *blockingCloseInvokerStub) Close() error {
 func TestClientHandleCDNConnDeadFingerprintMissInvalidatesCache(t *testing.T) {
 	a := require.New(t)
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -210,7 +210,7 @@ func TestClientHandleCDNConnDeadFingerprintMissInvalidatesCache(t *testing.T) {
 
 func TestClientHandleCDNConnDeadFingerprintMissDoesNotBlockOnClose(t *testing.T) {
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -264,7 +264,7 @@ func (s *observedBlockingCloseInvokerStub) Close() error {
 
 func TestClientHandleCDNConnDeadFingerprintMissStartsMultipleCloseWorkers(t *testing.T) {
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 
@@ -328,7 +328,7 @@ done:
 
 func TestClientHandleCDNConnDeadFingerprintMissProcessesMultipleCallsInParallel(t *testing.T) {
 	client := Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/mt"
 )
@@ -18,7 +18,7 @@ func (c *Conn) storeSalt(salt int64) {
 	c.sessionMux.Unlock()
 
 	if salt != oldSalt {
-		c.log.Info("Salt updated", zap.Int64("old", oldSalt), zap.Int64("new", salt))
+		c.log.Info(context.Background(), "Salt updated", log.Int64("old", oldSalt), log.Int64("new", salt))
 	}
 }
 

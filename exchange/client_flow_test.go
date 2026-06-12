@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/transport"
@@ -33,7 +34,7 @@ func TestExchangeTimeout(t *testing.T) {
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(func(ctx context.Context) error {
 		_, err := NewExchanger(client, 2).
-			WithLogger(log.Named("client")).
+			WithLogger(logzap.New(log.Named("client"))).
 			WithRand(reader).
 			WithTimeout(1 * time.Second).
 			Client([]PublicKey{

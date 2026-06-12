@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/transport"
 )
@@ -39,7 +40,7 @@ func FuzzValid(f *testing.F) {
 		g, gctx := errgroup.WithContext(ctx)
 		g.Go(func() error {
 			_, err := NewExchanger(client, dc).
-				WithLogger(log.Named("client")).
+				WithLogger(logzap.New(log.Named("client"))).
 				WithRand(reader).
 				Client([]PublicKey{privateKey.Public()}).
 				Run(gctx)
@@ -50,7 +51,7 @@ func FuzzValid(f *testing.F) {
 		})
 		g.Go(func() error {
 			_, err := NewExchanger(server, dc).
-				WithLogger(log.Named("server")).
+				WithLogger(logzap.New(log.Named("server"))).
 				WithRand(reader).
 				Server(privateKey).
 				Run(gctx)

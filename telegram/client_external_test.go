@@ -12,6 +12,8 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram"
@@ -39,7 +41,7 @@ func testTransportExternal(resolver dcs.Resolver, storage session.Storage) func(
 		defer func() { _ = log.Sync() }()
 
 		require.NoError(t, tryConnect(ctx, telegram.Options{
-			Logger:         log.Named("client"),
+			Logger:         logzap.New(log.Named("client")),
 			SessionStorage: storage,
 			Resolver:       resolver,
 		}))
@@ -85,12 +87,12 @@ func TestExternalE2EUsersDialog(t *testing.T) {
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 
 	cfg := e2etest.TestOptions{
-		Logger: log,
+		Logger: logzap.New(log),
 	}
 	suite := e2etest.NewSuite(t, cfg)
 
 	auth := make(chan *tg.User, 1)
-	g := tdsync.NewLogGroup(ctx, log.Named("group"))
+	g := tdsync.NewLogGroup(ctx, logzap.New(log.Named("group")))
 
 	g.Go("echobot", func(ctx context.Context) error {
 		if err := e2etest.NewEchoBot(suite, auth).Run(ctx); err != nil {

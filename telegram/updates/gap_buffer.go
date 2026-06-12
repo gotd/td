@@ -1,6 +1,6 @@
 package updates
 
-import "go.uber.org/zap/zapcore"
+import "fmt"
 
 type gap struct {
 	from, to int
@@ -40,15 +40,11 @@ func (b *gapBuffer) Consume(u update) (accepted bool) {
 	return false
 }
 
-func (b gapBuffer) MarshalLogArray(e zapcore.ArrayEncoder) error {
-	for _, g := range b.gaps {
-		if err := e.AppendObject(zapcore.ObjectMarshalerFunc(func(e zapcore.ObjectEncoder) error {
-			e.AddInt("from", g.from)
-			e.AddInt("to", g.to)
-			return nil
-		})); err != nil {
-			return err
-		}
-	}
-	return nil
+// String implements fmt.Stringer, rendering gaps as a list of [from,to) ranges.
+func (b gapBuffer) String() string {
+	return fmt.Sprintf("%v", b.gaps)
+}
+
+func (g gap) String() string {
+	return fmt.Sprintf("[%d,%d)", g.from, g.to)
 }

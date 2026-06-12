@@ -5,7 +5,8 @@ import (
 	"time"
 
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -29,8 +30,8 @@ type Options struct {
 
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
-	// Logger is instance of zap.Logger. No logs by default.
-	Logger *zap.Logger
+	// Logger is the structured logger. No logs by default.
+	Logger log.Logger
 	// Handler will be called on received message.
 	Handler Handler
 
@@ -123,7 +124,7 @@ func (opt *Options) setDefaults() {
 		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
-		opt.Logger = zap.NewNop()
+		opt.Logger = log.Nop
 	}
 	if opt.AckBatchSize == 0 {
 		opt.AckBatchSize = 20

@@ -8,8 +8,8 @@ import (
 	"testing/iotest"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/crypto"
@@ -45,7 +45,7 @@ func TestConn_connect(t *testing.T) {
 				},
 				clock: clock.System,
 				rand:  rand.Reader,
-				log:   zap.NewNop(),
+				log:   log.For(log.Nop),
 			}
 
 			a.Error(c.connect(context.Background()))
@@ -64,7 +64,7 @@ func TestConn_connect(t *testing.T) {
 					ID: [8]byte{1}, // Skip exchange.
 				},
 				rand: iotest.ErrReader(io.EOF),
-				log:  zap.NewNop(),
+				log:  log.For(log.Nop),
 			}
 
 			a.Error(c.connect(context.Background()))

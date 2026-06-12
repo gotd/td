@@ -11,6 +11,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log"
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/mtproto"
@@ -101,7 +104,7 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 	}
 
 	client = &Client{
-		log:     zaptest.NewLogger(t),
+		log:     log.For(logzap.New(zaptest.NewLogger(t))),
 		rand:    rand.New(rand.NewSource(1)),
 		appID:   TestAppID,
 		appHash: TestAppHash,

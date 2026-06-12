@@ -14,6 +14,7 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
 )
@@ -131,7 +132,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 
 	e := updates.New(updates.Config{
 		Handler:      h,
-		Logger:       log.Named("gaps"),
+		Logger:       logzap.New(log.Named("gaps")),
 		Storage:      storage,
 		AccessHasher: hasher,
 	})

@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
@@ -73,7 +73,7 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 	msg, err := c.decryptMessage(buf)
 	if errors.Is(err, errRejected) {
-		c.log.Warn("Ignoring rejected message", zap.Error(err))
+		c.log.Warn(ctx, "Ignoring rejected message", log.Error(err))
 		return nil
 	}
 	if err != nil {
@@ -83,7 +83,7 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 	if err := c.handleMessage(msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
 		// Probably we can return here, but this will shutdown whole
 		// connection which can be unexpected.
-		c.log.Warn("Error while handling message", zap.Error(err))
+		c.log.Warn(ctx, "Error while handling message", log.Error(err))
 		// Sending acknowledge even on error. Client should restore
 		// from missing updates via explicit pts check and getDiff call.
 	}
@@ -105,7 +105,7 @@ func (c *Conn) noUpdates(err error) bool {
 	var syscall *net.OpError
 	if errors.As(err, &syscall) && syscall.Timeout() {
 		// We call SetReadDeadline so such error is expected.
-		c.log.Debug("No updates")
+		c.log.Debug(context.Background(), "No updates")
 		return true
 	}
 	return false
@@ -118,32 +118,32 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 		//
 		// We should recover from this in createAuthKey, but in general
 		// this code branch should be unreachable.
-		c.log.Warn("BUG: zero session id found")
+		c.log.Warn(ctx, "BUG: zero session id found")
 	}
 	if c.pfs {
 		// In PFS mode 404 most likely means lost temporary key, so caller should
 		// recreate transport and re-bind, not regenerate permanent key in-place.
 		return errors.Wrap(ErrPFSReconnectRequired, "temporary auth key not found in pfs mode")
 	}
-	c.log.Warn("Re-generating keys (server not found key that we provided)")
+	c.log.Warn(ctx, "Re-generating keys (server not found key that we provided)")
 	if err := c.createAuthKey(ctx); err != nil {
 		return errors.Wrap(err, "unable to create auth key")
 	}
-	c.log.Info("Re-created auth keys")
+	c.log.Info(ctx, "Re-created auth keys")
 	// Request will be retried by ack loop.
 	// Probably we can speed-up this.
 	return nil
 }
 
 func (c *Conn) readLoop(ctx context.Context) (err error) {
-	log := c.log.Named("read")
-	log.Debug("Read loop started")
+	logger := c.log.Named("read")
+	logger.Debug(ctx, "Read loop started")
 	defer func() {
-		l := log
+		l := logger
 		if err != nil {
-			l = log.With(zap.NamedError("reason", err))
+			l = logger.With(log.NamedError("reason", err))
 		}
-		l.Debug("Read loop done")
+		l.Debug(ctx, "Read loop done")
 	}()
 
 	var (
@@ -210,7 +210,7 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			// overhead, especially on multi-CPU systems with multiple running
 			// clients.
 			if err := c.consumeMessage(ctx, buf); err != nil {
-				log.Error("Failed to process message", zap.Error(err))
+				logger.Error(ctx, "Failed to process message", log.Error(err))
 				lastErr.Store(errors.Wrap(err, "consume"))
 			}
 		}()

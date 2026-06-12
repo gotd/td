@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram"
@@ -41,7 +42,7 @@ func TestSendAndHistory(t *testing.T) {
 	defer cancel()
 
 	g := tdsync.NewCancellableGroup(ctx)
-	c := cluster.NewCluster(cluster.Options{Logger: log.Named("cluster")})
+	c := cluster.NewCluster(cluster.Options{Logger: logzap.New(log.Named("cluster"))})
 
 	svc := messages.NewService(messages.WithSelfResolver(func(tgtest.Session) *tg.User {
 		return &tg.User{ID: 100, AccessHash: 100, Self: true}
@@ -59,7 +60,7 @@ func TestSendAndHistory(t *testing.T) {
 		}
 		defer g.Cancel()
 
-		client := newClient(c, telegram.Options{NoUpdates: true, Logger: log.Named("client")})
+		client := newClient(c, telegram.Options{NoUpdates: true, Logger: logzap.New(log.Named("client"))})
 		return client.Run(ctx, func(ctx context.Context) error {
 			api := client.API()
 
@@ -122,7 +123,7 @@ func TestDeliver(t *testing.T) {
 	var resolved []int64
 
 	g := tdsync.NewCancellableGroup(ctx)
-	c := cluster.NewCluster(cluster.Options{Logger: log.Named("cluster")})
+	c := cluster.NewCluster(cluster.Options{Logger: logzap.New(log.Named("cluster"))})
 
 	svc := messages.NewService(messages.WithSelfResolver(func(s tgtest.Session) *tg.User {
 		// Assign identities in connection order: Bob connects (binds) first,
@@ -163,7 +164,7 @@ func TestDeliver(t *testing.T) {
 		})
 		client := newClient(c, telegram.Options{
 			UpdateHandler: dispatcher,
-			Logger:        log.Named("bob"),
+			Logger:        logzap.New(log.Named("bob")),
 		})
 		return client.Run(ctx, func(ctx context.Context) error {
 			// Trigger session binding on the server.
@@ -193,7 +194,7 @@ func TestDeliver(t *testing.T) {
 		}
 		defer g.Cancel()
 
-		client := newClient(c, telegram.Options{NoUpdates: true, Logger: log.Named("alice")})
+		client := newClient(c, telegram.Options{NoUpdates: true, Logger: logzap.New(log.Named("alice"))})
 		return client.Run(ctx, func(ctx context.Context) error {
 			if _, err := client.API().MessagesSendMessage(ctx, &tg.MessagesSendMessageRequest{
 				Peer:     &tg.InputPeerUser{UserID: bobID, AccessHash: bobID},

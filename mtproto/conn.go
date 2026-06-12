@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.uber.org/atomic"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -63,7 +63,7 @@ type Conn struct {
 	clock        clock.Clock
 	rand         io.Reader
 	cipher       Cipher
-	log          *zap.Logger
+	log          log.Helper
 	messageID    MessageIDSource
 	messageIDBuf MessageBuf // replay attack protection
 
@@ -135,7 +135,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		clock:        opt.Clock,
 		rand:         opt.Random,
 		cipher:       opt.Cipher,
-		log:          opt.Logger,
+		log:          log.For(opt.Logger),
 		messageID:    opt.MessageID,
 		messageIDBuf: proto.NewMessageIDBuf(100),
 
@@ -176,7 +176,7 @@ func New(dialer Dialer, opt Options) *Conn {
 	}
 	if conn.rpc == nil {
 		conn.rpc = rpc.New(conn.writeContentMessage, rpc.Options{
-			Logger:        opt.Logger.Named("rpc"),
+			Logger:        log.Named(opt.Logger, "rpc"),
 			RetryInterval: opt.RetryInterval,
 			MaxRetries:    opt.MaxRetries,
 			Clock:         opt.Clock,
@@ -190,13 +190,13 @@ func New(dialer Dialer, opt Options) *Conn {
 // handleClose closes rpc engine and underlying connection on context done.
 func (c *Conn) handleClose(ctx context.Context) error {
 	<-ctx.Done()
-	c.log.Debug("Closing")
+	c.log.Debug(ctx, "Closing")
 
 	// Close RPC Engine.
 	c.rpc.ForceClose()
 	// Close connection.
 	if err := c.conn.Close(); err != nil {
-		c.log.Debug("Failed to cleanup connection", zap.Error(err))
+		c.log.Debug(ctx, "Failed to cleanup connection", log.Error(err))
 	}
 	return nil
 }
@@ -216,14 +216,14 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	c.log.Debug("Run: start")
-	defer c.log.Debug("Run: end")
+	c.log.Debug(ctx, "Run: start")
+	defer c.log.Debug(ctx, "Run: end")
 	if err := c.connect(ctx); err != nil {
 		return errors.Wrap(err, "start")
 	}
 	{
 		// All goroutines are bound to current call.
-		g := tdsync.NewLogGroup(ctx, c.log.Named("group"))
+		g := tdsync.NewLogGroup(ctx, c.log.Named("group").Logger())
 		g.Go("handleClose", c.handleClose)
 		readStarted := make(chan struct{})
 		g.Go("readLoop", func(ctx context.Context) error {

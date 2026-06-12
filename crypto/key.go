@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-faster/errors"
 	"github.com/go-faster/jx"
-	"go.uber.org/zap/zapcore"
+	"github.com/gotd/log"
 )
 
 // See https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
@@ -125,8 +125,8 @@ func (a AuthKey) String() string {
 	return fmt.Sprintf("Key(id: %x)", a.ID)
 }
 
-// MarshalLogObject implements zap.ObjectMarshaler.
-func (a AuthKey) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
-	encoder.AddString("id", hex.EncodeToString(a.ID[:]))
-	return nil
+// LogAttr returns the key fingerprint as an inline log group, never exposing the
+// secret key value.
+func (a AuthKey) LogAttr() log.Attr {
+	return log.Group("", log.String("id", hex.EncodeToString(a.ID[:])))
 }

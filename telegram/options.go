@@ -7,7 +7,8 @@ import (
 
 	"github.com/cenkalti/backoff/v4"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/crypto"
@@ -70,8 +71,20 @@ type Options struct {
 
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
-	// Logger is instance of zap.Logger. No logs by default.
-	Logger *zap.Logger
+	// Logger is the structured logger. No logs by default.
+	//
+	// Use github.com/gotd/log/logzap to bridge a *zap.Logger:
+	//
+	//	import (
+	//		"go.uber.org/zap"
+	//		"github.com/gotd/log/logzap"
+	//	)
+	//
+	//	zapLog, _ := zap.NewProduction()
+	//	opts := telegram.Options{
+	//		Logger: logzap.New(zapLog),
+	//	}
+	Logger log.Logger
 	// SessionStorage will be used to load and save session data.
 	// NB: Very sensitive data, save with care.
 	SessionStorage SessionStorage
@@ -142,7 +155,7 @@ func (opt *Options) setDefaults() {
 		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
-		opt.Logger = zap.NewNop()
+		opt.Logger = log.Nop
 	}
 	if opt.DC == 0 {
 		opt.DC = 2

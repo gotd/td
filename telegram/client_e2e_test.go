@@ -10,8 +10,10 @@ import (
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
+
+	"github.com/gotd/log"
+	"github.com/gotd/log/logzap"
 
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
@@ -30,7 +32,7 @@ import (
 type clusterSetup struct {
 	TB      testing.TB
 	Cluster *cluster.Cluster
-	Logger  *zap.Logger
+	Logger  log.Logger
 }
 
 type clientSetup struct {
@@ -54,8 +56,8 @@ func testCluster(
 	return func(t *testing.T) {
 		t.Parallel()
 
-		log := zaptest.NewLogger(t)
-		defer func() { _ = log.Sync() }()
+		zapLog := zaptest.NewLogger(t)
+		defer func() { _ = zapLog.Sync() }()
 
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 		defer cancel()
@@ -63,13 +65,13 @@ func testCluster(
 
 		c := cluster.NewCluster(cluster.Options{
 			Web:      ws,
-			Logger:   log.Named("cluster"),
+			Logger:   logzap.New(zapLog.Named("cluster")),
 			Protocol: p,
 		})
 		setup(clusterSetup{
 			TB:      t,
 			Cluster: c,
-			Logger:  log,
+			Logger:  logzap.New(zapLog),
 		})
 		g.Go(c.Up)
 
@@ -90,7 +92,7 @@ func testCluster(
 					}),
 					PublicKeys:     c.Keys(),
 					Resolver:       c.Resolver(),
-					Logger:         log.Named("client"),
+					Logger:         logzap.New(zapLog.Named("client")),
 					SessionStorage: &session.StorageMemory{},
 					DCList:         c.List(),
 				},
@@ -98,7 +100,7 @@ func testCluster(
 			})
 		})
 
-		log.Debug("Waiting")
+		zapLog.Debug("Waiting")
 		if err := g.Wait(); err != nil && !errors.Is(err, context.Canceled) {
 			require.NoError(t, err)
 		}
@@ -116,7 +118,7 @@ func testTransport(p dcs.Protocol) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
 	return testCluster(p, false, func(s clusterSetup) {
-		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
+		h := tgtest.TestTransport(s.TB, log.Named(s.Logger, "handler"), testMessage)
 		d := s.Cluster.Dispatch(2, "server")
 		d.Handle(tg.MessagesSendMessageRequestTypeID, h)
 		d.Handle(tg.UsersGetUsersRequestTypeID, h)
@@ -125,7 +127,7 @@ func testTransport(p dcs.Protocol) func(t *testing.T) {
 		opts.AckBatchSize = 1
 		opts.AckInterval = time.Millisecond * 50
 		opts.RetryInterval = time.Millisecond * 50
-		logger := opts.Logger
+		logger := log.For(opts.Logger)
 
 		dispatcher := tg.NewUpdateDispatcher()
 		opts.UpdateHandler = dispatcher
@@ -134,7 +136,7 @@ func testTransport(p dcs.Protocol) func(t *testing.T) {
 		waitForMessage := make(chan struct{})
 		dispatcher.OnNewMessage(func(ctx context.Context, entities tg.Entities, update *tg.UpdateNewMessage) error {
 			message := update.Message.(*tg.Message).Message
-			logger.Info("Got message", zap.String("text", message))
+			logger.Info(ctx, "Got message", log.String("text", message))
 			assert.Equal(c.TB, testMessage, message)
 			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 				Peer:    &tg.InputPeerUser{},
@@ -143,7 +145,7 @@ func testTransport(p dcs.Protocol) func(t *testing.T) {
 				return err
 			}
 
-			logger.Info("Closing waitForMessage")
+			logger.Info(ctx, "Closing waitForMessage")
 			close(waitForMessage)
 			return nil
 		})
@@ -154,7 +156,7 @@ func testTransport(p dcs.Protocol) func(t *testing.T) {
 				c.TB.Error("Failed to wait for message")
 				return ctx.Err()
 			case <-waitForMessage:
-				logger.Info("Returning")
+				logger.Info(ctx, "Returning")
 				c.Complete()
 				return nil
 			}

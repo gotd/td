@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/gotd/td/exchange"
@@ -52,7 +52,7 @@ type internalState struct {
 
 	// Immutable fields.
 	client                API
-	log                   *zap.Logger
+	log                   log.Helper
 	handler               telegram.UpdateHandler
 	onTooLong             func(channelID int64)
 	onChannelInaccessible func(channelID int64)
@@ -73,7 +73,7 @@ type stateConfig struct {
 		AccessHash int64
 	}
 	RawClient             API
-	Logger                *zap.Logger
+	Logger                log.Logger
 	Tracer                trace.Tracer
 	Handler               telegram.UpdateHandler
 	OnChannelTooLong      func(channelID int64)
@@ -99,7 +99,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		removeChannel: make(chan int64, 10),
 
 		client:                cfg.RawClient,
-		log:                   cfg.Logger,
+		log:                   log.For(cfg.Logger),
 		handler:               cfg.Handler,
 		onTooLong:             cfg.OnChannelTooLong,
 		onChannelInaccessible: cfg.OnChannelInaccessible,
@@ -115,19 +115,19 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
 		Apply:        s.applyPts,
-		Logger:       s.log.Named("pts"),
+		Logger:       s.log.Named("pts").Logger(),
 		Tracer:       s.tracer,
 	})
 	s.qts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Qts,
 		Apply:        s.applyQts,
-		Logger:       s.log.Named("qts"),
+		Logger:       s.log.Named("qts").Logger(),
 		Tracer:       s.tracer,
 	})
 	s.seq = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Seq,
 		Apply:        s.applySeq,
-		Logger:       s.log.Named("seq"),
+		Logger:       s.log.Named("seq").Logger(),
 	})
 
 	for id, info := range cfg.Channels {
@@ -173,11 +173,8 @@ func (s *internalState) Run(ctx context.Context) error {
 	if s == nil {
 		return errors.New("invalid: nil internalState")
 	}
-	if s.log == nil {
-		return errors.New("invalid: nil logger")
-	}
-	s.log.Debug("Starting updates handler")
-	defer s.log.Debug("Updates handler stopped")
+	s.log.Debug(ctx, "Starting updates handler")
+	defer s.log.Debug(ctx, "Updates handler stopped")
 	s.getDifferenceLogger(ctx)
 
 	for {
@@ -190,7 +187,7 @@ func (s *internalState) Run(ctx context.Context) error {
 		case u := <-s.externalQueue:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdates(ctx, u.update); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
 				if isFatalError(err) {
 					return errors.Wrap(err, "fatal error")
 				}
@@ -198,22 +195,22 @@ func (s *internalState) Run(ctx context.Context) error {
 		case u := <-s.internalQueue:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdates(ctx, u.update); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
 				if isFatalError(err) {
 					return errors.Wrap(err, "fatal error")
 				}
 			}
 		case <-s.pts.gapTimeout.C:
-			s.log.Debug("Pts gap timeout")
+			s.log.Debug(ctx, "Pts gap timeout")
 			s.getDifferenceLogger(ctx)
 		case <-s.qts.gapTimeout.C:
-			s.log.Debug("Qts gap timeout")
+			s.log.Debug(ctx, "Qts gap timeout")
 			s.getDifferenceLogger(ctx)
 		case <-s.seq.gapTimeout.C:
-			s.log.Debug("Seq gap timeout")
+			s.log.Debug(ctx, "Seq gap timeout")
 			s.getDifferenceLogger(ctx)
 		case <-s.idleTimeout.C:
-			s.log.Debug("Idle timeout")
+			s.log.Debug(ctx, "Idle timeout")
 			s.getDifferenceLogger(ctx)
 		case channelID := <-s.removeChannel:
 			s.removeChannelState(channelID)
@@ -229,8 +226,8 @@ func (s *internalState) removeChannelState(channelID int64) {
 		return
 	}
 	delete(s.channels, channelID)
-	s.log.Debug("Removed inaccessible channel from tracking",
-		zap.Int64("channel_id", channelID),
+	s.log.Debug(context.Background(), "Removed inaccessible channel from tracking",
+		log.Int64("channel_id", channelID),
 	)
 }
 
@@ -291,7 +288,7 @@ func (s *internalState) handleSeq(ctx context.Context, u *tg.UpdatesCombined) er
 	defer span.End()
 
 	if err := validateSeq(u.Seq, u.SeqStart); err != nil {
-		s.log.Error("Seq validation failed", zap.Error(err), zap.Any("update", u))
+		s.log.Error(ctx, "Seq validation failed", log.Error(err), log.Any("update", u))
 		return nil
 	}
 
@@ -318,7 +315,7 @@ func (s *internalState) handleSeq(ctx context.Context, u *tg.UpdatesCombined) er
 
 func (s *internalState) handlePts(ctx context.Context, pts, ptsCount int, u tg.UpdateClass, ents entities) error {
 	if err := validatePts(pts, ptsCount); err != nil {
-		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", u))
+		s.log.Error(ctx, "Pts validation failed", log.Error(err), log.Any("update", u))
 		return nil
 	}
 
@@ -332,7 +329,7 @@ func (s *internalState) handlePts(ctx context.Context, pts, ptsCount int, u tg.U
 
 func (s *internalState) handleQts(ctx context.Context, qts int, u tg.UpdateClass, ents entities) error {
 	if err := validateQts(qts); err != nil {
-		s.log.Error("Qts validation failed", zap.Error(err), zap.Any("update", u))
+		s.log.Error(ctx, "Qts validation failed", log.Error(err), log.Any("update", u))
 		return nil
 	}
 
@@ -346,7 +343,7 @@ func (s *internalState) handleQts(ctx context.Context, qts int, u tg.UpdateClass
 
 func (s *internalState) handleChannel(ctx context.Context, channelID int64, date, pts, ptsCount int, cu channelUpdate) error {
 	if err := validatePts(pts, ptsCount); err != nil {
-		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", cu.update))
+		s.log.Error(ctx, "Pts validation failed", log.Error(err), log.Any("update", cu.update))
 		return nil
 	}
 
@@ -354,7 +351,7 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 	if !ok {
 		accessHash, found, err := s.hasher.GetChannelAccessHash(context.Background(), s.selfID, channelID)
 		if err != nil {
-			s.log.Error("GetChannelAccessHash error", zap.Error(err))
+			s.log.Error(ctx, "GetChannelAccessHash error", log.Error(err))
 		}
 
 		if !found {
@@ -368,9 +365,9 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 			// Try to get access hash from updates.getDifference.
 			accessHash, found = s.restoreAccessHash(ctx, channelID, date)
 			if !found {
-				s.log.Debug("Failed to recover missing access hash, update ignored",
-					zap.Int64("channel_id", channelID),
-					zap.Any("update", cu.update),
+				s.log.Debug(ctx, "Failed to recover missing access hash, update ignored",
+					log.Int64("channel_id", channelID),
+					log.Any("update", cu.update),
 				)
 				return nil
 			}
@@ -379,13 +376,13 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 		localPts, found, err := s.storage.GetChannelPts(ctx, s.selfID, channelID)
 		if err != nil {
 			localPts = pts - ptsCount
-			s.log.Error("GetChannelPts error", zap.Error(err))
+			s.log.Error(ctx, "GetChannelPts error", log.Error(err))
 		}
 
 		if !found {
 			localPts = pts - ptsCount
 			if err := s.storage.SetChannelPts(ctx, s.selfID, channelID, localPts); err != nil {
-				s.log.Error("SetChannelPts error", zap.Error(err))
+				s.log.Error(ctx, "SetChannelPts error", log.Error(err))
 			}
 		}
 
@@ -413,7 +410,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		OnChannelTooLong:      s.onTooLong,
 		OnChannelInaccessible: s.onChannelInaccessible,
 		RemoveChannel:         s.removeChannel,
-		Logger:                s.log.Named("channel").With(zap.Int64("channel_id", channelID)),
+		Logger:                s.log.Named("channel").With(log.Int64("channel_id", channelID)).Logger(),
 		Tracer:                s.tracer,
 	})
 }
@@ -427,11 +424,11 @@ func (s *internalState) getDifference(ctx context.Context) error {
 	s.qts.gaps.Clear()
 	s.seq.gaps.Clear()
 
-	s.log.Debug("Getting difference")
+	s.log.Debug(ctx, "Getting difference")
 
 	setState := func(state tg.UpdatesState, reason string) {
 		if err := s.storage.SetState(ctx, s.selfID, State{}.fromRemote(&state)); err != nil {
-			s.log.Warn("SetState error", zap.Error(err))
+			s.log.Warn(ctx, "SetState error", log.Error(err))
 		}
 
 		s.pts.SetState(state.Pts, reason)
@@ -449,7 +446,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 		return errors.Wrap(err, "get difference")
 	}
 
-	s.log.Debug("Difference received", zap.String("diff", fmt.Sprintf("%T", diff)))
+	s.log.Debug(ctx, "Difference received", log.String("diff", fmt.Sprintf("%T", diff)))
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesDifference:
@@ -477,7 +474,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 				Users: diff.Users,
 				Chats: diff.Chats,
 			}); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
 			}
 		}
 
@@ -487,7 +484,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 	// No events.
 	case *tg.UpdatesDifferenceEmpty:
 		if err := s.storage.SetDateSeq(ctx, s.selfID, diff.Date, diff.Seq); err != nil {
-			s.log.Warn("SetDateSeq error", zap.Error(err))
+			s.log.Warn(ctx, "SetDateSeq error", log.Error(err))
 		}
 
 		s.date = diff.Date
@@ -508,7 +505,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 				Chats:   diff.Chats,
 				Date:    diff.IntermediateState.Date,
 			}); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
 			}
 		}
 
@@ -521,7 +518,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 				Users: diff.Users,
 				Chats: diff.Chats,
 			}); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
 			}
 		}
 
@@ -531,7 +528,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 	// The difference is too long, and the specified internalState must be used to refetch updates.
 	case *tg.UpdatesDifferenceTooLong:
 		if err := s.storage.SetPts(ctx, s.selfID, diff.Pts); err != nil {
-			s.log.Error("SetPts error", zap.Error(err))
+			s.log.Error(ctx, "SetPts error", log.Error(err))
 		}
 		s.pts.SetState(diff.Pts, "updates.differenceTooLong")
 		s.onCommonTooLong()
@@ -544,7 +541,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 
 func (s *internalState) getDifferenceLogger(ctx context.Context) {
 	if err := s.getDifference(ctx); err != nil {
-		s.log.Error("get difference error", zap.Error(err))
+		s.log.Error(ctx, "get difference error", log.Error(err))
 	}
 }
 

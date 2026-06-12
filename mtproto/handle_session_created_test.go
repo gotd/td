@@ -9,6 +9,9 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest/observer"
 
+	"github.com/gotd/log"
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/neo"
 
 	"github.com/gotd/td/bin"
@@ -27,7 +30,7 @@ func TestConn_handleSessionCreated(t *testing.T) {
 		gotSession := tdsync.NewReady()
 		conn := Conn{
 			clock:      clock,
-			log:        zap.New(logger),
+			log:        log.For(logzap.New(zap.New(logger))),
 			gotSession: gotSession,
 			handler:    newTestHandler(),
 		}

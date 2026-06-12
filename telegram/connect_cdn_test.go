@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 )
 
@@ -85,7 +85,7 @@ func (c *cancelCheckInvoker) Close() error {
 func TestClientRunCancelsContextBeforeClosingManagedConns(t *testing.T) {
 	c := NewClient(1, "hash", Options{
 		NoUpdates: true,
-		Logger:    zap.NewNop(),
+		Logger:    log.Nop,
 	})
 
 	checker := &cancelCheckInvoker{client: c}
@@ -107,7 +107,7 @@ func TestClientRunCancelsContextBeforeClosingManagedConns(t *testing.T) {
 func TestClientRunSkipsDoubleCloseForAlreadyClosingCDNConn(t *testing.T) {
 	c := NewClient(1, "hash", Options{
 		NoUpdates: true,
-		Logger:    zap.NewNop(),
+		Logger:    log.Nop,
 	})
 
 	inv := &inProgressCloseInvoker{

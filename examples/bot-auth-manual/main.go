@@ -9,6 +9,8 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
@@ -63,7 +65,7 @@ func main() {
 	examples.Run(func(ctx context.Context, log *zap.Logger) error {
 		client := telegram.NewClient(*appID, *appHash, telegram.Options{
 			SessionStorage: sessionStorage,
-			Logger:         log,
+			Logger:         logzap.New(log),
 		})
 
 		return client.Run(ctx, func(ctx context.Context) error {

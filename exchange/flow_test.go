@@ -12,6 +12,7 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/testutil"
@@ -41,7 +42,7 @@ func testExchange(tempMode bool) func(t *testing.T) {
 		g := tdsync.NewCancellableGroup(ctx)
 		g.Go(func(ctx context.Context) error {
 			ex := NewExchanger(client, dc).
-				WithLogger(log.Named("client")).
+				WithLogger(logzap.New(log.Named("client"))).
 				WithRand(reader)
 			if tempMode {
 				// Force temporary key path to ensure p_q_inner_data_temp_dc wiring.
@@ -54,7 +55,7 @@ func testExchange(tempMode bool) func(t *testing.T) {
 
 		g.Go(func(ctx context.Context) error {
 			_, err := NewExchanger(server, dc).
-				WithLogger(log.Named("server")).
+				WithLogger(logzap.New(log.Named("server"))).
 				WithRand(reader).
 				Server(privateKey).
 				Run(ctx)
@@ -97,7 +98,7 @@ func TestExchangeCorpus(t *testing.T) {
 			g, gctx := errgroup.WithContext(ctx)
 			g.Go(func() error {
 				_, err := NewExchanger(client, dc).
-					WithLogger(log.Named("client")).
+					WithLogger(logzap.New(log.Named("client"))).
 					WithRand(reader).
 					Client([]PublicKey{privateKey.Public()}).
 					Run(gctx)
@@ -108,7 +109,7 @@ func TestExchangeCorpus(t *testing.T) {
 			})
 			g.Go(func() error {
 				_, err := NewExchanger(server, dc).
-					WithLogger(log.Named("server")).
+					WithLogger(logzap.New(log.Named("server"))).
 					WithRand(reader).
 					Server(privateKey).
 					Run(gctx)
