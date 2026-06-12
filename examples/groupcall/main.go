@@ -25,6 +25,8 @@ import (
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth/qrlogin"
@@ -51,7 +53,7 @@ func main() {
 		loggedIn := qrlogin.OnLoginToken(&dispatcher)
 
 		opts := telegram.Options{
-			Logger:        log,
+			Logger:        logzap.New(log),
 			UpdateHandler: dispatcher,
 		}
 		if *test {
@@ -64,7 +66,7 @@ func main() {
 			return err
 		}
 
-		gc := calls.NewGroupCall(client.API(), calls.Options{Logger: log})
+		gc := calls.NewGroupCall(client.API(), calls.Options{Logger: logzap.New(log)})
 		gc.Register(dispatcher)
 		gc.OnParticipants(func(p []tg.GroupCallParticipant) {
 			log.Info("Participants updated", zap.Int("count", len(p)))

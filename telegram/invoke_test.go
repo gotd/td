@@ -7,8 +7,8 @@ import (
 
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/rpc"
@@ -61,7 +61,7 @@ func TestClient_invokeConnRetriesOnNewConn(t *testing.T) {
 		{"EngineClosed", errors.Wrap(rpc.ErrEngineClosed, "engine forcibly closed")},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			client := Client{log: zap.NewNop()}
+			client := Client{log: log.For(log.Nop)}
 			client.init()
 
 			dead := newNotifyInvokeConn(tt.err)
@@ -83,7 +83,7 @@ func TestClient_invokeConnRetriesOnNewConn(t *testing.T) {
 }
 
 func TestClient_invokeConnContextCancel(t *testing.T) {
-	client := Client{log: zap.NewNop()}
+	client := Client{log: log.For(log.Nop)}
 	client.init()
 	client.conn = newNotifyInvokeConn(pool.ErrConnDead)
 
@@ -101,7 +101,7 @@ func TestClient_invokeConnClientClose(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 
-	client := Client{log: zap.NewNop(), ctx: ctx}
+	client := Client{log: log.For(log.Nop), ctx: ctx}
 	client.init()
 	client.conn = newNotifyInvokeConn(pool.ErrConnDead)
 
@@ -115,7 +115,7 @@ func TestClient_invokeConnClientClose(t *testing.T) {
 func TestClient_invokeConnNotRetryable(t *testing.T) {
 	testErr := errors.New("some rpc error")
 
-	client := Client{log: zap.NewNop()}
+	client := Client{log: log.For(log.Nop)}
 	client.init()
 	client.conn = newNotifyInvokeConn(testErr)
 

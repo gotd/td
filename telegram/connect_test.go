@@ -7,8 +7,8 @@ import (
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/exchange"
@@ -58,7 +58,7 @@ func TestClient_reconnectUntilClosed(t *testing.T) {
 		newConnBackoff: func() backoff.BackOff {
 			return backoff.NewConstantBackOff(time.Nanosecond)
 		},
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 	client.conn = fingerprintNotFoundConn{}
@@ -74,7 +74,7 @@ func TestClient_reconnectUntilClosedPFSDropResetsStoredKey(t *testing.T) {
 		newConnBackoff: func() backoff.BackOff {
 			return backoff.NewConstantBackOff(time.Nanosecond)
 		},
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	client.init()
 	client.session = pool.NewSyncSession(pool.Session{DC: dcID})

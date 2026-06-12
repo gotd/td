@@ -5,7 +5,8 @@ import (
 	"sync/atomic"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
@@ -30,7 +31,7 @@ func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.
 	}
 
 	p := pool.NewDC(c.ctx, dc, creator, pool.DCOptions{
-		Logger:             c.log.Named("pool").With(zap.Int("dc_id", dc)),
+		Logger:             c.log.Named("pool").With(log.Int("dc_id", dc)).Logger(),
 		MaxOpenConnections: max,
 	})
 
@@ -71,10 +72,10 @@ func (c *Client) dc(
 	if len(dcList) < 1 {
 		return nil, errors.Errorf("unknown DC %d", dcID)
 	}
-	c.log.Debug("Creating pool",
-		zap.Int("dc_id", dcID),
-		zap.Int64("max", max),
-		zap.Int("candidates", len(dcList)),
+	c.log.Debug(ctx, "Creating pool",
+		log.Int("dc_id", dcID),
+		log.Int64("max", max),
+		log.Int("candidates", len(dcList)),
 	)
 
 	opts := c.opts
@@ -131,9 +132,9 @@ func (c *Client) dc(
 			handler = c.asCDNHandler()
 		}
 		options.Logger = c.log.Named("conn").With(
-			zap.Int64("conn_id", id),
-			zap.Int("dc_id", dcID),
-		)
+			log.Int64("conn_id", id),
+			log.Int("dc_id", dcID),
+		).Logger()
 		return c.create(
 			dialer, mode, c.appID,
 			options, manager.ConnOptions{

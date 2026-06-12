@@ -4,7 +4,7 @@ package cluster
 import (
 	"io"
 
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/tdsync"
@@ -38,7 +38,7 @@ type Cluster struct {
 	// RPC dispatcher.
 	common *tgtest.Dispatcher
 
-	log      *zap.Logger
+	log      log.Helper
 	random   io.Reader
 	protocol dcs.Protocol
 }
@@ -56,7 +56,7 @@ func NewCluster(opts Options) *Cluster {
 		domains:  map[int]string{},
 		ready:    tdsync.NewReady(),
 		common:   tgtest.NewDispatcher(),
-		log:      opts.Logger,
+		log:      log.For(opts.Logger),
 		random:   opts.Random,
 		protocol: opts.Protocol,
 	}

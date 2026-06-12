@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/crypto"
@@ -33,7 +33,7 @@ type Exchanger struct {
 
 	clock   clock.Clock
 	rand    io.Reader
-	log     *zap.Logger
+	log     log.Helper
 	timeout time.Duration
 	dc      int
 	// mode/expires define auth key type produced by client exchange.
@@ -54,8 +54,8 @@ func (e Exchanger) WithRand(reader io.Reader) Exchanger {
 }
 
 // WithLogger sets exchange flow logger.
-func (e Exchanger) WithLogger(log *zap.Logger) Exchanger {
-	e.log = log
+func (e Exchanger) WithLogger(logger log.Logger) Exchanger {
+	e.log = log.For(logger)
 	return e
 }
 
@@ -83,7 +83,7 @@ func NewExchanger(conn transport.Conn, dc int) Exchanger {
 
 		clock:   clock.System,
 		rand:    crypto.DefaultRand(),
-		log:     zap.NewNop(),
+		log:     log.For(nil),
 		timeout: DefaultTimeout,
 		dc:      dc,
 		// Preserve old behavior by default: generate permanent key unless

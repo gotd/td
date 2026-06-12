@@ -8,6 +8,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/tg"
 )
@@ -53,7 +55,7 @@ func TestSuite_Authenticate(t *testing.T) {
 	ctx := context.Background()
 	logger := zaptest.NewLogger(t)
 	s := NewSuite(t, TestOptions{
-		Logger: logger,
+		Logger: logzap.New(logger),
 	})
 	if s.manager != nil {
 		t.Skip("Not testing external manager")

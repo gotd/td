@@ -1,7 +1,7 @@
 package peers
 
 import (
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 	"golang.org/x/sync/singleflight"
 
 	"github.com/gotd/td/constant"
@@ -12,7 +12,7 @@ import (
 type Options struct {
 	Storage Storage
 	Cache   Cache
-	Logger  *zap.Logger
+	Logger  log.Logger
 }
 
 func (o *Options) setDefaults() {
@@ -23,7 +23,7 @@ func (o *Options) setDefaults() {
 		o.Cache = NoopCache{}
 	}
 	if o.Logger == nil {
-		o.Logger = zap.NewNop()
+		o.Logger = log.Nop
 	}
 }
 
@@ -35,7 +35,7 @@ func (o Options) Build(api *tg.Client) *Manager {
 		storage: o.Storage,
 		cache:   o.Cache,
 		me:      new(atomicUser),
-		logger:  o.Logger,
+		logger:  log.For(o.Logger),
 		sg:      singleflight.Group{},
 		needUpdate: peerIDSet{
 			m: make(map[constant.TDLibPeerID]struct{}),

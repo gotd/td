@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/crypto"
 )
@@ -35,7 +35,7 @@ func TestTempKeyRenewalLoopReconnect(t *testing.T) {
 		tempKeyTTL:    60,
 		tempKeyExpiry: time.Now().Add(-time.Second).Unix(),
 		clock:         clock.System,
-		log:           zap.NewNop(),
+		log:           log.For(log.Nop),
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
@@ -49,7 +49,7 @@ func TestHandleAuthKeyNotFoundPFS(t *testing.T) {
 	a := require.New(t)
 	conn := New(nil, Options{
 		EnablePFS: true,
-		Logger:    zap.NewNop(),
+		Logger:    log.Nop,
 	})
 
 	err := conn.handleAuthKeyNotFound(context.Background())
@@ -82,7 +82,7 @@ func TestHandleBindEncryptedMessageInvalidDropsOldKeys(t *testing.T) {
 	a := require.New(t)
 	conn := Conn{
 		clock:            clock.System,
-		log:              zap.NewNop(),
+		log:              log.For(log.Nop),
 		authKey:          crypto.Key{1}.WithID(),
 		permKey:          crypto.Key{2}.WithID(),
 		permKeyCreatedAt: time.Now().Unix() - 61,
@@ -109,7 +109,7 @@ func TestHandleBindEncryptedMessageInvalidRetryFreshKey(t *testing.T) {
 	perm := crypto.Key{4}.WithID()
 	conn := Conn{
 		clock:            clock.System,
-		log:              zap.NewNop(),
+		log:              log.For(log.Nop),
 		authKey:          temp,
 		permKey:          perm,
 		permKeyCreatedAt: time.Now().Unix(),
@@ -134,7 +134,7 @@ func TestHandleBindEncryptedMessageInvalidUnknownAge(t *testing.T) {
 	perm := crypto.Key{8}.WithID()
 	conn := Conn{
 		clock:         clock.System,
-		log:           zap.NewNop(),
+		log:           log.For(log.Nop),
 		authKey:       temp,
 		permKey:       perm,
 		salt:          30,
@@ -169,7 +169,7 @@ func TestHandleBindConnectionNotInitedRetriesThenReconnects(t *testing.T) {
 	perm := crypto.Key{6}.WithID()
 	conn := Conn{
 		clock:         clock.System,
-		log:           zap.NewNop(),
+		log:           log.For(log.Nop),
 		authKey:       temp,
 		permKey:       perm,
 		salt:          30,

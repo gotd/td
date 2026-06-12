@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/mtproto"
@@ -79,7 +80,7 @@ func CreateConn(
 		conn.cdnNeedsInit.Store(true)
 	}
 
-	conn.log = opts.Logger
+	conn.log = log.For(opts.Logger)
 	opts.DC = connOpts.DC
 	if connOpts.Test {
 		// New key exchange algorithm requires DC ID and uses mapping like MTProxy.
@@ -87,7 +88,7 @@ func CreateConn(
 		opts.DC += 10000
 	}
 	opts.Handler = conn
-	opts.Logger = conn.log.Named("mtproto")
+	opts.Logger = conn.log.Named("mtproto").Logger()
 	conn.proto = mtproto.New(create, opts)
 
 	return conn

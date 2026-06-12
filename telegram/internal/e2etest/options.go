@@ -3,7 +3,7 @@ package e2etest
 import (
 	"io"
 
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/constant"
 	"github.com/gotd/td/crypto"
@@ -15,7 +15,7 @@ type TestOptions struct {
 	AppHash string
 	DC      int
 	Random  io.Reader
-	Logger  *zap.Logger
+	Logger  log.Logger
 }
 
 func (opt *TestOptions) setDefaults() {
@@ -32,6 +32,6 @@ func (opt *TestOptions) setDefaults() {
 		opt.Random = crypto.DefaultRand()
 	}
 	if opt.Logger == nil {
-		opt.Logger = zap.NewNop()
+		opt.Logger = log.Nop
 	}
 }

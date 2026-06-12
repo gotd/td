@@ -6,7 +6,7 @@ import (
 	"math/big"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
@@ -23,7 +23,7 @@ func (c ClientExchange) Run(ctx context.Context) (ClientExchangeResult, error) {
 	}
 	b := new(bin.Buffer)
 
-	c.log.Debug("Sending ReqPqMultiRequest")
+	c.log.Debug(ctx, "Sending ReqPqMultiRequest")
 	if err := c.writeUnencrypted(ctx, b, &mt.ReqPqMultiRequest{Nonce: nonce}); err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "write ReqPqMultiRequest")
 	}
@@ -34,7 +34,7 @@ func (c ClientExchange) Run(ctx context.Context) (ClientExchangeResult, error) {
 	if err := c.readUnencrypted(ctx, b, &res); err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "read ResPQ response")
 	}
-	c.log.Debug("Received server ResPQ")
+	c.log.Debug(ctx, "Received server ResPQ")
 	if res.Nonce != nonce {
 		return ClientExchangeResult{}, errors.New("ResPQ nonce mismatch")
 	}
@@ -73,7 +73,7 @@ Loop:
 	if err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "decompose pq")
 	}
-	c.log.Debug("PQ decomposing complete", zap.Duration("took", c.clock.Now().Sub(start)))
+	c.log.Debug(ctx, "PQ decomposing complete", log.Duration("took", c.clock.Now().Sub(start)))
 	// Make a copy of p and q values to reduce allocations.
 	pBytes := p.Bytes()
 	qBytes := q.Bytes()
@@ -137,7 +137,7 @@ Loop:
 		PublicKeyFingerprint: selectedPubKey.Fingerprint(),
 		EncryptedData:        encryptedData,
 	}
-	c.log.Debug("Sending ReqDHParamsRequest")
+	c.log.Debug(ctx, "Sending ReqDHParamsRequest")
 	if err := c.writeUnencrypted(ctx, b, reqDHParams); err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "write ReqDHParamsRequest")
 	}
@@ -146,7 +146,7 @@ Loop:
 	if err := c.conn.Recv(ctx, b); err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "read ServerDHParams message")
 	}
-	c.log.Debug("Received server ServerDHParams")
+	c.log.Debug(ctx, "Received server ServerDHParams")
 
 	var plaintextMsg proto.UnencryptedMessage
 	if err := plaintextMsg.Decode(b); err != nil {
@@ -229,7 +229,7 @@ Loop:
 			ServerNonce:   reqDHParams.ServerNonce,
 			EncryptedData: clientEncrypted,
 		}
-		c.log.Debug("Sending SetClientDHParamsRequest")
+		c.log.Debug(ctx, "Sending SetClientDHParamsRequest")
 		if err := c.writeUnencrypted(ctx, b, setParamsReq); err != nil {
 			return ClientExchangeResult{}, errors.Wrap(err, "write SetClientDHParamsRequest")
 		}
@@ -241,7 +241,7 @@ Loop:
 		if err := c.conn.Recv(ctx, b); err != nil {
 			return ClientExchangeResult{}, errors.Wrap(err, "read DhGen message")
 		}
-		c.log.Debug("Received server DhGen")
+		c.log.Debug(ctx, "Received server DhGen")
 
 		if err := plaintextMsg.Decode(b); err != nil {
 			return ClientExchangeResult{}, errors.Wrap(err, "decode DhGen message")

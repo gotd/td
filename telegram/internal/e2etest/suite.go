@@ -8,7 +8,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
@@ -21,7 +22,7 @@ type Suite struct {
 	appID   int
 	appHash string
 	dc      int
-	logger  *zap.Logger
+	logger  log.Logger
 	manager *tgacc.TestAccountManager
 	closers []func() error
 
@@ -73,7 +74,7 @@ func NewSuite(t *testing.T, config TestOptions) *Suite {
 }
 
 // Client creates new *telegram.Client using this suite.
-func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *telegram.Client {
+func (s *Suite) Client(logger log.Logger, handler telegram.UpdateHandler) *telegram.Client {
 	return telegram.NewClient(s.appID, s.appHash, telegram.Options{
 		DC:            s.dc,
 		DCList:        dcs.Test(),

@@ -6,6 +6,8 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/contrib/bg"
 
 	"github.com/gotd/td/examples"
@@ -21,7 +23,7 @@ func main() {
 	// The `contrib/bg` package is example implementation of such pattern.
 	examples.Run(func(ctx context.Context, log *zap.Logger) error {
 		client, err := telegram.ClientFromEnvironment(telegram.Options{
-			Logger: log,
+			Logger: logzap.New(log),
 		})
 		if err != nil {
 			return err

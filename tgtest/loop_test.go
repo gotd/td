@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
@@ -31,7 +32,7 @@ func TestSessionHandle(t *testing.T) {
 
 		g := tdsync.NewCancellableGroup(ctx)
 		c := cluster.NewCluster(cluster.Options{
-			Logger: log.Named("cluster"),
+			Logger: logzap.New(log.Named("cluster")),
 		})
 		d := c.Dispatch(2, "server").Fallback(services.NotImplemented)
 		config.NewService(&tg.Config{}, &tg.CDNConfig{}).Register(d)
@@ -52,7 +53,7 @@ func TestSessionHandle(t *testing.T) {
 				DCList:         c.List(),
 				Resolver:       c.Resolver(),
 				NoUpdates:      true,
-				Logger:         log.Named("client"),
+				Logger:         logzap.New(log.Named("client")),
 				SessionStorage: storage,
 				RetryInterval:  100 * time.Millisecond,
 			})

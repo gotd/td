@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
@@ -46,7 +46,7 @@ type channelState struct {
 	diffLim        int
 	client         API
 	storage        StateStorage
-	log            *zap.Logger
+	log            log.Helper
 	tracer         trace.Tracer
 	handler        telegram.UpdateHandler
 	onTooLong      func(channelID int64)
@@ -68,7 +68,7 @@ type channelStateConfig struct {
 	OnChannelTooLong      func(channelID int64)
 	OnChannelInaccessible func(channelID int64)
 	RemoveChannel         chan<- int64
-	Logger                *zap.Logger
+	Logger                log.Logger
 	Tracer                trace.Tracer
 }
 
@@ -86,7 +86,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		diffLim:        cfg.DiffLimit,
 		client:         cfg.RawClient,
 		storage:        cfg.Storage,
-		log:            cfg.Logger,
+		log:            log.For(cfg.Logger),
 		handler:        cfg.Handler,
 		onTooLong:      cfg.OnChannelTooLong,
 		onInaccessible: cfg.OnChannelInaccessible,
@@ -97,7 +97,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 	state.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.InitialPts,
 		Apply:        state.applyPts,
-		Logger:       cfg.Logger.Named("pts"),
+		Logger:       log.Named(cfg.Logger, "pts"),
 		Tracer:       cfg.Tracer,
 	})
 
@@ -126,7 +126,7 @@ func (s *channelState) Run(ctx context.Context) error {
 		if errors.Is(err, errChannelInaccessible) {
 			return nil
 		}
-		s.log.Error("Failed to subscribe to channel updates", zap.Error(err))
+		s.log.Error(ctx, "Failed to subscribe to channel updates", log.Error(err))
 	}
 
 	for {
@@ -137,10 +137,10 @@ func (s *channelState) Run(ctx context.Context) error {
 				if errors.Is(err, errChannelInaccessible) {
 					return nil
 				}
-				s.log.Error("Handle update error", zap.Error(err))
+				s.log.Error(ctx, "Handle update error", log.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
-			s.log.Debug("Gap timeout")
+			s.log.Debug(ctx, "Gap timeout")
 			if s.getDifferenceLogger(ctx) {
 				return nil
 			}
@@ -151,7 +151,7 @@ func (s *channelState) Run(ctx context.Context) error {
 			}
 			return ctx.Err()
 		case <-s.idleTimeout.C:
-			s.log.Debug("Idle timeout")
+			s.log.Debug(ctx, "Idle timeout")
 			s.resetIdleTimer()
 			if s.getDifferenceLogger(ctx) {
 				return nil
@@ -197,7 +197,7 @@ func (s *channelState) handleTooLong(ctx context.Context, long *tg.UpdateChannel
 
 	remotePts, ok := long.GetPts()
 	if !ok {
-		s.log.Warn("Got UpdateChannelTooLong without pts field")
+		s.log.Warn(ctx, "Got UpdateChannelTooLong without pts field")
 		return s.getDifference(ctx)
 	}
 
@@ -230,12 +230,12 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 		Users:   ents.Users,
 		Chats:   ents.Chats,
 	}); err != nil {
-		s.log.Error("Handle update error", zap.Error(err))
+		s.log.Error(ctx, "Handle update error", log.Error(err))
 		return nil
 	}
 
 	if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, state); err != nil {
-		s.log.Error("SetChannelPts error", zap.Error(err))
+		s.log.Error(ctx, "SetChannelPts error", log.Error(err))
 	}
 
 	return nil
@@ -246,11 +246,11 @@ func (s *channelState) getDifference(ctx context.Context) error {
 	defer span.End()
 	s.pts.gaps.Clear()
 
-	s.log.Debug("Getting difference")
+	s.log.Debug(ctx, "Getting difference")
 
 	if now := time.Now(); now.Before(s.diffTimeout) {
 		dur := s.diffTimeout.Sub(now)
-		s.log.Debug("GetChannelDifference timeout", zap.Duration("duration", dur))
+		s.log.Debug(ctx, "GetChannelDifference timeout", log.Duration("duration", dur))
 		if err := func() error {
 			afterC := time.After(dur)
 			for {
@@ -265,7 +265,7 @@ func (s *channelState) getDifference(ctx context.Context) error {
 					// Ignoring updates to prevent *internalState worker from blocking.
 					// All ignored updates should be restored by future getChannelDifference call.
 					// At least I hope so...
-					s.log.Debug("Ignoring update due to getChannelDifference timeout", zap.Any("update", u.update))
+					s.log.Debug(ctx, "Ignoring update due to getChannelDifference timeout", log.Any("update", u.update))
 				case <-ctx.Done():
 					return ctx.Err()
 				}
@@ -312,12 +312,12 @@ func (s *channelState) getDifference(ctx context.Context) error {
 				Users:   diff.Users,
 				Chats:   diff.Chats,
 			}); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
 			}
 		}
 
 		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
-			s.log.Warn("SetChannelPts error", zap.Error(err))
+			s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
 		}
 
 		s.pts.SetState(diff.Pts, "updates.channelDifference")
@@ -333,7 +333,7 @@ func (s *channelState) getDifference(ctx context.Context) error {
 
 	case *tg.UpdatesChannelDifferenceEmpty:
 		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
-			s.log.Warn("SetChannelPts error", zap.Error(err))
+			s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
 		}
 
 		s.pts.SetState(diff.Pts, "updates.channelDifferenceEmpty")
@@ -350,10 +350,10 @@ func (s *channelState) getDifference(ctx context.Context) error {
 
 		remotePts, err := getDialogPts(diff.Dialog)
 		if err != nil {
-			s.log.Warn("UpdatesChannelDifferenceTooLong invalid Dialog", zap.Error(err))
+			s.log.Warn(ctx, "UpdatesChannelDifferenceTooLong invalid Dialog", log.Error(err))
 		} else {
 			if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, remotePts); err != nil {
-				s.log.Warn("SetChannelPts error", zap.Error(err))
+				s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
 			}
 
 			s.pts.SetState(remotePts, "updates.channelDifferenceTooLong dialog new pts")
@@ -385,8 +385,8 @@ func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
 			if !ok {
 				continue
 			}
-			s.log.Debug("Ignoring update while sending channel difference",
-				zap.Any("update", u.update),
+			s.log.Debug(ctx, "Ignoring update while sending channel difference",
+				log.Any("update", u.update),
 			)
 		case <-ctx.Done():
 			return ctx.Err()
@@ -401,7 +401,7 @@ func (s *channelState) getDifferenceLogger(ctx context.Context) (stop bool) {
 		if errors.Is(err, errChannelInaccessible) {
 			return true
 		}
-		s.log.Error("get channel difference error", zap.Error(err))
+		s.log.Error(ctx, "get channel difference error", log.Error(err))
 	}
 	return false
 }
@@ -414,7 +414,7 @@ func (s *channelState) getDifferenceLogger(ctx context.Context) (stop bool) {
 // channel from tracking, then returns errChannelInaccessible so the Run loop
 // stops the worker.
 func (s *channelState) handleInaccessible(ctx context.Context) error {
-	s.log.Info("Channel is inaccessible, removing from updates manager")
+	s.log.Info(ctx, "Channel is inaccessible, removing from updates manager")
 	s.onInaccessible(s.channelID)
 	select {
 	case s.removeChannel <- s.channelID:

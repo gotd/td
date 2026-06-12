@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.uber.org/atomic"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdsync"
@@ -21,7 +21,7 @@ type DC struct {
 	newConn func() Conn
 
 	// Wrappers for external world, like logs or PRNG.
-	log *zap.Logger // immutable
+	log log.Helper // immutable
 
 	// DC context. Will be canceled by Run on exit.
 	ctx    context.Context    // immutable
@@ -57,7 +57,7 @@ func NewDC(ctx context.Context, id int, newConn func() Conn, opts DCOptions) *DC
 	return &DC{
 		id:      id,
 		newConn: newConn,
-		log:     opts.Logger,
+		log:     log.For(opts.Logger),
 		ctx:     ctx,
 		cancel:  cancel,
 		grp:     tdsync.NewSupervisor(ctx),
@@ -85,6 +85,7 @@ func (c *DC) createConnection(id int64) *poolConn {
 }
 
 func (c *DC) dead(r *poolConn, deadErr error) {
+	ctx := c.ctx
 	if r.deleted.Swap(true) {
 		return // Already deleted.
 	}
@@ -116,10 +117,10 @@ func (c *DC) dead(r *poolConn, deadErr error) {
 	r.dead.Signal()
 	c.stuck.Reset()
 
-	c.log.Debug("Connection died",
-		zap.Int64("remaining", remaining),
-		zap.Int64("conn_id", r.id),
-		zap.Error(deadErr),
+	c.log.Debug(ctx, "Connection died",
+		log.Int64("remaining", remaining),
+		log.Int64("conn_id", r.id),
+		log.Error(deadErr),
 	)
 }
 
@@ -138,15 +139,16 @@ func (c *DC) release(r *poolConn) {
 	if r == nil {
 		return
 	}
+	ctx := c.ctx
 
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
 	if c.freeReq.transfer(r) {
-		c.log.Debug("Transfer connection to requester", zap.Int64("conn_id", r.id))
+		c.log.Debug(ctx, "Transfer connection to requester", log.Int64("conn_id", r.id))
 		return
 	}
-	c.log.Debug("Connection released", zap.Int64("conn_id", r.id))
+	c.log.Debug(ctx, "Connection released", log.Int64("conn_id", r.id))
 	c.free = append(c.free, r)
 }
 
@@ -164,7 +166,7 @@ retry:
 			goto retry
 		default:
 		}
-		c.log.Debug("Re-using free connection", zap.Int64("conn_id", r.id))
+		c.log.Debug(ctx, "Re-using free connection", log.Int64("conn_id", r.id))
 		return r, nil
 	}
 
@@ -175,8 +177,8 @@ retry:
 		c.mu.Unlock()
 
 		id := c.nextConn.Inc()
-		c.log.Debug("Creating new connection",
-			zap.Int64("conn_id", id),
+		c.log.Debug(ctx, "Creating new connection",
+			log.Int64("conn_id", id),
 		)
 		conn := c.createConnection(id)
 		select {
@@ -195,17 +197,17 @@ retry:
 	// 3rd case: no free connections, can't create yet one, wait for free.
 	key, ch := c.freeReq.request()
 	c.mu.Unlock()
-	c.log.Debug("Waiting for free connect", zap.Int64("request_id", int64(key)))
+	c.log.Debug(ctx, "Waiting for free connect", log.Int64("request_id", int64(key)))
 
 	select {
 	case conn := <-ch:
-		c.log.Debug("Got connection for request",
-			zap.Int64("conn_id", conn.id),
-			zap.Int64("request_id", int64(key)),
+		c.log.Debug(ctx, "Got connection for request",
+			log.Int64("conn_id", conn.id),
+			log.Int64("request_id", int64(key)),
 		)
 		return conn, nil
 	case <-c.stuck.Ready():
-		c.log.Debug("Some connection dead, try to create new connection, cancel waiting")
+		c.log.Debug(ctx, "Some connection dead, try to create new connection, cancel waiting")
 
 		c.freeReq.delete(key)
 		select {
@@ -251,7 +253,7 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 			return errors.Wrap(err, "acquire connection")
 		}
 
-		c.log.Debug("DC Invoke")
+		c.log.Debug(ctx, "DC Invoke")
 		err = conn.Invoke(ctx, input, output)
 		if err != nil && errRetryableOnNewConn(err) && ctx.Err() == nil {
 			// Connection died before the request was processed by the
@@ -260,19 +262,19 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 			// Mark connection as dead instead of releasing, so it is not
 			// re-acquired and waiters are unblocked to create a new one.
 			c.dead(conn, err)
-			c.log.Debug("DC Invoke failed on dead connection, retrying",
-				zap.Int64("conn_id", conn.id),
-				zap.Error(err),
+			c.log.Debug(ctx, "DC Invoke failed on dead connection, retrying",
+				log.Int64("conn_id", conn.id),
+				log.Error(err),
 			)
 			continue
 		}
 		c.release(conn)
 		if err != nil {
-			c.log.Debug("DC Invoke failed", zap.Error(err))
+			c.log.Debug(ctx, "DC Invoke failed", log.Error(err))
 			return errors.Wrap(err, "invoke pool")
 		}
 
-		c.log.Debug("DC Invoke complete")
+		c.log.Debug(ctx, "DC Invoke complete")
 		return err
 	}
 }
@@ -283,8 +285,9 @@ func (c *DC) Close() error {
 	if c.closed.Swap(true) {
 		return errors.New("DC already closed")
 	}
-	c.log.Debug("Closing DC")
-	defer c.log.Debug("DC closed")
+	ctx := c.ctx
+	c.log.Debug(ctx, "Closing DC")
+	defer c.log.Debug(ctx, "DC closed")
 
 	c.cancel()
 	return c.grp.Wait()

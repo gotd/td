@@ -3,7 +3,7 @@ package exchange
 import (
 	"io"
 
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/crypto"
 )
@@ -12,7 +12,7 @@ import (
 type ServerExchange struct {
 	unencryptedWriter
 	rand io.Reader
-	log  *zap.Logger
+	log  log.Helper
 
 	rng ServerRNG
 	key PrivateKey

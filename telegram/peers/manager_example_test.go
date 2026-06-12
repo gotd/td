@@ -6,6 +6,8 @@ import (
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/peers"
 	"github.com/gotd/td/telegram/updates"
@@ -20,7 +22,7 @@ func ExampleManager() {
 		h          telegram.UpdateHandler
 	)
 	client, err := telegram.ClientFromEnvironment(telegram.Options{
-		Logger: logger.Named("client"),
+		Logger: logzap.New(logger.Named("client")),
 		UpdateHandler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			return h.Handle(ctx, u)
 		}),
@@ -29,12 +31,12 @@ func ExampleManager() {
 		panic(err)
 	}
 	peerManager := peers.Options{
-		Logger: logger,
+		Logger: logzap.New(logger),
 	}.Build(client.API())
 	gaps := updates.New(updates.Config{
 		Handler:      dispatcher,
 		AccessHasher: peerManager,
-		Logger:       logger.Named("gaps"),
+		Logger:       logzap.New(logger.Named("gaps")),
 	})
 	h = peerManager.UpdateHook(gaps)
 

@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/clock"
 )
 
@@ -19,7 +20,7 @@ func TestLogGroup(t *testing.T) {
 		return nil
 	}
 	log := zaptest.NewLogger(t, zaptest.WrapOptions(zap.Hooks(hook)))
-	grp := NewLogGroup(context.Background(), log.Named("group"))
+	grp := NewLogGroup(context.Background(), logzap.New(log.Named("group")))
 	grp.SetClock(clock.System)
 
 	grp.Go("test-task", func(groupCtx context.Context) error {

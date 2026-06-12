@@ -22,6 +22,8 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/time/rate"
+
+	"github.com/gotd/log/logzap"
 	lj "gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/gotd/td/examples"
@@ -126,7 +128,7 @@ func run(ctx context.Context) error {
 	}
 	updatesRecovery := updates.New(updates.Config{
 		Handler: updateHandler, // using previous handler with peerDB
-		Logger:  lg.Named("updates.recovery"),
+		Logger:  logzap.New(lg.Named("updates.recovery")),
 		Storage: boltstor.NewStateStorage(boltdb),
 	})
 
@@ -139,7 +141,7 @@ func run(ctx context.Context) error {
 
 	// Filling client options.
 	options := telegram.Options{
-		Logger:         lg,              // Passing logger for observability.
+		Logger:         logzap.New(lg),  // Passing logger for observability.
 		SessionStorage: sessionStorage,  // Setting up session sessionStorage to store auth data.
 		UpdateHandler:  updatesRecovery, // Setting up handler for updates from server.
 		Middlewares: []telegram.Middleware{

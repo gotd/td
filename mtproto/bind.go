@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/rpc"
@@ -101,11 +101,11 @@ func (c *Conn) bindTempAuthKeyAttempt(ctx context.Context) error {
 		Input:  req,
 		Output: &result,
 	}
-	c.log.Debug("Binding temporary auth key",
-		zap.Int64("temp_key_id", s.Key.IntID()),
-		zap.Int64("perm_key_id", s.PermKey.IntID()),
-		zap.Int64("temp_session_id", s.ID),
-		zap.Int64("expires_at", expiresAt),
+	c.log.Debug(ctx, "Binding temporary auth key",
+		log.Int64("temp_key_id", s.Key.IntID()),
+		log.Int64("perm_key_id", s.PermKey.IntID()),
+		log.Int64("temp_session_id", s.ID),
+		log.Int64("expires_at", expiresAt),
 	)
 
 	if err := c.rpc.Do(ctx, call); err != nil {
@@ -124,10 +124,10 @@ func (c *Conn) bindTempAuthKeyAttempt(ctx context.Context) error {
 	if _, ok := result.Bool.(*tg.BoolTrue); !ok {
 		return errors.New("temp auth key bind rejected")
 	}
-	c.log.Info("Temporary auth key bound",
-		zap.Int64("temp_key_id", s.Key.IntID()),
-		zap.Int64("perm_key_id", s.PermKey.IntID()),
-		zap.Int64("expires_at", expiresAt),
+	c.log.Info(ctx, "Temporary auth key bound",
+		log.Int64("temp_key_id", s.Key.IntID()),
+		log.Int64("perm_key_id", s.PermKey.IntID()),
+		log.Int64("expires_at", expiresAt),
 	)
 	return nil
 }
@@ -138,8 +138,8 @@ func (c *Conn) handleBindEncryptedMessageInvalid(attempt int) error {
 	// should be dropped and generated again."
 	// Link: https://core.telegram.org/api/pfs
 	if c.permKeyOlderThan60s() {
-		c.log.Warn("auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for old permanent key, dropping persisted PFS keys and reconnecting",
-			zap.Int("attempt", attempt),
+		c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for old permanent key, dropping persisted PFS keys and reconnecting",
+			log.Int("attempt", attempt),
 		)
 		c.dropPFSKeys()
 		return errors.Wrap(ErrPFSDropKeysRequired, "pfs keys dropped after ENCRYPTED_MESSAGE_INVALID")
@@ -149,22 +149,22 @@ func (c *Conn) handleBindEncryptedMessageInvalid(attempt int) error {
 		// For restored sessions key age is unknown, so we first follow retry path.
 		// If all retries fail, force key regeneration to avoid endless reconnect loop.
 		if attempt >= maxBindTempAuthKeyAttempts {
-			c.log.Warn("auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for key with unknown age after retries, dropping persisted PFS keys and reconnecting",
-				zap.Int("attempt", attempt),
+			c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for key with unknown age after retries, dropping persisted PFS keys and reconnecting",
+				log.Int("attempt", attempt),
 			)
 			c.dropPFSKeys()
 			return errors.Wrap(ErrPFSDropKeysRequired, "pfs keys dropped after repeated ENCRYPTED_MESSAGE_INVALID with unknown key age")
 		}
-		c.log.Warn("auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for key with unknown age, retrying bind before dropping keys",
-			zap.Int("attempt", attempt),
+		c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for key with unknown age, retrying bind before dropping keys",
+			log.Int("attempt", attempt),
 		)
 		return nil
 	}
 
 	// Quote (PFS): "Otherwise, the client should simply retry binding."
 	// Link: https://core.telegram.org/api/pfs
-	c.log.Warn("auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for fresh permanent key, retrying bind",
-		zap.Int("attempt", attempt),
+	c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for fresh permanent key, retrying bind",
+		log.Int("attempt", attempt),
 	)
 	return nil
 }
@@ -173,14 +173,14 @@ func (c *Conn) handleBindConnectionNotInited(attempt int) error {
 	if attempt < maxBindTempAuthKeyAttempts {
 		// In practice this can happen while server-side state is catching up;
 		// avoid aggressive key reset and retry bind first.
-		c.log.Warn("auth.bindTempAuthKey returned CONNECTION_NOT_INITED, retrying bind",
-			zap.Int("attempt", attempt),
+		c.log.Warn(context.Background(), "auth.bindTempAuthKey returned CONNECTION_NOT_INITED, retrying bind",
+			log.Int("attempt", attempt),
 		)
 		return nil
 	}
 	// After retries, reconnect whole transport/session and run full init path.
-	c.log.Warn("auth.bindTempAuthKey returned CONNECTION_NOT_INITED after retries, reconnecting without dropping keys",
-		zap.Int("attempt", attempt),
+	c.log.Warn(context.Background(), "auth.bindTempAuthKey returned CONNECTION_NOT_INITED after retries, reconnecting without dropping keys",
+		log.Int("attempt", attempt),
 	)
 	return errors.New("auth.bindTempAuthKey failed with CONNECTION_NOT_INITED after retries")
 }

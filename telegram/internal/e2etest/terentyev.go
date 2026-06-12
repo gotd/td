@@ -6,7 +6,8 @@ import (
 
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
@@ -19,7 +20,7 @@ type User struct {
 	text     []string
 	username string
 
-	logger  *zap.Logger
+	logger  log.Helper
 	message chan string
 }
 
@@ -29,7 +30,7 @@ func NewUser(suite *Suite, text []string, username string) User {
 		suite:    suite,
 		text:     text,
 		username: username,
-		logger:   suite.logger.Named("terentyev"),
+		logger:   log.For(suite.logger).Named("terentyev"),
 		message:  make(chan string, 1),
 	}
 }
@@ -41,7 +42,7 @@ func (u User) messageHandler(ctx context.Context, entities tg.Entities, update *
 
 	if m, ok := update.Message.(interface{ GetMessage() string }); ok {
 		u.logger.Named("dispatcher").
-			Info("Got new message update", zap.String("message", m.GetMessage()))
+			Info(ctx, "Got new message update", log.String("message", m.GetMessage()))
 	}
 
 	msg, ok := update.Message.(*tg.Message)
@@ -61,7 +62,7 @@ func (u User) messageHandler(ctx context.Context, entities tg.Entities, update *
 func (u User) Run(ctx context.Context) error {
 	dispatcher := tg.NewUpdateDispatcher()
 	dispatcher.OnNewMessage(u.messageHandler)
-	client := u.suite.Client(u.logger, dispatcher)
+	client := u.suite.Client(u.logger.Logger(), dispatcher)
 	sender := message.NewSender(tg.NewClient(retryInvoker{prev: client}))
 
 	return client.Run(ctx, func(ctx context.Context) error {

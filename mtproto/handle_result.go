@@ -1,8 +1,10 @@
 package mtproto
 
 import (
+	"context"
+
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
@@ -11,6 +13,7 @@ import (
 )
 
 func (c *Conn) handleResult(b *bin.Buffer) error {
+	ctx := context.Background()
 	// Response to an RPC query.
 	var res proto.Result
 	if err := res.Decode(b); err != nil {
@@ -20,8 +23,8 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 	// Now b contains result message.
 	b.ResetTo(res.Result)
 
-	msgID := zap.Int64("msg_id", res.RequestMessageID)
-	c.logWithBuffer(b).Debug("Handle result", msgID)
+	msgID := log.Int64("msg_id", res.RequestMessageID)
+	c.logWithBuffer(b).Debug(ctx, "Handle result", msgID)
 
 	// Handling gzipped results.
 	id, err := b.PeekID()
@@ -36,7 +39,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 
 		// Replacing buffer so callback will deal with uncompressed data.
 		b = content
-		c.logWithBuffer(b).Debug("Decompressed", msgID)
+		c.logWithBuffer(b).Debug(ctx, "Decompressed", msgID)
 
 		// Replacing id with inner id if error is compressed for any reason.
 		if id, err = b.PeekID(); err != nil {
@@ -50,9 +53,9 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 			return errors.Wrap(err, "error decode")
 		}
 
-		c.log.Debug("Got error", msgID,
-			zap.Int("err_code", rpcErr.ErrorCode),
-			zap.String("err_msg", rpcErr.ErrorMessage),
+		c.log.Debug(ctx, "Got error", msgID,
+			log.Int("err_code", rpcErr.ErrorCode),
+			log.String("err_msg", rpcErr.ErrorMessage),
 		)
 		c.rpc.NotifyError(res.RequestMessageID, tgerr.New(rpcErr.ErrorCode, rpcErr.ErrorMessage))
 

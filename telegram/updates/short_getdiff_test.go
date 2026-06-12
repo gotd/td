@@ -7,6 +7,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.opentelemetry.io/otel/trace/noop"
 	"go.uber.org/zap/zaptest"
+
+	"github.com/gotd/log/logzap"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/gotd/td/telegram"
@@ -44,7 +46,7 @@ func newShortTestState(t *testing.T, api API, handler telegram.UpdateHandler) *i
 	require.NoError(t, storage.SetState(ctx, selfID, State{}))
 	return newState(ctx, stateConfig{
 		RawClient:        api,
-		Logger:           zaptest.NewLogger(t),
+		Logger:           logzap.New(zaptest.NewLogger(t)),
 		Tracer:           noop.NewTracerProvider().Tracer(""),
 		Handler:          handler,
 		OnChannelTooLong: func(int64) {},

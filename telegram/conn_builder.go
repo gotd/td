@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mtproto"
@@ -99,9 +99,9 @@ func (c *Client) createConn(
 ) pool.Conn {
 	opts, s := c.session.Options(c.opts)
 	opts.Logger = c.log.Named("conn").With(
-		zap.Int64("conn_id", id),
-		zap.Int("dc_id", s.DC),
-	)
+		log.Int64("conn_id", id),
+		log.Int("dc_id", s.DC),
+	).Logger()
 
 	return c.create(
 		c.primaryDC(s.DC), mode, c.appID,

@@ -3,7 +3,7 @@ package tgtest
 import (
 	"encoding/hex"
 
-	"go.uber.org/zap/zapcore"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/crypto"
 )
@@ -16,9 +16,10 @@ type Session struct {
 	AuthKey crypto.AuthKey
 }
 
-// MarshalLogObject implements zap.ObjectMarshaler.
-func (s Session) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
-	encoder.AddInt64("session_id", s.ID)
-	encoder.AddString("key_id", hex.EncodeToString(s.AuthKey.ID[:]))
-	return nil
+// LogAttr returns the session as an inline log group.
+func (s Session) LogAttr() log.Attr {
+	return log.Group("",
+		log.Int64("session_id", s.ID),
+		log.String("key_id", hex.EncodeToString(s.AuthKey.ID[:])),
+	)
 }

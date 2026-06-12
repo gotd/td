@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
@@ -22,7 +22,7 @@ import (
 
 func newCDNPoolTestClient() *Client {
 	c := &Client{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 	}
 	c.init()
 	c.ctx, c.cancel = context.WithCancel(context.Background())

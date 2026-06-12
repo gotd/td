@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/neo"
 
@@ -52,7 +52,7 @@ func TestCheckMessageID(t *testing.T) {
 func benchRead(payloadSize int) func(b *testing.B) {
 	return func(b *testing.B) {
 		a := require.New(b)
-		logger := zap.NewNop()
+		logger := log.For(log.Nop)
 		random := rand.Reader
 		c := neo.NewTime(time.Now())
 

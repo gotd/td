@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tdsync"
@@ -37,7 +37,7 @@ func TestConnOnSessionDeferredUntilConfig(t *testing.T) {
 	a := require.New(t)
 	handler := &sessionCaptureHandler{}
 	c := &Conn{
-		log:         zap.NewNop(),
+		log:         log.For(log.Nop),
 		handler:     handler,
 		sessionInit: tdsync.NewReady(),
 		gotConfig:   tdsync.NewReady(),
@@ -67,7 +67,7 @@ func TestConnOnSessionImmediateWithConfig(t *testing.T) {
 	a := require.New(t)
 	handler := &sessionCaptureHandler{}
 	c := &Conn{
-		log:         zap.NewNop(),
+		log:         log.For(log.Nop),
 		handler:     handler,
 		sessionInit: tdsync.NewReady(),
 		gotConfig:   tdsync.NewReady(),
@@ -89,7 +89,7 @@ func TestConnOnSessionDeferredQueue(t *testing.T) {
 	a := require.New(t)
 	handler := &sessionCaptureHandler{}
 	c := &Conn{
-		log:         zap.NewNop(),
+		log:         log.For(log.Nop),
 		handler:     handler,
 		sessionInit: tdsync.NewReady(),
 		gotConfig:   tdsync.NewReady(),

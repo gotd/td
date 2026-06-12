@@ -9,6 +9,8 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
@@ -59,7 +61,7 @@ func TestStateOnTooLong(t *testing.T) {
 	var tooLong int
 	s := newState(ctx, stateConfig{
 		RawClient: api,
-		Logger:    zaptest.NewLogger(t),
+		Logger:    logzap.New(zaptest.NewLogger(t)),
 		Tracer:    noop.NewTracerProvider().Tracer(""),
 		Handler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			return nil
@@ -112,7 +114,7 @@ func TestChannelStateInaccessible(t *testing.T) {
 		OnChannelTooLong:      func(int64) {},
 		OnChannelInaccessible: func(id int64) { inaccessible = id },
 		RemoveChannel:         removeChannel,
-		Logger:                zaptest.NewLogger(t),
+		Logger:                logzap.New(zaptest.NewLogger(t)),
 		Tracer:                noop.NewTracerProvider().Tracer(""),
 	})
 

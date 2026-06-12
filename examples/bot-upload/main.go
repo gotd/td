@@ -10,6 +10,8 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -79,7 +81,7 @@ func main() {
 			return nil
 		}
 		return telegram.BotFromEnvironment(ctx, telegram.Options{
-			Logger:    log,
+			Logger:    logzap.New(log),
 			NoUpdates: true, // don't subscribe to updates in one-shot mode
 		}, nil, performUpload)
 	})

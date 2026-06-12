@@ -6,6 +6,8 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/peers"
 )
@@ -14,12 +16,12 @@ func ExampleChannel_RecommendedChannels() {
 	logger := zap.NewExample()
 
 	client, err := telegram.ClientFromEnvironment(telegram.Options{
-		Logger: logger.Named("client"),
+		Logger: logzap.New(logger.Named("client")),
 	})
 	if err != nil {
 		panic(err)
 	}
-	peerManager := peers.Options{Logger: logger}.Build(client.API())
+	peerManager := peers.Options{Logger: logzap.New(logger)}.Build(client.API())
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()

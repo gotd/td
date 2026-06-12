@@ -7,7 +7,8 @@ import (
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/tdsync"
@@ -54,7 +55,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 			if err != nil {
 				// Ignore unauthorized errors.
 				if !auth.IsUnauthorized(err) {
-					c.log.Warn("Got error on self", zap.Error(err))
+					c.log.Warn(ctx, "Got error on self", log.Error(err))
 				}
 				if h := c.onSelfError; h != nil {
 					// Help with https://github.com/gotd/td/issues/1458.
@@ -69,7 +70,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				h(self)
 			}
 
-			c.log.Info("Got self", zap.String("username", self.Username))
+			c.log.Info(ctx, "Got self", log.String("username", self.Username))
 			return nil
 		})
 	}
@@ -79,7 +80,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 		case <-ctx.Done():
 			return ctx.Err()
 		case <-c.restart:
-			c.log.Debug("Restart triggered")
+			c.log.Debug(ctx, "Restart triggered")
 			// Should call cancel() to cancel group.
 			g.Cancel()
 
@@ -120,7 +121,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 
 		return nil
 	}, b, func(err error, timeout time.Duration) {
-		c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
+		c.log.Info(context.Background(), "Restarting connection", log.Error(err), log.Duration("backoff", timeout))
 		c.notifyConnectionState(ConnectionStateDisconnected)
 
 		c.connMux.Lock()
@@ -132,7 +133,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 }
 
 func (c *Client) onReady() {
-	c.log.Debug("Ready")
+	c.log.Debug(context.Background(), "Ready")
 	c.ready.Signal()
 
 	if b := c.connBackoff.Load(); b != nil {
@@ -167,8 +168,8 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 	// handling or pool creation.
 	c.ctx, c.cancel = context.WithCancel(ctx)
 
-	c.log.Info("Starting")
-	defer c.log.Info("Closed")
+	c.log.Info(ctx, "Starting")
+	defer c.log.Info(context.Background(), "Closed")
 	defer func() {
 		c.subConnsMux.Lock()
 		subConns := make([]CloseInvoker, 0, len(c.subConns))
@@ -222,7 +223,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 			}
 			// Should call cancel() to cancel ctx.
 			// This will terminate c.conn.Run().
-			c.log.Debug("Callback returned, stopping")
+			c.log.Debug(ctx, "Callback returned, stopping")
 			g.Cancel()
 			return nil
 		}

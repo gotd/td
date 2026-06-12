@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/gotd/td/telegram"
@@ -32,7 +32,7 @@ type Manager struct {
 	// immutable:
 
 	cfg    Config
-	lg     *zap.Logger
+	lg     log.Helper
 	tracer trace.Tracer
 }
 
@@ -41,7 +41,7 @@ func New(cfg Config) *Manager {
 	cfg.setDefaults()
 	return &Manager{
 		cfg:    cfg,
-		lg:     cfg.Logger,
+		lg:     log.For(cfg.Logger),
 		tracer: cfg.TracerProvider.Tracer(""),
 	}
 }
@@ -56,15 +56,15 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	ctx, span := m.tracer.Start(ctx, "updates.Manager.Handle")
 	defer span.End()
 
-	m.lg.Debug("Handle")
-	defer m.lg.Debug("Handled")
+	m.lg.Debug(ctx, "Handle")
+	defer m.lg.Debug(ctx, "Handled")
 
 	m.mux.Lock()
 	state := m.state
 	m.mux.Unlock()
 
 	if state == nil {
-		m.lg.Debug("Handle (no internalState)")
+		m.lg.Debug(ctx, "Handle (no internalState)")
 		return m.cfg.Handler.Handle(ctx, u)
 	}
 
@@ -83,12 +83,12 @@ type AuthOptions struct {
 // with remote internalState.
 func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOptions) error {
 	lg := m.lg.With(
-		zap.Int64("user_id", userID),
-		zap.Bool("is_bot", opt.IsBot),
-		zap.Bool("forget", opt.Forget),
+		log.Int64("user_id", userID),
+		log.Bool("is_bot", opt.IsBot),
+		log.Bool("forget", opt.Forget),
 	)
-	lg.Debug("Run")
-	defer lg.Debug("Done")
+	lg.Debug(ctx, "Run")
+	defer lg.Debug(ctx, "Done")
 
 	wg, ctx := errgroup.WithContext(ctx)
 
@@ -142,7 +142,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	wg.Go(func() error {
 		return m.state.Run(ctx)
 	})
-	lg.Debug("Wait")
+	lg.Debug(ctx, "Wait")
 	return wg.Wait()
 }
 

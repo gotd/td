@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.uber.org/multierr"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/exchange"
 )
@@ -50,24 +50,24 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 
 	session := c.session()
 	if session.Key.Zero() {
-		c.log.Info("Generating new auth key")
+		c.log.Info(ctx, "Generating new auth key")
 		start := c.clock.Now()
 		if err := c.createAuthKey(connectCtx); err != nil {
 			return errors.Wrap(err, "create auth key")
 		}
 
-		c.log.Info("Auth key generated",
-			zap.Duration("duration", c.clock.Now().Sub(start)),
+		c.log.Info(ctx, "Auth key generated",
+			log.Duration("duration", c.clock.Now().Sub(start)),
 		)
 		return nil
 	}
 
-	c.log.Info("Key already exists")
+	c.log.Info(ctx, "Key already exists")
 	if session.ID == 0 {
 		// NB: Telegram can return 404 error if session id is zero.
 		//
 		// See https://github.com/gotd/td/issues/107.
-		c.log.Debug("Generating new session id")
+		c.log.Debug(ctx, "Generating new session id")
 		if err := c.newSessionID(); err != nil {
 			return err
 		}
@@ -78,26 +78,26 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 
 func (c *Conn) connectPFS(ctx context.Context) error {
 	if c.permKey.Zero() {
-		c.log.Info("Generating new permanent auth key")
+		c.log.Info(ctx, "Generating new permanent auth key")
 		start := c.clock.Now()
 		if err := c.createPermAuthKey(ctx); err != nil {
 			return errors.Wrap(err, "create permanent auth key")
 		}
-		c.log.Info("Permanent auth key generated",
-			zap.Duration("duration", c.clock.Now().Sub(start)),
+		c.log.Info(ctx, "Permanent auth key generated",
+			log.Duration("duration", c.clock.Now().Sub(start)),
 		)
 	} else {
 		// Reuse persisted permanent key to keep existing authorization.
-		c.log.Info("Permanent key already exists")
+		c.log.Info(ctx, "Permanent key already exists")
 	}
 
-	c.log.Info("Generating new temporary auth key")
+	c.log.Info(ctx, "Generating new temporary auth key")
 	start := c.clock.Now()
 	if err := c.createTempAuthKey(ctx); err != nil {
 		return errors.Wrap(err, "create temporary auth key")
 	}
-	c.log.Info("Temporary auth key generated",
-		zap.Duration("duration", c.clock.Now().Sub(start)),
+	c.log.Info(ctx, "Temporary auth key generated",
+		log.Duration("duration", c.clock.Now().Sub(start)),
 	)
 
 	return nil
@@ -110,7 +110,7 @@ func (c *Conn) runExchange(
 ) (exchange.ClientExchangeResult, error) {
 	ex := exchange.NewExchanger(c.conn, c.dcID).
 		WithClock(c.clock).
-		WithLogger(c.log.Named("exchange")).
+		WithLogger(c.log.Named("exchange").Logger()).
 		WithTimeout(c.exchangeTimeout).
 		WithRand(c.rand)
 	if mode == exchange.ExchangeModeTemporary {
@@ -121,16 +121,17 @@ func (c *Conn) runExchange(
 }
 
 func (c *Conn) logExchangeInit(ctx context.Context) {
-	if ce := c.log.Check(zap.DebugLevel, "Initializing new key exchange"); ce != nil {
-		// Useful for debugging i/o timeout errors on tcp reads or writes.
-		fields := []zap.Field{
-			zap.Duration("timeout", c.exchangeTimeout),
-		}
-		if deadline, ok := ctx.Deadline(); ok {
-			fields = append(fields, zap.Time("context_deadline", deadline))
-		}
-		ce.Write(fields...)
+	if !c.log.Enabled(ctx, log.LevelDebug) {
+		return
 	}
+	// Useful for debugging i/o timeout errors on tcp reads or writes.
+	attrs := []log.Attr{
+		log.Duration("timeout", c.exchangeTimeout),
+	}
+	if deadline, ok := ctx.Deadline(); ok {
+		attrs = append(attrs, log.Time("context_deadline", deadline))
+	}
+	c.log.Debug(ctx, "Initializing new key exchange", attrs...)
 }
 
 // createAuthKey generates new authorization key.

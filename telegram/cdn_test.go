@@ -10,8 +10,8 @@ import (
 
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/tg"
@@ -83,7 +83,7 @@ mQIDAQAB
 	var calls int
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 		_, ok := input.(*tg.HelpGetCDNConfigRequest)
 		a.True(ok)
@@ -145,7 +145,7 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 	var calls int
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 		_, ok := input.(*tg.HelpGetCDNConfigRequest)
 		a.True(ok)
@@ -233,7 +233,7 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 		_, ok := input.(*tg.HelpGetCDNConfigRequest)
 		a.True(ok)
@@ -322,7 +322,7 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 	var calls int
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 		_, ok := input.(*tg.HelpGetCDNConfigRequest)
 		a.True(ok)
@@ -378,7 +378,7 @@ mQIDAQAB
 
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.ctx, c.cancel = context.WithCancel(context.Background())
 	defer c.cancel()
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -466,7 +466,7 @@ mQIDAQAB
 
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.ctx, c.cancel = context.WithCancel(context.Background())
 	defer c.cancel()
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -552,7 +552,7 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 	var calls int
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 		_, ok := input.(*tg.HelpGetCDNConfigRequest)
 		a.True(ok)
@@ -613,7 +613,7 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 	var calls int
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.cdnKeysSet = true
 	c.cdnKeys = nil
 	c.cdnKeysByDC = map[int][]PublicKey{}
@@ -667,7 +667,7 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 	var calls int
 	c := &Client{}
 	c.init()
-	c.log = zap.NewNop()
+	c.log = log.For(log.Nop)
 	c.tg = tg.NewClient(InvokeFunc(func(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 		_, ok := input.(*tg.HelpGetCDNConfigRequest)
 		a.True(ok)

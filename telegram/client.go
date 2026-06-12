@@ -9,8 +9,9 @@ import (
 	"github.com/cenkalti/backoff/v4"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/atomic"
-	"go.uber.org/zap"
 	"golang.org/x/sync/singleflight"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -127,7 +128,7 @@ type Client struct {
 
 	// Wrappers for external world, like logs or PRNG.
 	rand  io.Reader   // immutable
-	log   *zap.Logger // immutable
+	log   log.Helper  // immutable
 	clock clock.Clock // immutable
 
 	// Client context. Will be canceled by Run on exit.
@@ -174,7 +175,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 	client := &Client{
 		rand:          opt.Random,
-		log:           opt.Logger,
+		log:           log.For(opt.Logger),
 		appID:         appID,
 		appHash:       appHash,
 		allowCDN:      opt.AllowCDN,
@@ -209,7 +210,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	// Including version into client logger to help with debugging.
 	if v := version.GetVersion(); v != "" {
-		client.log = client.log.With(zap.String("v", v))
+		client.log = client.log.With(log.String("v", v))
 	}
 
 	if opt.SessionStorage != nil {

@@ -46,7 +46,7 @@ func (e exchangeConn) Recv(ctx context.Context, b *bin.Buffer) error {
 func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKey, error) {
 	r, err := exchange.NewExchanger(conn, s.dcID).
 		WithClock(s.clock).
-		WithLogger(s.log.Named("exchange")).
+		WithLogger(s.log.Named("exchange").Logger()).
 		WithRand(s.cipher.Rand()).
 		Server(s.key).Run(ctx)
 	if err != nil {

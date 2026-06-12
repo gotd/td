@@ -37,10 +37,10 @@ func (s *Server) sendProtoError(ctx context.Context, conn transport.Conn, e int3
 }
 
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
-	s.log.Debug("User connected")
+	s.log.Debug(ctx, "User connected")
 	defer func() {
 		_ = conn.Close()
-		s.log.Debug("User disconnected")
+		s.log.Debug(ctx, "User disconnected")
 	}()
 
 	b := new(bin.Buffer)
@@ -70,7 +70,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 			continue
 		}
 
-		s.log.Debug("Starting key exchange")
+		s.log.Debug(ctx, "Starting key exchange")
 		c := newBufferedConn(conn)
 		c.Push(b)
 

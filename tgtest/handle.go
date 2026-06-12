@@ -5,8 +5,8 @@ import (
 	"encoding/binary"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 	"go.uber.org/multierr"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
@@ -37,7 +37,7 @@ func (s *Server) rpcHandle(ctx context.Context, c transport.Conn, b *bin.Buffer)
 		AuthKey: key,
 	}
 	if conn := s.users.createConnection(msg.SessionID, c); !conn.sentCreated() {
-		s.log.Debug("Send handleSessionCreated event", zap.Inline(session))
+		s.log.Debug(ctx, "Send handleSessionCreated event", session.LogAttr())
 		salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
 		if err := s.sendSessionCreated(ctx, session, salt); err != nil {
 			return err
@@ -67,10 +67,10 @@ func (s *Server) handle(req *Request) error {
 		return errors.Wrap(err, "peek id")
 	}
 
-	s.log.Debug("Got request",
-		zap.Inline(req.Session),
-		zap.Int64("msg_id", req.MsgID),
-		zap.String("type", s.types.Get(id)),
+	s.log.Debug(req.RequestCtx, "Got request",
+		req.Session.LogAttr(),
+		log.Int64("msg_id", req.MsgID),
+		log.String("type", s.types.Get(id)),
 	)
 
 	// TODO(tdakkota): unpack all containers

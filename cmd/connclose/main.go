@@ -9,6 +9,8 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
@@ -20,7 +22,7 @@ func run(ctx context.Context) error {
 
 	dispatcher := tg.NewUpdateDispatcher()
 	return telegram.BotFromEnvironment(ctx, telegram.Options{
-		Logger:        logger,
+		Logger:        logzap.New(logger),
 		UpdateHandler: dispatcher,
 	}, func(ctx context.Context, client *telegram.Client) error {
 		sender := message.NewSender(tg.NewClient(client))

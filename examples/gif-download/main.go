@@ -14,6 +14,8 @@ import (
 	"github.com/gotd/contrib/middleware/ratelimit"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
+
+	"github.com/gotd/log/logzap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
@@ -47,7 +49,7 @@ func run(ctx context.Context) error {
 	// 	SESSION_FILE:   path to session file
 	// 	SESSION_DIR:    path to session directory, if SESSION_FILE is not set
 	client, err := telegram.ClientFromEnvironment(telegram.Options{
-		Logger: log,
+		Logger: logzap.New(log),
 		Middlewares: []telegram.Middleware{
 			ratelimit.New(rate.Every(*rateLimit), *rateBurst),
 		},

@@ -7,7 +7,7 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/tg"
 )
@@ -19,7 +19,7 @@ import (
 // via Handle and HandleSignalingData).
 type Client struct {
 	api  *tg.Client
-	log  *zap.Logger
+	log  log.Helper
 	rand io.Reader
 
 	onIncoming func(*IncomingCall)
@@ -48,7 +48,7 @@ func NewClient(api *tg.Client, opts Options) *Client {
 	opts.setDefaults()
 	return &Client{
 		api:  api,
-		log:  opts.Logger,
+		log:  log.For(opts.Logger),
 		rand: opts.Random,
 	}
 }
@@ -80,9 +80,9 @@ func (c *Client) Handle(ctx context.Context, u *tg.UpdatePhoneCall) error {
 	case *tg.PhoneCallDiscarded:
 		c.onDiscarded(p)
 	case *tg.PhoneCallWaiting:
-		c.log.Debug("Call waiting", zap.Int64("id", p.ID))
+		c.log.Debug(ctx, "Call waiting", log.Int64("id", p.ID))
 	default:
-		c.log.Debug("Unhandled phone call update", zap.String("type", u.PhoneCall.TypeName()))
+		c.log.Debug(ctx, "Unhandled phone call update", log.String("type", u.PhoneCall.TypeName()))
 	}
 	return nil
 }
@@ -94,17 +94,17 @@ func (c *Client) HandleSignalingData(ctx context.Context, u *tg.UpdatePhoneCallS
 	cl := c.call
 	c.mu.Unlock()
 	if cl == nil || cl.sig == nil || cl.conn == nil || cl.input.ID != u.PhoneCallID {
-		c.log.Debug("Dropping signaling data: no matching call")
+		c.log.Debug(ctx, "Dropping signaling data: no matching call")
 		return nil
 	}
 	msgs, err := cl.sig.decryptMessages(u.Data)
 	if err != nil {
-		c.log.Debug("Drop signaling", zap.Error(err))
+		c.log.Debug(ctx, "Drop signaling", log.Error(err))
 		return nil
 	}
 	for _, plain := range msgs {
 		if err := cl.conn.onSignal(plain); err != nil {
-			c.log.Warn("Handle signaling", zap.Error(err))
+			c.log.Warn(ctx, "Handle signaling", log.Error(err))
 		}
 	}
 	c.flushAcks(ctx, cl)
@@ -147,7 +147,7 @@ func (c *Client) flushAcks(ctx context.Context, cl *call) {
 		Peer: c.inputOf(cl),
 		Data: ct,
 	}); err != nil {
-		c.log.Debug("Send acks", zap.Error(err))
+		c.log.Debug(ctx, "Send acks", log.Error(err))
 	}
 }
 
@@ -236,13 +236,14 @@ func (c *Client) Request(ctx context.Context, user tg.InputUserClass) (*Conn, er
 // startCall sets up the media connection and signaling, opens the transport and
 // starts the handshake.
 func (c *Client) startCall(cl *call, key []byte, conns []tg.PhoneConnectionClass) (*Conn, error) {
+	ctx := context.Background()
 	conn := newConn(cl.isCaller, c.log)
 	sig := newSignalingEncryption(key, cl.isCaller)
 
 	conn.emit = func(payload []byte) {
 		ct, err := sig.encryptMessage(payload)
 		if err != nil {
-			c.log.Warn("Encrypt signaling", zap.Error(err))
+			c.log.Warn(ctx, "Encrypt signaling", log.Error(err))
 			return
 		}
 		c.mu.Lock()
@@ -252,7 +253,7 @@ func (c *Client) startCall(cl *call, key []byte, conns []tg.PhoneConnectionClass
 			Peer: input,
 			Data: ct,
 		}); err != nil {
-			c.log.Warn("Send signaling", zap.Error(err))
+			c.log.Warn(ctx, "Send signaling", log.Error(err))
 		}
 	}
 

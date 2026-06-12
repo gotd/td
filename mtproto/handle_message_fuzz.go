@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
@@ -66,7 +65,6 @@ func init() {
 	c := &Conn{
 		rand:      testutil.ZeroRand{},
 		rpc:       rpc.New(rpc.NopSend, rpc.Options{}),
-		log:       zap.NewNop(),
 		messageID: proto.NewMessageIDGen(time.Now),
 		handler:   handler,
 	}

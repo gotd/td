@@ -16,6 +16,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram"
@@ -107,7 +109,7 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 
 			return tryConnect(ctx, telegram.Options{
 				Resolver:       resolver,
-				Logger:         logger,
+				Logger:         logzap.New(logger),
 				SessionStorage: storage,
 				DCList:         dcs.Prod(),
 			})

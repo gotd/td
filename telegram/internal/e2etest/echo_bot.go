@@ -6,7 +6,8 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -18,7 +19,7 @@ import (
 type EchoBot struct {
 	suite *Suite
 
-	logger *zap.Logger
+	logger log.Helper
 	auth   chan<- *tg.User
 }
 
@@ -26,7 +27,7 @@ type EchoBot struct {
 func NewEchoBot(suite *Suite, auth chan<- *tg.User) EchoBot {
 	return EchoBot{
 		suite:  suite,
-		logger: suite.logger.Named("echobot"),
+		logger: log.For(suite.logger).Named("echobot"),
 		auth:   auth,
 	}
 }
@@ -107,7 +108,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 
 		if m, ok := update.Message.(interface{ GetMessage() string }); ok {
 			b.logger.Named("dispatcher").
-				Info("Got new message update", zap.String("message", m.GetMessage()))
+				Info(ctx, "Got new message update", log.String("message", m.GetMessage()))
 		}
 
 		if dialogsUsers.empty() {
@@ -138,11 +139,11 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					user = dialogsUsers.get(peer.UserID)
 				}
 
-				b.logger.Info("Got message",
-					zap.String("text", m.Message),
-					zap.Int64("user_id", user.ID),
-					zap.String("user_first_name", user.FirstName),
-					zap.String("username", user.Username),
+				b.logger.Info(ctx, "Got message",
+					log.String("text", m.Message),
+					log.Int64("user_id", user.ID),
+					log.String("user_first_name", user.FirstName),
+					log.String("username", user.Username),
 				)
 
 				if err := retry(ctx, func() error {
@@ -162,7 +163,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 // Run setups and starts echo bot.
 func (b EchoBot) Run(ctx context.Context) error {
 	dispatcher := tg.NewUpdateDispatcher()
-	client := b.suite.Client(b.logger, dispatcher)
+	client := b.suite.Client(b.logger.Logger(), dispatcher)
 	dispatcher.OnNewMessage(b.handler(client))
 
 	return client.Run(ctx, func(ctx context.Context) error {
@@ -173,9 +174,9 @@ func (b EchoBot) Run(ctx context.Context) error {
 			return errors.Wrap(err, "login")
 		}
 
-		b.logger.Info("Logged in",
-			zap.String("user", me.Username),
-			zap.Int64("id", me.ID),
+		b.logger.Info(ctx, "Logged in",
+			log.String("user", me.Username),
+			log.Int64("id", me.ID),
 		)
 
 		select {

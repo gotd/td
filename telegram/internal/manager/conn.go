@@ -8,7 +8,7 @@ import (
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -61,7 +61,7 @@ type Conn struct {
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
 	clock clock.Clock // immutable
-	log   *zap.Logger // immutable
+	log   log.Helper // immutable
 
 	// Handler passed by client.
 	handler Handler // immutable
@@ -86,7 +86,7 @@ type Conn struct {
 
 // OnSession implements mtproto.Handler.
 func (c *Conn) OnSession(session mtproto.Session) error {
-	c.log.Info("SessionInit")
+	c.log.Info(context.Background(), "SessionInit")
 	c.sessionInit.Signal()
 
 	// Quote (PFS): "Once auth.bindTempAuthKey has been executed successfully,
@@ -150,9 +150,9 @@ func (c *Conn) trackInvoke() func() {
 		end := c.clock.Now()
 		c.latest = end
 
-		c.log.Debug("Invoke",
-			zap.Duration("duration", end.Sub(start)),
-			zap.Int("ongoing", c.ongoing),
+		c.log.Debug(context.Background(), "Invoke",
+			log.Duration("duration", end.Sub(start)),
+			log.Int("ongoing", c.ongoing),
 		)
 	}
 }
@@ -162,7 +162,7 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 	defer c.dead.Signal()
 	defer func() {
 		if err != nil && ctx.Err() == nil {
-			c.log.Debug("Connection dead", zap.Error(err))
+			c.log.Debug(ctx, "Connection dead", log.Error(err))
 			if c.onDead != nil {
 				c.onDead(err)
 			}
@@ -318,7 +318,7 @@ func (c *Conn) cdnInitRequest(query bin.Object) bin.Object {
 	}
 }
 func (c *Conn) init(ctx context.Context) error {
-	c.log.Debug("Initializing")
+	c.log.Debug(ctx, "Initializing")
 
 	if c.mode == ConnModeCDN {
 		// CDN connections skip help.getConfig init flow and become ready
@@ -365,8 +365,8 @@ func (c *Conn) init(ctx context.Context) error {
 
 		return nil
 	}, c.connBackoff(ctx), func(err error, duration time.Duration) {
-		c.log.Debug("Retrying connection initialization",
-			zap.Error(err), zap.Duration("duration", duration),
+		c.log.Debug(ctx, "Retrying connection initialization",
+			log.Error(err), log.Duration("duration", duration),
 		)
 	}); err != nil {
 		return errors.Wrap(err, "initConnection")

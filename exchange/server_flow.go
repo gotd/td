@@ -5,7 +5,7 @@ import (
 	"math/big"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
@@ -107,7 +107,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	if err := s.readUnencrypted(ctx, b, &req); err != nil {
 		return ServerExchangeResult{}, err
 	}
-	s.log.Debug("Received client ReqPqMultiRequest")
+	s.log.Debug(ctx, "Received client ReqPqMultiRequest")
 
 	serverNonce, err := crypto.RandInt128(s.rand)
 	if err != nil {
@@ -123,7 +123,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 
 SendResPQ:
-	s.log.Debug("Sending ResPQ", zap.String("pq", pq.String()))
+	s.log.Debug(ctx, "Sending ResPQ", log.String("pq", pq.String()))
 	if err := s.writeUnencrypted(ctx, b, &mt.ResPQ{
 		Pq:          pq.Bytes(),
 		Nonce:       req.Nonce,
@@ -148,11 +148,11 @@ SendResPQ:
 		// Client can send fake req_pq on start. Ignore it.
 		//
 		// Next one should be not fake.
-		s.log.Debug("Received ReqPQ again")
+		s.log.Debug(ctx, "Received ReqPQ again")
 		req = dhParams.Req
 		goto SendResPQ
 	default:
-		s.log.Debug("Received client ReqDHParamsRequest")
+		s.log.Debug(ctx, "Received client ReqDHParamsRequest")
 	}
 
 	var innerData mt.PQInnerData
@@ -230,7 +230,7 @@ SendResPQ:
 		return ServerExchangeResult{}, err
 	}
 
-	s.log.Debug("Sending ServerDHParamsOk", zap.Int("g", g))
+	s.log.Debug(ctx, "Sending ServerDHParamsOk", log.Int("g", g))
 	// 5. Server responds with Server_DH_Params.
 	if err := s.writeUnencrypted(ctx, b, &mt.ServerDHParamsOk{
 		Nonce:           req.Nonce,
@@ -244,7 +244,7 @@ SendResPQ:
 	if err := s.readUnencrypted(ctx, b, &clientDhParams); err != nil {
 		return ServerExchangeResult{}, err
 	}
-	s.log.Debug("Received client SetClientDHParamsRequest")
+	s.log.Debug(ctx, "Received client SetClientDHParamsRequest")
 
 	decrypted, err := crypto.DecryptExchangeAnswer(clientDhParams.EncryptedData, key, iv)
 	if err != nil {
@@ -269,7 +269,7 @@ SendResPQ:
 	// 8. Server responds in one of three ways:
 	// dh_gen_ok#3bcbf734 nonce:int128 server_nonce:int128
 	// 	new_nonce_hash1:int128 = Set_client_DH_params_answer;
-	s.log.Debug("Sending DhGenOk")
+	s.log.Debug(ctx, "Sending DhGenOk")
 	if err := s.writeUnencrypted(ctx, b, &mt.DhGenOk{
 		Nonce:         req.Nonce,
 		ServerNonce:   serverNonce,

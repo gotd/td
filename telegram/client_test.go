@@ -18,8 +18,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
 	"github.com/gotd/td/proto"
@@ -78,7 +78,7 @@ func newTestClient(h testHandler) *Client {
 	ready := tdsync.NewReady()
 	ready.Signal()
 	client := &Client{
-		log:           zap.NewNop(),
+		log:           log.For(log.Nop),
 		rand:          rand.New(rand.NewSource(1)),
 		appID:         TestAppID,
 		appHash:       TestAppHash,

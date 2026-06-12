@@ -1,8 +1,11 @@
 package telegram
 
 import (
+	"context"
+
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/mtproto"
@@ -11,8 +14,8 @@ import (
 
 func (c *Client) handleCDNConnDead(dcID int, err error) {
 	if errors.Is(err, exchange.ErrKeyFingerprintNotFound) {
-		c.log.Warn("Resetting cached CDN keys after fingerprint miss",
-			zap.Int("dc_id", dcID),
+		c.log.Warn(context.Background(), "Resetting cached CDN keys after fingerprint miss",
+			log.Int("dc_id", dcID),
 		)
 		c.cdnKeysMux.Lock()
 		c.cdnKeys = nil
@@ -42,8 +45,8 @@ func (c *Client) handleCDNConnDead(dcID int, err error) {
 		return
 	}
 
-	c.log.Warn("Dropping stored CDN session key after PFS key reset request",
-		zap.Int("dc_id", dcID),
+	c.log.Warn(context.Background(), "Dropping stored CDN session key after PFS key reset request",
+		log.Int("dc_id", dcID),
 	)
 	c.sessionsMux.Lock()
 	s, ok := c.cdnSessions[dcID]

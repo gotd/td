@@ -6,6 +6,8 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -23,7 +25,7 @@ func main() {
 		// Dispatcher handles incoming updates.
 		dispatcher := tg.NewUpdateDispatcher()
 		opts := telegram.Options{
-			Logger:        log,
+			Logger:        logzap.New(log),
 			UpdateHandler: dispatcher,
 		}
 		return telegram.BotFromEnvironment(ctx, opts, func(ctx context.Context, client *telegram.Client) error {

@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
 )
@@ -29,7 +29,7 @@ func TestConn_handleFutureSalts(t *testing.T) {
 
 	t.Run("OK", func(t *testing.T) {
 		a := require.New(t)
-		conn := Conn{log: zap.NewNop()}
+		conn := Conn{log: log.For(log.Nop)}
 		buf := bin.Buffer{}
 
 		a.NoError(buf.Encode(&mt.FutureSalts{

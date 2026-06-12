@@ -23,6 +23,8 @@ import (
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
+	"github.com/gotd/log/logzap"
+
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
@@ -108,7 +110,7 @@ func main() {
 		// application id or authentication is required.
 		client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 			Resolver: resolver,
-			Logger:   log,
+			Logger:   logzap.New(log),
 		})
 
 		return client.Run(ctx, func(ctx context.Context) error {

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
 
+	"github.com/gotd/log"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/tg"
@@ -53,7 +53,7 @@ func TestClient_notifyConnectionState(t *testing.T) {
 func TestClient_onSessionNoConnectionState(t *testing.T) {
 	var states []ConnectionState
 	c := &Client{
-		log:               zap.NewNop(),
+		log:               log.For(log.Nop),
 		onConnectionState: func(s ConnectionState) { states = append(states, s) },
 		session:           pool.NewSyncSession(pool.Session{DC: 2}),
 	}

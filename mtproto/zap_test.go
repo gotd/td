@@ -1,17 +1,17 @@
 package mtproto
 
 import (
+	"context"
 	"testing"
 
-	"go.uber.org/zap"
-
+	"github.com/gotd/log"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tmap"
 )
 
 func BenchmarkConn_logWithType(b *testing.B) {
 	c := Conn{
-		log: zap.NewNop(),
+		log: log.For(log.Nop),
 		types: tmap.New(map[uint32]string{
 			0x3fedd339: "true",
 		}),
@@ -23,6 +23,6 @@ func BenchmarkConn_logWithType(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		c.logWithType(&buf).Info("Hi!")
+		c.logWithType(&buf).Info(context.Background(), "Hi!")
 	}
 }

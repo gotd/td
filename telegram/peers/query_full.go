@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-faster/errors"
-	"go.uber.org/zap"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/tg"
 )
@@ -19,7 +19,7 @@ func (m *Manager) getUserFull(ctx context.Context, p tg.InputUserClass) (*tg.Use
 			return u, nil
 		}
 		if err != nil {
-			m.logger.Warn("Find full user error", zap.Int64("user_id", userID), zap.Error(err))
+			m.logger.Warn(ctx, "Find full user error", log.Int64("user_id", userID), log.Error(err))
 		}
 	}
 	return m.updateUserFull(ctx, p)
@@ -53,7 +53,7 @@ func (m *Manager) getChatFull(ctx context.Context, p int64) (*tg.ChatFull, error
 			return c, nil
 		}
 		if err != nil {
-			m.logger.Warn("Find full chat error", zap.Int64("chat_id", p), zap.Error(err))
+			m.logger.Warn(ctx, "Find full chat error", log.Int64("chat_id", p), log.Error(err))
 		}
 	}
 	return m.updateChatFull(ctx, p)
@@ -91,7 +91,7 @@ func (m *Manager) getChannelFull(ctx context.Context, p tg.InputChannelClass) (*
 			return c, nil
 		}
 		if err != nil {
-			m.logger.Warn("Find channel error", zap.Int64("channel_id", id), zap.Error(err))
+			m.logger.Warn(ctx, "Find channel error", log.Int64("channel_id", id), log.Error(err))
 		}
 	}
 	return m.updateChannelFull(ctx, p)
