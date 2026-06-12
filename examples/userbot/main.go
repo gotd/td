@@ -29,6 +29,7 @@ import (
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
+	"github.com/gotd/td/telegram/auth/qrlogin"
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/telegram/query"
 	"github.com/gotd/td/telegram/updates"
@@ -48,8 +49,10 @@ func sessionFolder(phone string) string {
 func run(ctx context.Context) error {
 	var arg struct {
 		FillPeerStorage bool
+		QR              bool
 	}
 	flag.BoolVar(&arg.FillPeerStorage, "fill-peer-storage", false, "fill peer storage")
+	flag.BoolVar(&arg.QR, "qr", false, "login via QR code instead of phone number")
 	flag.Parse()
 
 	// Using ".env" file to load environment variables.
@@ -59,8 +62,11 @@ func run(ctx context.Context) error {
 
 	// TG_PHONE is phone number in international format.
 	// Like +4123456789.
+	//
+	// Not required for QR login, where the phone is entered on the device
+	// that scans the code.
 	phone := os.Getenv("TG_PHONE")
-	if phone == "" {
+	if phone == "" && !arg.QR {
 		return errors.New("no phone")
 	}
 	// APP_HASH, APP_ID is from https://my.telegram.org/.
@@ -75,7 +81,12 @@ func run(ctx context.Context) error {
 
 	// Setting up session storage.
 	// This is needed to reuse session and not login every time.
-	sessionDir := filepath.Join("session", sessionFolder(phone))
+	// QR login has no phone, so a fixed folder is used for it.
+	folder := sessionFolder(phone)
+	if arg.QR && phone == "" {
+		folder = "qr"
+	}
+	sessionDir := filepath.Join("session", folder)
 	if err := os.MkdirAll(sessionDir, 0700); err != nil {
 		return err
 	}
@@ -116,6 +127,9 @@ func run(ctx context.Context) error {
 	//
 	// Dispatcher is used to register handlers for events.
 	dispatcher := tg.NewUpdateDispatcher()
+	// Signal channel for QR login, notified on tg.UpdateLoginToken when the
+	// code is scanned. Harmless to register even when not using QR login.
+	loggedIn := qrlogin.OnLoginToken(&dispatcher)
 	// Setting up update handler that will fill peer storage before
 	// calling dispatcher handlers.
 	updateHandler := storage.UpdateHook(dispatcher, peerDB)
@@ -193,7 +207,13 @@ func run(ctx context.Context) error {
 		// Spawning main goroutine.
 		if err := client.Run(ctx, func(ctx context.Context) error {
 			// Perform auth if no session is available.
-			if err := client.Auth().IfNecessary(ctx, flow); err != nil {
+			if arg.QR {
+				// QR login: print a QR code to scan with the Telegram app
+				// (Settings → Devices → Link Desktop Device), with 2FA fallback.
+				if err := examples.QRAuth(ctx, client, loggedIn); err != nil {
+					return errors.Wrap(err, "auth")
+				}
+			} else if err := client.Auth().IfNecessary(ctx, flow); err != nil {
 				return errors.Wrap(err, "auth")
 			}
 
