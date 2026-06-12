@@ -16,6 +16,9 @@ type constructorMapping struct {
 	MapperName string
 	// Fields is slice of field mappings from this struct to target.
 	Fields []fieldPair
+	// Params are target fields that can't be derived from the source
+	// constructor and are passed as parameters of the generated As-mapper.
+	Params []fieldDef
 }
 
 // interfaceDef represents generic interface, type which has multiple constructors.

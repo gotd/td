@@ -58,6 +58,7 @@ func Funcs() template.FuncMap {
 	return template.FuncMap{
 		"trim":                 strings.TrimSpace,
 		"lower":                strings.ToLower,
+		"camel":                camel,
 		"trimPrefix":           strings.TrimPrefix,
 		"trimSuffix":           strings.TrimSuffix,
 		"hasPrefix":            strings.HasPrefix,

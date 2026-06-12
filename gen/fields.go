@@ -4,15 +4,19 @@ import (
 	"strings"
 )
 
-func optionalField(s structDef, f fieldDef) bool {
-	switch {
-	case f.Conditional:
-		return true
-	case f.Type == "string" && f.Name == "ThumbSize":
-		return s.RawName == "inputDocumentFileLocation"
-	}
+func optionalField(_ structDef, f fieldDef) bool {
+	return f.Conditional
+}
 
-	return false
+// parameterField reports whether an unmapped field of the target constructor
+// should be exposed as a parameter of the generated As-mapper instead of
+// causing the mapping to be skipped.
+//
+// thumb_size on inputDocumentFileLocation/inputPhotoFileLocation is required by
+// the wire format but cannot be derived from the source constructor, so the
+// caller selects the thumbnail by passing it in. See issue #376.
+func parameterField(_ structDef, f fieldDef) bool {
+	return !f.Conditional && f.Type == "string" && f.RawName == "thumb_size"
 }
 
 func hasField(fields []fieldDef, name, typ string) bool {
@@ -45,10 +49,21 @@ func mappableFields(constructor, to structDef) (constructorMapping, bool) {
 		}
 	}
 
+	// Fields that can't be derived from the constructor but should still be
+	// filled by the caller via generated method parameters.
+	var params []fieldDef
 	// Return false if we can't fill all fields.
 	if len(mapped) != len(to.Fields) {
 		for _, field := range to.Fields {
-			if _, ok := mapped[field.Name]; !ok && !optionalField(to, field) {
+			if _, ok := mapped[field.Name]; ok {
+				continue
+			}
+			switch {
+			case optionalField(to, field):
+				// Optional in the wire format, left unset.
+			case parameterField(to, field):
+				params = append(params, field)
+			default:
 				return constructorMapping{}, false
 			}
 		}
@@ -67,6 +82,7 @@ func mappableFields(constructor, to structDef) (constructorMapping, bool) {
 		Concrete:    true,
 		MapperName:  mapperName,
 		Fields:      r,
+		Params:      params,
 	}
 
 	return mapping, true

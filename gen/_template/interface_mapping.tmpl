@@ -42,6 +42,9 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) {{ template "mapper_func_type" $mapping 
         {{- end }}
     {{- end }}
     {{- end }}
+    {{- range $param := $mapping.Params }}
+    value.{{ $param.Name }} = {{ camel $param.RawName }}
+    {{- end }}
 
     return value
 {{- else }}
