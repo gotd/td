@@ -498,7 +498,7 @@ func (i *InputRichMessage) MapUsers() (value InputUserClassArray, ok bool) {
 	return InputUserClassArray(i.Users), true
 }
 
-// InputRichMessageHTML represents TL type `inputRichMessageHTML#d4eab551`.
+// InputRichMessageHTML represents TL type `inputRichMessageHTML#dacb836a`.
 //
 // See https://core.telegram.org/constructor/inputRichMessageHTML for reference.
 type InputRichMessageHTML struct {
@@ -510,22 +510,14 @@ type InputRichMessageHTML struct {
 	Noautolink bool
 	// HTML field of InputRichMessageHTML.
 	HTML string
-	// Photos field of InputRichMessageHTML.
+	// Files field of InputRichMessageHTML.
 	//
-	// Use SetPhotos and GetPhotos helpers.
-	Photos []InputPhotoClass
-	// Documents field of InputRichMessageHTML.
-	//
-	// Use SetDocuments and GetDocuments helpers.
-	Documents []InputDocumentClass
-	// Users field of InputRichMessageHTML.
-	//
-	// Use SetUsers and GetUsers helpers.
-	Users []InputUserClass
+	// Use SetFiles and GetFiles helpers.
+	Files []InputRichFileClass
 }
 
 // InputRichMessageHTMLTypeID is TL type id of InputRichMessageHTML.
-const InputRichMessageHTMLTypeID = 0xd4eab551
+const InputRichMessageHTMLTypeID = 0xdacb836a
 
 // construct implements constructor of InputRichMessageClass.
 func (i InputRichMessageHTML) construct() InputRichMessageClass { return &i }
@@ -556,13 +548,7 @@ func (i *InputRichMessageHTML) Zero() bool {
 	if !(i.HTML == "") {
 		return false
 	}
-	if !(i.Photos == nil) {
-		return false
-	}
-	if !(i.Documents == nil) {
-		return false
-	}
-	if !(i.Users == nil) {
+	if !(i.Files == nil) {
 		return false
 	}
 
@@ -583,23 +569,13 @@ func (i *InputRichMessageHTML) FillFrom(from interface {
 	GetRtl() (value bool)
 	GetNoautolink() (value bool)
 	GetHTML() (value string)
-	GetPhotos() (value []InputPhotoClass, ok bool)
-	GetDocuments() (value []InputDocumentClass, ok bool)
-	GetUsers() (value []InputUserClass, ok bool)
+	GetFiles() (value []InputRichFileClass, ok bool)
 }) {
 	i.Rtl = from.GetRtl()
 	i.Noautolink = from.GetNoautolink()
 	i.HTML = from.GetHTML()
-	if val, ok := from.GetPhotos(); ok {
-		i.Photos = val
-	}
-
-	if val, ok := from.GetDocuments(); ok {
-		i.Documents = val
-	}
-
-	if val, ok := from.GetUsers(); ok {
-		i.Users = val
+	if val, ok := from.GetFiles(); ok {
+		i.Files = val
 	}
 
 }
@@ -642,19 +618,9 @@ func (i *InputRichMessageHTML) TypeInfo() tdp.Type {
 			SchemaName: "html",
 		},
 		{
-			Name:       "Photos",
-			SchemaName: "photos",
+			Name:       "Files",
+			SchemaName: "files",
 			Null:       !i.Flags.Has(2),
-		},
-		{
-			Name:       "Documents",
-			SchemaName: "documents",
-			Null:       !i.Flags.Has(3),
-		},
-		{
-			Name:       "Users",
-			SchemaName: "users",
-			Null:       !i.Flags.Has(4),
 		},
 	}
 	return typ
@@ -668,21 +634,15 @@ func (i *InputRichMessageHTML) SetFlags() {
 	if !(i.Noautolink == false) {
 		i.Flags.Set(1)
 	}
-	if !(i.Photos == nil) {
+	if !(i.Files == nil) {
 		i.Flags.Set(2)
-	}
-	if !(i.Documents == nil) {
-		i.Flags.Set(3)
-	}
-	if !(i.Users == nil) {
-		i.Flags.Set(4)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputRichMessageHTML) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputRichMessageHTML#d4eab551 as nil")
+		return fmt.Errorf("can't encode inputRichMessageHTML#dacb836a as nil")
 	}
 	b.PutID(InputRichMessageHTMLTypeID)
 	return i.EncodeBare(b)
@@ -691,43 +651,21 @@ func (i *InputRichMessageHTML) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputRichMessageHTML) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputRichMessageHTML#d4eab551 as nil")
+		return fmt.Errorf("can't encode inputRichMessageHTML#dacb836a as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputRichMessageHTML#dacb836a: field flags: %w", err)
 	}
 	b.PutString(i.HTML)
 	if i.Flags.Has(2) {
-		b.PutVectorHeader(len(i.Photos))
-		for idx, v := range i.Photos {
+		b.PutVectorHeader(len(i.Files))
+		for idx, v := range i.Files {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field photos element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode inputRichMessageHTML#dacb836a: field files element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field photos element with index %d: %w", idx, err)
-			}
-		}
-	}
-	if i.Flags.Has(3) {
-		b.PutVectorHeader(len(i.Documents))
-		for idx, v := range i.Documents {
-			if v == nil {
-				return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field documents element with index %d is nil", idx)
-			}
-			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field documents element with index %d: %w", idx, err)
-			}
-		}
-	}
-	if i.Flags.Has(4) {
-		b.PutVectorHeader(len(i.Users))
-		for idx, v := range i.Users {
-			if v == nil {
-				return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field users element with index %d is nil", idx)
-			}
-			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputRichMessageHTML#d4eab551: field users element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode inputRichMessageHTML#dacb836a: field files element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -737,10 +675,10 @@ func (i *InputRichMessageHTML) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputRichMessageHTML) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputRichMessageHTML#d4eab551 to nil")
+		return fmt.Errorf("can't decode inputRichMessageHTML#dacb836a to nil")
 	}
 	if err := b.ConsumeID(InputRichMessageHTMLTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: %w", err)
+		return fmt.Errorf("unable to decode inputRichMessageHTML#dacb836a: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -748,11 +686,11 @@ func (i *InputRichMessageHTML) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputRichMessageHTML) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputRichMessageHTML#d4eab551 to nil")
+		return fmt.Errorf("can't decode inputRichMessageHTML#dacb836a to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputRichMessageHTML#dacb836a: field flags: %w", err)
 		}
 	}
 	i.Rtl = i.Flags.Has(0)
@@ -760,59 +698,25 @@ func (i *InputRichMessageHTML) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field html: %w", err)
+			return fmt.Errorf("unable to decode inputRichMessageHTML#dacb836a: field html: %w", err)
 		}
 		i.HTML = value
 	}
 	if i.Flags.Has(2) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field photos: %w", err)
+			return fmt.Errorf("unable to decode inputRichMessageHTML#dacb836a: field files: %w", err)
 		}
 
 		if headerLen > 0 {
-			i.Photos = make([]InputPhotoClass, 0, headerLen%bin.PreallocateLimit)
+			i.Files = make([]InputRichFileClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputPhoto(b)
+			value, err := DecodeInputRichFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field photos: %w", err)
+				return fmt.Errorf("unable to decode inputRichMessageHTML#dacb836a: field files: %w", err)
 			}
-			i.Photos = append(i.Photos, value)
-		}
-	}
-	if i.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field documents: %w", err)
-		}
-
-		if headerLen > 0 {
-			i.Documents = make([]InputDocumentClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputDocument(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field documents: %w", err)
-			}
-			i.Documents = append(i.Documents, value)
-		}
-	}
-	if i.Flags.Has(4) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field users: %w", err)
-		}
-
-		if headerLen > 0 {
-			i.Users = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputUser(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode inputRichMessageHTML#d4eab551: field users: %w", err)
-			}
-			i.Users = append(i.Users, value)
+			i.Files = append(i.Files, value)
 		}
 	}
 	return nil
@@ -864,85 +768,33 @@ func (i *InputRichMessageHTML) GetHTML() (value string) {
 	return i.HTML
 }
 
-// SetPhotos sets value of Photos conditional field.
-func (i *InputRichMessageHTML) SetPhotos(value []InputPhotoClass) {
+// SetFiles sets value of Files conditional field.
+func (i *InputRichMessageHTML) SetFiles(value []InputRichFileClass) {
 	i.Flags.Set(2)
-	i.Photos = value
+	i.Files = value
 }
 
-// GetPhotos returns value of Photos conditional field and
+// GetFiles returns value of Files conditional field and
 // boolean which is true if field was set.
-func (i *InputRichMessageHTML) GetPhotos() (value []InputPhotoClass, ok bool) {
+func (i *InputRichMessageHTML) GetFiles() (value []InputRichFileClass, ok bool) {
 	if i == nil {
 		return
 	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
-	return i.Photos, true
+	return i.Files, true
 }
 
-// SetDocuments sets value of Documents conditional field.
-func (i *InputRichMessageHTML) SetDocuments(value []InputDocumentClass) {
-	i.Flags.Set(3)
-	i.Documents = value
-}
-
-// GetDocuments returns value of Documents conditional field and
-// boolean which is true if field was set.
-func (i *InputRichMessageHTML) GetDocuments() (value []InputDocumentClass, ok bool) {
-	if i == nil {
-		return
-	}
-	if !i.Flags.Has(3) {
-		return value, false
-	}
-	return i.Documents, true
-}
-
-// SetUsers sets value of Users conditional field.
-func (i *InputRichMessageHTML) SetUsers(value []InputUserClass) {
-	i.Flags.Set(4)
-	i.Users = value
-}
-
-// GetUsers returns value of Users conditional field and
-// boolean which is true if field was set.
-func (i *InputRichMessageHTML) GetUsers() (value []InputUserClass, ok bool) {
-	if i == nil {
-		return
-	}
-	if !i.Flags.Has(4) {
-		return value, false
-	}
-	return i.Users, true
-}
-
-// MapPhotos returns field Photos wrapped in InputPhotoClassArray helper.
-func (i *InputRichMessageHTML) MapPhotos() (value InputPhotoClassArray, ok bool) {
+// MapFiles returns field Files wrapped in InputRichFileClassArray helper.
+func (i *InputRichMessageHTML) MapFiles() (value InputRichFileClassArray, ok bool) {
 	if !i.Flags.Has(2) {
 		return value, false
 	}
-	return InputPhotoClassArray(i.Photos), true
+	return InputRichFileClassArray(i.Files), true
 }
 
-// MapDocuments returns field Documents wrapped in InputDocumentClassArray helper.
-func (i *InputRichMessageHTML) MapDocuments() (value InputDocumentClassArray, ok bool) {
-	if !i.Flags.Has(3) {
-		return value, false
-	}
-	return InputDocumentClassArray(i.Documents), true
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (i *InputRichMessageHTML) MapUsers() (value InputUserClassArray, ok bool) {
-	if !i.Flags.Has(4) {
-		return value, false
-	}
-	return InputUserClassArray(i.Users), true
-}
-
-// InputRichMessageMarkdown represents TL type `inputRichMessageMarkdown#9ac8186`.
+// InputRichMessageMarkdown represents TL type `inputRichMessageMarkdown#4b572c`.
 //
 // See https://core.telegram.org/constructor/inputRichMessageMarkdown for reference.
 type InputRichMessageMarkdown struct {
@@ -954,22 +806,14 @@ type InputRichMessageMarkdown struct {
 	Noautolink bool
 	// Markdown field of InputRichMessageMarkdown.
 	Markdown string
-	// Photos field of InputRichMessageMarkdown.
+	// Files field of InputRichMessageMarkdown.
 	//
-	// Use SetPhotos and GetPhotos helpers.
-	Photos []InputPhotoClass
-	// Documents field of InputRichMessageMarkdown.
-	//
-	// Use SetDocuments and GetDocuments helpers.
-	Documents []InputDocumentClass
-	// Users field of InputRichMessageMarkdown.
-	//
-	// Use SetUsers and GetUsers helpers.
-	Users []InputUserClass
+	// Use SetFiles and GetFiles helpers.
+	Files []InputRichFileClass
 }
 
 // InputRichMessageMarkdownTypeID is TL type id of InputRichMessageMarkdown.
-const InputRichMessageMarkdownTypeID = 0x9ac8186
+const InputRichMessageMarkdownTypeID = 0x4b572c
 
 // construct implements constructor of InputRichMessageClass.
 func (i InputRichMessageMarkdown) construct() InputRichMessageClass { return &i }
@@ -1000,13 +844,7 @@ func (i *InputRichMessageMarkdown) Zero() bool {
 	if !(i.Markdown == "") {
 		return false
 	}
-	if !(i.Photos == nil) {
-		return false
-	}
-	if !(i.Documents == nil) {
-		return false
-	}
-	if !(i.Users == nil) {
+	if !(i.Files == nil) {
 		return false
 	}
 
@@ -1027,23 +865,13 @@ func (i *InputRichMessageMarkdown) FillFrom(from interface {
 	GetRtl() (value bool)
 	GetNoautolink() (value bool)
 	GetMarkdown() (value string)
-	GetPhotos() (value []InputPhotoClass, ok bool)
-	GetDocuments() (value []InputDocumentClass, ok bool)
-	GetUsers() (value []InputUserClass, ok bool)
+	GetFiles() (value []InputRichFileClass, ok bool)
 }) {
 	i.Rtl = from.GetRtl()
 	i.Noautolink = from.GetNoautolink()
 	i.Markdown = from.GetMarkdown()
-	if val, ok := from.GetPhotos(); ok {
-		i.Photos = val
-	}
-
-	if val, ok := from.GetDocuments(); ok {
-		i.Documents = val
-	}
-
-	if val, ok := from.GetUsers(); ok {
-		i.Users = val
+	if val, ok := from.GetFiles(); ok {
+		i.Files = val
 	}
 
 }
@@ -1086,19 +914,9 @@ func (i *InputRichMessageMarkdown) TypeInfo() tdp.Type {
 			SchemaName: "markdown",
 		},
 		{
-			Name:       "Photos",
-			SchemaName: "photos",
+			Name:       "Files",
+			SchemaName: "files",
 			Null:       !i.Flags.Has(2),
-		},
-		{
-			Name:       "Documents",
-			SchemaName: "documents",
-			Null:       !i.Flags.Has(3),
-		},
-		{
-			Name:       "Users",
-			SchemaName: "users",
-			Null:       !i.Flags.Has(4),
 		},
 	}
 	return typ
@@ -1112,21 +930,15 @@ func (i *InputRichMessageMarkdown) SetFlags() {
 	if !(i.Noautolink == false) {
 		i.Flags.Set(1)
 	}
-	if !(i.Photos == nil) {
+	if !(i.Files == nil) {
 		i.Flags.Set(2)
-	}
-	if !(i.Documents == nil) {
-		i.Flags.Set(3)
-	}
-	if !(i.Users == nil) {
-		i.Flags.Set(4)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputRichMessageMarkdown) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputRichMessageMarkdown#9ac8186 as nil")
+		return fmt.Errorf("can't encode inputRichMessageMarkdown#4b572c as nil")
 	}
 	b.PutID(InputRichMessageMarkdownTypeID)
 	return i.EncodeBare(b)
@@ -1135,43 +947,21 @@ func (i *InputRichMessageMarkdown) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputRichMessageMarkdown) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputRichMessageMarkdown#9ac8186 as nil")
+		return fmt.Errorf("can't encode inputRichMessageMarkdown#4b572c as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputRichMessageMarkdown#4b572c: field flags: %w", err)
 	}
 	b.PutString(i.Markdown)
 	if i.Flags.Has(2) {
-		b.PutVectorHeader(len(i.Photos))
-		for idx, v := range i.Photos {
+		b.PutVectorHeader(len(i.Files))
+		for idx, v := range i.Files {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field photos element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode inputRichMessageMarkdown#4b572c: field files element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field photos element with index %d: %w", idx, err)
-			}
-		}
-	}
-	if i.Flags.Has(3) {
-		b.PutVectorHeader(len(i.Documents))
-		for idx, v := range i.Documents {
-			if v == nil {
-				return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field documents element with index %d is nil", idx)
-			}
-			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field documents element with index %d: %w", idx, err)
-			}
-		}
-	}
-	if i.Flags.Has(4) {
-		b.PutVectorHeader(len(i.Users))
-		for idx, v := range i.Users {
-			if v == nil {
-				return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field users element with index %d is nil", idx)
-			}
-			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputRichMessageMarkdown#9ac8186: field users element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode inputRichMessageMarkdown#4b572c: field files element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -1181,10 +971,10 @@ func (i *InputRichMessageMarkdown) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputRichMessageMarkdown) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputRichMessageMarkdown#9ac8186 to nil")
+		return fmt.Errorf("can't decode inputRichMessageMarkdown#4b572c to nil")
 	}
 	if err := b.ConsumeID(InputRichMessageMarkdownTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: %w", err)
+		return fmt.Errorf("unable to decode inputRichMessageMarkdown#4b572c: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1192,11 +982,11 @@ func (i *InputRichMessageMarkdown) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputRichMessageMarkdown) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputRichMessageMarkdown#9ac8186 to nil")
+		return fmt.Errorf("can't decode inputRichMessageMarkdown#4b572c to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputRichMessageMarkdown#4b572c: field flags: %w", err)
 		}
 	}
 	i.Rtl = i.Flags.Has(0)
@@ -1204,59 +994,25 @@ func (i *InputRichMessageMarkdown) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field markdown: %w", err)
+			return fmt.Errorf("unable to decode inputRichMessageMarkdown#4b572c: field markdown: %w", err)
 		}
 		i.Markdown = value
 	}
 	if i.Flags.Has(2) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field photos: %w", err)
+			return fmt.Errorf("unable to decode inputRichMessageMarkdown#4b572c: field files: %w", err)
 		}
 
 		if headerLen > 0 {
-			i.Photos = make([]InputPhotoClass, 0, headerLen%bin.PreallocateLimit)
+			i.Files = make([]InputRichFileClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputPhoto(b)
+			value, err := DecodeInputRichFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field photos: %w", err)
+				return fmt.Errorf("unable to decode inputRichMessageMarkdown#4b572c: field files: %w", err)
 			}
-			i.Photos = append(i.Photos, value)
-		}
-	}
-	if i.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field documents: %w", err)
-		}
-
-		if headerLen > 0 {
-			i.Documents = make([]InputDocumentClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputDocument(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field documents: %w", err)
-			}
-			i.Documents = append(i.Documents, value)
-		}
-	}
-	if i.Flags.Has(4) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field users: %w", err)
-		}
-
-		if headerLen > 0 {
-			i.Users = make([]InputUserClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputUser(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode inputRichMessageMarkdown#9ac8186: field users: %w", err)
-			}
-			i.Users = append(i.Users, value)
+			i.Files = append(i.Files, value)
 		}
 	}
 	return nil
@@ -1308,82 +1064,30 @@ func (i *InputRichMessageMarkdown) GetMarkdown() (value string) {
 	return i.Markdown
 }
 
-// SetPhotos sets value of Photos conditional field.
-func (i *InputRichMessageMarkdown) SetPhotos(value []InputPhotoClass) {
+// SetFiles sets value of Files conditional field.
+func (i *InputRichMessageMarkdown) SetFiles(value []InputRichFileClass) {
 	i.Flags.Set(2)
-	i.Photos = value
+	i.Files = value
 }
 
-// GetPhotos returns value of Photos conditional field and
+// GetFiles returns value of Files conditional field and
 // boolean which is true if field was set.
-func (i *InputRichMessageMarkdown) GetPhotos() (value []InputPhotoClass, ok bool) {
+func (i *InputRichMessageMarkdown) GetFiles() (value []InputRichFileClass, ok bool) {
 	if i == nil {
 		return
 	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
-	return i.Photos, true
+	return i.Files, true
 }
 
-// SetDocuments sets value of Documents conditional field.
-func (i *InputRichMessageMarkdown) SetDocuments(value []InputDocumentClass) {
-	i.Flags.Set(3)
-	i.Documents = value
-}
-
-// GetDocuments returns value of Documents conditional field and
-// boolean which is true if field was set.
-func (i *InputRichMessageMarkdown) GetDocuments() (value []InputDocumentClass, ok bool) {
-	if i == nil {
-		return
-	}
-	if !i.Flags.Has(3) {
-		return value, false
-	}
-	return i.Documents, true
-}
-
-// SetUsers sets value of Users conditional field.
-func (i *InputRichMessageMarkdown) SetUsers(value []InputUserClass) {
-	i.Flags.Set(4)
-	i.Users = value
-}
-
-// GetUsers returns value of Users conditional field and
-// boolean which is true if field was set.
-func (i *InputRichMessageMarkdown) GetUsers() (value []InputUserClass, ok bool) {
-	if i == nil {
-		return
-	}
-	if !i.Flags.Has(4) {
-		return value, false
-	}
-	return i.Users, true
-}
-
-// MapPhotos returns field Photos wrapped in InputPhotoClassArray helper.
-func (i *InputRichMessageMarkdown) MapPhotos() (value InputPhotoClassArray, ok bool) {
+// MapFiles returns field Files wrapped in InputRichFileClassArray helper.
+func (i *InputRichMessageMarkdown) MapFiles() (value InputRichFileClassArray, ok bool) {
 	if !i.Flags.Has(2) {
 		return value, false
 	}
-	return InputPhotoClassArray(i.Photos), true
-}
-
-// MapDocuments returns field Documents wrapped in InputDocumentClassArray helper.
-func (i *InputRichMessageMarkdown) MapDocuments() (value InputDocumentClassArray, ok bool) {
-	if !i.Flags.Has(3) {
-		return value, false
-	}
-	return InputDocumentClassArray(i.Documents), true
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (i *InputRichMessageMarkdown) MapUsers() (value InputUserClassArray, ok bool) {
-	if !i.Flags.Has(4) {
-		return value, false
-	}
-	return InputUserClassArray(i.Users), true
+	return InputRichFileClassArray(i.Files), true
 }
 
 // InputRichMessageClassName is schema name of InputRichMessageClass.
@@ -1406,8 +1110,8 @@ const InputRichMessageClassName = "InputRichMessage"
 //	}
 //	switch v := g.(type) {
 //	case *tg.InputRichMessage: // inputRichMessage#e4c449fc
-//	case *tg.InputRichMessageHTML: // inputRichMessageHTML#d4eab551
-//	case *tg.InputRichMessageMarkdown: // inputRichMessageMarkdown#9ac8186
+//	case *tg.InputRichMessageHTML: // inputRichMessageHTML#dacb836a
+//	case *tg.InputRichMessageMarkdown: // inputRichMessageMarkdown#4b572c
 //	default: panic(v)
 //	}
 type InputRichMessageClass interface {
@@ -1433,19 +1137,6 @@ type InputRichMessageClass interface {
 
 	// Noautolink field of InputRichMessage.
 	GetNoautolink() (value bool)
-
-	// Photos field of InputRichMessage.
-	GetPhotos() (value []InputPhotoClass, ok bool)
-	// Photos field of InputRichMessage.
-	MapPhotos() (value InputPhotoClassArray, ok bool)
-	// Documents field of InputRichMessage.
-	GetDocuments() (value []InputDocumentClass, ok bool)
-	// Documents field of InputRichMessage.
-	MapDocuments() (value InputDocumentClassArray, ok bool)
-	// Users field of InputRichMessage.
-	GetUsers() (value []InputUserClass, ok bool)
-	// Users field of InputRichMessage.
-	MapUsers() (value InputUserClassArray, ok bool)
 }
 
 // DecodeInputRichMessage implements binary de-serialization for InputRichMessageClass.
@@ -1463,14 +1154,14 @@ func DecodeInputRichMessage(buf *bin.Buffer) (InputRichMessageClass, error) {
 		}
 		return &v, nil
 	case InputRichMessageHTMLTypeID:
-		// Decoding inputRichMessageHTML#d4eab551.
+		// Decoding inputRichMessageHTML#dacb836a.
 		v := InputRichMessageHTML{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputRichMessageClass: %w", err)
 		}
 		return &v, nil
 	case InputRichMessageMarkdownTypeID:
-		// Decoding inputRichMessageMarkdown#9ac8186.
+		// Decoding inputRichMessageMarkdown#4b572c.
 		v := InputRichMessageMarkdown{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputRichMessageClass: %w", err)
