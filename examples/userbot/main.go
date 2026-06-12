@@ -30,6 +30,7 @@ import (
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/auth/qrlogin"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/telegram/query"
 	"github.com/gotd/td/telegram/updates"
@@ -50,9 +51,11 @@ func run(ctx context.Context) error {
 	var arg struct {
 		FillPeerStorage bool
 		QR              bool
+		Test            bool
 	}
 	flag.BoolVar(&arg.FillPeerStorage, "fill-peer-storage", false, "fill peer storage")
 	flag.BoolVar(&arg.QR, "qr", false, "login via QR code instead of phone number")
+	flag.BoolVar(&arg.Test, "test", false, "use Telegram test servers instead of production")
 	flag.Parse()
 
 	// Using ".env" file to load environment variables.
@@ -164,6 +167,11 @@ func run(ctx context.Context) error {
 			// Setting up general rate limits to less likely get flood wait errors.
 			ratelimit.New(rate.Every(time.Millisecond*100), 5),
 		},
+	}
+	if arg.Test {
+		// Telegram test servers live on DC 2.
+		options.DC = 2
+		options.DCList = dcs.Test()
 	}
 	client := telegram.NewClient(appID, appHash, options)
 	api := client.API()
