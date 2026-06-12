@@ -14,6 +14,8 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/gotd/getdoc v0.53.0
 	github.com/gotd/ige v0.2.2
+	github.com/gotd/log v0.0.1
+	github.com/gotd/log/logzap v0.0.1
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.1
@@ -45,8 +47,6 @@ require (
 	rsc.io/qr v0.2.0
 )
 
-require github.com/gotd/log/logzap v0.0.0
-
 require (
 	github.com/PuerkitoBio/goquery v1.11.0 // indirect
 	github.com/andybalholm/brotli v1.2.0 // indirect
@@ -62,7 +62,6 @@ require (
 	github.com/go-faster/yaml v0.4.6 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/gotd/log v0.0.0
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/pion/datachannel v1.6.0 // indirect
@@ -88,7 +87,3 @@ require (
 	golang.org/x/time v0.14.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace github.com/gotd/log => ../log
-
-replace github.com/gotd/log/logzap => ../log/logzap
