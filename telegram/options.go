@@ -72,6 +72,18 @@ type Options struct {
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is the structured logger. No logs by default.
+	//
+	// Use github.com/gotd/log/logzap to bridge a *zap.Logger:
+	//
+	//	import (
+	//		"go.uber.org/zap"
+	//		"github.com/gotd/log/logzap"
+	//	)
+	//
+	//	zapLog, _ := zap.NewProduction()
+	//	opts := telegram.Options{
+	//		Logger: logzap.New(zapLog),
+	//	}
 	Logger log.Logger
 	// SessionStorage will be used to load and save session data.
 	// NB: Very sensitive data, save with care.
