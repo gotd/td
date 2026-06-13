@@ -29,6 +29,7 @@ func newMarkdownParser() parser.Parser {
 			util.Prioritized(parser.NewLinkParser(), 200),
 			util.Prioritized(parser.NewEmphasisParser(), 500),
 			util.Prioritized(extension.NewStrikethroughParser(), 500),
+			util.Prioritized(NewSpoilerParser(), 500),
 		),
 	)
 }
@@ -124,6 +125,8 @@ func (r *renderer) renderInline(n ast.Node) error {
 		return r.styled(n, entity.Italic())
 	case *east.Strikethrough:
 		return r.styled(n, entity.Strike())
+	case *spoiler:
+		return r.styled(n, entity.Spoiler())
 	case *ast.Link:
 		return r.renderLink(n, string(n.Destination), false)
 	case *ast.Image:

@@ -21,11 +21,13 @@ import (
 // to the given builder.
 //
 // Parsing is backed by goldmark and follows CommonMark (plus GFM
-// strikethrough). The constructs that map onto Telegram message entities are:
+// strikethrough and the Telegram ||spoiler|| extension). The constructs that map
+// onto Telegram message entities are:
 //
 //	*text*, _text_       italic
 //	**text**, __text__   bold
 //	~~text~~             strikethrough
+//	||text||             spoiler
 //	`text`               inline code
 //	```lang              pre-formatted code block
 //	[text](url)          inline URL (tg://user?id=N becomes a mention)

@@ -94,6 +94,31 @@ func TestMarkdown(t *testing.T) {
 		{input: "", msg: ""},
 	}))
 
+	t.Run("Spoiler", runTests([]testCase{
+		{input: "||spoiler||", msg: "spoiler", entities: getEntities(entity.Spoiler())},
+		{
+			input: "before ||hidden|| after", msg: "before hidden after",
+			entities: func(msg string) []tg.MessageEntityClass {
+				return []tg.MessageEntityClass{
+					&tg.MessageEntitySpoiler{Offset: 7, Length: 6},
+				}
+			},
+		},
+		{
+			input: "||spoiler with *bold*||", msg: "spoiler with bold",
+			entities: func(msg string) []tg.MessageEntityClass {
+				return []tg.MessageEntityClass{
+					&tg.MessageEntitySpoiler{Offset: 0, Length: 17},
+					&tg.MessageEntityItalic{Offset: 13, Length: 4},
+				}
+			},
+		},
+		// A single pipe is not a spoiler delimiter.
+		{input: "a | b", msg: "a | b"},
+		// Escaped pipes are literal.
+		{input: `\|\|not spoiler\|\|`, msg: "||not spoiler||"},
+	}))
+
 	t.Run("Nested", runTests([]testCase{
 		{
 			input: "**bold _italic_**", msg: "bold italic",
