@@ -29,6 +29,7 @@ Please don't share `APP_ID` or `APP_HASH`, it can't be easily rotated.
 | [pretty-print](pretty-print/main.go)       | Pretty-print requests, responses and updates                | The tgp package, middleware and custom UpdateHandler for all updates                                       |
 | [updates](updates/main.go)                 | Updates engine example                                      | The `updates` package that recovers missed updates                                                         |
 | [mtproxy-connect](mtproxy-connect/main.go) | Connect through an MTProxy and check MTProto without login  | `dcs.MTProxy` resolver, FakeTLS, pre-auth `help.getNearestDC`                                              |
+| [tdesktop-mimic](tdesktop-mimic/main.go)   | Connect indistinguishably from Telegram Desktop, no login   | `telegram.TDesktopResolver` (Obfuscated2 + abridged), `telegram.DeviceTDesktopWindows`, pre-auth `help.getNearestDC` |
 
 ## Environment variables
 

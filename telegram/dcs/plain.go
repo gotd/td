@@ -25,6 +25,7 @@ type plain struct {
 	rand         io.Reader
 	network      string
 	noObfuscated bool
+	obfuscated   bool
 	preferIPv6   bool
 }
 
@@ -84,7 +85,7 @@ func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ 
 	}()
 
 	proto := p.protocol
-	if dc.TCPObfuscatedOnly {
+	if dc.TCPObfuscatedOnly || p.obfuscated {
 		dcID := dc.ID
 		if test {
 			if dcID < 0 {
@@ -95,21 +96,35 @@ func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ 
 		}
 
 		var (
-			cdc  codec.Codec = codec.Intermediate{}
-			tag              = codec.IntermediateClientStart
-			obfs             = obfuscator.Obfuscated2
+			cdc    codec.Codec = codec.Intermediate{}
+			tag                = codec.IntermediateClientStart
+			obfs               = obfuscator.Obfuscated2
+			secret mtproxy.Secret
 		)
 
-		secret, err := mtproxy.ParseSecret(dc.Secret)
-		if err != nil {
-			return nil, errors.Wrap(err, "check DC secret")
-		}
+		if dc.TCPObfuscatedOnly {
+			var err error
+			secret, err = mtproxy.ParseSecret(dc.Secret)
+			if err != nil {
+				return nil, errors.Wrap(err, "check DC secret")
+			}
 
-		if secret.Type == mtproxy.TLS {
-			obfs = obfuscator.FakeTLS
-		} else if c, ok := secret.ExpectedCodec(); ok {
-			tag = [4]byte{secret.Tag, secret.Tag, secret.Tag, secret.Tag}
-			cdc = c
+			if secret.Type == mtproxy.TLS {
+				obfs = obfuscator.FakeTLS
+			} else if c, ok := secret.ExpectedCodec(); ok {
+				tag = [4]byte{secret.Tag, secret.Tag, secret.Tag, secret.Tag}
+				cdc = c
+			}
+		} else {
+			// Direct obfuscated connection, mimicking the official clients
+			// (e.g. Telegram Desktop) which always wrap direct connections in
+			// Obfuscated2 with an empty secret. Use the configured transport
+			// codec; its tag travels inside the obfuscation header instead of
+			// as a plaintext codec prefix.
+			cdc = p.protocol.Codec()
+			if tagged, ok := cdc.(codec.TaggedCodec); ok {
+				tag = tagged.ObfuscatedTag()
+			}
 		}
 
 		obfsConn := obfs(p.rand, conn)
@@ -201,6 +216,13 @@ type PlainOptions struct {
 	Network string
 	// NoObfuscated denotes to filter out TCP Obfuscated Only DCs.
 	NoObfuscated bool
+	// Obfuscated enables transport obfuscation (Obfuscated2) for all
+	// connections, not only for TCP-obfuscated-only DCs.
+	//
+	// The official clients (e.g. Telegram Desktop) always obfuscate direct
+	// connections, so enabling this together with Protocol: transport.Abridged
+	// makes the connection indistinguishable from Telegram Desktop on the wire.
+	Obfuscated bool
 	// PreferIPv6 gives IPv6 DCs higher precedence.
 	// Default is to prefer IPv4 DCs over IPv6.
 	PreferIPv6 bool
@@ -231,6 +253,7 @@ func Plain(opts PlainOptions) Resolver {
 		rand:         opts.Rand,
 		network:      opts.Network,
 		noObfuscated: opts.NoObfuscated,
+		obfuscated:   opts.Obfuscated,
 		preferIPv6:   opts.PreferIPv6,
 	}
 }
