@@ -333,6 +333,25 @@ func (s *internalState) handleQts(ctx context.Context, qts int, u tg.UpdateClass
 		return nil
 	}
 
+	// A qts of 0 is not a sequence position: it is the "unset" sentinel carried
+	// by, for example, bot business updates (updateBotNewBusinessMessage and
+	// friends) delivered inside updates.difference. Feeding it to the qts
+	// sequence resets the state to 0, which makes the next update look like a gap
+	// from 0, triggers another getDifference returning the same qts=0 updates,
+	// and loops forever re-dispatching them. Such updates carry no position to
+	// order by, so dispatch them directly without touching the qts state.
+	if qts == 0 {
+		if err := s.handler.Handle(ctx, &tg.Updates{
+			Updates: []tg.UpdateClass{u},
+			Users:   ents.Users,
+			Chats:   ents.Chats,
+		}); err != nil {
+			s.log.Error(ctx, "Handle updates error", log.Error(err))
+		}
+
+		return nil
+	}
+
 	return s.qts.Handle(ctx, update{
 		Value:    u,
 		State:    qts,

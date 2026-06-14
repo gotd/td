@@ -80,6 +80,46 @@ func TestStateOnTooLong(t *testing.T) {
 	require.Equal(t, 100, s.pts.State(), "pts must be advanced to the value from differenceTooLong")
 }
 
+// TestHandleQtsZeroDoesNotResetState ensures a qts update with qts == 0 (the
+// "unset" sentinel carried by bot business updates inside updates.difference) is
+// dispatched but leaves the qts state untouched. Feeding it to the sequence
+// would reset the state to 0 and loop getDifference forever re-dispatching it.
+func TestHandleQtsZeroDoesNotResetState(t *testing.T) {
+	ctx := context.Background()
+
+	const selfID = 123
+
+	storage := newMemStorage()
+	require.NoError(t, storage.SetState(ctx, selfID, State{Qts: 100}))
+
+	var dispatched int
+	s := newState(ctx, stateConfig{
+		State:     State{Qts: 100},
+		RawClient: &diffAPI{diffs: []tg.UpdatesDifferenceClass{&tg.UpdatesDifferenceEmpty{}}},
+		Logger:    logzap.New(zaptest.NewLogger(t)),
+		Tracer:    noop.NewTracerProvider().Tracer(""),
+		Handler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
+			dispatched++
+			return nil
+		}),
+		OnChannelTooLong: func(int64) {},
+		OnTooLong:        func() {},
+		Storage:          storage,
+		Hasher:           newMemAccessHasher(),
+		SelfID:           selfID,
+		DiffLimit:        diffLimitBot,
+		WorkGroup:        &errgroup.Group{},
+	})
+
+	require.NoError(t, s.handleQts(ctx, 0, &tg.UpdateBotNewBusinessMessage{
+		ConnectionID: "bc",
+		Message:      &tg.Message{ID: 1},
+	}, entities{}))
+
+	require.Equal(t, 1, dispatched, "qts=0 update must be dispatched")
+	require.Equal(t, 100, s.qts.State(), "qts state must not be reset by a qts=0 update")
+}
+
 // channelPrivateAPI returns CHANNEL_PRIVATE from getChannelDifference,
 // simulating the account losing access to a channel.
 type channelPrivateAPI struct {
