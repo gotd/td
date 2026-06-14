@@ -73,6 +73,22 @@ func (w unencryptedWriter) readUnencrypted(ctx context.Context, b *bin.Buffer, d
 		break
 	}
 
+	// Server side: a frame whose leading auth_key_id is non-zero is an encrypted
+	// message, not an unencrypted key-exchange message. The peer is reusing an
+	// already established auth key rather than performing key exchange. Surface
+	// the raw frame so the caller can resolve the key and handle it as a normal
+	// encrypted message, instead of failing the exchange (which would drop the
+	// connection or reply -404 and make clients discard a still-valid key).
+	if !w.isClient() {
+		var keyID [8]byte
+		if err := b.PeekN(keyID[:], len(keyID)); err == nil && keyID != ([8]byte{}) {
+			return &UnexpectedEncryptedError{
+				AuthKeyID: keyID,
+				Frame:     append([]byte(nil), b.Buf...),
+			}
+		}
+	}
+
 	var msg proto.UnencryptedMessage
 	if err := msg.Decode(b); err != nil {
 		return err
