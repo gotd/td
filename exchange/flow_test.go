@@ -13,6 +13,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/gotd/log/logzap"
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/testutil"
@@ -74,6 +75,57 @@ func testExchange(tempMode bool) func(t *testing.T) {
 func TestExchange(t *testing.T) {
 	t.Run("PQInnerData", testExchange(false))
 	t.Run("PQInnerDataDC", testExchange(true))
+}
+
+// TestServerUnexpectedEncrypted verifies that the server flow surfaces a frame
+// bearing a non-zero auth key id as *UnexpectedEncryptedError instead of failing
+// the exchange, so callers can resolve the key and handle it as a normal RPC
+// rather than replying -404 (which makes clients discard a still-valid key).
+func TestServerUnexpectedEncrypted(t *testing.T) {
+	a := require.New(t)
+	log := zaptest.NewLogger(t)
+
+	dc := 2
+	reader := rand.New(rand.NewSource(1))
+	key, err := rsa.GenerateKey(reader, crypto.RSAKeyBits)
+	a.NoError(err)
+	privateKey := PrivateKey{RSA: key}
+
+	i := transport.Intermediate
+	client, server := i.Pipe()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	// Frame whose leading auth_key_id is non-zero: an encrypted message rather
+	// than an unencrypted key-exchange message.
+	authKeyID := [8]byte{1, 2, 3, 4, 5, 6, 7, 8}
+	var payload bin.Buffer
+	payload.Put(authKeyID[:])
+	// Intermediate transport requires 4-byte-aligned payloads; keep the total
+	// frame length a multiple of 4.
+	payload.Put([]byte("bodybyte"))
+	frame := append([]byte(nil), payload.Buf...)
+
+	var serverErr error
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(ctx context.Context) error {
+		return client.Send(ctx, &payload)
+	})
+	g.Go(func(ctx context.Context) error {
+		_, serverErr = NewExchanger(server, dc).
+			WithLogger(logzap.New(log.Named("server"))).
+			WithRand(reader).
+			Server(privateKey).
+			Run(ctx)
+		return nil
+	})
+	a.NoError(g.Wait())
+
+	var encErr *UnexpectedEncryptedError
+	a.ErrorAs(serverErr, &encErr)
+	a.Equal(authKeyID, encErr.AuthKeyID)
+	a.Equal(frame, encErr.Frame)
 }
 
 func TestExchangeCorpus(t *testing.T) {

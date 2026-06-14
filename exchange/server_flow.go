@@ -2,6 +2,7 @@ package exchange
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 
 	"github.com/go-faster/errors"
@@ -35,6 +36,28 @@ func serverError(code int32, err error) error {
 		Code: code,
 		Err:  err,
 	}
+}
+
+// UnexpectedEncryptedError is returned by the server key-exchange flow when it
+// reads a frame whose leading auth key id is non-zero while expecting an
+// unencrypted exchange message. This means the peer is using an already
+// established auth key instead of performing key exchange.
+//
+// The caller should resolve the key and handle Frame as an encrypted message
+// rather than treating it as an exchange failure. In particular, callers must
+// not blindly reply with auth_key_not_found (-404): clients such as Telegram
+// Desktop treat a -404 on a temporary key as "key destroyed", discard it and
+// re-run key exchange, which leads to a reconnect/key-exchange storm.
+type UnexpectedEncryptedError struct {
+	// AuthKeyID is the auth key id the encrypted frame was sent with.
+	AuthKeyID [8]byte
+	// Frame is the raw transport frame (the full encrypted message).
+	Frame []byte
+}
+
+// Error implements error.
+func (e *UnexpectedEncryptedError) Error() string {
+	return fmt.Sprintf("unexpected encrypted message (auth key id %x) during key exchange", e.AuthKeyID)
 }
 
 // req_pq#60469778 or req_pq_multi#be7e8ef1
