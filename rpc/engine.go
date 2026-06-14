@@ -31,8 +31,11 @@ type Engine struct {
 	reqCtx    context.Context
 	reqCancel context.CancelCauseFunc
 
-	wg     sync.WaitGroup
-	closed uint32
+	wg sync.WaitGroup
+	// closed is guarded by mux: it must be set and observed atomically with
+	// respect to wg.Add in Do, otherwise Close may observe a zero WaitGroup
+	// counter and return from Wait concurrently with a new Add.
+	closed bool
 }
 
 // New creates new rpc Engine.
@@ -74,11 +77,15 @@ type Request struct {
 // Do sends request to server and blocks until response is received, performing
 // multiple retries if needed.
 func (e *Engine) Do(ctx context.Context, req Request) error {
-	if e.isClosed() {
+	// Register the request under the mutex so Close cannot observe a zero
+	// WaitGroup counter and return from Wait while we are about to Add.
+	e.mux.Lock()
+	if e.closed {
+		e.mux.Unlock()
 		return ErrEngineClosed
 	}
-
 	e.wg.Add(1)
+	e.mux.Unlock()
 	defer e.wg.Done()
 
 	retryCtx, retryClose := context.WithCancel(ctx)
@@ -280,15 +287,13 @@ func (e *Engine) NotifyError(msgID int64, rpcErr error) {
 	_ = fn(nil, rpcErr)
 }
 
-func (e *Engine) isClosed() bool {
-	return atomic.LoadUint32(&e.closed) == 1
-}
-
 // Close gracefully closes the engine.
 // All pending requests will be awaited.
 // All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) Close() {
-	atomic.StoreUint32(&e.closed, 1)
+	e.mux.Lock()
+	e.closed = true
+	e.mux.Unlock()
 	e.log.Info(context.Background(), "Close called")
 	e.wg.Wait()
 }
