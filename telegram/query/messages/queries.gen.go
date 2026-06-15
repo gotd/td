@@ -172,44 +172,39 @@ func (b *ChannelsSearchPostsQueryBuilder) Collect(ctx context.Context) ([]Elem, 
 
 // GetHistoryQueryBuilder is query builder of MessagesGetHistory.
 type GetHistoryQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetHistoryRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetDate  int
-	offsetID    int
+	raw        *tg.Client
+	req        tg.MessagesGetHistoryRequest
+	batchSize  int
+	resolver   peer.Resolver
+	peerInput  peer.InputPeer
+	addOffset  int
+	offsetDate int
+	offsetID   int
 }
 
 // GetHistory creates query builder of MessagesGetHistory.
-func (q *QueryBuilder) GetHistory(paramPeer tg.InputPeerClass) *GetHistoryQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetHistory(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetHistory(paramPeer peer.InputPeer) *GetHistoryQueryBuilder {
 	b := &GetHistoryQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetHistoryRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetHistoryResolve creates query builder of MessagesGetHistory, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetHistoryResolve(from string) *GetHistoryQueryBuilder {
-	b := q.GetHistory(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -241,13 +236,13 @@ func (b *GetHistoryQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetHistoryQu
 
 // Query implements Query interface.
 func (b *GetHistoryQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetHistoryRequest{
 		Limit: req.Limit,
@@ -393,41 +388,36 @@ func (b *GetPersonalChannelHistoryQueryBuilder) Collect(ctx context.Context) ([]
 
 // GetRecentLocationsQueryBuilder is query builder of MessagesGetRecentLocations.
 type GetRecentLocationsQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetRecentLocationsRequest
-	batchSize   int
-	peerPromise peer.Promise
+	raw       *tg.Client
+	req       tg.MessagesGetRecentLocationsRequest
+	batchSize int
+	resolver  peer.Resolver
+	peerInput peer.InputPeer
 }
 
 // GetRecentLocations creates query builder of MessagesGetRecentLocations.
-func (q *QueryBuilder) GetRecentLocations(paramPeer tg.InputPeerClass) *GetRecentLocationsQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetRecentLocations(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetRecentLocations(paramPeer peer.InputPeer) *GetRecentLocationsQueryBuilder {
 	b := &GetRecentLocationsQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetRecentLocationsRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetRecentLocationsResolve creates query builder of MessagesGetRecentLocations, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetRecentLocationsResolve(from string) *GetRecentLocationsQueryBuilder {
-	b := q.GetRecentLocations(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -447,13 +437,13 @@ func (b *GetRecentLocationsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetR
 
 // Query implements Query interface.
 func (b *GetRecentLocationsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetRecentLocationsRequest{
 		Limit: req.Limit,
@@ -508,44 +498,39 @@ func (b *GetRecentLocationsQueryBuilder) Collect(ctx context.Context) ([]Elem, e
 
 // GetRepliesQueryBuilder is query builder of MessagesGetReplies.
 type GetRepliesQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetRepliesRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetDate  int
-	offsetID    int
+	raw        *tg.Client
+	req        tg.MessagesGetRepliesRequest
+	batchSize  int
+	resolver   peer.Resolver
+	peerInput  peer.InputPeer
+	addOffset  int
+	offsetDate int
+	offsetID   int
 }
 
 // GetReplies creates query builder of MessagesGetReplies.
-func (q *QueryBuilder) GetReplies(paramPeer tg.InputPeerClass) *GetRepliesQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetReplies(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetReplies(paramPeer peer.InputPeer) *GetRepliesQueryBuilder {
 	b := &GetRepliesQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetRepliesRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetRepliesResolve creates query builder of MessagesGetReplies, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetRepliesResolve(from string) *GetRepliesQueryBuilder {
-	b := q.GetReplies(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -583,13 +568,13 @@ func (b *GetRepliesQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetRepliesQu
 
 // Query implements Query interface.
 func (b *GetRepliesQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetRepliesRequest{
 		Limit: req.Limit,
@@ -650,19 +635,28 @@ func (b *GetRepliesQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 
 // GetSavedHistoryQueryBuilder is query builder of MessagesGetSavedHistory.
 type GetSavedHistoryQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetSavedHistoryRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetDate  int
-	offsetID    int
+	raw        *tg.Client
+	req        tg.MessagesGetSavedHistoryRequest
+	batchSize  int
+	resolver   peer.Resolver
+	peerInput  peer.InputPeer
+	addOffset  int
+	offsetDate int
+	offsetID   int
 }
 
 // GetSavedHistory creates query builder of MessagesGetSavedHistory.
-func (q *QueryBuilder) GetSavedHistory(paramPeer tg.InputPeerClass) *GetSavedHistoryQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetSavedHistory(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetSavedHistory(paramPeer peer.InputPeer) *GetSavedHistoryQueryBuilder {
 	b := &GetSavedHistoryQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetSavedHistoryRequest{
 			ParentPeer: &tg.InputPeerEmpty{},
@@ -670,25 +664,11 @@ func (q *QueryBuilder) GetSavedHistory(paramPeer tg.InputPeerClass) *GetSavedHis
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetSavedHistoryResolve creates query builder of MessagesGetSavedHistory, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetSavedHistoryResolve(from string) *GetSavedHistoryQueryBuilder {
-	b := q.GetSavedHistory(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -726,13 +706,13 @@ func (b *GetSavedHistoryQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetSave
 
 // Query implements Query interface.
 func (b *GetSavedHistoryQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetSavedHistoryRequest{
 		Limit: req.Limit,
@@ -793,43 +773,38 @@ func (b *GetSavedHistoryQueryBuilder) Collect(ctx context.Context) ([]Elem, erro
 
 // GetUnreadMentionsQueryBuilder is query builder of MessagesGetUnreadMentions.
 type GetUnreadMentionsQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetUnreadMentionsRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetID    int
+	raw       *tg.Client
+	req       tg.MessagesGetUnreadMentionsRequest
+	batchSize int
+	resolver  peer.Resolver
+	peerInput peer.InputPeer
+	addOffset int
+	offsetID  int
 }
 
 // GetUnreadMentions creates query builder of MessagesGetUnreadMentions.
-func (q *QueryBuilder) GetUnreadMentions(paramPeer tg.InputPeerClass) *GetUnreadMentionsQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetUnreadMentions(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetUnreadMentions(paramPeer peer.InputPeer) *GetUnreadMentionsQueryBuilder {
 	b := &GetUnreadMentionsQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetUnreadMentionsRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetUnreadMentionsResolve creates query builder of MessagesGetUnreadMentions, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetUnreadMentionsResolve(from string) *GetUnreadMentionsQueryBuilder {
-	b := q.GetUnreadMentions(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -861,13 +836,13 @@ func (b *GetUnreadMentionsQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadMe
 
 // Query implements Query interface.
 func (b *GetUnreadMentionsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetUnreadMentionsRequest{
 		Limit: req.Limit,
@@ -926,43 +901,38 @@ func (b *GetUnreadMentionsQueryBuilder) Collect(ctx context.Context) ([]Elem, er
 
 // GetUnreadPollVotesQueryBuilder is query builder of MessagesGetUnreadPollVotes.
 type GetUnreadPollVotesQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetUnreadPollVotesRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetID    int
+	raw       *tg.Client
+	req       tg.MessagesGetUnreadPollVotesRequest
+	batchSize int
+	resolver  peer.Resolver
+	peerInput peer.InputPeer
+	addOffset int
+	offsetID  int
 }
 
 // GetUnreadPollVotes creates query builder of MessagesGetUnreadPollVotes.
-func (q *QueryBuilder) GetUnreadPollVotes(paramPeer tg.InputPeerClass) *GetUnreadPollVotesQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetUnreadPollVotes(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetUnreadPollVotes(paramPeer peer.InputPeer) *GetUnreadPollVotesQueryBuilder {
 	b := &GetUnreadPollVotesQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetUnreadPollVotesRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetUnreadPollVotesResolve creates query builder of MessagesGetUnreadPollVotes, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetUnreadPollVotesResolve(from string) *GetUnreadPollVotesQueryBuilder {
-	b := q.GetUnreadPollVotes(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -994,13 +964,13 @@ func (b *GetUnreadPollVotesQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadP
 
 // Query implements Query interface.
 func (b *GetUnreadPollVotesQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetUnreadPollVotesRequest{
 		Limit: req.Limit,
@@ -1059,18 +1029,27 @@ func (b *GetUnreadPollVotesQueryBuilder) Collect(ctx context.Context) ([]Elem, e
 
 // GetUnreadReactionsQueryBuilder is query builder of MessagesGetUnreadReactions.
 type GetUnreadReactionsQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesGetUnreadReactionsRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetID    int
+	raw       *tg.Client
+	req       tg.MessagesGetUnreadReactionsRequest
+	batchSize int
+	resolver  peer.Resolver
+	peerInput peer.InputPeer
+	addOffset int
+	offsetID  int
 }
 
 // GetUnreadReactions creates query builder of MessagesGetUnreadReactions.
-func (q *QueryBuilder) GetUnreadReactions(paramPeer tg.InputPeerClass) *GetUnreadReactionsQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	GetUnreadReactions(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) GetUnreadReactions(paramPeer peer.InputPeer) *GetUnreadReactionsQueryBuilder {
 	b := &GetUnreadReactionsQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesGetUnreadReactionsRequest{
 			Peer:        &tg.InputPeerEmpty{},
@@ -1078,25 +1057,11 @@ func (q *QueryBuilder) GetUnreadReactions(paramPeer tg.InputPeerClass) *GetUnrea
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// GetUnreadReactionsResolve creates query builder of MessagesGetUnreadReactions, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) GetUnreadReactionsResolve(from string) *GetUnreadReactionsQueryBuilder {
-	b := q.GetUnreadReactions(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -1134,13 +1099,13 @@ func (b *GetUnreadReactionsQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadR
 
 // Query implements Query interface.
 func (b *GetUnreadReactionsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesGetUnreadReactionsRequest{
 		Limit: req.Limit,
@@ -1200,18 +1165,27 @@ func (b *GetUnreadReactionsQueryBuilder) Collect(ctx context.Context) ([]Elem, e
 
 // SearchQueryBuilder is query builder of MessagesSearch.
 type SearchQueryBuilder struct {
-	raw         *tg.Client
-	req         tg.MessagesSearchRequest
-	batchSize   int
-	peerPromise peer.Promise
-	addOffset   int
-	offsetID    int
+	raw       *tg.Client
+	req       tg.MessagesSearchRequest
+	batchSize int
+	resolver  peer.Resolver
+	peerInput peer.InputPeer
+	addOffset int
+	offsetID  int
 }
 
 // Search creates query builder of MessagesSearch.
-func (q *QueryBuilder) Search(paramPeer tg.InputPeerClass) *SearchQueryBuilder {
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	Search(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+func (q *QueryBuilder) Search(paramPeer peer.InputPeer) *SearchQueryBuilder {
 	b := &SearchQueryBuilder{
 		raw:       q.raw,
+		resolver:  q.resolver,
 		batchSize: 1,
 		req: tg.MessagesSearchRequest{
 			Filter:      &tg.InputMessagesFilterEmpty{},
@@ -1221,25 +1195,11 @@ func (q *QueryBuilder) Search(paramPeer tg.InputPeerClass) *SearchQueryBuilder {
 		},
 	}
 
-	b.req.Peer = paramPeer
-	return b
-}
-
-// SearchResolve creates query builder of MessagesSearch, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) SearchResolve(from string) *SearchQueryBuilder {
-	b := q.Search(&tg.InputPeerEmpty{})
-	b.peerPromise = peer.Resolve(q.resolver, from)
+	if p, ok := paramPeer.(tg.InputPeerClass); ok {
+		b.req.Peer = p
+	} else {
+		b.peerInput = paramPeer
+	}
 	return b
 }
 
@@ -1417,13 +1377,13 @@ func (b *SearchQueryBuilder) Voice() *SearchQueryBuilder {
 
 // Query implements Query interface.
 func (b *SearchQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
-	if b.peerPromise != nil {
-		p, err := b.peerPromise(ctx)
+	if b.peerInput != nil {
+		p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
 		if err != nil {
 			return nil, errors.Wrap(err, "resolve peer")
 		}
 		b.req.Peer = p
-		b.peerPromise = nil
+		b.peerInput = nil
 	}
 	r := &tg.MessagesSearchRequest{
 		Limit: req.Limit,

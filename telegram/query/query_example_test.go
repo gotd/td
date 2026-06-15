@@ -8,6 +8,7 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/downloader"
+	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/telegram/query"
 	"github.com/gotd/td/telegram/query/channels/participants"
 	"github.com/gotd/td/telegram/query/dialogs"
@@ -168,7 +169,7 @@ func ExampleQuery_resolveHistory() {
 
 		return query.NewQuery(raw).
 			Messages().
-			GetHistoryResolve("telegram").
+			GetHistory(peer.Resolve("telegram")).
 			ForEach(ctx, func(ctx context.Context, elem messages.Elem) error {
 				msg, ok := elem.Msg.(*tg.Message)
 				if !ok {

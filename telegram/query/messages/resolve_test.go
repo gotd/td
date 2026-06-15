@@ -32,7 +32,27 @@ func TestGetHistoryResolve(t *testing.T) {
 	}).ThenResult(messagesClass(generateMessages(1), 1))
 
 	res, err := NewQueryBuilder(raw).
-		GetHistoryResolve("telegram").
+		GetHistory(peer.Resolve("telegram")).
+		Query(ctx, Request{Limit: 1})
+	require.NoError(t, err)
+	require.Equal(t, 1, res.(*tg.MessagesChannelMessages).Count)
+}
+
+func TestGetHistoryConcretePeer(t *testing.T) {
+	ctx := context.Background()
+	mock := tgmock.NewRequire(t)
+	raw := tg.NewClient(mock)
+
+	peerInput := &tg.InputPeerUser{UserID: 5, AccessHash: 7}
+
+	// Concrete peers are used as-is, without any resolve round-trip.
+	mock.ExpectCall(&tg.MessagesGetHistoryRequest{
+		Peer:  peerInput,
+		Limit: 1,
+	}).ThenResult(messagesClass(generateMessages(1), 1))
+
+	res, err := NewQueryBuilder(raw).
+		GetHistory(peerInput).
 		Query(ctx, Request{Limit: 1})
 	require.NoError(t, err)
 	require.Equal(t, 1, res.(*tg.MessagesChannelMessages).Count)
@@ -67,7 +87,7 @@ func TestGetHistoryResolveWithResolver(t *testing.T) {
 
 	res, err := NewQueryBuilder(raw).
 		WithResolver(stubResolver{peer: resolved}).
-		GetHistoryResolve("telegram").
+		GetHistory(peer.Resolve("telegram")).
 		Query(ctx, Request{Limit: 1})
 	require.NoError(t, err)
 	require.Equal(t, 1, res.(*tg.MessagesChannelMessages).Count)

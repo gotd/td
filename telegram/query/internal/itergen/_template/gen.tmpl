@@ -77,7 +77,8 @@ type {{ $.Name }}QueryBuilder struct {
     req {{ $.RequestName }}
     batchSize int
     {{- if $.PeerParam }}
-    peerPromise peer.Promise
+    resolver peer.Resolver
+    peerInput peer.InputPeer
     {{- end }}
     {{- range $mapping := $.AdditionalMapping }}
     {{ $mapping.Arg.Name }} {{ $mapping.Arg.Type }}
@@ -85,9 +86,21 @@ type {{ $.Name }}QueryBuilder struct {
 }
 
 // {{ $.Name }} creates query builder of {{ $.OriginalName }}.
-func (q *QueryBuilder) {{ $.Name }}({{ range $arg := $.RequiredParams }}param{{ $arg.OriginalName }} {{ $arg.Type }},{{ end }}) *{{ $.Name }}QueryBuilder {
+{{- if $.PeerParam }}
+//
+// The peer may be a concrete tg.InputPeerClass or a lazy reference created with
+// peer.Resolve, e.g.
+//
+//	{{ $.Name }}(peer.Resolve("telegram"))
+//
+// resolved lazily using the QueryBuilder's resolver.
+{{- end }}
+func (q *QueryBuilder) {{ $.Name }}({{ range $arg := $.RequiredParams }}param{{ $arg.OriginalName }} {{ if and $.PeerParam (eq $arg.OriginalName $.PeerParam.OriginalName) }}peer.InputPeer{{ else }}{{ $arg.Type }}{{ end }},{{ end }}) *{{ $.Name }}QueryBuilder {
     b := &{{ $.Name }}QueryBuilder{
         raw: q.raw,
+        {{- if $.PeerParam }}
+        resolver: q.resolver,
+        {{- end }}
         batchSize: 1,
         req:{{ $.RequestName }}{
         {{- range $f := $.AdditionalParams }}{{ if eq ($f.Type) ("tg.MessagesFilterClass") }}
@@ -100,29 +113,18 @@ func (q *QueryBuilder) {{ $.Name }}({{ range $arg := $.RequiredParams }}param{{ 
         },
     }
 {{ range $arg := $.RequiredParams }}
+{{- if and $.PeerParam (eq $arg.OriginalName $.PeerParam.OriginalName) }}
+   if p, ok := param{{ $arg.OriginalName }}.(tg.InputPeerClass); ok {
+       b.req.{{ $arg.OriginalName }} = p
+   } else {
+       b.peerInput = param{{ $arg.OriginalName }}
+   }
+{{- else }}
    b.req.{{ $arg.OriginalName }} = param{{ $arg.OriginalName }}
+{{- end }}
 {{- end }}
     return b
 }
-{{ if $.PeerParam }}
-// {{ $.Name }}Resolve creates query builder of {{ $.OriginalName }}, resolving the
-// peer from the given input using the QueryBuilder's resolver.
-//
-// Input examples:
-//
-//	@telegram
-//	telegram
-//	t.me/telegram
-//	https://t.me/telegram
-//	tg:resolve?domain=telegram
-//	tg://resolve?domain=telegram
-//	+13115552368
-func (q *QueryBuilder) {{ $.Name }}Resolve({{ range $arg := $.RequiredParams }}{{ if eq $arg.OriginalName $.PeerParam.OriginalName }}from string,{{ else }}param{{ $arg.OriginalName }} {{ $arg.Type }},{{ end }}{{ end }}) *{{ $.Name }}QueryBuilder {
-    b := q.{{ $.Name }}({{ range $arg := $.RequiredParams }}{{ if eq $arg.OriginalName $.PeerParam.OriginalName }}&tg.InputPeerEmpty{},{{ else }}param{{ $arg.OriginalName }},{{ end }}{{ end }})
-    b.peerPromise = peer.Resolve(q.resolver, from)
-    return b
-}
-{{ end }}
 
 // BatchSize sets buffer of message loaded from one request.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
@@ -164,13 +166,13 @@ func (b *{{ $.Name }}QueryBuilder) {{ $f.ConstructorName }}({{ range $arg := $f.
 // Query implements Query interface.
 func (b *{{ $.Name }}QueryBuilder) Query(ctx context.Context, req Request) ({{ $.ResultName }}, error) {
     {{- if $.PeerParam }}
-    if b.peerPromise != nil {
-        p, err := b.peerPromise(ctx)
+    if b.peerInput != nil {
+        p, err := peer.ResolveInputPeer(ctx, b.resolver, b.peerInput)
         if err != nil {
             return nil, errors.Wrap(err, "resolve peer")
         }
         b.req.{{ $.PeerParam.OriginalName }} = p
-        b.peerPromise = nil
+        b.peerInput = nil
     }
     {{- end }}
 	r := &{{ $.RequestName }}{

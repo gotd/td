@@ -14,7 +14,7 @@ import (
 // Promise is a peer promise.
 type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 
-// Resolve uses given string to create new peer promise.
+// resolve uses given string to create new peer promise.
 // It resolves peer of message using given Resolver.
 // Input examples:
 //
@@ -28,7 +28,7 @@ type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 //	+1 (311) 555-0123
 //	+1 311 555-6162
 //	13115556162
-func Resolve(r Resolver, from string) Promise {
+func resolve(r Resolver, from string) Promise {
 	from = strings.TrimSpace(from)
 
 	if deeplink.IsDeeplinkLike(from) {
