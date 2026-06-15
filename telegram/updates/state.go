@@ -175,13 +175,13 @@ func (s *internalState) Run(ctx context.Context) error {
 	}
 	s.log.Debug(ctx, "Starting updates handler")
 	defer s.log.Debug(ctx, "Updates handler stopped")
-	s.getDifferenceLogger(ctx)
+	s.getDifferenceLogger(ctx, "startup")
 
 	for {
 		select {
 		case <-ctx.Done():
 			if len(s.pts.pending) > 0 || len(s.qts.pending) > 0 || len(s.seq.pending) > 0 {
-				s.getDifferenceLogger(ctx)
+				s.getDifferenceLogger(ctx, "shutdown-flush-pending")
 			}
 			return ctx.Err()
 		case u := <-s.externalQueue:
@@ -202,16 +202,16 @@ func (s *internalState) Run(ctx context.Context) error {
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug(ctx, "Pts gap timeout")
-			s.getDifferenceLogger(ctx)
+			s.getDifferenceLogger(ctx, "pts-gap-timeout")
 		case <-s.qts.gapTimeout.C:
 			s.log.Debug(ctx, "Qts gap timeout")
-			s.getDifferenceLogger(ctx)
+			s.getDifferenceLogger(ctx, "qts-gap-timeout")
 		case <-s.seq.gapTimeout.C:
 			s.log.Debug(ctx, "Seq gap timeout")
-			s.getDifferenceLogger(ctx)
+			s.getDifferenceLogger(ctx, "seq-gap-timeout")
 		case <-s.idleTimeout.C:
 			s.log.Debug(ctx, "Idle timeout")
-			s.getDifferenceLogger(ctx)
+			s.getDifferenceLogger(ctx, "idle-timeout")
 		case channelID := <-s.removeChannel:
 			s.removeChannelState(channelID)
 		}
@@ -242,7 +242,7 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 		s.saveChannelHashes(ctx, u.Chats)
 		s.saveUserHashes(ctx, u.Users)
 		if !s.messageUpdatesPeersKnown(ctx, u.Updates) {
-			return s.getDifference(ctx)
+			return s.getDifference(ctx, "updates-peer-access-hash-unknown")
 		}
 		return s.handleSeq(ctx, &tg.UpdatesCombined{
 			Updates:  u.Updates,
@@ -256,7 +256,7 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 		s.saveChannelHashes(ctx, u.Chats)
 		s.saveUserHashes(ctx, u.Users)
 		if !s.messageUpdatesPeersKnown(ctx, u.Updates) {
-			return s.getDifference(ctx)
+			return s.getDifference(ctx, "combined-peer-access-hash-unknown")
 		}
 		return s.handleSeq(ctx, u)
 	case *tg.UpdateShort:
@@ -266,18 +266,18 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 		})
 	case *tg.UpdateShortMessage:
 		if !s.shortMessagePeersKnown(ctx, u) {
-			return s.getDifference(ctx)
+			return s.getDifference(ctx, "short-message-peer-access-hash-unknown")
 		}
 		return s.handleUpdates(ctx, s.convertShortMessage(u))
 	case *tg.UpdateShortChatMessage:
 		if !s.shortChatMessagePeersKnown(ctx, u) {
-			return s.getDifference(ctx)
+			return s.getDifference(ctx, "short-chat-message-peer-access-hash-unknown")
 		}
 		return s.handleUpdates(ctx, s.convertShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
 		return s.handleUpdates(ctx, s.convertShortSentMessage(u))
 	case *tg.UpdatesTooLong:
-		return s.getDifference(ctx)
+		return s.getDifference(ctx, "updates-too-long")
 	default:
 		panic(fmt.Sprintf("unexpected update type: %T", u))
 	}
@@ -300,7 +300,7 @@ func (s *internalState) handleSeq(ctx context.Context, u *tg.UpdatesCombined) er
 		}
 
 		if ptsChanged {
-			return s.getDifference(ctx)
+			return s.getDifference(ctx, "seq-zero-pts-changed")
 		}
 
 		return nil
@@ -434,7 +434,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 	})
 }
 
-func (s *internalState) getDifference(ctx context.Context) error {
+func (s *internalState) getDifference(ctx context.Context, reason string) error {
 	ctx, span := s.tracer.Start(ctx, "getDifference")
 	defer span.End()
 
@@ -443,7 +443,13 @@ func (s *internalState) getDifference(ctx context.Context) error {
 	s.qts.gaps.Clear()
 	s.seq.gaps.Clear()
 
-	s.log.Debug(ctx, "Getting difference")
+	s.log.Debug(ctx, "Getting difference",
+		log.String("reason", reason),
+		log.Int("pts", s.pts.State()),
+		log.Int("qts", s.qts.State()),
+		log.Int("seq", s.seq.State()),
+		log.Int("date", s.date),
+	)
 
 	setState := func(state tg.UpdatesState, reason string) {
 		if err := s.storage.SetState(ctx, s.selfID, State{}.fromRemote(&state)); err != nil {
@@ -542,7 +548,7 @@ func (s *internalState) getDifference(ctx context.Context) error {
 		}
 
 		setState(diff.IntermediateState, "updates.differenceSlice")
-		return s.getDifference(ctx)
+		return s.getDifference(ctx, "difference-slice-continue")
 
 	// The difference is too long, and the specified internalState must be used to refetch updates.
 	case *tg.UpdatesDifferenceTooLong:
@@ -551,16 +557,16 @@ func (s *internalState) getDifference(ctx context.Context) error {
 		}
 		s.pts.SetState(diff.Pts, "updates.differenceTooLong")
 		s.onCommonTooLong()
-		return s.getDifference(ctx)
+		return s.getDifference(ctx, "difference-too-long-continue")
 
 	default:
 		return errors.Errorf("unexpected diff type: %T", diff)
 	}
 }
 
-func (s *internalState) getDifferenceLogger(ctx context.Context) {
-	if err := s.getDifference(ctx); err != nil {
-		s.log.Error(ctx, "get difference error", log.Error(err))
+func (s *internalState) getDifferenceLogger(ctx context.Context, reason string) {
+	if err := s.getDifference(ctx, reason); err != nil {
+		s.log.Error(ctx, "get difference error", log.Error(err), log.String("reason", reason))
 	}
 }
 
