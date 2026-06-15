@@ -68,9 +68,8 @@ func TestSender_Resolve(t *testing.T) {
 					a := require.New(t)
 
 					p, err := Resolve(
-						resolver(t, tt.domain, expected),
 						fmt.Sprintf(format.fmt, tt.domain),
-					)(context.Background())
+					).Bind(resolver(t, tt.domain, expected))(context.Background())
 					if tt.wantErr || format.wantErr {
 						a.Error(err)
 						return

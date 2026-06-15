@@ -78,7 +78,7 @@ func (s *Sender) Self() *RequestBuilder {
 //	+1 (311) 555-0123
 //	+1 311 555-6162
 func (s *Sender) Resolve(from string, decorators ...peer.PromiseDecorator) *RequestBuilder {
-	return s.builder(peer.Resolve(s.resolver, from), decorators)
+	return s.builder(peer.Resolve(from).Bind(s.resolver), decorators)
 }
 
 // ResolvePhone uses given phone to create new peer promise.
