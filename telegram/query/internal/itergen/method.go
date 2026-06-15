@@ -79,6 +79,9 @@ type Method struct {
 	ResultName string
 	// RequiredParams is a required params for query builder.
 	RequiredParams []Param
+	// PeerParam is a required parameter of type tg.InputPeerClass, if any.
+	// When set, the generator emits peer-resolving helpers for the method.
+	PeerParam *Param
 	// AdditionalMapping is names of field from iterator.
 	// Some type doesn't have AddOffset for example, so we customize mapping here.
 	AdditionalMapping []RequestArgument
@@ -106,4 +109,7 @@ type Config struct {
 	ResultName string
 	// RequestFields is a slice of request struct fields.
 	RequestFields []Param
+	// HasPeerMethods is true if at least one method has a tg.InputPeerClass
+	// required parameter, so the package needs a peer.Resolver.
+	HasPeerMethods bool
 }

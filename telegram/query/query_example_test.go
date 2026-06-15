@@ -151,3 +151,34 @@ func ExampleQuery_getAdmins() {
 		panic(err)
 	}
 }
+
+func ExampleQuery_resolveHistory() {
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer cancel()
+
+	client, err := telegram.ClientFromEnvironment(telegram.Options{})
+	if err != nil {
+		panic(err)
+	}
+
+	// This example iterates over the history of a peer addressed by username,
+	// resolving the peer lazily instead of resolving it by hand beforehand.
+	if err := client.Run(ctx, func(ctx context.Context) error {
+		raw := tg.NewClient(client)
+
+		return query.NewQuery(raw).
+			Messages().
+			GetHistoryResolve("telegram").
+			ForEach(ctx, func(ctx context.Context, elem messages.Elem) error {
+				msg, ok := elem.Msg.(*tg.Message)
+				if !ok {
+					return nil
+				}
+				fmt.Println(msg.Message)
+
+				return nil
+			})
+	}); err != nil {
+		panic(err)
+	}
+}
