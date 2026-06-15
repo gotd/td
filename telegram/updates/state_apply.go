@@ -27,7 +27,7 @@ func (s *internalState) applySeq(ctx context.Context, state int, updates []updat
 	}
 
 	if recoverState {
-		return s.getDifference(ctx)
+		return s.getDifference(ctx, "seq-combined-pts-changed")
 	}
 
 	return nil

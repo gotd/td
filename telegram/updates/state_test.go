@@ -75,7 +75,7 @@ func TestStateOnTooLong(t *testing.T) {
 		WorkGroup:        &errgroup.Group{},
 	})
 
-	require.NoError(t, s.getDifference(ctx))
+	require.NoError(t, s.getDifference(ctx, "test"))
 	require.Equal(t, 1, tooLong, "OnTooLong must be called once")
 	require.Equal(t, 100, s.pts.State(), "pts must be advanced to the value from differenceTooLong")
 }

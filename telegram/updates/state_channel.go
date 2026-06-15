@@ -122,7 +122,7 @@ func (s *channelState) Run(ctx context.Context) error {
 	defer close(s.done)
 
 	// Subscribe to channel updates.
-	if err := s.getDifference(ctx); err != nil {
+	if err := s.getDifference(ctx, "channel-subscribe"); err != nil {
 		if errors.Is(err, errChannelInaccessible) {
 			return nil
 		}
@@ -141,19 +141,19 @@ func (s *channelState) Run(ctx context.Context) error {
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug(ctx, "Gap timeout")
-			if s.getDifferenceLogger(ctx) {
+			if s.getDifferenceLogger(ctx, "channel-pts-gap-timeout") {
 				return nil
 			}
 		case <-ctx.Done():
 			if len(s.pts.pending) > 0 {
 				// This will probably fail.
-				s.getDifferenceLogger(ctx)
+				s.getDifferenceLogger(ctx, "channel-shutdown-flush-pending")
 			}
 			return ctx.Err()
 		case <-s.idleTimeout.C:
 			s.log.Debug(ctx, "Idle timeout")
 			s.resetIdleTimer()
-			if s.getDifferenceLogger(ctx) {
+			if s.getDifferenceLogger(ctx, "channel-idle-timeout") {
 				return nil
 			}
 		}
@@ -198,7 +198,7 @@ func (s *channelState) handleTooLong(ctx context.Context, long *tg.UpdateChannel
 	remotePts, ok := long.GetPts()
 	if !ok {
 		s.log.Warn(ctx, "Got UpdateChannelTooLong without pts field")
-		return s.getDifference(ctx)
+		return s.getDifference(ctx, "channel-too-long-no-pts")
 	}
 
 	// Note: we still can fetch latest diffLim updates.
@@ -208,7 +208,7 @@ func (s *channelState) handleTooLong(ctx context.Context, long *tg.UpdateChannel
 		return nil
 	}
 
-	return s.getDifference(ctx)
+	return s.getDifference(ctx, "channel-too-long")
 }
 
 func (s *channelState) applyPts(ctx context.Context, state int, updates []update) error {
@@ -241,12 +241,16 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 	return nil
 }
 
-func (s *channelState) getDifference(ctx context.Context) error {
+func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	ctx, span := s.tracer.Start(ctx, "channelState.getDifference")
 	defer span.End()
 	s.pts.gaps.Clear()
 
-	s.log.Debug(ctx, "Getting difference")
+	s.log.Debug(ctx, "Getting difference",
+		log.String("reason", reason),
+		log.Int64("channel_id", s.channelID),
+		log.Int("pts", s.pts.State()),
+	)
 
 	if now := time.Now(); now.Before(s.diffTimeout) {
 		dur := s.diffTimeout.Sub(now)
@@ -326,7 +330,7 @@ func (s *channelState) getDifference(ctx context.Context) error {
 		}
 
 		if !diff.Final {
-			return s.getDifference(ctx)
+			return s.getDifference(ctx, "channel-difference-not-final")
 		}
 
 		return nil
@@ -396,12 +400,12 @@ func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
 
 // getDifferenceLogger calls getDifference, logging any error. It returns true
 // if the channel became inaccessible and the worker should stop.
-func (s *channelState) getDifferenceLogger(ctx context.Context) (stop bool) {
-	if err := s.getDifference(ctx); err != nil {
+func (s *channelState) getDifferenceLogger(ctx context.Context, reason string) (stop bool) {
+	if err := s.getDifference(ctx, reason); err != nil {
 		if errors.Is(err, errChannelInaccessible) {
 			return true
 		}
-		s.log.Error(ctx, "get channel difference error", log.Error(err))
+		s.log.Error(ctx, "get channel difference error", log.Error(err), log.String("reason", reason))
 	}
 	return false
 }

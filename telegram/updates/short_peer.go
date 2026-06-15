@@ -3,6 +3,8 @@ package updates
 import (
 	"context"
 
+	"github.com/gotd/log"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -84,6 +86,11 @@ func (s *internalState) userPeersKnown(ctx context.Context, ids []int64) bool {
 			continue
 		}
 		if _, found, err := s.userHasher.GetUserAccessHash(ctx, s.selfID, id); err != nil || !found {
+			s.log.Debug(ctx, "User access hash unknown, forcing getDifference",
+				log.Int64("user_id", id),
+				log.Bool("hasher_error", err != nil),
+				log.Error(err),
+			)
 			return false
 		}
 	}
