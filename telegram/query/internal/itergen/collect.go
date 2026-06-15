@@ -200,11 +200,20 @@ func (c *collector) Config() (Config, error) {
 		return Config{}, errors.Wrap(err, "collect")
 	}
 
+	hasPeerMethods := false
+	for _, m := range methods {
+		if m.PeerParam != nil {
+			hasPeerMethods = true
+			break
+		}
+	}
+
 	return Config{
-		Methods:       methods,
-		Package:       c.pkgName,
-		ResultName:    c.resultTypeName,
-		RequestFields: sortParams(c.requestFields),
+		Methods:        methods,
+		Package:        c.pkgName,
+		ResultName:     c.resultTypeName,
+		RequestFields:  sortParams(c.requestFields),
+		HasPeerMethods: hasPeerMethods,
 	}, nil
 }
 
@@ -235,6 +244,10 @@ func (c *collector) collect() ([]Method, error) {
 		for _, field := range method.params {
 			if _, ok := c.required[field.OriginalName]; ok {
 				m.RequiredParams = append(m.RequiredParams, field)
+				if field.Type == "tg.InputPeerClass" {
+					peerParam := field
+					m.PeerParam = &peerParam
+				}
 			}
 		}
 		m.RequiredParams = sortParams(m.RequiredParams)
