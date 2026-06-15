@@ -48,7 +48,15 @@ func (h affectedHook) Handle(next tg.Invoker) telegram.InvokeFunc {
 			return nil
 		}
 
-		if err := h.handler.HandleAffected(ctx, channelIDFromRequest(input), pts, ptsCount); err != nil {
+		channelID, ok := channelIDFromRequest(input)
+		if !ok {
+			// A channel-scoped request whose channel could not be identified
+			// (e.g. InputChannelEmpty). Skip rather than misapply a channel pts
+			// to the common sequence, which would desync update processing.
+			return nil
+		}
+
+		if err := h.handler.HandleAffected(ctx, channelID, pts, ptsCount); err != nil {
 			return errors.Wrap(err, "affected hook")
 		}
 		return nil
@@ -67,25 +75,38 @@ func affectedPts(output bin.Decoder) (pts, ptsCount int, ok bool) {
 	}
 }
 
+// hasChannelID is implemented by every channel-bearing input type that carries a
+// bare channel ID: *tg.InputChannel, *tg.InputChannelFromMessage,
+// *tg.InputPeerChannel and *tg.InputPeerChannelFromMessage. The non-channel input
+// peers (user/chat/self/empty) do not implement it.
+type hasChannelID interface {
+	GetChannelID() int64
+}
+
 // channelIDFromRequest determines which pts sequence an affected result belongs
-// to. A request carrying an InputChannel (channels.*) or an InputPeerChannel
-// (messages.* targeting a channel) routes to that channel; anything else routes
-// to the common sequence (channelID 0).
-func channelIDFromRequest(input bin.Encoder) int64 {
+// to. ok is false only for a channel-scoped request (channels.*) whose channel
+// cannot be identified, in which case the caller must skip rather than route to
+// the common sequence.
+//
+//   - channels.* request: routes to the request's channel (ok=false if it carries
+//     no channel ID, e.g. InputChannelEmpty).
+//   - messages.* request with an InputPeerChannel(FromMessage) peer: that channel.
+//   - any other request (user/chat peer, or no peer at all): common sequence (0).
+func channelIDFromRequest(input bin.Encoder) (channelID int64, ok bool) {
 	if r, ok := input.(interface {
 		GetChannel() tg.InputChannelClass
 	}); ok {
-		if ch, ok := r.GetChannel().(*tg.InputChannel); ok {
-			return ch.ChannelID
+		if ch, ok := r.GetChannel().(hasChannelID); ok {
+			return ch.GetChannelID(), true
 		}
-		return 0
+		return 0, false
 	}
 	if r, ok := input.(interface {
 		GetPeer() tg.InputPeerClass
 	}); ok {
-		if p, ok := r.GetPeer().(*tg.InputPeerChannel); ok {
-			return p.ChannelID
+		if p, ok := r.GetPeer().(hasChannelID); ok {
+			return p.GetChannelID(), true
 		}
 	}
-	return 0
+	return 0, true
 }

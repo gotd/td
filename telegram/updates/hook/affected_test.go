@@ -74,6 +74,35 @@ func TestAffectedHook(t *testing.T) {
 		assert.Equal(t, 7, rec.pts)
 	})
 
+	t.Run("ChannelByInputChannelFromMessage", func(t *testing.T) {
+		rec := &recordedAffected{}
+		input := &tg.ChannelsDeleteMessagesRequest{
+			Channel: &tg.InputChannelFromMessage{ChannelID: 99, MsgID: 5, Peer: &tg.InputPeerSelf{}},
+			ID:      []int{1},
+		}
+		assert.NoError(t, invoke(t, rec, input, &tg.MessagesAffectedMessages{Pts: 3, PtsCount: 1}))
+		assert.True(t, rec.called)
+		assert.Equal(t, int64(99), rec.channelID, "InputChannelFromMessage must route to its channel, not common")
+	})
+
+	t.Run("ChannelByPeerFromMessage", func(t *testing.T) {
+		rec := &recordedAffected{}
+		input := &tg.MessagesReadMentionsRequest{
+			Peer: &tg.InputPeerChannelFromMessage{ChannelID: 111, MsgID: 5, Peer: &tg.InputPeerSelf{}},
+		}
+		assert.NoError(t, invoke(t, rec, input, &tg.MessagesAffectedHistory{Pts: 8, PtsCount: 1}))
+		assert.True(t, rec.called)
+		assert.Equal(t, int64(111), rec.channelID, "InputPeerChannelFromMessage must route to its channel, not common")
+	})
+
+	t.Run("UnidentifiedChannelSkipped", func(t *testing.T) {
+		rec := &recordedAffected{}
+		// channels.* request with no resolvable channel: must skip, not route to common.
+		input := &tg.ChannelsDeleteMessagesRequest{Channel: &tg.InputChannelEmpty{}, ID: []int{1}}
+		assert.NoError(t, invoke(t, rec, input, &tg.MessagesAffectedMessages{Pts: 3, PtsCount: 1}))
+		assert.False(t, rec.called, "must not apply a channel pts to the common sequence")
+	})
+
 	t.Run("NotAffectedResult", func(t *testing.T) {
 		rec := &recordedAffected{}
 		assert.NoError(t, invoke(t, rec, &tg.MessagesReadHistoryRequest{}, &tg.UpdatesBox{
