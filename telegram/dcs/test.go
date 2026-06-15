@@ -10,6 +10,11 @@ func Staging() List {
 }
 
 // Test returns test DC list.
+//
+// NB: as of 2026, the test DCs no longer auto-provision accounts for randomly
+// generated 99966X test phone numbers (auth.Test) — sign in fails with
+// PHONE_CODE_INVALID. A real, pre-registered test account is required; see
+// https://core.telegram.org/api/auth#test-accounts.
 func Test() List {
 	return List{
 		Options: []tg.DCOption{

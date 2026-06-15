@@ -307,6 +307,11 @@ func (t testAuth) SignUp(ctx context.Context) (UserInfo, error) {
 //
 // Can be used only with testing server. Will perform sign up if test user is
 // not registered.
+//
+// NB: as of 2026, Telegram no longer auto-provisions accounts for randomly
+// generated 99966X test phone numbers — sign in fails with PHONE_CODE_INVALID.
+// You now need a real, pre-registered test account (use TestUser with its
+// phone); see https://core.telegram.org/api/auth#test-accounts.
 func Test(randReader io.Reader, dc int) UserAuthenticator {
 	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 6.
 	// The n value is from 0000 to 9999.
