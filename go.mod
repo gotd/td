@@ -15,7 +15,7 @@ require (
 	github.com/gotd/getdoc v0.53.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/log v0.1.0
-	github.com/gotd/log/logzap v0.0.1
+	github.com/gotd/log/logzap v0.1.1
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.1
