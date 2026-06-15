@@ -34,6 +34,7 @@ import (
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/telegram/query"
 	"github.com/gotd/td/telegram/updates"
+	updhook "github.com/gotd/td/telegram/updates/hook"
 	"github.com/gotd/td/tg"
 )
 
@@ -164,6 +165,9 @@ func run(ctx context.Context) error {
 		Middlewares: []telegram.Middleware{
 			// Setting up FLOOD_WAIT handler to automatically wait and retry request.
 			waiter,
+			// Keeping local pts in sync after self-initiated reads/deletes, whose
+			// affectedMessages/affectedHistory results are not regular updates.
+			updhook.AffectedHook(updatesRecovery),
 			// Setting up general rate limits to less likely get flood wait errors.
 			ratelimit.New(rate.Every(time.Millisecond*100), 5),
 		},

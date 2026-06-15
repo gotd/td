@@ -51,6 +51,10 @@ func run(ctx context.Context) error {
 		UpdateHandler: gaps,
 		Middlewares: []telegram.Middleware{
 			updhook.UpdateHook(gaps.Handle),
+			// Keep local pts in sync after self-initiated reads/deletes
+			// (messages.readHistory, messages.deleteMessages, ...), whose
+			// affectedMessages/affectedHistory results are not regular updates.
+			updhook.AffectedHook(gaps),
 		},
 	})
 	if err != nil {
