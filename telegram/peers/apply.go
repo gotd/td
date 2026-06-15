@@ -96,7 +96,7 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 				// neither overwriting an existing full hash (corruption) nor
 				// inserted as a new peer (a bogus hash that later fails RPCs).
 				// Mirrors applyUsers above and updates.(*internalState).saveChannelHashes.
-				// TODO(tdakkota): call a hook to fetch the full channel (e.g. force gaps to getDifference).
+				// TODO: call a hook to fetch the full channel (e.g. force gaps to getDifference).
 				continue
 			}
 
