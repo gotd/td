@@ -30,6 +30,17 @@ type tracedUpdate struct {
 	span   trace.SpanContext
 }
 
+// affectedUpdate carries a pts increment from a messages.affectedMessages /
+// messages.affectedHistory RPC result to be applied on the internalState
+// goroutine. A non-zero channelID routes it to that channel's pts sequence;
+// zero targets the common sequence.
+type affectedUpdate struct {
+	channelID int64
+	pts       int
+	ptsCount  int
+	span      trace.SpanContext
+}
+
 type internalState struct {
 	// Updates channel.
 	externalQueue chan tracedUpdate
@@ -37,6 +48,10 @@ type internalState struct {
 	// Updates from channel states
 	// during updates.getChannelDifference.
 	internalQueue chan tracedUpdate
+
+	// affectedQueue receives pts increments from messages.affected* RPC results
+	// (see Manager.HandleAffected) to apply on the internalState goroutine.
+	affectedQueue chan affectedUpdate
 
 	// Common internalState.
 	pts, qts, seq *sequenceBox
@@ -91,6 +106,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 	s := &internalState{
 		externalQueue: make(chan tracedUpdate, 10),
 		internalQueue: make(chan tracedUpdate, 10),
+		affectedQueue: make(chan affectedUpdate, 10),
 
 		date:        cfg.State.Date,
 		idleTimeout: time.NewTimer(idleTimeout),
@@ -154,6 +170,22 @@ func (s *internalState) Push(ctx context.Context, u tg.UpdatesClass) error {
 	}
 }
 
+// PushAffected enqueues a pts increment from a messages.affected* RPC result.
+func (s *internalState) PushAffected(ctx context.Context, channelID int64, pts, ptsCount int) error {
+	au := affectedUpdate{
+		channelID: channelID,
+		pts:       pts,
+		ptsCount:  ptsCount,
+		span:      trace.SpanContextFromContext(ctx),
+	}
+	select {
+	case s.affectedQueue <- au:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
 // isFatalError returns true if error is fatal so we should stop updates handler.
 func isFatalError(err error) bool {
 	// See https://github.com/gotd/td/issues/1458.
@@ -199,6 +231,11 @@ func (s *internalState) Run(ctx context.Context) error {
 				if isFatalError(err) {
 					return errors.Wrap(err, "fatal error")
 				}
+			}
+		case a := <-s.affectedQueue:
+			ctx := trace.ContextWithSpanContext(ctx, a.span)
+			if err := s.handleAffected(ctx, a.channelID, a.pts, a.ptsCount); err != nil {
+				s.log.Error(ctx, "Handle affected error", log.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug(ctx, "Pts gap timeout")
@@ -324,6 +361,47 @@ func (s *internalState) handlePts(ctx context.Context, pts, ptsCount int, u tg.U
 		State:    pts,
 		Count:    ptsCount,
 		Entities: ents,
+	})
+}
+
+// handleAffected applies a pts increment from a messages.affectedMessages /
+// messages.affectedHistory result. A non-zero channelID targets that channel's
+// pts sequence (only when already tracked); zero targets the common sequence.
+//
+// A pts of 0 means the operation reported no pts and is ignored: feeding 0 to a
+// sequenceBox would reset its state to 0 and desync everything.
+func (s *internalState) handleAffected(ctx context.Context, channelID int64, pts, ptsCount int) error {
+	if pts == 0 {
+		return nil
+	}
+
+	if err := validatePts(pts, ptsCount); err != nil {
+		s.log.Error(ctx, "Affected pts validation failed", log.Error(err),
+			log.Int64("channel_id", channelID), log.Int("pts", pts), log.Int("pts_count", ptsCount))
+		return nil
+	}
+
+	if channelID != 0 {
+		st, ok := s.channels[channelID]
+		if !ok {
+			// Not tracked yet: skip. When the channel becomes tracked it runs its
+			// own getChannelDifference, which reconciles pts from storage.
+			s.log.Debug(ctx, "Affected pts for untracked channel, ignored",
+				log.Int64("channel_id", channelID), log.Int("pts", pts))
+			return nil
+		}
+		return st.Push(ctx, channelUpdate{
+			affected: true,
+			pts:      pts,
+			ptsCount: ptsCount,
+			span:     trace.SpanContextFromContext(ctx),
+		})
+	}
+
+	return s.pts.Handle(ctx, update{
+		Value: affectedPts{},
+		State: pts,
+		Count: ptsCount,
 	})
 }
 

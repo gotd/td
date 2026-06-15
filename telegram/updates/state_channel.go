@@ -22,6 +22,13 @@ type channelUpdate struct {
 	update   tg.UpdateClass
 	entities entities
 	span     trace.SpanContext
+
+	// affected, when true, makes the worker advance its pts by (pts, ptsCount)
+	// without dispatching, applying a messages.affected* result for this channel
+	// (see Manager.HandleAffected). update is nil in this case.
+	affected bool
+	pts      int
+	ptsCount int
 }
 
 type channelState struct {
@@ -133,7 +140,13 @@ func (s *channelState) Run(ctx context.Context) error {
 		select {
 		case u := <-s.updates:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
-			if err := s.handleUpdate(ctx, u.update, u.entities); err != nil {
+			handle := s.handleUpdate
+			if u.affected {
+				handle = func(ctx context.Context, _ tg.UpdateClass, _ entities) error {
+					return s.handleAffected(ctx, u.pts, u.ptsCount)
+				}
+			}
+			if err := handle(ctx, u.update, u.entities); err != nil {
 				if errors.Is(err, errChannelInaccessible) {
 					return nil
 				}
@@ -191,6 +204,25 @@ func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents 
 	})
 }
 
+// handleAffected applies a pts increment from a messages.affected* result to
+// this channel's pts sequence without dispatching. A pts of 0 is ignored: it
+// would reset the sequence state to 0 (see internalState.handleAffected).
+func (s *channelState) handleAffected(ctx context.Context, pts, ptsCount int) error {
+	if pts == 0 {
+		return nil
+	}
+	if err := validatePts(pts, ptsCount); err != nil {
+		s.log.Error(ctx, "Affected pts validation failed", log.Error(err),
+			log.Int("pts", pts), log.Int("pts_count", ptsCount))
+		return nil
+	}
+	return s.pts.Handle(ctx, update{
+		Value: affectedPts{},
+		State: pts,
+		Count: ptsCount,
+	})
+}
+
 func (s *channelState) handleTooLong(ctx context.Context, long *tg.UpdateChannelTooLong) error {
 	ctx, span := s.tracer.Start(ctx, "channelState.handleTooLong")
 	defer span.End()
@@ -221,17 +253,24 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 	)
 
 	for _, update := range updates {
+		// affectedPts is a pts-only marker (see Manager.HandleAffected): it
+		// advances the sequence but has nothing to dispatch.
+		if _, ok := update.Value.(affectedPts); ok {
+			continue
+		}
 		converted = append(converted, update.Value.(tg.UpdateClass))
 		ents.Merge(update.Entities)
 	}
 
-	if err := s.handler.Handle(ctx, &tg.Updates{
-		Updates: converted,
-		Users:   ents.Users,
-		Chats:   ents.Chats,
-	}); err != nil {
-		s.log.Error(ctx, "Handle update error", log.Error(err))
-		return nil
+	if len(converted) > 0 {
+		if err := s.handler.Handle(ctx, &tg.Updates{
+			Updates: converted,
+			Users:   ents.Users,
+			Chats:   ents.Chats,
+		}); err != nil {
+			s.log.Error(ctx, "Handle update error", log.Error(err))
+			return nil
+		}
 	}
 
 	if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, state); err != nil {

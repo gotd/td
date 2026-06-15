@@ -71,6 +71,36 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	return state.Push(ctx, u)
 }
 
+// HandleAffected applies the pts increment carried by a messages.affectedMessages
+// or messages.affectedHistory RPC result, keeping the local pts in sync after a
+// self-initiated read or delete (e.g. messages.readHistory, messages.deleteMessages).
+//
+// Without this, such results silently advance the server pts while the local pts
+// stays behind, so the next genuine update looks like a gap and is postponed
+// until the next pts-changing update or a getDifference (see issue #1382).
+//
+// channelID must be the channel the result belongs to, or 0 for the common
+// (user/basic-group) sequence. The affected pts for a channel is applied only
+// when that channel is already tracked. It is a no-op before Run is called.
+//
+// Most callers should not call this directly: use the hook middleware in
+// telegram/updates/hook, which wires it from RPC results automatically.
+func (m *Manager) HandleAffected(ctx context.Context, channelID int64, pts, ptsCount int) error {
+	ctx, span := m.tracer.Start(ctx, "updates.Manager.HandleAffected")
+	defer span.End()
+
+	m.mux.Lock()
+	state := m.state
+	m.mux.Unlock()
+
+	if state == nil {
+		m.lg.Debug(ctx, "HandleAffected (no internalState)")
+		return nil
+	}
+
+	return state.PushAffected(ctx, channelID, pts, ptsCount)
+}
+
 type AuthOptions struct {
 	IsBot   bool
 	Forget  bool

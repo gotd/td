@@ -146,16 +146,23 @@ func (s *internalState) applyPts(ctx context.Context, state int, updates []updat
 	)
 
 	for _, update := range updates {
+		// affectedPts is a pts-only marker (see Manager.HandleAffected): it
+		// advances the sequence but has nothing to dispatch.
+		if _, ok := update.Value.(affectedPts); ok {
+			continue
+		}
 		converted = append(converted, update.Value.(tg.UpdateClass))
 		ents.Merge(update.Entities)
 	}
 
-	if err := s.handler.Handle(ctx, &tg.Updates{
-		Updates: converted,
-		Users:   ents.Users,
-		Chats:   ents.Chats,
-	}); err != nil {
-		s.log.Error(ctx, "Handle updates error", log.Error(err))
+	if len(converted) > 0 {
+		if err := s.handler.Handle(ctx, &tg.Updates{
+			Updates: converted,
+			Users:   ents.Users,
+			Chats:   ents.Chats,
+		}); err != nil {
+			s.log.Error(ctx, "Handle updates error", log.Error(err))
+		}
 	}
 
 	if err := s.storage.SetPts(ctx, s.selfID, state); err != nil {

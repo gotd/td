@@ -11,6 +11,15 @@ type update struct {
 	Entities entities
 }
 
+// affectedPts is a synthetic, non-dispatchable pts update. It carries only the
+// pts increment from a messages.affectedMessages / messages.affectedHistory RPC
+// result so the local pts stays in sync with the server after a self-initiated
+// read or delete, without fabricating a user-visible update.
+//
+// It is fed to a sequenceBox as update.Value; applyPts skips it instead of
+// dispatching it to the handler. See Manager.HandleAffected.
+type affectedPts struct{}
+
 func (u update) start() int { return u.State - u.Count }
 
 func (u update) end() int { return u.State }
