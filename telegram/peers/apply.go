@@ -89,11 +89,15 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			k.Prefix = channelPrefix
 
 			if ch.Min {
-				// If Min is true, skip updating existing peer as it corrupts the full AccessHash
-				if _, ok, err := m.storage.Find(ctx, k); err != nil || ok {
-					// FIXME: merge old channel data with new data from min constructor
-					continue
-				}
+				// A min channel carries a min access hash, valid only for
+				// inputPeerPhotoFileLocation — never for normal RPCs such as
+				// channels.getFullChannel. Per TDLib / Telegram-Android a min peer
+				// does not count as a known peer, so it must never be persisted:
+				// neither overwriting an existing full hash (corruption) nor
+				// inserted as a new peer (a bogus hash that later fails RPCs).
+				// Mirrors applyUsers above and updates.(*internalState).saveChannelHashes.
+				// TODO(tdakkota): call a hook to fetch the full channel (e.g. force gaps to getDifference).
+				continue
 			}
 
 			channels = append(channels, ch)
