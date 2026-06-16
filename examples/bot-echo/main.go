@@ -35,8 +35,21 @@ func main() {
 			// Helper for sending messages.
 			sender := message.NewSender(api)
 
-			// Setting up handler for incoming message.
+			// Setting up handler for incoming private/group message.
 			dispatcher.OnNewMessage(func(ctx context.Context, entities tg.Entities, u *tg.UpdateNewMessage) error {
+				m, ok := u.Message.(*tg.Message)
+				if !ok || m.Out {
+					// Outgoing message, not interesting.
+					return nil
+				}
+
+				// Sending reply.
+				_, err := sender.Reply(entities, u).Text(ctx, m.Message)
+				return err
+			})
+
+			// Setting up handler for incoming channel/supergroup message.
+			dispatcher.OnNewChannelMessage(func(ctx context.Context, entities tg.Entities, u *tg.UpdateNewChannelMessage) error {
 				m, ok := u.Message.(*tg.Message)
 				if !ok || m.Out {
 					// Outgoing message, not interesting.
