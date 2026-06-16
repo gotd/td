@@ -37,8 +37,9 @@ func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.Up
 	}
 
 	upd, err := b.sender.sendScreenshotNotification(ctx, &tg.MessagesSendScreenshotNotificationRequest{
-		Peer:    p,
-		ReplyTo: &tg.InputReplyToMessage{ReplyToMsgID: msgID},
+		Peer:     p,
+		ReplyTo:  &tg.InputReplyToMessage{ReplyToMsgID: msgID},
+		RandomID: b.randomID,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "send screenshot notify")

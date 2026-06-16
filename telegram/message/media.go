@@ -117,6 +117,7 @@ func (b *Builder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass
 		Peer:         p,
 		Media:        attachment.Media,
 		Message:      attachment.Message,
+		RandomID:     b.randomID,
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     attachment.Entities,
 		ScheduleDate: b.scheduleDate,

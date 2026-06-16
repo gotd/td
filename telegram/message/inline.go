@@ -24,6 +24,7 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 		Peer:         p,
 		QueryID:      queryID,
 		ID:           id,
+		RandomID:     b.randomID,
 		ScheduleDate: b.scheduleDate,
 	}
 	b.applyCommonOptions(req)

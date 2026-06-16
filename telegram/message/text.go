@@ -23,7 +23,7 @@ func (b *Builder) sendRequest(
 		ClearDraft:   b.clearDraft,
 		Peer:         p,
 		Message:      msg,
-		RandomID:     0,
+		RandomID:     b.randomID,
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     entities,
 		ScheduleDate: b.scheduleDate,

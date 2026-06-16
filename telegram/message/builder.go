@@ -41,6 +41,10 @@ type Builder struct {
 	replyMarkup tg.ReplyMarkupClass
 	// Scheduled message date for scheduled messages.
 	scheduleDate int
+	// randomID is a unique client message ID required to prevent message resending.
+	//
+	// If zero, the Sender generates one automatically.
+	randomID int64
 
 	// sendAs sets peer to send message as it.
 	sendAs tg.InputPeerClass
@@ -95,6 +99,14 @@ func (b *Builder) ScheduleTS(date int) *Builder {
 // Schedule sets scheduled message date for scheduled messages.
 func (b *Builder) Schedule(date time.Time) *Builder {
 	return b.ScheduleTS(int(date.Unix()))
+}
+
+// RandomID sets a unique client message ID required to prevent message resending.
+//
+// If not set (or set to zero), the Sender generates a random ID automatically.
+func (b *Builder) RandomID(id int64) *Builder {
+	b.randomID = id
+	return b
 }
 
 // NoWebpage sets flag to disable generation of the webpage preview.

@@ -97,6 +97,22 @@ func TestBuilder_CommonOptionsForward(t *testing.T) {
 	require.NoError(t, err)
 }
 
+func TestBuilder_RandomID(t *testing.T) {
+	ctx := context.Background()
+	sender, mock := testSender(t)
+
+	const randomID = 123456789
+
+	mock.ExpectFunc(func(b bin.Encoder) {
+		req, ok := b.(*tg.MessagesSendMessageRequest)
+		require.True(t, ok)
+		require.Equal(t, int64(randomID), req.RandomID)
+	}).ThenResult(&tg.Updates{})
+
+	_, err := sender.Self().RandomID(randomID).Text(ctx, "abc")
+	require.NoError(t, err)
+}
+
 func TestBuilder_CommonOptionsInlineResult(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)
