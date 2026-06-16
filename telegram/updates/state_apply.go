@@ -103,7 +103,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 	}
 
 	if len(others) > 0 {
-		if err := s.handler.Handle(ctx, &tg.Updates{
+		if err := s.dispatch(ctx, &tg.Updates{
 			Updates: others,
 			Users:   ents.Users,
 			Chats:   ents.Chats,
@@ -156,7 +156,7 @@ func (s *internalState) applyPts(ctx context.Context, state int, updates []updat
 	}
 
 	if len(converted) > 0 {
-		if err := s.handler.Handle(ctx, &tg.Updates{
+		if err := s.dispatch(ctx, &tg.Updates{
 			Updates: converted,
 			Users:   ents.Users,
 			Chats:   ents.Chats,
@@ -186,7 +186,7 @@ func (s *internalState) applyQts(ctx context.Context, state int, updates []updat
 		ents.Merge(update.Entities)
 	}
 
-	if err := s.handler.Handle(ctx, &tg.Updates{
+	if err := s.dispatch(ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.Users,
 		Chats:   ents.Chats,

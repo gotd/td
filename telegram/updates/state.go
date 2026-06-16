@@ -419,7 +419,7 @@ func (s *internalState) handleQts(ctx context.Context, qts int, u tg.UpdateClass
 	// and loops forever re-dispatching them. Such updates carry no position to
 	// order by, so dispatch them directly without touching the qts state.
 	if qts == 0 {
-		if err := s.handler.Handle(ctx, &tg.Updates{
+		if err := s.dispatch(ctx, &tg.Updates{
 			Updates: []tg.UpdateClass{u},
 			Users:   ents.Users,
 			Chats:   ents.Chats,
@@ -503,6 +503,8 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		Storage:               s.storage,
 		DiffLimit:             s.diffLim,
 		RawClient:             s.client,
+		Hasher:                s.hasher,
+		UserHasher:            s.userHasher,
 		Handler:               s.handler,
 		OnChannelTooLong:      s.onTooLong,
 		OnChannelInaccessible: s.onChannelInaccessible,
@@ -569,7 +571,7 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		}
 
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			if err := s.handler.Handle(ctx, &tg.Updates{
+			if err := s.dispatch(ctx, &tg.Updates{
 				Updates: append(
 					msgsToUpdates(diff.NewMessages, false),
 					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
@@ -613,7 +615,7 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		}
 
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			if err := s.handler.Handle(ctx, &tg.Updates{
+			if err := s.dispatch(ctx, &tg.Updates{
 				Updates: append(
 					msgsToUpdates(diff.NewMessages, false),
 					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
