@@ -20,7 +20,7 @@ require (
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.1
 	github.com/klauspost/compress v1.18.6
-	github.com/ogen-go/ogen v1.20.3
+	github.com/ogen-go/ogen v1.21.0
 	github.com/pion/ice/v4 v4.2.7
 	github.com/pion/interceptor v0.1.45
 	github.com/pion/logging v0.2.4
@@ -49,13 +49,13 @@ require (
 
 require (
 	github.com/PuerkitoBio/goquery v1.11.0 // indirect
-	github.com/andybalholm/brotli v1.2.0 // indirect
+	github.com/andybalholm/brotli v1.2.1 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/awnumar/memcall v0.4.0 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/dlclark/regexp2 v1.11.5 // indirect
+	github.com/dlclark/regexp2 v1.12.0 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-faster/sdk v0.34.0 // indirect
@@ -63,7 +63,7 @@ require (
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
-	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/pion/datachannel v1.6.0 // indirect
 	github.com/pion/dtls/v3 v3.1.4 // indirect
 	github.com/pion/mdns/v2 v2.1.0 // indirect
