@@ -53,6 +53,8 @@ type channelState struct {
 	diffLim        int
 	client         API
 	storage        StateStorage
+	hasher         ChannelAccessHasher
+	userHasher     UserAccessHasher
 	log            log.Helper
 	tracer         trace.Tracer
 	handler        telegram.UpdateHandler
@@ -71,6 +73,8 @@ type channelStateConfig struct {
 	DiffLimit             int
 	RawClient             API
 	Storage               StateStorage
+	Hasher                ChannelAccessHasher
+	UserHasher            UserAccessHasher
 	Handler               telegram.UpdateHandler
 	OnChannelTooLong      func(channelID int64)
 	OnChannelInaccessible func(channelID int64)
@@ -93,6 +97,8 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		diffLim:        cfg.DiffLimit,
 		client:         cfg.RawClient,
 		storage:        cfg.Storage,
+		hasher:         cfg.Hasher,
+		userHasher:     cfg.UserHasher,
 		log:            log.For(cfg.Logger),
 		handler:        cfg.Handler,
 		onTooLong:      cfg.OnChannelTooLong,
@@ -263,7 +269,7 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 	}
 
 	if len(converted) > 0 {
-		if err := s.handler.Handle(ctx, &tg.Updates{
+		if err := s.dispatch(ctx, &tg.Updates{
 			Updates: converted,
 			Users:   ents.Users,
 			Chats:   ents.Chats,
@@ -350,7 +356,7 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		}
 
 		if len(diff.NewMessages) > 0 {
-			if err := s.handler.Handle(ctx, &tg.Updates{
+			if err := s.dispatch(ctx, &tg.Updates{
 				Updates: msgsToUpdates(diff.NewMessages, true),
 				Users:   diff.Users,
 				Chats:   diff.Chats,
