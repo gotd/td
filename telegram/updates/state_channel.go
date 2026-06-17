@@ -62,6 +62,9 @@ type channelState struct {
 	onInaccessible func(channelID int64)
 	// removeChannel signals *internalState to drop this channel from tracking.
 	removeChannel chan<- int64
+	// chDiffSem bounds concurrent getChannelDifference calls across all channels
+	// of the manager. nil means unlimited.
+	chDiffSem chDiffSem
 }
 
 type channelStateConfig struct {
@@ -81,6 +84,7 @@ type channelStateConfig struct {
 	RemoveChannel         chan<- int64
 	Logger                log.Logger
 	Tracer                trace.Tracer
+	ChannelDiffSem        chDiffSem
 }
 
 func newChannelState(cfg channelStateConfig) *channelState {
@@ -105,6 +109,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		onInaccessible: cfg.OnChannelInaccessible,
 		removeChannel:  cfg.RemoveChannel,
 		tracer:         cfg.Tracer,
+		chDiffSem:      cfg.ChannelDiffSem,
 	}
 
 	state.pts = newSequenceBox(sequenceConfig{
@@ -324,6 +329,14 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		}
 	}
 
+	// Bound concurrent getChannelDifference across channels: a member of many
+	// active channels would otherwise burst past the per-account method limit.
+	// The slot wraps only the RPC — released before processing and the !Final
+	// recursion so a busy channel's catch-up does not monopolise it (and so a
+	// limit of 1 cannot self-deadlock on the nested call).
+	if err := s.chDiffSem.acquire(ctx); err != nil {
+		return err
+	}
 	diff, err := s.client.UpdatesGetChannelDifference(ctx, &tg.UpdatesGetChannelDifferenceRequest{
 		Channel: &tg.InputChannel{
 			ChannelID:  s.channelID,
@@ -333,6 +346,7 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		Pts:    s.pts.State(),
 		Limit:  s.diffLim,
 	})
+	s.chDiffSem.release()
 	if err != nil {
 		if tgerr.Is(err, "CHANNEL_PRIVATE") {
 			return s.handleInaccessible(ctx)

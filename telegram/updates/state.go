@@ -79,6 +79,7 @@ type internalState struct {
 	diffLim               int
 	wg                    *errgroup.Group
 	tracer                trace.Tracer
+	chDiffSem             chDiffSem
 }
 
 type stateConfig struct {
@@ -100,6 +101,7 @@ type stateConfig struct {
 	SelfID                int64
 	DiffLimit             int
 	WorkGroup             *errgroup.Group
+	ChannelDiffSem        chDiffSem
 }
 
 func newState(ctx context.Context, cfg stateConfig) *internalState {
@@ -127,6 +129,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		diffLim:               cfg.DiffLimit,
 		wg:                    cfg.WorkGroup,
 		tracer:                cfg.Tracer,
+		chDiffSem:             cfg.ChannelDiffSem,
 	}
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
@@ -511,6 +514,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		RemoveChannel:         s.removeChannel,
 		Logger:                s.log.Named("channel").With(log.Int64("channel_id", channelID)).Logger(),
 		Tracer:                s.tracer,
+		ChannelDiffSem:        s.chDiffSem,
 	})
 }
 
