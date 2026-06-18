@@ -200,6 +200,19 @@ func (r *renderer) urlFormatter(rawURL string, emoji bool) (entity.Formatter, er
 			return nil, errors.Wrap(err, "parse custom emoji ID")
 		}
 		return entity.CustomEmoji(id), nil
+	case u.Scheme == "tg" && u.Host == "time":
+		// Telegram Time: ![22:45](tg://time?unix=1647531900&format=t)
+		q := u.Query()
+		unix, err := strconv.Atoi(q.Get("unix"))
+		if err != nil {
+			return nil, errors.Wrap(err, "parse unix time")
+		}
+
+		f, err := entity.FormattedDateFormat(q.Get("format"), unix)
+		if err != nil {
+			f = entity.FormattedDate(false, false, false, false, false, false, unix)
+		}
+		return f, nil
 	case emoji:
 		// An image without a custom emoji URL has no entity equivalent; keep
 		// its alt text as plain text.
