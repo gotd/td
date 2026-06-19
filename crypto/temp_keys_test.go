@@ -3,8 +3,11 @@ package crypto
 import (
 	"bytes"
 	"crypto/aes"
+	"encoding/hex"
 	"math/big"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/ige"
 )
@@ -75,4 +78,49 @@ func TestTempAESKeys(t *testing.T) {
 	if !bytes.Equal(answer, expectedAnswer) {
 		t.Fatal("mismatch")
 	}
+}
+
+// TestTempAESKeysLeadingZeroNonce is a regression test for nonces whose first
+// byte is 0x00.
+//
+// new_nonce (int256) and server_nonce (int128) are fixed-length byte strings of
+// 32 and 16 bytes. Deriving the temp keys via big.Int.Bytes() strips leading
+// zero bytes, so whenever a nonce starts with 0x00 the SHA1 input is a byte
+// short and the resulting tmp_aes_key/tmp_aes_iv are wrong. That happens for
+// about 1/256 of new_nonce values and 1/256 of server_nonce values, breaking
+// the handshake with a spec-compliant peer.
+//
+// The vectors below were derived independently from the fixed-length nonces and
+// differ from what the stripped derivation would produce.
+func TestTempAESKeysLeadingZeroNonce(t *testing.T) {
+	var (
+		newNonceBytes    [32]byte
+		serverNonceBytes [16]byte
+	)
+	for i := range newNonceBytes {
+		newNonceBytes[i] = byte(i) // 0x00, 0x01, ... 0x1f
+	}
+	for i := range serverNonceBytes {
+		serverNonceBytes[i] = byte(0x20 + i)
+	}
+	serverNonceBytes[0] = 0x00 // 0x00, 0x21, ... 0x2f
+
+	newNonce := new(big.Int).SetBytes(newNonceBytes[:])
+	serverNonce := new(big.Int).SetBytes(serverNonceBytes[:])
+
+	key, iv := TempAESKeys(newNonce, serverNonce)
+
+	require.Equal(t,
+		"0a2d0f607499a866848e41798a34315e4922c39fe55c6caf5bc322c4b8c08c6a",
+		hex.EncodeToString(key),
+	)
+	require.Equal(t,
+		"9cb702d4fd6e5d25e864070e166e6218f6783e8511471a5ab7802cf200010203",
+		hex.EncodeToString(iv),
+	)
+
+	// tmp_aes_iv ends with substr(new_nonce, 0, 4): the first four bytes of the
+	// fixed-length nonce, including the leading zero. With the stripped
+	// derivation this would be newNonceBytes[1:5] instead.
+	require.Equal(t, newNonceBytes[:4], iv[len(iv)-4:])
 }
