@@ -60,6 +60,12 @@ type Config struct {
 	Logger log.Logger
 	// TracerProvider (optional).
 	TracerProvider trace.TracerProvider
+	// MaxChannelDifferenceConcurrency limits how many updates.getChannelDifference
+	// requests may be in flight at once across all tracked channels. Non-positive
+	// values (<= 0, default 0) mean unlimited: every channel recovers its gap as
+	// before. A positive value bounds the burst so an account in many active
+	// channels does not exceed Telegram's per-account method rate limit.
+	MaxChannelDifferenceConcurrency int
 }
 
 func (cfg *Config) setDefaults() {

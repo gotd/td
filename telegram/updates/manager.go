@@ -31,18 +31,20 @@ type Manager struct {
 
 	// immutable:
 
-	cfg    Config
-	lg     log.Helper
-	tracer trace.Tracer
+	cfg       Config
+	lg        log.Helper
+	tracer    trace.Tracer
+	chDiffSem chDiffSem
 }
 
 // New creates new manager.
 func New(cfg Config) *Manager {
 	cfg.setDefaults()
 	return &Manager{
-		cfg:    cfg,
-		lg:     log.For(cfg.Logger),
-		tracer: cfg.TracerProvider.Tracer(""),
+		cfg:       cfg,
+		lg:        log.For(cfg.Logger),
+		tracer:    cfg.TracerProvider.Tracer(""),
+		chDiffSem: newChDiffSem(cfg.MaxChannelDifferenceConcurrency),
 	}
 }
 
@@ -160,6 +162,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			SelfID:                userID,
 			DiffLimit:             diffLim,
 			WorkGroup:             wg,
+			ChannelDiffSem:        m.chDiffSem,
 		})
 
 		return nil
