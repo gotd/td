@@ -48,6 +48,7 @@ const (
 	tgSpoiler  = "tg-spoiler"
 	tgEmoji    = "tg-emoji"
 	blockquote = "blockquote"
+	tgTime     = "tg-time"
 )
 
 func (p *htmlParser) tag(tn []byte) string {
@@ -85,6 +86,8 @@ func (p *htmlParser) tag(tn []byte) string {
 		return tgEmoji
 	case blockquote:
 		return blockquote
+	case tgTime:
+		return tgTime
 	default:
 		return string(tn)
 	}
@@ -168,6 +171,14 @@ func (p *htmlParser) startTag() error {
 	case blockquote:
 		_, collapsed := p.attr["expandable"]
 		e.format = entity.Blockquote(collapsed)
+	case tgTime:
+		if unix, err := strconv.Atoi(p.attr["unix"]); err == nil {
+			if d, err := entity.FormattedDateFormat(p.attr["format"], unix); err == nil {
+				e.format = d
+			} else {
+				e.format = entity.FormattedDate(false, false, false, false, false, false, unix)
+			}
+		}
 	}
 
 	p.stack.push(e)
