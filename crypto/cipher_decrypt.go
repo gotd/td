@@ -72,11 +72,16 @@ func (c Cipher) decryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, 
 	}
 
 	key, iv := Keys(k.Value, encrypted.MsgKey, c.encryptSide.DecryptSide())
+	plaintext := make([]byte, len(encrypted.EncryptedData))
+
+	if hwIGEDecrypt(key[:], iv[:], plaintext, encrypted.EncryptedData) {
+		return plaintext, nil
+	}
+
 	cipher, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err
 	}
-	plaintext := make([]byte, len(encrypted.EncryptedData))
 	ige.DecryptBlocks(cipher, iv[:], plaintext, encrypted.EncryptedData)
 
 	return plaintext, nil
