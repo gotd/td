@@ -25,7 +25,7 @@ require (
 	github.com/pion/interceptor v0.1.45
 	github.com/pion/logging v0.2.4
 	github.com/pion/rtcp v1.2.17
-	github.com/pion/rtp v1.10.2
+	github.com/pion/rtp v1.10.3
 	github.com/pion/transport/v4 v4.0.2
 	github.com/pion/webrtc/v4 v4.2.16
 	github.com/refraction-networking/utls v1.8.2
