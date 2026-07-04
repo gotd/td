@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/log/logzap"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/proto/codec"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/testutil"
 	"github.com/gotd/td/transport"
@@ -75,6 +76,100 @@ func testExchange(tempMode bool) func(t *testing.T) {
 func TestExchange(t *testing.T) {
 	t.Run("PQInnerData", testExchange(false))
 	t.Run("PQInnerDataDC", testExchange(true))
+}
+
+func TestExchangeNegativeTemporaryMediaDC(t *testing.T) {
+	a := require.New(t)
+	log := zaptest.NewLogger(t)
+
+	reader := rand.New(rand.NewSource(1))
+	key, err := rsa.GenerateKey(reader, crypto.RSAKeyBits)
+	a.NoError(err)
+	privateKey := PrivateKey{
+		RSA: key,
+	}
+
+	i := transport.Intermediate
+	client, server := i.Pipe()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	var clientResult ClientExchangeResult
+	var serverResult ServerExchangeResult
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(ctx context.Context) error {
+		r, err := NewExchanger(client, -2).
+			WithLogger(logzap.New(log.Named("client"))).
+			WithRand(reader).
+			WithTempMode(60).
+			Client([]PublicKey{privateKey.Public()}).
+			Run(ctx)
+		clientResult = r
+		return err
+	})
+
+	g.Go(func(ctx context.Context) error {
+		r, err := NewExchanger(server, 2).
+			WithLogger(logzap.New(log.Named("server"))).
+			WithRand(reader).
+			Server(privateKey).
+			Run(ctx)
+		serverResult = r
+		return err
+	})
+
+	a.NoError(g.Wait())
+	a.NotZero(clientResult.ExpiresAt)
+	a.Equal(clientResult.AuthKey, serverResult.Key)
+	a.Equal(clientResult.ServerSalt, serverResult.ServerSalt)
+}
+
+func TestExchangeRejectsWrongNegativeTemporaryMediaDC(t *testing.T) {
+	a := require.New(t)
+	log := zaptest.NewLogger(t)
+
+	reader := rand.New(rand.NewSource(1))
+	key, err := rsa.GenerateKey(reader, crypto.RSAKeyBits)
+	a.NoError(err)
+	privateKey := PrivateKey{
+		RSA: key,
+	}
+
+	i := transport.Intermediate
+	client, server := i.Pipe()
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	var serverErr error
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(ctx context.Context) error {
+		_, _ = NewExchanger(client, -3).
+			WithLogger(logzap.New(log.Named("client"))).
+			WithRand(reader).
+			WithTempMode(60).
+			Client([]PublicKey{privateKey.Public()}).
+			Run(ctx)
+		return nil
+	})
+
+	g.Go(func(ctx context.Context) error {
+		_, serverErr = NewExchanger(server, 2).
+			WithLogger(logzap.New(log.Named("server"))).
+			WithRand(reader).
+			Server(privateKey).
+			Run(ctx)
+		_ = client.Close()
+		_ = server.Close()
+		cancel()
+		return nil
+	})
+
+	a.NoError(g.Wait())
+	var exchangeErr *ServerExchangeError
+	a.ErrorAs(serverErr, &exchangeErr)
+	a.Equal(int32(codec.CodeWrongDC), exchangeErr.Code)
 }
 
 // TestServerUnexpectedEncrypted verifies that the server flow surfaces a frame

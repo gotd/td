@@ -203,7 +203,8 @@ SendResPQ:
 			}
 		case *mt.PQInnerDataTempDC:
 			// PFS flow: same DC validation, plus ExpiresIn is consumed by TG side.
-			if innerDataDC.DC != s.dc {
+			// Telegram clients can use negative dc_id for temporary media auth keys.
+			if !sameOrTemporaryMediaDC(innerDataDC.DC, s.dc) {
 				err := errors.Errorf(
 					"wrong DC ID, want %d, got %d",
 					s.dc, innerDataDC.DC,
@@ -306,4 +307,8 @@ SendResPQ:
 		Key:        authKey.WithID(),
 		ServerSalt: serverSalt,
 	}, nil
+}
+
+func sameOrTemporaryMediaDC(got, want int) bool {
+	return got == want || got == -want
 }
