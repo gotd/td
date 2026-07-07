@@ -9,7 +9,7 @@ require (
 	github.com/go-faster/errors v0.7.1
 	github.com/gotd/contrib v0.21.0
 	github.com/gotd/log/logzap v0.1.1
-	github.com/gotd/td v0.122.0
+	github.com/gotd/td v0.160.0
 	github.com/joho/godotenv v1.5.1
 	github.com/mdp/qrterminal/v3 v3.2.1
 	github.com/pion/rtp v1.10.3
