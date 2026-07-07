@@ -61,7 +61,7 @@ type Conn struct {
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
 	clock clock.Clock // immutable
-	log   log.Helper // immutable
+	log   log.Helper  // immutable
 
 	// Handler passed by client.
 	handler Handler // immutable
@@ -179,13 +179,32 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 }
 
 func (c *Conn) waitSession(ctx context.Context) error {
+	// Fast path: config already available, do not log.
+	select {
+	case <-c.gotConfig.Ready():
+		return nil
+	default:
+	}
+
+	// Connection not ready yet. A request blocked here while updates keep
+	// flowing means the connection's read loop is alive but init
+	// (initConnection/help.getConfig) has not completed — the exact shape of
+	// "can receive updates but cannot issue requests".
+	start := c.clock.Now()
+	c.log.Debug(ctx, "Invoke waiting for connection to become ready")
 	select {
 	// Connection is considered ready only after mode-specific init succeeded.
 	case <-c.gotConfig.Ready():
+		c.log.Debug(ctx, "Connection became ready", log.Duration("waited", c.clock.Now().Sub(start)))
 		return nil
 	case <-c.dead.Ready():
+		c.log.Debug(ctx, "Connection died while waiting for readiness", log.Duration("waited", c.clock.Now().Sub(start)))
 		return pool.ErrConnDead
 	case <-ctx.Done():
+		c.log.Debug(ctx, "Context done while waiting for connection readiness",
+			log.Duration("waited", c.clock.Now().Sub(start)),
+			log.Error(ctx.Err()),
+		)
 		return ctx.Err()
 	}
 }
@@ -383,6 +402,7 @@ func (c *Conn) init(ctx context.Context) error {
 	c.cfg = cfg
 	c.mux.Unlock()
 
+	c.log.Debug(ctx, "Connection initialized, ready to invoke", log.Int("this_dc", cfg.ThisDC))
 	c.gotConfig.Signal()
 	err := c.flushPendingSession()
 	return err
