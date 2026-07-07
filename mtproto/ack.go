@@ -16,12 +16,18 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 	send := func() {
 		defer func() { buf = buf[:0] }()
 
+		start := c.clock.Now()
 		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIDs: buf}); err != nil {
-			c.log.Error(ctx, "Failed to ACK", log.Error(err))
+			// A failing ack write is a strong signal that the outgoing half of
+			// the connection is broken while the read loop still works.
+			c.log.Error(ctx, "Failed to ACK", log.Error(err), log.Any("msg_ids", buf))
 			return
 		}
 
-		logger.Debug(ctx, "Ack", log.Any("msg_ids", buf))
+		logger.Debug(ctx, "Ack",
+			log.Any("msg_ids", buf),
+			log.Duration("elapsed", c.clock.Now().Sub(start)),
+		)
 	}
 
 	ticker := c.clock.Ticker(c.ackInterval)

@@ -114,6 +114,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	return backoff.RetryNotify(func() error {
 		if err := c.runUntilRestart(ctx); err != nil {
 			if c.isPermanentError(err) {
+				c.log.Warn(ctx, "Permanent connection error, will not reconnect", log.Error(err))
 				return backoff.Permanent(err)
 			}
 			return err
@@ -129,6 +130,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 		c.handlePrimaryConnDead(err)
 		c.replaceConn(c.createPrimaryConn(nil))
 		c.connMux.Unlock()
+		c.log.Debug(context.Background(), "Primary connection replaced after restart")
 	})
 }
 

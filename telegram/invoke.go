@@ -90,6 +90,7 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 // invokeConn waits until the reconnection loop replaces the connection and
 // retries the request on it, see https://github.com/gotd/td/issues/1030.
 func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	attempt := 0
 	for {
 		c.connMux.Lock()
 		conn := c.conn
@@ -105,8 +106,10 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 		if c.ctx != nil {
 			clientDone = c.ctx.Done()
 		}
+		attempt++
 		c.log.Debug(ctx, "Primary connection is dead, waiting for new connection to retry",
 			log.Error(err),
+			log.Int("attempt", attempt),
 		)
 		select {
 		case <-ctx.Done():
@@ -115,6 +118,7 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 			// Client is closed, no reconnection will happen.
 			return errors.Wrap(c.ctx.Err(), "client closed")
 		case <-connChanged:
+			c.log.Debug(ctx, "Primary connection replaced, retrying request", log.Int("attempt", attempt))
 		}
 	}
 }

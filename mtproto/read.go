@@ -90,10 +90,20 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 
 	needAck := (msg.SeqNo & 0x01) != 0
 	if needAck {
+		// Enqueue message id for acknowledge. This can block if the ack loop
+		// is stuck (e.g. writing acks over a half-open connection), which would
+		// stall message consumption. Trace slow enqueues to surface it.
+		start := c.clock.Now()
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
 		case c.ackSendChan <- msg.MessageID:
+			if waited := c.clock.Now().Sub(start); waited > slowWriteThreshold {
+				c.log.Warn(ctx, "Slow ack enqueue (ack loop may be stalled)",
+					log.Int64("msg_id", msg.MessageID),
+					log.Duration("waited", waited),
+				)
+			}
 		}
 	}
 
