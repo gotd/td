@@ -170,20 +170,20 @@ func (c *MessagesChatInviteJoinResultOk) GetUpdates() (value UpdatesClass) {
 	return c.Updates
 }
 
-// MessagesChatInviteJoinResultWebView represents TL type `messages.chatInviteJoinResultWebView#2f51c337`.
+// MessagesChatInviteJoinResultWebView represents TL type `messages.chatInviteJoinResultWebView#61ca29d3`.
 //
 // See https://core.telegram.org/constructor/messages.chatInviteJoinResultWebView for reference.
 type MessagesChatInviteJoinResultWebView struct {
 	// BotID field of MessagesChatInviteJoinResultWebView.
 	BotID int64
-	// Webview field of MessagesChatInviteJoinResultWebView.
-	Webview WebViewResultURL
+	// QueryID field of MessagesChatInviteJoinResultWebView.
+	QueryID int64
 	// Users field of MessagesChatInviteJoinResultWebView.
 	Users []UserClass
 }
 
 // MessagesChatInviteJoinResultWebViewTypeID is TL type id of MessagesChatInviteJoinResultWebView.
-const MessagesChatInviteJoinResultWebViewTypeID = 0x2f51c337
+const MessagesChatInviteJoinResultWebViewTypeID = 0x61ca29d3
 
 // construct implements constructor of MessagesChatInviteJoinResultClass.
 func (c MessagesChatInviteJoinResultWebView) construct() MessagesChatInviteJoinResultClass { return &c }
@@ -205,7 +205,7 @@ func (c *MessagesChatInviteJoinResultWebView) Zero() bool {
 	if !(c.BotID == 0) {
 		return false
 	}
-	if !(c.Webview.Zero()) {
+	if !(c.QueryID == 0) {
 		return false
 	}
 	if !(c.Users == nil) {
@@ -227,11 +227,11 @@ func (c *MessagesChatInviteJoinResultWebView) String() string {
 // FillFrom fills MessagesChatInviteJoinResultWebView from given interface.
 func (c *MessagesChatInviteJoinResultWebView) FillFrom(from interface {
 	GetBotID() (value int64)
-	GetWebview() (value WebViewResultURL)
+	GetQueryID() (value int64)
 	GetUsers() (value []UserClass)
 }) {
 	c.BotID = from.GetBotID()
-	c.Webview = from.GetWebview()
+	c.QueryID = from.GetQueryID()
 	c.Users = from.GetUsers()
 }
 
@@ -263,8 +263,8 @@ func (c *MessagesChatInviteJoinResultWebView) TypeInfo() tdp.Type {
 			SchemaName: "bot_id",
 		},
 		{
-			Name:       "Webview",
-			SchemaName: "webview",
+			Name:       "QueryID",
+			SchemaName: "query_id",
 		},
 		{
 			Name:       "Users",
@@ -277,7 +277,7 @@ func (c *MessagesChatInviteJoinResultWebView) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *MessagesChatInviteJoinResultWebView) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatInviteJoinResultWebView#2f51c337 as nil")
+		return fmt.Errorf("can't encode messages.chatInviteJoinResultWebView#61ca29d3 as nil")
 	}
 	b.PutID(MessagesChatInviteJoinResultWebViewTypeID)
 	return c.EncodeBare(b)
@@ -286,19 +286,17 @@ func (c *MessagesChatInviteJoinResultWebView) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesChatInviteJoinResultWebView) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.chatInviteJoinResultWebView#2f51c337 as nil")
+		return fmt.Errorf("can't encode messages.chatInviteJoinResultWebView#61ca29d3 as nil")
 	}
 	b.PutLong(c.BotID)
-	if err := c.Webview.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.chatInviteJoinResultWebView#2f51c337: field webview: %w", err)
-	}
+	b.PutLong(c.QueryID)
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.chatInviteJoinResultWebView#2f51c337: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.chatInviteJoinResultWebView#61ca29d3: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.chatInviteJoinResultWebView#2f51c337: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.chatInviteJoinResultWebView#61ca29d3: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -307,10 +305,10 @@ func (c *MessagesChatInviteJoinResultWebView) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *MessagesChatInviteJoinResultWebView) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatInviteJoinResultWebView#2f51c337 to nil")
+		return fmt.Errorf("can't decode messages.chatInviteJoinResultWebView#61ca29d3 to nil")
 	}
 	if err := b.ConsumeID(MessagesChatInviteJoinResultWebViewTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#2f51c337: %w", err)
+		return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#61ca29d3: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -318,24 +316,26 @@ func (c *MessagesChatInviteJoinResultWebView) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesChatInviteJoinResultWebView) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.chatInviteJoinResultWebView#2f51c337 to nil")
+		return fmt.Errorf("can't decode messages.chatInviteJoinResultWebView#61ca29d3 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#2f51c337: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#61ca29d3: field bot_id: %w", err)
 		}
 		c.BotID = value
 	}
 	{
-		if err := c.Webview.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#2f51c337: field webview: %w", err)
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#61ca29d3: field query_id: %w", err)
 		}
+		c.QueryID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#2f51c337: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#61ca29d3: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -344,7 +344,7 @@ func (c *MessagesChatInviteJoinResultWebView) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#2f51c337: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.chatInviteJoinResultWebView#61ca29d3: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -360,12 +360,12 @@ func (c *MessagesChatInviteJoinResultWebView) GetBotID() (value int64) {
 	return c.BotID
 }
 
-// GetWebview returns value of Webview field.
-func (c *MessagesChatInviteJoinResultWebView) GetWebview() (value WebViewResultURL) {
+// GetQueryID returns value of QueryID field.
+func (c *MessagesChatInviteJoinResultWebView) GetQueryID() (value int64) {
 	if c == nil {
 		return
 	}
-	return c.Webview
+	return c.QueryID
 }
 
 // GetUsers returns value of Users field.
@@ -400,7 +400,7 @@ const MessagesChatInviteJoinResultClassName = "messages.ChatInviteJoinResult"
 //	}
 //	switch v := g.(type) {
 //	case *tg.MessagesChatInviteJoinResultOk: // messages.chatInviteJoinResultOk#445663a7
-//	case *tg.MessagesChatInviteJoinResultWebView: // messages.chatInviteJoinResultWebView#2f51c337
+//	case *tg.MessagesChatInviteJoinResultWebView: // messages.chatInviteJoinResultWebView#61ca29d3
 //	default: panic(v)
 //	}
 type MessagesChatInviteJoinResultClass interface {
@@ -437,7 +437,7 @@ func DecodeMessagesChatInviteJoinResult(buf *bin.Buffer) (MessagesChatInviteJoin
 		}
 		return &v, nil
 	case MessagesChatInviteJoinResultWebViewTypeID:
-		// Decoding messages.chatInviteJoinResultWebView#2f51c337.
+		// Decoding messages.chatInviteJoinResultWebView#61ca29d3.
 		v := MessagesChatInviteJoinResultWebView{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesChatInviteJoinResultClass: %w", err)

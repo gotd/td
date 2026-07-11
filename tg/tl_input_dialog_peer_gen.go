@@ -312,6 +312,145 @@ func (i *InputDialogPeerFolder) GetFolderID() (value int) {
 	return i.FolderID
 }
 
+// InputDialogPeerCommunity represents TL type `inputDialogPeerCommunity#69ef72c4`.
+//
+// See https://core.telegram.org/constructor/inputDialogPeerCommunity for reference.
+type InputDialogPeerCommunity struct {
+	// Community field of InputDialogPeerCommunity.
+	Community InputChannelClass
+}
+
+// InputDialogPeerCommunityTypeID is TL type id of InputDialogPeerCommunity.
+const InputDialogPeerCommunityTypeID = 0x69ef72c4
+
+// construct implements constructor of InputDialogPeerClass.
+func (i InputDialogPeerCommunity) construct() InputDialogPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDialogPeerCommunity.
+var (
+	_ bin.Encoder     = &InputDialogPeerCommunity{}
+	_ bin.Decoder     = &InputDialogPeerCommunity{}
+	_ bin.BareEncoder = &InputDialogPeerCommunity{}
+	_ bin.BareDecoder = &InputDialogPeerCommunity{}
+
+	_ InputDialogPeerClass = &InputDialogPeerCommunity{}
+)
+
+func (i *InputDialogPeerCommunity) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Community == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputDialogPeerCommunity) String() string {
+	if i == nil {
+		return "InputDialogPeerCommunity(nil)"
+	}
+	type Alias InputDialogPeerCommunity
+	return fmt.Sprintf("InputDialogPeerCommunity%+v", Alias(*i))
+}
+
+// FillFrom fills InputDialogPeerCommunity from given interface.
+func (i *InputDialogPeerCommunity) FillFrom(from interface {
+	GetCommunity() (value InputChannelClass)
+}) {
+	i.Community = from.GetCommunity()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputDialogPeerCommunity) TypeID() uint32 {
+	return InputDialogPeerCommunityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputDialogPeerCommunity) TypeName() string {
+	return "inputDialogPeerCommunity"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputDialogPeerCommunity) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputDialogPeerCommunity",
+		ID:   InputDialogPeerCommunityTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Community",
+			SchemaName: "community",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputDialogPeerCommunity) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDialogPeerCommunity#69ef72c4 as nil")
+	}
+	b.PutID(InputDialogPeerCommunityTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputDialogPeerCommunity) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDialogPeerCommunity#69ef72c4 as nil")
+	}
+	if i.Community == nil {
+		return fmt.Errorf("unable to encode inputDialogPeerCommunity#69ef72c4: field community is nil")
+	}
+	if err := i.Community.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputDialogPeerCommunity#69ef72c4: field community: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputDialogPeerCommunity) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDialogPeerCommunity#69ef72c4 to nil")
+	}
+	if err := b.ConsumeID(InputDialogPeerCommunityTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputDialogPeerCommunity#69ef72c4: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputDialogPeerCommunity) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDialogPeerCommunity#69ef72c4 to nil")
+	}
+	{
+		value, err := DecodeInputChannel(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputDialogPeerCommunity#69ef72c4: field community: %w", err)
+		}
+		i.Community = value
+	}
+	return nil
+}
+
+// GetCommunity returns value of Community field.
+func (i *InputDialogPeerCommunity) GetCommunity() (value InputChannelClass) {
+	if i == nil {
+		return
+	}
+	return i.Community
+}
+
 // InputDialogPeerClassName is schema name of InputDialogPeerClass.
 const InputDialogPeerClassName = "InputDialogPeer"
 
@@ -322,6 +461,7 @@ const InputDialogPeerClassName = "InputDialogPeer"
 // Constructors:
 //   - [InputDialogPeer]
 //   - [InputDialogPeerFolder]
+//   - [InputDialogPeerCommunity]
 //
 // Example:
 //
@@ -332,6 +472,7 @@ const InputDialogPeerClassName = "InputDialogPeer"
 //	switch v := g.(type) {
 //	case *tg.InputDialogPeer: // inputDialogPeer#fcaafeb7
 //	case *tg.InputDialogPeerFolder: // inputDialogPeerFolder#64600527
+//	case *tg.InputDialogPeerCommunity: // inputDialogPeerCommunity#69ef72c4
 //	default: panic(v)
 //	}
 type InputDialogPeerClass interface {
@@ -370,6 +511,13 @@ func DecodeInputDialogPeer(buf *bin.Buffer) (InputDialogPeerClass, error) {
 	case InputDialogPeerFolderTypeID:
 		// Decoding inputDialogPeerFolder#64600527.
 		v := InputDialogPeerFolder{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputDialogPeerClass: %w", err)
+		}
+		return &v, nil
+	case InputDialogPeerCommunityTypeID:
+		// Decoding inputDialogPeerCommunity#69ef72c4.
+		v := InputDialogPeerCommunity{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputDialogPeerClass: %w", err)
 		}

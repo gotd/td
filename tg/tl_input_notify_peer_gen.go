@@ -654,6 +654,145 @@ func (i *InputNotifyForumTopic) GetTopMsgID() (value int) {
 	return i.TopMsgID
 }
 
+// InputNotifyCommunity represents TL type `inputNotifyCommunity#27bb1adc`.
+//
+// See https://core.telegram.org/constructor/inputNotifyCommunity for reference.
+type InputNotifyCommunity struct {
+	// Community field of InputNotifyCommunity.
+	Community InputChannelClass
+}
+
+// InputNotifyCommunityTypeID is TL type id of InputNotifyCommunity.
+const InputNotifyCommunityTypeID = 0x27bb1adc
+
+// construct implements constructor of InputNotifyPeerClass.
+func (i InputNotifyCommunity) construct() InputNotifyPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputNotifyCommunity.
+var (
+	_ bin.Encoder     = &InputNotifyCommunity{}
+	_ bin.Decoder     = &InputNotifyCommunity{}
+	_ bin.BareEncoder = &InputNotifyCommunity{}
+	_ bin.BareDecoder = &InputNotifyCommunity{}
+
+	_ InputNotifyPeerClass = &InputNotifyCommunity{}
+)
+
+func (i *InputNotifyCommunity) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Community == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputNotifyCommunity) String() string {
+	if i == nil {
+		return "InputNotifyCommunity(nil)"
+	}
+	type Alias InputNotifyCommunity
+	return fmt.Sprintf("InputNotifyCommunity%+v", Alias(*i))
+}
+
+// FillFrom fills InputNotifyCommunity from given interface.
+func (i *InputNotifyCommunity) FillFrom(from interface {
+	GetCommunity() (value InputChannelClass)
+}) {
+	i.Community = from.GetCommunity()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputNotifyCommunity) TypeID() uint32 {
+	return InputNotifyCommunityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputNotifyCommunity) TypeName() string {
+	return "inputNotifyCommunity"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputNotifyCommunity) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputNotifyCommunity",
+		ID:   InputNotifyCommunityTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Community",
+			SchemaName: "community",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputNotifyCommunity) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputNotifyCommunity#27bb1adc as nil")
+	}
+	b.PutID(InputNotifyCommunityTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputNotifyCommunity) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputNotifyCommunity#27bb1adc as nil")
+	}
+	if i.Community == nil {
+		return fmt.Errorf("unable to encode inputNotifyCommunity#27bb1adc: field community is nil")
+	}
+	if err := i.Community.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputNotifyCommunity#27bb1adc: field community: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputNotifyCommunity) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputNotifyCommunity#27bb1adc to nil")
+	}
+	if err := b.ConsumeID(InputNotifyCommunityTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputNotifyCommunity#27bb1adc: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputNotifyCommunity) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputNotifyCommunity#27bb1adc to nil")
+	}
+	{
+		value, err := DecodeInputChannel(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputNotifyCommunity#27bb1adc: field community: %w", err)
+		}
+		i.Community = value
+	}
+	return nil
+}
+
+// GetCommunity returns value of Community field.
+func (i *InputNotifyCommunity) GetCommunity() (value InputChannelClass) {
+	if i == nil {
+		return
+	}
+	return i.Community
+}
+
 // InputNotifyPeerClassName is schema name of InputNotifyPeerClass.
 const InputNotifyPeerClassName = "InputNotifyPeer"
 
@@ -667,6 +806,7 @@ const InputNotifyPeerClassName = "InputNotifyPeer"
 //   - [InputNotifyChats]
 //   - [InputNotifyBroadcasts]
 //   - [InputNotifyForumTopic]
+//   - [InputNotifyCommunity]
 //
 // Example:
 //
@@ -680,6 +820,7 @@ const InputNotifyPeerClassName = "InputNotifyPeer"
 //	case *tg.InputNotifyChats: // inputNotifyChats#4a95e84e
 //	case *tg.InputNotifyBroadcasts: // inputNotifyBroadcasts#b1db7c7e
 //	case *tg.InputNotifyForumTopic: // inputNotifyForumTopic#5c467992
+//	case *tg.InputNotifyCommunity: // inputNotifyCommunity#27bb1adc
 //	default: panic(v)
 //	}
 type InputNotifyPeerClass interface {
@@ -739,6 +880,13 @@ func DecodeInputNotifyPeer(buf *bin.Buffer) (InputNotifyPeerClass, error) {
 	case InputNotifyForumTopicTypeID:
 		// Decoding inputNotifyForumTopic#5c467992.
 		v := InputNotifyForumTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputNotifyPeerClass: %w", err)
+		}
+		return &v, nil
+	case InputNotifyCommunityTypeID:
+		// Decoding inputNotifyCommunity#27bb1adc.
+		v := InputNotifyCommunity{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputNotifyPeerClass: %w", err)
 		}

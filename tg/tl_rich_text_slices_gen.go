@@ -480,6 +480,19 @@ func (s RichTextClassArray) AsTextDate() (to TextDateArray) {
 	return to
 }
 
+// AsTextDiff returns copy with only TextDiff constructors.
+func (s RichTextClassArray) AsTextDiff() (to TextDiffArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextDiff)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // TextPlainArray is adapter for slice of TextPlain.
 type TextPlainArray []TextPlain
 
@@ -2788,4 +2801,86 @@ func (s TextDateArray) SortStableByDate() TextDateArray {
 	return s.SortStable(func(a, b TextDate) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// TextDiffArray is adapter for slice of TextDiff.
+type TextDiffArray []TextDiff
+
+// Sort sorts slice of TextDiff.
+func (s TextDiffArray) Sort(less func(a, b TextDiff) bool) TextDiffArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextDiff.
+func (s TextDiffArray) SortStable(less func(a, b TextDiff) bool) TextDiffArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextDiff.
+func (s TextDiffArray) Retain(keep func(x TextDiff) bool) TextDiffArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextDiffArray) First() (v TextDiff, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextDiffArray) Last() (v TextDiff, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextDiffArray) PopFirst() (v TextDiff, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextDiff
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextDiffArray) Pop() (v TextDiff, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

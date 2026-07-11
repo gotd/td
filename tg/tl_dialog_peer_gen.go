@@ -312,6 +312,140 @@ func (d *DialogPeerFolder) GetFolderID() (value int) {
 	return d.FolderID
 }
 
+// DialogPeerCommunity represents TL type `dialogPeerCommunity#2f65c8e4`.
+//
+// See https://core.telegram.org/constructor/dialogPeerCommunity for reference.
+type DialogPeerCommunity struct {
+	// CommunityID field of DialogPeerCommunity.
+	CommunityID int64
+}
+
+// DialogPeerCommunityTypeID is TL type id of DialogPeerCommunity.
+const DialogPeerCommunityTypeID = 0x2f65c8e4
+
+// construct implements constructor of DialogPeerClass.
+func (d DialogPeerCommunity) construct() DialogPeerClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogPeerCommunity.
+var (
+	_ bin.Encoder     = &DialogPeerCommunity{}
+	_ bin.Decoder     = &DialogPeerCommunity{}
+	_ bin.BareEncoder = &DialogPeerCommunity{}
+	_ bin.BareDecoder = &DialogPeerCommunity{}
+
+	_ DialogPeerClass = &DialogPeerCommunity{}
+)
+
+func (d *DialogPeerCommunity) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.CommunityID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (d *DialogPeerCommunity) String() string {
+	if d == nil {
+		return "DialogPeerCommunity(nil)"
+	}
+	type Alias DialogPeerCommunity
+	return fmt.Sprintf("DialogPeerCommunity%+v", Alias(*d))
+}
+
+// FillFrom fills DialogPeerCommunity from given interface.
+func (d *DialogPeerCommunity) FillFrom(from interface {
+	GetCommunityID() (value int64)
+}) {
+	d.CommunityID = from.GetCommunityID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*DialogPeerCommunity) TypeID() uint32 {
+	return DialogPeerCommunityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*DialogPeerCommunity) TypeName() string {
+	return "dialogPeerCommunity"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogPeerCommunity) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogPeerCommunity",
+		ID:   DialogPeerCommunityTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CommunityID",
+			SchemaName: "community_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (d *DialogPeerCommunity) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogPeerCommunity#2f65c8e4 as nil")
+	}
+	b.PutID(DialogPeerCommunityTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogPeerCommunity) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogPeerCommunity#2f65c8e4 as nil")
+	}
+	b.PutLong(d.CommunityID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (d *DialogPeerCommunity) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogPeerCommunity#2f65c8e4 to nil")
+	}
+	if err := b.ConsumeID(DialogPeerCommunityTypeID); err != nil {
+		return fmt.Errorf("unable to decode dialogPeerCommunity#2f65c8e4: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogPeerCommunity) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogPeerCommunity#2f65c8e4 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogPeerCommunity#2f65c8e4: field community_id: %w", err)
+		}
+		d.CommunityID = value
+	}
+	return nil
+}
+
+// GetCommunityID returns value of CommunityID field.
+func (d *DialogPeerCommunity) GetCommunityID() (value int64) {
+	if d == nil {
+		return
+	}
+	return d.CommunityID
+}
+
 // DialogPeerClassName is schema name of DialogPeerClass.
 const DialogPeerClassName = "DialogPeer"
 
@@ -322,6 +456,7 @@ const DialogPeerClassName = "DialogPeer"
 // Constructors:
 //   - [DialogPeer]
 //   - [DialogPeerFolder]
+//   - [DialogPeerCommunity]
 //
 // Example:
 //
@@ -332,6 +467,7 @@ const DialogPeerClassName = "DialogPeer"
 //	switch v := g.(type) {
 //	case *tg.DialogPeer: // dialogPeer#e56dbf05
 //	case *tg.DialogPeerFolder: // dialogPeerFolder#514519e2
+//	case *tg.DialogPeerCommunity: // dialogPeerCommunity#2f65c8e4
 //	default: panic(v)
 //	}
 type DialogPeerClass interface {
@@ -378,6 +514,13 @@ func DecodeDialogPeer(buf *bin.Buffer) (DialogPeerClass, error) {
 	case DialogPeerFolderTypeID:
 		// Decoding dialogPeerFolder#514519e2.
 		v := DialogPeerFolder{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DialogPeerClass: %w", err)
+		}
+		return &v, nil
+	case DialogPeerCommunityTypeID:
+		// Decoding dialogPeerCommunity#2f65c8e4.
+		v := DialogPeerCommunity{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DialogPeerClass: %w", err)
 		}

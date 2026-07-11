@@ -142,6 +142,19 @@ func (s InputNotifyPeerClassArray) AsInputNotifyForumTopic() (to InputNotifyForu
 	return to
 }
 
+// AsInputNotifyCommunity returns copy with only InputNotifyCommunity constructors.
+func (s InputNotifyPeerClassArray) AsInputNotifyCommunity() (to InputNotifyCommunityArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputNotifyCommunity)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputNotifyPeerArray is adapter for slice of InputNotifyPeer.
 type InputNotifyPeerArray []InputNotifyPeer
 
@@ -294,6 +307,88 @@ func (s *InputNotifyForumTopicArray) PopFirst() (v InputNotifyForumTopic, ok boo
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputNotifyForumTopicArray) Pop() (v InputNotifyForumTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputNotifyCommunityArray is adapter for slice of InputNotifyCommunity.
+type InputNotifyCommunityArray []InputNotifyCommunity
+
+// Sort sorts slice of InputNotifyCommunity.
+func (s InputNotifyCommunityArray) Sort(less func(a, b InputNotifyCommunity) bool) InputNotifyCommunityArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputNotifyCommunity.
+func (s InputNotifyCommunityArray) SortStable(less func(a, b InputNotifyCommunity) bool) InputNotifyCommunityArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputNotifyCommunity.
+func (s InputNotifyCommunityArray) Retain(keep func(x InputNotifyCommunity) bool) InputNotifyCommunityArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputNotifyCommunityArray) First() (v InputNotifyCommunity, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputNotifyCommunityArray) Last() (v InputNotifyCommunity, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputNotifyCommunityArray) PopFirst() (v InputNotifyCommunity, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputNotifyCommunity
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputNotifyCommunityArray) Pop() (v InputNotifyCommunity, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

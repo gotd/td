@@ -155,6 +155,19 @@ func (s InputAiComposeToneClassArray) AsInputAiComposeToneSlug() (to InputAiComp
 	return to
 }
 
+// AsInputAiComposeToneSingleUse returns copy with only InputAiComposeToneSingleUse constructors.
+func (s InputAiComposeToneClassArray) AsInputAiComposeToneSingleUse() (to InputAiComposeToneSingleUseArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputAiComposeToneSingleUse)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputAiComposeToneDefaultArray is adapter for slice of InputAiComposeToneDefault.
 type InputAiComposeToneDefaultArray []InputAiComposeToneDefault
 
@@ -417,6 +430,88 @@ func (s *InputAiComposeToneSlugArray) PopFirst() (v InputAiComposeToneSlug, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputAiComposeToneSlugArray) Pop() (v InputAiComposeToneSlug, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputAiComposeToneSingleUseArray is adapter for slice of InputAiComposeToneSingleUse.
+type InputAiComposeToneSingleUseArray []InputAiComposeToneSingleUse
+
+// Sort sorts slice of InputAiComposeToneSingleUse.
+func (s InputAiComposeToneSingleUseArray) Sort(less func(a, b InputAiComposeToneSingleUse) bool) InputAiComposeToneSingleUseArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputAiComposeToneSingleUse.
+func (s InputAiComposeToneSingleUseArray) SortStable(less func(a, b InputAiComposeToneSingleUse) bool) InputAiComposeToneSingleUseArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputAiComposeToneSingleUse.
+func (s InputAiComposeToneSingleUseArray) Retain(keep func(x InputAiComposeToneSingleUse) bool) InputAiComposeToneSingleUseArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputAiComposeToneSingleUseArray) First() (v InputAiComposeToneSingleUse, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputAiComposeToneSingleUseArray) Last() (v InputAiComposeToneSingleUse, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputAiComposeToneSingleUseArray) PopFirst() (v InputAiComposeToneSingleUse, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputAiComposeToneSingleUse
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputAiComposeToneSingleUseArray) Pop() (v InputAiComposeToneSingleUse, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

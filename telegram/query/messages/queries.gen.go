@@ -1490,6 +1490,12 @@ func (b *SearchGlobalQueryBuilder) BroadcastsOnly(paramBroadcastsOnly bool) *Sea
 	return b
 }
 
+// Community sets Community field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Community(paramCommunity tg.InputChannelClass) *SearchGlobalQueryBuilder {
+	b.req.Community = paramCommunity
+	return b
+}
+
 // Filter sets Filter field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) Filter(paramFilter tg.MessagesFilterClass) *SearchGlobalQueryBuilder {
 	b.req.Filter = paramFilter
@@ -1643,6 +1649,7 @@ func (b *SearchGlobalQueryBuilder) Query(ctx context.Context, req Request) (tg.M
 	}
 
 	r.BroadcastsOnly = b.req.BroadcastsOnly
+	r.Community = b.req.Community
 	r.Filter = b.req.Filter
 	r.FolderID = b.req.FolderID
 	r.GroupsOnly = b.req.GroupsOnly

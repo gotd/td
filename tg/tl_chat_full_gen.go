@@ -4221,6 +4221,403 @@ func (c *ChannelFull) GetGuardBotID() (value int64, ok bool) {
 	return c.GuardBotID, true
 }
 
+// CommunityFull represents TL type `communityFull#cbb7a507`.
+//
+// See https://core.telegram.org/constructor/communityFull for reference.
+type CommunityFull struct {
+	// Flags field of CommunityFull.
+	Flags bin.Fields
+	// ID field of CommunityFull.
+	ID int64
+	// About field of CommunityFull.
+	About string
+	// ChatPhoto field of CommunityFull.
+	ChatPhoto PhotoClass
+	// LinkedPeers field of CommunityFull.
+	LinkedPeers []CommunityPeer
+	// AdminsCount field of CommunityFull.
+	//
+	// Use SetAdminsCount and GetAdminsCount helpers.
+	AdminsCount int
+	// KickedCount field of CommunityFull.
+	//
+	// Use SetKickedCount and GetKickedCount helpers.
+	KickedCount int
+	// PeerLinkRequestsPending field of CommunityFull.
+	//
+	// Use SetPeerLinkRequestsPending and GetPeerLinkRequestsPending helpers.
+	PeerLinkRequestsPending int
+}
+
+// CommunityFullTypeID is TL type id of CommunityFull.
+const CommunityFullTypeID = 0xcbb7a507
+
+// construct implements constructor of ChatFullClass.
+func (c CommunityFull) construct() ChatFullClass { return &c }
+
+// Ensuring interfaces in compile-time for CommunityFull.
+var (
+	_ bin.Encoder     = &CommunityFull{}
+	_ bin.Decoder     = &CommunityFull{}
+	_ bin.BareEncoder = &CommunityFull{}
+	_ bin.BareDecoder = &CommunityFull{}
+
+	_ ChatFullClass = &CommunityFull{}
+)
+
+func (c *CommunityFull) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.About == "") {
+		return false
+	}
+	if !(c.ChatPhoto == nil) {
+		return false
+	}
+	if !(c.LinkedPeers == nil) {
+		return false
+	}
+	if !(c.AdminsCount == 0) {
+		return false
+	}
+	if !(c.KickedCount == 0) {
+		return false
+	}
+	if !(c.PeerLinkRequestsPending == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *CommunityFull) String() string {
+	if c == nil {
+		return "CommunityFull(nil)"
+	}
+	type Alias CommunityFull
+	return fmt.Sprintf("CommunityFull%+v", Alias(*c))
+}
+
+// FillFrom fills CommunityFull from given interface.
+func (c *CommunityFull) FillFrom(from interface {
+	GetID() (value int64)
+	GetAbout() (value string)
+	GetChatPhoto() (value PhotoClass)
+	GetLinkedPeers() (value []CommunityPeer)
+	GetAdminsCount() (value int, ok bool)
+	GetKickedCount() (value int, ok bool)
+	GetPeerLinkRequestsPending() (value int, ok bool)
+}) {
+	c.ID = from.GetID()
+	c.About = from.GetAbout()
+	c.ChatPhoto = from.GetChatPhoto()
+	c.LinkedPeers = from.GetLinkedPeers()
+	if val, ok := from.GetAdminsCount(); ok {
+		c.AdminsCount = val
+	}
+
+	if val, ok := from.GetKickedCount(); ok {
+		c.KickedCount = val
+	}
+
+	if val, ok := from.GetPeerLinkRequestsPending(); ok {
+		c.PeerLinkRequestsPending = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*CommunityFull) TypeID() uint32 {
+	return CommunityFullTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*CommunityFull) TypeName() string {
+	return "communityFull"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CommunityFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "communityFull",
+		ID:   CommunityFullTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "ChatPhoto",
+			SchemaName: "chat_photo",
+		},
+		{
+			Name:       "LinkedPeers",
+			SchemaName: "linked_peers",
+		},
+		{
+			Name:       "AdminsCount",
+			SchemaName: "admins_count",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "KickedCount",
+			SchemaName: "kicked_count",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "PeerLinkRequestsPending",
+			SchemaName: "peer_link_requests_pending",
+			Null:       !c.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *CommunityFull) SetFlags() {
+	if !(c.AdminsCount == 0) {
+		c.Flags.Set(1)
+	}
+	if !(c.KickedCount == 0) {
+		c.Flags.Set(2)
+	}
+	if !(c.PeerLinkRequestsPending == 0) {
+		c.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (c *CommunityFull) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode communityFull#cbb7a507 as nil")
+	}
+	b.PutID(CommunityFullTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CommunityFull) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode communityFull#cbb7a507 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode communityFull#cbb7a507: field flags: %w", err)
+	}
+	b.PutLong(c.ID)
+	b.PutString(c.About)
+	if c.ChatPhoto == nil {
+		return fmt.Errorf("unable to encode communityFull#cbb7a507: field chat_photo is nil")
+	}
+	if err := c.ChatPhoto.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode communityFull#cbb7a507: field chat_photo: %w", err)
+	}
+	b.PutVectorHeader(len(c.LinkedPeers))
+	for idx, v := range c.LinkedPeers {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode communityFull#cbb7a507: field linked_peers element with index %d: %w", idx, err)
+		}
+	}
+	if c.Flags.Has(1) {
+		b.PutInt(c.AdminsCount)
+	}
+	if c.Flags.Has(2) {
+		b.PutInt(c.KickedCount)
+	}
+	if c.Flags.Has(0) {
+		b.PutInt(c.PeerLinkRequestsPending)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *CommunityFull) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode communityFull#cbb7a507 to nil")
+	}
+	if err := b.ConsumeID(CommunityFullTypeID); err != nil {
+		return fmt.Errorf("unable to decode communityFull#cbb7a507: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CommunityFull) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode communityFull#cbb7a507 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field id: %w", err)
+		}
+		c.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field about: %w", err)
+		}
+		c.About = value
+	}
+	{
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field chat_photo: %w", err)
+		}
+		c.ChatPhoto = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field linked_peers: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.LinkedPeers = make([]CommunityPeer, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value CommunityPeer
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode communityFull#cbb7a507: field linked_peers: %w", err)
+			}
+			c.LinkedPeers = append(c.LinkedPeers, value)
+		}
+	}
+	if c.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field admins_count: %w", err)
+		}
+		c.AdminsCount = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field kicked_count: %w", err)
+		}
+		c.KickedCount = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode communityFull#cbb7a507: field peer_link_requests_pending: %w", err)
+		}
+		c.PeerLinkRequestsPending = value
+	}
+	return nil
+}
+
+// GetID returns value of ID field.
+func (c *CommunityFull) GetID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.ID
+}
+
+// GetAbout returns value of About field.
+func (c *CommunityFull) GetAbout() (value string) {
+	if c == nil {
+		return
+	}
+	return c.About
+}
+
+// GetChatPhoto returns value of ChatPhoto field.
+func (c *CommunityFull) GetChatPhoto() (value PhotoClass) {
+	if c == nil {
+		return
+	}
+	return c.ChatPhoto
+}
+
+// GetLinkedPeers returns value of LinkedPeers field.
+func (c *CommunityFull) GetLinkedPeers() (value []CommunityPeer) {
+	if c == nil {
+		return
+	}
+	return c.LinkedPeers
+}
+
+// SetAdminsCount sets value of AdminsCount conditional field.
+func (c *CommunityFull) SetAdminsCount(value int) {
+	c.Flags.Set(1)
+	c.AdminsCount = value
+}
+
+// GetAdminsCount returns value of AdminsCount conditional field and
+// boolean which is true if field was set.
+func (c *CommunityFull) GetAdminsCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.AdminsCount, true
+}
+
+// SetKickedCount sets value of KickedCount conditional field.
+func (c *CommunityFull) SetKickedCount(value int) {
+	c.Flags.Set(2)
+	c.KickedCount = value
+}
+
+// GetKickedCount returns value of KickedCount conditional field and
+// boolean which is true if field was set.
+func (c *CommunityFull) GetKickedCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(2) {
+		return value, false
+	}
+	return c.KickedCount, true
+}
+
+// SetPeerLinkRequestsPending sets value of PeerLinkRequestsPending conditional field.
+func (c *CommunityFull) SetPeerLinkRequestsPending(value int) {
+	c.Flags.Set(0)
+	c.PeerLinkRequestsPending = value
+}
+
+// GetPeerLinkRequestsPending returns value of PeerLinkRequestsPending conditional field and
+// boolean which is true if field was set.
+func (c *CommunityFull) GetPeerLinkRequestsPending() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.PeerLinkRequestsPending, true
+}
+
 // ChatFullClassName is schema name of ChatFullClass.
 const ChatFullClassName = "ChatFull"
 
@@ -4231,6 +4628,7 @@ const ChatFullClassName = "ChatFull"
 // Constructors:
 //   - [ChatFull]
 //   - [ChannelFull]
+//   - [CommunityFull]
 //
 // Example:
 //
@@ -4241,6 +4639,7 @@ const ChatFullClassName = "ChatFull"
 //	switch v := g.(type) {
 //	case *tg.ChatFull: // chatFull#2633421b
 //	case *tg.ChannelFull: // channelFull#a04e8d3a
+//	case *tg.CommunityFull: // communityFull#cbb7a507
 //	default: panic(v)
 //	}
 type ChatFullClass interface {
@@ -4261,81 +4660,11 @@ type ChatFullClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Can we change the username of this chat
-	GetCanSetUsername() (value bool)
-
-	// Whether scheduled messages¹ are available
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/scheduled-messages
-	GetHasScheduled() (value bool)
-
-	// Whether the real-time chat translation popup¹ should be hidden.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/translation
-	GetTranslationsDisabled() (value bool)
-
 	// ID of the chat
 	GetID() (value int64)
 
 	// About string for this chat
 	GetAbout() (value string)
-
-	// Notification settings
-	GetNotifySettings() (value PeerNotifySettings)
-
-	// Chat invite
-	GetExportedInvite() (value ExportedChatInviteClass, ok bool)
-
-	// Message ID of the last pinned message¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/pin
-	GetPinnedMsgID() (value int, ok bool)
-
-	// Peer folder ID, for more info click here¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/folders#peer-folders
-	GetFolderID() (value int, ok bool)
-
-	// Group call information
-	GetCall() (value InputGroupCallClass, ok bool)
-
-	// Time-To-Live of messages sent by the current user to this chat
-	GetTTLPeriod() (value int, ok bool)
-
-	// When using phone.getGroupCallJoinAs¹ to get a list of peers that can be used to join
-	// a group call, this field indicates the peer that should be selected by default.
-	//
-	// Links:
-	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
-	GetGroupcallDefaultJoinAs() (value PeerClass, ok bool)
-
-	// Emoji representing a specific chat theme
-	GetThemeEmoticon() (value string, ok bool)
-
-	// Pending join requests »¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/invites#join-requests
-	GetRequestsPending() (value int, ok bool)
-
-	// IDs of users who requested to join recently
-	GetRecentRequesters() (value []int64, ok bool)
-	// Allowed message reactions »¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/reactions
-	GetAvailableReactions() (value ChatReactionsClass, ok bool)
-
-	// This flag may be used to impose a custom limit of unique reactions (i.e. a
-	// customizable version of appConfig.reactions_uniq_max¹).
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/config#reactions-uniq-max
-	GetReactionsLimit() (value int, ok bool)
 }
 
 // DecodeChatFull implements binary de-serialization for ChatFullClass.
@@ -4355,6 +4684,13 @@ func DecodeChatFull(buf *bin.Buffer) (ChatFullClass, error) {
 	case ChannelFullTypeID:
 		// Decoding channelFull#a04e8d3a.
 		v := ChannelFull{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatFullClass: %w", err)
+		}
+		return &v, nil
+	case CommunityFullTypeID:
+		// Decoding communityFull#cbb7a507.
+		v := CommunityFull{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatFullClass: %w", err)
 		}

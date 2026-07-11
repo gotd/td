@@ -651,6 +651,140 @@ func (n *NotifyForumTopic) GetTopMsgID() (value int) {
 	return n.TopMsgID
 }
 
+// NotifyCommunity represents TL type `notifyCommunity#be376999`.
+//
+// See https://core.telegram.org/constructor/notifyCommunity for reference.
+type NotifyCommunity struct {
+	// CommunityID field of NotifyCommunity.
+	CommunityID int64
+}
+
+// NotifyCommunityTypeID is TL type id of NotifyCommunity.
+const NotifyCommunityTypeID = 0xbe376999
+
+// construct implements constructor of NotifyPeerClass.
+func (n NotifyCommunity) construct() NotifyPeerClass { return &n }
+
+// Ensuring interfaces in compile-time for NotifyCommunity.
+var (
+	_ bin.Encoder     = &NotifyCommunity{}
+	_ bin.Decoder     = &NotifyCommunity{}
+	_ bin.BareEncoder = &NotifyCommunity{}
+	_ bin.BareDecoder = &NotifyCommunity{}
+
+	_ NotifyPeerClass = &NotifyCommunity{}
+)
+
+func (n *NotifyCommunity) Zero() bool {
+	if n == nil {
+		return true
+	}
+	if !(n.CommunityID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (n *NotifyCommunity) String() string {
+	if n == nil {
+		return "NotifyCommunity(nil)"
+	}
+	type Alias NotifyCommunity
+	return fmt.Sprintf("NotifyCommunity%+v", Alias(*n))
+}
+
+// FillFrom fills NotifyCommunity from given interface.
+func (n *NotifyCommunity) FillFrom(from interface {
+	GetCommunityID() (value int64)
+}) {
+	n.CommunityID = from.GetCommunityID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*NotifyCommunity) TypeID() uint32 {
+	return NotifyCommunityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*NotifyCommunity) TypeName() string {
+	return "notifyCommunity"
+}
+
+// TypeInfo returns info about TL type.
+func (n *NotifyCommunity) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "notifyCommunity",
+		ID:   NotifyCommunityTypeID,
+	}
+	if n == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CommunityID",
+			SchemaName: "community_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (n *NotifyCommunity) Encode(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notifyCommunity#be376999 as nil")
+	}
+	b.PutID(NotifyCommunityTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *NotifyCommunity) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notifyCommunity#be376999 as nil")
+	}
+	b.PutLong(n.CommunityID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (n *NotifyCommunity) Decode(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notifyCommunity#be376999 to nil")
+	}
+	if err := b.ConsumeID(NotifyCommunityTypeID); err != nil {
+		return fmt.Errorf("unable to decode notifyCommunity#be376999: %w", err)
+	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *NotifyCommunity) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notifyCommunity#be376999 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode notifyCommunity#be376999: field community_id: %w", err)
+		}
+		n.CommunityID = value
+	}
+	return nil
+}
+
+// GetCommunityID returns value of CommunityID field.
+func (n *NotifyCommunity) GetCommunityID() (value int64) {
+	if n == nil {
+		return
+	}
+	return n.CommunityID
+}
+
 // NotifyPeerClassName is schema name of NotifyPeerClass.
 const NotifyPeerClassName = "NotifyPeer"
 
@@ -664,6 +798,7 @@ const NotifyPeerClassName = "NotifyPeer"
 //   - [NotifyChats]
 //   - [NotifyBroadcasts]
 //   - [NotifyForumTopic]
+//   - [NotifyCommunity]
 //
 // Example:
 //
@@ -677,6 +812,7 @@ const NotifyPeerClassName = "NotifyPeer"
 //	case *tg.NotifyChats: // notifyChats#c007cec3
 //	case *tg.NotifyBroadcasts: // notifyBroadcasts#d612e8ef
 //	case *tg.NotifyForumTopic: // notifyForumTopic#226e6308
+//	case *tg.NotifyCommunity: // notifyCommunity#be376999
 //	default: panic(v)
 //	}
 type NotifyPeerClass interface {
@@ -736,6 +872,13 @@ func DecodeNotifyPeer(buf *bin.Buffer) (NotifyPeerClass, error) {
 	case NotifyForumTopicTypeID:
 		// Decoding notifyForumTopic#226e6308.
 		v := NotifyForumTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
+		}
+		return &v, nil
+	case NotifyCommunityTypeID:
+		// Decoding notifyCommunity#be376999.
+		v := NotifyCommunity{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
 		}

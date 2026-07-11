@@ -132,6 +132,8 @@ type ChatAdminRights struct {
 	ManageDirectMessages bool
 	// ManageRanks field of ChatAdminRights.
 	ManageRanks bool
+	// ManageLinkedPeers field of ChatAdminRights.
+	ManageLinkedPeers bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -203,6 +205,9 @@ func (c *ChatAdminRights) Zero() bool {
 	if !(c.ManageRanks == false) {
 		return false
 	}
+	if !(c.ManageLinkedPeers == false) {
+		return false
+	}
 
 	return true
 }
@@ -235,6 +240,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetDeleteStories() (value bool)
 	GetManageDirectMessages() (value bool)
 	GetManageRanks() (value bool)
+	GetManageLinkedPeers() (value bool)
 }) {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.PostMessages = from.GetPostMessages()
@@ -253,6 +259,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	c.DeleteStories = from.GetDeleteStories()
 	c.ManageDirectMessages = from.GetManageDirectMessages()
 	c.ManageRanks = from.GetManageRanks()
+	c.ManageLinkedPeers = from.GetManageLinkedPeers()
 }
 
 // TypeID returns type id in TL schema.
@@ -363,6 +370,11 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 			SchemaName: "manage_ranks",
 			Null:       !c.Flags.Has(18),
 		},
+		{
+			Name:       "ManageLinkedPeers",
+			SchemaName: "manage_linked_peers",
+			Null:       !c.Flags.Has(19),
+		},
 	}
 	return typ
 }
@@ -419,6 +431,9 @@ func (c *ChatAdminRights) SetFlags() {
 	}
 	if !(c.ManageRanks == false) {
 		c.Flags.Set(18)
+	}
+	if !(c.ManageLinkedPeers == false) {
+		c.Flags.Set(19)
 	}
 }
 
@@ -481,6 +496,7 @@ func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
 	c.DeleteStories = c.Flags.Has(16)
 	c.ManageDirectMessages = c.Flags.Has(17)
 	c.ManageRanks = c.Flags.Has(18)
+	c.ManageLinkedPeers = c.Flags.Has(19)
 	return nil
 }
 
@@ -805,4 +821,23 @@ func (c *ChatAdminRights) GetManageRanks() (value bool) {
 		return
 	}
 	return c.Flags.Has(18)
+}
+
+// SetManageLinkedPeers sets value of ManageLinkedPeers conditional field.
+func (c *ChatAdminRights) SetManageLinkedPeers(value bool) {
+	if value {
+		c.Flags.Set(19)
+		c.ManageLinkedPeers = true
+	} else {
+		c.Flags.Unset(19)
+		c.ManageLinkedPeers = false
+	}
+}
+
+// GetManageLinkedPeers returns value of ManageLinkedPeers conditional field.
+func (c *ChatAdminRights) GetManageLinkedPeers() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(19)
 }

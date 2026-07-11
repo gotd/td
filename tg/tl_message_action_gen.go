@@ -15277,6 +15277,179 @@ func (m *MessageActionManagedBotCreated) GetBotID() (value int64) {
 	return m.BotID
 }
 
+// MessageActionChangeCommunity represents TL type `messageActionChangeCommunity#5d20bae8`.
+//
+// See https://core.telegram.org/constructor/messageActionChangeCommunity for reference.
+type MessageActionChangeCommunity struct {
+	// Flags field of MessageActionChangeCommunity.
+	Flags bin.Fields
+	// CommunityID field of MessageActionChangeCommunity.
+	//
+	// Use SetCommunityID and GetCommunityID helpers.
+	CommunityID int64
+}
+
+// MessageActionChangeCommunityTypeID is TL type id of MessageActionChangeCommunity.
+const MessageActionChangeCommunityTypeID = 0x5d20bae8
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChangeCommunity) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChangeCommunity.
+var (
+	_ bin.Encoder     = &MessageActionChangeCommunity{}
+	_ bin.Decoder     = &MessageActionChangeCommunity{}
+	_ bin.BareEncoder = &MessageActionChangeCommunity{}
+	_ bin.BareDecoder = &MessageActionChangeCommunity{}
+
+	_ MessageActionClass = &MessageActionChangeCommunity{}
+)
+
+func (m *MessageActionChangeCommunity) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.CommunityID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionChangeCommunity) String() string {
+	if m == nil {
+		return "MessageActionChangeCommunity(nil)"
+	}
+	type Alias MessageActionChangeCommunity
+	return fmt.Sprintf("MessageActionChangeCommunity%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionChangeCommunity from given interface.
+func (m *MessageActionChangeCommunity) FillFrom(from interface {
+	GetCommunityID() (value int64, ok bool)
+}) {
+	if val, ok := from.GetCommunityID(); ok {
+		m.CommunityID = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionChangeCommunity) TypeID() uint32 {
+	return MessageActionChangeCommunityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionChangeCommunity) TypeName() string {
+	return "messageActionChangeCommunity"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChangeCommunity) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChangeCommunity",
+		ID:   MessageActionChangeCommunityTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CommunityID",
+			SchemaName: "community_id",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionChangeCommunity) SetFlags() {
+	if !(m.CommunityID == 0) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionChangeCommunity) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionChangeCommunity#5d20bae8 as nil")
+	}
+	b.PutID(MessageActionChangeCommunityTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionChangeCommunity) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionChangeCommunity#5d20bae8 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionChangeCommunity#5d20bae8: field flags: %w", err)
+	}
+	if m.Flags.Has(0) {
+		b.PutLong(m.CommunityID)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionChangeCommunity) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionChangeCommunity#5d20bae8 to nil")
+	}
+	if err := b.ConsumeID(MessageActionChangeCommunityTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionChangeCommunity#5d20bae8: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionChangeCommunity) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionChangeCommunity#5d20bae8 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionChangeCommunity#5d20bae8: field flags: %w", err)
+		}
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionChangeCommunity#5d20bae8: field community_id: %w", err)
+		}
+		m.CommunityID = value
+	}
+	return nil
+}
+
+// SetCommunityID sets value of CommunityID conditional field.
+func (m *MessageActionChangeCommunity) SetCommunityID(value int64) {
+	m.Flags.Set(0)
+	m.CommunityID = value
+}
+
+// GetCommunityID returns value of CommunityID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionChangeCommunity) GetCommunityID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.CommunityID, true
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -15352,6 +15525,7 @@ const MessageActionClassName = "MessageAction"
 //   - [MessageActionPollAppendAnswer]
 //   - [MessageActionPollDeleteAnswer]
 //   - [MessageActionManagedBotCreated]
+//   - [MessageActionChangeCommunity]
 //
 // Example:
 //
@@ -15427,6 +15601,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPollAppendAnswer: // messageActionPollAppendAnswer#9da1cd6c
 //	case *tg.MessageActionPollDeleteAnswer: // messageActionPollDeleteAnswer#399674dc
 //	case *tg.MessageActionManagedBotCreated: // messageActionManagedBotCreated#16605e3e
+//	case *tg.MessageActionChangeCommunity: // messageActionChangeCommunity#5d20bae8
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -15920,6 +16095,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionManagedBotCreatedTypeID:
 		// Decoding messageActionManagedBotCreated#16605e3e.
 		v := MessageActionManagedBotCreated{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionChangeCommunityTypeID:
+		// Decoding messageActionChangeCommunity#5d20bae8.
+		v := MessageActionChangeCommunity{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

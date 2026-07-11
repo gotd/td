@@ -3470,6 +3470,14 @@ func (m *Message) AsInputGroupCallInvite() *InputGroupCallInviteMessage {
 	return value
 }
 
+// AsInputReplyToEphemeral tries to map Message to InputReplyToEphemeralMessage.
+func (m *Message) AsInputReplyToEphemeral() *InputReplyToEphemeralMessage {
+	value := new(InputReplyToEphemeralMessage)
+	value.ID = m.GetID()
+
+	return value
+}
+
 // NotEmptyMessage represents NotEmpty subset of MessageClass.
 type NotEmptyMessage interface {
 	bin.Encoder

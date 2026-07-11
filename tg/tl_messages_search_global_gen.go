@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSearchGlobalRequest represents TL type `messages.searchGlobal#4bc6589a`.
+// MessagesSearchGlobalRequest represents TL type `messages.searchGlobal#6126a43c`.
 // Search for messages and peers globally
 //
 // See https://core.telegram.org/method/messages.searchGlobal for reference.
@@ -58,6 +58,10 @@ type MessagesSearchGlobalRequest struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
+	// Community field of MessagesSearchGlobalRequest.
+	//
+	// Use SetCommunity and GetCommunity helpers.
+	Community InputChannelClass
 	// Query
 	Q string
 	// Global search filter
@@ -92,7 +96,7 @@ type MessagesSearchGlobalRequest struct {
 }
 
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
-const MessagesSearchGlobalRequestTypeID = 0x4bc6589a
+const MessagesSearchGlobalRequestTypeID = 0x6126a43c
 
 // Ensuring interfaces in compile-time for MessagesSearchGlobalRequest.
 var (
@@ -119,6 +123,9 @@ func (s *MessagesSearchGlobalRequest) Zero() bool {
 		return false
 	}
 	if !(s.FolderID == 0) {
+		return false
+	}
+	if !(s.Community == nil) {
 		return false
 	}
 	if !(s.Q == "") {
@@ -164,6 +171,7 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 	GetGroupsOnly() (value bool)
 	GetUsersOnly() (value bool)
 	GetFolderID() (value int, ok bool)
+	GetCommunity() (value InputChannelClass, ok bool)
 	GetQ() (value string)
 	GetFilter() (value MessagesFilterClass)
 	GetMinDate() (value int)
@@ -178,6 +186,10 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 	s.UsersOnly = from.GetUsersOnly()
 	if val, ok := from.GetFolderID(); ok {
 		s.FolderID = val
+	}
+
+	if val, ok := from.GetCommunity(); ok {
+		s.Community = val
 	}
 
 	s.Q = from.GetQ()
@@ -234,6 +246,11 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(0),
 		},
 		{
+			Name:       "Community",
+			SchemaName: "community",
+			Null:       !s.Flags.Has(4),
+		},
+		{
 			Name:       "Q",
 			SchemaName: "q",
 		},
@@ -283,12 +300,15 @@ func (s *MessagesSearchGlobalRequest) SetFlags() {
 	if !(s.FolderID == 0) {
 		s.Flags.Set(0)
 	}
+	if !(s.Community == nil) {
+		s.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
+		return fmt.Errorf("can't encode messages.searchGlobal#6126a43c as nil")
 	}
 	b.PutID(MessagesSearchGlobalRequestTypeID)
 	return s.EncodeBare(b)
@@ -297,30 +317,38 @@ func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSearchGlobalRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
+		return fmt.Errorf("can't encode messages.searchGlobal#6126a43c as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field flags: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.FolderID)
 	}
+	if s.Flags.Has(4) {
+		if s.Community == nil {
+			return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field community is nil")
+		}
+		if err := s.Community.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field community: %w", err)
+		}
+	}
 	b.PutString(s.Q)
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field filter is nil")
+		return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field filter is nil")
 	}
 	if err := s.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field filter: %w", err)
+		return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field filter: %w", err)
 	}
 	b.PutInt(s.MinDate)
 	b.PutInt(s.MaxDate)
 	b.PutInt(s.OffsetRate)
 	if s.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field offset_peer is nil")
+		return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field offset_peer is nil")
 	}
 	if err := s.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field offset_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.searchGlobal#6126a43c: field offset_peer: %w", err)
 	}
 	b.PutInt(s.OffsetID)
 	b.PutInt(s.Limit)
@@ -330,10 +358,10 @@ func (s *MessagesSearchGlobalRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchGlobal#4bc6589a to nil")
+		return fmt.Errorf("can't decode messages.searchGlobal#6126a43c to nil")
 	}
 	if err := b.ConsumeID(MessagesSearchGlobalRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: %w", err)
+		return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -341,11 +369,11 @@ func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchGlobal#4bc6589a to nil")
+		return fmt.Errorf("can't decode messages.searchGlobal#6126a43c to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field flags: %w", err)
 		}
 	}
 	s.BroadcastsOnly = s.Flags.Has(1)
@@ -354,63 +382,70 @@ func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field folder_id: %w", err)
 		}
 		s.FolderID = value
+	}
+	if s.Flags.Has(4) {
+		value, err := DecodeInputChannel(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field community: %w", err)
+		}
+		s.Community = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field q: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field q: %w", err)
 		}
 		s.Q = value
 	}
 	{
 		value, err := DecodeMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field filter: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field filter: %w", err)
 		}
 		s.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field min_date: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field min_date: %w", err)
 		}
 		s.MinDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field max_date: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field max_date: %w", err)
 		}
 		s.MaxDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field offset_rate: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field offset_rate: %w", err)
 		}
 		s.OffsetRate = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field offset_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field offset_peer: %w", err)
 		}
 		s.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field offset_id: %w", err)
 		}
 		s.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.searchGlobal#6126a43c: field limit: %w", err)
 		}
 		s.Limit = value
 	}
@@ -492,6 +527,24 @@ func (s *MessagesSearchGlobalRequest) GetFolderID() (value int, ok bool) {
 	return s.FolderID, true
 }
 
+// SetCommunity sets value of Community conditional field.
+func (s *MessagesSearchGlobalRequest) SetCommunity(value InputChannelClass) {
+	s.Flags.Set(4)
+	s.Community = value
+}
+
+// GetCommunity returns value of Community conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSearchGlobalRequest) GetCommunity() (value InputChannelClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return s.Community, true
+}
+
 // GetQ returns value of Q field.
 func (s *MessagesSearchGlobalRequest) GetQ() (value string) {
 	if s == nil {
@@ -556,7 +609,16 @@ func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
 	return s.Limit
 }
 
-// MessagesSearchGlobal invokes method messages.searchGlobal#4bc6589a returning error if any.
+// GetCommunityAsNotEmpty returns mapped value of Community conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSearchGlobalRequest) GetCommunityAsNotEmpty() (NotEmptyInputChannel, bool) {
+	if value, ok := s.GetCommunity(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// MessagesSearchGlobal invokes method messages.searchGlobal#6126a43c returning error if any.
 // Search for messages and peers globally
 //
 // Possible errors:

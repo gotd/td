@@ -31,11 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotCommand represents TL type `botCommand#c27ac8c7`.
+// BotCommand represents TL type `botCommand#9852d6d2`.
 // Describes a bot command that can be used in a chat
 //
 // See https://core.telegram.org/constructor/botCommand for reference.
 type BotCommand struct {
+	// Flags field of BotCommand.
+	Flags bin.Fields
+	// Ephemeral field of BotCommand.
+	Ephemeral bool
 	// /command name
 	Command string
 	// Description of the command
@@ -43,7 +47,7 @@ type BotCommand struct {
 }
 
 // BotCommandTypeID is TL type id of BotCommand.
-const BotCommandTypeID = 0xc27ac8c7
+const BotCommandTypeID = 0x9852d6d2
 
 // Ensuring interfaces in compile-time for BotCommand.
 var (
@@ -56,6 +60,12 @@ var (
 func (b *BotCommand) Zero() bool {
 	if b == nil {
 		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.Ephemeral == false) {
+		return false
 	}
 	if !(b.Command == "") {
 		return false
@@ -78,9 +88,11 @@ func (b *BotCommand) String() string {
 
 // FillFrom fills BotCommand from given interface.
 func (b *BotCommand) FillFrom(from interface {
+	GetEphemeral() (value bool)
 	GetCommand() (value string)
 	GetDescription() (value string)
 }) {
+	b.Ephemeral = from.GetEphemeral()
 	b.Command = from.GetCommand()
 	b.Description = from.GetDescription()
 }
@@ -109,6 +121,11 @@ func (b *BotCommand) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Ephemeral",
+			SchemaName: "ephemeral",
+			Null:       !b.Flags.Has(0),
+		},
+		{
 			Name:       "Command",
 			SchemaName: "command",
 		},
@@ -120,10 +137,17 @@ func (b *BotCommand) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotCommand) SetFlags() {
+	if !(b.Ephemeral == false) {
+		b.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotCommand) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
+		return fmt.Errorf("can't encode botCommand#9852d6d2 as nil")
 	}
 	buf.PutID(BotCommandTypeID)
 	return b.EncodeBare(buf)
@@ -132,7 +156,11 @@ func (b *BotCommand) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommand) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
+		return fmt.Errorf("can't encode botCommand#9852d6d2 as nil")
+	}
+	b.SetFlags()
+	if err := b.Flags.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botCommand#9852d6d2: field flags: %w", err)
 	}
 	buf.PutString(b.Command)
 	buf.PutString(b.Description)
@@ -142,10 +170,10 @@ func (b *BotCommand) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotCommand) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommand#c27ac8c7 to nil")
+		return fmt.Errorf("can't decode botCommand#9852d6d2 to nil")
 	}
 	if err := buf.ConsumeID(BotCommandTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommand#c27ac8c7: %w", err)
+		return fmt.Errorf("unable to decode botCommand#9852d6d2: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -153,23 +181,48 @@ func (b *BotCommand) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommand) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommand#c27ac8c7 to nil")
+		return fmt.Errorf("can't decode botCommand#9852d6d2 to nil")
 	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botCommand#9852d6d2: field flags: %w", err)
+		}
+	}
+	b.Ephemeral = b.Flags.Has(0)
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommand#c27ac8c7: field command: %w", err)
+			return fmt.Errorf("unable to decode botCommand#9852d6d2: field command: %w", err)
 		}
 		b.Command = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommand#c27ac8c7: field description: %w", err)
+			return fmt.Errorf("unable to decode botCommand#9852d6d2: field description: %w", err)
 		}
 		b.Description = value
 	}
 	return nil
+}
+
+// SetEphemeral sets value of Ephemeral conditional field.
+func (b *BotCommand) SetEphemeral(value bool) {
+	if value {
+		b.Flags.Set(0)
+		b.Ephemeral = true
+	} else {
+		b.Flags.Unset(0)
+		b.Ephemeral = false
+	}
+}
+
+// GetEphemeral returns value of Ephemeral conditional field.
+func (b *BotCommand) GetEphemeral() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(0)
 }
 
 // GetCommand returns value of Command field.

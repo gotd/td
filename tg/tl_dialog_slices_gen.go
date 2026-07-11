@@ -142,6 +142,19 @@ func (s DialogClassArray) AsDialogFolder() (to DialogFolderArray) {
 	return to
 }
 
+// AsDialogCommunity returns copy with only DialogCommunity constructors.
+func (s DialogClassArray) AsDialogCommunity() (to DialogCommunityArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DialogCommunity)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // DialogArray is adapter for slice of Dialog.
 type DialogArray []Dialog
 
@@ -294,6 +307,88 @@ func (s *DialogFolderArray) PopFirst() (v DialogFolder, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *DialogFolderArray) Pop() (v DialogFolder, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DialogCommunityArray is adapter for slice of DialogCommunity.
+type DialogCommunityArray []DialogCommunity
+
+// Sort sorts slice of DialogCommunity.
+func (s DialogCommunityArray) Sort(less func(a, b DialogCommunity) bool) DialogCommunityArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DialogCommunity.
+func (s DialogCommunityArray) SortStable(less func(a, b DialogCommunity) bool) DialogCommunityArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DialogCommunity.
+func (s DialogCommunityArray) Retain(keep func(x DialogCommunity) bool) DialogCommunityArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DialogCommunityArray) First() (v DialogCommunity, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DialogCommunityArray) Last() (v DialogCommunity, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DialogCommunityArray) PopFirst() (v DialogCommunity, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DialogCommunity
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DialogCommunityArray) Pop() (v DialogCommunity, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
