@@ -27,13 +27,13 @@ func result(r []tg.DialogClass, count int) tg.MessagesDialogsClass {
 	for i, dlg := range r {
 		msgs = append(msgs, &tg.Message{
 			ID:     i,
-			PeerID: dlg.GetPeer(),
+			PeerID: dlg.(*tg.Dialog).Peer,
 		})
 	}
 
 	chats := make([]tg.ChatClass, 0, len(r))
 	for i, dlg := range r {
-		id := dlg.GetPeer().(*tg.PeerChannel).ChannelID
+		id := dlg.(*tg.Dialog).Peer.(*tg.PeerChannel).ChannelID
 		chats = append(chats, &tg.Channel{
 			ID:         id,
 			AccessHash: 10,
@@ -67,7 +67,7 @@ func TestIterator(t *testing.T) {
 	iter := NewQueryBuilder(raw).GetDialogs().BatchSize(10).Iter()
 	i := 0
 	for iter.Next(ctx) {
-		require.Equal(t, expected[i].GetPeer(), iter.Value().Dialog.GetPeer())
+		require.Equal(t, expected[i].(*tg.Dialog).Peer, iter.Value().Dialog.(*tg.Dialog).Peer)
 		i++
 	}
 	require.NoError(t, iter.Err())

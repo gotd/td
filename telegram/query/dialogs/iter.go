@@ -69,6 +69,17 @@ func (m *Iterator) OffsetPeer(offsetPeer tg.InputPeerClass) *Iterator {
 	return m
 }
 
+// dialogPeer extracts peer from dialog, if any.
+//
+// Some dialog types (e.g. dialogCommunity) have no peer field.
+func dialogPeer(dlg tg.DialogClass) (tg.PeerClass, bool) {
+	p, ok := dlg.(interface{ GetPeer() tg.PeerClass })
+	if !ok {
+		return nil, false
+	}
+	return p.GetPeer(), true
+}
+
 // messageMap is a helper to store messages for multiple peers.
 type messageMap map[DialogKey]tg.NotEmptyMessage
 
@@ -132,14 +143,16 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 
 	var last tg.NotEmptyMessage
 	for _, dlg := range dialogs {
-		var key DialogKey
-		if err := key.FromPeer(dlg.GetPeer()); err == nil {
-			last = msgMap[key]
-		}
+		var p tg.InputPeerClass = &tg.InputPeerEmpty{}
+		if dlgPeer, ok := dialogPeer(dlg); ok {
+			var key DialogKey
+			if err := key.FromPeer(dlgPeer); err == nil {
+				last = msgMap[key]
+			}
 
-		p, err := entities.ExtractPeer(dlg.GetPeer())
-		if err != nil {
-			p = &tg.InputPeerEmpty{}
+			if extracted, err := entities.ExtractPeer(dlgPeer); err == nil {
+				p = extracted
+			}
 		}
 
 		m.buf = append(m.buf, Elem{
@@ -156,7 +169,11 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 			m.offsetDate = last.GetDate()
 		}
 
-		p, err := entities.ExtractPeer(dialogs[len(m.buf)-1].GetPeer())
+		dlgPeer, ok := dialogPeer(dialogs[len(m.buf)-1])
+		if !ok {
+			return errors.Errorf("get offset peer: dialog %T has no peer", dialogs[len(m.buf)-1])
+		}
+		p, err := entities.ExtractPeer(dlgPeer)
 		if err != nil {
 			return errors.Wrap(err, "get offset peer")
 		}
