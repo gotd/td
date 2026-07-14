@@ -1,8 +1,6 @@
 package crypto
 
 import (
-	"crypto/aes"
-
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/ige"
@@ -73,16 +71,7 @@ func (c Cipher) decryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, 
 
 	key, iv := Keys(k.Value, encrypted.MsgKey, c.encryptSide.DecryptSide())
 	plaintext := make([]byte, len(encrypted.EncryptedData))
-
-	if hwIGEDecrypt(key[:], iv[:], plaintext, encrypted.EncryptedData) {
-		return plaintext, nil
-	}
-
-	cipher, err := aes.NewCipher(key[:])
-	if err != nil {
-		return nil, err
-	}
-	ige.DecryptBlocks(cipher, iv[:], plaintext, encrypted.EncryptedData)
+	ige.DecryptAES256Blocks(key[:], iv[:], plaintext, encrypted.EncryptedData)
 
 	return plaintext, nil
 }
