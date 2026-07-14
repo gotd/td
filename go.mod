@@ -20,7 +20,7 @@ require (
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.1
 	github.com/klauspost/compress v1.19.0
-	github.com/ogen-go/ogen v1.22.0
+	github.com/ogen-go/ogen v1.23.0
 	github.com/pion/ice/v4 v4.2.7
 	github.com/pion/interceptor v0.1.45
 	github.com/pion/logging v0.2.4
