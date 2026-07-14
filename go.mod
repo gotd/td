@@ -13,7 +13,7 @@ require (
 	github.com/go-openapi/inflect v0.21.6
 	github.com/google/uuid v1.6.0
 	github.com/gotd/getdoc v0.53.0
-	github.com/gotd/ige v0.2.2
+	github.com/gotd/ige v0.3.0
 	github.com/gotd/log v0.1.0
 	github.com/gotd/log/logzap v0.1.1
 	github.com/gotd/neo v0.1.5
