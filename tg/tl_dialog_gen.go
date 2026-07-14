@@ -1088,6 +1088,220 @@ func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
 	return d.UnreadUnmutedMessagesCount
 }
 
+// DialogCommunity represents TL type `dialogCommunity#f78a0973`.
+//
+// See https://core.telegram.org/constructor/dialogCommunity for reference.
+type DialogCommunity struct {
+	// Flags field of DialogCommunity.
+	Flags bin.Fields
+	// Pinned field of DialogCommunity.
+	Pinned bool
+	// CommunityID field of DialogCommunity.
+	CommunityID int64
+	// NotifySettings field of DialogCommunity.
+	NotifySettings PeerNotifySettings
+}
+
+// DialogCommunityTypeID is TL type id of DialogCommunity.
+const DialogCommunityTypeID = 0xf78a0973
+
+// construct implements constructor of DialogClass.
+func (d DialogCommunity) construct() DialogClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogCommunity.
+var (
+	_ bin.Encoder     = &DialogCommunity{}
+	_ bin.Decoder     = &DialogCommunity{}
+	_ bin.BareEncoder = &DialogCommunity{}
+	_ bin.BareDecoder = &DialogCommunity{}
+
+	_ DialogClass = &DialogCommunity{}
+)
+
+func (d *DialogCommunity) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Pinned == false) {
+		return false
+	}
+	if !(d.CommunityID == 0) {
+		return false
+	}
+	if !(d.NotifySettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (d *DialogCommunity) String() string {
+	if d == nil {
+		return "DialogCommunity(nil)"
+	}
+	type Alias DialogCommunity
+	return fmt.Sprintf("DialogCommunity%+v", Alias(*d))
+}
+
+// FillFrom fills DialogCommunity from given interface.
+func (d *DialogCommunity) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetCommunityID() (value int64)
+	GetNotifySettings() (value PeerNotifySettings)
+}) {
+	d.Pinned = from.GetPinned()
+	d.CommunityID = from.GetCommunityID()
+	d.NotifySettings = from.GetNotifySettings()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*DialogCommunity) TypeID() uint32 {
+	return DialogCommunityTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*DialogCommunity) TypeName() string {
+	return "dialogCommunity"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogCommunity) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogCommunity",
+		ID:   DialogCommunityTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "CommunityID",
+			SchemaName: "community_id",
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (d *DialogCommunity) SetFlags() {
+	if !(d.Pinned == false) {
+		d.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (d *DialogCommunity) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogCommunity#f78a0973 as nil")
+	}
+	b.PutID(DialogCommunityTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogCommunity) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogCommunity#f78a0973 as nil")
+	}
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode dialogCommunity#f78a0973: field flags: %w", err)
+	}
+	b.PutLong(d.CommunityID)
+	if err := d.NotifySettings.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode dialogCommunity#f78a0973: field notify_settings: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (d *DialogCommunity) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogCommunity#f78a0973 to nil")
+	}
+	if err := b.ConsumeID(DialogCommunityTypeID); err != nil {
+		return fmt.Errorf("unable to decode dialogCommunity#f78a0973: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogCommunity) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogCommunity#f78a0973 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialogCommunity#f78a0973: field flags: %w", err)
+		}
+	}
+	d.Pinned = d.Flags.Has(2)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialogCommunity#f78a0973: field community_id: %w", err)
+		}
+		d.CommunityID = value
+	}
+	{
+		if err := d.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialogCommunity#f78a0973: field notify_settings: %w", err)
+		}
+	}
+	return nil
+}
+
+// SetPinned sets value of Pinned conditional field.
+func (d *DialogCommunity) SetPinned(value bool) {
+	if value {
+		d.Flags.Set(2)
+		d.Pinned = true
+	} else {
+		d.Flags.Unset(2)
+		d.Pinned = false
+	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (d *DialogCommunity) GetPinned() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(2)
+}
+
+// GetCommunityID returns value of CommunityID field.
+func (d *DialogCommunity) GetCommunityID() (value int64) {
+	if d == nil {
+		return
+	}
+	return d.CommunityID
+}
+
+// GetNotifySettings returns value of NotifySettings field.
+func (d *DialogCommunity) GetNotifySettings() (value PeerNotifySettings) {
+	if d == nil {
+		return
+	}
+	return d.NotifySettings
+}
+
 // DialogClassName is schema name of DialogClass.
 const DialogClassName = "Dialog"
 
@@ -1098,6 +1312,7 @@ const DialogClassName = "Dialog"
 // Constructors:
 //   - [Dialog]
 //   - [DialogFolder]
+//   - [DialogCommunity]
 //
 // Example:
 //
@@ -1108,6 +1323,7 @@ const DialogClassName = "Dialog"
 //	switch v := g.(type) {
 //	case *tg.Dialog: // dialog#fc89f7f3
 //	case *tg.DialogFolder: // dialogFolder#71bd134c
+//	case *tg.DialogCommunity: // dialogCommunity#f78a0973
 //	default: panic(v)
 //	}
 type DialogClass interface {
@@ -1130,12 +1346,6 @@ type DialogClass interface {
 
 	// Is the dialog pinned
 	GetPinned() (value bool)
-
-	// The chat
-	GetPeer() (value PeerClass)
-
-	// The latest message ID
-	GetTopMessage() (value int)
 }
 
 // AsInputDialogPeerFolder tries to map Dialog to InputDialogPeerFolder.
@@ -1165,6 +1375,13 @@ func DecodeDialog(buf *bin.Buffer) (DialogClass, error) {
 	case DialogFolderTypeID:
 		// Decoding dialogFolder#71bd134c.
 		v := DialogFolder{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DialogClass: %w", err)
+		}
+		return &v, nil
+	case DialogCommunityTypeID:
+		// Decoding dialogCommunity#f78a0973.
+		v := DialogCommunity{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DialogClass: %w", err)
 		}

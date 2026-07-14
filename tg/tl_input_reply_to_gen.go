@@ -939,6 +939,140 @@ func (i *InputReplyToMonoForum) GetMonoforumPeerID() (value InputPeerClass) {
 	return i.MonoforumPeerID
 }
 
+// InputReplyToEphemeralMessage represents TL type `inputReplyToEphemeralMessage#4119b95e`.
+//
+// See https://core.telegram.org/constructor/inputReplyToEphemeralMessage for reference.
+type InputReplyToEphemeralMessage struct {
+	// ID field of InputReplyToEphemeralMessage.
+	ID int
+}
+
+// InputReplyToEphemeralMessageTypeID is TL type id of InputReplyToEphemeralMessage.
+const InputReplyToEphemeralMessageTypeID = 0x4119b95e
+
+// construct implements constructor of InputReplyToClass.
+func (i InputReplyToEphemeralMessage) construct() InputReplyToClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReplyToEphemeralMessage.
+var (
+	_ bin.Encoder     = &InputReplyToEphemeralMessage{}
+	_ bin.Decoder     = &InputReplyToEphemeralMessage{}
+	_ bin.BareEncoder = &InputReplyToEphemeralMessage{}
+	_ bin.BareDecoder = &InputReplyToEphemeralMessage{}
+
+	_ InputReplyToClass = &InputReplyToEphemeralMessage{}
+)
+
+func (i *InputReplyToEphemeralMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputReplyToEphemeralMessage) String() string {
+	if i == nil {
+		return "InputReplyToEphemeralMessage(nil)"
+	}
+	type Alias InputReplyToEphemeralMessage
+	return fmt.Sprintf("InputReplyToEphemeralMessage%+v", Alias(*i))
+}
+
+// FillFrom fills InputReplyToEphemeralMessage from given interface.
+func (i *InputReplyToEphemeralMessage) FillFrom(from interface {
+	GetID() (value int)
+}) {
+	i.ID = from.GetID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputReplyToEphemeralMessage) TypeID() uint32 {
+	return InputReplyToEphemeralMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputReplyToEphemeralMessage) TypeName() string {
+	return "inputReplyToEphemeralMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReplyToEphemeralMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReplyToEphemeralMessage",
+		ID:   InputReplyToEphemeralMessageTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputReplyToEphemeralMessage) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReplyToEphemeralMessage#4119b95e as nil")
+	}
+	b.PutID(InputReplyToEphemeralMessageTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReplyToEphemeralMessage) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReplyToEphemeralMessage#4119b95e as nil")
+	}
+	b.PutInt(i.ID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputReplyToEphemeralMessage) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReplyToEphemeralMessage#4119b95e to nil")
+	}
+	if err := b.ConsumeID(InputReplyToEphemeralMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputReplyToEphemeralMessage#4119b95e: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReplyToEphemeralMessage) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReplyToEphemeralMessage#4119b95e to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputReplyToEphemeralMessage#4119b95e: field id: %w", err)
+		}
+		i.ID = value
+	}
+	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputReplyToEphemeralMessage) GetID() (value int) {
+	if i == nil {
+		return
+	}
+	return i.ID
+}
+
 // InputReplyToClassName is schema name of InputReplyToClass.
 const InputReplyToClassName = "InputReplyTo"
 
@@ -950,6 +1084,7 @@ const InputReplyToClassName = "InputReplyTo"
 //   - [InputReplyToMessage]
 //   - [InputReplyToStory]
 //   - [InputReplyToMonoForum]
+//   - [InputReplyToEphemeralMessage]
 //
 // Example:
 //
@@ -961,6 +1096,7 @@ const InputReplyToClassName = "InputReplyTo"
 //	case *tg.InputReplyToMessage: // inputReplyToMessage#3bd4b7c2
 //	case *tg.InputReplyToStory: // inputReplyToStory#5881323a
 //	case *tg.InputReplyToMonoForum: // inputReplyToMonoForum#69d66c45
+//	case *tg.InputReplyToEphemeralMessage: // inputReplyToEphemeralMessage#4119b95e
 //	default: panic(v)
 //	}
 type InputReplyToClass interface {
@@ -1006,6 +1142,13 @@ func DecodeInputReplyTo(buf *bin.Buffer) (InputReplyToClass, error) {
 	case InputReplyToMonoForumTypeID:
 		// Decoding inputReplyToMonoForum#69d66c45.
 		v := InputReplyToMonoForum{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputReplyToClass: %w", err)
+		}
+		return &v, nil
+	case InputReplyToEphemeralMessageTypeID:
+		// Decoding inputReplyToEphemeralMessage#4119b95e.
+		v := InputReplyToEphemeralMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputReplyToClass: %w", err)
 		}

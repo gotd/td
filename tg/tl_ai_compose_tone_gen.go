@@ -796,6 +796,16 @@ func (a *AiComposeTone) AsInputAiComposeToneSlug() *InputAiComposeToneSlug {
 	return value
 }
 
+// AsInputAiComposeToneSingleUse tries to map AiComposeTone to InputAiComposeToneSingleUse.
+func (a *AiComposeTone) AsInputAiComposeToneSingleUse() *InputAiComposeToneSingleUse {
+	value := new(InputAiComposeToneSingleUse)
+	if fieldValue, ok := a.GetPrompt(); ok {
+		value.CustomPrompt = fieldValue
+	}
+
+	return value
+}
+
 // DecodeAiComposeTone implements binary de-serialization for AiComposeToneClass.
 func DecodeAiComposeTone(buf *bin.Buffer) (AiComposeToneClass, error) {
 	id, err := buf.PeekID()

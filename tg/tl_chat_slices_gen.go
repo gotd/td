@@ -285,6 +285,68 @@ func (s ChatClassArray) AsChannelForbidden() (to ChannelForbiddenArray) {
 	return to
 }
 
+// FillCommunityForbiddenMap fills only CommunityForbidden constructors to given map.
+func (s ChatClassArray) FillCommunityForbiddenMap(to map[int64]*CommunityForbidden) {
+	for _, elem := range s {
+		value, ok := elem.(*CommunityForbidden)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// CommunityForbiddenToMap collects only CommunityForbidden constructors to map.
+func (s ChatClassArray) CommunityForbiddenToMap() map[int64]*CommunityForbidden {
+	r := make(map[int64]*CommunityForbidden, len(s))
+	s.FillCommunityForbiddenMap(r)
+	return r
+}
+
+// AsCommunityForbidden returns copy with only CommunityForbidden constructors.
+func (s ChatClassArray) AsCommunityForbidden() (to CommunityForbiddenArray) {
+	for _, elem := range s {
+		value, ok := elem.(*CommunityForbidden)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// FillCommunityMap fills only Community constructors to given map.
+func (s ChatClassArray) FillCommunityMap(to map[int64]*Community) {
+	for _, elem := range s {
+		value, ok := elem.(*Community)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// CommunityToMap collects only Community constructors to map.
+func (s ChatClassArray) CommunityToMap() map[int64]*Community {
+	r := make(map[int64]*Community, len(s))
+	s.FillCommunityMap(r)
+	return r
+}
+
+// AsCommunity returns copy with only Community constructors.
+func (s ChatClassArray) AsCommunity() (to CommunityArray) {
+	for _, elem := range s {
+		value, ok := elem.(*Community)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // FillNotEmptyMap fills only NotEmpty constructors to given map.
 func (s ChatClassArray) FillNotEmptyMap(to map[int64]NotEmptyChat) {
 	for _, elem := range s {
@@ -1078,6 +1140,240 @@ func (s ChannelForbiddenArray) FillMap(to map[int64]ChannelForbidden) {
 // ToMap collects constructors to map.
 func (s ChannelForbiddenArray) ToMap() map[int64]ChannelForbidden {
 	r := make(map[int64]ChannelForbidden, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// CommunityForbiddenArray is adapter for slice of CommunityForbidden.
+type CommunityForbiddenArray []CommunityForbidden
+
+// Sort sorts slice of CommunityForbidden.
+func (s CommunityForbiddenArray) Sort(less func(a, b CommunityForbidden) bool) CommunityForbiddenArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of CommunityForbidden.
+func (s CommunityForbiddenArray) SortStable(less func(a, b CommunityForbidden) bool) CommunityForbiddenArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of CommunityForbidden.
+func (s CommunityForbiddenArray) Retain(keep func(x CommunityForbidden) bool) CommunityForbiddenArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s CommunityForbiddenArray) First() (v CommunityForbidden, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s CommunityForbiddenArray) Last() (v CommunityForbidden, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *CommunityForbiddenArray) PopFirst() (v CommunityForbidden, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero CommunityForbidden
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *CommunityForbiddenArray) Pop() (v CommunityForbidden, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of CommunityForbidden by ID.
+func (s CommunityForbiddenArray) SortByID() CommunityForbiddenArray {
+	return s.Sort(func(a, b CommunityForbidden) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of CommunityForbidden by ID.
+func (s CommunityForbiddenArray) SortStableByID() CommunityForbiddenArray {
+	return s.SortStable(func(a, b CommunityForbidden) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s CommunityForbiddenArray) FillMap(to map[int64]CommunityForbidden) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s CommunityForbiddenArray) ToMap() map[int64]CommunityForbidden {
+	r := make(map[int64]CommunityForbidden, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// CommunityArray is adapter for slice of Community.
+type CommunityArray []Community
+
+// Sort sorts slice of Community.
+func (s CommunityArray) Sort(less func(a, b Community) bool) CommunityArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of Community.
+func (s CommunityArray) SortStable(less func(a, b Community) bool) CommunityArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of Community.
+func (s CommunityArray) Retain(keep func(x Community) bool) CommunityArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s CommunityArray) First() (v Community, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s CommunityArray) Last() (v Community, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *CommunityArray) PopFirst() (v Community, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero Community
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *CommunityArray) Pop() (v Community, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of Community by ID.
+func (s CommunityArray) SortByID() CommunityArray {
+	return s.Sort(func(a, b Community) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of Community by ID.
+func (s CommunityArray) SortStableByID() CommunityArray {
+	return s.SortStable(func(a, b Community) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of Community by Date.
+func (s CommunityArray) SortByDate() CommunityArray {
+	return s.Sort(func(a, b Community) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of Community by Date.
+func (s CommunityArray) SortStableByDate() CommunityArray {
+	return s.SortStable(func(a, b Community) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s CommunityArray) FillMap(to map[int64]Community) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s CommunityArray) ToMap() map[int64]Community {
+	r := make(map[int64]Community, len(s))
 	s.FillMap(r)
 	return r
 }

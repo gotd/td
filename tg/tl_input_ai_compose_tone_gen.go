@@ -460,6 +460,140 @@ func (i *InputAiComposeToneSlug) GetSlug() (value string) {
 	return i.Slug
 }
 
+// InputAiComposeToneSingleUse represents TL type `inputAiComposeToneSingleUse#e0c35af`.
+//
+// See https://core.telegram.org/constructor/inputAiComposeToneSingleUse for reference.
+type InputAiComposeToneSingleUse struct {
+	// CustomPrompt field of InputAiComposeToneSingleUse.
+	CustomPrompt string
+}
+
+// InputAiComposeToneSingleUseTypeID is TL type id of InputAiComposeToneSingleUse.
+const InputAiComposeToneSingleUseTypeID = 0xe0c35af
+
+// construct implements constructor of InputAiComposeToneClass.
+func (i InputAiComposeToneSingleUse) construct() InputAiComposeToneClass { return &i }
+
+// Ensuring interfaces in compile-time for InputAiComposeToneSingleUse.
+var (
+	_ bin.Encoder     = &InputAiComposeToneSingleUse{}
+	_ bin.Decoder     = &InputAiComposeToneSingleUse{}
+	_ bin.BareEncoder = &InputAiComposeToneSingleUse{}
+	_ bin.BareDecoder = &InputAiComposeToneSingleUse{}
+
+	_ InputAiComposeToneClass = &InputAiComposeToneSingleUse{}
+)
+
+func (i *InputAiComposeToneSingleUse) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.CustomPrompt == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputAiComposeToneSingleUse) String() string {
+	if i == nil {
+		return "InputAiComposeToneSingleUse(nil)"
+	}
+	type Alias InputAiComposeToneSingleUse
+	return fmt.Sprintf("InputAiComposeToneSingleUse%+v", Alias(*i))
+}
+
+// FillFrom fills InputAiComposeToneSingleUse from given interface.
+func (i *InputAiComposeToneSingleUse) FillFrom(from interface {
+	GetCustomPrompt() (value string)
+}) {
+	i.CustomPrompt = from.GetCustomPrompt()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputAiComposeToneSingleUse) TypeID() uint32 {
+	return InputAiComposeToneSingleUseTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputAiComposeToneSingleUse) TypeName() string {
+	return "inputAiComposeToneSingleUse"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputAiComposeToneSingleUse) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputAiComposeToneSingleUse",
+		ID:   InputAiComposeToneSingleUseTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CustomPrompt",
+			SchemaName: "custom_prompt",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputAiComposeToneSingleUse) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputAiComposeToneSingleUse#e0c35af as nil")
+	}
+	b.PutID(InputAiComposeToneSingleUseTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputAiComposeToneSingleUse) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputAiComposeToneSingleUse#e0c35af as nil")
+	}
+	b.PutString(i.CustomPrompt)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputAiComposeToneSingleUse) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputAiComposeToneSingleUse#e0c35af to nil")
+	}
+	if err := b.ConsumeID(InputAiComposeToneSingleUseTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputAiComposeToneSingleUse#e0c35af: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputAiComposeToneSingleUse) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputAiComposeToneSingleUse#e0c35af to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputAiComposeToneSingleUse#e0c35af: field custom_prompt: %w", err)
+		}
+		i.CustomPrompt = value
+	}
+	return nil
+}
+
+// GetCustomPrompt returns value of CustomPrompt field.
+func (i *InputAiComposeToneSingleUse) GetCustomPrompt() (value string) {
+	if i == nil {
+		return
+	}
+	return i.CustomPrompt
+}
+
 // InputAiComposeToneClassName is schema name of InputAiComposeToneClass.
 const InputAiComposeToneClassName = "InputAiComposeTone"
 
@@ -471,6 +605,7 @@ const InputAiComposeToneClassName = "InputAiComposeTone"
 //   - [InputAiComposeToneDefault]
 //   - [InputAiComposeToneID]
 //   - [InputAiComposeToneSlug]
+//   - [InputAiComposeToneSingleUse]
 //
 // Example:
 //
@@ -482,6 +617,7 @@ const InputAiComposeToneClassName = "InputAiComposeTone"
 //	case *tg.InputAiComposeToneDefault: // inputAiComposeToneDefault#1fe9a9bf
 //	case *tg.InputAiComposeToneID: // inputAiComposeToneID#773c080
 //	case *tg.InputAiComposeToneSlug: // inputAiComposeToneSlug#1fa01357
+//	case *tg.InputAiComposeToneSingleUse: // inputAiComposeToneSingleUse#e0c35af
 //	default: panic(v)
 //	}
 type InputAiComposeToneClass interface {
@@ -527,6 +663,13 @@ func DecodeInputAiComposeTone(buf *bin.Buffer) (InputAiComposeToneClass, error) 
 	case InputAiComposeToneSlugTypeID:
 		// Decoding inputAiComposeToneSlug#1fa01357.
 		v := InputAiComposeToneSlug{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputAiComposeToneClass: %w", err)
+		}
+		return &v, nil
+	case InputAiComposeToneSingleUseTypeID:
+		// Decoding inputAiComposeToneSingleUse#e0c35af.
+		v := InputAiComposeToneSingleUse{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputAiComposeToneClass: %w", err)
 		}

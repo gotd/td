@@ -149,6 +149,8 @@ type ChatBannedRights struct {
 	EditRank bool
 	// SendReactions field of ChatBannedRights.
 	SendReactions bool
+	// ManageLinkedPeers field of ChatBannedRights.
+	ManageLinkedPeers bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds
 	// or more then 366 days).
 	UntilDate int
@@ -238,6 +240,9 @@ func (c *ChatBannedRights) Zero() bool {
 	if !(c.SendReactions == false) {
 		return false
 	}
+	if !(c.ManageLinkedPeers == false) {
+		return false
+	}
 	if !(c.UntilDate == 0) {
 		return false
 	}
@@ -278,6 +283,7 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	GetSendPlain() (value bool)
 	GetEditRank() (value bool)
 	GetSendReactions() (value bool)
+	GetManageLinkedPeers() (value bool)
 	GetUntilDate() (value int)
 }) {
 	c.ViewMessages = from.GetViewMessages()
@@ -302,6 +308,7 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	c.SendPlain = from.GetSendPlain()
 	c.EditRank = from.GetEditRank()
 	c.SendReactions = from.GetSendReactions()
+	c.ManageLinkedPeers = from.GetManageLinkedPeers()
 	c.UntilDate = from.GetUntilDate()
 }
 
@@ -439,6 +446,11 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(27),
 		},
 		{
+			Name:       "ManageLinkedPeers",
+			SchemaName: "manage_linked_peers",
+			Null:       !c.Flags.Has(28),
+		},
+		{
 			Name:       "UntilDate",
 			SchemaName: "until_date",
 		},
@@ -514,6 +526,9 @@ func (c *ChatBannedRights) SetFlags() {
 	if !(c.SendReactions == false) {
 		c.Flags.Set(27)
 	}
+	if !(c.ManageLinkedPeers == false) {
+		c.Flags.Set(28)
+	}
 }
 
 // Encode implements bin.Encoder.
@@ -581,6 +596,7 @@ func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
 	c.SendPlain = c.Flags.Has(25)
 	c.EditRank = c.Flags.Has(26)
 	c.SendReactions = c.Flags.Has(27)
+	c.ManageLinkedPeers = c.Flags.Has(28)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1007,6 +1023,25 @@ func (c *ChatBannedRights) GetSendReactions() (value bool) {
 		return
 	}
 	return c.Flags.Has(27)
+}
+
+// SetManageLinkedPeers sets value of ManageLinkedPeers conditional field.
+func (c *ChatBannedRights) SetManageLinkedPeers(value bool) {
+	if value {
+		c.Flags.Set(28)
+		c.ManageLinkedPeers = true
+	} else {
+		c.Flags.Unset(28)
+		c.ManageLinkedPeers = false
+	}
+}
+
+// GetManageLinkedPeers returns value of ManageLinkedPeers conditional field.
+func (c *ChatBannedRights) GetManageLinkedPeers() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(28)
 }
 
 // GetUntilDate returns value of UntilDate field.

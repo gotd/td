@@ -1962,6 +1962,58 @@ func (s UpdateClassArray) AsUpdateWebBrowserException() (to UpdateWebBrowserExce
 	return to
 }
 
+// AsUpdateNewEphemeralMessage returns copy with only UpdateNewEphemeralMessage constructors.
+func (s UpdateClassArray) AsUpdateNewEphemeralMessage() (to UpdateNewEphemeralMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateNewEphemeralMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateDeleteEphemeralMessages returns copy with only UpdateDeleteEphemeralMessages constructors.
+func (s UpdateClassArray) AsUpdateDeleteEphemeralMessages() (to UpdateDeleteEphemeralMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateDeleteEphemeralMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateEditEphemeralMessage returns copy with only UpdateEditEphemeralMessage constructors.
+func (s UpdateClassArray) AsUpdateEditEphemeralMessage() (to UpdateEditEphemeralMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateEditEphemeralMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateBotStarsSubscription returns copy with only UpdateBotStarsSubscription constructors.
+func (s UpdateClassArray) AsUpdateBotStarsSubscription() (to UpdateBotStarsSubscriptionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotStarsSubscription)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -13860,6 +13912,334 @@ func (s *UpdateWebBrowserExceptionArray) PopFirst() (v UpdateWebBrowserException
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateWebBrowserExceptionArray) Pop() (v UpdateWebBrowserException, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateNewEphemeralMessageArray is adapter for slice of UpdateNewEphemeralMessage.
+type UpdateNewEphemeralMessageArray []UpdateNewEphemeralMessage
+
+// Sort sorts slice of UpdateNewEphemeralMessage.
+func (s UpdateNewEphemeralMessageArray) Sort(less func(a, b UpdateNewEphemeralMessage) bool) UpdateNewEphemeralMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateNewEphemeralMessage.
+func (s UpdateNewEphemeralMessageArray) SortStable(less func(a, b UpdateNewEphemeralMessage) bool) UpdateNewEphemeralMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateNewEphemeralMessage.
+func (s UpdateNewEphemeralMessageArray) Retain(keep func(x UpdateNewEphemeralMessage) bool) UpdateNewEphemeralMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateNewEphemeralMessageArray) First() (v UpdateNewEphemeralMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateNewEphemeralMessageArray) Last() (v UpdateNewEphemeralMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateNewEphemeralMessageArray) PopFirst() (v UpdateNewEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateNewEphemeralMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateNewEphemeralMessageArray) Pop() (v UpdateNewEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateDeleteEphemeralMessagesArray is adapter for slice of UpdateDeleteEphemeralMessages.
+type UpdateDeleteEphemeralMessagesArray []UpdateDeleteEphemeralMessages
+
+// Sort sorts slice of UpdateDeleteEphemeralMessages.
+func (s UpdateDeleteEphemeralMessagesArray) Sort(less func(a, b UpdateDeleteEphemeralMessages) bool) UpdateDeleteEphemeralMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateDeleteEphemeralMessages.
+func (s UpdateDeleteEphemeralMessagesArray) SortStable(less func(a, b UpdateDeleteEphemeralMessages) bool) UpdateDeleteEphemeralMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateDeleteEphemeralMessages.
+func (s UpdateDeleteEphemeralMessagesArray) Retain(keep func(x UpdateDeleteEphemeralMessages) bool) UpdateDeleteEphemeralMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateDeleteEphemeralMessagesArray) First() (v UpdateDeleteEphemeralMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateDeleteEphemeralMessagesArray) Last() (v UpdateDeleteEphemeralMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateDeleteEphemeralMessagesArray) PopFirst() (v UpdateDeleteEphemeralMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateDeleteEphemeralMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateDeleteEphemeralMessagesArray) Pop() (v UpdateDeleteEphemeralMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateEditEphemeralMessageArray is adapter for slice of UpdateEditEphemeralMessage.
+type UpdateEditEphemeralMessageArray []UpdateEditEphemeralMessage
+
+// Sort sorts slice of UpdateEditEphemeralMessage.
+func (s UpdateEditEphemeralMessageArray) Sort(less func(a, b UpdateEditEphemeralMessage) bool) UpdateEditEphemeralMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateEditEphemeralMessage.
+func (s UpdateEditEphemeralMessageArray) SortStable(less func(a, b UpdateEditEphemeralMessage) bool) UpdateEditEphemeralMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateEditEphemeralMessage.
+func (s UpdateEditEphemeralMessageArray) Retain(keep func(x UpdateEditEphemeralMessage) bool) UpdateEditEphemeralMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateEditEphemeralMessageArray) First() (v UpdateEditEphemeralMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateEditEphemeralMessageArray) Last() (v UpdateEditEphemeralMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateEditEphemeralMessageArray) PopFirst() (v UpdateEditEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateEditEphemeralMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateEditEphemeralMessageArray) Pop() (v UpdateEditEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateBotStarsSubscriptionArray is adapter for slice of UpdateBotStarsSubscription.
+type UpdateBotStarsSubscriptionArray []UpdateBotStarsSubscription
+
+// Sort sorts slice of UpdateBotStarsSubscription.
+func (s UpdateBotStarsSubscriptionArray) Sort(less func(a, b UpdateBotStarsSubscription) bool) UpdateBotStarsSubscriptionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotStarsSubscription.
+func (s UpdateBotStarsSubscriptionArray) SortStable(less func(a, b UpdateBotStarsSubscription) bool) UpdateBotStarsSubscriptionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotStarsSubscription.
+func (s UpdateBotStarsSubscriptionArray) Retain(keep func(x UpdateBotStarsSubscription) bool) UpdateBotStarsSubscriptionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotStarsSubscriptionArray) First() (v UpdateBotStarsSubscription, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotStarsSubscriptionArray) Last() (v UpdateBotStarsSubscription, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotStarsSubscriptionArray) PopFirst() (v UpdateBotStarsSubscription, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotStarsSubscription
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotStarsSubscriptionArray) Pop() (v UpdateBotStarsSubscription, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

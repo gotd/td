@@ -155,6 +155,19 @@ func (s InputReplyToClassArray) AsInputReplyToMonoForum() (to InputReplyToMonoFo
 	return to
 }
 
+// AsInputReplyToEphemeralMessage returns copy with only InputReplyToEphemeralMessage constructors.
+func (s InputReplyToClassArray) AsInputReplyToEphemeralMessage() (to InputReplyToEphemeralMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputReplyToEphemeralMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputReplyToMessageArray is adapter for slice of InputReplyToMessage.
 type InputReplyToMessageArray []InputReplyToMessage
 
@@ -399,4 +412,114 @@ func (s *InputReplyToMonoForumArray) Pop() (v InputReplyToMonoForum, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// InputReplyToEphemeralMessageArray is adapter for slice of InputReplyToEphemeralMessage.
+type InputReplyToEphemeralMessageArray []InputReplyToEphemeralMessage
+
+// Sort sorts slice of InputReplyToEphemeralMessage.
+func (s InputReplyToEphemeralMessageArray) Sort(less func(a, b InputReplyToEphemeralMessage) bool) InputReplyToEphemeralMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputReplyToEphemeralMessage.
+func (s InputReplyToEphemeralMessageArray) SortStable(less func(a, b InputReplyToEphemeralMessage) bool) InputReplyToEphemeralMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputReplyToEphemeralMessage.
+func (s InputReplyToEphemeralMessageArray) Retain(keep func(x InputReplyToEphemeralMessage) bool) InputReplyToEphemeralMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputReplyToEphemeralMessageArray) First() (v InputReplyToEphemeralMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputReplyToEphemeralMessageArray) Last() (v InputReplyToEphemeralMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputReplyToEphemeralMessageArray) PopFirst() (v InputReplyToEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputReplyToEphemeralMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputReplyToEphemeralMessageArray) Pop() (v InputReplyToEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of InputReplyToEphemeralMessage by ID.
+func (s InputReplyToEphemeralMessageArray) SortByID() InputReplyToEphemeralMessageArray {
+	return s.Sort(func(a, b InputReplyToEphemeralMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputReplyToEphemeralMessage by ID.
+func (s InputReplyToEphemeralMessageArray) SortStableByID() InputReplyToEphemeralMessageArray {
+	return s.SortStable(func(a, b InputReplyToEphemeralMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputReplyToEphemeralMessageArray) FillMap(to map[int]InputReplyToEphemeralMessage) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputReplyToEphemeralMessageArray) ToMap() map[int]InputReplyToEphemeralMessage {
+	r := make(map[int]InputReplyToEphemeralMessage, len(s))
+	s.FillMap(r)
+	return r
 }

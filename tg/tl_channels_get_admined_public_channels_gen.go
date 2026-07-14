@@ -69,6 +69,8 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//  1) https://core.telegram.org/method/account.updatePersonalChannel
 	//  2) https://core.telegram.org/api/profile#personal-channel
 	ForPersonal bool
+	// ForCommunityPeer field of ChannelsGetAdminedPublicChannelsRequest.
+	ForCommunityPeer bool
 }
 
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
@@ -98,6 +100,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Zero() bool {
 	if !(g.ForPersonal == false) {
 		return false
 	}
+	if !(g.ForCommunityPeer == false) {
+		return false
+	}
 
 	return true
 }
@@ -116,10 +121,12 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) FillFrom(from interface {
 	GetByLocation() (value bool)
 	GetCheckLimit() (value bool)
 	GetForPersonal() (value bool)
+	GetForCommunityPeer() (value bool)
 }) {
 	g.ByLocation = from.GetByLocation()
 	g.CheckLimit = from.GetCheckLimit()
 	g.ForPersonal = from.GetForPersonal()
+	g.ForCommunityPeer = from.GetForCommunityPeer()
 }
 
 // TypeID returns type id in TL schema.
@@ -160,6 +167,11 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) TypeInfo() tdp.Type {
 			SchemaName: "for_personal",
 			Null:       !g.Flags.Has(2),
 		},
+		{
+			Name:       "ForCommunityPeer",
+			SchemaName: "for_community_peer",
+			Null:       !g.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -174,6 +186,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetFlags() {
 	}
 	if !(g.ForPersonal == false) {
 		g.Flags.Set(2)
+	}
+	if !(g.ForCommunityPeer == false) {
+		g.Flags.Set(3)
 	}
 }
 
@@ -222,6 +237,7 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) erro
 	g.ByLocation = g.Flags.Has(0)
 	g.CheckLimit = g.Flags.Has(1)
 	g.ForPersonal = g.Flags.Has(2)
+	g.ForCommunityPeer = g.Flags.Has(3)
 	return nil
 }
 
@@ -280,6 +296,25 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) GetForPersonal() (value bool) 
 		return
 	}
 	return g.Flags.Has(2)
+}
+
+// SetForCommunityPeer sets value of ForCommunityPeer conditional field.
+func (g *ChannelsGetAdminedPublicChannelsRequest) SetForCommunityPeer(value bool) {
+	if value {
+		g.Flags.Set(3)
+		g.ForCommunityPeer = true
+	} else {
+		g.Flags.Unset(3)
+		g.ForCommunityPeer = false
+	}
+}
+
+// GetForCommunityPeer returns value of ForCommunityPeer conditional field.
+func (g *ChannelsGetAdminedPublicChannelsRequest) GetForCommunityPeer() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(3)
 }
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.
