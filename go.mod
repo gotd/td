@@ -18,7 +18,7 @@ require (
 	github.com/gotd/log/logzap v0.1.1
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
-	github.com/k0kubun/pp/v3 v3.5.1
+	github.com/k0kubun/pp/v3 v3.5.2
 	github.com/klauspost/compress v1.19.0
 	github.com/ogen-go/ogen v1.23.0
 	github.com/pion/ice/v4 v4.3.0
@@ -62,7 +62,7 @@ require (
 	github.com/go-faster/yaml v0.4.6 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/mattn/go-colorable v0.1.14 // indirect
+	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/pion/datachannel v1.6.2 // indirect
 	github.com/pion/dtls/v3 v3.1.5 // indirect
