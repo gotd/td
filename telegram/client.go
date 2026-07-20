@@ -84,6 +84,9 @@ type Client struct {
 	// Telegram device information.
 	device DeviceConfig // immutable
 
+	// Schema layer requested via invokeWithLayer.
+	layer int // immutable
+
 	// MTProto options.
 	opts mtproto.Options // immutable
 
@@ -196,6 +199,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		onConnectionState: opt.OnConnectionState,
 		clock:             opt.Clock,
 		device:            opt.Device,
+		layer:             opt.Layer,
 		migrationTimeout:  opt.MigrationTimeout,
 		noUpdatesMode:     opt.NoUpdates,
 		mw:                opt.Middlewares,

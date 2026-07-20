@@ -125,6 +125,14 @@ type Options struct {
 	// Will be sent with session creation request.
 	Device DeviceConfig
 
+	// Layer is the schema layer to request via invokeWithLayer.
+	//
+	// If not provided, tg.Layer will be used, i.e. the layer of the schema
+	// this package is generated from. Override it only if the server must be
+	// asked for an older layer; requests are still encoded using tg.Layer
+	// schema, so a mismatch may cause decoding errors.
+	Layer int
+
 	MessageID mtproto.MessageIDSource
 	Clock     clock.Clock
 
@@ -162,6 +170,9 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.DCList.Zero() {
 		opt.DCList = dcs.Prod()
+	}
+	if opt.Layer == 0 {
+		opt.Layer = tg.Layer
 	}
 	// It's okay to use zero value AckBatchSize, mtproto.Options will set defaults.
 	// It's okay to use zero value AckInterval, mtproto.Options will set defaults.

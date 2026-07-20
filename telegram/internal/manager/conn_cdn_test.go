@@ -42,6 +42,7 @@ func newTestConn(mode ConnMode, proto protoConn) *Conn {
 		dc:          203,
 		appID:       42,
 		device:      DeviceConfig{AppVersion: "test-app"},
+		layer:       tg.Layer,
 		proto:       proto,
 		clock:       clock.System,
 		log:         log.For(log.Nop),

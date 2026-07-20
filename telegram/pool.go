@@ -147,6 +147,7 @@ func (c *Client) dc(
 			dialer, mode, c.appID,
 			options, manager.ConnOptions{
 				DC:      dcID,
+				Layer:   c.layer,
 				Device:  c.device,
 				Handler: handler,
 				Setup:   setup,
