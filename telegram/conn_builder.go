@@ -108,6 +108,7 @@ func (c *Client) createConn(
 		opts, manager.ConnOptions{
 			DC:      s.DC,
 			Test:    c.testDC,
+			Layer:   c.layer,
 			Device:  c.device,
 			Handler: c.asHandler(),
 			Setup:   setup,

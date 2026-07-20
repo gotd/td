@@ -50,6 +50,8 @@ type Conn struct {
 	// InitConnection parameters.
 	appID  int          // immutable
 	device DeviceConfig // immutable
+	// layer is the schema layer sent in invokeWithLayer.
+	layer int // immutable
 
 	// setup is callback which called after initConnection, but before ready signaling.
 	// This is necessary to transfer auth from previous connection to another DC.
@@ -231,7 +233,7 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 	}
 	q := c.wrapRequest(noopDecoder{input})
 	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
-		Layer: tg.Layer,
+		Layer: c.layer,
 		Query: q,
 	})
 	err := c.proto.Invoke(ctx, req, output)
@@ -273,7 +275,7 @@ func (c *Conn) invokeCDN(
 }
 func (c *Conn) invokeCDNWrapped(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	req := &tg.InvokeWithLayerRequest{
-		Layer: tg.Layer,
+		Layer: c.layer,
 		Query: c.cdnInitRequest(noopDecoder{input}),
 	}
 	return c.proto.Invoke(ctx, req, output)
@@ -364,7 +366,7 @@ func (c *Conn) init(ctx context.Context) error {
 		Query:          c.wrapRequest(&tg.HelpGetConfigRequest{}),
 	})
 	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
-		Layer: tg.Layer,
+		Layer: c.layer,
 		Query: q,
 	})
 
