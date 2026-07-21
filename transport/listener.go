@@ -59,10 +59,7 @@ func (l Listener) Accept() (_ Conn, rErr error) {
 			return nil, errors.Wrap(err, "read header")
 		}
 
-		return &connection{
-			conn:  conn,
-			codec: codec,
-		}, nil
+		return newConnection(conn, codec), nil
 	}
 
 	// Otherwise try to detect codec.
@@ -71,13 +68,10 @@ func (l Listener) Accept() (_ Conn, rErr error) {
 		return nil, errors.Wrap(err, "detect codec")
 	}
 
-	return &connection{
-		conn: wrappedConn{
-			reader: reader,
-			Conn:   conn,
-		},
-		codec: transportCodec,
-	}, nil
+	return newConnection(wrappedConn{
+		reader: reader,
+		Conn:   conn,
+	}, transportCodec), nil
 }
 
 // Close closes the listener.

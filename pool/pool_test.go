@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdsync"
+	"github.com/gotd/td/transport"
 )
 
 type mockConn struct {
@@ -66,6 +67,35 @@ func TestDC_InvokeRetryOnDeadConn(t *testing.T) {
 			return invokeErrConn{
 				mockConn: newMockConn(true),
 				err:      errors.Wrap(ErrConnDead, "waitSession"),
+			}
+		}
+		return newMockConn(true)
+	}, DCOptions{
+		MaxOpenConnections: 1,
+	})
+	defer func() {
+		a.NoError(p.Close())
+	}()
+
+	// Request must be transparently retried on a new connection.
+	a.NoError(p.Invoke(ctx, nil, nil))
+	a.Equal(2, created, "Pool must create new connection to retry invoke")
+}
+
+func TestDC_InvokeRetryOnWriteFailed(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+
+	created := 0
+	p := NewDC(ctx, 2, func() Conn {
+		created++
+		if created == 1 {
+			// First connection's write failed: the frame was not sent, or
+			// sent partially and discarded by the server, so retrying on a
+			// new connection is safe.
+			return invokeErrConn{
+				mockConn: newMockConn(true),
+				err:      errors.Wrap(transport.ErrWriteFailed, "write"),
 			}
 		}
 		return newMockConn(true)

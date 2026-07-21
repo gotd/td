@@ -12,6 +12,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/rpc"
+	"github.com/gotd/td/transport"
 )
 
 // notifyInvokeConn is a fake connection which always fails Invoke with given
@@ -59,6 +60,7 @@ func TestClient_invokeConnRetriesOnNewConn(t *testing.T) {
 	}{
 		{"ConnDead", errors.Wrap(pool.ErrConnDead, "waitSession")},
 		{"EngineClosed", errors.Wrap(rpc.ErrEngineClosed, "engine forcibly closed")},
+		{"WriteFailed", errors.Wrap(transport.ErrWriteFailed, "write")},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			client := Client{log: log.For(log.Nop)}
@@ -110,6 +112,13 @@ func TestClient_invokeConnClientClose(t *testing.T) {
 	err := client.invokeConn(context.Background(), nil, nil)
 	require.ErrorIs(t, err, context.Canceled)
 	require.NotErrorIs(t, err, pool.ErrConnDead)
+}
+
+func TestErrRetryableOnNewConn_AckedCloseNotRetryable(t *testing.T) {
+	// An acknowledged request may already have been processed by the
+	// server: errRetryableOnNewConn must NOT classify it as safe to retry
+	// on a new connection, or a transparent resend could duplicate the RPC.
+	require.False(t, errRetryableOnNewConn(rpc.ErrEngineClosedAfterAck))
 }
 
 func TestClient_invokeConnNotRetryable(t *testing.T) {

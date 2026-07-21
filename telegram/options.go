@@ -108,6 +108,25 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
+	// PingInterval is the duration between ping_delay_disconnect requests.
+	//
+	// Zero value means default (1 minute).
+	PingInterval time.Duration
+	// PingTimeout is how long to wait for a pong before considering the
+	// connection dead.
+	//
+	// Zero value means default (15 seconds).
+	PingTimeout time.Duration
+	// PingDelayDisconnect is the disconnect_delay value sent to the server.
+	// Must exceed PingInterval.
+	//
+	// Zero value means default (PingInterval + PingTimeout).
+	PingDelayDisconnect time.Duration
+	// IdleTimeout is the maximum duration without any received data before the
+	// connection is closed and reconnected.
+	//
+	// Zero value means default (PingDelayDisconnect).
+	IdleTimeout time.Duration
 	// EnablePFS enables Perfect Forward Secrecy with temporary auth keys.
 	EnablePFS bool
 	// TempKeyTTL controls temporary key lifetime in seconds.

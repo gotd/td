@@ -95,9 +95,10 @@ func (c *Conn) removePong(pingID int64) {
 }
 
 func (c *Conn) pingLoop(ctx context.Context) error {
-	// If the client sends these pings once every 60 seconds,
-	// for example, it may set disconnect_delay equal to 75 seconds.
-	delay := c.pingInterval + c.pingTimeout
+	// disconnect_delay tells the server how long to wait for the next ping
+	// before dropping the connection. Defaults to PingInterval+PingTimeout,
+	// which is what the protocol docs suggest for a 60s ping interval.
+	delay := c.disconnectDelay
 
 	logger := c.log.Named("ping")
 	ticker := c.clock.Ticker(c.pingInterval)

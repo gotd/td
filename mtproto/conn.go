@@ -9,6 +9,7 @@ import (
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
 	"go.uber.org/atomic"
+	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -97,10 +98,20 @@ type Conn struct {
 	// Key is ping id.
 	ping    map[int64]chan struct{}
 	pingMux sync.Mutex
-	// pingTimeout sets ping_delay_disconnect delay.
+	// pingTimeout is how long to wait for a pong before considering the
+	// ping failed (Options.PingTimeout).
 	pingTimeout time.Duration
 	// pingInterval is duration between ping_delay_disconnect request.
 	pingInterval time.Duration
+	// disconnectDelay is the disconnect_delay value sent to the server in
+	// ping_delay_disconnect (Options.PingDelayDisconnect). Named differently
+	// from the pingDelayDisconnect method below, which sends that request.
+	disconnectDelay time.Duration
+	// idleTimeout is max duration without any received data.
+	idleTimeout time.Duration
+	// lastRecv is unix nano timestamp of the last successful Recv, maintained
+	// by readLoop and consumed by idleWatchdog.
+	lastRecv atomic.Int64
 
 	// gotSession is a signal channel for wait for handleSessionCreated message.
 	gotSession *tdsync.Ready
@@ -119,6 +130,25 @@ type Conn struct {
 	pfs bool
 	// tempKeyTTL controls requested temporary key lifetime in seconds.
 	tempKeyTTL int
+
+	// closeOnce guards c.conn.Close(): handleClose, idleWatchdog, and
+	// connect()'s cancellation watcher and close-on-error path (connect.go)
+	// all route through Conn.close so transport.Conn's Close() — not
+	// guaranteed safe for concurrent calls — runs at most once. A Conn is
+	// single-use (ran below permits exactly one Run call), so one Conn owns
+	// exactly one underlying connection for its entire lifetime, making
+	// this the right granularity for the guard.
+	closeOnce sync.Once
+	closeErr  error
+
+	// idleCause records idleWatchdog's reason for closing the connection,
+	// if it fired. Run consults this after g.Wait() returns an error
+	// instead of trusting whichever goroutine's error errgroup happened to
+	// record first: handleClose's forced Close() and idleWatchdog's own
+	// Close() both unblock the parked readLoop concurrently, so which one
+	// "wins" that race is otherwise nondeterministic.
+	idleCause atomic.Error
+
 	// Ensure Run once.
 	ran atomic.Bool
 }
@@ -151,9 +181,11 @@ func New(dialer Dialer, opt Options) *Conn {
 		permKey: opt.PermKey,
 		salt:    opt.Salt,
 
-		ping:         map[int64]chan struct{}{},
-		pingTimeout:  opt.PingTimeout,
-		pingInterval: opt.PingInterval,
+		ping:            map[int64]chan struct{}{},
+		pingTimeout:     opt.PingTimeout,
+		pingInterval:    opt.PingInterval,
+		disconnectDelay: opt.PingDelayDisconnect,
+		idleTimeout:     opt.IdleTimeout,
 
 		gotSession: tdsync.NewReady(),
 
@@ -187,6 +219,24 @@ func New(dialer Dialer, opt Options) *Conn {
 	return conn
 }
 
+// close closes the underlying transport connection exactly once, returning
+// the stored result to every caller — including ones that arrive after the
+// first Close() has already completed elsewhere. See closeOnce on Conn for
+// why every closer must route through this instead of calling c.conn.Close()
+// directly.
+//
+// Because the result is shared, a caller that arrives after the actual
+// c.conn.Close() call still gets back that call's error, even though it did
+// not perform the close itself. A non-nil return is therefore not evidence
+// that *this* call is the one that closed the connection — callers must not
+// condition close-specific behavior (e.g. "did I just close it") on that.
+func (c *Conn) close() error {
+	c.closeOnce.Do(func() {
+		c.closeErr = c.conn.Close()
+	})
+	return c.closeErr
+}
+
 // handleClose closes rpc engine and underlying connection on context done.
 func (c *Conn) handleClose(ctx context.Context) error {
 	<-ctx.Done()
@@ -195,10 +245,83 @@ func (c *Conn) handleClose(ctx context.Context) error {
 	// Close RPC Engine.
 	c.rpc.ForceClose()
 	// Close connection.
-	if err := c.conn.Close(); err != nil {
+	if err := c.close(); err != nil {
 		c.log.Debug(ctx, "Failed to cleanup connection", log.Error(err))
 	}
 	return nil
+}
+
+// ErrIdleTimeout is returned by idleWatchdog when nothing was received from
+// the server for IdleTimeout.
+var ErrIdleTimeout = errors.New("idle timeout")
+
+// idleWatchdog closes the connection if nothing has been received for
+// idleTimeout.
+//
+// It exists because the ping loop cannot be the only liveness detector: it
+// runs on the write path, so anything that stalls writing also disarms it.
+// This loop touches neither locks nor I/O, only a clock and an atomic, so it
+// keeps ticking regardless of the state of the socket.
+//
+// Uses a self-resetting Timer rather than a Ticker (unlike ackLoop, pingLoop,
+// saltLoop below). gotd/neo's simulated clock reschedules a Ticker's next
+// tick from inside its own fired goroutine, which reads the ticker's id
+// field; that field is written by the constructing goroutine only after the
+// scheduling call returns, so a Ticker driven by a concurrent Travel() (as
+// tests do) races that write. Timer has no such self-reschedule: this loop
+// calls Reset itself after consuming each tick, from the same goroutine that
+// created the Timer, which never touches that field across goroutines.
+func (c *Conn) idleWatchdog(ctx context.Context) error {
+	if c.idleTimeout <= 0 {
+		<-ctx.Done()
+		return ctx.Err()
+	}
+
+	interval := c.idleTimeout / 4
+	timer := c.clock.Timer(interval)
+	defer timer.Stop()
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case now := <-timer.C():
+			// Use the tick's own timestamp rather than calling c.clock.Now()
+			// again: with the simulated clock (gotd/neo) used in tests, a
+			// second call would re-enter the clock's internal lock, which a
+			// fast-forwarding Travel() can be holding while blocked sending
+			// the very tick this goroutine is trying to consume.
+			last := c.lastRecv.Load()
+			if last == 0 {
+				// Nothing received yet; connect() sets the initial value, so
+				// this only happens if the watchdog outran it.
+				timer.Reset(interval)
+				continue
+			}
+			if now.UnixNano()-last < int64(c.idleTimeout) {
+				timer.Reset(interval)
+				continue
+			}
+
+			c.log.Warn(ctx, "Nothing received for idle timeout, closing connection",
+				log.Duration("idle_timeout", c.idleTimeout),
+			)
+			// Record the cause before closing: closing is what unblocks the
+			// parked readLoop, and Run prefers this stored cause over
+			// whichever error errgroup happens to record first (see
+			// idleCause on Conn).
+			cause := errors.Wrap(ErrIdleTimeout, "idle watchdog")
+			c.idleCause.Store(cause)
+			// Closing is what actually releases anything parked in I/O:
+			// Close takes no locks. Routed through Conn.close so this
+			// shares the same guard as handleClose and connect()'s
+			// closers.
+			if err := c.close(); err != nil {
+				c.log.Debug(ctx, "Failed to close connection", log.Error(err))
+			}
+			return cause
+		}
+	}
 }
 
 // Run initializes MTProto connection to server and blocks until disconnection.
@@ -239,6 +362,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 			}
 		}
 		g.Go("pingLoop", c.pingLoop)
+		g.Go("idleWatchdog", c.idleWatchdog)
 		g.Go("ackLoop", c.ackLoop)
 		g.Go("saltsLoop", c.saltLoop)
 		// Enable HTTP long-polling if the transport is HTTP; no-op otherwise.
@@ -250,8 +374,25 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("userCallback", f)
 
 		if err := g.Wait(); err != nil {
-			return errors.Wrap(err, "group")
+			return c.groupErr(err)
 		}
 	}
 	return nil
+}
+
+// groupErr converts g.Wait()'s error (always non-nil; see the one caller in
+// Run) into the error Run returns.
+//
+// idleWatchdog's own Close() races handleClose's, so which goroutine's error
+// errgroup records first is nondeterministic once the watchdog has fired.
+// When idleCause is set, this merges it into the group's error instead of
+// replacing it: that keeps classification via errors.Is(err, ErrIdleTimeout)
+// deterministic while still surfacing whatever errgroup itself recorded
+// (e.g. ErrPFSDropKeysRequired, which telegram/pfs.go uses to decide whether
+// to wipe stored keys) through errors.Is on the same returned error.
+func (c *Conn) groupErr(err error) error {
+	if cause := c.idleCause.Load(); cause != nil {
+		return errors.Wrap(multierr.Append(cause, err), "group")
+	}
+	return errors.Wrap(err, "group")
 }
