@@ -19,7 +19,7 @@ require (
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.5.2
-	github.com/klauspost/compress v1.19.0
+	github.com/klauspost/compress v1.19.1
 	github.com/ogen-go/ogen v1.23.0
 	github.com/pion/ice/v4 v4.3.0
 	github.com/pion/interceptor v0.1.46
