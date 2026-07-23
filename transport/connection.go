@@ -9,6 +9,7 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/proto/codec"
 )
 
 // ErrWriteFailed is returned when writing to the underlying connection failed.
@@ -16,6 +17,11 @@ import (
 // A request that failed with this error is safe to retry on a new connection:
 // the message was either not sent at all, or sent partially, and a partial
 // MTProto frame is discarded by the server.
+//
+// It reports a failure of the link itself. Messages the codec rejects locally
+// (see codec.ErrInvalidMessageLength, codec.ErrPayloadNotAligned) never reach
+// the socket and are deliberately not marked with it: they would fail the same
+// way on any connection, so retrying them elsewhere cannot help.
 var ErrWriteFailed = errors.New("transport write failed")
 
 // writeError annotates a write failure with ErrWriteFailed.
@@ -175,6 +181,15 @@ func (c *connection) Send(ctx context.Context, b *bin.Buffer) error {
 	}
 
 	if err := c.codec.Write(c.conn, b); err != nil {
+		if errors.Is(err, codec.ErrInvalidMessageLength) || errors.Is(err, codec.ErrPayloadNotAligned) {
+			// The codec rejected the message before touching the socket, so the
+			// connection is untouched and still healthy. Marking this as a
+			// transport failure would tell callers the frame never reached the
+			// server and is safe to resend on a new connection; that resend
+			// fails identically, so the caller would wait for a reconnect that
+			// nothing triggers (or, in a pool, spin marking connections dead).
+			return errors.Wrap(err, "write")
+		}
 		return errors.Wrap(writeFailed(err), "write")
 	}
 

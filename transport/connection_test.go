@@ -519,6 +519,40 @@ func TestRecvAfterCloseIsNotWriteFailed(t *testing.T) {
 	require.NotErrorIs(t, err, ErrWriteFailed)
 }
 
+// TestSendCodecRejectionIsNotWriteFailed pins the boundary of ErrWriteFailed.
+//
+// A message the codec refuses is a property of the message, not of the link:
+// the rejection happens before the socket is touched, so the connection stays
+// healthy. Marking it as a transport failure would tell callers
+// (telegram/invoke.go, pool/pool_conn.go) that the frame never reached the
+// server and is safe to resend on a new connection — but the resend fails
+// identically, so the caller would park waiting for a reconnect that nothing
+// triggers, and a pool would spin marking connections dead instead.
+func TestSendCodecRejectionIsNotWriteFailed(t *testing.T) {
+	for _, tt := range []struct {
+		name string
+		buf  *bin.Buffer
+		want error
+	}{
+		{"empty message", &bin.Buffer{}, codec.ErrInvalidMessageLength},
+		{"oversized message", &bin.Buffer{Buf: make([]byte, (1<<24)+4)}, codec.ErrInvalidMessageLength},
+		{"misaligned payload", &bin.Buffer{Buf: make([]byte, 3)}, codec.ErrPayloadNotAligned},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			stub := newStubConn()
+			conn := newConnection(stub, codec.Intermediate{})
+
+			err := conn.Send(context.Background(), tt.buf)
+			require.Error(t, err)
+			require.ErrorIs(t, err, tt.want)
+			require.NotErrorIs(t, err, ErrWriteFailed,
+				"a locally rejected message must not be reported as a transport failure")
+			require.Equal(t, 0, stub.writeCount(),
+				"the codec rejected the message, so nothing may reach the socket")
+		})
+	}
+}
+
 // TestCloseUnblocksOnlyViaForcedDeadline proves that it is specifically the
 // forced past deadline — not Close itself — that releases a parked Send. The
 // stub's Close never unblocks pending I/O on its own, so if Close stopped
