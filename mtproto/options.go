@@ -129,6 +129,22 @@ func (opt *Options) setDefaultPublicKeys() {
 	opt.PublicKeys = vendoredKeys()
 }
 
+// defaultPingDelayDisconnect derives a disconnect_delay that stays meaningful
+// after pingLoop truncates it to whole seconds for the wire.
+//
+// PingInterval + PingTimeout is the intended value, but it is a Duration while
+// ping_delay_disconnect.disconnect_delay is an int of seconds: with sub-second
+// ping settings that sum floors to zero, asking the server to drop the
+// connection immediately — the exact failure the validation in setDefaults
+// exists to prevent, which a plain re-assignment of the same sum would not fix.
+// The first whole second strictly above PingInterval is therefore used as a
+// floor. With the defaults (60s + 15s) the sum already clears it, so the wire
+// value is unchanged at 75s.
+func defaultPingDelayDisconnect(interval, timeout time.Duration) time.Duration {
+	minWireDelay := (interval/time.Second + 1) * time.Second
+	return max(interval+timeout, minWireDelay)
+}
+
 func (opt *Options) setDefaults() {
 	if opt.DC == 0 {
 		opt.DC = 2
@@ -167,7 +183,7 @@ func (opt *Options) setDefaults() {
 		opt.PingInterval = 1 * time.Minute
 	}
 	if opt.PingDelayDisconnect == 0 {
-		opt.PingDelayDisconnect = opt.PingInterval + opt.PingTimeout
+		opt.PingDelayDisconnect = defaultPingDelayDisconnect(opt.PingInterval, opt.PingTimeout)
 	}
 	// pingLoop truncates PingDelayDisconnect to whole seconds before putting it
 	// on the wire (ping_delay_disconnect.disconnect_delay is an int). Validate
@@ -184,7 +200,7 @@ func (opt *Options) setDefaults() {
 			log.Duration("configured_wire", wireDelay),
 			log.Duration("ping_interval", opt.PingInterval),
 		)
-		opt.PingDelayDisconnect = opt.PingInterval + opt.PingTimeout
+		opt.PingDelayDisconnect = defaultPingDelayDisconnect(opt.PingInterval, opt.PingTimeout)
 	}
 	// The watchdog may only fire once a ping has demonstrably gone unanswered.
 	// Merely clearing PingInterval is not enough: with PingInterval=60s and

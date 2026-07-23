@@ -71,6 +71,43 @@ func TestOptionsPingDelayWireTruncation(t *testing.T) {
 		"corrected PingDelayDisconnect must clear PingInterval after truncation to whole seconds")
 }
 
+func TestOptionsPingDelaySubSecondFallback(t *testing.T) {
+	// disconnect_delay goes on the wire as an int of seconds, so with
+	// sub-second ping settings PingInterval+PingTimeout floors to zero.
+	// Re-applying that same sum as the correction would ship
+	// disconnect_delay=0, asking the server to drop the connection at once —
+	// precisely the outcome the validation exists to prevent.
+	for _, tt := range []struct {
+		name string
+		opt  Options
+	}{
+		{
+			name: "derived default",
+			opt:  Options{PingInterval: 500 * time.Millisecond, PingTimeout: 100 * time.Millisecond},
+		},
+		{
+			name: "explicitly configured below the floor",
+			opt: Options{
+				PingInterval:        500 * time.Millisecond,
+				PingTimeout:         100 * time.Millisecond,
+				PingDelayDisconnect: 600 * time.Millisecond,
+			},
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			opt := tt.opt
+			opt.setDefaults()
+
+			require.NotZero(t, int(opt.PingDelayDisconnect.Seconds()),
+				"disconnect_delay must never reach the server as 0")
+
+			wireDelay := time.Duration(int(opt.PingDelayDisconnect.Seconds())) * time.Second
+			require.Greater(t, wireDelay, opt.PingInterval,
+				"corrected PingDelayDisconnect must clear PingInterval after truncation to whole seconds")
+		})
+	}
+}
+
 func TestOptionsIdleTimeoutMustExceedInterval(t *testing.T) {
 	// An IdleTimeout no longer than PingInterval would tear down a healthy
 	// connection between pings.
