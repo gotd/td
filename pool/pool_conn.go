@@ -20,12 +20,15 @@ var ErrConnDead = errors.New("connection dead")
 // or sent but not acknowledged), so it is safe to retry the request on a new
 // connection.
 //
-// A transport write failure qualifies: the frame was either not sent at all or
-// sent partially, and the server discards partial frames.
-func errRetryableOnNewConn(err error) bool {
-	return errors.Is(err, ErrConnDead) ||
-		errors.Is(err, rpc.ErrEngineClosed) ||
-		errors.Is(err, transport.ErrWriteFailed)
+// A transport write failure also qualifies — the frame was either not sent at
+// all or sent partially, and the server discards partial frames — but only when
+// the caller opted in through DCOptions.RetryOnWriteFailed, since retrying it
+// hides the error from a caller that acts on it itself.
+func errRetryableOnNewConn(err error, retryOnWriteFailed bool) bool {
+	if errors.Is(err, ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed) {
+		return true
+	}
+	return retryOnWriteFailed && errors.Is(err, transport.ErrWriteFailed)
 }
 
 // Conn represents Telegram MTProto connection.

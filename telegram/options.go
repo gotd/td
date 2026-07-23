@@ -127,6 +127,14 @@ type Options struct {
 	//
 	// Zero value means default (PingDelayDisconnect).
 	IdleTimeout time.Duration
+	// RetryOnWriteFailed retries a request whose transport send failed on the
+	// next connection instead of returning the write error to the caller.
+	//
+	// Disabled by default, preserving the behavior of returning the error: a
+	// caller that acts on it itself — rotating a proxy or an endpoint, for
+	// example — needs to keep seeing it. Requests that were sent but not
+	// acknowledged are retried regardless of this option.
+	RetryOnWriteFailed bool
 	// EnablePFS enables Perfect Forward Secrecy with temporary auth keys.
 	EnablePFS bool
 	// TempKeyTTL controls temporary key lifetime in seconds.

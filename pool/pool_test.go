@@ -101,6 +101,7 @@ func TestDC_InvokeRetryOnWriteFailed(t *testing.T) {
 		return newMockConn(true)
 	}, DCOptions{
 		MaxOpenConnections: 1,
+		RetryOnWriteFailed: true,
 	})
 	defer func() {
 		a.NoError(p.Close())
@@ -109,6 +110,30 @@ func TestDC_InvokeRetryOnWriteFailed(t *testing.T) {
 	// Request must be transparently retried on a new connection.
 	a.NoError(p.Invoke(ctx, nil, nil))
 	a.Equal(2, created, "Pool must create new connection to retry invoke")
+}
+
+func TestDC_InvokeWriteFailedSurfacesByDefault(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+
+	created := 0
+	p := NewDC(ctx, 2, func() Conn {
+		created++
+		return invokeErrConn{
+			mockConn: newMockConn(true),
+			err:      errors.Wrap(transport.ErrWriteFailed, "write"),
+		}
+	}, DCOptions{
+		MaxOpenConnections: 1,
+	})
+	defer func() {
+		a.NoError(p.Close())
+	}()
+
+	// Retrying a failed transport send is opt-in, so the error reaches the
+	// caller and no replacement connection is dialled.
+	a.ErrorIs(p.Invoke(ctx, nil, nil), transport.ErrWriteFailed)
+	a.Equal(1, created, "Pool must not redial when the write error is surfaced")
 }
 
 func TestDC_InvokeNotRetryable(t *testing.T) {

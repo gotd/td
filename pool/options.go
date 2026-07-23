@@ -9,6 +9,12 @@ type DCOptions struct {
 	// MTProto options for connections.
 	// Opened connection limit to the DC.
 	MaxOpenConnections int64
+	// RetryOnWriteFailed retries a request whose transport send failed on
+	// another connection instead of returning the write error to the caller.
+	//
+	// Disabled by default: a caller that reacts to the write error itself —
+	// rotating a proxy or an endpoint, for example — needs to keep seeing it.
+	RetryOnWriteFailed bool
 }
 
 func (d *DCOptions) setDefaults() {

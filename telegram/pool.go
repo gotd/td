@@ -33,6 +33,7 @@ func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.
 	p := pool.NewDC(c.ctx, dc, creator, pool.DCOptions{
 		Logger:             c.log.Named("pool").With(log.Int("dc_id", dc)).Logger(),
 		MaxOpenConnections: max,
+		RetryOnWriteFailed: c.retryOnWriteFailed,
 	})
 
 	return p, nil
