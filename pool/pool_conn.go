@@ -9,6 +9,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/tdsync"
+	"github.com/gotd/td/transport"
 )
 
 // ErrConnDead means that connection is closed and can't be used anymore.
@@ -18,8 +19,16 @@ var ErrConnDead = errors.New("connection dead")
 // died before the request was processed by the server (request was not sent,
 // or sent but not acknowledged), so it is safe to retry the request on a new
 // connection.
-func errRetryableOnNewConn(err error) bool {
-	return errors.Is(err, ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed)
+//
+// A transport write failure also qualifies — the frame was either not sent at
+// all or sent partially, and the server discards partial frames — but only when
+// the caller opted in through DCOptions.RetryOnWriteFailed, since retrying it
+// hides the error from a caller that acts on it itself.
+func errRetryableOnNewConn(err error, retryOnWriteFailed bool) bool {
+	if errors.Is(err, ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed) {
+		return true
+	}
+	return retryOnWriteFailed && errors.Is(err, transport.ErrWriteFailed)
 }
 
 // Conn represents Telegram MTProto connection.

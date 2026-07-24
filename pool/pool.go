@@ -42,6 +42,9 @@ type DC struct {
 	// Limit of connections.
 	max int64 // immutable
 
+	// Retry a request whose transport send failed on another connection.
+	retryOnWriteFailed bool // immutable
+
 	// Signal connection for cases when all connections are dead, but all requests waiting for
 	// free connection in 3rd acquire case.
 	stuck *tdsync.ResetReady
@@ -64,6 +67,8 @@ func NewDC(ctx context.Context, id int, newConn func() Conn, opts DCOptions) *DC
 		freeReq: newReqMap(),
 		max:     opts.MaxOpenConnections,
 		stuck:   tdsync.NewResetReady(),
+
+		retryOnWriteFailed: opts.RetryOnWriteFailed,
 	}
 }
 
@@ -255,7 +260,7 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 
 		c.log.Debug(ctx, "DC Invoke")
 		err = conn.Invoke(ctx, input, output)
-		if err != nil && errRetryableOnNewConn(err) && ctx.Err() == nil {
+		if err != nil && errRetryableOnNewConn(err, c.retryOnWriteFailed) && ctx.Err() == nil {
 			// Connection died before the request was processed by the
 			// server, so it is safe to retry it on another connection.
 			//

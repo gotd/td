@@ -16,6 +16,7 @@ import (
 	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
+	"github.com/gotd/td/transport"
 )
 
 // API returns *tg.Client for calling raw MTProto methods.
@@ -98,7 +99,7 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 		c.connMux.Unlock()
 
 		err := conn.Invoke(ctx, input, output)
-		if err == nil || !errRetryableOnNewConn(err) {
+		if err == nil || !errRetryableOnNewConn(err, c.retryOnWriteFailed) {
 			return err
 		}
 
@@ -127,6 +128,14 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 // died before the request was processed by the server (request was not sent,
 // or sent but not acknowledged), so it is safe to retry the request on a new
 // connection.
-func errRetryableOnNewConn(err error) bool {
-	return errors.Is(err, pool.ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed)
+//
+// A transport write failure also qualifies — the frame was either not sent at
+// all or sent partially, and the server discards partial frames — but only when
+// the caller opted in through Options.RetryOnWriteFailed, since retrying it
+// hides the error from a caller that acts on it itself.
+func errRetryableOnNewConn(err error, retryOnWriteFailed bool) bool {
+	if errors.Is(err, pool.ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed) {
+		return true
+	}
+	return retryOnWriteFailed && errors.Is(err, transport.ErrWriteFailed)
 }

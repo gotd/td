@@ -143,7 +143,12 @@ Loop:
 	}
 
 	// 5. Server responds with Server_DH_Params.
-	if err := c.conn.Recv(ctx, b); err != nil {
+	//
+	// tryRead applies ExchangeTimeout; a bare conn.Recv would inherit a ctx
+	// without deadline (in PFS mode DialTimeout covers only the dial), leaving
+	// the read parked forever with no goroutine able to close the socket —
+	// Conn.Run has not started its group yet at this point.
+	if err := c.tryRead(ctx, b); err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "read ServerDHParams message")
 	}
 	c.log.Debug(ctx, "Received server ServerDHParams")
@@ -238,7 +243,8 @@ Loop:
 		authKey := big.NewInt(0).Exp(gA, bParam, dhPrime)
 
 		b.Reset()
-		if err := c.conn.Recv(ctx, b); err != nil {
+		// See the note at step 5: tryRead applies ExchangeTimeout.
+		if err := c.tryRead(ctx, b); err != nil {
 			return ClientExchangeResult{}, errors.Wrap(err, "read DhGen message")
 		}
 		c.log.Debug(ctx, "Received server DhGen")

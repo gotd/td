@@ -184,10 +184,14 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		}
 		// Request was acknowledged by the server, but the response was not
 		// received before close: the server may have already processed it,
-		// so resending is not safe. Report plain context error, callers
-		// should not retry transparently.
+		// so resending is not safe. Report an error that still satisfies
+		// errors.Is(err, context.Canceled) (callers should not retry
+		// transparently) while also satisfying
+		// errors.Is(err, ErrEngineClosedAfterAck) so callers can tell this
+		// apart from a plain caller-initiated cancellation; deliberately
+		// does NOT satisfy errors.Is(err, ErrEngineClosed).
 		logger.Debug(ctx, "Engine closed while waiting for result")
-		return errors.Wrap(e.reqCtx.Err(), "engine forcibly closed")
+		return &ackedCloseError{cause: e.reqCtx.Err()}
 	case <-done:
 		logger.Debug(ctx, "Result received", log.Error(resultErr))
 		return resultErr
@@ -247,8 +251,38 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 						return nil
 					}
 
+					select {
+					case <-ackChan:
+						// The acknowledge for an earlier send arrived over the
+						// still-live read path while this retry send was parked on
+						// a wedged socket. The server has the request and may have
+						// already executed it, so the retry's write failure says
+						// nothing about the request's fate: prefer the ack, exactly
+						// as the reqCtx branch above does.
+						logger.Debug(ctx, "Acknowledged")
+						return nil
+					default:
+					}
+
 					logger.Error(ctx, "Retry failed", log.Error(err))
-					return err
+
+					if ctxErr := ctx.Err(); ctxErr != nil && errors.Is(err, ctxErr) {
+						// The send failed because ctx ended, not because the
+						// connection did. Do normalizes this into ctx.Err(), and
+						// masking it here would defeat that; return it unchanged.
+						return err
+					}
+
+					// An earlier send already reached the wire, so the server may
+					// hold this msg_id even though no ack arrived before the check
+					// above (an ack racing in right now is indistinguishable from
+					// one that never comes). Callers must not transparently resend:
+					// telegram/invoke.go and pool/pool_conn.go would do so under a
+					// fresh msg_id, defeating server-side deduplication and
+					// duplicating the RPC. Mask the retryable sentinels the
+					// underlying error may carry — notably transport.ErrWriteFailed,
+					// which is genuinely safe to retry only for the very first send.
+					return &retrySendError{cause: err}
 				}
 
 				retries++

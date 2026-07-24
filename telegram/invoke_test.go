@@ -12,6 +12,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/rpc"
+	"github.com/gotd/td/transport"
 )
 
 // notifyInvokeConn is a fake connection which always fails Invoke with given
@@ -56,12 +57,16 @@ func TestClient_invokeConnRetriesOnNewConn(t *testing.T) {
 	for _, tt := range []struct {
 		name string
 		err  error
+		// Retrying a failed transport send is opt-in; the other two classes
+		// are retried unconditionally.
+		retryOnWriteFailed bool
 	}{
-		{"ConnDead", errors.Wrap(pool.ErrConnDead, "waitSession")},
-		{"EngineClosed", errors.Wrap(rpc.ErrEngineClosed, "engine forcibly closed")},
+		{name: "ConnDead", err: errors.Wrap(pool.ErrConnDead, "waitSession")},
+		{name: "EngineClosed", err: errors.Wrap(rpc.ErrEngineClosed, "engine forcibly closed")},
+		{name: "WriteFailed", err: errors.Wrap(transport.ErrWriteFailed, "write"), retryOnWriteFailed: true},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			client := Client{log: log.For(log.Nop)}
+			client := Client{log: log.For(log.Nop), retryOnWriteFailed: tt.retryOnWriteFailed}
 			client.init()
 
 			dead := newNotifyInvokeConn(tt.err)
@@ -110,6 +115,27 @@ func TestClient_invokeConnClientClose(t *testing.T) {
 	err := client.invokeConn(context.Background(), nil, nil)
 	require.ErrorIs(t, err, context.Canceled)
 	require.NotErrorIs(t, err, pool.ErrConnDead)
+}
+
+func TestErrRetryableOnNewConn_AckedCloseNotRetryable(t *testing.T) {
+	// An acknowledged request may already have been processed by the
+	// server: errRetryableOnNewConn must NOT classify it as safe to retry
+	// on a new connection, or a transparent resend could duplicate the RPC.
+	// This holds regardless of the write-failure opt-in.
+	require.False(t, errRetryableOnNewConn(rpc.ErrEngineClosedAfterAck, false))
+	require.False(t, errRetryableOnNewConn(rpc.ErrEngineClosedAfterAck, true))
+}
+
+func TestClient_invokeConnWriteFailedSurfacesByDefault(t *testing.T) {
+	// Retrying a failed transport send is opt-in. By default the error is
+	// returned to the caller, who may be acting on it — rotating a proxy or
+	// an endpoint — rather than being retried transparently.
+	client := Client{log: log.For(log.Nop)}
+	client.init()
+	client.conn = newNotifyInvokeConn(errors.Wrap(transport.ErrWriteFailed, "write"))
+
+	err := client.invokeConn(context.Background(), nil, nil)
+	require.ErrorIs(t, err, transport.ErrWriteFailed)
 }
 
 func TestClient_invokeConnNotRetryable(t *testing.T) {

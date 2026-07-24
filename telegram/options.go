@@ -108,6 +108,33 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
+	// PingInterval is the duration between ping_delay_disconnect requests.
+	//
+	// Zero value means default (1 minute).
+	PingInterval time.Duration
+	// PingTimeout is how long to wait for a pong before considering the
+	// connection dead.
+	//
+	// Zero value means default (15 seconds).
+	PingTimeout time.Duration
+	// PingDelayDisconnect is the disconnect_delay value sent to the server.
+	// Must exceed PingInterval.
+	//
+	// Zero value means default (PingInterval + PingTimeout).
+	PingDelayDisconnect time.Duration
+	// IdleTimeout is the maximum duration without any received data before the
+	// connection is closed and reconnected.
+	//
+	// Zero value means default (PingDelayDisconnect).
+	IdleTimeout time.Duration
+	// RetryOnWriteFailed retries a request whose transport send failed on the
+	// next connection instead of returning the write error to the caller.
+	//
+	// Disabled by default, preserving the behavior of returning the error: a
+	// caller that acts on it itself — rotating a proxy or an endpoint, for
+	// example — needs to keep seeing it. Requests that were sent but not
+	// acknowledged are retried regardless of this option.
+	RetryOnWriteFailed bool
 	// EnablePFS enables Perfect Forward Secrecy with temporary auth keys.
 	EnablePFS bool
 	// TempKeyTTL controls temporary key lifetime in seconds.

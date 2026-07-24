@@ -61,12 +61,15 @@ type Client struct {
 	// Ref: https://pkg.go.dev/sync/atomic#pkg-note-BUG
 
 	// Connection factory fields.
-	connsCounter   atomic.Int64
-	create         connConstructor        // immutable
-	resolver       dcs.Resolver           // immutable
-	onDead         func(error)            // immutable
-	newConnBackoff func() backoff.BackOff // immutable
-	defaultMode    manager.ConnMode       // immutable
+	connsCounter atomic.Int64
+	create       connConstructor // immutable
+	resolver     dcs.Resolver    // immutable
+	onDead       func(error)     // immutable
+	// retryOnWriteFailed retries a request whose transport send failed on the
+	// next connection instead of returning the write error to the caller.
+	retryOnWriteFailed bool                   // immutable
+	newConnBackoff     func() backoff.BackOff // immutable
+	defaultMode        manager.ConnMode       // immutable
 	// onConnectionState is called on primary connection state change.
 	onConnectionState func(ConnectionState) // immutable
 
@@ -191,21 +194,22 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cfg: manager.NewAtomicConfig(tg.Config{
 			DCOptions: opt.DCList.Options,
 		}),
-		create:            defaultConstructor(),
-		resolver:          opt.Resolver,
-		defaultMode:       mode,
-		newConnBackoff:    opt.ReconnectionBackoff,
-		onDead:            opt.OnDead,
-		onConnectionState: opt.OnConnectionState,
-		clock:             opt.Clock,
-		device:            opt.Device,
-		layer:             opt.Layer,
-		migrationTimeout:  opt.MigrationTimeout,
-		noUpdatesMode:     opt.NoUpdates,
-		mw:                opt.Middlewares,
-		onTransfer:        opt.OnTransfer,
-		onSelfError:       opt.OnSelfError,
-		onSelfSuccess:     opt.OnSelfSuccess,
+		create:             defaultConstructor(),
+		resolver:           opt.Resolver,
+		defaultMode:        mode,
+		newConnBackoff:     opt.ReconnectionBackoff,
+		onDead:             opt.OnDead,
+		onConnectionState:  opt.OnConnectionState,
+		retryOnWriteFailed: opt.RetryOnWriteFailed,
+		clock:              opt.Clock,
+		device:             opt.Device,
+		layer:              opt.Layer,
+		migrationTimeout:   opt.MigrationTimeout,
+		noUpdatesMode:      opt.NoUpdates,
+		mw:                 opt.Middlewares,
+		onTransfer:         opt.OnTransfer,
+		onSelfError:        opt.OnSelfError,
+		onSelfSuccess:      opt.OnSelfSuccess,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
@@ -224,17 +228,21 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 
 	client.opts = mtproto.Options{
-		PublicKeys:        opt.PublicKeys,
-		Random:            opt.Random,
-		Logger:            opt.Logger,
-		AckBatchSize:      opt.AckBatchSize,
-		AckInterval:       opt.AckInterval,
-		RetryInterval:     opt.RetryInterval,
-		MaxRetries:        opt.MaxRetries,
-		CompressThreshold: opt.CompressThreshold,
-		MessageID:         opt.MessageID,
-		ExchangeTimeout:   opt.ExchangeTimeout,
-		DialTimeout:       opt.DialTimeout,
+		PublicKeys:          opt.PublicKeys,
+		Random:              opt.Random,
+		Logger:              opt.Logger,
+		AckBatchSize:        opt.AckBatchSize,
+		AckInterval:         opt.AckInterval,
+		RetryInterval:       opt.RetryInterval,
+		MaxRetries:          opt.MaxRetries,
+		CompressThreshold:   opt.CompressThreshold,
+		MessageID:           opt.MessageID,
+		ExchangeTimeout:     opt.ExchangeTimeout,
+		DialTimeout:         opt.DialTimeout,
+		PingInterval:        opt.PingInterval,
+		PingTimeout:         opt.PingTimeout,
+		PingDelayDisconnect: opt.PingDelayDisconnect,
+		IdleTimeout:         opt.IdleTimeout,
 		// Forward PFS toggles into low-level mtproto connection.
 		EnablePFS:  opt.EnablePFS,
 		TempKeyTTL: opt.TempKeyTTL,

@@ -209,6 +209,9 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 		}
 
+		// Any successfully received frame proves the connection is alive.
+		c.lastRecv.Store(c.clock.Now().UnixNano())
+
 		handlers.Add(1)
 		go func() {
 			defer handlers.Done()

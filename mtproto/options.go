@@ -1,6 +1,7 @@
 package mtproto
 
 import (
+	"context"
 	"io"
 	"time"
 
@@ -51,10 +52,22 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// SaltFetchInterval is duration between get_future_salts request.
 	SaltFetchInterval time.Duration
-	// PingTimeout sets ping_delay_disconnect timeout.
+	// PingTimeout is how long to wait for a pong before considering the
+	// ping failed.
 	PingTimeout time.Duration
 	// PingInterval is duration between ping_delay_disconnect request.
 	PingInterval time.Duration
+	// PingDelayDisconnect is disconnect_delay value sent to the server in
+	// ping_delay_disconnect: the server drops the connection if it receives no
+	// ping within this duration. Must be greater than PingInterval.
+	//
+	// Defaults to PingInterval + PingTimeout.
+	PingDelayDisconnect time.Duration
+	// IdleTimeout is the maximum duration without any received data before the
+	// connection is considered dead and closed.
+	//
+	// Defaults to PingDelayDisconnect.
+	IdleTimeout time.Duration
 	// RequestTimeout is function which returns request timeout for given type ID.
 	RequestTimeout func(req uint32) time.Duration
 
@@ -116,6 +129,22 @@ func (opt *Options) setDefaultPublicKeys() {
 	opt.PublicKeys = vendoredKeys()
 }
 
+// defaultPingDelayDisconnect derives a disconnect_delay that stays meaningful
+// after pingLoop truncates it to whole seconds for the wire.
+//
+// PingInterval + PingTimeout is the intended value, but it is a Duration while
+// ping_delay_disconnect.disconnect_delay is an int of seconds: with sub-second
+// ping settings that sum floors to zero, asking the server to drop the
+// connection immediately — the exact failure the validation in setDefaults
+// exists to prevent, which a plain re-assignment of the same sum would not fix.
+// The first whole second strictly above PingInterval is therefore used as a
+// floor. With the defaults (60s + 15s) the sum already clears it, so the wire
+// value is unchanged at 75s.
+func defaultPingDelayDisconnect(interval, timeout time.Duration) time.Duration {
+	minWireDelay := (interval/time.Second + 1) * time.Second
+	return max(interval+timeout, minWireDelay)
+}
+
 func (opt *Options) setDefaults() {
 	if opt.DC == 0 {
 		opt.DC = 2
@@ -152,6 +181,53 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.PingInterval == 0 {
 		opt.PingInterval = 1 * time.Minute
+	}
+	if opt.PingDelayDisconnect == 0 {
+		opt.PingDelayDisconnect = defaultPingDelayDisconnect(opt.PingInterval, opt.PingTimeout)
+	}
+	// pingLoop truncates PingDelayDisconnect to whole seconds before putting it
+	// on the wire (ping_delay_disconnect.disconnect_delay is an int). Validate
+	// that truncated value, not the raw Duration: a delay that only clears
+	// PingInterval before truncation (e.g. 60.5s delay vs 60s interval, both
+	// truncating to 60) still leaves a server window equal to our ping period,
+	// which is exactly the endless-reconnect config this check exists to
+	// prevent.
+	if wireDelay := time.Duration(int(opt.PingDelayDisconnect.Seconds())) * time.Second; wireDelay <= opt.PingInterval {
+		// There is no error channel here (New does not return an error), so
+		// the value is corrected rather than rejected.
+		log.For(opt.Logger).Warn(context.Background(), "PingDelayDisconnect must exceed PingInterval after truncation to whole seconds, using default",
+			log.Duration("configured", opt.PingDelayDisconnect),
+			log.Duration("configured_wire", wireDelay),
+			log.Duration("ping_interval", opt.PingInterval),
+		)
+		opt.PingDelayDisconnect = defaultPingDelayDisconnect(opt.PingInterval, opt.PingTimeout)
+	}
+	// The watchdog may only fire once a ping has demonstrably gone unanswered.
+	// Merely clearing PingInterval is not enough: with PingInterval=60s and
+	// IdleTimeout=61s, a pong arriving 1.1s late — well inside the 15s
+	// PingTimeout the connection is otherwise judged healthy by — trips the
+	// watchdog and closes a working connection, yielding a self-inflicted
+	// disconnect loop. The floor is therefore a full ping period plus the time
+	// we are willing to wait for its pong, which is exactly the derived
+	// default.
+	minIdleTimeout := opt.PingInterval + opt.PingTimeout
+	// PingDelayDisconnect can itself be configured below that floor (it is only
+	// validated against PingInterval), so clamp rather than trust it blindly.
+	defaultIdleTimeout := max(opt.PingDelayDisconnect, minIdleTimeout)
+	switch {
+	case opt.IdleTimeout == 0:
+		opt.IdleTimeout = defaultIdleTimeout
+	case opt.IdleTimeout < minIdleTimeout:
+		// As with PingDelayDisconnect above, there is no error channel here
+		// (New does not return an error), so the value is corrected rather
+		// than rejected.
+		log.For(opt.Logger).Warn(context.Background(), "IdleTimeout must be at least PingInterval+PingTimeout, using default",
+			log.Duration("configured", opt.IdleTimeout),
+			log.Duration("minimum", minIdleTimeout),
+			log.Duration("ping_interval", opt.PingInterval),
+			log.Duration("ping_timeout", opt.PingTimeout),
+		)
+		opt.IdleTimeout = defaultIdleTimeout
 	}
 	if opt.RequestTimeout == nil {
 		opt.RequestTimeout = func(req uint32) time.Duration {

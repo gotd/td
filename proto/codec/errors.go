@@ -75,6 +75,19 @@ func checkProtocolError(b *bin.Buffer) error {
 	return &ProtocolErr{Code: -code}
 }
 
+// ErrInvalidMessageLength means the outgoing message is empty or exceeds the
+// transport maximum.
+//
+// It is produced by the codec before anything is written to the connection, so
+// it reports an unencodable message rather than a broken link: the same message
+// fails identically on a fresh connection.
+var ErrInvalidMessageLength error = invalidMsgLenErr{}
+
+// ErrPayloadNotAligned means the payload is not aligned as the codec requires.
+//
+// Like ErrInvalidMessageLength it is detected before any I/O happens.
+var ErrPayloadNotAligned error = alignedPayloadExpectedErr{}
+
 type alignedPayloadExpectedErr struct {
 	expected int
 }

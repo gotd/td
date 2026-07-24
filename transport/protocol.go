@@ -66,21 +66,12 @@ func (p Protocol) Handshake(conn net.Conn) (Conn, error) {
 		return nil, errors.Wrap(err, "write header")
 	}
 
-	return &connection{
-		conn:  conn,
-		codec: connCodec,
-	}, nil
+	return newConnection(conn, connCodec), nil
 }
 
 // Pipe creates an in-memory MTProto connection.
 func (p Protocol) Pipe() (a, b Conn) {
 	p1, p2 := net.Pipe()
 
-	return &connection{
-			conn:  p1,
-			codec: p.codec(),
-		}, &connection{
-			conn:  p2,
-			codec: p.codec(),
-		}
+	return newConnection(p1, p.codec()), newConnection(p2, p.codec())
 }
