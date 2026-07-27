@@ -21,7 +21,7 @@ require (
 	github.com/k0kubun/pp/v3 v3.5.2
 	github.com/klauspost/compress v1.19.1
 	github.com/ogen-go/ogen v1.23.0
-	github.com/pion/ice/v4 v4.3.0
+	github.com/pion/ice/v4 v4.4.0
 	github.com/pion/interceptor v0.1.46
 	github.com/pion/logging v0.2.4
 	github.com/pion/rtcp v1.2.17
