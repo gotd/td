@@ -113,9 +113,24 @@ func signalingType(data []byte) (string, error) {
 
 // contentNegotiation tracks the NegotiateChannels handshake and the peer's
 // SSRCs, mirroring tgcalls' ContentNegotiationContext.
+//
+// The exchange is two INDEPENDENT offer/answer rounds, one per direction:
+// each side offers its own outgoing contents under an exchangeId it picked,
+// and answers the other side's offer by echoing that offer's contents back.
+// Therefore the peer's real SSRCs only ever appear in the peer's OWN offer —
+// the answer to our offer merely mirrors our SSRCs and must not be read as
+// the peer's. Treating the mirror as the peer's SSRC binds the receiver to
+// our own SSRC and drops every inbound packet; ignoring the peer's offer
+// leaves it unanswered, and the peer then never starts sending media at all.
 type contentNegotiation struct {
 	localExchangeID string
 	offered         bool
+	answered        bool
+	// peerExchangeID is the last peer offer we answered. Peers retransmit the
+	// same offer until it is acknowledged, so answering per exchange rather
+	// than per message keeps the handshake idempotent without ignoring a
+	// genuinely new offer.
+	peerExchangeID string
 
 	peerAudio uint32
 	peerVideo uint32
@@ -141,18 +156,30 @@ func (n *contentNegotiation) proposeChannels(audioSSRC, videoSSRC uint32) *negot
 }
 
 // applyRemoteChannels processes a peer NegotiateChannels message, returning a
-// reply to send (nil if the message answered our own offer) and whether
-// negotiation is complete.
+// reply to send (nil if the message answered our own offer) and whether the
+// media channels can be wired up.
 func (n *contentNegotiation) applyRemoteChannels(msg *negotiateChannelsMessage, audioSSRC, videoSSRC uint32) (reply *negotiateChannelsMessage, ready bool) {
-	n.captureSSRCs(msg)
+	// Answer to our own offer: it echoes our contents, so it carries no
+	// information about the peer's SSRCs. Only record that we are answered.
 	if n.offered && msg.ExchangeID == n.localExchangeID {
-		return nil, true
+		n.answered = true
+		return nil, n.peerAudio != 0
 	}
+
+	// A retransmission of the offer we have already answered.
+	if msg.ExchangeID == n.peerExchangeID {
+		return nil, n.peerAudio != 0
+	}
+
+	// The peer's own offer: this is where its SSRCs live, and it needs an
+	// answer echoing the offered contents or the peer will not send media.
+	n.peerExchangeID = msg.ExchangeID
+	n.captureSSRCs(msg)
 	return &negotiateChannelsMessage{
 		Type:       typeNegotiateChannels,
 		ExchangeID: msg.ExchangeID,
-		Contents:   []mediaContent{audioContent(audioSSRC), videoContent(videoSSRC)},
-	}, true
+		Contents:   msg.Contents,
+	}, n.peerAudio != 0
 }
 
 func (n *contentNegotiation) captureSSRCs(msg *negotiateChannelsMessage) {
@@ -163,13 +190,9 @@ func (n *contentNegotiation) captureSSRCs(msg *negotiateChannelsMessage) {
 		}
 		switch c.Type {
 		case "audio":
-			if n.peerAudio == 0 {
-				n.peerAudio = ssrc
-			}
+			n.peerAudio = ssrc
 		case "video":
-			if n.peerVideo == 0 {
-				n.peerVideo = ssrc
-			}
+			n.peerVideo = ssrc
 		}
 	}
 }

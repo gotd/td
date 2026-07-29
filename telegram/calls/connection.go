@@ -54,6 +54,8 @@ type Conn struct {
 	dtlsStarted     bool
 	negotiated      bool
 	channelsCreated bool
+	recvAudioSSRC   uint32
+	recvVideoSSRC   uint32
 	pendingRemote   []candidateDescription
 	iceConnected    bool
 	dtlsConnected   bool
@@ -384,11 +386,12 @@ func (c *Conn) handleNegotiate(data []byte) error {
 	if err := jsonUnmarshal(data, &msg); err != nil {
 		return errors.Wrap(err, "decode NegotiateChannels")
 	}
+	// Every NegotiateChannels must be processed, not just the first: the two
+	// directions are negotiated independently, so the peer's own offer (the
+	// one carrying its SSRCs) routinely arrives after we are already
+	// "negotiated" from our own round. Dropping it left the peer unanswered
+	// and its audio SSRC unknown — i.e. a call with no inbound media.
 	c.mu.Lock()
-	if c.negotiated {
-		c.mu.Unlock()
-		return nil
-	}
 	reply, ready := c.neg.applyRemoteChannels(&msg, c.audioSSRC, c.videoSSRC)
 	if ready {
 		c.negotiated = true
@@ -407,21 +410,42 @@ func (c *Conn) handleNegotiate(data []byte) error {
 // have been negotiated.
 func (c *Conn) maybeCreateChannels() {
 	c.mu.Lock()
-	if c.channelsCreated || !c.dtlsStarted || !c.negotiated {
+	if !c.dtlsStarted || !c.negotiated {
 		c.mu.Unlock()
 		return
 	}
-	c.channelsCreated = true
 	peerAudio := c.neg.peerAudioSSRC()
 	peerVideo := c.neg.peerVideoSSRC()
+
+	// Senders are created once; receivers are bound to the peer's SSRCs,
+	// which only become known when the peer offers them, and may change if
+	// it re-offers. Track them separately so a late peer offer still gets a
+	// receiver instead of being ignored as "channels already created".
+	firstTime := !c.channelsCreated
+	c.channelsCreated = true
+	newAudio := peerAudio != 0 && peerAudio != c.recvAudioSSRC
+	newVideo := peerVideo != 0 && peerVideo != c.recvVideoSSRC
+	if newAudio {
+		c.recvAudioSSRC = peerAudio
+	}
+	if newVideo {
+		c.recvVideoSSRC = peerVideo
+	}
 	c.mu.Unlock()
 
-	c.sendTrack(c.audioTrack, c.audioSSRC, 111)
-	c.recvTrack(webrtc.RTPCodecTypeAudio, peerAudio)
-	c.sendTrack(c.videoTrack, c.videoSSRC, 100)
-	c.recvTrack(webrtc.RTPCodecTypeVideo, peerVideo)
-
-	c.sendMediaState()
+	if firstTime {
+		c.sendTrack(c.audioTrack, c.audioSSRC, 111)
+		c.sendTrack(c.videoTrack, c.videoSSRC, 100)
+	}
+	if newAudio {
+		c.recvTrack(webrtc.RTPCodecTypeAudio, peerAudio)
+	}
+	if newVideo {
+		c.recvTrack(webrtc.RTPCodecTypeVideo, peerVideo)
+	}
+	if firstTime {
+		c.sendMediaState()
+	}
 }
 
 func (c *Conn) sendTrack(track *webrtc.TrackLocalStaticRTP, ssrc uint32, pt webrtc.PayloadType) {

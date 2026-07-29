@@ -42,9 +42,13 @@ func TestSignalingType(t *testing.T) {
 	}
 }
 
-// TestNegotiatorOfferAnswer checks that when our offer is echoed back with the
-// same exchange ID, we do not reply again but mark negotiation ready and learn
-// the peer's SSRCs.
+// TestNegotiatorOfferAnswer checks that the answer to our own offer is not
+// replied to and — crucially — is not mistaken for the peer's SSRCs.
+//
+// The answer echoes the OFFER's contents, i.e. our own SSRCs (verified against
+// the official Android client: answering our offer of ssrc 1893540410 it
+// replied with ssrc 1893540410). Reading those back as "the peer's" binds the
+// receiver to our own SSRC and silently drops all inbound media.
 func TestNegotiatorOfferAnswer(t *testing.T) {
 	n := newContentNegotiation()
 	offer := n.proposeChannels(1000, 1001)
@@ -59,24 +63,56 @@ func TestNegotiatorOfferAnswer(t *testing.T) {
 		Type:       typeNegotiateChannels,
 		ExchangeID: offer.ExchangeID,
 		Contents: []mediaContent{
-			{Type: "audio", Ssrc: "2000"},
-			{Type: "video", Ssrc: "2002"},
+			{Type: "audio", Ssrc: "1000"},
+			{Type: "video", Ssrc: "1001"},
 		},
 	}
 	reply, ready := n.applyRemoteChannels(answer, 1000, 1001)
 	if reply != nil {
 		t.Fatal("answer to our own offer should not be replied to")
 	}
-	if !ready {
-		t.Fatal("negotiation should be ready")
+	if ready {
+		t.Fatal("not ready yet: the peer has not offered its own SSRCs")
 	}
-	if n.peerAudioSSRC() != 2000 || n.peerVideoSSRC() != 2002 {
-		t.Fatalf("peer ssrcs = %d/%d, want 2000/2002", n.peerAudioSSRC(), n.peerVideoSSRC())
+	if n.peerAudioSSRC() != 0 || n.peerVideoSSRC() != 0 {
+		t.Fatalf("peer ssrcs = %d/%d, want 0/0 — the answer mirrors our own",
+			n.peerAudioSSRC(), n.peerVideoSSRC())
+	}
+}
+
+// TestNegotiatorPeerOfferAfterOwnRound checks the sequence a real call actually
+// produces: our offer is answered, and only then does the peer make its own
+// offer carrying its real SSRCs. That late offer must still be processed and
+// answered — dropping it leaves the peer unanswered and it never sends media.
+func TestNegotiatorPeerOfferAfterOwnRound(t *testing.T) {
+	n := newContentNegotiation()
+	offer := n.proposeChannels(1000, 1001)
+
+	// Peer answers our offer, mirroring our SSRCs.
+	n.applyRemoteChannels(&negotiateChannelsMessage{
+		ExchangeID: offer.ExchangeID,
+		Contents:   []mediaContent{{Type: "audio", Ssrc: "1000"}},
+	}, 1000, 1001)
+
+	// Peer now offers its own audio channel (audio-only call: no video content).
+	reply, ready := n.applyRemoteChannels(&negotiateChannelsMessage{
+		ExchangeID: "2212439328",
+		Contents:   []mediaContent{{Type: "audio", Ssrc: "1864316852"}},
+	}, 1000, 1001)
+	if reply == nil {
+		t.Fatal("the peer's own offer must be answered")
+	}
+	if !ready {
+		t.Fatal("negotiation should be ready once the peer's SSRC is known")
+	}
+	if n.peerAudioSSRC() != 1864316852 {
+		t.Fatalf("peer audio ssrc = %d, want 1864316852", n.peerAudioSSRC())
 	}
 }
 
 // TestNegotiatorRemoteOffer checks that a peer offer with a different exchange
-// ID produces an answer carrying our SSRCs.
+// ID produces an answer echoing the OFFERED contents, which is what the
+// reference implementation does and what the official client expects.
 func TestNegotiatorRemoteOffer(t *testing.T) {
 	n := newContentNegotiation()
 	remote := &negotiateChannelsMessage{
@@ -94,8 +130,11 @@ func TestNegotiatorRemoteOffer(t *testing.T) {
 	if reply.ExchangeID != "999" {
 		t.Fatalf("answer exchange id = %q, want 999", reply.ExchangeID)
 	}
-	if got := reply.Contents[0].Ssrc; got != "1000" {
-		t.Fatalf("answer audio ssrc = %q, want 1000", got)
+	if got := reply.Contents[0].Ssrc; got != "5000" {
+		t.Fatalf("answer audio ssrc = %q, want 5000 (the offer is echoed back)", got)
+	}
+	if n.peerAudioSSRC() != 5000 {
+		t.Fatalf("peer audio ssrc = %d, want 5000", n.peerAudioSSRC())
 	}
 }
 
