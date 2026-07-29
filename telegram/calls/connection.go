@@ -54,6 +54,7 @@ type Conn struct {
 	dtlsStarted     bool
 	negotiated      bool
 	channelsCreated bool
+	videoActive     bool
 	recvAudioSSRC   uint32
 	recvVideoSSRC   uint32
 	pendingRemote   []candidateDescription
@@ -488,10 +489,40 @@ func (c *Conn) recvTrack(kind webrtc.RTPCodecType, ssrc uint32) {
 	}
 }
 
+// SetVideoState declares whether we are sending video, and tells the peer.
+//
+// Callers that write to VideoTrack must announce it; until they do, the peer
+// is told there is no video, which is what an audio call actually is.
+func (c *Conn) SetVideoState(active bool) {
+	c.mu.Lock()
+	changed := c.videoActive != active
+	c.videoActive = active
+	c.mu.Unlock()
+	if changed {
+		c.sendMediaState()
+	}
+}
+
+// sendMediaState reports our media state to the peer.
+//
+// videoState must reflect reality. It used to be hard-coded "active", which
+// told every peer that video was on even during a plain audio call — the
+// track is created unconditionally, but nothing is ever written to it unless
+// the caller asks. What a receiving client then does with a declared-but-
+// absent video stream is up to that client, and none of the possibilities
+// (a black rectangle, a spinner) are good.
 func (c *Conn) sendMediaState() {
+	c.mu.Lock()
+	video := c.videoActive
+	c.mu.Unlock()
+
+	state := "inactive"
+	if video {
+		state = "active"
+	}
 	c.emitJSON(mediaStateMessage{
 		Type:            typeMediaState,
-		VideoState:      "active",
+		VideoState:      state,
 		ScreencastState: "inactive",
 	})
 }
