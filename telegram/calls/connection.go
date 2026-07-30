@@ -68,6 +68,14 @@ type Conn struct {
 	onDisconnected func()
 	onStateChange  func(state string)
 	onTrack        func(*webrtc.TrackRemote, *webrtc.RTPReceiver)
+	pendingTracks  []remoteTrack
+}
+
+// remoteTrack is a receiver that was created before the application had a
+// chance to register an OnTrack callback.
+type remoteTrack struct {
+	track    *webrtc.TrackRemote
+	receiver *webrtc.RTPReceiver
 }
 
 func newConn(isOutgoing bool, logger log.Helper) *Conn {
@@ -86,8 +94,30 @@ func (c *Conn) AudioSSRC() uint32 { return c.audioSSRC }
 // VideoSSRC returns the SSRC chosen for the local video track.
 func (c *Conn) VideoSSRC() uint32 { return c.videoSSRC }
 
-// OnTrack registers a callback invoked for each remote media track.
-func (c *Conn) OnTrack(fn func(*webrtc.TrackRemote, *webrtc.RTPReceiver)) { c.onTrack = fn }
+// OnTrack registers a callback invoked for each remote media track. Tracks
+// that were created before registration are replayed to fn.
+//
+// The replay is not a nicety. The application only receives the Conn after
+// Accept or Request returns, and by then the peer's InitialSetup may already
+// have been processed — reliably so when answering an incoming call, since the
+// caller has been waiting and signals the moment the call is accepted. The
+// receivers are then created with nowhere to deliver them, and the callee
+// hears silence for the whole call while its own audio reaches the caller
+// normally. Holding them until someone asks makes the race unobservable.
+func (c *Conn) OnTrack(fn func(*webrtc.TrackRemote, *webrtc.RTPReceiver)) {
+	c.mu.Lock()
+	c.onTrack = fn
+	pending := c.pendingTracks
+	c.pendingTracks = nil
+	c.mu.Unlock()
+
+	if fn == nil {
+		return
+	}
+	for _, t := range pending {
+		fn(t.track, t.receiver)
+	}
+}
 
 // OnConnected registers a callback invoked once the call's media transport is
 // connected. If the connection is already up, fn is called immediately.
@@ -484,8 +514,23 @@ func (c *Conn) recvTrack(kind webrtc.RTPCodecType, ssrc uint32) {
 		return
 	}
 	go drainReceiverRTCP(receiver)
-	if c.onTrack != nil {
-		c.onTrack(receiver.Track(), receiver)
+	c.deliverTrack(receiver.Track(), receiver)
+}
+
+// deliverTrack hands a remote track to the application, or holds it until
+// OnTrack is registered. Reading the callback under the mutex also removes a
+// data race: receivers are created from the signaling goroutine while the
+// application registers its callback from its own.
+func (c *Conn) deliverTrack(track *webrtc.TrackRemote, receiver *webrtc.RTPReceiver) {
+	c.mu.Lock()
+	fn := c.onTrack
+	if fn == nil {
+		c.pendingTracks = append(c.pendingTracks, remoteTrack{track: track, receiver: receiver})
+	}
+	c.mu.Unlock()
+
+	if fn != nil {
+		fn(track, receiver)
 	}
 }
 

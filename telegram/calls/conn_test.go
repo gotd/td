@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/gotd/log"
+	"github.com/pion/webrtc/v4"
 	"github.com/stretchr/testify/require"
 )
 
@@ -47,6 +48,28 @@ func TestConnFireDisconnectedOnce(t *testing.T) {
 	require.Equal(t, 1, n)
 	require.Equal(t, "closed", c.State())
 	require.NoError(t, c.Close()) // nil pc
+}
+
+// TestConnOnTrackReplaysEarlyTracks covers the callee's normal ordering: the
+// peer's media is negotiated before the application, which only gets the Conn
+// once Accept returns, can register OnTrack. Dropping those tracks left the
+// callee hearing nothing for the entire call.
+func TestConnOnTrackReplaysEarlyTracks(t *testing.T) {
+	c := newConn(false, log.For(log.Nop))
+
+	// Two tracks arrive with no callback registered yet.
+	c.deliverTrack(nil, nil)
+	c.deliverTrack(nil, nil)
+
+	n := 0
+	c.OnTrack(func(*webrtc.TrackRemote, *webrtc.RTPReceiver) { n++ })
+	require.Equal(t, 2, n, "tracks that arrived early must be replayed")
+
+	// Nothing is replayed twice, and later tracks go straight through.
+	c.OnTrack(func(*webrtc.TrackRemote, *webrtc.RTPReceiver) { n++ })
+	require.Equal(t, 2, n)
+	c.deliverTrack(nil, nil)
+	require.Equal(t, 3, n)
 }
 
 func TestConnEmitJSON(t *testing.T) {
