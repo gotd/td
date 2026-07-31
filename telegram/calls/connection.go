@@ -86,6 +86,28 @@ func (c *Conn) VideoSSRC() uint32 { return c.videoSSRC }
 // OnTrack registers a callback invoked for each remote media track.
 func (c *Conn) OnTrack(fn func(*webrtc.TrackRemote, *webrtc.RTPReceiver)) { c.onTrack = fn }
 
+// SelectedCandidatePair reports the ICE candidate pair currently carrying
+// this call's media, or nil before ICE has settled.
+//
+// Exposed because the pair is the only place that answers a question a
+// caller cannot answer otherwise: is this call going peer-to-peer, or
+// through a relay? Telegram hands its reflectors to us as ordinary TURN
+// servers (see iceServers), so a relayed call shows a local candidate of
+// type relay and a direct one does not. Without this the transport is
+// unreachable from outside the package and the distinction is invisible.
+//
+// Read-only: the returned candidates are pion's own values and must not be
+// mutated.
+func (c *Conn) SelectedCandidatePair() (*webrtc.ICECandidatePair, error) {
+	c.mu.Lock()
+	ice := c.ice
+	c.mu.Unlock()
+	if ice == nil {
+		return nil, nil
+	}
+	return ice.GetSelectedCandidatePair()
+}
+
 // OnConnected registers a callback invoked once the call's media transport is
 // connected. If the connection is already up, fn is called immediately.
 func (c *Conn) OnConnected(fn func()) {
