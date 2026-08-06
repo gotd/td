@@ -29,7 +29,7 @@ require (
 	github.com/pion/transport/v4 v4.0.2
 	github.com/pion/webrtc/v4 v4.2.18
 	github.com/refraction-networking/utls v1.8.2
-	github.com/rogpeppe/go-internal v1.15.0
+	github.com/rogpeppe/go-internal v1.16.0
 	github.com/stretchr/testify v1.11.1
 	github.com/yuin/goldmark v1.8.5
 	go.opentelemetry.io/otel v1.44.0
