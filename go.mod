@@ -21,12 +21,12 @@ require (
 	github.com/k0kubun/pp/v3 v3.5.2
 	github.com/klauspost/compress v1.19.1
 	github.com/ogen-go/ogen v1.23.0
-	github.com/pion/ice/v4 v4.4.0
+	github.com/pion/ice/v4 v4.4.1
 	github.com/pion/interceptor v0.1.47
 	github.com/pion/logging v0.2.4
 	github.com/pion/rtcp v1.2.17
 	github.com/pion/rtp v1.10.5
-	github.com/pion/transport/v4 v4.0.2
+	github.com/pion/transport/v4 v4.1.0
 	github.com/pion/webrtc/v4 v4.2.18
 	github.com/refraction-networking/utls v1.8.2
 	github.com/rogpeppe/go-internal v1.15.0
