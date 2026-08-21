@@ -62,6 +62,12 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
 }
 
 // MigrateTo forces client to migrate to another DC.
+//
+// The in-memory auth key is cleared (pool.Session.Migrate) and the primary
+// connection is restarted against dcID. Use this on the same Client after
+// auth.exportLoginToken returns LoginTokenMigrateTo — the exported token is
+// bound to that connection. Do not open a new Client with Options.DC to
+// import the token.
 func (c *Client) MigrateTo(ctx context.Context, dcID int) error {
 	// Acquire or cancel.
 	select {
