@@ -299,6 +299,44 @@ func TestQR_Import_WithMigration(t *testing.T) {
 	a.True(migrateCalled)
 }
 
+func TestQR_Auth_FirstExportMigrateTo(t *testing.T) {
+	ctx := context.Background()
+	a := require.New(t)
+
+	migrateCalled := false
+	migrate := func(ctx context.Context, dcID int) error {
+		migrateCalled = true
+		a.Equal(4, dcID)
+		return nil
+	}
+
+	mock, qr := testQR(t, migrate)
+	auth := &tg.AuthAuthorization{
+		User: &tg.User{ID: 10},
+	}
+
+	mock.ExpectCall(&tg.AuthExportLoginTokenRequest{
+		APIID:   constant.TestAppID,
+		APIHash: constant.TestAppHash,
+	}).ThenResult(&tg.AuthLoginTokenMigrateTo{
+		DCID:  4,
+		Token: testToken.token,
+	}).ExpectCall(&tg.AuthImportLoginTokenRequest{
+		Token: testToken.token,
+	}).ThenResult(&tg.AuthLoginTokenSuccess{
+		Authorization: auth,
+	})
+
+	loggedIn := make(chan struct{})
+	result, err := qr.Auth(ctx, loggedIn, func(ctx context.Context, token Token) error {
+		t.Fatal("show should not be called when first export is LoginTokenMigrateTo")
+		return nil
+	})
+	a.NoError(err)
+	a.Equal(auth, result)
+	a.True(migrateCalled)
+}
+
 func TestQR_Import_MigrationError(t *testing.T) {
 	ctx := context.Background()
 	a := require.New(t)

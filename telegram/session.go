@@ -34,10 +34,28 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		data.DC = prev.DC
 	}
 
+	if len(data.AuthKey) == 0 {
+		// DC-only state: pin DC for a new handshake. pool.Session.Migrate
+		// does the same in memory (set DC, zero key). A session blob with DC
+		// but no auth key used to fail with "corrupted key" because a zero
+		// key has a non-zero SHA-1 id.
+		if data.DC != 0 {
+			c.connMux.Lock()
+			c.session.Store(pool.Session{DC: data.DC})
+			c.replaceConn(c.createPrimaryConn(nil))
+			c.connMux.Unlock()
+		}
+		return nil
+	}
+
 	// Restoring persisted auth key.
 	var key crypto.AuthKey
 	copy(key.Value[:], data.AuthKey)
-	copy(key.ID[:], data.AuthKeyID)
+	if len(data.AuthKeyID) == 8 {
+		copy(key.ID[:], data.AuthKeyID)
+	} else {
+		key.ID = key.Value.ID()
+	}
 
 	if key.Value.ID() != key.ID {
 		return errors.New("corrupted key")
@@ -112,11 +130,16 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	c.connMux.Lock()
 	c.session.Store(sessionData)
 	c.cfg.Store(cfg)
-	c.onReady()
 	c.connMux.Unlock()
 
-	if err := c.saveSession(cfg, s); err != nil {
-		return errors.Wrap(err, "save")
+	// Persist before signalling ready so SessionStorage (and wrappers that
+	// capture DC / auth key ID from StoreSession) is populated when Run's
+	// callback starts. Previously onReady ran first, so the callback could
+	// observe an empty storage blob.
+	saveErr := c.saveSession(cfg, s)
+	c.onReady()
+	if saveErr != nil {
+		return errors.Wrap(saveErr, "save")
 	}
 
 	return nil
