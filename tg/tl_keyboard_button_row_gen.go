@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonRow for reference.
 type KeyboardButtonRow struct {
 	// Bot or inline keyboard buttons
-	Buttons []KeyboardButtonClass
+	Buttons []KeyboardButton
 }
 
 // KeyboardButtonRowTypeID is TL type id of KeyboardButtonRow.
@@ -73,7 +73,7 @@ func (k *KeyboardButtonRow) String() string {
 
 // FillFrom fills KeyboardButtonRow from given interface.
 func (k *KeyboardButtonRow) FillFrom(from interface {
-	GetButtons() (value []KeyboardButtonClass)
+	GetButtons() (value []KeyboardButton)
 }) {
 	k.Buttons = from.GetButtons()
 }
@@ -125,9 +125,6 @@ func (k *KeyboardButtonRow) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutVectorHeader(len(k.Buttons))
 	for idx, v := range k.Buttons {
-		if v == nil {
-			return fmt.Errorf("unable to encode keyboardButtonRow#77608b83: field buttons element with index %d is nil", idx)
-		}
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode keyboardButtonRow#77608b83: field buttons element with index %d: %w", idx, err)
 		}
@@ -158,11 +155,11 @@ func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			k.Buttons = make([]KeyboardButtonClass, 0, headerLen%bin.PreallocateLimit)
+			k.Buttons = make([]KeyboardButton, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeKeyboardButton(b)
-			if err != nil {
+			var value KeyboardButton
+			if err := value.Decode(b); err != nil {
 				return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: field buttons: %w", err)
 			}
 			k.Buttons = append(k.Buttons, value)
@@ -172,14 +169,9 @@ func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetButtons returns value of Buttons field.
-func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
+func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButton) {
 	if k == nil {
 		return
 	}
 	return k.Buttons
-}
-
-// MapButtons returns field Buttons wrapped in KeyboardButtonClassArray helper.
-func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassArray) {
-	return KeyboardButtonClassArray(k.Buttons)
 }

@@ -60,6 +60,8 @@ type ChatFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/translation
 	TranslationsDisabled bool
+	// HasWelcomeMessages field of ChatFull.
+	HasWelcomeMessages bool
 	// ID of the chat
 	ID int64
 	// About string for this chat
@@ -174,6 +176,9 @@ func (c *ChatFull) Zero() bool {
 	if !(c.TranslationsDisabled == false) {
 		return false
 	}
+	if !(c.HasWelcomeMessages == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -243,6 +248,7 @@ func (c *ChatFull) FillFrom(from interface {
 	GetCanSetUsername() (value bool)
 	GetHasScheduled() (value bool)
 	GetTranslationsDisabled() (value bool)
+	GetHasWelcomeMessages() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipants() (value ChatParticipantsClass)
@@ -264,6 +270,7 @@ func (c *ChatFull) FillFrom(from interface {
 	c.CanSetUsername = from.GetCanSetUsername()
 	c.HasScheduled = from.GetHasScheduled()
 	c.TranslationsDisabled = from.GetTranslationsDisabled()
+	c.HasWelcomeMessages = from.GetHasWelcomeMessages()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	c.Participants = from.GetParticipants()
@@ -361,6 +368,11 @@ func (c *ChatFull) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(19),
 		},
 		{
+			Name:       "HasWelcomeMessages",
+			SchemaName: "has_welcome_messages",
+			Null:       !c.Flags.Has(21),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -455,6 +467,9 @@ func (c *ChatFull) SetFlags() {
 	}
 	if !(c.TranslationsDisabled == false) {
 		c.Flags.Set(19)
+	}
+	if !(c.HasWelcomeMessages == false) {
+		c.Flags.Set(21)
 	}
 	if !(c.ChatPhoto == nil) {
 		c.Flags.Set(2)
@@ -625,6 +640,7 @@ func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
 	c.CanSetUsername = c.Flags.Has(7)
 	c.HasScheduled = c.Flags.Has(8)
 	c.TranslationsDisabled = c.Flags.Has(19)
+	c.HasWelcomeMessages = c.Flags.Has(21)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -820,6 +836,25 @@ func (c *ChatFull) GetTranslationsDisabled() (value bool) {
 		return
 	}
 	return c.Flags.Has(19)
+}
+
+// SetHasWelcomeMessages sets value of HasWelcomeMessages conditional field.
+func (c *ChatFull) SetHasWelcomeMessages(value bool) {
+	if value {
+		c.Flags.Set(21)
+		c.HasWelcomeMessages = true
+	} else {
+		c.Flags.Unset(21)
+		c.HasWelcomeMessages = false
+	}
+}
+
+// GetHasWelcomeMessages returns value of HasWelcomeMessages conditional field.
+func (c *ChatFull) GetHasWelcomeMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(21)
 }
 
 // GetID returns value of ID field.
@@ -1204,6 +1239,8 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/paid-messages
 	PaidMessagesAvailable bool
+	// HasWelcomeMessages field of ChannelFull.
+	HasWelcomeMessages bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1550,6 +1587,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.PaidMessagesAvailable == false) {
 		return false
 	}
+	if !(c.HasWelcomeMessages == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1724,6 +1764,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetPaidReactionsAvailable() (value bool)
 	GetStargiftsAvailable() (value bool)
 	GetPaidMessagesAvailable() (value bool)
+	GetHasWelcomeMessages() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1792,6 +1833,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.PaidReactionsAvailable = from.GetPaidReactionsAvailable()
 	c.StargiftsAvailable = from.GetStargiftsAvailable()
 	c.PaidMessagesAvailable = from.GetPaidMessagesAvailable()
+	c.HasWelcomeMessages = from.GetHasWelcomeMessages()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -2078,6 +2120,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "PaidMessagesAvailable",
 			SchemaName: "paid_messages_available",
 			Null:       !c.Flags2.Has(20),
+		},
+		{
+			Name:       "HasWelcomeMessages",
+			SchemaName: "has_welcome_messages",
+			Null:       !c.Flags2.Has(24),
 		},
 		{
 			Name:       "ID",
@@ -2368,6 +2415,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.PaidMessagesAvailable == false) {
 		c.Flags2.Set(20)
+	}
+	if !(c.HasWelcomeMessages == false) {
+		c.Flags2.Set(24)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2739,6 +2789,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.PaidReactionsAvailable = c.Flags2.Has(16)
 	c.StargiftsAvailable = c.Flags2.Has(19)
 	c.PaidMessagesAvailable = c.Flags2.Has(20)
+	c.HasWelcomeMessages = c.Flags2.Has(24)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3481,6 +3532,25 @@ func (c *ChannelFull) GetPaidMessagesAvailable() (value bool) {
 		return
 	}
 	return c.Flags2.Has(20)
+}
+
+// SetHasWelcomeMessages sets value of HasWelcomeMessages conditional field.
+func (c *ChannelFull) SetHasWelcomeMessages(value bool) {
+	if value {
+		c.Flags2.Set(24)
+		c.HasWelcomeMessages = true
+	} else {
+		c.Flags2.Unset(24)
+		c.HasWelcomeMessages = false
+	}
+}
+
+// GetHasWelcomeMessages returns value of HasWelcomeMessages conditional field.
+func (c *ChannelFull) GetHasWelcomeMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(24)
 }
 
 // GetID returns value of ID field.

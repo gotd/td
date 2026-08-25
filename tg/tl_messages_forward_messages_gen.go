@@ -65,6 +65,8 @@ type MessagesForwardMessagesRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once
 	AllowPaidFloodskip bool
+	// FromEphemeral field of MessagesForwardMessagesRequest.
+	FromEphemeral bool
 	// Source of messages
 	FromPeer InputPeerClass
 	// IDs of messages
@@ -181,6 +183,9 @@ func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if !(f.AllowPaidFloodskip == false) {
 		return false
 	}
+	if !(f.FromEphemeral == false) {
+		return false
+	}
 	if !(f.FromPeer == nil) {
 		return false
 	}
@@ -245,6 +250,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetDropMediaCaptions() (value bool)
 	GetNoforwards() (value bool)
 	GetAllowPaidFloodskip() (value bool)
+	GetFromEphemeral() (value bool)
 	GetFromPeer() (value InputPeerClass)
 	GetID() (value []int)
 	GetRandomID() (value []int64)
@@ -267,6 +273,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	f.DropMediaCaptions = from.GetDropMediaCaptions()
 	f.Noforwards = from.GetNoforwards()
 	f.AllowPaidFloodskip = from.GetAllowPaidFloodskip()
+	f.FromEphemeral = from.GetFromEphemeral()
 	f.FromPeer = from.GetFromPeer()
 	f.ID = from.GetID()
 	f.RandomID = from.GetRandomID()
@@ -372,6 +379,11 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 			Null:       !f.Flags.Has(19),
 		},
 		{
+			Name:       "FromEphemeral",
+			SchemaName: "from_ephemeral",
+			Null:       !f.Flags.Has(25),
+		},
+		{
 			Name:       "FromPeer",
 			SchemaName: "from_peer",
 		},
@@ -463,6 +475,9 @@ func (f *MessagesForwardMessagesRequest) SetFlags() {
 	}
 	if !(f.AllowPaidFloodskip == false) {
 		f.Flags.Set(19)
+	}
+	if !(f.FromEphemeral == false) {
+		f.Flags.Set(25)
 	}
 	if !(f.TopMsgID == 0) {
 		f.Flags.Set(9)
@@ -612,6 +627,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	f.DropMediaCaptions = f.Flags.Has(12)
 	f.Noforwards = f.Flags.Has(14)
 	f.AllowPaidFloodskip = f.Flags.Has(19)
+	f.FromEphemeral = f.Flags.Has(25)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -862,6 +878,25 @@ func (f *MessagesForwardMessagesRequest) GetAllowPaidFloodskip() (value bool) {
 		return
 	}
 	return f.Flags.Has(19)
+}
+
+// SetFromEphemeral sets value of FromEphemeral conditional field.
+func (f *MessagesForwardMessagesRequest) SetFromEphemeral(value bool) {
+	if value {
+		f.Flags.Set(25)
+		f.FromEphemeral = true
+	} else {
+		f.Flags.Unset(25)
+		f.FromEphemeral = false
+	}
+}
+
+// GetFromEphemeral returns value of FromEphemeral conditional field.
+func (f *MessagesForwardMessagesRequest) GetFromEphemeral() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.Flags.Has(25)
 }
 
 // GetFromPeer returns value of FromPeer field.

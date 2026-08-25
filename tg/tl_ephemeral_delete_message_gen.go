@@ -31,11 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EphemeralDeleteMessageRequest represents TL type `ephemeral.deleteMessage#a3c0d511`.
+// EphemeralDeleteMessageRequest represents TL type `ephemeral.deleteMessage#92f6e797`.
 //
 // See https://core.telegram.org/method/ephemeral.deleteMessage for reference.
 type EphemeralDeleteMessageRequest struct {
+	// Flags field of EphemeralDeleteMessageRequest.
+	Flags bin.Fields
 	// Peer field of EphemeralDeleteMessageRequest.
+	//
+	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
 	// ReceiverID field of EphemeralDeleteMessageRequest.
 	ReceiverID InputUserClass
@@ -44,7 +48,7 @@ type EphemeralDeleteMessageRequest struct {
 }
 
 // EphemeralDeleteMessageRequestTypeID is TL type id of EphemeralDeleteMessageRequest.
-const EphemeralDeleteMessageRequestTypeID = 0xa3c0d511
+const EphemeralDeleteMessageRequestTypeID = 0x92f6e797
 
 // Ensuring interfaces in compile-time for EphemeralDeleteMessageRequest.
 var (
@@ -57,6 +61,9 @@ var (
 func (d *EphemeralDeleteMessageRequest) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
 	}
 	if !(d.Peer == nil) {
 		return false
@@ -82,11 +89,14 @@ func (d *EphemeralDeleteMessageRequest) String() string {
 
 // FillFrom fills EphemeralDeleteMessageRequest from given interface.
 func (d *EphemeralDeleteMessageRequest) FillFrom(from interface {
-	GetPeer() (value InputPeerClass)
+	GetPeer() (value InputPeerClass, ok bool)
 	GetReceiverID() (value InputUserClass)
 	GetID() (value int)
 }) {
-	d.Peer = from.GetPeer()
+	if val, ok := from.GetPeer(); ok {
+		d.Peer = val
+	}
+
 	d.ReceiverID = from.GetReceiverID()
 	d.ID = from.GetID()
 }
@@ -117,6 +127,7 @@ func (d *EphemeralDeleteMessageRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "Peer",
 			SchemaName: "peer",
+			Null:       !d.Flags.Has(0),
 		},
 		{
 			Name:       "ReceiverID",
@@ -130,10 +141,17 @@ func (d *EphemeralDeleteMessageRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *EphemeralDeleteMessageRequest) SetFlags() {
+	if !(d.Peer == nil) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *EphemeralDeleteMessageRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode ephemeral.deleteMessage#a3c0d511 as nil")
+		return fmt.Errorf("can't encode ephemeral.deleteMessage#92f6e797 as nil")
 	}
 	b.PutID(EphemeralDeleteMessageRequestTypeID)
 	return d.EncodeBare(b)
@@ -142,19 +160,25 @@ func (d *EphemeralDeleteMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *EphemeralDeleteMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode ephemeral.deleteMessage#a3c0d511 as nil")
+		return fmt.Errorf("can't encode ephemeral.deleteMessage#92f6e797 as nil")
 	}
-	if d.Peer == nil {
-		return fmt.Errorf("unable to encode ephemeral.deleteMessage#a3c0d511: field peer is nil")
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode ephemeral.deleteMessage#92f6e797: field flags: %w", err)
 	}
-	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode ephemeral.deleteMessage#a3c0d511: field peer: %w", err)
+	if d.Flags.Has(0) {
+		if d.Peer == nil {
+			return fmt.Errorf("unable to encode ephemeral.deleteMessage#92f6e797: field peer is nil")
+		}
+		if err := d.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode ephemeral.deleteMessage#92f6e797: field peer: %w", err)
+		}
 	}
 	if d.ReceiverID == nil {
-		return fmt.Errorf("unable to encode ephemeral.deleteMessage#a3c0d511: field receiver_id is nil")
+		return fmt.Errorf("unable to encode ephemeral.deleteMessage#92f6e797: field receiver_id is nil")
 	}
 	if err := d.ReceiverID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode ephemeral.deleteMessage#a3c0d511: field receiver_id: %w", err)
+		return fmt.Errorf("unable to encode ephemeral.deleteMessage#92f6e797: field receiver_id: %w", err)
 	}
 	b.PutInt(d.ID)
 	return nil
@@ -163,10 +187,10 @@ func (d *EphemeralDeleteMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *EphemeralDeleteMessageRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode ephemeral.deleteMessage#a3c0d511 to nil")
+		return fmt.Errorf("can't decode ephemeral.deleteMessage#92f6e797 to nil")
 	}
 	if err := b.ConsumeID(EphemeralDeleteMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode ephemeral.deleteMessage#a3c0d511: %w", err)
+		return fmt.Errorf("unable to decode ephemeral.deleteMessage#92f6e797: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -174,38 +198,53 @@ func (d *EphemeralDeleteMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *EphemeralDeleteMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode ephemeral.deleteMessage#a3c0d511 to nil")
+		return fmt.Errorf("can't decode ephemeral.deleteMessage#92f6e797 to nil")
 	}
 	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode ephemeral.deleteMessage#92f6e797: field flags: %w", err)
+		}
+	}
+	if d.Flags.Has(0) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.deleteMessage#a3c0d511: field peer: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.deleteMessage#92f6e797: field peer: %w", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.deleteMessage#a3c0d511: field receiver_id: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.deleteMessage#92f6e797: field receiver_id: %w", err)
 		}
 		d.ReceiverID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.deleteMessage#a3c0d511: field id: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.deleteMessage#92f6e797: field id: %w", err)
 		}
 		d.ID = value
 	}
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *EphemeralDeleteMessageRequest) GetPeer() (value InputPeerClass) {
+// SetPeer sets value of Peer conditional field.
+func (d *EphemeralDeleteMessageRequest) SetPeer(value InputPeerClass) {
+	d.Flags.Set(0)
+	d.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (d *EphemeralDeleteMessageRequest) GetPeer() (value InputPeerClass, ok bool) {
 	if d == nil {
 		return
 	}
-	return d.Peer
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Peer, true
 }
 
 // GetReceiverID returns value of ReceiverID field.
@@ -224,7 +263,7 @@ func (d *EphemeralDeleteMessageRequest) GetID() (value int) {
 	return d.ID
 }
 
-// EphemeralDeleteMessage invokes method ephemeral.deleteMessage#a3c0d511 returning error if any.
+// EphemeralDeleteMessage invokes method ephemeral.deleteMessage#92f6e797 returning error if any.
 //
 // See https://core.telegram.org/method/ephemeral.deleteMessage for reference.
 func (c *Client) EphemeralDeleteMessage(ctx context.Context, request *EphemeralDeleteMessageRequest) (bool, error) {

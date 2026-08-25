@@ -38,7 +38,7 @@ type BotsRequestWebViewButtonRequest struct {
 	// UserID field of BotsRequestWebViewButtonRequest.
 	UserID InputUserClass
 	// Button field of BotsRequestWebViewButtonRequest.
-	Button KeyboardButtonClass
+	Button KeyboardButton
 }
 
 // BotsRequestWebViewButtonRequestTypeID is TL type id of BotsRequestWebViewButtonRequest.
@@ -59,7 +59,7 @@ func (r *BotsRequestWebViewButtonRequest) Zero() bool {
 	if !(r.UserID == nil) {
 		return false
 	}
-	if !(r.Button == nil) {
+	if !(r.Button.Zero()) {
 		return false
 	}
 
@@ -78,7 +78,7 @@ func (r *BotsRequestWebViewButtonRequest) String() string {
 // FillFrom fills BotsRequestWebViewButtonRequest from given interface.
 func (r *BotsRequestWebViewButtonRequest) FillFrom(from interface {
 	GetUserID() (value InputUserClass)
-	GetButton() (value KeyboardButtonClass)
+	GetButton() (value KeyboardButton)
 }) {
 	r.UserID = from.GetUserID()
 	r.Button = from.GetButton()
@@ -139,9 +139,6 @@ func (r *BotsRequestWebViewButtonRequest) EncodeBare(b *bin.Buffer) error {
 	if err := r.UserID.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode bots.requestWebViewButton#31a2a35e: field user_id: %w", err)
 	}
-	if r.Button == nil {
-		return fmt.Errorf("unable to encode bots.requestWebViewButton#31a2a35e: field button is nil")
-	}
 	if err := r.Button.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode bots.requestWebViewButton#31a2a35e: field button: %w", err)
 	}
@@ -172,11 +169,9 @@ func (r *BotsRequestWebViewButtonRequest) DecodeBare(b *bin.Buffer) error {
 		r.UserID = value
 	}
 	{
-		value, err := DecodeKeyboardButton(b)
-		if err != nil {
+		if err := r.Button.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode bots.requestWebViewButton#31a2a35e: field button: %w", err)
 		}
-		r.Button = value
 	}
 	return nil
 }
@@ -190,7 +185,7 @@ func (r *BotsRequestWebViewButtonRequest) GetUserID() (value InputUserClass) {
 }
 
 // GetButton returns value of Button field.
-func (r *BotsRequestWebViewButtonRequest) GetButton() (value KeyboardButtonClass) {
+func (r *BotsRequestWebViewButtonRequest) GetButton() (value KeyboardButton) {
 	if r == nil {
 		return
 	}
