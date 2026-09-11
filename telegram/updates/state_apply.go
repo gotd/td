@@ -12,7 +12,7 @@ import (
 func (s *internalState) applySeq(ctx context.Context, state int, updates []update) error {
 	recoverState := false
 	for _, u := range updates {
-		ptsChanged, err := s.applyCombined(ctx, u.Value.(*tg.UpdatesCombined))
+		ptsChanged, err := s.applyCombined(ctx, u.Value.(*tg.UpdatesCombined), false)
 		if err != nil {
 			return err
 		}
@@ -33,7 +33,7 @@ func (s *internalState) applySeq(ctx context.Context, state int, updates []updat
 	return nil
 }
 
-func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
+func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombined, fromDifference bool) (ptsChanged bool, err error) {
 	ctx, span := s.tracer.Start(ctx, "internalState.applyCombined")
 	defer span.End()
 
@@ -68,6 +68,17 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 		}
 
 		if pts, ptsCount, ok := tg.IsPtsUpdate(u); ok {
+			if fromDifference {
+				// The difference is the authoritative, ordered replay for the
+				// gap. Routing a common update through the sequence box would
+				// re-buffer it (it may not fill contiguously from the current
+				// state), and the setState that follows the difference would
+				// then advance the box past it, dropping it as outdated.
+				// Dispatch it with the batch instead; setState records the
+				// position the difference reached.
+				others = append(others, u)
+				continue
+			}
 			if err := s.handlePts(ctx, pts, ptsCount, u, ents); err != nil {
 				return false, err
 			}

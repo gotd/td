@@ -221,7 +221,7 @@ func (s *internalState) Run(ctx context.Context) error {
 			return ctx.Err()
 		case u := <-s.externalQueue:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
-			if err := s.handleUpdates(ctx, u.update); err != nil {
+			if err := s.handleUpdates(ctx, u.update, false); err != nil {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
 				if isFatalError(err) {
 					return errors.Wrap(err, "fatal error")
@@ -229,7 +229,7 @@ func (s *internalState) Run(ctx context.Context) error {
 			}
 		case u := <-s.internalQueue:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
-			if err := s.handleUpdates(ctx, u.update); err != nil {
+			if err := s.handleUpdates(ctx, u.update, false); err != nil {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
 				if isFatalError(err) {
 					return errors.Wrap(err, "fatal error")
@@ -271,7 +271,7 @@ func (s *internalState) removeChannelState(channelID int64) {
 	)
 }
 
-func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) error {
+func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass, fromDifference bool) error {
 	ctx, span := s.tracer.Start(ctx, "handleUpdates")
 	defer span.End()
 
@@ -291,31 +291,31 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 			Date:     u.Date,
 			Seq:      u.Seq,
 			SeqStart: u.Seq,
-		})
+		}, fromDifference)
 	case *tg.UpdatesCombined:
 		s.saveChannelHashes(ctx, u.Chats)
 		s.saveUserHashes(ctx, u.Users)
 		if !s.messageUpdatesPeersKnown(ctx, u.Updates) {
 			return s.getDifference(ctx, "combined-peer-access-hash-unknown")
 		}
-		return s.handleSeq(ctx, u)
+		return s.handleSeq(ctx, u, fromDifference)
 	case *tg.UpdateShort:
 		return s.handleUpdates(ctx, &tg.UpdatesCombined{
 			Updates: []tg.UpdateClass{u.Update},
 			Date:    u.Date,
-		})
+		}, fromDifference)
 	case *tg.UpdateShortMessage:
 		if !s.shortMessagePeersKnown(ctx, u) {
 			return s.getDifference(ctx, "short-message-peer-access-hash-unknown")
 		}
-		return s.handleUpdates(ctx, s.convertShortMessage(u))
+		return s.handleUpdates(ctx, s.convertShortMessage(u), fromDifference)
 	case *tg.UpdateShortChatMessage:
 		if !s.shortChatMessagePeersKnown(ctx, u) {
 			return s.getDifference(ctx, "short-chat-message-peer-access-hash-unknown")
 		}
-		return s.handleUpdates(ctx, s.convertShortChatMessage(u))
+		return s.handleUpdates(ctx, s.convertShortChatMessage(u), fromDifference)
 	case *tg.UpdateShortSentMessage:
-		return s.handleUpdates(ctx, s.convertShortSentMessage(u))
+		return s.handleUpdates(ctx, s.convertShortSentMessage(u), fromDifference)
 	case *tg.UpdatesTooLong:
 		return s.getDifference(ctx, "updates-too-long")
 	default:
@@ -323,7 +323,7 @@ func (s *internalState) handleUpdates(ctx context.Context, u tg.UpdatesClass) er
 	}
 }
 
-func (s *internalState) handleSeq(ctx context.Context, u *tg.UpdatesCombined) error {
+func (s *internalState) handleSeq(ctx context.Context, u *tg.UpdatesCombined, fromDifference bool) error {
 	ctx, span := s.tracer.Start(ctx, "handleSeq")
 	defer span.End()
 
@@ -334,7 +334,7 @@ func (s *internalState) handleSeq(ctx context.Context, u *tg.UpdatesCombined) er
 
 	// Special case.
 	if u.Seq == 0 {
-		ptsChanged, err := s.applyCombined(ctx, u)
+		ptsChanged, err := s.applyCombined(ctx, u, fromDifference)
 		if err != nil {
 			return err
 		}
@@ -565,11 +565,14 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		s.saveUserHashes(ctx, diff.Users)
 
 		if len(diff.OtherUpdates) > 0 {
+			// fromDifference: common updates are dispatched directly (see
+			// applyCombined); channel updates are still routed to their channel
+			// state as usual.
 			if err := s.handleUpdates(ctx, &tg.UpdatesCombined{
 				Updates: diff.OtherUpdates,
 				Users:   diff.Users,
 				Chats:   diff.Chats,
-			}); err != nil {
+			}, true); err != nil {
 				return errors.Wrap(err, "handle diff.OtherUpdates")
 			}
 		}
@@ -608,12 +611,13 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		s.saveUserHashes(ctx, diff.Users)
 
 		if len(diff.OtherUpdates) > 0 {
+			// See updates.Difference above.
 			if err := s.handleUpdates(ctx, &tg.UpdatesCombined{
 				Updates: diff.OtherUpdates,
 				Users:   diff.Users,
 				Chats:   diff.Chats,
 				Date:    diff.IntermediateState.Date,
-			}); err != nil {
+			}, true); err != nil {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
 			}
 		}
