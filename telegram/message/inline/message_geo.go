@@ -66,6 +66,6 @@ func (b *MessageMediaGeoBuilder) Markup(m tg.ReplyMarkupClass) *MessageMediaGeoB
 
 // Row sets single row keyboard markup  for sending bot buttons.
 // NB: markup will not be used, if you send multiple media attachments.
-func (b *MessageMediaGeoBuilder) Row(buttons ...tg.KeyboardButtonClass) *MessageMediaGeoBuilder {
+func (b *MessageMediaGeoBuilder) Row(buttons ...tg.KeyboardInlineButton) *MessageMediaGeoBuilder {
 	return b.Markup(markup.InlineRow(buttons...))
 }

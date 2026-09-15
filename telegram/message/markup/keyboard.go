@@ -52,7 +52,7 @@ func BuildKeyboard() *ReplyKeyboardMarkupBuilder {
 }
 
 // SingleRow creates keyboard with single row using given buttons.
-func SingleRow(buttons ...tg.KeyboardButtonClass) tg.ReplyMarkupClass {
+func SingleRow(buttons ...tg.KeyboardButton) tg.ReplyMarkupClass {
 	return Keyboard(Row(buttons...))
 }
 
