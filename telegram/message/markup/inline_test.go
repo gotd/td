@@ -19,6 +19,8 @@ func TestInlineRow(t *testing.T) {
 		InputURLAuth(false, "text", "fwdText", "url", &tg.InputUserSelf{}),
 		InputUserProfile("me", &tg.InputUserSelf{}),
 		WebView("demo", "https://webappcontent.telegram.org/demo"),
+		Copy("copy", "text to copy"),
+		Disabled("nothing"),
 	}
 
 	v, ok := InlineRow(buttons...).(*tg.ReplyInlineMarkup)

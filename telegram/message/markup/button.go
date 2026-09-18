@@ -190,3 +190,20 @@ func UserProfile(text string, userID int64, style ...StyleOption) tg.KeyboardInl
 func WebView(text, url string, style ...StyleOption) tg.KeyboardInlineButton {
 	return inline(text, &tg.InlineButtonTypeWebView{URL: url}, style)
 }
+
+// InputRequestPeer creates button that prompts the user to select and share a peer with the bot,
+// requesting the peer's name, username and/or photo.
+// Use it to send a button, use RequestPeer to handle a received one.
+func InputRequestPeer(text string, typ tg.InputButtonTypeRequestPeer, style ...StyleOption) tg.KeyboardButton {
+	return reply(text, &typ, style)
+}
+
+// Copy creates button that copies copyText to the clipboard when pressed.
+func Copy(text, copyText string, style ...StyleOption) tg.KeyboardInlineButton {
+	return inline(text, &tg.InlineButtonTypeCopy{CopyText: copyText}, style)
+}
+
+// Disabled creates button that does nothing when pressed.
+func Disabled(text string, style ...StyleOption) tg.KeyboardInlineButton {
+	return inline(text, &tg.InlineButtonTypeDisabled{}, style)
+}

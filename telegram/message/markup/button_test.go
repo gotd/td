@@ -92,6 +92,9 @@ func TestButtonStyle(t *testing.T) {
 	a.Equal(want, WebView("text", "url", options...).Style)
 	a.Equal(want, SimpleWebView("text", "url", options...).Style)
 	a.Equal(want, RequestPeer("text", 0, &tg.RequestPeerTypeUser{}, options...).Style)
+	a.Equal(want, InputRequestPeer("text", tg.InputButtonTypeRequestPeer{}, options...).Style)
+	a.Equal(want, Copy("text", "copy", options...).Style)
+	a.Equal(want, Disabled("text", options...).Style)
 }
 
 func TestButtonNoStyle(t *testing.T) {
