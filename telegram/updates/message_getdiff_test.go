@@ -42,7 +42,7 @@ func TestNewMessageUnknownSenderForcesDifference(t *testing.T) {
 	err := s.handleUpdates(ctx, &tg.Updates{
 		Updates: []tg.UpdateClass{newMessageUpdate(555)},
 		// sender NOT supplied inline
-	})
+	}, false)
 	require.NoError(t, err)
 	require.Equal(t, 1, api.diffCalls, "full new message from unknown sender must force getDifference")
 	require.Equal(t, 0, dispatched, "message must not be dispatched directly")
@@ -60,7 +60,7 @@ func TestUpdateShortWrappedNewMessageUnknownSenderForcesDifference(t *testing.T)
 
 	// The exact reproduced shape: updateShort wrapping a pts updateNewMessage,
 	// no inline users[].
-	err := s.handleUpdates(ctx, &tg.UpdateShort{Update: newMessageUpdate(555)})
+	err := s.handleUpdates(ctx, &tg.UpdateShort{Update: newMessageUpdate(555)}, false)
 	require.NoError(t, err)
 	require.Equal(t, 1, api.diffCalls, "updateShort-wrapped new message from unknown sender must force getDifference")
 	require.Equal(t, 0, dispatched, "message must not be dispatched directly")
@@ -82,7 +82,7 @@ func TestNewMessageKnownSenderAppliesDirectly(t *testing.T) {
 	err := s.handleUpdates(ctx, &tg.Updates{
 		Updates: []tg.UpdateClass{newMessageUpdate(555)},
 		Users:   []tg.UserClass{&tg.User{ID: 555, AccessHash: 7777}},
-	})
+	}, false)
 	require.NoError(t, err)
 	require.Equal(t, 0, api.diffCalls, "no difference when the sender is supplied full inline")
 	require.Equal(t, 1, dispatched, "message with known sender must be dispatched directly")

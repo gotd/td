@@ -70,7 +70,7 @@ func TestShortMessageUnknownPeerForcesDifference(t *testing.T) {
 	})
 	s := newShortTestState(t, api, handler)
 
-	err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 1, Pts: 1, PtsCount: 1})
+	err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 1, Pts: 1, PtsCount: 1}, false)
 	require.NoError(t, err)
 	require.Equal(t, 1, api.diffCalls, "getDifference must be forced for unknown peer")
 	require.Equal(t, 0, dispatched, "short message must not be dispatched directly")
@@ -90,9 +90,9 @@ func TestShortMessageKnownPeerAppliesDirectly(t *testing.T) {
 	// carrying the full (non-min, non-zero hash) user marks it known.
 	require.NoError(t, s.handleUpdates(ctx, &tg.Updates{
 		Users: []tg.UserClass{&tg.User{ID: 555, AccessHash: 7777}},
-	}))
+	}, false))
 
-	err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 1, Pts: 1, PtsCount: 1})
+	err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 1, Pts: 1, PtsCount: 1}, false)
 	require.NoError(t, err)
 	require.Equal(t, 0, api.diffCalls, "no difference for known peer")
 	require.Equal(t, 1, dispatched, "short message must be dispatched directly")
@@ -124,11 +124,11 @@ func TestShortMessageMinUserNotKnown(t *testing.T) {
 			// NOT be recorded as known.
 			require.NoError(t, s.handleUpdates(ctx, &tg.Updates{
 				Users: []tg.UserClass{tt.user},
-			}))
+			}, false))
 			_, known, _ := s.userHasher.GetUserAccessHash(ctx, s.selfID, 555)
 			require.False(t, known, "min/zero-hash user must not be recorded as known")
 
-			err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 1, Pts: 1, PtsCount: 1})
+			err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 1, Pts: 1, PtsCount: 1}, false)
 			require.NoError(t, err)
 			require.Equal(t, 1, api.diffCalls, "min/zero-hash sender must still force getDifference")
 			require.Equal(t, 0, dispatched, "short message must not be dispatched directly")
@@ -146,7 +146,7 @@ func TestShortChatMessageUnknownPeerForcesDifference(t *testing.T) {
 	})
 	s := newShortTestState(t, api, handler)
 
-	err := s.handleUpdates(ctx, &tg.UpdateShortChatMessage{FromID: 555, ChatID: 42, ID: 1, Pts: 1, PtsCount: 1})
+	err := s.handleUpdates(ctx, &tg.UpdateShortChatMessage{FromID: 555, ChatID: 42, ID: 1, Pts: 1, PtsCount: 1}, false)
 	require.NoError(t, err)
 	require.Equal(t, 1, api.diffCalls, "getDifference must be forced for unknown sender of a chat message")
 	require.Equal(t, 0, dispatched, "short chat message must not be dispatched directly")
@@ -204,7 +204,7 @@ func TestShortMessageRecoveredDifferenceCarriesSender(t *testing.T) {
 	})
 	s := newShortTestState(t, api, handler)
 
-	err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 10, Pts: 1, PtsCount: 1})
+	err := s.handleUpdates(ctx, &tg.UpdateShortMessage{UserID: 555, ID: 10, Pts: 1, PtsCount: 1}, false)
 	require.NoError(t, err)
 	require.Equal(t, 1, api.calls, "getDifference must be forced once for the unknown sender")
 	require.NotNil(t, got, "recovered message must be dispatched")
