@@ -11,18 +11,16 @@ import (
 func TestInlineRow(t *testing.T) {
 	a := require.New(t)
 
-	buttons := []tg.KeyboardButtonClass{
-		Button("gotd"),
+	buttons := []tg.KeyboardInlineButton{
 		URL("Google!", "https://google.com?q=gotd"),
-		RequestPhone("phone"),
-		RequestGeoLocation("geo"),
 		SwitchInline("inline", "query", true),
 		Game("game"),
 		Buy("buy"),
 		InputURLAuth(false, "text", "fwdText", "url", &tg.InputUserSelf{}),
-		RequestPoll("poll", true),
 		InputUserProfile("me", &tg.InputUserSelf{}),
 		WebView("demo", "https://webappcontent.telegram.org/demo"),
+		Copy("copy", "text to copy"),
+		Disabled("nothing"),
 	}
 
 	v, ok := InlineRow(buttons...).(*tg.ReplyInlineMarkup)

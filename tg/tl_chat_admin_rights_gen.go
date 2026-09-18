@@ -134,6 +134,8 @@ type ChatAdminRights struct {
 	ManageRanks bool
 	// ManageLinkedPeers field of ChatAdminRights.
 	ManageLinkedPeers bool
+	// ManageWelcomeMessages field of ChatAdminRights.
+	ManageWelcomeMessages bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -208,6 +210,9 @@ func (c *ChatAdminRights) Zero() bool {
 	if !(c.ManageLinkedPeers == false) {
 		return false
 	}
+	if !(c.ManageWelcomeMessages == false) {
+		return false
+	}
 
 	return true
 }
@@ -241,6 +246,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetManageDirectMessages() (value bool)
 	GetManageRanks() (value bool)
 	GetManageLinkedPeers() (value bool)
+	GetManageWelcomeMessages() (value bool)
 }) {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.PostMessages = from.GetPostMessages()
@@ -260,6 +266,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	c.ManageDirectMessages = from.GetManageDirectMessages()
 	c.ManageRanks = from.GetManageRanks()
 	c.ManageLinkedPeers = from.GetManageLinkedPeers()
+	c.ManageWelcomeMessages = from.GetManageWelcomeMessages()
 }
 
 // TypeID returns type id in TL schema.
@@ -375,6 +382,11 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 			SchemaName: "manage_linked_peers",
 			Null:       !c.Flags.Has(19),
 		},
+		{
+			Name:       "ManageWelcomeMessages",
+			SchemaName: "manage_welcome_messages",
+			Null:       !c.Flags.Has(20),
+		},
 	}
 	return typ
 }
@@ -434,6 +446,9 @@ func (c *ChatAdminRights) SetFlags() {
 	}
 	if !(c.ManageLinkedPeers == false) {
 		c.Flags.Set(19)
+	}
+	if !(c.ManageWelcomeMessages == false) {
+		c.Flags.Set(20)
 	}
 }
 
@@ -497,6 +512,7 @@ func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
 	c.ManageDirectMessages = c.Flags.Has(17)
 	c.ManageRanks = c.Flags.Has(18)
 	c.ManageLinkedPeers = c.Flags.Has(19)
+	c.ManageWelcomeMessages = c.Flags.Has(20)
 	return nil
 }
 
@@ -840,4 +856,23 @@ func (c *ChatAdminRights) GetManageLinkedPeers() (value bool) {
 		return
 	}
 	return c.Flags.Has(19)
+}
+
+// SetManageWelcomeMessages sets value of ManageWelcomeMessages conditional field.
+func (c *ChatAdminRights) SetManageWelcomeMessages(value bool) {
+	if value {
+		c.Flags.Set(20)
+		c.ManageWelcomeMessages = true
+	} else {
+		c.Flags.Unset(20)
+		c.ManageWelcomeMessages = false
+	}
+}
+
+// GetManageWelcomeMessages returns value of ManageWelcomeMessages conditional field.
+func (c *ChatAdminRights) GetManageWelcomeMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(20)
 }

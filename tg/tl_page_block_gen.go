@@ -1702,11 +1702,15 @@ func (p *PageBlockList) MapItems() (value PageListItemClassArray) {
 	return PageListItemClassArray(p.Items)
 }
 
-// PageBlockBlockquote represents TL type `pageBlockBlockquote#263d7c26`.
+// PageBlockBlockquote represents TL type `pageBlockBlockquote#66d1670b`.
 // Quote (equivalent to the HTML <blockquote>)
 //
 // See https://core.telegram.org/constructor/pageBlockBlockquote for reference.
 type PageBlockBlockquote struct {
+	// Flags field of PageBlockBlockquote.
+	Flags bin.Fields
+	// Collapsed field of PageBlockBlockquote.
+	Collapsed bool
 	// Quote contents
 	Text RichTextClass
 	// Caption
@@ -1714,7 +1718,7 @@ type PageBlockBlockquote struct {
 }
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
-const PageBlockBlockquoteTypeID = 0x263d7c26
+const PageBlockBlockquoteTypeID = 0x66d1670b
 
 // construct implements constructor of PageBlockClass.
 func (p PageBlockBlockquote) construct() PageBlockClass { return &p }
@@ -1732,6 +1736,12 @@ var (
 func (p *PageBlockBlockquote) Zero() bool {
 	if p == nil {
 		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Collapsed == false) {
+		return false
 	}
 	if !(p.Text == nil) {
 		return false
@@ -1754,9 +1764,11 @@ func (p *PageBlockBlockquote) String() string {
 
 // FillFrom fills PageBlockBlockquote from given interface.
 func (p *PageBlockBlockquote) FillFrom(from interface {
+	GetCollapsed() (value bool)
 	GetText() (value RichTextClass)
 	GetCaption() (value RichTextClass)
 }) {
+	p.Collapsed = from.GetCollapsed()
 	p.Text = from.GetText()
 	p.Caption = from.GetCaption()
 }
@@ -1785,6 +1797,11 @@ func (p *PageBlockBlockquote) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Collapsed",
+			SchemaName: "collapsed",
+			Null:       !p.Flags.Has(0),
+		},
+		{
 			Name:       "Text",
 			SchemaName: "text",
 		},
@@ -1796,10 +1813,17 @@ func (p *PageBlockBlockquote) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockBlockquote) SetFlags() {
+	if !(p.Collapsed == false) {
+		p.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockBlockquote#263d7c26 as nil")
+		return fmt.Errorf("can't encode pageBlockBlockquote#66d1670b as nil")
 	}
 	b.PutID(PageBlockBlockquoteTypeID)
 	return p.EncodeBare(b)
@@ -1808,19 +1832,23 @@ func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockBlockquote) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockBlockquote#263d7c26 as nil")
+		return fmt.Errorf("can't encode pageBlockBlockquote#66d1670b as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockBlockquote#66d1670b: field flags: %w", err)
 	}
 	if p.Text == nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field text is nil")
+		return fmt.Errorf("unable to encode pageBlockBlockquote#66d1670b: field text is nil")
 	}
 	if err := p.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field text: %w", err)
+		return fmt.Errorf("unable to encode pageBlockBlockquote#66d1670b: field text: %w", err)
 	}
 	if p.Caption == nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field caption is nil")
+		return fmt.Errorf("unable to encode pageBlockBlockquote#66d1670b: field caption is nil")
 	}
 	if err := p.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field caption: %w", err)
+		return fmt.Errorf("unable to encode pageBlockBlockquote#66d1670b: field caption: %w", err)
 	}
 	return nil
 }
@@ -1828,10 +1856,10 @@ func (p *PageBlockBlockquote) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockBlockquote#263d7c26 to nil")
+		return fmt.Errorf("can't decode pageBlockBlockquote#66d1670b to nil")
 	}
 	if err := b.ConsumeID(PageBlockBlockquoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: %w", err)
+		return fmt.Errorf("unable to decode pageBlockBlockquote#66d1670b: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -1839,23 +1867,48 @@ func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockBlockquote) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockBlockquote#263d7c26 to nil")
+		return fmt.Errorf("can't decode pageBlockBlockquote#66d1670b to nil")
 	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockBlockquote#66d1670b: field flags: %w", err)
+		}
+	}
+	p.Collapsed = p.Flags.Has(0)
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: field text: %w", err)
+			return fmt.Errorf("unable to decode pageBlockBlockquote#66d1670b: field text: %w", err)
 		}
 		p.Text = value
 	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: field caption: %w", err)
+			return fmt.Errorf("unable to decode pageBlockBlockquote#66d1670b: field caption: %w", err)
 		}
 		p.Caption = value
 	}
 	return nil
+}
+
+// SetCollapsed sets value of Collapsed conditional field.
+func (p *PageBlockBlockquote) SetCollapsed(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Collapsed = true
+	} else {
+		p.Flags.Unset(0)
+		p.Collapsed = false
+	}
+}
+
+// GetCollapsed returns value of Collapsed conditional field.
+func (p *PageBlockBlockquote) GetCollapsed() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(0)
 }
 
 // GetText returns value of Text field.
@@ -4403,6 +4456,8 @@ type PageBlockTable struct {
 	Bordered bool
 	// Is the table striped?
 	Striped bool
+	// Compact field of PageBlockTable.
+	Compact bool
 	// Title
 	Title RichTextClass
 	// Table rows
@@ -4438,6 +4493,9 @@ func (p *PageBlockTable) Zero() bool {
 	if !(p.Striped == false) {
 		return false
 	}
+	if !(p.Compact == false) {
+		return false
+	}
 	if !(p.Title == nil) {
 		return false
 	}
@@ -4461,11 +4519,13 @@ func (p *PageBlockTable) String() string {
 func (p *PageBlockTable) FillFrom(from interface {
 	GetBordered() (value bool)
 	GetStriped() (value bool)
+	GetCompact() (value bool)
 	GetTitle() (value RichTextClass)
 	GetRows() (value []PageTableRow)
 }) {
 	p.Bordered = from.GetBordered()
 	p.Striped = from.GetStriped()
+	p.Compact = from.GetCompact()
 	p.Title = from.GetTitle()
 	p.Rows = from.GetRows()
 }
@@ -4504,6 +4564,11 @@ func (p *PageBlockTable) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(1),
 		},
 		{
+			Name:       "Compact",
+			SchemaName: "compact",
+			Null:       !p.Flags.Has(2),
+		},
+		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -4522,6 +4587,9 @@ func (p *PageBlockTable) SetFlags() {
 	}
 	if !(p.Striped == false) {
 		p.Flags.Set(1)
+	}
+	if !(p.Compact == false) {
+		p.Flags.Set(2)
 	}
 }
 
@@ -4581,6 +4649,7 @@ func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 	}
 	p.Bordered = p.Flags.Has(0)
 	p.Striped = p.Flags.Has(1)
+	p.Compact = p.Flags.Has(2)
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -4644,6 +4713,25 @@ func (p *PageBlockTable) GetStriped() (value bool) {
 		return
 	}
 	return p.Flags.Has(1)
+}
+
+// SetCompact sets value of Compact conditional field.
+func (p *PageBlockTable) SetCompact(value bool) {
+	if value {
+		p.Flags.Set(2)
+		p.Compact = true
+	} else {
+		p.Flags.Unset(2)
+		p.Compact = false
+	}
+}
+
+// GetCompact returns value of Compact conditional field.
+func (p *PageBlockTable) GetCompact() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(2)
 }
 
 // GetTitle returns value of Title field.
@@ -7188,6 +7276,439 @@ func (p *PageBlockBlockquoteBlocks) MapBlocks() (value PageBlockClassArray) {
 	return PageBlockClassArray(p.Blocks)
 }
 
+// PageBlockButtonRow represents TL type `pageBlockButtonRow#6d640318`.
+//
+// See https://core.telegram.org/constructor/pageBlockButtonRow for reference.
+type PageBlockButtonRow struct {
+	// Flags field of PageBlockButtonRow.
+	Flags bin.Fields
+	// AlignLeft field of PageBlockButtonRow.
+	AlignLeft bool
+	// AlignCenter field of PageBlockButtonRow.
+	AlignCenter bool
+	// AlignRight field of PageBlockButtonRow.
+	AlignRight bool
+	// Buttons field of PageBlockButtonRow.
+	Buttons []PageButton
+}
+
+// PageBlockButtonRowTypeID is TL type id of PageBlockButtonRow.
+const PageBlockButtonRowTypeID = 0x6d640318
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockButtonRow) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockButtonRow.
+var (
+	_ bin.Encoder     = &PageBlockButtonRow{}
+	_ bin.Decoder     = &PageBlockButtonRow{}
+	_ bin.BareEncoder = &PageBlockButtonRow{}
+	_ bin.BareDecoder = &PageBlockButtonRow{}
+
+	_ PageBlockClass = &PageBlockButtonRow{}
+)
+
+func (p *PageBlockButtonRow) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.AlignLeft == false) {
+		return false
+	}
+	if !(p.AlignCenter == false) {
+		return false
+	}
+	if !(p.AlignRight == false) {
+		return false
+	}
+	if !(p.Buttons == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockButtonRow) String() string {
+	if p == nil {
+		return "PageBlockButtonRow(nil)"
+	}
+	type Alias PageBlockButtonRow
+	return fmt.Sprintf("PageBlockButtonRow%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockButtonRow from given interface.
+func (p *PageBlockButtonRow) FillFrom(from interface {
+	GetAlignLeft() (value bool)
+	GetAlignCenter() (value bool)
+	GetAlignRight() (value bool)
+	GetButtons() (value []PageButton)
+}) {
+	p.AlignLeft = from.GetAlignLeft()
+	p.AlignCenter = from.GetAlignCenter()
+	p.AlignRight = from.GetAlignRight()
+	p.Buttons = from.GetButtons()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockButtonRow) TypeID() uint32 {
+	return PageBlockButtonRowTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockButtonRow) TypeName() string {
+	return "pageBlockButtonRow"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockButtonRow) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockButtonRow",
+		ID:   PageBlockButtonRowTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AlignLeft",
+			SchemaName: "align_left",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "AlignCenter",
+			SchemaName: "align_center",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "AlignRight",
+			SchemaName: "align_right",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Buttons",
+			SchemaName: "buttons",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockButtonRow) SetFlags() {
+	if !(p.AlignLeft == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.AlignCenter == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.AlignRight == false) {
+		p.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockButtonRow) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockButtonRow#6d640318 as nil")
+	}
+	b.PutID(PageBlockButtonRowTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockButtonRow) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockButtonRow#6d640318 as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockButtonRow#6d640318: field flags: %w", err)
+	}
+	b.PutVectorHeader(len(p.Buttons))
+	for idx, v := range p.Buttons {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode pageBlockButtonRow#6d640318: field buttons element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockButtonRow) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockButtonRow#6d640318 to nil")
+	}
+	if err := b.ConsumeID(PageBlockButtonRowTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockButtonRow#6d640318: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockButtonRow) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockButtonRow#6d640318 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockButtonRow#6d640318: field flags: %w", err)
+		}
+	}
+	p.AlignLeft = p.Flags.Has(0)
+	p.AlignCenter = p.Flags.Has(1)
+	p.AlignRight = p.Flags.Has(2)
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockButtonRow#6d640318: field buttons: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Buttons = make([]PageButton, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value PageButton
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode pageBlockButtonRow#6d640318: field buttons: %w", err)
+			}
+			p.Buttons = append(p.Buttons, value)
+		}
+	}
+	return nil
+}
+
+// SetAlignLeft sets value of AlignLeft conditional field.
+func (p *PageBlockButtonRow) SetAlignLeft(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.AlignLeft = true
+	} else {
+		p.Flags.Unset(0)
+		p.AlignLeft = false
+	}
+}
+
+// GetAlignLeft returns value of AlignLeft conditional field.
+func (p *PageBlockButtonRow) GetAlignLeft() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(0)
+}
+
+// SetAlignCenter sets value of AlignCenter conditional field.
+func (p *PageBlockButtonRow) SetAlignCenter(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.AlignCenter = true
+	} else {
+		p.Flags.Unset(1)
+		p.AlignCenter = false
+	}
+}
+
+// GetAlignCenter returns value of AlignCenter conditional field.
+func (p *PageBlockButtonRow) GetAlignCenter() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(1)
+}
+
+// SetAlignRight sets value of AlignRight conditional field.
+func (p *PageBlockButtonRow) SetAlignRight(value bool) {
+	if value {
+		p.Flags.Set(2)
+		p.AlignRight = true
+	} else {
+		p.Flags.Unset(2)
+		p.AlignRight = false
+	}
+}
+
+// GetAlignRight returns value of AlignRight conditional field.
+func (p *PageBlockButtonRow) GetAlignRight() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(2)
+}
+
+// GetButtons returns value of Buttons field.
+func (p *PageBlockButtonRow) GetButtons() (value []PageButton) {
+	if p == nil {
+		return
+	}
+	return p.Buttons
+}
+
+// PageBlockDocument represents TL type `pageBlockDocument#38fa3ba3`.
+//
+// See https://core.telegram.org/constructor/pageBlockDocument for reference.
+type PageBlockDocument struct {
+	// DocumentID field of PageBlockDocument.
+	DocumentID int64
+	// Caption field of PageBlockDocument.
+	Caption PageCaption
+}
+
+// PageBlockDocumentTypeID is TL type id of PageBlockDocument.
+const PageBlockDocumentTypeID = 0x38fa3ba3
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockDocument) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockDocument.
+var (
+	_ bin.Encoder     = &PageBlockDocument{}
+	_ bin.Decoder     = &PageBlockDocument{}
+	_ bin.BareEncoder = &PageBlockDocument{}
+	_ bin.BareDecoder = &PageBlockDocument{}
+
+	_ PageBlockClass = &PageBlockDocument{}
+)
+
+func (p *PageBlockDocument) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.DocumentID == 0) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PageBlockDocument) String() string {
+	if p == nil {
+		return "PageBlockDocument(nil)"
+	}
+	type Alias PageBlockDocument
+	return fmt.Sprintf("PageBlockDocument%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockDocument from given interface.
+func (p *PageBlockDocument) FillFrom(from interface {
+	GetDocumentID() (value int64)
+	GetCaption() (value PageCaption)
+}) {
+	p.DocumentID = from.GetDocumentID()
+	p.Caption = from.GetCaption()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PageBlockDocument) TypeID() uint32 {
+	return PageBlockDocumentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PageBlockDocument) TypeName() string {
+	return "pageBlockDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockDocument",
+		ID:   PageBlockDocumentTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DocumentID",
+			SchemaName: "document_id",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockDocument) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockDocument#38fa3ba3 as nil")
+	}
+	b.PutID(PageBlockDocumentTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockDocument) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockDocument#38fa3ba3 as nil")
+	}
+	b.PutLong(p.DocumentID)
+	if err := p.Caption.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockDocument#38fa3ba3: field caption: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PageBlockDocument) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockDocument#38fa3ba3 to nil")
+	}
+	if err := b.ConsumeID(PageBlockDocumentTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockDocument#38fa3ba3: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockDocument) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockDocument#38fa3ba3 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockDocument#38fa3ba3: field document_id: %w", err)
+		}
+		p.DocumentID = value
+	}
+	{
+		if err := p.Caption.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockDocument#38fa3ba3: field caption: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetDocumentID returns value of DocumentID field.
+func (p *PageBlockDocument) GetDocumentID() (value int64) {
+	if p == nil {
+		return
+	}
+	return p.DocumentID
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockDocument) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
+	return p.Caption
+}
+
 // PageBlockClassName is schema name of PageBlockClass.
 const PageBlockClassName = "PageBlock"
 
@@ -7235,6 +7756,8 @@ const PageBlockClassName = "PageBlock"
 //   - [PageBlockThinking]
 //   - [InputPageBlockMap]
 //   - [PageBlockBlockquoteBlocks]
+//   - [PageBlockButtonRow]
+//   - [PageBlockDocument]
 //
 // Example:
 //
@@ -7255,7 +7778,7 @@ const PageBlockClassName = "PageBlock"
 //	case *tg.PageBlockDivider: // pageBlockDivider#db20b188
 //	case *tg.PageBlockAnchor: // pageBlockAnchor#ce0d37b0
 //	case *tg.PageBlockList: // pageBlockList#e4e88011
-//	case *tg.PageBlockBlockquote: // pageBlockBlockquote#263d7c26
+//	case *tg.PageBlockBlockquote: // pageBlockBlockquote#66d1670b
 //	case *tg.PageBlockPullquote: // pageBlockPullquote#4f4456d3
 //	case *tg.PageBlockPhoto: // pageBlockPhoto#1759c560
 //	case *tg.PageBlockVideo: // pageBlockVideo#7c8fe7b6
@@ -7282,6 +7805,8 @@ const PageBlockClassName = "PageBlock"
 //	case *tg.PageBlockThinking: // pageBlockThinking#3c29a3e2
 //	case *tg.InputPageBlockMap: // inputPageBlockMap#574b617f
 //	case *tg.PageBlockBlockquoteBlocks: // pageBlockBlockquoteBlocks#e6e47c4
+//	case *tg.PageBlockButtonRow: // pageBlockButtonRow#6d640318
+//	case *tg.PageBlockDocument: // pageBlockDocument#38fa3ba3
 //	default: panic(v)
 //	}
 type PageBlockClass interface {
@@ -7395,7 +7920,7 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 		}
 		return &v, nil
 	case PageBlockBlockquoteTypeID:
-		// Decoding pageBlockBlockquote#263d7c26.
+		// Decoding pageBlockBlockquote#66d1670b.
 		v := PageBlockBlockquote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
@@ -7579,6 +8104,20 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 	case PageBlockBlockquoteBlocksTypeID:
 		// Decoding pageBlockBlockquoteBlocks#e6e47c4.
 		v := PageBlockBlockquoteBlocks{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockButtonRowTypeID:
+		// Decoding pageBlockButtonRow#6d640318.
+		v := PageBlockButtonRow{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
+		}
+		return &v, nil
+	case PageBlockDocumentTypeID:
+		// Decoding pageBlockDocument#38fa3ba3.
+		v := PageBlockDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
 		}

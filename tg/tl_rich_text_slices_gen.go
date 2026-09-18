@@ -493,6 +493,19 @@ func (s RichTextClassArray) AsTextDiff() (to TextDiffArray) {
 	return to
 }
 
+// AsTextButton returns copy with only TextButton constructors.
+func (s RichTextClassArray) AsTextButton() (to TextButtonArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextButton)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // TextPlainArray is adapter for slice of TextPlain.
 type TextPlainArray []TextPlain
 
@@ -2873,6 +2886,88 @@ func (s *TextDiffArray) PopFirst() (v TextDiff, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *TextDiffArray) Pop() (v TextDiff, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextButtonArray is adapter for slice of TextButton.
+type TextButtonArray []TextButton
+
+// Sort sorts slice of TextButton.
+func (s TextButtonArray) Sort(less func(a, b TextButton) bool) TextButtonArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextButton.
+func (s TextButtonArray) SortStable(less func(a, b TextButton) bool) TextButtonArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextButton.
+func (s TextButtonArray) Retain(keep func(x TextButton) bool) TextButtonArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextButtonArray) First() (v TextButton, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextButtonArray) Last() (v TextButton, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextButtonArray) PopFirst() (v TextButton, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextButton
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextButtonArray) Pop() (v TextButton, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

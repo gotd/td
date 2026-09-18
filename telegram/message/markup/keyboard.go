@@ -38,6 +38,25 @@ func (b *ReplyKeyboardMarkupBuilder) Selective() *ReplyKeyboardMarkupBuilder {
 	return b
 }
 
+// Persistent sets flag to request clients to always show the keyboard when the regular
+// keyboard is hidden.
+func (b *ReplyKeyboardMarkupBuilder) Persistent() *ReplyKeyboardMarkupBuilder {
+	b.kb.Persistent = true
+	return b
+}
+
+// ForceReply sets flag to force the user to send a reply.
+func (b *ReplyKeyboardMarkupBuilder) ForceReply() *ReplyKeyboardMarkupBuilder {
+	b.kb.ForceReply = true
+	return b
+}
+
+// Placeholder sets the placeholder to be shown in the input field when the keyboard is active.
+func (b *ReplyKeyboardMarkupBuilder) Placeholder(placeholder string) *ReplyKeyboardMarkupBuilder {
+	b.kb.SetPlaceholder(placeholder)
+	return b
+}
+
 // Build returns created keyboard.
 func (b *ReplyKeyboardMarkupBuilder) Build(rows ...tg.KeyboardButtonRow,
 ) tg.ReplyMarkupClass {
@@ -52,7 +71,7 @@ func BuildKeyboard() *ReplyKeyboardMarkupBuilder {
 }
 
 // SingleRow creates keyboard with single row using given buttons.
-func SingleRow(buttons ...tg.KeyboardButtonClass) tg.ReplyMarkupClass {
+func SingleRow(buttons ...tg.KeyboardButton) tg.ReplyMarkupClass {
 	return Keyboard(Row(buttons...))
 }
 

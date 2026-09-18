@@ -195,11 +195,11 @@ func (g *BotsGetRequestedWebViewButtonRequest) GetWebappReqID() (value string) {
 // BotsGetRequestedWebViewButton invokes method bots.getRequestedWebViewButton#bf25b7f3 returning error if any.
 //
 // See https://core.telegram.org/method/bots.getRequestedWebViewButton for reference.
-func (c *Client) BotsGetRequestedWebViewButton(ctx context.Context, request *BotsGetRequestedWebViewButtonRequest) (KeyboardButtonClass, error) {
-	var result KeyboardButtonBox
+func (c *Client) BotsGetRequestedWebViewButton(ctx context.Context, request *BotsGetRequestedWebViewButtonRequest) (*KeyboardButton, error) {
+	var result KeyboardButton
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.KeyboardButton, nil
+	return &result, nil
 }

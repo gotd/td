@@ -2001,6 +2001,19 @@ func (s UpdateClassArray) AsUpdateEditEphemeralMessage() (to UpdateEditEphemeral
 	return to
 }
 
+// AsUpdateEphemeralBotCallbackQuery returns copy with only UpdateEphemeralBotCallbackQuery constructors.
+func (s UpdateClassArray) AsUpdateEphemeralBotCallbackQuery() (to UpdateEphemeralBotCallbackQueryArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateEphemeralBotCallbackQuery)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AsUpdateBotStarsSubscription returns copy with only UpdateBotStarsSubscription constructors.
 func (s UpdateClassArray) AsUpdateBotStarsSubscription() (to UpdateBotStarsSubscriptionArray) {
 	for _, elem := range s {
@@ -14158,6 +14171,88 @@ func (s *UpdateEditEphemeralMessageArray) PopFirst() (v UpdateEditEphemeralMessa
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateEditEphemeralMessageArray) Pop() (v UpdateEditEphemeralMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateEphemeralBotCallbackQueryArray is adapter for slice of UpdateEphemeralBotCallbackQuery.
+type UpdateEphemeralBotCallbackQueryArray []UpdateEphemeralBotCallbackQuery
+
+// Sort sorts slice of UpdateEphemeralBotCallbackQuery.
+func (s UpdateEphemeralBotCallbackQueryArray) Sort(less func(a, b UpdateEphemeralBotCallbackQuery) bool) UpdateEphemeralBotCallbackQueryArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateEphemeralBotCallbackQuery.
+func (s UpdateEphemeralBotCallbackQueryArray) SortStable(less func(a, b UpdateEphemeralBotCallbackQuery) bool) UpdateEphemeralBotCallbackQueryArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateEphemeralBotCallbackQuery.
+func (s UpdateEphemeralBotCallbackQueryArray) Retain(keep func(x UpdateEphemeralBotCallbackQuery) bool) UpdateEphemeralBotCallbackQueryArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateEphemeralBotCallbackQueryArray) First() (v UpdateEphemeralBotCallbackQuery, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateEphemeralBotCallbackQueryArray) Last() (v UpdateEphemeralBotCallbackQuery, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateEphemeralBotCallbackQueryArray) PopFirst() (v UpdateEphemeralBotCallbackQuery, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateEphemeralBotCallbackQuery
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateEphemeralBotCallbackQueryArray) Pop() (v UpdateEphemeralBotCallbackQuery, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

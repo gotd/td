@@ -33512,6 +33512,367 @@ func (u *UpdateEditEphemeralMessage) GetMessage() (value EphemeralMessage) {
 	return u.Message
 }
 
+// UpdateEphemeralBotCallbackQuery represents TL type `updateEphemeralBotCallbackQuery#7c1079d6`.
+//
+// See https://core.telegram.org/constructor/updateEphemeralBotCallbackQuery for reference.
+type UpdateEphemeralBotCallbackQuery struct {
+	// Flags field of UpdateEphemeralBotCallbackQuery.
+	Flags bin.Fields
+	// QueryID field of UpdateEphemeralBotCallbackQuery.
+	QueryID int64
+	// UserID field of UpdateEphemeralBotCallbackQuery.
+	UserID int64
+	// Peer field of UpdateEphemeralBotCallbackQuery.
+	//
+	// Use SetPeer and GetPeer helpers.
+	Peer PeerClass
+	// MsgID field of UpdateEphemeralBotCallbackQuery.
+	MsgID int
+	// Data field of UpdateEphemeralBotCallbackQuery.
+	Data []byte
+	// ChatInstance field of UpdateEphemeralBotCallbackQuery.
+	//
+	// Use SetChatInstance and GetChatInstance helpers.
+	ChatInstance int64
+	// Message field of UpdateEphemeralBotCallbackQuery.
+	Message EphemeralMessage
+}
+
+// UpdateEphemeralBotCallbackQueryTypeID is TL type id of UpdateEphemeralBotCallbackQuery.
+const UpdateEphemeralBotCallbackQueryTypeID = 0x7c1079d6
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEphemeralBotCallbackQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEphemeralBotCallbackQuery.
+var (
+	_ bin.Encoder     = &UpdateEphemeralBotCallbackQuery{}
+	_ bin.Decoder     = &UpdateEphemeralBotCallbackQuery{}
+	_ bin.BareEncoder = &UpdateEphemeralBotCallbackQuery{}
+	_ bin.BareDecoder = &UpdateEphemeralBotCallbackQuery{}
+
+	_ UpdateClass = &UpdateEphemeralBotCallbackQuery{}
+)
+
+func (u *UpdateEphemeralBotCallbackQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+	if !(u.ChatInstance == 0) {
+		return false
+	}
+	if !(u.Message.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateEphemeralBotCallbackQuery) String() string {
+	if u == nil {
+		return "UpdateEphemeralBotCallbackQuery(nil)"
+	}
+	type Alias UpdateEphemeralBotCallbackQuery
+	return fmt.Sprintf("UpdateEphemeralBotCallbackQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateEphemeralBotCallbackQuery from given interface.
+func (u *UpdateEphemeralBotCallbackQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetUserID() (value int64)
+	GetPeer() (value PeerClass, ok bool)
+	GetMsgID() (value int)
+	GetData() (value []byte)
+	GetChatInstance() (value int64, ok bool)
+	GetMessage() (value EphemeralMessage)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.UserID = from.GetUserID()
+	if val, ok := from.GetPeer(); ok {
+		u.Peer = val
+	}
+
+	u.MsgID = from.GetMsgID()
+	u.Data = from.GetData()
+	if val, ok := from.GetChatInstance(); ok {
+		u.ChatInstance = val
+	}
+
+	u.Message = from.GetMessage()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateEphemeralBotCallbackQuery) TypeID() uint32 {
+	return UpdateEphemeralBotCallbackQueryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateEphemeralBotCallbackQuery) TypeName() string {
+	return "updateEphemeralBotCallbackQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEphemeralBotCallbackQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEphemeralBotCallbackQuery",
+		ID:   UpdateEphemeralBotCallbackQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "ChatInstance",
+			SchemaName: "chat_instance",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateEphemeralBotCallbackQuery) SetFlags() {
+	if !(u.Peer == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.ChatInstance == 0) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateEphemeralBotCallbackQuery) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateEphemeralBotCallbackQuery#7c1079d6 as nil")
+	}
+	b.PutID(UpdateEphemeralBotCallbackQueryTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateEphemeralBotCallbackQuery) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateEphemeralBotCallbackQuery#7c1079d6 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateEphemeralBotCallbackQuery#7c1079d6: field flags: %w", err)
+	}
+	b.PutLong(u.QueryID)
+	b.PutLong(u.UserID)
+	if u.Flags.Has(0) {
+		if u.Peer == nil {
+			return fmt.Errorf("unable to encode updateEphemeralBotCallbackQuery#7c1079d6: field peer is nil")
+		}
+		if err := u.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateEphemeralBotCallbackQuery#7c1079d6: field peer: %w", err)
+		}
+	}
+	b.PutInt(u.MsgID)
+	b.PutBytes(u.Data)
+	if u.Flags.Has(1) {
+		b.PutLong(u.ChatInstance)
+	}
+	if err := u.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateEphemeralBotCallbackQuery#7c1079d6: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateEphemeralBotCallbackQuery) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateEphemeralBotCallbackQuery#7c1079d6 to nil")
+	}
+	if err := b.ConsumeID(UpdateEphemeralBotCallbackQueryTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateEphemeralBotCallbackQuery) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateEphemeralBotCallbackQuery#7c1079d6 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field msg_id: %w", err)
+		}
+		u.MsgID = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field data: %w", err)
+		}
+		u.Data = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field chat_instance: %w", err)
+		}
+		u.ChatInstance = value
+	}
+	{
+		if err := u.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateEphemeralBotCallbackQuery#7c1079d6: field message: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateEphemeralBotCallbackQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateEphemeralBotCallbackQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// SetPeer sets value of Peer conditional field.
+func (u *UpdateEphemeralBotCallbackQuery) SetPeer(value PeerClass) {
+	u.Flags.Set(0)
+	u.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (u *UpdateEphemeralBotCallbackQuery) GetPeer() (value PeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Peer, true
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateEphemeralBotCallbackQuery) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.MsgID
+}
+
+// GetData returns value of Data field.
+func (u *UpdateEphemeralBotCallbackQuery) GetData() (value []byte) {
+	if u == nil {
+		return
+	}
+	return u.Data
+}
+
+// SetChatInstance sets value of ChatInstance conditional field.
+func (u *UpdateEphemeralBotCallbackQuery) SetChatInstance(value int64) {
+	u.Flags.Set(1)
+	u.ChatInstance = value
+}
+
+// GetChatInstance returns value of ChatInstance conditional field and
+// boolean which is true if field was set.
+func (u *UpdateEphemeralBotCallbackQuery) GetChatInstance() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.ChatInstance, true
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateEphemeralBotCallbackQuery) GetMessage() (value EphemeralMessage) {
+	if u == nil {
+		return
+	}
+	return u.Message
+}
+
 // UpdateBotStarsSubscription represents TL type `updateBotStarsSubscription#6c0d8e23`.
 //
 // See https://core.telegram.org/constructor/updateBotStarsSubscription for reference.
@@ -33994,6 +34355,7 @@ const UpdateClassName = "Update"
 //   - [UpdateNewEphemeralMessage]
 //   - [UpdateDeleteEphemeralMessages]
 //   - [UpdateEditEphemeralMessage]
+//   - [UpdateEphemeralBotCallbackQuery]
 //   - [UpdateBotStarsSubscription]
 //
 // Example:
@@ -34166,6 +34528,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateNewEphemeralMessage: // updateNewEphemeralMessage#20bcbba1
 //	case *tg.UpdateDeleteEphemeralMessages: // updateDeleteEphemeralMessages#56dbfcf8
 //	case *tg.UpdateEditEphemeralMessage: // updateEditEphemeralMessage#4bbb8f01
+//	case *tg.UpdateEphemeralBotCallbackQuery: // updateEphemeralBotCallbackQuery#7c1079d6
 //	case *tg.UpdateBotStarsSubscription: // updateBotStarsSubscription#6c0d8e23
 //	default: panic(v)
 //	}
@@ -35332,6 +35695,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateEditEphemeralMessageTypeID:
 		// Decoding updateEditEphemeralMessage#4bbb8f01.
 		v := UpdateEditEphemeralMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateEphemeralBotCallbackQueryTypeID:
+		// Decoding updateEphemeralBotCallbackQuery#7c1079d6.
+		v := UpdateEphemeralBotCallbackQuery{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

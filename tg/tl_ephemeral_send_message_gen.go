@@ -31,13 +31,23 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EphemeralSendMessageRequest represents TL type `ephemeral.sendMessage#68cbd09f`.
+// EphemeralSendMessageRequest represents TL type `ephemeral.sendMessage#ba8d5f35`.
 //
 // See https://core.telegram.org/method/ephemeral.sendMessage for reference.
 type EphemeralSendMessageRequest struct {
 	// Flags field of EphemeralSendMessageRequest.
 	Flags bin.Fields
+	// InvertMedia field of EphemeralSendMessageRequest.
+	InvertMedia bool
+	// Welcome field of EphemeralSendMessageRequest.
+	Welcome bool
+	// Anchor field of EphemeralSendMessageRequest.
+	Anchor bool
+	// Noforwards field of EphemeralSendMessageRequest.
+	Noforwards bool
 	// Peer field of EphemeralSendMessageRequest.
+	//
+	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
 	// ReceiverID field of EphemeralSendMessageRequest.
 	ReceiverID InputUserClass
@@ -72,7 +82,7 @@ type EphemeralSendMessageRequest struct {
 }
 
 // EphemeralSendMessageRequestTypeID is TL type id of EphemeralSendMessageRequest.
-const EphemeralSendMessageRequestTypeID = 0x68cbd09f
+const EphemeralSendMessageRequestTypeID = 0xba8d5f35
 
 // Ensuring interfaces in compile-time for EphemeralSendMessageRequest.
 var (
@@ -87,6 +97,18 @@ func (s *EphemeralSendMessageRequest) Zero() bool {
 		return true
 	}
 	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.InvertMedia == false) {
+		return false
+	}
+	if !(s.Welcome == false) {
+		return false
+	}
+	if !(s.Anchor == false) {
+		return false
+	}
+	if !(s.Noforwards == false) {
 		return false
 	}
 	if !(s.Peer == nil) {
@@ -134,7 +156,11 @@ func (s *EphemeralSendMessageRequest) String() string {
 
 // FillFrom fills EphemeralSendMessageRequest from given interface.
 func (s *EphemeralSendMessageRequest) FillFrom(from interface {
-	GetPeer() (value InputPeerClass)
+	GetInvertMedia() (value bool)
+	GetWelcome() (value bool)
+	GetAnchor() (value bool)
+	GetNoforwards() (value bool)
+	GetPeer() (value InputPeerClass, ok bool)
 	GetReceiverID() (value InputUserClass)
 	GetQueryID() (value int64, ok bool)
 	GetMessage() (value string)
@@ -145,7 +171,14 @@ func (s *EphemeralSendMessageRequest) FillFrom(from interface {
 	GetRandomID() (value int64)
 	GetReplyTo() (value InputReplyToClass, ok bool)
 }) {
-	s.Peer = from.GetPeer()
+	s.InvertMedia = from.GetInvertMedia()
+	s.Welcome = from.GetWelcome()
+	s.Anchor = from.GetAnchor()
+	s.Noforwards = from.GetNoforwards()
+	if val, ok := from.GetPeer(); ok {
+		s.Peer = val
+	}
+
 	s.ReceiverID = from.GetReceiverID()
 	if val, ok := from.GetQueryID(); ok {
 		s.QueryID = val
@@ -199,8 +232,29 @@ func (s *EphemeralSendMessageRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !s.Flags.Has(6),
+		},
+		{
+			Name:       "Welcome",
+			SchemaName: "welcome",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "Anchor",
+			SchemaName: "anchor",
+			Null:       !s.Flags.Has(9),
+		},
+		{
+			Name:       "Noforwards",
+			SchemaName: "noforwards",
+			Null:       !s.Flags.Has(10),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
+			Null:       !s.Flags.Has(8),
 		},
 		{
 			Name:       "ReceiverID",
@@ -250,6 +304,21 @@ func (s *EphemeralSendMessageRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *EphemeralSendMessageRequest) SetFlags() {
+	if !(s.InvertMedia == false) {
+		s.Flags.Set(6)
+	}
+	if !(s.Welcome == false) {
+		s.Flags.Set(7)
+	}
+	if !(s.Anchor == false) {
+		s.Flags.Set(9)
+	}
+	if !(s.Noforwards == false) {
+		s.Flags.Set(10)
+	}
+	if !(s.Peer == nil) {
+		s.Flags.Set(8)
+	}
 	if !(s.QueryID == 0) {
 		s.Flags.Set(0)
 	}
@@ -273,7 +342,7 @@ func (s *EphemeralSendMessageRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *EphemeralSendMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode ephemeral.sendMessage#68cbd09f as nil")
+		return fmt.Errorf("can't encode ephemeral.sendMessage#ba8d5f35 as nil")
 	}
 	b.PutID(EphemeralSendMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -282,23 +351,25 @@ func (s *EphemeralSendMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *EphemeralSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode ephemeral.sendMessage#68cbd09f as nil")
+		return fmt.Errorf("can't encode ephemeral.sendMessage#ba8d5f35 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field flags: %w", err)
+		return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field flags: %w", err)
 	}
-	if s.Peer == nil {
-		return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field peer is nil")
-	}
-	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field peer: %w", err)
+	if s.Flags.Has(8) {
+		if s.Peer == nil {
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field peer is nil")
+		}
+		if err := s.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field peer: %w", err)
+		}
 	}
 	if s.ReceiverID == nil {
-		return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field receiver_id is nil")
+		return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field receiver_id is nil")
 	}
 	if err := s.ReceiverID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field receiver_id: %w", err)
+		return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field receiver_id: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutLong(s.QueryID)
@@ -308,44 +379,44 @@ func (s *EphemeralSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if s.Flags.Has(2) {
 		if s.Media == nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field media is nil")
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field media is nil")
 		}
 		if err := s.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field media: %w", err)
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field media: %w", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		if s.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field reply_markup is nil")
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field reply_markup is nil")
 		}
 		if err := s.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field reply_markup: %w", err)
 		}
 	}
 	if s.Flags.Has(4) {
 		if s.RichMessage == nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field rich_message is nil")
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field rich_message is nil")
 		}
 		if err := s.RichMessage.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field rich_message: %w", err)
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field rich_message: %w", err)
 		}
 	}
 	b.PutLong(s.RandomID)
 	if s.Flags.Has(5) {
 		if s.ReplyTo == nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field reply_to is nil")
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field reply_to is nil")
 		}
 		if err := s.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode ephemeral.sendMessage#68cbd09f: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode ephemeral.sendMessage#ba8d5f35: field reply_to: %w", err)
 		}
 	}
 	return nil
@@ -354,10 +425,10 @@ func (s *EphemeralSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *EphemeralSendMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode ephemeral.sendMessage#68cbd09f to nil")
+		return fmt.Errorf("can't decode ephemeral.sendMessage#ba8d5f35 to nil")
 	}
 	if err := b.ConsumeID(EphemeralSendMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: %w", err)
+		return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -365,45 +436,49 @@ func (s *EphemeralSendMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *EphemeralSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode ephemeral.sendMessage#68cbd09f to nil")
+		return fmt.Errorf("can't decode ephemeral.sendMessage#ba8d5f35 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field flags: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field flags: %w", err)
 		}
 	}
-	{
+	s.InvertMedia = s.Flags.Has(6)
+	s.Welcome = s.Flags.Has(7)
+	s.Anchor = s.Flags.Has(9)
+	s.Noforwards = s.Flags.Has(10)
+	if s.Flags.Has(8) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field peer: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field receiver_id: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field receiver_id: %w", err)
 		}
 		s.ReceiverID = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field query_id: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field query_id: %w", err)
 		}
 		s.QueryID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field message: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field message: %w", err)
 		}
 		s.Message = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field entities: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -412,7 +487,7 @@ func (s *EphemeralSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field entities: %w", err)
+				return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -420,47 +495,133 @@ func (s *EphemeralSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(2) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field media: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field media: %w", err)
 		}
 		s.Media = value
 	}
 	if s.Flags.Has(3) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field reply_markup: %w", err)
 		}
 		s.ReplyMarkup = value
 	}
 	if s.Flags.Has(4) {
 		value, err := DecodeInputRichMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field rich_message: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field rich_message: %w", err)
 		}
 		s.RichMessage = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field random_id: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(5) {
 		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode ephemeral.sendMessage#68cbd09f: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode ephemeral.sendMessage#ba8d5f35: field reply_to: %w", err)
 		}
 		s.ReplyTo = value
 	}
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *EphemeralSendMessageRequest) GetPeer() (value InputPeerClass) {
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (s *EphemeralSendMessageRequest) SetInvertMedia(value bool) {
+	if value {
+		s.Flags.Set(6)
+		s.InvertMedia = true
+	} else {
+		s.Flags.Unset(6)
+		s.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (s *EphemeralSendMessageRequest) GetInvertMedia() (value bool) {
 	if s == nil {
 		return
 	}
-	return s.Peer
+	return s.Flags.Has(6)
+}
+
+// SetWelcome sets value of Welcome conditional field.
+func (s *EphemeralSendMessageRequest) SetWelcome(value bool) {
+	if value {
+		s.Flags.Set(7)
+		s.Welcome = true
+	} else {
+		s.Flags.Unset(7)
+		s.Welcome = false
+	}
+}
+
+// GetWelcome returns value of Welcome conditional field.
+func (s *EphemeralSendMessageRequest) GetWelcome() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(7)
+}
+
+// SetAnchor sets value of Anchor conditional field.
+func (s *EphemeralSendMessageRequest) SetAnchor(value bool) {
+	if value {
+		s.Flags.Set(9)
+		s.Anchor = true
+	} else {
+		s.Flags.Unset(9)
+		s.Anchor = false
+	}
+}
+
+// GetAnchor returns value of Anchor conditional field.
+func (s *EphemeralSendMessageRequest) GetAnchor() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(9)
+}
+
+// SetNoforwards sets value of Noforwards conditional field.
+func (s *EphemeralSendMessageRequest) SetNoforwards(value bool) {
+	if value {
+		s.Flags.Set(10)
+		s.Noforwards = true
+	} else {
+		s.Flags.Unset(10)
+		s.Noforwards = false
+	}
+}
+
+// GetNoforwards returns value of Noforwards conditional field.
+func (s *EphemeralSendMessageRequest) GetNoforwards() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(10)
+}
+
+// SetPeer sets value of Peer conditional field.
+func (s *EphemeralSendMessageRequest) SetPeer(value InputPeerClass) {
+	s.Flags.Set(8)
+	s.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (s *EphemeralSendMessageRequest) GetPeer() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(8) {
+		return value, false
+	}
+	return s.Peer, true
 }
 
 // GetReceiverID returns value of ReceiverID field.
@@ -603,7 +764,7 @@ func (s *EphemeralSendMessageRequest) MapEntities() (value MessageEntityClassArr
 	return MessageEntityClassArray(s.Entities), true
 }
 
-// EphemeralSendMessage invokes method ephemeral.sendMessage#68cbd09f returning error if any.
+// EphemeralSendMessage invokes method ephemeral.sendMessage#ba8d5f35 returning error if any.
 //
 // See https://core.telegram.org/method/ephemeral.sendMessage for reference.
 func (c *Client) EphemeralSendMessage(ctx context.Context, request *EphemeralSendMessageRequest) (UpdatesClass, error) {

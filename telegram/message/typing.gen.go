@@ -121,25 +121,38 @@ func (b *TypingActionBuilder) EmojiInteractionSeen(ctx context.Context, emoticon
 }
 
 // TextDraft sends SendMessageTextDraftAction.
-func (b *TypingActionBuilder) TextDraft(ctx context.Context, randomID int64, text tg.TextWithEntities) error {
+func (b *TypingActionBuilder) TextDraft(ctx context.Context, canStop bool, keepOnStop bool, randomID int64, text tg.TextWithEntities) error {
 	return b.send(ctx, &tg.SendMessageTextDraftAction{
-		RandomID: randomID,
-		Text:     text,
+		CanStop:    canStop,
+		KeepOnStop: keepOnStop,
+		RandomID:   randomID,
+		Text:       text,
 	})
 }
 
 // InputSendMessageRichMessageDraft sends InputSendMessageRichMessageDraftAction.
-func (b *TypingActionBuilder) InputSendMessageRichMessageDraft(ctx context.Context, randomID int64, richMessage tg.InputRichMessageClass) error {
+func (b *TypingActionBuilder) InputSendMessageRichMessageDraft(ctx context.Context, canStop bool, keepOnStop bool, randomID int64, richMessage tg.InputRichMessageClass) error {
 	return b.send(ctx, &tg.InputSendMessageRichMessageDraftAction{
+		CanStop:     canStop,
+		KeepOnStop:  keepOnStop,
 		RandomID:    randomID,
 		RichMessage: richMessage,
 	})
 }
 
 // RichMessageDraft sends SendMessageRichMessageDraftAction.
-func (b *TypingActionBuilder) RichMessageDraft(ctx context.Context, randomID int64, richMessage tg.RichMessage) error {
+func (b *TypingActionBuilder) RichMessageDraft(ctx context.Context, canStop bool, keepOnStop bool, randomID int64, richMessage tg.RichMessage) error {
 	return b.send(ctx, &tg.SendMessageRichMessageDraftAction{
+		CanStop:     canStop,
+		KeepOnStop:  keepOnStop,
 		RandomID:    randomID,
 		RichMessage: richMessage,
+	})
+}
+
+// StopDraft sends SendMessageStopDraftAction.
+func (b *TypingActionBuilder) StopDraft(ctx context.Context, randomID int64) error {
+	return b.send(ctx, &tg.SendMessageStopDraftAction{
+		RandomID: randomID,
 	})
 }

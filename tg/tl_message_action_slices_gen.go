@@ -909,6 +909,19 @@ func (s MessageActionClassArray) AsMessageActionChangeCommunity() (to MessageAct
 	return to
 }
 
+// AsMessageActionChatJoinedViaCommunity returns copy with only MessageActionChatJoinedViaCommunity constructors.
+func (s MessageActionClassArray) AsMessageActionChatJoinedViaCommunity() (to MessageActionChatJoinedViaCommunityArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionChatJoinedViaCommunity)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -5899,6 +5912,88 @@ func (s *MessageActionChangeCommunityArray) PopFirst() (v MessageActionChangeCom
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionChangeCommunityArray) Pop() (v MessageActionChangeCommunity, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionChatJoinedViaCommunityArray is adapter for slice of MessageActionChatJoinedViaCommunity.
+type MessageActionChatJoinedViaCommunityArray []MessageActionChatJoinedViaCommunity
+
+// Sort sorts slice of MessageActionChatJoinedViaCommunity.
+func (s MessageActionChatJoinedViaCommunityArray) Sort(less func(a, b MessageActionChatJoinedViaCommunity) bool) MessageActionChatJoinedViaCommunityArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionChatJoinedViaCommunity.
+func (s MessageActionChatJoinedViaCommunityArray) SortStable(less func(a, b MessageActionChatJoinedViaCommunity) bool) MessageActionChatJoinedViaCommunityArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionChatJoinedViaCommunity.
+func (s MessageActionChatJoinedViaCommunityArray) Retain(keep func(x MessageActionChatJoinedViaCommunity) bool) MessageActionChatJoinedViaCommunityArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionChatJoinedViaCommunityArray) First() (v MessageActionChatJoinedViaCommunity, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionChatJoinedViaCommunityArray) Last() (v MessageActionChatJoinedViaCommunity, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionChatJoinedViaCommunityArray) PopFirst() (v MessageActionChatJoinedViaCommunity, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionChatJoinedViaCommunity
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionChatJoinedViaCommunityArray) Pop() (v MessageActionChatJoinedViaCommunity, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

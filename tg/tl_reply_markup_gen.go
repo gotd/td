@@ -482,6 +482,8 @@ type ReplyKeyboardMarkup struct {
 	Selective bool
 	// Requests clients to always show the keyboard when the regular keyboard is hidden.
 	Persistent bool
+	// ForceReply field of ReplyKeyboardMarkup.
+	ForceReply bool
 	// Button row
 	Rows []KeyboardButtonRow
 	// The placeholder to be shown in the input field when the keyboard is active; 1-64
@@ -526,6 +528,9 @@ func (r *ReplyKeyboardMarkup) Zero() bool {
 	if !(r.Persistent == false) {
 		return false
 	}
+	if !(r.ForceReply == false) {
+		return false
+	}
 	if !(r.Rows == nil) {
 		return false
 	}
@@ -551,6 +556,7 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 	GetSingleUse() (value bool)
 	GetSelective() (value bool)
 	GetPersistent() (value bool)
+	GetForceReply() (value bool)
 	GetRows() (value []KeyboardButtonRow)
 	GetPlaceholder() (value string, ok bool)
 }) {
@@ -558,6 +564,7 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 	r.SingleUse = from.GetSingleUse()
 	r.Selective = from.GetSelective()
 	r.Persistent = from.GetPersistent()
+	r.ForceReply = from.GetForceReply()
 	r.Rows = from.GetRows()
 	if val, ok := from.GetPlaceholder(); ok {
 		r.Placeholder = val
@@ -609,6 +616,11 @@ func (r *ReplyKeyboardMarkup) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(4),
 		},
 		{
+			Name:       "ForceReply",
+			SchemaName: "force_reply",
+			Null:       !r.Flags.Has(5),
+		},
+		{
 			Name:       "Rows",
 			SchemaName: "rows",
 		},
@@ -634,6 +646,9 @@ func (r *ReplyKeyboardMarkup) SetFlags() {
 	}
 	if !(r.Persistent == false) {
 		r.Flags.Set(4)
+	}
+	if !(r.ForceReply == false) {
+		r.Flags.Set(5)
 	}
 	if !(r.Placeholder == "") {
 		r.Flags.Set(3)
@@ -695,6 +710,7 @@ func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
 	r.SingleUse = r.Flags.Has(1)
 	r.Selective = r.Flags.Has(2)
 	r.Persistent = r.Flags.Has(4)
+	r.ForceReply = r.Flags.Has(5)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -798,6 +814,25 @@ func (r *ReplyKeyboardMarkup) GetPersistent() (value bool) {
 	return r.Flags.Has(4)
 }
 
+// SetForceReply sets value of ForceReply conditional field.
+func (r *ReplyKeyboardMarkup) SetForceReply(value bool) {
+	if value {
+		r.Flags.Set(5)
+		r.ForceReply = true
+	} else {
+		r.Flags.Unset(5)
+		r.ForceReply = false
+	}
+}
+
+// GetForceReply returns value of ForceReply conditional field.
+func (r *ReplyKeyboardMarkup) GetForceReply() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(5)
+}
+
 // GetRows returns value of Rows field.
 func (r *ReplyKeyboardMarkup) GetRows() (value []KeyboardButtonRow) {
 	if r == nil {
@@ -824,17 +859,21 @@ func (r *ReplyKeyboardMarkup) GetPlaceholder() (value string, ok bool) {
 	return r.Placeholder, true
 }
 
-// ReplyInlineMarkup represents TL type `replyInlineMarkup#48a30254`.
+// ReplyInlineMarkup represents TL type `replyInlineMarkup#b2b15770`.
 // Bot or inline keyboard
 //
 // See https://core.telegram.org/constructor/replyInlineMarkup for reference.
 type ReplyInlineMarkup struct {
+	// Flags field of ReplyInlineMarkup.
+	Flags bin.Fields
+	// ForceReply field of ReplyInlineMarkup.
+	ForceReply bool
 	// Bot or inline keyboard rows
-	Rows []KeyboardButtonRow
+	Rows []KeyboardInlineButtonRow
 }
 
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
-const ReplyInlineMarkupTypeID = 0x48a30254
+const ReplyInlineMarkupTypeID = 0xb2b15770
 
 // construct implements constructor of ReplyMarkupClass.
 func (r ReplyInlineMarkup) construct() ReplyMarkupClass { return &r }
@@ -852,6 +891,12 @@ var (
 func (r *ReplyInlineMarkup) Zero() bool {
 	if r == nil {
 		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.ForceReply == false) {
+		return false
 	}
 	if !(r.Rows == nil) {
 		return false
@@ -871,8 +916,10 @@ func (r *ReplyInlineMarkup) String() string {
 
 // FillFrom fills ReplyInlineMarkup from given interface.
 func (r *ReplyInlineMarkup) FillFrom(from interface {
-	GetRows() (value []KeyboardButtonRow)
+	GetForceReply() (value bool)
+	GetRows() (value []KeyboardInlineButtonRow)
 }) {
+	r.ForceReply = from.GetForceReply()
 	r.Rows = from.GetRows()
 }
 
@@ -900,6 +947,11 @@ func (r *ReplyInlineMarkup) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ForceReply",
+			SchemaName: "force_reply",
+			Null:       !r.Flags.Has(5),
+		},
+		{
 			Name:       "Rows",
 			SchemaName: "rows",
 		},
@@ -907,10 +959,17 @@ func (r *ReplyInlineMarkup) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *ReplyInlineMarkup) SetFlags() {
+	if !(r.ForceReply == false) {
+		r.Flags.Set(5)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyInlineMarkup#48a30254 as nil")
+		return fmt.Errorf("can't encode replyInlineMarkup#b2b15770 as nil")
 	}
 	b.PutID(ReplyInlineMarkupTypeID)
 	return r.EncodeBare(b)
@@ -919,12 +978,16 @@ func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReplyInlineMarkup) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyInlineMarkup#48a30254 as nil")
+		return fmt.Errorf("can't encode replyInlineMarkup#b2b15770 as nil")
+	}
+	r.SetFlags()
+	if err := r.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode replyInlineMarkup#b2b15770: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(r.Rows))
 	for idx, v := range r.Rows {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode replyInlineMarkup#48a30254: field rows element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode replyInlineMarkup#b2b15770: field rows element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -933,10 +996,10 @@ func (r *ReplyInlineMarkup) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyInlineMarkup#48a30254 to nil")
+		return fmt.Errorf("can't decode replyInlineMarkup#b2b15770 to nil")
 	}
 	if err := b.ConsumeID(ReplyInlineMarkupTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: %w", err)
+		return fmt.Errorf("unable to decode replyInlineMarkup#b2b15770: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -944,21 +1007,27 @@ func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyInlineMarkup#48a30254 to nil")
+		return fmt.Errorf("can't decode replyInlineMarkup#b2b15770 to nil")
 	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode replyInlineMarkup#b2b15770: field flags: %w", err)
+		}
+	}
+	r.ForceReply = r.Flags.Has(5)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: field rows: %w", err)
+			return fmt.Errorf("unable to decode replyInlineMarkup#b2b15770: field rows: %w", err)
 		}
 
 		if headerLen > 0 {
-			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
+			r.Rows = make([]KeyboardInlineButtonRow, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value KeyboardButtonRow
+			var value KeyboardInlineButtonRow
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: field rows: %w", err)
+				return fmt.Errorf("unable to decode replyInlineMarkup#b2b15770: field rows: %w", err)
 			}
 			r.Rows = append(r.Rows, value)
 		}
@@ -966,8 +1035,27 @@ func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// SetForceReply sets value of ForceReply conditional field.
+func (r *ReplyInlineMarkup) SetForceReply(value bool) {
+	if value {
+		r.Flags.Set(5)
+		r.ForceReply = true
+	} else {
+		r.Flags.Unset(5)
+		r.ForceReply = false
+	}
+}
+
+// GetForceReply returns value of ForceReply conditional field.
+func (r *ReplyInlineMarkup) GetForceReply() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(5)
+}
+
 // GetRows returns value of Rows field.
-func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
+func (r *ReplyInlineMarkup) GetRows() (value []KeyboardInlineButtonRow) {
 	if r == nil {
 		return
 	}
@@ -997,7 +1085,7 @@ const ReplyMarkupClassName = "ReplyMarkup"
 //	case *tg.ReplyKeyboardHide: // replyKeyboardHide#a03e5b85
 //	case *tg.ReplyKeyboardForceReply: // replyKeyboardForceReply#86b40b08
 //	case *tg.ReplyKeyboardMarkup: // replyKeyboardMarkup#85dd99d1
-//	case *tg.ReplyInlineMarkup: // replyInlineMarkup#48a30254
+//	case *tg.ReplyInlineMarkup: // replyInlineMarkup#b2b15770
 //	default: panic(v)
 //	}
 type ReplyMarkupClass interface {
@@ -1048,7 +1136,7 @@ func DecodeReplyMarkup(buf *bin.Buffer) (ReplyMarkupClass, error) {
 		}
 		return &v, nil
 	case ReplyInlineMarkupTypeID:
-		// Decoding replyInlineMarkup#48a30254.
+		// Decoding replyInlineMarkup#b2b15770.
 		v := ReplyInlineMarkup{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)
