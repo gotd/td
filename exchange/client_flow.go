@@ -143,7 +143,10 @@ Loop:
 	}
 
 	// 5. Server responds with Server_DH_Params.
-	if err := c.conn.Recv(ctx, b); err != nil {
+	// tryRead applies the exchange timeout; a bare conn.Recv inherits the
+	// caller's context, which carries no deadline in PFS mode because connect
+	// scopes DialTimeout to the dial, leaving this read unbounded.
+	if err := c.tryRead(ctx, b); err != nil {
 		return ClientExchangeResult{}, errors.Wrap(err, "read ServerDHParams message")
 	}
 	c.log.Debug(ctx, "Received server ServerDHParams")
@@ -238,7 +241,8 @@ Loop:
 		authKey := big.NewInt(0).Exp(gA, bParam, dhPrime)
 
 		b.Reset()
-		if err := c.conn.Recv(ctx, b); err != nil {
+		// See the note at step 5: tryRead applies the exchange timeout.
+		if err := c.tryRead(ctx, b); err != nil {
 			return ClientExchangeResult{}, errors.Wrap(err, "read DhGen message")
 		}
 		c.log.Debug(ctx, "Received server DhGen")
