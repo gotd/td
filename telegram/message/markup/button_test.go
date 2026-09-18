@@ -99,8 +99,10 @@ func TestButtonNoStyle(t *testing.T) {
 
 	// Without options, the style must stay zero so SetFlags does not set the
 	// optional Style flag during encoding.
-	a.True(Button("text").Style.Zero())
-	a.True(URL("text", "url").Style.Zero())
-	a.True(Callback("text", []byte("data")).Style.Zero())
-	a.True(RequestPeer("text", 0, &tg.RequestPeerTypeUser{}).Style.Zero())
+	zero := func(s tg.KeyboardButtonStyle) bool { return s.Zero() }
+	a.True(zero(Button("text").Style))
+	a.True(zero(SimpleWebView("text", "url").Style))
+	a.True(zero(URL("text", "url").Style))
+	a.True(zero(Callback("text", []byte("data")).Style))
+	a.True(zero(RequestPeer("text", 0, &tg.RequestPeerTypeUser{}).Style))
 }
