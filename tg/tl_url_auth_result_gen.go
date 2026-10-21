@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// URLAuthResultRequest represents TL type `urlAuthResultRequest#3cd623ec`.
+// URLAuthResultRequest represents TL type `urlAuthResultRequest#bdca6167`.
 // Details about the authorization request, for more info click here »¹
 //
 // Links:
@@ -63,6 +63,8 @@ type URLAuthResultRequest struct {
 	// must be replaced in the confirmation prompt by verified_app_name (if present) or
 	// "Unverified App"
 	IsApp bool
+	// RequestWallet field of URLAuthResultRequest.
+	RequestWallet bool
 	// Username of a bot, which will be used for user authorization. If not specified, the
 	// current bot's username will be assumed. The url's domain must be the same as the
 	// domain linked with the bot. See Linking your domain to the bot¹ for more details.
@@ -111,10 +113,18 @@ type URLAuthResultRequest struct {
 	//
 	// Use SetVerifiedAppName and GetVerifiedAppName helpers.
 	VerifiedAppName string
+	// TcSessionID field of URLAuthResultRequest.
+	//
+	// Use SetTcSessionID and GetTcSessionID helpers.
+	TcSessionID int64
+	// TcClientID field of URLAuthResultRequest.
+	//
+	// Use SetTcClientID and GetTcClientID helpers.
+	TcClientID string
 }
 
 // URLAuthResultRequestTypeID is TL type id of URLAuthResultRequest.
-const URLAuthResultRequestTypeID = 0x3cd623ec
+const URLAuthResultRequestTypeID = 0xbdca6167
 
 // construct implements constructor of URLAuthResultClass.
 func (u URLAuthResultRequest) construct() URLAuthResultClass { return &u }
@@ -148,6 +158,9 @@ func (u *URLAuthResultRequest) Zero() bool {
 	if !(u.IsApp == false) {
 		return false
 	}
+	if !(u.RequestWallet == false) {
+		return false
+	}
 	if !(u.Bot == nil) {
 		return false
 	}
@@ -175,6 +188,12 @@ func (u *URLAuthResultRequest) Zero() bool {
 	if !(u.VerifiedAppName == "") {
 		return false
 	}
+	if !(u.TcSessionID == 0) {
+		return false
+	}
+	if !(u.TcClientID == "") {
+		return false
+	}
 
 	return true
 }
@@ -194,6 +213,7 @@ func (u *URLAuthResultRequest) FillFrom(from interface {
 	GetRequestPhoneNumber() (value bool)
 	GetMatchCodesFirst() (value bool)
 	GetIsApp() (value bool)
+	GetRequestWallet() (value bool)
 	GetBot() (value UserClass)
 	GetDomain() (value string)
 	GetBrowser() (value string, ok bool)
@@ -203,11 +223,14 @@ func (u *URLAuthResultRequest) FillFrom(from interface {
 	GetMatchCodes() (value []string, ok bool)
 	GetUserIDHint() (value int64, ok bool)
 	GetVerifiedAppName() (value string, ok bool)
+	GetTcSessionID() (value int64, ok bool)
+	GetTcClientID() (value string, ok bool)
 }) {
 	u.RequestWriteAccess = from.GetRequestWriteAccess()
 	u.RequestPhoneNumber = from.GetRequestPhoneNumber()
 	u.MatchCodesFirst = from.GetMatchCodesFirst()
 	u.IsApp = from.GetIsApp()
+	u.RequestWallet = from.GetRequestWallet()
 	u.Bot = from.GetBot()
 	u.Domain = from.GetDomain()
 	if val, ok := from.GetBrowser(); ok {
@@ -236,6 +259,14 @@ func (u *URLAuthResultRequest) FillFrom(from interface {
 
 	if val, ok := from.GetVerifiedAppName(); ok {
 		u.VerifiedAppName = val
+	}
+
+	if val, ok := from.GetTcSessionID(); ok {
+		u.TcSessionID = val
+	}
+
+	if val, ok := from.GetTcClientID(); ok {
+		u.TcClientID = val
 	}
 
 }
@@ -284,6 +315,11 @@ func (u *URLAuthResultRequest) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(6),
 		},
 		{
+			Name:       "RequestWallet",
+			SchemaName: "request_wallet",
+			Null:       !u.Flags.Has(8),
+		},
+		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},
@@ -326,6 +362,16 @@ func (u *URLAuthResultRequest) TypeInfo() tdp.Type {
 			SchemaName: "verified_app_name",
 			Null:       !u.Flags.Has(7),
 		},
+		{
+			Name:       "TcSessionID",
+			SchemaName: "tc_session_id",
+			Null:       !u.Flags.Has(9),
+		},
+		{
+			Name:       "TcClientID",
+			SchemaName: "tc_client_id",
+			Null:       !u.Flags.Has(10),
+		},
 	}
 	return typ
 }
@@ -343,6 +389,9 @@ func (u *URLAuthResultRequest) SetFlags() {
 	}
 	if !(u.IsApp == false) {
 		u.Flags.Set(6)
+	}
+	if !(u.RequestWallet == false) {
+		u.Flags.Set(8)
 	}
 	if !(u.Browser == "") {
 		u.Flags.Set(2)
@@ -365,12 +414,18 @@ func (u *URLAuthResultRequest) SetFlags() {
 	if !(u.VerifiedAppName == "") {
 		u.Flags.Set(7)
 	}
+	if !(u.TcSessionID == 0) {
+		u.Flags.Set(9)
+	}
+	if !(u.TcClientID == "") {
+		u.Flags.Set(10)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultRequest#3cd623ec as nil")
+		return fmt.Errorf("can't encode urlAuthResultRequest#bdca6167 as nil")
 	}
 	b.PutID(URLAuthResultRequestTypeID)
 	return u.EncodeBare(b)
@@ -379,17 +434,17 @@ func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode urlAuthResultRequest#3cd623ec as nil")
+		return fmt.Errorf("can't encode urlAuthResultRequest#bdca6167 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#3cd623ec: field flags: %w", err)
+		return fmt.Errorf("unable to encode urlAuthResultRequest#bdca6167: field flags: %w", err)
 	}
 	if u.Bot == nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#3cd623ec: field bot is nil")
+		return fmt.Errorf("unable to encode urlAuthResultRequest#bdca6167: field bot is nil")
 	}
 	if err := u.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode urlAuthResultRequest#3cd623ec: field bot: %w", err)
+		return fmt.Errorf("unable to encode urlAuthResultRequest#bdca6167: field bot: %w", err)
 	}
 	b.PutString(u.Domain)
 	if u.Flags.Has(2) {
@@ -416,16 +471,22 @@ func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(7) {
 		b.PutString(u.VerifiedAppName)
 	}
+	if u.Flags.Has(9) {
+		b.PutLong(u.TcSessionID)
+	}
+	if u.Flags.Has(10) {
+		b.PutString(u.TcClientID)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultRequest#3cd623ec to nil")
+		return fmt.Errorf("can't decode urlAuthResultRequest#bdca6167 to nil")
 	}
 	if err := b.ConsumeID(URLAuthResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: %w", err)
+		return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -433,63 +494,64 @@ func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode urlAuthResultRequest#3cd623ec to nil")
+		return fmt.Errorf("can't decode urlAuthResultRequest#bdca6167 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field flags: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field flags: %w", err)
 		}
 	}
 	u.RequestWriteAccess = u.Flags.Has(0)
 	u.RequestPhoneNumber = u.Flags.Has(1)
 	u.MatchCodesFirst = u.Flags.Has(5)
 	u.IsApp = u.Flags.Has(6)
+	u.RequestWallet = u.Flags.Has(8)
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field bot: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field bot: %w", err)
 		}
 		u.Bot = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field domain: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field domain: %w", err)
 		}
 		u.Domain = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field browser: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field browser: %w", err)
 		}
 		u.Browser = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field platform: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field platform: %w", err)
 		}
 		u.Platform = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field ip: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field ip: %w", err)
 		}
 		u.IP = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field region: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field region: %w", err)
 		}
 		u.Region = value
 	}
 	if u.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field match_codes: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field match_codes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -498,7 +560,7 @@ func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field match_codes: %w", err)
+				return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field match_codes: %w", err)
 			}
 			u.MatchCodes = append(u.MatchCodes, value)
 		}
@@ -506,16 +568,30 @@ func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(4) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field user_id_hint: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field user_id_hint: %w", err)
 		}
 		u.UserIDHint = value
 	}
 	if u.Flags.Has(7) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode urlAuthResultRequest#3cd623ec: field verified_app_name: %w", err)
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field verified_app_name: %w", err)
 		}
 		u.VerifiedAppName = value
+	}
+	if u.Flags.Has(9) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field tc_session_id: %w", err)
+		}
+		u.TcSessionID = value
+	}
+	if u.Flags.Has(10) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode urlAuthResultRequest#bdca6167: field tc_client_id: %w", err)
+		}
+		u.TcClientID = value
 	}
 	return nil
 }
@@ -594,6 +670,25 @@ func (u *URLAuthResultRequest) GetIsApp() (value bool) {
 		return
 	}
 	return u.Flags.Has(6)
+}
+
+// SetRequestWallet sets value of RequestWallet conditional field.
+func (u *URLAuthResultRequest) SetRequestWallet(value bool) {
+	if value {
+		u.Flags.Set(8)
+		u.RequestWallet = true
+	} else {
+		u.Flags.Unset(8)
+		u.RequestWallet = false
+	}
+}
+
+// GetRequestWallet returns value of RequestWallet conditional field.
+func (u *URLAuthResultRequest) GetRequestWallet() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(8)
 }
 
 // GetBot returns value of Bot field.
@@ -736,6 +831,42 @@ func (u *URLAuthResultRequest) GetVerifiedAppName() (value string, ok bool) {
 		return value, false
 	}
 	return u.VerifiedAppName, true
+}
+
+// SetTcSessionID sets value of TcSessionID conditional field.
+func (u *URLAuthResultRequest) SetTcSessionID(value int64) {
+	u.Flags.Set(9)
+	u.TcSessionID = value
+}
+
+// GetTcSessionID returns value of TcSessionID conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultRequest) GetTcSessionID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(9) {
+		return value, false
+	}
+	return u.TcSessionID, true
+}
+
+// SetTcClientID sets value of TcClientID conditional field.
+func (u *URLAuthResultRequest) SetTcClientID(value string) {
+	u.Flags.Set(10)
+	u.TcClientID = value
+}
+
+// GetTcClientID returns value of TcClientID conditional field and
+// boolean which is true if field was set.
+func (u *URLAuthResultRequest) GetTcClientID() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(10) {
+		return value, false
+	}
+	return u.TcClientID, true
 }
 
 // URLAuthResultAccepted represents TL type `urlAuthResultAccepted#623a8fa0`.
@@ -1049,7 +1180,7 @@ const URLAuthResultClassName = "UrlAuthResult"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.URLAuthResultRequest: // urlAuthResultRequest#3cd623ec
+//	case *tg.URLAuthResultRequest: // urlAuthResultRequest#bdca6167
 //	case *tg.URLAuthResultAccepted: // urlAuthResultAccepted#623a8fa0
 //	case *tg.URLAuthResultDefault: // urlAuthResultDefault#a9d6db1f
 //	default: panic(v)
@@ -1081,7 +1212,7 @@ func DecodeURLAuthResult(buf *bin.Buffer) (URLAuthResultClass, error) {
 	}
 	switch id {
 	case URLAuthResultRequestTypeID:
-		// Decoding urlAuthResultRequest#3cd623ec.
+		// Decoding urlAuthResultRequest#bdca6167.
 		v := URLAuthResultRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode URLAuthResultClass: %w", err)

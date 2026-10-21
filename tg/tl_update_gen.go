@@ -34184,6 +34184,929 @@ func (u *UpdateBotStarsSubscription) GetQts() (value int) {
 	return u.Qts
 }
 
+// UpdateWalletState represents TL type `updateWalletState#6ac3f2aa`.
+//
+// See https://core.telegram.org/constructor/updateWalletState for reference.
+type UpdateWalletState struct {
+	// State field of UpdateWalletState.
+	State WalletStateClass
+}
+
+// UpdateWalletStateTypeID is TL type id of UpdateWalletState.
+const UpdateWalletStateTypeID = 0x6ac3f2aa
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWalletState) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWalletState.
+var (
+	_ bin.Encoder     = &UpdateWalletState{}
+	_ bin.Decoder     = &UpdateWalletState{}
+	_ bin.BareEncoder = &UpdateWalletState{}
+	_ bin.BareDecoder = &UpdateWalletState{}
+
+	_ UpdateClass = &UpdateWalletState{}
+)
+
+func (u *UpdateWalletState) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.State == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWalletState) String() string {
+	if u == nil {
+		return "UpdateWalletState(nil)"
+	}
+	type Alias UpdateWalletState
+	return fmt.Sprintf("UpdateWalletState%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWalletState from given interface.
+func (u *UpdateWalletState) FillFrom(from interface {
+	GetState() (value WalletStateClass)
+}) {
+	u.State = from.GetState()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWalletState) TypeID() uint32 {
+	return UpdateWalletStateTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWalletState) TypeName() string {
+	return "updateWalletState"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWalletState) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWalletState",
+		ID:   UpdateWalletStateTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "State",
+			SchemaName: "state",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWalletState) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletState#6ac3f2aa as nil")
+	}
+	b.PutID(UpdateWalletStateTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWalletState) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletState#6ac3f2aa as nil")
+	}
+	if u.State == nil {
+		return fmt.Errorf("unable to encode updateWalletState#6ac3f2aa: field state is nil")
+	}
+	if err := u.State.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateWalletState#6ac3f2aa: field state: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWalletState) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletState#6ac3f2aa to nil")
+	}
+	if err := b.ConsumeID(UpdateWalletStateTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWalletState#6ac3f2aa: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWalletState) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletState#6ac3f2aa to nil")
+	}
+	{
+		value, err := DecodeWalletState(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWalletState#6ac3f2aa: field state: %w", err)
+		}
+		u.State = value
+	}
+	return nil
+}
+
+// GetState returns value of State field.
+func (u *UpdateWalletState) GetState() (value WalletStateClass) {
+	if u == nil {
+		return
+	}
+	return u.State
+}
+
+// UpdateSentWalletTransaction represents TL type `updateSentWalletTransaction#b1434d4a`.
+//
+// See https://core.telegram.org/constructor/updateSentWalletTransaction for reference.
+type UpdateSentWalletTransaction struct {
+	// Flags field of UpdateSentWalletTransaction.
+	Flags bin.Fields
+	// Gasless field of UpdateSentWalletTransaction.
+	Gasless bool
+	// MsgHash field of UpdateSentWalletTransaction.
+	MsgHash string
+	// Transaction field of UpdateSentWalletTransaction.
+	//
+	// Use SetTransaction and GetTransaction helpers.
+	Transaction WalletTransaction
+}
+
+// UpdateSentWalletTransactionTypeID is TL type id of UpdateSentWalletTransaction.
+const UpdateSentWalletTransactionTypeID = 0xb1434d4a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSentWalletTransaction) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSentWalletTransaction.
+var (
+	_ bin.Encoder     = &UpdateSentWalletTransaction{}
+	_ bin.Decoder     = &UpdateSentWalletTransaction{}
+	_ bin.BareEncoder = &UpdateSentWalletTransaction{}
+	_ bin.BareDecoder = &UpdateSentWalletTransaction{}
+
+	_ UpdateClass = &UpdateSentWalletTransaction{}
+)
+
+func (u *UpdateSentWalletTransaction) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Gasless == false) {
+		return false
+	}
+	if !(u.MsgHash == "") {
+		return false
+	}
+	if !(u.Transaction.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSentWalletTransaction) String() string {
+	if u == nil {
+		return "UpdateSentWalletTransaction(nil)"
+	}
+	type Alias UpdateSentWalletTransaction
+	return fmt.Sprintf("UpdateSentWalletTransaction%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateSentWalletTransaction from given interface.
+func (u *UpdateSentWalletTransaction) FillFrom(from interface {
+	GetGasless() (value bool)
+	GetMsgHash() (value string)
+	GetTransaction() (value WalletTransaction, ok bool)
+}) {
+	u.Gasless = from.GetGasless()
+	u.MsgHash = from.GetMsgHash()
+	if val, ok := from.GetTransaction(); ok {
+		u.Transaction = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSentWalletTransaction) TypeID() uint32 {
+	return UpdateSentWalletTransactionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSentWalletTransaction) TypeName() string {
+	return "updateSentWalletTransaction"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSentWalletTransaction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSentWalletTransaction",
+		ID:   UpdateSentWalletTransactionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Gasless",
+			SchemaName: "gasless",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "MsgHash",
+			SchemaName: "msg_hash",
+		},
+		{
+			Name:       "Transaction",
+			SchemaName: "transaction",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateSentWalletTransaction) SetFlags() {
+	if !(u.Gasless == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Transaction.Zero()) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSentWalletTransaction) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSentWalletTransaction#b1434d4a as nil")
+	}
+	b.PutID(UpdateSentWalletTransactionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSentWalletTransaction) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSentWalletTransaction#b1434d4a as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateSentWalletTransaction#b1434d4a: field flags: %w", err)
+	}
+	b.PutString(u.MsgHash)
+	if u.Flags.Has(1) {
+		if err := u.Transaction.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateSentWalletTransaction#b1434d4a: field transaction: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSentWalletTransaction) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSentWalletTransaction#b1434d4a to nil")
+	}
+	if err := b.ConsumeID(UpdateSentWalletTransactionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSentWalletTransaction#b1434d4a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSentWalletTransaction) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSentWalletTransaction#b1434d4a to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateSentWalletTransaction#b1434d4a: field flags: %w", err)
+		}
+	}
+	u.Gasless = u.Flags.Has(0)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSentWalletTransaction#b1434d4a: field msg_hash: %w", err)
+		}
+		u.MsgHash = value
+	}
+	if u.Flags.Has(1) {
+		if err := u.Transaction.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateSentWalletTransaction#b1434d4a: field transaction: %w", err)
+		}
+	}
+	return nil
+}
+
+// SetGasless sets value of Gasless conditional field.
+func (u *UpdateSentWalletTransaction) SetGasless(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Gasless = true
+	} else {
+		u.Flags.Unset(0)
+		u.Gasless = false
+	}
+}
+
+// GetGasless returns value of Gasless conditional field.
+func (u *UpdateSentWalletTransaction) GetGasless() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetMsgHash returns value of MsgHash field.
+func (u *UpdateSentWalletTransaction) GetMsgHash() (value string) {
+	if u == nil {
+		return
+	}
+	return u.MsgHash
+}
+
+// SetTransaction sets value of Transaction conditional field.
+func (u *UpdateSentWalletTransaction) SetTransaction(value WalletTransaction) {
+	u.Flags.Set(1)
+	u.Transaction = value
+}
+
+// GetTransaction returns value of Transaction conditional field and
+// boolean which is true if field was set.
+func (u *UpdateSentWalletTransaction) GetTransaction() (value WalletTransaction, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Transaction, true
+}
+
+// UpdateWalletGaslessInfo represents TL type `updateWalletGaslessInfo#a8ae1cac`.
+//
+// See https://core.telegram.org/constructor/updateWalletGaslessInfo for reference.
+type UpdateWalletGaslessInfo struct {
+	// Flags field of UpdateWalletGaslessInfo.
+	Flags bin.Fields
+	// Available field of UpdateWalletGaslessInfo.
+	Available bool
+	// Left field of UpdateWalletGaslessInfo.
+	Left int
+	// ResetAt field of UpdateWalletGaslessInfo.
+	ResetAt int
+	// MinAmount field of UpdateWalletGaslessInfo.
+	MinAmount int64
+	// RelayerAddress field of UpdateWalletGaslessInfo.
+	RelayerAddress string
+}
+
+// UpdateWalletGaslessInfoTypeID is TL type id of UpdateWalletGaslessInfo.
+const UpdateWalletGaslessInfoTypeID = 0xa8ae1cac
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWalletGaslessInfo) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWalletGaslessInfo.
+var (
+	_ bin.Encoder     = &UpdateWalletGaslessInfo{}
+	_ bin.Decoder     = &UpdateWalletGaslessInfo{}
+	_ bin.BareEncoder = &UpdateWalletGaslessInfo{}
+	_ bin.BareDecoder = &UpdateWalletGaslessInfo{}
+
+	_ UpdateClass = &UpdateWalletGaslessInfo{}
+)
+
+func (u *UpdateWalletGaslessInfo) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Available == false) {
+		return false
+	}
+	if !(u.Left == 0) {
+		return false
+	}
+	if !(u.ResetAt == 0) {
+		return false
+	}
+	if !(u.MinAmount == 0) {
+		return false
+	}
+	if !(u.RelayerAddress == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWalletGaslessInfo) String() string {
+	if u == nil {
+		return "UpdateWalletGaslessInfo(nil)"
+	}
+	type Alias UpdateWalletGaslessInfo
+	return fmt.Sprintf("UpdateWalletGaslessInfo%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWalletGaslessInfo from given interface.
+func (u *UpdateWalletGaslessInfo) FillFrom(from interface {
+	GetAvailable() (value bool)
+	GetLeft() (value int)
+	GetResetAt() (value int)
+	GetMinAmount() (value int64)
+	GetRelayerAddress() (value string)
+}) {
+	u.Available = from.GetAvailable()
+	u.Left = from.GetLeft()
+	u.ResetAt = from.GetResetAt()
+	u.MinAmount = from.GetMinAmount()
+	u.RelayerAddress = from.GetRelayerAddress()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWalletGaslessInfo) TypeID() uint32 {
+	return UpdateWalletGaslessInfoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWalletGaslessInfo) TypeName() string {
+	return "updateWalletGaslessInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWalletGaslessInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWalletGaslessInfo",
+		ID:   UpdateWalletGaslessInfoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Available",
+			SchemaName: "available",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+		},
+		{
+			Name:       "ResetAt",
+			SchemaName: "reset_at",
+		},
+		{
+			Name:       "MinAmount",
+			SchemaName: "min_amount",
+		},
+		{
+			Name:       "RelayerAddress",
+			SchemaName: "relayer_address",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateWalletGaslessInfo) SetFlags() {
+	if !(u.Available == false) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWalletGaslessInfo) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletGaslessInfo#a8ae1cac as nil")
+	}
+	b.PutID(UpdateWalletGaslessInfoTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWalletGaslessInfo) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletGaslessInfo#a8ae1cac as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateWalletGaslessInfo#a8ae1cac: field flags: %w", err)
+	}
+	b.PutInt(u.Left)
+	b.PutInt(u.ResetAt)
+	b.PutLong(u.MinAmount)
+	b.PutString(u.RelayerAddress)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWalletGaslessInfo) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletGaslessInfo#a8ae1cac to nil")
+	}
+	if err := b.ConsumeID(UpdateWalletGaslessInfoTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWalletGaslessInfo#a8ae1cac: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWalletGaslessInfo) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletGaslessInfo#a8ae1cac to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateWalletGaslessInfo#a8ae1cac: field flags: %w", err)
+		}
+	}
+	u.Available = u.Flags.Has(0)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWalletGaslessInfo#a8ae1cac: field left: %w", err)
+		}
+		u.Left = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWalletGaslessInfo#a8ae1cac: field reset_at: %w", err)
+		}
+		u.ResetAt = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWalletGaslessInfo#a8ae1cac: field min_amount: %w", err)
+		}
+		u.MinAmount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWalletGaslessInfo#a8ae1cac: field relayer_address: %w", err)
+		}
+		u.RelayerAddress = value
+	}
+	return nil
+}
+
+// SetAvailable sets value of Available conditional field.
+func (u *UpdateWalletGaslessInfo) SetAvailable(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Available = true
+	} else {
+		u.Flags.Unset(0)
+		u.Available = false
+	}
+}
+
+// GetAvailable returns value of Available conditional field.
+func (u *UpdateWalletGaslessInfo) GetAvailable() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetLeft returns value of Left field.
+func (u *UpdateWalletGaslessInfo) GetLeft() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Left
+}
+
+// GetResetAt returns value of ResetAt field.
+func (u *UpdateWalletGaslessInfo) GetResetAt() (value int) {
+	if u == nil {
+		return
+	}
+	return u.ResetAt
+}
+
+// GetMinAmount returns value of MinAmount field.
+func (u *UpdateWalletGaslessInfo) GetMinAmount() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.MinAmount
+}
+
+// GetRelayerAddress returns value of RelayerAddress field.
+func (u *UpdateWalletGaslessInfo) GetRelayerAddress() (value string) {
+	if u == nil {
+		return
+	}
+	return u.RelayerAddress
+}
+
+// UpdateWalletTonConnectSession represents TL type `updateWalletTonConnectSession#50a38e0e`.
+//
+// See https://core.telegram.org/constructor/updateWalletTonConnectSession for reference.
+type UpdateWalletTonConnectSession struct {
+	// Session field of UpdateWalletTonConnectSession.
+	Session TonConnectSession
+}
+
+// UpdateWalletTonConnectSessionTypeID is TL type id of UpdateWalletTonConnectSession.
+const UpdateWalletTonConnectSessionTypeID = 0x50a38e0e
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWalletTonConnectSession) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWalletTonConnectSession.
+var (
+	_ bin.Encoder     = &UpdateWalletTonConnectSession{}
+	_ bin.Decoder     = &UpdateWalletTonConnectSession{}
+	_ bin.BareEncoder = &UpdateWalletTonConnectSession{}
+	_ bin.BareDecoder = &UpdateWalletTonConnectSession{}
+
+	_ UpdateClass = &UpdateWalletTonConnectSession{}
+)
+
+func (u *UpdateWalletTonConnectSession) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Session.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWalletTonConnectSession) String() string {
+	if u == nil {
+		return "UpdateWalletTonConnectSession(nil)"
+	}
+	type Alias UpdateWalletTonConnectSession
+	return fmt.Sprintf("UpdateWalletTonConnectSession%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWalletTonConnectSession from given interface.
+func (u *UpdateWalletTonConnectSession) FillFrom(from interface {
+	GetSession() (value TonConnectSession)
+}) {
+	u.Session = from.GetSession()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWalletTonConnectSession) TypeID() uint32 {
+	return UpdateWalletTonConnectSessionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWalletTonConnectSession) TypeName() string {
+	return "updateWalletTonConnectSession"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWalletTonConnectSession) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWalletTonConnectSession",
+		ID:   UpdateWalletTonConnectSessionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Session",
+			SchemaName: "session",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWalletTonConnectSession) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletTonConnectSession#50a38e0e as nil")
+	}
+	b.PutID(UpdateWalletTonConnectSessionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWalletTonConnectSession) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletTonConnectSession#50a38e0e as nil")
+	}
+	if err := u.Session.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateWalletTonConnectSession#50a38e0e: field session: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWalletTonConnectSession) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletTonConnectSession#50a38e0e to nil")
+	}
+	if err := b.ConsumeID(UpdateWalletTonConnectSessionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWalletTonConnectSession#50a38e0e: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWalletTonConnectSession) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletTonConnectSession#50a38e0e to nil")
+	}
+	{
+		if err := u.Session.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateWalletTonConnectSession#50a38e0e: field session: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetSession returns value of Session field.
+func (u *UpdateWalletTonConnectSession) GetSession() (value TonConnectSession) {
+	if u == nil {
+		return
+	}
+	return u.Session
+}
+
+// UpdateWalletTonConnectPendingDisconnect represents TL type `updateWalletTonConnectPendingDisconnect#d1ee8199`.
+//
+// See https://core.telegram.org/constructor/updateWalletTonConnectPendingDisconnect for reference.
+type UpdateWalletTonConnectPendingDisconnect struct {
+	// SessionIDs field of UpdateWalletTonConnectPendingDisconnect.
+	SessionIDs []int64
+}
+
+// UpdateWalletTonConnectPendingDisconnectTypeID is TL type id of UpdateWalletTonConnectPendingDisconnect.
+const UpdateWalletTonConnectPendingDisconnectTypeID = 0xd1ee8199
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWalletTonConnectPendingDisconnect) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWalletTonConnectPendingDisconnect.
+var (
+	_ bin.Encoder     = &UpdateWalletTonConnectPendingDisconnect{}
+	_ bin.Decoder     = &UpdateWalletTonConnectPendingDisconnect{}
+	_ bin.BareEncoder = &UpdateWalletTonConnectPendingDisconnect{}
+	_ bin.BareDecoder = &UpdateWalletTonConnectPendingDisconnect{}
+
+	_ UpdateClass = &UpdateWalletTonConnectPendingDisconnect{}
+)
+
+func (u *UpdateWalletTonConnectPendingDisconnect) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.SessionIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWalletTonConnectPendingDisconnect) String() string {
+	if u == nil {
+		return "UpdateWalletTonConnectPendingDisconnect(nil)"
+	}
+	type Alias UpdateWalletTonConnectPendingDisconnect
+	return fmt.Sprintf("UpdateWalletTonConnectPendingDisconnect%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWalletTonConnectPendingDisconnect from given interface.
+func (u *UpdateWalletTonConnectPendingDisconnect) FillFrom(from interface {
+	GetSessionIDs() (value []int64)
+}) {
+	u.SessionIDs = from.GetSessionIDs()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWalletTonConnectPendingDisconnect) TypeID() uint32 {
+	return UpdateWalletTonConnectPendingDisconnectTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWalletTonConnectPendingDisconnect) TypeName() string {
+	return "updateWalletTonConnectPendingDisconnect"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWalletTonConnectPendingDisconnect) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWalletTonConnectPendingDisconnect",
+		ID:   UpdateWalletTonConnectPendingDisconnectTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SessionIDs",
+			SchemaName: "session_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWalletTonConnectPendingDisconnect) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletTonConnectPendingDisconnect#d1ee8199 as nil")
+	}
+	b.PutID(UpdateWalletTonConnectPendingDisconnectTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWalletTonConnectPendingDisconnect) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWalletTonConnectPendingDisconnect#d1ee8199 as nil")
+	}
+	b.PutVectorHeader(len(u.SessionIDs))
+	for _, v := range u.SessionIDs {
+		b.PutLong(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWalletTonConnectPendingDisconnect) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletTonConnectPendingDisconnect#d1ee8199 to nil")
+	}
+	if err := b.ConsumeID(UpdateWalletTonConnectPendingDisconnectTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWalletTonConnectPendingDisconnect#d1ee8199: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWalletTonConnectPendingDisconnect) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWalletTonConnectPendingDisconnect#d1ee8199 to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWalletTonConnectPendingDisconnect#d1ee8199: field session_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.SessionIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateWalletTonConnectPendingDisconnect#d1ee8199: field session_ids: %w", err)
+			}
+			u.SessionIDs = append(u.SessionIDs, value)
+		}
+	}
+	return nil
+}
+
+// GetSessionIDs returns value of SessionIDs field.
+func (u *UpdateWalletTonConnectPendingDisconnect) GetSessionIDs() (value []int64) {
+	if u == nil {
+		return
+	}
+	return u.SessionIDs
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -34357,6 +35280,11 @@ const UpdateClassName = "Update"
 //   - [UpdateEditEphemeralMessage]
 //   - [UpdateEphemeralBotCallbackQuery]
 //   - [UpdateBotStarsSubscription]
+//   - [UpdateWalletState]
+//   - [UpdateSentWalletTransaction]
+//   - [UpdateWalletGaslessInfo]
+//   - [UpdateWalletTonConnectSession]
+//   - [UpdateWalletTonConnectPendingDisconnect]
 //
 // Example:
 //
@@ -34530,6 +35458,11 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateEditEphemeralMessage: // updateEditEphemeralMessage#4bbb8f01
 //	case *tg.UpdateEphemeralBotCallbackQuery: // updateEphemeralBotCallbackQuery#7c1079d6
 //	case *tg.UpdateBotStarsSubscription: // updateBotStarsSubscription#6c0d8e23
+//	case *tg.UpdateWalletState: // updateWalletState#6ac3f2aa
+//	case *tg.UpdateSentWalletTransaction: // updateSentWalletTransaction#b1434d4a
+//	case *tg.UpdateWalletGaslessInfo: // updateWalletGaslessInfo#a8ae1cac
+//	case *tg.UpdateWalletTonConnectSession: // updateWalletTonConnectSession#50a38e0e
+//	case *tg.UpdateWalletTonConnectPendingDisconnect: // updateWalletTonConnectPendingDisconnect#d1ee8199
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -35709,6 +36642,41 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateBotStarsSubscriptionTypeID:
 		// Decoding updateBotStarsSubscription#6c0d8e23.
 		v := UpdateBotStarsSubscription{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWalletStateTypeID:
+		// Decoding updateWalletState#6ac3f2aa.
+		v := UpdateWalletState{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSentWalletTransactionTypeID:
+		// Decoding updateSentWalletTransaction#b1434d4a.
+		v := UpdateSentWalletTransaction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWalletGaslessInfoTypeID:
+		// Decoding updateWalletGaslessInfo#a8ae1cac.
+		v := UpdateWalletGaslessInfo{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWalletTonConnectSessionTypeID:
+		// Decoding updateWalletTonConnectSession#50a38e0e.
+		v := UpdateWalletTonConnectSession{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWalletTonConnectPendingDisconnectTypeID:
+		// Decoding updateWalletTonConnectPendingDisconnect#d1ee8199.
+		v := UpdateWalletTonConnectPendingDisconnect{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

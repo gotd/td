@@ -4944,6 +4944,145 @@ func (t *TextButton) GetStyle() (value RichButtonStyle, ok bool) {
 	return t.Style, true
 }
 
+// TextTonAddress represents TL type `textTonAddress#3cd2a36a`.
+//
+// See https://core.telegram.org/constructor/textTonAddress for reference.
+type TextTonAddress struct {
+	// Text field of TextTonAddress.
+	Text RichTextClass
+}
+
+// TextTonAddressTypeID is TL type id of TextTonAddress.
+const TextTonAddressTypeID = 0x3cd2a36a
+
+// construct implements constructor of RichTextClass.
+func (t TextTonAddress) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextTonAddress.
+var (
+	_ bin.Encoder     = &TextTonAddress{}
+	_ bin.Decoder     = &TextTonAddress{}
+	_ bin.BareEncoder = &TextTonAddress{}
+	_ bin.BareDecoder = &TextTonAddress{}
+
+	_ RichTextClass = &TextTonAddress{}
+)
+
+func (t *TextTonAddress) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextTonAddress) String() string {
+	if t == nil {
+		return "TextTonAddress(nil)"
+	}
+	type Alias TextTonAddress
+	return fmt.Sprintf("TextTonAddress%+v", Alias(*t))
+}
+
+// FillFrom fills TextTonAddress from given interface.
+func (t *TextTonAddress) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextTonAddress) TypeID() uint32 {
+	return TextTonAddressTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextTonAddress) TypeName() string {
+	return "textTonAddress"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextTonAddress) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textTonAddress",
+		ID:   TextTonAddressTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextTonAddress) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textTonAddress#3cd2a36a as nil")
+	}
+	b.PutID(TextTonAddressTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextTonAddress) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textTonAddress#3cd2a36a as nil")
+	}
+	if t.Text == nil {
+		return fmt.Errorf("unable to encode textTonAddress#3cd2a36a: field text is nil")
+	}
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode textTonAddress#3cd2a36a: field text: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextTonAddress) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textTonAddress#3cd2a36a to nil")
+	}
+	if err := b.ConsumeID(TextTonAddressTypeID); err != nil {
+		return fmt.Errorf("unable to decode textTonAddress#3cd2a36a: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextTonAddress) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textTonAddress#3cd2a36a to nil")
+	}
+	{
+		value, err := DecodeRichText(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode textTonAddress#3cd2a36a: field text: %w", err)
+		}
+		t.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextTonAddress) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
+	return t.Text
+}
+
 // RichTextClassName is schema name of RichTextClass.
 const RichTextClassName = "RichText"
 
@@ -4983,6 +5122,7 @@ const RichTextClassName = "RichText"
 //   - [TextDate]
 //   - [TextDiff]
 //   - [TextButton]
+//   - [TextTonAddress]
 //
 // Example:
 //
@@ -5022,6 +5162,7 @@ const RichTextClassName = "RichText"
 //	case *tg.TextDate: // textDate#a5b45e2b
 //	case *tg.TextDiff: // textDiff#9686cb50
 //	case *tg.TextButton: // textButton#afc79cd6
+//	case *tg.TextTonAddress: // textTonAddress#3cd2a36a
 //	default: panic(v)
 //	}
 type RichTextClass interface {
@@ -5263,6 +5404,13 @@ func DecodeRichText(buf *bin.Buffer) (RichTextClass, error) {
 	case TextButtonTypeID:
 		// Decoding textButton#afc79cd6.
 		v := TextButton{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
+		}
+		return &v, nil
+	case TextTonAddressTypeID:
+		// Decoding textTonAddress#3cd2a36a.
+		v := TextTonAddress{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
 		}

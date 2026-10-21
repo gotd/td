@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesAcceptURLAuthRequest represents TL type `messages.acceptUrlAuth#67a3f0de`.
+// MessagesAcceptURLAuthRequest represents TL type `messages.acceptUrlAuth#18dd4e92`.
 // Use this to accept a Seamless Telegram Login authorization request, for more info
 // click here »¹
 //
@@ -83,10 +83,14 @@ type MessagesAcceptURLAuthRequest struct {
 	//
 	// Use SetMatchCode and GetMatchCode helpers.
 	MatchCode string
+	// TonconnectSession field of MessagesAcceptURLAuthRequest.
+	//
+	// Use SetTonconnectSession and GetTonconnectSession helpers.
+	TonconnectSession InputTonConnectOauthSession
 }
 
 // MessagesAcceptURLAuthRequestTypeID is TL type id of MessagesAcceptURLAuthRequest.
-const MessagesAcceptURLAuthRequestTypeID = 0x67a3f0de
+const MessagesAcceptURLAuthRequestTypeID = 0x18dd4e92
 
 // Ensuring interfaces in compile-time for MessagesAcceptURLAuthRequest.
 var (
@@ -124,6 +128,9 @@ func (a *MessagesAcceptURLAuthRequest) Zero() bool {
 	if !(a.MatchCode == "") {
 		return false
 	}
+	if !(a.TonconnectSession.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -146,6 +153,7 @@ func (a *MessagesAcceptURLAuthRequest) FillFrom(from interface {
 	GetButtonID() (value int, ok bool)
 	GetURL() (value string, ok bool)
 	GetMatchCode() (value string, ok bool)
+	GetTonconnectSession() (value InputTonConnectOauthSession, ok bool)
 }) {
 	a.WriteAllowed = from.GetWriteAllowed()
 	a.SharePhoneNumber = from.GetSharePhoneNumber()
@@ -167,6 +175,10 @@ func (a *MessagesAcceptURLAuthRequest) FillFrom(from interface {
 
 	if val, ok := from.GetMatchCode(); ok {
 		a.MatchCode = val
+	}
+
+	if val, ok := from.GetTonconnectSession(); ok {
+		a.TonconnectSession = val
 	}
 
 }
@@ -229,6 +241,11 @@ func (a *MessagesAcceptURLAuthRequest) TypeInfo() tdp.Type {
 			SchemaName: "match_code",
 			Null:       !a.Flags.Has(4),
 		},
+		{
+			Name:       "TonconnectSession",
+			SchemaName: "tonconnect_session",
+			Null:       !a.Flags.Has(5),
+		},
 	}
 	return typ
 }
@@ -256,12 +273,15 @@ func (a *MessagesAcceptURLAuthRequest) SetFlags() {
 	if !(a.MatchCode == "") {
 		a.Flags.Set(4)
 	}
+	if !(a.TonconnectSession.Zero()) {
+		a.Flags.Set(5)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptUrlAuth#67a3f0de as nil")
+		return fmt.Errorf("can't encode messages.acceptUrlAuth#18dd4e92 as nil")
 	}
 	b.PutID(MessagesAcceptURLAuthRequestTypeID)
 	return a.EncodeBare(b)
@@ -270,18 +290,18 @@ func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptUrlAuth#67a3f0de as nil")
+		return fmt.Errorf("can't encode messages.acceptUrlAuth#18dd4e92 as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.acceptUrlAuth#67a3f0de: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.acceptUrlAuth#18dd4e92: field flags: %w", err)
 	}
 	if a.Flags.Has(1) {
 		if a.Peer == nil {
-			return fmt.Errorf("unable to encode messages.acceptUrlAuth#67a3f0de: field peer is nil")
+			return fmt.Errorf("unable to encode messages.acceptUrlAuth#18dd4e92: field peer is nil")
 		}
 		if err := a.Peer.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.acceptUrlAuth#67a3f0de: field peer: %w", err)
+			return fmt.Errorf("unable to encode messages.acceptUrlAuth#18dd4e92: field peer: %w", err)
 		}
 	}
 	if a.Flags.Has(1) {
@@ -296,16 +316,21 @@ func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if a.Flags.Has(4) {
 		b.PutString(a.MatchCode)
 	}
+	if a.Flags.Has(5) {
+		if err := a.TonconnectSession.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.acceptUrlAuth#18dd4e92: field tonconnect_session: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptUrlAuth#67a3f0de to nil")
+		return fmt.Errorf("can't decode messages.acceptUrlAuth#18dd4e92 to nil")
 	}
 	if err := b.ConsumeID(MessagesAcceptURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: %w", err)
+		return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -313,11 +338,11 @@ func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptUrlAuth#67a3f0de to nil")
+		return fmt.Errorf("can't decode messages.acceptUrlAuth#18dd4e92 to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field flags: %w", err)
 		}
 	}
 	a.WriteAllowed = a.Flags.Has(0)
@@ -325,37 +350,42 @@ func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
 	if a.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field peer: %w", err)
 		}
 		a.Peer = value
 	}
 	if a.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field msg_id: %w", err)
 		}
 		a.MsgID = value
 	}
 	if a.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: field button_id: %w", err)
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field button_id: %w", err)
 		}
 		a.ButtonID = value
 	}
 	if a.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: field url: %w", err)
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field url: %w", err)
 		}
 		a.URL = value
 	}
 	if a.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#67a3f0de: field match_code: %w", err)
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field match_code: %w", err)
 		}
 		a.MatchCode = value
+	}
+	if a.Flags.Has(5) {
+		if err := a.TonconnectSession.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#18dd4e92: field tonconnect_session: %w", err)
+		}
 	}
 	return nil
 }
@@ -488,7 +518,25 @@ func (a *MessagesAcceptURLAuthRequest) GetMatchCode() (value string, ok bool) {
 	return a.MatchCode, true
 }
 
-// MessagesAcceptURLAuth invokes method messages.acceptUrlAuth#67a3f0de returning error if any.
+// SetTonconnectSession sets value of TonconnectSession conditional field.
+func (a *MessagesAcceptURLAuthRequest) SetTonconnectSession(value InputTonConnectOauthSession) {
+	a.Flags.Set(5)
+	a.TonconnectSession = value
+}
+
+// GetTonconnectSession returns value of TonconnectSession conditional field and
+// boolean which is true if field was set.
+func (a *MessagesAcceptURLAuthRequest) GetTonconnectSession() (value InputTonConnectOauthSession, ok bool) {
+	if a == nil {
+		return
+	}
+	if !a.Flags.Has(5) {
+		return value, false
+	}
+	return a.TonconnectSession, true
+}
+
+// MessagesAcceptURLAuth invokes method messages.acceptUrlAuth#18dd4e92 returning error if any.
 // Use this to accept a Seamless Telegram Login authorization request, for more info
 // click here »¹
 //

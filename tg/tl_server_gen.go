@@ -527,6 +527,27 @@ func (s *ServerDispatcher) OnAuthFinishPasskeyLogin(f func(ctx context.Context, 
 	s.handlers[AuthFinishPasskeyLoginRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAuthCancelWebTokenAuthorization(f func(ctx context.Context, webauthtoken string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AuthCancelWebTokenAuthorizationRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.WebAuthToken)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AuthCancelWebTokenAuthorizationRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnAuthInitFirebasePnvLogin(f func(ctx context.Context, request *AuthInitFirebasePnvLoginRequest) (*AuthFirebasePnvIntent, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AuthInitFirebasePnvLoginRequest
@@ -2846,7 +2867,7 @@ func (s *ServerDispatcher) OnAccountInitPasskeyRegistration(f func(ctx context.C
 	s.handlers[AccountInitPasskeyRegistrationRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountRegisterPasskey(f func(ctx context.Context, credential InputPasskeyCredentialClass) (*Passkey, error)) {
+func (s *ServerDispatcher) OnAccountRegisterPasskey(f func(ctx context.Context, credential InputPasskeyCredentialPublicKey) (*Passkey, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountRegisterPasskeyRequest
 		if err := request.Decode(b); err != nil {
@@ -3623,6 +3644,40 @@ func (s *ServerDispatcher) OnContactsUpdateContactNote(f func(ctx context.Contex
 	}
 
 	s.handlers[ContactsUpdateContactNoteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsExportNoPaidMessagesToken(f func(ctx context.Context, request *ContactsExportNoPaidMessagesTokenRequest) (*ExportedNoPaidMessagesToken, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsExportNoPaidMessagesTokenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ContactsExportNoPaidMessagesTokenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsImportNoPaidMessagesToken(f func(ctx context.Context, request *ContactsImportNoPaidMessagesTokenRequest) (UserClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsImportNoPaidMessagesTokenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UserBox{User: response}, nil
+	}
+
+	s.handlers[ContactsImportNoPaidMessagesTokenRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
@@ -8276,6 +8331,44 @@ func (s *ServerDispatcher) OnMessagesRequestChatJoinWebView(f func(ctx context.C
 	s.handlers[MessagesRequestChatJoinWebViewRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSetShareTheme(f func(ctx context.Context, request *MessagesSetShareThemeRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetShareThemeRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesSetShareThemeRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetShareThemeBackdrops(f func(ctx context.Context, hash int) (ShareThemeBackdropsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetShareThemeBackdropsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &ShareThemeBackdropsBox{ShareThemeBackdrops: response}, nil
+	}
+
+	s.handlers[MessagesGetShareThemeBackdropsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -10617,14 +10710,14 @@ func (s *ServerDispatcher) OnBotsGetBotRecommendations(f func(ctx context.Contex
 	s.handlers[BotsGetBotRecommendationsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnBotsCheckUsername(f func(ctx context.Context, username string) (bool, error)) {
+func (s *ServerDispatcher) OnBotsCheckUsername(f func(ctx context.Context, request *BotsCheckUsernameRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsCheckUsernameRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Username)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -10763,6 +10856,48 @@ func (s *ServerDispatcher) OnBotsSetJoinChatResults(f func(ctx context.Context, 
 	}
 
 	s.handlers[BotsSetJoinChatResultsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsAddUsername(f func(ctx context.Context, request *BotsAddUsernameRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsAddUsernameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsAddUsernameRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsRemoveUsername(f func(ctx context.Context, request *BotsRemoveUsernameRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsRemoveUsernameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsRemoveUsernameRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (PaymentsPaymentFormClass, error)) {
@@ -11912,6 +12047,205 @@ func (s *ServerDispatcher) OnPaymentsCraftStarGift(f func(ctx context.Context, s
 	}
 
 	s.handlers[PaymentsCraftStarGiftRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetCurrencyRates(f func(ctx context.Context) (*PaymentsCurrencyRates, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetCurrencyRatesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetCurrencyRatesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetOnrampProviders(f func(ctx context.Context, request *PaymentsGetOnrampProvidersRequest) ([]OnrampProviderInfo, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetOnrampProvidersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &OnrampProviderInfoVector{Elems: response}, nil
+	}
+
+	s.handlers[PaymentsGetOnrampProvidersRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetOnrampBaseCurrencies(f func(ctx context.Context, request *PaymentsGetOnrampBaseCurrenciesRequest) ([]string, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetOnrampBaseCurrenciesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &StringVector{Elems: response}, nil
+	}
+
+	s.handlers[PaymentsGetOnrampBaseCurrenciesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetOnrampAvailability(f func(ctx context.Context, request *PaymentsGetOnrampAvailabilityRequest) (*OnrampAvailability, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetOnrampAvailabilityRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetOnrampAvailabilityRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetOnrampLimits(f func(ctx context.Context, request *PaymentsGetOnrampLimitsRequest) (*OnrampLimits, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetOnrampLimitsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetOnrampLimitsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsGetOnrampQuote(f func(ctx context.Context, request *PaymentsGetOnrampQuoteRequest) (*OnrampQuote, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsGetOnrampQuoteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsGetOnrampQuoteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsCreateOnrampSession(f func(ctx context.Context, request *PaymentsCreateOnrampSessionRequest) (*OnrampSession, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsCreateOnrampSessionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsCreateOnrampSessionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsWithdrawStarGift(f func(ctx context.Context, request *PaymentsWithdrawStarGiftRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsWithdrawStarGiftRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsWithdrawStarGiftRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsDepositStarGift(f func(ctx context.Context, request *PaymentsDepositStarGiftRequest) (*PaymentsStarGiftDepositPayload, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsDepositStarGiftRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PaymentsDepositStarGiftRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsDisplayStarGift(f func(ctx context.Context, request *PaymentsDisplayStarGiftRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsDisplayStarGiftRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsDisplayStarGiftRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPaymentsDeleteStarGift(f func(ctx context.Context, stargift InputSavedStarGiftClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PaymentsDeleteStarGiftRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Stargift)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PaymentsDeleteStarGiftRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {
@@ -14565,6 +14899,498 @@ func (s *ServerDispatcher) OnEphemeralGetWelcomeMessages(f func(ctx context.Cont
 	}
 
 	s.handlers[EphemeralGetWelcomeMessagesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnToncenterPerformAPIRequest(f func(ctx context.Context, request *ToncenterPerformAPIRequestRequest) (*ToncenterAPIResponse, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ToncenterPerformAPIRequestRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ToncenterPerformAPIRequestRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnToncenterGetStreamingURL(f func(ctx context.Context) (*ToncenterStreamingURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ToncenterGetStreamingURLRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ToncenterGetStreamingURLRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetState(f func(ctx context.Context) (WalletStateClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetStateRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &WalletStateBox{WalletState: response}, nil
+	}
+
+	s.handlers[WalletGetStateRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetUserAddresses(f func(ctx context.Context, request *WalletGetUserAddressesRequest) (*WalletUserAddresses, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetUserAddressesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetUserAddressesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetTransactions(f func(ctx context.Context, request *WalletGetTransactionsRequest) (*WalletTransactions, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetTransactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetTransactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetTransactionsByIDs(f func(ctx context.Context, id []string) (*WalletTransactions, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetTransactionsByIDsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ID)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetTransactionsByIDsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetTransactionsByMsgHash(f func(ctx context.Context, msghash []string) (*WalletTransactions, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetTransactionsByMsgHashRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.MsgHash)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetTransactionsByMsgHashRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletExportSecretPhrase(f func(ctx context.Context, request *WalletExportSecretPhraseRequest) (*WalletSecretPhraseParts, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletExportSecretPhraseRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletExportSecretPhraseRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletFetchEncryptedSecretPhrasePart(f func(ctx context.Context, request *WalletFetchEncryptedSecretPhrasePartRequest) (*WalletEncryptedSecretPhrasePart, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletFetchEncryptedSecretPhrasePartRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletFetchEncryptedSecretPhrasePartRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletReplaceWallet(f func(ctx context.Context, request *WalletReplaceWalletRequest) (WalletStateClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletReplaceWalletRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &WalletStateBox{WalletState: response}, nil
+	}
+
+	s.handlers[WalletReplaceWalletRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletDisableBackup(f func(ctx context.Context, request *WalletDisableBackupRequest) (WalletStateClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletDisableBackupRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &WalletStateBox{WalletState: response}, nil
+	}
+
+	s.handlers[WalletDisableBackupRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetBackupHolderDCs(f func(ctx context.Context) ([]WalletHolderDC, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetBackupHolderDCsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &WalletHolderDCVector{Elems: response}, nil
+	}
+
+	s.handlers[WalletGetBackupHolderDCsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletEnableBackup(f func(ctx context.Context, request *WalletEnableBackupRequest) (WalletStateClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletEnableBackupRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &WalletStateBox{WalletState: response}, nil
+	}
+
+	s.handlers[WalletEnableBackupRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetProofChallenge(f func(ctx context.Context) (*WalletProofChallenge, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetProofChallengeRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetProofChallengeRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletSendTransfer(f func(ctx context.Context, request *WalletSendTransferRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletSendTransferRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[WalletSendTransferRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetGaslessInfo(f func(ctx context.Context) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetGaslessInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[WalletGetGaslessInfoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetExistingWaltBalance(f func(ctx context.Context) (*WalletExistingBalance, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetExistingWaltBalanceRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetExistingWaltBalanceRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletGetNfts(f func(ctx context.Context, request *WalletGetNftsRequest) (*WalletNftItems, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletGetNftsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletGetNftsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectCreateSession(f func(ctx context.Context, request *WalletTonConnectCreateSessionRequest) (*TonConnectSession, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectCreateSessionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletTonConnectCreateSessionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectRegisterKey(f func(ctx context.Context, request *WalletTonConnectRegisterKeyRequest) (*WalletTonConnectChallenge, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectRegisterKeyRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletTonConnectRegisterKeyRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectSubmitConnectResult(f func(ctx context.Context, request *WalletTonConnectSubmitConnectResultRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectSubmitConnectResultRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[WalletTonConnectSubmitConnectResultRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectGetPending(f func(ctx context.Context, request *WalletTonConnectGetPendingRequest) (*WalletTonConnectPending, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectGetPendingRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletTonConnectGetPendingRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectClaimRequest(f func(ctx context.Context, request *WalletTonConnectClaimRequestRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectClaimRequestRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[WalletTonConnectClaimRequestRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectSubmitResponse(f func(ctx context.Context, request *WalletTonConnectSubmitResponseRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectSubmitResponseRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[WalletTonConnectSubmitResponseRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectNextEventID(f func(ctx context.Context, sessionid int64) (*TonConnectNextEventID, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectNextEventIDRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.SessionID)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletTonConnectNextEventIDRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectCloseSession(f func(ctx context.Context, request *WalletTonConnectCloseSessionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectCloseSessionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[WalletTonConnectCloseSessionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletTonConnectGetSessions(f func(ctx context.Context) (*WalletTonConnectSessions, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletTonConnectGetSessionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletTonConnectGetSessionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnWalletSetCardStickers(f func(ctx context.Context, request *WalletSetCardStickersRequest) (*WalletCard, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request WalletSetCardStickersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[WalletSetCardStickersRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {

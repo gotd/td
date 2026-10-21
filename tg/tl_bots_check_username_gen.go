@@ -31,16 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotsCheckUsernameRequest represents TL type `bots.checkUsername#87f2219b`.
+// BotsCheckUsernameRequest represents TL type `bots.checkUsername#e3ac4c61`.
 //
 // See https://core.telegram.org/method/bots.checkUsername for reference.
 type BotsCheckUsernameRequest struct {
+	// Flags field of BotsCheckUsernameRequest.
+	Flags bin.Fields
+	// Additional field of BotsCheckUsernameRequest.
+	Additional bool
 	// Username field of BotsCheckUsernameRequest.
 	Username string
 }
 
 // BotsCheckUsernameRequestTypeID is TL type id of BotsCheckUsernameRequest.
-const BotsCheckUsernameRequestTypeID = 0x87f2219b
+const BotsCheckUsernameRequestTypeID = 0xe3ac4c61
 
 // Ensuring interfaces in compile-time for BotsCheckUsernameRequest.
 var (
@@ -53,6 +57,12 @@ var (
 func (c *BotsCheckUsernameRequest) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Additional == false) {
+		return false
 	}
 	if !(c.Username == "") {
 		return false
@@ -72,8 +82,10 @@ func (c *BotsCheckUsernameRequest) String() string {
 
 // FillFrom fills BotsCheckUsernameRequest from given interface.
 func (c *BotsCheckUsernameRequest) FillFrom(from interface {
+	GetAdditional() (value bool)
 	GetUsername() (value string)
 }) {
+	c.Additional = from.GetAdditional()
 	c.Username = from.GetUsername()
 }
 
@@ -101,6 +113,11 @@ func (c *BotsCheckUsernameRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Additional",
+			SchemaName: "additional",
+			Null:       !c.Flags.Has(0),
+		},
+		{
 			Name:       "Username",
 			SchemaName: "username",
 		},
@@ -108,10 +125,17 @@ func (c *BotsCheckUsernameRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *BotsCheckUsernameRequest) SetFlags() {
+	if !(c.Additional == false) {
+		c.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *BotsCheckUsernameRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode bots.checkUsername#87f2219b as nil")
+		return fmt.Errorf("can't encode bots.checkUsername#e3ac4c61 as nil")
 	}
 	b.PutID(BotsCheckUsernameRequestTypeID)
 	return c.EncodeBare(b)
@@ -120,7 +144,11 @@ func (c *BotsCheckUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *BotsCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode bots.checkUsername#87f2219b as nil")
+		return fmt.Errorf("can't encode bots.checkUsername#e3ac4c61 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode bots.checkUsername#e3ac4c61: field flags: %w", err)
 	}
 	b.PutString(c.Username)
 	return nil
@@ -129,10 +157,10 @@ func (c *BotsCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *BotsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode bots.checkUsername#87f2219b to nil")
+		return fmt.Errorf("can't decode bots.checkUsername#e3ac4c61 to nil")
 	}
 	if err := b.ConsumeID(BotsCheckUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.checkUsername#87f2219b: %w", err)
+		return fmt.Errorf("unable to decode bots.checkUsername#e3ac4c61: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -140,16 +168,41 @@ func (c *BotsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *BotsCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode bots.checkUsername#87f2219b to nil")
+		return fmt.Errorf("can't decode bots.checkUsername#e3ac4c61 to nil")
 	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode bots.checkUsername#e3ac4c61: field flags: %w", err)
+		}
+	}
+	c.Additional = c.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.checkUsername#87f2219b: field username: %w", err)
+			return fmt.Errorf("unable to decode bots.checkUsername#e3ac4c61: field username: %w", err)
 		}
 		c.Username = value
 	}
 	return nil
+}
+
+// SetAdditional sets value of Additional conditional field.
+func (c *BotsCheckUsernameRequest) SetAdditional(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Additional = true
+	} else {
+		c.Flags.Unset(0)
+		c.Additional = false
+	}
+}
+
+// GetAdditional returns value of Additional conditional field.
+func (c *BotsCheckUsernameRequest) GetAdditional() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(0)
 }
 
 // GetUsername returns value of Username field.
@@ -160,15 +213,12 @@ func (c *BotsCheckUsernameRequest) GetUsername() (value string) {
 	return c.Username
 }
 
-// BotsCheckUsername invokes method bots.checkUsername#87f2219b returning error if any.
+// BotsCheckUsername invokes method bots.checkUsername#e3ac4c61 returning error if any.
 //
 // See https://core.telegram.org/method/bots.checkUsername for reference.
-func (c *Client) BotsCheckUsername(ctx context.Context, username string) (bool, error) {
+func (c *Client) BotsCheckUsername(ctx context.Context, request *BotsCheckUsernameRequest) (bool, error) {
 	var result BoolBox
 
-	request := &BotsCheckUsernameRequest{
-		Username: username,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

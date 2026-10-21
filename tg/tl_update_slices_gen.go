@@ -2027,6 +2027,71 @@ func (s UpdateClassArray) AsUpdateBotStarsSubscription() (to UpdateBotStarsSubsc
 	return to
 }
 
+// AsUpdateWalletState returns copy with only UpdateWalletState constructors.
+func (s UpdateClassArray) AsUpdateWalletState() (to UpdateWalletStateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWalletState)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateSentWalletTransaction returns copy with only UpdateSentWalletTransaction constructors.
+func (s UpdateClassArray) AsUpdateSentWalletTransaction() (to UpdateSentWalletTransactionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateSentWalletTransaction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateWalletGaslessInfo returns copy with only UpdateWalletGaslessInfo constructors.
+func (s UpdateClassArray) AsUpdateWalletGaslessInfo() (to UpdateWalletGaslessInfoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWalletGaslessInfo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateWalletTonConnectSession returns copy with only UpdateWalletTonConnectSession constructors.
+func (s UpdateClassArray) AsUpdateWalletTonConnectSession() (to UpdateWalletTonConnectSessionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWalletTonConnectSession)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateWalletTonConnectPendingDisconnect returns copy with only UpdateWalletTonConnectPendingDisconnect constructors.
+func (s UpdateClassArray) AsUpdateWalletTonConnectPendingDisconnect() (to UpdateWalletTonConnectPendingDisconnectArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWalletTonConnectPendingDisconnect)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -14335,6 +14400,416 @@ func (s *UpdateBotStarsSubscriptionArray) PopFirst() (v UpdateBotStarsSubscripti
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateBotStarsSubscriptionArray) Pop() (v UpdateBotStarsSubscription, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWalletStateArray is adapter for slice of UpdateWalletState.
+type UpdateWalletStateArray []UpdateWalletState
+
+// Sort sorts slice of UpdateWalletState.
+func (s UpdateWalletStateArray) Sort(less func(a, b UpdateWalletState) bool) UpdateWalletStateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWalletState.
+func (s UpdateWalletStateArray) SortStable(less func(a, b UpdateWalletState) bool) UpdateWalletStateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWalletState.
+func (s UpdateWalletStateArray) Retain(keep func(x UpdateWalletState) bool) UpdateWalletStateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWalletStateArray) First() (v UpdateWalletState, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWalletStateArray) Last() (v UpdateWalletState, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWalletStateArray) PopFirst() (v UpdateWalletState, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWalletState
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWalletStateArray) Pop() (v UpdateWalletState, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateSentWalletTransactionArray is adapter for slice of UpdateSentWalletTransaction.
+type UpdateSentWalletTransactionArray []UpdateSentWalletTransaction
+
+// Sort sorts slice of UpdateSentWalletTransaction.
+func (s UpdateSentWalletTransactionArray) Sort(less func(a, b UpdateSentWalletTransaction) bool) UpdateSentWalletTransactionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateSentWalletTransaction.
+func (s UpdateSentWalletTransactionArray) SortStable(less func(a, b UpdateSentWalletTransaction) bool) UpdateSentWalletTransactionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateSentWalletTransaction.
+func (s UpdateSentWalletTransactionArray) Retain(keep func(x UpdateSentWalletTransaction) bool) UpdateSentWalletTransactionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateSentWalletTransactionArray) First() (v UpdateSentWalletTransaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateSentWalletTransactionArray) Last() (v UpdateSentWalletTransaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateSentWalletTransactionArray) PopFirst() (v UpdateSentWalletTransaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateSentWalletTransaction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateSentWalletTransactionArray) Pop() (v UpdateSentWalletTransaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWalletGaslessInfoArray is adapter for slice of UpdateWalletGaslessInfo.
+type UpdateWalletGaslessInfoArray []UpdateWalletGaslessInfo
+
+// Sort sorts slice of UpdateWalletGaslessInfo.
+func (s UpdateWalletGaslessInfoArray) Sort(less func(a, b UpdateWalletGaslessInfo) bool) UpdateWalletGaslessInfoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWalletGaslessInfo.
+func (s UpdateWalletGaslessInfoArray) SortStable(less func(a, b UpdateWalletGaslessInfo) bool) UpdateWalletGaslessInfoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWalletGaslessInfo.
+func (s UpdateWalletGaslessInfoArray) Retain(keep func(x UpdateWalletGaslessInfo) bool) UpdateWalletGaslessInfoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWalletGaslessInfoArray) First() (v UpdateWalletGaslessInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWalletGaslessInfoArray) Last() (v UpdateWalletGaslessInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWalletGaslessInfoArray) PopFirst() (v UpdateWalletGaslessInfo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWalletGaslessInfo
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWalletGaslessInfoArray) Pop() (v UpdateWalletGaslessInfo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWalletTonConnectSessionArray is adapter for slice of UpdateWalletTonConnectSession.
+type UpdateWalletTonConnectSessionArray []UpdateWalletTonConnectSession
+
+// Sort sorts slice of UpdateWalletTonConnectSession.
+func (s UpdateWalletTonConnectSessionArray) Sort(less func(a, b UpdateWalletTonConnectSession) bool) UpdateWalletTonConnectSessionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWalletTonConnectSession.
+func (s UpdateWalletTonConnectSessionArray) SortStable(less func(a, b UpdateWalletTonConnectSession) bool) UpdateWalletTonConnectSessionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWalletTonConnectSession.
+func (s UpdateWalletTonConnectSessionArray) Retain(keep func(x UpdateWalletTonConnectSession) bool) UpdateWalletTonConnectSessionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWalletTonConnectSessionArray) First() (v UpdateWalletTonConnectSession, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWalletTonConnectSessionArray) Last() (v UpdateWalletTonConnectSession, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWalletTonConnectSessionArray) PopFirst() (v UpdateWalletTonConnectSession, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWalletTonConnectSession
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWalletTonConnectSessionArray) Pop() (v UpdateWalletTonConnectSession, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWalletTonConnectPendingDisconnectArray is adapter for slice of UpdateWalletTonConnectPendingDisconnect.
+type UpdateWalletTonConnectPendingDisconnectArray []UpdateWalletTonConnectPendingDisconnect
+
+// Sort sorts slice of UpdateWalletTonConnectPendingDisconnect.
+func (s UpdateWalletTonConnectPendingDisconnectArray) Sort(less func(a, b UpdateWalletTonConnectPendingDisconnect) bool) UpdateWalletTonConnectPendingDisconnectArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWalletTonConnectPendingDisconnect.
+func (s UpdateWalletTonConnectPendingDisconnectArray) SortStable(less func(a, b UpdateWalletTonConnectPendingDisconnect) bool) UpdateWalletTonConnectPendingDisconnectArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWalletTonConnectPendingDisconnect.
+func (s UpdateWalletTonConnectPendingDisconnectArray) Retain(keep func(x UpdateWalletTonConnectPendingDisconnect) bool) UpdateWalletTonConnectPendingDisconnectArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWalletTonConnectPendingDisconnectArray) First() (v UpdateWalletTonConnectPendingDisconnect, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWalletTonConnectPendingDisconnectArray) Last() (v UpdateWalletTonConnectPendingDisconnect, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWalletTonConnectPendingDisconnectArray) PopFirst() (v UpdateWalletTonConnectPendingDisconnect, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWalletTonConnectPendingDisconnect
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWalletTonConnectPendingDisconnectArray) Pop() (v UpdateWalletTonConnectPendingDisconnect, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

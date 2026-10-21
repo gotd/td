@@ -506,6 +506,19 @@ func (s RichTextClassArray) AsTextButton() (to TextButtonArray) {
 	return to
 }
 
+// AsTextTonAddress returns copy with only TextTonAddress constructors.
+func (s RichTextClassArray) AsTextTonAddress() (to TextTonAddressArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextTonAddress)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // TextPlainArray is adapter for slice of TextPlain.
 type TextPlainArray []TextPlain
 
@@ -2968,6 +2981,88 @@ func (s *TextButtonArray) PopFirst() (v TextButton, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *TextButtonArray) Pop() (v TextButton, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextTonAddressArray is adapter for slice of TextTonAddress.
+type TextTonAddressArray []TextTonAddress
+
+// Sort sorts slice of TextTonAddress.
+func (s TextTonAddressArray) Sort(less func(a, b TextTonAddress) bool) TextTonAddressArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextTonAddress.
+func (s TextTonAddressArray) SortStable(less func(a, b TextTonAddress) bool) TextTonAddressArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextTonAddress.
+func (s TextTonAddressArray) Retain(keep func(x TextTonAddress) bool) TextTonAddressArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextTonAddressArray) First() (v TextTonAddress, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextTonAddressArray) Last() (v TextTonAddress, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextTonAddressArray) PopFirst() (v TextTonAddress, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextTonAddress
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextTonAddressArray) Pop() (v TextTonAddress, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

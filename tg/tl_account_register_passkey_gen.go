@@ -41,7 +41,7 @@ var (
 // See https://core.telegram.org/method/account.registerPasskey for reference.
 type AccountRegisterPasskeyRequest struct {
 	// Registration result.
-	Credential InputPasskeyCredentialClass
+	Credential InputPasskeyCredentialPublicKey
 }
 
 // AccountRegisterPasskeyRequestTypeID is TL type id of AccountRegisterPasskeyRequest.
@@ -59,7 +59,7 @@ func (r *AccountRegisterPasskeyRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
-	if !(r.Credential == nil) {
+	if !(r.Credential.Zero()) {
 		return false
 	}
 
@@ -77,7 +77,7 @@ func (r *AccountRegisterPasskeyRequest) String() string {
 
 // FillFrom fills AccountRegisterPasskeyRequest from given interface.
 func (r *AccountRegisterPasskeyRequest) FillFrom(from interface {
-	GetCredential() (value InputPasskeyCredentialClass)
+	GetCredential() (value InputPasskeyCredentialPublicKey)
 }) {
 	r.Credential = from.GetCredential()
 }
@@ -127,9 +127,6 @@ func (r *AccountRegisterPasskeyRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode account.registerPasskey#55b41fd6 as nil")
 	}
-	if r.Credential == nil {
-		return fmt.Errorf("unable to encode account.registerPasskey#55b41fd6: field credential is nil")
-	}
 	if err := r.Credential.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.registerPasskey#55b41fd6: field credential: %w", err)
 	}
@@ -153,17 +150,15 @@ func (r *AccountRegisterPasskeyRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode account.registerPasskey#55b41fd6 to nil")
 	}
 	{
-		value, err := DecodeInputPasskeyCredential(b)
-		if err != nil {
+		if err := r.Credential.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.registerPasskey#55b41fd6: field credential: %w", err)
 		}
-		r.Credential = value
 	}
 	return nil
 }
 
 // GetCredential returns value of Credential field.
-func (r *AccountRegisterPasskeyRequest) GetCredential() (value InputPasskeyCredentialClass) {
+func (r *AccountRegisterPasskeyRequest) GetCredential() (value InputPasskeyCredentialPublicKey) {
 	if r == nil {
 		return
 	}
@@ -182,7 +177,7 @@ func (r *AccountRegisterPasskeyRequest) GetCredential() (value InputPasskeyCrede
 //	400 CREDENTIAL_INVALID:
 //
 // See https://core.telegram.org/method/account.registerPasskey for reference.
-func (c *Client) AccountRegisterPasskey(ctx context.Context, credential InputPasskeyCredentialClass) (*Passkey, error) {
+func (c *Client) AccountRegisterPasskey(ctx context.Context, credential InputPasskeyCredentialPublicKey) (*Passkey, error) {
 	var result Passkey
 
 	request := &AccountRegisterPasskeyRequest{

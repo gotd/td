@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotVerifierSettings represents TL type `botVerifierSettings#b0cd6617`.
+// BotVerifierSettings represents TL type `botVerifierSettings#a12aefff`.
 // Info about the current verifier bot »¹.
 //
 // Links:
@@ -54,11 +54,11 @@ type BotVerifierSettings struct {
 	// An optional default description for the verification
 	//
 	// Use SetCustomDescription and GetCustomDescription helpers.
-	CustomDescription string
+	CustomDescription TextWithEntities
 }
 
 // BotVerifierSettingsTypeID is TL type id of BotVerifierSettings.
-const BotVerifierSettingsTypeID = 0xb0cd6617
+const BotVerifierSettingsTypeID = 0xa12aefff
 
 // Ensuring interfaces in compile-time for BotVerifierSettings.
 var (
@@ -84,7 +84,7 @@ func (b *BotVerifierSettings) Zero() bool {
 	if !(b.Company == "") {
 		return false
 	}
-	if !(b.CustomDescription == "") {
+	if !(b.CustomDescription.Zero()) {
 		return false
 	}
 
@@ -105,7 +105,7 @@ func (b *BotVerifierSettings) FillFrom(from interface {
 	GetCanModifyCustomDescription() (value bool)
 	GetIcon() (value int64)
 	GetCompany() (value string)
-	GetCustomDescription() (value string, ok bool)
+	GetCustomDescription() (value TextWithEntities, ok bool)
 }) {
 	b.CanModifyCustomDescription = from.GetCanModifyCustomDescription()
 	b.Icon = from.GetIcon()
@@ -166,7 +166,7 @@ func (b *BotVerifierSettings) SetFlags() {
 	if !(b.CanModifyCustomDescription == false) {
 		b.Flags.Set(1)
 	}
-	if !(b.CustomDescription == "") {
+	if !(b.CustomDescription.Zero()) {
 		b.Flags.Set(0)
 	}
 }
@@ -174,7 +174,7 @@ func (b *BotVerifierSettings) SetFlags() {
 // Encode implements bin.Encoder.
 func (b *BotVerifierSettings) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botVerifierSettings#b0cd6617 as nil")
+		return fmt.Errorf("can't encode botVerifierSettings#a12aefff as nil")
 	}
 	buf.PutID(BotVerifierSettingsTypeID)
 	return b.EncodeBare(buf)
@@ -183,16 +183,18 @@ func (b *BotVerifierSettings) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotVerifierSettings) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botVerifierSettings#b0cd6617 as nil")
+		return fmt.Errorf("can't encode botVerifierSettings#a12aefff as nil")
 	}
 	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botVerifierSettings#b0cd6617: field flags: %w", err)
+		return fmt.Errorf("unable to encode botVerifierSettings#a12aefff: field flags: %w", err)
 	}
 	buf.PutLong(b.Icon)
 	buf.PutString(b.Company)
 	if b.Flags.Has(0) {
-		buf.PutString(b.CustomDescription)
+		if err := b.CustomDescription.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botVerifierSettings#a12aefff: field custom_description: %w", err)
+		}
 	}
 	return nil
 }
@@ -200,10 +202,10 @@ func (b *BotVerifierSettings) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotVerifierSettings) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botVerifierSettings#b0cd6617 to nil")
+		return fmt.Errorf("can't decode botVerifierSettings#a12aefff to nil")
 	}
 	if err := buf.ConsumeID(BotVerifierSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode botVerifierSettings#b0cd6617: %w", err)
+		return fmt.Errorf("unable to decode botVerifierSettings#a12aefff: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -211,34 +213,32 @@ func (b *BotVerifierSettings) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotVerifierSettings) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botVerifierSettings#b0cd6617 to nil")
+		return fmt.Errorf("can't decode botVerifierSettings#a12aefff to nil")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botVerifierSettings#b0cd6617: field flags: %w", err)
+			return fmt.Errorf("unable to decode botVerifierSettings#a12aefff: field flags: %w", err)
 		}
 	}
 	b.CanModifyCustomDescription = b.Flags.Has(1)
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botVerifierSettings#b0cd6617: field icon: %w", err)
+			return fmt.Errorf("unable to decode botVerifierSettings#a12aefff: field icon: %w", err)
 		}
 		b.Icon = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botVerifierSettings#b0cd6617: field company: %w", err)
+			return fmt.Errorf("unable to decode botVerifierSettings#a12aefff: field company: %w", err)
 		}
 		b.Company = value
 	}
 	if b.Flags.Has(0) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botVerifierSettings#b0cd6617: field custom_description: %w", err)
+		if err := b.CustomDescription.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botVerifierSettings#a12aefff: field custom_description: %w", err)
 		}
-		b.CustomDescription = value
 	}
 	return nil
 }
@@ -279,14 +279,14 @@ func (b *BotVerifierSettings) GetCompany() (value string) {
 }
 
 // SetCustomDescription sets value of CustomDescription conditional field.
-func (b *BotVerifierSettings) SetCustomDescription(value string) {
+func (b *BotVerifierSettings) SetCustomDescription(value TextWithEntities) {
 	b.Flags.Set(0)
 	b.CustomDescription = value
 }
 
 // GetCustomDescription returns value of CustomDescription conditional field and
 // boolean which is true if field was set.
-func (b *BotVerifierSettings) GetCustomDescription() (value string, ok bool) {
+func (b *BotVerifierSettings) GetCustomDescription() (value TextWithEntities, ok bool) {
 	if b == nil {
 		return
 	}

@@ -480,3 +480,22 @@ func DiffDelete() Formatter {
 func (b *Builder) DiffDelete(s string) *Builder {
 	return b.Format(s, DiffDelete())
 }
+
+// TonAddress creates Formatter of TonAddress message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityTonAddress.
+func TonAddress() Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityTonAddress{
+			Offset: offset,
+			Length: length,
+		}
+	}
+}
+
+// TonAddress adds and formats message as TonAddress message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityTonAddress.
+func (b *Builder) TonAddress(s string) *Builder {
+	return b.Format(s, TonAddress())
+}

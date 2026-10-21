@@ -4752,6 +4752,167 @@ func (m *MessageEntityDiffDelete) GetLength() (value int) {
 	return m.Length
 }
 
+// MessageEntityTonAddress represents TL type `messageEntityTonAddress#fdabbfcd`.
+//
+// See https://core.telegram.org/constructor/messageEntityTonAddress for reference.
+type MessageEntityTonAddress struct {
+	// Offset field of MessageEntityTonAddress.
+	Offset int
+	// Length field of MessageEntityTonAddress.
+	Length int
+}
+
+// MessageEntityTonAddressTypeID is TL type id of MessageEntityTonAddress.
+const MessageEntityTonAddressTypeID = 0xfdabbfcd
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityTonAddress) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityTonAddress.
+var (
+	_ bin.Encoder     = &MessageEntityTonAddress{}
+	_ bin.Decoder     = &MessageEntityTonAddress{}
+	_ bin.BareEncoder = &MessageEntityTonAddress{}
+	_ bin.BareDecoder = &MessageEntityTonAddress{}
+
+	_ MessageEntityClass = &MessageEntityTonAddress{}
+)
+
+func (m *MessageEntityTonAddress) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityTonAddress) String() string {
+	if m == nil {
+		return "MessageEntityTonAddress(nil)"
+	}
+	type Alias MessageEntityTonAddress
+	return fmt.Sprintf("MessageEntityTonAddress%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityTonAddress from given interface.
+func (m *MessageEntityTonAddress) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityTonAddress) TypeID() uint32 {
+	return MessageEntityTonAddressTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityTonAddress) TypeName() string {
+	return "messageEntityTonAddress"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityTonAddress) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityTonAddress",
+		ID:   MessageEntityTonAddressTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityTonAddress) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityTonAddress#fdabbfcd as nil")
+	}
+	b.PutID(MessageEntityTonAddressTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityTonAddress) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityTonAddress#fdabbfcd as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityTonAddress) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityTonAddress#fdabbfcd to nil")
+	}
+	if err := b.ConsumeID(MessageEntityTonAddressTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityTonAddress#fdabbfcd: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityTonAddress) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityTonAddress#fdabbfcd to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityTonAddress#fdabbfcd: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityTonAddress#fdabbfcd: field length: %w", err)
+		}
+		m.Length = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityTonAddress) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityTonAddress) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
 // MessageEntityClassName is schema name of MessageEntityClass.
 const MessageEntityClassName = "MessageEntity"
 
@@ -4785,6 +4946,7 @@ const MessageEntityClassName = "MessageEntity"
 //   - [MessageEntityDiffInsert]
 //   - [MessageEntityDiffReplace]
 //   - [MessageEntityDiffDelete]
+//   - [MessageEntityTonAddress]
 //
 // Example:
 //
@@ -4818,6 +4980,7 @@ const MessageEntityClassName = "MessageEntity"
 //	case *tg.MessageEntityDiffInsert: // messageEntityDiffInsert#71777116
 //	case *tg.MessageEntityDiffReplace: // messageEntityDiffReplace#c6c1e5a7
 //	case *tg.MessageEntityDiffDelete: // messageEntityDiffDelete#652c1c5
+//	case *tg.MessageEntityTonAddress: // messageEntityTonAddress#fdabbfcd
 //	default: panic(v)
 //	}
 type MessageEntityClass interface {
@@ -5029,6 +5192,13 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 	case MessageEntityDiffDeleteTypeID:
 		// Decoding messageEntityDiffDelete#652c1c5.
 		v := MessageEntityDiffDelete{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityTonAddressTypeID:
+		// Decoding messageEntityTonAddress#fdabbfcd.
+		v := MessageEntityTonAddress{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}

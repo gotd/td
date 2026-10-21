@@ -251,3 +251,13 @@ func DiffDelete(s string) StyledTextOption {
 		return nil
 	})
 }
+
+// TonAddress formats text as TonAddress entity.
+//
+// See https://core.telegram.org/constructor/messageEntityTonAddress.
+func TonAddress(s string) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.TonAddress(s)
+		return nil
+	})
+}
