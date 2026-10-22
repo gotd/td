@@ -31,10 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AuthInitFirebasePnvLoginRequest represents TL type `auth.initFirebasePnvLogin#777df37a`.
+// AuthInitFirebasePnvLoginRequest represents TL type `auth.initFirebasePnvLogin#644f15c0`.
 //
 // See https://core.telegram.org/method/auth.initFirebasePnvLogin for reference.
 type AuthInitFirebasePnvLoginRequest struct {
+	// Flags field of AuthInitFirebasePnvLoginRequest.
+	Flags bin.Fields
+	// ExceptIDs field of AuthInitFirebasePnvLoginRequest.
+	//
+	// Use SetExceptIDs and GetExceptIDs helpers.
+	ExceptIDs []int64
 	// APIID field of AuthInitFirebasePnvLoginRequest.
 	APIID int
 	// APIHash field of AuthInitFirebasePnvLoginRequest.
@@ -42,7 +48,7 @@ type AuthInitFirebasePnvLoginRequest struct {
 }
 
 // AuthInitFirebasePnvLoginRequestTypeID is TL type id of AuthInitFirebasePnvLoginRequest.
-const AuthInitFirebasePnvLoginRequestTypeID = 0x777df37a
+const AuthInitFirebasePnvLoginRequestTypeID = 0x644f15c0
 
 // Ensuring interfaces in compile-time for AuthInitFirebasePnvLoginRequest.
 var (
@@ -55,6 +61,12 @@ var (
 func (i *AuthInitFirebasePnvLoginRequest) Zero() bool {
 	if i == nil {
 		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ExceptIDs == nil) {
+		return false
 	}
 	if !(i.APIID == 0) {
 		return false
@@ -77,9 +89,14 @@ func (i *AuthInitFirebasePnvLoginRequest) String() string {
 
 // FillFrom fills AuthInitFirebasePnvLoginRequest from given interface.
 func (i *AuthInitFirebasePnvLoginRequest) FillFrom(from interface {
+	GetExceptIDs() (value []int64, ok bool)
 	GetAPIID() (value int)
 	GetAPIHash() (value string)
 }) {
+	if val, ok := from.GetExceptIDs(); ok {
+		i.ExceptIDs = val
+	}
+
 	i.APIID = from.GetAPIID()
 	i.APIHash = from.GetAPIHash()
 }
@@ -108,6 +125,11 @@ func (i *AuthInitFirebasePnvLoginRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ExceptIDs",
+			SchemaName: "except_ids",
+			Null:       !i.Flags.Has(0),
+		},
+		{
 			Name:       "APIID",
 			SchemaName: "api_id",
 		},
@@ -119,10 +141,17 @@ func (i *AuthInitFirebasePnvLoginRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *AuthInitFirebasePnvLoginRequest) SetFlags() {
+	if !(i.ExceptIDs == nil) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *AuthInitFirebasePnvLoginRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode auth.initFirebasePnvLogin#777df37a as nil")
+		return fmt.Errorf("can't encode auth.initFirebasePnvLogin#644f15c0 as nil")
 	}
 	b.PutID(AuthInitFirebasePnvLoginRequestTypeID)
 	return i.EncodeBare(b)
@@ -131,7 +160,17 @@ func (i *AuthInitFirebasePnvLoginRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AuthInitFirebasePnvLoginRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode auth.initFirebasePnvLogin#777df37a as nil")
+		return fmt.Errorf("can't encode auth.initFirebasePnvLogin#644f15c0 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.initFirebasePnvLogin#644f15c0: field flags: %w", err)
+	}
+	if i.Flags.Has(0) {
+		b.PutVectorHeader(len(i.ExceptIDs))
+		for _, v := range i.ExceptIDs {
+			b.PutLong(v)
+		}
 	}
 	b.PutInt(i.APIID)
 	b.PutString(i.APIHash)
@@ -141,10 +180,10 @@ func (i *AuthInitFirebasePnvLoginRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *AuthInitFirebasePnvLoginRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode auth.initFirebasePnvLogin#777df37a to nil")
+		return fmt.Errorf("can't decode auth.initFirebasePnvLogin#644f15c0 to nil")
 	}
 	if err := b.ConsumeID(AuthInitFirebasePnvLoginRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#777df37a: %w", err)
+		return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#644f15c0: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -152,23 +191,63 @@ func (i *AuthInitFirebasePnvLoginRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AuthInitFirebasePnvLoginRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode auth.initFirebasePnvLogin#777df37a to nil")
+		return fmt.Errorf("can't decode auth.initFirebasePnvLogin#644f15c0 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#644f15c0: field flags: %w", err)
+		}
+	}
+	if i.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#644f15c0: field except_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.ExceptIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#644f15c0: field except_ids: %w", err)
+			}
+			i.ExceptIDs = append(i.ExceptIDs, value)
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#777df37a: field api_id: %w", err)
+			return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#644f15c0: field api_id: %w", err)
 		}
 		i.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#777df37a: field api_hash: %w", err)
+			return fmt.Errorf("unable to decode auth.initFirebasePnvLogin#644f15c0: field api_hash: %w", err)
 		}
 		i.APIHash = value
 	}
 	return nil
+}
+
+// SetExceptIDs sets value of ExceptIDs conditional field.
+func (i *AuthInitFirebasePnvLoginRequest) SetExceptIDs(value []int64) {
+	i.Flags.Set(0)
+	i.ExceptIDs = value
+}
+
+// GetExceptIDs returns value of ExceptIDs conditional field and
+// boolean which is true if field was set.
+func (i *AuthInitFirebasePnvLoginRequest) GetExceptIDs() (value []int64, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.ExceptIDs, true
 }
 
 // GetAPIID returns value of APIID field.
@@ -187,7 +266,7 @@ func (i *AuthInitFirebasePnvLoginRequest) GetAPIHash() (value string) {
 	return i.APIHash
 }
 
-// AuthInitFirebasePnvLogin invokes method auth.initFirebasePnvLogin#777df37a returning error if any.
+// AuthInitFirebasePnvLogin invokes method auth.initFirebasePnvLogin#644f15c0 returning error if any.
 //
 // See https://core.telegram.org/method/auth.initFirebasePnvLogin for reference.
 func (c *Client) AuthInitFirebasePnvLogin(ctx context.Context, request *AuthInitFirebasePnvLoginRequest) (*AuthFirebasePnvIntent, error) {

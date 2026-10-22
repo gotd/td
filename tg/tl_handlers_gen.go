@@ -1760,6 +1760,56 @@ func (u UpdateDispatcher) OnBotStarsSubscription(handler BotStarsSubscriptionHan
 	}
 }
 
+// WalletStateHandler is a WalletState event handler.
+type WalletStateHandler func(ctx context.Context, e Entities, update *UpdateWalletState) error
+
+// OnWalletState sets WalletState handler.
+func (u UpdateDispatcher) OnWalletState(handler WalletStateHandler) {
+	u.handlers[UpdateWalletStateTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateWalletState))
+	}
+}
+
+// SentWalletTransactionHandler is a SentWalletTransaction event handler.
+type SentWalletTransactionHandler func(ctx context.Context, e Entities, update *UpdateSentWalletTransaction) error
+
+// OnSentWalletTransaction sets SentWalletTransaction handler.
+func (u UpdateDispatcher) OnSentWalletTransaction(handler SentWalletTransactionHandler) {
+	u.handlers[UpdateSentWalletTransactionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSentWalletTransaction))
+	}
+}
+
+// WalletGaslessInfoHandler is a WalletGaslessInfo event handler.
+type WalletGaslessInfoHandler func(ctx context.Context, e Entities, update *UpdateWalletGaslessInfo) error
+
+// OnWalletGaslessInfo sets WalletGaslessInfo handler.
+func (u UpdateDispatcher) OnWalletGaslessInfo(handler WalletGaslessInfoHandler) {
+	u.handlers[UpdateWalletGaslessInfoTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateWalletGaslessInfo))
+	}
+}
+
+// WalletTonConnectSessionHandler is a WalletTonConnectSession event handler.
+type WalletTonConnectSessionHandler func(ctx context.Context, e Entities, update *UpdateWalletTonConnectSession) error
+
+// OnWalletTonConnectSession sets WalletTonConnectSession handler.
+func (u UpdateDispatcher) OnWalletTonConnectSession(handler WalletTonConnectSessionHandler) {
+	u.handlers[UpdateWalletTonConnectSessionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateWalletTonConnectSession))
+	}
+}
+
+// WalletTonConnectPendingDisconnectHandler is a WalletTonConnectPendingDisconnect event handler.
+type WalletTonConnectPendingDisconnectHandler func(ctx context.Context, e Entities, update *UpdateWalletTonConnectPendingDisconnect) error
+
+// OnWalletTonConnectPendingDisconnect sets WalletTonConnectPendingDisconnect handler.
+func (u UpdateDispatcher) OnWalletTonConnectPendingDisconnect(handler WalletTonConnectPendingDisconnectHandler) {
+	u.handlers[UpdateWalletTonConnectPendingDisconnectTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateWalletTonConnectPendingDisconnect))
+	}
+}
+
 // OnFallback sets fallback handler.
 func (u *UpdateDispatcher) OnFallback(handler Handler) {
 	u.fallback = handler

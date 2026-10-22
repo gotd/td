@@ -49,7 +49,7 @@ type AuthFinishPasskeyLoginRequest struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Passkey assertion result.
-	Credential InputPasskeyCredentialClass
+	Credential InputPasskeyCredentialPublicKey
 	// DC ID used for the initial auth.initPasskeyLogin¹ request; set only if the user's DC
 	// is different from the DC used for the initial auth.initPasskeyLogin².
 	//
@@ -88,7 +88,7 @@ func (f *AuthFinishPasskeyLoginRequest) Zero() bool {
 	if !(f.Flags.Zero()) {
 		return false
 	}
-	if !(f.Credential == nil) {
+	if !(f.Credential.Zero()) {
 		return false
 	}
 	if !(f.FromDCID == 0) {
@@ -112,7 +112,7 @@ func (f *AuthFinishPasskeyLoginRequest) String() string {
 
 // FillFrom fills AuthFinishPasskeyLoginRequest from given interface.
 func (f *AuthFinishPasskeyLoginRequest) FillFrom(from interface {
-	GetCredential() (value InputPasskeyCredentialClass)
+	GetCredential() (value InputPasskeyCredentialPublicKey)
 	GetFromDCID() (value int, ok bool)
 	GetFromAuthKeyID() (value int64, ok bool)
 }) {
@@ -196,9 +196,6 @@ func (f *AuthFinishPasskeyLoginRequest) EncodeBare(b *bin.Buffer) error {
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.finishPasskeyLogin#9857ad07: field flags: %w", err)
 	}
-	if f.Credential == nil {
-		return fmt.Errorf("unable to encode auth.finishPasskeyLogin#9857ad07: field credential is nil")
-	}
 	if err := f.Credential.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.finishPasskeyLogin#9857ad07: field credential: %w", err)
 	}
@@ -233,11 +230,9 @@ func (f *AuthFinishPasskeyLoginRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		value, err := DecodeInputPasskeyCredential(b)
-		if err != nil {
+		if err := f.Credential.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.finishPasskeyLogin#9857ad07: field credential: %w", err)
 		}
-		f.Credential = value
 	}
 	if f.Flags.Has(0) {
 		value, err := b.Int()
@@ -257,7 +252,7 @@ func (f *AuthFinishPasskeyLoginRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetCredential returns value of Credential field.
-func (f *AuthFinishPasskeyLoginRequest) GetCredential() (value InputPasskeyCredentialClass) {
+func (f *AuthFinishPasskeyLoginRequest) GetCredential() (value InputPasskeyCredentialPublicKey) {
 	if f == nil {
 		return
 	}

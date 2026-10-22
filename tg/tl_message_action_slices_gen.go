@@ -922,6 +922,32 @@ func (s MessageActionClassArray) AsMessageActionChatJoinedViaCommunity() (to Mes
 	return to
 }
 
+// AsMessageActionGramTransfer returns copy with only MessageActionGramTransfer constructors.
+func (s MessageActionClassArray) AsMessageActionGramTransfer() (to MessageActionGramTransferArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionGramTransfer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionWalletTonConnectRequest returns copy with only MessageActionWalletTonConnectRequest constructors.
+func (s MessageActionClassArray) AsMessageActionWalletTonConnectRequest() (to MessageActionWalletTonConnectRequestArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionWalletTonConnectRequest)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -5994,6 +6020,170 @@ func (s *MessageActionChatJoinedViaCommunityArray) PopFirst() (v MessageActionCh
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionChatJoinedViaCommunityArray) Pop() (v MessageActionChatJoinedViaCommunity, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionGramTransferArray is adapter for slice of MessageActionGramTransfer.
+type MessageActionGramTransferArray []MessageActionGramTransfer
+
+// Sort sorts slice of MessageActionGramTransfer.
+func (s MessageActionGramTransferArray) Sort(less func(a, b MessageActionGramTransfer) bool) MessageActionGramTransferArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionGramTransfer.
+func (s MessageActionGramTransferArray) SortStable(less func(a, b MessageActionGramTransfer) bool) MessageActionGramTransferArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionGramTransfer.
+func (s MessageActionGramTransferArray) Retain(keep func(x MessageActionGramTransfer) bool) MessageActionGramTransferArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionGramTransferArray) First() (v MessageActionGramTransfer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionGramTransferArray) Last() (v MessageActionGramTransfer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionGramTransferArray) PopFirst() (v MessageActionGramTransfer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionGramTransfer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionGramTransferArray) Pop() (v MessageActionGramTransfer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionWalletTonConnectRequestArray is adapter for slice of MessageActionWalletTonConnectRequest.
+type MessageActionWalletTonConnectRequestArray []MessageActionWalletTonConnectRequest
+
+// Sort sorts slice of MessageActionWalletTonConnectRequest.
+func (s MessageActionWalletTonConnectRequestArray) Sort(less func(a, b MessageActionWalletTonConnectRequest) bool) MessageActionWalletTonConnectRequestArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionWalletTonConnectRequest.
+func (s MessageActionWalletTonConnectRequestArray) SortStable(less func(a, b MessageActionWalletTonConnectRequest) bool) MessageActionWalletTonConnectRequestArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionWalletTonConnectRequest.
+func (s MessageActionWalletTonConnectRequestArray) Retain(keep func(x MessageActionWalletTonConnectRequest) bool) MessageActionWalletTonConnectRequestArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionWalletTonConnectRequestArray) First() (v MessageActionWalletTonConnectRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionWalletTonConnectRequestArray) Last() (v MessageActionWalletTonConnectRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionWalletTonConnectRequestArray) PopFirst() (v MessageActionWalletTonConnectRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionWalletTonConnectRequest
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionWalletTonConnectRequestArray) Pop() (v MessageActionWalletTonConnectRequest, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

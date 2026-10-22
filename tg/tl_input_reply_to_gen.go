@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputReplyToMessage represents TL type `inputReplyToMessage#3bd4b7c2`.
+// InputReplyToMessage represents TL type `inputReplyToMessage#75c1ad70`.
 // Reply to a message.
 //
 // See https://core.telegram.org/constructor/inputReplyToMessage for reference.
@@ -97,10 +97,14 @@ type InputReplyToMessage struct {
 	//
 	// Use SetPollOption and GetPollOption helpers.
 	PollOption []byte
+	// QuoteRich field of InputReplyToMessage.
+	//
+	// Use SetQuoteRich and GetQuoteRich helpers.
+	QuoteRich []RichTextClass
 }
 
 // InputReplyToMessageTypeID is TL type id of InputReplyToMessage.
-const InputReplyToMessageTypeID = 0x3bd4b7c2
+const InputReplyToMessageTypeID = 0x75c1ad70
 
 // construct implements constructor of InputReplyToClass.
 func (i InputReplyToMessage) construct() InputReplyToClass { return &i }
@@ -149,6 +153,9 @@ func (i *InputReplyToMessage) Zero() bool {
 	if !(i.PollOption == nil) {
 		return false
 	}
+	if !(i.QuoteRich == nil) {
+		return false
+	}
 
 	return true
 }
@@ -173,6 +180,7 @@ func (i *InputReplyToMessage) FillFrom(from interface {
 	GetMonoforumPeerID() (value InputPeerClass, ok bool)
 	GetTodoItemID() (value int, ok bool)
 	GetPollOption() (value []byte, ok bool)
+	GetQuoteRich() (value []RichTextClass, ok bool)
 }) {
 	i.ReplyToMsgID = from.GetReplyToMsgID()
 	if val, ok := from.GetTopMsgID(); ok {
@@ -205,6 +213,10 @@ func (i *InputReplyToMessage) FillFrom(from interface {
 
 	if val, ok := from.GetPollOption(); ok {
 		i.PollOption = val
+	}
+
+	if val, ok := from.GetQuoteRich(); ok {
+		i.QuoteRich = val
 	}
 
 }
@@ -276,6 +288,11 @@ func (i *InputReplyToMessage) TypeInfo() tdp.Type {
 			SchemaName: "poll_option",
 			Null:       !i.Flags.Has(7),
 		},
+		{
+			Name:       "QuoteRich",
+			SchemaName: "quote_rich",
+			Null:       !i.Flags.Has(8),
+		},
 	}
 	return typ
 }
@@ -306,12 +323,15 @@ func (i *InputReplyToMessage) SetFlags() {
 	if !(i.PollOption == nil) {
 		i.Flags.Set(7)
 	}
+	if !(i.QuoteRich == nil) {
+		i.Flags.Set(8)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputReplyToMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReplyToMessage#3bd4b7c2 as nil")
+		return fmt.Errorf("can't encode inputReplyToMessage#75c1ad70 as nil")
 	}
 	b.PutID(InputReplyToMessageTypeID)
 	return i.EncodeBare(b)
@@ -320,11 +340,11 @@ func (i *InputReplyToMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputReplyToMessage) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReplyToMessage#3bd4b7c2 as nil")
+		return fmt.Errorf("can't encode inputReplyToMessage#75c1ad70 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field flags: %w", err)
 	}
 	b.PutInt(i.ReplyToMsgID)
 	if i.Flags.Has(0) {
@@ -332,10 +352,10 @@ func (i *InputReplyToMessage) EncodeBare(b *bin.Buffer) error {
 	}
 	if i.Flags.Has(1) {
 		if i.ReplyToPeerID == nil {
-			return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field reply_to_peer_id is nil")
+			return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field reply_to_peer_id is nil")
 		}
 		if err := i.ReplyToPeerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field reply_to_peer_id: %w", err)
+			return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field reply_to_peer_id: %w", err)
 		}
 	}
 	if i.Flags.Has(2) {
@@ -345,10 +365,10 @@ func (i *InputReplyToMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(i.QuoteEntities))
 		for idx, v := range i.QuoteEntities {
 			if v == nil {
-				return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field quote_entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field quote_entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field quote_entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field quote_entities element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -357,10 +377,10 @@ func (i *InputReplyToMessage) EncodeBare(b *bin.Buffer) error {
 	}
 	if i.Flags.Has(5) {
 		if i.MonoforumPeerID == nil {
-			return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field monoforum_peer_id is nil")
+			return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field monoforum_peer_id is nil")
 		}
 		if err := i.MonoforumPeerID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputReplyToMessage#3bd4b7c2: field monoforum_peer_id: %w", err)
+			return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field monoforum_peer_id: %w", err)
 		}
 	}
 	if i.Flags.Has(6) {
@@ -369,16 +389,27 @@ func (i *InputReplyToMessage) EncodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(7) {
 		b.PutBytes(i.PollOption)
 	}
+	if i.Flags.Has(8) {
+		b.PutVectorHeader(len(i.QuoteRich))
+		for idx, v := range i.QuoteRich {
+			if v == nil {
+				return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field quote_rich element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode inputReplyToMessage#75c1ad70: field quote_rich element with index %d: %w", idx, err)
+			}
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputReplyToMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReplyToMessage#3bd4b7c2 to nil")
+		return fmt.Errorf("can't decode inputReplyToMessage#75c1ad70 to nil")
 	}
 	if err := b.ConsumeID(InputReplyToMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: %w", err)
+		return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -386,45 +417,45 @@ func (i *InputReplyToMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputReplyToMessage) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReplyToMessage#3bd4b7c2 to nil")
+		return fmt.Errorf("can't decode inputReplyToMessage#75c1ad70 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field reply_to_msg_id: %w", err)
 		}
 		i.ReplyToMsgID = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field top_msg_id: %w", err)
 		}
 		i.TopMsgID = value
 	}
 	if i.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field reply_to_peer_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field reply_to_peer_id: %w", err)
 		}
 		i.ReplyToPeerID = value
 	}
 	if i.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field quote_text: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field quote_text: %w", err)
 		}
 		i.QuoteText = value
 	}
 	if i.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field quote_entities: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field quote_entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -433,7 +464,7 @@ func (i *InputReplyToMessage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field quote_entities: %w", err)
+				return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field quote_entities: %w", err)
 			}
 			i.QuoteEntities = append(i.QuoteEntities, value)
 		}
@@ -441,30 +472,47 @@ func (i *InputReplyToMessage) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field quote_offset: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field quote_offset: %w", err)
 		}
 		i.QuoteOffset = value
 	}
 	if i.Flags.Has(5) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field monoforum_peer_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field monoforum_peer_id: %w", err)
 		}
 		i.MonoforumPeerID = value
 	}
 	if i.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field todo_item_id: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field todo_item_id: %w", err)
 		}
 		i.TodoItemID = value
 	}
 	if i.Flags.Has(7) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputReplyToMessage#3bd4b7c2: field poll_option: %w", err)
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field poll_option: %w", err)
 		}
 		i.PollOption = value
+	}
+	if i.Flags.Has(8) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field quote_rich: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.QuoteRich = make([]RichTextClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeRichText(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputReplyToMessage#75c1ad70: field quote_rich: %w", err)
+			}
+			i.QuoteRich = append(i.QuoteRich, value)
+		}
 	}
 	return nil
 }
@@ -621,12 +669,38 @@ func (i *InputReplyToMessage) GetPollOption() (value []byte, ok bool) {
 	return i.PollOption, true
 }
 
+// SetQuoteRich sets value of QuoteRich conditional field.
+func (i *InputReplyToMessage) SetQuoteRich(value []RichTextClass) {
+	i.Flags.Set(8)
+	i.QuoteRich = value
+}
+
+// GetQuoteRich returns value of QuoteRich conditional field and
+// boolean which is true if field was set.
+func (i *InputReplyToMessage) GetQuoteRich() (value []RichTextClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(8) {
+		return value, false
+	}
+	return i.QuoteRich, true
+}
+
 // MapQuoteEntities returns field QuoteEntities wrapped in MessageEntityClassArray helper.
 func (i *InputReplyToMessage) MapQuoteEntities() (value MessageEntityClassArray, ok bool) {
 	if !i.Flags.Has(3) {
 		return value, false
 	}
 	return MessageEntityClassArray(i.QuoteEntities), true
+}
+
+// MapQuoteRich returns field QuoteRich wrapped in RichTextClassArray helper.
+func (i *InputReplyToMessage) MapQuoteRich() (value RichTextClassArray, ok bool) {
+	if !i.Flags.Has(8) {
+		return value, false
+	}
+	return RichTextClassArray(i.QuoteRich), true
 }
 
 // InputReplyToStory represents TL type `inputReplyToStory#5881323a`.
@@ -1093,7 +1167,7 @@ const InputReplyToClassName = "InputReplyTo"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.InputReplyToMessage: // inputReplyToMessage#3bd4b7c2
+//	case *tg.InputReplyToMessage: // inputReplyToMessage#75c1ad70
 //	case *tg.InputReplyToStory: // inputReplyToStory#5881323a
 //	case *tg.InputReplyToMonoForum: // inputReplyToMonoForum#69d66c45
 //	case *tg.InputReplyToEphemeralMessage: // inputReplyToEphemeralMessage#4119b95e
@@ -1126,7 +1200,7 @@ func DecodeInputReplyTo(buf *bin.Buffer) (InputReplyToClass, error) {
 	}
 	switch id {
 	case InputReplyToMessageTypeID:
-		// Decoding inputReplyToMessage#3bd4b7c2.
+		// Decoding inputReplyToMessage#75c1ad70.
 		v := InputReplyToMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputReplyToClass: %w", err)

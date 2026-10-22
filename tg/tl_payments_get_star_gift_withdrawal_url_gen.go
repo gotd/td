@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetStarGiftWithdrawalURLRequest represents TL type `payments.getStarGiftWithdrawalUrl#d06e93a8`.
+// PaymentsGetStarGiftWithdrawalURLRequest represents TL type `payments.getStarGiftWithdrawalUrl#c8ca817b`.
 // Convert a collectible gift »¹ to an NFT on the TON blockchain.
 //
 // Links:
@@ -39,17 +39,16 @@ var (
 //
 // See https://core.telegram.org/method/payments.getStarGiftWithdrawalUrl for reference.
 type PaymentsGetStarGiftWithdrawalURLRequest struct {
+	// Flags field of PaymentsGetStarGiftWithdrawalURLRequest.
+	Flags bin.Fields
 	// The collectible gift to export.
 	Stargift InputSavedStarGiftClass
-	// The current user's 2FA password, passed as specified here »¹.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass
+	// TmpPassword field of PaymentsGetStarGiftWithdrawalURLRequest.
+	TmpPassword []byte
 }
 
 // PaymentsGetStarGiftWithdrawalURLRequestTypeID is TL type id of PaymentsGetStarGiftWithdrawalURLRequest.
-const PaymentsGetStarGiftWithdrawalURLRequestTypeID = 0xd06e93a8
+const PaymentsGetStarGiftWithdrawalURLRequestTypeID = 0xc8ca817b
 
 // Ensuring interfaces in compile-time for PaymentsGetStarGiftWithdrawalURLRequest.
 var (
@@ -63,10 +62,13 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
 	if !(g.Stargift == nil) {
 		return false
 	}
-	if !(g.Password == nil) {
+	if !(g.TmpPassword == nil) {
 		return false
 	}
 
@@ -85,10 +87,10 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) String() string {
 // FillFrom fills PaymentsGetStarGiftWithdrawalURLRequest from given interface.
 func (g *PaymentsGetStarGiftWithdrawalURLRequest) FillFrom(from interface {
 	GetStargift() (value InputSavedStarGiftClass)
-	GetPassword() (value InputCheckPasswordSRPClass)
+	GetTmpPassword() (value []byte)
 }) {
 	g.Stargift = from.GetStargift()
-	g.Password = from.GetPassword()
+	g.TmpPassword = from.GetTmpPassword()
 }
 
 // TypeID returns type id in TL schema.
@@ -119,17 +121,21 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) TypeInfo() tdp.Type {
 			SchemaName: "stargift",
 		},
 		{
-			Name:       "Password",
-			SchemaName: "password",
+			Name:       "TmpPassword",
+			SchemaName: "tmp_password",
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *PaymentsGetStarGiftWithdrawalURLRequest) SetFlags() {
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetStarGiftWithdrawalURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarGiftWithdrawalUrl#d06e93a8 as nil")
+		return fmt.Errorf("can't encode payments.getStarGiftWithdrawalUrl#c8ca817b as nil")
 	}
 	b.PutID(PaymentsGetStarGiftWithdrawalURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -138,30 +144,29 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetStarGiftWithdrawalURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getStarGiftWithdrawalUrl#d06e93a8 as nil")
+		return fmt.Errorf("can't encode payments.getStarGiftWithdrawalUrl#c8ca817b as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#c8ca817b: field flags: %w", err)
 	}
 	if g.Stargift == nil {
-		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#d06e93a8: field stargift is nil")
+		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#c8ca817b: field stargift is nil")
 	}
 	if err := g.Stargift.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#d06e93a8: field stargift: %w", err)
+		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#c8ca817b: field stargift: %w", err)
 	}
-	if g.Password == nil {
-		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#d06e93a8: field password is nil")
-	}
-	if err := g.Password.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getStarGiftWithdrawalUrl#d06e93a8: field password: %w", err)
-	}
+	b.PutBytes(g.TmpPassword)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *PaymentsGetStarGiftWithdrawalURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarGiftWithdrawalUrl#d06e93a8 to nil")
+		return fmt.Errorf("can't decode payments.getStarGiftWithdrawalUrl#c8ca817b to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetStarGiftWithdrawalURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#d06e93a8: %w", err)
+		return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#c8ca817b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -169,21 +174,26 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetStarGiftWithdrawalURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getStarGiftWithdrawalUrl#d06e93a8 to nil")
+		return fmt.Errorf("can't decode payments.getStarGiftWithdrawalUrl#c8ca817b to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#c8ca817b: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputSavedStarGift(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#d06e93a8: field stargift: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#c8ca817b: field stargift: %w", err)
 		}
 		g.Stargift = value
 	}
 	{
-		value, err := DecodeInputCheckPasswordSRP(b)
+		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#d06e93a8: field password: %w", err)
+			return fmt.Errorf("unable to decode payments.getStarGiftWithdrawalUrl#c8ca817b: field tmp_password: %w", err)
 		}
-		g.Password = value
+		g.TmpPassword = value
 	}
 	return nil
 }
@@ -196,20 +206,15 @@ func (g *PaymentsGetStarGiftWithdrawalURLRequest) GetStargift() (value InputSave
 	return g.Stargift
 }
 
-// GetPassword returns value of Password field.
-func (g *PaymentsGetStarGiftWithdrawalURLRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+// GetTmpPassword returns value of TmpPassword field.
+func (g *PaymentsGetStarGiftWithdrawalURLRequest) GetTmpPassword() (value []byte) {
 	if g == nil {
 		return
 	}
-	return g.Password
+	return g.TmpPassword
 }
 
-// GetPasswordAsNotEmpty returns mapped value of Password field.
-func (g *PaymentsGetStarGiftWithdrawalURLRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
-	return g.Password.AsNotEmpty()
-}
-
-// PaymentsGetStarGiftWithdrawalURL invokes method payments.getStarGiftWithdrawalUrl#d06e93a8 returning error if any.
+// PaymentsGetStarGiftWithdrawalURL invokes method payments.getStarGiftWithdrawalUrl#c8ca817b returning error if any.
 // Convert a collectible gift »¹ to an NFT on the TON blockchain.
 //
 // Links:

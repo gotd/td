@@ -48,6 +48,10 @@ type Username struct {
 	Editable bool
 	// Whether the username is active.
 	Active bool
+	// Deletable field of Username.
+	Deletable bool
+	// Expired field of Username.
+	Expired bool
 	// The username.
 	Username string
 }
@@ -76,6 +80,12 @@ func (u *Username) Zero() bool {
 	if !(u.Active == false) {
 		return false
 	}
+	if !(u.Deletable == false) {
+		return false
+	}
+	if !(u.Expired == false) {
+		return false
+	}
 	if !(u.Username == "") {
 		return false
 	}
@@ -96,10 +106,14 @@ func (u *Username) String() string {
 func (u *Username) FillFrom(from interface {
 	GetEditable() (value bool)
 	GetActive() (value bool)
+	GetDeletable() (value bool)
+	GetExpired() (value bool)
 	GetUsername() (value string)
 }) {
 	u.Editable = from.GetEditable()
 	u.Active = from.GetActive()
+	u.Deletable = from.GetDeletable()
+	u.Expired = from.GetExpired()
 	u.Username = from.GetUsername()
 }
 
@@ -137,6 +151,16 @@ func (u *Username) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(1),
 		},
 		{
+			Name:       "Deletable",
+			SchemaName: "deletable",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Expired",
+			SchemaName: "expired",
+			Null:       !u.Flags.Has(3),
+		},
+		{
 			Name:       "Username",
 			SchemaName: "username",
 		},
@@ -151,6 +175,12 @@ func (u *Username) SetFlags() {
 	}
 	if !(u.Active == false) {
 		u.Flags.Set(1)
+	}
+	if !(u.Deletable == false) {
+		u.Flags.Set(2)
+	}
+	if !(u.Expired == false) {
+		u.Flags.Set(3)
 	}
 }
 
@@ -199,6 +229,8 @@ func (u *Username) DecodeBare(b *bin.Buffer) error {
 	}
 	u.Editable = u.Flags.Has(0)
 	u.Active = u.Flags.Has(1)
+	u.Deletable = u.Flags.Has(2)
+	u.Expired = u.Flags.Has(3)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -245,6 +277,44 @@ func (u *Username) GetActive() (value bool) {
 		return
 	}
 	return u.Flags.Has(1)
+}
+
+// SetDeletable sets value of Deletable conditional field.
+func (u *Username) SetDeletable(value bool) {
+	if value {
+		u.Flags.Set(2)
+		u.Deletable = true
+	} else {
+		u.Flags.Unset(2)
+		u.Deletable = false
+	}
+}
+
+// GetDeletable returns value of Deletable conditional field.
+func (u *Username) GetDeletable() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(2)
+}
+
+// SetExpired sets value of Expired conditional field.
+func (u *Username) SetExpired(value bool) {
+	if value {
+		u.Flags.Set(3)
+		u.Expired = true
+	} else {
+		u.Flags.Unset(3)
+		u.Expired = false
+	}
+}
+
+// GetExpired returns value of Expired conditional field.
+func (u *Username) GetExpired() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(3)
 }
 
 // GetUsername returns value of Username field.

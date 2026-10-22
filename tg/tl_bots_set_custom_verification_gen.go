@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotsSetCustomVerificationRequest represents TL type `bots.setCustomVerification#8b89dfbd`.
+// BotsSetCustomVerificationRequest represents TL type `bots.setCustomVerification#f4946757`.
 // Verify a user or chat on behalf of an organization »¹.
 //
 // Links:
@@ -61,11 +61,11 @@ type BotsSetCustomVerificationRequest struct {
 	//  1) https://core.telegram.org/api/config#bot-verification-description-length-limit
 	//
 	// Use SetCustomDescription and GetCustomDescription helpers.
-	CustomDescription string
+	CustomDescription TextWithEntities
 }
 
 // BotsSetCustomVerificationRequestTypeID is TL type id of BotsSetCustomVerificationRequest.
-const BotsSetCustomVerificationRequestTypeID = 0x8b89dfbd
+const BotsSetCustomVerificationRequestTypeID = 0xf4946757
 
 // Ensuring interfaces in compile-time for BotsSetCustomVerificationRequest.
 var (
@@ -91,7 +91,7 @@ func (s *BotsSetCustomVerificationRequest) Zero() bool {
 	if !(s.Peer == nil) {
 		return false
 	}
-	if !(s.CustomDescription == "") {
+	if !(s.CustomDescription.Zero()) {
 		return false
 	}
 
@@ -112,7 +112,7 @@ func (s *BotsSetCustomVerificationRequest) FillFrom(from interface {
 	GetEnabled() (value bool)
 	GetBot() (value InputUserClass, ok bool)
 	GetPeer() (value InputPeerClass)
-	GetCustomDescription() (value string, ok bool)
+	GetCustomDescription() (value TextWithEntities, ok bool)
 }) {
 	s.Enabled = from.GetEnabled()
 	if val, ok := from.GetBot(); ok {
@@ -180,7 +180,7 @@ func (s *BotsSetCustomVerificationRequest) SetFlags() {
 	if !(s.Bot == nil) {
 		s.Flags.Set(0)
 	}
-	if !(s.CustomDescription == "") {
+	if !(s.CustomDescription.Zero()) {
 		s.Flags.Set(2)
 	}
 }
@@ -188,7 +188,7 @@ func (s *BotsSetCustomVerificationRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *BotsSetCustomVerificationRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setCustomVerification#8b89dfbd as nil")
+		return fmt.Errorf("can't encode bots.setCustomVerification#f4946757 as nil")
 	}
 	b.PutID(BotsSetCustomVerificationRequestTypeID)
 	return s.EncodeBare(b)
@@ -197,28 +197,30 @@ func (s *BotsSetCustomVerificationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *BotsSetCustomVerificationRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setCustomVerification#8b89dfbd as nil")
+		return fmt.Errorf("can't encode bots.setCustomVerification#f4946757 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.setCustomVerification#8b89dfbd: field flags: %w", err)
+		return fmt.Errorf("unable to encode bots.setCustomVerification#f4946757: field flags: %w", err)
 	}
 	if s.Flags.Has(0) {
 		if s.Bot == nil {
-			return fmt.Errorf("unable to encode bots.setCustomVerification#8b89dfbd: field bot is nil")
+			return fmt.Errorf("unable to encode bots.setCustomVerification#f4946757: field bot is nil")
 		}
 		if err := s.Bot.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode bots.setCustomVerification#8b89dfbd: field bot: %w", err)
+			return fmt.Errorf("unable to encode bots.setCustomVerification#f4946757: field bot: %w", err)
 		}
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode bots.setCustomVerification#8b89dfbd: field peer is nil")
+		return fmt.Errorf("unable to encode bots.setCustomVerification#f4946757: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.setCustomVerification#8b89dfbd: field peer: %w", err)
+		return fmt.Errorf("unable to encode bots.setCustomVerification#f4946757: field peer: %w", err)
 	}
 	if s.Flags.Has(2) {
-		b.PutString(s.CustomDescription)
+		if err := s.CustomDescription.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode bots.setCustomVerification#f4946757: field custom_description: %w", err)
+		}
 	}
 	return nil
 }
@@ -226,10 +228,10 @@ func (s *BotsSetCustomVerificationRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *BotsSetCustomVerificationRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setCustomVerification#8b89dfbd to nil")
+		return fmt.Errorf("can't decode bots.setCustomVerification#f4946757 to nil")
 	}
 	if err := b.ConsumeID(BotsSetCustomVerificationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.setCustomVerification#8b89dfbd: %w", err)
+		return fmt.Errorf("unable to decode bots.setCustomVerification#f4946757: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -237,34 +239,32 @@ func (s *BotsSetCustomVerificationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *BotsSetCustomVerificationRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setCustomVerification#8b89dfbd to nil")
+		return fmt.Errorf("can't decode bots.setCustomVerification#f4946757 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode bots.setCustomVerification#8b89dfbd: field flags: %w", err)
+			return fmt.Errorf("unable to decode bots.setCustomVerification#f4946757: field flags: %w", err)
 		}
 	}
 	s.Enabled = s.Flags.Has(1)
 	if s.Flags.Has(0) {
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setCustomVerification#8b89dfbd: field bot: %w", err)
+			return fmt.Errorf("unable to decode bots.setCustomVerification#f4946757: field bot: %w", err)
 		}
 		s.Bot = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setCustomVerification#8b89dfbd: field peer: %w", err)
+			return fmt.Errorf("unable to decode bots.setCustomVerification#f4946757: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode bots.setCustomVerification#8b89dfbd: field custom_description: %w", err)
+		if err := s.CustomDescription.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode bots.setCustomVerification#f4946757: field custom_description: %w", err)
 		}
-		s.CustomDescription = value
 	}
 	return nil
 }
@@ -315,14 +315,14 @@ func (s *BotsSetCustomVerificationRequest) GetPeer() (value InputPeerClass) {
 }
 
 // SetCustomDescription sets value of CustomDescription conditional field.
-func (s *BotsSetCustomVerificationRequest) SetCustomDescription(value string) {
+func (s *BotsSetCustomVerificationRequest) SetCustomDescription(value TextWithEntities) {
 	s.Flags.Set(2)
 	s.CustomDescription = value
 }
 
 // GetCustomDescription returns value of CustomDescription conditional field and
 // boolean which is true if field was set.
-func (s *BotsSetCustomVerificationRequest) GetCustomDescription() (value string, ok bool) {
+func (s *BotsSetCustomVerificationRequest) GetCustomDescription() (value TextWithEntities, ok bool) {
 	if s == nil {
 		return
 	}
@@ -332,7 +332,7 @@ func (s *BotsSetCustomVerificationRequest) GetCustomDescription() (value string,
 	return s.CustomDescription, true
 }
 
-// BotsSetCustomVerification invokes method bots.setCustomVerification#8b89dfbd returning error if any.
+// BotsSetCustomVerification invokes method bots.setCustomVerification#f4946757 returning error if any.
 // Verify a user or chat on behalf of an organization »¹.
 //
 // Links:
