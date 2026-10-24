@@ -34,6 +34,14 @@ type Options struct {
 	// DC ID to connect.
 	//
 	// If not provided, 2 will be used by default.
+	//
+	// This pins the initial handshake DC for a new client. It is not a
+	// substitute for Client.MigrateTo: after auth.exportLoginToken returns
+	// LoginTokenMigrateTo, the login token is bound to the current
+	// connection's auth key. Starting a second Client with Options.DC set
+	// to the target DC negotiates a new key, and auth.importLoginToken
+	// then fails with AUTH_TOKEN_EXPIRED. Use Client.QR() (which already
+	// passes MigrateTo) or call Client.MigrateTo on the same client.
 	DC int
 
 	// DCList is initial list of addresses to connect.

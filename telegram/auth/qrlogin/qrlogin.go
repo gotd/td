@@ -36,6 +36,12 @@ func NewQR(api *tg.Client, appID int, appHash string, opts Options) QR {
 
 // Export exports new login token.
 //
+// If Telegram returns LoginTokenMigrateTo, Export returns MigrationNeededError.
+// Callers must migrate the *same* telegram.Client (Client.MigrateTo) and then
+// auth.importLoginToken with the token. Do not start a new Client with
+// Options.DC: that creates a new auth key, and import fails with
+// AUTH_TOKEN_EXPIRED. Client.QR() already passes MigrateTo via Options.Migrate.
+//
 // See https://core.telegram.org/api/qr-login#exporting-a-login-token.
 func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
 	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
@@ -71,6 +77,34 @@ func (q QR) Accept(ctx context.Context, t Token) (*tg.Authorization, error) {
 	return AcceptQR(ctx, q.api, t)
 }
 
+// importMigrated switches the same client to t.DCID and imports t.Token.
+// Telegram binds the login token to the original auth key, so this must not
+// be implemented by opening a new Client with Options.DC.
+func (q QR) importMigrated(ctx context.Context, t *tg.AuthLoginTokenMigrateTo) (*tg.AuthAuthorization, error) {
+	if q.migrate == nil {
+		return nil, &MigrationNeededError{MigrateTo: t}
+	}
+	if err := q.migrate(ctx, t.DCID); err != nil {
+		return nil, errors.Wrap(err, "migrate")
+	}
+
+	res, err := q.api.AuthImportLoginToken(ctx, t.Token)
+	if err != nil {
+		return nil, errors.Wrap(err, "import")
+	}
+
+	success, ok := res.(*tg.AuthLoginTokenSuccess)
+	if !ok {
+		return nil, errors.Errorf("unexpected type %T", res)
+	}
+
+	auth, ok := success.Authorization.(*tg.AuthAuthorization)
+	if !ok {
+		return nil, errors.Errorf("unexpected type %T", success.Authorization)
+	}
+	return auth, nil
+}
+
 // Import imports accepted token.
 //
 // See https://core.telegram.org/api/qr-login#confirming-importing-the-login-token.
@@ -85,30 +119,7 @@ func (q QR) Import(ctx context.Context) (*tg.AuthAuthorization, error) {
 
 	switch t := result.(type) {
 	case *tg.AuthLoginTokenMigrateTo:
-		if q.migrate == nil {
-			return nil, &MigrationNeededError{
-				MigrateTo: t,
-			}
-		}
-		if err := q.migrate(ctx, t.DCID); err != nil {
-			return nil, errors.Wrap(err, "migrate")
-		}
-
-		res, err := q.api.AuthImportLoginToken(ctx, t.Token)
-		if err != nil {
-			return nil, errors.Wrap(err, "import")
-		}
-
-		success, ok := res.(*tg.AuthLoginTokenSuccess)
-		if !ok {
-			return nil, errors.Errorf("unexpected type %T", res)
-		}
-
-		auth, ok := success.Authorization.(*tg.AuthAuthorization)
-		if !ok {
-			return nil, errors.Errorf("unexpected type %T", success.Authorization)
-		}
-		return auth, nil
+		return q.importMigrated(ctx, t)
 	case *tg.AuthLoginTokenSuccess:
 		auth, ok := t.Authorization.(*tg.AuthAuthorization)
 		if !ok {
@@ -155,6 +166,13 @@ func (q QR) Auth(
 
 	token, err := q.Export(ctx, exceptIDs...)
 	if err != nil {
+		var mig *MigrationNeededError
+		if errors.As(err, &mig) {
+			// First export asked us to rotate DC. Stay on this client:
+			// migrate + importLoginToken. A new Client with Options.DC
+			// would AUTH_TOKEN_EXPIRED.
+			return q.importMigrated(ctx, mig.MigrateTo)
+		}
 		return nil, err
 	}
 
@@ -183,6 +201,10 @@ func (q QR) Auth(
 		case <-timer.C():
 			t, err := q.Export(ctx, exceptIDs...)
 			if err != nil {
+				var mig *MigrationNeededError
+				if errors.As(err, &mig) {
+					return q.importMigrated(ctx, mig.MigrateTo)
+				}
 				return nil, err
 			}
 
