@@ -101,6 +101,15 @@ type Conn struct {
 	pingTimeout time.Duration
 	// pingInterval is duration between ping_delay_disconnect request.
 	pingInterval time.Duration
+	// pingProgressAware selects progress-aware liveness. See Options.PingProgressAware.
+	pingProgressAware bool
+	// pingMaxWait bounds an unanswered ping while data keeps arriving.
+	// Zero disables the bound.
+	pingMaxWait time.Duration
+	// recvMessages counts successfully decrypted inbound messages.
+	recvMessages atomic.Uint64
+	// pongSeq is incremented on every received pong regardless of ping id.
+	pongSeq atomic.Uint64
 
 	// gotSession is a signal channel for wait for handleSessionCreated message.
 	gotSession *tdsync.Ready
@@ -154,6 +163,9 @@ func New(dialer Dialer, opt Options) *Conn {
 		ping:         map[int64]chan struct{}{},
 		pingTimeout:  opt.PingTimeout,
 		pingInterval: opt.PingInterval,
+
+		pingProgressAware: opt.PingProgressAware,
+		pingMaxWait:       opt.PingMaxWait,
 
 		gotSession: tdsync.NewReady(),
 

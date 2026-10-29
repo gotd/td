@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 
@@ -23,4 +24,17 @@ func TestOptionsLayer(t *testing.T) {
 		require.Equal(t, 42, NewClient(1, "hash", Options{Layer: 42}).layer)
 		require.Equal(t, tg.Layer, NewClient(1, "hash", Options{}).layer)
 	})
+}
+
+func TestOptionsPingForwarding(t *testing.T) {
+	client := NewClient(1, "hash", Options{
+		PingInterval:      30 * time.Second,
+		PingTimeout:       20 * time.Second,
+		PingProgressAware: true,
+		PingMaxWait:       2 * time.Minute,
+	})
+	require.Equal(t, 30*time.Second, client.opts.PingInterval)
+	require.Equal(t, 20*time.Second, client.opts.PingTimeout)
+	require.True(t, client.opts.PingProgressAware)
+	require.Equal(t, 2*time.Minute, client.opts.PingMaxWait)
 }

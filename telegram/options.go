@@ -108,6 +108,18 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
+	// PingInterval is duration between ping_delay_disconnect requests.
+	// Default: 1m (applied by mtproto when zero).
+	PingInterval time.Duration
+	// PingTimeout is how long to wait for liveness after a ping.
+	// Default: 15s (applied by mtproto when zero).
+	PingTimeout time.Duration
+	// PingProgressAware switches ping liveness to progress-aware mode.
+	// See mtproto.Options.
+	PingProgressAware bool
+	// PingMaxWait bounds unanswered pings while data keeps arriving.
+	// Zero disables the bound. See mtproto.Options.
+	PingMaxWait time.Duration
 	// EnablePFS enables Perfect Forward Secrecy with temporary auth keys.
 	EnablePFS bool
 	// TempKeyTTL controls temporary key lifetime in seconds.

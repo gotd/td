@@ -80,6 +80,10 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 		return errors.Wrap(err, "consume message")
 	}
 
+	// Count the message before handleMessage. Handlers may block (for example a
+	// slow UpdateHandler); liveness must not wait on them.
+	c.recvMessages.Inc()
+
 	if err := c.handleMessage(msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
 		// Probably we can return here, but this will shutdown whole
 		// connection which can be unexpected.

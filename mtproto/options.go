@@ -55,6 +55,18 @@ type Options struct {
 	PingTimeout time.Duration
 	// PingInterval is duration between ping_delay_disconnect request.
 	PingInterval time.Duration
+	// PingProgressAware switches ping liveness from "pong of this ping must arrive
+	// within PingTimeout" to "something must be received within PingTimeout after
+	// a ping is sent". Any inbound bytes (if the transport reports them) or any
+	// decrypted message extends the deadline, mirroring TDLib, where any packet
+	// counts as a pong because "real pong can be delayed by many big packets".
+	// Pings keep being sent every PingInterval while a pong is outstanding.
+	//
+	// Default is false, which preserves the historical behavior.
+	PingProgressAware bool
+	// PingMaxWait bounds how long a ping may stay unanswered in progress-aware
+	// mode even if data keeps arriving. Zero disables the bound.
+	PingMaxWait time.Duration
 	// RequestTimeout is function which returns request timeout for given type ID.
 	RequestTimeout func(req uint32) time.Duration
 

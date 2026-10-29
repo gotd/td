@@ -235,6 +235,10 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		MessageID:         opt.MessageID,
 		ExchangeTimeout:   opt.ExchangeTimeout,
 		DialTimeout:       opt.DialTimeout,
+		PingInterval:      opt.PingInterval,
+		PingTimeout:       opt.PingTimeout,
+		PingProgressAware: opt.PingProgressAware,
+		PingMaxWait:       opt.PingMaxWait,
 		// Forward PFS toggles into low-level mtproto connection.
 		EnablePFS:  opt.EnablePFS,
 		TempKeyTTL: opt.TempKeyTTL,
