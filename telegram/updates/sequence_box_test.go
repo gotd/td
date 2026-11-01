@@ -138,16 +138,18 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 			InitialState: 5,
 			Pending: []update{
 				{Value: 1, State: 3, Count: 1},
-				{Value: 1, State: 6, Count: 1},
-				{Value: 1, State: 8, Count: 1},
+				{Value: 3, State: 7, Count: 1},
+				{Value: 2, State: 6, Count: 1},
+				{Value: 4, State: 9, Count: 1},
 				{Value: 1, State: 4, Count: 1},
 				{Value: 1, State: 1, Count: 1},
 			},
 			PendingAfter: []update{
-				{Value: 1, State: 8, Count: 1},
+				{Value: 4, State: 9, Count: 1},
 			},
 			Applied: []update{
-				{Value: 1, State: 6, Count: 1},
+				{Value: 2, State: 6, Count: 1},
+				{Value: 3, State: 7, Count: 1},
 			},
 		},
 	}
@@ -158,6 +160,9 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		box := newSequenceBox(sequenceConfig{
 			InitialState: test.InitialState,
 			Apply: func(_ context.Context, s int, u []update) error {
+				require.Equal(t, test.Applied, u)
+				require.NotEmpty(t, u)
+				require.Equal(t, u[len(u)-1].State, s)
 				if applyErr != nil {
 					return applyErr
 				}
