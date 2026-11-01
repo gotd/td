@@ -32,8 +32,16 @@ func (a *trackingAPI) UpdatesGetChannelDifference(ctx context.Context, r *tg.Upd
 
 type trackingStorage struct {
 	StateStorage
-	scan func(context.Context, int64, func(context.Context, int64, int) error) error
-	read func(context.Context, int64, int64) (int, bool, error)
+	scan  func(context.Context, int64, func(context.Context, int64, int) error) error
+	read  func(context.Context, int64, int64) (int, bool, error)
+	write func(context.Context, int64, int64, int) error
+}
+
+func (s *trackingStorage) SetChannelPts(ctx context.Context, userID, channelID int64, pts int) error {
+	if s.write != nil {
+		return s.write(ctx, userID, channelID, pts)
+	}
+	return s.StateStorage.SetChannelPts(ctx, userID, channelID, pts)
 }
 
 func (s *trackingStorage) GetChannelPts(ctx context.Context, userID, channelID int64) (pts int, found bool, err error) {
@@ -52,11 +60,15 @@ func (s *trackingStorage) ForEachChannels(ctx context.Context, id int64, f func(
 
 type trackingHasher struct {
 	ChannelAccessHasher
-	reads []int64
+	reads  []int64
+	lookup func(context.Context, int64, int64) (int64, bool, error)
 }
 
 func (h *trackingHasher) GetChannelAccessHash(ctx context.Context, userID, channelID int64) (accessHash int64, found bool, err error) {
 	h.reads = append(h.reads, channelID)
+	if h.lookup != nil {
+		return h.lookup(ctx, userID, channelID)
+	}
 	return h.ChannelAccessHasher.GetChannelAccessHash(ctx, userID, channelID)
 }
 
@@ -151,8 +163,10 @@ func TestChannelTrackingOnStartAndDefault(t *testing.T) {
 			synctest.Test(t, func(t *testing.T) {
 				storage, hasher := trackingFixture(t)
 				var selected atomic.Bool
+				var tooLong []int64
 				cfg := Config{Storage: storage, AccessHasher: hasher,
-					Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { return nil }),
+					Handler:          telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { return nil }),
+					OnChannelTooLong: func(id int64) { tooLong = append(tooLong, id) },
 				}
 				if selection {
 					cfg.TrackChannel = func(int64) bool { return selected.Load() }
@@ -163,6 +177,12 @@ func TestChannelTrackingOnStartAndDefault(t *testing.T) {
 					diffAPI: diffAPI{diffs: []tg.UpdatesDifferenceClass{&tg.UpdatesDifferenceEmpty{}}},
 					channel: func(ctx context.Context, r *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
 						requests++
+						if selection {
+							// A saved quiet channel can be too far behind when enabled.
+							dialog := &tg.Dialog{}
+							dialog.SetPts(1000)
+							return &tg.UpdatesChannelDifferenceTooLong{Final: true, Dialog: dialog}, nil
+						}
 						return &tg.UpdatesChannelDifferenceEmpty{Final: true, Pts: r.Pts}, nil
 					},
 				}
@@ -175,6 +195,12 @@ func TestChannelTrackingOnStartAndDefault(t *testing.T) {
 				if !selection {
 					require.Nil(t, m.state.trackingQueue)
 					require.Nil(t, m.state.retiring)
+				} else {
+					require.Equal(t, []int64{41}, tooLong)
+					pts, found, err := storage.GetChannelPts(context.Background(), 1, 41)
+					require.NoError(t, err)
+					require.True(t, found)
+					require.Equal(t, 1000, pts, "TooLong uses the server checkpoint and reports the gap")
 				}
 			})
 		})
@@ -208,6 +234,79 @@ func TestChannelTrackingScanFailure(t *testing.T) {
 		cancel()
 		synctest.Wait()
 		require.Error(t, m.RefreshChannelTracking(context.Background()), "after Run")
+	})
+}
+
+func TestChannelTrackingRefreshReadFailure(t *testing.T) {
+	for _, phase := range []string{"enumeration", "before hash", "after hash", "hash error"} {
+		t.Run(phase, func(t *testing.T) {
+			synctest.Test(t, func(t *testing.T) {
+				storage, hashes := trackingFixture(t)
+				wrapped := &trackingStorage{StateStorage: storage}
+				hasher := &trackingHasher{ChannelAccessHasher: hashes}
+				var selected atomic.Bool
+				m := newTestManager(t, Config{Storage: wrapped, AccessHasher: hasher, TrackChannel: func(int64) bool { return selected.Load() }})
+				api := &trackingAPI{diffAPI: diffAPI{diffs: []tg.UpdatesDifferenceClass{&tg.UpdatesDifferenceEmpty{}}},
+					channel: func(context.Context, *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
+						t.Error("failed refresh must not start recovery")
+						return nil, errors.New("unexpected RPC")
+					},
+				}
+				runTrackingManager(t, m, api, AuthOptions{})
+				selected.Store(true)
+				ctx, cancel := context.WithCancel(context.Background())
+				defer cancel()
+				want := context.Canceled
+				if phase == "hash error" {
+					want = errors.New("hash storage unavailable")
+				}
+				wrapped.scan = func(ctx context.Context, _ int64, f func(context.Context, int64, int) error) error {
+					if phase == "enumeration" {
+						cancel()
+					}
+					err := f(ctx, 41, 10)
+					if phase == "before hash" {
+						cancel()
+					}
+					return err
+				}
+				hasher.lookup = func(ctx context.Context, userID, channelID int64) (int64, bool, error) {
+					if phase == "hash error" {
+						return 0, false, want
+					}
+					if phase == "after hash" {
+						cancel()
+					}
+					return hashes.GetChannelAccessHash(ctx, userID, channelID)
+				}
+				require.ErrorIs(t, m.RefreshChannelTracking(ctx), want)
+				require.Empty(t, m.state.trackingQueue, "a failed or canceled read must not publish candidates")
+				synctest.Wait()
+				require.Empty(t, m.state.channels)
+			})
+		})
+	}
+}
+
+func TestChannelTrackingSelectionChangesDuringStartup(t *testing.T) {
+	synctest.Test(t, func(t *testing.T) {
+		storage, hashes := trackingFixture(t)
+		var selected atomic.Bool
+		selected.Store(true)
+		hasher := &trackingHasher{ChannelAccessHasher: hashes}
+		hasher.lookup = func(ctx context.Context, userID, channelID int64) (int64, bool, error) {
+			selected.Store(false) // Policy changes while startup waits for storage.
+			return hashes.GetChannelAccessHash(ctx, userID, channelID)
+		}
+		m := newTestManager(t, Config{Storage: storage, AccessHasher: hasher, TrackChannel: func(int64) bool { return selected.Load() }})
+		api := &trackingAPI{diffAPI: diffAPI{diffs: []tg.UpdatesDifferenceClass{&tg.UpdatesDifferenceEmpty{}}},
+			channel: func(context.Context, *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
+				t.Error("startup must recheck selection before starting a worker")
+				return nil, errors.New("unexpected RPC")
+			},
+		}
+		runTrackingManager(t, m, api, AuthOptions{})
+		require.Empty(t, m.state.channels)
 	})
 }
 
@@ -367,25 +466,47 @@ func TestChannelTrackingScanCannotCrossRunLifetime(t *testing.T) {
 	}
 }
 
-func TestChannelTrackingRechecksAfterRPCAdmission(t *testing.T) {
-	synctest.Test(t, func(t *testing.T) {
-		var selected atomic.Bool
-		selected.Store(true)
-		sem := newChDiffSem(1)
-		require.NoError(t, sem.acquire(context.Background()))
-		api := &trackingAPI{channel: func(context.Context, *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
-			t.Error("deselected channel must not issue an RPC after waiting for a slot")
-			return nil, errors.New("unexpected RPC")
-		}}
-		state := newGatedChannelState(t, 41, api, sem)
-		state.trackChannel = func(int64) bool { return selected.Load() }
-		done := make(chan error, 1)
-		go func() { done <- state.Run(context.Background()) }()
-		synctest.Wait()
-		selected.Store(false)
-		sem.release()
-		require.NoError(t, <-done)
-	})
+func TestChannelTrackingRechecksPendingWork(t *testing.T) {
+	for _, waitingForSlot := range []bool{true, false} {
+		name := "QueuedUpdate"
+		if waitingForSlot {
+			name = "RPCSlot"
+		}
+		t.Run(name, func(t *testing.T) {
+			synctest.Test(t, func(t *testing.T) {
+				var selected atomic.Bool
+				selected.Store(true)
+				sem := newChDiffSem(1)
+				if waitingForSlot {
+					require.NoError(t, sem.acquire(context.Background()))
+				}
+				api := &trackingAPI{channel: func(context.Context, *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
+					if waitingForSlot {
+						t.Error("deselected channel must not issue an RPC after waiting for a slot")
+					}
+					return &tg.UpdatesChannelDifferenceEmpty{Final: true}, nil
+				}}
+				state := newGatedChannelState(t, 41, api, sem)
+				state.trackChannel = func(int64) bool { return selected.Load() }
+				done := make(chan error, 1)
+				go func() { done <- state.Run(context.Background()) }()
+				synctest.Wait()
+				selected.Store(false)
+				if waitingForSlot {
+					sem.release()
+					require.NoError(t, <-done)
+				} else {
+					// Work admitted before policy publication can arrive while
+					// the worker is already waiting on its queue.
+					state.updates <- channelUpdate{affected: true, pts: 1, ptsCount: 1}
+					require.ErrorIs(t, <-done, errChannelDeselected)
+					require.Zero(t, state.pts.State(), "queued work must not advance PTS after deselection")
+				}
+				require.True(t, state.getDifferenceLogger(context.Background(), "idle-recovery"),
+					"recovery must recognize deselection as a clean stop")
+			})
+		})
+	}
 }
 
 func TestChannelTrackingReenabledBeforeCompletion(t *testing.T) {
@@ -423,49 +544,66 @@ func TestChannelTrackingReenabledBeforeCompletion(t *testing.T) {
 }
 
 func TestChannelTrackingLiveAdmission(t *testing.T) {
-	synctest.Test(t, func(t *testing.T) {
-		storage, hashes := trackingFixture(t)
-		hasher := &trackingHasher{ChannelAccessHasher: hashes}
-		var selected atomic.Bool
-		var requests, handled int
-		api := &trackingAPI{
-			diffAPI: diffAPI{diffs: []tg.UpdatesDifferenceClass{&tg.UpdatesDifferenceEmpty{}}},
-			channel: func(ctx context.Context, r *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
-				requests++
-				require.Equal(t, 20, r.Pts, "first live update seeds only its preceding checkpoint")
-				return &tg.UpdatesChannelDifferenceEmpty{Final: true, Pts: r.Pts}, nil
-			},
-		}
-		m := New(Config{Storage: storage, AccessHasher: hasher, TrackChannel: func(int64) bool { return selected.Load() },
-			Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { handled++; return nil }),
+	for _, failure := range []string{"None", "InitialRead", "InitialWrite"} {
+		t.Run(failure, func(t *testing.T) {
+			synctest.Test(t, func(t *testing.T) {
+				storage, hashes := trackingFixture(t)
+				wrapped := &trackingStorage{StateStorage: storage}
+				hasher := &trackingHasher{ChannelAccessHasher: hashes}
+				var selected atomic.Bool
+				var requests, handled int
+				api := &trackingAPI{
+					diffAPI: diffAPI{diffs: []tg.UpdatesDifferenceClass{&tg.UpdatesDifferenceEmpty{}}},
+					channel: func(ctx context.Context, r *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
+						requests++
+						require.Equal(t, 20, r.Pts, "first live update seeds only its preceding checkpoint")
+						return &tg.UpdatesChannelDifferenceEmpty{Final: true, Pts: r.Pts}, nil
+					},
+				}
+				m := New(Config{Storage: wrapped, AccessHasher: hasher, TrackChannel: func(int64) bool { return selected.Load() },
+					Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { handled++; return nil }),
+				})
+				runTrackingManager(t, m, api, AuthOptions{})
+				require.NoError(t, hashes.SetChannelAccessHash(context.Background(), 1, 43, 123))
+				fault := errors.New("checkpoint unavailable")
+				switch failure {
+				case "InitialRead":
+					wrapped.read = func(context.Context, int64, int64) (int, bool, error) { return 0, false, fault }
+				case "InitialWrite":
+					wrapped.write = func(ctx context.Context, userID, channelID int64, pts int) error {
+						if requests == 0 {
+							return fault
+						}
+						return storage.SetChannelPts(ctx, userID, channelID, pts)
+					}
+				}
+				push := func() {
+					require.NoError(t, m.Handle(context.Background(), &tg.UpdateShort{Update: &tg.UpdateDeleteChannelMessages{ChannelID: 43, Messages: []int{1}, Pts: 21, PtsCount: 1}}))
+					synctest.Wait()
+				}
+				push()
+				require.Empty(t, hasher.reads, "excluded pushes must not resolve hashes or initialize checkpoints")
+				require.Empty(t, m.state.channels)
+				selected.Store(true)
+				push()
+				require.Equal(t, 1, requests)
+				require.Equal(t, 1, handled)
+				require.NoError(t, m.HandleAffected(context.Background(), 43, 22, 1))
+				synctest.Wait()
+				selected.Store(false)
+				push()
+				require.NoError(t, m.HandleAffected(context.Background(), 43, 23, 1))
+				require.NoError(t, m.Handle(context.Background(), &tg.UpdateShort{Update: &tg.UpdateChannelTooLong{ChannelID: 43}}))
+				synctest.Wait()
+				pts, found, err := storage.GetChannelPts(context.Background(), 1, 43)
+				require.NoError(t, err)
+				require.True(t, found)
+				require.Equal(t, 22, pts, "excluded updates and affected results cannot advance PTS")
+				require.Equal(t, 1, requests)
+				require.Equal(t, 1, handled)
+			})
 		})
-		runTrackingManager(t, m, api, AuthOptions{})
-		require.NoError(t, hashes.SetChannelAccessHash(context.Background(), 1, 43, 123))
-		push := func() {
-			require.NoError(t, m.Handle(context.Background(), &tg.UpdateShort{Update: &tg.UpdateDeleteChannelMessages{ChannelID: 43, Messages: []int{1}, Pts: 21, PtsCount: 1}}))
-			synctest.Wait()
-		}
-		push()
-		require.Empty(t, hasher.reads, "excluded pushes must not resolve hashes or initialize checkpoints")
-		require.Empty(t, m.state.channels)
-		selected.Store(true)
-		push()
-		require.Equal(t, 1, requests)
-		require.Equal(t, 1, handled)
-		require.NoError(t, m.HandleAffected(context.Background(), 43, 22, 1))
-		synctest.Wait()
-		selected.Store(false)
-		push()
-		require.NoError(t, m.HandleAffected(context.Background(), 43, 23, 1))
-		require.NoError(t, m.Handle(context.Background(), &tg.UpdateShort{Update: &tg.UpdateChannelTooLong{ChannelID: 43}}))
-		synctest.Wait()
-		pts, found, err := storage.GetChannelPts(context.Background(), 1, 43)
-		require.NoError(t, err)
-		require.True(t, found)
-		require.Equal(t, 22, pts, "excluded updates and affected results cannot advance PTS")
-		require.Equal(t, 1, requests)
-		require.Equal(t, 1, handled)
-	})
+	}
 }
 
 func TestChannelTrackingMissingResumeCheckpoint(t *testing.T) {
