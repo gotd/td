@@ -356,11 +356,25 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesChannelDifference:
+		var recovered, forwarded []tg.UpdateClass
+		for _, u := range diff.OtherUpdates {
+			switch u.(type) {
+			case *tg.UpdateEditChannelMessage, *tg.UpdateDeleteChannelMessages, *tg.UpdatePinnedChannelMessages:
+				channelID, _, _, _, err := tg.IsChannelPtsUpdate(u)
+				if err == nil && channelID == s.channelID {
+					recovered = append(recovered, u)
+					continue
+				}
+			}
+			forwarded = append(forwarded, u)
+		}
 		if len(diff.OtherUpdates) > 0 {
+			// Preserve common-worker routing and entity/hash ingestion, even
+			// when every update will be handled locally.
 			if err := s.sendOut(ctx, tracedUpdate{
 				span: trace.SpanContextFromContext(ctx),
 				update: &tg.Updates{
-					Updates: diff.OtherUpdates,
+					Updates: forwarded,
 					Users:   diff.Users,
 					Chats:   diff.Chats,
 				},
@@ -378,7 +392,17 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
 			}
 		}
-
+		// Apply recovered channel facts after new messages, without passing
+		// through the live PTS box. The response's PTS covers these facts.
+		if len(recovered) > 0 {
+			if err := s.dispatch(ctx, &tg.Updates{
+				Updates: recovered,
+				Users:   diff.Users,
+				Chats:   diff.Chats,
+			}); err != nil {
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
+			}
+		}
 		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
 			s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
 		}
