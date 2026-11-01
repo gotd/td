@@ -175,6 +175,12 @@ func (s *channelState) Run(ctx context.Context) error {
 			}
 			return ctx.Err()
 		case <-s.idleTimeout.C:
+			// The server timeout paces idle polling, not gap recovery or
+			// non-final differences. Keep handling updates while it elapses.
+			if remaining := time.Until(s.diffTimeout); remaining > 0 {
+				s.idleTimeout.Reset(remaining)
+				continue
+			}
 			s.log.Debug(ctx, "Idle timeout")
 			s.resetIdleTimer()
 			if s.getDifferenceLogger(ctx, "channel-idle-timeout") {
@@ -302,33 +308,6 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		log.Int("pts", s.pts.State()),
 	)
 
-	if now := time.Now(); now.Before(s.diffTimeout) {
-		dur := s.diffTimeout.Sub(now)
-		s.log.Debug(ctx, "GetChannelDifference timeout", log.Duration("duration", dur))
-		if err := func() error {
-			afterC := time.After(dur)
-			for {
-				select {
-				case <-afterC:
-					return nil
-				case u, ok := <-s.updates:
-					if !ok {
-						continue
-					}
-
-					// Ignoring updates to prevent *internalState worker from blocking.
-					// All ignored updates should be restored by future getChannelDifference call.
-					// At least I hope so...
-					s.log.Debug(ctx, "Ignoring update due to getChannelDifference timeout", log.Any("update", u.update))
-				case <-ctx.Done():
-					return ctx.Err()
-				}
-			}
-		}(); err != nil {
-			return err
-		}
-	}
-
 	// Bound concurrent getChannelDifference across channels: a member of many
 	// active channels would otherwise burst past the per-account method limit.
 	// The slot wraps only the RPC — released before processing and the !Final
@@ -384,12 +363,11 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		}
 
 		s.pts.SetState(diff.Pts, "updates.channelDifference")
-		if seconds, ok := diff.GetTimeout(); ok {
-			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
-		}
-
 		if !diff.Final {
 			return s.getDifference(ctx, "channel-difference-not-final")
+		}
+		if seconds, ok := diff.GetTimeout(); ok {
+			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
 		}
 
 		return nil
@@ -438,7 +416,7 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 // bounded and the worker is the only reader of s.out).
 //
 // Drained updates are ignored on purpose: they are restored by a future
-// getChannelDifference call, same as in the diffTimeout wait above.
+// getChannelDifference call.
 func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
 	for {
 		select {
