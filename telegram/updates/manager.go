@@ -5,9 +5,10 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
-	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
@@ -153,6 +154,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			Tracer:                m.tracer,
 			Logger:                m.cfg.Logger,
 			Handler:               m.cfg.Handler,
+			StopOnApplyError:      m.cfg.StopOnApplyError,
 			OnChannelTooLong:      m.cfg.OnChannelTooLong,
 			OnChannelInaccessible: m.cfg.OnChannelInaccessible,
 			OnTooLong:             m.cfg.OnTooLong,
