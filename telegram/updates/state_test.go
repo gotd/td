@@ -140,7 +140,7 @@ func TestChannelStateInaccessible(t *testing.T) {
 
 	const channelID = 1750799539
 
-	removeChannel := make(chan int64, 1)
+	removeChannel := make(chan *channelState, 1)
 	var inaccessible int64
 	state := newChannelState(channelStateConfig{
 		Out:        make(chan tracedUpdate, 10),
@@ -164,7 +164,7 @@ func TestChannelStateInaccessible(t *testing.T) {
 	require.Equal(t, int64(channelID), inaccessible, "OnChannelInaccessible must be called with channel ID")
 	select {
 	case got := <-removeChannel:
-		require.Equal(t, int64(channelID), got, "channel ID must be signaled for removal")
+		require.Same(t, state, got, "worker identity must be signaled for removal")
 	default:
 		t.Fatal("expected channel removal signal")
 	}
