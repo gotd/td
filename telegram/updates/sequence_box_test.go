@@ -2,11 +2,13 @@ package updates
 
 import (
 	"context"
+	"errors"
 	"testing"
 
-	"github.com/gotd/log/logzap"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
+
+	"github.com/gotd/log/logzap"
 )
 
 func TestSequenceBox(t *testing.T) {
@@ -152,9 +154,13 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 
 	for _, test := range tests {
 		applied := make([]update, 0)
+		var applyErr error
 		box := newSequenceBox(sequenceConfig{
 			InitialState: test.InitialState,
 			Apply: func(_ context.Context, s int, u []update) error {
+				if applyErr != nil {
+					return applyErr
+				}
 				applied = append(applied, u...)
 				return nil
 			},
@@ -162,8 +168,20 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		})
 
 		box.pending = test.Pending
+		if len(test.Applied) > 0 {
+			pending := append([]update(nil), box.pending...)
+			applyErr = errors.New("apply failed")
+			require.ErrorIs(t, box.applyPending(context.Background()), applyErr)
+			require.ElementsMatch(t, pending, box.pending)
+			require.Equal(t, test.InitialState, box.State())
+			require.Empty(t, applied)
+			applyErr = nil
+		}
 		require.NoError(t, box.applyPending(context.TODO()))
 		require.Equal(t, test.PendingAfter, box.pending)
 		require.Equal(t, test.Applied, applied)
+		if len(test.Applied) > 0 {
+			require.Equal(t, test.Applied[len(test.Applied)-1].State, box.State())
+		}
 	}
 }

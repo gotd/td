@@ -5,8 +5,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
+
+	"github.com/gotd/log"
 )
 
 type sequenceBox struct {
@@ -145,6 +146,12 @@ loop:
 		}
 	}
 
+	if len(accepted) > 0 {
+		if err := s.apply(ctx, state, accepted); err != nil {
+			return err
+		}
+	}
+
 	// Trim processed updates. Setting zero values for the rest
 	// of the slice lets GC collect referenced objects.
 	end := len(s.pending)
@@ -157,10 +164,6 @@ loop:
 	if len(accepted) == 0 {
 		s.log.Warn(ctx, "Empty buffer", log.Any("pending", s.pending), log.Int("internalState", s.state))
 		return nil
-	}
-
-	if err := s.apply(ctx, state, accepted); err != nil {
-		return err
 	}
 
 	s.log.Debug(ctx, "Pending updates applied",
