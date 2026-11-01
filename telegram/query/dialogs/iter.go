@@ -119,7 +119,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 		messages = dlgs.Messages
 		entities = peer.EntitiesFromResult(dlgs)
 
-		m.count = len(messages)
+		m.count = len(dialogs)
 		m.lastBatch = true
 	case *tg.MessagesDialogsSlice: // messages.dialogsSlice#71e094f3
 		dialogs = dlgs.Dialogs
@@ -143,6 +143,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 
 	var last tg.NotEmptyMessage
 	for _, dlg := range dialogs {
+		last = nil
 		var p tg.InputPeerClass = &tg.InputPeerEmpty{}
 		if dlgPeer, ok := dialogPeer(dlg); ok {
 			var key DialogKey
