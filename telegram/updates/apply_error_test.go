@@ -122,7 +122,7 @@ func TestManagerStopOnApplyError(t *testing.T) {
 		channelDiff     tg.UpdatesChannelDifferenceClass
 		savedChannel    bool
 		affected        bool
-		gap             bool
+		gap             string
 	}{
 		{name: "PTS/Handler", input: pts},
 		{name: "PTS/Checkpoint", operation: "SetPts", input: pts},
@@ -131,20 +131,29 @@ func TestManagerStopOnApplyError(t *testing.T) {
 		{name: "UnsequencedQTS", input: live(&tg.UpdateChannelParticipant{ChannelID: 42, Qts: 0}, 0, 0)},
 		{name: "Seq/Handler", input: live(&tg.UpdateConfig{}, 1, 0)},
 		{name: "Seq/Checkpoint", operation: "SetSeq", input: live(&tg.UpdateConfig{}, 1, 0)},
+		{name: "Seq/FinalCheckpoint", operation: "SetSeq", input: live(&tg.UpdateConfig{}, 1, 2)},
 		{name: "Date", operation: "SetDate", input: live(&tg.UpdateConfig{}, 0, 2)},
 		{name: "DateSeq", operation: "SetDateSeq", input: live(&tg.UpdateConfig{}, 1, 2)},
 		{name: "Difference/Handler", difference: &tg.UpdatesDifference{NewMessages: messages, State: remote}},
 		{name: "Difference/Checkpoint", operation: "SetState", difference: &tg.UpdatesDifference{State: remote}},
 		{name: "Slice/Handler", difference: &tg.UpdatesDifferenceSlice{NewMessages: messages, IntermediateState: remote}},
+		{name: "Slice/OtherUpdates", difference: &tg.UpdatesDifferenceSlice{OtherUpdates: []tg.UpdateClass{&tg.UpdateConfig{}}, IntermediateState: remote}},
 		{name: "Slice/Checkpoint", operation: "SetState", difference: &tg.UpdatesDifferenceSlice{IntermediateState: remote}},
-		{name: "GapRecovery", gap: true, difference: &tg.UpdatesDifference{NewMessages: messages, State: remote}},
+		{name: "GapRecovery/PTS", gap: "pts", difference: &tg.UpdatesDifference{NewMessages: messages, State: remote}},
+		{name: "GapRecovery/QTS", gap: "qts", difference: &tg.UpdatesDifference{NewMessages: messages, State: remote}},
+		{name: "GapRecovery/Seq", gap: "seq", difference: &tg.UpdatesDifference{NewMessages: messages, State: remote}},
+		{name: "IdleRecovery", gap: "idle", difference: &tg.UpdatesDifference{NewMessages: messages, State: remote}},
 		{name: "Empty", operation: "SetDateSeq", difference: &tg.UpdatesDifferenceEmpty{Date: 2, Seq: 1}},
 		{name: "TooLong", operation: "SetPts", difference: &tg.UpdatesDifferenceTooLong{Pts: 20}},
 		{name: "ChannelLive/Handler", input: channel, savedChannel: true},
 		{name: "ChannelLive/Checkpoint", operation: "SetChannelPts", input: channel, savedChannel: true},
 		{name: "ChannelDifference/Handler", savedChannel: true, channelDiff: &tg.UpdatesChannelDifference{Final: true, Pts: 20, NewMessages: channelMessages}},
 		{name: "ChannelDifference/Checkpoint", operation: "SetChannelPts", savedChannel: true, channelDiff: &tg.UpdatesChannelDifference{Final: true, Pts: 20}},
-		{name: "ChannelGapRecovery", gap: true, savedChannel: true, channelDiff: &tg.UpdatesChannelDifference{Final: true, Pts: 20, NewMessages: channelMessages}},
+		{name: "ChannelGapRecovery", gap: "pts", savedChannel: true, channelDiff: &tg.UpdatesChannelDifference{Final: true, Pts: 20, NewMessages: channelMessages}},
+		{name: "ChannelIdleRecovery", gap: "idle", savedChannel: true, channelDiff: &tg.UpdatesChannelDifference{Final: true, Pts: 20, NewMessages: channelMessages}},
+		{name: "ChannelControlRecovery", savedChannel: true,
+			difference:  &tg.UpdatesDifference{NewMessages: messages, State: remote},
+			channelDiff: &tg.UpdatesChannelDifference{Final: true, Pts: 10, OtherUpdates: []tg.UpdateClass{&tg.UpdatePtsChanged{}}}},
 		{name: "ChannelEmpty", operation: "SetChannelPts", savedChannel: true, channelDiff: &tg.UpdatesChannelDifferenceEmpty{Final: true, Pts: 20}},
 		{name: "ChannelTooLong", operation: "SetChannelPts", savedChannel: true, channelDiff: &tg.UpdatesChannelDifferenceTooLong{Final: true, Dialog: dialog}},
 		{name: "InitialRead", operation: "GetChannelPts", input: channel},
@@ -211,12 +220,20 @@ func TestManagerStopOnApplyError(t *testing.T) {
 					synctest.Wait() // Startup is healthy; each case targets the later public input.
 					storage.armed.Store(true)
 					switch {
-					case tc.gap:
+					case tc.gap == "idle":
+						time.Sleep(idleTimeout)
+					case tc.gap != "":
 						var gap tg.UpdateClass = &tg.UpdateDeleteMessages{Messages: []int{2}, Pts: 12, PtsCount: 1}
-						if tc.savedChannel {
+						seq := 0
+						switch {
+						case tc.savedChannel:
 							gap = &tg.UpdateDeleteChannelMessages{ChannelID: 42, Messages: []int{2}, Pts: 12, PtsCount: 1}
+						case tc.gap == "qts":
+							gap = &tg.UpdateChannelParticipant{ChannelID: 42, UserID: 7, Qts: 12}
+						case tc.gap == "seq":
+							gap, seq = &tg.UpdateConfig{}, 2
 						}
-						require.NoError(t, m.Handle(ctx, live(gap, 0, 0)))
+						require.NoError(t, m.Handle(ctx, live(gap, seq, 0)))
 						synctest.Wait()
 						time.Sleep(fastgapTimeout)
 					case tc.affected:
@@ -225,10 +242,10 @@ func TestManagerStopOnApplyError(t *testing.T) {
 							id = 42
 						}
 						require.NoError(t, m.HandleAffected(ctx, id, 11, 1))
-					case tc.difference != nil:
-						require.NoError(t, m.Handle(ctx, &tg.UpdatesTooLong{}))
 					case tc.channelDiff != nil:
 						require.NoError(t, m.Handle(ctx, live(&tg.UpdateChannelTooLong{ChannelID: 42}, 0, 0)))
+					case tc.difference != nil:
+						require.NoError(t, m.Handle(ctx, &tg.UpdatesTooLong{}))
 					default:
 						require.NoError(t, m.Handle(ctx, tc.input))
 					}
@@ -245,7 +262,11 @@ func TestManagerStopOnApplyError(t *testing.T) {
 						state, found, err := memory.GetState(ctx, 1)
 						require.NoError(t, err)
 						require.True(t, found)
-						require.Equal(t, initial, state, "this fixture has no earlier completed common step")
+						wantState := initial
+						if tc.name == "Seq/FinalCheckpoint" {
+							wantState.Date, wantState.Seq = 2, 1 // SetDateSeq already succeeded.
+						}
+						require.Equal(t, wantState, state)
 						p, found, err := memory.GetChannelPts(ctx, 1, 42)
 						require.NoError(t, err)
 						require.Equal(t, tc.savedChannel, found)
@@ -256,7 +277,15 @@ func TestManagerStopOnApplyError(t *testing.T) {
 						if tc.operation == "" || tc.operation == "GetChannelPts" {
 							writes = 0
 						}
-						require.Equal(t, writes, storage.writes.Load(), "no checkpoint operation follows the failed step")
+						if tc.name == "Seq/FinalCheckpoint" {
+							writes++
+						}
+						if tc.name == "ChannelControlRecovery" {
+							writes = 1 // The admitted channel response keeps its PTS before the common recovery.
+						}
+						if tc.name != "ChannelIdleRecovery" { // Common idle recovery may finish concurrently.
+							require.Equal(t, writes, storage.writes.Load(), "no checkpoint operation follows the failed step")
+						}
 						if tc.difference != nil {
 							require.EqualValues(t, 2, commonCalls.Load(), "no continuation after failure")
 						}
@@ -351,7 +380,7 @@ func TestManagerStopOnApplyErrorRestart(t *testing.T) {
 }
 
 func TestManagerStopOnApplyErrorCancellationAdmission(t *testing.T) {
-	for _, boundary := range []string{"CommonResponse", "ChannelResponse", "BeforeStartup"} {
+	for _, boundary := range []string{"CommonResponse", "ChannelResponse", "BeforeStartup", "ChannelBeforeStartup", "CommonContinuation", "ChannelContinuation", "SiblingFailure"} {
 		t.Run(boundary, func(t *testing.T) {
 			synctest.Test(t, func(t *testing.T) {
 				ctx, cancel := context.WithCancel(context.Background())
@@ -359,48 +388,89 @@ func TestManagerStopOnApplyErrorCancellationAdmission(t *testing.T) {
 				storage, hashes := newMemStorage(), newMemAccessHasher()
 				initial := State{Pts: 10, Date: 1}
 				require.NoError(t, storage.SetState(ctx, 1, initial))
-				channel := boundary == "ChannelResponse"
+				channel := boundary == "ChannelResponse" || boundary == "ChannelBeforeStartup" || boundary == "ChannelContinuation" || boundary == "SiblingFailure"
+				continuation := boundary == "CommonContinuation" || boundary == "ChannelContinuation"
+				failure := errors.New("channel handler failed")
+				commonEntered := make(chan struct{})
 				if channel {
 					require.NoError(t, storage.SetChannelPts(ctx, 1, 42, 10))
 					require.NoError(t, hashes.SetChannelAccessHash(ctx, 1, 42, 123))
 				}
 				var calls, handled atomic.Int32
 				api := &applyBoundaryAPI{
-					common: func(context.Context, *tg.UpdatesGetDifferenceRequest) (tg.UpdatesDifferenceClass, error) {
+					common: func(ctx context.Context, _ *tg.UpdatesGetDifferenceRequest) (tg.UpdatesDifferenceClass, error) {
+						if boundary == "SiblingFailure" {
+							close(commonEntered)
+							<-ctx.Done()
+							return nil, ctx.Err()
+						}
 						if channel {
 							return &tg.UpdatesDifferenceEmpty{Date: 1}, nil
 						}
 						calls.Add(1)
+						if continuation {
+							return &tg.UpdatesDifferenceSlice{IntermediateState: tg.UpdatesState{Pts: 20, Date: 2},
+								NewMessages: []tg.MessageClass{&tg.Message{ID: 1, PeerID: &tg.PeerUser{UserID: 7}}}}, nil
+						}
 						cancel() // A successful response may race account cancellation.
 						return &tg.UpdatesDifference{State: tg.UpdatesState{Pts: 20, Date: 2},
 							NewMessages: []tg.MessageClass{&tg.Message{ID: 1, PeerID: &tg.PeerUser{UserID: 7}}}}, nil
 					},
 					channel: func(context.Context, *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
 						calls.Add(1)
-						cancel()
-						return &tg.UpdatesChannelDifference{Final: true, Pts: 20,
+						if boundary == "SiblingFailure" {
+							<-commonEntered
+						} else if !continuation {
+							cancel()
+						}
+						return &tg.UpdatesChannelDifference{Final: !continuation, Pts: 20,
 							NewMessages: []tg.MessageClass{&tg.Message{ID: 1, PeerID: &tg.PeerChannel{ChannelID: 42}}}}, nil
 					},
 				}
 				m := New(Config{Storage: storage, AccessHasher: hashes, StopOnApplyError: true,
-					Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { handled.Add(1); return nil }),
+					Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error {
+						handled.Add(1)
+						if boundary == "SiblingFailure" {
+							return failure
+						}
+						cancel()
+						return nil
+					}),
 				})
 				wantCalls := int32(1)
-				if boundary == "BeforeStartup" {
+				if boundary == "BeforeStartup" || boundary == "ChannelBeforeStartup" {
 					cancel()
 					wantCalls = 0
 				}
-				require.ErrorIs(t, m.Run(ctx, api, 1, AuthOptions{}), context.Canceled)
+				opt := AuthOptions{}
+				wantErr, wantHandled := context.Canceled, int32(0)
+				if boundary == "SiblingFailure" {
+					wantErr = failure
+					opt.OnStart = func(context.Context) {
+						require.NoError(t, m.Handle(context.Background(), &tg.Updates{Updates: []tg.UpdateClass{&tg.UpdateConfig{}}}))
+					}
+				}
+				if continuation || boundary == "SiblingFailure" {
+					wantHandled = 1
+				}
+				require.ErrorIs(t, m.Run(ctx, api, 1, opt), wantErr)
 				require.Equal(t, wantCalls, calls.Load())
-				require.Zero(t, handled.Load(), "do not admit response callbacks after cancellation")
+				require.Equal(t, wantHandled, handled.Load(), "no new callbacks after cancellation")
 				state, _, err := storage.GetState(ctx, 1)
 				require.NoError(t, err)
+				if boundary == "CommonContinuation" {
+					initial = State{Pts: 20, Date: 2} // The admitted page completed successfully.
+				}
 				require.Equal(t, initial, state)
 				if channel {
 					pts, found, err := storage.GetChannelPts(ctx, 1, 42)
 					require.NoError(t, err)
 					require.True(t, found)
-					require.Equal(t, 10, pts)
+					wantPts := 10
+					if continuation {
+						wantPts = 20
+					}
+					require.Equal(t, wantPts, pts)
 				}
 			})
 		})

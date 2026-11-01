@@ -23,18 +23,10 @@ type API interface {
 type Config struct {
 	// Handler where updates will be passed.
 	Handler telegram.UpdateHandler
-	// StopOnApplyError makes Run return on an error from Handler or StateStorage
-	// while applying updates, instead of logging the error and continuing.
-	// A failed handler is not followed by a checkpoint write on that apply path;
-	// a failed storage call is not confirmed in memory. Storage calls may have
-	// effects even when returning an error. Completed and concurrent work is not
-	// rolled back. RPC errors retain their existing recovery behavior.
-	//
-	// This does not make handler effects and state storage atomic. Handlers must
-	// tolerate replay, and buffered storage must not persist checkpoints ahead
-	// of durable handler effects. Restart with a new Manager and Forget=false
-	// after resolving the failure. TooLong callbacks retain their usual meaning:
-	// Telegram may no longer have the missed updates available for replay.
+	// StopOnApplyError makes Run return on Handler or StateStorage errors
+	// while applying updates, instead of logging them and continuing.
+	// Completed or concurrent work is not rolled back. Handlers must tolerate
+	// replay; handler effects and checkpoint writes are not made atomic.
 	StopOnApplyError bool
 	// Callback called if manager cannot
 	// recover channel gap (optional).
