@@ -16,7 +16,7 @@ func (m *Manager) SetChannelAccessHash(ctx context.Context, userID, channelID, a
 	if !ok || myID != userID {
 		return nil
 	}
-	return m.storage.Save(context.TODO(), Key{
+	return m.storage.Save(ctx, Key{
 		Prefix: channelPrefix,
 		ID:     channelID,
 	}, Value{
@@ -30,7 +30,7 @@ func (m *Manager) GetChannelAccessHash(ctx context.Context, userID, channelID in
 	if !ok || myID != userID {
 		return 0, false, nil
 	}
-	v, found, err := m.storage.Find(context.TODO(), Key{
+	v, found, err := m.storage.Find(ctx, Key{
 		Prefix: channelPrefix,
 		ID:     channelID,
 	})
