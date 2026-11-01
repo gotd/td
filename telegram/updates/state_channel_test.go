@@ -140,7 +140,7 @@ func TestChannelIdlePollTimeout(t *testing.T) {
 				api := channelDifferenceFunc{call: func(_ context.Context, req *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error) {
 					calls++
 					if calls == 1 {
-						diff := &tg.UpdatesChannelDifferenceEmpty{Final: true, Pts: 10}
+						diff := &tg.UpdatesChannelDifference{Final: true, Pts: 10}
 						diff.SetTimeout(int(2 * idleTimeout / time.Second))
 						return diff, nil
 					}
