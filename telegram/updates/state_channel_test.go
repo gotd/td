@@ -30,8 +30,8 @@ func TestChannelRecoveryBeforePollTimeout(t *testing.T) {
 	}{
 		{
 			name: "pts gap",
-			input: &tg.UpdateDeleteChannelMessages{
-				ChannelID: 42, Messages: []int{12}, Pts: 12, PtsCount: 1,
+			input: &tg.UpdateNewChannelMessage{
+				Message: &tg.Message{ID: 12, PeerID: &tg.PeerChannel{ChannelID: 42}}, Pts: 12, PtsCount: 1,
 			},
 			delay: fastgapTimeout,
 		},
