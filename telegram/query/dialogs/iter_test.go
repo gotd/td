@@ -85,3 +85,58 @@ func TestIterator(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, totalRows, total)
 }
+
+func TestIteratorPeerlessDialog(t *testing.T) {
+	ctx := context.Background()
+	community := &tg.DialogCommunity{}
+	first := &tg.Message{ID: 12, Date: 34, PeerID: &tg.PeerUser{UserID: 8}}
+	last := &tg.Message{ID: 21, Date: 43, PeerID: &tg.PeerUser{UserID: 9}}
+	dialogs := []tg.DialogClass{
+		&tg.Dialog{Peer: first.PeerID, TopMessage: first.ID},
+		community,
+		&tg.Dialog{Peer: last.PeerID, TopMessage: last.ID},
+	}
+	messages := []tg.MessageClass{first, last}
+	users := []tg.UserClass{
+		&tg.User{ID: 8, AccessHash: 56},
+		&tg.User{ID: 9, AccessHash: 65},
+	}
+
+	for _, test := range []struct {
+		name     string
+		response tg.MessagesDialogsClass
+		paginate bool
+	}{
+		{"Complete", &tg.MessagesDialogs{Dialogs: dialogs, Messages: messages, Users: users}, false},
+		{"Slice", &tg.MessagesDialogsSlice{Count: 3, Dialogs: dialogs, Messages: messages, Users: users}, true},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			mock := tgmock.NewRequire(t)
+			mock.ExpectCall(&tg.MessagesGetDialogsRequest{OffsetPeer: &tg.InputPeerEmpty{}, Limit: 100}).
+				ThenResult(test.response)
+			if test.paginate {
+				mock.ExpectCall(&tg.MessagesGetDialogsRequest{
+					OffsetID: last.ID, OffsetDate: last.Date,
+					OffsetPeer: &tg.InputPeerUser{UserID: 9, AccessHash: 65}, Limit: 100,
+				}).ThenResult(&tg.MessagesDialogsSlice{})
+			}
+
+			iter := NewIterator(NewQueryBuilder(tg.NewClient(mock)).GetDialogs(), 100)
+			require.True(t, iter.Next(ctx))
+			require.Equal(t, first, iter.Value().Last)
+			require.True(t, iter.Next(ctx))
+			require.Equal(t, community, iter.Value().Dialog)
+			require.IsType(t, &tg.InputPeerEmpty{}, iter.Value().Peer)
+			require.Nil(t, iter.Value().Last)
+			require.True(t, iter.Next(ctx))
+			require.Equal(t, last, iter.Value().Last)
+			total, err := iter.Total(ctx)
+			require.NoError(t, err)
+			require.Equal(t, len(dialogs), total)
+			if test.paginate {
+				require.False(t, iter.Next(ctx))
+				require.NoError(t, iter.Err())
+			}
+		})
+	}
+}
