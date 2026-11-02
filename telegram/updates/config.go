@@ -22,6 +22,14 @@ type API interface {
 type Config struct {
 	// Handler where updates will be passed.
 	Handler telegram.UpdateHandler
+	// TrackChannel selects channels for channel PTS tracking and difference
+	// polling. Nil tracks all channels. It must be fast, non-blocking and safe
+	// for concurrent calls. Publish changes before calling RefreshChannelTracking.
+	//
+	// This does not filter common-state updates or entity vectors passed to Handler.
+	// Excluded channels retain their stored checkpoints. Re-enabling a channel
+	// can require catch-up and is subject to OnChannelTooLong.
+	TrackChannel func(channelID int64) bool
 	// Callback called if manager cannot
 	// recover channel gap (optional).
 	OnChannelTooLong func(channelID int64)
@@ -41,8 +49,8 @@ type Config struct {
 	// manually, e.g. via messages.getHistory (optional).
 	OnLoadUserStateFailed func()
 	// Callback called when the manager fails to load the locally stored state of
-	// a channel during Run with forget=false (its access hash is missing), so
-	// the channel is skipped.
+	// a channel during Run or RefreshChannelTracking (its access hash or resume
+	// checkpoint is missing), so the channel is skipped.
 	//
 	// Useful to detect that the channel may need to be resynchronized manually
 	// (optional).

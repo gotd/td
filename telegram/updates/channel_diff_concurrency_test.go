@@ -82,7 +82,7 @@ func newGatedChannelState(t *testing.T, id int64, api API, sem chDiffSem) *chann
 		}),
 		OnChannelTooLong:      func(int64) {},
 		OnChannelInaccessible: func(int64) {},
-		RemoveChannel:         make(chan int64, 1),
+		RemoveChannel:         make(chan *channelState, 1),
 		Logger:                logzap.New(zaptest.NewLogger(t)),
 		Tracer:                noop.NewTracerProvider().Tracer(""),
 		ChannelDiffSem:        sem,

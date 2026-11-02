@@ -60,10 +60,14 @@ type internalState struct {
 
 	// Channel states.
 	channels map[int64]*channelState
+	// Retired workers remain barriers until their admitted callbacks finish.
+	retiring        map[int64]*channelState
+	trackingQueue   chan map[int64]channelStateInfo
+	channelFinished chan channelCompletion
 	// removeChannel receives channel IDs from channel workers that lost access
 	// (CHANNEL_PRIVATE) so they can be dropped from the channels map. Only the
 	// internalState goroutine mutates the map, so this keeps access serialized.
-	removeChannel chan int64
+	removeChannel chan *channelState
 
 	// Immutable fields.
 	client                API
@@ -80,14 +84,14 @@ type internalState struct {
 	wg                    *errgroup.Group
 	tracer                trace.Tracer
 	chDiffSem             chDiffSem
+	trackChannel          func(int64) bool
+	onLoadChannelFailed   func(int64)
+	runContext            context.Context
 }
 
 type stateConfig struct {
-	State    State
-	Channels map[int64]struct {
-		Pts        int
-		AccessHash int64
-	}
+	State                 State
+	Channels              map[int64]channelStateInfo
 	RawClient             API
 	Logger                log.Logger
 	Tracer                trace.Tracer
@@ -102,6 +106,8 @@ type stateConfig struct {
 	DiffLimit             int
 	WorkGroup             *errgroup.Group
 	ChannelDiffSem        chDiffSem
+	TrackChannel          func(int64) bool
+	OnLoadChannelFailed   func(int64)
 }
 
 func newState(ctx context.Context, cfg stateConfig) *internalState {
@@ -114,7 +120,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		idleTimeout: time.NewTimer(idleTimeout),
 
 		channels:      make(map[int64]*channelState),
-		removeChannel: make(chan int64, 10),
+		removeChannel: make(chan *channelState, 10),
 
 		client:                cfg.RawClient,
 		log:                   log.For(cfg.Logger),
@@ -130,6 +136,14 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		wg:                    cfg.WorkGroup,
 		tracer:                cfg.Tracer,
 		chDiffSem:             cfg.ChannelDiffSem,
+		trackChannel:          cfg.TrackChannel,
+		onLoadChannelFailed:   cfg.OnLoadChannelFailed,
+		runContext:            ctx,
+	}
+	if cfg.TrackChannel != nil {
+		s.retiring = make(map[int64]*channelState)
+		s.trackingQueue = make(chan map[int64]channelStateInfo, 1)
+		s.channelFinished = make(chan channelCompletion, 10)
 	}
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
@@ -150,11 +164,12 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 	})
 
 	for id, info := range cfg.Channels {
+		if !s.tracksChannel(id) {
+			continue
+		}
 		state := s.newChannelState(id, info.AccessHash, info.Pts)
 		s.channels[id] = state
-		s.wg.Go(func() error {
-			return state.Run(ctx)
-		})
+		s.startChannel(ctx, state, false)
 	}
 
 	return s
@@ -252,8 +267,12 @@ func (s *internalState) Run(ctx context.Context) error {
 		case <-s.idleTimeout.C:
 			s.log.Debug(ctx, "Idle timeout")
 			s.getDifferenceLogger(ctx, "idle-timeout")
-		case channelID := <-s.removeChannel:
-			s.removeChannelState(channelID)
+		case state := <-s.removeChannel:
+			s.removeChannelState(state)
+		case channels := <-s.trackingQueue:
+			s.reconcileChannels(ctx, channels)
+		case completion := <-s.channelFinished:
+			s.channelCompleted(ctx, completion)
 		}
 	}
 }
@@ -261,11 +280,16 @@ func (s *internalState) Run(ctx context.Context) error {
 // removeChannelState drops a channel from tracking after its worker stopped
 // due to lost access (CHANNEL_PRIVATE). Must be called from the internalState
 // goroutine, which is the sole mutator of the channels map.
-func (s *internalState) removeChannelState(channelID int64) {
-	if _, ok := s.channels[channelID]; !ok {
+func (s *internalState) removeChannelState(state *channelState) {
+	channelID := state.channelID
+	if s.channels[channelID] != state {
 		return
 	}
 	delete(s.channels, channelID)
+	if state.cancel != nil {
+		s.retiring[channelID] = state
+		state.cancel()
+	}
 	s.log.Debug(context.Background(), "Removed inaccessible channel from tracking",
 		log.Int64("channel_id", channelID),
 	)
@@ -385,6 +409,9 @@ func (s *internalState) handleAffected(ctx context.Context, channelID int64, pts
 	}
 
 	if channelID != 0 {
+		if !s.tracksChannel(channelID) {
+			return nil
+		}
 		st, ok := s.channels[channelID]
 		if !ok {
 			// Not tracked yet: skip. When the channel becomes tracked it runs its
@@ -442,6 +469,9 @@ func (s *internalState) handleQts(ctx context.Context, qts int, u tg.UpdateClass
 }
 
 func (s *internalState) handleChannel(ctx context.Context, channelID int64, date, pts, ptsCount int, cu channelUpdate) error {
+	if !s.tracksChannel(channelID) {
+		return nil
+	}
 	if err := validatePts(pts, ptsCount); err != nil {
 		s.log.Error(ctx, "Pts validation failed", log.Error(err), log.Any("update", cu.update))
 		return nil
@@ -449,7 +479,7 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 
 	state, ok := s.channels[channelID]
 	if !ok {
-		accessHash, found, err := s.hasher.GetChannelAccessHash(context.Background(), s.selfID, channelID)
+		accessHash, found, err := s.hasher.GetChannelAccessHash(ctx, s.selfID, channelID)
 		if err != nil {
 			s.log.Error(ctx, "GetChannelAccessHash error", log.Error(err))
 		}
@@ -473,24 +503,25 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 			}
 		}
 
-		localPts, found, err := s.storage.GetChannelPts(ctx, s.selfID, channelID)
-		if err != nil {
-			localPts = pts - ptsCount
-			s.log.Error(ctx, "GetChannelPts error", log.Error(err))
-		}
+		localPts := pts - ptsCount
+		if s.retiring[channelID] == nil {
+			localPts, found, err = s.storage.GetChannelPts(ctx, s.selfID, channelID)
+			if err != nil {
+				localPts = pts - ptsCount
+				s.log.Error(ctx, "GetChannelPts error", log.Error(err))
+			}
 
-		if !found {
-			localPts = pts - ptsCount
-			if err := s.storage.SetChannelPts(ctx, s.selfID, channelID, localPts); err != nil {
-				s.log.Error(ctx, "SetChannelPts error", log.Error(err))
+			if !found {
+				localPts = pts - ptsCount
+				if err := s.storage.SetChannelPts(ctx, s.selfID, channelID, localPts); err != nil {
+					s.log.Error(ctx, "SetChannelPts error", log.Error(err))
+				}
 			}
 		}
 
 		state = s.newChannelState(channelID, accessHash, localPts)
 		s.channels[channelID] = state
-		s.wg.Go(func() error {
-			return state.Run(ctx)
-		})
+		s.startChannel(ctx, state, false)
 	}
 
 	return state.Push(ctx, cu)
@@ -515,6 +546,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		Logger:                s.log.Named("channel").With(log.Int64("channel_id", channelID)).Logger(),
 		Tracer:                s.tracer,
 		ChannelDiffSem:        s.chDiffSem,
+		TrackChannel:          s.trackChannel,
 	})
 }
 

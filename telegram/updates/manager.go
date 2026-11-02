@@ -28,6 +28,10 @@ var _ telegram.UpdateHandler = (*Manager)(nil)
 type Manager struct {
 	state *internalState
 	mux   sync.Mutex
+	// Protected by mux. Refresh revisions prevent a slow earlier storage scan
+	// from replacing a newer successful refresh.
+	refreshRevision  uint64
+	refreshPublished uint64
 
 	// immutable:
 
@@ -123,6 +127,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	defer lg.Debug(ctx, "Done")
 
 	wg, ctx := errgroup.WithContext(ctx)
+	var running *internalState
 
 	if err := func() error {
 		m.mux.Lock()
@@ -163,7 +168,10 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			DiffLimit:             diffLim,
 			WorkGroup:             wg,
 			ChannelDiffSem:        m.chDiffSem,
+			TrackChannel:          m.cfg.TrackChannel,
+			OnLoadChannelFailed:   m.cfg.OnLoadChannelStateFailed,
 		})
+		running = m.state
 
 		return nil
 	}(); err != nil {
@@ -173,7 +181,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 		opt.OnStart(ctx)
 	}
 	wg.Go(func() error {
-		return m.state.Run(ctx)
+		return running.Run(ctx)
 	})
 	lg.Debug(ctx, "Wait")
 	return wg.Wait()
@@ -183,32 +191,38 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 //
 // Channels with a missing access hash are skipped and reported via
 // Config.OnLoadChannelStateFailed.
-func (m *Manager) loadChannels(ctx context.Context, userID int64) (map[int64]struct {
-	Pts        int
-	AccessHash int64
-}, error) {
-	channels := make(map[int64]struct {
-		Pts        int
-		AccessHash int64
-	})
+func (m *Manager) loadChannels(ctx context.Context, userID int64) (map[int64]channelStateInfo, error) {
+	channels := make(map[int64]channelStateInfo)
 	if err := m.cfg.Storage.ForEachChannels(ctx, userID, func(ctx context.Context, channelID int64, pts int) error {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		if m.cfg.TrackChannel != nil && !m.cfg.TrackChannel(channelID) {
+			return nil
+		}
+		channels[channelID] = channelStateInfo{Pts: pts}
+		return nil
+	}); err != nil {
+		return nil, errors.Wrap(err, "iterate channels")
+	}
+	// Storage and hash implementations may share a lock or database connection.
+	// Finish enumeration before calling into the hash store.
+	for channelID, info := range channels {
+		if err := ctx.Err(); err != nil {
+			return nil, err
+		}
 		hash, found, err := m.cfg.AccessHasher.GetChannelAccessHash(ctx, userID, channelID)
 		if err != nil {
-			return errors.Wrap(err, "get channel access hash")
+			return nil, errors.Wrap(err, "get channel access hash")
 		}
 
 		if !found {
 			m.cfg.OnLoadChannelStateFailed(channelID)
-			return nil
+			delete(channels, channelID)
+			continue
 		}
-
-		channels[channelID] = struct {
-			Pts        int
-			AccessHash int64
-		}{Pts: pts, AccessHash: hash}
-		return nil
-	}); err != nil {
-		return nil, errors.Wrap(err, "iterate channels")
+		info.AccessHash = hash
+		channels[channelID] = info
 	}
 	return channels, nil
 }
