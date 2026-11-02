@@ -36,6 +36,7 @@ func (s *internalState) dispatch(ctx context.Context, u *tg.Updates) error {
 // dispatch mirrors internalState.dispatch for the per-channel worker, which owns
 // delivery of channel message updates — the exact path in issue #1553.
 func (s *channelState) dispatch(ctx context.Context, u *tg.Updates) error {
+	ctx = s.persistContext(ctx)
 	u.Chats = backfillMinChats(ctx, s.log, s.hasher, s.selfID, u.Chats)
 	u.Users = backfillMinUsers(ctx, s.log, s.userHasher, s.selfID, u.Users)
 	return s.handler.Handle(ctx, u)

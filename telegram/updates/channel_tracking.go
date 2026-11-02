@@ -144,6 +144,9 @@ func (s *internalState) startChannel(ctx context.Context, state *channelState, r
 			if ctx.Err() == nil && (errors.Is(retErr, errChannelDeselected) || retErr == context.Canceled) {
 				retErr = nil
 			}
+			if retErr != nil {
+				return
+			}
 			// Identity guards on the owner keep an old completion from removing
 			// a replacement. Notify only after all effects and done have finished.
 			select {
@@ -162,6 +165,9 @@ func (s *internalState) startChannel(ctx context.Context, state *channelState, r
 		if restore || previous != nil {
 			pts, found, err := s.storage.GetChannelPts(ctx, s.selfID, state.channelID)
 			if err != nil || !found {
+				if isApplyError(err) {
+					return err
+				}
 				s.log.Error(ctx, "Failed to restore selected channel checkpoint",
 					log.Int64("channel_id", state.channelID), log.Error(err))
 				s.onLoadChannelFailed(state.channelID)
