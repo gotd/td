@@ -3,23 +3,12 @@ package updates
 import (
 	"context"
 
-	"github.com/go-faster/errors"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/gotd/log"
 
 	"github.com/gotd/td/tg"
 )
-
-// applyError distinguishes failed local effects from recoverable RPC errors.
-type applyError struct{ error }
-
-func (e *applyError) Unwrap() error { return e.error }
-
-func isApplyError(err error) bool {
-	var apply *applyError
-	return errors.As(err, &apply)
-}
 
 func (s *internalState) applySeq(ctx context.Context, state int, updates []update) error {
 	recoverState := false

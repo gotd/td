@@ -135,6 +135,9 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		tracer:                cfg.Tracer,
 		chDiffSem:             cfg.ChannelDiffSem,
 	}
+	if cfg.StopOnApplyError {
+		s.storage = checkpointReadStorage{StateStorage: s.storage}
+	}
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
 		Apply:        s.applyPts,
