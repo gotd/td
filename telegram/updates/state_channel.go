@@ -401,6 +401,9 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 				Chats:   diff.Chats,
 			}); err != nil {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
+				if isApplyError(err) {
+					return err
+				}
 			}
 		}
 		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
