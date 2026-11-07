@@ -13,10 +13,15 @@ type block struct {
 	chunk
 	offset   int64
 	partSize int
+	// end is true if block reaches known end of file.
+	end bool
 }
 
 // last compares partSize and chunk length to determine last part.
 func (b block) last() bool {
+	if b.end {
+		return true
+	}
 	// If returned chunk is smaller than requested part, it seems
 	// it is last part.
 	return len(b.data) < b.partSize
@@ -26,6 +31,9 @@ type reader struct {
 	sch      schema    // immutable
 	verifier *verifier // immutable
 	partSize int       // immutable
+
+	// size is the known file size, zero if unknown.
+	size int64
 
 	offset    int64
 	offsetMux sync.Mutex
@@ -83,6 +91,11 @@ func (r *reader) nextPlain(ctx context.Context) (block, error) {
 	r.offset += int64(r.partSize)
 	r.offsetMux.Unlock()
 
+	if r.size > 0 && offset >= r.size {
+		// Known end of file: do not request past it.
+		return block{offset: offset, partSize: r.partSize}, nil
+	}
+
 	return r.next(ctx, offset, r.partSize)
 }
 
@@ -100,10 +113,14 @@ func (r *reader) next(ctx context.Context, offset int64, limit int) (block, erro
 			return block{}, errors.Wrap(err, "get next chunk")
 		}
 
-		return block{
+		b := block{
 			chunk:    ch,
 			offset:   offset,
 			partSize: r.partSize,
-		}, nil
+		}
+		if r.size > 0 && offset+int64(len(ch.data)) >= r.size {
+			b.end = true
+		}
+		return b, nil
 	}
 }

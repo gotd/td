@@ -14,7 +14,7 @@ import (
 
 // nolint:gocognit
 func (d *Downloader) parallel(
-	ctx context.Context, r *reader,
+	ctx context.Context, r *reader, s sink,
 	threads int, w io.WriterAt,
 ) (tg.StorageFileTypeClass, error) {
 	var typ tg.StorageFileTypeClass
@@ -77,7 +77,7 @@ func (d *Downloader) parallel(
 	})
 
 	// Write loop
-	g.Go(writeAtLoop(syncio.NewWriterAt(w), toWrite))
+	g.Go(writeAtLoop(syncio.NewWriterAt(w), s, toWrite))
 
 	return typ, g.Wait()
 }

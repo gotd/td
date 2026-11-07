@@ -7,7 +7,21 @@ import (
 	"github.com/go-faster/errors"
 )
 
-func writeAtLoop(w io.WriterAt, toWrite <-chan block) func(context.Context) error {
+// sink tracks download progress.
+type sink struct {
+	done     int64
+	total    int64
+	progress ProgressFunc
+}
+
+func (s *sink) written(n int) {
+	s.done += int64(n)
+	if s.progress != nil {
+		s.progress(s.done, s.total)
+	}
+}
+
+func writeAtLoop(w io.WriterAt, s sink, toWrite <-chan block) func(context.Context) error {
 	return func(ctx context.Context) error {
 		for {
 			select {
@@ -22,12 +36,13 @@ func writeAtLoop(w io.WriterAt, toWrite <-chan block) func(context.Context) erro
 				if err != nil {
 					return errors.Wrap(err, "write output")
 				}
+				s.written(len(part.data))
 			}
 		}
 	}
 }
 
-func writeLoop(w io.Writer, toWrite <-chan block) func(context.Context) error {
+func writeLoop(w io.Writer, s sink, toWrite <-chan block) func(context.Context) error {
 	return func(ctx context.Context) error {
 		for {
 			select {
@@ -42,6 +57,7 @@ func writeLoop(w io.Writer, toWrite <-chan block) func(context.Context) error {
 				if err != nil {
 					return errors.Wrap(err, "write output")
 				}
+				s.written(len(part.data))
 			}
 		}
 	}
