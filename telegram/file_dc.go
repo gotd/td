@@ -6,7 +6,6 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
@@ -65,22 +64,8 @@ const maxFileMigrations = 2
 
 func (f fileDCInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	dc := f.dc
-	recreated := false
 	for hop := 0; ; hop++ {
-		conn, err := f.client.cachedDC(ctx, f.client.filePools, dc)
-		if err != nil {
-			return errors.Wrapf(err, "create pool to DC %d", dc)
-		}
-		err = conn.Invoke(ctx, input, output)
-		if auth.IsUnauthorized(err) && !recreated {
-			// Pool may be cached with failed authorization transfer, e.g.
-			// created before sign in completed. Drop it and retry once on
-			// a new pool, which transfers authorization again.
-			recreated = true
-			f.client.filePools.evict(dc, conn)
-			hop--
-			continue
-		}
+		err := f.client.invokeCachedDC(ctx, f.client.filePools, dc, input, output)
 		rpcErr, ok := tgerr.AsType(err, "FILE_MIGRATE")
 		if !ok || hop >= maxFileMigrations || rpcErr.Argument == dc {
 			return err

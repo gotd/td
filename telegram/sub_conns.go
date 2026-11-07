@@ -9,6 +9,7 @@ import (
 	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/internal/manager"
 )
 
@@ -66,11 +67,34 @@ func (p *dcPoolCache) evict(dc int, conn CloseInvoker) {
 var errClientNotRunning = errors.New("client is not running")
 
 func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, output bin.Decoder) error {
-	conn, err := c.cachedDC(ctx, c.subConns, dc)
-	if err != nil {
-		return errors.Wrapf(err, "create connection to DC %d", dc)
+	return c.invokeCachedDC(ctx, c.subConns, dc, input, output)
+}
+
+// invokeCachedDC invokes request on cached data pool of dc.
+//
+// If the request fails as unauthorized, the pool may be cached with a failed
+// authorization transfer, e.g. created before sign in completed: it is
+// dropped and the request is retried once on a new pool, which transfers
+// authorization again.
+func (c *Client) invokeCachedDC(
+	ctx context.Context,
+	cache *dcPoolCache,
+	dc int,
+	input bin.Encoder,
+	output bin.Decoder,
+) error {
+	for attempt := 0; ; attempt++ {
+		conn, err := c.cachedDC(ctx, cache, dc)
+		if err != nil {
+			return errors.Wrapf(err, "create connection to DC %d", dc)
+		}
+		err = conn.Invoke(ctx, input, output)
+		if attempt == 0 && auth.IsUnauthorized(err) {
+			cache.evict(dc, conn)
+			continue
+		}
+		return err
 	}
-	return conn.Invoke(ctx, input, output)
 }
 
 // cachedDC returns cached data pool to given DC or creates new one.
