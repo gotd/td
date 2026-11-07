@@ -97,14 +97,30 @@ func (c *Client) createConn(
 	setup manager.SetupCallback,
 	onDead func(error),
 ) pool.Conn {
+	return c.createConnWith(id, mode, nil, setup, onDead)
+}
+
+// createConnWith creates connection that uses primary session.
+//
+// If dialer is nil, primary DC dialer is used.
+func (c *Client) createConnWith(
+	id int64,
+	mode manager.ConnMode,
+	dialer mtproto.Dialer,
+	setup manager.SetupCallback,
+	onDead func(error),
+) pool.Conn {
 	opts, s := c.session.Options(c.opts)
 	opts.Logger = c.log.Named("conn").With(
 		log.Int64("conn_id", id),
 		log.Int("dc_id", s.DC),
 	).Logger()
+	if dialer == nil {
+		dialer = c.primaryDC(s.DC)
+	}
 
 	return c.create(
-		c.primaryDC(s.DC), mode, c.appID,
+		dialer, mode, c.appID,
 		opts, manager.ConnOptions{
 			DC:      s.DC,
 			Test:    c.testDC,
