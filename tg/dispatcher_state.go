@@ -32,7 +32,12 @@ func (s *dispatcherState) setFallback(h Handler) {
 }
 
 // handler returns handler for given type ID, or fallback handler, or nil.
+//
+// A nil state (zero UpdateDispatcher value) has no handlers.
 func (s *dispatcherState) handler(typeID uint32) Handler {
+	if s == nil {
+		return nil
+	}
 	s.mux.RLock()
 	defer s.mux.RUnlock()
 	if h, ok := s.handlers[typeID]; ok {

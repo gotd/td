@@ -72,3 +72,11 @@ func TestUpdateDispatcherRegisterConcurrently(t *testing.T) {
 	require.NoError(t, d.Handle(ctx, updates))
 	require.Equal(t, before+1, calls.Load())
 }
+
+func TestUpdateDispatcherZeroValue(t *testing.T) {
+	// Zero value worked as a no-op handler before handlers became shared.
+	var d tg.UpdateDispatcher
+	require.NoError(t, d.Handle(context.Background(), &tg.Updates{
+		Updates: []tg.UpdateClass{&tg.UpdateNewMessage{Message: &tg.Message{}}},
+	}))
+}
