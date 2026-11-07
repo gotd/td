@@ -5,3 +5,6 @@ _bin/*
 /cmd/gotdecho/gotdecho
 
 *.out
+
+# Temporary package of gen handlers compile test.
+gen/_handlers_compile*
