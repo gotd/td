@@ -10,6 +10,11 @@ import (
 type Options struct {
 	Migrate func(ctx context.Context, dcID int) error
 	Clock   clock.Clock
+	// Password returns 2FA password of the account (optional).
+	//
+	// If set, Import and Auth complete 2FA (auth.checkPassword) when the
+	// account has a password, instead of returning SESSION_PASSWORD_NEEDED.
+	Password func(ctx context.Context) (string, error)
 }
 
 func (o *Options) setDefaults() {
