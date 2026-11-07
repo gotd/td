@@ -305,22 +305,29 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 //
 // Like ExtractPeer, but like TDLib (get_input_peer_force) it is built even
 // for min users and channels, as the server uses offset_peer only to order
-// results. Unknown peers give inputPeerEmpty. Do not use it for other
-// requests: min access hashes are rejected there.
+// results, and for unknown peers, with zero access hash. Do not use it for
+// other requests: min and zero access hashes are rejected there.
 func (ent Entities) OffsetPeer(peerID tg.PeerClass) tg.InputPeerClass {
 	p, err := ent.ExtractPeer(peerID)
 	if err == nil {
 		return p
 	}
+	// Unknown peers get zero access hash, as in TDLib.
 	switch v := peerID.(type) {
 	case *tg.PeerUser:
+		var hash int64
 		if u, ok := ent.users[v.UserID]; ok {
-			return &tg.InputPeerUser{UserID: u.ID, AccessHash: u.AccessHash}
+			hash = u.AccessHash
 		}
+		return &tg.InputPeerUser{UserID: v.UserID, AccessHash: hash}
+	case *tg.PeerChat:
+		return &tg.InputPeerChat{ChatID: v.ChatID}
 	case *tg.PeerChannel:
+		var hash int64
 		if c, ok := ent.channels[v.ChannelID]; ok {
-			return &tg.InputPeerChannel{ChannelID: c.ID, AccessHash: c.AccessHash}
+			hash = c.AccessHash
 		}
+		return &tg.InputPeerChannel{ChannelID: v.ChannelID, AccessHash: hash}
 	}
 	return &tg.InputPeerEmpty{}
 }
