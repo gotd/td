@@ -10,27 +10,32 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // QR implements Telegram QR login flow.
 type QR struct {
-	api     *tg.Client
-	appID   int
-	appHash string
-	migrate func(ctx context.Context, dcID int) error
-	clock   clock.Clock
+	api      *tg.Client
+	appID    int
+	appHash  string
+	migrate  func(ctx context.Context, dcID int) error
+	clock    clock.Clock
+	password func(ctx context.Context) (string, error)
 }
 
 // NewQR creates new QR
 func NewQR(api *tg.Client, appID int, appHash string, opts Options) QR {
 	opts.setDefaults()
 	return QR{
-		api:     api,
-		appID:   appID,
-		appHash: appHash,
-		clock:   opts.Clock,
-		migrate: opts.Migrate,
+		api:      api,
+		appID:    appID,
+		appHash:  appHash,
+		clock:    opts.Clock,
+		migrate:  opts.Migrate,
+		password: opts.Password,
 	}
 }
 
@@ -73,8 +78,37 @@ func (q QR) Accept(ctx context.Context, t Token) (*tg.Authorization, error) {
 
 // Import imports accepted token.
 //
+// If the account has 2FA password and Options.Password is set, the password
+// is checked, otherwise SESSION_PASSWORD_NEEDED error is returned.
+//
 // See https://core.telegram.org/api/qr-login#confirming-importing-the-login-token.
 func (q QR) Import(ctx context.Context) (*tg.AuthAuthorization, error) {
+	a, err := q.importToken(ctx)
+	if q.needPassword(err) {
+		return q.checkPassword(ctx)
+	}
+	return a, err
+}
+
+// needPassword reports whether err requests 2FA password and it can be
+// provided.
+func (q QR) needPassword(err error) bool {
+	return err != nil && q.password != nil && tgerr.Is(err, "SESSION_PASSWORD_NEEDED")
+}
+
+func (q QR) checkPassword(ctx context.Context) (*tg.AuthAuthorization, error) {
+	password, err := q.password(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get password")
+	}
+	a, err := auth.NewClient(q.api, crypto.DefaultRand(), q.appID, q.appHash).Password(ctx, password)
+	if err != nil {
+		return nil, errors.Wrap(err, "check password")
+	}
+	return a, nil
+}
+
+func (q QR) importToken(ctx context.Context) (*tg.AuthAuthorization, error) {
 	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
 		APIID:   q.appID,
 		APIHash: q.appHash,
@@ -155,6 +189,9 @@ func (q QR) Auth(
 
 	token, err := q.Export(ctx, exceptIDs...)
 	if err != nil {
+		if q.needPassword(err) {
+			return q.checkPassword(ctx)
+		}
 		return nil, err
 	}
 
@@ -183,6 +220,11 @@ func (q QR) Auth(
 		case <-timer.C():
 			t, err := q.Export(ctx, exceptIDs...)
 			if err != nil {
+				// Token may be accepted right before expiration (or the
+				// update is missed), so 2FA can be requested here too.
+				if q.needPassword(err) {
+					return q.checkPassword(ctx)
+				}
 				return nil, err
 			}
 
