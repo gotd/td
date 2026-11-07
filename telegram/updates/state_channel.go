@@ -59,12 +59,29 @@ type channelState struct {
 	tracer         trace.Tracer
 	handler        telegram.UpdateHandler
 	onTooLong      func(channelID int64)
+	onGap          func(gap ChannelGap)
 	onInaccessible func(channelID int64)
 	// removeChannel signals *internalState to drop this channel from tracking.
 	removeChannel chan<- int64
 	// chDiffSem bounds concurrent getChannelDifference calls across all channels
 	// of the manager. nil means unlimited.
 	chDiffSem chDiffSem
+}
+
+// ChannelGap describes a channel gap that the manager cannot recover
+// (updates.channelDifferenceTooLong).
+type ChannelGap struct {
+	// ChannelID is the channel ID.
+	ChannelID int64
+	// AccessHash is the channel access hash.
+	AccessHash int64
+	// LocalPts is the local pts before the gap.
+	LocalPts int
+	// RemotePts is the new pts after the gap (pts of the channel dialog).
+	RemotePts int
+	// TopMessage is the ID of the latest channel message (from the
+	// channel dialog), zero if unknown.
+	TopMessage int
 }
 
 type channelStateConfig struct {
@@ -80,6 +97,7 @@ type channelStateConfig struct {
 	UserHasher            UserAccessHasher
 	Handler               telegram.UpdateHandler
 	OnChannelTooLong      func(channelID int64)
+	OnChannelGap          func(gap ChannelGap)
 	OnChannelInaccessible func(channelID int64)
 	RemoveChannel         chan<- int64
 	Logger                log.Logger
@@ -106,6 +124,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		log:            log.For(cfg.Logger),
 		handler:        cfg.Handler,
 		onTooLong:      cfg.OnChannelTooLong,
+		onGap:          cfg.OnChannelGap,
 		onInaccessible: cfg.OnChannelInaccessible,
 		removeChannel:  cfg.RemoveChannel,
 		tracer:         cfg.Tracer,
@@ -238,19 +257,14 @@ func (s *channelState) handleTooLong(ctx context.Context, long *tg.UpdateChannel
 	ctx, span := s.tracer.Start(ctx, "channelState.handleTooLong")
 	defer span.End()
 
-	remotePts, ok := long.GetPts()
-	if !ok {
+	if _, ok := long.GetPts(); !ok {
 		s.log.Warn(ctx, "Got UpdateChannelTooLong without pts field")
 		return s.getDifference(ctx, "channel-too-long-no-pts")
 	}
 
-	// Note: we still can fetch latest diffLim updates.
-	// Should we do?
-	if remotePts-s.pts.State() > s.diffLim {
-		s.onTooLong(s.channelID)
-		return nil
-	}
-
+	// Even if the gap is larger than diffLim, fetch the difference: the server
+	// returns channelDifferenceTooLong with the latest messages, which are
+	// dispatched, and the gap is reported via OnChannelTooLong/OnChannelGap.
 	return s.getDifference(ctx, "channel-too-long")
 }
 
@@ -411,10 +425,32 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
 		}
 
+		gap := ChannelGap{
+			ChannelID:  s.channelID,
+			AccessHash: s.accessHash,
+			LocalPts:   s.pts.State(),
+		}
+		if d, ok := diff.Dialog.(*tg.Dialog); ok {
+			gap.TopMessage = d.TopMessage
+		}
+
+		// The server returns the latest channel messages: deliver them like
+		// new messages of channelDifference, before moving pts.
+		if len(diff.Messages) > 0 {
+			if err := s.dispatch(ctx, &tg.Updates{
+				Updates: msgsToUpdates(diff.Messages, true),
+				Users:   diff.Users,
+				Chats:   diff.Chats,
+			}); err != nil {
+				s.log.Error(ctx, "Handle updates error", log.Error(err))
+			}
+		}
+
 		remotePts, err := getDialogPts(diff.Dialog)
 		if err != nil {
 			s.log.Warn(ctx, "UpdatesChannelDifferenceTooLong invalid Dialog", log.Error(err))
 		} else {
+			gap.RemotePts = remotePts
 			if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, remotePts); err != nil {
 				s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
 			}
@@ -423,6 +459,13 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		}
 
 		s.onTooLong(s.channelID)
+		if s.onGap != nil {
+			s.onGap(gap)
+		}
+
+		if !diff.Final && err == nil {
+			return s.getDifference(ctx, "channel-difference-too-long-not-final")
+		}
 		return nil
 
 	default:

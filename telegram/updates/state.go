@@ -74,6 +74,7 @@ type internalState struct {
 	log                   log.Helper
 	handler               telegram.UpdateHandler
 	onTooLong             func(channelID int64)
+	onChannelGap          func(gap ChannelGap)
 	onChannelInaccessible func(channelID int64)
 	onCommonTooLong       func()
 	storage               StateStorage
@@ -97,6 +98,7 @@ type stateConfig struct {
 	Tracer                trace.Tracer
 	Handler               telegram.UpdateHandler
 	OnChannelTooLong      func(channelID int64)
+	OnChannelGap          func(gap ChannelGap)
 	OnChannelInaccessible func(channelID int64)
 	OnTooLong             func()
 	Storage               StateStorage
@@ -126,6 +128,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		log:                   log.For(cfg.Logger),
 		handler:               cfg.Handler,
 		onTooLong:             cfg.OnChannelTooLong,
+		onChannelGap:          cfg.OnChannelGap,
 		onChannelInaccessible: cfg.OnChannelInaccessible,
 		onCommonTooLong:       cfg.OnTooLong,
 		storage:               cfg.Storage,
@@ -510,6 +513,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		UserHasher:            s.userHasher,
 		Handler:               s.handler,
 		OnChannelTooLong:      s.onTooLong,
+		OnChannelGap:          s.onChannelGap,
 		OnChannelInaccessible: s.onChannelInaccessible,
 		RemoveChannel:         s.removeChannel,
 		Logger:                s.log.Named("channel").With(log.Int64("channel_id", channelID)).Logger(),
