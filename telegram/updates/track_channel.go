@@ -52,12 +52,16 @@ func (m *Manager) TrackChannel(ctx context.Context, channelID, accessHash int64,
 	r.result = make(chan error, 1)
 	select {
 	case state.trackQueue <- r:
+	case <-state.done:
+		return ErrStopped
 	case <-ctx.Done():
 		return ctx.Err()
 	}
 	select {
 	case err := <-r.result:
 		return err
+	case <-state.done:
+		return ErrStopped
 	case <-ctx.Done():
 		return ctx.Err()
 	}

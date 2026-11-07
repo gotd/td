@@ -66,6 +66,8 @@ type internalState struct {
 	removeChannel chan int64
 	// trackQueue receives requests to track channels (Manager.TrackChannel).
 	trackQueue chan trackRequest
+	// done is closed when Run returns: nothing reads the queues anymore.
+	done chan struct{}
 	// runCtx is the context of channel workers.
 	runCtx context.Context
 
@@ -116,6 +118,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		internalQueue: make(chan tracedUpdate, 10),
 		affectedQueue: make(chan affectedUpdate, 10),
 		trackQueue:    make(chan trackRequest),
+		done:          make(chan struct{}),
 		runCtx:        ctx,
 
 		date:        cfg.State.Date,
@@ -173,6 +176,8 @@ func (s *internalState) Push(ctx context.Context, u tg.UpdatesClass) error {
 	select {
 	case s.externalQueue <- tu:
 		return nil
+	case <-s.done:
+		return ErrStopped
 	case <-ctx.Done():
 		return ctx.Err()
 	}
@@ -189,6 +194,8 @@ func (s *internalState) PushAffected(ctx context.Context, channelID int64, pts, 
 	select {
 	case s.affectedQueue <- au:
 		return nil
+	case <-s.done:
+		return ErrStopped
 	case <-ctx.Done():
 		return ctx.Err()
 	}
@@ -215,6 +222,7 @@ func (s *internalState) Run(ctx context.Context) error {
 	}
 	s.log.Debug(ctx, "Starting updates handler")
 	defer s.log.Debug(ctx, "Updates handler stopped")
+	defer close(s.done)
 	s.getDifferenceLogger(ctx, "startup")
 
 	for {
