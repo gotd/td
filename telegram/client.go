@@ -73,7 +73,12 @@ type Client struct {
 	// Migration state.
 	migrationTimeout time.Duration // immutable
 	filePoolSize     int64         // immutable
-	migration        chan struct{}
+	// requestTimeout returns response deadline of request, may be nil.
+	requestTimeout func(input bin.Encoder) time.Duration // immutable
+	// restartSem serializes restarts on request timeout, a 1-slot semaphore
+	// that waiters can leave when their context is done.
+	restartSem chan struct{}
+	migration  chan struct{}
 
 	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
@@ -214,6 +219,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		layer:             opt.Layer,
 		migrationTimeout:  opt.MigrationTimeout,
 		filePoolSize:      opt.FilePoolSize,
+		requestTimeout:    opt.RequestTimeout,
 		noUpdatesMode:     opt.NoUpdates,
 		mw:                opt.Middlewares,
 		onTransfer:        opt.OnTransfer,
@@ -249,6 +255,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		MessageID:         opt.MessageID,
 		ExchangeTimeout:   opt.ExchangeTimeout,
 		DialTimeout:       opt.DialTimeout,
+		PingInterval:      opt.PingInterval,
+		PingTimeout:       opt.PingTimeout,
 		// Forward PFS toggles into low-level mtproto connection.
 		EnablePFS:  opt.EnablePFS,
 		TempKeyTTL: opt.TempKeyTTL,
@@ -285,6 +293,7 @@ func (c *Client) init() {
 	c.connChanged = make(chan struct{})
 	c.restart = make(chan struct{})
 	c.authLost = make(chan error, 1)
+	c.restartSem = make(chan struct{}, 1)
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}

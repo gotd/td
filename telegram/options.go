@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/log"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/exchange"
@@ -111,6 +112,22 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
+	// PingInterval is duration between pings (ping_delay_disconnect) of a
+	// connection. Defaults to 1 minute, see mtproto.Options.
+	PingInterval time.Duration
+	// PingTimeout is the timeout of ping response, after which the connection
+	// is considered dead. Defaults to 15 seconds, see mtproto.Options.
+	PingTimeout time.Duration
+	// RequestTimeout returns response deadline for a request on the primary
+	// connection, zero to wait as long as the request context allows
+	// (optional).
+	//
+	// If the deadline passes while the request context is still alive (e.g.
+	// the request was acknowledged but never answered by a half-dead
+	// connection), the client reconnects and sends the request once more on
+	// the new connection, like Telegram Desktop does. Return zero for
+	// requests that must not be sent twice.
+	RequestTimeout func(input bin.Encoder) time.Duration
 	// EnablePFS enables Perfect Forward Secrecy with temporary auth keys.
 	EnablePFS bool
 	// TempKeyTTL controls temporary key lifetime in seconds.
