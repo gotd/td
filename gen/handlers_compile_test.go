@@ -52,7 +52,10 @@ func TestGeneratorHandlersCompile(t *testing.T) {
 	// Inside the module, so imports of github.com/gotd/td resolve. The "_"
 	// prefix keeps it out of ./... patterns.
 	dir, err := os.MkdirTemp(".", "_handlers_compile")
-	require.NoError(t, err)
+	if err != nil {
+		// E.g. read-only source tree, like the module cache.
+		t.Skipf("Can't create package dir in source tree: %v", err)
+	}
 	t.Cleanup(func() { _ = os.RemoveAll(dir) })
 
 	require.NoError(t, g.WriteSource(dirFS(dir), "handlers", Template()))
