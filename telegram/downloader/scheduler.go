@@ -198,6 +198,9 @@ type backoffReporter struct {
 }
 
 func (r *backoffReporter) report(ctx context.Context, err error) {
+	if isSchedulerBackoff(ctx, err) {
+		observerFrom(ctx).backoff(ctx, err)
+	}
 	r.mux.Lock()
 	defer r.mux.Unlock()
 	r.epoch = r.sch.backoff(ctx, r.epoch, err)

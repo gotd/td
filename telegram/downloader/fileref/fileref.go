@@ -29,7 +29,10 @@ var _ API = (*tg.Client)(nil)
 
 // ErrNotFound means that the object or the file is not found, e.g. the
 // message was deleted or its media changed.
-var ErrNotFound = errors.New("file not found")
+//
+// It is downloader.ErrFileNotFound, so downloader reports such refreshes
+// as not found.
+var ErrNotFound = downloader.ErrFileNotFound
 
 // Message returns refresh function for a file of message msgID in peer:
 // document or photo of its media, including alternative documents, video

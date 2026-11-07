@@ -2,6 +2,10 @@
 package downloader
 
 import (
+	"go.opentelemetry.io/otel/metric"
+
+	"github.com/gotd/log"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
@@ -19,6 +23,12 @@ type Downloader struct {
 	retryHandler RetryHandler
 	// scheduler limits in-flight part requests, nil means no limit.
 	scheduler *Scheduler
+
+	// meterProvider and logger are set by WithMeterProvider and WithLogger.
+	meterProvider metric.MeterProvider
+	logger        log.Logger
+	// obs reports metrics and logs, nil if neither is set.
+	obs *observer
 }
 
 const defaultPartSize = 512 * 1024 // 512 kb
@@ -64,7 +74,7 @@ func (d *Downloader) Download(rpc Client, location tg.InputFileLocationClass) *B
 		client:       rpc,
 		precise:      true,
 		allowCDN:     false,
-		retryHandler: d.retryHandler,
+		retryHandler: d.obs.wrapRetry(d.retryHandler),
 		location:     location,
 	})
 }
@@ -73,7 +83,7 @@ func (d *Downloader) Download(rpc Client, location tg.InputFileLocationClass) *B
 func (d *Downloader) Web(rpc Client, location tg.InputWebFileLocationClass) *Builder {
 	return newBuilder(d, web{
 		client:       rpc,
-		retryHandler: d.retryHandler,
+		retryHandler: d.obs.wrapRetry(d.retryHandler),
 		location:     location,
 	})
 }

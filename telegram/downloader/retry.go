@@ -13,8 +13,10 @@ import (
 
 const maxRetryAttempts = 20
 
-func retryLimitErr(op string, attempts int, err error) error {
-	return errors.Wrapf(err, "%s: retry limit reached (%d)", op, attempts)
+func retryLimitErr(ctx context.Context, op string, attempts int, err error) error {
+	err = errors.Wrapf(err, "%s: retry limit reached (%d)", op, attempts)
+	observerFrom(ctx).exhausted(ctx, op, err)
+	return err
 }
 
 func isCDNFingerprintErr(err error) bool {
@@ -85,7 +87,7 @@ func retryRequest[T any](
 				if timeoutRetries >= maxRetryAttempts {
 					// Not retried: the error is reported by release of the
 					// request, so it is not reported here.
-					return zero, retryLimitErr(op, timeoutRetries, waitErr)
+					return zero, retryLimitErr(ctx, op, timeoutRetries, waitErr)
 				}
 				reportBackoff(ctx, waitErr)
 				retryAttempt++
