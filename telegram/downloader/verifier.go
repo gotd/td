@@ -23,7 +23,9 @@ type verifier struct {
 	hashes []tg.FileHash
 	// offset points to next hash window to request from server.
 	offset int64
-	mux    sync.Mutex
+	// skip is the offset to start from: hash windows before it are skipped.
+	skip int64
+	mux  sync.Mutex
 }
 
 func newVerifier(client schema, hashes ...tg.FileHash) *verifier {
@@ -51,7 +53,26 @@ func newVerifier(client schema, hashes ...tg.FileHash) *verifier {
 	}
 }
 
+// start makes verifier skip hashes before offset, i.e. start download from
+// offset.
+func (v *verifier) start(offset int64) {
+	v.mux.Lock()
+	defer v.mux.Unlock()
+	if offset <= 0 {
+		return
+	}
+	v.skip = offset
+	if v.offset < offset {
+		v.offset = offset
+	}
+}
+
 func (v *verifier) pop() (tg.FileHash, bool) {
+	for len(v.hashes) > 0 && v.hashes[0].Offset+int64(v.hashes[0].Limit) <= v.skip {
+		// Hash window is before start offset.
+		v.hashes = v.hashes[1:]
+	}
+
 	if len(v.hashes) < 1 {
 		return tg.FileHash{}, false
 	}

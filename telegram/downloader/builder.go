@@ -23,7 +23,22 @@ type Builder struct {
 	// independent from this flag.
 	verify  bool
 	threads int
+
+	// offset is the offset to start download from (WithOffset).
+	offset int64
+	// size is the known file size, zero if unknown (WithSize).
+	size int64
+	// progress is called after each written part (WithProgress).
+	progress ProgressFunc
 }
+
+// ProgressFunc is called after each written part with the offset of the end
+// of downloaded data, counting from the start of the file (including the
+// offset set by Builder.WithOffset), and the file size if known (see
+// Builder.WithSize), zero otherwise.
+//
+// Calls are not concurrent.
+type ProgressFunc func(done, total int64)
 
 func newBuilder(downloader *Downloader, schema schema) *Builder {
 	return &Builder{
@@ -76,6 +91,53 @@ func (b *Builder) WithVerify(verify bool) *Builder {
 	return b
 }
 
+// WithOffset sets offset to start download from, e.g. to resume a partially
+// downloaded file. Data before offset is not downloaded.
+//
+// Offset must be divisible by the part size (see Downloader.WithPartSize),
+// unless verification is enabled via WithVerify(true), which only requires
+// 4KB alignment: the hash window containing offset is downloaded whole to
+// verify it, and data before offset is dropped.
+//
+// Stream writes data from offset to the start of io.Writer, Parallel writes
+// it at the same offsets of io.WriterAt, and ToPath keeps existing file
+// content before offset.
+func (b *Builder) WithOffset(offset int64) *Builder {
+	b.offset = offset
+	return b
+}
+
+// WithSize sets known file size (e.g. Document.Size), so download stops
+// requesting parts at the end of file instead of probing past it, and
+// progress reports the total.
+func (b *Builder) WithSize(size int64) *Builder {
+	if size > 0 {
+		b.size = size
+	}
+	return b
+}
+
+// WithProgress sets callback called after each written part.
+func (b *Builder) WithProgress(progress ProgressFunc) *Builder {
+	b.progress = progress
+	return b
+}
+
+const offsetAlign = 4 * 1024
+
+func (b *Builder) validate() error {
+	if b.offset < 0 {
+		return errors.Errorf("invalid offset %d", b.offset)
+	}
+	if b.offset%offsetAlign != 0 {
+		return errors.Errorf("offset %d is not divisible by %d", b.offset, offsetAlign)
+	}
+	if !b.verify && b.downloader.partSize > 0 && b.offset%int64(b.downloader.partSize) != 0 {
+		return errors.Errorf("offset %d is not divisible by part size %d", b.offset, b.downloader.partSize)
+	}
+	return nil
+}
+
 func (b *Builder) prepareMaster(m master, allowCDN bool) *Builder {
 	clone := *b
 	masterSchema := m
@@ -126,6 +188,9 @@ func closeSchema(s schema) func() error {
 }
 
 func (b *Builder) prepare() (_ *Builder, closeCDN func() error, err error) {
+	if err := b.validate(); err != nil {
+		return nil, nil, err
+	}
 	m, ok := b.schema.(master)
 	if !ok {
 		return b, closeSchema(b.schema), nil
@@ -153,10 +218,26 @@ func (b *Builder) prepare() (_ *Builder, closeCDN func() error, err error) {
 
 func (b *Builder) reader() *reader {
 	if b.verify {
-		return verifiedReader(b.schema, newVerifier(b.schema, b.hashes...))
+		v := newVerifier(b.schema, b.hashes...)
+		v.start(b.offset)
+		r := verifiedReader(b.schema, v)
+		r.size = b.size
+		r.start = b.offset
+		return r
 	}
 
-	return plainReader(b.schema, b.downloader.partSize)
+	r := plainReader(b.schema, b.downloader.partSize)
+	r.offset = b.offset
+	r.size = b.size
+	return r
+}
+
+func (b *Builder) sink() sink {
+	return sink{
+		done:     b.offset,
+		total:    b.size,
+		progress: b.progress,
+	}
 }
 
 // Stream downloads file to given io.Writer.
@@ -171,7 +252,7 @@ func (b *Builder) Stream(ctx context.Context, output io.Writer) (_ tg.StorageFil
 			multierr.AppendInto(&err, closeCDN())
 		}
 	}()
-	typ, runErr := prepared.downloader.stream(ctx, prepared.reader(), output)
+	typ, runErr := prepared.downloader.stream(ctx, prepared.reader(), prepared.sink(), output)
 	return typ, runErr
 }
 
@@ -187,13 +268,21 @@ func (b *Builder) Parallel(ctx context.Context, output io.WriterAt) (_ tg.Storag
 		}
 	}()
 
-	typ, runErr := prepared.downloader.parallel(ctx, prepared.reader(), prepared.threads, output)
+	typ, runErr := prepared.downloader.parallel(ctx, prepared.reader(), prepared.sink(), prepared.threads, output)
 	return typ, runErr
 }
 
 // ToPath downloads file to given path.
+//
+// If offset is set (see WithOffset), existing file is not truncated, so data
+// before offset is kept. If size is set (see WithSize), the file is truncated
+// to it after a successful download.
 func (b *Builder) ToPath(ctx context.Context, path string) (_ tg.StorageFileTypeClass, err error) {
-	f, err := os.Create(filepath.Clean(path))
+	flag := os.O_RDWR | os.O_CREATE | os.O_TRUNC
+	if b.offset > 0 {
+		flag = os.O_RDWR | os.O_CREATE
+	}
+	f, err := os.OpenFile(filepath.Clean(path), flag, 0o666)
 	if err != nil {
 		return nil, errors.Wrap(err, "create output file")
 	}
@@ -202,5 +291,14 @@ func (b *Builder) ToPath(ctx context.Context, path string) (_ tg.StorageFileType
 	}()
 
 	typ, runErr := b.Parallel(ctx, f)
-	return typ, runErr
+	if runErr != nil {
+		return typ, runErr
+	}
+	if b.size > 0 {
+		// Drop stale data past the end of file, e.g. from a longer .part file.
+		if err := f.Truncate(b.size); err != nil {
+			return typ, errors.Wrap(err, "truncate output file")
+		}
+	}
+	return typ, nil
 }

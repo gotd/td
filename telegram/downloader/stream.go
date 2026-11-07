@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.StorageFileTypeClass, error) {
+func (d *Downloader) stream(ctx context.Context, r *reader, s sink, w io.Writer) (tg.StorageFileTypeClass, error) {
 	var typ tg.StorageFileTypeClass
 
 	g := tdsync.NewCancellableGroup(ctx)
@@ -48,7 +48,7 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 	})
 
 	// Write loop
-	g.Go(writeLoop(w, toWrite))
+	g.Go(writeLoop(w, s, toWrite))
 
 	return typ, g.Wait()
 }

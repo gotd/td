@@ -29,6 +29,8 @@ import (
 type mock struct {
 	data   []byte
 	hashes mockHashes
+	// fileType is returned as upload.file type, nil by default.
+	fileType tg.StorageFileTypeClass
 	// reupload emulates hashes returned by UploadReuploadCDNFile. When empty,
 	// mock keeps old behavior and returns nil hashes.
 	reupload  []tg.FileHash
@@ -151,6 +153,7 @@ func (m *mock) UploadGetFile(ctx context.Context, request *tg.UploadGetFileReque
 	}
 
 	return &tg.UploadFile{
+		Type:  m.fileType,
 		Bytes: m.getPart(request.Offset, request.Limit),
 	}, nil
 }
