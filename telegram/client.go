@@ -72,6 +72,7 @@ type Client struct {
 
 	// Migration state.
 	migrationTimeout time.Duration // immutable
+	filePoolSize     int64         // immutable
 	migration        chan struct{}
 
 	// tg provides RPC calls via Client. Uses invoker below.
@@ -116,10 +117,13 @@ type Client struct {
 	authLost chan error
 
 	// Connections to non-primary DC.
-	subConns map[int]CloseInvoker
-	// subConnsPending stores in-flight sub-connection creations.
-	subConnsPending map[int]*subConnCall
-	subConnsMux     sync.Mutex
+	// subConns are pools for *_MIGRATE redirects (invokeSub).
+	subConns *dcPoolCache
+	// filePools are pools returned by FileDC.
+	filePools *dcPoolCache
+	// fileInvokers are FileDC invokers wrapped with middlewares.
+	fileInvokers    map[int]tg.Invoker
+	fileInvokersMux sync.Mutex
 	// Shared CDN pools and handle references.
 	cdnPools cdnPoolManager
 	// sessions stores regular non-primary DC sessions.
@@ -209,6 +213,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		device:            opt.Device,
 		layer:             opt.Layer,
 		migrationTimeout:  opt.MigrationTimeout,
+		filePoolSize:      opt.FilePoolSize,
 		noUpdatesMode:     opt.NoUpdates,
 		mw:                opt.Middlewares,
 		onTransfer:        opt.OnTransfer,
@@ -283,8 +288,12 @@ func (c *Client) init() {
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}
-	c.subConns = map[int]CloseInvoker{}
-	c.subConnsPending = map[int]*subConnCall{}
+	c.subConns = newDCPoolCache(1)
+	if c.filePoolSize <= 0 {
+		c.filePoolSize = defaultFilePoolSize
+	}
+	c.filePools = newDCPoolCache(c.filePoolSize)
+	c.fileInvokers = map[int]tg.Invoker{}
 	c.cdnPools = newCDNPoolManager()
 	// CDN key cache is cold-started and filled lazily on first CDN pool create.
 	c.cdnKeys = nil

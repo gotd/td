@@ -89,7 +89,7 @@ func TestClientRunCancelsContextBeforeClosingManagedConns(t *testing.T) {
 	})
 
 	checker := &cancelCheckInvoker{client: c}
-	c.subConns[1] = checker
+	c.subConns.conns[1] = checker
 	c.conn = runClientConn{
 		run: func(ctx context.Context) error {
 			c.onReady()

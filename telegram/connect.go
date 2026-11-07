@@ -13,6 +13,7 @@ import (
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/auth"
+	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
 
@@ -196,13 +197,11 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 	c.log.Info(ctx, "Starting")
 	defer c.log.Info(context.Background(), "Closed")
 	defer func() {
-		c.subConnsMux.Lock()
-		subConns := make([]CloseInvoker, 0, len(c.subConns))
-		for _, conn := range c.subConns {
-			subConns = append(subConns, conn)
-		}
-		c.subConns = map[int]CloseInvoker{}
-		c.subConnsMux.Unlock()
+		subConns := c.subConns.drain()
+		subConns = append(subConns, c.filePools.drain()...)
+		c.fileInvokersMux.Lock()
+		c.fileInvokers = map[int]tg.Invoker{}
+		c.fileInvokersMux.Unlock()
 
 		cdnConns := c.cdnPools.drain()
 
