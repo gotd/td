@@ -61,6 +61,23 @@ type authState struct {
 	reported   atomic.Bool
 	// stopped is set when OnAuthLost stopped Run.
 	stopped atomic.Bool
+	// done is closed when the last OnAuthLost call returns, nil if there
+	// was none. Calls are chained, so it is closed after all of them.
+	done atomic.Pointer[chan struct{}]
+}
+
+// waitAuthLost waits for the running OnAuthLost call, if any.
+func (c *Client) waitAuthLost(ctx context.Context) error {
+	done := c.auth.done.Load()
+	if done == nil {
+		return nil
+	}
+	select {
+	case <-*done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }
 
 // queryWrapper is a request wrapping another one, e.g. invokeWithLayer or
@@ -189,6 +206,26 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 	}
 	c.auth.authorized.Store(false)
 
+	// Call OnAuthLost on its own goroutine, so that the failing request
+	// returns at once and the callback can make requests. Run and the
+	// connect-time Self wait for it via done.
+	//
+	// A report may start while the previous one still runs, if the callback
+	// signed in again and authorization was lost again: reports are chained,
+	// so they run in order and done of the last one covers all.
+	done := make(chan struct{})
+	prev := c.auth.done.Swap(&done)
+	go func() {
+		defer close(done)
+		if prev != nil {
+			<-*prev
+		}
+		c.reportAuthLost(err)
+	}()
+}
+
+// reportAuthLost calls OnAuthLost and stops Run if it returns an error.
+func (c *Client) reportAuthLost(err error) {
 	// The failing request's context may be about to expire: the callback
 	// gets the context of Run, so that it can sign in again.
 	ctx := c.ctx

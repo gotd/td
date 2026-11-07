@@ -56,6 +56,13 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				if !auth.IsUnauthorized(err) {
 					c.log.Warn(ctx, "Got error on self", log.Error(err))
 				}
+				if IsAuthLost(err) {
+					// OnAuthLost runs on its own goroutine: wait for it to
+					// know whether it stops Run.
+					if err := c.waitAuthLost(ctx); err != nil {
+						return err
+					}
+				}
 				if c.auth.stopped.Load() {
 					// OnAuthLost already reported this error and stops Run.
 					return nil
@@ -217,6 +224,9 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 			}
 		}
 	}()
+	// Wait for a running OnAuthLost call, after c.ctx (passed to it) is
+	// canceled below, so that it doesn't outlive Run.
+	defer func() { _ = c.waitAuthLost(context.Background()) }()
 	// Cancel client before deferred cleanup snapshot to block concurrent pool
 	// creations while we are draining cached connections.
 	defer c.cancel()

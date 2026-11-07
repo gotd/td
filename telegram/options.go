@@ -187,7 +187,9 @@ type Options struct {
 	// with NoUpdates.
 	//
 	// ctx is the context of Run, not of the failed request, so the callback
-	// can make requests, e.g. to sign in again.
+	// can make requests, e.g. to sign in again. The callback runs on its own
+	// goroutine, so the failed request returns at once, and Run waits for it
+	// before returning.
 	//
 	// Return non-nil error to stop Run with *AuthLostError, so that one
 	// account of many can be stopped and reported. Return nil to keep
