@@ -285,6 +285,49 @@ func TestClientMetricsPools(t *testing.T) {
 	require.EqualValues(t, 0, m.value("gotd.client.pools", strAttr("kind", "cdn")))
 }
 
+func TestClientMetricsPoolCanceled(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	release := make(chan struct{})
+	s := &subConnsTestServer{
+		exports: map[int]int{},
+		block:   map[int]chan struct{}{4: release},
+		fail:    map[int]int{},
+	}
+	client := newSubConnsTestClient(t, s)
+	clientCtx, closeClient := context.WithCancel(context.Background())
+	client.ctx = clientCtx
+	m := setTestMetrics(t, client)
+
+	errs := make(chan error, 1)
+	go func() { errs <- invokeSubNearest(ctx, client, 4) }()
+	require.Eventually(t, func() bool { return s.exportCount(4) == 1 }, 5*time.Second, time.Millisecond)
+
+	// Client shutdown during creation is not a failure of the DC.
+	closeClient()
+	close(release)
+	require.Error(t, <-errs)
+
+	require.Eventually(t, func() bool {
+		return m.value("gotd.client.pool.created",
+			dcAttr(4), strAttr("kind", "migrate"), strAttr("result", "canceled"),
+		) == 1
+	}, 5*time.Second, time.Millisecond)
+	require.Zero(t, m.value("gotd.client.pool.created", strAttr("result", "error")))
+}
+
+func TestClientMetricsRestartAbandoned(t *testing.T) {
+	c := newTestClient(nil)
+	m := setTestMetrics(t, c)
+
+	// Nobody receives the restart: it is abandoned on cancel and not counted.
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	require.ErrorIs(t, c.ensureRestart(ctx, restartTimeout), context.Canceled)
+	require.Zero(t, m.value("gotd.client.connection.restarts"))
+}
+
 func TestClientMetricsAuthLost(t *testing.T) {
 	ctx := context.Background()
 	var fail atomic.Pointer[tgerr.Error]

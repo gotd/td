@@ -188,8 +188,14 @@ func (c *Client) createCachedDC(ctx context.Context, cache *dcPoolCache, dc int,
 	cache.mux.Unlock()
 	close(call.done)
 
+	// Creation is detached from the caller's context: only client shutdown
+	// cancels it, which is not a failure of the DC.
+	canceled := err != nil && clientCtx.Err() != nil
 	result := "ok"
-	if err != nil {
+	switch {
+	case canceled:
+		result = "canceled"
+	case err != nil:
 		result = "error"
 	}
 	elapsed := c.now().Sub(start)
@@ -207,7 +213,11 @@ func (c *Client) createCachedDC(ctx context.Context, cache *dcPoolCache, dc int,
 		if conn != nil {
 			_ = conn.Close()
 		}
-		c.log.Warn(ctx, "Pool creation failed",
+		logFailure := c.log.Warn
+		if canceled {
+			logFailure = c.log.Debug
+		}
+		logFailure(ctx, "Pool creation failed",
 			log.Int("dc_id", dc),
 			log.String("kind", cache.kind),
 			log.Int64("max", cache.max),

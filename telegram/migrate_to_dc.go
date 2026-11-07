@@ -16,13 +16,14 @@ import (
 // Reason is restartTimeout or restartMigration, for metrics and logs.
 func (c *Client) ensureRestart(ctx context.Context, reason string) error {
 	c.log.Debug(ctx, "Triggering restart", log.String("reason", reason))
-	c.meters().restarts.Add(ctx, 1, metric.WithAttributes(attribute.String("reason", reason)))
 	c.resetReady()
 
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
 	case c.restart <- struct{}{}:
+		// Counted once sent, not when abandoned on cancel.
+		c.meters().restarts.Add(ctx, 1, metric.WithAttributes(attribute.String("reason", reason)))
 		c.log.Debug(ctx, "Restart initialized")
 	}
 

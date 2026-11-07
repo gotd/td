@@ -99,7 +99,8 @@ func newClientMetrics(provider metric.MeterProvider) (*clientMetrics, error) {
 	m.reconnects = counter("gotd.client.connection.reconnects", "{reconnect}",
 		"Primary connection reconnects after the connection stopped, by DC.")
 	m.restarts = counter("gotd.client.connection.restarts", "{restart}",
-		"Primary connection restarts requested by the client, by reason (timeout, migration).")
+		"Primary connection restarts requested by the client, by reason (timeout, migration). "+
+			"Each restart is also counted in gotd.client.connection.reconnects.")
 	m.migrations = counter("gotd.client.migrations", "{migration}",
 		"Primary DC migrations, by target DC.")
 	m.authLost = counter("gotd.client.auth.lost", "{event}",
