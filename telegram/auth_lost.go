@@ -201,6 +201,10 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 	if c.onAuthLost == nil || !c.auth.authorized.Load() || !IsAuthLost(err) {
 		return
 	}
+	if c.ctx != nil && c.ctx.Err() != nil {
+		// Run is stopping: it no longer waits for reports.
+		return
+	}
 	if !c.auth.reported.CompareAndSwap(false, true) {
 		return
 	}
