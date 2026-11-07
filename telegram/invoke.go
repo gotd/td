@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-faster/errors"
 	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/gotd/log"
@@ -56,6 +57,22 @@ func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decod
 	return c.invoker.Invoke(ctx, input, output)
 }
 
+// measuredInvoker records gotd.client.invoke.duration of requests through
+// the client invoker, with middlewares: Client.Invoke and Client.API.
+type measuredInvoker struct {
+	client *Client
+	next   tg.Invoker
+}
+
+func (i measuredInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	c := i.client
+	start := c.now()
+	err := i.next.Invoke(ctx, input, output)
+	m := c.meters()
+	m.invokeDuration.Record(ctx, c.now().Sub(start).Seconds(), m.invokeResult(ctx, err)...)
+	return err
+}
+
 // invokeDirect directly invokes RPC method, automatically handling datacenter redirects.
 func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	err := c.invokeConn(ctx, input, output)
@@ -72,6 +89,9 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 			// and create new connection.
 			if rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE") {
 				logger.Debug(ctx, "Invoking on target DC")
+				c.meters().fileMigrations.Add(ctx, 1, dcAttrs(targetDC,
+					attribute.String("source", "primary"),
+				))
 				return c.invokeSub(ctx, targetDC, input, output)
 			}
 
@@ -121,12 +141,26 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 		if timedOut {
 			// Response deadline passed, but caller still waits: connection is
 			// suspected to be dead.
+			method := methodName(input)
 			if resent {
+				c.meters().requestTimeout.Add(ctx, 1, metric.WithAttributes(
+					attribute.String("result", "failed"),
+					attribute.String("method", method),
+				))
+				c.log.Warn(ctx, "No response in time after resend",
+					log.Duration("timeout", timeout),
+					log.String("method", method),
+				)
 				return errors.Errorf("no response in %s: %w", timeout, context.DeadlineExceeded)
 			}
 			resent = true
+			c.meters().requestTimeout.Add(ctx, 1, metric.WithAttributes(
+				attribute.String("result", "resent"),
+				attribute.String("method", method),
+			))
 			c.log.Warn(ctx, "No response in time, reconnecting to resend request",
 				log.Duration("timeout", timeout),
+				log.String("method", method),
 			)
 			if err := c.restartSuspect(ctx, connChanged); err != nil {
 				return errors.Wrap(err, "reconnect")
@@ -158,6 +192,14 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 	}
 }
 
+// methodName returns TL name of the innermost request, e.g. "messages.getHistory".
+func methodName(input bin.Encoder) string {
+	if named, ok := unwrapQuery(input).(interface{ TypeName() string }); ok {
+		return named.TypeName()
+	}
+	return "unknown"
+}
+
 // errRetryableOnNewConn reports whether request failed because connection
 // died before the request was processed by the server (request was not sent,
 // or sent but not acknowledged), so it is safe to retry the request on a new
@@ -184,7 +226,7 @@ func (c *Client) restartSuspect(ctx context.Context, connChanged <-chan struct{}
 		return nil
 	default:
 	}
-	return c.ensureRestart(ctx)
+	return c.ensureRestart(ctx, restartTimeout)
 }
 
 // errNoResponse is the cause of request context cancellation when response

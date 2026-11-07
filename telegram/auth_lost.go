@@ -5,6 +5,11 @@ import (
 	"strings"
 	"sync/atomic"
 
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
+
+	"github.com/gotd/log"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
@@ -198,7 +203,7 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 		}
 		return
 	}
-	if c.onAuthLost == nil || !c.auth.authorized.Load() || !IsAuthLost(err) {
+	if !c.auth.authorized.Load() || !IsAuthLost(err) {
 		return
 	}
 	if c.ctx != nil && c.ctx.Err() != nil {
@@ -209,6 +214,22 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 		return
 	}
 	c.auth.authorized.Store(false)
+
+	// Reported once per authorized -> lost transition, with or without
+	// OnAuthLost. The reason is one of IsAuthLost error types.
+	reason := "unknown"
+	if rpcErr, ok := tgerr.As(err); ok {
+		reason = rpcErr.Type
+	}
+	bg := context.Background()
+	c.meters().authLost.Add(bg, 1, metric.WithAttributes(attribute.String("reason", reason)))
+	c.log.Warn(bg, "Authorization lost",
+		log.String("reason", reason),
+		log.Bool("callback", c.onAuthLost != nil),
+	)
+	if c.onAuthLost == nil {
+		return
+	}
 
 	// Call OnAuthLost on its own goroutine, so that the failing request
 	// returns at once and the callback can make requests. Run and the

@@ -1,5 +1,13 @@
 package telegram
 
+import (
+	"context"
+
+	"go.opentelemetry.io/otel/attribute"
+
+	"github.com/gotd/log"
+)
+
 // ConnectionState represents the state of the primary connection.
 //
 // See Options.OnConnectionState.
@@ -84,6 +92,12 @@ type ConnectionStateEvent struct {
 // notifyConnectionState calls OnConnectionState and OnConnectionStateEvent
 // callbacks, if set, for the primary connection to the given DC.
 func (c *Client) notifyConnectionState(s ConnectionState, dc int) {
+	ctx := context.Background()
+	c.meters().connState.Add(ctx, 1, dcAttrs(dc, attribute.String("state", s.String())))
+	c.log.Debug(ctx, "Connection state",
+		log.String("state", s.String()),
+		log.Int("dc_id", dc),
+	)
 	if c.onConnectionState != nil {
 		c.onConnectionState(s)
 	}
@@ -94,6 +108,18 @@ func (c *Client) notifyConnectionState(s ConnectionState, dc int) {
 
 // notifyConnDead calls OnDead and OnConnDead callbacks, if set.
 func (c *Client) notifyConnDead(e ConnDeadEvent) {
+	ctx := context.Background()
+	c.meters().connDead.Add(ctx, 1, dcAttrs(e.DC, attribute.String("kind", e.Kind.String())))
+	fields := []log.Attr{
+		log.String("kind", e.Kind.String()),
+		log.Int("dc_id", e.DC),
+		log.Error(e.Err),
+	}
+	if e.Kind == ConnKindPrimary {
+		c.log.Warn(ctx, "Connection dead", fields...)
+	} else {
+		c.log.Debug(ctx, "Connection dead", fields...)
+	}
 	if c.onDead != nil {
 		c.onDead(e.Err)
 	}

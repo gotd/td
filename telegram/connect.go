@@ -37,17 +37,17 @@ func (c *Client) runUntilRestart(ctx context.Context, dc *int) error {
 	// also used by pool/sub connections (including same-DC ones), which would
 	// produce spurious ready events. Waiting on the connection's own Ready
 	// channel scopes the event strictly to the primary connection.
-	if c.onConnectionState != nil || c.onConnectionStateEvent != nil {
-		connDC := *dc
-		if ready, ok := conn.(interface{ Ready() <-chan struct{} }); ok {
-			g.Go(func(ctx context.Context) error {
-				if !waitReady(ctx, ready.Ready()) {
-					return ctx.Err()
-				}
-				c.notifyConnectionState(ConnectionStateReady, connDC)
-				return nil
-			})
-		}
+	//
+	// Always watched: readiness is also logged and counted in metrics.
+	connDC := *dc
+	if ready, ok := conn.(interface{ Ready() <-chan struct{} }); ok {
+		g.Go(func(ctx context.Context) error {
+			if !waitReady(ctx, ready.Ready()) {
+				return ctx.Err()
+			}
+			c.notifyConnectionState(ConnectionStateReady, connDC)
+			return nil
+		})
 	}
 
 	// If we don't need updates, so there is no reason to subscribe for it.
@@ -160,7 +160,12 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 
 		return nil
 	}, b, func(err error, timeout time.Duration) {
-		c.log.Info(context.Background(), "Restarting connection", log.Error(err), log.Duration("backoff", timeout))
+		c.log.Info(context.Background(), "Restarting connection",
+			log.Error(err),
+			log.Duration("backoff", timeout),
+			log.Int("dc_id", dc),
+		)
+		c.meters().reconnects.Add(context.Background(), 1, dcAttrs(dc))
 		c.notifyConnectionState(ConnectionStateDisconnected, dc)
 
 		c.connMux.Lock()
@@ -210,6 +215,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 
 	c.log.Info(ctx, "Starting")
 	defer c.log.Info(context.Background(), "Closed")
+	defer c.registerPoolsGauge()()
 	// Wait for a running OnAuthLost call after c.ctx (passed to it) is
 	// canceled and pools are closed below, so that it doesn't outlive Run.
 	// If it asked to stop Run, report that even if f returned first.

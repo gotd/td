@@ -5,6 +5,8 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
 
 	"github.com/gotd/log"
 
@@ -27,14 +29,24 @@ type dcPoolCache struct {
 	pending map[int]*subConnCall
 	// max is the pool size.
 	max int64
+	// kind is the pool kind for metrics and logs.
+	kind string
 }
 
-func newDCPoolCache(max int64) *dcPoolCache {
+func newDCPoolCache(max int64, kind string) *dcPoolCache {
 	return &dcPoolCache{
 		conns:   map[int]CloseInvoker{},
 		pending: map[int]*subConnCall{},
 		max:     max,
+		kind:    kind,
 	}
+}
+
+// len returns the number of cached pools.
+func (p *dcPoolCache) len() int {
+	p.mux.Lock()
+	defer p.mux.Unlock()
+	return len(p.conns)
 }
 
 // drain removes and returns all cached pools.
@@ -90,6 +102,15 @@ func (c *Client) invokeCachedDC(
 		}
 		err = conn.Invoke(ctx, input, output)
 		if attempt == 0 && auth.IsUnauthorized(err) {
+			c.log.Warn(ctx, "Unauthorized on cached pool, recreating it",
+				log.Int("dc_id", dc),
+				log.String("kind", cache.kind),
+				log.Error(err),
+			)
+			c.meters().poolEvicted.Add(ctx, 1, dcAttrs(dc,
+				attribute.String("kind", cache.kind),
+				attribute.String("reason", "unauthorized"),
+			))
 			cache.evict(dc, conn)
 			continue
 		}
@@ -144,6 +165,7 @@ func (c *Client) createCachedDC(ctx context.Context, cache *dcPoolCache, dc int,
 		defer cancelTimeout()
 	}
 
+	start := c.now()
 	conn, err := c.dc(cctx, dc, cache.max, c.primaryDC(dc), manager.ConnModeData)
 	if err != nil && clientCtx.Err() != nil {
 		err = errors.Wrap(clientCtx.Err(), "client closed")
@@ -166,14 +188,38 @@ func (c *Client) createCachedDC(ctx context.Context, cache *dcPoolCache, dc int,
 	cache.mux.Unlock()
 	close(call.done)
 
+	result := "ok"
+	if err != nil {
+		result = "error"
+	}
+	elapsed := c.now().Sub(start)
+	m := c.meters()
+	m.poolCreated.Add(ctx, 1, dcAttrs(dc,
+		attribute.String("kind", cache.kind),
+		attribute.String("result", result),
+	))
+	m.poolDuration.Record(ctx, elapsed.Seconds(), metric.WithAttributes(
+		attribute.String("kind", cache.kind),
+		attribute.String("result", result),
+	))
+
 	if err != nil {
 		if conn != nil {
 			_ = conn.Close()
 		}
-		c.log.Debug(ctx, "Pool creation failed",
+		c.log.Warn(ctx, "Pool creation failed",
 			log.Int("dc_id", dc),
+			log.String("kind", cache.kind),
 			log.Int64("max", cache.max),
+			log.Duration("duration", elapsed),
 			log.Error(err),
 		)
+		return
 	}
+	c.log.Debug(ctx, "Pool created",
+		log.Int("dc_id", dc),
+		log.String("kind", cache.kind),
+		log.Int64("max", cache.max),
+		log.Duration("duration", elapsed),
+	)
 }
