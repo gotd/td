@@ -44,10 +44,17 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 		return nil, errors.Errorf("invalid max value %d", max)
 	}
 
-	s := c.session.Load()
-	return c.createPool(s.DC, max, func() pool.Conn {
+	return c.primaryPool(c.session.Load().DC, max, nil)
+}
+
+// primaryPool creates data pool that shares primary session (auth key) of
+// the client, so no authorization transfer is needed.
+//
+// If dialer is nil, primary DC dialer is used.
+func (c *Client) primaryPool(dc int, max int64, dialer mtproto.Dialer) (*pool.DC, error) {
+	return c.createPool(dc, max, func() pool.Conn {
 		id := c.connsCounter.Inc()
-		return c.createConn(id, manager.ConnModeData, nil, func(err error) {
+		return c.createConnWith(id, manager.ConnModeData, dialer, nil, func(err error) {
 			// Primary pool connections share persisted primary session state.
 			c.handlePrimaryConnDead(err)
 			if c.onDead != nil {
@@ -66,6 +73,17 @@ func (c *Client) dc(
 ) (*pool.DC, error) {
 	if max < 0 {
 		return nil, errors.Errorf("invalid max value %d", max)
+	}
+
+	if mode != manager.ConnModeCDN && dcID == c.session.Load().DC {
+		// Home DC: reuse primary session (auth key) instead of transferring
+		// authorization, which Telegram rejects with DC_ID_INVALID for the
+		// DC of the current session.
+		c.log.Debug(ctx, "Creating pool on primary session",
+			log.Int("dc_id", dcID),
+			log.Int64("max", max),
+		)
+		return c.primaryPool(dcID, max, dialer)
 	}
 
 	dcList := dcs.FindDCs(c.cfg.Load().DCOptions, dcID, false)
