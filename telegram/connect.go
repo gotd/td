@@ -35,13 +35,11 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 	if c.onConnectionState != nil {
 		if ready, ok := conn.(interface{ Ready() <-chan struct{} }); ok {
 			g.Go(func(ctx context.Context) error {
-				select {
-				case <-ctx.Done():
+				if !waitReady(ctx, ready.Ready()) {
 					return ctx.Err()
-				case <-ready.Ready():
-					c.notifyConnectionState(ConnectionStateReady)
-					return nil
 				}
+				c.notifyConnectionState(ConnectionStateReady)
+				return nil
 			})
 		}
 	}
@@ -89,6 +87,26 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 	})
 
 	return g.Wait()
+}
+
+// waitReady blocks until ready is closed or ctx is done and reports whether
+// ready was closed.
+//
+// Readiness wins when both happen: a request may complete on the fresh
+// connection and cancel ctx before this goroutine is scheduled, and a plain
+// select would then drop the ready event at random.
+func waitReady(ctx context.Context, ready <-chan struct{}) bool {
+	select {
+	case <-ready:
+		return true
+	case <-ctx.Done():
+		select {
+		case <-ready:
+			return true
+		default:
+			return false
+		}
+	}
 }
 
 func (c *Client) isPermanentError(err error) bool {
