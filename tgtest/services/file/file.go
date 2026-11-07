@@ -14,6 +14,8 @@ type Service struct {
 	hashPartSize int
 	// Size of range to return in upload.getFileHashes.
 	hashRangeSize int
+	// docs are published documents.
+	docs documents
 }
 
 // NewService creates new file Service.

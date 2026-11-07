@@ -18,6 +18,9 @@ const (
 	RetryOperationCreateClient    = "cdn.create_client"
 	RetryOperationReaderChunk     = "reader.chunk"
 	RetryOperationReaderHashes    = "reader.hashes"
+	// RetryOperationFileReference is a refresh of expired file reference
+	// (see Builder.WithRefresh).
+	RetryOperationFileReference = "master.file_reference"
 )
 
 // RetryHandler is called for every downloader error that is retried internally.
