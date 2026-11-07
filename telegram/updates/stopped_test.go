@@ -62,12 +62,38 @@ func TestManagerStopped(t *testing.T) {
 		t.Fatal("HandleAffected blocks after Run stopped")
 	}
 
-	// Run returned, but the manager still counts as started: the window
-	// between internalState.Run return and Manager.Run return.
+	// Manager.Run returned: the request would never be applied, as a new Run
+	// requires Reset.
+	go func() { returned <- tt.m.TrackChannel(bg, 42, 4242, 100) }()
+	select {
+	case err := <-returned:
+		require.ErrorIs(t, err, ErrStopped)
+	case <-time.After(5 * time.Second):
+		t.Fatal("TrackChannel blocks after Run stopped")
+	}
+}
+
+// TestManagerStoppedTrackRace checks the window between internalState.Run
+// return and Manager.Run return, when the manager still counts as started.
+func TestManagerStoppedTrackRace(t *testing.T) {
+	tt := newTrackTest(t)
+	ctx, cancel := context.WithCancel(context.Background())
+	started := make(chan struct{})
+	done := make(chan error, 1)
+	go func() {
+		done <- tt.m.Run(ctx, tt.api, trackUserID, AuthOptions{
+			OnStart: func(context.Context) { close(started) },
+		})
+	}()
+	<-started
+	cancel()
+	<-done
+
 	tt.m.mux.Lock()
 	tt.m.started = true
 	tt.m.mux.Unlock()
-	go func() { returned <- tt.m.TrackChannel(bg, 42, 4242, 100) }()
+	returned := make(chan error, 1)
+	go func() { returned <- tt.m.TrackChannel(context.Background(), 42, 4242, 100) }()
 	select {
 	case err := <-returned:
 		require.ErrorIs(t, err, ErrStopped)

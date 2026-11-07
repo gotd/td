@@ -183,6 +183,16 @@ func (s *internalState) Push(ctx context.Context, u tg.UpdatesClass) error {
 	}
 }
 
+// stopped reports whether Run has returned.
+func (s *internalState) stopped() bool {
+	select {
+	case <-s.done:
+		return true
+	default:
+		return false
+	}
+}
+
 // PushAffected enqueues a pts increment from a messages.affected* RPC result.
 func (s *internalState) PushAffected(ctx context.Context, channelID int64, pts, ptsCount int) error {
 	au := affectedUpdate{

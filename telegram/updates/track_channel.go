@@ -42,6 +42,12 @@ func (m *Manager) TrackChannel(ctx context.Context, channelID, accessHash int64,
 
 	m.mux.Lock()
 	state, started := m.state, m.started
+	if state != nil && state.stopped() {
+		// Run has stopped: the request would never be applied, as a new Run
+		// requires Reset.
+		m.mux.Unlock()
+		return ErrStopped
+	}
 	if state == nil || !started {
 		m.pendingTracks = append(m.pendingTracks, r)
 		m.mux.Unlock()
@@ -61,7 +67,13 @@ func (m *Manager) TrackChannel(ctx context.Context, channelID, accessHash int64,
 	case err := <-r.result:
 		return err
 	case <-state.done:
-		return ErrStopped
+		// The request may have been applied right before Run stopped.
+		select {
+		case err := <-r.result:
+			return err
+		default:
+			return ErrStopped
+		}
 	case <-ctx.Done():
 		return ctx.Err()
 	}
