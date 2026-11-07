@@ -22,6 +22,34 @@ type Entities struct {
 	Channels map[int64]*Channel
 }
 
+// EntitiesFrom creates Entities from users and chats, e.g. from fields
+// of Updates, UpdatesDifference or MessagesMessages.
+func EntitiesFrom(users []UserClass, chats []ChatClass) Entities {
+	c := ChatClassArray(chats)
+	return Entities{
+		Users:    UserClassArray(users).NotEmptyToMap(),
+		Chats:    c.ChatToMap(),
+		Channels: c.ChannelToMap(),
+	}
+}
+
+// EntitiesResult is a result that contains users and chats, like Updates,
+// UpdatesDifference, MessagesMessages or MessagesDialogs.
+type EntitiesResult interface {
+	MapUsers() UserClassArray
+	MapChats() ChatClassArray
+}
+
+// EntitiesFromResult creates Entities from users and chats of result.
+func EntitiesFromResult(r EntitiesResult) Entities {
+	chats := r.MapChats()
+	return Entities{
+		Users:    r.MapUsers().NotEmptyToMap(),
+		Chats:    chats.ChatToMap(),
+		Channels: chats.ChannelToMap(),
+	}
+}
+
 func (u *Entities) short() {
 	u.Short = true
 	u.Users = make(map[int64]*User, 0)
@@ -38,16 +66,10 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates UpdatesClass) erro
 	switch u := updates.(type) {
 	case *Updates:
 		upds = u.Updates
-		e.Users = u.MapUsers().NotEmptyToMap()
-		chats := u.MapChats()
-		e.Chats = chats.ChatToMap()
-		e.Channels = chats.ChannelToMap()
+		e = EntitiesFromResult(u)
 	case *UpdatesCombined:
 		upds = u.Updates
-		e.Users = u.MapUsers().NotEmptyToMap()
-		chats := u.MapChats()
-		e.Chats = chats.ChatToMap()
-		e.Channels = chats.ChannelToMap()
+		e = EntitiesFromResult(u)
 	case *UpdateShort:
 		upds = []UpdateClass{u.Update}
 		e.short()
