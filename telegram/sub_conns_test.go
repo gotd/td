@@ -131,3 +131,57 @@ func TestInvokeSubFailureNotCached(t *testing.T) {
 	require.NoError(t, invokeSubNearest(ctx, client, 3))
 	require.Equal(t, 2, s.exportCount(3))
 }
+
+// TestInvokeSubUnauthorizedTransfer checks that a FILE_MIGRATE pool cached
+// with a failed authorization transfer is recreated.
+func TestInvokeSubUnauthorizedTransfer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	s := &subConnsTestServer{
+		exports: map[int]int{},
+		block:   map[int]chan struct{}{},
+		fail:    map[int]int{},
+	}
+	var (
+		mux        sync.Mutex
+		exported   bool
+		authorized bool
+	)
+	client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
+		switch body.(type) {
+		case *tg.AuthExportAuthorizationRequest:
+			mux.Lock()
+			first := !exported
+			exported = true
+			mux.Unlock()
+			if first {
+				// Not signed in yet: transfer fails, pool is still returned.
+				_, _ = s.handle(id, dc, body)
+				return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
+			}
+		case *tg.AuthImportAuthorizationRequest:
+			mux.Lock()
+			authorized = true
+			mux.Unlock()
+		case *tg.HelpGetNearestDCRequest:
+			mux.Lock()
+			ok := authorized
+			mux.Unlock()
+			if !ok {
+				return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
+			}
+		}
+		return s.handle(id, dc, body)
+	})
+	client.onTransfer = noopOnTransfer
+	cfg := client.cfg.Load()
+	cfg.DCOptions = append(cfg.DCOptions, tg.DCOption{ID: 4, IPAddress: "dc"})
+	client.cfg.Store(cfg)
+
+	require.NoError(t, invokeSubNearest(ctx, client, 4), "pool with failed transfer must be recreated")
+	require.Equal(t, 2, s.exportCount(4))
+	// The new pool is cached.
+	require.NoError(t, invokeSubNearest(ctx, client, 4))
+	require.Equal(t, 2, s.exportCount(4))
+}
