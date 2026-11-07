@@ -8,6 +8,7 @@ import (
 	"github.com/gotd/td/telegram/query/messages"
 	"github.com/gotd/td/telegram/query/messages/stickers/featured"
 	"github.com/gotd/td/telegram/query/photos"
+	"github.com/gotd/td/telegram/query/stories"
 	"github.com/gotd/td/tg"
 )
 
@@ -44,6 +45,11 @@ func (q *Query) Dialogs() *dialogs.QueryBuilder {
 // Messages creates messages.QueryBuilder.
 func (q *Query) Messages() *messages.QueryBuilder {
 	return messages.NewQueryBuilder(q.raw)
+}
+
+// Stories creates stories.QueryBuilder.
+func (q *Query) Stories() *stories.QueryBuilder {
+	return stories.NewQueryBuilder(q.raw)
 }
 
 // Featured creates featured.QueryBuilder
