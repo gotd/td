@@ -128,7 +128,12 @@ func (u UpdateDispatcher) dispatch(ctx context.Context, e Entities, update Updat
 	if update == nil {
 		return nil
 	}
-	handler := u.state.handler(update.TypeID())
+	before, handler := u.state.handler(update.TypeID())
+	if before != nil {
+		if err := before(ctx, e, update); err != nil {
+			return err
+		}
+	}
 	if handler == nil {
 		return nil
 	}
