@@ -186,7 +186,11 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 			return errors.Errorf("get offset peer: dialog %T has no peer", dialogs[len(m.buf)-1])
 		}
 		p, err := entities.ExtractPeer(dlgPeer)
-		if err != nil {
+		switch {
+		case errors.Is(err, peer.ErrMinPeer):
+			// Min access hash is enough for offset_peer.
+			p = entities.OffsetPeer(dlgPeer)
+		case err != nil:
 			return errors.Wrap(err, "get offset peer")
 		}
 		m.offsetPeer = p

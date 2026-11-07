@@ -12,7 +12,12 @@ import (
 
 // Elem is a message iterator element.
 type Elem struct {
-	Msg      tg.NotEmptyMessage
+	Msg tg.NotEmptyMessage
+	// Peer is the input peer of the message chat.
+	//
+	// It is inputPeerEmpty if the chat is unknown or known only as a min
+	// constructor (see peer.ErrMinPeer), which has no usable access hash.
+	// For min peers, use Entities.ExtractPeerFromMessage.
 	Peer     tg.InputPeerClass
 	Entities peer.Entities
 }
@@ -148,10 +153,9 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 	if nonEmpty, ok := msg.AsNotEmpty(); ok {
 		m.offsetDate = nonEmpty.GetDate()
 
-		p, err := entities.ExtractPeer(nonEmpty.GetPeerID())
-		if err == nil {
-			m.offsetPeer = p
-		}
+		// Always follow the last message: a stale peer from the previous
+		// batch with new offset_id/date would break global search order.
+		m.offsetPeer = entities.OffsetPeer(nonEmpty.GetPeerID())
 	}
 
 	m.bufCur = -1

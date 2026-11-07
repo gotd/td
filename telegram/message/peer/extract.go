@@ -248,6 +248,11 @@ func channelBanned(c *tg.Channel) bool {
 var ErrMinPeer = errors.New("min peer has no usable access hash")
 
 // ExtractPeer finds and creates InputPeerClass using given PeerClass.
+//
+// It returns an error wrapping ErrMinPeer if the user or channel is known
+// only as a min constructor, as its access hash is not usable for requests.
+// Up to v0.163.0 it returned an input peer with the min access hash; use
+// ExtractPeerFromMessage to get a usable input peer for min peers.
 func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) {
 	var peer tg.InputPeerClass
 	switch p := peerID.(type) {
@@ -293,6 +298,31 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 	}
 
 	return peer, nil
+}
+
+// OffsetPeer returns input peer to use as offset_peer of paginated requests
+// (messages.searchGlobal, messages.getDialogs), never failing.
+//
+// Like ExtractPeer, but like TDLib (get_input_peer_force) it is built even
+// for min users and channels, as the server uses offset_peer only to order
+// results. Unknown peers give inputPeerEmpty. Do not use it for other
+// requests: min access hashes are rejected there.
+func (ent Entities) OffsetPeer(peerID tg.PeerClass) tg.InputPeerClass {
+	p, err := ent.ExtractPeer(peerID)
+	if err == nil {
+		return p
+	}
+	switch v := peerID.(type) {
+	case *tg.PeerUser:
+		if u, ok := ent.users[v.UserID]; ok {
+			return &tg.InputPeerUser{UserID: u.ID, AccessHash: u.AccessHash}
+		}
+	case *tg.PeerChannel:
+		if c, ok := ent.channels[v.ChannelID]; ok {
+			return &tg.InputPeerChannel{ChannelID: c.ID, AccessHash: c.AccessHash}
+		}
+	}
+	return &tg.InputPeerEmpty{}
 }
 
 // ExtractPeerFromMessage is like ExtractPeer, but for min users and channels
