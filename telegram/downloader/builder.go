@@ -23,6 +23,8 @@ type Builder struct {
 	// independent from this flag.
 	verify  bool
 	threads int
+	// scheduler overrides Downloader scheduler, if set.
+	scheduler *Scheduler
 
 	// offset is the offset to start download from (WithOffset).
 	offset int64
@@ -217,18 +219,21 @@ func (b *Builder) prepare() (_ *Builder, closeCDN func() error, err error) {
 }
 
 func (b *Builder) reader() *reader {
+	var r *reader
 	if b.verify {
 		v := newVerifier(b.schema, b.hashes...)
 		v.start(b.offset)
-		r := verifiedReader(b.schema, v)
-		r.size = b.size
+		r = verifiedReader(b.schema, v)
 		r.start = b.offset
-		return r
+	} else {
+		r = plainReader(b.schema, b.downloader.partSize)
+		r.offset = b.offset
 	}
-
-	r := plainReader(b.schema, b.downloader.partSize)
-	r.offset = b.offset
 	r.size = b.size
+	r.scheduler = b.downloader.scheduler
+	if b.scheduler != nil {
+		r.scheduler = b.scheduler
+	}
 	return r
 }
 
