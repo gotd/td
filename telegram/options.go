@@ -153,6 +153,19 @@ type Options struct {
 
 	// OnSelfSuccess is called when client get self calling Self() on connect.
 	OnSelfSuccess func(self *tg.User)
+
+	// OnAuthLost is called when a request of an authorized client (Self()
+	// succeeded on connect, or sign in succeeded) fails with an error meaning
+	// that the authorization is lost (see IsAuthLost), e.g. the session was
+	// terminated from another device. Called once until the client is
+	// authorized again.
+	//
+	// Return non-nil error to stop Run with *AuthLostError, so that one
+	// account of many can be stopped and reported. Return nil to keep
+	// running, e.g. to sign in again.
+	//
+	// Lost authorization detected on connect is reported via OnSelfError.
+	OnAuthLost func(ctx context.Context, err error) error
 }
 
 func (opt *Options) setDefaults() {

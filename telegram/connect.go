@@ -66,6 +66,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				return nil
 			}
 
+			c.markAuthorized()
 			if h := c.onSelfSuccess; h != nil {
 				h(self)
 			}
@@ -206,6 +207,14 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.reconnectUntilClosed)
+	g.Go(func(ctx context.Context) error {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case err := <-c.authLost:
+			return err
+		}
+	})
 	g.Go(func(ctx context.Context) error {
 		select {
 		case <-ctx.Done():
