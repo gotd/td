@@ -4,18 +4,26 @@ import (
 	"context"
 
 	"github.com/go-faster/errors"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 )
 
-func (c *Client) ensureRestart(ctx context.Context) error {
-	c.log.Debug(ctx, "Triggering restart")
+// ensureRestart restarts the primary connection and waits until it is ready.
+// Reason is restartTimeout or restartMigration, for metrics and logs.
+func (c *Client) ensureRestart(ctx context.Context, reason string) error {
+	c.log.Debug(ctx, "Triggering restart", log.String("reason", reason))
 	c.resetReady()
 
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
 	case c.restart <- struct{}{}:
+		// Counted once sent, not when abandoned on cancel.
+		c.meters().restarts.Add(ctx, 1, metric.WithAttributes(attribute.String("reason", reason)))
 		c.log.Debug(ctx, "Restart initialized")
 	}
 
@@ -57,8 +65,14 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 }
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
+	from := c.session.Load().DC
+	c.log.Info(ctx, "Migrating primary connection",
+		log.Int("from_dc", from),
+		log.Int("dc_id", dcID),
+	)
+	c.meters().migrations.Add(ctx, 1, dcAttrs(dcID))
 	c.session.Migrate(dcID)
-	return c.ensureRestart(ctx)
+	return c.ensureRestart(ctx, restartMigration)
 }
 
 // MigrateTo forces client to migrate to another DC.

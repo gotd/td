@@ -76,6 +76,11 @@ It owns all of the behavior that the lower layers deliberately leave out:
   `auth_key` and DC info so logins survive restarts.
 - **Middlewares** (`middleware.go`) — `Invoker` decorators for rate limiting,
   `FLOOD_WAIT` retries, tracing, etc.
+- **Metrics** (`metrics.go`) — OpenTelemetry instruments `gotd.client.*` from
+  `Options.MeterProvider` (noop by default, never the global provider):
+  connection states and deaths by DC, reconnects, restarts, migrations, lost
+  authorization, request timeouts, cached DC pools and `Invoke` durations.
+  Attributes are low-cardinality (DC, kind, state, result, RPC error code).
 - **Convenience helpers** — [`uploader`](telegram/uploader),
   [`downloader`](telegram/downloader), [`message`](telegram/message) builders,
   [`query`](telegram/query) pagination, [`peers`](telegram/peers),

@@ -183,6 +183,17 @@ func (m *cdnPoolManager) publishOrAcquire(dc int, need int64, created CloseInvok
 	return m.cachedHandleLocked(created), false
 }
 
+// count returns the number of cached CDN pools.
+func (m *cdnPoolManager) count() int {
+	m.mux.Lock()
+	defer m.mux.Unlock()
+	n := 0
+	for _, pools := range m.conns {
+		n += len(pools)
+	}
+	return n
+}
+
 func (m *cdnPoolManager) drain() []CloseInvoker {
 	m.mux.Lock()
 	defer m.mux.Unlock()

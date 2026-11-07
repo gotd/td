@@ -4,6 +4,9 @@ import (
 	"context"
 
 	"github.com/go-faster/errors"
+	"go.opentelemetry.io/otel/attribute"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
@@ -70,6 +73,14 @@ func (f fileDCInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin
 		if !ok || hop >= maxFileMigrations || rpcErr.Argument == dc {
 			return err
 		}
+		f.client.log.Debug(ctx, "Following FILE_MIGRATE",
+			log.Int("from_dc", dc),
+			log.Int("dc_id", rpcErr.Argument),
+			log.Int("hop", hop+1),
+		)
+		f.client.meters().fileMigrations.Add(ctx, 1, dcAttrs(rpcErr.Argument,
+			attribute.String("source", "file"),
+		))
 		dc = rpcErr.Argument
 	}
 }

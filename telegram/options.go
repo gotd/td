@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/gotd/log"
@@ -183,6 +184,11 @@ type Options struct {
 
 	// OpenTelemetry.
 	TracerProvider trace.TracerProvider
+	// MeterProvider is used for client metrics (gotd.client.*): connection
+	// states, dead connections, reconnects, migrations, lost authorization,
+	// request timeouts, cached DC pools and Invoke durations. No metrics by
+	// default; the global provider is not used.
+	MeterProvider metric.MeterProvider
 
 	// OnTransfer is called during authorization transfer.
 	// See [AuthTransferHandler] for details.

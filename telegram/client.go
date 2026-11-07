@@ -183,6 +183,8 @@ type Client struct {
 
 	// Tracing.
 	tracer trace.Tracer
+	// metrics are OpenTelemetry instruments, see meters.
+	metrics *clientMetrics // immutable
 
 	// onTransfer is called in transfer.
 	onTransfer AuthTransferHandler
@@ -242,6 +244,12 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
 	}
+	m, err := newClientMetrics(opt.MeterProvider)
+	if err != nil {
+		client.log.Warn(context.Background(), "Create metrics, metrics are disabled", log.Error(err))
+		m = noopClientMetrics()
+	}
+	client.metrics = m
 	client.init()
 
 	// Including version into client logger to help with debugging.
@@ -309,11 +317,11 @@ func (c *Client) init() {
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}
-	c.subConns = newDCPoolCache(1)
+	c.subConns = newDCPoolCache(1, poolKindMigrate)
 	if c.filePoolSize <= 0 {
 		c.filePoolSize = defaultFilePoolSize
 	}
-	c.filePools = newDCPoolCache(c.filePoolSize)
+	c.filePools = newDCPoolCache(c.filePoolSize, poolKindFile)
 	c.fileInvokers = map[int]tg.Invoker{}
 	c.cdnPools = newCDNPoolManager()
 	// CDN key cache is cold-started and filled lazily on first CDN pool create.
@@ -322,6 +330,9 @@ func (c *Client) init() {
 	c.cdnKeysSet = false
 	c.cdnKeysGen = 0
 	c.cdnKeysLoad = singleflight.Group{}
-	c.invoker = chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...)
+	c.invoker = measuredInvoker{
+		client: c,
+		next:   chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...),
+	}
 	c.tg = tg.NewClient(c.invoker)
 }
