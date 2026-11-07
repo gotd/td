@@ -154,17 +154,30 @@ type Options struct {
 	// OnSelfSuccess is called when client get self calling Self() on connect.
 	OnSelfSuccess func(self *tg.User)
 
-	// OnAuthLost is called when a request of an authorized client (Self()
-	// succeeded on connect, or sign in succeeded) fails with an error meaning
-	// that the authorization is lost (see IsAuthLost), e.g. the session was
-	// terminated from another device. Called once until the client is
-	// authorized again.
+	// OnAuthLost is called when a request of an authorized client fails
+	// with an error meaning that the authorization is lost (see IsAuthLost),
+	// e.g. the session was terminated from another device. Called once until
+	// the client is authorized again.
+	//
+	// The client counts as authorized after any successful request that
+	// requires authorization (anything but auth.*, help.*, langpack.* and the
+	// 2FA/login email account.* methods), including Self() on connect, or
+	// after a sign in that returned a complete authorization. So a session
+	// restored from storage is covered after its first such request, also
+	// with NoUpdates.
+	//
+	// ctx is the context of Run, not of the failed request, so the callback
+	// can make requests, e.g. to sign in again.
 	//
 	// Return non-nil error to stop Run with *AuthLostError, so that one
 	// account of many can be stopped and reported. Return nil to keep
 	// running, e.g. to sign in again.
 	//
-	// Lost authorization detected on connect is reported via OnSelfError.
+	// If the connect-time Self() of an authorized client reveals the lost
+	// authorization (e.g. on reconnect), OnAuthLost is called first. If it
+	// returns nil, OnSelfError is called too, as for any Self() error; if
+	// it stops Run, OnSelfError is not called. Before the client is
+	// authorized, such errors are reported via OnSelfError only.
 	OnAuthLost func(ctx context.Context, err error) error
 }
 

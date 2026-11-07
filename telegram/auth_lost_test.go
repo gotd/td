@@ -138,4 +138,3 @@ func (a authRunConn) Invoke(ctx context.Context, input bin.Encoder, output bin.D
 }
 
 func (a authRunConn) Ping(ctx context.Context) error { return nil }
-

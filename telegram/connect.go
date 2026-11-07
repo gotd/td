@@ -57,6 +57,10 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				if !auth.IsUnauthorized(err) {
 					c.log.Warn(ctx, "Got error on self", log.Error(err))
 				}
+				if c.auth.stopped.Load() {
+					// OnAuthLost already reported this error and stops Run.
+					return nil
+				}
 				if h := c.onSelfError; h != nil {
 					// Help with https://github.com/gotd/td/issues/1458.
 					if err := h(ctx, err); err != nil {

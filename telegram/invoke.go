@@ -76,17 +76,17 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 			// Otherwise we should change primary DC.
 			logger.Info(ctx, "Migrating to target DC")
 			err = c.invokeMigrate(ctx, targetDC, input, output)
-			c.observeAuth(ctx, input, err)
+			c.observeAuth(input, output, err)
 			return err
 		}
 
-		c.observeAuth(ctx, input, err)
+		c.observeAuth(input, output, err)
 		return err
 	}
 
 	// Only primary connection results reveal primary session authorization:
 	// sub-connection (FILE_MIGRATE) results are not observed.
-	c.observeAuth(ctx, input, nil)
+	c.observeAuth(input, output, nil)
 	return nil
 }
 
