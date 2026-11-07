@@ -6,7 +6,9 @@ import (
 	"crypto/rand"
 	"io"
 	"sync"
+	"sync/atomic"
 	"testing"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
@@ -17,6 +19,7 @@ import (
 	"github.com/gotd/log"
 
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // testMetrics collects metrics of a test meter provider.
@@ -210,7 +213,7 @@ func TestMetricsResumeVerify(t *testing.T) {
 			WithVerify(true).
 			Stream(ctx, io.Discard)
 		require.ErrorIs(t, err, ErrHashMismatch)
-		require.EqualValues(t, 1, m.count("gotd.downloader.hash_mismatches", attribute.String("kind", "verify")))
+		require.EqualValues(t, 1, m.count("gotd.downloader.hash.mismatches", attribute.String("kind", "verify")))
 	})
 	t.Run("Verify", func(t *testing.T) {
 		m := newTestMetrics(t)
@@ -290,4 +293,71 @@ func TestLoggerCDN(t *testing.T) {
 		Stream(context.Background(), io.Discard)
 	require.NoError(t, err)
 	require.Contains(t, lg.msgs, "Redirected to CDN")
+}
+
+func TestMetricsRefreshShared(t *testing.T) {
+	// Workers that fail with the same stale location share one refresh, and
+	// only the refresh that ran is counted.
+	const workers = 8
+	m := newTestMetrics(t)
+	ctx := newObserver(m.mp, nil).with(context.Background())
+
+	stale := &tg.InputDocumentFileLocation{ID: 1, FileReference: []byte{0}}
+	fresh := &tg.InputDocumentFileLocation{ID: 1, FileReference: []byte{1}}
+	var refreshes atomic.Int32
+	c := master{location: stale}
+	c.ref = &locationRef{location: stale, refresh: func(context.Context) (tg.InputFileLocationClass, error) {
+		refreshes.Add(1)
+		return fresh, nil
+	}}
+
+	var failed sync.WaitGroup
+	failed.Add(workers)
+	var wg sync.WaitGroup
+	for range workers {
+		wg.Go(func() {
+			first := true
+			_, err := withRefresh(ctx, c, func(loc tg.InputFileLocationClass) (int, error) {
+				if loc == stale {
+					if first {
+						first = false
+						// Every worker fails with the stale location
+						// before any refresh.
+						failed.Done()
+						failed.Wait()
+					}
+					return 0, tgerr.New(400, "FILE_REFERENCE_EXPIRED")
+				}
+				return 1, nil
+			})
+			require.NoError(t, err)
+		})
+	}
+	wg.Wait()
+	require.EqualValues(t, 1, refreshes.Load())
+	require.EqualValues(t, 1, m.count("gotd.downloader.file_reference.refreshes",
+		attribute.String("result", "ok")))
+}
+
+func TestMetricsRequestDurationBuckets(t *testing.T) {
+	m := newTestMetrics(t)
+	o := newObserver(m.mp, nil)
+	ctx := o.with(context.Background())
+	o.request(ctx, "master", time.Now().Add(-30*time.Millisecond), 10, nil)
+
+	var rm metricdata.ResourceMetrics
+	require.NoError(t, m.reader.Collect(context.Background(), &rm))
+	for _, sm := range rm.ScopeMetrics {
+		for _, mt := range sm.Metrics {
+			if mt.Name != "gotd.downloader.request.duration" {
+				continue
+			}
+			dp := mt.Data.(metricdata.Histogram[float64]).DataPoints[0]
+			require.Equal(t, []float64{
+				0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 30, 60,
+			}, dp.Bounds, "second-based buckets")
+			return
+		}
+	}
+	t.Fatal("no request duration recorded")
 }

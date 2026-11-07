@@ -47,23 +47,25 @@ func (r *locationRef) get() tg.InputFileLocationClass {
 
 // update refreshes location if it is still the failed one: concurrent
 // workers that failed with the same location do one refresh.
-func (r *locationRef) update(ctx context.Context, failed tg.InputFileLocationClass) error {
+//
+// Reports whether this call ran the refresh.
+func (r *locationRef) update(ctx context.Context, failed tg.InputFileLocationClass) (bool, error) {
 	r.mux.Lock()
 	defer r.mux.Unlock()
 	if r.location != failed {
 		// Already refreshed by another worker.
-		return nil
+		return false, nil
 	}
 
 	location, err := r.refresh(ctx)
 	if err != nil {
-		return errors.Wrap(err, "refresh file reference")
+		return true, errors.Wrap(err, "refresh file reference")
 	}
 	if location == nil {
-		return errors.New("refresh file reference: nil location")
+		return true, errors.New("refresh file reference: nil location")
 	}
 	r.location = location
-	return nil
+	return true, nil
 }
 
 // WithRefresh sets callback to refresh file location on file reference

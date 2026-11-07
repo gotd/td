@@ -65,6 +65,12 @@ const (
 //
 // A nil observer reports nothing: downloads without metrics and logger pay
 // nothing for it.
+// durationBuckets are histogram buckets in seconds, the same as of the
+// telegram client: the SDK defaults are meant for milliseconds.
+var durationBuckets = metric.WithExplicitBucketBoundaries( // nolint:gochecknoglobals
+	0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 30, 60,
+)
+
 type observer struct {
 	log log.Helper
 
@@ -116,7 +122,7 @@ func newObserver(mp metric.MeterProvider, lg log.Logger) *observer {
 	o.resumes = counter("gotd.downloader.resumes", "{download}", "Downloads resumed from an offset")
 	o.cdnRedirects = counter("gotd.downloader.cdn.redirects", "{redirect}", "Redirects to CDN DC")
 	o.cdnReuploads = counter("gotd.downloader.cdn.reuploads", "{request}", "CDN file reupload requests")
-	o.hashMismatches = counter("gotd.downloader.hash_mismatches", "{part}",
+	o.hashMismatches = counter("gotd.downloader.hash.mismatches", "{part}",
 		"Parts that failed hash verification by kind (cdn, verify)")
 	o.refreshes = counter("gotd.downloader.file_reference.refreshes", "{refresh}",
 		"File reference refreshes by result (ok, not_found, error, limit)")
@@ -125,12 +131,13 @@ func newObserver(mp metric.MeterProvider, lg log.Logger) *observer {
 	o.verify = counter("gotd.downloader.verify", "{call}",
 		"Builder.Verify calls by result (complete, partial, none, error)")
 	o.retries = counter("gotd.downloader.retries", "{retry}", "Retried transient errors by operation")
-	o.retriesExhausted = counter("gotd.downloader.retries_exhausted", "{request}",
+	o.retriesExhausted = counter("gotd.downloader.retries.exhausted", "{request}",
 		"Requests that failed after the retry limit by operation")
 
 	h, err := m.Float64Histogram("gotd.downloader.request.duration",
 		metric.WithUnit("s"),
 		metric.WithDescription("Part request duration by kind"),
+		durationBuckets,
 	)
 	if err != nil {
 		h, _ = nm.Float64Histogram("gotd.downloader.request.duration")

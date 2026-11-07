@@ -107,7 +107,7 @@ func (c *cdn) refreshRedirect(
 
 	masterChunk, err := retryRequest(
 		ctx,
-		"refresh CDN redirect",
+		RetryOperationRefreshRedirect,
 		func(attempt int, err error) {
 			c.reportRetry(RetryOperationRefreshRedirect, attempt, err)
 		},
@@ -302,7 +302,7 @@ func (c *cdn) Chunk(ctx context.Context, offset int64, limit int) (chunk, error)
 		}
 	}
 
-	return chunk{}, retryLimitErr(ctx, "cdn chunk", maxRetryAttempts, errors.New("state loop"))
+	return chunk{}, retryLimitErr(ctx, RetryOperationGetFile, maxRetryAttempts, errors.New("state loop"))
 }
 
 func (c *cdn) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
@@ -351,5 +351,5 @@ func (c *cdn) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
 		}
 	}
 
-	return nil, retryLimitErr(ctx, "cdn hashes", maxRetryAttempts, errors.New("state loop"))
+	return nil, retryLimitErr(ctx, RetryOperationGetFileHashes, maxRetryAttempts, errors.New("state loop"))
 }

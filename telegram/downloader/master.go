@@ -55,7 +55,8 @@ func withRefresh[T any](ctx context.Context, c master, f func(loc tg.InputFileLo
 			return r, err
 		}
 		c.reportRetry(RetryOperationFileReference, attempt+1, err)
-		if err := c.ref.update(ctx, loc); err != nil {
+		refreshed, err := c.ref.update(ctx, loc)
+		if err != nil {
 			result := refreshError
 			if errors.Is(err, ErrFileNotFound) {
 				result = refreshNotFound
@@ -64,7 +65,10 @@ func withRefresh[T any](ctx context.Context, c master, f func(loc tg.InputFileLo
 			var zero T
 			return zero, err
 		}
-		observerFrom(ctx).refresh(ctx, refreshOK, nil)
+		if refreshed {
+			// Workers that waited for a refresh of another one don't count.
+			observerFrom(ctx).refresh(ctx, refreshOK, nil)
+		}
 	}
 }
 
