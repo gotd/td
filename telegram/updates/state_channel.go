@@ -57,6 +57,7 @@ type channelState struct {
 	userHasher     UserAccessHasher
 	log            log.Helper
 	tracer         trace.Tracer
+	metrics        *updatesMetrics
 	handler        telegram.UpdateHandler
 	onTooLong      func(channelID int64)
 	onGap          func(gap ChannelGap)
@@ -109,6 +110,7 @@ type channelStateConfig struct {
 	RemoveChannel         chan<- int64
 	Logger                log.Logger
 	Tracer                trace.Tracer
+	Metrics               *updatesMetrics
 	ChannelDiffSem        chDiffSem
 }
 
@@ -135,6 +137,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		onInaccessible: cfg.OnChannelInaccessible,
 		removeChannel:  cfg.RemoveChannel,
 		tracer:         cfg.Tracer,
+		metrics:        cfg.Metrics,
 		chDiffSem:      cfg.ChannelDiffSem,
 	}
 
@@ -143,6 +146,9 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		Apply:        state.applyPts,
 		Logger:       log.Named(cfg.Logger, "pts"),
 		Tracer:       cfg.Tracer,
+		Metrics:      cfg.Metrics,
+		Kind:         kindChannel,
+		Name:         "pts",
 	})
 
 	return state
@@ -322,6 +328,9 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		log.Int64("channel_id", s.channelID),
 		log.Int("pts", s.pts.State()),
 	)
+	s.metrics.differenceTrigger(ctx, kindChannel, reason)
+	// Updates of the difference are reported with "difference" source.
+	ctx = withDifferenceSource(ctx)
 
 	if now := time.Now(); now.Before(s.diffTimeout) {
 		dur := s.diffTimeout.Sub(now)
@@ -358,6 +367,7 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	if err := s.chDiffSem.acquire(ctx); err != nil {
 		return err
 	}
+	start := time.Now()
 	diff, err := s.client.UpdatesGetChannelDifference(ctx, &tg.UpdatesGetChannelDifferenceRequest{
 		Channel: &tg.InputChannel{
 			ChannelID:  s.channelID,
@@ -370,10 +380,18 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	s.chDiffSem.release()
 	if err != nil {
 		if tgerr.Is(err, "CHANNEL_PRIVATE") {
+			s.metrics.difference(ctx, kindChannel, diffInaccessible, start)
 			return s.handleInaccessible(ctx)
 		}
+		s.metrics.difference(ctx, kindChannel, diffError, start)
 		return errors.Wrap(err, "get channel difference")
 	}
+	result := channelDiffResult(diff)
+	s.metrics.difference(ctx, kindChannel, result, start)
+	s.log.Debug(ctx, "Channel difference received",
+		log.String("result", result),
+		log.Duration("duration", time.Since(start)),
+	)
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesChannelDifference:
@@ -448,13 +466,16 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 		gap.Users = diff.Users
 		gap.Chats = diff.Chats
 
+		dialog := "ok"
 		remotePts, err := getDialogPts(diff.Dialog)
 		if err != nil {
+			dialog = "invalid"
 			s.log.Warn(ctx, "UpdatesChannelDifferenceTooLong invalid Dialog", log.Error(err))
 		} else {
 			// Same guard as TDLib: pts must advance, or a non-final
 			// difference would be requested again for the same pts.
 			if remotePts <= gap.LocalPts {
+				dialog = "stale"
 				s.log.Warn(ctx, "UpdatesChannelDifferenceTooLong pts did not advance",
 					log.Int("local_pts", gap.LocalPts),
 					log.Int("remote_pts", remotePts),
@@ -469,6 +490,15 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 			s.pts.SetState(remotePts, "updates.channelDifferenceTooLong dialog new pts")
 		}
 
+		s.metrics.channelTooLong(ctx, dialog, gap)
+		s.log.Info(ctx, "Channel difference too long, reporting gap",
+			log.Int("local_pts", gap.LocalPts),
+			log.Int("remote_pts", gap.RemotePts),
+			log.Int("top_message", gap.TopMessage),
+			log.Int("messages", len(gap.Messages)),
+			log.Bool("final", diff.Final),
+			log.String("dialog", dialog),
+		)
 		s.onTooLong(s.channelID)
 		if s.onGap != nil {
 			s.onGap(gap)
@@ -511,6 +541,18 @@ func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
 	}
 }
 
+// channelDiffResult returns the "result" metric attribute of diff.
+func channelDiffResult(diff tg.UpdatesChannelDifferenceClass) string {
+	switch diff.(type) {
+	case *tg.UpdatesChannelDifferenceEmpty:
+		return diffEmpty
+	case *tg.UpdatesChannelDifferenceTooLong:
+		return diffTooLong
+	default:
+		return diffFull
+	}
+}
+
 // getDifferenceLogger calls getDifference, logging any error. It returns true
 // if the channel became inaccessible and the worker should stop.
 func (s *channelState) getDifferenceLogger(ctx context.Context, reason string) (stop bool) {
@@ -532,6 +574,7 @@ func (s *channelState) getDifferenceLogger(ctx context.Context, reason string) (
 // stops the worker.
 func (s *channelState) handleInaccessible(ctx context.Context) error {
 	s.log.Info(ctx, "Channel is inaccessible, removing from updates manager")
+	s.metrics.channelInaccessible(ctx)
 	s.onInaccessible(s.channelID)
 	select {
 	case s.removeChannel <- s.channelID:

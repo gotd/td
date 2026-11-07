@@ -30,6 +30,7 @@ import (
 func (s *internalState) dispatch(ctx context.Context, u *tg.Updates) error {
 	u.Chats = backfillMinChats(ctx, s.log, s.hasher, s.selfID, u.Chats)
 	u.Users = backfillMinUsers(ctx, s.log, s.userHasher, s.selfID, u.Users)
+	s.metrics.dispatch(ctx, updateSource(ctx), len(u.Updates))
 	return s.handler.Handle(ctx, u)
 }
 
@@ -38,6 +39,7 @@ func (s *internalState) dispatch(ctx context.Context, u *tg.Updates) error {
 func (s *channelState) dispatch(ctx context.Context, u *tg.Updates) error {
 	u.Chats = backfillMinChats(ctx, s.log, s.hasher, s.selfID, u.Chats)
 	u.Users = backfillMinUsers(ctx, s.log, s.userHasher, s.selfID, u.Users)
+	s.metrics.dispatch(ctx, updateSource(ctx), len(u.Updates))
 	return s.handler.Handle(ctx, u)
 }
 

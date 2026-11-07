@@ -46,11 +46,13 @@ func (m *Manager) TrackChannel(ctx context.Context, channelID, accessHash int64,
 		// Run has stopped: the request would never be applied, as a new Run
 		// requires Reset.
 		m.mux.Unlock()
-		return ErrStopped
+		return m.trackStopped(ctx)
 	}
 	if state == nil || !started {
 		m.pendingTracks = append(m.pendingTracks, r)
 		m.mux.Unlock()
+		m.metrics.trackChannel(ctx, trackSourceAPI, trackPending)
+		m.lg.Debug(ctx, "Channel will be tracked on Run", log.Int64("channel_id", channelID))
 		return nil
 	}
 	m.mux.Unlock()
@@ -59,8 +61,9 @@ func (m *Manager) TrackChannel(ctx context.Context, channelID, accessHash int64,
 	select {
 	case state.trackQueue <- r:
 	case <-state.done:
-		return ErrStopped
+		return m.trackStopped(ctx)
 	case <-ctx.Done():
+		m.metrics.trackChannel(ctx, trackSourceAPI, trackCanceled)
 		return ctx.Err()
 	}
 	select {
@@ -72,21 +75,42 @@ func (m *Manager) TrackChannel(ctx context.Context, channelID, accessHash int64,
 		case err := <-r.result:
 			return err
 		default:
-			return ErrStopped
+			return m.trackStopped(ctx)
 		}
 	case <-ctx.Done():
+		m.metrics.trackChannel(ctx, trackSourceAPI, trackCanceled)
 		return ctx.Err()
 	}
+}
+
+func (m *Manager) trackStopped(ctx context.Context) error {
+	m.metrics.trackChannel(ctx, trackSourceAPI, trackStopped)
+	m.metrics.stopped(ctx, opTrackChannel)
+	return ErrStopped
 }
 
 // trackChannel starts tracking channel if it is not tracked yet.
 //
 // Must be called from the internalState goroutine (or before it starts).
-func (s *internalState) trackChannel(ctx context.Context, r trackRequest) error {
+func (s *internalState) trackChannel(ctx context.Context, r trackRequest, source string) error {
 	if _, ok := s.channels[r.channelID]; ok {
+		s.metrics.trackChannel(ctx, source, trackAlready)
+		s.log.Debug(ctx, "Channel is already tracked", log.Int64("channel_id", r.channelID))
 		return nil
 	}
+	if err := s.startTracking(ctx, r); err != nil {
+		s.metrics.trackChannel(ctx, source, trackError)
+		s.log.Warn(ctx, "Failed to track channel",
+			log.Int64("channel_id", r.channelID),
+			log.Error(err),
+		)
+		return err
+	}
+	s.metrics.trackChannel(ctx, source, trackStarted)
+	return nil
+}
 
+func (s *internalState) startTracking(ctx context.Context, r trackRequest) error {
 	localPts, found, err := s.storage.GetChannelPts(ctx, s.selfID, r.channelID)
 	if err != nil {
 		return errors.Wrap(err, "get channel pts")
@@ -107,6 +131,7 @@ func (s *internalState) trackChannel(ctx context.Context, r trackRequest) error 
 	s.log.Debug(ctx, "Tracking channel",
 		log.Int64("channel_id", r.channelID),
 		log.Int("pts", localPts),
+		log.Bool("stored_pts", found),
 	)
 	s.startChannel(r.channelID, r.accessHash, localPts)
 	return nil
@@ -116,6 +141,7 @@ func (s *internalState) trackChannel(ctx context.Context, r trackRequest) error 
 func (s *internalState) startChannel(channelID, accessHash int64, pts int) *channelState {
 	state := s.newChannelState(channelID, accessHash, pts)
 	s.channels[channelID] = state
+	s.metrics.trackedDelta(s.runCtx, 1)
 	ctx := s.runCtx
 	s.wg.Go(func() error {
 		return state.Run(ctx)
@@ -161,5 +187,6 @@ func (s *internalState) trackTooLong(ctx context.Context, u *tg.UpdateChannelToo
 		log.Int64("channel_id", u.ChannelID),
 		log.Int("pts", localPts),
 	)
+	s.metrics.trackChannel(ctx, trackSourceTooLong, trackStarted)
 	return s.startChannel(u.ChannelID, accessHash, localPts), true
 }

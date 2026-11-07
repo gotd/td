@@ -15,9 +15,12 @@ type sequenceBox struct {
 	gapTimeout *time.Timer
 	pending    []update
 
-	apply  func(ctx context.Context, state int, updates []update) error
-	log    log.Helper
-	tracer trace.Tracer
+	apply   func(ctx context.Context, state int, updates []update) error
+	log     log.Helper
+	tracer  trace.Tracer
+	metrics *updatesMetrics
+	kind    string
+	name    string
 }
 
 type sequenceConfig struct {
@@ -25,6 +28,11 @@ type sequenceConfig struct {
 	Apply        func(ctx context.Context, state int, updates []update) error
 	Logger       log.Logger
 	Tracer       trace.Tracer
+	// Metrics, Kind (common or channel) and Name (pts, qts or seq) of the
+	// sequence, for gap metrics (optional).
+	Metrics *updatesMetrics
+	Kind    string
+	Name    string
 }
 
 func newSequenceBox(cfg sequenceConfig) *sequenceBox {
@@ -49,6 +57,9 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 		apply:      cfg.Apply,
 		log:        logger,
 		tracer:     cfg.Tracer,
+		metrics:    cfg.Metrics,
+		kind:       cfg.Kind,
+		name:       cfg.Name,
 	}
 }
 
@@ -73,6 +84,7 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 		if !s.gaps.Has() {
 			_ = s.gapTimeout.Stop()
 			s.log.Debug(ctx, "Gap was resolved by waiting")
+			s.metrics.gap(ctx, s.kind, s.name, gapResolvedWaiting)
 			return s.applyPending(ctx)
 		}
 		return nil
@@ -94,6 +106,7 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 	case gapRefetch:
 		s.pending = append(s.pending, u)
 		s.gaps.Enable(s.state, u.start())
+		s.metrics.gap(ctx, s.kind, s.name, gapDetected)
 
 		// Check if we already have acceptable updates in buffer.
 		for _, u := range s.pending {
@@ -102,6 +115,7 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 
 		if !s.gaps.Has() {
 			logger.Debug(ctx, "Gap was resolved by pending updates")
+			s.metrics.gap(ctx, s.kind, s.name, gapResolvedPending)
 			return s.applyPending(ctx)
 		}
 

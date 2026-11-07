@@ -49,16 +49,19 @@ type Manager struct {
 	cfg       Config
 	lg        log.Helper
 	tracer    trace.Tracer
+	metrics   *updatesMetrics
 	chDiffSem chDiffSem
 }
 
 // New creates new manager.
 func New(cfg Config) *Manager {
 	cfg.setDefaults()
+	lg := log.For(cfg.Logger)
 	return &Manager{
 		cfg:       cfg,
-		lg:        log.For(cfg.Logger),
+		lg:        lg,
 		tracer:    cfg.TracerProvider.Tracer(""),
+		metrics:   newUpdatesMetrics(cfg.MeterProvider, lg),
 		chDiffSem: newChDiffSem(cfg.MaxChannelDifferenceConcurrency),
 	}
 }
@@ -80,22 +83,37 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	state := m.state
 	if (state == nil && m.cfg.BeforeRun != BeforeRunPass) || m.replaying {
 		// Under the lock, so Run takes every buffered update.
+		action := earlyBuffered
 		if m.cfg.BeforeRun == BeforeRunBuffer && len(m.early) < m.cfg.BeforeRunBufferSize {
 			m.early = append(m.early, u)
 		} else {
 			m.earlyDropped++
+			action = earlyDropped
 		}
+		replaying := m.replaying
 		m.mux.Unlock()
+		m.metrics.beforeRunAction(ctx, action, 1)
+		m.lg.Debug(ctx, "Update received before Run",
+			log.String("action", action),
+			log.Bool("replaying", replaying),
+		)
 		return nil
 	}
 	m.mux.Unlock()
 
 	if state == nil {
 		m.lg.Debug(ctx, "Handle (no internalState)")
+		m.metrics.beforeRunAction(ctx, earlyPassed, 1)
 		return m.cfg.Handler.Handle(ctx, u)
 	}
 
-	return state.Push(ctx, u)
+	if err := state.Push(ctx, u); err != nil {
+		if errors.Is(err, ErrStopped) {
+			m.metrics.stopped(ctx, opHandle)
+		}
+		return err
+	}
+	return nil
 }
 
 // HandleAffected applies the pts increment carried by a messages.affectedMessages
@@ -125,7 +143,13 @@ func (m *Manager) HandleAffected(ctx context.Context, channelID int64, pts, ptsC
 		return nil
 	}
 
-	return state.PushAffected(ctx, channelID, pts, ptsCount)
+	if err := state.PushAffected(ctx, channelID, pts, ptsCount); err != nil {
+		if errors.Is(err, ErrStopped) {
+			m.metrics.stopped(ctx, opHandleAffected)
+		}
+		return err
+	}
+	return nil
 }
 
 type AuthOptions struct {
@@ -187,6 +211,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			Channels:              channels,
 			RawClient:             api,
 			Tracer:                m.tracer,
+			Metrics:               m.metrics,
 			Logger:                m.cfg.Logger,
 			Handler:               m.cfg.Handler,
 			OnChannelTooLong:      m.cfg.OnChannelTooLong,
@@ -219,10 +244,16 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	if dropped > 0 {
 		lg.Info(ctx, "Dropped updates received before Run", log.Int("count", dropped))
 	}
+	if len(early) > 0 {
+		lg.Info(ctx, "Replaying updates received before Run",
+			log.Int("count", len(early)),
+			log.Bool("remote_state", earlyRemote),
+		)
+	}
 	// internalState goroutine is not started yet, so it is safe to track
 	// channels directly.
 	for _, r := range pending {
-		if err := state.trackChannel(ctx, r); err != nil {
+		if err := state.trackChannel(ctx, r, trackSourceAPI); err != nil {
 			lg.Error(ctx, "Track channel error",
 				log.Int64("channel_id", r.channelID),
 				log.Error(err),
@@ -330,6 +361,7 @@ func (m *Manager) replayEarly(ctx context.Context, state *internalState, early [
 	for {
 		for _, u := range early {
 			if remote {
+				m.metrics.beforeRunAction(ctx, earlyPassedRaw, 1)
 				if err := m.cfg.Handler.Handle(ctx, u); err != nil {
 					m.lg.Error(ctx, "Handle update received before Run", log.Error(err))
 				}
@@ -340,6 +372,7 @@ func (m *Manager) replayEarly(ctx context.Context, state *internalState, early [
 				m.lg.Debug(ctx, "Replay stopped", log.Error(err))
 				return
 			}
+			m.metrics.beforeRunAction(ctx, earlyReplayed, 1)
 		}
 		// Updates received while replaying came after the state was loaded.
 		remote = false
