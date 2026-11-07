@@ -186,7 +186,9 @@ func (c *Client) createCachedDC(ctx context.Context, cache *dcPoolCache, dc int,
 		call.conn = nil
 	}
 	cache.mux.Unlock()
-	close(call.done)
+	// Waiters are released only after the result is recorded and logged, so
+	// they observe it, and nothing of this call outlives them.
+	defer close(call.done)
 
 	// Creation is detached from the caller's context: only client shutdown
 	// cancels it, which is not a failure of the DC.
