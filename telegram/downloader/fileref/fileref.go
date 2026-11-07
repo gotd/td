@@ -41,9 +41,9 @@ func Message(api API, peer tg.InputPeerClass, msgID int, loc tg.InputFileLocatio
 			res tg.MessagesMessagesClass
 			err error
 		)
-		if ch, ok := peer.(*tg.InputPeerChannel); ok {
+		if ch, ok := inputChannel(peer); ok {
 			res, err = api.ChannelsGetMessages(ctx, &tg.ChannelsGetMessagesRequest{
-				Channel: &tg.InputChannel{ChannelID: ch.ChannelID, AccessHash: ch.AccessHash},
+				Channel: ch,
 				ID:      ids,
 			})
 		} else {
@@ -68,6 +68,18 @@ func Message(api API, peer tg.InputPeerClass, msgID int, loc tg.InputFileLocatio
 			}
 		}
 		return FromMedia(loc, media...)
+	}
+}
+
+// inputChannel returns input channel of peer, if peer is a channel.
+func inputChannel(peer tg.InputPeerClass) (tg.InputChannelClass, bool) {
+	switch p := peer.(type) {
+	case *tg.InputPeerChannel:
+		return &tg.InputChannel{ChannelID: p.ChannelID, AccessHash: p.AccessHash}, true
+	case *tg.InputPeerChannelFromMessage:
+		return &tg.InputChannelFromMessage{Peer: p.Peer, MsgID: p.MsgID, ChannelID: p.ChannelID}, true
+	default:
+		return nil, false
 	}
 }
 
