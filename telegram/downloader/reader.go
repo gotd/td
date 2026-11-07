@@ -31,6 +31,8 @@ type reader struct {
 	sch      schema    // immutable
 	verifier *verifier // immutable
 	partSize int       // immutable
+	// scheduler limits in-flight requests, may be nil.
+	scheduler *Scheduler // immutable
 
 	// size is the known file size, zero if unknown.
 	size int64
@@ -120,7 +122,7 @@ func (r *reader) nextPlain(ctx context.Context) (block, error) {
 func (r *reader) next(ctx context.Context, offset int64, limit int) (block, error) {
 	retryAttempt := 0
 	for {
-		ch, err := r.sch.Chunk(ctx, offset, limit)
+		ch, err := r.chunk(ctx, offset, limit)
 
 		if flood, err := tgerr.FloodWait(ctx, err); err != nil {
 			if flood || isRetryableTimeout(ctx, err) {
@@ -141,4 +143,16 @@ func (r *reader) next(ctx context.Context, offset int64, limit int) (block, erro
 		}
 		return b, nil
 	}
+}
+
+func (r *reader) chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
+	if r.scheduler == nil {
+		return r.sch.Chunk(ctx, offset, limit)
+	}
+	if err := r.scheduler.acquire(ctx); err != nil {
+		return chunk{}, err
+	}
+	ch, err := r.sch.Chunk(ctx, offset, limit)
+	r.scheduler.release(ctx, err)
+	return ch, err
 }

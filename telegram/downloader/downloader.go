@@ -17,6 +17,8 @@ type Downloader struct {
 	allowCDN *bool
 	// retryHandler observes transient downloader errors that are retried.
 	retryHandler RetryHandler
+	// scheduler limits in-flight part requests, nil means no limit.
+	scheduler *Scheduler
 }
 
 const defaultPartSize = 512 * 1024 // 512 kb
