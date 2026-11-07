@@ -87,20 +87,18 @@ func (c *Client) primaryDC(dc int) mtproto.Dialer {
 	}
 }
 
+// createPrimaryConn creates primary connection and records its DC in
+// c.connDC, so callers must hold connMux (or own c exclusively).
 func (c *Client) createPrimaryConn(setup manager.SetupCallback) pool.Conn {
-	return c.createConn(0, c.defaultMode, setup, c.onDead)
+	conn, dc := c.createConnWith(0, c.defaultMode, nil, setup, func(dc int, err error) {
+		c.notifyConnDead(ConnDeadEvent{DC: dc, Kind: ConnKindPrimary, Err: err})
+	})
+	c.connDC = dc
+	return conn
 }
 
-func (c *Client) createConn(
-	id int64,
-	mode manager.ConnMode,
-	setup manager.SetupCallback,
-	onDead func(error),
-) pool.Conn {
-	return c.createConnWith(id, mode, nil, setup, onDead)
-}
-
-// createConnWith creates connection that uses primary session.
+// createConnWith creates connection that uses primary session and returns
+// it with the DC of the session it was created for.
 //
 // If dialer is nil, primary DC dialer is used.
 func (c *Client) createConnWith(
@@ -108,8 +106,9 @@ func (c *Client) createConnWith(
 	mode manager.ConnMode,
 	dialer mtproto.Dialer,
 	setup manager.SetupCallback,
-	onDead func(error),
-) pool.Conn {
+	onDead func(dc int, err error),
+) (pool.Conn, int) {
+	// Load the session once, so that options, dialer and reported DC match.
 	opts, s := c.session.Options(c.opts)
 	opts.Logger = c.log.Named("conn").With(
 		log.Int64("conn_id", id),
@@ -119,16 +118,21 @@ func (c *Client) createConnWith(
 		dialer = c.primaryDC(s.DC)
 	}
 
+	dc := s.DC
+	var onConnDead func(error)
+	if onDead != nil {
+		onConnDead = func(err error) { onDead(dc, err) }
+	}
 	return c.create(
 		dialer, mode, c.appID,
 		opts, manager.ConnOptions{
-			DC:      s.DC,
+			DC:      dc,
 			Test:    c.testDC,
 			Layer:   c.layer,
 			Device:  c.device,
 			Handler: c.asHandler(),
 			Setup:   setup,
-			OnDead:  onDead,
+			OnDead:  onConnDead,
 		},
-	)
+	), dc
 }

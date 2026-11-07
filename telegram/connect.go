@@ -17,12 +17,16 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
-func (c *Client) runUntilRestart(ctx context.Context) error {
-	c.notifyConnectionState(ConnectionStateConnecting)
-
+// runUntilRestart runs the primary connection until restart. It stores the
+// DC of the connection in dc, so that its state is reported for the right DC
+// even after migration changed the session.
+func (c *Client) runUntilRestart(ctx context.Context, dc *int) error {
 	c.connMux.Lock()
 	conn := c.conn
+	*dc = c.connDC
 	c.connMux.Unlock()
+
+	c.notifyConnectionState(ConnectionStateConnecting, *dc)
 
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(conn.Run)
@@ -33,13 +37,14 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 	// also used by pool/sub connections (including same-DC ones), which would
 	// produce spurious ready events. Waiting on the connection's own Ready
 	// channel scopes the event strictly to the primary connection.
-	if c.onConnectionState != nil {
+	if c.onConnectionState != nil || c.onConnectionStateEvent != nil {
+		connDC := *dc
 		if ready, ok := conn.(interface{ Ready() <-chan struct{} }); ok {
 			g.Go(func(ctx context.Context) error {
 				if !waitReady(ctx, ready.Ready()) {
 					return ctx.Err()
 				}
-				c.notifyConnectionState(ConnectionStateReady)
+				c.notifyConnectionState(ConnectionStateReady, connDC)
 				return nil
 			})
 		}
@@ -135,8 +140,10 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	b := tdsync.SyncBackoff(backoff.WithContext(c.newConnBackoff(), ctx))
 	c.connBackoff.Store(&b)
 
+	// DC of the last run primary connection.
+	var dc int
 	return backoff.RetryNotify(func() error {
-		if err := c.runUntilRestart(ctx); err != nil {
+		if err := c.runUntilRestart(ctx, &dc); err != nil {
 			if c.isPermanentError(err) {
 				c.log.Warn(ctx, "Permanent connection error, will not reconnect", log.Error(err))
 				return backoff.Permanent(err)
@@ -147,7 +154,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 		return nil
 	}, b, func(err error, timeout time.Duration) {
 		c.log.Info(context.Background(), "Restarting connection", log.Error(err), log.Duration("backoff", timeout))
-		c.notifyConnectionState(ConnectionStateDisconnected)
+		c.notifyConnectionState(ConnectionStateDisconnected, dc)
 
 		c.connMux.Lock()
 		// Some PFS errors require dropping persisted keys before recreating conn.

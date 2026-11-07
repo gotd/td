@@ -39,9 +39,7 @@ func (c *Client) handleCDNConnDead(dcID int, err error) {
 
 	if !errors.Is(err, mtproto.ErrPFSDropKeysRequired) {
 		// Keep legacy callback semantics for all non-PFS errors.
-		if c.onDead != nil {
-			c.onDead(err)
-		}
+		c.notifyConnDead(ConnDeadEvent{DC: dcID, Kind: ConnKindCDN, Err: err})
 		return
 	}
 
@@ -57,7 +55,5 @@ func (c *Client) handleCDNConnDead(dcID int, err error) {
 	s.Store(pool.Session{DC: dcID})
 	c.sessionsMux.Unlock()
 
-	if c.onDead != nil {
-		c.onDead(err)
-	}
+	c.notifyConnDead(ConnDeadEvent{DC: dcID, Kind: ConnKindCDN, Err: err})
 }

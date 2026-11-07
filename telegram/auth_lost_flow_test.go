@@ -227,7 +227,7 @@ func TestClientConnectSelfAuthLost(t *testing.T) {
 			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 			defer cancel()
 			done := make(chan error, 1)
-			go func() { done <- client.runUntilRestart(ctx) }()
+			go func() { var dc int; done <- client.runUntilRestart(ctx, &dc) }()
 			if tt.stop != nil {
 				select {
 				case err := <-client.authLost:

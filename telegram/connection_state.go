@@ -32,9 +32,72 @@ func (s ConnectionState) String() string {
 	}
 }
 
-// notifyConnectionState calls OnConnectionState callback, if set.
-func (c *Client) notifyConnectionState(s ConnectionState) {
+// ConnKind is the kind of client connection.
+type ConnKind int
+
+const (
+	// ConnKindPrimary is the primary connection of Client.Run.
+	ConnKindPrimary ConnKind = iota
+	// ConnKindData is a connection of a pool: Client.Pool, Client.DC,
+	// Client.MediaOnly, Client.FileDC, or a FILE_MIGRATE connection.
+	ConnKindData
+	// ConnKindCDN is a connection to a CDN DC.
+	ConnKindCDN
+)
+
+// String implements fmt.Stringer.
+func (k ConnKind) String() string {
+	switch k {
+	case ConnKindPrimary:
+		return "primary"
+	case ConnKindData:
+		return "data"
+	case ConnKindCDN:
+		return "cdn"
+	default:
+		return "unknown"
+	}
+}
+
+// ConnDeadEvent describes a dead connection.
+//
+// See Options.OnConnDead.
+type ConnDeadEvent struct {
+	// DC is the ID of the DC of the connection.
+	DC int
+	// Kind is the kind of the connection.
+	Kind ConnKind
+	// Err is the reason.
+	Err error
+}
+
+// ConnectionStateEvent describes a state change of the primary connection.
+//
+// See Options.OnConnectionStateEvent.
+type ConnectionStateEvent struct {
+	// DC is the ID of the DC of the primary connection.
+	DC int
+	// State is the new state.
+	State ConnectionState
+}
+
+// notifyConnectionState calls OnConnectionState and OnConnectionStateEvent
+// callbacks, if set, for the primary connection to the given DC.
+func (c *Client) notifyConnectionState(s ConnectionState, dc int) {
 	if c.onConnectionState != nil {
 		c.onConnectionState(s)
+	}
+	if c.onConnectionStateEvent != nil {
+		c.onConnectionStateEvent(ConnectionStateEvent{DC: dc, State: s})
+	}
+}
+
+// notifyConnDead calls OnDead and OnConnDead callbacks, if set.
+func (c *Client) notifyConnDead(e ConnDeadEvent) {
+	if c.onDead != nil {
+		c.onDead(e.Err)
+	}
+	if c.onConnDead != nil {
+		c.onConnDead(e)
 	}
 }

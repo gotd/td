@@ -69,6 +69,12 @@ type Client struct {
 	defaultMode    manager.ConnMode       // immutable
 	// onConnectionState is called on primary connection state change.
 	onConnectionState func(ConnectionState) // immutable
+	// connDC is the DC of conn, set by createPrimaryConn. Guarded by connMux.
+	connDC int
+	// onConnectionStateEvent is onConnectionState with the DC ID.
+	onConnectionStateEvent func(ConnectionStateEvent) // immutable
+	// onConnDead is onDead with the DC ID and connection kind.
+	onConnDead func(ConnDeadEvent) // immutable
 
 	// Migration state.
 	migrationTimeout time.Duration // immutable
@@ -212,24 +218,26 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cfg: manager.NewAtomicConfig(tg.Config{
 			DCOptions: opt.DCList.Options,
 		}),
-		create:            defaultConstructor(),
-		resolver:          opt.Resolver,
-		defaultMode:       mode,
-		newConnBackoff:    opt.ReconnectionBackoff,
-		onDead:            opt.OnDead,
-		onConnectionState: opt.OnConnectionState,
-		clock:             opt.Clock,
-		device:            opt.Device,
-		layer:             opt.Layer,
-		migrationTimeout:  opt.MigrationTimeout,
-		filePoolSize:      opt.FilePoolSize,
-		requestTimeout:    opt.RequestTimeout,
-		noUpdatesMode:     opt.NoUpdates,
-		mw:                opt.Middlewares,
-		onTransfer:        opt.OnTransfer,
-		onSelfError:       opt.OnSelfError,
-		onSelfSuccess:     opt.OnSelfSuccess,
-		onAuthLost:        opt.OnAuthLost,
+		create:                 defaultConstructor(),
+		resolver:               opt.Resolver,
+		defaultMode:            mode,
+		newConnBackoff:         opt.ReconnectionBackoff,
+		onDead:                 opt.OnDead,
+		onConnectionState:      opt.OnConnectionState,
+		onConnectionStateEvent: opt.OnConnectionStateEvent,
+		onConnDead:             opt.OnConnDead,
+		clock:                  opt.Clock,
+		device:                 opt.Device,
+		layer:                  opt.Layer,
+		migrationTimeout:       opt.MigrationTimeout,
+		filePoolSize:           opt.FilePoolSize,
+		requestTimeout:         opt.RequestTimeout,
+		noUpdatesMode:          opt.NoUpdates,
+		mw:                     opt.Middlewares,
+		onTransfer:             opt.OnTransfer,
+		onSelfError:            opt.OnSelfError,
+		onSelfSuccess:          opt.OnSelfSuccess,
+		onAuthLost:             opt.OnAuthLost,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
