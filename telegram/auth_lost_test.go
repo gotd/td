@@ -66,6 +66,7 @@ func TestClientOnAuthLost(t *testing.T) {
 	fail.Store(tgerr.New(401, "SESSION_REVOKED"))
 	_, _ = api.HelpGetConfig(ctx)
 	_, _ = api.HelpGetConfig(ctx)
+	require.NoError(t, client.waitAuthLost(ctx))
 	require.Len(t, reported, 1)
 	require.True(t, tgerr.Is(reported[0], "SESSION_REVOKED"))
 	require.Empty(t, client.authLost)
@@ -82,6 +83,7 @@ func TestClientOnAuthLost(t *testing.T) {
 	stop = errors.New("stop account")
 	fail.Store(tgerr.New(406, "AUTH_KEY_DUPLICATED"))
 	_, _ = api.HelpGetConfig(ctx)
+	require.NoError(t, client.waitAuthLost(ctx))
 	require.Len(t, reported, 2)
 	require.Len(t, client.authLost, 1)
 

@@ -125,6 +125,7 @@ func TestClientAuthorizedBy(t *testing.T) {
 
 			fail.Store(tgerr.New(401, "AUTH_KEY_UNREGISTERED"))
 			_, _ = api.HelpGetConfig(ctx)
+			require.NoError(t, client.waitAuthLost(ctx))
 			if tt.authorized {
 				require.Equal(t, 1, reported)
 			} else {
@@ -152,6 +153,7 @@ func TestClientOnAuthLostContext(t *testing.T) {
 	reqCtx := context.WithValue(context.Background(), authCtxKey{}, "request")
 	fail.Store(tgerr.New(401, "SESSION_REVOKED"))
 	_, _ = api.HelpGetConfig(reqCtx)
+	require.NoError(t, client.waitAuthLost(reqCtx))
 	require.NotNil(t, got)
 	require.Equal(t, "run", got.Value(authCtxKey{}))
 }
