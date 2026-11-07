@@ -32,6 +32,21 @@ func TestMessage(t *testing.T) {
 			ID: 10, AccessHash: 2, FileReference: []byte{2}, ThumbSize: "m",
 		}, loc)
 	})
+	t.Run("ChannelFromMessage", func(t *testing.T) {
+		// Min channel seen in a message: channels.getMessages must be used
+		// with inputChannelFromMessage, not messages.getMessages.
+		chatPeer := &tg.InputPeerChat{ChatID: 7}
+		m := tgmock.NewRequire(t)
+		m.ExpectCall(&tg.ChannelsGetMessagesRequest{
+			Channel: &tg.InputChannelFromMessage{Peer: chatPeer, MsgID: 3, ChannelID: 1},
+			ID:      []tg.InputMessageClass{&tg.InputMessageID{ID: 5}},
+		}).ThenResult(&tg.MessagesChannelMessages{Messages: []tg.MessageClass{msg}})
+
+		peer := &tg.InputPeerChannelFromMessage{Peer: chatPeer, MsgID: 3, ChannelID: 1}
+		loc, err := Message(tg.NewClient(m), peer, 5, docLoc)(ctx)
+		require.NoError(t, err)
+		require.Equal(t, []byte{2}, loc.(*tg.InputDocumentFileLocation).FileReference)
+	})
 	t.Run("User", func(t *testing.T) {
 		m := tgmock.NewRequire(t)
 		m.ExpectCall(&tg.MessagesGetMessagesRequest{
