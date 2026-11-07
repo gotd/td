@@ -73,7 +73,11 @@ type Client struct {
 	// Migration state.
 	migrationTimeout time.Duration // immutable
 	filePoolSize     int64         // immutable
-	migration        chan struct{}
+	// requestTimeout returns response deadline of request, may be nil.
+	requestTimeout func(input bin.Encoder) time.Duration // immutable
+	// restartMux serializes restarts on request timeout.
+	restartMux sync.Mutex
+	migration  chan struct{}
 
 	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
@@ -214,6 +218,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		layer:             opt.Layer,
 		migrationTimeout:  opt.MigrationTimeout,
 		filePoolSize:      opt.FilePoolSize,
+		requestTimeout:    opt.RequestTimeout,
 		noUpdatesMode:     opt.NoUpdates,
 		mw:                opt.Middlewares,
 		onTransfer:        opt.OnTransfer,
@@ -249,6 +254,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		MessageID:         opt.MessageID,
 		ExchangeTimeout:   opt.ExchangeTimeout,
 		DialTimeout:       opt.DialTimeout,
+		PingInterval:      opt.PingInterval,
+		PingTimeout:       opt.PingTimeout,
 		// Forward PFS toggles into low-level mtproto connection.
 		EnablePFS:  opt.EnablePFS,
 		TempKeyTTL: opt.TempKeyTTL,

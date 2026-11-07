@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/go-faster/errors"
 	"go.opentelemetry.io/otel/attribute"
@@ -97,14 +98,39 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 // invokeConn waits until the reconnection loop replaces the connection and
 // retries the request on it, see https://github.com/gotd/td/issues/1030.
 func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	var timeout time.Duration
+	if c.requestTimeout != nil {
+		timeout = c.requestTimeout(input)
+	}
 	attempt := 0
+	resent := false
 	for {
 		c.connMux.Lock()
 		conn := c.conn
 		connChanged := c.connChanged
 		c.connMux.Unlock()
 
-		err := conn.Invoke(ctx, input, output)
+		reqCtx, cancel := ctx, context.CancelFunc(func() {})
+		if timeout > 0 {
+			reqCtx, cancel = context.WithTimeout(ctx, timeout)
+		}
+		err := conn.Invoke(reqCtx, input, output)
+		cancel()
+		if timeout > 0 && err != nil && ctx.Err() == nil && reqCtx.Err() != nil {
+			// Response deadline passed, but caller still waits: connection is
+			// suspected to be dead.
+			if resent {
+				return errors.Wrapf(err, "no response in %s", timeout)
+			}
+			resent = true
+			c.log.Warn(ctx, "No response in time, reconnecting to resend request",
+				log.Duration("timeout", timeout),
+			)
+			if err := c.restartSuspect(ctx, connChanged); err != nil {
+				return errors.Wrap(err, "reconnect")
+			}
+			continue
+		}
 		if err == nil || !errRetryableOnNewConn(err) {
 			return err
 		}
@@ -136,4 +162,19 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 // connection.
 func errRetryableOnNewConn(err error) bool {
 	return errors.Is(err, pool.ErrConnDead) || errors.Is(err, rpc.ErrEngineClosed)
+}
+
+// restartSuspect restarts primary connection, unless it was already replaced
+// (connChanged is closed), and waits until new connection is ready.
+func (c *Client) restartSuspect(ctx context.Context, connChanged <-chan struct{}) error {
+	c.restartMux.Lock()
+	defer c.restartMux.Unlock()
+
+	select {
+	case <-connChanged:
+		// Already reconnected, e.g. by another timed out request.
+		return nil
+	default:
+	}
+	return c.ensureRestart(ctx)
 }
