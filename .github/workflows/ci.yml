@@ -20,8 +20,16 @@ jobs:
           - amd64
         runner:
           - ubuntu-latest
-          - macos-latest
         include:
+          # macos-latest is Apple Silicon: test natively, as amd64 runs under
+          # Rosetta and takes hours.
+          - arch: arm64
+            go: "oldstable"
+            runner: macos-latest
+          - arch: arm64
+            go: "stable"
+            runner: macos-latest
+
           - arch: amd64
             runner: windows-latest
             go: "stable"
