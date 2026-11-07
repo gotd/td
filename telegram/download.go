@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"io"
+	"sync"
 
 	"github.com/go-faster/errors"
 
@@ -93,10 +94,61 @@ func (p cdnProvider) CDN(ctx context.Context, dc int, max int64) (downloader.CDN
 	return cdnClient, invoker, nil
 }
 
-// Downloader returns file downloader configured for current client.
+// Downloader returns file downloader configured for current client: CDN
+// policy from Options.AllowCDN.
+//
+// It has no Scheduler: use Downloader.WithScheduler with
+// Client.DownloadScheduler of the DC the downloads go to.
 func (c *Client) Downloader() *downloader.Downloader {
-	// Propagate explicit client-level CDN policy into downloader.
 	return downloader.NewDownloader().WithAllowCDN(c.allowCDN)
+}
+
+// homeDownloader returns Downloader with Scheduler of the home DC, if
+// Options.DownloadScheduler is set.
+func (c *Client) homeDownloader() *downloader.Downloader {
+	d := c.Downloader()
+	if c.downloadSchedulers == nil || c.session == nil {
+		return d
+	}
+	return d.WithScheduler(c.DownloadScheduler(c.session.Load().DC))
+}
+
+// DownloadScheduler returns the download Scheduler of given DC, created on
+// first use with Options.DownloadScheduler, or nil if it is not set.
+//
+// Each DC has its own window: a flood wait of one DC doesn't shrink the
+// window of another one.
+func (c *Client) DownloadScheduler(dc int) *downloader.Scheduler {
+	return c.downloadSchedulers.get(dc)
+}
+
+// downloadSchedulers lazily creates one download Scheduler per DC.
+type downloadSchedulers struct {
+	opts downloader.SchedulerOptions
+
+	mux sync.Mutex
+	m   map[int]*downloader.Scheduler
+}
+
+func newDownloadSchedulers(opts *downloader.SchedulerOptions) *downloadSchedulers {
+	if opts == nil {
+		return nil
+	}
+	return &downloadSchedulers{opts: *opts, m: map[int]*downloader.Scheduler{}}
+}
+
+func (d *downloadSchedulers) get(dc int) *downloader.Scheduler {
+	if d == nil {
+		return nil
+	}
+	d.mux.Lock()
+	defer d.mux.Unlock()
+	s, ok := d.m[dc]
+	if !ok {
+		s = downloader.NewScheduler(d.opts)
+		d.m[dc] = s
+	}
+	return s
 }
 
 // CDNProvider returns downloader.CDNProvider that serves CDN redirects using
@@ -110,7 +162,7 @@ func (c *Client) CDNProvider() downloader.CDNProvider {
 
 // Download creates Builder for plain file downloads.
 func (c *Client) Download(location tg.InputFileLocationClass) *downloader.Builder {
-	return c.Downloader().Download(downloadClient{client: c}, location)
+	return c.homeDownloader().Download(downloadClient{client: c}, location)
 }
 
 // DownloadVia creates Builder for plain file downloads, sending requests to
@@ -118,14 +170,16 @@ func (c *Client) Download(location tg.InputFileLocationClass) *downloader.Builde
 // Client.MediaOnly.
 //
 // Unlike passing tg.NewClient(invoker) to downloader directly, CDN redirects
-// are served through CDN pools of the client (if CDN is allowed).
+// are served through CDN pools of the client (if CDN is allowed). No
+// Scheduler is set, as the DC of invoker is unknown: use
+// Builder.WithScheduler(c.DownloadScheduler(dc)).
 func (c *Client) DownloadVia(invoker tg.Invoker, location tg.InputFileLocationClass) *downloader.Builder {
 	return c.Downloader().Download(downloadClient{client: c, raw: tg.NewClient(invoker)}, location)
 }
 
 // DownloadWeb creates Builder for web file downloads.
 func (c *Client) DownloadWeb(location tg.InputWebFileLocationClass) *downloader.Builder {
-	return c.Downloader().Web(downloadClient{client: c}, location)
+	return c.homeDownloader().Web(downloadClient{client: c}, location)
 }
 
 // DownloadWebVia creates Builder for web file downloads through given invoker.

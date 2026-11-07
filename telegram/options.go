@@ -17,6 +17,7 @@ import (
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/proto"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/tg"
 )
 
@@ -56,6 +57,16 @@ type Options struct {
 	// same master path (no extra CDN round-trips).
 	// Default is false.
 	AllowCDN bool
+	// DownloadScheduler enables adaptive limits of in-flight part requests
+	// shared by downloads of the client: one downloader.Scheduler per DC,
+	// created with these options, see Client.DownloadScheduler.
+	//
+	// Client.Download and DownloadWeb use the Scheduler of the home DC.
+	// DownloadVia and DownloadWebVia use none, as the DC of the invoker is
+	// unknown: pass Builder.WithScheduler(client.DownloadScheduler(dc)).
+	// Builder.WithScheduler overrides it for one download. Default is nil (no
+	// shared limit).
+	DownloadScheduler *downloader.SchedulerOptions
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
 	// OnDead will be called on connection dead.
