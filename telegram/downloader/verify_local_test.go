@@ -47,6 +47,23 @@ func TestBuilderVerify(t *testing.T) {
 		})
 	}
 
+	t.Run("Resume", func(t *testing.T) {
+		// Verified prefix of a corrupted partial file is a valid WithOffset
+		// for a verified download.
+		local := corrupt(part*11 + 5)[:part*20+7]
+		off, err := builder().Verify(ctx, bytes.NewReader(local), int64(len(local)))
+		require.NoError(t, err)
+		require.Less(t, off, int64(len(data)))
+
+		out := new(bytes.Buffer)
+		_, err = builder().
+			WithVerify(true).
+			WithOffset(off).
+			Stream(ctx, out)
+		require.NoError(t, err)
+		require.Equal(t, data, append(bytes.Clone(local[:off]), out.Bytes()...))
+	})
+
 	t.Run("HashesError", func(t *testing.T) {
 		m := &mock{data: data, hashesErr: true}
 		_, err := NewDownloader().Download(m, nil).Verify(ctx, bytes.NewReader(data), int64(len(data)))

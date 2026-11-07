@@ -15,9 +15,14 @@ import (
 // shorter than a hash window can be verified only if it is the end of the
 // file, otherwise it is not counted.
 //
-// Use the result with WithOffset to resume a download safely: if
-// verification is enabled, the offset only has to be 4KB-aligned, otherwise
-// round it down to the part size.
+// If the result equals the file size (e.g. Document.Size), the local file is
+// complete: do not resume. Otherwise the result ends at a hash window border,
+// which is 4KB-aligned, and can be passed to WithOffset to resume a download
+// safely together with WithVerify(true). Without verification, WithOffset
+// requires the offset to be divisible by the part size, so round the result
+// down to it:
+//
+//	off -= off % partSize
 func (b *Builder) Verify(ctx context.Context, r io.ReaderAt, size int64) (int64, error) {
 	if size <= 0 {
 		return 0, nil
