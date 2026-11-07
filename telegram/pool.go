@@ -53,14 +53,21 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 // If dialer is nil, primary DC dialer is used.
 func (c *Client) primaryPool(dc int, max int64, dialer mtproto.Dialer) (*pool.DC, error) {
 	return c.createPool(dc, max, func() pool.Conn {
-		id := c.connsCounter.Inc()
-		return c.createConnWith(id, manager.ConnModeData, dialer, nil, func(err error) {
-			// Primary pool connections share persisted primary session state.
-			c.handlePrimaryConnDead(err)
-			if c.onDead != nil {
-				c.onDead(err)
-			}
-		})
+		return c.primaryConn(dialer)
+	})
+}
+
+// primaryConn creates data connection on primary session.
+//
+// If dialer is nil, primary DC dialer is used.
+func (c *Client) primaryConn(dialer mtproto.Dialer) pool.Conn {
+	id := c.connsCounter.Inc()
+	return c.createConnWith(id, manager.ConnModeData, dialer, nil, func(err error) {
+		// Primary pool connections share persisted primary session state.
+		c.handlePrimaryConnDead(err)
+		if c.onDead != nil {
+			c.onDead(err)
+		}
 	})
 }
 
@@ -75,26 +82,32 @@ func (c *Client) dc(
 		return nil, errors.Errorf("invalid max value %d", max)
 	}
 
-	if mode != manager.ConnModeCDN && dcID == c.session.Load().DC {
-		// Home DC: reuse primary session (auth key) instead of transferring
-		// authorization, which Telegram rejects with DC_ID_INVALID for the
-		// DC of the current session.
+	// isHome reports whether dcID is the DC of the primary session.
+	//
+	// The home DC accepts the primary auth key, and Telegram rejects
+	// authorization transfer to it with DC_ID_INVALID. The home DC may change
+	// during the pool lifetime (migration), so it is checked for each new
+	// connection, not only once.
+	isHome := func() bool {
+		return mode != manager.ConnModeCDN && c.session.Load().DC == dcID
+	}
+	home := isHome()
+	if home {
 		c.log.Debug(ctx, "Creating pool on primary session",
 			log.Int("dc_id", dcID),
 			log.Int64("max", max),
 		)
-		return c.primaryPool(dcID, max, dialer)
+	} else {
+		dcList := dcs.FindDCs(c.cfg.Load().DCOptions, dcID, false)
+		if len(dcList) < 1 {
+			return nil, errors.Errorf("unknown DC %d", dcID)
+		}
+		c.log.Debug(ctx, "Creating pool",
+			log.Int("dc_id", dcID),
+			log.Int64("max", max),
+			log.Int("candidates", len(dcList)),
+		)
 	}
-
-	dcList := dcs.FindDCs(c.cfg.Load().DCOptions, dcID, false)
-	if len(dcList) < 1 {
-		return nil, errors.Errorf("unknown DC %d", dcID)
-	}
-	c.log.Debug(ctx, "Creating pool",
-		log.Int("dc_id", dcID),
-		log.Int64("max", max),
-		log.Int("candidates", len(dcList)),
-	)
 
 	opts := c.opts
 	if mode == manager.ConnModeCDN {
@@ -127,6 +140,9 @@ func (c *Client) dc(
 	// explicit first transfer below is running, avoiding duplicate import.
 	var suppressSetup atomic.Bool
 	p, err := c.createPool(dcID, max, func() pool.Conn {
+		if isHome() {
+			return c.primaryConn(dialer)
+		}
 		id := c.connsCounter.Inc()
 
 		c.sessionsMux.Lock()
@@ -184,9 +200,10 @@ func (c *Client) dc(
 		return nil, errors.Wrap(err, "create pool")
 	}
 
-	if mode == manager.ConnModeCDN {
+	if mode == manager.ConnModeCDN || home {
 		// No auth transfer for CDN mode: CDN API uses file tokens and does not
-		// require auth.export/import bootstrap.
+		// require auth.export/import bootstrap. Home DC connections use the
+		// primary session, which is already authorized.
 		return p, nil
 	}
 
