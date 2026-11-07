@@ -2,18 +2,6 @@ package tg
 
 import "context"
 
-// BeforeHandler is called for every dispatched update before its handler,
-// including updates without handler, e.g. for metrics, tracing or filtering.
-//
-// A non-nil error skips the update's handler and is returned by Handle,
-// joined with errors of other updates of the same batch.
-type BeforeHandler func(ctx context.Context, e Entities, update UpdateClass) error
-
-// OnBefore sets hook called for every dispatched update before its handler.
-func (u UpdateDispatcher) OnBefore(handler BeforeHandler) {
-	u.state.setBefore(handler)
-}
-
 // AnyMessageHandler is a handler of a message from any chat: private chat,
 // basic group or channel (supergroup).
 type AnyMessageHandler func(ctx context.Context, e Entities, msg MessageClass) error

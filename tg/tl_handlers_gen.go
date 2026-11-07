@@ -4,31 +4,16 @@ package tg
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"sort"
-	"strings"
+	"sync"
 
 	"go.uber.org/multierr"
-
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/tdjson"
-	"github.com/gotd/td/tdp"
-	"github.com/gotd/td/tgerr"
 )
 
 // No-op definition for keeping imports.
 var (
-	_ = bin.Buffer{}
 	_ = context.Background()
-	_ = fmt.Stringer(nil)
-	_ = strings.Builder{}
-	_ = errors.Is
 	_ = multierr.AppendInto
-	_ = sort.Ints
-	_ = tdp.Format
-	_ = tgerr.Error{}
-	_ = tdjson.Encoder{}
+	_ = sync.Mutex{}
 )
 
 type Handler = func(context.Context, Entities, UpdateClass) error
@@ -49,6 +34,70 @@ func NewUpdateDispatcher() UpdateDispatcher {
 	return UpdateDispatcher{
 		state: newDispatcherState(),
 	}
+}
+
+// BeforeHandler is called for every dispatched update before its handler,
+// including updates without handler, e.g. for metrics, tracing or filtering.
+//
+// A non-nil error skips the update's handler and is returned by Handle,
+// joined with errors of other updates of the same batch.
+type BeforeHandler func(ctx context.Context, e Entities, update UpdateClass) error
+
+// OnBefore sets hook called for every dispatched update before its handler.
+func (u UpdateDispatcher) OnBefore(handler BeforeHandler) {
+	u.state.setBefore(handler)
+}
+
+// dispatcherState is shared by all copies of UpdateDispatcher.
+//
+// UpdateDispatcher is commonly passed by value (e.g. as telegram.UpdateHandler),
+// so every registration must be visible through every copy, and handlers can
+// be registered while updates are being dispatched.
+type dispatcherState struct {
+	mux      sync.RWMutex
+	handlers map[uint32]Handler
+	fallback Handler
+	before   BeforeHandler
+}
+
+func newDispatcherState() *dispatcherState {
+	return &dispatcherState{
+		handlers: map[uint32]Handler{},
+	}
+}
+
+func (s *dispatcherState) set(typeID uint32, h Handler) {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	s.handlers[typeID] = h
+}
+
+func (s *dispatcherState) setFallback(h Handler) {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	s.fallback = h
+}
+
+func (s *dispatcherState) setBefore(h BeforeHandler) {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	s.before = h
+}
+
+// handler returns before hook (or nil) and handler for given type ID, or
+// fallback handler, or nil.
+//
+// A nil state (zero UpdateDispatcher value) has no handlers.
+func (s *dispatcherState) handler(typeID uint32) (BeforeHandler, Handler) {
+	if s == nil {
+		return nil, nil
+	}
+	s.mux.RLock()
+	defer s.mux.RUnlock()
+	if h, ok := s.handlers[typeID]; ok {
+		return s.before, h
+	}
+	return s.before, s.fallback
 }
 
 type Entities struct {
