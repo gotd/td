@@ -23,6 +23,12 @@ type mockInvoker struct {
 }
 
 func (m *mockInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	if w, ok := input.(*tg.InvokeWithTakeoutRequest); ok {
+		if _, ok := w.Query.(*tg.AccountFinishTakeoutSessionRequest); ok {
+			// Finish is sent within the session.
+			input = w.Query
+		}
+	}
 	switch input.(type) {
 	case *tg.AccountInitTakeoutSessionRequest:
 		m.initCalled = true
