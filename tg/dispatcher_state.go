@@ -11,6 +11,7 @@ type dispatcherState struct {
 	mux      sync.RWMutex
 	handlers map[uint32]Handler
 	fallback Handler
+	before   BeforeHandler
 }
 
 func newDispatcherState() *dispatcherState {
@@ -31,17 +32,24 @@ func (s *dispatcherState) setFallback(h Handler) {
 	s.fallback = h
 }
 
-// handler returns handler for given type ID, or fallback handler, or nil.
+func (s *dispatcherState) setBefore(h BeforeHandler) {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	s.before = h
+}
+
+// handler returns before hook (or nil) and handler for given type ID, or
+// fallback handler, or nil.
 //
 // A nil state (zero UpdateDispatcher value) has no handlers.
-func (s *dispatcherState) handler(typeID uint32) Handler {
+func (s *dispatcherState) handler(typeID uint32) (BeforeHandler, Handler) {
 	if s == nil {
-		return nil
+		return nil, nil
 	}
 	s.mux.RLock()
 	defer s.mux.RUnlock()
 	if h, ok := s.handlers[typeID]; ok {
-		return h
+		return s.before, h
 	}
-	return s.fallback
+	return s.before, s.fallback
 }
