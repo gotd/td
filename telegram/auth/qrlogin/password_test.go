@@ -4,8 +4,11 @@ import (
 	"context"
 	"encoding/hex"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/neo"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/constant"
@@ -97,4 +100,53 @@ func TestQR_ImportPassword(t *testing.T) {
 		_, err := qr.Import(ctx)
 		require.True(t, tgerr.Is(err, "SESSION_PASSWORD_NEEDED"))
 	})
+}
+
+func TestQR_AuthPasswordOnExpire(t *testing.T) {
+	// Token accepted around expiration: Export in the timer branch gets
+	// SESSION_PASSWORD_NEEDED instead of Import.
+	mock := tgmock.NewRequire(t)
+	clk := neo.NewTime(time.Now())
+	want := &tg.AuthAuthorization{User: &tg.User{ID: 10}}
+	export := &tg.AuthExportLoginTokenRequest{
+		APIID:   constant.TestAppID,
+		APIHash: constant.TestAppHash,
+	}
+	mock.ExpectCall(export).ThenResult(&tg.AuthLoginToken{
+		Expires: int(clk.Now().Add(time.Minute).Unix()),
+		Token:   []byte("token"),
+	})
+	mock.ExpectCall(export).ThenRPCErr(tgerr.New(401, "SESSION_PASSWORD_NEEDED"))
+	mock.ExpectCall(&tg.AccountGetPasswordRequest{}).ThenResult(testPassword(t))
+	mock.ExpectFunc(func(b bin.Encoder) {
+		_, ok := b.(*tg.AuthCheckPasswordRequest)
+		require.True(t, ok, "%T", b)
+	}).ThenResult(want)
+
+	qr := NewQR(tg.NewClient(mock), constant.TestAppID, constant.TestAppHash, Options{
+		Clock:    clk,
+		Password: func(context.Context) (string, error) { return "password", nil },
+	})
+
+	show := make(chan struct{}, 1)
+	type result struct {
+		a   *tg.AuthAuthorization
+		err error
+	}
+	done := make(chan result, 1)
+	planned := clk.Observe()
+	go func() {
+		a, err := qr.Auth(context.Background(), make(chan struct{}), func(ctx context.Context, token Token) error {
+			show <- struct{}{}
+			return nil
+		})
+		done <- result{a, err}
+	}()
+	<-show
+	<-planned
+	clk.Travel(time.Minute + time.Second)
+
+	r := <-done
+	require.NoError(t, r.err)
+	require.Equal(t, want, r.a)
 }

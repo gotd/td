@@ -84,10 +84,16 @@ func (q QR) Accept(ctx context.Context, t Token) (*tg.Authorization, error) {
 // See https://core.telegram.org/api/qr-login#confirming-importing-the-login-token.
 func (q QR) Import(ctx context.Context) (*tg.AuthAuthorization, error) {
 	a, err := q.importToken(ctx)
-	if err != nil && q.password != nil && tgerr.Is(err, "SESSION_PASSWORD_NEEDED") {
+	if q.needPassword(err) {
 		return q.checkPassword(ctx)
 	}
 	return a, err
+}
+
+// needPassword reports whether err requests 2FA password and it can be
+// provided.
+func (q QR) needPassword(err error) bool {
+	return err != nil && q.password != nil && tgerr.Is(err, "SESSION_PASSWORD_NEEDED")
 }
 
 func (q QR) checkPassword(ctx context.Context) (*tg.AuthAuthorization, error) {
@@ -183,6 +189,9 @@ func (q QR) Auth(
 
 	token, err := q.Export(ctx, exceptIDs...)
 	if err != nil {
+		if q.needPassword(err) {
+			return q.checkPassword(ctx)
+		}
 		return nil, err
 	}
 
@@ -211,6 +220,11 @@ func (q QR) Auth(
 		case <-timer.C():
 			t, err := q.Export(ctx, exceptIDs...)
 			if err != nil {
+				// Token may be accepted right before expiration (or the
+				// update is missed), so 2FA can be requested here too.
+				if q.needPassword(err) {
+					return q.checkPassword(ctx)
+				}
 				return nil, err
 			}
 
