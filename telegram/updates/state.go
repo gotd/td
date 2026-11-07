@@ -86,6 +86,7 @@ type internalState struct {
 	diffLim               int
 	wg                    *errgroup.Group
 	tracer                trace.Tracer
+	metrics               *updatesMetrics
 	chDiffSem             chDiffSem
 }
 
@@ -98,6 +99,7 @@ type stateConfig struct {
 	RawClient             API
 	Logger                log.Logger
 	Tracer                trace.Tracer
+	Metrics               *updatesMetrics
 	Handler               telegram.UpdateHandler
 	OnChannelTooLong      func(channelID int64)
 	OnChannelGap          func(gap ChannelGap)
@@ -141,6 +143,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		diffLim:               cfg.DiffLimit,
 		wg:                    cfg.WorkGroup,
 		tracer:                cfg.Tracer,
+		metrics:               cfg.Metrics,
 		chDiffSem:             cfg.ChannelDiffSem,
 	}
 	s.pts = newSequenceBox(sequenceConfig{
@@ -148,21 +151,34 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		Apply:        s.applyPts,
 		Logger:       s.log.Named("pts").Logger(),
 		Tracer:       s.tracer,
+		Metrics:      s.metrics,
+		Kind:         kindCommon,
+		Name:         "pts",
 	})
 	s.qts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Qts,
 		Apply:        s.applyQts,
 		Logger:       s.log.Named("qts").Logger(),
 		Tracer:       s.tracer,
+		Metrics:      s.metrics,
+		Kind:         kindCommon,
+		Name:         "qts",
 	})
 	s.seq = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Seq,
 		Apply:        s.applySeq,
 		Logger:       s.log.Named("seq").Logger(),
+		Metrics:      s.metrics,
+		Kind:         kindCommon,
+		Name:         "seq",
 	})
 
 	for id, info := range cfg.Channels {
 		s.startChannel(id, info.AccessHash, info.Pts)
+		s.metrics.trackChannel(ctx, trackSourceStored, trackStarted)
+	}
+	if len(cfg.Channels) > 0 {
+		s.log.Debug(ctx, "Tracking stored channels", log.Int("count", len(cfg.Channels)))
 	}
 
 	return s
@@ -233,6 +249,10 @@ func (s *internalState) Run(ctx context.Context) error {
 	s.log.Debug(ctx, "Starting updates handler")
 	defer s.log.Debug(ctx, "Updates handler stopped")
 	defer close(s.done)
+	defer func() {
+		// Channels of this state are no longer tracked.
+		s.metrics.trackedDelta(context.Background(), -len(s.channels))
+	}()
 	s.getDifferenceLogger(ctx, "startup")
 
 	for {
@@ -251,7 +271,9 @@ func (s *internalState) Run(ctx context.Context) error {
 				}
 			}
 		case u := <-s.internalQueue:
-			ctx := trace.ContextWithSpanContext(ctx, u.span)
+			// Only channel workers write here, with other updates of
+			// updates.getChannelDifference.
+			ctx := withDifferenceSource(trace.ContextWithSpanContext(ctx, u.span))
 			if err := s.handleUpdates(ctx, u.update); err != nil {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
 				if isFatalError(err) {
@@ -278,7 +300,7 @@ func (s *internalState) Run(ctx context.Context) error {
 		case channelID := <-s.removeChannel:
 			s.removeChannelState(channelID)
 		case r := <-s.trackQueue:
-			r.result <- s.trackChannel(ctx, r)
+			r.result <- s.trackChannel(ctx, r, trackSourceAPI)
 		}
 	}
 }
@@ -291,6 +313,7 @@ func (s *internalState) removeChannelState(channelID int64) {
 		return
 	}
 	delete(s.channels, channelID)
+	s.metrics.trackedDelta(context.Background(), -1)
 	s.log.Debug(context.Background(), "Removed inaccessible channel from tracking",
 		log.Int64("channel_id", channelID),
 	)
@@ -511,6 +534,12 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 			}
 		}
 
+		s.log.Debug(ctx, "Tracking channel on update",
+			log.Int64("channel_id", channelID),
+			log.Int("pts", localPts),
+			log.Bool("stored_pts", found),
+		)
+		s.metrics.trackChannel(ctx, trackSourceUpdate, trackStarted)
 		state = s.startChannel(channelID, accessHash, localPts)
 	}
 
@@ -536,6 +565,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		RemoveChannel:         s.removeChannel,
 		Logger:                s.log.Named("channel").With(log.Int64("channel_id", channelID)).Logger(),
 		Tracer:                s.tracer,
+		Metrics:               s.metrics,
 		ChannelDiffSem:        s.chDiffSem,
 	})
 }
@@ -556,6 +586,9 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		log.Int("seq", s.seq.State()),
 		log.Int("date", s.date),
 	)
+	s.metrics.differenceTrigger(ctx, kindCommon, reason)
+	// Updates of the difference are reported with "difference" source.
+	ctx = withDifferenceSource(ctx)
 
 	setState := func(state tg.UpdatesState, reason string) {
 		if err := s.storage.SetState(ctx, s.selfID, State{}.fromRemote(&state)); err != nil {
@@ -568,16 +601,24 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		s.date = state.Date
 	}
 
+	start := time.Now()
 	diff, err := s.client.UpdatesGetDifference(ctx, &tg.UpdatesGetDifferenceRequest{
 		Pts:  s.pts.State(),
 		Qts:  s.qts.State(),
 		Date: s.date,
 	})
 	if err != nil {
+		s.metrics.difference(ctx, kindCommon, diffError, start)
 		return errors.Wrap(err, "get difference")
 	}
+	result := commonDiffResult(diff)
+	s.metrics.difference(ctx, kindCommon, result, start)
 
-	s.log.Debug(ctx, "Difference received", log.String("diff", fmt.Sprintf("%T", diff)))
+	s.log.Debug(ctx, "Difference received",
+		log.String("diff", fmt.Sprintf("%T", diff)),
+		log.String("result", result),
+		log.Duration("duration", time.Since(start)),
+	)
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesDifference:
@@ -661,12 +702,30 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		if err := s.storage.SetPts(ctx, s.selfID, diff.Pts); err != nil {
 			s.log.Error(ctx, "SetPts error", log.Error(err))
 		}
+		s.log.Warn(ctx, "Difference too long",
+			log.Int("local_pts", s.pts.State()),
+			log.Int("remote_pts", diff.Pts),
+		)
 		s.pts.SetState(diff.Pts, "updates.differenceTooLong")
 		s.onCommonTooLong()
 		return s.getDifference(ctx, "difference-too-long-continue")
 
 	default:
 		return errors.Errorf("unexpected diff type: %T", diff)
+	}
+}
+
+// commonDiffResult returns the "result" metric attribute of diff.
+func commonDiffResult(diff tg.UpdatesDifferenceClass) string {
+	switch diff.(type) {
+	case *tg.UpdatesDifferenceEmpty:
+		return diffEmpty
+	case *tg.UpdatesDifferenceSlice:
+		return diffSlice
+	case *tg.UpdatesDifferenceTooLong:
+		return diffTooLong
+	default:
+		return diffFull
 	}
 }
 

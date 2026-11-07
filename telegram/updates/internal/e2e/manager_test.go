@@ -11,6 +11,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
+	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
 
@@ -130,11 +132,13 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 		require.NoError(t, hasher.SetChannelAccessHash(ctx, uid, c.ChannelID, c.ChannelID*2))
 	}
 
+	reader := sdkmetric.NewManualReader()
 	e := updates.New(updates.Config{
-		Handler:      h,
-		Logger:       logzap.New(log.Named("gaps")),
-		Storage:      storage,
-		AccessHasher: hasher,
+		Handler:       h,
+		Logger:        logzap.New(log.Named("gaps")),
+		Storage:       storage,
+		AccessHasher:  hasher,
+		MeterProvider: sdkmetric.NewMeterProvider(sdkmetric.WithReader(reader)),
 	})
 
 	uchan := loss(f(s, storage))
@@ -221,6 +225,31 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 	require.Equal(t, s.peers.channels, h.ents.Channels)
 	require.Equal(t, s.peers.chats, h.ents.Chats)
 	require.Equal(t, s.peers.users, h.ents.Users)
+
+	// Lost updates are recovered via difference: both sources must show up.
+	sums := collectSums(t, reader)
+	t.Logf("Metrics: %v", sums)
+	require.Positive(t, sums["gotd.updates.dispatched"])
+	require.Positive(t, sums["gotd.updates.difference.requests"])
+	require.Positive(t, sums["gotd.updates.difference.triggers"])
+}
+
+// collectSums returns sums of int64 counters by name, over all attributes.
+func collectSums(t *testing.T, reader *sdkmetric.ManualReader) map[string]int64 {
+	t.Helper()
+	var rm metricdata.ResourceMetrics
+	require.NoError(t, reader.Collect(context.Background(), &rm))
+	out := map[string]int64{}
+	for _, sm := range rm.ScopeMetrics {
+		for _, m := range sm.Metrics {
+			if sum, ok := m.Data.(metricdata.Sum[int64]); ok {
+				for _, dp := range sum.DataPoints {
+					out[m.Name] += dp.Value
+				}
+			}
+		}
+	}
+	return out
 }
 
 func loss(in chan *tg.Updates) chan *tg.Updates {

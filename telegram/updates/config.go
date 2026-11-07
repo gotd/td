@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/gotd/log"
+	"go.opentelemetry.io/otel/metric"
+	"go.opentelemetry.io/otel/metric/noop"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/gotd/td/telegram"
@@ -74,6 +76,9 @@ type Config struct {
 	Logger log.Logger
 	// TracerProvider (optional).
 	TracerProvider trace.TracerProvider
+	// MeterProvider for metrics of the manager (optional). No metrics by
+	// default. See the package documentation for the list.
+	MeterProvider metric.MeterProvider
 	// MaxChannelDifferenceConcurrency limits how many updates.getChannelDifference
 	// requests may be in flight at once across all tracked channels. Non-positive
 	// values (<= 0, default 0) mean unlimited: every channel recovers its gap as
@@ -107,6 +112,9 @@ func (cfg *Config) setDefaults() {
 	}
 	if cfg.TracerProvider == nil {
 		cfg.TracerProvider = trace.NewNoopTracerProvider()
+	}
+	if cfg.MeterProvider == nil {
+		cfg.MeterProvider = noop.NewMeterProvider()
 	}
 	if cfg.Storage == nil {
 		cfg.Storage = newMemStorage()

@@ -18,5 +18,46 @@
 //     so missed messages can be fetched manually.
 //     See: https://core.telegram.org/constructor/updates.channelDifferenceTooLong
 //
-// TODO: Write implementation details.
+// # Observability
+//
+// Events are logged via Config.Logger: debug logs for every difference
+// request, gap, tracked channel and update received before Run, warnings for
+// abnormal ones (e.g. a channel gap whose pts did not advance).
+//
+// With Config.MeterProvider, the manager records these OpenTelemetry metrics
+// (meter "github.com/gotd/td/telegram/updates"). Attributes never carry
+// channel or user IDs.
+//
+//   - gotd.updates.difference.requests (counter): getDifference (kind=common)
+//     and getChannelDifference (kind=channel) calls by result: empty, slice,
+//     full, too_long, error, inaccessible.
+//   - gotd.updates.difference.duration (histogram, s): duration of those
+//     calls, same attributes.
+//   - gotd.updates.difference.triggers (counter): why the difference was
+//     requested, by kind and reason (e.g. startup, pts-gap-timeout,
+//     idle-timeout, channel-too-long).
+//   - gotd.updates.gaps (counter): sequence gaps by kind, seq (pts, qts, seq)
+//     and action: detected, resolved_by_waiting, resolved_by_pending. Gaps
+//     not resolved in time trigger a difference with a *-gap-timeout reason.
+//   - gotd.updates.channel.too_long (counter): channelDifferenceTooLong, i.e.
+//     Config.OnChannelGap calls, by dialog: ok, stale (pts did not advance),
+//     invalid (no dialog pts).
+//   - gotd.updates.channel.gap.size (histogram, {pts}): RemotePts - LocalPts
+//     of those gaps.
+//   - gotd.updates.channel.gap.messages (histogram, {message}): length of
+//     ChannelGap.Messages.
+//   - gotd.updates.before_run (counter, {batch}): updates received before Run
+//     by action: passed, buffered, dropped, replayed, passed_raw (replayed to
+//     the handler as-is because the state was fetched from the server).
+//   - gotd.updates.channel.track (counter): channel tracking by source (api
+//     for Manager.TrackChannel, stored, update, too_long) and result
+//     (started, already, pending, stopped, canceled, error).
+//   - gotd.updates.channels.tracked (up-down counter): channels tracked by
+//     running managers.
+//   - gotd.updates.channel.inaccessible (counter): channels removed from
+//     tracking after CHANNEL_PRIVATE.
+//   - gotd.updates.stopped (counter): calls that returned ErrStopped, by op:
+//     handle, handle_affected, track_channel.
+//   - gotd.updates.dispatched (counter, {update}): updates passed to the
+//     handler, by source: live or difference.
 package updates
