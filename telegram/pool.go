@@ -62,12 +62,11 @@ func (c *Client) primaryPool(dc int, max int64, dialer mtproto.Dialer) (*pool.DC
 // If dialer is nil, primary DC dialer is used.
 func (c *Client) primaryConn(dialer mtproto.Dialer) pool.Conn {
 	id := c.connsCounter.Inc()
+	dc := c.session.Load().DC
 	return c.createConnWith(id, manager.ConnModeData, dialer, nil, func(err error) {
 		// Primary pool connections share persisted primary session state.
 		c.handlePrimaryConnDead(err)
-		if c.onDead != nil {
-			c.onDead(err)
-		}
+		c.notifyConnDead(ConnDeadEvent{DC: dc, Kind: ConnKindData, Err: err})
 	})
 }
 

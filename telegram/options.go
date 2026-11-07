@@ -59,7 +59,14 @@ type Options struct {
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
 	// OnDead will be called on connection dead.
+	//
+	// It is called for all connections: primary, pools and CDN. Use
+	// OnConnDead to tell them apart.
 	OnDead func(error)
+	// OnConnDead is OnDead with the DC ID and the kind of the connection,
+	// e.g. for metrics. Called after OnDead, from the connection lifecycle,
+	// so the callback must not block.
+	OnConnDead func(ConnDeadEvent)
 	// OnConnectionState is called when the primary connection state changes:
 	// on every (re)connect start, on successful initialization and on
 	// connection loss. Connection death details are reported via OnDead.
@@ -67,6 +74,10 @@ type Options struct {
 	// Called synchronously from connection lifecycle, so the callback must
 	// not block.
 	OnConnectionState func(ConnectionState)
+	// OnConnectionStateEvent is OnConnectionState with the DC ID of the
+	// primary connection, which changes on migration. Called after
+	// OnConnectionState, with the same constraints.
+	OnConnectionStateEvent func(ConnectionStateEvent)
 	// MigrationTimeout configures migration timeout.
 	MigrationTimeout time.Duration
 	// FilePoolSize is the max number of connections of each pool returned by

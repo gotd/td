@@ -33,9 +33,7 @@ func (c *Client) handlePrimaryConnDead(err error) {
 func (c *Client) handleDCConnDead(dcID int, err error) {
 	if !errors.Is(err, mtproto.ErrPFSDropKeysRequired) {
 		// Preserve old error path for non-PFS failures.
-		if c.onDead != nil {
-			c.onDead(err)
-		}
+		c.notifyConnDead(ConnDeadEvent{DC: dcID, Kind: ConnKindData, Err: err})
 		return
 	}
 
@@ -51,7 +49,5 @@ func (c *Client) handleDCConnDead(dcID int, err error) {
 	s.Store(pool.Session{DC: dcID})
 	c.sessionsMux.Unlock()
 
-	if c.onDead != nil {
-		c.onDead(err)
-	}
+	c.notifyConnDead(ConnDeadEvent{DC: dcID, Kind: ConnKindData, Err: err})
 }

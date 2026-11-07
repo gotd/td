@@ -88,7 +88,10 @@ func (c *Client) primaryDC(dc int) mtproto.Dialer {
 }
 
 func (c *Client) createPrimaryConn(setup manager.SetupCallback) pool.Conn {
-	return c.createConn(0, c.defaultMode, setup, c.onDead)
+	dc := c.session.Load().DC
+	return c.createConn(0, c.defaultMode, setup, func(err error) {
+		c.notifyConnDead(ConnDeadEvent{DC: dc, Kind: ConnKindPrimary, Err: err})
+	})
 }
 
 func (c *Client) createConn(
