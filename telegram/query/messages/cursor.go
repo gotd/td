@@ -36,7 +36,7 @@ func (m *Iterator) Cursor() Cursor {
 		OffsetID:   elem.Msg.GetID(),
 		OffsetDate: elem.Msg.GetDate(),
 		OffsetRate: rate,
-		OffsetPeer: elem.Peer,
+		OffsetPeer: elem.Entities.OffsetPeer(elem.Msg.GetPeerID()),
 	}
 }
 

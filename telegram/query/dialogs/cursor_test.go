@@ -72,6 +72,47 @@ func TestForEachFolder(t *testing.T) {
 	require.Equal(t, []int{0, 0, 1}, got)
 }
 
+func TestIteratorMinOffsetPeer(t *testing.T) {
+	ctx := context.Background()
+	mock := tgmock.NewRequire(t)
+	res := result(generateDialogs(3), 10).(*tg.MessagesDialogsSlice)
+	// The last dialog's channel is known only as min: its access hash is
+	// still enough for offset_peer, so iteration must not fail.
+	res.Chats[2].(*tg.Channel).Min = true
+	mock.ExpectCall(&tg.MessagesGetDialogsRequest{
+		OffsetPeer: &tg.InputPeerEmpty{},
+		Limit:      3,
+	}).ThenResult(res)
+
+	iter := NewQueryBuilder(tg.NewClient(mock)).GetDialogs().BatchSize(3).Iter()
+	for range 3 {
+		require.True(t, iter.Next(ctx))
+	}
+	require.NoError(t, iter.Err())
+	require.Equal(t, &tg.InputPeerChannel{ChannelID: 2, AccessHash: 10}, iter.offsetPeer)
+	require.Equal(t, &tg.InputPeerEmpty{}, iter.Value().Peer, "min peer is not usable for requests")
+}
+
+func TestIteratorUnknownOffsetPeer(t *testing.T) {
+	ctx := context.Background()
+	mock := tgmock.NewRequire(t)
+	res := result(generateDialogs(3), 10).(*tg.MessagesDialogsSlice)
+	// The last dialog's channel is not returned at all: like TDLib, offset_peer
+	// is built from its ID with zero access hash, so iteration must not fail.
+	res.Chats = res.Chats[:2]
+	mock.ExpectCall(&tg.MessagesGetDialogsRequest{
+		OffsetPeer: &tg.InputPeerEmpty{},
+		Limit:      3,
+	}).ThenResult(res)
+
+	iter := NewQueryBuilder(tg.NewClient(mock)).GetDialogs().BatchSize(3).Iter()
+	for range 3 {
+		require.True(t, iter.Next(ctx))
+	}
+	require.NoError(t, iter.Err())
+	require.Equal(t, &tg.InputPeerChannel{ChannelID: 2}, iter.offsetPeer)
+}
+
 func TestIteratorCursorPinned(t *testing.T) {
 	ctx := context.Background()
 	mock := tgmock.NewRequire(t)

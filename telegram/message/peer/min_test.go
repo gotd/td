@@ -193,3 +193,27 @@ func TestEntitiesFillMergesMin(t *testing.T) {
 	require.Equal(t, "New", c.Title, "title is taken from min")
 	require.True(t, c.Verified)
 }
+
+func TestEntitiesOffsetPeer(t *testing.T) {
+	ent := NewEntities(map[int64]*tg.User{
+		1: {ID: 1, AccessHash: 11},
+		2: {ID: 2, Min: true, AccessHash: 22},
+	}, map[int64]*tg.Chat{}, map[int64]*tg.Channel{
+		10: {ID: 10, Min: true, AccessHash: 100},
+	})
+
+	for _, tt := range []struct {
+		peer tg.PeerClass
+		want tg.InputPeerClass
+	}{
+		{&tg.PeerUser{UserID: 1}, &tg.InputPeerUser{UserID: 1, AccessHash: 11}},
+		{&tg.PeerUser{UserID: 2}, &tg.InputPeerUser{UserID: 2, AccessHash: 22}},
+		{&tg.PeerChannel{ChannelID: 10}, &tg.InputPeerChannel{ChannelID: 10, AccessHash: 100}},
+		// Unknown peers get zero access hash, as in TDLib.
+		{&tg.PeerUser{UserID: 3}, &tg.InputPeerUser{UserID: 3}},
+		{&tg.PeerChannel{ChannelID: 30}, &tg.InputPeerChannel{ChannelID: 30}},
+		{&tg.PeerChat{ChatID: 40}, &tg.InputPeerChat{ChatID: 40}},
+	} {
+		require.Equal(t, tt.want, ent.OffsetPeer(tt.peer), "%v", tt.peer)
+	}
+}

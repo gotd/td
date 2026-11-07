@@ -99,6 +99,48 @@ func TestGetMessagesWithEntities(t *testing.T) {
 	require.True(t, ok)
 }
 
+func TestIteratorGlobalMinOffsetPeer(t *testing.T) {
+	ctx := context.Background()
+	mock := tgmock.NewRequire(t)
+	batch := func(chatID int64, minChat bool, ids ...int) *tg.MessagesMessagesSlice {
+		r := &tg.MessagesMessagesSlice{Count: 100, NextRate: ids[len(ids)-1] * 10}
+		for _, id := range ids {
+			r.Messages = append(r.Messages, &tg.Message{
+				ID: id, Date: id * 10, PeerID: &tg.PeerChannel{ChannelID: chatID},
+			})
+		}
+		r.Chats = []tg.ChatClass{&tg.Channel{
+			ID: chatID, AccessHash: chatID * 10, Min: minChat, Photo: &tg.ChatPhotoEmpty{},
+		}}
+		return r
+	}
+	req := func(rate, id int, p tg.InputPeerClass) *tg.MessagesSearchGlobalRequest {
+		return &tg.MessagesSearchGlobalRequest{
+			Q: "q", Filter: &tg.InputMessagesFilterEmpty{},
+			OffsetRate: rate, OffsetID: id, OffsetPeer: p, Limit: 2,
+		}
+	}
+	mock.ExpectCall(req(0, 0, &tg.InputPeerEmpty{})).ThenResult(batch(1, false, 40, 30))
+	// Last message of the second batch is in a min channel: offset_peer must
+	// follow it, not stay at channel 1 from the first batch.
+	mock.ExpectCall(req(300, 30, &tg.InputPeerChannel{ChannelID: 1, AccessHash: 10})).
+		ThenResult(batch(2, true, 20, 10))
+	mock.ExpectCall(req(100, 10, &tg.InputPeerChannel{ChannelID: 2, AccessHash: 20})).
+		ThenResult(&tg.MessagesMessagesSlice{Count: 100})
+
+	iter := NewQueryBuilder(tg.NewClient(mock)).SearchGlobal().Q("q").BatchSize(2).Iter()
+	var n int
+	for iter.Next(ctx) {
+		n++
+		if iter.Value().Msg.GetID() == 20 {
+			require.Equal(t, &tg.InputPeerEmpty{}, iter.Value().Peer, "min peer is not usable")
+			require.Equal(t, &tg.InputPeerChannel{ChannelID: 2, AccessHash: 20}, iter.Cursor().OffsetPeer)
+		}
+	}
+	require.NoError(t, iter.Err())
+	require.Equal(t, 4, n)
+}
+
 func TestIteratorCursorGlobalRate(t *testing.T) {
 	ctx := context.Background()
 	mock := tgmock.NewRequire(t)
