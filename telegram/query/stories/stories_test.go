@@ -55,6 +55,52 @@ func TestGetAllStories(t *testing.T) {
 	require.Equal(t, "s3", state)
 }
 
+func TestGetAllStoriesErrorState(t *testing.T) {
+	ctx := context.Background()
+	page := func(state string, hasMore bool, userID int64) *tg.StoriesAllStories {
+		return &tg.StoriesAllStories{
+			HasMore: hasMore,
+			State:   state,
+			PeerStories: []tg.PeerStories{
+				{Peer: &tg.PeerUser{UserID: userID}, Stories: []tg.StoryItemClass{story(1)}},
+			},
+			StealthMode: tg.StoriesStealthMode{},
+		}
+	}
+	errStop := testErr("stop")
+
+	t.Run("Callback", func(t *testing.T) {
+		mock := tgmock.NewRequire(t)
+		mock.ExpectCall(&tg.StoriesGetAllStoriesRequest{State: "s0"}).ThenResult(page("s1", true, 1))
+		mock.ExpectCall(&tg.StoriesGetAllStoriesRequest{Next: true, State: "s1"}).ThenResult(page("s2", false, 2))
+
+		state, err := NewQueryBuilder(tg.NewClient(mock)).GetAllStories().State("s0").
+			ForEach(ctx, func(_ context.Context, s tg.PeerStories, _ peer.Entities) error {
+				if s.Peer.(*tg.PeerUser).UserID == 2 {
+					return errStop
+				}
+				return nil
+			})
+		require.ErrorIs(t, err, errStop)
+		// "s1" is a mid-pagination state: State("s1") would skip page 2.
+		require.Equal(t, "s0", state)
+	})
+	t.Run("Request", func(t *testing.T) {
+		mock := tgmock.NewRequire(t)
+		mock.ExpectCall(&tg.StoriesGetAllStoriesRequest{State: "s0"}).ThenResult(page("s1", true, 1))
+		mock.ExpectCall(&tg.StoriesGetAllStoriesRequest{Next: true, State: "s1"}).ThenErr(errStop)
+
+		state, err := NewQueryBuilder(tg.NewClient(mock)).GetAllStories().State("s0").
+			ForEach(ctx, func(context.Context, tg.PeerStories, peer.Entities) error { return nil })
+		require.ErrorIs(t, err, errStop)
+		require.Equal(t, "s0", state)
+	})
+}
+
+type testErr string
+
+func (e testErr) Error() string { return string(e) }
+
 func TestGetPinnedStories(t *testing.T) {
 	ctx := context.Background()
 	mock := tgmock.NewRequire(t)

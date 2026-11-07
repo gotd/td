@@ -65,6 +65,12 @@ func (b *AllStoriesQueryBuilder) State(state string) *AllStoriesQueryBuilder {
 // and returns the state to pass to State for the next call.
 //
 // If nothing changed since given state, cb is not called.
+//
+// On error (including an error returned by cb), the returned state is the one
+// set by State, not the state of the last page: a state returned in the middle
+// of pagination is only valid to fetch the next page, and passing it to State
+// would skip the remaining pages. So the next call fetches again everything
+// changed since the given state, and cb may get some peers again.
 func (b *AllStoriesQueryBuilder) ForEach(
 	ctx context.Context,
 	cb func(ctx context.Context, stories tg.PeerStories, e peer.Entities) error,
@@ -79,7 +85,7 @@ func (b *AllStoriesQueryBuilder) ForEach(
 		}
 		res, err := b.raw.StoriesGetAllStories(ctx, req)
 		if err != nil {
-			return state, errors.Wrap(err, "get all stories")
+			return b.state, errors.Wrap(err, "get all stories")
 		}
 
 		switch r := res.(type) {
@@ -89,7 +95,7 @@ func (b *AllStoriesQueryBuilder) ForEach(
 			e := peer.EntitiesFromResult(r)
 			for _, s := range r.PeerStories {
 				if err := cb(ctx, s, e); err != nil {
-					return state, err
+					return b.state, err
 				}
 			}
 			state = r.State
@@ -98,7 +104,7 @@ func (b *AllStoriesQueryBuilder) ForEach(
 			}
 			next = true
 		default:
-			return state, errors.Errorf("unexpected type %T", res)
+			return b.state, errors.Errorf("unexpected type %T", res)
 		}
 	}
 }
