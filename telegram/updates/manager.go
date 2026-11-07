@@ -15,6 +15,10 @@ import (
 
 var _ telegram.UpdateHandler = (*Manager)(nil)
 
+// ErrStopped is returned by Handle, HandleAffected and TrackChannel after
+// Run stopped, until Reset.
+var ErrStopped = errors.New("updates manager stopped")
+
 // Manager deals with gaps.
 //
 // Important:
