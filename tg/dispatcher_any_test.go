@@ -32,20 +32,42 @@ func TestUpdateDispatcherAny(t *testing.T) {
 		got = append(got, fmt.Sprintf("delete %d %v", channelID, ids))
 		return nil
 	})
-	d.OnAnyReadInbox(func(_ context.Context, _ tg.Entities, peer tg.PeerClass, maxID int) error {
-		got = append(got, fmt.Sprintf("inbox %s %d", peer, maxID))
+	var (
+		inbox, outbox []tg.AnyRead
+		typings       []tg.AnyTyping
+	)
+	d.OnAnyReadInbox(func(_ context.Context, _ tg.Entities, read tg.AnyRead) error {
+		inbox = append(inbox, read)
 		return nil
 	})
-	d.OnAnyReadOutbox(func(_ context.Context, _ tg.Entities, peer tg.PeerClass, maxID int) error {
-		got = append(got, fmt.Sprintf("outbox %s %d", peer, maxID))
+	d.OnAnyReadOutbox(func(_ context.Context, _ tg.Entities, read tg.AnyRead) error {
+		outbox = append(outbox, read)
 		return nil
 	})
-	d.OnAnyTyping(func(_ context.Context, _ tg.Entities, peer, from tg.PeerClass, _ tg.SendMessageActionClass) error {
-		got = append(got, fmt.Sprintf("typing %s %s", peer, from))
+	d.OnAnyTyping(func(_ context.Context, _ tg.Entities, typing tg.AnyTyping) error {
+		typings = append(typings, typing)
 		return nil
 	})
 
-	typing := &tg.SendMessageTypingAction{}
+	var (
+		user    = &tg.PeerUser{UserID: 1}
+		chat    = &tg.PeerChat{ChatID: 2}
+		channel = &tg.PeerChannel{ChannelID: 10}
+		saved   = &tg.PeerUser{UserID: 3}
+		typing  = &tg.SendMessageTypingAction{}
+
+		readHistoryInbox     = &tg.UpdateReadHistoryInbox{Peer: user, MaxID: 7, TopMsgID: 70}
+		readChannelInbox     = &tg.UpdateReadChannelInbox{ChannelID: 10, MaxID: 8}
+		readDiscussionInbox  = &tg.UpdateReadChannelDiscussionInbox{ChannelID: 10, TopMsgID: 80, ReadMaxID: 81}
+		readMonoForumInbox   = &tg.UpdateReadMonoForumInbox{ChannelID: 10, SavedPeerID: saved, ReadMaxID: 82}
+		readHistoryOutbox    = &tg.UpdateReadHistoryOutbox{Peer: chat, MaxID: 9}
+		readChannelOutbox    = &tg.UpdateReadChannelOutbox{ChannelID: 10, MaxID: 10}
+		readDiscussionOutbox = &tg.UpdateReadChannelDiscussionOutbox{ChannelID: 10, TopMsgID: 90, ReadMaxID: 91}
+		readMonoForumOutbox  = &tg.UpdateReadMonoForumOutbox{ChannelID: 10, SavedPeerID: saved, ReadMaxID: 92}
+		userTyping           = &tg.UpdateUserTyping{UserID: 1, TopMsgID: 11, Action: typing}
+		chatTyping           = &tg.UpdateChatUserTyping{ChatID: 2, FromID: user, Action: typing}
+		channelTyping        = &tg.UpdateChannelUserTyping{ChannelID: 10, TopMsgID: 12, FromID: user, Action: typing}
+	)
 	updates := []tg.UpdateClass{
 		&tg.UpdateNewMessage{Message: &tg.Message{ID: 1}},
 		&tg.UpdateNewChannelMessage{Message: &tg.Message{ID: 2}},
@@ -53,21 +75,22 @@ func TestUpdateDispatcherAny(t *testing.T) {
 		&tg.UpdateEditChannelMessage{Message: &tg.Message{ID: 4}},
 		&tg.UpdateDeleteMessages{Messages: []int{5}},
 		&tg.UpdateDeleteChannelMessages{ChannelID: 10, Messages: []int{6}},
-		&tg.UpdateReadHistoryInbox{Peer: &tg.PeerUser{UserID: 1}, MaxID: 7},
-		&tg.UpdateReadChannelInbox{ChannelID: 10, MaxID: 8},
-		&tg.UpdateReadHistoryOutbox{Peer: &tg.PeerChat{ChatID: 2}, MaxID: 9},
-		&tg.UpdateReadChannelOutbox{ChannelID: 10, MaxID: 10},
-		&tg.UpdateUserTyping{UserID: 1, Action: typing},
-		&tg.UpdateChatUserTyping{ChatID: 2, FromID: &tg.PeerUser{UserID: 1}, Action: typing},
-		&tg.UpdateChannelUserTyping{ChannelID: 10, FromID: &tg.PeerUser{UserID: 1}, Action: typing},
+		readHistoryInbox,
+		readChannelInbox,
+		readDiscussionInbox,
+		readMonoForumInbox,
+		readHistoryOutbox,
+		readChannelOutbox,
+		readDiscussionOutbox,
+		readMonoForumOutbox,
+		userTyping,
+		chatTyping,
+		channelTyping,
 		// No handler.
 		&tg.UpdateConfig{},
 	}
 	require.NoError(t, d.Handle(ctx, &tg.Updates{Updates: updates}))
 
-	user := (&tg.PeerUser{UserID: 1}).String()
-	chat := (&tg.PeerChat{ChatID: 2}).String()
-	channel := (&tg.PeerChannel{ChannelID: 10}).String()
 	require.Equal(t, []string{
 		"new 1",
 		"new 2",
@@ -75,14 +98,24 @@ func TestUpdateDispatcherAny(t *testing.T) {
 		"edit 4",
 		"delete 0 [5]",
 		"delete 10 [6]",
-		"inbox " + user + " 7",
-		"inbox " + channel + " 8",
-		"outbox " + chat + " 9",
-		"outbox " + channel + " 10",
-		"typing " + user + " " + user,
-		"typing " + chat + " " + user,
-		"typing " + channel + " " + user,
 	}, got)
+	require.Equal(t, []tg.AnyRead{
+		{Peer: user, MaxID: 7, TopMsgID: 70, Update: readHistoryInbox},
+		{Peer: channel, MaxID: 8, Update: readChannelInbox},
+		{Peer: channel, MaxID: 81, TopMsgID: 80, Update: readDiscussionInbox},
+		{Peer: channel, MaxID: 82, SavedPeer: saved, Update: readMonoForumInbox},
+	}, inbox)
+	require.Equal(t, []tg.AnyRead{
+		{Peer: chat, MaxID: 9, Update: readHistoryOutbox},
+		{Peer: channel, MaxID: 10, Update: readChannelOutbox},
+		{Peer: channel, MaxID: 91, TopMsgID: 90, Update: readDiscussionOutbox},
+		{Peer: channel, MaxID: 92, SavedPeer: saved, Update: readMonoForumOutbox},
+	}, outbox)
+	require.Equal(t, []tg.AnyTyping{
+		{Peer: user, From: user, TopMsgID: 11, Action: typing, Update: userTyping},
+		{Peer: chat, From: user, Action: typing, Update: chatTyping},
+		{Peer: channel, From: user, TopMsgID: 12, Action: typing, Update: channelTyping},
+	}, typings)
 	require.Equal(t, len(updates), before, "OnBefore is called for every update")
 
 	// Specific handler replaces unified one.
