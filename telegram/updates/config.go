@@ -24,7 +24,20 @@ type Config struct {
 	Handler telegram.UpdateHandler
 	// Callback called if manager cannot
 	// recover channel gap (optional).
+	//
+	// See also OnChannelGap, which provides the gap range.
 	OnChannelTooLong func(channelID int64)
+	// Callback called if manager cannot recover channel gap, i.e. on
+	// updates.channelDifferenceTooLong, with the gap range (optional).
+	//
+	// The latest channel messages returned by the server with
+	// channelDifferenceTooLong are passed in gap.Messages, not to Handler:
+	// they may include messages delivered before the gap. Messages between
+	// the last known message and gap.Messages should be fetched manually,
+	// e.g. via messages.getHistory.
+	//
+	// Called after OnChannelTooLong.
+	OnChannelGap func(gap ChannelGap)
 	// Callback called when the manager loses access to a channel, detected via
 	// CHANNEL_PRIVATE on updates.getChannelDifference (e.g. the account was
 	// kicked/banned or the channel was deleted). The channel is removed from

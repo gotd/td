@@ -12,8 +12,10 @@
 //     do not return event sequences, manager cannot guarantee the correctness
 //     of these operations. We rely on the server here.
 //
-//  3. Manager cannot recover the channel gap if there is a ChannelDifferenceTooLong error.
-//     Restoring the internalState in such situation is not the prerogative of this manager.
+//  3. Manager cannot fully recover the channel gap if there is a ChannelDifferenceTooLong error.
+//     The gap range and the latest messages returned by the server are reported via
+//     Config.OnChannelGap (not the handler, as they may have been delivered already),
+//     so missed messages can be fetched manually.
 //     See: https://core.telegram.org/constructor/updates.channelDifferenceTooLong
 //
 // TODO: Write implementation details.
