@@ -188,6 +188,11 @@ type Options struct {
 	// states, dead connections, reconnects, migrations, lost authorization,
 	// request timeouts, cached DC pools and Invoke durations. No metrics by
 	// default; the global provider is not used.
+	//
+	// It is also used by Client.Downloader and Client.Download* (gotd.downloader.*)
+	// and by schedulers of Options.DownloadScheduler, with attribute dc. The
+	// updates manager (telegram/updates) is configured separately: set
+	// updates.Config.MeterProvider too.
 	MeterProvider metric.MeterProvider
 
 	// OnTransfer is called during authorization transfer.
