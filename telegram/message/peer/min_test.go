@@ -5,8 +5,101 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
+
+// flagged returns v with flags set, as a decoded object has them.
+func flagged[T interface{ SetFlags() }](v T) T {
+	v.SetFlags()
+	return v
+}
+
+// roundTrip encodes v and decodes it into out.
+func roundTrip(t *testing.T, v, out bin.Object) {
+	t.Helper()
+	var b bin.Buffer
+	require.NoError(t, v.Encode(&b))
+	require.NoError(t, out.Decode(&b))
+}
+
+func TestMergeMinFlags(t *testing.T) {
+	t.Run("User", func(t *testing.T) {
+		full := flagged(&tg.User{
+			ID: 1, AccessHash: 11, FirstName: "Full",
+			EmojiStatus: &tg.EmojiStatus{DocumentID: 7},
+		})
+		minUser := flagged(&tg.User{ID: 1, Min: true, Premium: true})
+
+		u := MergeMinUser(full, minUser)
+		require.True(t, u.GetPremium(), "getter must see merged flag")
+		_, ok := u.GetEmojiStatus()
+		require.False(t, ok, "emoji status removed by min must not be reported")
+
+		var decoded tg.User
+		roundTrip(t, u, &decoded)
+		require.True(t, decoded.Premium)
+		require.Nil(t, decoded.EmojiStatus)
+		require.Equal(t, "Full", decoded.FirstName)
+		require.Equal(t, int64(11), decoded.AccessHash)
+	})
+	t.Run("Channel", func(t *testing.T) {
+		full := flagged(&tg.Channel{
+			ID: 10, AccessHash: 100, Title: "Old",
+			Photo:       &tg.ChatPhotoEmpty{},
+			EmojiStatus: &tg.EmojiStatus{DocumentID: 7},
+		})
+		minChannel := flagged(&tg.Channel{
+			ID: 10, Min: true, Title: "New", Verified: true,
+			Photo:     &tg.ChatPhotoEmpty{},
+			Usernames: []tg.Username{{Username: "new", Active: true}},
+		})
+
+		c := MergeMinChannel(full, minChannel)
+		require.True(t, c.GetVerified())
+		_, ok := c.GetEmojiStatus()
+		require.False(t, ok)
+		usernames, ok := c.GetUsernames()
+		require.True(t, ok)
+		require.Len(t, usernames, 1)
+
+		var decoded tg.Channel
+		roundTrip(t, c, &decoded)
+		require.Equal(t, "New", decoded.Title)
+		require.True(t, decoded.Verified)
+		require.Nil(t, decoded.EmojiStatus)
+		require.Equal(t, int64(100), decoded.AccessHash)
+	})
+}
+
+func TestMergeMinChannelTDLib(t *testing.T) {
+	color := &tg.PeerColor{}
+	color.SetColor(3)
+	fullPhoto := &tg.ChatPhoto{PhotoID: 1}
+	minPhoto := &tg.ChatPhoto{PhotoID: 2}
+	full := &tg.Channel{ID: 10, AccessHash: 100, Photo: fullPhoto, Color: color}
+	minChannel := &tg.Channel{ID: 10, Min: true, Photo: minPhoto}
+
+	c := MergeMinChannel(full, minChannel)
+	require.Equal(t, color, c.Color, "colors are not taken from min")
+	require.Equal(t, minPhoto, c.Photo)
+
+	banned := *full
+	banned.BannedRights = tg.ChatBannedRights{ViewMessages: true}
+	c = MergeMinChannel(&banned, minChannel)
+	require.Equal(t, fullPhoto, c.Photo, "photo is kept when banned")
+}
+
+func TestMergeMinUserDeletedSelf(t *testing.T) {
+	full := &tg.User{ID: 1, Self: true, AccessHash: 11, FirstName: "Me"}
+	u := MergeMinUser(full, &tg.User{ID: 1, Min: true, Deleted: true, Premium: true})
+	require.False(t, u.Deleted, "deleted min self is ignored")
+	require.False(t, u.Premium)
+	require.Equal(t, "Me", u.FirstName)
+
+	other := &tg.User{ID: 2, AccessHash: 22}
+	require.True(t, MergeMinUser(other, &tg.User{ID: 2, Min: true, Deleted: true}).Deleted)
+}
 
 func TestEntitiesMinPeers(t *testing.T) {
 	ent := NewEntities(map[int64]*tg.User{

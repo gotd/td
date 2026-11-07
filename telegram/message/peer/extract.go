@@ -121,9 +121,14 @@ func (ent Entities) Fill(
 //
 // Access hash, name, usernames, phone and contact state are kept from full.
 // Photo is taken from min only if full has ApplyMinPhoto set, and status only
-// if full has none.
+// if full has none. A deleted min copy of self is ignored, as in TDLib.
 func MergeMinUser(full, min *tg.User) *tg.User {
 	u := *full
+	if full.Self && min.Deleted {
+		// TDLib ignores self as deleted min user: it is a frozen account
+		// seen in a min context, not a deletion.
+		return &u
+	}
 
 	u.Deleted = min.Deleted
 	u.Verified = min.Verified
@@ -169,6 +174,11 @@ func MergeMinUser(full, min *tg.User) *tg.User {
 		u.Status = min.Status
 	}
 
+	// Flags of the copy describe full, not the merged fields: recompute them,
+	// so that getters and encoding match the fields.
+	u.Flags, u.Flags2 = 0, 0
+	u.SetFlags()
+
 	return &u
 }
 
@@ -177,17 +187,20 @@ func MergeMinUser(full, min *tg.User) *tg.User {
 // (ChatManager::on_get_channel).
 //
 // Access hash, participant status (creator, left, admin and banned rights),
-// date, signatures and participant count are kept from full.
+// date, signatures, participant count and colors are kept from full, and the
+// photo too if the current user is banned from the channel.
 func MergeMinChannel(full, min *tg.Channel) *tg.Channel {
 	c := *full
 
 	c.Title = min.Title
 	c.Username = min.Username
 	c.Usernames = min.Usernames
-	c.Photo = min.Photo
+	if !channelBanned(full) {
+		// TDLib keeps the photo of a channel the user is banned from.
+		c.Photo = min.Photo
+	}
 	c.EmojiStatus = min.EmojiStatus
-	c.Color = min.Color
-	c.ProfileColor = min.ProfileColor
+	// Colors are not applied from min channels, as in TDLib.
 
 	c.HasGeo = min.HasGeo
 	c.HasLink = min.HasLink
@@ -214,7 +227,18 @@ func MergeMinChannel(full, min *tg.Channel) *tg.Channel {
 	c.BotVerificationIcon = min.BotVerificationIcon
 	c.DefaultBannedRights = min.DefaultBannedRights
 
+	// Flags of the copy describe full, not the merged fields: recompute them,
+	// so that getters and encoding match the fields.
+	c.Flags, c.Flags2 = 0, 0
+	c.SetFlags()
+
 	return &c
+}
+
+// channelBanned reports whether the current user is banned (kicked) from
+// channel.
+func channelBanned(c *tg.Channel) bool {
+	return c.BannedRights.ViewMessages
 }
 
 // ErrMinPeer means that peer is known only as min constructor, which has no
