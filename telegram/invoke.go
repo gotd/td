@@ -56,7 +56,8 @@ func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decod
 
 // invokeDirect directly invokes RPC method, automatically handling datacenter redirects.
 func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	if err := c.invokeConn(ctx, input, output); err != nil {
+	err := c.invokeConn(ctx, input, output)
+	if err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && strings.HasSuffix(rpcErr.Type, "_MIGRATE") {
 			targetDC := rpcErr.Argument
@@ -74,12 +75,18 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 
 			// Otherwise we should change primary DC.
 			logger.Info(ctx, "Migrating to target DC")
-			return c.invokeMigrate(ctx, targetDC, input, output)
+			err = c.invokeMigrate(ctx, targetDC, input, output)
+			c.observeAuth(input, output, err)
+			return err
 		}
 
+		c.observeAuth(input, output, err)
 		return err
 	}
 
+	// Only primary connection results reveal primary session authorization:
+	// sub-connection (FILE_MIGRATE) results are not observed.
+	c.observeAuth(input, output, nil)
 	return nil
 }
 

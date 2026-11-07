@@ -1,0 +1,217 @@
+package telegram
+
+import (
+	"context"
+	"strings"
+	"sync/atomic"
+
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
+)
+
+// AuthLostError is returned by Client.Run when the authorization of a client
+// is lost (e.g. the session was terminated from another device) and
+// Options.OnAuthLost returned an error.
+//
+// Use errors.As to match it.
+type AuthLostError struct {
+	// Err is the RPC error that revealed the lost authorization, e.g.
+	// AUTH_KEY_UNREGISTERED or SESSION_REVOKED.
+	Err error
+	// Reason is the error returned by Options.OnAuthLost.
+	Reason error
+}
+
+// Error implements error.
+func (e *AuthLostError) Error() string {
+	return "authorization lost: " + e.Err.Error()
+}
+
+// Unwrap returns both underlying errors.
+func (e *AuthLostError) Unwrap() []error {
+	if e.Reason == nil || e.Reason == e.Err {
+		return []error{e.Err}
+	}
+	return []error{e.Err, e.Reason}
+}
+
+// IsAuthLost reports whether err means that the authorization of the session
+// is lost: the auth key is unregistered, the session is revoked or expired,
+// the user is deactivated, or the key is used by another connection
+// (AUTH_KEY_DUPLICATED).
+//
+// SESSION_PASSWORD_NEEDED and other "not authorized yet" errors are not
+// included.
+func IsAuthLost(err error) bool {
+	return tgerr.Is(err,
+		"AUTH_KEY_UNREGISTERED",
+		"AUTH_KEY_INVALID",
+		"SESSION_REVOKED",
+		"SESSION_EXPIRED",
+		"USER_DEACTIVATED",
+		"USER_DEACTIVATED_BAN",
+		"AUTH_KEY_DUPLICATED",
+	)
+}
+
+// authState tracks whether the client is authorized in current Run.
+type authState struct {
+	authorized atomic.Bool
+	reported   atomic.Bool
+	// stopped is set when OnAuthLost stopped Run.
+	stopped atomic.Bool
+}
+
+// queryWrapper is a request wrapping another one, e.g. invokeWithLayer or
+// invokeWithoutUpdates.
+type queryWrapper interface {
+	GetQuery() bin.Object
+}
+
+// unwrapQuery returns the innermost request of invokeWith* and
+// initConnection wrappers.
+func unwrapQuery(input bin.Encoder) bin.Encoder {
+	for i := 0; i < 8; i++ {
+		w, ok := input.(queryWrapper)
+		if !ok {
+			return input
+		}
+		q := w.GetQuery()
+		if q == nil {
+			return input
+		}
+		input = q
+	}
+	return input
+}
+
+// authEffect is how a successful request changes authorization.
+type authEffect int
+
+const (
+	// authNone means that the request tells nothing about authorization.
+	authNone authEffect = iota
+	// authAuthorized means that the client is authorized.
+	authAuthorized
+	// authLoggedOut means that the client logged out.
+	authLoggedOut
+)
+
+// noAuthRequests are requests outside of auth.*, help.* and langpack.*
+// that succeed before sign in is complete (2FA, login email setup).
+var noAuthRequests = map[string]struct{}{ // nolint:gochecknoglobals
+	"account.getPassword":         {},
+	"account.deleteAccount":       {},
+	"account.sendVerifyEmailCode": {},
+	"account.verifyEmail":         {},
+}
+
+// authEffectOf reports how the successful result of input changes
+// authorization.
+func authEffectOf(input bin.Encoder, output bin.Decoder) authEffect {
+	input = unwrapQuery(input)
+	switch input.(type) {
+	case *tg.AuthLogOutRequest:
+		return authLoggedOut
+	case *tg.AuthSignInRequest,
+		*tg.AuthSignUpRequest,
+		*tg.AuthCheckPasswordRequest,
+		*tg.AuthImportBotAuthorizationRequest,
+		*tg.AuthImportAuthorizationRequest,
+		*tg.AuthImportWebTokenAuthorizationRequest,
+		*tg.AuthRecoverPasswordRequest,
+		*tg.AuthImportLoginTokenRequest,
+		*tg.AuthExportLoginTokenRequest:
+		if isAuthorization(output) {
+			return authAuthorized
+		}
+		return authNone
+	}
+	named, ok := input.(interface{ TypeName() string })
+	if !ok {
+		return authNone
+	}
+	name := named.TypeName()
+	if _, ok := noAuthRequests[name]; ok {
+		return authNone
+	}
+	for _, prefix := range []string{"auth.", "help.", "langpack."} {
+		if strings.HasPrefix(name, prefix) {
+			return authNone
+		}
+	}
+	// Any other successful request requires authorization.
+	return authAuthorized
+}
+
+// isAuthorization reports whether output is a complete authorization, not
+// auth.authorizationSignUpRequired or a login token to wait for.
+func isAuthorization(output bin.Decoder) bool {
+	switch v := output.(type) {
+	case *tg.AuthAuthorizationBox:
+		_, ok := v.Authorization.(*tg.AuthAuthorization)
+		return ok
+	case *tg.AuthAuthorization:
+		return true
+	case *tg.AuthLoginTokenBox:
+		success, ok := v.LoginToken.(*tg.AuthLoginTokenSuccess)
+		if !ok {
+			return false
+		}
+		_, ok = success.Authorization.(*tg.AuthAuthorization)
+		return ok
+	case *tg.AuthLoginTokenSuccess:
+		_, ok := v.Authorization.(*tg.AuthAuthorization)
+		return ok
+	default:
+		return false
+	}
+}
+
+// observeAuth tracks authorization by request results and reports lost
+// authorization of the primary session.
+func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
+	if err == nil {
+		switch authEffectOf(input, output) {
+		case authAuthorized:
+			c.markAuthorized()
+		case authLoggedOut:
+			c.auth.authorized.Store(false)
+		}
+		return
+	}
+	if c.onAuthLost == nil || !c.auth.authorized.Load() || !IsAuthLost(err) {
+		return
+	}
+	if !c.auth.reported.CompareAndSwap(false, true) {
+		return
+	}
+	c.auth.authorized.Store(false)
+
+	// The failing request's context may be about to expire: the callback
+	// gets the context of Run, so that it can sign in again.
+	ctx := c.ctx
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	reason := c.onAuthLost(ctx, err)
+	if reason == nil {
+		// Allow reporting again after next authorization.
+		c.auth.reported.Store(false)
+		return
+	}
+	c.auth.stopped.Store(true)
+	select {
+	case c.authLost <- &AuthLostError{Err: err, Reason: reason}:
+	default:
+	}
+}
+
+func (c *Client) markAuthorized() {
+	if c.auth.authorized.Load() {
+		return
+	}
+	c.auth.authorized.Store(true)
+	c.auth.reported.Store(false)
+}

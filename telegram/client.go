@@ -109,6 +109,12 @@ type Client struct {
 	// Restart signal channel.
 	restart chan struct{} // immutable
 
+	// auth tracks authorization for OnAuthLost.
+	auth       authState
+	onAuthLost func(ctx context.Context, err error) error // immutable
+	// authLost receives error to stop Run on lost authorization.
+	authLost chan error
+
 	// Connections to non-primary DC.
 	subConns map[int]CloseInvoker
 	// subConnsPending stores in-flight sub-connection creations.
@@ -208,6 +214,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		onTransfer:        opt.OnTransfer,
 		onSelfError:       opt.OnSelfError,
 		onSelfSuccess:     opt.OnSelfSuccess,
+		onAuthLost:        opt.OnAuthLost,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
@@ -272,6 +279,7 @@ func (c *Client) init() {
 	c.ready = tdsync.NewResetReady()
 	c.connChanged = make(chan struct{})
 	c.restart = make(chan struct{})
+	c.authLost = make(chan error, 1)
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}

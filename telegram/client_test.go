@@ -57,7 +57,7 @@ func (t *testConn) Invoke(ctx context.Context, input bin.Encoder, output bin.Dec
 	})
 }
 
-func (testConn) Run(ctx context.Context) error { return nil }
+func (*testConn) Run(ctx context.Context) error { return nil }
 
 func newTestClient(h testHandler) *Client {
 	var engine *rpc.Engine

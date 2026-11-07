@@ -55,6 +55,10 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				if !auth.IsUnauthorized(err) {
 					c.log.Warn(ctx, "Got error on self", log.Error(err))
 				}
+				if c.auth.stopped.Load() {
+					// OnAuthLost already reported this error and stops Run.
+					return nil
+				}
 				if h := c.onSelfError; h != nil {
 					// Help with https://github.com/gotd/td/issues/1458.
 					if err := h(ctx, err); err != nil {
@@ -64,6 +68,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 				return nil
 			}
 
+			c.markAuthorized()
 			if h := c.onSelfSuccess; h != nil {
 				h(self)
 			}
@@ -224,6 +229,14 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.reconnectUntilClosed)
+	g.Go(func(ctx context.Context) error {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case err := <-c.authLost:
+			return err
+		}
+	})
 	g.Go(func(ctx context.Context) error {
 		select {
 		case <-ctx.Done():
