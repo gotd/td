@@ -22,6 +22,8 @@ type recordInvoker struct {
 	inits      int
 	takeoutIDs []int64
 	finished   []bool
+	// finishedIDs are takeout IDs finish requests were wrapped with.
+	finishedIDs []int64
 }
 
 func (r *recordInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -42,6 +44,11 @@ func (r *recordInvoker) Invoke(ctx context.Context, input bin.Encoder, output bi
 		return ctx.Err()
 	case *tg.InvokeWithTakeoutRequest:
 		r.takeoutIDs = append(r.takeoutIDs, req.TakeoutID)
+		if f, ok := req.Query.(*tg.AccountFinishTakeoutSessionRequest); ok {
+			r.finished = append(r.finished, f.GetSuccess())
+			r.finishedIDs = append(r.finishedIDs, req.TakeoutID)
+			return ctx.Err()
+		}
 		return nil
 	}
 	return nil
@@ -56,8 +63,9 @@ func TestNewClientResume(t *testing.T) {
 	_, err := tg.NewClient(c).HelpGetConfig(ctx)
 	require.NoError(t, err)
 	require.NoError(t, c.Finish(ctx, true))
-	require.Equal(t, []int64{7}, inv.takeoutIDs)
+	require.Equal(t, []int64{7, 7}, inv.takeoutIDs)
 	require.Equal(t, []bool{true}, inv.finished)
+	require.Equal(t, []int64{7}, inv.finishedIDs, "finish is sent within the session")
 }
 
 func TestInitDelay(t *testing.T) {
@@ -101,7 +109,41 @@ func TestInitDelay(t *testing.T) {
 		}
 		require.NoError(t, <-done)
 		require.Equal(t, int64(42), c.ID())
-		require.Equal(t, []time.Duration{time.Hour, time.Hour}, delays)
+		require.Equal(t, []time.Duration{time.Hour}, delays, "callback is called once per wait")
+		require.Equal(t, 3, inv.inits)
+	})
+	t.Run("FloodWhilePolling", func(t *testing.T) {
+		clk := neo.NewTime(time.Unix(0, 0))
+		flood := tgerr.New(420, "FLOOD_WAIT_120")
+		inv := &recordInvoker{initErrs: []error{delay, flood}}
+		cfg := Config{
+			Clock:            clk,
+			InitPollInterval: time.Minute,
+			OnInitDelay:      func(context.Context, time.Duration) error { return nil },
+		}
+		done := make(chan error, 1)
+		planned := clk.Observe()
+		go func() {
+			_, err := Init(context.Background(), inv, cfg)
+			done <- err
+		}()
+		<-planned
+		planned = clk.Observe()
+		clk.Travel(time.Minute)
+		select {
+		case <-planned:
+		case err := <-done:
+			t.Fatalf("flood wait aborted polling: %v", err)
+		}
+		// Flood wait (2m) is longer than poll interval: one minute is not enough.
+		clk.Travel(time.Minute)
+		select {
+		case err := <-done:
+			t.Fatalf("finished early: %v", err)
+		default:
+		}
+		clk.Travel(time.Minute)
+		require.NoError(t, <-done)
 		require.Equal(t, 3, inv.inits)
 	})
 	t.Run("Abort", func(t *testing.T) {

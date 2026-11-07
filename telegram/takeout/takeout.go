@@ -33,10 +33,13 @@ func NewClient(id int64, invoker tg.Invoker) *Client {
 }
 
 // Finish finishes takeout session.
+//
+// The request is sent within the session (invokeWithTakeout), so the server
+// knows which session to finish.
 func (c *Client) Finish(ctx context.Context, success bool) error {
 	req := &tg.AccountFinishTakeoutSessionRequest{}
 	req.SetSuccess(success)
-	if _, err := tg.NewClient(c.raw).AccountFinishTakeoutSession(ctx, req); err != nil {
+	if _, err := tg.NewClient(c).AccountFinishTakeoutSession(ctx, req); err != nil {
 		return errors.Wrap(err, "finish takeout session")
 	}
 	return nil
@@ -86,9 +89,11 @@ type Config struct {
 	// user must confirm the export on another device, or wait d (X seconds)
 	// for the session to become available (optional).
 	//
-	// Return nil to keep polling init every InitPollInterval (or d, if it is
-	// shorter) until it succeeds, or an error to abort. If not set, the error
-	// is returned.
+	// It is called once, on the first such error. Return nil to keep polling
+	// init every InitPollInterval (or d, if it is shorter) until it succeeds,
+	// or an error to abort. If not set, the error is returned.
+	//
+	// FLOOD_WAIT errors while polling are waited out.
 	OnInitDelay func(ctx context.Context, d time.Duration) error
 	// InitPollInterval is the interval of init attempts while waiting for
 	// the confirmation. Defaults to 30 seconds.
@@ -123,23 +128,33 @@ func Init(ctx context.Context, invoker tg.Invoker, cfg Config) (*Client, error) 
 		poll = defaultInitPollInterval
 	}
 
+	waiting := false
 	for {
 		takeout, err := raw.AccountInitTakeoutSession(ctx, cfg.request())
 		if err == nil {
 			return NewClient(takeout.ID, invoker), nil
 		}
-		delay, ok := AsInitDelay(err)
-		if !ok || cfg.OnInitDelay == nil {
-			return nil, errors.Wrap(err, "init takeout session")
-		}
-		if cbErr := cfg.OnInitDelay(ctx, delay); cbErr != nil {
-			return nil, errors.Wrap(cbErr, "init delay")
-		}
 
 		wait := poll
-		if delay > 0 && delay < wait {
-			wait = delay
+		if d, ok := AsInitDelay(err); ok && cfg.OnInitDelay != nil {
+			if !waiting {
+				waiting = true
+				if cbErr := cfg.OnInitDelay(ctx, d); cbErr != nil {
+					return nil, errors.Wrap(cbErr, "init delay")
+				}
+			}
+			if d > 0 && d < wait {
+				wait = d
+			}
+		} else if d, ok := tgerr.AsFloodWait(err); ok && waiting {
+			// Polling too often: back off instead of aborting the wait.
+			if d > wait {
+				wait = d
+			}
+		} else {
+			return nil, errors.Wrap(err, "init takeout session")
 		}
+
 		timer := clk.Timer(wait)
 		select {
 		case <-ctx.Done():
