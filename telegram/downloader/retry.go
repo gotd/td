@@ -61,6 +61,11 @@ func retryRequest[T any](
 		}
 
 		result, err := fn()
+		if _, ok := tgerr.AsFloodWait(err); ok {
+			// Let Scheduler of the request shrink its window before sleeping,
+			// as the request is retried here while still holding its slot.
+			reportBackoff(ctx, err)
+		}
 		if flood, waitErr := tgerr.FloodWait(ctx, err); waitErr != nil {
 			if flood {
 				// FloodWait helper already slept required amount.
@@ -78,8 +83,11 @@ func retryRequest[T any](
 				// attempts to avoid infinite tight loops.
 				timeoutRetries++
 				if timeoutRetries >= maxRetryAttempts {
+					// Not retried: the error is reported by release of the
+					// request, so it is not reported here.
 					return zero, retryLimitErr(op, timeoutRetries, waitErr)
 				}
+				reportBackoff(ctx, waitErr)
 				retryAttempt++
 				if onRetry != nil {
 					onRetry(retryAttempt, waitErr)
