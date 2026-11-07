@@ -23,7 +23,7 @@ type tooLongAPI struct {
 	mu        sync.Mutex
 	final     bool
 	remotePts int // dialog pts, 5000 if zero
-	requests []*tg.UpdatesGetChannelDifferenceRequest
+	requests  []*tg.UpdatesGetChannelDifferenceRequest
 }
 
 func (a *tooLongAPI) UpdatesGetChannelDifference(

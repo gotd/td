@@ -21,11 +21,11 @@ func TestSaveUserHashes(t *testing.T) {
 	require.NoError(t, s.userHasher.SetUserAccessHash(ctx, s.selfID, 111, 1111))
 
 	s.saveUserHashes(ctx, []tg.UserClass{
-		&tg.User{ID: 111, AccessHash: 9999},     // already known: must not be overwritten
-		&tg.User{ID: 222, AccessHash: 2222},     // full: recorded
+		&tg.User{ID: 111, AccessHash: 9999},            // already known: must not be overwritten
+		&tg.User{ID: 222, AccessHash: 2222},            // full: recorded
 		&tg.User{ID: 333, Min: true, AccessHash: 3333}, // min: skipped
-		&tg.User{ID: 444, AccessHash: 0},        // zero hash: skipped
-		&tg.UserEmpty{ID: 555},                  // not *tg.User: skipped
+		&tg.User{ID: 444, AccessHash: 0},               // zero hash: skipped
+		&tg.UserEmpty{ID: 555},                         // not *tg.User: skipped
 	})
 
 	assertHash := func(id, want int64, wantFound bool) {

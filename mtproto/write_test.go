@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/require"
 	"github.com/gotd/log"
+	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/neo"
 
