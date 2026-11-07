@@ -8,6 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
 
@@ -177,4 +178,15 @@ func TestManagerChannelTooLongUntracked(t *testing.T) {
 	require.NoError(t, err)
 	require.True(t, found)
 	require.Equal(t, int64(4242), hash)
+}
+
+func TestManagerResetDropsPendingTracks(t *testing.T) {
+	m := New(Config{Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error { return nil })})
+	// Not started: the request is kept until Run.
+	require.NoError(t, m.TrackChannel(context.Background(), 42, 1, 100))
+	require.Len(t, m.pendingTracks, 1)
+
+	// Pending tracks of the previous user must not be applied to the next one.
+	m.Reset()
+	require.Empty(t, m.pendingTracks)
 }

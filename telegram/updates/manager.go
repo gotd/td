@@ -277,4 +277,6 @@ func (m *Manager) Reset() {
 	defer m.mux.Unlock()
 	m.state = nil
 	m.started = false
+	// Pending tracks belong to the previous user.
+	m.pendingTracks = nil
 }
