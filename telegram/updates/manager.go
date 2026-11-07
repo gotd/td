@@ -36,6 +36,13 @@ type Manager struct {
 	started bool
 	// pendingTracks are TrackChannel requests made before start.
 	pendingTracks []trackRequest
+	// early are updates received before Run, with BeforeRunBuffer.
+	early []tg.UpdatesClass
+	// earlyDropped counts updates dropped before Run, for logging.
+	earlyDropped int
+	// replaying is true while Run replays early updates: updates received
+	// meanwhile are buffered too, so they can't overtake buffered ones.
+	replaying bool
 
 	// immutable:
 
@@ -59,9 +66,9 @@ func New(cfg Config) *Manager {
 // Handle handles updates.
 //
 // Important:
-// If Run method not called, all updates will be passed
-// to the provided handler as-is without any order verification
-// or short updates transformation.
+// If Run method not called, updates are handled according to
+// Config.BeforeRun: by default, they are passed to the provided handler as-is
+// without any order verification or short updates transformation.
 func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	ctx, span := m.tracer.Start(ctx, "updates.Manager.Handle")
 	defer span.End()
@@ -71,6 +78,16 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 
 	m.mux.Lock()
 	state := m.state
+	if (state == nil && m.cfg.BeforeRun != BeforeRunPass) || m.replaying {
+		// Under the lock, so Run takes every buffered update.
+		if m.cfg.BeforeRun == BeforeRunBuffer && len(m.early) < m.cfg.BeforeRunBufferSize {
+			m.early = append(m.early, u)
+		} else {
+			m.earlyDropped++
+		}
+		m.mux.Unlock()
+		return nil
+	}
 	m.mux.Unlock()
 
 	if state == nil {
@@ -132,6 +149,11 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 
 	wg, ctx := errgroup.WithContext(ctx)
 
+	var (
+		early       []tg.UpdatesClass
+		dropped     int
+		earlyRemote bool
+	)
 	if err := func() error {
 		m.mux.Lock()
 		defer m.mux.Unlock()
@@ -140,10 +162,16 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			return errors.Errorf("already authorized (userID: %d)", m.state.selfID)
 		}
 
-		state, err := m.loadState(ctx, api, userID, opt.Forget)
+		state, remote, err := m.loadState(ctx, api, userID, opt.Forget)
 		if err != nil {
 			return errors.Wrap(err, "load internalState")
 		}
+		// Handle waits for m.mux during setup, so every buffered update was
+		// received before the state was loaded.
+		early, dropped = m.early, m.earlyDropped
+		m.early, m.earlyDropped = nil, 0
+		earlyRemote = remote
+		m.replaying = len(early) > 0
 		channels, err := m.loadChannels(ctx, userID)
 		if err != nil {
 			return errors.Wrap(err, "load channels")
@@ -188,6 +216,9 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	m.pendingTracks = nil
 	m.started = true
 	m.mux.Unlock()
+	if dropped > 0 {
+		lg.Info(ctx, "Dropped updates received before Run", log.Int("count", dropped))
+	}
 	// internalState goroutine is not started yet, so it is safe to track
 	// channels directly.
 	for _, r := range pending {
@@ -202,6 +233,12 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	wg.Go(func() error {
 		return state.Run(ctx)
 	})
+	if len(early) > 0 {
+		wg.Go(func() error {
+			m.replayEarly(ctx, state, early, earlyRemote)
+			return nil
+		})
+	}
 	lg.Debug(ctx, "Wait")
 	err := wg.Wait()
 
@@ -245,26 +282,28 @@ func (m *Manager) loadChannels(ctx context.Context, userID int64) (map[int64]str
 	return channels, nil
 }
 
-func (m *Manager) loadState(ctx context.Context, api API, userID int64, forget bool) (State, error) {
+// loadState loads the user state and reports whether it was fetched from the
+// server.
+func (m *Manager) loadState(ctx context.Context, api API, userID int64, forget bool) (_ State, remote bool, _ error) {
 onNotFound:
 	var state State
 	if forget {
 		remote, err := api.UpdatesGetState(ctx)
 		if err != nil {
-			return State{}, errors.Wrap(err, "get remote internalState")
+			return State{}, false, errors.Wrap(err, "get remote internalState")
 		}
 
 		state = state.fromRemote(remote)
 		if err := m.cfg.Storage.SetState(ctx, userID, state); err != nil {
-			return State{}, err
+			return State{}, false, err
 		}
 
-		return state, nil
+		return state, true, nil
 	}
 
 	state, found, err := m.cfg.Storage.GetState(ctx, userID)
 	if err != nil {
-		return State{}, errors.Wrap(err, "restore local internalState")
+		return State{}, false, errors.Wrap(err, "restore local internalState")
 	}
 
 	if !found {
@@ -273,7 +312,48 @@ onNotFound:
 		goto onNotFound
 	}
 
-	return state, nil
+	return state, false, nil
+}
+
+// replayEarly handles updates buffered before Run (BeforeRunBuffer), then
+// updates buffered while replaying, until the buffer is empty.
+//
+// If the state was fetched from the server, the updates buffered before Run
+// are already covered by it: gap recovery would drop them as outdated and
+// getDifference would not return them, so they are passed to Handler as-is.
+func (m *Manager) replayEarly(ctx context.Context, state *internalState, early []tg.UpdatesClass, remote bool) {
+	defer func() {
+		m.mux.Lock()
+		m.replaying = false
+		m.mux.Unlock()
+	}()
+	for {
+		for _, u := range early {
+			if remote {
+				if err := m.cfg.Handler.Handle(ctx, u); err != nil {
+					m.lg.Error(ctx, "Handle update received before Run", log.Error(err))
+				}
+				continue
+			}
+			// Push fails only when Run stops, and Run reports why.
+			if err := state.Push(ctx, u); err != nil {
+				m.lg.Debug(ctx, "Replay stopped", log.Error(err))
+				return
+			}
+		}
+		// Updates received while replaying came after the state was loaded.
+		remote = false
+
+		m.mux.Lock()
+		early = m.early
+		m.early = nil
+		if len(early) == 0 {
+			m.replaying = false
+			m.mux.Unlock()
+			return
+		}
+		m.mux.Unlock()
+	}
 }
 
 // Reset notifies manager about user logout.
@@ -282,6 +362,9 @@ func (m *Manager) Reset() {
 	defer m.mux.Unlock()
 	m.state = nil
 	m.started = false
-	// Pending tracks belong to the previous user.
+	// Pending tracks and early updates belong to the previous user.
 	m.pendingTracks = nil
+	m.early = nil
+	m.earlyDropped = 0
+	m.replaying = false
 }

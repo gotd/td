@@ -33,7 +33,7 @@ func TestManager_loadState(t *testing.T) {
 			OnLoadUserStateFailed: func() { called = true },
 		})
 
-		state, err := m.loadState(ctx, &diffAPI{}, userID, false)
+		state, _, err := m.loadState(ctx, &diffAPI{}, userID, false)
 		a.NoError(err)
 		a.Equal(42, state.Pts)
 		a.False(called, "callback must not fire when state is found")
@@ -49,7 +49,7 @@ func TestManager_loadState(t *testing.T) {
 		})
 
 		// No stored state: falls back to remote (forget) and reports failure.
-		_, err := m.loadState(ctx, &diffAPI{}, userID, false)
+		_, _, err := m.loadState(ctx, &diffAPI{}, userID, false)
 		a.NoError(err)
 		a.True(called, "callback must fire when state is not found")
 	})
@@ -64,7 +64,7 @@ func TestManager_loadState(t *testing.T) {
 		})
 
 		// Explicit forget must not report a load failure.
-		_, err := m.loadState(ctx, &diffAPI{}, userID, true)
+		_, _, err := m.loadState(ctx, &diffAPI{}, userID, true)
 		a.NoError(err)
 		a.False(called, "callback must not fire on explicit forget")
 	})
