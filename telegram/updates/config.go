@@ -80,6 +80,16 @@ type Config struct {
 	// before. A positive value bounds the burst so an account in many active
 	// channels does not exceed Telegram's per-account method rate limit.
 	MaxChannelDifferenceConcurrency int
+	// BeforeRun is what to do with updates received before Run, e.g. while
+	// the client connects and authorizes. Default is BeforeRunPass.
+	//
+	// Dropped updates (BeforeRunDrop, or over BeforeRunBufferSize) of the
+	// common or a tracked channel sequence are recovered via getDifference
+	// once the next update reveals the gap.
+	BeforeRun BeforeRunMode
+	// BeforeRunBufferSize limits how many update batches are kept with
+	// BeforeRunBuffer. Non-positive means 100.
+	BeforeRunBufferSize int
 }
 
 func (cfg *Config) setDefaults() {
@@ -100,6 +110,9 @@ func (cfg *Config) setDefaults() {
 	}
 	if cfg.Storage == nil {
 		cfg.Storage = newMemStorage()
+	}
+	if cfg.BeforeRunBufferSize <= 0 {
+		cfg.BeforeRunBufferSize = defaultBeforeRunBufferSize
 	}
 	lg := log.For(cfg.Logger)
 	if cfg.OnChannelTooLong == nil {

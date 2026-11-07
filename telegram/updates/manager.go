@@ -32,6 +32,10 @@ type Manager struct {
 	started bool
 	// pendingTracks are TrackChannel requests made before start.
 	pendingTracks []trackRequest
+	// early are updates received before Run, with BeforeRunBuffer.
+	early []tg.UpdatesClass
+	// earlyDropped counts updates dropped before Run, for logging.
+	earlyDropped int
 
 	// immutable:
 
@@ -55,9 +59,9 @@ func New(cfg Config) *Manager {
 // Handle handles updates.
 //
 // Important:
-// If Run method not called, all updates will be passed
-// to the provided handler as-is without any order verification
-// or short updates transformation.
+// If Run method not called, updates are handled according to
+// Config.BeforeRun: by default, they are passed to the provided handler as-is
+// without any order verification or short updates transformation.
 func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	ctx, span := m.tracer.Start(ctx, "updates.Manager.Handle")
 	defer span.End()
@@ -67,6 +71,16 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 
 	m.mux.Lock()
 	state := m.state
+	if state == nil && m.cfg.BeforeRun != BeforeRunPass {
+		// Under the lock, so Run takes every buffered update.
+		if m.cfg.BeforeRun == BeforeRunBuffer && len(m.early) < m.cfg.BeforeRunBufferSize {
+			m.early = append(m.early, u)
+		} else {
+			m.earlyDropped++
+		}
+		m.mux.Unlock()
+		return nil
+	}
 	m.mux.Unlock()
 
 	if state == nil {
@@ -183,7 +197,13 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	pending := m.pendingTracks
 	m.pendingTracks = nil
 	m.started = true
+	// m.state is set, so updates received from now on are pushed by Handle.
+	early, dropped := m.early, m.earlyDropped
+	m.early, m.earlyDropped = nil, 0
 	m.mux.Unlock()
+	if dropped > 0 {
+		lg.Info(ctx, "Dropped updates received before Run", log.Int("count", dropped))
+	}
 	// internalState goroutine is not started yet, so it is safe to track
 	// channels directly.
 	for _, r := range pending {
@@ -198,6 +218,16 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	wg.Go(func() error {
 		return state.Run(ctx)
 	})
+	if len(early) > 0 {
+		wg.Go(func() error {
+			for _, u := range early {
+				if err := state.Push(ctx, u); err != nil {
+					return errors.Wrap(err, "push update received before Run")
+				}
+			}
+			return nil
+		})
+	}
 	lg.Debug(ctx, "Wait")
 	err := wg.Wait()
 
@@ -278,6 +308,8 @@ func (m *Manager) Reset() {
 	defer m.mux.Unlock()
 	m.state = nil
 	m.started = false
-	// Pending tracks belong to the previous user.
+	// Pending tracks and early updates belong to the previous user.
 	m.pendingTracks = nil
+	m.early = nil
+	m.earlyDropped = 0
 }
