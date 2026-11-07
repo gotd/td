@@ -64,3 +64,19 @@ func (d *DialogKey) FromPeer(peer tg.PeerClass) error {
 
 	return nil
 }
+
+// InputPeer returns input peer for key.
+//
+// Returns nil for unknown kind.
+func (d DialogKey) InputPeer() tg.InputPeerClass {
+	switch d.Kind {
+	case User:
+		return &tg.InputPeerUser{UserID: d.ID, AccessHash: d.AccessHash}
+	case Chat:
+		return &tg.InputPeerChat{ChatID: d.ID}
+	case Channel:
+		return &tg.InputPeerChannel{ChannelID: d.ID, AccessHash: d.AccessHash}
+	default:
+		return nil
+	}
+}

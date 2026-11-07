@@ -24,6 +24,9 @@ func getLocation(loc tg.InputFileLocationClass) (string, error) {
 }
 
 func (m *Service) openLocation(loc tg.InputFileLocationClass) (File, error) {
+	if doc, ok := loc.(*tg.InputDocumentFileLocation); ok {
+		return m.openDocument(doc)
+	}
 	name, err := getLocation(loc)
 	if err != nil {
 		return nil, err

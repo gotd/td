@@ -66,10 +66,14 @@ func (ent Entities) Channels() map[int64]*tg.Channel {
 }
 
 // FillFromResult adds and updates all entities from given result.
+//
+// Min users and channels do not replace full ones.
 func (ent Entities) FillFromResult(r EntitySearchResult) {
-	r.MapUsers().FillUserMap(ent.users)
-	r.MapChats().FillChatMap(ent.chats)
-	r.MapChats().FillChannelMap(ent.channels)
+	ent.Fill(
+		r.MapUsers().UserToMap(),
+		r.MapChats().ChatToMap(),
+		r.MapChats().ChannelToMap(),
+	)
 }
 
 // FillFromUpdate adds and updates all entities from given updates.
@@ -82,12 +86,18 @@ func (ent Entities) FillFromUpdate(uctx tg.Entities) {
 }
 
 // Fill adds and updates all entities from given maps.
+//
+// Min users and channels (see https://core.telegram.org/api/min) do not
+// replace full ones: they have no usable access hash.
 func (ent Entities) Fill(
 	users map[int64]*tg.User,
 	chats map[int64]*tg.Chat,
 	channels map[int64]*tg.Channel,
 ) {
 	for k, v := range users {
+		if old, ok := ent.users[k]; ok && v.Min && !old.Min {
+			continue
+		}
 		ent.users[k] = v
 	}
 
@@ -96,9 +106,18 @@ func (ent Entities) Fill(
 	}
 
 	for k, v := range channels {
+		if old, ok := ent.channels[k]; ok && v.Min && !old.Min {
+			continue
+		}
 		ent.channels[k] = v
 	}
 }
+
+// ErrMinPeer means that peer is known only as min constructor, which has no
+// usable access hash, so input peer can be built only from a message that
+// mentions it, see Entities.ExtractPeerFromMessage and
+// https://core.telegram.org/api/min.
+var ErrMinPeer = errors.New("min peer has no usable access hash")
 
 // ExtractPeer finds and creates InputPeerClass using given PeerClass.
 func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) {
@@ -108,6 +127,10 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 		dialog, ok := ent.users[p.UserID]
 		if !ok {
 			return nil, errors.Errorf("user %d not found", p.UserID)
+		}
+
+		if dialog.Min {
+			return nil, errors.Wrapf(ErrMinPeer, "user %d", p.UserID)
 		}
 
 		peer = &tg.InputPeerUser{
@@ -129,6 +152,10 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 			return nil, errors.Errorf("channel %d not found", p.ChannelID)
 		}
 
+		if dialog.Min {
+			return nil, errors.Wrapf(ErrMinPeer, "channel %d", p.ChannelID)
+		}
+
 		peer = &tg.InputPeerChannel{
 			ChannelID:  dialog.ID,
 			AccessHash: dialog.AccessHash,
@@ -138,6 +165,39 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 	}
 
 	return peer, nil
+}
+
+// ExtractPeerFromMessage is like ExtractPeer, but for min users and channels
+// returns inputPeerUserFromMessage or inputPeerChannelFromMessage, built from
+// message msgID in chat msgPeer that mentions the peer (e.g. its author).
+//
+// See https://core.telegram.org/api/min.
+func (ent Entities) ExtractPeerFromMessage(
+	peerID tg.PeerClass,
+	msgPeer tg.InputPeerClass,
+	msgID int,
+) (tg.InputPeerClass, error) {
+	p, err := ent.ExtractPeer(peerID)
+	if !errors.Is(err, ErrMinPeer) {
+		return p, err
+	}
+
+	switch v := peerID.(type) {
+	case *tg.PeerUser:
+		return &tg.InputPeerUserFromMessage{
+			Peer:   msgPeer,
+			MsgID:  msgID,
+			UserID: v.UserID,
+		}, nil
+	case *tg.PeerChannel:
+		return &tg.InputPeerChannelFromMessage{
+			Peer:      msgPeer,
+			MsgID:     msgID,
+			ChannelID: v.ChannelID,
+		}, nil
+	default:
+		return nil, err
+	}
 }
 
 // User finds user by given ID.

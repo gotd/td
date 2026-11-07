@@ -3,6 +3,8 @@ package telegram_test
 import (
 	"bytes"
 	"context"
+	"fmt"
+	"io"
 	"sync"
 	"testing"
 	"time"
@@ -428,4 +430,64 @@ func testFiles(p dcs.Protocol) func(t *testing.T) {
 
 func TestFiles(t *testing.T) {
 	t.Run("Intermediate", testFiles(transport.Intermediate))
+}
+
+func TestFileReferenceRefresh(t *testing.T) {
+	var f *file.Service
+	testCluster(transport.Intermediate, false, func(s clusterSetup) {
+		c := s.Cluster
+		c.Common().Vector(tg.UsersGetUsersRequestTypeID, user)
+		f = file.NewService(file.Config{HashPartSize: 1024})
+		f.Register(c.Dispatch(2, "DC"))
+	}, func(ctx context.Context, c clientSetup) error {
+		client := telegram.NewClient(1, "hash", c.Options)
+		defer c.Complete()
+		return client.Run(ctx, func(ctx context.Context) error {
+			raw := tg.NewClient(client)
+			payload := bytes.Repeat([]byte{42}, 16384+7)
+			uploaded, err := uploader.NewUploader(raw).FromBytes(ctx, "doc.bin", payload)
+			if err != nil {
+				return err
+			}
+			fileID := uploaded.(interface{ GetID() int64 }).GetID()
+			name := fmt.Sprintf("10_%d", fileID)
+
+			doc, err := f.Document(name, 100)
+			if err != nil {
+				return err
+			}
+			stale := doc.AsInputDocumentFileLocation("")
+			f.ExpireFileReference(100)
+
+			// Without refresh: FILE_REFERENCE_EXPIRED from server.
+			_, err = downloader.NewDownloader().Download(raw, stale).Stream(ctx, io.Discard)
+			if !downloader.IsFileReferenceError(err) {
+				return errors.Errorf("expected file reference error, got %v", err)
+			}
+
+			var refreshes int
+			var b bytes.Buffer
+			_, err = downloader.NewDownloader().Download(raw, stale).
+				WithVerify(true).
+				WithRefresh(func(ctx context.Context) (tg.InputFileLocationClass, error) {
+					refreshes++
+					fresh, err := f.Document(name, 100)
+					if err != nil {
+						return nil, err
+					}
+					return fresh.AsInputDocumentFileLocation(""), nil
+				}).
+				Stream(ctx, &b)
+			if err != nil {
+				return err
+			}
+			if !bytes.Equal(payload, b.Bytes()) {
+				c.TB.Error("must be equal")
+			}
+			if refreshes != 1 {
+				c.TB.Errorf("expected 1 refresh, got %d", refreshes)
+			}
+			return nil
+		})
+	})(t)
 }

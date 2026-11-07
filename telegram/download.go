@@ -10,11 +10,18 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+// downloadClient is a downloader.Client that serves CDN redirects through
+// CDN pools of the client.
 type downloadClient struct {
 	client *Client
+	// raw is the invoker for master DC requests; nil means client.API().
+	raw *tg.Client
 }
 
 func (d downloadClient) api() *tg.Client {
+	if d.raw != nil {
+		return d.raw
+	}
 	return d.client.API()
 }
 
@@ -62,7 +69,16 @@ func (d downloadClient) UploadGetWebFile(
 }
 
 func (d downloadClient) CDN(ctx context.Context, dc int, max int64) (downloader.CDN, io.Closer, error) {
-	invoker, err := d.client.CDN(ctx, dc, max)
+	return cdnProvider{client: d.client}.CDN(ctx, dc, max)
+}
+
+// cdnProvider implements downloader.CDNProvider using CDN pools of the client.
+type cdnProvider struct {
+	client *Client
+}
+
+func (p cdnProvider) CDN(ctx context.Context, dc int, max int64) (downloader.CDN, io.Closer, error) {
+	invoker, err := p.client.CDN(ctx, dc, max)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -83,12 +99,36 @@ func (c *Client) Downloader() *downloader.Downloader {
 	return downloader.NewDownloader().WithAllowCDN(c.allowCDN)
 }
 
+// CDNProvider returns downloader.CDNProvider that serves CDN redirects using
+// cached CDN pools of the client.
+//
+// Wrap any downloader.Client with it via downloader.WithCDNProvider to enable
+// CDN downloads through it.
+func (c *Client) CDNProvider() downloader.CDNProvider {
+	return cdnProvider{client: c}
+}
+
 // Download creates Builder for plain file downloads.
 func (c *Client) Download(location tg.InputFileLocationClass) *downloader.Builder {
 	return c.Downloader().Download(downloadClient{client: c}, location)
 }
 
+// DownloadVia creates Builder for plain file downloads, sending requests to
+// master DC through given invoker, e.g. a pool from Client.Pool, Client.DC or
+// Client.MediaOnly.
+//
+// Unlike passing tg.NewClient(invoker) to downloader directly, CDN redirects
+// are served through CDN pools of the client (if CDN is allowed).
+func (c *Client) DownloadVia(invoker tg.Invoker, location tg.InputFileLocationClass) *downloader.Builder {
+	return c.Downloader().Download(downloadClient{client: c, raw: tg.NewClient(invoker)}, location)
+}
+
 // DownloadWeb creates Builder for web file downloads.
 func (c *Client) DownloadWeb(location tg.InputWebFileLocationClass) *downloader.Builder {
 	return c.Downloader().Web(downloadClient{client: c}, location)
+}
+
+// DownloadWebVia creates Builder for web file downloads through given invoker.
+func (c *Client) DownloadWebVia(invoker tg.Invoker, location tg.InputWebFileLocationClass) *downloader.Builder {
+	return c.Downloader().Web(downloadClient{client: c, raw: tg.NewClient(invoker)}, location)
 }
