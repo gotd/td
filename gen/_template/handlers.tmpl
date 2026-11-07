@@ -4,14 +4,21 @@
 
 type Handler = func(context.Context, Entities, UpdateClass) error
 
+// UpdateDispatcher dispatches updates to registered handlers.
+//
+// Copies of UpdateDispatcher share registered handlers, so it is safe to
+// pass it by value and to register handlers (including fallback) after the
+// copy was made or while updates are dispatched.
+//
+// Use NewUpdateDispatcher to create UpdateDispatcher; zero value is not usable.
 type UpdateDispatcher struct {
-    handlers map[uint32]Handler
-	fallback Handler
+	state *dispatcherState
 }
 
+// NewUpdateDispatcher creates new UpdateDispatcher.
 func NewUpdateDispatcher() UpdateDispatcher {
     return UpdateDispatcher{
-        handlers: map[uint32]Handler{},
+        state: newDispatcherState(),
     }
 }
 
@@ -92,15 +99,11 @@ func (u UpdateDispatcher) dispatch(ctx context.Context, e Entities, update Updat
     if update == nil {
         return nil
     }
-    typeID := update.TypeID()
-    handler, ok := u.handlers[typeID]
-	if ok {
-		return handler(ctx, e, update)
+	handler := u.state.handler(update.TypeID())
+	if handler == nil {
+		return nil
 	}
-	if u.fallback != nil {
-		return u.fallback(ctx, e, update)
-	}
-	return nil
+	return handler(ctx, e, update)
 }
 
 {{- range $s := $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
@@ -110,15 +113,15 @@ type {{ $eventName }}Handler func(ctx context.Context, e Entities, update *{{ $s
 
 // On{{ $eventName }} sets {{ $eventName }} handler.
 func (u UpdateDispatcher) On{{ $eventName }}(handler {{ $eventName }}Handler) {
-    u.handlers[{{ $s.Name }}TypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+    u.state.set({{ $s.Name }}TypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
         return handler(ctx, e, update.(*{{ $s.Name }}))
-    }
+    })
 }
 {{- end }}{{ end }}
 
-// OnFallback sets fallback handler.
-func (u *UpdateDispatcher) OnFallback(handler Handler) {
-    u.fallback = handler
+// OnFallback sets fallback handler, called for updates without handler.
+func (u UpdateDispatcher) OnFallback(handler Handler) {
+    u.state.setFallback(handler)
 }
 
 {{ end }}
