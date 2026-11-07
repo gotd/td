@@ -68,6 +68,9 @@ type Options struct {
 	OnConnectionState func(ConnectionState)
 	// MigrationTimeout configures migration timeout.
 	MigrationTimeout time.Duration
+	// FilePoolSize is the max number of connections of each pool returned by
+	// Client.FileDC. Defaults to 4.
+	FilePoolSize int64
 
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
