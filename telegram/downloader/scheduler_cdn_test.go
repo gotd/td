@@ -43,6 +43,42 @@ func TestSchedulerBackoff(t *testing.T) {
 
 	s.release(ctx, epoch, nil)
 	require.Zero(t, s.Snapshot().InFlight)
+
+	// Repeated timeouts of one stuck request halve the window once.
+	s = NewScheduler(SchedulerOptions{Min: 1, Start: 8, Max: 16})
+	epoch, err = s.acquire(ctx)
+	require.NoError(t, err)
+	timeout := tgerr.New(500, tg.ErrTimeout)
+	for i := 0; i < 3; i++ {
+		epoch = s.backoff(ctx, epoch, timeout)
+	}
+	require.Equal(t, 4, s.Snapshot().Window)
+	require.EqualValues(t, 1, s.Snapshot().Decreases)
+	s.release(ctx, epoch, timeout)
+	require.EqualValues(t, 1, s.Snapshot().Decreases, "release of same request does not decrease again")
+}
+
+func TestSchedulerRetryExhausted(t *testing.T) {
+	ctx := context.Background()
+	s := NewScheduler(SchedulerOptions{Min: 1, Start: 8, Max: 16})
+	epoch, err := s.acquire(ctx)
+	require.NoError(t, err)
+	rep := &backoffReporter{sch: s, epoch: epoch}
+
+	// A request that times out until retries are exhausted, then fails.
+	calls := 0
+	_, err = retryRequest(withBackoffReporter(ctx, rep), "test", nil, func() (int, error) {
+		calls++
+		return 0, tgerr.New(500, tg.ErrTimeout)
+	})
+	require.Error(t, err)
+	require.Equal(t, maxRetryAttempts, calls)
+	rep.release(ctx, err)
+
+	snap := s.Snapshot()
+	require.EqualValues(t, 1, snap.Decreases, "one stuck request must decrease window once")
+	require.Equal(t, 4, snap.Window)
+	require.Zero(t, snap.InFlight)
 }
 
 // newSchedulerCDNMock returns mock that redirects whole file to CDN.
@@ -118,6 +154,9 @@ func (p *cdnFloodProvider) CDN(ctx context.Context, dc int, max int64) (CDN, io.
 	return p, noopCloser{}, nil
 }
 
+// TestSchedulerCDNFloodWait is regression coverage: flood waits of
+// upload.getCdnFile reach the reader, so they were seen by Scheduler before
+// CDN-internal retries were reported too.
 func TestSchedulerCDNFloodWait(t *testing.T) {
 	ctx := context.Background()
 	base := newSchedulerCDNMock(t)

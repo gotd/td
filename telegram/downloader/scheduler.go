@@ -58,11 +58,15 @@ type SchedulerSnapshot struct {
 // halved on flood wait or timeout, at most once per window of requests in
 // flight: concurrent requests failing together halve it once.
 //
-// Flood waits and timeouts retried inside the CDN download path (after
-// upload.fileCdnRedirect) decrease the window too. Use one Scheduler per DC (or per
-// connection pool), and pass it to downloads via Downloader.WithScheduler or
-// Builder.WithScheduler; Builder.WithThreads still limits workers of one
-// download, so set it high enough to fill the window.
+// Flood waits and timeouts that the CDN download path retries internally,
+// e.g. when refreshing an expired redirect via master DC, decrease the window
+// too, while the request keeps its slot. Repeated timeouts of one request
+// decrease it at most once.
+//
+// Use one Scheduler per DC (or per connection pool), and pass it to downloads
+// via Downloader.WithScheduler or Builder.WithScheduler; Builder.WithThreads
+// still limits workers of one download, so set it high enough to fill the
+// window.
 type Scheduler struct {
 	mux       sync.Mutex
 	opts      SchedulerOptions
@@ -152,8 +156,10 @@ func (s *Scheduler) release(ctx context.Context, epoch uint64, err error) {
 // backoff decreases window on flood wait or timeout of a request that is
 // retried internally while holding its slot, e.g. by the CDN download path.
 //
-// Returns the epoch to use for further reports and release of this request,
-// so a request retried for a long time can decrease the window again.
+// Returns the epoch to use for further reports and release of this request.
+// A flood wait is an explicit signal of the server, so each one of a request
+// retried for a long time can decrease the window again. A timeout is not:
+// repeated timeouts of one stuck request decrease the window at most once.
 func (s *Scheduler) backoff(ctx context.Context, epoch uint64, err error) uint64 {
 	if !isSchedulerBackoff(ctx, err) {
 		return epoch
@@ -161,6 +167,9 @@ func (s *Scheduler) backoff(ctx context.Context, epoch uint64, err error) uint64
 	s.mux.Lock()
 	defer s.mux.Unlock()
 	s.decrease(epoch)
+	if _, ok := tgerr.AsFloodWait(err); !ok {
+		return epoch
+	}
 	return s.epoch
 }
 
