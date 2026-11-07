@@ -228,6 +228,18 @@ func (b *GetHistoryQueryBuilder) OffsetID(offsetID int) *GetHistoryQueryBuilder 
 	return b
 }
 
+// MaxID sets MaxID field of GetHistory query.
+func (b *GetHistoryQueryBuilder) MaxID(paramMaxID int) *GetHistoryQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetHistory query.
+func (b *GetHistoryQueryBuilder) MinID(paramMinID int) *GetHistoryQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // Peer sets Peer field of GetHistory query.
 func (b *GetHistoryQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetHistoryQueryBuilder {
 	b.req.Peer = paramPeer
@@ -248,6 +260,8 @@ func (b *GetHistoryQueryBuilder) Query(ctx context.Context, req Request) (tg.Mes
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.Peer = b.req.Peer
 	r.AddOffset = req.AddOffset
 	r.OffsetDate = req.OffsetDate
@@ -327,6 +341,18 @@ func (b *GetPersonalChannelHistoryQueryBuilder) BatchSize(batchSize int) *GetPer
 	return b
 }
 
+// MaxID sets MaxID field of GetPersonalChannelHistory query.
+func (b *GetPersonalChannelHistoryQueryBuilder) MaxID(paramMaxID int) *GetPersonalChannelHistoryQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetPersonalChannelHistory query.
+func (b *GetPersonalChannelHistoryQueryBuilder) MinID(paramMinID int) *GetPersonalChannelHistoryQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // UserID sets UserID field of GetPersonalChannelHistory query.
 func (b *GetPersonalChannelHistoryQueryBuilder) UserID(paramUserID tg.InputUserClass) *GetPersonalChannelHistoryQueryBuilder {
 	b.req.UserID = paramUserID
@@ -339,6 +365,8 @@ func (b *GetPersonalChannelHistoryQueryBuilder) Query(ctx context.Context, req R
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.UserID = b.req.UserID
 	return b.raw.MessagesGetPersonalChannelHistory(ctx, r)
 }
@@ -554,6 +582,18 @@ func (b *GetRepliesQueryBuilder) OffsetID(offsetID int) *GetRepliesQueryBuilder 
 	return b
 }
 
+// MaxID sets MaxID field of GetReplies query.
+func (b *GetRepliesQueryBuilder) MaxID(paramMaxID int) *GetRepliesQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetReplies query.
+func (b *GetRepliesQueryBuilder) MinID(paramMinID int) *GetRepliesQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // MsgID sets MsgID field of GetReplies query.
 func (b *GetRepliesQueryBuilder) MsgID(paramMsgID int) *GetRepliesQueryBuilder {
 	b.req.MsgID = paramMsgID
@@ -580,6 +620,8 @@ func (b *GetRepliesQueryBuilder) Query(ctx context.Context, req Request) (tg.Mes
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.MsgID = b.req.MsgID
 	r.Peer = b.req.Peer
 	r.AddOffset = req.AddOffset
@@ -692,6 +734,18 @@ func (b *GetSavedHistoryQueryBuilder) OffsetID(offsetID int) *GetSavedHistoryQue
 	return b
 }
 
+// MaxID sets MaxID field of GetSavedHistory query.
+func (b *GetSavedHistoryQueryBuilder) MaxID(paramMaxID int) *GetSavedHistoryQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetSavedHistory query.
+func (b *GetSavedHistoryQueryBuilder) MinID(paramMinID int) *GetSavedHistoryQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // ParentPeer sets ParentPeer field of GetSavedHistory query.
 func (b *GetSavedHistoryQueryBuilder) ParentPeer(paramParentPeer tg.InputPeerClass) *GetSavedHistoryQueryBuilder {
 	b.req.ParentPeer = paramParentPeer
@@ -718,6 +772,8 @@ func (b *GetSavedHistoryQueryBuilder) Query(ctx context.Context, req Request) (t
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.ParentPeer = b.req.ParentPeer
 	r.Peer = b.req.Peer
 	r.AddOffset = req.AddOffset
@@ -822,6 +878,18 @@ func (b *GetUnreadMentionsQueryBuilder) OffsetID(offsetID int) *GetUnreadMention
 	return b
 }
 
+// MaxID sets MaxID field of GetUnreadMentions query.
+func (b *GetUnreadMentionsQueryBuilder) MaxID(paramMaxID int) *GetUnreadMentionsQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetUnreadMentions query.
+func (b *GetUnreadMentionsQueryBuilder) MinID(paramMinID int) *GetUnreadMentionsQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // Peer sets Peer field of GetUnreadMentions query.
 func (b *GetUnreadMentionsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetUnreadMentionsQueryBuilder {
 	b.req.Peer = paramPeer
@@ -848,6 +916,8 @@ func (b *GetUnreadMentionsQueryBuilder) Query(ctx context.Context, req Request) 
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.Peer = b.req.Peer
 	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
@@ -950,6 +1020,18 @@ func (b *GetUnreadPollVotesQueryBuilder) OffsetID(offsetID int) *GetUnreadPollVo
 	return b
 }
 
+// MaxID sets MaxID field of GetUnreadPollVotes query.
+func (b *GetUnreadPollVotesQueryBuilder) MaxID(paramMaxID int) *GetUnreadPollVotesQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetUnreadPollVotes query.
+func (b *GetUnreadPollVotesQueryBuilder) MinID(paramMinID int) *GetUnreadPollVotesQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // Peer sets Peer field of GetUnreadPollVotes query.
 func (b *GetUnreadPollVotesQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetUnreadPollVotesQueryBuilder {
 	b.req.Peer = paramPeer
@@ -976,6 +1058,8 @@ func (b *GetUnreadPollVotesQueryBuilder) Query(ctx context.Context, req Request)
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.Peer = b.req.Peer
 	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
@@ -1079,6 +1163,18 @@ func (b *GetUnreadReactionsQueryBuilder) OffsetID(offsetID int) *GetUnreadReacti
 	return b
 }
 
+// MaxID sets MaxID field of GetUnreadReactions query.
+func (b *GetUnreadReactionsQueryBuilder) MaxID(paramMaxID int) *GetUnreadReactionsQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
+// MinID sets MinID field of GetUnreadReactions query.
+func (b *GetUnreadReactionsQueryBuilder) MinID(paramMinID int) *GetUnreadReactionsQueryBuilder {
+	b.req.MinID = paramMinID
+	return b
+}
+
 // Peer sets Peer field of GetUnreadReactions query.
 func (b *GetUnreadReactionsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetUnreadReactionsQueryBuilder {
 	b.req.Peer = paramPeer
@@ -1111,6 +1207,8 @@ func (b *GetUnreadReactionsQueryBuilder) Query(ctx context.Context, req Request)
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
+	r.MinID = b.req.MinID
 	r.Peer = b.req.Peer
 	r.SavedPeerID = b.req.SavedPeerID
 	r.TopMsgID = b.req.TopMsgID
@@ -1235,9 +1333,21 @@ func (b *SearchQueryBuilder) MaxDate(paramMaxDate int) *SearchQueryBuilder {
 	return b
 }
 
+// MaxID sets MaxID field of Search query.
+func (b *SearchQueryBuilder) MaxID(paramMaxID int) *SearchQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
 // MinDate sets MinDate field of Search query.
 func (b *SearchQueryBuilder) MinDate(paramMinDate int) *SearchQueryBuilder {
 	b.req.MinDate = paramMinDate
+	return b
+}
+
+// MinID sets MinID field of Search query.
+func (b *SearchQueryBuilder) MinID(paramMinID int) *SearchQueryBuilder {
+	b.req.MinID = paramMinID
 	return b
 }
 
@@ -1392,7 +1502,9 @@ func (b *SearchQueryBuilder) Query(ctx context.Context, req Request) (tg.Message
 	r.Filter = b.req.Filter
 	r.FromID = b.req.FromID
 	r.MaxDate = b.req.MaxDate
+	r.MaxID = b.req.MaxID
 	r.MinDate = b.req.MinDate
+	r.MinID = b.req.MinID
 	r.Peer = b.req.Peer
 	r.Q = b.req.Q
 	r.SavedPeerID = b.req.SavedPeerID

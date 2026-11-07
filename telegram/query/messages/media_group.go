@@ -74,6 +74,18 @@ func (q *QueryBuilder) getMessages(
 	peer tg.InputPeerClass,
 	ids []tg.InputMessageClass,
 ) ([]tg.MessageClass, error) {
+	res, err := q.getMessagesResult(ctx, peer, ids)
+	if err != nil {
+		return nil, err
+	}
+	return res.GetMessages(), nil
+}
+
+func (q *QueryBuilder) getMessagesResult(
+	ctx context.Context,
+	peer tg.InputPeerClass,
+	ids []tg.InputMessageClass,
+) (tg.ModifiedMessagesMessages, error) {
 	var (
 		res tg.MessagesMessagesClass
 		err error
@@ -96,5 +108,5 @@ func (q *QueryBuilder) getMessages(
 	if !ok {
 		return nil, errors.Errorf("unexpected response %T", res)
 	}
-	return modified.GetMessages(), nil
+	return modified, nil
 }
