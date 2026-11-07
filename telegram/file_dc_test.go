@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -90,4 +91,72 @@ func TestClientFileDC(t *testing.T) {
 	client.fileInvokersMux.Lock()
 	require.Len(t, client.fileInvokers, 3, "invokers are cached per DC")
 	client.fileInvokersMux.Unlock()
+}
+
+func TestClientFileDCNotRunning(t *testing.T) {
+	client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
+		return nil, tgerr.New(400, "UNEXPECTED")
+	})
+	client.ctx = nil
+
+	_, err := client.FileDC(context.Background(), 4)
+	require.ErrorIs(t, err, errClientNotRunning)
+}
+
+func TestClientFileDCUnauthorizedTransfer(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	s := &subConnsTestServer{
+		exports: map[int]int{},
+		block:   map[int]chan struct{}{},
+		fail:    map[int]int{},
+	}
+	var (
+		mux        sync.Mutex
+		exported   bool
+		authorized bool
+	)
+	client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
+		switch body.(type) {
+		case *tg.AuthExportAuthorizationRequest:
+			mux.Lock()
+			first := !exported
+			exported = true
+			mux.Unlock()
+			if first {
+				// Not signed in yet: transfer fails, pool is still returned.
+				_, _ = s.handle(id, dc, body)
+				return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
+			}
+		case *tg.AuthImportAuthorizationRequest:
+			mux.Lock()
+			authorized = true
+			mux.Unlock()
+		case *tg.UploadGetFileRequest:
+			mux.Lock()
+			ok := authorized
+			mux.Unlock()
+			if !ok {
+				return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
+			}
+			return &tg.UploadFile{Type: &tg.StorageFileUnknown{}, Bytes: []byte{byte(dc)}}, nil
+		}
+		return s.handle(id, dc, body)
+	})
+	client.onTransfer = noopOnTransfer
+	cfg := client.cfg.Load()
+	cfg.DCOptions = append(cfg.DCOptions, tg.DCOption{ID: 4, IPAddress: "dc"})
+	client.cfg.Store(cfg)
+
+	inv, err := client.FileDC(ctx, 4)
+	require.NoError(t, err)
+
+	r, err := tg.NewClient(inv).UploadGetFile(ctx, &tg.UploadGetFileRequest{
+		Location: &tg.InputDocumentFileLocation{ID: 1},
+		Limit:    1024,
+	})
+	require.NoError(t, err, "pool with failed transfer must be recreated")
+	require.Equal(t, byte(4), r.(*tg.UploadFile).Bytes[0])
+	require.Equal(t, 2, s.exportCount(4))
 }

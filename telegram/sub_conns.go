@@ -48,6 +48,23 @@ func (p *dcPoolCache) drain() []CloseInvoker {
 	return conns
 }
 
+// evict removes conn from cache if it is still the cached pool of dc and
+// closes it.
+func (p *dcPoolCache) evict(dc int, conn CloseInvoker) {
+	p.mux.Lock()
+	cur, ok := p.conns[dc]
+	if !ok || cur != conn {
+		p.mux.Unlock()
+		return
+	}
+	delete(p.conns, dc)
+	p.mux.Unlock()
+	_ = conn.Close()
+}
+
+// errClientNotRunning is returned when DC pool is requested before Run.
+var errClientNotRunning = errors.New("client is not running")
+
 func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, output bin.Decoder) error {
 	conn, err := c.cachedDC(ctx, c.subConns, dc)
 	if err != nil {
@@ -64,6 +81,10 @@ func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, outpu
 // canceled when the caller that started it gives up. Failed creation is not
 // cached.
 func (c *Client) cachedDC(ctx context.Context, cache *dcPoolCache, dc int) (CloseInvoker, error) {
+	if c.ctx == nil {
+		// Pools are bound to client context, which is set by Run.
+		return nil, errClientNotRunning
+	}
 	cache.mux.Lock()
 	if conn, ok := cache.conns[dc]; ok {
 		cache.mux.Unlock()
@@ -89,9 +110,6 @@ func (c *Client) createCachedDC(ctx context.Context, cache *dcPoolCache, dc int,
 	// Keep caller values (tracing, logging), but not its cancellation:
 	// creation is shared by all callers waiting for this DC.
 	clientCtx := c.ctx
-	if clientCtx == nil {
-		clientCtx = context.Background()
-	}
 	cctx, cancel := context.WithCancel(context.WithoutCancel(ctx))
 	defer cancel()
 	stop := context.AfterFunc(clientCtx, cancel)
