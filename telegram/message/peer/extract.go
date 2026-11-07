@@ -88,7 +88,9 @@ func (ent Entities) FillFromUpdate(uctx tg.Entities) {
 // Fill adds and updates all entities from given maps.
 //
 // Min users and channels (see https://core.telegram.org/api/min) do not
-// replace full ones: they have no usable access hash.
+// replace full ones, as they have no usable access hash. Instead, the fields
+// a min constructor is known to carry are merged into the full one, like
+// TDLib does, see MergeMinUser and MergeMinChannel.
 func (ent Entities) Fill(
 	users map[int64]*tg.User,
 	chats map[int64]*tg.Chat,
@@ -96,7 +98,7 @@ func (ent Entities) Fill(
 ) {
 	for k, v := range users {
 		if old, ok := ent.users[k]; ok && v.Min && !old.Min {
-			continue
+			v = MergeMinUser(old, v)
 		}
 		ent.users[k] = v
 	}
@@ -107,10 +109,136 @@ func (ent Entities) Fill(
 
 	for k, v := range channels {
 		if old, ok := ent.channels[k]; ok && v.Min && !old.Min {
-			continue
+			v = MergeMinChannel(old, v)
 		}
 		ent.channels[k] = v
 	}
+}
+
+// MergeMinUser returns a copy of full user updated with fields of min user
+// that min constructors carry reliably, following TDLib
+// (UserManager::on_get_user).
+//
+// Access hash, name, usernames, phone and contact state are kept from full.
+// Photo is taken from min only if full has ApplyMinPhoto set, and status only
+// if full has none. A deleted min copy of self is ignored, as in TDLib.
+func MergeMinUser(full, min *tg.User) *tg.User {
+	u := *full
+	if full.Self && min.Deleted {
+		// TDLib ignores self as deleted min user: it is a frozen account
+		// seen in a min context, not a deletion.
+		return &u
+	}
+
+	u.Deleted = min.Deleted
+	u.Verified = min.Verified
+	u.Premium = min.Premium
+	u.Support = min.Support
+	u.Scam = min.Scam
+	u.Fake = min.Fake
+	u.Restricted = min.Restricted
+	u.RestrictionReason = min.RestrictionReason
+
+	u.Bot = min.Bot
+	u.BotChatHistory = min.BotChatHistory
+	u.BotNochats = min.BotNochats
+	u.BotInlineGeo = min.BotInlineGeo
+	u.BotAttachMenu = min.BotAttachMenu
+	u.BotBusiness = min.BotBusiness
+	u.BotHasMainApp = min.BotHasMainApp
+	u.BotForumView = min.BotForumView
+	u.BotForumCanManageTopics = min.BotForumCanManageTopics
+	u.BotCanManageBots = min.BotCanManageBots
+	u.BotGuestchat = min.BotGuestchat
+	u.BotInfoVersion = min.BotInfoVersion
+	u.BotInlinePlaceholder = min.BotInlinePlaceholder
+	u.BotActiveUsers = min.BotActiveUsers
+	u.BotVerificationIcon = min.BotVerificationIcon
+
+	u.ContactRequirePremium = min.ContactRequirePremium
+	u.SendPaidMessagesStars = min.SendPaidMessagesStars
+	u.EmojiStatus = min.EmojiStatus
+	u.Color = min.Color
+	u.ProfileColor = min.ProfileColor
+	if min.LangCode != "" {
+		u.LangCode = min.LangCode
+	}
+	if min.StoriesMaxID.MaxID > 0 || min.StoriesUnavailable {
+		u.StoriesMaxID = min.StoriesMaxID
+		u.StoriesUnavailable = min.StoriesUnavailable
+	}
+	if full.ApplyMinPhoto {
+		u.Photo = min.Photo
+	}
+	if full.Status == nil {
+		u.Status = min.Status
+	}
+
+	// Flags of the copy describe full, not the merged fields: recompute them,
+	// so that getters and encoding match the fields.
+	u.Flags, u.Flags2 = 0, 0
+	u.SetFlags()
+
+	return &u
+}
+
+// MergeMinChannel returns a copy of full channel updated with fields of min
+// channel that min constructors carry reliably, following TDLib
+// (ChatManager::on_get_channel).
+//
+// Access hash, participant status (creator, left, admin and banned rights),
+// date, signatures, participant count and colors are kept from full, and the
+// photo too if the current user is banned from the channel.
+func MergeMinChannel(full, min *tg.Channel) *tg.Channel {
+	c := *full
+
+	c.Title = min.Title
+	c.Username = min.Username
+	c.Usernames = min.Usernames
+	if !channelBanned(full) {
+		// TDLib keeps the photo of a channel the user is banned from.
+		c.Photo = min.Photo
+	}
+	c.EmojiStatus = min.EmojiStatus
+	// Colors are not applied from min channels, as in TDLib.
+
+	c.HasGeo = min.HasGeo
+	c.HasLink = min.HasLink
+	c.Noforwards = min.Noforwards
+	c.Forum = min.Forum
+	c.ForumTabs = min.ForumTabs
+	c.SlowmodeEnabled = min.SlowmodeEnabled
+	c.Megagroup = min.Megagroup
+	c.Broadcast = min.Broadcast
+	c.Gigagroup = min.Gigagroup
+	c.Monoforum = min.Monoforum
+	c.Verified = min.Verified
+	c.Scam = min.Scam
+	c.Fake = min.Fake
+	c.Autotranslation = min.Autotranslation
+	c.BroadcastMessagesAllowed = min.BroadcastMessagesAllowed
+	c.JoinToSend = min.JoinToSend
+	c.JoinRequest = min.JoinRequest
+	c.LinkedMonoforumID = min.LinkedMonoforumID
+	c.Level = min.Level
+	c.SendPaidMessagesStars = min.SendPaidMessagesStars
+	c.Restricted = min.Restricted
+	c.RestrictionReason = min.RestrictionReason
+	c.BotVerificationIcon = min.BotVerificationIcon
+	c.DefaultBannedRights = min.DefaultBannedRights
+
+	// Flags of the copy describe full, not the merged fields: recompute them,
+	// so that getters and encoding match the fields.
+	c.Flags, c.Flags2 = 0, 0
+	c.SetFlags()
+
+	return &c
+}
+
+// channelBanned reports whether the current user is banned (kicked) from
+// channel.
+func channelBanned(c *tg.Channel) bool {
+	return c.BannedRights.ViewMessages
 }
 
 // ErrMinPeer means that peer is known only as min constructor, which has no
