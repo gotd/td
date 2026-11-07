@@ -110,8 +110,10 @@ type Client struct {
 	restart chan struct{} // immutable
 
 	// Connections to non-primary DC.
-	subConns    map[int]CloseInvoker
-	subConnsMux sync.Mutex
+	subConns map[int]CloseInvoker
+	// subConnsPending stores in-flight sub-connection creations.
+	subConnsPending map[int]*subConnCall
+	subConnsMux     sync.Mutex
 	// Shared CDN pools and handle references.
 	cdnPools cdnPoolManager
 	// sessions stores regular non-primary DC sessions.
@@ -274,6 +276,7 @@ func (c *Client) init() {
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
+	c.subConnsPending = map[int]*subConnCall{}
 	c.cdnPools = newCDNPoolManager()
 	// CDN key cache is cold-started and filled lazily on first CDN pool create.
 	c.cdnKeys = nil
