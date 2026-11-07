@@ -61,6 +61,11 @@ func retryRequest[T any](
 		}
 
 		result, err := fn()
+		if err != nil {
+			// Let Scheduler of the request shrink its window before the
+			// request is retried here, while still holding its slot.
+			reportBackoff(ctx, err)
+		}
 		if flood, waitErr := tgerr.FloodWait(ctx, err); waitErr != nil {
 			if flood {
 				// FloodWait helper already slept required amount.

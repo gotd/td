@@ -58,9 +58,8 @@ type SchedulerSnapshot struct {
 // halved on flood wait or timeout, at most once per window of requests in
 // flight: concurrent requests failing together halve it once.
 //
-// Flood waits and timeouts handled inside the CDN download path (after
-// upload.fileCdnRedirect) are retried there and are not seen by Scheduler,
-// so it limits CDN requests but does not adapt to CDN throttling. Use one Scheduler per DC (or per
+// Flood waits and timeouts retried inside the CDN download path (after
+// upload.fileCdnRedirect) decrease the window too. Use one Scheduler per DC (or per
 // connection pool), and pass it to downloads via Downloader.WithScheduler or
 // Builder.WithScheduler; Builder.WithThreads still limits workers of one
 // download, so set it high enough to fill the window.
@@ -145,19 +144,75 @@ func (s *Scheduler) release(ctx context.Context, epoch uint64, err error) {
 			s.successes = 0
 		}
 	case isSchedulerBackoff(ctx, err):
-		s.successes = 0
-		if epoch != s.epoch {
-			// Window was already decreased after this request was sent.
-			break
-		}
-		s.epoch++
-		s.decreases++
-		s.window /= 2
-		if s.window < s.opts.Min {
-			s.window = s.opts.Min
-		}
+		s.decrease(epoch)
 	}
 	s.notify()
+}
+
+// backoff decreases window on flood wait or timeout of a request that is
+// retried internally while holding its slot, e.g. by the CDN download path.
+//
+// Returns the epoch to use for further reports and release of this request,
+// so a request retried for a long time can decrease the window again.
+func (s *Scheduler) backoff(ctx context.Context, epoch uint64, err error) uint64 {
+	if !isSchedulerBackoff(ctx, err) {
+		return epoch
+	}
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	s.decrease(epoch)
+	return s.epoch
+}
+
+// decrease halves window, unless it was already decreased after the request
+// with given epoch was sent. Must be called with mux held.
+func (s *Scheduler) decrease(epoch uint64) {
+	s.successes = 0
+	if epoch != s.epoch {
+		// Window was already decreased after this request was sent.
+		return
+	}
+	s.epoch++
+	s.decreases++
+	s.window /= 2
+	if s.window < s.opts.Min {
+		s.window = s.opts.Min
+	}
+}
+
+// backoffReporter reports flood waits and timeouts retried inside a request
+// to Scheduler, see withBackoffReporter.
+type backoffReporter struct {
+	mux   sync.Mutex
+	sch   *Scheduler
+	epoch uint64
+}
+
+func (r *backoffReporter) report(ctx context.Context, err error) {
+	r.mux.Lock()
+	defer r.mux.Unlock()
+	r.epoch = r.sch.backoff(ctx, r.epoch, err)
+}
+
+func (r *backoffReporter) release(ctx context.Context, err error) {
+	r.mux.Lock()
+	epoch := r.epoch
+	r.mux.Unlock()
+	r.sch.release(ctx, epoch, err)
+}
+
+type backoffReporterKey struct{}
+
+func withBackoffReporter(ctx context.Context, r *backoffReporter) context.Context {
+	return context.WithValue(ctx, backoffReporterKey{}, r)
+}
+
+// reportBackoff reports flood wait or timeout that is retried internally to
+// Scheduler of the request, if any.
+func reportBackoff(ctx context.Context, err error) {
+	if r, ok := ctx.Value(backoffReporterKey{}).(*backoffReporter); ok {
+		r.report(ctx, err)
+	}
 }
 
 func isSchedulerBackoff(ctx context.Context, err error) bool {

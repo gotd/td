@@ -153,7 +153,8 @@ func (r *reader) chunk(ctx context.Context, offset int64, limit int) (chunk, err
 	if err != nil {
 		return chunk{}, err
 	}
-	ch, err := r.sch.Chunk(ctx, offset, limit)
-	r.scheduler.release(ctx, epoch, err)
+	rep := &backoffReporter{sch: r.scheduler, epoch: epoch}
+	ch, err := r.sch.Chunk(withBackoffReporter(ctx, rep), offset, limit)
+	rep.release(ctx, err)
 	return ch, err
 }
