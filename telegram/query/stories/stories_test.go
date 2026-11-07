@@ -61,9 +61,9 @@ func TestGetPinnedStories(t *testing.T) {
 	p := &tg.InputPeerSelf{}
 
 	mock.ExpectCall(&tg.StoriesGetPinnedStoriesRequest{Peer: p, Limit: 2}).
-		ThenResult(&tg.StoriesStories{Stories: []tg.StoryItemClass{story(10), &tg.StoryItemSkipped{ID: 9}}})
+		ThenResult(&tg.StoriesStories{Count: 3, Stories: []tg.StoryItemClass{story(10), &tg.StoryItemSkipped{ID: 9}}})
 	mock.ExpectCall(&tg.StoriesGetPinnedStoriesRequest{Peer: p, OffsetID: 9, Limit: 2}).
-		ThenResult(&tg.StoriesStories{Stories: []tg.StoryItemClass{story(8)}})
+		ThenResult(&tg.StoriesStories{Count: 3, Stories: []tg.StoryItemClass{story(8)}})
 
 	var got []int
 	var skipped int
@@ -80,12 +80,35 @@ func TestGetPinnedStories(t *testing.T) {
 	require.Equal(t, 1, skipped)
 }
 
+func TestGetPinnedStoriesShortPages(t *testing.T) {
+	// Server caps limit below batch size: short pages are not the end.
+	ctx := context.Background()
+	mock := tgmock.NewRequire(t)
+	p := &tg.InputPeerSelf{}
+	mock.ExpectCall(&tg.StoriesGetPinnedStoriesRequest{Peer: p, Limit: defaultBatchSize}).
+		ThenResult(&tg.StoriesStories{Count: 4, Stories: []tg.StoryItemClass{story(4), story(3)}})
+	mock.ExpectCall(&tg.StoriesGetPinnedStoriesRequest{Peer: p, OffsetID: 3, Limit: defaultBatchSize}).
+		ThenResult(&tg.StoriesStories{Count: 4, Stories: []tg.StoryItemClass{story(2), story(1)}})
+
+	var got []int
+	err := NewQueryBuilder(tg.NewClient(mock)).GetPinnedStories(p).
+		ForEach(ctx, func(ctx context.Context, raw tg.StoryItemClass, e Elem) error {
+			got = append(got, raw.GetID())
+			return nil
+		})
+	require.NoError(t, err)
+	require.Equal(t, []int{4, 3, 2, 1}, got)
+}
+
 func TestGetStoriesArchive(t *testing.T) {
 	ctx := context.Background()
 	mock := tgmock.NewRequire(t)
 	p := &tg.InputPeerSelf{}
 	mock.ExpectCall(&tg.StoriesGetStoriesArchiveRequest{Peer: p, OffsetID: 5, Limit: defaultBatchSize}).
-		ThenResult(&tg.StoriesStories{Stories: []tg.StoryItemClass{story(4)}})
+		ThenResult(&tg.StoriesStories{Count: 5, Stories: []tg.StoryItemClass{story(4)}})
+	// Resumed from offset: total is not comparable, the empty page ends it.
+	mock.ExpectCall(&tg.StoriesGetStoriesArchiveRequest{Peer: p, OffsetID: 4, Limit: defaultBatchSize}).
+		ThenResult(&tg.StoriesStories{Count: 5})
 
 	var got []int
 	err := NewQueryBuilder(tg.NewClient(mock)).GetStoriesArchive(p).OffsetID(5).

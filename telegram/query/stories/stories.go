@@ -164,10 +164,16 @@ func (b *StoriesQueryBuilder) OffsetID(offsetID int) *StoriesQueryBuilder {
 // fetch skipped ones.
 func (b *StoriesQueryBuilder) ForEach(ctx context.Context, cb func(ctx context.Context, raw tg.StoryItemClass, e Elem) error) error {
 	offset := b.offsetID
+	seen := 0
 	for {
 		res, err := b.fetch(ctx, offset, b.batchSize)
 		if err != nil {
 			return errors.Wrap(err, "get stories")
+		}
+		// The server may return fewer stories than requested before the
+		// end, so only an empty page or reaching the total ends iteration.
+		if len(res.Stories) == 0 {
+			return nil
 		}
 		e := peer.EntitiesFromResult(res)
 		for _, s := range res.Stories {
@@ -176,8 +182,9 @@ func (b *StoriesQueryBuilder) ForEach(ctx context.Context, cb func(ctx context.C
 				return err
 			}
 			offset = s.GetID()
+			seen++
 		}
-		if len(res.Stories) < b.batchSize {
+		if b.offsetID == 0 && res.Count > 0 && seen >= res.Count {
 			return nil
 		}
 	}
