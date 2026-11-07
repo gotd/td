@@ -259,3 +259,27 @@ func TestMetricsNil(t *testing.T) {
 	m.stopped(ctx, opHandle)
 	m.dispatch(ctx, sourceLive, 1)
 }
+
+func TestMetricsDifferenceDurationBuckets(t *testing.T) {
+	m := newTestMeter(t)
+	um := m.updatesMetrics()
+	um.difference(context.Background(), kindCommon, "empty", time.Now().Add(-30*time.Millisecond))
+
+	var rm metricdata.ResourceMetrics
+	require.NoError(t, m.reader.Collect(context.Background(), &rm))
+	for _, sm := range rm.ScopeMetrics {
+		for _, mt := range sm.Metrics {
+			if mt.Name != "gotd.updates.difference.duration" {
+				continue
+			}
+			dp := mt.Data.(metricdata.Histogram[float64]).DataPoints[0]
+			require.Equal(t, []float64{
+				0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 30, 60,
+			}, dp.Bounds, "second-based buckets")
+			// 30ms lands in the (0.025, 0.05] bucket.
+			require.Equal(t, uint64(1), dp.BucketCounts[3])
+			return
+		}
+	}
+	t.Fatal("no difference duration recorded")
+}

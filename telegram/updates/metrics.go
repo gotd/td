@@ -59,7 +59,16 @@ const (
 	trackCanceled = "canceled"
 )
 
+// durationBuckets are histogram buckets in seconds, the same as of the
+// telegram client: the SDK defaults are meant for milliseconds.
+var durationBuckets = metric.WithExplicitBucketBoundaries( // nolint:gochecknoglobals
+	0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 30, 60,
+)
+
 // Values of the "source" attribute of dispatched updates.
+//
+// Pending updates flushed while a difference is applied are counted as
+// sourceDifference, as they are passed to Handler with the difference.
 const (
 	sourceLive       = "live"
 	sourceDifference = "difference"
@@ -142,8 +151,12 @@ func newUpdatesMetrics(mp metric.MeterProvider, lg log.Helper) *updatesMetrics {
 			"Pts skipped by updates.channelDifferenceTooLong (RemotePts - LocalPts)"),
 		gapMessages: intHist("gotd.updates.channel.gap.messages", "{message}",
 			"Latest messages passed in ChannelGap.Messages"),
+		// A buffered batch is counted twice: once as buffered, and once as
+		// replayed (or passed_raw) when Run starts, so don't sum all actions.
+		// Batches received while the buffer is replayed are counted here too.
 		beforeRun: counter("gotd.updates.before_run", "{batch}",
-			"Updates received before Run by action (Config.BeforeRun)"),
+			"Updates received before Run by action (Config.BeforeRun); "+
+				"buffered batches are counted again when replayed"),
 		track: counter("gotd.updates.channel.track", "{request}",
 			"Channel tracking starts by source and result"),
 		inaccessible: counter("gotd.updates.channel.inaccessible", "{channel}",
@@ -158,6 +171,7 @@ func newUpdatesMetrics(mp metric.MeterProvider, lg log.Helper) *updatesMetrics {
 		opts := []metric.Float64HistogramOption{
 			metric.WithUnit("s"),
 			metric.WithDescription("Duration of updates.getDifference and updates.getChannelDifference calls"),
+			durationBuckets,
 		}
 		h, err := meter.Float64Histogram(name, opts...)
 		if err != nil {
