@@ -98,3 +98,30 @@ func TestGetMessagesWithEntities(t *testing.T) {
 	_, ok := elems[0].Entities.User(7)
 	require.True(t, ok)
 }
+
+func TestIteratorCursorGlobalRate(t *testing.T) {
+	ctx := context.Background()
+	mock := tgmock.NewRequire(t)
+	res := &tg.MessagesMessagesSlice{Count: 100, NextRate: 555}
+	for _, id := range []int{30, 20, 10} {
+		res.Messages = append(res.Messages, &tg.Message{ID: id, Date: id * 10, PeerID: &tg.PeerChannel{ChannelID: 1}})
+	}
+	res.Chats = []tg.ChatClass{&tg.Channel{ID: 1, AccessHash: 2, Photo: &tg.ChatPhotoEmpty{}}}
+	mock.ExpectCall(&tg.MessagesSearchGlobalRequest{
+		Q:          "q",
+		Filter:     &tg.InputMessagesFilterEmpty{},
+		OffsetPeer: &tg.InputPeerEmpty{},
+		OffsetRate: 999,
+		Limit:      3,
+	}).ThenResult(res)
+
+	iter := NewQueryBuilder(tg.NewClient(mock)).SearchGlobal().Q("q").BatchSize(3).Iter().OffsetRate(999)
+	require.True(t, iter.Next(ctx))
+	require.True(t, iter.Next(ctx))
+	// Mid-batch: the rate the batch was requested with (999) would restart
+	// at the batch start, so the message date is used, as tdlib does.
+	require.Equal(t, 200, iter.Cursor().OffsetRate)
+	require.True(t, iter.Next(ctx))
+	// Last element: same offset as the next request.
+	require.Equal(t, 555, iter.Cursor().OffsetRate)
+}

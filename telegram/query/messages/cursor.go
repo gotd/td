@@ -14,6 +14,9 @@ type Cursor struct {
 
 // Cursor returns position after the last element returned by Value, or the
 // initial offsets if no element was returned yet.
+//
+// OffsetRate (global search) is the date of the element, as tdlib does, or
+// next_rate returned by the server for the last element of a batch.
 func (m *Iterator) Cursor() Cursor {
 	if m.bufCur < 0 || m.bufCur >= len(m.buf) {
 		return Cursor{
@@ -24,10 +27,15 @@ func (m *Iterator) Cursor() Cursor {
 		}
 	}
 	elem := m.buf[m.bufCur]
+	rate := elem.Msg.GetDate()
+	if m.bufCur == len(m.buf)-1 && m.offsetRate > 0 {
+		// Same offset as the next request.
+		rate = m.offsetRate
+	}
 	return Cursor{
 		OffsetID:   elem.Msg.GetID(),
 		OffsetDate: elem.Msg.GetDate(),
-		OffsetRate: m.batchRate,
+		OffsetRate: rate,
 		OffsetPeer: elem.Peer,
 	}
 }

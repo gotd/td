@@ -33,8 +33,6 @@ type Iterator struct {
 	offsetDate int
 	offsetPeer tg.InputPeerClass
 	offsetRate int
-	// batchRate is the offsetRate of the request of current buffer.
-	batchRate int
 	// Remote state.
 	count    int
 	totalGot bool
@@ -186,7 +184,6 @@ func (m *Iterator) requestNext(ctx context.Context) error {
 		m.bufCur = -1
 		return nil
 	}
-	m.batchRate = m.offsetRate
 	r, err := m.query.Query(ctx, Request{
 		OffsetID:   m.offsetID,
 		AddOffset:  m.addOffset,

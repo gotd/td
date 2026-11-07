@@ -32,6 +32,10 @@ type Iterator struct {
 	offsetID   int
 	offsetDate int
 	offsetPeer tg.InputPeerClass
+	// Offsets the current batch was requested with.
+	batchOffsetID   int
+	batchOffsetDate int
+	batchOffsetPeer tg.InputPeerClass
 	// Remote state.
 	count    int
 	totalGot bool
@@ -141,13 +145,21 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 	m.bufCur = -1
 	m.buf = m.buf[:0]
 
+	// last is the last message of the last dialog that has one, used as
+	// offset of the next batch.
 	var last tg.NotEmptyMessage
 	for _, dlg := range dialogs {
-		var p tg.InputPeerClass = &tg.InputPeerEmpty{}
+		var (
+			p      tg.InputPeerClass = &tg.InputPeerEmpty{}
+			dlgMsg tg.NotEmptyMessage
+		)
 		if dlgPeer, ok := dialogPeer(dlg); ok {
 			var key DialogKey
 			if err := key.FromPeer(dlgPeer); err == nil {
-				last = msgMap[key]
+				if msg, ok := msgMap[key]; ok {
+					dlgMsg = msg
+					last = msg
+				}
 			}
 
 			if extracted, err := entities.ExtractPeer(dlgPeer); err == nil {
@@ -158,7 +170,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 		m.buf = append(m.buf, Elem{
 			Dialog:   dlg,
 			Peer:     p,
-			Last:     last,
+			Last:     dlgMsg,
 			Entities: entities,
 		})
 	}
@@ -190,6 +202,9 @@ func (m *Iterator) requestNext(ctx context.Context) error {
 		m.bufCur = -1
 		return nil
 	}
+	m.batchOffsetID = m.offsetID
+	m.batchOffsetDate = m.offsetDate
+	m.batchOffsetPeer = m.offsetPeer
 	r, err := m.query.Query(ctx, Request{
 		OffsetID:   m.offsetID,
 		OffsetDate: m.offsetDate,
