@@ -28,6 +28,10 @@ var _ telegram.UpdateHandler = (*Manager)(nil)
 type Manager struct {
 	state *internalState
 	mux   sync.Mutex
+	// started is true when internalState goroutine is started.
+	started bool
+	// pendingTracks are TrackChannel requests made before start.
+	pendingTracks []trackRequest
 
 	// immutable:
 
@@ -172,11 +176,34 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	if opt.OnStart != nil {
 		opt.OnStart(ctx)
 	}
+
+	m.mux.Lock()
+	state := m.state
+	pending := m.pendingTracks
+	m.pendingTracks = nil
+	m.started = true
+	m.mux.Unlock()
+	// internalState goroutine is not started yet, so it is safe to track
+	// channels directly.
+	for _, r := range pending {
+		if err := state.trackChannel(ctx, r); err != nil {
+			lg.Error(ctx, "Track channel error",
+				log.Int64("channel_id", r.channelID),
+				log.Error(err),
+			)
+		}
+	}
+
 	wg.Go(func() error {
-		return m.state.Run(ctx)
+		return state.Run(ctx)
 	})
 	lg.Debug(ctx, "Wait")
-	return wg.Wait()
+	err := wg.Wait()
+
+	m.mux.Lock()
+	m.started = false
+	m.mux.Unlock()
+	return err
 }
 
 // loadChannels loads the locally stored state of the user's channels.
@@ -249,4 +276,7 @@ func (m *Manager) Reset() {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 	m.state = nil
+	m.started = false
+	// Pending tracks belong to the previous user.
+	m.pendingTracks = nil
 }

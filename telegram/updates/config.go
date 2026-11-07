@@ -44,8 +44,9 @@ type Config struct {
 	// a channel during Run with forget=false (its access hash is missing), so
 	// the channel is skipped.
 	//
-	// Useful to detect that the channel may need to be resynchronized manually
-	// (optional).
+	// Useful to detect that the channel may need to be resynchronized manually,
+	// e.g. by calling Manager.TrackChannel with its access hash, which resumes
+	// from the stored pts (optional).
 	OnLoadChannelStateFailed func(channelID int64)
 	// State storage.
 	// In-mem used if not provided.

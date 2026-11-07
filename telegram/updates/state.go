@@ -64,6 +64,10 @@ type internalState struct {
 	// (CHANNEL_PRIVATE) so they can be dropped from the channels map. Only the
 	// internalState goroutine mutates the map, so this keeps access serialized.
 	removeChannel chan int64
+	// trackQueue receives requests to track channels (Manager.TrackChannel).
+	trackQueue chan trackRequest
+	// runCtx is the context of channel workers.
+	runCtx context.Context
 
 	// Immutable fields.
 	client                API
@@ -109,6 +113,8 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		externalQueue: make(chan tracedUpdate, 10),
 		internalQueue: make(chan tracedUpdate, 10),
 		affectedQueue: make(chan affectedUpdate, 10),
+		trackQueue:    make(chan trackRequest),
+		runCtx:        ctx,
 
 		date:        cfg.State.Date,
 		idleTimeout: time.NewTimer(idleTimeout),
@@ -150,11 +156,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 	})
 
 	for id, info := range cfg.Channels {
-		state := s.newChannelState(id, info.AccessHash, info.Pts)
-		s.channels[id] = state
-		s.wg.Go(func() error {
-			return state.Run(ctx)
-		})
+		s.startChannel(id, info.AccessHash, info.Pts)
 	}
 
 	return s
@@ -254,6 +256,8 @@ func (s *internalState) Run(ctx context.Context) error {
 			s.getDifferenceLogger(ctx, "idle-timeout")
 		case channelID := <-s.removeChannel:
 			s.removeChannelState(channelID)
+		case r := <-s.trackQueue:
+			r.result <- s.trackChannel(ctx, r)
 		}
 	}
 }
@@ -486,11 +490,7 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 			}
 		}
 
-		state = s.newChannelState(channelID, accessHash, localPts)
-		s.channels[channelID] = state
-		s.wg.Go(func() error {
-			return state.Run(ctx)
-		})
+		state = s.startChannel(channelID, accessHash, localPts)
 	}
 
 	return state.Push(ctx, cu)

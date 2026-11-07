@@ -54,6 +54,9 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 		case *tg.UpdateChannelTooLong:
 			st, ok := s.channels[u.ChannelID]
 			if !ok {
+				st, ok = s.trackTooLong(ctx, u, ents)
+			}
+			if !ok {
 				s.log.Debug(ctx, "ChannelTooLong for channel that is not in the internalState, update ignored", log.Int64("channel_id", u.ChannelID))
 				continue
 			}
