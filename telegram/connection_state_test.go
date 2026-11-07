@@ -32,8 +32,8 @@ func TestClient_notifyConnectionState(t *testing.T) {
 			states = append(states, s)
 		},
 	}
-	c.notifyConnectionState(ConnectionStateConnecting)
-	c.notifyConnectionState(ConnectionStateReady)
+	c.notifyConnectionState(ConnectionStateConnecting, 2)
+	c.notifyConnectionState(ConnectionStateReady, 2)
 	require.Equal(t, []ConnectionState{
 		ConnectionStateConnecting,
 		ConnectionStateReady,
@@ -42,7 +42,7 @@ func TestClient_notifyConnectionState(t *testing.T) {
 	// Callback is optional.
 	c = Client{}
 	require.NotPanics(t, func() {
-		c.notifyConnectionState(ConnectionStateReady)
+		c.notifyConnectionState(ConnectionStateReady, 2)
 	})
 }
 

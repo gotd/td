@@ -69,6 +69,8 @@ type Client struct {
 	defaultMode    manager.ConnMode       // immutable
 	// onConnectionState is called on primary connection state change.
 	onConnectionState func(ConnectionState) // immutable
+	// connDC is the DC of conn, set by createPrimaryConn. Guarded by connMux.
+	connDC int
 	// onConnectionStateEvent is onConnectionState with the DC ID.
 	onConnectionStateEvent func(ConnectionStateEvent) // immutable
 	// onConnDead is onDead with the DC ID and connection kind.

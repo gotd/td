@@ -1,15 +1,21 @@
 package telegram
 
 import (
+	"context"
+	"sync"
 	"testing"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/log"
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/telegram/internal/manager"
+	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func TestConnKindString(t *testing.T) {
@@ -72,23 +78,60 @@ func TestClientConnDeadEvent(t *testing.T) {
 		"OnDead must still be called for every connection")
 }
 
-func TestClientConnectionStateEvent(t *testing.T) {
+// TestClientConnectionStateEventOnly checks that a client with only
+// OnConnectionStateEvent set gets all states, Ready included, and that states
+// of the primary connection are reported for its DC across migration.
+func TestClientConnectionStateEventOnly(t *testing.T) {
 	var (
-		states []ConnectionState
+		mux    sync.Mutex
 		events []ConnectionStateEvent
 	)
-	c := &Client{
-		session:                pool.NewSyncSession(pool.Session{DC: 2}),
-		onConnectionState:      func(s ConnectionState) { states = append(states, s) },
-		onConnectionStateEvent: func(e ConnectionStateEvent) { events = append(events, e) },
+	client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
+		switch body.(type) {
+		case *tg.UsersGetUsersRequest:
+			return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
+		case *tg.AuthLogOutRequest:
+			if dc == 2 {
+				return nil, tgerr.New(303, "USER_MIGRATE_10")
+			}
+			return &tg.BoolTrue{}, nil
+		default:
+			return nil, errors.Errorf("unexpected body %T", body)
+		}
+	})
+	client.onConnectionStateEvent = func(e ConnectionStateEvent) {
+		mux.Lock()
+		events = append(events, e)
+		mux.Unlock()
 	}
-	c.notifyConnectionState(ConnectionStateConnecting)
-	c.session.Store(pool.Session{DC: 4})
-	c.notifyConnectionState(ConnectionStateReady)
 
-	require.Equal(t, []ConnectionState{ConnectionStateConnecting, ConnectionStateReady}, states)
+	require.NoError(t, client.Run(context.Background(), func(ctx context.Context) error {
+		var result tg.BoolTrue
+		if err := client.Invoke(ctx, &tg.AuthLogOutRequest{}, &result); err != nil {
+			return err
+		}
+		// Wait for Ready of the new primary connection.
+		deadline := time.Now().Add(5 * time.Second)
+		for time.Now().Before(deadline) {
+			mux.Lock()
+			n := len(events)
+			ready := n > 0 && events[n-1] == ConnectionStateEvent{DC: 10, State: ConnectionStateReady}
+			mux.Unlock()
+			if ready {
+				return nil
+			}
+			time.Sleep(time.Millisecond)
+		}
+		return errors.New("no ready state of new primary connection")
+	}))
+
+	mux.Lock()
+	defer mux.Unlock()
 	require.Equal(t, []ConnectionStateEvent{
 		{DC: 2, State: ConnectionStateConnecting},
-		{DC: 4, State: ConnectionStateReady},
-	}, events)
+		{DC: 2, State: ConnectionStateReady},
+		{DC: 2, State: ConnectionStateDisconnected},
+		{DC: 10, State: ConnectionStateConnecting},
+		{DC: 10, State: ConnectionStateReady},
+	}, events[:5])
 }

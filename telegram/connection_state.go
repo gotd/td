@@ -82,17 +82,13 @@ type ConnectionStateEvent struct {
 }
 
 // notifyConnectionState calls OnConnectionState and OnConnectionStateEvent
-// callbacks, if set.
-func (c *Client) notifyConnectionState(s ConnectionState) {
+// callbacks, if set, for the primary connection to the given DC.
+func (c *Client) notifyConnectionState(s ConnectionState, dc int) {
 	if c.onConnectionState != nil {
 		c.onConnectionState(s)
 	}
 	if c.onConnectionStateEvent != nil {
-		e := ConnectionStateEvent{State: s}
-		if c.session != nil {
-			e.DC = c.session.Load().DC
-		}
-		c.onConnectionStateEvent(e)
+		c.onConnectionStateEvent(ConnectionStateEvent{DC: dc, State: s})
 	}
 }
 
