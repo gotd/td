@@ -6,6 +6,10 @@ import (
 	"sync"
 
 	"github.com/go-faster/errors"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
+
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/tg"
@@ -95,12 +99,32 @@ func (p cdnProvider) CDN(ctx context.Context, dc int, max int64) (downloader.CDN
 }
 
 // Downloader returns file downloader configured for current client: CDN
-// policy from Options.AllowCDN.
+// policy from Options.AllowCDN, metrics from Options.MeterProvider and logs
+// from Options.Logger (named "downloader").
+//
+// Each call returns a new copy, so its With* methods don't affect other
+// downloads; instruments are shared and created once.
 //
 // It has no Scheduler: use Downloader.WithScheduler with
 // Client.DownloadScheduler of the DC the downloads go to.
 func (c *Client) Downloader() *downloader.Downloader {
-	return downloader.NewDownloader().WithAllowCDN(c.allowCDN)
+	if c.downloader == nil {
+		// Client is not created by NewClient.
+		return downloader.NewDownloader().WithAllowCDN(c.allowCDN)
+	}
+	return c.downloader.Clone()
+}
+
+// newClientDownloader returns the instrumented base Downloader of a client.
+func newClientDownloader(allowCDN bool, mp metric.MeterProvider, lg log.Logger) *downloader.Downloader {
+	d := downloader.NewDownloader().WithAllowCDN(allowCDN)
+	if mp != nil {
+		d = d.WithMeterProvider(mp)
+	}
+	if lg != nil && lg != log.Nop {
+		d = d.WithLogger(log.Named(lg, "downloader"))
+	}
+	return d
 }
 
 // homeDownloader returns Downloader with Scheduler of the home DC, if
@@ -122,19 +146,36 @@ func (c *Client) DownloadScheduler(dc int) *downloader.Scheduler {
 	return c.downloadSchedulers.get(dc)
 }
 
-// downloadSchedulers lazily creates one download Scheduler per DC.
-type downloadSchedulers struct {
-	opts downloader.SchedulerOptions
+// downloaderMeterName is the meter of downloader metrics, the same as of
+// downloader.Downloader.WithMeterProvider.
+const downloaderMeterName = "github.com/gotd/td/telegram/downloader"
 
-	mux sync.Mutex
-	m   map[int]*downloader.Scheduler
+// downloadSchedulers lazily creates one download Scheduler per DC.
+//
+// With a meter, every Scheduler reports gotd.downloader.scheduler.* with
+// attribute dc while the client runs.
+type downloadSchedulers struct {
+	opts  downloader.SchedulerOptions
+	meter metric.Meter // nil if no metrics
+
+	mux  sync.Mutex
+	m    map[int]*downloader.Scheduler
+	regs map[int]metric.Registration
 }
 
-func newDownloadSchedulers(opts *downloader.SchedulerOptions) *downloadSchedulers {
+func newDownloadSchedulers(opts *downloader.SchedulerOptions, mp metric.MeterProvider) *downloadSchedulers {
 	if opts == nil {
 		return nil
 	}
-	return &downloadSchedulers{opts: *opts, m: map[int]*downloader.Scheduler{}}
+	d := &downloadSchedulers{
+		opts: *opts,
+		m:    map[int]*downloader.Scheduler{},
+		regs: map[int]metric.Registration{},
+	}
+	if mp != nil {
+		d.meter = mp.Meter(downloaderMeterName)
+	}
+	return d
 }
 
 func (d *downloadSchedulers) get(dc int) *downloader.Scheduler {
@@ -148,7 +189,36 @@ func (d *downloadSchedulers) get(dc int) *downloader.Scheduler {
 		s = downloader.NewScheduler(d.opts)
 		d.m[dc] = s
 	}
+	if _, ok := d.regs[dc]; !ok && d.meter != nil {
+		if reg, err := s.Instrument(d.meter, attribute.Int("dc", dc)); err == nil {
+			d.regs[dc] = reg
+		}
+	}
 	return s
+}
+
+// unregister stops reporting metrics of schedulers, e.g. when Run returns.
+// Schedulers used again report them again.
+func (d *downloadSchedulers) unregister() {
+	if d == nil {
+		return
+	}
+	d.mux.Lock()
+	defer d.mux.Unlock()
+	for dc, reg := range d.regs {
+		_ = reg.Unregister()
+		delete(d.regs, dc)
+	}
+}
+
+// registered returns the number of schedulers reporting metrics.
+func (d *downloadSchedulers) registered() int {
+	if d == nil {
+		return 0
+	}
+	d.mux.Lock()
+	defer d.mux.Unlock()
+	return len(d.regs)
 }
 
 // CDNProvider returns downloader.CDNProvider that serves CDN redirects using

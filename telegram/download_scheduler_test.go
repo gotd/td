@@ -78,7 +78,7 @@ func TestClientDownloadSchedulerHomeDC(t *testing.T) {
 		}
 		return &tg.UploadFile{Type: &tg.StorageFileUnknown{}, Bytes: data}, nil
 	})
-	client.downloadSchedulers = newDownloadSchedulers(&downloader.SchedulerOptions{Min: 1, Start: 8, Max: 16})
+	client.downloadSchedulers = newDownloadSchedulers(&downloader.SchedulerOptions{Min: 1, Start: 8, Max: 16}, nil)
 	const home, other = 2, 4
 	client.session = pool.NewSyncSession(pool.Session{DC: home})
 

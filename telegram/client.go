@@ -21,6 +21,7 @@ import (
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/telegram/internal/version"
 	"github.com/gotd/td/tg"
@@ -169,6 +170,9 @@ type Client struct {
 	// downloadSchedulers are per-DC download schedulers, nil if
 	// Options.DownloadScheduler is not set.
 	downloadSchedulers *downloadSchedulers // immutable
+	// downloader is the instrumented base of Client.Downloader, nil if the
+	// client is not created by NewClient.
+	downloader *downloader.Downloader // immutable
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
@@ -210,7 +214,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appID:              appID,
 		appHash:            appHash,
 		allowCDN:           opt.AllowCDN,
-		downloadSchedulers: newDownloadSchedulers(opt.DownloadScheduler),
+		downloadSchedulers: newDownloadSchedulers(opt.DownloadScheduler, opt.MeterProvider),
 		updateHandler:      opt.UpdateHandler,
 		session: pool.NewSyncSession(pool.Session{
 			DC: opt.DC,
@@ -250,6 +254,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		m = noopClientMetrics()
 	}
 	client.metrics = m
+	client.downloader = newClientDownloader(client.allowCDN, opt.MeterProvider, opt.Logger)
 	client.init()
 
 	// Including version into client logger to help with debugging.

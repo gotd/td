@@ -216,6 +216,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 	c.log.Info(ctx, "Starting")
 	defer c.log.Info(context.Background(), "Closed")
 	defer c.registerPoolsGauge()()
+	defer c.downloadSchedulers.unregister()
 	// Wait for a running OnAuthLost call after c.ctx (passed to it) is
 	// canceled and pools are closed below, so that it doesn't outlive Run.
 	// If it asked to stop Run, report that even if f returned first.

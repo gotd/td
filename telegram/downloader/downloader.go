@@ -38,6 +38,16 @@ func NewDownloader() *Downloader {
 	return new(Downloader).WithPartSize(defaultPartSize)
 }
 
+// Clone returns a copy of the Downloader, sharing its instruments (metrics
+// and logger), so that With* methods of the copy don't change the original.
+//
+// Use it to configure a shared, instrumented Downloader per download without
+// creating instruments again.
+func (d *Downloader) Clone() *Downloader {
+	c := *d
+	return &c
+}
+
 // WithPartSize sets chunk size.
 // Must be divisible by 4KB.
 //
