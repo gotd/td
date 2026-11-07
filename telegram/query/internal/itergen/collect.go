@@ -76,8 +76,6 @@ func newCollector(pkg *packages.Package, cfg collectorConfig) *collector {
 		"Limit": {},
 		// Not real field.
 		"Flags": {},
-		// Telegram ignores MaxID and MinID sometimes.
-		"MaxID": {}, "MinID": {},
 		// ExcludePinned used by iterator.
 		"ExcludePinned": {},
 		// Hash can be used internally, so do not expose it.

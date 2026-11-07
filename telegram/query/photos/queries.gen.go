@@ -71,6 +71,12 @@ func (b *GetUserPhotosQueryBuilder) BatchSize(batchSize int) *GetUserPhotosQuery
 	return b
 }
 
+// MaxID sets MaxID field of GetUserPhotos query.
+func (b *GetUserPhotosQueryBuilder) MaxID(paramMaxID int64) *GetUserPhotosQueryBuilder {
+	b.req.MaxID = paramMaxID
+	return b
+}
+
 // UserID sets UserID field of GetUserPhotos query.
 func (b *GetUserPhotosQueryBuilder) UserID(paramUserID tg.InputUserClass) *GetUserPhotosQueryBuilder {
 	b.req.UserID = paramUserID
@@ -83,6 +89,7 @@ func (b *GetUserPhotosQueryBuilder) Query(ctx context.Context, req Request) (tg.
 		Limit: req.Limit,
 	}
 
+	r.MaxID = b.req.MaxID
 	r.UserID = b.req.UserID
 	r.Offset = req.Offset
 	return b.raw.PhotosGetUserPhotos(ctx, r)

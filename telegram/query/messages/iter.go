@@ -178,6 +178,12 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 }
 
 func (m *Iterator) requestNext(ctx context.Context) error {
+	if m.lastBatch {
+		// Last batch is already consumed, no need to request more.
+		m.buf = m.buf[:0]
+		m.bufCur = -1
+		return nil
+	}
 	r, err := m.query.Query(ctx, Request{
 		OffsetID:   m.offsetID,
 		AddOffset:  m.addOffset,
