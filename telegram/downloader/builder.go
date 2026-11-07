@@ -96,7 +96,8 @@ func (b *Builder) WithVerify(verify bool) *Builder {
 //
 // Offset must be divisible by the part size (see Downloader.WithPartSize),
 // unless verification is enabled via WithVerify(true), which only requires
-// 4KB alignment.
+// 4KB alignment: the hash window containing offset is downloaded whole to
+// verify it, and data before offset is dropped.
 //
 // Stream writes data from offset to the start of io.Writer, Parallel writes
 // it at the same offsets of io.WriterAt, and ToPath keeps existing file
@@ -221,6 +222,7 @@ func (b *Builder) reader() *reader {
 		v.start(b.offset)
 		r := verifiedReader(b.schema, v)
 		r.size = b.size
+		r.start = b.offset
 		return r
 	}
 
@@ -273,7 +275,8 @@ func (b *Builder) Parallel(ctx context.Context, output io.WriterAt) (_ tg.Storag
 // ToPath downloads file to given path.
 //
 // If offset is set (see WithOffset), existing file is not truncated, so data
-// before offset is kept.
+// before offset is kept. If size is set (see WithSize), the file is truncated
+// to it after a successful download.
 func (b *Builder) ToPath(ctx context.Context, path string) (_ tg.StorageFileTypeClass, err error) {
 	flag := os.O_RDWR | os.O_CREATE | os.O_TRUNC
 	if b.offset > 0 {
@@ -288,5 +291,14 @@ func (b *Builder) ToPath(ctx context.Context, path string) (_ tg.StorageFileType
 	}()
 
 	typ, runErr := b.Parallel(ctx, f)
-	return typ, runErr
+	if runErr != nil {
+		return typ, runErr
+	}
+	if b.size > 0 {
+		// Drop stale data past the end of file, e.g. from a longer .part file.
+		if err := f.Truncate(b.size); err != nil {
+			return typ, errors.Wrap(err, "truncate output file")
+		}
+	}
+	return typ, nil
 }

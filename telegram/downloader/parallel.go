@@ -17,17 +17,25 @@ func (d *Downloader) parallel(
 	ctx context.Context, r *reader, s sink,
 	threads int, w io.WriterAt,
 ) (tg.StorageFileTypeClass, error) {
-	var typ tg.StorageFileTypeClass
-	typOnce := &sync.Once{}
+	var (
+		typ    tg.StorageFileTypeClass
+		typMux sync.Mutex
+	)
 
 	ready := tdsync.NewReady()
 	g := tdsync.NewCancellableGroup(ctx)
 	toWrite := make(chan block, threads)
 
 	stop := func(t tg.StorageFileTypeClass) {
-		typOnce.Do(func() {
-			typ = t
-		})
+		// Blocks past known end of file (see Builder.WithSize) carry no type:
+		// keep the first type reported by a server response.
+		if t != nil {
+			typMux.Lock()
+			if typ == nil {
+				typ = t
+			}
+			typMux.Unlock()
+		}
 		ready.Signal()
 	}
 
@@ -79,5 +87,8 @@ func (d *Downloader) parallel(
 	// Write loop
 	g.Go(writeAtLoop(syncio.NewWriterAt(w), s, toWrite))
 
-	return typ, g.Wait()
+	err := g.Wait()
+	typMux.Lock()
+	defer typMux.Unlock()
+	return typ, err
 }

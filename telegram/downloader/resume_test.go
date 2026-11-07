@@ -83,7 +83,7 @@ func TestBuilderWithOffset(t *testing.T) {
 	})
 	t.Run("Misaligned", func(t *testing.T) {
 		for _, off := range []int64{-resumePart, 100, resumePart / 2} {
-			_, err := NewDownloader().WithPartSize(resumePart * 2).
+			_, err := NewDownloader().WithPartSize(resumePart*2).
 				Download(&mock{data: data}, nil).
 				WithOffset(off).
 				Stream(ctx, io.Discard)

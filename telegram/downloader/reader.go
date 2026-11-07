@@ -34,6 +34,8 @@ type reader struct {
 
 	// size is the known file size, zero if unknown.
 	size int64
+	// start is the offset to start download from (Builder.WithOffset).
+	start int64
 
 	offset    int64
 	offsetMux sync.Mutex
@@ -80,6 +82,22 @@ func (r *reader) nextHashed(ctx context.Context) (block, error) {
 	// Verify chunk.
 	if !r.verifier.verify(hash, b.data) {
 		return block{}, ErrHashMismatch
+	}
+
+	// The first hash window may start before the offset to start from (see
+	// Builder.WithOffset): it is downloaded whole to verify it, but data
+	// before the offset is dropped.
+	if skip := r.start - b.offset; skip > 0 {
+		if skip >= int64(len(b.data)) {
+			b.data = nil
+		} else {
+			b.data = b.data[skip:]
+		}
+		b.offset = r.start
+		if len(b.data) == 0 && !b.end {
+			// Nothing left after the offset: the file ends before it.
+			b.end = true
+		}
 	}
 
 	return b, nil
