@@ -21,6 +21,7 @@ import (
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/telegram/internal/version"
 	"github.com/gotd/td/tg"
@@ -160,6 +161,8 @@ type Client struct {
 	appHash string // immutable
 	// allowCDN is the explicit downloader policy copied from Options.AllowCDN.
 	allowCDN bool // immutable
+	// downloadScheduler is copied from Options.DownloadScheduler, may be nil.
+	downloadScheduler *downloader.Scheduler // immutable
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
@@ -194,12 +197,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		mode = manager.ConnModeData
 	}
 	client := &Client{
-		rand:          opt.Random,
-		log:           log.For(opt.Logger),
-		appID:         appID,
-		appHash:       appHash,
-		allowCDN:      opt.AllowCDN,
-		updateHandler: opt.UpdateHandler,
+		rand:              opt.Random,
+		log:               log.For(opt.Logger),
+		appID:             appID,
+		appHash:           appHash,
+		allowCDN:          opt.AllowCDN,
+		downloadScheduler: opt.DownloadScheduler,
+		updateHandler:     opt.UpdateHandler,
 		session: pool.NewSyncSession(pool.Session{
 			DC: opt.DC,
 		}),

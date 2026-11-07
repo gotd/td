@@ -93,10 +93,14 @@ func (p cdnProvider) CDN(ctx context.Context, dc int, max int64) (downloader.CDN
 	return cdnClient, invoker, nil
 }
 
-// Downloader returns file downloader configured for current client.
+// Downloader returns file downloader configured for current client: CDN
+// policy from Options.AllowCDN and Scheduler from Options.DownloadScheduler.
 func (c *Client) Downloader() *downloader.Downloader {
-	// Propagate explicit client-level CDN policy into downloader.
-	return downloader.NewDownloader().WithAllowCDN(c.allowCDN)
+	d := downloader.NewDownloader().WithAllowCDN(c.allowCDN)
+	if c.downloadScheduler != nil {
+		d = d.WithScheduler(c.downloadScheduler)
+	}
+	return d
 }
 
 // CDNProvider returns downloader.CDNProvider that serves CDN redirects using
