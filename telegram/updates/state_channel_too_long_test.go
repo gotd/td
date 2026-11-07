@@ -20,8 +20,9 @@ import (
 type tooLongAPI struct {
 	gateChannelDiffAPI
 
-	mu       sync.Mutex
-	final    bool
+	mu        sync.Mutex
+	final     bool
+	remotePts int // dialog pts, 5000 if zero
 	requests []*tg.UpdatesGetChannelDifferenceRequest
 }
 
@@ -36,7 +37,11 @@ func (a *tooLongAPI) UpdatesGetChannelDifference(
 	}
 
 	d := &tg.Dialog{Peer: &tg.PeerChannel{ChannelID: 42}, TopMessage: 1003}
-	d.SetPts(5000)
+	pts := a.remotePts
+	if pts == 0 {
+		pts = 5000
+	}
+	d.SetPts(pts)
 	peer := &tg.PeerChannel{ChannelID: 42}
 	return &tg.UpdatesChannelDifferenceTooLong{
 		Final:  a.final,
@@ -58,9 +63,25 @@ func (a *tooLongAPI) requestCount() int {
 }
 
 type tooLongResult struct {
-	messages []int
-	tooLong  []int64
-	gaps     []ChannelGap
+	handled int // updates passed to Handler
+	tooLong []int64
+	gaps    []ChannelGap
+}
+
+// gapMessages returns IDs of messages reported with gaps and clears them, so
+// gaps can be compared without messages and entities.
+func (r *tooLongResult) gapMessages(t *testing.T) []int {
+	t.Helper()
+	var ids []int
+	for i := range r.gaps {
+		require.NotEmpty(t, r.gaps[i].Users, "entities must be passed")
+		require.NotEmpty(t, r.gaps[i].Chats, "entities must be passed")
+		for _, m := range r.gaps[i].Messages {
+			ids = append(ids, m.GetID())
+		}
+		r.gaps[i].Messages, r.gaps[i].Users, r.gaps[i].Chats = nil, nil, nil
+	}
+	return ids
 }
 
 func newTooLongChannelState(t *testing.T, api API, r *tooLongResult) *channelState {
@@ -75,14 +96,8 @@ func newTooLongChannelState(t *testing.T, api API, r *tooLongResult) *channelSta
 		DiffLimit:  diffLimitUser,
 		RawClient:  api,
 		Storage:    storage,
-		Handler: telegram.UpdateHandlerFunc(func(_ context.Context, u tg.UpdatesClass) error {
-			upds := u.(*tg.Updates)
-			require.NotEmpty(t, upds.Chats, "entities must be passed")
-			require.NotEmpty(t, upds.Users, "entities must be passed")
-			for _, upd := range upds.Updates {
-				m := upd.(*tg.UpdateNewChannelMessage)
-				r.messages = append(r.messages, m.Message.GetID())
-			}
+		Handler: telegram.UpdateHandlerFunc(func(context.Context, tg.UpdatesClass) error {
+			r.handled++
 			return nil
 		}),
 		OnChannelTooLong:      func(id int64) { r.tooLong = append(r.tooLong, id) },
@@ -110,7 +125,8 @@ func TestChannelDifferenceTooLong(t *testing.T) {
 		s := newTooLongChannelState(t, api, &r)
 
 		require.NoError(t, s.getDifference(ctx, "test"))
-		require.Equal(t, []int{1001, 1002, 1003}, r.messages, "latest messages must be dispatched")
+		require.Equal(t, []int{1001, 1002, 1003}, r.gapMessages(t), "latest messages must be reported")
+		require.Zero(t, r.handled, "latest messages may be old: not passed to Handler")
 		require.Equal(t, 5000, s.pts.State())
 		require.Equal(t, []int64{42}, r.tooLong)
 		require.Equal(t, []ChannelGap{wantGap}, r.gaps)
@@ -127,7 +143,7 @@ func TestChannelDifferenceTooLong(t *testing.T) {
 		s := newTooLongChannelState(t, api, &r)
 
 		require.NoError(t, s.getDifference(ctx, "test"))
-		require.Equal(t, []int{1001, 1002, 1003}, r.messages)
+		require.Equal(t, []int{1001, 1002, 1003}, r.gapMessages(t))
 		require.Equal(t, 2, api.requestCount(), "not final difference must be continued")
 		require.Equal(t, 5000, api.requests[1].Pts)
 	})
@@ -141,7 +157,20 @@ func TestChannelDifferenceTooLong(t *testing.T) {
 		long.SetPts(100 + diffLimitUser*10)
 		require.NoError(t, s.handleTooLong(ctx, long))
 		require.Equal(t, 1, api.requestCount())
-		require.Equal(t, []int{1001, 1002, 1003}, r.messages)
+		require.Equal(t, []int{1001, 1002, 1003}, r.gapMessages(t))
 		require.Equal(t, []ChannelGap{wantGap}, r.gaps)
+	})
+	t.Run("PtsNotAdvanced", func(t *testing.T) {
+		// A non-final difference with stale dialog pts must not be requested
+		// again for the same pts.
+		api := &tooLongAPI{final: false, remotePts: 50}
+		var r tooLongResult
+		s := newTooLongChannelState(t, api, &r)
+
+		require.NoError(t, s.getDifference(ctx, "test"))
+		require.Equal(t, 2, api.requestCount())
+		require.Equal(t, 101, api.requests[1].Pts, "pts must advance")
+		r.gapMessages(t)
+		require.Equal(t, 101, r.gaps[0].RemotePts)
 	})
 }

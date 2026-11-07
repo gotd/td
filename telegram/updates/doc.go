@@ -13,8 +13,9 @@
 //     of these operations. We rely on the server here.
 //
 //  3. Manager cannot fully recover the channel gap if there is a ChannelDifferenceTooLong error.
-//     The latest messages returned by the server are passed to the handler, and the gap
-//     range is reported via Config.OnChannelGap, so older messages can be fetched manually.
+//     The gap range and the latest messages returned by the server are reported via
+//     Config.OnChannelGap (not the handler, as they may have been delivered already),
+//     so missed messages can be fetched manually.
 //     See: https://core.telegram.org/constructor/updates.channelDifferenceTooLong
 //
 // TODO: Write implementation details.

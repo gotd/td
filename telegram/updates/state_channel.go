@@ -82,6 +82,13 @@ type ChannelGap struct {
 	// TopMessage is the ID of the latest channel message (from the
 	// channel dialog), zero if unknown.
 	TopMessage int
+	// Messages are the latest channel messages returned with the gap. They
+	// may include messages delivered to Handler before the gap, so they are
+	// not passed to Handler.
+	Messages []tg.MessageClass
+	// Users and Chats are entities of Messages.
+	Users []tg.UserClass
+	Chats []tg.ChatClass
 }
 
 type channelStateConfig struct {
@@ -434,22 +441,26 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 			gap.TopMessage = d.TopMessage
 		}
 
-		// The server returns the latest channel messages: deliver them like
-		// new messages of channelDifference, before moving pts.
-		if len(diff.Messages) > 0 {
-			if err := s.dispatch(ctx, &tg.Updates{
-				Updates: msgsToUpdates(diff.Messages, true),
-				Users:   diff.Users,
-				Chats:   diff.Chats,
-			}); err != nil {
-				s.log.Error(ctx, "Handle updates error", log.Error(err))
-			}
-		}
+		// The server returns the latest channel messages, which may include
+		// messages already delivered before the gap: they are passed to
+		// OnChannelGap instead of Handler, so they are never seen as new.
+		gap.Messages = diff.Messages
+		gap.Users = diff.Users
+		gap.Chats = diff.Chats
 
 		remotePts, err := getDialogPts(diff.Dialog)
 		if err != nil {
 			s.log.Warn(ctx, "UpdatesChannelDifferenceTooLong invalid Dialog", log.Error(err))
 		} else {
+			// Same guard as TDLib: pts must advance, or a non-final
+			// difference would be requested again for the same pts.
+			if remotePts <= gap.LocalPts {
+				s.log.Warn(ctx, "UpdatesChannelDifferenceTooLong pts did not advance",
+					log.Int("local_pts", gap.LocalPts),
+					log.Int("remote_pts", remotePts),
+				)
+				remotePts = gap.LocalPts + 1
+			}
 			gap.RemotePts = remotePts
 			if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, remotePts); err != nil {
 				s.log.Warn(ctx, "SetChannelPts error", log.Error(err))

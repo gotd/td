@@ -31,10 +31,10 @@ type Config struct {
 	// updates.channelDifferenceTooLong, with the gap range (optional).
 	//
 	// The latest channel messages returned by the server with
-	// channelDifferenceTooLong are passed to Handler before this call, but
-	// older messages between gap.LocalPts and gap.RemotePts are not, so they
-	// should be fetched manually, e.g. via messages.getHistory down to the last
-	// known message.
+	// channelDifferenceTooLong are passed in gap.Messages, not to Handler:
+	// they may include messages delivered before the gap. Messages between
+	// the last known message and gap.Messages should be fetched manually,
+	// e.g. via messages.getHistory.
 	//
 	// Called after OnChannelTooLong.
 	OnChannelGap func(gap ChannelGap)
