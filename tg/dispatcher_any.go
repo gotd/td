@@ -54,41 +54,121 @@ func (u UpdateDispatcher) OnAnyDeleteMessages(handler AnyDeleteMessagesHandler) 
 	})
 }
 
-// AnyReadHandler is a handler of read history: messages up to and including
-// maxID in peer are read.
-type AnyReadHandler func(ctx context.Context, e Entities, peer PeerClass, maxID int) error
+// AnyRead is read history event: messages up to and including MaxID in Peer
+// (and topic, if TopMsgID or SavedPeer is set) are read.
+type AnyRead struct {
+	// Peer is the chat.
+	Peer PeerClass
+	// MaxID is the ID of the last read message.
+	MaxID int
+	// TopMsgID is the forum topic or discussion thread ID, zero if none.
+	TopMsgID int
+	// SavedPeer is the monoforum (channel direct messages) topic, nil if none.
+	SavedPeer PeerClass
+	// Update is the source update, for fields not mapped here.
+	Update UpdateClass
+}
 
-// OnAnyReadInbox sets handler of read incoming messages in any chat, i.e. both
-// UpdateReadHistoryInbox and UpdateReadChannelInbox.
+// AnyReadHandler is a handler of read history.
+type AnyReadHandler func(ctx context.Context, e Entities, read AnyRead) error
+
+// OnAnyReadInbox sets handler of read incoming messages in any chat or topic,
+// i.e. UpdateReadHistoryInbox, UpdateReadChannelInbox,
+// UpdateReadChannelDiscussionInbox and UpdateReadMonoForumInbox.
 //
-// It replaces handlers set by OnReadHistoryInbox and OnReadChannelInbox, and
-// is replaced by them.
+// It replaces handlers set by OnReadHistoryInbox, OnReadChannelInbox,
+// OnReadChannelDiscussionInbox and OnReadMonoForumInbox, and is replaced by
+// them.
 func (u UpdateDispatcher) OnAnyReadInbox(handler AnyReadHandler) {
 	u.OnReadHistoryInbox(func(ctx context.Context, e Entities, update *UpdateReadHistoryInbox) error {
-		return handler(ctx, e, update.Peer, update.MaxID)
+		return handler(ctx, e, AnyRead{
+			Peer:     update.Peer,
+			MaxID:    update.MaxID,
+			TopMsgID: update.TopMsgID,
+			Update:   update,
+		})
 	})
 	u.OnReadChannelInbox(func(ctx context.Context, e Entities, update *UpdateReadChannelInbox) error {
-		return handler(ctx, e, &PeerChannel{ChannelID: update.ChannelID}, update.MaxID)
+		return handler(ctx, e, AnyRead{
+			Peer:   &PeerChannel{ChannelID: update.ChannelID},
+			MaxID:  update.MaxID,
+			Update: update,
+		})
+	})
+	u.OnReadChannelDiscussionInbox(func(ctx context.Context, e Entities, update *UpdateReadChannelDiscussionInbox) error {
+		return handler(ctx, e, AnyRead{
+			Peer:     &PeerChannel{ChannelID: update.ChannelID},
+			MaxID:    update.ReadMaxID,
+			TopMsgID: update.TopMsgID,
+			Update:   update,
+		})
+	})
+	u.OnReadMonoForumInbox(func(ctx context.Context, e Entities, update *UpdateReadMonoForumInbox) error {
+		return handler(ctx, e, AnyRead{
+			Peer:      &PeerChannel{ChannelID: update.ChannelID},
+			MaxID:     update.ReadMaxID,
+			SavedPeer: update.SavedPeerID,
+			Update:    update,
+		})
 	})
 }
 
-// OnAnyReadOutbox sets handler of read outgoing messages in any chat, i.e.
-// both UpdateReadHistoryOutbox and UpdateReadChannelOutbox.
+// OnAnyReadOutbox sets handler of read outgoing messages in any chat or topic,
+// i.e. UpdateReadHistoryOutbox, UpdateReadChannelOutbox,
+// UpdateReadChannelDiscussionOutbox and UpdateReadMonoForumOutbox.
 //
-// It replaces handlers set by OnReadHistoryOutbox and OnReadChannelOutbox, and
-// is replaced by them.
+// It replaces handlers set by OnReadHistoryOutbox, OnReadChannelOutbox,
+// OnReadChannelDiscussionOutbox and OnReadMonoForumOutbox, and is replaced by
+// them.
 func (u UpdateDispatcher) OnAnyReadOutbox(handler AnyReadHandler) {
 	u.OnReadHistoryOutbox(func(ctx context.Context, e Entities, update *UpdateReadHistoryOutbox) error {
-		return handler(ctx, e, update.Peer, update.MaxID)
+		return handler(ctx, e, AnyRead{
+			Peer:   update.Peer,
+			MaxID:  update.MaxID,
+			Update: update,
+		})
 	})
 	u.OnReadChannelOutbox(func(ctx context.Context, e Entities, update *UpdateReadChannelOutbox) error {
-		return handler(ctx, e, &PeerChannel{ChannelID: update.ChannelID}, update.MaxID)
+		return handler(ctx, e, AnyRead{
+			Peer:   &PeerChannel{ChannelID: update.ChannelID},
+			MaxID:  update.MaxID,
+			Update: update,
+		})
+	})
+	u.OnReadChannelDiscussionOutbox(func(ctx context.Context, e Entities, update *UpdateReadChannelDiscussionOutbox) error {
+		return handler(ctx, e, AnyRead{
+			Peer:     &PeerChannel{ChannelID: update.ChannelID},
+			MaxID:    update.ReadMaxID,
+			TopMsgID: update.TopMsgID,
+			Update:   update,
+		})
+	})
+	u.OnReadMonoForumOutbox(func(ctx context.Context, e Entities, update *UpdateReadMonoForumOutbox) error {
+		return handler(ctx, e, AnyRead{
+			Peer:      &PeerChannel{ChannelID: update.ChannelID},
+			MaxID:     update.ReadMaxID,
+			SavedPeer: update.SavedPeerID,
+			Update:    update,
+		})
 	})
 }
 
-// AnyTypingHandler is a handler of typing (and other chat actions) in peer by
-// from.
-type AnyTypingHandler func(ctx context.Context, e Entities, peer, from PeerClass, action SendMessageActionClass) error
+// AnyTyping is a chat action (typing, uploading, etc.) event.
+type AnyTyping struct {
+	// Peer is the chat.
+	Peer PeerClass
+	// From is the peer performing the action.
+	From PeerClass
+	// TopMsgID is the forum topic or thread ID, zero if none.
+	TopMsgID int
+	// Action is the chat action.
+	Action SendMessageActionClass
+	// Update is the source update, for fields not mapped here.
+	Update UpdateClass
+}
+
+// AnyTypingHandler is a handler of chat actions.
+type AnyTypingHandler func(ctx context.Context, e Entities, typing AnyTyping) error
 
 // OnAnyTyping sets handler of chat actions in any chat, i.e. UpdateUserTyping,
 // UpdateChatUserTyping and UpdateChannelUserTyping.
@@ -98,12 +178,29 @@ type AnyTypingHandler func(ctx context.Context, e Entities, peer, from PeerClass
 func (u UpdateDispatcher) OnAnyTyping(handler AnyTypingHandler) {
 	u.OnUserTyping(func(ctx context.Context, e Entities, update *UpdateUserTyping) error {
 		user := &PeerUser{UserID: update.UserID}
-		return handler(ctx, e, user, user, update.Action)
+		return handler(ctx, e, AnyTyping{
+			Peer:     user,
+			From:     user,
+			TopMsgID: update.TopMsgID,
+			Action:   update.Action,
+			Update:   update,
+		})
 	})
 	u.OnChatUserTyping(func(ctx context.Context, e Entities, update *UpdateChatUserTyping) error {
-		return handler(ctx, e, &PeerChat{ChatID: update.ChatID}, update.FromID, update.Action)
+		return handler(ctx, e, AnyTyping{
+			Peer:   &PeerChat{ChatID: update.ChatID},
+			From:   update.FromID,
+			Action: update.Action,
+			Update: update,
+		})
 	})
 	u.OnChannelUserTyping(func(ctx context.Context, e Entities, update *UpdateChannelUserTyping) error {
-		return handler(ctx, e, &PeerChannel{ChannelID: update.ChannelID}, update.FromID, update.Action)
+		return handler(ctx, e, AnyTyping{
+			Peer:     &PeerChannel{ChannelID: update.ChannelID},
+			From:     update.FromID,
+			TopMsgID: update.TopMsgID,
+			Action:   update.Action,
+			Update:   update,
+		})
 	})
 }
