@@ -13,6 +13,7 @@ import (
 	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/tg"
@@ -110,17 +111,18 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 		connChanged := c.connChanged
 		c.connMux.Unlock()
 
-		reqCtx, cancel := ctx, context.CancelFunc(func() {})
+		reqCtx, cancel := ctx, context.CancelCauseFunc(func(error) {})
 		if timeout > 0 {
-			reqCtx, cancel = context.WithTimeout(ctx, timeout)
+			reqCtx, cancel = c.withResponseDeadline(ctx, conn, timeout)
 		}
 		err := conn.Invoke(reqCtx, input, output)
-		cancel()
-		if timeout > 0 && err != nil && ctx.Err() == nil && reqCtx.Err() != nil {
+		timedOut := err != nil && ctx.Err() == nil && errors.Is(context.Cause(reqCtx), errNoResponse)
+		cancel(nil)
+		if timedOut {
 			// Response deadline passed, but caller still waits: connection is
 			// suspected to be dead.
 			if resent {
-				return errors.Wrapf(err, "no response in %s", timeout)
+				return errors.Errorf("no response in %s: %w", timeout, context.DeadlineExceeded)
 			}
 			resent = true
 			c.log.Warn(ctx, "No response in time, reconnecting to resend request",
@@ -167,8 +169,14 @@ func errRetryableOnNewConn(err error) bool {
 // restartSuspect restarts primary connection, unless it was already replaced
 // (connChanged is closed), and waits until new connection is ready.
 func (c *Client) restartSuspect(ctx context.Context, connChanged <-chan struct{}) error {
-	c.restartMux.Lock()
-	defer c.restartMux.Unlock()
+	// Another request may be restarting a connection that never gets ready:
+	// do not wait for it past own context.
+	select {
+	case c.restartSem <- struct{}{}:
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+	defer func() { <-c.restartSem }()
 
 	select {
 	case <-connChanged:
@@ -177,4 +185,47 @@ func (c *Client) restartSuspect(ctx context.Context, connChanged <-chan struct{}
 	default:
 	}
 	return c.ensureRestart(ctx)
+}
+
+// errNoResponse is the cause of request context cancellation when response
+// deadline passes.
+var errNoResponse = errors.New("no response in time")
+
+// withResponseDeadline returns context that is canceled with errNoResponse
+// once timeout passes after conn became ready to send requests.
+//
+// Time spent waiting for the connection (dial, key exchange, initConnection)
+// does not count: a slow handshake must not be taken for a dead connection,
+// or each request would restart it before it gets ready.
+func (c *Client) withResponseDeadline(
+	ctx context.Context, conn clientConn, timeout time.Duration,
+) (context.Context, context.CancelCauseFunc) {
+	reqCtx, cancel := context.WithCancelCause(ctx)
+
+	var ready <-chan struct{}
+	if r, ok := conn.(interface{ Ready() <-chan struct{} }); ok {
+		ready = r.Ready()
+	}
+	clk := c.clock
+	if clk == nil {
+		clk = clock.System
+	}
+	go func() {
+		if ready != nil {
+			select {
+			case <-ready:
+			case <-reqCtx.Done():
+				return
+			}
+		}
+		t := clk.Timer(timeout)
+		defer clock.StopTimer(t)
+		select {
+		case <-t.C():
+			cancel(errNoResponse)
+		case <-reqCtx.Done():
+		}
+	}()
+
+	return reqCtx, cancel
 }

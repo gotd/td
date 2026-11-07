@@ -75,8 +75,9 @@ type Client struct {
 	filePoolSize     int64         // immutable
 	// requestTimeout returns response deadline of request, may be nil.
 	requestTimeout func(input bin.Encoder) time.Duration // immutable
-	// restartMux serializes restarts on request timeout.
-	restartMux sync.Mutex
+	// restartSem serializes restarts on request timeout, a 1-slot semaphore
+	// that waiters can leave when their context is done.
+	restartSem chan struct{}
 	migration  chan struct{}
 
 	// tg provides RPC calls via Client. Uses invoker below.
@@ -292,6 +293,7 @@ func (c *Client) init() {
 	c.connChanged = make(chan struct{})
 	c.restart = make(chan struct{})
 	c.authLost = make(chan error, 1)
+	c.restartSem = make(chan struct{}, 1)
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}

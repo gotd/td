@@ -138,3 +138,79 @@ func TestClientPingOptions(t *testing.T) {
 	require.Equal(t, 5*time.Second, c.opts.PingInterval)
 	require.Equal(t, 2*time.Second, c.opts.PingTimeout)
 }
+
+// handshakeConn never gets ready: emulates slow dial or key exchange.
+type handshakeConn struct {
+	hangConn
+}
+
+func (h *handshakeConn) Ready() <-chan struct{} { return make(chan struct{}) }
+
+func TestClientRequestTimeoutNotReady(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	c := newTestClient(nil)
+	c.conn = &handshakeConn{}
+	c.ready.Signal()
+	c.requestTimeout = func(bin.Encoder) time.Duration { return 20 * time.Millisecond }
+	restarts := fakeReconnect(t, c, &handshakeConn{})
+
+	short, cancelShort := context.WithTimeout(ctx, 200*time.Millisecond)
+	defer cancelShort()
+	_, err := c.API().HelpGetNearestDC(short)
+	require.ErrorIs(t, err, context.DeadlineExceeded)
+	require.NotContains(t, err.Error(), "no response in")
+	require.Zero(t, restarts.Load(), "connection that is not ready is not restarted")
+}
+
+func TestClientRequestTimeoutRestartStuck(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	c := newTestClient(nil)
+	c.conn = &hangConn{}
+	c.ready.Signal()
+	c.requestTimeout = func(bin.Encoder) time.Duration { return 20 * time.Millisecond }
+
+	// Reconnection loop accepts restart, but new connection never gets ready.
+	restarted := make(chan struct{})
+	go func() {
+		select {
+		case <-c.restart:
+			close(restarted)
+		case <-ctx.Done():
+		}
+	}()
+
+	// Request A waits for the stuck restart until its own context ends.
+	aCtx, cancelA := context.WithCancel(ctx)
+	aDone := make(chan error, 1)
+	go func() {
+		_, err := c.API().HelpGetNearestDC(aCtx)
+		aDone <- err
+	}()
+	select {
+	case <-restarted:
+	case <-ctx.Done():
+		t.Fatal("restart not triggered")
+	}
+
+	// Request B must not wait for A past own context.
+	bCtx, cancelB := context.WithTimeout(ctx, 200*time.Millisecond)
+	defer cancelB()
+	bDone := make(chan error, 1)
+	go func() {
+		_, err := c.API().HelpGetNearestDC(bCtx)
+		bDone <- err
+	}()
+	select {
+	case err := <-bDone:
+		require.ErrorIs(t, err, context.DeadlineExceeded)
+	case <-time.After(3 * time.Second):
+		t.Fatal("request blocked by another stuck restart past its context")
+	}
+
+	cancelA()
+	require.ErrorIs(t, <-aDone, context.Canceled)
+}
