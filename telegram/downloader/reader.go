@@ -149,10 +149,11 @@ func (r *reader) chunk(ctx context.Context, offset int64, limit int) (chunk, err
 	if r.scheduler == nil {
 		return r.sch.Chunk(ctx, offset, limit)
 	}
-	if err := r.scheduler.acquire(ctx); err != nil {
+	epoch, err := r.scheduler.acquire(ctx)
+	if err != nil {
 		return chunk{}, err
 	}
 	ch, err := r.sch.Chunk(ctx, offset, limit)
-	r.scheduler.release(ctx, err)
+	r.scheduler.release(ctx, epoch, err)
 	return ch, err
 }

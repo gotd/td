@@ -55,7 +55,12 @@ type SchedulerSnapshot struct {
 // downloads, like the per-DC download window of Telegram Desktop.
 //
 // The window grows by one after each window of successful requests and is
-// halved on flood wait or timeout. Use one Scheduler per DC (or per
+// halved on flood wait or timeout, at most once per window of requests in
+// flight: concurrent requests failing together halve it once.
+//
+// Flood waits and timeouts handled inside the CDN download path (after
+// upload.fileCdnRedirect) are retried there and are not seen by Scheduler,
+// so it limits CDN requests but does not adapt to CDN throttling. Use one Scheduler per DC (or per
 // connection pool), and pass it to downloads via Downloader.WithScheduler or
 // Builder.WithScheduler; Builder.WithThreads still limits workers of one
 // download, so set it high enough to fill the window.
@@ -67,6 +72,10 @@ type Scheduler struct {
 	waiting   int
 	successes int
 	decreases int64
+	// epoch is incremented on each window decrease: a request acquired
+	// before the last decrease does not decrease the window again, so a
+	// burst of failures of concurrent requests halves it once.
+	epoch uint64
 	// wake is closed and replaced when a slot may become available.
 	wake chan struct{}
 }
@@ -98,7 +107,8 @@ func (s *Scheduler) notify() {
 	s.wake = make(chan struct{})
 }
 
-func (s *Scheduler) acquire(ctx context.Context) error {
+// acquire takes a slot, returning the epoch to pass to release.
+func (s *Scheduler) acquire(ctx context.Context) (uint64, error) {
 	s.mux.Lock()
 	for s.inFlight >= s.window {
 		wake := s.wake
@@ -110,18 +120,19 @@ func (s *Scheduler) acquire(ctx context.Context) error {
 			s.mux.Lock()
 			s.waiting--
 			s.mux.Unlock()
-			return ctx.Err()
+			return 0, ctx.Err()
 		}
 		s.mux.Lock()
 		s.waiting--
 	}
 	s.inFlight++
+	epoch := s.epoch
 	s.mux.Unlock()
-	return nil
+	return epoch, nil
 }
 
 // release releases slot taken by acquire, adapting window by request result.
-func (s *Scheduler) release(ctx context.Context, err error) {
+func (s *Scheduler) release(ctx context.Context, epoch uint64, err error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 	s.inFlight--
@@ -134,8 +145,13 @@ func (s *Scheduler) release(ctx context.Context, err error) {
 			s.successes = 0
 		}
 	case isSchedulerBackoff(ctx, err):
-		s.decreases++
 		s.successes = 0
+		if epoch != s.epoch {
+			// Window was already decreased after this request was sent.
+			break
+		}
+		s.epoch++
+		s.decreases++
 		s.window /= 2
 		if s.window < s.opts.Min {
 			s.window = s.opts.Min
