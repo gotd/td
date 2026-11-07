@@ -3,6 +3,7 @@ package downloader
 import (
 	"context"
 	"sync"
+	"time"
 
 	"github.com/go-faster/errors"
 
@@ -83,6 +84,7 @@ func (r *reader) nextHashed(ctx context.Context) (block, error) {
 
 	// Verify chunk.
 	if !r.verifier.verify(hash, b.data) {
+		observerFrom(ctx).hashMismatch(ctx, "verify", hash.Offset)
 		return block{}, ErrHashMismatch
 	}
 
@@ -147,14 +149,47 @@ func (r *reader) next(ctx context.Context, offset int64, limit int) (block, erro
 
 func (r *reader) chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	if r.scheduler == nil {
-		return r.sch.Chunk(ctx, offset, limit)
+		return r.request(ctx, offset, limit)
 	}
 	epoch, err := r.scheduler.acquire(ctx)
 	if err != nil {
 		return chunk{}, err
 	}
 	rep := &backoffReporter{sch: r.scheduler, epoch: epoch}
-	ch, err := r.sch.Chunk(withBackoffReporter(ctx, rep), offset, limit)
+	ch, err := r.request(withBackoffReporter(ctx, rep), offset, limit)
+	if isSchedulerBackoff(ctx, err) {
+		observerFrom(ctx).backoff(ctx, err)
+	}
 	rep.release(ctx, err)
 	return ch, err
+}
+
+// request requests a part, reporting it to the observer of the download.
+func (r *reader) request(ctx context.Context, offset int64, limit int) (chunk, error) {
+	obs := observerFrom(ctx)
+	if obs == nil {
+		return r.sch.Chunk(ctx, offset, limit)
+	}
+	start := time.Now()
+	ch, err := r.sch.Chunk(ctx, offset, limit)
+	obs.request(ctx, requestKind(r.sch, ch, err), start, len(ch.data), err)
+	return ch, err
+}
+
+// requestKind returns kind of the request of a part: master, cdn or web.
+func requestKind(sch schema, ch chunk, err error) string {
+	switch s := sch.(type) {
+	case web:
+		return kindWeb
+	case *cdn:
+		if ch.cdn {
+			return kindCDN
+		}
+		if err != nil {
+			if mode, _, _ := s.snapshot(); mode == modeCDN {
+				return kindCDN
+			}
+		}
+	}
+	return kindMaster
 }

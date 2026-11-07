@@ -162,7 +162,8 @@ func (c *cdn) hashForOffset(ctx context.Context, offset int64) (tg.FileHash, err
 	}
 
 	return tg.FileHash{}, retryLimitErr(
-		"cdn hash lookup",
+		ctx,
+		RetryOperationGetFileHashes,
 		maxRetryAttempts,
 		errors.Errorf("hash for offset %d not found", offset),
 	)

@@ -63,6 +63,7 @@ func (b *Builder) WithThreads(threads int) *Builder {
 //
 // Handler can be called concurrently from download workers.
 func (b *Builder) WithRetryHandler(handler RetryHandler) *Builder {
+	handler = b.downloader.obs.wrapRetry(handler)
 	switch s := b.schema.(type) {
 	case master:
 		s.retryHandler = handler
@@ -237,6 +238,18 @@ func (b *Builder) reader() *reader {
 	return r
 }
 
+// start returns context of a download, reporting its start.
+func (b *Builder) start(ctx context.Context) context.Context {
+	obs := b.downloader.obs
+	if obs == nil {
+		return ctx
+	}
+	if b.offset > 0 {
+		obs.resume(ctx, b.offset)
+	}
+	return obs.with(ctx)
+}
+
 func (b *Builder) sink() sink {
 	return sink{
 		done:     b.offset,
@@ -248,6 +261,8 @@ func (b *Builder) sink() sink {
 // Stream downloads file to given io.Writer.
 // NB: in this mode download can't be parallel.
 func (b *Builder) Stream(ctx context.Context, output io.Writer) (_ tg.StorageFileTypeClass, err error) {
+	ctx = b.start(ctx)
+	defer func() { b.downloader.obs.download(ctx, err) }()
 	prepared, closeCDN, err := b.prepare()
 	if err != nil {
 		return nil, err
@@ -263,6 +278,8 @@ func (b *Builder) Stream(ctx context.Context, output io.Writer) (_ tg.StorageFil
 
 // Parallel downloads file to given io.WriterAt.
 func (b *Builder) Parallel(ctx context.Context, output io.WriterAt) (_ tg.StorageFileTypeClass, err error) {
+	ctx = b.start(ctx)
+	defer func() { b.downloader.obs.download(ctx, err) }()
 	prepared, closeCDN, err := b.prepare()
 	if err != nil {
 		return nil, err

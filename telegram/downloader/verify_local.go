@@ -23,16 +23,17 @@ import (
 // down to it:
 //
 //	off -= off % partSize
-func (b *Builder) Verify(ctx context.Context, r io.ReaderAt, size int64) (int64, error) {
+func (b *Builder) Verify(ctx context.Context, r io.ReaderAt, size int64) (verified int64, err error) {
 	if size <= 0 {
 		return 0, nil
 	}
+	if obs := b.downloader.obs; obs != nil {
+		ctx = obs.with(ctx)
+		defer func() { obs.verified(ctx, verified, size, err) }()
+	}
 
 	v := newVerifier(b.schema, b.hashes...)
-	var (
-		verified int64
-		buf      []byte
-	)
+	var buf []byte
 	for {
 		hash, ok, err := v.next(ctx)
 		if err != nil {

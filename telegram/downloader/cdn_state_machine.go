@@ -54,6 +54,7 @@ func (c *cdn) activateRedirect(ctx context.Context, redirect *tg.UploadFileCDNRe
 		return err
 	}
 	c.setRedirect(redirect)
+	observerFrom(ctx).cdnRedirect(ctx, redirect.DCID)
 	return nil
 }
 
@@ -106,7 +107,7 @@ func (c *cdn) refreshRedirect(
 
 	masterChunk, err := retryRequest(
 		ctx,
-		"refresh CDN redirect",
+		RetryOperationRefreshRedirect,
 		func(attempt int, err error) {
 			c.reportRetry(RetryOperationRefreshRedirect, attempt, err)
 		},
@@ -249,6 +250,7 @@ func (c *cdn) Chunk(ctx context.Context, offset int64, limit int) (chunk, error)
 
 				case *tg.UploadCDNFileReuploadNeeded:
 					// Ask master DC to reissue CDN token window for this file.
+					observerFrom(ctx).cdnReupload(ctx, redirect.DCID)
 					hashes, err := c.client.UploadReuploadCDNFile(ctx, &tg.UploadReuploadCDNFileRequest{
 						FileToken:    redirect.FileToken,
 						RequestToken: typed.RequestToken,
@@ -291,13 +293,16 @@ func (c *cdn) Chunk(ctx context.Context, offset int64, limit int) (chunk, error)
 			}
 
 			if err := c.verifyChunk(ctx, offset, limit, data); err != nil {
+				if errors.Is(err, ErrHashMismatch) {
+					observerFrom(ctx).hashMismatch(ctx, kindCDN, offset)
+				}
 				return chunk{}, err
 			}
-			return chunk{data: data}, nil
+			return chunk{data: data, cdn: true}, nil
 		}
 	}
 
-	return chunk{}, retryLimitErr("cdn chunk", maxRetryAttempts, errors.New("state loop"))
+	return chunk{}, retryLimitErr(ctx, RetryOperationGetFile, maxRetryAttempts, errors.New("state loop"))
 }
 
 func (c *cdn) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
@@ -346,5 +351,5 @@ func (c *cdn) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
 		}
 	}
 
-	return nil, retryLimitErr("cdn hashes", maxRetryAttempts, errors.New("state loop"))
+	return nil, retryLimitErr(ctx, RetryOperationGetFileHashes, maxRetryAttempts, errors.New("state loop"))
 }

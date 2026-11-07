@@ -33,6 +33,8 @@ type CDNProvider interface {
 type chunk struct {
 	data []byte
 	tag  tg.StorageFileTypeClass
+	// cdn is true if data was downloaded from CDN DC.
+	cdn bool
 }
 
 // schema is simple interface for different download schemas.

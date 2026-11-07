@@ -16,7 +16,7 @@ import (
 
 func TestRetryLimitErrWraps(t *testing.T) {
 	baseErr := errors.New("boom")
-	err := retryLimitErr("download", 3, baseErr)
+	err := retryLimitErr(context.Background(), "download", 3, baseErr)
 	require.ErrorIs(t, err, baseErr)
 	require.Contains(t, err.Error(), "download: retry limit reached (3)")
 }

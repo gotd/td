@@ -47,13 +47,27 @@ func withRefresh[T any](ctx context.Context, c master, f func(loc tg.InputFileLo
 	for attempt := 0; ; attempt++ {
 		loc := c.currentLocation()
 		r, err := f(loc)
-		if err == nil || c.ref == nil || attempt >= maxRefreshAttempts || !IsFileReferenceError(err) {
+		if err == nil || c.ref == nil || !IsFileReferenceError(err) {
+			return r, err
+		}
+		if attempt >= maxRefreshAttempts {
+			observerFrom(ctx).refresh(ctx, refreshLimit, err)
 			return r, err
 		}
 		c.reportRetry(RetryOperationFileReference, attempt+1, err)
-		if err := c.ref.update(ctx, loc); err != nil {
+		refreshed, err := c.ref.update(ctx, loc)
+		if err != nil {
+			result := refreshError
+			if errors.Is(err, ErrFileNotFound) {
+				result = refreshNotFound
+			}
+			observerFrom(ctx).refresh(ctx, result, err)
 			var zero T
 			return zero, err
+		}
+		if refreshed {
+			// Workers that waited for a refresh of another one don't count.
+			observerFrom(ctx).refresh(ctx, refreshOK, nil)
 		}
 	}
 }
