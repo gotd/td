@@ -237,6 +237,16 @@ type Options struct {
 	// it stops Run, OnSelfError is not called. Before the client is
 	// authorized, such errors are reported via OnSelfError only.
 	OnAuthLost func(ctx context.Context, err error) error
+
+	// OnFrozen is called when a request fails because the account is frozen
+	// (see IsFrozen) and app config confirms it. The account stays signed in
+	// and can read, but most methods fail until state.Until or a successful
+	// appeal via state.AppealURL.
+	//
+	// The freeze state is checked at most once an hour, on its own
+	// goroutine; ctx is the context of Run. Use Client.FreezeState to check
+	// it at any time, e.g. at start.
+	OnFrozen func(ctx context.Context, state FreezeState)
 }
 
 func (opt *Options) setDefaults() {

@@ -128,6 +128,13 @@ type Client struct {
 	// authLost receives error to stop Run on lost authorization.
 	authLost chan error
 
+	// onFrozen is called when a frozen error is confirmed by app config.
+	onFrozen func(ctx context.Context, state FreezeState) // immutable
+	// freezeChecked is when the freeze state was last checked after a
+	// frozen error, guarded by freezeMux.
+	freezeChecked time.Time
+	freezeMux     sync.Mutex
+
 	// Connections to non-primary DC.
 	// subConns are pools for *_MIGRATE redirects (invokeSub).
 	subConns *dcPoolCache
@@ -244,6 +251,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		onSelfError:            opt.OnSelfError,
 		onSelfSuccess:          opt.OnSelfSuccess,
 		onAuthLost:             opt.OnAuthLost,
+		onFrozen:               opt.OnFrozen,
 	}
 	if opt.TracerProvider != nil {
 		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)

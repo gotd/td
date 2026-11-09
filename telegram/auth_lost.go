@@ -48,8 +48,11 @@ func (e *AuthLostError) Unwrap() []error {
 //
 // SESSION_PASSWORD_NEEDED and other "not authorized yet" errors are not
 // included.
+//
+// Errors made from AUTH_KEY_DROP_* service notifications (see
+// AuthKeyDropError) are included.
 func IsAuthLost(err error) bool {
-	return tgerr.Is(err,
+	if tgerr.Is(err,
 		"AUTH_KEY_UNREGISTERED",
 		"AUTH_KEY_INVALID",
 		"SESSION_REVOKED",
@@ -57,7 +60,11 @@ func IsAuthLost(err error) bool {
 		"USER_DEACTIVATED",
 		"USER_DEACTIVATED_BAN",
 		"AUTH_KEY_DUPLICATED",
-	)
+	) {
+		return true
+	}
+	rpcErr, ok := tgerr.As(err)
+	return ok && strings.HasPrefix(rpcErr.Type, authKeyDropPrefix)
 }
 
 // authState tracks whether the client is authorized in current Run.
@@ -203,7 +210,17 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 		}
 		return
 	}
-	if !c.auth.authorized.Load() || !IsAuthLost(err) {
+	c.observeRestriction(input, err)
+	if !IsAuthLost(err) {
+		return
+	}
+	c.authLostDetected(err)
+}
+
+// authLostDetected reports lost authorization revealed by err, if the client
+// is authorized.
+func (c *Client) authLostDetected(err error) {
+	if !c.auth.authorized.Load() {
 		return
 	}
 	if c.ctx != nil && c.ctx.Err() != nil {
@@ -221,12 +238,28 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 	if rpcErr, ok := tgerr.As(err); ok {
 		reason = rpcErr.Type
 	}
+	kind := AuthLostKindOf(err)
 	bg := context.Background()
-	c.meters().authLost.Add(bg, 1, metric.WithAttributes(attribute.String("reason", reason)))
-	c.log.Warn(bg, "Authorization lost",
+	c.meters().authLost.Add(bg, 1, metric.WithAttributes(
+		attribute.String("reason", reason),
+		attribute.String("kind", kind.String()),
+	))
+	fields := []log.Attr{
 		log.String("reason", reason),
+		log.String("kind", kind.String()),
 		log.Bool("callback", c.onAuthLost != nil),
-	)
+	}
+	switch kind {
+	case AuthLostBanned:
+		// Same advice as TDLib gives.
+		c.log.Error(bg, "Authorization lost: the account is banned by Telegram. "+
+			"If this is a mistake, log in from an official mobile app and follow "+
+			"its instructions to recover the account", fields...)
+	case AuthLostDeleted:
+		c.log.Error(bg, "Authorization lost: the account is deleted", fields...)
+	default:
+		c.log.Warn(bg, "Authorization lost", fields...)
+	}
 	if c.onAuthLost == nil {
 		return
 	}
