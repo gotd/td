@@ -39,34 +39,84 @@ func NewQR(api *tg.Client, appID int, appHash string, opts Options) QR {
 	}
 }
 
+// ExportResult is a result of exporting login token.
+//
+// Exactly one field is set.
+type ExportResult struct {
+	// Token is set for auth.loginToken: show it and wait for acceptance.
+	Token Token
+	// Authorization is set for auth.loginTokenSuccess: token was already
+	// accepted and login is complete.
+	Authorization *tg.AuthAuthorization
+	// MigrateTo is set for auth.loginTokenMigrateTo: login should be
+	// completed via auth.importLoginToken on given DC.
+	MigrateTo *tg.AuthLoginTokenMigrateTo
+}
+
+// ExportResult exports new login token, returning authorization if token
+// was already accepted.
+//
+// See https://core.telegram.org/api/qr-login#exporting-a-login-token.
+func (q QR) ExportResult(ctx context.Context, exceptIDs ...int64) (ExportResult, error) {
+	result, err := q.export(ctx, exceptIDs...)
+	if err != nil {
+		return ExportResult{}, err
+	}
+
+	switch t := result.(type) {
+	case *tg.AuthLoginToken:
+		return ExportResult{Token: NewToken(t.Token, t.Expires)}, nil
+	case *tg.AuthLoginTokenSuccess:
+		a, ok := t.Authorization.(*tg.AuthAuthorization)
+		if !ok {
+			return ExportResult{}, errors.Errorf("unexpected type %T", t.Authorization)
+		}
+		return ExportResult{Authorization: a}, nil
+	case *tg.AuthLoginTokenMigrateTo:
+		return ExportResult{MigrateTo: t}, nil
+	default:
+		return ExportResult{}, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 // Export exports new login token.
+//
+// If token was already accepted (auth.loginTokenSuccess), Export returns an
+// empty token and the authorization is discarded; use ExportResult to get it.
+// If migration is needed, Export returns *MigrationNeededError.
 //
 // See https://core.telegram.org/api/qr-login#exporting-a-login-token.
 func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
-	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
-		APIID:     q.appID,
-		APIHash:   q.appHash,
-		ExceptIDs: exceptIDs,
-	})
+	result, err := q.export(ctx, exceptIDs...)
 	if err != nil {
-		return Token{}, errors.Wrap(err, "export")
+		return Token{}, err
 	}
 
 	switch t := result.(type) {
 	case *tg.AuthLoginToken:
 		return NewToken(t.Token, t.Expires), nil
 	case *tg.AuthLoginTokenSuccess:
-		// Token was already accepted, authentication successful
-		// Return empty token since no new token is needed
+		// Token was already accepted, authentication successful.
 		return Token{}, nil
 	case *tg.AuthLoginTokenMigrateTo:
-		// Migration needed
 		return Token{}, &MigrationNeededError{
 			MigrateTo: t,
 		}
 	default:
 		return Token{}, errors.Errorf("unexpected type %T", result)
 	}
+}
+
+func (q QR) export(ctx context.Context, exceptIDs ...int64) (tg.AuthLoginTokenClass, error) {
+	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
+		APIID:     q.appID,
+		APIHash:   q.appHash,
+		ExceptIDs: exceptIDs,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "export")
+	}
+	return result, nil
 }
 
 // Accept accepts given token.
@@ -158,25 +208,61 @@ func (q QR) importToken(ctx context.Context) (*tg.AuthAuthorization, error) {
 type LoggedIn <-chan struct{}
 
 // OnLoginToken sets handler for given dispatcher and returns signal channel.
+//
+// The channel is a latch: an update received while nobody is waiting on the
+// channel (e.g. during show callback or token export) is kept until read.
 func OnLoginToken(d interface {
 	OnLoginToken(tg.LoginTokenHandler)
 },
 ) LoggedIn {
-	loggedIn := make(chan struct{})
+	loggedIn := make(chan struct{}, 1)
 	d.OnLoginToken(func(ctx context.Context, e tg.Entities, update *tg.UpdateLoginToken) error {
 		select {
 		case loggedIn <- struct{}{}:
-			return nil
 		default:
+			// Signal is already pending.
 		}
 		return nil
 	})
 	return loggedIn
 }
 
+const (
+	// minTokenWait is the minimum delay before token refresh, protecting
+	// against busy loop if the local clock is ahead of server time.
+	minTokenWait = time.Second
+	// minRetryDelay and maxRetryDelay bound backoff of token refresh retries.
+	minRetryDelay = time.Second
+	maxRetryDelay = time.Minute
+)
+
+// retryableExportError reports whether token refresh can be retried after err.
+func retryableExportError(err error) bool {
+	if _, ok := tgerr.AsFloodWait(err); ok {
+		return true
+	}
+	if rpcErr, ok := tgerr.As(err); ok {
+		// Internal server errors are transient, other RPC errors are fatal.
+		return rpcErr.Code >= 500
+	}
+	// Non-RPC errors (e.g. connection issues) are transient.
+	return true
+}
+
+// nextRetryDelay returns backoff delay after prev delay for given error.
+func nextRetryDelay(prev time.Duration, err error) time.Duration {
+	d := min(max(2*prev, minRetryDelay), maxRetryDelay)
+	if wait, ok := tgerr.AsFloodWait(err); ok && wait > d {
+		d = wait
+	}
+	return d
+}
+
 // Auth generates new QR login token, shows it and awaits acceptation.
 //
 // NB: Show callback may be called more than once if QR expires.
+//
+// Transient errors of token refresh are retried with backoff.
 func (q QR) Auth(
 	ctx context.Context,
 	loggedIn LoggedIn,
@@ -184,63 +270,80 @@ func (q QR) Auth(
 	exceptIDs ...int64,
 ) (*tg.AuthAuthorization, error) {
 	until := func(token Token) time.Duration {
-		return token.Expires().Sub(q.clock.Now()).Truncate(time.Second)
+		// TODO: use server time when available, as tdlib does.
+		return max(token.Expires().Sub(q.clock.Now()).Truncate(time.Second), minTokenWait)
 	}
 
-	token, err := q.Export(ctx, exceptIDs...)
+	r, err := q.ExportResult(ctx, exceptIDs...)
 	if err != nil {
 		if q.needPassword(err) {
 			return q.checkPassword(ctx)
 		}
 		return nil, err
 	}
-
-	// If token is empty, it means AuthLoginTokenSuccess was returned
-	// and authentication is already complete, but we should wait for the signal.
-	if token.Empty() {
-		select {
-		case <-ctx.Done():
-			return nil, ctx.Err()
-		case <-loggedIn:
-			return q.Import(ctx)
-		}
+	switch {
+	case r.Authorization != nil:
+		// Token was already accepted (e.g. before restart on the same
+		// session): the update has already happened, do not wait for it.
+		return r.Authorization, nil
+	case r.MigrateTo != nil:
+		return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
 	}
+	token := r.Token
 
 	timer := q.clock.Timer(until(token))
 	defer clock.StopTimer(timer)
 
+	var (
+		retryDelay time.Duration
+		needShow   = true
+	)
 	for {
-		if err := show(ctx, token); err != nil {
-			return nil, errors.Wrap(err, "show")
+		if needShow {
+			if err := show(ctx, token); err != nil {
+				return nil, errors.Wrap(err, "show")
+			}
+			needShow = false
 		}
 
 		select {
 		case <-ctx.Done():
-			return nil, ctx.Err()
-		case <-timer.C():
-			t, err := q.Export(ctx, exceptIDs...)
-			if err != nil {
-				// Token may be accepted right before expiration (or the
-				// update is missed), so 2FA can be requested here too.
-				if q.needPassword(err) {
-					return q.checkPassword(ctx)
-				}
-				return nil, err
-			}
-
-			if t.Empty() {
-				// If empty token, it means AuthLoginTokenSuccess was returned.
-				// QR was scanned and accepted, break to import.
-				break
-			}
-
-			token = t
-			timer.Reset(until(token))
-
-			continue
+			return nil, errors.Wrap(ctx.Err(), "wait for login")
 		case <-loggedIn:
+			return q.Import(ctx)
+		case <-timer.C():
 		}
 
-		return q.Import(ctx)
+		r, err := q.ExportResult(ctx, exceptIDs...)
+		if err != nil {
+			// Token may be accepted right before expiration (or the
+			// update is missed), so 2FA can be requested here too.
+			if q.needPassword(err) {
+				return q.checkPassword(ctx)
+			}
+			if ctxErr := ctx.Err(); ctxErr != nil {
+				return nil, errors.Wrap(ctxErr, "refresh token")
+			}
+			if !retryableExportError(err) {
+				return nil, err
+			}
+			// Keep showing current token, it may still be scanned.
+			retryDelay = nextRetryDelay(retryDelay, err)
+			timer.Reset(retryDelay)
+			continue
+		}
+		retryDelay = 0
+
+		switch {
+		case r.Authorization != nil:
+			// QR was scanned and accepted, no need to export again.
+			return r.Authorization, nil
+		case r.MigrateTo != nil:
+			return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
+		}
+
+		token = r.Token
+		needShow = true
+		timer.Reset(until(token))
 	}
 }
