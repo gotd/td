@@ -14,9 +14,11 @@ import (
 
 func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
 	for _, update := range updates {
-		switch update.(type) {
+		switch u := update.(type) {
 		case *tg.UpdateConfig, *tg.UpdateDCOptions:
 			c.fetchConfig(c.ctx)
+		case *tg.UpdateServiceNotification:
+			c.handleServiceNotification(u)
 		}
 	}
 }

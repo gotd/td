@@ -135,7 +135,12 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 		// recreate transport and re-bind, not regenerate permanent key in-place.
 		return errors.Wrap(ErrPFSReconnectRequired, "temporary auth key not found in pfs mode")
 	}
-	c.log.Warn(ctx, "Re-generating keys (server not found key that we provided)")
+	// The server dropped the key: e.g. the session was terminated or the
+	// account deleted or banned. A new key is not authorized, so requests
+	// that need authorization fail with AUTH_KEY_UNREGISTERED, which the
+	// client reports as lost authorization.
+	c.log.Warn(ctx, "Re-generating keys (server not found key that we provided), "+
+		"authorization of this key is lost if it had one")
 	if err := c.createAuthKey(ctx); err != nil {
 		return errors.Wrap(err, "unable to create auth key")
 	}

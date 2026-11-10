@@ -348,10 +348,22 @@ func TestClientMetricsAuthLost(t *testing.T) {
 	fail.Store(tgerr.New(401, "SESSION_REVOKED"))
 	_, _ = api.HelpGetConfig(ctx)
 	_, _ = api.HelpGetConfig(ctx)
-	require.EqualValues(t, 1, m.value("gotd.client.auth.lost", strAttr("reason", "SESSION_REVOKED")))
+	require.EqualValues(t, 1, m.value("gotd.client.auth.lost",
+		strAttr("reason", "SESSION_REVOKED"), strAttr("kind", "revoked"),
+	))
+
+	// Restrictions are counted on every error, authorized or not.
+	fail.Store(tgerr.New(400, "PHONE_NUMBER_BANNED"))
+	_, _ = api.HelpGetConfig(ctx)
+	require.EqualValues(t, 1, m.value("gotd.client.account.restricted",
+		strAttr("reason", "PHONE_NUMBER_BANNED"),
+	))
 
 	require.EqualValues(t, 3, m.value("gotd.client.invoke.duration",
 		strAttr("result", "rpc_error"), attribute.Int("code", 401),
+	))
+	require.EqualValues(t, 1, m.value("gotd.client.invoke.duration",
+		strAttr("result", "rpc_error"), attribute.Int("code", 400),
 	))
 	require.EqualValues(t, 1, m.value("gotd.client.invoke.duration", strAttr("result", "ok")))
 }

@@ -45,6 +45,7 @@ type clientMetrics struct {
 	restarts       metric.Int64Counter
 	migrations     metric.Int64Counter
 	authLost       metric.Int64Counter
+	restricted     metric.Int64Counter
 	requestTimeout metric.Int64Counter
 	poolCreated    metric.Int64Counter
 	poolDuration   metric.Float64Histogram
@@ -104,7 +105,11 @@ func newClientMetrics(provider metric.MeterProvider) (*clientMetrics, error) {
 	m.migrations = counter("gotd.client.migrations", "{migration}",
 		"Primary DC migrations, by target DC.")
 	m.authLost = counter("gotd.client.auth.lost", "{event}",
-		"Lost authorizations of an authorized client, by RPC error type.")
+		"Lost authorizations of an authorized client, by RPC error type (reason) and kind "+
+			"(banned, deleted, revoked, unregistered, expired, key_invalid).")
+	m.restricted = counter("gotd.client.account.restricted", "{error}",
+		"Errors telling that the account is restricted, by RPC error type: "+
+			"FROZEN_METHOD_INVALID, FROZEN_PARTICIPANT_MISSING, PHONE_NUMBER_BANNED.")
 	m.requestTimeout = counter("gotd.client.request.timeouts", "{request}",
 		"Requests without response in Options.RequestTimeout, by result (resent, failed) and method.")
 	m.poolCreated = counter("gotd.client.pool.created", "{pool}",
