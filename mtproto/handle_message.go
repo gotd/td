@@ -11,14 +11,14 @@ import (
 	"github.com/gotd/td/proto"
 )
 
-func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
+func (c *Conn) handleMessage(ctx context.Context, msgID int64, b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
 		return errors.Wrap(err, "peek message type")
 	}
 
-	c.logWithBuffer(b).Debug(context.Background(), "Handle message", log.Int64("msg_id", msgID))
+	c.logWithBuffer(b).Debug(ctx, "Handle message", log.Int64("msg_id", msgID))
 	switch id {
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)
@@ -27,7 +27,7 @@ func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
 	case mt.FutureSaltsTypeID:
 		return c.handleFutureSalts(b)
 	case proto.MessageContainerTypeID:
-		return c.handleContainer(msgID, b)
+		return c.handleContainer(ctx, b)
 	case proto.ResultTypeID:
 		return c.handleResult(b)
 	case mt.PongTypeID:
@@ -35,7 +35,7 @@ func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
 	case mt.MsgsAckTypeID:
 		return c.handleAck(b)
 	case proto.GZIPTypeID:
-		return c.handleGZIP(msgID, b)
+		return c.handleGZIP(ctx, msgID, b)
 	case mt.MsgDetailedInfoTypeID,
 		mt.MsgNewDetailedInfoTypeID:
 		return nil

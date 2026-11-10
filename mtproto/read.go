@@ -80,7 +80,7 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 		return errors.Wrap(err, "consume message")
 	}
 
-	if err := c.handleMessage(msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
+	if err := c.handleMessage(ctx, msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
 		// Probably we can return here, but this will shutdown whole
 		// connection which can be unexpected.
 		c.log.Warn(ctx, "Error while handling message", log.Error(err))
@@ -88,26 +88,41 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 		// from missing updates via explicit pts check and getDiff call.
 	}
 
-	needAck := (msg.SeqNo & 0x01) != 0
-	if needAck {
-		// Enqueue message id for acknowledge. This can block if the ack loop
-		// is stuck (e.g. writing acks over a half-open connection), which would
-		// stall message consumption. Trace slow enqueues to surface it.
-		start := c.clock.Now()
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case c.ackSendChan <- msg.MessageID:
-			if waited := c.clock.Now().Sub(start); waited > slowWriteThreshold {
-				c.log.Warn(ctx, "Slow ack enqueue (ack loop may be stalled)",
-					log.Int64("msg_id", msg.MessageID),
-					log.Duration("waited", waited),
-				)
-			}
+	if needAck(int(msg.SeqNo)) {
+		if err := c.enqueueAck(ctx, msg.MessageID); err != nil {
+			return err
 		}
 	}
 
 	return nil
+}
+
+// needAck reports whether a message with the given seqno is content-related
+// and must be acknowledged.
+//
+// https://core.telegram.org/mtproto/description#message-sequence-number-msg-seqno
+func needAck(seqNo int) bool {
+	return seqNo&0x01 != 0
+}
+
+// enqueueAck enqueues message id for acknowledgement by ackLoop.
+func (c *Conn) enqueueAck(ctx context.Context, msgID int64) error {
+	// This can block if the ack loop is stuck (e.g. writing acks over a
+	// half-open connection), which would stall message consumption. Trace
+	// slow enqueues to surface it.
+	start := c.clock.Now()
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case c.ackSendChan <- msgID:
+		if waited := c.clock.Now().Sub(start); waited > slowWriteThreshold {
+			c.log.Warn(ctx, "Slow ack enqueue (ack loop may be stalled)",
+				log.Int64("msg_id", msgID),
+				log.Duration("waited", waited),
+			)
+		}
+		return nil
+	}
 }
 
 func (c *Conn) noUpdates(err error) bool {
