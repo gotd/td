@@ -571,6 +571,16 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 }
 
 func (s *internalState) getDifference(ctx context.Context, reason string) error {
+	return s.getDifferenceChain(ctx, reason, false)
+}
+
+// getDifferenceChain fetches and applies the difference, continuing with
+// further requests for slices and too-long differences.
+//
+// refetched is true once the chain made a follow-up request because a
+// difference contained updatePtsChanged: the follow-up is made at most once per
+// chain, so a server repeating updatePtsChanged cannot loop.
+func (s *internalState) getDifferenceChain(ctx context.Context, reason string, refetched bool) error {
 	ctx, span := s.tracer.Start(ctx, "getDifference")
 	defer span.End()
 
@@ -589,17 +599,6 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 	s.metrics.differenceTrigger(ctx, kindCommon, reason)
 	// Updates of the difference are reported with "difference" source.
 	ctx = withDifferenceSource(ctx)
-
-	setState := func(state tg.UpdatesState, reason string) {
-		if err := s.storage.SetState(ctx, s.selfID, State{}.fromRemote(&state)); err != nil {
-			s.log.Warn(ctx, "SetState error", log.Error(err))
-		}
-
-		s.pts.SetState(state.Pts, reason)
-		s.qts.SetState(state.Qts, reason)
-		s.seq.SetState(state.Seq, reason)
-		s.date = state.Date
-	}
 
 	start := time.Now()
 	diff, err := s.client.UpdatesGetDifference(ctx, &tg.UpdatesGetDifferenceRequest{
@@ -622,36 +621,30 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesDifference:
-		// Record recovered senders as known before dispatching, so a user
-		// recovered via getDifference does not re-trigger getDifference for the
-		// next short message from the same sender.
-		s.saveUserHashes(ctx, diff.Users)
-
-		if len(diff.OtherUpdates) > 0 {
-			if err := s.handleUpdates(ctx, &tg.UpdatesCombined{
-				Updates: diff.OtherUpdates,
-				Users:   diff.Users,
-				Chats:   diff.Chats,
-			}); err != nil {
-				return errors.Wrap(err, "handle diff.OtherUpdates")
-			}
+		ptsChanged, err := s.applyDifference(ctx, differenceContents{
+			NewMessages:          diff.NewMessages,
+			NewEncryptedMessages: diff.NewEncryptedMessages,
+			OtherUpdates:         diff.OtherUpdates,
+			Users:                diff.Users,
+			Chats:                diff.Chats,
+			State:                diff.State,
+		}, "updates.Difference")
+		if err != nil {
+			return err
 		}
-
-		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			if err := s.dispatch(ctx, &tg.Updates{
-				Updates: append(
-					msgsToUpdates(diff.NewMessages, false),
-					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
-				),
-				Users: diff.Users,
-				Chats: diff.Chats,
-			}); err != nil {
-				s.log.Error(ctx, "Handle updates error", log.Error(err))
-			}
+		if !ptsChanged {
+			return nil
 		}
-
-		setState(diff.State, "updates.Difference")
-		return nil
+		if refetched {
+			s.log.Warn(ctx, "Ignoring repeated updatePtsChanged in difference",
+				log.Int("pts", s.pts.State()),
+			)
+			return nil
+		}
+		s.log.Warn(ctx, "Got updatePtsChanged in difference, refetching",
+			log.Int("pts", s.pts.State()),
+		)
+		return s.getDifferenceChain(ctx, "difference-pts-changed", true)
 
 	// No events.
 	case *tg.UpdatesDifferenceEmpty:
@@ -665,37 +658,25 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 
 	// Incomplete list of occurred events.
 	case *tg.UpdatesDifferenceSlice:
-		// Record recovered senders as known before dispatching, so a user
-		// recovered via getDifference does not re-trigger getDifference for the
-		// next short message from the same sender.
-		s.saveUserHashes(ctx, diff.Users)
-
-		if len(diff.OtherUpdates) > 0 {
-			if err := s.handleUpdates(ctx, &tg.UpdatesCombined{
-				Updates: diff.OtherUpdates,
-				Users:   diff.Users,
-				Chats:   diff.Chats,
-				Date:    diff.IntermediateState.Date,
-			}); err != nil {
-				s.log.Error(ctx, "Handle updates error", log.Error(err))
-			}
+		ptsChanged, err := s.applyDifference(ctx, differenceContents{
+			NewMessages:          diff.NewMessages,
+			NewEncryptedMessages: diff.NewEncryptedMessages,
+			OtherUpdates:         diff.OtherUpdates,
+			Users:                diff.Users,
+			Chats:                diff.Chats,
+			State:                diff.IntermediateState,
+		}, "updates.differenceSlice")
+		if err != nil {
+			return err
 		}
-
-		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			if err := s.dispatch(ctx, &tg.Updates{
-				Updates: append(
-					msgsToUpdates(diff.NewMessages, false),
-					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
-				),
-				Users: diff.Users,
-				Chats: diff.Chats,
-			}); err != nil {
-				s.log.Error(ctx, "Handle updates error", log.Error(err))
-			}
+		if ptsChanged {
+			// The continuation below is the refetch.
+			s.log.Warn(ctx, "Got updatePtsChanged in difference slice",
+				log.Int("pts", s.pts.State()),
+				log.Bool("refetched", refetched),
+			)
 		}
-
-		setState(diff.IntermediateState, "updates.differenceSlice")
-		return s.getDifference(ctx, "difference-slice-continue")
+		return s.getDifferenceChain(ctx, "difference-slice-continue", refetched || ptsChanged)
 
 	// The difference is too long, and the specified internalState must be used to refetch updates.
 	case *tg.UpdatesDifferenceTooLong:
@@ -708,7 +689,7 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 		)
 		s.pts.SetState(diff.Pts, "updates.differenceTooLong")
 		s.onCommonTooLong()
-		return s.getDifference(ctx, "difference-too-long-continue")
+		return s.getDifferenceChain(ctx, "difference-too-long-continue", refetched)
 
 	default:
 		return errors.Errorf("unexpected diff type: %T", diff)

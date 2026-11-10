@@ -187,6 +187,52 @@ loop:
 	return nil
 }
 
+// resyncPending reconciles pending updates with the current state after a
+// difference set it, like TDLib process_postponed_pts_updates.
+//
+// Pending updates covered by the state (starting before it) were delivered by
+// the difference and are dropped. If the remaining pending updates continue
+// the state, they are applied. If a gap still separates the state from them,
+// the gap is re-armed with its timer, so a further difference recovers it.
+func (s *sequenceBox) resyncPending(ctx context.Context) error {
+	s.gaps.Clear()
+	_ = s.gapTimeout.Stop()
+
+	kept := s.pending[:0]
+	for _, u := range s.pending {
+		if u.start() < s.state || u.end() <= s.state {
+			continue
+		}
+		kept = append(kept, u)
+	}
+	// Let GC collect dropped updates.
+	for i := len(kept); i < len(s.pending); i++ {
+		s.pending[i] = update{}
+	}
+	s.pending = kept
+	if len(s.pending) == 0 {
+		return nil
+	}
+
+	sort.SliceStable(s.pending, func(i, j int) bool {
+		return s.pending[i].start() < s.pending[j].start()
+	})
+	if first := s.pending[0]; checkGap(s.state, first.State, first.Count) == gapApply {
+		if err := s.applyPending(ctx); err != nil {
+			return err
+		}
+	}
+	if len(s.pending) == 0 {
+		return nil
+	}
+
+	s.gaps.Enable(s.state, s.pending[0].start())
+	s.metrics.gap(ctx, s.kind, s.name, gapDetected)
+	_ = s.gapTimeout.Reset(fastgapTimeout)
+	s.log.Debug(ctx, "Gap remains after difference", log.Stringer("gap", s.gaps))
+	return nil
+}
+
 func (s *sequenceBox) State() int { return s.state }
 
 func (s *sequenceBox) SetState(state int, reason string) {
