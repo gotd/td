@@ -39,34 +39,84 @@ func NewQR(api *tg.Client, appID int, appHash string, opts Options) QR {
 	}
 }
 
+// ExportResult is a result of exporting login token.
+//
+// Exactly one field is set.
+type ExportResult struct {
+	// Token is set for auth.loginToken: show it and wait for acceptance.
+	Token Token
+	// Authorization is set for auth.loginTokenSuccess: token was already
+	// accepted and login is complete.
+	Authorization *tg.AuthAuthorization
+	// MigrateTo is set for auth.loginTokenMigrateTo: login should be
+	// completed via auth.importLoginToken on given DC.
+	MigrateTo *tg.AuthLoginTokenMigrateTo
+}
+
+// ExportResult exports new login token, returning authorization if token
+// was already accepted.
+//
+// See https://core.telegram.org/api/qr-login#exporting-a-login-token.
+func (q QR) ExportResult(ctx context.Context, exceptIDs ...int64) (ExportResult, error) {
+	result, err := q.export(ctx, exceptIDs...)
+	if err != nil {
+		return ExportResult{}, err
+	}
+
+	switch t := result.(type) {
+	case *tg.AuthLoginToken:
+		return ExportResult{Token: NewToken(t.Token, t.Expires)}, nil
+	case *tg.AuthLoginTokenSuccess:
+		a, ok := t.Authorization.(*tg.AuthAuthorization)
+		if !ok {
+			return ExportResult{}, errors.Errorf("unexpected type %T", t.Authorization)
+		}
+		return ExportResult{Authorization: a}, nil
+	case *tg.AuthLoginTokenMigrateTo:
+		return ExportResult{MigrateTo: t}, nil
+	default:
+		return ExportResult{}, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 // Export exports new login token.
+//
+// If token was already accepted (auth.loginTokenSuccess), Export returns an
+// empty token and the authorization is discarded; use ExportResult to get it.
+// If migration is needed, Export returns *MigrationNeededError.
 //
 // See https://core.telegram.org/api/qr-login#exporting-a-login-token.
 func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
-	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
-		APIID:     q.appID,
-		APIHash:   q.appHash,
-		ExceptIDs: exceptIDs,
-	})
+	result, err := q.export(ctx, exceptIDs...)
 	if err != nil {
-		return Token{}, errors.Wrap(err, "export")
+		return Token{}, err
 	}
 
 	switch t := result.(type) {
 	case *tg.AuthLoginToken:
 		return NewToken(t.Token, t.Expires), nil
 	case *tg.AuthLoginTokenSuccess:
-		// Token was already accepted, authentication successful
-		// Return empty token since no new token is needed
+		// Token was already accepted, authentication successful.
 		return Token{}, nil
 	case *tg.AuthLoginTokenMigrateTo:
-		// Migration needed
 		return Token{}, &MigrationNeededError{
 			MigrateTo: t,
 		}
 	default:
 		return Token{}, errors.Errorf("unexpected type %T", result)
 	}
+}
+
+func (q QR) export(ctx context.Context, exceptIDs ...int64) (tg.AuthLoginTokenClass, error) {
+	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
+		APIID:     q.appID,
+		APIHash:   q.appHash,
+		ExceptIDs: exceptIDs,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "export")
+	}
+	return result, nil
 }
 
 // Accept accepts given token.
@@ -187,24 +237,22 @@ func (q QR) Auth(
 		return token.Expires().Sub(q.clock.Now()).Truncate(time.Second)
 	}
 
-	token, err := q.Export(ctx, exceptIDs...)
+	r, err := q.ExportResult(ctx, exceptIDs...)
 	if err != nil {
 		if q.needPassword(err) {
 			return q.checkPassword(ctx)
 		}
 		return nil, err
 	}
-
-	// If token is empty, it means AuthLoginTokenSuccess was returned
-	// and authentication is already complete, but we should wait for the signal.
-	if token.Empty() {
-		select {
-		case <-ctx.Done():
-			return nil, ctx.Err()
-		case <-loggedIn:
-			return q.Import(ctx)
-		}
+	switch {
+	case r.Authorization != nil:
+		// Token was already accepted (e.g. before restart on the same
+		// session): the update has already happened, do not wait for it.
+		return r.Authorization, nil
+	case r.MigrateTo != nil:
+		return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
 	}
+	token := r.Token
 
 	timer := q.clock.Timer(until(token))
 	defer clock.StopTimer(timer)
@@ -218,7 +266,7 @@ func (q QR) Auth(
 		case <-ctx.Done():
 			return nil, ctx.Err()
 		case <-timer.C():
-			t, err := q.Export(ctx, exceptIDs...)
+			r, err := q.ExportResult(ctx, exceptIDs...)
 			if err != nil {
 				// Token may be accepted right before expiration (or the
 				// update is missed), so 2FA can be requested here too.
@@ -227,16 +275,16 @@ func (q QR) Auth(
 				}
 				return nil, err
 			}
-
-			if t.Empty() {
-				// If empty token, it means AuthLoginTokenSuccess was returned.
-				// QR was scanned and accepted, break to import.
-				break
+			switch {
+			case r.Authorization != nil:
+				// QR was scanned and accepted, no need to export again.
+				return r.Authorization, nil
+			case r.MigrateTo != nil:
+				return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
 			}
 
-			token = t
+			token = r.Token
 			timer.Reset(until(token))
-
 			continue
 		case <-loggedIn:
 		}
