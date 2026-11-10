@@ -206,8 +206,6 @@ func (m *mockDispatcher) OnLoginToken(h tg.LoginTokenHandler) {
 }
 
 func TestOnLoginToken(t *testing.T) {
-	t.Skip("Flaky test")
-
 	a := require.New(t)
 
 	dispatcher := &mockDispatcher{}

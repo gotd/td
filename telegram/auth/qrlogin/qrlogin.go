@@ -208,25 +208,61 @@ func (q QR) importToken(ctx context.Context) (*tg.AuthAuthorization, error) {
 type LoggedIn <-chan struct{}
 
 // OnLoginToken sets handler for given dispatcher and returns signal channel.
+//
+// The channel is a latch: an update received while nobody is waiting on the
+// channel (e.g. during show callback or token export) is kept until read.
 func OnLoginToken(d interface {
 	OnLoginToken(tg.LoginTokenHandler)
 },
 ) LoggedIn {
-	loggedIn := make(chan struct{})
+	loggedIn := make(chan struct{}, 1)
 	d.OnLoginToken(func(ctx context.Context, e tg.Entities, update *tg.UpdateLoginToken) error {
 		select {
 		case loggedIn <- struct{}{}:
-			return nil
 		default:
+			// Signal is already pending.
 		}
 		return nil
 	})
 	return loggedIn
 }
 
+const (
+	// minTokenWait is the minimum delay before token refresh, protecting
+	// against busy loop if the local clock is ahead of server time.
+	minTokenWait = time.Second
+	// minRetryDelay and maxRetryDelay bound backoff of token refresh retries.
+	minRetryDelay = time.Second
+	maxRetryDelay = time.Minute
+)
+
+// retryableExportError reports whether token refresh can be retried after err.
+func retryableExportError(err error) bool {
+	if _, ok := tgerr.AsFloodWait(err); ok {
+		return true
+	}
+	if rpcErr, ok := tgerr.As(err); ok {
+		// Internal server errors are transient, other RPC errors are fatal.
+		return rpcErr.Code >= 500
+	}
+	// Non-RPC errors (e.g. connection issues) are transient.
+	return true
+}
+
+// nextRetryDelay returns backoff delay after prev delay for given error.
+func nextRetryDelay(prev time.Duration, err error) time.Duration {
+	d := min(max(2*prev, minRetryDelay), maxRetryDelay)
+	if wait, ok := tgerr.AsFloodWait(err); ok && wait > d {
+		d = wait
+	}
+	return d
+}
+
 // Auth generates new QR login token, shows it and awaits acceptation.
 //
 // NB: Show callback may be called more than once if QR expires.
+//
+// Transient errors of token refresh are retried with backoff.
 func (q QR) Auth(
 	ctx context.Context,
 	loggedIn LoggedIn,
@@ -234,7 +270,8 @@ func (q QR) Auth(
 	exceptIDs ...int64,
 ) (*tg.AuthAuthorization, error) {
 	until := func(token Token) time.Duration {
-		return token.Expires().Sub(q.clock.Now()).Truncate(time.Second)
+		// TODO: use server time when available, as tdlib does.
+		return max(token.Expires().Sub(q.clock.Now()).Truncate(time.Second), minTokenWait)
 	}
 
 	r, err := q.ExportResult(ctx, exceptIDs...)
@@ -257,38 +294,56 @@ func (q QR) Auth(
 	timer := q.clock.Timer(until(token))
 	defer clock.StopTimer(timer)
 
+	var (
+		retryDelay time.Duration
+		needShow   = true
+	)
 	for {
-		if err := show(ctx, token); err != nil {
-			return nil, errors.Wrap(err, "show")
+		if needShow {
+			if err := show(ctx, token); err != nil {
+				return nil, errors.Wrap(err, "show")
+			}
+			needShow = false
 		}
 
 		select {
 		case <-ctx.Done():
-			return nil, ctx.Err()
-		case <-timer.C():
-			r, err := q.ExportResult(ctx, exceptIDs...)
-			if err != nil {
-				// Token may be accepted right before expiration (or the
-				// update is missed), so 2FA can be requested here too.
-				if q.needPassword(err) {
-					return q.checkPassword(ctx)
-				}
-				return nil, err
-			}
-			switch {
-			case r.Authorization != nil:
-				// QR was scanned and accepted, no need to export again.
-				return r.Authorization, nil
-			case r.MigrateTo != nil:
-				return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
-			}
-
-			token = r.Token
-			timer.Reset(until(token))
-			continue
+			return nil, errors.Wrap(ctx.Err(), "wait for login")
 		case <-loggedIn:
+			return q.Import(ctx)
+		case <-timer.C():
 		}
 
-		return q.Import(ctx)
+		r, err := q.ExportResult(ctx, exceptIDs...)
+		if err != nil {
+			// Token may be accepted right before expiration (or the
+			// update is missed), so 2FA can be requested here too.
+			if q.needPassword(err) {
+				return q.checkPassword(ctx)
+			}
+			if ctxErr := ctx.Err(); ctxErr != nil {
+				return nil, errors.Wrap(ctxErr, "refresh token")
+			}
+			if !retryableExportError(err) {
+				return nil, err
+			}
+			// Keep showing current token, it may still be scanned.
+			retryDelay = nextRetryDelay(retryDelay, err)
+			timer.Reset(retryDelay)
+			continue
+		}
+		retryDelay = 0
+
+		switch {
+		case r.Authorization != nil:
+			// QR was scanned and accepted, no need to export again.
+			return r.Authorization, nil
+		case r.MigrateTo != nil:
+			return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
+		}
+
+		token = r.Token
+		needShow = true
+		timer.Reset(until(token))
 	}
 }
