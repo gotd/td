@@ -1,33 +1,70 @@
 package entity
 
 import (
+	"cmp"
 	"reflect"
-	"sort"
+	"slices"
 	"strings"
 	"unicode"
 
 	"github.com/gotd/td/tg"
 )
 
-// SortEntities sorts entities as TDLib does it.
+// SortEntities sorts entities as TDLib does it: by offset ascending, then by
+// length descending, then by type priority (outer entities first).
+//
+// The sort is stable, so entities with equal keys keep their original order.
 func SortEntities(entity []tg.MessageEntityClass) {
-	sort.Sort(entitySorter(entity))
+	slices.SortStableFunc(entity, compareEntities)
 }
 
-type entitySorter []tg.MessageEntityClass
-
-func (e entitySorter) Len() int {
-	return len(e)
+// compareEntities mirrors TDLib MessageEntity::operator<.
+func compareEntities(a, b tg.MessageEntityClass) int {
+	if c := cmp.Compare(a.GetOffset(), b.GetOffset()); c != 0 {
+		return c
+	}
+	if c := cmp.Compare(b.GetLength(), a.GetLength()); c != 0 {
+		return c
+	}
+	return cmp.Compare(entityPriority(a), entityPriority(b))
 }
 
-func (e entitySorter) Less(i, j int) bool {
-	a, b := e[i], e[j]
-	return a.GetOffset() < b.GetOffset() ||
-		a.GetLength() > b.GetLength()
-}
-
-func (e entitySorter) Swap(i, j int) {
-	e[i], e[j] = e[j], e[i]
+// entityPriority returns TDLib type priority of entity
+// (MessageEntity::get_type_priority). Lower priority goes first.
+func entityPriority(e tg.MessageEntityClass) int {
+	switch e := e.(type) {
+	case *tg.MessageEntityBlockquote:
+		return 0
+	case *tg.MessageEntityPre:
+		if e.Language != "" {
+			return 10 // PreCode
+		}
+		return 11
+	case *tg.MessageEntityCode:
+		return 20
+	case *tg.MessageEntityFormattedDate:
+		return 30
+	case *tg.MessageEntityTextURL,
+		*tg.MessageEntityMentionName,
+		*tg.InputMessageEntityMentionName:
+		return 49
+	case *tg.MessageEntityBold:
+		return 90
+	case *tg.MessageEntityItalic:
+		return 91
+	case *tg.MessageEntityUnderline:
+		return 92
+	case *tg.MessageEntityStrike:
+		return 93
+	case *tg.MessageEntitySpoiler:
+		return 94
+	case *tg.MessageEntityCustomEmoji:
+		return 99
+	default:
+		// Mention, Hashtag, BotCommand, URL, Email, Cashtag, Phone,
+		// BankCard, TonAddress and unknown entities.
+		return 50
+	}
 }
 
 // setLength sets Length field of entity.
