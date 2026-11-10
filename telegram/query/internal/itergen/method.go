@@ -97,6 +97,8 @@ type Method struct {
 	IteratorName string
 	// ElemName  is name of iterator elem.
 	ElemName string
+	// BatchSize is the default page size of the iterator.
+	BatchSize int
 }
 
 // Config is codegeneration config to use.

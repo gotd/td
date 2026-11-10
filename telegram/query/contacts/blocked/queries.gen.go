@@ -55,7 +55,7 @@ type GetBlockedQueryBuilder struct {
 func (q *QueryBuilder) GetBlocked() *GetBlockedQueryBuilder {
 	b := &GetBlockedQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 40,
 		req:       tg.ContactsGetBlockedRequest{},
 	}
 
@@ -63,6 +63,7 @@ func (q *QueryBuilder) GetBlocked() *GetBlockedQueryBuilder {
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 40, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetBlockedQueryBuilder) BatchSize(batchSize int) *GetBlockedQueryBuilder {

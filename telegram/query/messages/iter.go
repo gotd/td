@@ -41,6 +41,8 @@ type Iterator struct {
 	// Remote state.
 	count    int
 	totalGot bool
+	// received is the number of messages received by this iterator.
+	received int
 
 	// Query builder.
 	query Query
@@ -85,6 +87,8 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 	if m.lastBatch {
 		return nil
 	}
+	// Offsets the batch was requested with.
+	prevID, prevDate, prevRate := m.offsetID, m.offsetDate, m.offsetRate
 
 	var (
 		messages tg.MessageClassArray
@@ -103,13 +107,13 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 
 		m.offsetRate = msgs.NextRate
 		m.count = msgs.Count
-		m.lastBatch = len(msgs.Messages) < m.limit
+		m.lastBatch = m.reachedCount(len(msgs.Messages), msgs.Inexact)
 	case *tg.MessagesChannelMessages: // messages.channelMessages#64479808
 		messages = msgs.Messages
 		entities = peer.EntitiesFromResult(msgs)
 
 		m.count = msgs.Count
-		m.lastBatch = len(msgs.Messages) < m.limit
+		m.lastBatch = m.reachedCount(len(msgs.Messages), msgs.Inexact)
 	default: // messages.messagesNotModified#74535f21
 		return errors.Errorf("unexpected type %T", r)
 	}
@@ -157,6 +161,14 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 		// batch with new offset_id/date would break global search order.
 		m.offsetPeer = entities.OffsetPeer(nonEmpty.GetPeerID())
 	}
+	if m.offsetID == prevID && m.offsetDate == prevDate && m.offsetRate == prevRate {
+		// Offset did not advance: the server returned the same page again,
+		// drop it and stop to avoid looping forever.
+		m.lastBatch = true
+		m.buf = m.buf[:0]
+		m.bufCur = -1
+		return nil
+	}
 
 	m.bufCur = -1
 	m.buf = m.buf[:0]
@@ -179,6 +191,20 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 	}
 
 	return nil
+}
+
+// reachedCount records n received messages and reports whether iteration
+// reached the server-reported count.
+//
+// A page shorter than the limit does not mean the end: the server may return
+// fewer messages than requested (e.g. deleted or inaccessible ones), so only an
+// empty page or reaching an exact count ends iteration.
+func (m *Iterator) reachedCount(n int, inexact bool) bool {
+	m.received += n
+	if n == 0 {
+		return true
+	}
+	return !inexact && m.count > 0 && m.received >= m.count
 }
 
 func (m *Iterator) requestNext(ctx context.Context) error {
@@ -255,14 +281,16 @@ func (m *Iterator) Next(ctx context.Context) bool {
 		return false
 	}
 
-	if !m.bufNext() {
-		// If buffer is empty, we should fetch next batch.
+	for !m.bufNext() {
+		if m.lastBatch {
+			return false
+		}
+		// If buffer is empty, we should fetch next batch. A batch may have
+		// only empty messages, so keep fetching until an element or the end.
 		if err := m.requestNext(ctx); err != nil {
 			m.lastErr = err
 			return false
 		}
-		// Try again with new buffer.
-		return m.bufNext()
 	}
 
 	return true

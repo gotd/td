@@ -39,6 +39,8 @@ type Iterator struct {
 	// Remote state.
 	count    int
 	totalGot bool
+	// received is the number of dialogs received by this iterator.
+	received int
 
 	// Query builder.
 	query Query
@@ -131,7 +133,10 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 		entities = peer.EntitiesFromResult(dlgs)
 
 		m.count = dlgs.Count
-		m.lastBatch = len(dlgs.Dialogs) == 0
+		m.received += len(dlgs.Dialogs)
+		// A short page does not mean the end: the server may return fewer
+		// dialogs than requested. Stop on an empty page or on reaching the count.
+		m.lastBatch = len(dlgs.Dialogs) == 0 || (m.count > 0 && m.received >= m.count)
 	default: // messages.dialogsNotModified#f0e3e596
 		return errors.Errorf("unexpected type %T", r)
 	}
@@ -188,9 +193,35 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 		// The server uses offset_peer only to order results: min or unknown
 		// peers are fine there.
 		m.offsetPeer = entities.OffsetPeer(dlgPeer)
+
+		if m.offsetID == m.batchOffsetID &&
+			m.offsetDate == m.batchOffsetDate &&
+			samePeer(m.offsetPeer, m.batchOffsetPeer) {
+			// Offset did not advance: the server returned the same page
+			// again, drop it and stop to avoid looping forever.
+			m.lastBatch = true
+			m.buf = m.buf[:0]
+		}
 	}
 
 	return nil
+}
+
+// samePeer reports whether a and b refer to the same peer.
+func samePeer(a, b tg.InputPeerClass) bool {
+	if a == nil || b == nil {
+		return a == b
+	}
+	if a.TypeID() != b.TypeID() {
+		return false
+	}
+	var ka, kb DialogKey
+	if ka.FromInputPeer(a) != nil || kb.FromInputPeer(b) != nil {
+		// Peers without a key (e.g. inputPeerEmpty, inputPeerSelf) are equal
+		// if they have the same type.
+		return true
+	}
+	return ka == kb
 }
 
 func (m *Iterator) requestNext(ctx context.Context) error {

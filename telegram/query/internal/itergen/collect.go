@@ -237,6 +237,7 @@ func (c *collector) collect() ([]Method, error) {
 			AdditionalParams:  sortParams(method.params),
 			IteratorName:      "Iterator",
 			ElemName:          c.elemName,
+			BatchSize:         defaultBatchSize(method.f.Name()),
 		}
 
 		for _, field := range method.params {

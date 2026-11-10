@@ -67,7 +67,10 @@ func (m *Iterator) apply(r tg.MessagesFeaturedStickersClass) error {
 		unread = stks.Unread
 
 		m.count = stks.Count
-		m.lastBatch = len(stickers) < m.limit
+		// A page shorter than the limit does not mean the end: the server may
+		// return fewer elements than requested. Stop on an empty page or on
+		// reaching the server-reported count.
+		m.lastBatch = len(stickers) == 0 || (m.count > 0 && m.offset+len(stickers) >= m.count)
 	default:
 		return errors.Errorf("unexpected type %T", r)
 	}
@@ -84,6 +87,12 @@ func (m *Iterator) apply(r tg.MessagesFeaturedStickersClass) error {
 }
 
 func (m *Iterator) requestNext(ctx context.Context) error {
+	if m.lastBatch {
+		// Last batch is already consumed, no need to request more.
+		m.buf = m.buf[:0]
+		m.bufCur = -1
+		return nil
+	}
 	r, err := m.query.Query(ctx, Request{
 		Offset: m.offset,
 		Limit:  m.limit,

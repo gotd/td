@@ -59,7 +59,7 @@ type GetDialogsQueryBuilder struct {
 func (q *QueryBuilder) GetDialogs() *GetDialogsQueryBuilder {
 	b := &GetDialogsQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 100,
 		req:       tg.MessagesGetDialogsRequest{},
 	}
 
@@ -67,6 +67,7 @@ func (q *QueryBuilder) GetDialogs() *GetDialogsQueryBuilder {
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetDialogsQueryBuilder) BatchSize(batchSize int) *GetDialogsQueryBuilder {

@@ -62,7 +62,6 @@ func TestIterator(t *testing.T) {
 	mock.Expect().ThenResult(result(expected[0:limit], totalRows))
 	mock.Expect().ThenResult(result(expected[limit:2*limit], totalRows))
 	mock.Expect().ThenResult(result(expected[2*limit:3*limit], totalRows))
-	mock.Expect().ThenResult(result(expected[3*limit:], totalRows))
 
 	iter := NewQueryBuilder(raw).GetDialogs().BatchSize(10).Iter()
 	i := 0

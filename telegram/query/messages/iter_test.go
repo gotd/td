@@ -67,16 +67,6 @@ func TestIterator(t *testing.T) {
 		SavedPeerID: &tg.InputPeerEmpty{},
 		Limit:       limit,
 	}).ThenResult(messagesClass(expected[:limit], totalMessages))
-	mock.ExpectCall(&tg.MessagesSearchRequest{
-		Q:           "query",
-		Peer:        &tg.InputPeerSelf{},
-		OffsetID:    0,
-		FromID:      &tg.InputPeerEmpty{},
-		Filter:      &tg.InputMessagesFilterEmpty{},
-		SavedPeerID: &tg.InputPeerEmpty{},
-		Limit:       limit,
-	}).ThenResult(messagesClass(expected[:0], totalMessages))
-
 	iter := NewQueryBuilder(raw).Search(&tg.InputPeerSelf{}).
 		Filter(&tg.InputMessagesFilterEmpty{}).
 		Q("query").BatchSize(10).Iter()

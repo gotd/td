@@ -55,7 +55,7 @@ type GetOldFeaturedStickersQueryBuilder struct {
 func (q *QueryBuilder) GetOldFeaturedStickers() *GetOldFeaturedStickersQueryBuilder {
 	b := &GetOldFeaturedStickersQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 40,
 		req:       tg.MessagesGetOldFeaturedStickersRequest{},
 	}
 
@@ -63,6 +63,7 @@ func (q *QueryBuilder) GetOldFeaturedStickers() *GetOldFeaturedStickersQueryBuil
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 40, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetOldFeaturedStickersQueryBuilder) BatchSize(batchSize int) *GetOldFeaturedStickersQueryBuilder {

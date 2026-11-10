@@ -54,11 +54,6 @@ func TestIterator(t *testing.T) {
 		Offset: 2 * limit,
 		Limit:  limit,
 	}).ThenResult(result(expected[2*limit:3*limit], totalRecords))
-	mock.ExpectCall(&tg.PhotosGetUserPhotosRequest{
-		UserID: &tg.InputUserSelf{},
-		Offset: 3 * limit,
-		Limit:  limit,
-	}).ThenResult(result(expected[3*limit:], totalRecords))
 
 	iter := NewQueryBuilder(raw).GetUserPhotos(&tg.InputUserSelf{}).BatchSize(10).Iter()
 	i := 0
