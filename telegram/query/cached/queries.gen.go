@@ -2730,6 +2730,94 @@ func (s *MessagesGetTopReactions) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerMessagesGetWidgetPublicData struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesWidgetPublicData
+}
+
+type MessagesGetWidgetPublicData struct {
+	// Query to send.
+	req *tg.MessagesGetWidgetPublicDataRequest
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetWidgetPublicData creates new MessagesGetWidgetPublicData.
+func NewMessagesGetWidgetPublicData(raw *tg.Client, initial *tg.MessagesGetWidgetPublicDataRequest) *MessagesGetWidgetPublicData {
+	q := &MessagesGetWidgetPublicData{
+		req: initial,
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetWidgetPublicData) store(v innerMessagesGetWidgetPublicData) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetWidgetPublicData) load() (innerMessagesGetWidgetPublicData, bool) {
+	v, ok := s.last.Load().(innerMessagesGetWidgetPublicData)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesWidgetPublicData must not be mutated.
+func (s *MessagesGetWidgetPublicData) Value() *tg.MessagesWidgetPublicData {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetWidgetPublicData) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetWidgetPublicData) Get(ctx context.Context) (*tg.MessagesWidgetPublicData, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetWidgetPublicData) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := s.req
+	req.Hash = lastHash
+	result, err := s.raw.MessagesGetWidgetPublicData(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetWidgetPublicData")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesWidgetPublicData:
+		hash := variant.Hash
+
+		s.store(innerMessagesGetWidgetPublicData{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesWidgetPublicDataNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerMessagesSearchCustomEmoji struct {
 	// Last received hash.
 	hash int64

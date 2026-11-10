@@ -8369,6 +8369,154 @@ func (s *ServerDispatcher) OnMessagesGetShareThemeBackdrops(f func(ctx context.C
 	s.handlers[MessagesGetShareThemeBackdropsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetBotWidgetQueryAnswer(f func(ctx context.Context, request *MessagesGetBotWidgetQueryAnswerRequest) (*MessagesBotWidgetQueryAnswer, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetBotWidgetQueryAnswerRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetBotWidgetQueryAnswerRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSetBotWidgetQueryAnswer(f func(ctx context.Context, request *MessagesSetBotWidgetQueryAnswerRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetBotWidgetQueryAnswerRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesSetBotWidgetQueryAnswerRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesEditMessageWidgetData(f func(ctx context.Context, request *MessagesEditMessageWidgetDataRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesEditMessageWidgetDataRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesEditMessageWidgetDataRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesEditInlineBotMessageWidgetData(f func(ctx context.Context, request *MessagesEditInlineBotMessageWidgetDataRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesEditInlineBotMessageWidgetDataRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesEditInlineBotMessageWidgetDataRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesEditWidgetData(f func(ctx context.Context, request *MessagesEditWidgetDataRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesEditWidgetDataRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesEditWidgetDataRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetWidgetPublicData(f func(ctx context.Context, request *MessagesGetWidgetPublicDataRequest) (MessagesWidgetPublicDataClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetWidgetPublicDataRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesWidgetPublicDataBox{WidgetPublicData: response}, nil
+	}
+
+	s.handlers[MessagesGetWidgetPublicDataRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesTranscribeAudioFile(f func(ctx context.Context, file InputFileClass) (*MessagesTranscribedAudio, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesTranscribeAudioFileRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.File)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesTranscribeAudioFileRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetTranscriptionLangs(f func(ctx context.Context, request *MessagesGetTranscriptionLangsRequest) ([]string, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetTranscriptionLangsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &StringVector{Elems: response}, nil
+	}
+
+	s.handlers[MessagesGetTranscriptionLangsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest

@@ -5539,6 +5539,509 @@ func (m *MessageMediaVideoStream) GetCall() (value InputGroupCallClass) {
 	return m.Call
 }
 
+// MessageMediaWidget represents TL type `messageMediaWidget#2238f214`.
+//
+// See https://core.telegram.org/constructor/messageMediaWidget for reference.
+type MessageMediaWidget struct {
+	// Flags field of MessageMediaWidget.
+	Flags bin.Fields
+	// IsCopy field of MessageMediaWidget.
+	IsCopy bool
+	// CanQuery field of MessageMediaWidget.
+	CanQuery bool
+	// BackgroundQuery field of MessageMediaWidget.
+	BackgroundQuery bool
+	// Width field of MessageMediaWidget.
+	Width int
+	// Height field of MessageMediaWidget.
+	Height int
+	// Payload field of MessageMediaWidget.
+	Payload []byte
+	// PublicData field of MessageMediaWidget.
+	//
+	// Use SetPublicData and GetPublicData helpers.
+	PublicData string
+	// PublicDataHash field of MessageMediaWidget.
+	//
+	// Use SetPublicDataHash and GetPublicDataHash helpers.
+	PublicDataHash int64
+	// ChatData field of MessageMediaWidget.
+	//
+	// Use SetChatData and GetChatData helpers.
+	ChatData string
+	// WidgetID field of MessageMediaWidget.
+	//
+	// Use SetWidgetID and GetWidgetID helpers.
+	WidgetID int64
+}
+
+// MessageMediaWidgetTypeID is TL type id of MessageMediaWidget.
+const MessageMediaWidgetTypeID = 0x2238f214
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaWidget) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaWidget.
+var (
+	_ bin.Encoder     = &MessageMediaWidget{}
+	_ bin.Decoder     = &MessageMediaWidget{}
+	_ bin.BareEncoder = &MessageMediaWidget{}
+	_ bin.BareDecoder = &MessageMediaWidget{}
+
+	_ MessageMediaClass = &MessageMediaWidget{}
+)
+
+func (m *MessageMediaWidget) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.IsCopy == false) {
+		return false
+	}
+	if !(m.CanQuery == false) {
+		return false
+	}
+	if !(m.BackgroundQuery == false) {
+		return false
+	}
+	if !(m.Width == 0) {
+		return false
+	}
+	if !(m.Height == 0) {
+		return false
+	}
+	if !(m.Payload == nil) {
+		return false
+	}
+	if !(m.PublicData == "") {
+		return false
+	}
+	if !(m.PublicDataHash == 0) {
+		return false
+	}
+	if !(m.ChatData == "") {
+		return false
+	}
+	if !(m.WidgetID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageMediaWidget) String() string {
+	if m == nil {
+		return "MessageMediaWidget(nil)"
+	}
+	type Alias MessageMediaWidget
+	return fmt.Sprintf("MessageMediaWidget%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaWidget from given interface.
+func (m *MessageMediaWidget) FillFrom(from interface {
+	GetIsCopy() (value bool)
+	GetCanQuery() (value bool)
+	GetBackgroundQuery() (value bool)
+	GetWidth() (value int)
+	GetHeight() (value int)
+	GetPayload() (value []byte)
+	GetPublicData() (value string, ok bool)
+	GetPublicDataHash() (value int64, ok bool)
+	GetChatData() (value string, ok bool)
+	GetWidgetID() (value int64, ok bool)
+}) {
+	m.IsCopy = from.GetIsCopy()
+	m.CanQuery = from.GetCanQuery()
+	m.BackgroundQuery = from.GetBackgroundQuery()
+	m.Width = from.GetWidth()
+	m.Height = from.GetHeight()
+	m.Payload = from.GetPayload()
+	if val, ok := from.GetPublicData(); ok {
+		m.PublicData = val
+	}
+
+	if val, ok := from.GetPublicDataHash(); ok {
+		m.PublicDataHash = val
+	}
+
+	if val, ok := from.GetChatData(); ok {
+		m.ChatData = val
+	}
+
+	if val, ok := from.GetWidgetID(); ok {
+		m.WidgetID = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageMediaWidget) TypeID() uint32 {
+	return MessageMediaWidgetTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageMediaWidget) TypeName() string {
+	return "messageMediaWidget"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaWidget) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaWidget",
+		ID:   MessageMediaWidgetTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsCopy",
+			SchemaName: "is_copy",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "CanQuery",
+			SchemaName: "can_query",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "BackgroundQuery",
+			SchemaName: "background_query",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "Width",
+			SchemaName: "width",
+		},
+		{
+			Name:       "Height",
+			SchemaName: "height",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "PublicData",
+			SchemaName: "public_data",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "PublicDataHash",
+			SchemaName: "public_data_hash",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "ChatData",
+			SchemaName: "chat_data",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "WidgetID",
+			SchemaName: "widget_id",
+			Null:       !m.Flags.Has(5),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaWidget) SetFlags() {
+	if !(m.IsCopy == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.CanQuery == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.BackgroundQuery == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.PublicData == "") {
+		m.Flags.Set(3)
+	}
+	if !(m.PublicDataHash == 0) {
+		m.Flags.Set(3)
+	}
+	if !(m.ChatData == "") {
+		m.Flags.Set(4)
+	}
+	if !(m.WidgetID == 0) {
+		m.Flags.Set(5)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageMediaWidget) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaWidget#2238f214 as nil")
+	}
+	b.PutID(MessageMediaWidgetTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaWidget) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaWidget#2238f214 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaWidget#2238f214: field flags: %w", err)
+	}
+	b.PutInt(m.Width)
+	b.PutInt(m.Height)
+	b.PutBytes(m.Payload)
+	if m.Flags.Has(3) {
+		b.PutString(m.PublicData)
+	}
+	if m.Flags.Has(3) {
+		b.PutLong(m.PublicDataHash)
+	}
+	if m.Flags.Has(4) {
+		b.PutString(m.ChatData)
+	}
+	if m.Flags.Has(5) {
+		b.PutLong(m.WidgetID)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageMediaWidget) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaWidget#2238f214 to nil")
+	}
+	if err := b.ConsumeID(MessageMediaWidgetTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageMediaWidget#2238f214: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaWidget) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaWidget#2238f214 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field flags: %w", err)
+		}
+	}
+	m.IsCopy = m.Flags.Has(0)
+	m.CanQuery = m.Flags.Has(1)
+	m.BackgroundQuery = m.Flags.Has(2)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field width: %w", err)
+		}
+		m.Width = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field height: %w", err)
+		}
+		m.Height = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field payload: %w", err)
+		}
+		m.Payload = value
+	}
+	if m.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field public_data: %w", err)
+		}
+		m.PublicData = value
+	}
+	if m.Flags.Has(3) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field public_data_hash: %w", err)
+		}
+		m.PublicDataHash = value
+	}
+	if m.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field chat_data: %w", err)
+		}
+		m.ChatData = value
+	}
+	if m.Flags.Has(5) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaWidget#2238f214: field widget_id: %w", err)
+		}
+		m.WidgetID = value
+	}
+	return nil
+}
+
+// SetIsCopy sets value of IsCopy conditional field.
+func (m *MessageMediaWidget) SetIsCopy(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.IsCopy = true
+	} else {
+		m.Flags.Unset(0)
+		m.IsCopy = false
+	}
+}
+
+// GetIsCopy returns value of IsCopy conditional field.
+func (m *MessageMediaWidget) GetIsCopy() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetCanQuery sets value of CanQuery conditional field.
+func (m *MessageMediaWidget) SetCanQuery(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.CanQuery = true
+	} else {
+		m.Flags.Unset(1)
+		m.CanQuery = false
+	}
+}
+
+// GetCanQuery returns value of CanQuery conditional field.
+func (m *MessageMediaWidget) GetCanQuery() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// SetBackgroundQuery sets value of BackgroundQuery conditional field.
+func (m *MessageMediaWidget) SetBackgroundQuery(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.BackgroundQuery = true
+	} else {
+		m.Flags.Unset(2)
+		m.BackgroundQuery = false
+	}
+}
+
+// GetBackgroundQuery returns value of BackgroundQuery conditional field.
+func (m *MessageMediaWidget) GetBackgroundQuery() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
+}
+
+// GetWidth returns value of Width field.
+func (m *MessageMediaWidget) GetWidth() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Width
+}
+
+// GetHeight returns value of Height field.
+func (m *MessageMediaWidget) GetHeight() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Height
+}
+
+// GetPayload returns value of Payload field.
+func (m *MessageMediaWidget) GetPayload() (value []byte) {
+	if m == nil {
+		return
+	}
+	return m.Payload
+}
+
+// SetPublicData sets value of PublicData conditional field.
+func (m *MessageMediaWidget) SetPublicData(value string) {
+	m.Flags.Set(3)
+	m.PublicData = value
+}
+
+// GetPublicData returns value of PublicData conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaWidget) GetPublicData() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(3) {
+		return value, false
+	}
+	return m.PublicData, true
+}
+
+// SetPublicDataHash sets value of PublicDataHash conditional field.
+func (m *MessageMediaWidget) SetPublicDataHash(value int64) {
+	m.Flags.Set(3)
+	m.PublicDataHash = value
+}
+
+// GetPublicDataHash returns value of PublicDataHash conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaWidget) GetPublicDataHash() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(3) {
+		return value, false
+	}
+	return m.PublicDataHash, true
+}
+
+// SetChatData sets value of ChatData conditional field.
+func (m *MessageMediaWidget) SetChatData(value string) {
+	m.Flags.Set(4)
+	m.ChatData = value
+}
+
+// GetChatData returns value of ChatData conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaWidget) GetChatData() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.ChatData, true
+}
+
+// SetWidgetID sets value of WidgetID conditional field.
+func (m *MessageMediaWidget) SetWidgetID(value int64) {
+	m.Flags.Set(5)
+	m.WidgetID = value
+}
+
+// GetWidgetID returns value of WidgetID conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaWidget) GetWidgetID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(5) {
+		return value, false
+	}
+	return m.WidgetID, true
+}
+
 // MessageMediaClassName is schema name of MessageMediaClass.
 const MessageMediaClassName = "MessageMedia"
 
@@ -5566,6 +6069,7 @@ const MessageMediaClassName = "MessageMedia"
 //   - [MessageMediaPaidMedia]
 //   - [MessageMediaToDo]
 //   - [MessageMediaVideoStream]
+//   - [MessageMediaWidget]
 //
 // Example:
 //
@@ -5593,6 +6097,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaPaidMedia: // messageMediaPaidMedia#a8852491
 //	case *tg.MessageMediaToDo: // messageMediaToDo#8a53b014
 //	case *tg.MessageMediaVideoStream: // messageMediaVideoStream#ca5cab89
+//	case *tg.MessageMediaWidget: // messageMediaWidget#2238f214
 //	default: panic(v)
 //	}
 type MessageMediaClass interface {
@@ -5750,6 +6255,13 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 	case MessageMediaVideoStreamTypeID:
 		// Decoding messageMediaVideoStream#ca5cab89.
 		v := MessageMediaVideoStream{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
+		}
+		return &v, nil
+	case MessageMediaWidgetTypeID:
+		// Decoding messageMediaWidget#2238f214.
+		v := MessageMediaWidget{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
 		}

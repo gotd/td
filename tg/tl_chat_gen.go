@@ -1190,6 +1190,8 @@ type Channel struct {
 	ForumTabs bool
 	// InNews field of Channel.
 	InNews bool
+	// ForumSidebar field of Channel.
+	ForumSidebar bool
 	// ID of the channel, see here »¹ for more info and the available ID range.
 	//
 	// Links:
@@ -1453,6 +1455,9 @@ func (c *Channel) Zero() bool {
 	if !(c.InNews == false) {
 		return false
 	}
+	if !(c.ForumSidebar == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1566,6 +1571,7 @@ func (c *Channel) FillFrom(from interface {
 	GetMonoforum() (value bool)
 	GetForumTabs() (value bool)
 	GetInNews() (value bool)
+	GetForumSidebar() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetTitle() (value string)
@@ -1619,6 +1625,7 @@ func (c *Channel) FillFrom(from interface {
 	c.Monoforum = from.GetMonoforum()
 	c.ForumTabs = from.GetForumTabs()
 	c.InNews = from.GetInNews()
+	c.ForumSidebar = from.GetForumSidebar()
 	c.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		c.AccessHash = val
@@ -1870,6 +1877,11 @@ func (c *Channel) TypeInfo() tdp.Type {
 			Null:       !c.Flags2.Has(21),
 		},
 		{
+			Name:       "ForumSidebar",
+			SchemaName: "forum_sidebar",
+			Null:       !c.Flags2.Has(23),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -2072,6 +2084,9 @@ func (c *Channel) SetFlags() {
 	}
 	if !(c.InNews == false) {
 		c.Flags2.Set(21)
+	}
+	if !(c.ForumSidebar == false) {
+		c.Flags2.Set(23)
 	}
 	if !(c.AccessHash == 0) {
 		c.Flags.Set(13)
@@ -2310,6 +2325,7 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	c.Monoforum = c.Flags2.Has(17)
 	c.ForumTabs = c.Flags2.Has(19)
 	c.InNews = c.Flags2.Has(21)
+	c.ForumSidebar = c.Flags2.Has(23)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3035,6 +3051,25 @@ func (c *Channel) GetInNews() (value bool) {
 		return
 	}
 	return c.Flags2.Has(21)
+}
+
+// SetForumSidebar sets value of ForumSidebar conditional field.
+func (c *Channel) SetForumSidebar(value bool) {
+	if value {
+		c.Flags2.Set(23)
+		c.ForumSidebar = true
+	} else {
+		c.Flags2.Unset(23)
+		c.ForumSidebar = false
+	}
+}
+
+// GetForumSidebar returns value of ForumSidebar conditional field.
+func (c *Channel) GetForumSidebar() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(23)
 }
 
 // GetID returns value of ID field.

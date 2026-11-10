@@ -35107,6 +35107,2158 @@ func (u *UpdateWalletTonConnectPendingDisconnect) GetSessionIDs() (value []int64
 	return u.SessionIDs
 }
 
+// UpdateEditForumTopic represents TL type `updateEditForumTopic#2366665c`.
+//
+// See https://core.telegram.org/constructor/updateEditForumTopic for reference.
+type UpdateEditForumTopic struct {
+	// Flags field of UpdateEditForumTopic.
+	Flags bin.Fields
+	// Peer field of UpdateEditForumTopic.
+	Peer PeerClass
+	// TopicID field of UpdateEditForumTopic.
+	TopicID int
+	// Title field of UpdateEditForumTopic.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
+	// IconEmojiID field of UpdateEditForumTopic.
+	//
+	// Use SetIconEmojiID and GetIconEmojiID helpers.
+	IconEmojiID int64
+	// Closed field of UpdateEditForumTopic.
+	//
+	// Use SetClosed and GetClosed helpers.
+	Closed bool
+	// Hidden field of UpdateEditForumTopic.
+	//
+	// Use SetHidden and GetHidden helpers.
+	Hidden bool
+}
+
+// UpdateEditForumTopicTypeID is TL type id of UpdateEditForumTopic.
+const UpdateEditForumTopicTypeID = 0x2366665c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEditForumTopic) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEditForumTopic.
+var (
+	_ bin.Encoder     = &UpdateEditForumTopic{}
+	_ bin.Decoder     = &UpdateEditForumTopic{}
+	_ bin.BareEncoder = &UpdateEditForumTopic{}
+	_ bin.BareDecoder = &UpdateEditForumTopic{}
+
+	_ UpdateClass = &UpdateEditForumTopic{}
+)
+
+func (u *UpdateEditForumTopic) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.TopicID == 0) {
+		return false
+	}
+	if !(u.Title == "") {
+		return false
+	}
+	if !(u.IconEmojiID == 0) {
+		return false
+	}
+	if !(u.Closed == false) {
+		return false
+	}
+	if !(u.Hidden == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateEditForumTopic) String() string {
+	if u == nil {
+		return "UpdateEditForumTopic(nil)"
+	}
+	type Alias UpdateEditForumTopic
+	return fmt.Sprintf("UpdateEditForumTopic%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateEditForumTopic from given interface.
+func (u *UpdateEditForumTopic) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetTopicID() (value int)
+	GetTitle() (value string, ok bool)
+	GetIconEmojiID() (value int64, ok bool)
+	GetClosed() (value bool, ok bool)
+	GetHidden() (value bool, ok bool)
+}) {
+	u.Peer = from.GetPeer()
+	u.TopicID = from.GetTopicID()
+	if val, ok := from.GetTitle(); ok {
+		u.Title = val
+	}
+
+	if val, ok := from.GetIconEmojiID(); ok {
+		u.IconEmojiID = val
+	}
+
+	if val, ok := from.GetClosed(); ok {
+		u.Closed = val
+	}
+
+	if val, ok := from.GetHidden(); ok {
+		u.Hidden = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateEditForumTopic) TypeID() uint32 {
+	return UpdateEditForumTopicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateEditForumTopic) TypeName() string {
+	return "updateEditForumTopic"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEditForumTopic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEditForumTopic",
+		ID:   UpdateEditForumTopicTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TopicID",
+			SchemaName: "topic_id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "IconEmojiID",
+			SchemaName: "icon_emoji_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Closed",
+			SchemaName: "closed",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Hidden",
+			SchemaName: "hidden",
+			Null:       !u.Flags.Has(3),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateEditForumTopic) SetFlags() {
+	if !(u.Title == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.IconEmojiID == 0) {
+		u.Flags.Set(1)
+	}
+	if !(u.Closed == false) {
+		u.Flags.Set(2)
+	}
+	if !(u.Hidden == false) {
+		u.Flags.Set(3)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateEditForumTopic) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateEditForumTopic#2366665c as nil")
+	}
+	b.PutID(UpdateEditForumTopicTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateEditForumTopic) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateEditForumTopic#2366665c as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateEditForumTopic#2366665c: field flags: %w", err)
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateEditForumTopic#2366665c: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateEditForumTopic#2366665c: field peer: %w", err)
+	}
+	b.PutInt(u.TopicID)
+	if u.Flags.Has(0) {
+		b.PutString(u.Title)
+	}
+	if u.Flags.Has(1) {
+		b.PutLong(u.IconEmojiID)
+	}
+	if u.Flags.Has(2) {
+		b.PutBool(u.Closed)
+	}
+	if u.Flags.Has(3) {
+		b.PutBool(u.Hidden)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateEditForumTopic) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateEditForumTopic#2366665c to nil")
+	}
+	if err := b.ConsumeID(UpdateEditForumTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateEditForumTopic) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateEditForumTopic#2366665c to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field topic_id: %w", err)
+		}
+		u.TopicID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field title: %w", err)
+		}
+		u.Title = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field icon_emoji_id: %w", err)
+		}
+		u.IconEmojiID = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field closed: %w", err)
+		}
+		u.Closed = value
+	}
+	if u.Flags.Has(3) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateEditForumTopic#2366665c: field hidden: %w", err)
+		}
+		u.Hidden = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateEditForumTopic) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetTopicID returns value of TopicID field.
+func (u *UpdateEditForumTopic) GetTopicID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.TopicID
+}
+
+// SetTitle sets value of Title conditional field.
+func (u *UpdateEditForumTopic) SetTitle(value string) {
+	u.Flags.Set(0)
+	u.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (u *UpdateEditForumTopic) GetTitle() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Title, true
+}
+
+// SetIconEmojiID sets value of IconEmojiID conditional field.
+func (u *UpdateEditForumTopic) SetIconEmojiID(value int64) {
+	u.Flags.Set(1)
+	u.IconEmojiID = value
+}
+
+// GetIconEmojiID returns value of IconEmojiID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateEditForumTopic) GetIconEmojiID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.IconEmojiID, true
+}
+
+// SetClosed sets value of Closed conditional field.
+func (u *UpdateEditForumTopic) SetClosed(value bool) {
+	u.Flags.Set(2)
+	u.Closed = value
+}
+
+// GetClosed returns value of Closed conditional field and
+// boolean which is true if field was set.
+func (u *UpdateEditForumTopic) GetClosed() (value bool, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Closed, true
+}
+
+// SetHidden sets value of Hidden conditional field.
+func (u *UpdateEditForumTopic) SetHidden(value bool) {
+	u.Flags.Set(3)
+	u.Hidden = value
+}
+
+// GetHidden returns value of Hidden conditional field and
+// boolean which is true if field was set.
+func (u *UpdateEditForumTopic) GetHidden() (value bool, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(3) {
+		return value, false
+	}
+	return u.Hidden, true
+}
+
+// UpdateBotWidgetQuery represents TL type `updateBotWidgetQuery#b373fe68`.
+//
+// See https://core.telegram.org/constructor/updateBotWidgetQuery for reference.
+type UpdateBotWidgetQuery struct {
+	// Flags field of UpdateBotWidgetQuery.
+	Flags bin.Fields
+	// QueryID field of UpdateBotWidgetQuery.
+	QueryID int64
+	// QueryType field of UpdateBotWidgetQuery.
+	QueryType WidgetQueryTypeClass
+	// UserID field of UpdateBotWidgetQuery.
+	UserID int64
+	// Peer field of UpdateBotWidgetQuery.
+	Peer PeerClass
+	// MsgID field of UpdateBotWidgetQuery.
+	MsgID int
+	// ChatInstance field of UpdateBotWidgetQuery.
+	ChatInstance int64
+	// ChatType field of UpdateBotWidgetQuery.
+	ChatType string
+	// Data field of UpdateBotWidgetQuery.
+	Data []byte
+	// WidgetID field of UpdateBotWidgetQuery.
+	//
+	// Use SetWidgetID and GetWidgetID helpers.
+	WidgetID int64
+	// WalletCard field of UpdateBotWidgetQuery.
+	//
+	// Use SetWalletCard and GetWalletCard helpers.
+	WalletCard WalletCard
+}
+
+// UpdateBotWidgetQueryTypeID is TL type id of UpdateBotWidgetQuery.
+const UpdateBotWidgetQueryTypeID = 0xb373fe68
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotWidgetQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotWidgetQuery.
+var (
+	_ bin.Encoder     = &UpdateBotWidgetQuery{}
+	_ bin.Decoder     = &UpdateBotWidgetQuery{}
+	_ bin.BareEncoder = &UpdateBotWidgetQuery{}
+	_ bin.BareDecoder = &UpdateBotWidgetQuery{}
+
+	_ UpdateClass = &UpdateBotWidgetQuery{}
+)
+
+func (u *UpdateBotWidgetQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.QueryType == nil) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.ChatInstance == 0) {
+		return false
+	}
+	if !(u.ChatType == "") {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+	if !(u.WidgetID == 0) {
+		return false
+	}
+	if !(u.WalletCard.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotWidgetQuery) String() string {
+	if u == nil {
+		return "UpdateBotWidgetQuery(nil)"
+	}
+	type Alias UpdateBotWidgetQuery
+	return fmt.Sprintf("UpdateBotWidgetQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotWidgetQuery from given interface.
+func (u *UpdateBotWidgetQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetQueryType() (value WidgetQueryTypeClass)
+	GetUserID() (value int64)
+	GetPeer() (value PeerClass)
+	GetMsgID() (value int)
+	GetChatInstance() (value int64)
+	GetChatType() (value string)
+	GetData() (value []byte)
+	GetWidgetID() (value int64, ok bool)
+	GetWalletCard() (value WalletCard, ok bool)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.QueryType = from.GetQueryType()
+	u.UserID = from.GetUserID()
+	u.Peer = from.GetPeer()
+	u.MsgID = from.GetMsgID()
+	u.ChatInstance = from.GetChatInstance()
+	u.ChatType = from.GetChatType()
+	u.Data = from.GetData()
+	if val, ok := from.GetWidgetID(); ok {
+		u.WidgetID = val
+	}
+
+	if val, ok := from.GetWalletCard(); ok {
+		u.WalletCard = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotWidgetQuery) TypeID() uint32 {
+	return UpdateBotWidgetQueryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotWidgetQuery) TypeName() string {
+	return "updateBotWidgetQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotWidgetQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotWidgetQuery",
+		ID:   UpdateBotWidgetQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "QueryType",
+			SchemaName: "query_type",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ChatInstance",
+			SchemaName: "chat_instance",
+		},
+		{
+			Name:       "ChatType",
+			SchemaName: "chat_type",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "WidgetID",
+			SchemaName: "widget_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "WalletCard",
+			SchemaName: "wallet_card",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotWidgetQuery) SetFlags() {
+	if !(u.WidgetID == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.WalletCard.Zero()) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotWidgetQuery) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotWidgetQuery#b373fe68 as nil")
+	}
+	b.PutID(UpdateBotWidgetQueryTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotWidgetQuery) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotWidgetQuery#b373fe68 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotWidgetQuery#b373fe68: field flags: %w", err)
+	}
+	b.PutLong(u.QueryID)
+	if u.QueryType == nil {
+		return fmt.Errorf("unable to encode updateBotWidgetQuery#b373fe68: field query_type is nil")
+	}
+	if err := u.QueryType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotWidgetQuery#b373fe68: field query_type: %w", err)
+	}
+	b.PutLong(u.UserID)
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateBotWidgetQuery#b373fe68: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotWidgetQuery#b373fe68: field peer: %w", err)
+	}
+	b.PutInt(u.MsgID)
+	b.PutLong(u.ChatInstance)
+	b.PutString(u.ChatType)
+	b.PutBytes(u.Data)
+	if u.Flags.Has(0) {
+		b.PutLong(u.WidgetID)
+	}
+	if u.Flags.Has(1) {
+		if err := u.WalletCard.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateBotWidgetQuery#b373fe68: field wallet_card: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotWidgetQuery) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotWidgetQuery#b373fe68 to nil")
+	}
+	if err := b.ConsumeID(UpdateBotWidgetQueryTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotWidgetQuery) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotWidgetQuery#b373fe68 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	{
+		value, err := DecodeWidgetQueryType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field query_type: %w", err)
+		}
+		u.QueryType = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field msg_id: %w", err)
+		}
+		u.MsgID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field chat_instance: %w", err)
+		}
+		u.ChatInstance = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field chat_type: %w", err)
+		}
+		u.ChatType = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field data: %w", err)
+		}
+		u.Data = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field widget_id: %w", err)
+		}
+		u.WidgetID = value
+	}
+	if u.Flags.Has(1) {
+		if err := u.WalletCard.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetQuery#b373fe68: field wallet_card: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotWidgetQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// GetQueryType returns value of QueryType field.
+func (u *UpdateBotWidgetQuery) GetQueryType() (value WidgetQueryTypeClass) {
+	if u == nil {
+		return
+	}
+	return u.QueryType
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotWidgetQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateBotWidgetQuery) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateBotWidgetQuery) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.MsgID
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateBotWidgetQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatInstance
+}
+
+// GetChatType returns value of ChatType field.
+func (u *UpdateBotWidgetQuery) GetChatType() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ChatType
+}
+
+// GetData returns value of Data field.
+func (u *UpdateBotWidgetQuery) GetData() (value []byte) {
+	if u == nil {
+		return
+	}
+	return u.Data
+}
+
+// SetWidgetID sets value of WidgetID conditional field.
+func (u *UpdateBotWidgetQuery) SetWidgetID(value int64) {
+	u.Flags.Set(0)
+	u.WidgetID = value
+}
+
+// GetWidgetID returns value of WidgetID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotWidgetQuery) GetWidgetID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.WidgetID, true
+}
+
+// SetWalletCard sets value of WalletCard conditional field.
+func (u *UpdateBotWidgetQuery) SetWalletCard(value WalletCard) {
+	u.Flags.Set(1)
+	u.WalletCard = value
+}
+
+// GetWalletCard returns value of WalletCard conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotWidgetQuery) GetWalletCard() (value WalletCard, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.WalletCard, true
+}
+
+// UpdateInlineBotWidgetQuery represents TL type `updateInlineBotWidgetQuery#a5f07e08`.
+//
+// See https://core.telegram.org/constructor/updateInlineBotWidgetQuery for reference.
+type UpdateInlineBotWidgetQuery struct {
+	// Flags field of UpdateInlineBotWidgetQuery.
+	Flags bin.Fields
+	// QueryID field of UpdateInlineBotWidgetQuery.
+	QueryID int64
+	// QueryType field of UpdateInlineBotWidgetQuery.
+	QueryType WidgetQueryTypeClass
+	// UserID field of UpdateInlineBotWidgetQuery.
+	UserID int64
+	// InlineMessageID field of UpdateInlineBotWidgetQuery.
+	InlineMessageID InputBotInlineMessageIDClass
+	// ChatInstance field of UpdateInlineBotWidgetQuery.
+	ChatInstance int64
+	// ChatType field of UpdateInlineBotWidgetQuery.
+	ChatType string
+	// Data field of UpdateInlineBotWidgetQuery.
+	Data []byte
+	// WidgetID field of UpdateInlineBotWidgetQuery.
+	//
+	// Use SetWidgetID and GetWidgetID helpers.
+	WidgetID int64
+	// WalletCard field of UpdateInlineBotWidgetQuery.
+	//
+	// Use SetWalletCard and GetWalletCard helpers.
+	WalletCard WalletCard
+}
+
+// UpdateInlineBotWidgetQueryTypeID is TL type id of UpdateInlineBotWidgetQuery.
+const UpdateInlineBotWidgetQueryTypeID = 0xa5f07e08
+
+// construct implements constructor of UpdateClass.
+func (u UpdateInlineBotWidgetQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateInlineBotWidgetQuery.
+var (
+	_ bin.Encoder     = &UpdateInlineBotWidgetQuery{}
+	_ bin.Decoder     = &UpdateInlineBotWidgetQuery{}
+	_ bin.BareEncoder = &UpdateInlineBotWidgetQuery{}
+	_ bin.BareDecoder = &UpdateInlineBotWidgetQuery{}
+
+	_ UpdateClass = &UpdateInlineBotWidgetQuery{}
+)
+
+func (u *UpdateInlineBotWidgetQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.QueryType == nil) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.InlineMessageID == nil) {
+		return false
+	}
+	if !(u.ChatInstance == 0) {
+		return false
+	}
+	if !(u.ChatType == "") {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+	if !(u.WidgetID == 0) {
+		return false
+	}
+	if !(u.WalletCard.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateInlineBotWidgetQuery) String() string {
+	if u == nil {
+		return "UpdateInlineBotWidgetQuery(nil)"
+	}
+	type Alias UpdateInlineBotWidgetQuery
+	return fmt.Sprintf("UpdateInlineBotWidgetQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateInlineBotWidgetQuery from given interface.
+func (u *UpdateInlineBotWidgetQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetQueryType() (value WidgetQueryTypeClass)
+	GetUserID() (value int64)
+	GetInlineMessageID() (value InputBotInlineMessageIDClass)
+	GetChatInstance() (value int64)
+	GetChatType() (value string)
+	GetData() (value []byte)
+	GetWidgetID() (value int64, ok bool)
+	GetWalletCard() (value WalletCard, ok bool)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.QueryType = from.GetQueryType()
+	u.UserID = from.GetUserID()
+	u.InlineMessageID = from.GetInlineMessageID()
+	u.ChatInstance = from.GetChatInstance()
+	u.ChatType = from.GetChatType()
+	u.Data = from.GetData()
+	if val, ok := from.GetWidgetID(); ok {
+		u.WidgetID = val
+	}
+
+	if val, ok := from.GetWalletCard(); ok {
+		u.WalletCard = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateInlineBotWidgetQuery) TypeID() uint32 {
+	return UpdateInlineBotWidgetQueryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateInlineBotWidgetQuery) TypeName() string {
+	return "updateInlineBotWidgetQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateInlineBotWidgetQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateInlineBotWidgetQuery",
+		ID:   UpdateInlineBotWidgetQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "QueryType",
+			SchemaName: "query_type",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InlineMessageID",
+			SchemaName: "inline_message_id",
+		},
+		{
+			Name:       "ChatInstance",
+			SchemaName: "chat_instance",
+		},
+		{
+			Name:       "ChatType",
+			SchemaName: "chat_type",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "WidgetID",
+			SchemaName: "widget_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "WalletCard",
+			SchemaName: "wallet_card",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateInlineBotWidgetQuery) SetFlags() {
+	if !(u.WidgetID == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.WalletCard.Zero()) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateInlineBotWidgetQuery) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateInlineBotWidgetQuery#a5f07e08 as nil")
+	}
+	b.PutID(UpdateInlineBotWidgetQueryTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateInlineBotWidgetQuery) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateInlineBotWidgetQuery#a5f07e08 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateInlineBotWidgetQuery#a5f07e08: field flags: %w", err)
+	}
+	b.PutLong(u.QueryID)
+	if u.QueryType == nil {
+		return fmt.Errorf("unable to encode updateInlineBotWidgetQuery#a5f07e08: field query_type is nil")
+	}
+	if err := u.QueryType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateInlineBotWidgetQuery#a5f07e08: field query_type: %w", err)
+	}
+	b.PutLong(u.UserID)
+	if u.InlineMessageID == nil {
+		return fmt.Errorf("unable to encode updateInlineBotWidgetQuery#a5f07e08: field inline_message_id is nil")
+	}
+	if err := u.InlineMessageID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateInlineBotWidgetQuery#a5f07e08: field inline_message_id: %w", err)
+	}
+	b.PutLong(u.ChatInstance)
+	b.PutString(u.ChatType)
+	b.PutBytes(u.Data)
+	if u.Flags.Has(0) {
+		b.PutLong(u.WidgetID)
+	}
+	if u.Flags.Has(1) {
+		if err := u.WalletCard.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateInlineBotWidgetQuery#a5f07e08: field wallet_card: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateInlineBotWidgetQuery) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateInlineBotWidgetQuery#a5f07e08 to nil")
+	}
+	if err := b.ConsumeID(UpdateInlineBotWidgetQueryTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateInlineBotWidgetQuery) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateInlineBotWidgetQuery#a5f07e08 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	{
+		value, err := DecodeWidgetQueryType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field query_type: %w", err)
+		}
+		u.QueryType = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := DecodeInputBotInlineMessageID(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field inline_message_id: %w", err)
+		}
+		u.InlineMessageID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field chat_instance: %w", err)
+		}
+		u.ChatInstance = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field chat_type: %w", err)
+		}
+		u.ChatType = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field data: %w", err)
+		}
+		u.Data = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field widget_id: %w", err)
+		}
+		u.WidgetID = value
+	}
+	if u.Flags.Has(1) {
+		if err := u.WalletCard.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateInlineBotWidgetQuery#a5f07e08: field wallet_card: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateInlineBotWidgetQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// GetQueryType returns value of QueryType field.
+func (u *UpdateInlineBotWidgetQuery) GetQueryType() (value WidgetQueryTypeClass) {
+	if u == nil {
+		return
+	}
+	return u.QueryType
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateInlineBotWidgetQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetInlineMessageID returns value of InlineMessageID field.
+func (u *UpdateInlineBotWidgetQuery) GetInlineMessageID() (value InputBotInlineMessageIDClass) {
+	if u == nil {
+		return
+	}
+	return u.InlineMessageID
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateInlineBotWidgetQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatInstance
+}
+
+// GetChatType returns value of ChatType field.
+func (u *UpdateInlineBotWidgetQuery) GetChatType() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ChatType
+}
+
+// GetData returns value of Data field.
+func (u *UpdateInlineBotWidgetQuery) GetData() (value []byte) {
+	if u == nil {
+		return
+	}
+	return u.Data
+}
+
+// SetWidgetID sets value of WidgetID conditional field.
+func (u *UpdateInlineBotWidgetQuery) SetWidgetID(value int64) {
+	u.Flags.Set(0)
+	u.WidgetID = value
+}
+
+// GetWidgetID returns value of WidgetID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateInlineBotWidgetQuery) GetWidgetID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.WidgetID, true
+}
+
+// SetWalletCard sets value of WalletCard conditional field.
+func (u *UpdateInlineBotWidgetQuery) SetWalletCard(value WalletCard) {
+	u.Flags.Set(1)
+	u.WalletCard = value
+}
+
+// GetWalletCard returns value of WalletCard conditional field and
+// boolean which is true if field was set.
+func (u *UpdateInlineBotWidgetQuery) GetWalletCard() (value WalletCard, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.WalletCard, true
+}
+
+// UpdateBotWidgetCopyQuery represents TL type `updateBotWidgetCopyQuery#fa89bef7`.
+//
+// See https://core.telegram.org/constructor/updateBotWidgetCopyQuery for reference.
+type UpdateBotWidgetCopyQuery struct {
+	// Flags field of UpdateBotWidgetCopyQuery.
+	Flags bin.Fields
+	// QueryID field of UpdateBotWidgetCopyQuery.
+	QueryID int64
+	// QueryType field of UpdateBotWidgetCopyQuery.
+	QueryType WidgetQueryTypeClass
+	// UserID field of UpdateBotWidgetCopyQuery.
+	UserID int64
+	// Data field of UpdateBotWidgetCopyQuery.
+	Data []byte
+	// WidgetID field of UpdateBotWidgetCopyQuery.
+	WidgetID int64
+	// WalletCard field of UpdateBotWidgetCopyQuery.
+	//
+	// Use SetWalletCard and GetWalletCard helpers.
+	WalletCard WalletCard
+}
+
+// UpdateBotWidgetCopyQueryTypeID is TL type id of UpdateBotWidgetCopyQuery.
+const UpdateBotWidgetCopyQueryTypeID = 0xfa89bef7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotWidgetCopyQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotWidgetCopyQuery.
+var (
+	_ bin.Encoder     = &UpdateBotWidgetCopyQuery{}
+	_ bin.Decoder     = &UpdateBotWidgetCopyQuery{}
+	_ bin.BareEncoder = &UpdateBotWidgetCopyQuery{}
+	_ bin.BareDecoder = &UpdateBotWidgetCopyQuery{}
+
+	_ UpdateClass = &UpdateBotWidgetCopyQuery{}
+)
+
+func (u *UpdateBotWidgetCopyQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.QueryType == nil) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+	if !(u.WidgetID == 0) {
+		return false
+	}
+	if !(u.WalletCard.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotWidgetCopyQuery) String() string {
+	if u == nil {
+		return "UpdateBotWidgetCopyQuery(nil)"
+	}
+	type Alias UpdateBotWidgetCopyQuery
+	return fmt.Sprintf("UpdateBotWidgetCopyQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotWidgetCopyQuery from given interface.
+func (u *UpdateBotWidgetCopyQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetQueryType() (value WidgetQueryTypeClass)
+	GetUserID() (value int64)
+	GetData() (value []byte)
+	GetWidgetID() (value int64)
+	GetWalletCard() (value WalletCard, ok bool)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.QueryType = from.GetQueryType()
+	u.UserID = from.GetUserID()
+	u.Data = from.GetData()
+	u.WidgetID = from.GetWidgetID()
+	if val, ok := from.GetWalletCard(); ok {
+		u.WalletCard = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotWidgetCopyQuery) TypeID() uint32 {
+	return UpdateBotWidgetCopyQueryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotWidgetCopyQuery) TypeName() string {
+	return "updateBotWidgetCopyQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotWidgetCopyQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotWidgetCopyQuery",
+		ID:   UpdateBotWidgetCopyQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "QueryType",
+			SchemaName: "query_type",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "WidgetID",
+			SchemaName: "widget_id",
+		},
+		{
+			Name:       "WalletCard",
+			SchemaName: "wallet_card",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotWidgetCopyQuery) SetFlags() {
+	if !(u.WalletCard.Zero()) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotWidgetCopyQuery) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotWidgetCopyQuery#fa89bef7 as nil")
+	}
+	b.PutID(UpdateBotWidgetCopyQueryTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotWidgetCopyQuery) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotWidgetCopyQuery#fa89bef7 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotWidgetCopyQuery#fa89bef7: field flags: %w", err)
+	}
+	b.PutLong(u.QueryID)
+	if u.QueryType == nil {
+		return fmt.Errorf("unable to encode updateBotWidgetCopyQuery#fa89bef7: field query_type is nil")
+	}
+	if err := u.QueryType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotWidgetCopyQuery#fa89bef7: field query_type: %w", err)
+	}
+	b.PutLong(u.UserID)
+	b.PutBytes(u.Data)
+	b.PutLong(u.WidgetID)
+	if u.Flags.Has(1) {
+		if err := u.WalletCard.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateBotWidgetCopyQuery#fa89bef7: field wallet_card: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotWidgetCopyQuery) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotWidgetCopyQuery#fa89bef7 to nil")
+	}
+	if err := b.ConsumeID(UpdateBotWidgetCopyQueryTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotWidgetCopyQuery) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotWidgetCopyQuery#fa89bef7 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	{
+		value, err := DecodeWidgetQueryType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field query_type: %w", err)
+		}
+		u.QueryType = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field data: %w", err)
+		}
+		u.Data = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field widget_id: %w", err)
+		}
+		u.WidgetID = value
+	}
+	if u.Flags.Has(1) {
+		if err := u.WalletCard.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotWidgetCopyQuery#fa89bef7: field wallet_card: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotWidgetCopyQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// GetQueryType returns value of QueryType field.
+func (u *UpdateBotWidgetCopyQuery) GetQueryType() (value WidgetQueryTypeClass) {
+	if u == nil {
+		return
+	}
+	return u.QueryType
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotWidgetCopyQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetData returns value of Data field.
+func (u *UpdateBotWidgetCopyQuery) GetData() (value []byte) {
+	if u == nil {
+		return
+	}
+	return u.Data
+}
+
+// GetWidgetID returns value of WidgetID field.
+func (u *UpdateBotWidgetCopyQuery) GetWidgetID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.WidgetID
+}
+
+// SetWalletCard sets value of WalletCard conditional field.
+func (u *UpdateBotWidgetCopyQuery) SetWalletCard(value WalletCard) {
+	u.Flags.Set(1)
+	u.WalletCard = value
+}
+
+// GetWalletCard returns value of WalletCard conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotWidgetCopyQuery) GetWalletCard() (value WalletCard, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.WalletCard, true
+}
+
+// UpdateMessageWidgetData represents TL type `updateMessageWidgetData#bbb078dd`.
+//
+// See https://core.telegram.org/constructor/updateMessageWidgetData for reference.
+type UpdateMessageWidgetData struct {
+	// Flags field of UpdateMessageWidgetData.
+	Flags bin.Fields
+	// Peer field of UpdateMessageWidgetData.
+	Peer PeerClass
+	// MsgID field of UpdateMessageWidgetData.
+	MsgID int
+	// PublicData field of UpdateMessageWidgetData.
+	//
+	// Use SetPublicData and GetPublicData helpers.
+	PublicData string
+	// PublicDataHash field of UpdateMessageWidgetData.
+	//
+	// Use SetPublicDataHash and GetPublicDataHash helpers.
+	PublicDataHash int64
+	// ChatData field of UpdateMessageWidgetData.
+	//
+	// Use SetChatData and GetChatData helpers.
+	ChatData string
+	// Pts field of UpdateMessageWidgetData.
+	Pts int
+	// PtsCount field of UpdateMessageWidgetData.
+	PtsCount int
+}
+
+// UpdateMessageWidgetDataTypeID is TL type id of UpdateMessageWidgetData.
+const UpdateMessageWidgetDataTypeID = 0xbbb078dd
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessageWidgetData) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessageWidgetData.
+var (
+	_ bin.Encoder     = &UpdateMessageWidgetData{}
+	_ bin.Decoder     = &UpdateMessageWidgetData{}
+	_ bin.BareEncoder = &UpdateMessageWidgetData{}
+	_ bin.BareDecoder = &UpdateMessageWidgetData{}
+
+	_ UpdateClass = &UpdateMessageWidgetData{}
+)
+
+func (u *UpdateMessageWidgetData) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.PublicData == "") {
+		return false
+	}
+	if !(u.PublicDataHash == 0) {
+		return false
+	}
+	if !(u.ChatData == "") {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateMessageWidgetData) String() string {
+	if u == nil {
+		return "UpdateMessageWidgetData(nil)"
+	}
+	type Alias UpdateMessageWidgetData
+	return fmt.Sprintf("UpdateMessageWidgetData%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateMessageWidgetData from given interface.
+func (u *UpdateMessageWidgetData) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetMsgID() (value int)
+	GetPublicData() (value string, ok bool)
+	GetPublicDataHash() (value int64, ok bool)
+	GetChatData() (value string, ok bool)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.MsgID = from.GetMsgID()
+	if val, ok := from.GetPublicData(); ok {
+		u.PublicData = val
+	}
+
+	if val, ok := from.GetPublicDataHash(); ok {
+		u.PublicDataHash = val
+	}
+
+	if val, ok := from.GetChatData(); ok {
+		u.ChatData = val
+	}
+
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateMessageWidgetData) TypeID() uint32 {
+	return UpdateMessageWidgetDataTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateMessageWidgetData) TypeName() string {
+	return "updateMessageWidgetData"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessageWidgetData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessageWidgetData",
+		ID:   UpdateMessageWidgetDataTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "PublicData",
+			SchemaName: "public_data",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "PublicDataHash",
+			SchemaName: "public_data_hash",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "ChatData",
+			SchemaName: "chat_data",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateMessageWidgetData) SetFlags() {
+	if !(u.PublicData == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.PublicDataHash == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.ChatData == "") {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateMessageWidgetData) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageWidgetData#bbb078dd as nil")
+	}
+	b.PutID(UpdateMessageWidgetDataTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateMessageWidgetData) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageWidgetData#bbb078dd as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageWidgetData#bbb078dd: field flags: %w", err)
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateMessageWidgetData#bbb078dd: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageWidgetData#bbb078dd: field peer: %w", err)
+	}
+	b.PutInt(u.MsgID)
+	if u.Flags.Has(0) {
+		b.PutString(u.PublicData)
+	}
+	if u.Flags.Has(0) {
+		b.PutLong(u.PublicDataHash)
+	}
+	if u.Flags.Has(1) {
+		b.PutString(u.ChatData)
+	}
+	b.PutInt(u.Pts)
+	b.PutInt(u.PtsCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateMessageWidgetData) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageWidgetData#bbb078dd to nil")
+	}
+	if err := b.ConsumeID(UpdateMessageWidgetDataTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateMessageWidgetData) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageWidgetData#bbb078dd to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field msg_id: %w", err)
+		}
+		u.MsgID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field public_data: %w", err)
+		}
+		u.PublicData = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field public_data_hash: %w", err)
+		}
+		u.PublicDataHash = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field chat_data: %w", err)
+		}
+		u.ChatData = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field pts: %w", err)
+		}
+		u.Pts = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageWidgetData#bbb078dd: field pts_count: %w", err)
+		}
+		u.PtsCount = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateMessageWidgetData) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateMessageWidgetData) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.MsgID
+}
+
+// SetPublicData sets value of PublicData conditional field.
+func (u *UpdateMessageWidgetData) SetPublicData(value string) {
+	u.Flags.Set(0)
+	u.PublicData = value
+}
+
+// GetPublicData returns value of PublicData conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessageWidgetData) GetPublicData() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.PublicData, true
+}
+
+// SetPublicDataHash sets value of PublicDataHash conditional field.
+func (u *UpdateMessageWidgetData) SetPublicDataHash(value int64) {
+	u.Flags.Set(0)
+	u.PublicDataHash = value
+}
+
+// GetPublicDataHash returns value of PublicDataHash conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessageWidgetData) GetPublicDataHash() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.PublicDataHash, true
+}
+
+// SetChatData sets value of ChatData conditional field.
+func (u *UpdateMessageWidgetData) SetChatData(value string) {
+	u.Flags.Set(1)
+	u.ChatData = value
+}
+
+// GetChatData returns value of ChatData conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessageWidgetData) GetChatData() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.ChatData, true
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateMessageWidgetData) GetPts() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateMessageWidgetData) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
+	return u.PtsCount
+}
+
+// UpdateTranscribedAudioFile represents TL type `updateTranscribedAudioFile#734c2e7b`.
+//
+// See https://core.telegram.org/constructor/updateTranscribedAudioFile for reference.
+type UpdateTranscribedAudioFile struct {
+	// Flags field of UpdateTranscribedAudioFile.
+	Flags bin.Fields
+	// Pending field of UpdateTranscribedAudioFile.
+	Pending bool
+	// TranscriptionID field of UpdateTranscribedAudioFile.
+	TranscriptionID int64
+	// Text field of UpdateTranscribedAudioFile.
+	Text string
+}
+
+// UpdateTranscribedAudioFileTypeID is TL type id of UpdateTranscribedAudioFile.
+const UpdateTranscribedAudioFileTypeID = 0x734c2e7b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateTranscribedAudioFile) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateTranscribedAudioFile.
+var (
+	_ bin.Encoder     = &UpdateTranscribedAudioFile{}
+	_ bin.Decoder     = &UpdateTranscribedAudioFile{}
+	_ bin.BareEncoder = &UpdateTranscribedAudioFile{}
+	_ bin.BareDecoder = &UpdateTranscribedAudioFile{}
+
+	_ UpdateClass = &UpdateTranscribedAudioFile{}
+)
+
+func (u *UpdateTranscribedAudioFile) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Pending == false) {
+		return false
+	}
+	if !(u.TranscriptionID == 0) {
+		return false
+	}
+	if !(u.Text == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateTranscribedAudioFile) String() string {
+	if u == nil {
+		return "UpdateTranscribedAudioFile(nil)"
+	}
+	type Alias UpdateTranscribedAudioFile
+	return fmt.Sprintf("UpdateTranscribedAudioFile%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateTranscribedAudioFile from given interface.
+func (u *UpdateTranscribedAudioFile) FillFrom(from interface {
+	GetPending() (value bool)
+	GetTranscriptionID() (value int64)
+	GetText() (value string)
+}) {
+	u.Pending = from.GetPending()
+	u.TranscriptionID = from.GetTranscriptionID()
+	u.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateTranscribedAudioFile) TypeID() uint32 {
+	return UpdateTranscribedAudioFileTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateTranscribedAudioFile) TypeName() string {
+	return "updateTranscribedAudioFile"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateTranscribedAudioFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateTranscribedAudioFile",
+		ID:   UpdateTranscribedAudioFileTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pending",
+			SchemaName: "pending",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "TranscriptionID",
+			SchemaName: "transcription_id",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateTranscribedAudioFile) SetFlags() {
+	if !(u.Pending == false) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateTranscribedAudioFile) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateTranscribedAudioFile#734c2e7b as nil")
+	}
+	b.PutID(UpdateTranscribedAudioFileTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateTranscribedAudioFile) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateTranscribedAudioFile#734c2e7b as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateTranscribedAudioFile#734c2e7b: field flags: %w", err)
+	}
+	b.PutLong(u.TranscriptionID)
+	b.PutString(u.Text)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateTranscribedAudioFile) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateTranscribedAudioFile#734c2e7b to nil")
+	}
+	if err := b.ConsumeID(UpdateTranscribedAudioFileTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateTranscribedAudioFile#734c2e7b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateTranscribedAudioFile) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateTranscribedAudioFile#734c2e7b to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudioFile#734c2e7b: field flags: %w", err)
+		}
+	}
+	u.Pending = u.Flags.Has(0)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudioFile#734c2e7b: field transcription_id: %w", err)
+		}
+		u.TranscriptionID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudioFile#734c2e7b: field text: %w", err)
+		}
+		u.Text = value
+	}
+	return nil
+}
+
+// SetPending sets value of Pending conditional field.
+func (u *UpdateTranscribedAudioFile) SetPending(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Pending = true
+	} else {
+		u.Flags.Unset(0)
+		u.Pending = false
+	}
+}
+
+// GetPending returns value of Pending conditional field.
+func (u *UpdateTranscribedAudioFile) GetPending() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetTranscriptionID returns value of TranscriptionID field.
+func (u *UpdateTranscribedAudioFile) GetTranscriptionID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.TranscriptionID
+}
+
+// GetText returns value of Text field.
+func (u *UpdateTranscribedAudioFile) GetText() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Text
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -35285,6 +37437,12 @@ const UpdateClassName = "Update"
 //   - [UpdateWalletGaslessInfo]
 //   - [UpdateWalletTonConnectSession]
 //   - [UpdateWalletTonConnectPendingDisconnect]
+//   - [UpdateEditForumTopic]
+//   - [UpdateBotWidgetQuery]
+//   - [UpdateInlineBotWidgetQuery]
+//   - [UpdateBotWidgetCopyQuery]
+//   - [UpdateMessageWidgetData]
+//   - [UpdateTranscribedAudioFile]
 //
 // Example:
 //
@@ -35463,6 +37621,12 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateWalletGaslessInfo: // updateWalletGaslessInfo#a8ae1cac
 //	case *tg.UpdateWalletTonConnectSession: // updateWalletTonConnectSession#50a38e0e
 //	case *tg.UpdateWalletTonConnectPendingDisconnect: // updateWalletTonConnectPendingDisconnect#d1ee8199
+//	case *tg.UpdateEditForumTopic: // updateEditForumTopic#2366665c
+//	case *tg.UpdateBotWidgetQuery: // updateBotWidgetQuery#b373fe68
+//	case *tg.UpdateInlineBotWidgetQuery: // updateInlineBotWidgetQuery#a5f07e08
+//	case *tg.UpdateBotWidgetCopyQuery: // updateBotWidgetCopyQuery#fa89bef7
+//	case *tg.UpdateMessageWidgetData: // updateMessageWidgetData#bbb078dd
+//	case *tg.UpdateTranscribedAudioFile: // updateTranscribedAudioFile#734c2e7b
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -36677,6 +38841,48 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateWalletTonConnectPendingDisconnectTypeID:
 		// Decoding updateWalletTonConnectPendingDisconnect#d1ee8199.
 		v := UpdateWalletTonConnectPendingDisconnect{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateEditForumTopicTypeID:
+		// Decoding updateEditForumTopic#2366665c.
+		v := UpdateEditForumTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotWidgetQueryTypeID:
+		// Decoding updateBotWidgetQuery#b373fe68.
+		v := UpdateBotWidgetQuery{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateInlineBotWidgetQueryTypeID:
+		// Decoding updateInlineBotWidgetQuery#a5f07e08.
+		v := UpdateInlineBotWidgetQuery{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotWidgetCopyQueryTypeID:
+		// Decoding updateBotWidgetCopyQuery#fa89bef7.
+		v := UpdateBotWidgetCopyQuery{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateMessageWidgetDataTypeID:
+		// Decoding updateMessageWidgetData#bbb078dd.
+		v := UpdateMessageWidgetData{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateTranscribedAudioFileTypeID:
+		// Decoding updateTranscribedAudioFile#734c2e7b.
+		v := UpdateTranscribedAudioFile{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

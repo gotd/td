@@ -5683,6 +5683,578 @@ func (i *InputMediaStakeDice) GetClientSeed() (value []byte) {
 	return i.ClientSeed
 }
 
+// InputMediaWidget represents TL type `inputMediaWidget#44f6c04e`.
+//
+// See https://core.telegram.org/constructor/inputMediaWidget for reference.
+type InputMediaWidget struct {
+	// Flags field of InputMediaWidget.
+	Flags bin.Fields
+	// AllowQueries field of InputMediaWidget.
+	AllowQueries bool
+	// SharedWidget field of InputMediaWidget.
+	SharedWidget bool
+	// Width field of InputMediaWidget.
+	Width int
+	// Height field of InputMediaWidget.
+	Height int
+	// HTML field of InputMediaWidget.
+	HTML string
+	// PublicData field of InputMediaWidget.
+	//
+	// Use SetPublicData and GetPublicData helpers.
+	PublicData string
+	// ChatData field of InputMediaWidget.
+	//
+	// Use SetChatData and GetChatData helpers.
+	ChatData string
+}
+
+// InputMediaWidgetTypeID is TL type id of InputMediaWidget.
+const InputMediaWidgetTypeID = 0x44f6c04e
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaWidget) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaWidget.
+var (
+	_ bin.Encoder     = &InputMediaWidget{}
+	_ bin.Decoder     = &InputMediaWidget{}
+	_ bin.BareEncoder = &InputMediaWidget{}
+	_ bin.BareDecoder = &InputMediaWidget{}
+
+	_ InputMediaClass = &InputMediaWidget{}
+)
+
+func (i *InputMediaWidget) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.AllowQueries == false) {
+		return false
+	}
+	if !(i.SharedWidget == false) {
+		return false
+	}
+	if !(i.Width == 0) {
+		return false
+	}
+	if !(i.Height == 0) {
+		return false
+	}
+	if !(i.HTML == "") {
+		return false
+	}
+	if !(i.PublicData == "") {
+		return false
+	}
+	if !(i.ChatData == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMediaWidget) String() string {
+	if i == nil {
+		return "InputMediaWidget(nil)"
+	}
+	type Alias InputMediaWidget
+	return fmt.Sprintf("InputMediaWidget%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaWidget from given interface.
+func (i *InputMediaWidget) FillFrom(from interface {
+	GetAllowQueries() (value bool)
+	GetSharedWidget() (value bool)
+	GetWidth() (value int)
+	GetHeight() (value int)
+	GetHTML() (value string)
+	GetPublicData() (value string, ok bool)
+	GetChatData() (value string, ok bool)
+}) {
+	i.AllowQueries = from.GetAllowQueries()
+	i.SharedWidget = from.GetSharedWidget()
+	i.Width = from.GetWidth()
+	i.Height = from.GetHeight()
+	i.HTML = from.GetHTML()
+	if val, ok := from.GetPublicData(); ok {
+		i.PublicData = val
+	}
+
+	if val, ok := from.GetChatData(); ok {
+		i.ChatData = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMediaWidget) TypeID() uint32 {
+	return InputMediaWidgetTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMediaWidget) TypeName() string {
+	return "inputMediaWidget"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaWidget) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaWidget",
+		ID:   InputMediaWidgetTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AllowQueries",
+			SchemaName: "allow_queries",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "SharedWidget",
+			SchemaName: "shared_widget",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "Width",
+			SchemaName: "width",
+		},
+		{
+			Name:       "Height",
+			SchemaName: "height",
+		},
+		{
+			Name:       "HTML",
+			SchemaName: "html",
+		},
+		{
+			Name:       "PublicData",
+			SchemaName: "public_data",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "ChatData",
+			SchemaName: "chat_data",
+			Null:       !i.Flags.Has(3),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaWidget) SetFlags() {
+	if !(i.AllowQueries == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.SharedWidget == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.PublicData == "") {
+		i.Flags.Set(2)
+	}
+	if !(i.ChatData == "") {
+		i.Flags.Set(3)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaWidget) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaWidget#44f6c04e as nil")
+	}
+	b.PutID(InputMediaWidgetTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaWidget) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaWidget#44f6c04e as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMediaWidget#44f6c04e: field flags: %w", err)
+	}
+	b.PutInt(i.Width)
+	b.PutInt(i.Height)
+	b.PutString(i.HTML)
+	if i.Flags.Has(2) {
+		b.PutString(i.PublicData)
+	}
+	if i.Flags.Has(3) {
+		b.PutString(i.ChatData)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMediaWidget) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaWidget#44f6c04e to nil")
+	}
+	if err := b.ConsumeID(InputMediaWidgetTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaWidget) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaWidget#44f6c04e to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: field flags: %w", err)
+		}
+	}
+	i.AllowQueries = i.Flags.Has(0)
+	i.SharedWidget = i.Flags.Has(1)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: field width: %w", err)
+		}
+		i.Width = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: field height: %w", err)
+		}
+		i.Height = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: field html: %w", err)
+		}
+		i.HTML = value
+	}
+	if i.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: field public_data: %w", err)
+		}
+		i.PublicData = value
+	}
+	if i.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidget#44f6c04e: field chat_data: %w", err)
+		}
+		i.ChatData = value
+	}
+	return nil
+}
+
+// SetAllowQueries sets value of AllowQueries conditional field.
+func (i *InputMediaWidget) SetAllowQueries(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.AllowQueries = true
+	} else {
+		i.Flags.Unset(0)
+		i.AllowQueries = false
+	}
+}
+
+// GetAllowQueries returns value of AllowQueries conditional field.
+func (i *InputMediaWidget) GetAllowQueries() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(0)
+}
+
+// SetSharedWidget sets value of SharedWidget conditional field.
+func (i *InputMediaWidget) SetSharedWidget(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.SharedWidget = true
+	} else {
+		i.Flags.Unset(1)
+		i.SharedWidget = false
+	}
+}
+
+// GetSharedWidget returns value of SharedWidget conditional field.
+func (i *InputMediaWidget) GetSharedWidget() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(1)
+}
+
+// GetWidth returns value of Width field.
+func (i *InputMediaWidget) GetWidth() (value int) {
+	if i == nil {
+		return
+	}
+	return i.Width
+}
+
+// GetHeight returns value of Height field.
+func (i *InputMediaWidget) GetHeight() (value int) {
+	if i == nil {
+		return
+	}
+	return i.Height
+}
+
+// GetHTML returns value of HTML field.
+func (i *InputMediaWidget) GetHTML() (value string) {
+	if i == nil {
+		return
+	}
+	return i.HTML
+}
+
+// SetPublicData sets value of PublicData conditional field.
+func (i *InputMediaWidget) SetPublicData(value string) {
+	i.Flags.Set(2)
+	i.PublicData = value
+}
+
+// GetPublicData returns value of PublicData conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaWidget) GetPublicData() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.PublicData, true
+}
+
+// SetChatData sets value of ChatData conditional field.
+func (i *InputMediaWidget) SetChatData(value string) {
+	i.Flags.Set(3)
+	i.ChatData = value
+}
+
+// GetChatData returns value of ChatData conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaWidget) GetChatData() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.ChatData, true
+}
+
+// InputMediaWidgetID represents TL type `inputMediaWidgetId#7c855cb5`.
+//
+// See https://core.telegram.org/constructor/inputMediaWidgetId for reference.
+type InputMediaWidgetID struct {
+	// Flags field of InputMediaWidgetID.
+	Flags bin.Fields
+	// WidgetID field of InputMediaWidgetID.
+	WidgetID int64
+	// ChatData field of InputMediaWidgetID.
+	//
+	// Use SetChatData and GetChatData helpers.
+	ChatData string
+}
+
+// InputMediaWidgetIDTypeID is TL type id of InputMediaWidgetID.
+const InputMediaWidgetIDTypeID = 0x7c855cb5
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaWidgetID) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaWidgetID.
+var (
+	_ bin.Encoder     = &InputMediaWidgetID{}
+	_ bin.Decoder     = &InputMediaWidgetID{}
+	_ bin.BareEncoder = &InputMediaWidgetID{}
+	_ bin.BareDecoder = &InputMediaWidgetID{}
+
+	_ InputMediaClass = &InputMediaWidgetID{}
+)
+
+func (i *InputMediaWidgetID) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.WidgetID == 0) {
+		return false
+	}
+	if !(i.ChatData == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMediaWidgetID) String() string {
+	if i == nil {
+		return "InputMediaWidgetID(nil)"
+	}
+	type Alias InputMediaWidgetID
+	return fmt.Sprintf("InputMediaWidgetID%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaWidgetID from given interface.
+func (i *InputMediaWidgetID) FillFrom(from interface {
+	GetWidgetID() (value int64)
+	GetChatData() (value string, ok bool)
+}) {
+	i.WidgetID = from.GetWidgetID()
+	if val, ok := from.GetChatData(); ok {
+		i.ChatData = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMediaWidgetID) TypeID() uint32 {
+	return InputMediaWidgetIDTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMediaWidgetID) TypeName() string {
+	return "inputMediaWidgetId"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaWidgetID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaWidgetId",
+		ID:   InputMediaWidgetIDTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "WidgetID",
+			SchemaName: "widget_id",
+		},
+		{
+			Name:       "ChatData",
+			SchemaName: "chat_data",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaWidgetID) SetFlags() {
+	if !(i.ChatData == "") {
+		i.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaWidgetID) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaWidgetId#7c855cb5 as nil")
+	}
+	b.PutID(InputMediaWidgetIDTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaWidgetID) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaWidgetId#7c855cb5 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMediaWidgetId#7c855cb5: field flags: %w", err)
+	}
+	b.PutLong(i.WidgetID)
+	if i.Flags.Has(0) {
+		b.PutString(i.ChatData)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMediaWidgetID) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaWidgetId#7c855cb5 to nil")
+	}
+	if err := b.ConsumeID(InputMediaWidgetIDTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaWidgetId#7c855cb5: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaWidgetID) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaWidgetId#7c855cb5 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidgetId#7c855cb5: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidgetId#7c855cb5: field widget_id: %w", err)
+		}
+		i.WidgetID = value
+	}
+	if i.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaWidgetId#7c855cb5: field chat_data: %w", err)
+		}
+		i.ChatData = value
+	}
+	return nil
+}
+
+// GetWidgetID returns value of WidgetID field.
+func (i *InputMediaWidgetID) GetWidgetID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.WidgetID
+}
+
+// SetChatData sets value of ChatData conditional field.
+func (i *InputMediaWidgetID) SetChatData(value string) {
+	i.Flags.Set(0)
+	i.ChatData = value
+}
+
+// GetChatData returns value of ChatData conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaWidgetID) GetChatData() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.ChatData, true
+}
+
 // InputMediaClassName is schema name of InputMediaClass.
 const InputMediaClassName = "InputMedia"
 
@@ -5711,6 +6283,8 @@ const InputMediaClassName = "InputMedia"
 //   - [InputMediaPaidMedia]
 //   - [InputMediaTodo]
 //   - [InputMediaStakeDice]
+//   - [InputMediaWidget]
+//   - [InputMediaWidgetID]
 //
 // Example:
 //
@@ -5739,6 +6313,8 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaPaidMedia: // inputMediaPaidMedia#c4103386
 //	case *tg.InputMediaTodo: // inputMediaTodo#9fc55fde
 //	case *tg.InputMediaStakeDice: // inputMediaStakeDice#f3a9244a
+//	case *tg.InputMediaWidget: // inputMediaWidget#44f6c04e
+//	case *tg.InputMediaWidgetID: // inputMediaWidgetId#7c855cb5
 //	default: panic(v)
 //	}
 type InputMediaClass interface {
@@ -5903,6 +6479,20 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 	case InputMediaStakeDiceTypeID:
 		// Decoding inputMediaStakeDice#f3a9244a.
 		v := InputMediaStakeDice{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+		}
+		return &v, nil
+	case InputMediaWidgetTypeID:
+		// Decoding inputMediaWidget#44f6c04e.
+		v := InputMediaWidget{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+		}
+		return &v, nil
+	case InputMediaWidgetIDTypeID:
+		// Decoding inputMediaWidgetId#7c855cb5.
+		v := InputMediaWidgetID{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
 		}

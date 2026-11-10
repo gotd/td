@@ -233,6 +233,32 @@ func (s InputBotInlineMessageClassArray) AsInputBotInlineMessageRichMessage() (t
 	return to
 }
 
+// AsInputBotInlineMessageWidget returns copy with only InputBotInlineMessageWidget constructors.
+func (s InputBotInlineMessageClassArray) AsInputBotInlineMessageWidget() (to InputBotInlineMessageWidgetArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineMessageWidget)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputBotInlineMessageWidgetID returns copy with only InputBotInlineMessageWidgetID constructors.
+func (s InputBotInlineMessageClassArray) AsInputBotInlineMessageWidgetID() (to InputBotInlineMessageWidgetIDArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineMessageWidgetID)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputBotInlineMessageMediaAutoArray is adapter for slice of InputBotInlineMessageMediaAuto.
 type InputBotInlineMessageMediaAutoArray []InputBotInlineMessageMediaAuto
 
@@ -959,6 +985,170 @@ func (s *InputBotInlineMessageRichMessageArray) PopFirst() (v InputBotInlineMess
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputBotInlineMessageRichMessageArray) Pop() (v InputBotInlineMessageRichMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputBotInlineMessageWidgetArray is adapter for slice of InputBotInlineMessageWidget.
+type InputBotInlineMessageWidgetArray []InputBotInlineMessageWidget
+
+// Sort sorts slice of InputBotInlineMessageWidget.
+func (s InputBotInlineMessageWidgetArray) Sort(less func(a, b InputBotInlineMessageWidget) bool) InputBotInlineMessageWidgetArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineMessageWidget.
+func (s InputBotInlineMessageWidgetArray) SortStable(less func(a, b InputBotInlineMessageWidget) bool) InputBotInlineMessageWidgetArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineMessageWidget.
+func (s InputBotInlineMessageWidgetArray) Retain(keep func(x InputBotInlineMessageWidget) bool) InputBotInlineMessageWidgetArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineMessageWidgetArray) First() (v InputBotInlineMessageWidget, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineMessageWidgetArray) Last() (v InputBotInlineMessageWidget, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageWidgetArray) PopFirst() (v InputBotInlineMessageWidget, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineMessageWidget
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageWidgetArray) Pop() (v InputBotInlineMessageWidget, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputBotInlineMessageWidgetIDArray is adapter for slice of InputBotInlineMessageWidgetID.
+type InputBotInlineMessageWidgetIDArray []InputBotInlineMessageWidgetID
+
+// Sort sorts slice of InputBotInlineMessageWidgetID.
+func (s InputBotInlineMessageWidgetIDArray) Sort(less func(a, b InputBotInlineMessageWidgetID) bool) InputBotInlineMessageWidgetIDArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineMessageWidgetID.
+func (s InputBotInlineMessageWidgetIDArray) SortStable(less func(a, b InputBotInlineMessageWidgetID) bool) InputBotInlineMessageWidgetIDArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineMessageWidgetID.
+func (s InputBotInlineMessageWidgetIDArray) Retain(keep func(x InputBotInlineMessageWidgetID) bool) InputBotInlineMessageWidgetIDArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineMessageWidgetIDArray) First() (v InputBotInlineMessageWidgetID, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineMessageWidgetIDArray) Last() (v InputBotInlineMessageWidgetID, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageWidgetIDArray) PopFirst() (v InputBotInlineMessageWidgetID, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineMessageWidgetID
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageWidgetIDArray) Pop() (v InputBotInlineMessageWidgetID, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
