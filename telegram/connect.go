@@ -271,6 +271,15 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 		case <-ctx.Done():
 			return ctx.Err()
 		case err := <-c.authLost:
+			if ctx.Err() != nil {
+				// Group is already stopping, so err may be lost by g.Wait:
+				// put it back for the deferred check above.
+				select {
+				case c.authLost <- err:
+				default:
+				}
+				return ctx.Err()
+			}
 			return err
 		}
 	})
