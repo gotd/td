@@ -47,48 +47,18 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 	sortUpdatesByPts(comb.Updates)
 
 	for _, u := range comb.Updates {
-		switch u := u.(type) {
-		case *tg.UpdatePtsChanged:
+		if _, ok := u.(*tg.UpdatePtsChanged); ok {
 			ptsChanged = true
 			continue
-		case *tg.UpdateChannelTooLong:
-			st, ok := s.channels[u.ChannelID]
-			if !ok {
-				st, ok = s.trackTooLong(ctx, u, ents)
-			}
-			if !ok {
-				s.log.Debug(ctx, "ChannelTooLong for channel that is not in the internalState, update ignored", log.Int64("channel_id", u.ChannelID))
-				continue
-			}
-			if err := st.Push(ctx, channelUpdate{
-				update:   u,
-				entities: ents,
-				span:     trace.SpanContextFromContext(ctx),
-			}); err != nil {
-				s.log.Error(ctx, "Push channel update error", log.Error(err))
-			}
+		}
+
+		if s.routeChannelUpdate(ctx, u, ents, comb.Date) {
 			continue
 		}
 
 		if pts, ptsCount, ok := tg.IsPtsUpdate(u); ok {
 			if err := s.handlePts(ctx, pts, ptsCount, u, ents); err != nil {
 				return false, err
-			}
-
-			continue
-		}
-
-		if channelID, pts, ptsCount, ok, err := tg.IsChannelPtsUpdate(u); ok {
-			if err != nil {
-				s.log.Debug(ctx, "Invalid channel update", log.Error(err), log.Any("update", u))
-				continue
-			}
-			if err := s.handleChannel(ctx, channelID, comb.Date, pts, ptsCount, channelUpdate{
-				update:   u,
-				entities: ents,
-				span:     trace.SpanContextFromContext(ctx),
-			}); err != nil {
-				s.log.Error(ctx, "Handle channel update error", log.Error(err))
 			}
 
 			continue
@@ -137,6 +107,49 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 	}
 
 	return ptsChanged, nil
+}
+
+// routeChannelUpdate pushes u to the worker of its channel if u belongs to a
+// channel sequence: a channel pts update or updateChannelTooLong. It reports
+// whether u was such an update (handled or ignored); other updates are left to
+// the caller. date is the date of the containing batch, used to recover a
+// missing channel access hash.
+func (s *internalState) routeChannelUpdate(ctx context.Context, u tg.UpdateClass, ents entities, date int) bool {
+	if long, ok := u.(*tg.UpdateChannelTooLong); ok {
+		st, ok := s.channels[long.ChannelID]
+		if !ok {
+			st, ok = s.trackTooLong(ctx, long, ents)
+		}
+		if !ok {
+			s.log.Debug(ctx, "ChannelTooLong for channel that is not in the internalState, update ignored", log.Int64("channel_id", long.ChannelID))
+			return true
+		}
+		if err := st.Push(ctx, channelUpdate{
+			update:   long,
+			entities: ents,
+			span:     trace.SpanContextFromContext(ctx),
+		}); err != nil {
+			s.log.Error(ctx, "Push channel update error", log.Error(err))
+		}
+		return true
+	}
+
+	channelID, pts, ptsCount, ok, err := tg.IsChannelPtsUpdate(u)
+	if !ok {
+		return false
+	}
+	if err != nil {
+		s.log.Debug(ctx, "Invalid channel update", log.Error(err), log.Any("update", u))
+		return true
+	}
+	if err := s.handleChannel(ctx, channelID, date, pts, ptsCount, channelUpdate{
+		update:   u,
+		entities: ents,
+		span:     trace.SpanContextFromContext(ctx),
+	}); err != nil {
+		s.log.Error(ctx, "Handle channel update error", log.Error(err))
+	}
+	return true
 }
 
 func (s *internalState) applyPts(ctx context.Context, state int, updates []update) error {

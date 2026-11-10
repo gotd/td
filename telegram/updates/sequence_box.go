@@ -14,6 +14,9 @@ type sequenceBox struct {
 	gaps       gapBuffer
 	gapTimeout *time.Timer
 	pending    []update
+	// applying is set while applyPending runs apply, which may re-enter the
+	// box through a nested getDifference (resyncPending).
+	applying bool
 
 	apply   func(ctx context.Context, state int, updates []update) error
 	log     log.Helper
@@ -159,6 +162,17 @@ loop:
 		}
 	}
 
+	// Apply before trimming: if apply fails, the accepted updates stay pending
+	// and are retried instead of being lost.
+	if len(accepted) > 0 {
+		s.applying = true
+		err := s.apply(ctx, state, accepted)
+		s.applying = false
+		if err != nil {
+			return err
+		}
+	}
+
 	// Trim processed updates. Setting zero values for the rest
 	// of the slice lets GC collect referenced objects.
 	end := len(s.pending)
@@ -173,10 +187,6 @@ loop:
 		return nil
 	}
 
-	if err := s.apply(ctx, state, accepted); err != nil {
-		return err
-	}
-
 	s.log.Debug(ctx, "Pending updates applied",
 		log.Int("prev_state", s.state),
 		log.Int("new_state", state),
@@ -184,6 +194,57 @@ loop:
 	)
 
 	s.setState(state, "pending updates")
+	return nil
+}
+
+// resyncPending reconciles pending updates with the current state after a
+// difference set it, like TDLib process_postponed_pts_updates.
+//
+// Pending updates covered by the state (starting before it) were delivered by
+// the difference and are dropped. If the remaining pending updates continue
+// the state, they are applied. If a gap still separates the state from them,
+// the gap is re-armed with its timer, so a further difference recovers it.
+func (s *sequenceBox) resyncPending(ctx context.Context) error {
+	s.gaps.Clear()
+	_ = s.gapTimeout.Stop()
+	if s.applying {
+		// Re-entered from apply of applyPending, which trims pending itself
+		// when apply returns; the rest is resolved by the next update.
+		return nil
+	}
+
+	kept := s.pending[:0]
+	for _, u := range s.pending {
+		if u.start() < s.state || u.end() <= s.state {
+			continue
+		}
+		kept = append(kept, u)
+	}
+	// Let GC collect dropped updates.
+	for i := len(kept); i < len(s.pending); i++ {
+		s.pending[i] = update{}
+	}
+	s.pending = kept
+	if len(s.pending) == 0 {
+		return nil
+	}
+
+	sort.SliceStable(s.pending, func(i, j int) bool {
+		return s.pending[i].start() < s.pending[j].start()
+	})
+	if first := s.pending[0]; checkGap(s.state, first.State, first.Count) == gapApply {
+		if err := s.applyPending(ctx); err != nil {
+			return err
+		}
+	}
+	if len(s.pending) == 0 {
+		return nil
+	}
+
+	s.gaps.Enable(s.state, s.pending[0].start())
+	s.metrics.gap(ctx, s.kind, s.name, gapDetected)
+	_ = s.gapTimeout.Reset(fastgapTimeout)
+	s.log.Debug(ctx, "Gap remains after difference", log.Stringer("gap", s.gaps))
 	return nil
 }
 

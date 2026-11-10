@@ -207,6 +207,12 @@ func (s *channelState) Run(ctx context.Context) error {
 			}
 			return ctx.Err()
 		case <-s.idleTimeout.C:
+			// The server timeout paces idle polling, not gap recovery or
+			// non-final differences. Keep handling updates while it elapses.
+			if remaining := time.Until(s.diffTimeout); remaining > 0 {
+				s.idleTimeout.Reset(remaining)
+				continue
+			}
 			s.log.Debug(ctx, "Idle timeout")
 			s.resetIdleTimer()
 			if s.getDifferenceLogger(ctx, "channel-idle-timeout") {
@@ -332,33 +338,6 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	// Updates of the difference are reported with "difference" source.
 	ctx = withDifferenceSource(ctx)
 
-	if now := time.Now(); now.Before(s.diffTimeout) {
-		dur := s.diffTimeout.Sub(now)
-		s.log.Debug(ctx, "GetChannelDifference timeout", log.Duration("duration", dur))
-		if err := func() error {
-			afterC := time.After(dur)
-			for {
-				select {
-				case <-afterC:
-					return nil
-				case u, ok := <-s.updates:
-					if !ok {
-						continue
-					}
-
-					// Ignoring updates to prevent *internalState worker from blocking.
-					// All ignored updates should be restored by future getChannelDifference call.
-					// At least I hope so...
-					s.log.Debug(ctx, "Ignoring update due to getChannelDifference timeout", log.Any("update", u.update))
-				case <-ctx.Done():
-					return ctx.Err()
-				}
-			}
-		}(); err != nil {
-			return err
-		}
-	}
-
 	// Bound concurrent getChannelDifference across channels: a member of many
 	// active channels would otherwise burst past the per-account method limit.
 	// The slot wraps only the RPC — released before processing and the !Final
@@ -395,40 +374,15 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 
 	switch diff := diff.(type) {
 	case *tg.UpdatesChannelDifference:
-		if len(diff.OtherUpdates) > 0 {
-			if err := s.sendOut(ctx, tracedUpdate{
-				span: trace.SpanContextFromContext(ctx),
-				update: &tg.Updates{
-					Updates: diff.OtherUpdates,
-					Users:   diff.Users,
-					Chats:   diff.Chats,
-				},
-			}); err != nil {
-				return err
-			}
+		if err := s.applyDifference(ctx, diff); err != nil {
+			return err
 		}
-
-		if len(diff.NewMessages) > 0 {
-			if err := s.dispatch(ctx, &tg.Updates{
-				Updates: msgsToUpdates(diff.NewMessages, true),
-				Users:   diff.Users,
-				Chats:   diff.Chats,
-			}); err != nil {
-				s.log.Error(ctx, "Handle updates error", log.Error(err))
-			}
-		}
-
-		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
-			s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
-		}
-
-		s.pts.SetState(diff.Pts, "updates.channelDifference")
-		if seconds, ok := diff.GetTimeout(); ok {
-			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
-		}
-
 		if !diff.Final {
 			return s.getDifference(ctx, "channel-difference-not-final")
+		}
+		// Only a final difference schedules polling.
+		if seconds, ok := diff.GetTimeout(); ok {
+			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
 		}
 
 		return nil
@@ -514,6 +468,114 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	}
 }
 
+// applyDifference applies the contents of updates.channelDifference and sets
+// the channel pts to diff.Pts.
+//
+// Other updates of this channel are dispatched directly by the worker, without
+// the pts gap check, like TDLib process_get_channel_difference_updates. They
+// used to be sent to *internalState, which routed them back to this worker
+// only after the pts was set to diff.Pts, so the gap check dropped them as
+// outdated.
+//
+// Updates are dispatched in TDLib order: updateMessageID, new messages, then
+// the other updates of this channel. Updates that belong to another sequence
+// (common pts/qts or another channel) are not expected here; they are handed to
+// *internalState to be handled as usual.
+func (s *channelState) applyDifference(ctx context.Context, diff *tg.UpdatesChannelDifference) error {
+	var (
+		updates = make([]tg.UpdateClass, 0, len(diff.NewMessages)+len(diff.OtherUpdates))
+		rest    = make([]tg.UpdateClass, 0, len(diff.OtherUpdates))
+		foreign []tg.UpdateClass
+	)
+	for _, u := range diff.OtherUpdates {
+		if _, ok := u.(*tg.UpdateMessageID); ok {
+			updates = append(updates, u)
+			continue
+		}
+		if long, ok := u.(*tg.UpdateChannelTooLong); ok && long.ChannelID == s.channelID {
+			// This difference is the recovery itself.
+			s.log.Debug(ctx, "Ignoring updateChannelTooLong in channel difference")
+			continue
+		}
+		if s.foreignUpdate(u) {
+			foreign = append(foreign, u)
+			continue
+		}
+		rest = append(rest, u)
+	}
+	updates = append(updates, msgsToUpdates(diff.NewMessages, true)...)
+	sortUpdatesByPts(rest)
+	updates = append(updates, rest...)
+
+	if len(updates) > 0 {
+		if err := s.dispatch(ctx, &tg.Updates{
+			Updates: updates,
+			Users:   diff.Users,
+			Chats:   diff.Chats,
+		}); err != nil {
+			s.log.Error(ctx, "Handle updates error", log.Error(err))
+		}
+	}
+
+	// Hand updates of other sequences to *internalState. The batch is sent even
+	// if there are none, so that *internalState still records the access
+	// hashes of the response entities, as it did when every other update was
+	// routed through it.
+	if len(diff.OtherUpdates) > 0 {
+		if len(foreign) > 0 {
+			s.log.Debug(ctx, "Channel difference has updates of other sequences",
+				log.Int("count", len(foreign)),
+			)
+		}
+		if err := s.sendOut(ctx, tracedUpdate{
+			span: trace.SpanContextFromContext(ctx),
+			update: &tg.Updates{
+				Updates: foreign,
+				Users:   diff.Users,
+				Chats:   diff.Chats,
+			},
+		}); err != nil {
+			return err
+		}
+	}
+
+	// Do not advance pts if the context is done: the next difference
+	// re-delivers what may not have been handled.
+	if err := ctx.Err(); err != nil {
+		return errors.Wrap(err, "apply channel difference")
+	}
+
+	if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
+		s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
+	}
+
+	s.pts.SetState(diff.Pts, "updates.channelDifference")
+	// Pending updates up to the new pts were delivered by the difference.
+	if err := s.pts.resyncPending(ctx); err != nil {
+		return errors.Wrap(err, "apply pending")
+	}
+	return nil
+}
+
+// foreignUpdate reports whether u belongs to a sequence other than the pts of
+// this channel: the common pts or qts, or another channel. updatePtsChanged
+// belongs to the common pts: *internalState refetches the common difference.
+func (s *channelState) foreignUpdate(u tg.UpdateClass) bool {
+	if _, ok := u.(*tg.UpdatePtsChanged); ok {
+		return true
+	}
+	if channelID, _, _, ok, _ := tg.IsChannelPtsUpdate(u); ok {
+		return channelID != s.channelID
+	}
+	if _, _, ok := tg.IsPtsUpdate(u); ok {
+		return true
+	}
+	if _, ok := tg.IsQtsUpdate(u); ok {
+		return true
+	}
+	return false
+}
+
 // sendOut hands off updates to the *internalState worker via s.out.
 //
 // While waiting for the worker to accept the update, it keeps draining its own
@@ -522,7 +584,7 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 // bounded and the worker is the only reader of s.out).
 //
 // Drained updates are ignored on purpose: they are restored by a future
-// getChannelDifference call, same as in the diffTimeout wait above.
+// getChannelDifference call.
 func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
 	for {
 		select {
