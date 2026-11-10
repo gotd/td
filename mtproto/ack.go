@@ -12,9 +12,18 @@ import (
 func (c *Conn) ackLoop(ctx context.Context) error {
 	logger := c.log.Named("ack")
 
-	var buf []int64
+	var (
+		buf []int64
+		// Session of buffered ids: acks are meaningful only within the
+		// session the acknowledged messages were received in.
+		bufSession int64
+	)
 	send := func() {
 		defer func() { buf = buf[:0] }()
+		if c.currentSessionID() != bufSession {
+			logger.Debug(ctx, "Session changed, dropping pending acks", log.Any("msg_ids", buf))
+			return
+		}
 
 		start := c.clock.Now()
 		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIDs: buf}); err != nil {
@@ -42,6 +51,13 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 				send()
 			}
 		case msgID := <-c.ackSendChan:
+			if session := c.currentSessionID(); session != bufSession {
+				if len(buf) > 0 {
+					logger.Debug(ctx, "Session changed, dropping pending acks", log.Any("msg_ids", buf))
+				}
+				buf = buf[:0]
+				bufSession = session
+			}
 			buf = append(buf, msgID)
 			if len(buf) >= c.ackBatchSize {
 				send()

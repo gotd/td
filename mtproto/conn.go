@@ -86,6 +86,9 @@ type Conn struct {
 	// compute sequence number within session.
 	sentContentMessages int32
 	reqMux              sync.Mutex
+	// sessionStartMsgID is the first msg_id of the current session after an
+	// in-place session reset, see resetSession.
+	sessionStartMsgID atomic.Int64
 
 	// ackSendChan is queue for outgoing message id's that require waiting for
 	// ack from server.

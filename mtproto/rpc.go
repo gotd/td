@@ -15,6 +15,18 @@ import (
 //
 // NOTE: Assuming that call contains content message (seqno increment).
 func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	for {
+		err := c.invokeOnce(ctx, input, output)
+		if !errors.Is(err, errSessionReset) {
+			return err
+		}
+		// The session was replaced while the request was pending: send it
+		// again with a new msg_id and seqno of the new session.
+		c.log.Info(ctx, "Resending request in new session")
+	}
+}
+
+func (c *Conn) invokeOnce(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	msgID, seqNo := c.nextMsgSeq(true)
 	req := rpc.Request{
 		MsgID:  msgID,

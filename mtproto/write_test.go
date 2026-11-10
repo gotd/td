@@ -47,7 +47,7 @@ func benchWrite(payloadSize int) func(b *testing.B) {
 		b.SetBytes(int64(payloadSize))
 
 		for i := 0; i < b.N; i++ {
-			_ = conn.write(context.Background(), 1, 1, data)
+			_ = conn.write(context.Background(), false, 1, 1, data)
 		}
 	}
 }

@@ -284,6 +284,22 @@ func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
 	return fn(b, nil)
 }
 
+// NotifyErrorAll notifies every pending request about rpcErr, e.g. when the
+// session they were sent in is gone and they must be sent again in a new one.
+func (e *Engine) NotifyErrorAll(rpcErr error) {
+	e.mux.Lock()
+	handlers := make([]func(*bin.Buffer, error) error, 0, len(e.rpc))
+	for _, fn := range e.rpc {
+		handlers = append(handlers, fn)
+	}
+	e.mux.Unlock()
+
+	for _, fn := range handlers {
+		// Callback with rpcError always return nil.
+		_ = fn(nil, rpcErr)
+	}
+}
+
 // NotifyError notifies engine about received RPC error.
 func (e *Engine) NotifyError(msgID int64, rpcErr error) {
 	e.mux.Lock()
