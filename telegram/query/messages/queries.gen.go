@@ -72,7 +72,7 @@ type ChannelsSearchPostsQueryBuilder struct {
 func (q *QueryBuilder) ChannelsSearchPosts() *ChannelsSearchPostsQueryBuilder {
 	b := &ChannelsSearchPostsQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 100,
 		req:       tg.ChannelsSearchPostsRequest{},
 	}
 
@@ -80,6 +80,7 @@ func (q *QueryBuilder) ChannelsSearchPosts() *ChannelsSearchPostsQueryBuilder {
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *ChannelsSearchPostsQueryBuilder) BatchSize(batchSize int) *ChannelsSearchPostsQueryBuilder {
@@ -194,7 +195,7 @@ func (q *QueryBuilder) GetHistory(paramPeer peer.InputPeer) *GetHistoryQueryBuil
 	b := &GetHistoryQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetHistoryRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
@@ -209,6 +210,7 @@ func (q *QueryBuilder) GetHistory(paramPeer peer.InputPeer) *GetHistoryQueryBuil
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetHistoryQueryBuilder) BatchSize(batchSize int) *GetHistoryQueryBuilder {
@@ -325,7 +327,7 @@ type GetPersonalChannelHistoryQueryBuilder struct {
 func (q *QueryBuilder) GetPersonalChannelHistory(paramUserID tg.InputUserClass) *GetPersonalChannelHistoryQueryBuilder {
 	b := &GetPersonalChannelHistoryQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 100,
 		req:       tg.MessagesGetPersonalChannelHistoryRequest{},
 	}
 
@@ -334,6 +336,7 @@ func (q *QueryBuilder) GetPersonalChannelHistory(paramUserID tg.InputUserClass) 
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetPersonalChannelHistoryQueryBuilder) BatchSize(batchSize int) *GetPersonalChannelHistoryQueryBuilder {
@@ -435,7 +438,7 @@ func (q *QueryBuilder) GetRecentLocations(paramPeer peer.InputPeer) *GetRecentLo
 	b := &GetRecentLocationsQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetRecentLocationsRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
@@ -450,6 +453,7 @@ func (q *QueryBuilder) GetRecentLocations(paramPeer peer.InputPeer) *GetRecentLo
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetRecentLocationsQueryBuilder) BatchSize(batchSize int) *GetRecentLocationsQueryBuilder {
@@ -548,7 +552,7 @@ func (q *QueryBuilder) GetReplies(paramPeer peer.InputPeer) *GetRepliesQueryBuil
 	b := &GetRepliesQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetRepliesRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
@@ -563,6 +567,7 @@ func (q *QueryBuilder) GetReplies(paramPeer peer.InputPeer) *GetRepliesQueryBuil
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetRepliesQueryBuilder) BatchSize(batchSize int) *GetRepliesQueryBuilder {
@@ -699,7 +704,7 @@ func (q *QueryBuilder) GetSavedHistory(paramPeer peer.InputPeer) *GetSavedHistor
 	b := &GetSavedHistoryQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetSavedHistoryRequest{
 			ParentPeer: &tg.InputPeerEmpty{},
 			Peer:       &tg.InputPeerEmpty{},
@@ -715,6 +720,7 @@ func (q *QueryBuilder) GetSavedHistory(paramPeer peer.InputPeer) *GetSavedHistor
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetSavedHistoryQueryBuilder) BatchSize(batchSize int) *GetSavedHistoryQueryBuilder {
@@ -850,7 +856,7 @@ func (q *QueryBuilder) GetUnreadMentions(paramPeer peer.InputPeer) *GetUnreadMen
 	b := &GetUnreadMentionsQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetUnreadMentionsRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
@@ -865,6 +871,7 @@ func (q *QueryBuilder) GetUnreadMentions(paramPeer peer.InputPeer) *GetUnreadMen
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetUnreadMentionsQueryBuilder) BatchSize(batchSize int) *GetUnreadMentionsQueryBuilder {
@@ -992,7 +999,7 @@ func (q *QueryBuilder) GetUnreadPollVotes(paramPeer peer.InputPeer) *GetUnreadPo
 	b := &GetUnreadPollVotesQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetUnreadPollVotesRequest{
 			Peer: &tg.InputPeerEmpty{},
 		},
@@ -1007,6 +1014,7 @@ func (q *QueryBuilder) GetUnreadPollVotes(paramPeer peer.InputPeer) *GetUnreadPo
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetUnreadPollVotesQueryBuilder) BatchSize(batchSize int) *GetUnreadPollVotesQueryBuilder {
@@ -1134,7 +1142,7 @@ func (q *QueryBuilder) GetUnreadReactions(paramPeer peer.InputPeer) *GetUnreadRe
 	b := &GetUnreadReactionsQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesGetUnreadReactionsRequest{
 			Peer:        &tg.InputPeerEmpty{},
 			SavedPeerID: &tg.InputPeerEmpty{},
@@ -1150,6 +1158,7 @@ func (q *QueryBuilder) GetUnreadReactions(paramPeer peer.InputPeer) *GetUnreadRe
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetUnreadReactionsQueryBuilder) BatchSize(batchSize int) *GetUnreadReactionsQueryBuilder {
@@ -1284,7 +1293,7 @@ func (q *QueryBuilder) Search(paramPeer peer.InputPeer) *SearchQueryBuilder {
 	b := &SearchQueryBuilder{
 		raw:       q.raw,
 		resolver:  q.resolver,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesSearchRequest{
 			Filter:      &tg.InputMessagesFilterEmpty{},
 			FromID:      &tg.InputPeerEmpty{},
@@ -1302,6 +1311,7 @@ func (q *QueryBuilder) Search(paramPeer peer.InputPeer) *SearchQueryBuilder {
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *SearchQueryBuilder) BatchSize(batchSize int) *SearchQueryBuilder {
@@ -1573,7 +1583,7 @@ type SearchGlobalQueryBuilder struct {
 func (q *QueryBuilder) SearchGlobal() *SearchGlobalQueryBuilder {
 	b := &SearchGlobalQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesSearchGlobalRequest{
 			Filter: &tg.InputMessagesFilterEmpty{},
 		},
@@ -1583,6 +1593,7 @@ func (q *QueryBuilder) SearchGlobal() *SearchGlobalQueryBuilder {
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *SearchGlobalQueryBuilder) BatchSize(batchSize int) *SearchGlobalQueryBuilder {
@@ -1830,7 +1841,7 @@ type SearchSentMediaQueryBuilder struct {
 func (q *QueryBuilder) SearchSentMedia() *SearchSentMediaQueryBuilder {
 	b := &SearchSentMediaQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 100,
 		req: tg.MessagesSearchSentMediaRequest{
 			Filter: &tg.InputMessagesFilterEmpty{},
 		},
@@ -1840,6 +1851,7 @@ func (q *QueryBuilder) SearchSentMedia() *SearchSentMediaQueryBuilder {
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 100, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *SearchSentMediaQueryBuilder) BatchSize(batchSize int) *SearchSentMediaQueryBuilder {

@@ -73,7 +73,10 @@ func (m *Iterator) apply(r tg.PhotosPhotosClass) error {
 		entities = peer.NewEntities(phts.MapUsers().UserToMap(), map[int64]*tg.Chat{}, map[int64]*tg.Channel{})
 
 		m.count = phts.Count
-		m.lastBatch = len(phts.Photos) < m.limit
+		// A page shorter than the limit does not mean the end: the server may
+		// return fewer elements than requested. Stop on an empty page or on
+		// reaching the server-reported count.
+		m.lastBatch = len(phts.Photos) == 0 || (m.count > 0 && m.offset+len(phts.Photos) >= m.count)
 	default:
 		return errors.Errorf("unexpected type %T", r)
 	}
@@ -90,6 +93,12 @@ func (m *Iterator) apply(r tg.PhotosPhotosClass) error {
 }
 
 func (m *Iterator) requestNext(ctx context.Context) error {
+	if m.lastBatch {
+		// Last batch is already consumed, no need to request more.
+		m.buf = m.buf[:0]
+		m.bufCur = -1
+		return nil
+	}
 	r, err := m.query.Query(ctx, Request{
 		Offset: m.offset,
 		Limit:  m.limit,

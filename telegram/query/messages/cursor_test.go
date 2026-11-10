@@ -29,6 +29,16 @@ func TestGetHistoryMinMaxID(t *testing.T) {
 		MinID: 5,
 		MaxID: 50,
 	}).ThenResult(historyMessages(9, 8, 7, 6))
+	// A short page is not the end: the count is not reached, so the iterator
+	// asks for more and stops on the empty page.
+	mock.ExpectCall(&tg.MessagesGetHistoryRequest{
+		Peer:       peer,
+		Limit:      10,
+		MinID:      5,
+		MaxID:      50,
+		OffsetID:   6,
+		OffsetDate: 60,
+	}).ThenResult(historyMessages())
 
 	var got []int
 	err := NewQueryBuilder(tg.NewClient(mock)).GetHistory(peer).
@@ -38,7 +48,7 @@ func TestGetHistoryMinMaxID(t *testing.T) {
 			return nil
 		})
 	require.NoError(t, err)
-	require.Equal(t, []int{9, 8, 7, 6}, got, "short batch is the last one")
+	require.Equal(t, []int{9, 8, 7, 6}, got)
 }
 
 func TestIteratorCursor(t *testing.T) {
@@ -69,6 +79,12 @@ func TestIteratorCursor(t *testing.T) {
 		OffsetID:   18,
 		OffsetDate: 180,
 	}).ThenResult(historyMessages(17, 16))
+	mock.ExpectCall(&tg.MessagesGetHistoryRequest{
+		Peer:       peer,
+		Limit:      5,
+		OffsetID:   16,
+		OffsetDate: 160,
+	}).ThenResult(historyMessages())
 	resumed := q.GetHistory(peer).BatchSize(5).Iter().Resume(c)
 	var got []int
 	for resumed.Next(ctx) {

@@ -55,7 +55,7 @@ type GetParticipantsQueryBuilder struct {
 func (q *QueryBuilder) GetParticipants(paramChannel tg.InputChannelClass) *GetParticipantsQueryBuilder {
 	b := &GetParticipantsQueryBuilder{
 		raw:       q.raw,
-		batchSize: 1,
+		batchSize: 200,
 		req: tg.ChannelsGetParticipantsRequest{
 			Filter: &tg.ChannelParticipantsRecent{},
 		},
@@ -66,6 +66,7 @@ func (q *QueryBuilder) GetParticipants(paramChannel tg.InputChannelClass) *GetPa
 }
 
 // BatchSize sets buffer of message loaded from one request.
+// Defaults to 200, the page size of official clients capped by the server limit.
 // Be carefully, when set this limit, because Telegram does not return error if limit is too big,
 // so results can be incorrect.
 func (b *GetParticipantsQueryBuilder) BatchSize(batchSize int) *GetParticipantsQueryBuilder {
