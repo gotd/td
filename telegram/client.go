@@ -297,7 +297,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 		Types: getTypesMapping(),
 
-		Tracer: client.tracer,
+		Tracer:     client.tracer,
+		WireTracer: opt.WireTracer,
 	}
 	client.conn = client.createPrimaryConn(nil)
 

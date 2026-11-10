@@ -195,6 +195,13 @@ type Options struct {
 	// updates.Config.MeterProvider too.
 	MeterProvider metric.MeterProvider
 
+	// WireTracer observes plaintext MTProto messages and lifecycle events of
+	// every connection of the client: primary, other DCs, media and CDN
+	// connections. Nil (default) disables wire tracing.
+	//
+	// See mtproto.WireTracer.
+	WireTracer mtproto.WireTracer
+
 	// OnTransfer is called during authorization transfer.
 	// See [AuthTransferHandler] for details.
 	OnTransfer AuthTransferHandler

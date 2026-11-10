@@ -22,7 +22,7 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 		d      crypto.EncryptedMessageData
 		logger = c.log
 	)
-	if c.compressThreshold <= 0 {
+	if c.compressThreshold <= 0 && c.wire == nil {
 		if obj, ok := payload.(interface{ TypeID() uint32 }); ok {
 			logger = c.logWithTypeID(obj.TypeID())
 		}
@@ -41,7 +41,10 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 		}
 
 		logger = c.logWithType(payloadBuf)
-		if payloadBuf.Len() > c.compressThreshold {
+		body := payloadBuf
+		compress := c.compressThreshold > 0 && payloadBuf.Len() > c.compressThreshold
+		switch {
+		case compress && c.wire == nil:
 			d = crypto.EncryptedMessageData{
 				SessionID: s.ID,
 				Salt:      s.Salt,
@@ -49,14 +52,27 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 				SeqNo:     seq,
 				Message:   proto.GZIP{Data: payloadBuf.Raw()},
 			}
-		} else {
+		default:
+			if compress {
+				// Tracing: encode gzip_packed separately to report the body
+				// exactly as sent.
+				gzipBuf := bufPool.Get()
+				defer bufPool.Put(gzipBuf)
+				if err := (proto.GZIP{Data: payloadBuf.Raw()}).Encode(gzipBuf); err != nil {
+					return errors.Wrap(err, "encode gzip")
+				}
+				body = gzipBuf
+			}
+			if c.wire != nil {
+				c.traceMessage(WireOut, s.Key, s.Salt, s.ID, id, seq, body.Raw())
+			}
 			d = crypto.EncryptedMessageData{
 				SessionID:              s.ID,
 				Salt:                   s.Salt,
 				MessageID:              id,
 				SeqNo:                  seq,
-				MessageDataLen:         int32(payloadBuf.Len()),
-				MessageDataWithPadding: payloadBuf.Buf,
+				MessageDataLen:         int32(body.Len()), // #nosec G115: bounded by the message size limit
+				MessageDataWithPadding: body.Buf,
 			}
 		}
 	}

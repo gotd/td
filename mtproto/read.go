@@ -53,17 +53,24 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 	session := c.session()
 	msg, err := c.cipher.DecryptFromBuffer(session.Key, b)
 	if err != nil {
+		c.traceEvent(WireEvent{Type: WireDecryptFailed, Err: err})
 		return nil, errors.Wrap(err, "decrypt")
+	}
+	if c.wire != nil {
+		c.traceMessage(WireIn, session.Key, msg.Salt, msg.SessionID, msg.MessageID, msg.SeqNo, msg.Data())
 	}
 
 	// Validating message. This protects from replay attacks.
 	if msg.SessionID != session.ID {
+		c.traceRejected(msg.MessageID, "bad_session")
 		return nil, errors.Wrapf(errRejected, "invalid session (got %d, expected %d)", msg.SessionID, session.ID)
 	}
 	if err := checkMessageID(c.clock.Now(), msg.MessageID); err != nil {
+		c.traceRejected(msg.MessageID, "bad_msg_id")
 		return nil, errors.Wrapf(err, "bad message id %d", msg.MessageID)
 	}
 	if !c.messageIDBuf.Consume(msg.MessageID) {
+		c.traceRejected(msg.MessageID, "bad_msg_id")
 		return nil, errors.Wrapf(errRejected, "duplicate or too low message id %d", msg.MessageID)
 	}
 
@@ -145,6 +152,9 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 		return errors.Wrap(err, "unable to create auth key")
 	}
 	c.log.Info(ctx, "Re-created auth keys")
+	if c.wire != nil {
+		c.traceKey(WireKeySet, c.session().Key, false)
+	}
 	// Request will be retried by ack loop.
 	// Probably we can speed-up this.
 	return nil

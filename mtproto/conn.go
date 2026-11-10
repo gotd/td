@@ -121,6 +121,11 @@ type Conn struct {
 	tempKeyTTL int
 	// Ensure Run once.
 	ran atomic.Bool
+
+	// wire is the optional wire tracer, wireID is the connection id
+	// reported to it.
+	wire   WireTracer
+	wireID int64
 }
 
 // New creates new unstarted connection.
@@ -165,6 +170,11 @@ func New(dialer Dialer, opt Options) *Conn {
 		getTimeout:        opt.RequestTimeout,
 		pfs:               opt.EnablePFS,
 		tempKeyTTL:        opt.TempKeyTTL,
+
+		wire: opt.WireTracer,
+	}
+	if conn.wire != nil {
+		conn.wireID = wireConnID.Inc()
 	}
 	if conn.pfs {
 		// In PFS mode runtime encryption always uses temporary key. Persisted key
@@ -204,7 +214,7 @@ func (c *Conn) handleClose(ctx context.Context) error {
 // Run initializes MTProto connection to server and blocks until disconnection.
 //
 // When connection is ready, Handler.OnSession is called.
-func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error {
+func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) (rErr error) {
 	// Starting connection.
 	//
 	// This will send initial packet to telegram and perform key exchange
@@ -218,8 +228,17 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 
 	c.log.Debug(ctx, "Run: start")
 	defer c.log.Debug(ctx, "Run: end")
+	if c.wire != nil {
+		defer func() {
+			c.traceEvent(WireEvent{Type: WireConnDown, Err: rErr})
+		}()
+	}
 	if err := c.connect(ctx); err != nil {
 		return errors.Wrap(err, "start")
+	}
+	if c.wire != nil {
+		s := c.session()
+		c.traceKey(WireKeySet, s.Key, c.pfs)
 	}
 	{
 		// All goroutines are bound to current call.
