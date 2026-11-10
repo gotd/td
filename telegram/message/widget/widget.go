@@ -14,7 +14,7 @@
 // bytes; that limit is enforced by the server, and [ValidateCompressed] only
 // approximates it for callers who want an early check.
 //
-// Incoming messageMediaWidget carries the HTML compressed in its payload
+// Incoming messageMediaWidget carries the HTML zlib-compressed in its payload
 // field; use [DecodePayload] or [HTML] to get the source back.
 //
 // Use telegram/message (message.Widget, message.SharedWidget) to send widgets
@@ -145,10 +145,11 @@ func ValidateSize(width, height int) error {
 // DecodePayload decompresses messageMediaWidget (or botInlineMessageWidget)
 // payload into widget HTML.
 //
-// The server sends zlib-compressed HTML; older messages may use gzip, so both
-// formats are accepted, like inflateInit2(MAX_WBITS + 32) in tdlib (gzdecode)
-// and Telegram Desktop (Tgw::UnpackPayload) do. The result must be non-empty
-// valid UTF-8, otherwise the payload is invalid, as in tdlib.
+// The server sends zlib-compressed HTML; gzip is accepted for parity with
+// tdlib (gzdecode) and Telegram Desktop (Tgw::UnpackPayload), which both use
+// inflateInit2(MAX_WBITS + 32). As there, only the first gzip member is read
+// and trailing bytes are ignored. The result must be non-empty valid UTF-8,
+// otherwise the payload is invalid, as in tdlib.
 func DecodePayload(payload []byte) (string, error) {
 	if len(payload) == 0 {
 		return "", errors.New("empty payload")
@@ -158,7 +159,11 @@ func DecodePayload(payload []byte) (string, error) {
 		err error
 	)
 	if len(payload) >= 2 && payload[0] == 0x1f && payload[1] == 0x8b {
-		r, err = gzip.NewReader(bytes.NewReader(payload))
+		var gr *gzip.Reader
+		if gr, err = gzip.NewReader(bytes.NewReader(payload)); err == nil {
+			gr.Multistream(false)
+			r = gr
+		}
 	} else {
 		r, err = zlib.NewReader(bytes.NewReader(payload))
 	}

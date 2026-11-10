@@ -95,7 +95,7 @@ func TestWidget(t *testing.T) {
 			{"TooLong", Widget(strings.Repeat("a", widget.MaxHTMLLength+1)), widget.ErrHTMLTooLong},
 			{"NegativeSize", Widget(html).Size(-1, 10), widget.ErrInvalidSize},
 			{"InvalidUTF8", Widget("\xff"), widget.ErrInvalidUTF8},
-			{"SharedZeroID", SharedWidget(0, ""), widget.ErrInvalidWidgetID},
+			{"SharedZeroID", SharedWidget(0), widget.ErrInvalidWidgetID},
 		} {
 			t.Run(tt.name, func(t *testing.T) {
 				// No RPC is expected: mock fails on unexpected calls.
@@ -128,8 +128,12 @@ func TestSharedWidget(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)
 
+	expectSendMediaAndText(t, &tg.InputMediaWidgetID{WidgetID: 41}, mock, "caption")
+	_, err := sender.Self().SharedWidget(ctx, 41, styling.Plain("caption"))
+	require.NoError(t, err)
+
 	expectSendMediaAndText(t, &tg.InputMediaWidgetID{WidgetID: 42, ChatData: "c"}, mock, "caption")
-	_, err := sender.Self().SharedWidget(ctx, 42, "c", styling.Plain("caption"))
+	_, err = sender.Self().Media(ctx, SharedWidget(42, styling.Plain("caption")).ChatData("c"))
 	require.NoError(t, err)
 
 	expectWidgetMedia(t, mock, func(req *tg.MessagesSendMediaRequest) {
@@ -139,8 +143,30 @@ func TestSharedWidget(t *testing.T) {
 		_, ok = m.GetChatData()
 		require.False(t, ok)
 	})
-	_, err = sender.Self().Media(ctx, SharedWidget(43, ""))
+	_, err = sender.Self().Media(ctx, SharedWidget(43))
 	require.NoError(t, err)
+}
+
+func TestWidgetInvertMedia(t *testing.T) {
+	ctx := context.Background()
+	const html = `<p>caption above</p>`
+
+	for _, invert := range []bool{false, true} {
+		sender, mock := testSender(t)
+		expectWidgetMedia(t, mock, func(req *tg.MessagesSendMediaRequest) {
+			require.Equal(t, invert, req.InvertMedia)
+			require.Equal(t, "caption", req.Message)
+			m, ok := req.Media.(*tg.InputMediaWidget)
+			require.True(t, ok)
+			require.Equal(t, html, m.HTML)
+		})
+		b := sender.Self()
+		if invert {
+			b.InvertMedia()
+		}
+		_, err := b.Media(ctx, Widget(html, styling.Plain("caption")))
+		require.NoError(t, err)
+	}
 }
 
 func TestEditMessageBuilder_WidgetData(t *testing.T) {

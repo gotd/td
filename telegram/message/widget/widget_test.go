@@ -44,6 +44,17 @@ func TestDecodePayloadFixtures(t *testing.T) {
 	}
 }
 
+func TestDecodePayloadGzipTrailingBytes(t *testing.T) {
+	payload, err := base64.StdEncoding.DecodeString(fixtures["gzip"])
+	require.NoError(t, err)
+	// Like tdlib gzdecode, data after the first gzip member is ignored.
+	payload = append(payload, 0, 0, 0, 0)
+
+	html, err := DecodePayload(payload)
+	require.NoError(t, err)
+	require.Equal(t, fixtureHTML, html)
+}
+
 func TestPayloadRoundTrip(t *testing.T) {
 	for _, html := range []string{
 		"a",

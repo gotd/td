@@ -86,18 +86,34 @@ func (w *WidgetBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&input, w.caption...).apply(ctx, b)
 }
 
+// SharedWidgetBuilder is a media option that sends an existing shared
+// widget by its identifier.
+type SharedWidgetBuilder struct {
+	input   tg.InputMediaWidgetID
+	caption []StyledTextOption
+}
+
 // SharedWidget creates media option that sends an existing shared widget by
-// its identifier. Data specific to the chat can be passed as chatData.
-func SharedWidget(id int64, chatData string, caption ...StyledTextOption) MediaOption {
-	return mediaOptionFunc(func(ctx context.Context, b *multiMediaBuilder) error {
-		if id == 0 {
-			return widget.ErrInvalidWidgetID
-		}
-		return Media(&tg.InputMediaWidgetID{
-			WidgetID: id,
-			ChatData: chatData,
-		}, caption...).apply(ctx, b)
-	})
+// its identifier, with optional caption.
+func SharedWidget(id int64, caption ...StyledTextOption) *SharedWidgetBuilder {
+	return &SharedWidgetBuilder{
+		input:   tg.InputMediaWidgetID{WidgetID: id},
+		caption: caption,
+	}
+}
+
+// ChatData sets data of the widget, which is specific to the chat.
+func (w *SharedWidgetBuilder) ChatData(data string) *SharedWidgetBuilder {
+	w.input.ChatData = data
+	return w
+}
+
+func (w *SharedWidgetBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
+	if w.input.WidgetID == 0 {
+		return widget.ErrInvalidWidgetID
+	}
+	input := w.input
+	return Media(&input, w.caption...).apply(ctx, b)
 }
 
 // Widget sends an HTML widget. Use Media with the Widget option to set the
@@ -106,11 +122,10 @@ func (b *Builder) Widget(ctx context.Context, html string, caption ...StyledText
 	return b.Media(ctx, Widget(html, caption...))
 }
 
-// SharedWidget sends an existing shared widget by its identifier.
-func (b *Builder) SharedWidget(
-	ctx context.Context, id int64, chatData string, caption ...StyledTextOption,
-) (tg.UpdatesClass, error) {
-	return b.Media(ctx, SharedWidget(id, chatData, caption...))
+// SharedWidget sends an existing shared widget by its identifier. Use Media
+// with the SharedWidget option to set chat data.
+func (b *Builder) SharedWidget(ctx context.Context, id int64, caption ...StyledTextOption) (tg.UpdatesClass, error) {
+	return b.Media(ctx, SharedWidget(id, caption...))
 }
 
 // widgetData is a set of widget data fields to edit.
@@ -143,6 +158,9 @@ func WidgetChatData(data string) WidgetDataOption {
 
 // ErrNoWidgetData is returned when widget data editing is requested without
 // WidgetPublicData or WidgetChatData options.
+//
+// Unlike tdlib, which returns Ok without sending a request in this case, the
+// helpers report it as an error, as it is most likely a programming mistake.
 var ErrNoWidgetData = errors.New("no widget data to edit")
 
 func buildWidgetData(opts []WidgetDataOption) (widgetData, error) {
@@ -157,7 +175,8 @@ func buildWidgetData(opts []WidgetDataOption) (widgetData, error) {
 }
 
 // WidgetData edits data of the widget in the message sent by the bot
-// (messages.editMessageWidgetData). Only fields set by options are changed.
+// (messages.editMessageWidgetData). Only fields set by options are changed;
+// without options ErrNoWidgetData is returned and nothing is sent.
 //
 //	sender.To(peer).Edit(msgID).WidgetData(ctx, message.WidgetPublicData(`{"n":1}`))
 func (b *EditMessageBuilder) WidgetData(ctx context.Context, opts ...WidgetDataOption) (tg.UpdatesClass, error) {
@@ -191,7 +210,8 @@ func (b *EditMessageBuilder) WidgetData(ctx context.Context, opts ...WidgetDataO
 
 // EditInlineWidgetData edits data of the widget in an inline message sent via
 // the bot (messages.editInlineBotMessageWidgetData). Only fields set by options
-// are changed.
+// are changed; without options ErrNoWidgetData is returned and nothing is
+// sent.
 //
 // As with other inline message edits, Telegram may require the request to be
 // sent to the DC of the inline message (the DCID field of the identifier); use

@@ -13,7 +13,7 @@
 // Sender.AnswerWidgetQuery. Data of a sent widget is edited with
 // EditMessageBuilder.WidgetData (Sender.EditInlineWidgetData for inline
 // messages). A widget sent with Shared(true) gets an identifier that can be
-// sent again with SharedWidget and updated for all messages at once with
-// Sender.EditSharedWidgetData. See package telegram/message/widget for limits
-// and for decoding received widgets.
+// sent again with SharedWidget(id).ChatData(data) and updated for all
+// messages at once with Sender.EditSharedWidgetData. See package
+// telegram/message/widget for limits and for decoding received widgets.
 package message
