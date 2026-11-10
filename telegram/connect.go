@@ -151,8 +151,17 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	var dc int
 	return backoff.RetryNotify(func() error {
 		if err := c.runUntilRestart(ctx, &dc); err != nil {
+			if cfgErr, ok := asConfigError(err); ok {
+				// Same initConnection fails again on every reconnect.
+				c.log.Error(ctx, "Server rejected connection setup, check app ID and device config, "+
+					"will not reconnect", log.Error(err))
+				// RetryNotify does not call notify for permanent errors.
+				c.notifyConnectionState(ConnectionStateDisconnected, dc)
+				return backoff.Permanent(cfgErr)
+			}
 			if c.isPermanentError(err) {
 				c.log.Warn(ctx, "Permanent connection error, will not reconnect", log.Error(err))
+				c.notifyConnectionState(ConnectionStateDisconnected, dc)
 				return backoff.Permanent(err)
 			}
 			return err
