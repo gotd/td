@@ -151,15 +151,21 @@ func (s *internalState) startChannel(channelID, accessHash int64, pts int) *chan
 
 // trackTooLong starts tracking a channel that is not tracked yet on
 // updateChannelTooLong, if its stored pts and access hash are known.
-func (s *internalState) trackTooLong(ctx context.Context, u *tg.UpdateChannelTooLong, ents entities) (*channelState, bool) {
+//
+// The error is non-nil only if it must stop the manager
+// (Config.StopOnApplyError).
+func (s *internalState) trackTooLong(ctx context.Context, u *tg.UpdateChannelTooLong, ents entities) (*channelState, bool, error) {
 	localPts, found, err := s.storage.GetChannelPts(ctx, s.selfID, u.ChannelID)
 	if err != nil {
 		s.log.Error(ctx, "GetChannelPts error", log.Error(err))
-		return nil, false
+		if s.stopOnApplyError {
+			return nil, false, &applyError{errors.Wrap(err, "read channel checkpoint")}
+		}
+		return nil, false, nil
 	}
 	if !found {
 		// No local state to recover from.
-		return nil, false
+		return nil, false, nil
 	}
 
 	accessHash, found, err := s.hasher.GetChannelAccessHash(ctx, s.selfID, u.ChannelID)
@@ -180,7 +186,7 @@ func (s *internalState) trackTooLong(ctx context.Context, u *tg.UpdateChannelToo
 		}
 	}
 	if !found {
-		return nil, false
+		return nil, false, nil
 	}
 
 	s.log.Debug(ctx, "Tracking channel on ChannelTooLong",
@@ -188,5 +194,5 @@ func (s *internalState) trackTooLong(ctx context.Context, u *tg.UpdateChannelToo
 		log.Int("pts", localPts),
 	)
 	s.metrics.trackChannel(ctx, trackSourceTooLong, trackStarted)
-	return s.startChannel(u.ChannelID, accessHash, localPts), true
+	return s.startChannel(u.ChannelID, accessHash, localPts), true, nil
 }

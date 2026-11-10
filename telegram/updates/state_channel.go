@@ -47,21 +47,22 @@ type channelState struct {
 	done chan struct{}
 
 	// Immutable fields.
-	channelID      int64
-	accessHash     int64
-	selfID         int64
-	diffLim        int
-	client         API
-	storage        StateStorage
-	hasher         ChannelAccessHasher
-	userHasher     UserAccessHasher
-	log            log.Helper
-	tracer         trace.Tracer
-	metrics        *updatesMetrics
-	handler        telegram.UpdateHandler
-	onTooLong      func(channelID int64)
-	onGap          func(gap ChannelGap)
-	onInaccessible func(channelID int64)
+	channelID        int64
+	accessHash       int64
+	selfID           int64
+	diffLim          int
+	client           API
+	storage          StateStorage
+	hasher           ChannelAccessHasher
+	userHasher       UserAccessHasher
+	log              log.Helper
+	tracer           trace.Tracer
+	metrics          *updatesMetrics
+	handler          telegram.UpdateHandler
+	stopOnApplyError bool
+	onTooLong        func(channelID int64)
+	onGap            func(gap ChannelGap)
+	onInaccessible   func(channelID int64)
 	// removeChannel signals *internalState to drop this channel from tracking.
 	removeChannel chan<- int64
 	// chDiffSem bounds concurrent getChannelDifference calls across all channels
@@ -104,6 +105,7 @@ type channelStateConfig struct {
 	Hasher                ChannelAccessHasher
 	UserHasher            UserAccessHasher
 	Handler               telegram.UpdateHandler
+	StopOnApplyError      bool
 	OnChannelTooLong      func(channelID int64)
 	OnChannelGap          func(gap ChannelGap)
 	OnChannelInaccessible func(channelID int64)
@@ -122,23 +124,24 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		idleTimeout: time.NewTimer(idleTimeout),
 		done:        make(chan struct{}),
 
-		channelID:      cfg.ChannelID,
-		accessHash:     cfg.AccessHash,
-		selfID:         cfg.SelfID,
-		diffLim:        cfg.DiffLimit,
-		client:         cfg.RawClient,
-		storage:        cfg.Storage,
-		hasher:         cfg.Hasher,
-		userHasher:     cfg.UserHasher,
-		log:            log.For(cfg.Logger),
-		handler:        cfg.Handler,
-		onTooLong:      cfg.OnChannelTooLong,
-		onGap:          cfg.OnChannelGap,
-		onInaccessible: cfg.OnChannelInaccessible,
-		removeChannel:  cfg.RemoveChannel,
-		tracer:         cfg.Tracer,
-		metrics:        cfg.Metrics,
-		chDiffSem:      cfg.ChannelDiffSem,
+		channelID:        cfg.ChannelID,
+		accessHash:       cfg.AccessHash,
+		selfID:           cfg.SelfID,
+		diffLim:          cfg.DiffLimit,
+		client:           cfg.RawClient,
+		storage:          cfg.Storage,
+		hasher:           cfg.Hasher,
+		userHasher:       cfg.UserHasher,
+		log:              log.For(cfg.Logger),
+		handler:          cfg.Handler,
+		stopOnApplyError: cfg.StopOnApplyError,
+		onTooLong:        cfg.OnChannelTooLong,
+		onGap:            cfg.OnChannelGap,
+		onInaccessible:   cfg.OnChannelInaccessible,
+		removeChannel:    cfg.RemoveChannel,
+		tracer:           cfg.Tracer,
+		metrics:          cfg.Metrics,
+		chDiffSem:        cfg.ChannelDiffSem,
 	}
 
 	state.pts = newSequenceBox(sequenceConfig{
@@ -172,16 +175,28 @@ func (s *channelState) Run(ctx context.Context) error {
 	defer close(s.done)
 
 	// Subscribe to channel updates.
+	if s.canceled(ctx) {
+		return ctx.Err()
+	}
 	if err := s.getDifference(ctx, "channel-subscribe"); err != nil {
 		if errors.Is(err, errChannelInaccessible) {
 			return nil
 		}
 		s.log.Error(ctx, "Failed to subscribe to channel updates", log.Error(err))
+		if isApplyError(err) {
+			return err
+		}
 	}
 
 	for {
+		if s.canceled(ctx) {
+			return ctx.Err()
+		}
 		select {
 		case u := <-s.updates:
+			if s.canceled(ctx) {
+				return ctx.Err()
+			}
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			handle := s.handleUpdate
 			if u.affected {
@@ -194,16 +209,21 @@ func (s *channelState) Run(ctx context.Context) error {
 					return nil
 				}
 				s.log.Error(ctx, "Handle update error", log.Error(err))
+				if isApplyError(err) {
+					return err
+				}
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug(ctx, "Gap timeout")
-			if s.getDifferenceLogger(ctx, "channel-pts-gap-timeout") {
-				return nil
+			if stop, err := s.getDifferenceLogger(ctx, "channel-pts-gap-timeout"); stop {
+				return err
 			}
 		case <-ctx.Done():
-			if len(s.pts.pending) > 0 {
+			// With StopOnApplyError no new callbacks run after cancellation,
+			// which may be caused by an apply error of another worker.
+			if !s.stopOnApplyError && len(s.pts.pending) > 0 {
 				// This will probably fail.
-				s.getDifferenceLogger(ctx, "channel-shutdown-flush-pending")
+				_, _ = s.getDifferenceLogger(ctx, "channel-shutdown-flush-pending")
 			}
 			return ctx.Err()
 		case <-s.idleTimeout.C:
@@ -215,8 +235,8 @@ func (s *channelState) Run(ctx context.Context) error {
 			}
 			s.log.Debug(ctx, "Idle timeout")
 			s.resetIdleTimer()
-			if s.getDifferenceLogger(ctx, "channel-idle-timeout") {
-				return nil
+			if stop, err := s.getDifferenceLogger(ctx, "channel-idle-timeout"); stop {
+				return err
 			}
 		}
 	}
@@ -313,18 +333,27 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 			Chats:   ents.Chats,
 		}); err != nil {
 			s.log.Error(ctx, "Handle update error", log.Error(err))
+			if s.stopOnApplyError {
+				return &applyError{err}
+			}
 			return nil
 		}
 	}
 
 	if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, state); err != nil {
 		s.log.Error(ctx, "SetChannelPts error", log.Error(err))
+		if s.stopOnApplyError {
+			return &applyError{err}
+		}
 	}
 
 	return nil
 }
 
 func (s *channelState) getDifference(ctx context.Context, reason string) error {
+	if s.canceled(ctx) {
+		return ctx.Err()
+	}
 	ctx, span := s.tracer.Start(ctx, "channelState.getDifference")
 	defer span.End()
 	s.pts.gaps.Clear()
@@ -367,6 +396,10 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	}
 	result := channelDiffResult(diff)
 	s.metrics.difference(ctx, kindChannel, result, start)
+	if s.canceled(ctx) {
+		// The response raced cancellation: do not apply it.
+		return ctx.Err()
+	}
 	s.log.Debug(ctx, "Channel difference received",
 		log.String("result", result),
 		log.Duration("duration", time.Since(start)),
@@ -390,6 +423,9 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	case *tg.UpdatesChannelDifferenceEmpty:
 		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
 			s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
+			if s.stopOnApplyError {
+				return &applyError{err}
+			}
 		}
 
 		s.pts.SetState(diff.Pts, "updates.channelDifferenceEmpty")
@@ -439,6 +475,9 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 			gap.RemotePts = remotePts
 			if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, remotePts); err != nil {
 				s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
+				if s.stopOnApplyError {
+					return &applyError{err}
+				}
 			}
 
 			s.pts.SetState(remotePts, "updates.channelDifferenceTooLong dialog new pts")
@@ -514,6 +553,10 @@ func (s *channelState) applyDifference(ctx context.Context, diff *tg.UpdatesChan
 			Chats:   diff.Chats,
 		}); err != nil {
 			s.log.Error(ctx, "Handle updates error", log.Error(err))
+			if s.stopOnApplyError {
+				// Do not set pts: the difference is requested again.
+				return &applyError{err}
+			}
 		}
 	}
 
@@ -547,6 +590,9 @@ func (s *channelState) applyDifference(ctx context.Context, diff *tg.UpdatesChan
 
 	if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
 		s.log.Warn(ctx, "SetChannelPts error", log.Error(err))
+		if s.stopOnApplyError {
+			return &applyError{err}
+		}
 	}
 
 	s.pts.SetState(diff.Pts, "updates.channelDifference")
@@ -616,15 +662,25 @@ func channelDiffResult(diff tg.UpdatesChannelDifferenceClass) string {
 }
 
 // getDifferenceLogger calls getDifference, logging any error. It returns true
-// if the channel became inaccessible and the worker should stop.
-func (s *channelState) getDifferenceLogger(ctx context.Context, reason string) (stop bool) {
+// if the worker should stop: with a nil error if the channel became
+// inaccessible, or with the error that must stop the manager
+// (Config.StopOnApplyError).
+func (s *channelState) getDifferenceLogger(ctx context.Context, reason string) (stop bool, _ error) {
 	if err := s.getDifference(ctx, reason); err != nil {
 		if errors.Is(err, errChannelInaccessible) {
-			return true
+			return true, nil
 		}
 		s.log.Error(ctx, "get channel difference error", log.Error(err), log.String("reason", reason))
+		if isApplyError(err) {
+			return true, err
+		}
 	}
-	return false
+	return false, nil
+}
+
+// canceled mirrors internalState.canceled.
+func (s *channelState) canceled(ctx context.Context) bool {
+	return s.stopOnApplyError && ctx.Err() != nil
 }
 
 // handleInaccessible is called when updates.getChannelDifference reports
