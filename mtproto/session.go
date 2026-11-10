@@ -33,8 +33,10 @@ func (c *Conn) newSessionID() error {
 	}
 
 	c.sessionMux.Lock()
-	defer c.sessionMux.Unlock()
+	old := c.sessionID
 	c.sessionID = id
+	c.sessionMux.Unlock()
 
+	c.traceSession(old, id)
 	return nil
 }

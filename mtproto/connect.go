@@ -34,11 +34,13 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 		defer cancel()
 	}
 
+	c.traceEvent(WireEvent{Type: WireConnStart})
 	conn, err := c.dialer(dialCtx)
 	if err != nil {
 		return errors.Wrap(err, "dial failed")
 	}
 	c.conn = conn
+	c.traceEvent(WireEvent{Type: WireConnUp})
 	defer func() {
 		if rErr != nil {
 			multierr.AppendInto(&rErr, conn.Close())
@@ -148,11 +150,14 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	}
 
 	c.sessionMux.Lock()
+	oldSession := c.sessionID
 	c.authKey = r.AuthKey
 	c.sessionID = r.SessionID
 	c.salt = r.ServerSalt
 	c.sessionMux.Unlock()
 
+	c.traceKey(WireKeyCreated, r.AuthKey, false)
+	c.traceSession(oldSession, r.SessionID)
 	return nil
 }
 
@@ -172,6 +177,7 @@ func (c *Conn) createPermAuthKey(ctx context.Context) error {
 	c.permKeyCreatedAt = c.clock.Now().Unix()
 	c.sessionMux.Unlock()
 
+	c.traceKey(WireKeyCreated, r.AuthKey, false)
 	return nil
 }
 
@@ -192,11 +198,14 @@ func (c *Conn) createTempAuthKey(ctx context.Context) error {
 	}
 
 	c.sessionMux.Lock()
+	oldSession := c.sessionID
 	c.authKey = r.AuthKey
 	c.sessionID = r.SessionID
 	c.salt = r.ServerSalt
 	c.tempKeyExpiry = expiresAt
 	c.sessionMux.Unlock()
 
+	c.traceKey(WireKeyCreated, r.AuthKey, true)
+	c.traceSession(oldSession, r.SessionID)
 	return nil
 }

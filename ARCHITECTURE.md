@@ -119,6 +119,11 @@ full life cycle (`conn.go`):
   (`handle_*.go`, `read.go`, `write.go`), including containers, gzip, RPC
   results, bad-msg notifications, future salts, and session-created events.
 - Supports Perfect Forward Secrecy via temporary keys (`pfs.go`, `bind.go`).
+- Optionally reports plaintext messages (before encryption, after
+  decryption) and connection, key, session, salt and request lifecycle events
+  to `Options.WireTracer` (`wire_tracer.go`), never key material. It is set
+  for all connections of a client via `telegram.Options.WireTracer`; when nil
+  the hooks cost one nil check.
 
 It is deliberately **single-connection**: reconnection across DCs, pooling, and
 update handling live in higher layers.

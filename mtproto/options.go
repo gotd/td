@@ -86,6 +86,10 @@ type Options struct {
 	// Tracer for OTEL.
 	Tracer trace.Tracer
 
+	// WireTracer observes plaintext messages and lifecycle events of the
+	// connection. Nil (default) disables wire tracing.
+	WireTracer WireTracer
+
 	// Private options.
 
 	// Cipher defines message crypto.

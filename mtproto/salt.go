@@ -19,6 +19,7 @@ func (c *Conn) storeSalt(salt int64) {
 
 	if salt != oldSalt {
 		c.log.Info(context.Background(), "Salt updated", log.Int64("old", oldSalt), log.Int64("new", salt))
+		c.traceEvent(WireEvent{Type: WireSaltChange, Old: oldSalt, New: salt})
 	}
 }
 

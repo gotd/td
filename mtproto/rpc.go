@@ -29,6 +29,16 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 	logger.Debug(ctx, "Invoke start")
 	defer logger.Debug(ctx, "Invoke end")
 
+	if c.wire == nil {
+		return c.invoke(ctx, req)
+	}
+	start := c.traceRequestStart(req)
+	err := c.invoke(ctx, req)
+	c.traceRequestDone(req, start, err)
+	return err
+}
+
+func (c *Conn) invoke(ctx context.Context, req rpc.Request) error {
 	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
 		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
@@ -39,6 +49,7 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 			// Reset saved salts to fetch new.
 			c.salts.Reset()
 			c.log.Info(ctx, "Retrying request after basMsgErr", log.Int64("msg_id", req.MsgID))
+			c.traceResend(req, "bad_server_salt")
 			return c.rpc.Do(ctx, req)
 		}
 		return errors.Wrap(err, "rpcDoRequest")

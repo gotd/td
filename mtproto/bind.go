@@ -2,6 +2,7 @@ package mtproto
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
@@ -108,17 +109,23 @@ func (c *Conn) bindTempAuthKeyAttempt(ctx context.Context) error {
 		log.Int64("expires_at", expiresAt),
 	)
 
-	if err := c.rpc.Do(ctx, call); err != nil {
-		var badMsgErr *badMessageError
-		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
-			c.storeSalt(badMsgErr.NewSalt)
-			c.salts.Reset()
-			if err := c.rpc.Do(ctx, call); err != nil {
-				return errors.Wrap(err, "invoke auth.bindTempAuthKey")
-			}
-		} else {
-			return errors.Wrap(err, "invoke auth.bindTempAuthKey")
-		}
+	var start time.Time
+	if c.wire != nil {
+		start = c.traceRequestStart(call)
+	}
+	err = c.rpc.Do(ctx, call)
+	var badMsgErr *badMessageError
+	if err != nil && errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
+		c.storeSalt(badMsgErr.NewSalt)
+		c.salts.Reset()
+		c.traceResend(call, "bad_server_salt")
+		err = c.rpc.Do(ctx, call)
+	}
+	if c.wire != nil {
+		c.traceRequestDone(call, start, err)
+	}
+	if err != nil {
+		return errors.Wrap(err, "invoke auth.bindTempAuthKey")
 	}
 
 	if _, ok := result.Bool.(*tg.BoolTrue); !ok {
