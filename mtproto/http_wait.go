@@ -51,14 +51,15 @@ func (c *Conn) encodeHTTPWait(ctx context.Context, maxDelay, waitAfter, maxWait 
 		return nil, err
 	}
 
-	msgID, seqNo := c.nextMsgSeq(false)
-
 	// Guard the auth key against concurrent key regeneration, like write does.
 	// During createAuthKey (exclusive Lock) this blocks, so no http_wait is sent
 	// with a stale key; any long-poll started earlier delivers at most a -404,
 	// which the exchange layer swallows (continue-on-ProtocolErr).
 	c.exchangeLock.RLock()
 	defer c.exchangeLock.RUnlock()
+
+	// Allocated under the lock, so it is numbered in the current session.
+	msgID, seqNo := c.nextMsgSeq(false)
 
 	b := &bin.Buffer{}
 	if err := c.newEncryptedMessage(msgID, seqNo, &mt.HTTPWaitRequest{

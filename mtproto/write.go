@@ -10,12 +10,14 @@ import (
 )
 
 func (c *Conn) writeContentMessage(ctx context.Context, msgID int64, seqNo int32, message bin.Encoder) error {
-	return c.write(ctx, msgID, seqNo, message)
+	return c.write(ctx, false, msgID, seqNo, message)
 }
 
+// writeServiceMessage writes a service message. Its msg_id and seqno are
+// allocated after the exchange lock is taken, so a message that waited for a
+// key exchange is numbered in the new session.
 func (c *Conn) writeServiceMessage(ctx context.Context, message bin.Encoder) error {
-	msgID, seqNo := c.nextMsgSeq(false)
-	return c.write(ctx, msgID, seqNo, message)
+	return c.write(ctx, true, 0, 0, message)
 }
 
 var bufPool = bin.NewPool(0)
@@ -27,7 +29,9 @@ var bufPool = bin.NewPool(0)
 // longer be issued.
 const slowWriteThreshold = 3 * time.Second
 
-func (c *Conn) write(ctx context.Context, msgID int64, seqNo int32, message bin.Encoder) error {
+// write encrypts and sends a message. If service is set, msgID and seqNo are
+// ignored and allocated under the exchange lock.
+func (c *Conn) write(ctx context.Context, service bool, msgID int64, seqNo int32, message bin.Encoder) error {
 	start := c.clock.Now()
 
 	// Grab shared lock for writing.
@@ -39,6 +43,18 @@ func (c *Conn) write(ctx context.Context, msgID int64, seqNo int32, message bin.
 	// lock" from "stuck on transport send".
 	c.exchangeLock.RLock()
 	defer c.exchangeLock.RUnlock()
+	if err := ctx.Err(); err != nil {
+		// Canceled while waiting for the lock, e.g. a retry of a request that
+		// was reset with its session during key exchange.
+		return err
+	}
+	if service {
+		msgID, seqNo = c.nextMsgSeq(false)
+	} else if c.beforeSession(msgID) {
+		// The msg_id and seqno were allocated in a session that is gone:
+		// sending them in the new one would break its seqno sequence.
+		return errSessionReset
+	}
 
 	locked := c.clock.Now()
 	if waited := locked.Sub(start); waited > slowWriteThreshold {
@@ -101,4 +117,10 @@ func (c *Conn) nextMsgSeq(content bool) (msgID int64, seqNo int32) {
 	}
 
 	return
+}
+
+// beforeSession reports whether msgID was allocated before the current
+// session was started by resetSession.
+func (c *Conn) beforeSession(msgID int64) bool {
+	return msgID < c.sessionStartMsgID.Load()
 }

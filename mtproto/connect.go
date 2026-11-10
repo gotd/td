@@ -155,6 +155,9 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	c.sessionID = r.SessionID
 	c.salt = r.ServerSalt
 	c.sessionMux.Unlock()
+	// The new key comes with a new session: drop the state of the old one
+	// while writes are still blocked by exchangeLock.
+	c.resetSession()
 
 	c.traceKey(WireKeyCreated, r.AuthKey, false)
 	c.traceSession(oldSession, r.SessionID)

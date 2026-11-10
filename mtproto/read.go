@@ -170,8 +170,8 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 	if c.wire != nil {
 		c.traceKey(WireKeySet, c.session().Key, false)
 	}
-	// Request will be retried by ack loop.
-	// Probably we can speed-up this.
+	// Pending requests were notified by resetSession and are sent again
+	// in the new session.
 	return nil
 }
 

@@ -180,6 +180,14 @@ func NewMessageIDBuf(n int) *MessageIDBuf {
 	}
 }
 
+// Reset forgets all stored message ids, e.g. when a new session is started.
+func (b *MessageIDBuf) Reset() {
+	b.mux.Lock()
+	defer b.mux.Unlock()
+
+	clear(b.buf)
+}
+
 // Consume returns false if message should be discarded.
 func (b *MessageIDBuf) Consume(newID int64) bool {
 	// In addition, the identifiers (msg_id) of the last N messages received
