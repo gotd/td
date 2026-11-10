@@ -14,6 +14,10 @@ import (
 )
 
 // SetupCallback is an optional setup connection callback.
+//
+// It is called after initConnection, but before the connection is ready.
+// The invoker sends requests directly through the connection without
+// waiting for readiness; it must not be used after the callback returns.
 type SetupCallback = func(ctx context.Context, invoker tg.Invoker) error
 
 // ConnOptions is a Telegram client connection options.
