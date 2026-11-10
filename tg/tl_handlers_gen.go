@@ -1889,6 +1889,66 @@ func (u UpdateDispatcher) OnWalletTonConnectPendingDisconnect(handler WalletTonC
 	})
 }
 
+// EditForumTopicHandler is a EditForumTopic event handler.
+type EditForumTopicHandler func(ctx context.Context, e Entities, update *UpdateEditForumTopic) error
+
+// OnEditForumTopic sets EditForumTopic handler.
+func (u UpdateDispatcher) OnEditForumTopic(handler EditForumTopicHandler) {
+	u.state.set(UpdateEditForumTopicTypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEditForumTopic))
+	})
+}
+
+// BotWidgetQueryHandler is a BotWidgetQuery event handler.
+type BotWidgetQueryHandler func(ctx context.Context, e Entities, update *UpdateBotWidgetQuery) error
+
+// OnBotWidgetQuery sets BotWidgetQuery handler.
+func (u UpdateDispatcher) OnBotWidgetQuery(handler BotWidgetQueryHandler) {
+	u.state.set(UpdateBotWidgetQueryTypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotWidgetQuery))
+	})
+}
+
+// InlineBotWidgetQueryHandler is a InlineBotWidgetQuery event handler.
+type InlineBotWidgetQueryHandler func(ctx context.Context, e Entities, update *UpdateInlineBotWidgetQuery) error
+
+// OnInlineBotWidgetQuery sets InlineBotWidgetQuery handler.
+func (u UpdateDispatcher) OnInlineBotWidgetQuery(handler InlineBotWidgetQueryHandler) {
+	u.state.set(UpdateInlineBotWidgetQueryTypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateInlineBotWidgetQuery))
+	})
+}
+
+// BotWidgetCopyQueryHandler is a BotWidgetCopyQuery event handler.
+type BotWidgetCopyQueryHandler func(ctx context.Context, e Entities, update *UpdateBotWidgetCopyQuery) error
+
+// OnBotWidgetCopyQuery sets BotWidgetCopyQuery handler.
+func (u UpdateDispatcher) OnBotWidgetCopyQuery(handler BotWidgetCopyQueryHandler) {
+	u.state.set(UpdateBotWidgetCopyQueryTypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotWidgetCopyQuery))
+	})
+}
+
+// MessageWidgetDataHandler is a MessageWidgetData event handler.
+type MessageWidgetDataHandler func(ctx context.Context, e Entities, update *UpdateMessageWidgetData) error
+
+// OnMessageWidgetData sets MessageWidgetData handler.
+func (u UpdateDispatcher) OnMessageWidgetData(handler MessageWidgetDataHandler) {
+	u.state.set(UpdateMessageWidgetDataTypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMessageWidgetData))
+	})
+}
+
+// TranscribedAudioFileHandler is a TranscribedAudioFile event handler.
+type TranscribedAudioFileHandler func(ctx context.Context, e Entities, update *UpdateTranscribedAudioFile) error
+
+// OnTranscribedAudioFile sets TranscribedAudioFile handler.
+func (u UpdateDispatcher) OnTranscribedAudioFile(handler TranscribedAudioFileHandler) {
+	u.state.set(UpdateTranscribedAudioFileTypeID, func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateTranscribedAudioFile))
+	})
+}
+
 // OnFallback sets fallback handler, called for updates without handler.
 func (u UpdateDispatcher) OnFallback(handler Handler) {
 	u.state.setFallback(handler)

@@ -326,6 +326,8 @@ type User struct {
 	BotGuestchat bool
 	// BotGuard field of User.
 	BotGuard bool
+	// BotForumSidebar field of User.
+	BotForumSidebar bool
 	// ID of the user, see here »¹ for more info and the available ID range.
 	//
 	// Links:
@@ -624,6 +626,9 @@ func (u *User) Zero() bool {
 	if !(u.BotGuard == false) {
 		return false
 	}
+	if !(u.BotForumSidebar == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -732,6 +737,7 @@ func (u *User) FillFrom(from interface {
 	GetBotCanManageBots() (value bool)
 	GetBotGuestchat() (value bool)
 	GetBotGuard() (value bool)
+	GetBotForumSidebar() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -784,6 +790,7 @@ func (u *User) FillFrom(from interface {
 	u.BotCanManageBots = from.GetBotCanManageBots()
 	u.BotGuestchat = from.GetBotGuestchat()
 	u.BotGuard = from.GetBotGuard()
+	u.BotForumSidebar = from.GetBotForumSidebar()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -1041,6 +1048,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags2.Has(20),
 		},
 		{
+			Name:       "BotForumSidebar",
+			SchemaName: "bot_forum_sidebar",
+			Null:       !u.Flags2.Has(22),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1239,6 +1251,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.BotGuard == false) {
 		u.Flags2.Set(20)
+	}
+	if !(u.BotForumSidebar == false) {
+		u.Flags2.Set(22)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -1480,6 +1495,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.BotCanManageBots = u.Flags2.Has(18)
 	u.BotGuestchat = u.Flags2.Has(19)
 	u.BotGuard = u.Flags2.Has(20)
+	u.BotForumSidebar = u.Flags2.Has(22)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2216,6 +2232,25 @@ func (u *User) GetBotGuard() (value bool) {
 		return
 	}
 	return u.Flags2.Has(20)
+}
+
+// SetBotForumSidebar sets value of BotForumSidebar conditional field.
+func (u *User) SetBotForumSidebar(value bool) {
+	if value {
+		u.Flags2.Set(22)
+		u.BotForumSidebar = true
+	} else {
+		u.Flags2.Unset(22)
+		u.BotForumSidebar = false
+	}
+}
+
+// GetBotForumSidebar returns value of BotForumSidebar conditional field.
+func (u *User) GetBotForumSidebar() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(22)
 }
 
 // GetID returns value of ID field.

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsToggleForumRequest represents TL type `channels.toggleForum#3ff75734`.
+// ChannelsToggleForumRequest represents TL type `channels.toggleForum#a2952b54`.
 // Enable or disable forum functionality¹ in a supergroup.
 //
 // Links:
@@ -45,10 +45,12 @@ type ChannelsToggleForumRequest struct {
 	Enabled bool
 	// If true enables the tabbed forum UI, otherwise enables the list-based forum UI.
 	Tabs bool
+	// Sidebar field of ChannelsToggleForumRequest.
+	Sidebar bool
 }
 
 // ChannelsToggleForumRequestTypeID is TL type id of ChannelsToggleForumRequest.
-const ChannelsToggleForumRequestTypeID = 0x3ff75734
+const ChannelsToggleForumRequestTypeID = 0xa2952b54
 
 // Ensuring interfaces in compile-time for ChannelsToggleForumRequest.
 var (
@@ -71,6 +73,9 @@ func (t *ChannelsToggleForumRequest) Zero() bool {
 	if !(t.Tabs == false) {
 		return false
 	}
+	if !(t.Sidebar == false) {
+		return false
+	}
 
 	return true
 }
@@ -89,10 +94,12 @@ func (t *ChannelsToggleForumRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
 	GetEnabled() (value bool)
 	GetTabs() (value bool)
+	GetSidebar() (value bool)
 }) {
 	t.Channel = from.GetChannel()
 	t.Enabled = from.GetEnabled()
 	t.Tabs = from.GetTabs()
+	t.Sidebar = from.GetSidebar()
 }
 
 // TypeID returns type id in TL schema.
@@ -130,6 +137,10 @@ func (t *ChannelsToggleForumRequest) TypeInfo() tdp.Type {
 			Name:       "Tabs",
 			SchemaName: "tabs",
 		},
+		{
+			Name:       "Sidebar",
+			SchemaName: "sidebar",
+		},
 	}
 	return typ
 }
@@ -137,7 +148,7 @@ func (t *ChannelsToggleForumRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleForumRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleForum#3ff75734 as nil")
+		return fmt.Errorf("can't encode channels.toggleForum#a2952b54 as nil")
 	}
 	b.PutID(ChannelsToggleForumRequestTypeID)
 	return t.EncodeBare(b)
@@ -146,26 +157,27 @@ func (t *ChannelsToggleForumRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ChannelsToggleForumRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode channels.toggleForum#3ff75734 as nil")
+		return fmt.Errorf("can't encode channels.toggleForum#a2952b54 as nil")
 	}
 	if t.Channel == nil {
-		return fmt.Errorf("unable to encode channels.toggleForum#3ff75734: field channel is nil")
+		return fmt.Errorf("unable to encode channels.toggleForum#a2952b54: field channel is nil")
 	}
 	if err := t.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.toggleForum#3ff75734: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.toggleForum#a2952b54: field channel: %w", err)
 	}
 	b.PutBool(t.Enabled)
 	b.PutBool(t.Tabs)
+	b.PutBool(t.Sidebar)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *ChannelsToggleForumRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleForum#3ff75734 to nil")
+		return fmt.Errorf("can't decode channels.toggleForum#a2952b54 to nil")
 	}
 	if err := b.ConsumeID(ChannelsToggleForumRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.toggleForum#3ff75734: %w", err)
+		return fmt.Errorf("unable to decode channels.toggleForum#a2952b54: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -173,28 +185,35 @@ func (t *ChannelsToggleForumRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ChannelsToggleForumRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode channels.toggleForum#3ff75734 to nil")
+		return fmt.Errorf("can't decode channels.toggleForum#a2952b54 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleForum#3ff75734: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.toggleForum#a2952b54: field channel: %w", err)
 		}
 		t.Channel = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleForum#3ff75734: field enabled: %w", err)
+			return fmt.Errorf("unable to decode channels.toggleForum#a2952b54: field enabled: %w", err)
 		}
 		t.Enabled = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.toggleForum#3ff75734: field tabs: %w", err)
+			return fmt.Errorf("unable to decode channels.toggleForum#a2952b54: field tabs: %w", err)
 		}
 		t.Tabs = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.toggleForum#a2952b54: field sidebar: %w", err)
+		}
+		t.Sidebar = value
 	}
 	return nil
 }
@@ -223,12 +242,20 @@ func (t *ChannelsToggleForumRequest) GetTabs() (value bool) {
 	return t.Tabs
 }
 
+// GetSidebar returns value of Sidebar field.
+func (t *ChannelsToggleForumRequest) GetSidebar() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Sidebar
+}
+
 // GetChannelAsNotEmpty returns mapped value of Channel field.
 func (t *ChannelsToggleForumRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
 	return t.Channel.AsNotEmpty()
 }
 
-// ChannelsToggleForum invokes method channels.toggleForum#3ff75734 returning error if any.
+// ChannelsToggleForum invokes method channels.toggleForum#a2952b54 returning error if any.
 // Enable or disable forum functionality¹ in a supergroup.
 //
 // Links:

@@ -51,6 +51,8 @@ func IsPtsUpdate(u UpdateClass) (pts, ptsCount int, ok bool) {
 		return u.Pts, u.PtsCount, true
 	case *UpdatePinnedMessages:
 		return u.Pts, u.PtsCount, true
+	case *UpdateMessageWidgetData:
+		return u.Pts, u.PtsCount, true
 	}
 
 	return

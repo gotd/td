@@ -2841,6 +2841,593 @@ func (b *BotInlineMessageRichMessage) GetRichMessage() (value RichMessage) {
 	return b.RichMessage
 }
 
+// BotInlineMessageWidget represents TL type `botInlineMessageWidget#baa17834`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageWidget for reference.
+type BotInlineMessageWidget struct {
+	// Flags field of BotInlineMessageWidget.
+	Flags bin.Fields
+	// InvertMedia field of BotInlineMessageWidget.
+	InvertMedia bool
+	// Width field of BotInlineMessageWidget.
+	Width int
+	// Height field of BotInlineMessageWidget.
+	Height int
+	// Payload field of BotInlineMessageWidget.
+	Payload []byte
+	// PublicData field of BotInlineMessageWidget.
+	//
+	// Use SetPublicData and GetPublicData helpers.
+	PublicData string
+	// PublicDataHash field of BotInlineMessageWidget.
+	//
+	// Use SetPublicDataHash and GetPublicDataHash helpers.
+	PublicDataHash int64
+	// ChatData field of BotInlineMessageWidget.
+	//
+	// Use SetChatData and GetChatData helpers.
+	ChatData string
+	// ReplyMarkup field of BotInlineMessageWidget.
+	//
+	// Use SetReplyMarkup and GetReplyMarkup helpers.
+	ReplyMarkup ReplyMarkupClass
+	// WidgetID field of BotInlineMessageWidget.
+	//
+	// Use SetWidgetID and GetWidgetID helpers.
+	WidgetID int64
+	// Message field of BotInlineMessageWidget.
+	Message string
+	// Entities field of BotInlineMessageWidget.
+	//
+	// Use SetEntities and GetEntities helpers.
+	Entities []MessageEntityClass
+}
+
+// BotInlineMessageWidgetTypeID is TL type id of BotInlineMessageWidget.
+const BotInlineMessageWidgetTypeID = 0xbaa17834
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageWidget) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageWidget.
+var (
+	_ bin.Encoder     = &BotInlineMessageWidget{}
+	_ bin.Decoder     = &BotInlineMessageWidget{}
+	_ bin.BareEncoder = &BotInlineMessageWidget{}
+	_ bin.BareDecoder = &BotInlineMessageWidget{}
+
+	_ BotInlineMessageClass = &BotInlineMessageWidget{}
+)
+
+func (b *BotInlineMessageWidget) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.InvertMedia == false) {
+		return false
+	}
+	if !(b.Width == 0) {
+		return false
+	}
+	if !(b.Height == 0) {
+		return false
+	}
+	if !(b.Payload == nil) {
+		return false
+	}
+	if !(b.PublicData == "") {
+		return false
+	}
+	if !(b.PublicDataHash == 0) {
+		return false
+	}
+	if !(b.ChatData == "") {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+	if !(b.WidgetID == 0) {
+		return false
+	}
+	if !(b.Message == "") {
+		return false
+	}
+	if !(b.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (b *BotInlineMessageWidget) String() string {
+	if b == nil {
+		return "BotInlineMessageWidget(nil)"
+	}
+	type Alias BotInlineMessageWidget
+	return fmt.Sprintf("BotInlineMessageWidget%+v", Alias(*b))
+}
+
+// FillFrom fills BotInlineMessageWidget from given interface.
+func (b *BotInlineMessageWidget) FillFrom(from interface {
+	GetInvertMedia() (value bool)
+	GetWidth() (value int)
+	GetHeight() (value int)
+	GetPayload() (value []byte)
+	GetPublicData() (value string, ok bool)
+	GetPublicDataHash() (value int64, ok bool)
+	GetChatData() (value string, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+	GetWidgetID() (value int64, ok bool)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	b.InvertMedia = from.GetInvertMedia()
+	b.Width = from.GetWidth()
+	b.Height = from.GetHeight()
+	b.Payload = from.GetPayload()
+	if val, ok := from.GetPublicData(); ok {
+		b.PublicData = val
+	}
+
+	if val, ok := from.GetPublicDataHash(); ok {
+		b.PublicDataHash = val
+	}
+
+	if val, ok := from.GetChatData(); ok {
+		b.ChatData = val
+	}
+
+	if val, ok := from.GetReplyMarkup(); ok {
+		b.ReplyMarkup = val
+	}
+
+	if val, ok := from.GetWidgetID(); ok {
+		b.WidgetID = val
+	}
+
+	b.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		b.Entities = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*BotInlineMessageWidget) TypeID() uint32 {
+	return BotInlineMessageWidgetTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*BotInlineMessageWidget) TypeName() string {
+	return "botInlineMessageWidget"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageWidget) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageWidget",
+		ID:   BotInlineMessageWidgetTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !b.Flags.Has(5),
+		},
+		{
+			Name:       "Width",
+			SchemaName: "width",
+		},
+		{
+			Name:       "Height",
+			SchemaName: "height",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "PublicData",
+			SchemaName: "public_data",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "PublicDataHash",
+			SchemaName: "public_data_hash",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "ChatData",
+			SchemaName: "chat_data",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+		{
+			Name:       "WidgetID",
+			SchemaName: "widget_id",
+			Null:       !b.Flags.Has(3),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !b.Flags.Has(4),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageWidget) SetFlags() {
+	if !(b.InvertMedia == false) {
+		b.Flags.Set(5)
+	}
+	if !(b.PublicData == "") {
+		b.Flags.Set(0)
+	}
+	if !(b.PublicDataHash == 0) {
+		b.Flags.Set(0)
+	}
+	if !(b.ChatData == "") {
+		b.Flags.Set(1)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+	if !(b.WidgetID == 0) {
+		b.Flags.Set(3)
+	}
+	if !(b.Entities == nil) {
+		b.Flags.Set(4)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (b *BotInlineMessageWidget) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageWidget#baa17834 as nil")
+	}
+	buf.PutID(BotInlineMessageWidgetTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageWidget) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageWidget#baa17834 as nil")
+	}
+	b.SetFlags()
+	if err := b.Flags.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botInlineMessageWidget#baa17834: field flags: %w", err)
+	}
+	buf.PutInt(b.Width)
+	buf.PutInt(b.Height)
+	buf.PutBytes(b.Payload)
+	if b.Flags.Has(0) {
+		buf.PutString(b.PublicData)
+	}
+	if b.Flags.Has(0) {
+		buf.PutLong(b.PublicDataHash)
+	}
+	if b.Flags.Has(1) {
+		buf.PutString(b.ChatData)
+	}
+	if b.Flags.Has(2) {
+		if b.ReplyMarkup == nil {
+			return fmt.Errorf("unable to encode botInlineMessageWidget#baa17834: field reply_markup is nil")
+		}
+		if err := b.ReplyMarkup.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botInlineMessageWidget#baa17834: field reply_markup: %w", err)
+		}
+	}
+	if b.Flags.Has(3) {
+		buf.PutLong(b.WidgetID)
+	}
+	buf.PutString(b.Message)
+	if b.Flags.Has(4) {
+		buf.PutVectorHeader(len(b.Entities))
+		for idx, v := range b.Entities {
+			if v == nil {
+				return fmt.Errorf("unable to encode botInlineMessageWidget#baa17834: field entities element with index %d is nil", idx)
+			}
+			if err := v.Encode(buf); err != nil {
+				return fmt.Errorf("unable to encode botInlineMessageWidget#baa17834: field entities element with index %d: %w", idx, err)
+			}
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (b *BotInlineMessageWidget) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageWidget#baa17834 to nil")
+	}
+	if err := buf.ConsumeID(BotInlineMessageWidgetTypeID); err != nil {
+		return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageWidget) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageWidget#baa17834 to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field flags: %w", err)
+		}
+	}
+	b.InvertMedia = b.Flags.Has(5)
+	{
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field width: %w", err)
+		}
+		b.Width = value
+	}
+	{
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field height: %w", err)
+		}
+		b.Height = value
+	}
+	{
+		value, err := buf.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field payload: %w", err)
+		}
+		b.Payload = value
+	}
+	if b.Flags.Has(0) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field public_data: %w", err)
+		}
+		b.PublicData = value
+	}
+	if b.Flags.Has(0) {
+		value, err := buf.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field public_data_hash: %w", err)
+		}
+		b.PublicDataHash = value
+	}
+	if b.Flags.Has(1) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field chat_data: %w", err)
+		}
+		b.ChatData = value
+	}
+	if b.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field reply_markup: %w", err)
+		}
+		b.ReplyMarkup = value
+	}
+	if b.Flags.Has(3) {
+		value, err := buf.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field widget_id: %w", err)
+		}
+		b.WidgetID = value
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field message: %w", err)
+		}
+		b.Message = value
+	}
+	if b.Flags.Has(4) {
+		headerLen, err := buf.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			b.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(buf)
+			if err != nil {
+				return fmt.Errorf("unable to decode botInlineMessageWidget#baa17834: field entities: %w", err)
+			}
+			b.Entities = append(b.Entities, value)
+		}
+	}
+	return nil
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (b *BotInlineMessageWidget) SetInvertMedia(value bool) {
+	if value {
+		b.Flags.Set(5)
+		b.InvertMedia = true
+	} else {
+		b.Flags.Unset(5)
+		b.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (b *BotInlineMessageWidget) GetInvertMedia() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(5)
+}
+
+// GetWidth returns value of Width field.
+func (b *BotInlineMessageWidget) GetWidth() (value int) {
+	if b == nil {
+		return
+	}
+	return b.Width
+}
+
+// GetHeight returns value of Height field.
+func (b *BotInlineMessageWidget) GetHeight() (value int) {
+	if b == nil {
+		return
+	}
+	return b.Height
+}
+
+// GetPayload returns value of Payload field.
+func (b *BotInlineMessageWidget) GetPayload() (value []byte) {
+	if b == nil {
+		return
+	}
+	return b.Payload
+}
+
+// SetPublicData sets value of PublicData conditional field.
+func (b *BotInlineMessageWidget) SetPublicData(value string) {
+	b.Flags.Set(0)
+	b.PublicData = value
+}
+
+// GetPublicData returns value of PublicData conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageWidget) GetPublicData() (value string, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(0) {
+		return value, false
+	}
+	return b.PublicData, true
+}
+
+// SetPublicDataHash sets value of PublicDataHash conditional field.
+func (b *BotInlineMessageWidget) SetPublicDataHash(value int64) {
+	b.Flags.Set(0)
+	b.PublicDataHash = value
+}
+
+// GetPublicDataHash returns value of PublicDataHash conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageWidget) GetPublicDataHash() (value int64, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(0) {
+		return value, false
+	}
+	return b.PublicDataHash, true
+}
+
+// SetChatData sets value of ChatData conditional field.
+func (b *BotInlineMessageWidget) SetChatData(value string) {
+	b.Flags.Set(1)
+	b.ChatData = value
+}
+
+// GetChatData returns value of ChatData conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageWidget) GetChatData() (value string, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return b.ChatData, true
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (b *BotInlineMessageWidget) SetReplyMarkup(value ReplyMarkupClass) {
+	b.Flags.Set(2)
+	b.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageWidget) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.ReplyMarkup, true
+}
+
+// SetWidgetID sets value of WidgetID conditional field.
+func (b *BotInlineMessageWidget) SetWidgetID(value int64) {
+	b.Flags.Set(3)
+	b.WidgetID = value
+}
+
+// GetWidgetID returns value of WidgetID conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageWidget) GetWidgetID() (value int64, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(3) {
+		return value, false
+	}
+	return b.WidgetID, true
+}
+
+// GetMessage returns value of Message field.
+func (b *BotInlineMessageWidget) GetMessage() (value string) {
+	if b == nil {
+		return
+	}
+	return b.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (b *BotInlineMessageWidget) SetEntities(value []MessageEntityClass) {
+	b.Flags.Set(4)
+	b.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageWidget) GetEntities() (value []MessageEntityClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(4) {
+		return value, false
+	}
+	return b.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (b *BotInlineMessageWidget) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !b.Flags.Has(4) {
+		return value, false
+	}
+	return MessageEntityClassArray(b.Entities), true
+}
+
 // BotInlineMessageClassName is schema name of BotInlineMessageClass.
 const BotInlineMessageClassName = "BotInlineMessage"
 
@@ -2857,6 +3444,7 @@ const BotInlineMessageClassName = "BotInlineMessage"
 //   - [BotInlineMessageMediaInvoice]
 //   - [BotInlineMessageMediaWebPage]
 //   - [BotInlineMessageRichMessage]
+//   - [BotInlineMessageWidget]
 //
 // Example:
 //
@@ -2873,6 +3461,7 @@ const BotInlineMessageClassName = "BotInlineMessage"
 //	case *tg.BotInlineMessageMediaInvoice: // botInlineMessageMediaInvoice#354a9b09
 //	case *tg.BotInlineMessageMediaWebPage: // botInlineMessageMediaWebPage#809ad9a6
 //	case *tg.BotInlineMessageRichMessage: // botInlineMessageRichMessage#a617e7b
+//	case *tg.BotInlineMessageWidget: // botInlineMessageWidget#baa17834
 //	default: panic(v)
 //	}
 type BotInlineMessageClass interface {
@@ -2956,6 +3545,13 @@ func DecodeBotInlineMessage(buf *bin.Buffer) (BotInlineMessageClass, error) {
 	case BotInlineMessageRichMessageTypeID:
 		// Decoding botInlineMessageRichMessage#a617e7b.
 		v := BotInlineMessageRichMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BotInlineMessageClass: %w", err)
+		}
+		return &v, nil
+	case BotInlineMessageWidgetTypeID:
+		// Decoding botInlineMessageWidget#baa17834.
+		v := BotInlineMessageWidget{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotInlineMessageClass: %w", err)
 		}
