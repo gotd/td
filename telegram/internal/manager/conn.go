@@ -225,7 +225,28 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 	if err := c.waitSession(ctx); err != nil {
 		return errors.Wrap(err, "waitSession")
 	}
+	return c.invokeRaw(ctx, input, output)
+}
 
+// setupInvoker is the tg.Invoker passed to SetupCallback.
+//
+// Setup runs inside init, before the connection is signaled as ready, so it
+// must not go through Invoke: waitSession would wait for init itself and the
+// connection would deadlock. Like tdlib (auth.importAuthorization is sent with
+// AuthFlag::Off), setup requests bypass the readiness gate.
+type setupInvoker struct {
+	conn *Conn
+}
+
+// Invoke implements tg.Invoker.
+func (s setupInvoker) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	defer s.conn.trackInvoke()()
+	return s.conn.invokeRaw(ctx, input, output)
+}
+
+// invokeRaw sends the request with the same wrapping as Invoke, but does not
+// wait for connection readiness.
+func (c *Conn) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if c.mode == ConnModeCDN {
 		// CDN mode has dedicated request wrapping rules (see invokeCDN).
 		err := c.invokeCDN(ctx, input, output)
@@ -394,7 +415,7 @@ func (c *Conn) init(ctx context.Context) error {
 	}
 
 	if c.setup != nil {
-		if err := c.setup(ctx, c); err != nil {
+		if err := c.setup(ctx, setupInvoker{conn: c}); err != nil {
 			return errors.Wrap(err, "setup")
 		}
 	}
