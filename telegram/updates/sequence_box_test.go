@@ -2,6 +2,7 @@ package updates
 
 import (
 	"context"
+	"errors"
 	"testing"
 
 	"github.com/gotd/log/logzap"
@@ -136,25 +137,34 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 			InitialState: 5,
 			Pending: []update{
 				{Value: 1, State: 3, Count: 1},
-				{Value: 1, State: 6, Count: 1},
-				{Value: 1, State: 8, Count: 1},
+				{Value: 3, State: 7, Count: 1},
+				{Value: 2, State: 6, Count: 1},
+				{Value: 4, State: 9, Count: 1},
 				{Value: 1, State: 4, Count: 1},
 				{Value: 1, State: 1, Count: 1},
 			},
 			PendingAfter: []update{
-				{Value: 1, State: 8, Count: 1},
+				{Value: 4, State: 9, Count: 1},
 			},
 			Applied: []update{
-				{Value: 1, State: 6, Count: 1},
+				{Value: 2, State: 6, Count: 1},
+				{Value: 3, State: 7, Count: 1},
 			},
 		},
 	}
 
 	for _, test := range tests {
 		applied := make([]update, 0)
+		var applyErr error
 		box := newSequenceBox(sequenceConfig{
 			InitialState: test.InitialState,
 			Apply: func(_ context.Context, s int, u []update) error {
+				require.Equal(t, test.Applied, u)
+				require.NotEmpty(t, u)
+				require.Equal(t, u[len(u)-1].State, s)
+				if applyErr != nil {
+					return applyErr
+				}
 				applied = append(applied, u...)
 				return nil
 			},
@@ -162,8 +172,44 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		})
 
 		box.pending = test.Pending
+		if len(test.Applied) > 0 {
+			// A failed apply keeps the pending updates and the state.
+			pending := append([]update(nil), box.pending...)
+			applyErr = errors.New("apply failed")
+			require.ErrorIs(t, box.applyPending(context.Background()), applyErr)
+			require.ElementsMatch(t, pending, box.pending)
+			require.Equal(t, test.InitialState, box.State())
+			require.Empty(t, applied)
+			applyErr = nil
+		}
 		require.NoError(t, box.applyPending(context.TODO()))
 		require.Equal(t, test.PendingAfter, box.pending)
 		require.Equal(t, test.Applied, applied)
+		if len(test.Applied) > 0 {
+			require.Equal(t, test.Applied[len(test.Applied)-1].State, box.State())
+		}
 	}
+}
+
+// Apply may re-enter the box through a nested getDifference (resyncPending):
+// pending updates must still be trimmed consistently.
+func TestSequenceBoxApplyPendingReentrant(t *testing.T) {
+	var box *sequenceBox
+	var applied []update
+	box = newSequenceBox(sequenceConfig{
+		InitialState: 5,
+		Apply: func(ctx context.Context, s int, u []update) error {
+			applied = append(applied, u...)
+			return box.resyncPending(ctx)
+		},
+		Logger: logzap.New(zaptest.NewLogger(t)),
+	})
+	box.pending = []update{
+		{Value: 1, State: 6, Count: 1},
+		{Value: 2, State: 9, Count: 1},
+	}
+	require.NoError(t, box.applyPending(context.Background()))
+	require.Equal(t, []update{{Value: 1, State: 6, Count: 1}}, applied)
+	require.Equal(t, []update{{Value: 2, State: 9, Count: 1}}, box.pending)
+	require.Equal(t, 6, box.State())
 }

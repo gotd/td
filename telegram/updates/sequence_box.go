@@ -14,6 +14,9 @@ type sequenceBox struct {
 	gaps       gapBuffer
 	gapTimeout *time.Timer
 	pending    []update
+	// applying is set while applyPending runs apply, which may re-enter the
+	// box through a nested getDifference (resyncPending).
+	applying bool
 
 	apply   func(ctx context.Context, state int, updates []update) error
 	log     log.Helper
@@ -159,6 +162,17 @@ loop:
 		}
 	}
 
+	// Apply before trimming: if apply fails, the accepted updates stay pending
+	// and are retried instead of being lost.
+	if len(accepted) > 0 {
+		s.applying = true
+		err := s.apply(ctx, state, accepted)
+		s.applying = false
+		if err != nil {
+			return err
+		}
+	}
+
 	// Trim processed updates. Setting zero values for the rest
 	// of the slice lets GC collect referenced objects.
 	end := len(s.pending)
@@ -171,10 +185,6 @@ loop:
 	if len(accepted) == 0 {
 		s.log.Warn(ctx, "Empty buffer", log.Any("pending", s.pending), log.Int("internalState", s.state))
 		return nil
-	}
-
-	if err := s.apply(ctx, state, accepted); err != nil {
-		return err
 	}
 
 	s.log.Debug(ctx, "Pending updates applied",
@@ -197,6 +207,11 @@ loop:
 func (s *sequenceBox) resyncPending(ctx context.Context) error {
 	s.gaps.Clear()
 	_ = s.gapTimeout.Stop()
+	if s.applying {
+		// Re-entered from apply of applyPending, which trims pending itself
+		// when apply returns; the rest is resolved by the next update.
+		return nil
+	}
 
 	kept := s.pending[:0]
 	for _, u := range s.pending {
