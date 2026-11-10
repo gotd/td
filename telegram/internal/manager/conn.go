@@ -411,7 +411,7 @@ func (c *Conn) init(ctx context.Context) error {
 			log.Error(err), log.Duration("duration", duration),
 		)
 	}); err != nil {
-		return errors.Wrap(err, "initConnection")
+		return &InitError{Err: err}
 	}
 
 	if c.setup != nil {
