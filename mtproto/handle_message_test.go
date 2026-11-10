@@ -106,7 +106,21 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 		rand:       Zero{},
 		log:        log.For(log.Nop),
 		gotSession: tdsync.NewReady(),
+		// Content messages inside containers are acked; drain acks as
+		// ackLoop would.
+		ackSendChan: make(chan int64),
 	}
+	ackDone := make(chan struct{})
+	defer close(ackDone)
+	go func() {
+		for {
+			select {
+			case <-c.ackSendChan:
+			case <-ackDone:
+				return
+			}
+		}
+	}()
 
 	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
 	corpus, err := os.ReadDir(corpusDir)
