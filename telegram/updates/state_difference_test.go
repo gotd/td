@@ -319,7 +319,8 @@ func TestChannelDifferenceOtherUpdatesApplied(t *testing.T) {
 	}, got)
 	require.Equal(t, 5, ch.pts.State())
 	require.Empty(t, ch.pts.pending)
-	require.Empty(t, s.internalQueue, "nothing is sent to internalState")
+	require.Len(t, s.internalQueue, 1, "entities are handed to internalState")
+	require.Empty(t, (<-s.internalQueue).update.(*tg.Updates).Updates, "no updates are")
 	require.Equal(t, []int{3}, api.chReqs)
 }
 

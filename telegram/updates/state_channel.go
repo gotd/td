@@ -538,10 +538,16 @@ func (s *channelState) applyDifference(ctx context.Context, diff *tg.UpdatesChan
 		}
 	}
 
-	if len(foreign) > 0 {
-		s.log.Debug(ctx, "Channel difference has updates of other sequences",
-			log.Int("count", len(foreign)),
-		)
+	// Hand updates of other sequences to *internalState. The batch is sent even
+	// if there are none, so that *internalState still records the access
+	// hashes of the response entities, as it did when every other update was
+	// routed through it.
+	if len(diff.OtherUpdates) > 0 {
+		if len(foreign) > 0 {
+			s.log.Debug(ctx, "Channel difference has updates of other sequences",
+				log.Int("count", len(foreign)),
+			)
+		}
 		if err := s.sendOut(ctx, tracedUpdate{
 			span: trace.SpanContextFromContext(ctx),
 			update: &tg.Updates{
@@ -573,8 +579,12 @@ func (s *channelState) applyDifference(ctx context.Context, diff *tg.UpdatesChan
 }
 
 // foreignUpdate reports whether u belongs to a sequence other than the pts of
-// this channel: the common pts or qts, or another channel.
+// this channel: the common pts or qts, or another channel. updatePtsChanged
+// belongs to the common pts: *internalState refetches the common difference.
 func (s *channelState) foreignUpdate(u tg.UpdateClass) bool {
+	if _, ok := u.(*tg.UpdatePtsChanged); ok {
+		return true
+	}
 	if channelID, _, _, ok, _ := tg.IsChannelPtsUpdate(u); ok {
 		return channelID != s.channelID
 	}
