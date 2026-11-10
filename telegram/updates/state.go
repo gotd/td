@@ -75,6 +75,7 @@ type internalState struct {
 	client                API
 	log                   log.Helper
 	handler               telegram.UpdateHandler
+	stopOnApplyError      bool
 	onTooLong             func(channelID int64)
 	onChannelGap          func(gap ChannelGap)
 	onChannelInaccessible func(channelID int64)
@@ -101,6 +102,7 @@ type stateConfig struct {
 	Tracer                trace.Tracer
 	Metrics               *updatesMetrics
 	Handler               telegram.UpdateHandler
+	StopOnApplyError      bool
 	OnChannelTooLong      func(channelID int64)
 	OnChannelGap          func(gap ChannelGap)
 	OnChannelInaccessible func(channelID int64)
@@ -132,6 +134,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		client:                cfg.RawClient,
 		log:                   log.For(cfg.Logger),
 		handler:               cfg.Handler,
+		stopOnApplyError:      cfg.StopOnApplyError,
 		onTooLong:             cfg.OnChannelTooLong,
 		onChannelGap:          cfg.OnChannelGap,
 		onChannelInaccessible: cfg.OnChannelInaccessible,
@@ -229,6 +232,10 @@ func (s *internalState) PushAffected(ctx context.Context, channelID int64, pts, 
 
 // isFatalError returns true if error is fatal so we should stop updates handler.
 func isFatalError(err error) bool {
+	if isApplyError(err) {
+		// Config.StopOnApplyError.
+		return true
+	}
 	// See https://github.com/gotd/td/issues/1458.
 	if errors.Is(err, exchange.ErrKeyFingerprintNotFound) {
 		return true
@@ -253,16 +260,29 @@ func (s *internalState) Run(ctx context.Context) error {
 		// Channels of this state are no longer tracked.
 		s.metrics.trackedDelta(context.Background(), -len(s.channels))
 	}()
-	s.getDifferenceLogger(ctx, "startup")
+	if s.canceled(ctx) {
+		return ctx.Err()
+	}
+	if err := s.getDifferenceLogger(ctx, "startup"); err != nil {
+		return err
+	}
 
 	for {
+		if s.canceled(ctx) {
+			return ctx.Err()
+		}
 		select {
 		case <-ctx.Done():
-			if len(s.pts.pending) > 0 || len(s.qts.pending) > 0 || len(s.seq.pending) > 0 {
-				s.getDifferenceLogger(ctx, "shutdown-flush-pending")
+			// With StopOnApplyError no new callbacks run after cancellation,
+			// which may be caused by an apply error of a channel worker.
+			if !s.stopOnApplyError && (len(s.pts.pending) > 0 || len(s.qts.pending) > 0 || len(s.seq.pending) > 0) {
+				_ = s.getDifferenceLogger(ctx, "shutdown-flush-pending")
 			}
 			return ctx.Err()
 		case u := <-s.externalQueue:
+			if s.canceled(ctx) {
+				return ctx.Err()
+			}
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdates(ctx, u.update); err != nil {
 				s.log.Error(ctx, "Handle updates error", log.Error(err))
@@ -271,6 +291,9 @@ func (s *internalState) Run(ctx context.Context) error {
 				}
 			}
 		case u := <-s.internalQueue:
+			if s.canceled(ctx) {
+				return ctx.Err()
+			}
 			// Only channel workers write here, with other updates of
 			// updates.getChannelDifference.
 			ctx := withDifferenceSource(trace.ContextWithSpanContext(ctx, u.span))
@@ -281,22 +304,36 @@ func (s *internalState) Run(ctx context.Context) error {
 				}
 			}
 		case a := <-s.affectedQueue:
+			if s.canceled(ctx) {
+				return ctx.Err()
+			}
 			ctx := trace.ContextWithSpanContext(ctx, a.span)
 			if err := s.handleAffected(ctx, a.channelID, a.pts, a.ptsCount); err != nil {
 				s.log.Error(ctx, "Handle affected error", log.Error(err))
+				if isApplyError(err) {
+					return err
+				}
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug(ctx, "Pts gap timeout")
-			s.getDifferenceLogger(ctx, "pts-gap-timeout")
+			if err := s.getDifferenceLogger(ctx, "pts-gap-timeout"); err != nil {
+				return err
+			}
 		case <-s.qts.gapTimeout.C:
 			s.log.Debug(ctx, "Qts gap timeout")
-			s.getDifferenceLogger(ctx, "qts-gap-timeout")
+			if err := s.getDifferenceLogger(ctx, "qts-gap-timeout"); err != nil {
+				return err
+			}
 		case <-s.seq.gapTimeout.C:
 			s.log.Debug(ctx, "Seq gap timeout")
-			s.getDifferenceLogger(ctx, "seq-gap-timeout")
+			if err := s.getDifferenceLogger(ctx, "seq-gap-timeout"); err != nil {
+				return err
+			}
 		case <-s.idleTimeout.C:
 			s.log.Debug(ctx, "Idle timeout")
-			s.getDifferenceLogger(ctx, "idle-timeout")
+			if err := s.getDifferenceLogger(ctx, "idle-timeout"); err != nil {
+				return err
+			}
 		case channelID := <-s.removeChannel:
 			s.removeChannelState(channelID)
 		case r := <-s.trackQueue:
@@ -476,6 +513,9 @@ func (s *internalState) handleQts(ctx context.Context, qts int, u tg.UpdateClass
 			Chats:   ents.Chats,
 		}); err != nil {
 			s.log.Error(ctx, "Handle updates error", log.Error(err))
+			if s.stopOnApplyError {
+				return &applyError{err}
+			}
 		}
 
 		return nil
@@ -523,6 +563,11 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 
 		localPts, found, err := s.storage.GetChannelPts(ctx, s.selfID, channelID)
 		if err != nil {
+			if s.stopOnApplyError {
+				// Do not start from the update: the stored checkpoint may be
+				// behind it.
+				return &applyError{errors.Wrap(err, "read channel checkpoint")}
+			}
 			localPts = pts - ptsCount
 			s.log.Error(ctx, "GetChannelPts error", log.Error(err))
 		}
@@ -531,6 +576,9 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 			localPts = pts - ptsCount
 			if err := s.storage.SetChannelPts(ctx, s.selfID, channelID, localPts); err != nil {
 				s.log.Error(ctx, "SetChannelPts error", log.Error(err))
+				if s.stopOnApplyError {
+					return &applyError{err}
+				}
 			}
 		}
 
@@ -559,6 +607,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		Hasher:                s.hasher,
 		UserHasher:            s.userHasher,
 		Handler:               s.handler,
+		StopOnApplyError:      s.stopOnApplyError,
 		OnChannelTooLong:      s.onTooLong,
 		OnChannelGap:          s.onChannelGap,
 		OnChannelInaccessible: s.onChannelInaccessible,
@@ -581,6 +630,9 @@ func (s *internalState) getDifference(ctx context.Context, reason string) error 
 // difference contained updatePtsChanged: the follow-up is made at most once per
 // chain, so a server repeating updatePtsChanged cannot loop.
 func (s *internalState) getDifferenceChain(ctx context.Context, reason string, refetched bool) error {
+	if s.canceled(ctx) {
+		return ctx.Err()
+	}
 	ctx, span := s.tracer.Start(ctx, "getDifference")
 	defer span.End()
 
@@ -612,6 +664,10 @@ func (s *internalState) getDifferenceChain(ctx context.Context, reason string, r
 	}
 	result := commonDiffResult(diff)
 	s.metrics.difference(ctx, kindCommon, result, start)
+	if s.canceled(ctx) {
+		// The response raced cancellation: do not apply it.
+		return ctx.Err()
+	}
 
 	s.log.Debug(ctx, "Difference received",
 		log.String("diff", fmt.Sprintf("%T", diff)),
@@ -650,6 +706,9 @@ func (s *internalState) getDifferenceChain(ctx context.Context, reason string, r
 	case *tg.UpdatesDifferenceEmpty:
 		if err := s.storage.SetDateSeq(ctx, s.selfID, diff.Date, diff.Seq); err != nil {
 			s.log.Warn(ctx, "SetDateSeq error", log.Error(err))
+			if s.stopOnApplyError {
+				return &applyError{err}
+			}
 		}
 
 		s.date = diff.Date
@@ -682,6 +741,9 @@ func (s *internalState) getDifferenceChain(ctx context.Context, reason string, r
 	case *tg.UpdatesDifferenceTooLong:
 		if err := s.storage.SetPts(ctx, s.selfID, diff.Pts); err != nil {
 			s.log.Error(ctx, "SetPts error", log.Error(err))
+			if s.stopOnApplyError {
+				return &applyError{err}
+			}
 		}
 		s.log.Warn(ctx, "Difference too long",
 			log.Int("local_pts", s.pts.State()),
@@ -710,10 +772,23 @@ func commonDiffResult(diff tg.UpdatesDifferenceClass) string {
 	}
 }
 
-func (s *internalState) getDifferenceLogger(ctx context.Context, reason string) {
+// getDifferenceLogger calls getDifference, logging any error. It returns the
+// error only if it must stop the manager (Config.StopOnApplyError).
+func (s *internalState) getDifferenceLogger(ctx context.Context, reason string) error {
 	if err := s.getDifference(ctx, reason); err != nil {
 		s.log.Error(ctx, "get difference error", log.Error(err), log.String("reason", reason))
+		if isApplyError(err) {
+			return err
+		}
 	}
+	return nil
+}
+
+// canceled reports whether ctx is done and the manager must not run any new
+// callbacks (Config.StopOnApplyError): the cancellation may be caused by an
+// apply error of a sibling worker.
+func (s *internalState) canceled(ctx context.Context) bool {
+	return s.stopOnApplyError && ctx.Err() != nil
 }
 
 func (s *internalState) resetIdleTimer() {

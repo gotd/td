@@ -24,6 +24,28 @@ type API interface {
 type Config struct {
 	// Handler where updates will be passed.
 	Handler telegram.UpdateHandler
+	// StopOnApplyError makes Run return on Handler or StateStorage errors
+	// while applying updates, instead of logging them and continuing
+	// (default).
+	//
+	// When enabled, a failed Handler call is not followed by the checkpoint
+	// write of its apply path, so the pts, qts, seq or channel pts is not
+	// advanced in memory or in Storage; a failed StateStorage write does not
+	// advance the corresponding in-memory state; a difference slice is not
+	// continued. Errors of RPC calls keep their usual handling.
+	//
+	// This is an error policy, not a transaction: completed steps and
+	// concurrent work (e.g. other channels) are not rolled back, a Storage
+	// may commit before returning an error, and a handler may have partially
+	// applied the failed batch. Handlers must be idempotent, as updates
+	// after the last successful checkpoint are delivered again. After
+	// resolving the failure, restart with a new Manager and Forget=false to
+	// resume from the stored state.
+	//
+	// Updates outside any sequence that a channel difference forwards to the
+	// common state are handed off before the channel pts is stored, so a
+	// failure to handle them does not hold that pts back.
+	StopOnApplyError bool
 	// Callback called if manager cannot
 	// recover channel gap (optional).
 	//

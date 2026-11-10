@@ -3,6 +3,7 @@ package updates
 import (
 	"context"
 	"testing"
+	"testing/synctest"
 
 	"github.com/stretchr/testify/require"
 	"go.opentelemetry.io/otel/trace/noop"
@@ -124,11 +125,16 @@ func TestHandleQtsZeroDoesNotResetState(t *testing.T) {
 // simulating the account losing access to a channel.
 type channelPrivateAPI struct {
 	diffAPI
+	initialEmpty bool
 }
 
 func (a *channelPrivateAPI) UpdatesGetChannelDifference(
 	ctx context.Context, request *tg.UpdatesGetChannelDifferenceRequest,
 ) (tg.UpdatesChannelDifferenceClass, error) {
+	if a.initialEmpty {
+		a.initialEmpty = false
+		return &tg.UpdatesChannelDifferenceEmpty{Final: true, Pts: request.Pts}, nil
+	}
 	return nil, tgerr.New(400, "CHANNEL_PRIVATE")
 }
 
@@ -136,39 +142,53 @@ func (a *channelPrivateAPI) UpdatesGetChannelDifference(
 // CHANNEL_PRIVATE the worker invokes the OnChannelInaccessible hook, signals
 // removal, and stops instead of looping with error logs.
 func TestChannelStateInaccessible(t *testing.T) {
-	ctx := context.Background()
+	for _, afterStartup := range []bool{false, true} {
+		name := "Subscribe"
+		if afterStartup {
+			name = "Idle"
+		}
+		t.Run(name, func(t *testing.T) {
+			synctest.Test(t, func(t *testing.T) {
+				ctx := context.Background()
+				storage := newMemStorage()
+				require.NoError(t, storage.SetState(ctx, 123, State{}))
 
-	const channelID = 1750799539
+				const channelID = 1750799539
 
-	removeChannel := make(chan int64, 1)
-	var inaccessible int64
-	state := newChannelState(channelStateConfig{
-		Out:        make(chan tracedUpdate, 10),
-		ChannelID:  channelID,
-		AccessHash: 42,
-		RawClient:  &channelPrivateAPI{},
-		Storage:    newMemStorage(),
-		Handler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
-			return nil
-		}),
-		OnChannelTooLong:      func(int64) {},
-		OnChannelInaccessible: func(id int64) { inaccessible = id },
-		RemoveChannel:         removeChannel,
-		Logger:                logzap.New(zaptest.NewLogger(t)),
-		Tracer:                noop.NewTracerProvider().Tracer(""),
-	})
+				removeChannel := make(chan int64, 1)
+				var inaccessible int64
+				state := newChannelState(channelStateConfig{
+					Out:        make(chan tracedUpdate, 10),
+					ChannelID:  channelID,
+					AccessHash: 42,
+					RawClient:  &channelPrivateAPI{initialEmpty: afterStartup},
+					InitialPts: 10,
+					SelfID:     123,
+					Storage:    storage,
+					Handler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
+						return nil
+					}),
+					OnChannelTooLong:      func(int64) {},
+					OnChannelInaccessible: func(id int64) { inaccessible = id },
+					RemoveChannel:         removeChannel,
+					Logger:                logzap.New(zaptest.NewLogger(t)),
+					Tracer:                noop.NewTracerProvider().Tracer(""),
+				})
 
-	// Run subscribes via getChannelDifference, hits CHANNEL_PRIVATE, and must
-	// return nil (clean stop) rather than spinning on the error.
-	require.NoError(t, state.Run(ctx))
-	require.Equal(t, int64(channelID), inaccessible, "OnChannelInaccessible must be called with channel ID")
-	select {
-	case got := <-removeChannel:
-		require.Equal(t, int64(channelID), got, "channel ID must be signaled for removal")
-	default:
-		t.Fatal("expected channel removal signal")
+				// Both initial subscription and a later idle poll must stop cleanly.
+				// synctest advances the idle deadline without a wall-clock wait.
+				require.NoError(t, state.Run(ctx))
+				require.Equal(t, int64(channelID), inaccessible, "OnChannelInaccessible must be called with channel ID")
+				select {
+				case got := <-removeChannel:
+					require.Equal(t, int64(channelID), got, "channel ID must be signaled for removal")
+				default:
+					t.Fatal("expected channel removal signal")
+				}
+
+				// done must be closed so Push no longer blocks on the stopped worker.
+				require.NoError(t, state.Push(ctx, channelUpdate{}))
+			})
+		})
 	}
-
-	// done must be closed so Push no longer blocks on the stopped worker.
-	require.NoError(t, state.Push(ctx, channelUpdate{}))
 }

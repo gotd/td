@@ -101,7 +101,11 @@ func (s *internalState) applyDifference(
 			ptsChanged = true
 			continue
 		}
-		if s.routeChannelUpdate(ctx, u, ents, d.State.Date) {
+		routed, err := s.routeChannelUpdate(ctx, u, ents, d.State.Date)
+		if err != nil {
+			return false, err
+		}
+		if routed {
 			continue
 		}
 		updates = append(updates, u)
@@ -114,6 +118,10 @@ func (s *internalState) applyDifference(
 			Chats:   d.Chats,
 		}); err != nil {
 			s.log.Error(ctx, "Handle updates error", log.Error(err))
+			if s.stopOnApplyError {
+				// Do not set the state: the difference is requested again.
+				return false, &applyError{err}
+			}
 		}
 	}
 
@@ -125,6 +133,9 @@ func (s *internalState) applyDifference(
 
 	if err := s.storage.SetState(ctx, s.selfID, State{}.fromRemote(&d.State)); err != nil {
 		s.log.Warn(ctx, "SetState error", log.Error(err))
+		if s.stopOnApplyError {
+			return false, &applyError{err}
+		}
 	}
 	s.pts.SetState(d.State.Pts, reason)
 	s.qts.SetState(d.State.Qts, reason)

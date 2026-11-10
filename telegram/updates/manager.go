@@ -214,6 +214,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			Metrics:               m.metrics,
 			Logger:                m.cfg.Logger,
 			Handler:               m.cfg.Handler,
+			StopOnApplyError:      m.cfg.StopOnApplyError,
 			OnChannelTooLong:      m.cfg.OnChannelTooLong,
 			OnChannelGap:          m.cfg.OnChannelGap,
 			OnChannelInaccessible: m.cfg.OnChannelInaccessible,
