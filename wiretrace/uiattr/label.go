@@ -273,7 +273,7 @@ func SemanticLabel(ev *wiretrace.Event, peers map[string]string) string {
 		}
 		s := join(name, peer(ev.Str("peer")), "("+ev.Str("peer_kind")+")")
 		if m := ev.Int("msg"); m != 0 {
-			s += fmt.Sprintf(" msg=%d", m)
+			s += " msg=" + MsgIDLabel(m)
 		}
 		if tp := ev.Int("topic"); tp != 0 {
 			s += fmt.Sprintf(" topic=%d", tp)
