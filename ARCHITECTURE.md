@@ -58,7 +58,12 @@ type is [`telegram.Client`](telegram/client.go), created via
 `telegram.NewClient(appID, appHash, telegram.Options{})` and driven with
 `Client.Run(ctx, f)`: the client connects, performs the initial handshake and
 runs `f` while the connection is alive, tearing everything down when `f`
-returns.
+returns. `Client.Start(ctx)` / `Close()` / `Wait(ctx)` (`lifecycle.go`) is the
+call-and-return form of the same lifecycle: `Start` runs `Run` in a goroutine
+and returns once its callback would be called (or with the first error), the
+callback blocks until `Close`, and `Done`/`Wait` report the error that ended
+`Run`. Start and Run are mutually exclusive, and a `Client` is single-use either
+way.
 
 It owns all of the behavior that the lower layers deliberately leave out:
 

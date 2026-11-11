@@ -58,6 +58,18 @@ func main() {
 }
 ```
 
+Or without a callback:
+
+```go
+client := telegram.NewClient(appID, appHash, telegram.Options{})
+if err := client.Start(ctx); err != nil { // ctx bounds the startup only
+	panic(err)
+}
+defer client.Close()
+
+// Use client.API() until Close; client.Wait(ctx) blocks until it stops.
+```
+
 See [examples](examples) for more info.
 
 ## Features
