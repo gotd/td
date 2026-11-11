@@ -23,10 +23,18 @@ const (
 )
 
 var (
-	errAlreadyStarted = errors.New("client already started")
-	errDrivenByRun    = errors.New("client is driven by Run")
-	errDrivenByStart  = errors.New("client is driven by Start, use Close and Wait instead of Run")
-	errClosed         = errors.New("client already closed")
+	// ErrAlreadyStarted is returned by Start and Run if the client was
+	// already started by Start or Run: a Client is single-use, and Start and
+	// Run are mutually exclusive. It is also returned by Close and Shutdown
+	// of a client driven by Run.
+	ErrAlreadyStarted = errors.New("client already started")
+	// ErrClientClosed is returned by Start and Run after Close, Shutdown or
+	// Stop of a client that was never started, and by Start canceled by them.
+	ErrClientClosed = errors.New("client already closed")
+
+	errDrivenByRun   = errors.Wrap(ErrAlreadyStarted, "client is driven by Run")
+	errDrivenByStart = errors.Wrap(ErrAlreadyStarted,
+		"client is driven by Start, use Close and Wait instead of Run")
 )
 
 // lifecycle is the state of Start, Close, Done and Wait.
@@ -38,7 +46,7 @@ type lifecycle struct {
 	done chan struct{}
 	// cancel stops the Run started by Start, nil until it is created.
 	cancel context.CancelFunc
-	// closing is set by Close, so that Start cancels Run at once if Close
+	// closing is set by Stop, so that Start cancels Run at once if Stop
 	// was called before cancel was set.
 	closing bool
 	// err is the error that stopped the client, written before done is
@@ -74,7 +82,8 @@ type startOptionFunc func(o *startOptions)
 func (f startOptionFunc) applyStart(o *startOptions) { f(o) }
 
 // WithLifetime sets the parent context of the client started by Start: when
-// ctx is done, the client stops as if Close was called.
+// ctx is done, the client stops as if Stop was called, and Wait and Close
+// return nil.
 //
 // By default the lifetime is context.WithoutCancel of the ctx passed to Start,
 // so values like loggers and trace spans are kept, but the cancellation and
@@ -92,10 +101,10 @@ func WithLifetime(ctx context.Context) StartOption {
 // fails.
 //
 // The ctx bounds the startup only, like in net.Dialer.DialContext: once Start
-// returned, the client runs until Close, a fatal error (e.g. *AuthLostError or
-// a permanent connection error) or the cancellation of the context passed via
-// WithLifetime. Note that the client reconnects indefinitely on transient
-// errors, so use ctx with a deadline to bound the startup.
+// returned, the client runs until Stop or Close, a fatal error (e.g.
+// *AuthLostError or a permanent connection error) or the end of the context
+// passed via WithLifetime. Note that the client reconnects indefinitely on
+// transient errors, so use ctx with a deadline to bound the startup.
 //
 // Start returns the wrapped ctx.Err() if ctx is done before the client is
 // ready, or the error that stopped the client before it got ready, e.g.
@@ -120,9 +129,9 @@ func (c *Client) Start(ctx context.Context, opts ...StartOption) error {
 		case modeRun:
 			return errDrivenByRun
 		case modeClosed:
-			return errClosed
+			return ErrClientClosed
 		default:
-			return errAlreadyStarted
+			return ErrAlreadyStarted
 		}
 	}
 	if err := ctx.Err(); err != nil {
@@ -148,14 +157,23 @@ func (c *Client) Start(ctx context.Context, opts ...StartOption) error {
 	runDone := make(chan error, 1)
 	go func() {
 		defer cancel()
-		runDone <- c.run(runCtx, func(ctx context.Context) error {
+		err := c.run(runCtx, func(ctx context.Context) error {
 			// Run calls f only once the primary connection is ready.
 			close(ready)
-			// Keep Run alive until Close, lifetime cancel or a fatal
-			// error.
+			// Keep Run alive until Stop, the end of the lifetime or a
+			// fatal error.
 			<-ctx.Done()
 			return nil
 		})
+		if lifeErr := o.lifetime.Err(); lifeErr != nil && errors.Is(err, lifeErr) {
+			// The end of the lifetime is a clean stop, e.g. on deadline,
+			// unless the authorization was lost.
+			var lost *AuthLostError
+			if !errors.As(err, &lost) {
+				err = nil
+			}
+		}
+		runDone <- err
 	}()
 
 	select {
@@ -180,7 +198,7 @@ func (c *Client) Start(ctx context.Context, opts ...StartOption) error {
 			c.life.mux.Unlock()
 			switch lifeErr := o.lifetime.Err(); {
 			case closing:
-				err = errors.Wrap(errClosed, "start")
+				err = errors.Wrap(ErrClientClosed, "start")
 			case lifeErr != nil:
 				err = errors.Wrap(lifeErr, "start")
 			default:
@@ -217,22 +235,18 @@ func (c *Client) finishStart(err error, startFailed bool) {
 	close(done)
 }
 
-// Close stops the client started by Start and waits until all of its
-// background work (connections, pools, update handlers and OnAuthLost
-// callbacks) is finished.
+// Stop stops the client started by Start without waiting for it: use Done,
+// Wait or Close to wait. Unlike Close and Shutdown, Stop is safe to call from
+// update handlers, OnAuthLost and other callbacks running inside the client.
 //
-// It returns the error that stopped the client before Close was called, e.g.
-// *AuthLostError (the same as Wait), or nil if Close stopped it. It returns nil
-// if Start failed, as Start already returned the error.
-//
-// Close is idempotent and safe to call concurrently, also before Start (then
-// the client can not be started anymore). Close returns an error for a client
+// Stop is idempotent and safe to call concurrently, also before Start (then
+// the client can not be started anymore). Stop does nothing for a client
 // driven by Run: cancel the Run context or return from its callback instead.
-func (c *Client) Close() error {
+func (c *Client) Stop() {
 	c.life.mode.CompareAndSwap(int32(modeIdle), int32(modeClosed))
 	switch lifecycleMode(c.life.mode.Load()) {
 	case modeRun:
-		return errDrivenByRun
+		return
 	case modeClosed:
 		done := c.life.doneChan()
 		c.life.mux.Lock()
@@ -242,7 +256,7 @@ func (c *Client) Close() error {
 			close(done)
 		}
 		c.life.mux.Unlock()
-		return nil
+		return
 	}
 
 	c.life.mux.Lock()
@@ -252,7 +266,32 @@ func (c *Client) Close() error {
 	if cancel != nil {
 		cancel()
 	}
-	<-c.life.doneChan()
+}
+
+// Shutdown stops the client started by Start, like Stop, and waits until all
+// of its background work (connections, pools, update handlers and OnAuthLost
+// callbacks) is finished or ctx is done, like http.Server.Shutdown.
+//
+// It returns the error that stopped the client before Shutdown was called,
+// e.g. *AuthLostError (the same as Wait), or nil if Shutdown stopped it or if
+// Start failed, as Start already returned the error. If ctx is done first, it
+// returns the wrapped ctx.Err(), and the client keeps stopping in background.
+//
+// Do not call Shutdown or Close from update handlers, OnAuthLost or other
+// callbacks running inside the client: the client waits for them to return,
+// so the call blocks until ctx is done. Use Stop there.
+//
+// Shutdown returns ErrAlreadyStarted for a client driven by Run.
+func (c *Client) Shutdown(ctx context.Context) error {
+	if lifecycleMode(c.life.mode.Load()) == modeRun {
+		return errDrivenByRun
+	}
+	c.Stop()
+	select {
+	case <-c.life.doneChan():
+	case <-ctx.Done():
+		return errors.Wrap(ctx.Err(), "shutdown")
+	}
 
 	c.life.mux.Lock()
 	defer c.life.mux.Unlock()
@@ -262,21 +301,35 @@ func (c *Client) Close() error {
 	return c.life.err
 }
 
-// Done returns a channel that is closed when the client started by Start
-// stops for any reason: Close, a fatal error, the end of the lifetime context
-// or a failed Start. Use Wait to get the reason.
+// Close is Shutdown without a deadline: it stops the client started by Start
+// and waits until all of its background work is finished.
 //
-// The channel is never closed for a client driven by Run.
+// It returns the error that stopped the client before Close was called, e.g.
+// *AuthLostError (the same as Wait), or nil if Close stopped it or if Start
+// failed.
+//
+// Close is idempotent and safe to call concurrently, also before Start (then
+// the client can not be started anymore). Never call Close from update
+// handlers, OnAuthLost or other callbacks running inside the client, it would
+// deadlock: use Stop there. Close returns ErrAlreadyStarted for a client
+// driven by Run.
+func (c *Client) Close() error {
+	return c.Shutdown(context.Background())
+}
+
+// Done returns a channel that is closed when the client stops for any reason:
+// Stop or Close, a fatal error, the end of the lifetime context, a failed Start
+// or the return of Run. Use Wait to get the reason.
 func (c *Client) Done() <-chan struct{} {
 	return c.life.doneChan()
 }
 
-// Wait blocks until the client started by Start stops or ctx is done.
+// Wait blocks until the client stops or ctx is done.
 //
 // It returns the error that stopped the client, e.g. *AuthLostError, a
-// permanent connection error or the error returned by a failed Start, nil if
-// it was stopped by Close or by the end of the lifetime context, or the
-// wrapped ctx.Err() if ctx is done first.
+// permanent connection error, the error returned by a failed Start or by
+// Run, nil if it was stopped by Stop or Close or by the end of the lifetime
+// context, or the wrapped ctx.Err() if ctx is done first.
 //
 // Unlike Close, Wait does not stop the client, so it is the blocking "run
 // until disconnected" call of the Start style:

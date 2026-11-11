@@ -61,9 +61,11 @@ runs `f` while the connection is alive, tearing everything down when `f`
 returns. `Client.Start(ctx)` / `Close()` / `Wait(ctx)` (`lifecycle.go`) is the
 call-and-return form of the same lifecycle: `Start` runs `Run` in a goroutine
 and returns once its callback would be called (or with the first error), the
-callback blocks until `Close`, and `Done`/`Wait` report the error that ended
-`Run`. Start and Run are mutually exclusive, and a `Client` is single-use either
-way.
+callback blocks until `Stop`/`Shutdown(ctx)`/`Close`, and `Done`/`Wait` report
+the error that ended `Run` (for Run-driven clients too). `Close` and `Shutdown`
+wait for update handlers and `OnAuthLost`, so callbacks inside the client use the
+non-blocking `Stop`. Start and Run are mutually exclusive (`ErrAlreadyStarted`),
+and a `Client` is single-use either way.
 
 It owns all of the behavior that the lower layers deliberately leave out:
 

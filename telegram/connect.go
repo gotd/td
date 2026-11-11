@@ -209,16 +209,21 @@ func (c *Client) resetReady() {
 //
 // Run is single-use: create a new Client to run again. See Start, Close and
 // Wait for the classic approach without explicit callback; Run and Start are
-// mutually exclusive on one Client.
+// mutually exclusive on one Client (ErrAlreadyStarted). Done and Wait report
+// the result of Run once it returned.
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
 	if !c.life.mode.CompareAndSwap(int32(modeIdle), int32(modeRun)) {
 		switch lifecycleMode(c.life.mode.Load()) {
 		case modeStart:
 			return errDrivenByStart
 		case modeClosed:
-			return errClosed
+			return ErrClientClosed
 		}
+		// Run again, fails as the client is closed.
+		return c.run(ctx, f)
 	}
+	// First Run: report its result via Done and Wait.
+	defer func() { c.finishStart(err, false) }()
 	return c.run(ctx, f)
 }
 

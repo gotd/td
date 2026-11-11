@@ -68,6 +68,7 @@ if err := client.Start(ctx); err != nil { // ctx bounds the startup only
 defer client.Close()
 
 // Use client.API() until Close; client.Wait(ctx) blocks until it stops.
+// From update handlers, stop with client.Stop(): Close would wait for them.
 ```
 
 See [examples](examples) for more info.

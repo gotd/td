@@ -179,29 +179,52 @@ func TestClientStartStartupContext(t *testing.T) {
 	require.NoError(t, client.Start(ctx))
 	cancel()
 
+	// Cancellation propagates synchronously to derived contexts, so the
+	// client context would be done here if it was derived from ctx.
+	require.NoError(t, client.ctx.Err())
 	_, err := client.API().HelpGetConfig(context.Background())
 	require.NoError(t, err)
 	select {
 	case <-client.Done():
 		t.Fatal("client stopped with startup ctx")
-	case <-time.After(50 * time.Millisecond):
+	default:
 	}
 	require.NoError(t, client.Close())
 }
 
 func TestClientStartWithLifetime(t *testing.T) {
-	client := fakeRunClient(configHandler)
-	lifetime, cancel := context.WithCancel(context.Background())
-	require.NoError(t, client.Start(context.Background(), WithLifetime(lifetime)))
-	cancel()
+	t.Run("Cancel", func(t *testing.T) {
+		checkLeaks := goroutineLeakCheck(t)
+		client := fakeRunClient(configHandler)
+		lifetime, cancel := context.WithCancel(context.Background())
+		require.NoError(t, client.Start(context.Background(), WithLifetime(lifetime)))
+		cancel()
 
-	select {
-	case <-client.Done():
-	case <-time.After(10 * time.Second):
-		t.Fatal("client did not stop on lifetime cancel")
-	}
-	require.NoError(t, client.Wait(context.Background()))
-	require.NoError(t, client.Close())
+		select {
+		case <-client.Done():
+		case <-time.After(10 * time.Second):
+			t.Fatal("client did not stop on lifetime cancel")
+		}
+		require.NoError(t, client.Wait(context.Background()))
+		require.NoError(t, client.Close())
+		checkLeaks()
+	})
+	t.Run("Deadline", func(t *testing.T) {
+		checkLeaks := goroutineLeakCheck(t)
+		client := fakeRunClient(configHandler)
+		lifetime, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+		defer cancel()
+		require.NoError(t, client.Start(context.Background(), WithLifetime(lifetime)))
+
+		select {
+		case <-client.Done():
+		case <-time.After(10 * time.Second):
+			t.Fatal("client did not stop on lifetime deadline")
+		}
+		require.NoError(t, client.Wait(context.Background()), "end of lifetime is a clean stop")
+		require.NoError(t, client.Close())
+		checkLeaks()
+	})
 }
 
 func TestClientStartTimeoutUnreachable(t *testing.T) {
@@ -290,6 +313,7 @@ func TestClientStartAuthLost(t *testing.T) {
 	opts.OnAuthLost = func(ctx context.Context, err error) error {
 		return reason
 	}
+	checkLeaks := goroutineLeakCheck(t)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
@@ -313,6 +337,7 @@ func TestClientStartAuthLost(t *testing.T) {
 	require.ErrorIs(t, lostErr.Reason, reason)
 	err = client.Close()
 	require.ErrorAs(t, err, &lostErr, "Close returns the error that stopped the client")
+	checkLeaks()
 }
 
 func TestClientWaitContext(t *testing.T) {
@@ -345,6 +370,7 @@ func TestClientCloseConcurrent(t *testing.T) {
 	})
 	t.Run("DuringStart", func(t *testing.T) {
 		// Connection is never ready, so Start blocks until Close.
+		checkLeaks := goroutineLeakCheck(t)
 		client := NewClient(1, "hash", Options{NoUpdates: true, Logger: log.Nop})
 		client.conn = blockingConn{}
 
@@ -363,11 +389,12 @@ func TestClientCloseConcurrent(t *testing.T) {
 		wg.Wait()
 		select {
 		case err := <-started:
-			require.ErrorIs(t, err, errClosed)
+			require.ErrorIs(t, err, ErrClientClosed)
 		case <-time.After(10 * time.Second):
 			t.Fatal("Close did not stop Start")
 		}
 		require.NoError(t, client.Close())
+		checkLeaks()
 	})
 }
 
@@ -393,10 +420,10 @@ func TestClientCloseBeforeStart(t *testing.T) {
 	<-client.Done()
 	require.NoError(t, client.Wait(context.Background()))
 
-	require.ErrorIs(t, client.Start(context.Background()), errClosed)
+	require.ErrorIs(t, client.Start(context.Background()), ErrClientClosed)
 	require.ErrorIs(t, client.Run(context.Background(), func(ctx context.Context) error {
 		return nil
-	}), errClosed)
+	}), ErrClientClosed)
 }
 
 func TestClientStartRunExclusive(t *testing.T) {
@@ -408,9 +435,10 @@ func TestClientStartRunExclusive(t *testing.T) {
 			return nil
 		})
 		require.ErrorIs(t, err, errDrivenByStart)
-		require.ErrorIs(t, client.Start(context.Background()), errAlreadyStarted)
+		require.ErrorIs(t, err, ErrAlreadyStarted)
+		require.ErrorIs(t, client.Start(context.Background()), ErrAlreadyStarted)
 		require.NoError(t, client.Close())
-		require.ErrorIs(t, client.Start(context.Background()), errAlreadyStarted)
+		require.ErrorIs(t, client.Start(context.Background()), ErrAlreadyStarted)
 	})
 	t.Run("StartAfterRun", func(t *testing.T) {
 		client := fakeRunClient(configHandler)
@@ -420,5 +448,203 @@ func TestClientStartRunExclusive(t *testing.T) {
 			return nil
 		}))
 		require.ErrorIs(t, client.Start(context.Background()), errDrivenByRun)
+		require.ErrorIs(t, client.Start(context.Background()), ErrAlreadyStarted)
 	})
+}
+
+func TestClientLifecycleRunDoneWait(t *testing.T) {
+	t.Run("Nil", func(t *testing.T) {
+		client := fakeRunClient(configHandler)
+		require.NoError(t, client.Run(context.Background(), func(ctx context.Context) error {
+			select {
+			case <-client.Done():
+				t.Error("done while Run is running")
+			default:
+			}
+			return nil
+		}))
+		<-client.Done()
+		require.NoError(t, client.Wait(context.Background()))
+	})
+	t.Run("Error", func(t *testing.T) {
+		client := fakeRunClient(configHandler)
+		testErr := errors.New("test")
+		err := client.Run(context.Background(), func(ctx context.Context) error {
+			return testErr
+		})
+		require.ErrorIs(t, err, testErr)
+		<-client.Done()
+		require.ErrorIs(t, client.Wait(context.Background()), testErr)
+		require.Error(t, client.Run(context.Background(), func(ctx context.Context) error {
+			return nil
+		}), "single use")
+	})
+}
+
+// shortShutdown calls Shutdown with a short deadline.
+func shortShutdown(c *Client) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+	defer cancel()
+	return c.Shutdown(ctx)
+}
+
+// TestClientStopFromOnAuthLost checks that Stop called from OnAuthLost does
+// not block, and Shutdown there is bounded by its ctx.
+func TestClientStopFromOnAuthLost(t *testing.T) {
+	var lost atomic.Bool
+	opts := lifecycleCluster(t, func(d *tgtest.Dispatcher) {
+		d.HandleFunc(tg.MessagesGetDialogsRequestTypeID, func(server *tgtest.Server, req *tgtest.Request) error {
+			if lost.Load() {
+				return server.SendErr(req, tgerr.New(401, "AUTH_KEY_UNREGISTERED"))
+			}
+			return server.SendResult(req, &tg.MessagesDialogs{})
+		})
+	})
+	var client *Client
+	shutdownErr := make(chan error, 1)
+	stopped := make(chan struct{})
+	opts.OnAuthLost = func(ctx context.Context, err error) error {
+		// Run waits for OnAuthLost, so Shutdown can only time out here.
+		shutdownErr <- shortShutdown(client)
+		client.Stop()
+		close(stopped)
+		return nil
+	}
+	checkLeaks := goroutineLeakCheck(t)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	client = NewClient(1, "hash", opts)
+	require.NoError(t, client.Start(ctx))
+
+	req := &tg.MessagesGetDialogsRequest{OffsetPeer: &tg.InputPeerEmpty{}}
+	_, err := client.API().MessagesGetDialogs(ctx, req) // Authorized.
+	require.NoError(t, err)
+	lost.Store(true)
+	_, _ = client.API().MessagesGetDialogs(ctx, req)
+
+	select {
+	case <-stopped:
+	case <-ctx.Done():
+		t.Fatal("Stop from OnAuthLost blocked")
+	}
+	require.ErrorIs(t, <-shutdownErr, context.DeadlineExceeded)
+	select {
+	case <-client.Done():
+	case <-ctx.Done():
+		t.Fatal("client did not stop")
+	}
+	require.NoError(t, client.Wait(ctx))
+	require.NoError(t, client.Close())
+	checkLeaks()
+}
+
+// updatesCluster returns options of a client whose messages.getDialogs
+// request makes the server send an update handled by h.
+func updatesCluster(t *testing.T, h UpdateHandlerFunc) Options {
+	t.Helper()
+	opts := lifecycleCluster(t, func(d *tgtest.Dispatcher) {
+		d.HandleFunc(tg.MessagesGetDialogsRequestTypeID, func(server *tgtest.Server, req *tgtest.Request) error {
+			if err := server.SendUpdates(req.RequestCtx, req.Session, &tg.UpdateConfig{}); err != nil {
+				return err
+			}
+			return server.SendResult(req, &tg.MessagesDialogs{})
+		})
+	})
+	opts.NoUpdates = false
+	opts.UpdateHandler = h
+	return opts
+}
+
+// TestClientStopFromUpdateHandler checks that Stop called from an update
+// handler does not block, and Shutdown there is bounded by its ctx.
+func TestClientStopFromUpdateHandler(t *testing.T) {
+	var client *Client
+	var once sync.Once
+	shutdownErr := make(chan error, 1)
+	stopped := make(chan struct{})
+	opts := updatesCluster(t, func(ctx context.Context, u tg.UpdatesClass) error {
+		once.Do(func() {
+			// Run waits for the handler, so Shutdown can only time out here.
+			shutdownErr <- shortShutdown(client)
+			client.Stop()
+			close(stopped)
+		})
+		return nil
+	})
+	checkLeaks := goroutineLeakCheck(t)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	client = NewClient(1, "hash", opts)
+	require.NoError(t, client.Start(ctx))
+
+	invoked := make(chan struct{})
+	go func() {
+		defer close(invoked)
+		_, _ = client.API().MessagesGetDialogs(ctx, &tg.MessagesGetDialogsRequest{OffsetPeer: &tg.InputPeerEmpty{}})
+	}()
+	select {
+	case <-stopped:
+	case <-ctx.Done():
+		t.Fatal("Stop from update handler blocked")
+	}
+	require.ErrorIs(t, <-shutdownErr, context.DeadlineExceeded)
+	select {
+	case <-client.Done():
+	case <-ctx.Done():
+		t.Fatal("client did not stop")
+	}
+	require.NoError(t, client.Close())
+	<-invoked
+	checkLeaks()
+}
+
+// TestClientShutdownStuckHandler checks that Shutdown returns the ctx error
+// while an update handler is stuck, and the client stops after it returns.
+func TestClientShutdownStuckHandler(t *testing.T) {
+	entered := make(chan struct{})
+	release := make(chan struct{})
+	var once sync.Once
+	opts := updatesCluster(t, func(ctx context.Context, u tg.UpdatesClass) error {
+		once.Do(func() {
+			close(entered)
+			<-release
+		})
+		return nil
+	})
+	checkLeaks := goroutineLeakCheck(t)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	client, err := Connect(ctx, 1, "hash", opts)
+	require.NoError(t, err)
+
+	invoked := make(chan struct{})
+	go func() {
+		defer close(invoked)
+		_, _ = client.API().MessagesGetDialogs(ctx, &tg.MessagesGetDialogsRequest{OffsetPeer: &tg.InputPeerEmpty{}})
+	}()
+	select {
+	case <-entered:
+	case <-ctx.Done():
+		t.Fatal("no update")
+	}
+
+	require.ErrorIs(t, shortShutdown(client), context.DeadlineExceeded)
+	select {
+	case <-client.Done():
+		t.Fatal("client stopped with a stuck handler")
+	default:
+	}
+
+	close(release)
+	select {
+	case <-client.Done():
+	case <-ctx.Done():
+		t.Fatal("client did not stop")
+	}
+	require.NoError(t, client.Close())
+	<-invoked
+	checkLeaks()
 }
