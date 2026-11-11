@@ -262,7 +262,9 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) (rErr
 		}
 		g.Go("pingLoop", c.pingLoop)
 		g.Go("ackLoop", c.ackLoop)
-		g.Go("saltsLoop", c.saltLoop)
+		if c.saltFetchInterval > 0 {
+			g.Go("saltsLoop", c.saltLoop)
+		}
 		// Enable HTTP long-polling if the transport is HTTP; no-op otherwise.
 		c.startHTTPWait()
 		if c.pfs {

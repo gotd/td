@@ -49,7 +49,13 @@ type Options struct {
 	DialTimeout time.Duration
 	// ExchangeTimeout is timeout of every key exchange request.
 	ExchangeTimeout time.Duration
-	// SaltFetchInterval is duration between get_future_salts request.
+	// SaltFetchInterval is the duration between get_future_salts requests.
+	//
+	// Zero (default) never sends get_future_salts, like Telegram Desktop:
+	// the server salt is taken from new_session_created and bad_server_salt
+	// (a request with an expired salt is re-sent with the new one). A
+	// positive value fetches future salts every interval, the first time
+	// one interval after the session starts.
 	SaltFetchInterval time.Duration
 	// PingTimeout is the time to wait for a pong, after which the connection
 	// is considered dead. Default is 15 seconds.
@@ -153,9 +159,6 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.ExchangeTimeout == 0 {
 		opt.ExchangeTimeout = exchange.DefaultTimeout
-	}
-	if opt.SaltFetchInterval == 0 {
-		opt.SaltFetchInterval = 1 * time.Hour
 	}
 	if opt.PingTimeout == 0 {
 		opt.PingTimeout = 15 * time.Second
