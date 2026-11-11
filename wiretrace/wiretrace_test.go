@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"os"
 	"path/filepath"
+	"runtime"
 	"testing"
 
 	"github.com/go-faster/errors"
@@ -51,12 +52,14 @@ func TestWriterReaderRoundTrip(t *testing.T) {
 	a.NoError(err)
 	a.NoError(w.Close())
 
-	info, err := os.Stat(dir)
-	a.NoError(err)
-	a.Equal(os.FileMode(0o700), info.Mode().Perm())
-	info, err = os.Stat(filepath.Join(dir, EventsName(0)))
-	a.NoError(err)
-	a.Equal(os.FileMode(0o600), info.Mode().Perm())
+	if runtime.GOOS != "windows" { // no Unix permission bits
+		info, err := os.Stat(dir)
+		a.NoError(err)
+		a.Equal(os.FileMode(0o700), info.Mode().Perm())
+		info, err = os.Stat(filepath.Join(dir, EventsName(0)))
+		a.NoError(err)
+		a.Equal(os.FileMode(0o600), info.Mode().Perm())
+	}
 
 	r, err := Open(dir)
 	a.NoError(err)
