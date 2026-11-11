@@ -25,6 +25,8 @@ func (r *RedirectError) Error() string {
 type master struct {
 	client Client
 
+	// precise allows the precise flag for parts that need it, see
+	// needPrecise.
 	precise  bool
 	allowCDN bool
 	// retryHandler observes retried transient downloader errors.
@@ -93,7 +95,7 @@ func (c master) Chunk(ctx context.Context, offset int64, limit int) (chunk, erro
 			Location: loc,
 		}
 		req.SetCDNSupported(c.allowCDN)
-		req.SetPrecise(c.precise)
+		req.SetPrecise(c.precise && needPrecise(offset, limit))
 		return c.client.UploadGetFile(ctx, req)
 	})
 	if err != nil {
@@ -117,4 +119,33 @@ func (c master) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error)
 			Offset:   offset,
 		})
 	})
+}
+
+const (
+	// partAlign is the alignment of offset and limit of upload.getFile
+	// without the precise flag.
+	partAlign = 4 * 1024
+	// partWindow is the window a part must stay within without the precise
+	// flag.
+	partWindow = 1024 * 1024
+)
+
+// needPrecise reports whether a part needs the precise flag of upload.getFile:
+// without it, offset and limit must be divisible by 4 KiB, 1 MiB must be
+// divisible by limit, and the part must not cross a 1 MiB boundary.
+//
+// Telegram Desktop and TDLib never set precise, as their parts are aligned;
+// gotd's default parts are too, so the flag is only sent for unaligned
+// parts, e.g. a resume from an arbitrary offset.
+//
+// See https://core.telegram.org/api/files#downloading-files.
+func needPrecise(offset int64, limit int) bool {
+	if limit <= 0 {
+		return true
+	}
+	l := int64(limit)
+	return offset%partAlign != 0 ||
+		l%partAlign != 0 ||
+		partWindow%l != 0 ||
+		offset/partWindow != (offset+l-1)/partWindow
 }
