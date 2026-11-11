@@ -69,8 +69,11 @@ func runWithInitError(t *testing.T, initErr func(n int64) *tgerr.Error) (attempt
 	var lastState atomic.Int64
 
 	zapLog := zaptest.NewLogger(t)
-	// Bounds the reconnect loop if the error is not treated as fatal.
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	// Bounds the reconnect loop if the error is not treated as fatal. Each
+	// reconnect after a failed init makes a new auth key, and the PQ
+	// decomposition of the key exchange takes seconds under -race on slow
+	// runners, so this is not much tighter than the test timeout.
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	c := cluster.NewCluster(cluster.Options{
