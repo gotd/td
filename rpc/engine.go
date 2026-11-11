@@ -138,14 +138,27 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	// Start retrying.
 	sent, err := e.retryUntilAck(retryCtx, req)
-	if err != nil && !errors.Is(err, retryCtx.Err()) {
+	var limitErr *RetryLimitReachedErr
+	switch {
+	case errors.As(err, &limitErr):
+		// The server did not acknowledge the request after all resends, but
+		// the connection is alive (a dead one is closed by pings and closes
+		// the engine). The server may still be processing it: a slow
+		// updates.getChannelDifference was answered 30–60 s later in
+		// production. Like TDLib and Telegram Desktop, stop resending and
+		// keep waiting for the result, bounded by ctx and engine close,
+		// instead of failing a request the server answers.
+		logger.Warn(ctx, "Request not acknowledged after retries, waiting for the result",
+			log.Int("retries", limitErr.Retries),
+		)
+		sent = true
+	case err != nil && !errors.Is(err, retryCtx.Err()):
 		// If the retryCtx was canceled, then one of two things happened:
 		//   1. User canceled the parent context.
 		//   2. The RPC result came and callback canceled retryCtx.
 		//
-		// If this is not a Context’s error, most likely we did not receive ack
-		// and exceeded the limit of attempts to send a request,
-		// or could not write data to the connection, so we return an error.
+		// If this is not a Context’s error, we could not write data to the
+		// connection, so we return an error.
 		return errors.Wrap(err, "retryUntilAck")
 	}
 
@@ -253,7 +266,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 
 				retries++
 				if retries >= e.maxRetries {
-					logger.Error(ctx, "Retry limit reached", log.Int64("msg_id", req.MsgID))
+					logger.Debug(ctx, "Retry limit reached")
 					return &RetryLimitReachedErr{
 						Retries: retries,
 					}

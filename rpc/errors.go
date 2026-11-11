@@ -8,6 +8,10 @@ import (
 
 // RetryLimitReachedErr means that server does not acknowledge request
 // after multiple retries.
+//
+// Engine.Do no longer returns it: after the last resend it keeps waiting for
+// the result until the context is done or the engine is closed. The type is
+// kept for compatibility.
 type RetryLimitReachedErr struct {
 	Retries int
 }
