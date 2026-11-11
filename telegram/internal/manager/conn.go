@@ -73,6 +73,14 @@ type Conn struct {
 	// cdnNeedsInit mirrors TDesktop connectionInited state for CDN transport.
 	// true means requests must go via invokeWithLayer(initConnection).
 	cdnNeedsInit atomic.Bool
+	// needsInit is set when the server answered CONNECTION_NOT_INITED or
+	// CONNECTION_LAYER_INVALID on a regular (non-CDN) connection: it dropped
+	// the connection state of the session, e.g. after the account logged in
+	// on another device. Requests then go via
+	// invokeWithLayer(initConnection) until one succeeds, as in Telegram
+	// Desktop (Session::setConnectionNotInited) and TDLib
+	// (AuthData::on_connection_not_inited).
+	needsInit atomic.Bool
 	// pending buffers OnSession events until initConnection config is available.
 	pending []mtproto.Session
 	ongoing int
@@ -252,13 +260,47 @@ func (c *Conn) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 		err := c.invokeCDN(ctx, input, output)
 		return err
 	}
+	if c.needsInit.Load() {
+		return c.invokeReinit(ctx, input, output)
+	}
 	q := c.wrapRequest(noopDecoder{input})
 	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
 		Layer: c.layer,
 		Query: q,
 	})
 	err := c.proto.Invoke(ctx, req, output)
-	return err
+	if !isNotInited(err) {
+		return err
+	}
+	if c.needsInit.CompareAndSwap(false, true) {
+		c.log.Warn(ctx, "Server lost connection state, re-sending initConnection",
+			log.Int("dc", c.dc),
+			log.Error(err),
+		)
+	}
+	return c.invokeReinit(ctx, input, output)
+}
+
+// invokeReinit sends the request wrapped in initConnection and clears
+// needsInit when the server accepts it.
+func (c *Conn) invokeReinit(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	q := c.wrapRequest(c.initRequest(c.wrapRequest(noopDecoder{input})))
+	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
+		Layer: c.layer,
+		Query: q,
+	})
+	if err := c.proto.Invoke(ctx, req, output); err != nil {
+		// An RPC error other than the not-inited ones means that the
+		// server accepted initConnection and handled the query.
+		if _, rpc := tgerr.As(err); rpc && !isNotInited(err) {
+			c.needsInit.Store(false)
+		}
+		return err
+	}
+	if c.needsInit.CompareAndSwap(true, false) {
+		c.log.Info(ctx, "Connection re-initialized", log.Int("dc", c.dc))
+	}
+	return nil
 }
 func (c *Conn) invokeCDN(
 	ctx context.Context,
@@ -283,7 +325,7 @@ func (c *Conn) invokeCDN(
 	if err == nil {
 		return nil
 	}
-	if c.shouldCDNRetryWrapped(err) {
+	if isNotInited(err) {
 		c.cdnNeedsInit.Store(true)
 		retryErr := c.invokeCDNWrapped(ctx, input, output)
 		if retryErr == nil {
@@ -304,17 +346,19 @@ func (c *Conn) invokeCDNWrapped(ctx context.Context, input bin.Encoder, output b
 func (c *Conn) invokeCDNRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	return c.proto.Invoke(ctx, input, output)
 }
-func (c *Conn) shouldCDNRetryWrapped(err error) bool {
+
+// isNotInited reports whether err tells that the server has no
+// initConnection state for the session, so the request must be re-sent
+// wrapped in invokeWithLayer(initConnection).
+func isNotInited(err error) bool {
 	if err == nil {
 		return false
 	}
 	if rpcErr, ok := tgerr.As(err); ok {
-		// Retry wrapped only for not-inited/layer-invalid transport state.
-		v := rpcErr.IsOneOf(
+		return rpcErr.IsOneOf(
 			"CONNECTION_NOT_INITED",
 			"CONNECTION_LAYER_INVALID",
 		)
-		return v
 	}
 	return false
 }
@@ -340,6 +384,22 @@ func (c *Conn) wrapRequest(req bin.Object) bin.Object {
 	}
 
 	return req
+}
+
+// initRequest wraps query in initConnection with the device parameters.
+func (c *Conn) initRequest(query bin.Object) *tg.InitConnectionRequest {
+	return &tg.InitConnectionRequest{
+		APIID:          c.appID,
+		DeviceModel:    c.device.DeviceModel,
+		SystemVersion:  c.device.SystemVersion,
+		AppVersion:     c.device.AppVersion,
+		SystemLangCode: c.device.SystemLangCode,
+		LangPack:       c.device.LangPack,
+		LangCode:       c.device.LangCode,
+		Proxy:          c.device.Proxy,
+		Params:         c.device.Params,
+		Query:          query,
+	}
 }
 
 func (c *Conn) cdnInitRequest(query bin.Object) bin.Object {
@@ -374,18 +434,7 @@ func (c *Conn) init(ctx context.Context) error {
 		err := c.flushPendingSession()
 		return err
 	}
-	q := c.wrapRequest(&tg.InitConnectionRequest{
-		APIID:          c.appID,
-		DeviceModel:    c.device.DeviceModel,
-		SystemVersion:  c.device.SystemVersion,
-		AppVersion:     c.device.AppVersion,
-		SystemLangCode: c.device.SystemLangCode,
-		LangPack:       c.device.LangPack,
-		LangCode:       c.device.LangCode,
-		Proxy:          c.device.Proxy,
-		Params:         c.device.Params,
-		Query:          c.wrapRequest(&tg.HelpGetConfigRequest{}),
-	})
+	q := c.wrapRequest(c.initRequest(c.wrapRequest(&tg.HelpGetConfigRequest{})))
 	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
 		Layer: c.layer,
 		Query: q,
