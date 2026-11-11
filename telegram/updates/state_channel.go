@@ -8,6 +8,7 @@ import (
 	"github.com/gotd/log"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
@@ -68,6 +69,8 @@ type channelState struct {
 	// chDiffSem bounds concurrent getChannelDifference calls across all channels
 	// of the manager. nil means unlimited.
 	chDiffSem chDiffSem
+	// diffRetry retries a failed channel difference (UPD-4).
+	diffRetry *diffRetry
 }
 
 // ChannelGap describes a channel gap that the manager cannot recover
@@ -114,6 +117,7 @@ type channelStateConfig struct {
 	Tracer                trace.Tracer
 	Metrics               *updatesMetrics
 	ChannelDiffSem        chDiffSem
+	Clock                 clock.Clock
 }
 
 func newChannelState(cfg channelStateConfig) *channelState {
@@ -142,6 +146,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		tracer:           cfg.Tracer,
 		metrics:          cfg.Metrics,
 		chDiffSem:        cfg.ChannelDiffSem,
+		diffRetry:        newDiffRetry(cfg.Clock),
 	}
 
 	state.pts = newSequenceBox(sequenceConfig{
@@ -178,14 +183,8 @@ func (s *channelState) Run(ctx context.Context) error {
 	if s.canceled(ctx) {
 		return ctx.Err()
 	}
-	if err := s.getDifference(ctx, "channel-subscribe"); err != nil {
-		if errors.Is(err, errChannelInaccessible) {
-			return nil
-		}
-		s.log.Error(ctx, "Failed to subscribe to channel updates", log.Error(err))
-		if isApplyError(err) {
-			return err
-		}
+	if stop, err := s.getDifferenceLogger(ctx, "channel-subscribe"); stop {
+		return err
 	}
 
 	for {
@@ -212,6 +211,11 @@ func (s *channelState) Run(ctx context.Context) error {
 				if isApplyError(err) {
 					return err
 				}
+			}
+		case <-s.diffRetry.C:
+			s.diffRetry.fired()
+			if stop, err := s.getDifferenceLogger(ctx, "channel-retry"); stop {
+				return err
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug(ctx, "Gap timeout")
@@ -387,7 +391,7 @@ func (s *channelState) getDifference(ctx context.Context, reason string) error {
 	})
 	s.chDiffSem.release()
 	if err != nil {
-		if tgerr.Is(err, "CHANNEL_PRIVATE") {
+		if tgerr.Is(err, "CHANNEL_PRIVATE", "CHANNEL_INVALID") {
 			s.metrics.difference(ctx, kindChannel, diffInaccessible, start)
 			return s.handleInaccessible(ctx)
 		}
@@ -665,16 +669,30 @@ func channelDiffResult(diff tg.UpdatesChannelDifferenceClass) string {
 // if the worker should stop: with a nil error if the channel became
 // inaccessible, or with the error that must stop the manager
 // (Config.StopOnApplyError).
+//
+// A failed difference is retried with backoff (diffRetry), including
+// PERSISTENT_TIMESTAMP_OUTDATED, which TDLib also retries later.
 func (s *channelState) getDifferenceLogger(ctx context.Context, reason string) (stop bool, _ error) {
-	if err := s.getDifference(ctx, reason); err != nil {
-		if errors.Is(err, errChannelInaccessible) {
-			return true, nil
-		}
+	err := s.getDifference(ctx, reason)
+	switch {
+	case err == nil:
+		s.diffRetry.reset()
+		return false, nil
+	case errors.Is(err, errChannelInaccessible):
+		return true, nil
+	case isApplyError(err):
 		s.log.Error(ctx, "get channel difference error", log.Error(err), log.String("reason", reason))
-		if isApplyError(err) {
-			return true, err
-		}
+		return true, err
+	case !retryableDiffError(ctx, err):
+		s.log.Error(ctx, "get channel difference error", log.Error(err), log.String("reason", reason))
+		return false, nil
 	}
+	delay := s.diffRetry.schedule(err)
+	s.log.Error(ctx, "get channel difference error, retrying",
+		log.Error(err),
+		log.String("reason", reason),
+		log.Duration("retry_in", delay),
+	)
 	return false, nil
 }
 

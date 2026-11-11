@@ -8,6 +8,7 @@ import (
 	"go.opentelemetry.io/otel/metric/noop"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
@@ -63,7 +64,7 @@ type Config struct {
 	// Called after OnChannelTooLong.
 	OnChannelGap func(gap ChannelGap)
 	// Callback called when the manager loses access to a channel, detected via
-	// CHANNEL_PRIVATE on updates.getChannelDifference (e.g. the account was
+	// CHANNEL_PRIVATE or CHANNEL_INVALID on updates.getChannelDifference (e.g. the account was
 	// kicked/banned or the channel was deleted). The channel is removed from
 	// the update manager after this call (optional).
 	OnChannelInaccessible func(channelID int64)
@@ -117,6 +118,10 @@ type Config struct {
 	// BeforeRunBufferSize limits how many update batches are kept with
 	// BeforeRunBuffer. Non-positive means 100.
 	BeforeRunBufferSize int
+
+	// Clock is used for retries of failed differences. Defaults to
+	// clock.System.
+	Clock clock.Clock
 }
 
 func (cfg *Config) setDefaults() {
@@ -125,6 +130,9 @@ func (cfg *Config) setDefaults() {
 	}
 	if cfg.AccessHasher == nil {
 		cfg.AccessHasher = newMemAccessHasher()
+	}
+	if cfg.Clock == nil {
+		cfg.Clock = clock.System
 	}
 	if cfg.UserAccessHasher == nil {
 		cfg.UserAccessHasher = newMemUserAccessHasher()

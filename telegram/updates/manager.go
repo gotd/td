@@ -226,6 +226,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 			DiffLimit:             diffLim,
 			WorkGroup:             wg,
 			ChannelDiffSem:        m.chDiffSem,
+			Clock:                 m.cfg.Clock,
 		})
 
 		return nil
