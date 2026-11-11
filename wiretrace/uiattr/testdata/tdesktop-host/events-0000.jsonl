@@ -1,0 +1,3 @@
+{"seq":0,"ev":"hdr","v":1,"seg":0,"v":1,"ui":{"v":1,"ids":"hmac64","raw_ids":false}}
+{"seq":1,"t":0.007896,"th":"main","ev":"ui.press","a":41,"w":0,"btn":"left","path":["Dialogs::InnerWidget","Ui::ScrollArea"]}
+{"seq":2,"t":0.007899,"th":"main","ev":"ui.chat","w":0,"peer":"h:a2fb4a2e5d7a21b1","peer_kind":"user","topic":0,"sublist":false,"msg":0,"none":null,"label":"quote \" and \\ and \n","ui":{"a":41,"rel":"deferred","dt":0}}

@@ -233,6 +233,7 @@ To regenerate, run `go generate ./...` (or `make generate`).
 | [`oteltg`](oteltg)       | OpenTelemetry instrumentation                                     |
 | [`wsutil`](wsutil)       | WebSocket utilities                                               |
 | [`pool`](pool)           | Generic connection-pool primitives                                |
+| [`wiretrace`](wiretrace) | Wire trace format (plaintext MTProto messages + lifecycle events) of the traced tdesktop build; `tljson` schema-driven TL decoder, `decode` logical messages, `uiattr` attribution of requests to UI actions; CLI in [`cmd/wiretrace`](cmd/wiretrace) |
 
 ## Testing infrastructure
 
