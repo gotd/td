@@ -19,7 +19,7 @@ import (
 // commonKeys are not repeated in the generic event details.
 var commonKeys = map[string]bool{
 	"seq": true, "t": true, "th": true, "ev": true, "dc": true, "shift": true, "sdc": true, "cause": true,
-	"blob": true, "b64": true,
+	"blob": true, "b64": true, "ui": true,
 }
 
 type causeKey struct {
@@ -261,7 +261,20 @@ func (tl *timeline) line(ev *wiretrace.Event) string {
 			detail += " " + g
 		}
 	}
-	return fmt.Sprintf("%12.6f %-5s %s%s", ev.T, ev.Thread, detail, tl.causeSuffix(ev))
+	return fmt.Sprintf("%12.6f %-5s %s%s%s", ev.T, ev.Thread, detail, tl.causeSuffix(ev), uiSuffix(ev))
+}
+
+// uiSuffix shows the UI stamp: "  ⊂ ui#41 deferred +0ms".
+func uiSuffix(ev *wiretrace.Event) string {
+	st := ev.UI
+	if st == nil {
+		return ""
+	}
+	s := fmt.Sprintf("  ⊂ ui#%d %s", st.A, st.Rel)
+	if st.Rel != wiretrace.UIRelSync {
+		s += fmt.Sprintf(" +%gms", st.DT)
+	}
+	return s
 }
 
 func matchKind(kinds []string, kind string) bool {
@@ -281,6 +294,9 @@ func runTimeline(ctx context.Context, args []string, stdout, stderr io.Writer) e
 	schemaDir := fs.String("schema", "", "directory with api.tl and mtproto.tl, or comma-separated .tl files (optional, for names)")
 	noStorage := fs.Bool("no-storage", false, "hide st.* events")
 	kindsFlag := fs.String("kinds", "", "comma-separated event kinds to show, \"req.*\" style prefixes allowed")
+	var mode uiMode
+	fs.Var(&mode, "ui", "group requests under the UI action they are attributed to; --ui=collapse: one line per action")
+	uiOpt := addUIFlags(fs)
 	if err := parseFlags(fs, args, 1, "timeline [flags] RUN", stderr); err != nil {
 		return err
 	}
@@ -292,6 +308,17 @@ func runTimeline(ctx context.Context, args []string, stdout, stderr io.Writer) e
 	schema, err := loadSchema(stderr, *schemaDir, run, false)
 	if err != nil {
 		return err
+	}
+	if mode != uiOff {
+		var bad badLines
+		res, err := buildUI(ctx, run, schema, uiOpt.attr(), &bad, stderr)
+		if err != nil {
+			return err
+		}
+		w := bufio.NewWriter(stdout)
+		printUITimeline(w, res, newNamer(schema), mode == uiCollapse)
+		bad.report(stderr)
+		return w.Flush()
 	}
 	var kinds []string
 	if *kindsFlag != "" {

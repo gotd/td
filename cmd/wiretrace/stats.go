@@ -14,6 +14,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/wiretrace"
+	"github.com/gotd/td/wiretrace/uiattr"
 )
 
 // MethodStats are per-method request counters.
@@ -83,6 +84,8 @@ type Stats struct {
 	StorageLen map[string]int64 `json:"storage_bytes"`
 	Redacted   map[string]int   `json:"redacted"`
 	Subsystems map[string]int   `json:"callers"`
+	// UI is set by --by ui.
+	UI *UIStats `json:"ui,omitempty"`
 }
 
 var (
@@ -429,8 +432,14 @@ func runStats(ctx context.Context, args []string, stdout, stderr io.Writer) erro
 	schemaDir := fs.String("schema", "", "directory with api.tl and mtproto.tl, or comma-separated .tl files (optional, for names)")
 	asJSON := fs.Bool("json", false, "print JSON")
 	top := fs.Int("top", 40, "rows per table (0: all)")
+	by := fs.String("by", "method", "method, or ui: also per UI action, view and attribution share")
+	uiOpt := addUIFlags(fs)
 	if err := parseFlags(fs, args, 1, "stats [flags] RUN", stderr); err != nil {
 		return err
+	}
+	if *by != "method" && *by != "ui" {
+		_, _ = fmt.Fprintf(stderr, "wiretrace stats: --by must be method or ui, got %q\n", *by)
+		return errUsage
 	}
 	run, err := openRun(fs.Arg(0))
 	if err != nil {
@@ -441,19 +450,30 @@ func runStats(ctx context.Context, args []string, stdout, stderr io.Writer) erro
 	if err != nil {
 		return err
 	}
-	b := newStatsBuilder(newNamer(schema), run.Segments)
+	names := newNamer(schema)
+	b := newStatsBuilder(names, run.Segments)
+	var ui *uiattr.Builder
+	if *by == "ui" {
+		ui = uiattr.NewBuilder(uiOpt.attr())
+	}
 	var bad badLines
 	if err := run.Events(func(ev *wiretrace.Event) error {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
 		b.add(ev)
+		if ui != nil {
+			ui.Add(ev)
+		}
 		return nil
 	}, bad.add); err != nil {
 		return err
 	}
 	s := b.finish()
 	s.BadLines = bad.count
+	if ui != nil {
+		s.UI = uiStats(ui.Finish(), names)
+	}
 	w := bufio.NewWriter(stdout)
 	if *asJSON {
 		e := json.NewEncoder(w)
@@ -463,6 +483,9 @@ func runStats(ctx context.Context, args []string, stdout, stderr io.Writer) erro
 		}
 	} else {
 		printStats(w, s, *top)
+		if s.UI != nil {
+			printUIStats(w, s.UI, *top)
+		}
 	}
 	return w.Flush()
 }

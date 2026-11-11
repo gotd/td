@@ -22,6 +22,9 @@ type Event struct {
 	Inline []byte
 	// Cause is the causal context, if any.
 	Cause *Cause
+	// UI is the UI action stamp, if any. It is never set for "hdr" records
+	// (their "ui" is HeaderUI).
+	UI *UIStamp
 	// Fields holds all fields of the record.
 	Fields map[string]json.RawMessage
 
@@ -41,6 +44,7 @@ type eventCommon struct {
 	Blob   *BlobRef `json:"blob"`
 	B64    []byte   `json:"b64"`
 	Cause  *Cause   `json:"cause"`
+	UI     *UIStamp `json:"ui"`
 }
 
 // ParseEvent parses one JSON line.
@@ -70,7 +74,21 @@ func parseEvent(line []byte) (*Event, error) {
 	}
 	var c eventCommon
 	if err := json.Unmarshal(line, &c); err != nil {
-		return nil, errors.Wrap(err, "parse event fields")
+		// A malformed "ui" object must not hide the rest of the event.
+		rest := make(map[string]json.RawMessage, len(fields))
+		for k, v := range fields {
+			if k != "ui" {
+				rest[k] = v
+			}
+		}
+		c = eventCommon{}
+		raw, mErr := json.Marshal(rest)
+		if mErr != nil || json.Unmarshal(raw, &c) != nil {
+			return nil, errors.Wrap(err, "parse event fields")
+		}
+	}
+	if c.Kind == KindHeader || (c.UI != nil && c.UI.A == 0 && c.UI.Rel == "") {
+		c.UI = nil
 	}
 	return &Event{
 		Seq:    c.Seq,
@@ -80,6 +98,7 @@ func parseEvent(line []byte) (*Event, error) {
 		Blob:   c.Blob,
 		Inline: c.B64,
 		Cause:  c.Cause,
+		UI:     c.UI,
 		Fields: fields,
 		Raw:    line,
 	}, nil

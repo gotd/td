@@ -62,6 +62,83 @@ const (
 	KindStorageDec    = "st.decrypt"
 )
 
+// UI event kinds (P14). Input actions carry "a", the action id; semantic and
+// view-state events carry "ui" (the action they came from) or "a" with
+// "src":"app" when they have no input parent.
+const (
+	KindUIPress     = "ui.press"
+	KindUIClick     = "ui.click"
+	KindUIKey       = "ui.key"
+	KindUIKeyEnd    = "ui.key.end"
+	KindUIScroll    = "ui.scroll"
+	KindUIScrollEnd = "ui.scroll.end"
+	KindUIType      = "ui.type"
+	KindUITypeEnd   = "ui.type.end"
+	KindUIShortcut  = "ui.shortcut"
+	KindUIMenu      = "ui.menu"
+	KindUIMarker    = "ui.marker"
+
+	KindUIChat       = "ui.chat"
+	KindUISection    = "ui.section"
+	KindUIBox        = "ui.box"
+	KindUIMediaOpen  = "ui.media.open"
+	KindUIMediaClose = "ui.media.close"
+	KindUICall       = "ui.call"
+	KindUIAccount    = "ui.account"
+	KindUISession    = "ui.session"
+	KindUISearchChat = "ui.search.chat"
+	KindUIFolder     = "ui.folder"
+	KindUINav        = "ui.nav"
+	KindAppWindow    = "app.window"
+	KindAppState     = "app.state"
+)
+
+// Relations of a UIStamp to its action.
+const (
+	// UIRelSync: emitted inside the input scope (exact).
+	UIRelSync = "sync"
+	// UIRelDeferred: emitted shortly (kDeferredMs, 150 ms) after the last
+	// input scope closed, with no newer input in between.
+	UIRelDeferred = "deferred"
+	// UIRelAfter: emitted within kAfterMs (3 s) after the last input scope,
+	// or inside a scope opened more than 500 ms ago (a nested event loop,
+	// dt counts from the scope open).
+	UIRelAfter = "after"
+)
+
+// UIStamp is the "ui" field of events emitted on the main thread during or
+// shortly after an input action: {"a":41,"rel":"deferred","dt":0}.
+type UIStamp struct {
+	// A is the action id.
+	A uint32 `json:"a"`
+	// Rel is UIRelSync, UIRelDeferred or UIRelAfter.
+	Rel string `json:"rel"`
+	// DT is the time since the action scope closed (since it opened, for
+	// nested event loops), in integer milliseconds. It is written for
+	// deferred and after stamps.
+	DT float64 `json:"dt"`
+}
+
+// MarshalJSON implements json.Marshaler: "dt" is omitted for sync stamps.
+func (s UIStamp) MarshalJSON() ([]byte, error) {
+	b := []byte(`{"a":` + strconv.FormatUint(uint64(s.A), 10) + `,"rel":` + strconv.Quote(s.Rel))
+	if s.Rel != UIRelSync {
+		b = append(b, `,"dt":`...)
+		b = strconv.AppendFloat(b, s.DT, 'f', -1, 64)
+	}
+	return append(b, '}'), nil
+}
+
+// HeaderUI is the "ui" object of "hdr": {"v":1,"ids":"hmac64","raw_ids":false}.
+type HeaderUI struct {
+	V int `json:"v"`
+	// IDs is "hmac64" (ids written as "h:<16 hex>") or "raw" (decimal
+	// strings, with RawIDs).
+	IDs     string `json:"ids,omitempty"`
+	RawIDs  bool   `json:"raw_ids"`
+	Verbose bool   `json:"verbose,omitempty"`
+}
+
 // Directions of "msg" events.
 const (
 	DirOut = "out"
@@ -215,4 +292,6 @@ type Header struct {
 	MonoT         float64  `json:"mono_t,omitempty"`
 	PID           int64    `json:"pid,omitempty"`
 	Flags         []string `json:"flags,omitempty"`
+	// UI is set when UI tracing (P14) is on.
+	UI *HeaderUI `json:"ui,omitempty"`
 }

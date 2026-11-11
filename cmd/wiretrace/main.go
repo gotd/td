@@ -5,9 +5,9 @@
 // when they are sent.
 //
 //	wiretrace decode   [--schema S] [--max-bytes N] [--dir in|out] [--method M] [--no-body] RUN
-//	wiretrace timeline [--schema S] [--no-storage] [--kinds K,...] RUN
-//	wiretrace stats    [--schema S] [--json] [--top N] RUN
-//	wiretrace diff     [--schema S] [--schema-b S] [--timing] [--fields=false] A B
+//	wiretrace timeline [--schema S] [--no-storage] [--kinds K,...] [--ui[=collapse]] RUN
+//	wiretrace stats    [--schema S] [--json] [--top N] [--by method|ui] RUN
+//	wiretrace diff     [--schema S] [--schema-b S] [--timing] [--fields=false] [--align phase|ui|marker] A B
 //
 // RUN is a run directory with events-NNNN.jsonl and blobs-NNNN.bin, e.g.
 // <tdesktop working dir>/trace/20260101T000000Z-1234 (UTC start time, pid).
@@ -48,6 +48,17 @@
 // offsets, phase durations, ping cadence and reconnect backoff:
 //
 //	wiretrace diff --schema S --timing tdesktop-run gotd-run
+//
+// With UI events (ui.*, app.*; see package uiattr), timeline --ui groups
+// requests under the UI action they are attributed to (sync, chain,
+// deferred, after; update-driven and background requests separately),
+// --ui=collapse prints one line per action; stats --by ui adds per action,
+// per view and attribution share tables; diff --align ui aligns actions
+// and markers by token (click(Dialogs::InnerWidget)>chat(user)) and diffs
+// the requests of aligned pairs, diff --align marker aligns ui.marker
+// labels (e.g. two tdesktop runs driven by the same script) and diffs the requests
+// between them. --ui-window (default 3s) bounds weak "after" stamps and
+// --ui-infer attributes unstamped main-thread requests by time.
 package main
 
 import (

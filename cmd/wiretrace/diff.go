@@ -511,12 +511,33 @@ func runDiff(ctx context.Context, args []string, stdout, stderr io.Writer) error
 	schemaB := fs.String("schema-b", "", "schema of B (default: --schema, or found next to B)")
 	timing := fs.Bool("timing", false, "show offsets from the phase start, phase durations, ping cadence and backoff")
 	fields := fs.Bool("fields", true, "show field differences of aligned messages (volatile fields masked)")
+	align := fs.String("align", alignPhase, "phase: outgoing messages per phase; ui: requests per aligned UI action; "+
+		"marker: requests between aligned ui.marker labels (schema optional)")
+	uiOpt := addUIFlags(fs)
 	if err := parseFlags(fs, args, 2, "diff [flags] A B", stderr); err != nil {
 		return err
 	}
 	sb := *schemaB
 	if sb == "" {
 		sb = *schemaDir
+	}
+	switch *align {
+	case alignPhase:
+	case alignUI, alignMarker:
+		a, err := collectAlign(ctx, fs.Arg(0), *schemaDir, *align, uiOpt, stderr)
+		if err != nil {
+			return err
+		}
+		b, err := collectAlign(ctx, fs.Arg(1), sb, *align, uiOpt, stderr)
+		if err != nil {
+			return err
+		}
+		w := bufio.NewWriter(stdout)
+		printAlign(w, *align, a, b, *timing)
+		return w.Flush()
+	default:
+		_, _ = fmt.Fprintf(stderr, "wiretrace diff: --align must be phase, ui or marker, got %q\n", *align)
+		return errUsage
 	}
 	a, err := collectShape(ctx, fs.Arg(0), *schemaDir, stderr)
 	if err != nil {

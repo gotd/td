@@ -14,7 +14,11 @@
 //     (thread) and "ev" (kind), plus kind-specific fields. 64-bit ids are
 //     decimal strings, session ids are signed, constructor ids are
 //     "0x%08x". Events emitted while a response or an update was handled
-//     carry "cause":{"req","outer","type"}.
+//     carry "cause":{"req","outer","type"}. With UI tracing, "hdr" has
+//     "ui":{"v","ids","raw_ids"}, ui.* and app.* records describe user
+//     actions and view state, and main-thread events emitted during or
+//     shortly after an action carry "ui":{"a","rel","dt"} (UIStamp, see
+//     package wiretrace/uiattr).
 //   - blobs-NNNN.bin: "TDWT", u16 version 1, then records of u64 seq, u32 len,
 //     u32 crc32c and the bytes. Events reference them with
 //     "blob":{"seg","off","len","crc32c","sha256"}, where off points at the
