@@ -13,14 +13,15 @@ import (
 var (
 	_ StateStorage        = (*FileStorage)(nil)
 	_ ChannelAccessHasher = (*FileStorage)(nil)
+	_ UserAccessHasher    = (*FileStorage)(nil)
 )
 
 // fileStorageVersion is the version of the FileStorage format.
 const fileStorageVersion = 1
 
-// FileStorage is a StateStorage and ChannelAccessHasher that keeps the update
-// state of every user, the pts of their channels and the channel access
-// hashes in one JSON file, so that a restarted client gets the updates it
+// FileStorage is a StateStorage, ChannelAccessHasher and UserAccessHasher that
+// keeps the update state of every user, the pts of their channels and the
+// channel and user access hashes in one JSON file, so that a restarted client gets the updates it
 // missed while stopped.
 //
 // Every change rewrites the file atomically (a temporary file in the same
@@ -54,6 +55,9 @@ type fileStorageUser struct {
 	Channels map[int64]int `json:"channels,omitempty"`
 	// AccessHashes is channel ID to access hash.
 	AccessHashes map[int64]int64 `json:"access_hashes,omitempty"`
+	// UserAccessHashes is user ID to access hash (added in v0.165.0, still
+	// format version 1: older versions ignore it).
+	UserAccessHashes map[int64]int64 `json:"user_access_hashes,omitempty"`
 }
 
 // NewFileStorage returns a FileStorage that keeps the state in the file at path.
@@ -309,5 +313,44 @@ func (s *FileStorage) SetChannelAccessHash(_ context.Context, userID, channelID,
 		u.AccessHashes = map[int64]int64{}
 	}
 	u.AccessHashes[channelID] = accessHash
+	return s.save()
+}
+
+// GetUserAccessHash implements UserAccessHasher.
+func (s *FileStorage) GetUserAccessHash(_ context.Context, userID, targetUserID int64) (int64, bool, error) {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+
+	u, err := s.user(userID)
+	if err != nil {
+		return 0, false, err
+	}
+	if u == nil {
+		return 0, false, nil
+	}
+	hash, ok := u.UserAccessHashes[targetUserID]
+	return hash, ok, nil
+}
+
+// SetUserAccessHash implements UserAccessHasher.
+func (s *FileStorage) SetUserAccessHash(_ context.Context, userID, targetUserID, accessHash int64) error {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+
+	u, err := s.user(userID)
+	if err != nil {
+		return err
+	}
+	if u == nil {
+		u = &fileStorageUser{}
+		s.data.Users[userID] = u
+	}
+	if old, ok := u.UserAccessHashes[targetUserID]; ok && old == accessHash {
+		return nil
+	}
+	if u.UserAccessHashes == nil {
+		u.UserAccessHashes = map[int64]int64{}
+	}
+	u.UserAccessHashes[targetUserID] = accessHash
 	return s.save()
 }

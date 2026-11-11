@@ -88,11 +88,19 @@ type Config struct {
 	// State storage.
 	// In-mem used if not provided.
 	Storage StateStorage
-	// Channel access hash storage.
-	// In-mem used if not provided.
+	// Channel access hash storage. In-mem used if not provided.
+	//
+	// The manager needs the access hash of a channel to track it. Hashes are
+	// learned from the entities of updates and differences; for a channel
+	// the manager has not seen there yet (e.g. known only from dialogs), its
+	// first update costs an extra updates.getDifference to find the hash.
+	// Pass a hasher that also knows the peers the rest of the app has seen,
+	// such as *peers.Manager, or a persistent one (FileStorage, the contrib
+	// storages), to avoid that and to keep channels across restarts.
 	AccessHasher ChannelAccessHasher
-	// User access hash storage.
-	// In-mem used if not provided.
+	// User access hash storage. If not provided, AccessHasher is used when
+	// it implements UserAccessHasher (e.g. *peers.Manager, FileStorage),
+	// otherwise an in-mem one.
 	UserAccessHasher UserAccessHasher
 	// Logger (optional).
 	Logger log.Logger
@@ -127,7 +135,13 @@ func (cfg *Config) setDefaults() {
 		cfg.AccessHasher = newMemAccessHasher()
 	}
 	if cfg.UserAccessHasher == nil {
-		cfg.UserAccessHasher = newMemUserAccessHasher()
+		if h, ok := cfg.AccessHasher.(UserAccessHasher); ok {
+			// One hasher for both, e.g. a persistent one: users kept in
+			// memory would be lost on restart while channels are kept.
+			cfg.UserAccessHasher = h
+		} else {
+			cfg.UserAccessHasher = newMemUserAccessHasher()
+		}
 	}
 	if cfg.Logger == nil {
 		cfg.Logger = log.Nop

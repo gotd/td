@@ -16,7 +16,7 @@ func (m *Manager) SetChannelAccessHash(ctx context.Context, userID, channelID, a
 	if !ok || myID != userID {
 		return nil
 	}
-	return m.storage.Save(context.TODO(), Key{
+	return m.storage.Save(ctx, Key{
 		Prefix: channelPrefix,
 		ID:     channelID,
 	}, Value{
@@ -30,9 +30,37 @@ func (m *Manager) GetChannelAccessHash(ctx context.Context, userID, channelID in
 	if !ok || myID != userID {
 		return 0, false, nil
 	}
-	v, found, err := m.storage.Find(context.TODO(), Key{
+	v, found, err := m.storage.Find(ctx, Key{
 		Prefix: channelPrefix,
 		ID:     channelID,
+	})
+	return v.AccessHash, found, err
+}
+
+// SetUserAccessHash implements updates.UserAccessHasher, so a Manager passed
+// as updates.Config.AccessHasher serves user hashes too.
+func (m *Manager) SetUserAccessHash(ctx context.Context, userID, targetUserID, accessHash int64) error {
+	myID, ok := m.myID()
+	if !ok || myID != userID {
+		return nil
+	}
+	return m.storage.Save(ctx, Key{
+		Prefix: usersPrefix,
+		ID:     targetUserID,
+	}, Value{
+		AccessHash: accessHash,
+	})
+}
+
+// GetUserAccessHash implements updates.UserAccessHasher.
+func (m *Manager) GetUserAccessHash(ctx context.Context, userID, targetUserID int64) (accessHash int64, found bool, err error) {
+	myID, ok := m.myID()
+	if !ok || myID != userID {
+		return 0, false, nil
+	}
+	v, found, err := m.storage.Find(ctx, Key{
+		Prefix: usersPrefix,
+		ID:     targetUserID,
 	})
 	return v.AccessHash, found, err
 }
