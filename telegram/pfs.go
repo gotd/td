@@ -25,9 +25,19 @@ func (c *Client) handlePrimaryConnDead(err error) {
 
 	c.sessionsMux.Lock()
 	if s, ok := c.sessions[dc]; ok {
-		s.Store(pool.Session{DC: dc})
+		c.dropKeyLocked(dc, s)
 	}
 	c.sessionsMux.Unlock()
+}
+
+// dropKeyLocked wipes the key and salt of the stored session of dc and
+// remembers the dropped key, so that connections still running on it don't
+// store it back. Must be called with sessionsMux held.
+func (c *Client) dropKeyLocked(dc int, s *pool.SyncSession) {
+	if old := s.Load(); !old.AuthKey.Zero() {
+		c.droppedKeys[dc] = old.AuthKey.ID
+	}
+	s.Store(pool.Session{DC: dc})
 }
 
 func (c *Client) handleDCConnDead(dcID int, err error) {
@@ -46,7 +56,7 @@ func (c *Client) handleDCConnDead(dcID int, err error) {
 		s = pool.NewSyncSession(pool.Session{DC: dcID})
 		c.sessions[dcID] = s
 	}
-	s.Store(pool.Session{DC: dcID})
+	c.dropKeyLocked(dcID, s)
 	c.sessionsMux.Unlock()
 
 	c.notifyConnDead(ConnDeadEvent{DC: dcID, Kind: ConnKindData, Err: err})

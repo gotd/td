@@ -14,6 +14,7 @@ import (
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
+	"github.com/gotd/td/tg"
 )
 
 func TestClientHandleDCConnDeadPFSDropResetsSession(t *testing.T) {
@@ -356,4 +357,38 @@ func TestClientHandleCDNConnDeadFingerprintMissProcessesMultipleCallsInParallel(
 	}
 
 	close(unlock)
+}
+
+// A connection still running on a key dropped after ErrPFSDropKeysRequired
+// may report its session afterwards (SessionInit): the dropped key must not be
+// stored back, or new connections reuse it and skip the auth transfer.
+func TestClientDroppedDCKeyNotStoredBack(t *testing.T) {
+	a := require.New(t)
+	client := Client{
+		log: log.For(log.Nop),
+	}
+	client.init()
+	const (
+		homeDC  = 2
+		otherDC = 5
+	)
+	client.session = pool.NewSyncSession(pool.Session{DC: homeDC})
+
+	oldKey := crypto.Key{1}.WithID()
+	session := pool.NewSyncSession(pool.Session{DC: otherDC, AuthKey: oldKey, Salt: 77})
+	client.sessions[otherDC] = session
+
+	client.handleDCConnDead(otherDC, mtproto.ErrPFSDropKeysRequired)
+	a.True(session.Load().AuthKey.Zero())
+
+	// The old connection reports its session late.
+	cfg := tg.Config{ThisDC: otherDC}
+	a.NoError(client.onSession(cfg, mtproto.Session{Key: oldKey, Salt: 78}))
+	a.True(session.Load().AuthKey.Zero(), "dropped key stored back")
+
+	// A new key is stored.
+	newKey := crypto.Key{2}.WithID()
+	a.NoError(client.onSession(cfg, mtproto.Session{Key: newKey, Salt: 79}))
+	a.Equal(newKey, session.Load().AuthKey)
+	a.Equal(int64(79), session.Load().Salt)
 }

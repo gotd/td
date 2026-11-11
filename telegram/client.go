@@ -149,6 +149,10 @@ type Client struct {
 	sessions map[int]*pool.SyncSession
 	// cdnSessions stores session state for CDN pools separately from regular DCs.
 	cdnSessions map[int]*pool.SyncSession
+	// droppedKeys holds the ids of auth keys dropped per DC after
+	// ErrPFSDropKeysRequired, so that a connection still running on a dropped
+	// key can't store it back (see storeDCSess). Guarded by sessionsMux.
+	droppedKeys map[int][8]byte
 	sessionsMux sync.Mutex
 	// CDN public keys loaded from help.getCdnConfig and cached per CDN DC.
 	cdnKeys     []PublicKey
@@ -334,6 +338,7 @@ func (c *Client) init() {
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}
+	c.droppedKeys = map[int][8]byte{}
 	c.subConns = newDCPoolCache(1, poolKindMigrate)
 	if c.filePoolSize <= 0 {
 		c.filePoolSize = defaultFilePoolSize
