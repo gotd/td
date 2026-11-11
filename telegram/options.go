@@ -139,7 +139,8 @@ type Options struct {
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
 	// PingInterval is duration between pings (ping_delay_disconnect) of a
-	// connection. Defaults to 1 minute, see mtproto.Options.
+	// connection. Zero (default) pings like Telegram Desktop, every 30–45
+	// seconds with disconnect_delay 60; see mtproto.Options.
 	PingInterval time.Duration
 	// PingTimeout is the timeout of ping response, after which the connection
 	// is considered dead. Defaults to 15 seconds, see mtproto.Options.
