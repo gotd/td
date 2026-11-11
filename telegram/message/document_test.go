@@ -98,9 +98,11 @@ func TestUploadedDocument(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      file,
 		ForceFile: true,
+		MimeType:  "application/octet-stream",
 	}, mock)
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
-		File: file,
+		File:     file,
+		MimeType: "image/jpeg",
 		Attributes: []tg.DocumentAttributeClass{
 			&tg.DocumentAttributeFilename{FileName: "abc.jpg"},
 		},
@@ -112,6 +114,7 @@ func TestUploadedDocument(t *testing.T) {
 		Stickers: []tg.InputDocumentClass{&tg.InputDocument{
 			ID: loc.GetID(),
 		}},
+		MimeType: "application/octet-stream",
 		Attributes: []tg.DocumentAttributeClass{
 			&tg.DocumentAttributeHasStickers{},
 		},
@@ -124,4 +127,32 @@ func TestUploadedDocument(t *testing.T) {
 	require.NoError(t, err)
 	_, err = sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc).HasStickers())
 	require.NoError(t, err)
+}
+
+// A file of unknown type is sent as application/octet-stream with its name,
+// like Telegram Desktop; without both, clients showed it as an audio track.
+func TestUploadedDocumentDefaults(t *testing.T) {
+	for _, tt := range []struct {
+		name, mime string
+	}{
+		{"cmp-doc.bin", "application/octet-stream"},
+		{"noext", "application/octet-stream"},
+		{"notes.unknownext", "application/octet-stream"},
+		{"a.jpg", "image/jpeg"},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			doc := File(&tg.InputFile{ID: 1, Parts: 1, Name: tt.name}).media()
+			require.Equal(t, tt.mime, doc.MimeType)
+			require.Equal(t, []tg.DocumentAttributeClass{
+				&tg.DocumentAttributeFilename{FileName: tt.name},
+			}, doc.Attributes)
+		})
+	}
+
+	// Explicit MIME and file name win.
+	doc := File(&tg.InputFile{ID: 1, Name: "a.bin"}).MIME("text/csv").Filename("report.csv").media()
+	require.Equal(t, "text/csv", doc.MimeType)
+	require.Equal(t, []tg.DocumentAttributeClass{
+		&tg.DocumentAttributeFilename{FileName: "report.csv"},
+	}, doc.Attributes)
 }
