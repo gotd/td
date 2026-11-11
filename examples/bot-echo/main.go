@@ -3,64 +3,82 @@ package main
 
 import (
 	"context"
+	"os"
+	"os/signal"
+	"strconv"
 
+	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
 	"github.com/gotd/log/logzap"
 
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/message"
+	"github.com/gotd/td/telegram/bot"
 	"github.com/gotd/td/tg"
 )
 
 func main() {
 	// Environment variables:
-	//	BOT_TOKEN:     token from BotFather
-	// 	APP_ID:        app_id of Telegram app.
-	// 	APP_HASH:      app_hash of Telegram app.
-	// 	SESSION_FILE:  path to session file
-	// 	SESSION_DIR:   path to session directory, if SESSION_FILE is not set
+	//	BOT_TOKEN:  token from BotFather
+	// 	APP_ID:     app_id of Telegram app.
+	// 	APP_HASH:   app_hash of Telegram app.
+	// 	STATE_DIR:  directory for the session and the update state
+	//	            (default "bot-echo"), so that the bot gets the messages
+	//	            sent while it was stopped.
 	examples.Run(func(ctx context.Context, log *zap.Logger) error {
-		// Dispatcher handles incoming updates.
-		dispatcher := tg.NewUpdateDispatcher()
-		opts := telegram.Options{
-			Logger:        logzap.New(log),
-			UpdateHandler: dispatcher,
+		ctx, stop := signal.NotifyContext(ctx, os.Interrupt)
+		defer stop()
+
+		appID, err := strconv.Atoi(os.Getenv("APP_ID"))
+		if err != nil {
+			return errors.Wrap(err, "APP_ID")
 		}
-		return telegram.BotFromEnvironment(ctx, opts, func(ctx context.Context, client *telegram.Client) error {
-			// Raw MTProto API client, allows making raw RPC calls.
-			api := tg.NewClient(client)
+		dir := os.Getenv("STATE_DIR")
+		if dir == "" {
+			dir = "bot-echo"
+		}
 
-			// Helper for sending messages.
-			sender := message.NewSender(api)
+		// Dispatcher handles incoming updates.
+		d := tg.NewUpdateDispatcher()
+		b, err := bot.New(appID, os.Getenv("APP_HASH"), os.Getenv("BOT_TOKEN"), bot.Options{
+			Dir:     dir,
+			Handler: d,
+			Client:  telegram.Options{Logger: logzap.New(log)},
+		})
+		if err != nil {
+			return err
+		}
 
-			// Setting up handler for incoming private/group message.
-			dispatcher.OnNewMessage(func(ctx context.Context, entities tg.Entities, u *tg.UpdateNewMessage) error {
-				m, ok := u.Message.(*tg.Message)
-				if !ok || m.Out {
-					// Outgoing message, not interesting.
-					return nil
-				}
+		// Private chats and basic groups.
+		d.OnNewMessage(func(ctx context.Context, e tg.Entities, u *tg.UpdateNewMessage) error {
+			m, ok := u.Message.(*tg.Message)
+			if !ok || m.Out {
+				// Outgoing message, not interesting.
+				return nil
+			}
+			_, err := b.Sender().Reply(e, u).Text(ctx, m.Message)
+			return err
+		})
+		// Supergroups and channels.
+		d.OnNewChannelMessage(func(ctx context.Context, e tg.Entities, u *tg.UpdateNewChannelMessage) error {
+			m, ok := u.Message.(*tg.Message)
+			if !ok || m.Out {
+				return nil
+			}
+			_, err := b.Sender().Reply(e, u).Text(ctx, m.Message)
+			return err
+		})
 
-				// Sending reply.
-				_, err := sender.Reply(entities, u).Text(ctx, m.Message)
-				return err
-			})
+		// Bootstrap: connects, signs in (or checks that the stored session
+		// is of this bot) and starts the updates manager.
+		if err := b.Start(ctx, telegram.WithLifetime(ctx)); err != nil {
+			return err
+		}
+		defer func() { _ = b.Close() }()
+		log.Info("Bot started", zap.String("username", b.Self().Username))
 
-			// Setting up handler for incoming channel/supergroup message.
-			dispatcher.OnNewChannelMessage(func(ctx context.Context, entities tg.Entities, u *tg.UpdateNewChannelMessage) error {
-				m, ok := u.Message.(*tg.Message)
-				if !ok || m.Out {
-					// Outgoing message, not interesting.
-					return nil
-				}
-
-				// Sending reply.
-				_, err := sender.Reply(entities, u).Text(ctx, m.Message)
-				return err
-			})
-			return nil
-		}, telegram.RunUntilCanceled)
+		// Runs until Ctrl+C or a fatal error, e.g. a revoked token.
+		return b.Wait(context.Background())
 	})
 }
