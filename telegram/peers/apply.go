@@ -2,6 +2,7 @@ package peers
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
@@ -48,6 +49,7 @@ func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
 				return errors.Wrapf(err, "save user %d", user.ID)
 			}
 		}
+		m.saveUsernames(userPeerID(id), &tg.PeerUser{UserID: id}, user.Username, user.Usernames)
 		ids = append(ids, userPeerID(id))
 	}
 
@@ -101,6 +103,7 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			}
 
 			channels = append(channels, ch)
+			m.saveUsernames(channelPeerID(ch.ID), &tg.PeerChannel{ChannelID: ch.ID}, ch.Username, ch.Usernames)
 			ids = append(ids, channelPeerID(ch.ID))
 		case *tg.ChannelForbidden:
 			k.ID = ch.ID
@@ -125,6 +128,21 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 	}
 	m.updated(ids...)
 	return nil
+}
+
+// saveUsernames indexes the active usernames of a peer for ResolveDomain.
+func (m *Manager) saveUsernames(id constant.TDLibPeerID, peer tg.PeerClass, main string, list []tg.Username) {
+	if m.usernames == nil {
+		return
+	}
+	m.usernames.set(id, peer, activeUsernames(main, list), m.now().Add(UsernameTTL))
+}
+
+func (m *Manager) now() time.Time {
+	if m.clock == nil {
+		return time.Now()
+	}
+	return m.clock.Now()
 }
 
 // Apply adds given entities to manager state.

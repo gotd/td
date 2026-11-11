@@ -8,6 +8,7 @@ import (
 	"github.com/gotd/log"
 	"golang.org/x/sync/singleflight"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/tg"
 )
 
@@ -29,6 +30,10 @@ type Manager struct {
 
 	logger log.Helper
 	sg     singleflight.Group
+	clock  clock.Clock
+
+	// usernames maps normalized usernames to peers (UsernameTTL).
+	usernames *usernameCache
 }
 
 // Init initializes Manager.
