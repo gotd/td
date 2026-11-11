@@ -67,6 +67,10 @@ func TestUpload(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
+		MimeType:  "image/jpeg",
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeFilename{FileName: "10.jpg"},
+		},
 	}, mock)
 	_, err = dialog.Upload(FromReader("abc.jpg", nil)).File(ctx)
 	require.NoError(t, err)
@@ -74,6 +78,10 @@ func TestUpload(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
+		MimeType:  "image/jpeg",
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeFilename{FileName: "10.jpg"},
+		},
 	}, mock)
 	_, err = dialog.Upload(FromFS(nil, "abc.jpg")).File(ctx)
 	require.NoError(t, err)
@@ -81,6 +89,10 @@ func TestUpload(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
+		MimeType:  "image/jpeg",
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeFilename{FileName: "10.jpg"},
+		},
 	}, mock)
 	_, err = dialog.Upload(FromBytes("abc.jpg", nil)).File(ctx)
 	require.NoError(t, err)
@@ -88,6 +100,10 @@ func TestUpload(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
+		MimeType:  "image/jpeg",
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeFilename{FileName: "10.jpg"},
+		},
 	}, mock)
 	_, err = dialog.Upload(FromFile(nil)).File(ctx)
 	require.NoError(t, err)
@@ -95,6 +111,10 @@ func TestUpload(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
+		MimeType:  "image/jpeg",
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeFilename{FileName: "10.jpg"},
+		},
 	}, mock)
 	_, err = dialog.Upload(FromURL("http://example.com")).File(ctx)
 	require.NoError(t, err)
@@ -102,6 +122,10 @@ func TestUpload(t *testing.T) {
 	expectSendMedia(t, &tg.InputMediaUploadedDocument{
 		File:      f,
 		ForceFile: true,
+		MimeType:  "image/jpeg",
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeFilename{FileName: "10.jpg"},
+		},
 	}, mock)
 	_, err = dialog.Upload(FromSource(source.NewHTTPSource(), "http://example.com")).File(ctx)
 	require.NoError(t, err)

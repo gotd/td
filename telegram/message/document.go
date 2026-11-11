@@ -3,6 +3,8 @@ package message
 import (
 	"context"
 	"encoding/hex"
+	"mime"
+	"path/filepath"
 	"time"
 
 	"github.com/go-faster/errors"
@@ -269,16 +271,66 @@ func (u *UploadedDocumentBuilder) TTLSeconds(ttl int) *UploadedDocumentBuilder {
 	return u
 }
 
+// defaultDocumentMIME is the MIME type of documents of unknown type, as in
+// Telegram Desktop.
+const defaultDocumentMIME = "application/octet-stream"
+
+// media returns the document with defaults for what was not set, like
+// Telegram Desktop sends: the file name attribute (from the uploaded file) and
+// the MIME type (by extension, or application/octet-stream). Without them
+// clients show the document as an unknown audio track.
+func (u *UploadedDocumentBuilder) media() *tg.InputMediaUploadedDocument {
+	doc := u.doc
+	name := ""
+	if f, ok := doc.File.(interface{ GetName() string }); ok {
+		name = f.GetName()
+	}
+	hasFilename := false
+	for _, attr := range doc.Attributes {
+		if a, ok := attr.(*tg.DocumentAttributeFilename); ok {
+			hasFilename = true
+			if name == "" {
+				name = a.FileName
+			}
+		}
+	}
+	if !hasFilename && name != "" {
+		doc.Attributes = append(append([]tg.DocumentAttributeClass(nil), doc.Attributes...),
+			&tg.DocumentAttributeFilename{FileName: name})
+	}
+	if doc.MimeType == "" {
+		doc.MimeType = mimeByName(name)
+	}
+	return &doc
+}
+
+// mimeByName returns the MIME type of a file name by its extension, without
+// parameters, or application/octet-stream.
+func mimeByName(name string) string {
+	ext := filepath.Ext(name)
+	if ext == "" {
+		return defaultDocumentMIME
+	}
+	t := mime.TypeByExtension(ext)
+	if t == "" {
+		return defaultDocumentMIME
+	}
+	if mt, _, err := mime.ParseMediaType(t); err == nil {
+		return mt
+	}
+	return defaultDocumentMIME
+}
+
 // apply implements MediaOption.
 func (u *UploadedDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
-	return Media(&u.doc, u.caption...).apply(ctx, b)
+	return Media(u.media(), u.caption...).apply(ctx, b)
 }
 
 // applyMulti implements MultiMediaOption.
 func (u *UploadedDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
 	m, err := b.sender.uploadMedia(ctx, &tg.MessagesUploadMediaRequest{
 		Peer:  b.peer,
-		Media: &u.doc,
+		Media: u.media(),
 	})
 	if err != nil {
 		return errors.Wrap(err, "upload media")
