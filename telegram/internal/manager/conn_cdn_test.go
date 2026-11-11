@@ -270,15 +270,9 @@ func TestConnInvokeDataKeepsInvokeWithoutUpdates(t *testing.T) {
 	outer, ok := p.lastInput.(*tg.InvokeWithoutUpdatesRequest)
 	a.True(ok)
 
-	withLayer, ok := outer.Query.(*tg.InvokeWithLayerRequest)
-	a.True(ok)
-	a.Equal(tg.Layer, withLayer.Layer)
-
-	inner, ok := withLayer.Query.(*tg.InvokeWithoutUpdatesRequest)
-	a.True(ok)
-
-	query, ok := inner.Query.(noopDecoder)
-	a.True(ok)
+	// Inited connection: no invokeWithLayer.
+	query, ok := outer.Query.(noopDecoder)
+	a.True(ok, "%T", outer.Query)
 	_, ok = query.Encoder.(*tg.HelpGetConfigRequest)
 	a.True(ok)
 }

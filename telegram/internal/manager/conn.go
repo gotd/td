@@ -263,12 +263,13 @@ func (c *Conn) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 	if c.needsInit.Load() {
 		return c.invokeReinit(ctx, input, output)
 	}
-	q := c.wrapRequest(noopDecoder{input})
-	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
-		Layer: c.layer,
-		Query: q,
-	})
-	err := c.proto.Invoke(ctx, req, output)
+	// The connection was inited by init (initConnection(help.getConfig)
+	// wrapped in invokeWithLayer, answered with a result): the server keeps
+	// the layer and the client info, so queries are sent without
+	// invokeWithLayer, like Telegram Desktop (SessionPrivate: needsLayer
+	// only while !connectionInited) and TDLib (AuthData header dropped on
+	// the first result).
+	err := c.proto.Invoke(ctx, c.wrapRequest(noopDecoder{input}), output)
 	if !isNotInited(err) {
 		return err
 	}
@@ -290,11 +291,9 @@ func (c *Conn) invokeReinit(ctx context.Context, input bin.Encoder, output bin.D
 		Query: q,
 	})
 	if err := c.proto.Invoke(ctx, req, output); err != nil {
-		// An RPC error other than the not-inited ones means that the
-		// server accepted initConnection and handled the query.
-		if _, rpc := tgerr.As(err); rpc && !isNotInited(err) {
-			c.needsInit.Store(false)
-		}
+		// An RPC error may come from initConnection itself, so the
+		// connection is not known to be inited yet: keep wrapping until a
+		// result, as Telegram Desktop does ("wait till a good response").
 		return err
 	}
 	if c.needsInit.CompareAndSwap(true, false) {
