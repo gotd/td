@@ -116,11 +116,17 @@ func (b *Builder) Raw() (string, []tg.MessageEntityClass) {
 }
 
 // Complete returns build result and resets builder.
+//
+// Entities are nil if there are none, so that optional entities vectors of
+// requests are omitted instead of sent empty (as Telegram Desktop does).
 func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	msg, entities := b.Raw()
-	defer SortEntities(entities)
-
-	return b.fixEntities(msg, entities)
+	msg, entities = b.fixEntities(msg, entities)
+	if len(entities) == 0 {
+		return msg, nil
+	}
+	SortEntities(entities)
+	return msg, entities
 }
 
 // ShrinkPreCode merges following <pre> and <code> entities, if needed.
