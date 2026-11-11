@@ -3,6 +3,7 @@ package updates
 import (
 	"context"
 	"fmt"
+	"github.com/gotd/td/clock"
 	"time"
 
 	"github.com/go-faster/errors"
@@ -89,6 +90,9 @@ type internalState struct {
 	tracer                trace.Tracer
 	metrics               *updatesMetrics
 	chDiffSem             chDiffSem
+	clock                 clock.Clock
+	// diffRetry retries a failed common difference (UPD-4).
+	diffRetry *diffRetry
 }
 
 type stateConfig struct {
@@ -114,6 +118,7 @@ type stateConfig struct {
 	DiffLimit             int
 	WorkGroup             *errgroup.Group
 	ChannelDiffSem        chDiffSem
+	Clock                 clock.Clock
 }
 
 func newState(ctx context.Context, cfg stateConfig) *internalState {
@@ -148,6 +153,8 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		tracer:                cfg.Tracer,
 		metrics:               cfg.Metrics,
 		chDiffSem:             cfg.ChannelDiffSem,
+		clock:                 cfg.Clock,
+		diffRetry:             newDiffRetry(cfg.Clock),
 	}
 	s.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.State.Pts,
@@ -332,6 +339,11 @@ func (s *internalState) Run(ctx context.Context) error {
 		case <-s.idleTimeout.C:
 			s.log.Debug(ctx, "Idle timeout")
 			if err := s.getDifferenceLogger(ctx, "idle-timeout"); err != nil {
+				return err
+			}
+		case <-s.diffRetry.C:
+			s.diffRetry.fired()
+			if err := s.getDifferenceLogger(ctx, "retry"); err != nil {
 				return err
 			}
 		case channelID := <-s.removeChannel:
@@ -616,6 +628,7 @@ func (s *internalState) newChannelState(channelID, accessHash int64, initialPts 
 		Tracer:                s.tracer,
 		Metrics:               s.metrics,
 		ChannelDiffSem:        s.chDiffSem,
+		Clock:                 s.clock,
 	})
 }
 
@@ -774,13 +787,64 @@ func commonDiffResult(diff tg.UpdatesDifferenceClass) string {
 
 // getDifferenceLogger calls getDifference, logging any error. It returns the
 // error only if it must stop the manager (Config.StopOnApplyError).
+//
+// A failed difference is retried with backoff (diffRetry), and a state the
+// server rejects with PERSISTENT_TIMESTAMP_INVALID or _EMPTY is reset from
+// updates.getState, like TDLib does.
 func (s *internalState) getDifferenceLogger(ctx context.Context, reason string) error {
-	if err := s.getDifference(ctx, reason); err != nil {
+	err := s.getDifference(ctx, reason)
+	if err != nil && isPersistentTimestampReset(err) && ctx.Err() == nil {
+		s.log.Warn(ctx, "Server rejected the local state, resetting from updates.getState",
+			log.Error(err), log.String("reason", reason))
+		err = s.resetState(ctx)
+	}
+	if err == nil {
+		s.diffRetry.reset()
+		return nil
+	}
+	if isApplyError(err) {
 		s.log.Error(ctx, "get difference error", log.Error(err), log.String("reason", reason))
-		if isApplyError(err) {
-			return err
+		return err
+	}
+	if !retryableDiffError(ctx, err) {
+		s.log.Error(ctx, "get difference error", log.Error(err), log.String("reason", reason))
+		return nil
+	}
+	delay := s.diffRetry.schedule(err)
+	s.log.Error(ctx, "get difference error, retrying",
+		log.Error(err),
+		log.String("reason", reason),
+		log.Duration("retry_in", delay),
+	)
+	return nil
+}
+
+// resetState replaces the common state with the one from updates.getState.
+// The updates between the rejected state and the new one are lost, which is
+// reported with OnTooLong. Stored channel states are kept: each field is
+// stored on its own instead of with SetState.
+func (s *internalState) resetState(ctx context.Context) error {
+	st, err := s.client.UpdatesGetState(ctx)
+	if err != nil {
+		return errors.Wrap(err, "get state")
+	}
+	for _, set := range []func() error{
+		func() error { return s.storage.SetPts(ctx, s.selfID, st.Pts) },
+		func() error { return s.storage.SetQts(ctx, s.selfID, st.Qts) },
+		func() error { return s.storage.SetDateSeq(ctx, s.selfID, st.Date, st.Seq) },
+	} {
+		if err := set(); err != nil {
+			s.log.Error(ctx, "Store reset state error", log.Error(err))
+			if s.stopOnApplyError {
+				return &applyError{err}
+			}
 		}
 	}
+	s.pts.SetState(st.Pts, "updates.getState (reset)")
+	s.qts.SetState(st.Qts, "updates.getState (reset)")
+	s.seq.SetState(st.Seq, "updates.getState (reset)")
+	s.date = st.Date
+	s.onCommonTooLong()
 	return nil
 }
 

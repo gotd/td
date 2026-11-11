@@ -18,6 +18,17 @@
 //     so missed messages can be fetched manually.
 //     See: https://core.telegram.org/constructor/updates.channelDifferenceTooLong
 //
+// # Failed differences
+//
+// A failed updates.getDifference or updates.getChannelDifference is retried
+// with backoff (1 s doubling up to 60 s, then every 60–80 s), like TDLib and
+// Telegram Desktop; FLOOD_WAIT is waited out. A lost authorization is not
+// retried. PERSISTENT_TIMESTAMP_INVALID and PERSISTENT_TIMESTAMP_EMPTY on
+// the common sequence reset the state from updates.getState and call
+// Config.OnTooLong, as the updates in between are lost. CHANNEL_INVALID
+// stops tracking the channel, like CHANNEL_PRIVATE. Config.Clock drives the
+// retries.
+//
 // # Observability
 //
 // Events are logged via Config.Logger: debug logs for every difference
@@ -35,7 +46,8 @@
 //     calls, same attributes.
 //   - gotd.updates.difference.triggers (counter): why the difference was
 //     requested, by kind and reason (e.g. startup, pts-gap-timeout,
-//     idle-timeout, channel-too-long).
+//     idle-timeout, channel-too-long, and retry or channel-retry for a
+//     retry of a failed difference).
 //   - gotd.updates.gaps (counter): sequence gaps by kind, seq (pts, qts, seq)
 //     and action: detected, resolved_by_waiting, resolved_by_pending. Gaps
 //     not resolved in time trigger a difference with a *-gap-timeout reason.
@@ -55,7 +67,7 @@
 //   - gotd.updates.channels.tracked (up-down counter): channels tracked by
 //     running managers.
 //   - gotd.updates.channel.inaccessible (counter): channels removed from
-//     tracking after CHANNEL_PRIVATE.
+//     tracking after CHANNEL_PRIVATE or CHANNEL_INVALID.
 //   - gotd.updates.stopped (counter): calls that returned ErrStopped, by op:
 //     handle, handle_affected, track_channel.
 //   - gotd.updates.dispatched (counter, {update}): updates passed to the
