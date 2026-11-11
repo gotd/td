@@ -104,9 +104,7 @@ func TestManager_Resolve(t *testing.T) {
 				Users: []tg.UserClass{
 					&tg.User{ID: testUser.GetID(), AccessHash: 10, Username: username},
 				},
-			}).ExpectCall(&tg.ContactsResolveUsernameRequest{
-				Username: username,
-			}).ThenRPCErr(getTestError())
+			})
 
 			ctx := context.Background()
 
@@ -115,8 +113,10 @@ func TestManager_Resolve(t *testing.T) {
 			a.IsType(&tg.InputPeerUser{}, r.InputPeer())
 			a.Equal(testUser.GetID(), r.ID())
 
-			_, err = m.Resolve(ctx, tt.Input)
-			a.Error(err)
+			// Served from the username cache: no second RPC.
+			r, err = m.Resolve(ctx, tt.Input)
+			a.NoError(err)
+			a.Equal(testUser.GetID(), r.ID())
 		})
 	}
 }

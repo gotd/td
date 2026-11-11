@@ -9,6 +9,7 @@ import (
 	"github.com/gotd/td/ascii"
 	"github.com/gotd/td/telegram/deeplink"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // Resolve uses given string to create new peer promise.
@@ -157,6 +158,10 @@ func (m *Manager) findPeerClass(p tg.PeerClass, users []tg.UserClass, chats []tg
 //
 //	@telegram
 //	telegram
+//
+// Usernames are case-insensitive. A username of a peer the Manager has seen
+// (applied entities or an earlier resolve) is served from memory for
+// UsernameTTL, without contacts.resolveUsername.
 func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error) {
 	domain = strings.TrimPrefix(domain, "@")
 
@@ -164,11 +169,24 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 		return nil, errors.Wrap(err, "validate domain")
 	}
 
-	ch := m.sg.DoChan(domain, func() (interface{}, error) {
+	key := NormalizeUsername(domain)
+	if m.usernames != nil {
+		if peer, ok := m.usernames.get(key, m.now()); ok {
+			if p, err := m.ResolvePeer(ctx, peer); err == nil {
+				return p, nil
+			}
+			// Fall back to contacts.resolveUsername.
+		}
+	}
+
+	ch := m.sg.DoChan(key, func() (interface{}, error) {
 		result, err := m.api.ContactsResolveUsername(ctx, &tg.ContactsResolveUsernameRequest{
 			Username: domain,
 		})
 		if err != nil {
+			if m.usernames != nil && tgerr.Is(err, "USERNAME_NOT_OCCUPIED", "USERNAME_INVALID") {
+				m.usernames.drop(key)
+			}
 			return nil, errors.Wrap(err, "resolve")
 		}
 		return result, nil
@@ -192,6 +210,10 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 	p, ok := m.findPeerClass(result.Peer, result.Users, result.Chats)
 	if !ok {
 		return nil, &PeerNotFoundError{Peer: result.Peer}
+	}
+	if m.usernames != nil {
+		// The name it was resolved by, e.g. a collectible one.
+		m.usernames.add(peerID(result.Peer), result.Peer, key, m.now().Add(UsernameTTL))
 	}
 
 	return p, nil
