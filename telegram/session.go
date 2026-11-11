@@ -62,7 +62,9 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 }
 
 func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
-	if c.storage == nil {
+	if c.storage == nil || c.auth.loggedOut.Load() {
+		// After LogOut the stored session stays wiped until the client is
+		// authorized again.
 		return nil
 	}
 

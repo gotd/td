@@ -70,7 +70,10 @@ func IsAuthLost(err error) bool {
 // authState tracks whether the client is authorized in current Run.
 type authState struct {
 	authorized atomic.Bool
-	reported   atomic.Bool
+	// loggedOut is set by LogOut until the client is authorized again: lost
+	// authorization is not reported and the session is not saved.
+	loggedOut atomic.Bool
+	reported  atomic.Bool
 	// stopped is set when OnAuthLost stopped Run.
 	stopped atomic.Bool
 	// done is closed when the last OnAuthLost call returns, nil if there
@@ -220,7 +223,7 @@ func (c *Client) observeAuth(input bin.Encoder, output bin.Decoder, err error) {
 // authLostDetected reports lost authorization revealed by err, if the client
 // is authorized.
 func (c *Client) authLostDetected(err error) {
-	if !c.auth.authorized.Load() {
+	if !c.auth.authorized.Load() || c.auth.loggedOut.Load() {
 		return
 	}
 	if c.ctx != nil && c.ctx.Err() != nil {
@@ -309,4 +312,5 @@ func (c *Client) markAuthorized() {
 	}
 	c.auth.authorized.Store(true)
 	c.auth.reported.Store(false)
+	c.auth.loggedOut.Store(false)
 }
