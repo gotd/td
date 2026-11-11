@@ -51,9 +51,15 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// SaltFetchInterval is duration between get_future_salts request.
 	SaltFetchInterval time.Duration
-	// PingTimeout sets ping_delay_disconnect timeout.
+	// PingTimeout is the time to wait for a pong, after which the connection
+	// is considered dead. Default is 15 seconds.
 	PingTimeout time.Duration
-	// PingInterval is duration between ping_delay_disconnect request.
+	// PingInterval is the duration between ping_delay_disconnect requests.
+	//
+	// Zero (default) pings like Telegram Desktop: every 30–45 seconds (a
+	// random interval in [30s, 45s]) with disconnect_delay 60. A positive
+	// value pings at that fixed interval with disconnect_delay
+	// PingInterval + PingTimeout.
 	PingInterval time.Duration
 	// RequestTimeout is function which returns request timeout for given type ID.
 	RequestTimeout func(req uint32) time.Duration
@@ -153,9 +159,6 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.PingTimeout == 0 {
 		opt.PingTimeout = 15 * time.Second
-	}
-	if opt.PingInterval == 0 {
-		opt.PingInterval = 1 * time.Minute
 	}
 	if opt.RequestTimeout == nil {
 		opt.RequestTimeout = func(req uint32) time.Duration {
