@@ -207,9 +207,28 @@ func (c *Client) resetReady() {
 // Context of callback will be canceled if fatal error is detected.
 // The ctx is used for background operations like updates handling or pools.
 //
-// See `examples/bg-run` and `contrib/gb` package for classic approach without
-// explicit callback, with Connect and defer close().
+// Run is single-use: create a new Client to run again. See Start, Close and
+// Wait for the classic approach without explicit callback; Run and Start are
+// mutually exclusive on one Client (ErrAlreadyStarted). Done and Wait report
+// the result of Run once it returned.
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
+	if !c.life.mode.CompareAndSwap(int32(modeIdle), int32(modeRun)) {
+		switch lifecycleMode(c.life.mode.Load()) {
+		case modeStart:
+			return errDrivenByStart
+		case modeClosed:
+			return ErrClientClosed
+		}
+		// Run again, fails as the client is closed.
+		return c.run(ctx, f)
+	}
+	// First Run: report its result via Done and Wait.
+	defer func() { c.finishStart(err, false) }()
+	return c.run(ctx, f)
+}
+
+// run implements Run, see Run and Start.
+func (c *Client) run(ctx context.Context, f func(ctx context.Context) error) (err error) {
 	if c.ctx != nil {
 		select {
 		case <-c.ctx.Done():

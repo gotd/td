@@ -165,6 +165,9 @@ type Client struct {
 	log   log.Helper  // immutable
 	clock clock.Clock // immutable
 
+	// life is the state of Start, Close, Done and Wait.
+	life lifecycle
+
 	// Client context. Will be canceled by Run on exit.
 	ctx    context.Context
 	cancel context.CancelFunc
