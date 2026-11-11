@@ -96,11 +96,11 @@ func TestDHRandomExpMixesServerRandom(t *testing.T) {
 	// produce different exponents.
 	server := make([]byte, keySize)
 	server[0] = 0xAA
-	exp1, _, err := dh.randomExp(zeroReader{}, nil)
+	exp1, _, err := dh.randomExp(byteReader(0x5a), nil)
 	if err != nil {
 		t.Fatal(err)
 	}
-	exp2, _, err := dh.randomExp(zeroReader{}, server)
+	exp2, _, err := dh.randomExp(byteReader(0x5a), server)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -109,12 +109,12 @@ func TestDHRandomExpMixesServerRandom(t *testing.T) {
 	}
 }
 
-// zeroReader yields an endless stream of zero bytes.
-type zeroReader struct{}
+// byteReader returns the same byte forever: fixed, non-degenerate randomness.
+type byteReader byte
 
-func (zeroReader) Read(p []byte) (int, error) {
+func (r byteReader) Read(p []byte) (int, error) {
 	for i := range p {
-		p[i] = 0
+		p[i] = byte(r)
 	}
 	return len(p), nil
 }
