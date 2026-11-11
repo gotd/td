@@ -44,17 +44,13 @@ func TestConnInitSetupInvokesBeforeReady(t *testing.T) {
 		a.Fail("connection must be ready after init")
 	}
 
-	// initConnection + auth.importAuthorization.
+	// initConnection + auth.importAuthorization, which goes after the
+	// connection is inited and so without invokeWithLayer.
 	a.Len(p.inputs, 2)
 	outer, ok := p.inputs[1].(*tg.InvokeWithoutUpdatesRequest)
 	a.True(ok, "%T", p.inputs[1])
-	withLayer, ok := outer.Query.(*tg.InvokeWithLayerRequest)
+	q, ok := outer.Query.(noopDecoder)
 	a.True(ok, "%T", outer.Query)
-	a.Equal(c.layer, withLayer.Layer)
-	inner, ok := withLayer.Query.(*tg.InvokeWithoutUpdatesRequest)
-	a.True(ok, "%T", withLayer.Query)
-	q, ok := inner.Query.(noopDecoder)
-	a.True(ok, "%T", inner.Query)
 	req, ok := q.Encoder.(*tg.AuthImportAuthorizationRequest)
 	a.True(ok, "%T", q.Encoder)
 	a.Equal(int64(1), req.ID)

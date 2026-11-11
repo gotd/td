@@ -108,10 +108,9 @@ func TestConnInvokeReinitKeepsWrappingUntilSuccess(t *testing.T) {
 
 	err := c.Invoke(context.Background(), &tg.HelpGetNearestDCRequest{}, &tg.NearestDC{})
 	a.True(tgerr.Is(err, "RPC_CALL_FAIL"))
-	// An RPC error from the wrapped request means initConnection was handled.
-	a.False(c.needsInit.Load())
+	// The error may come from initConnection itself: not known to be inited.
+	a.True(c.needsInit.Load(), "an RPC error must not mark the connection inited")
 
-	p.budget = 1
 	p.wrappedErr = context.DeadlineExceeded // transport-level: state unknown
 	err = c.Invoke(context.Background(), &tg.HelpGetNearestDCRequest{}, &tg.NearestDC{})
 	a.ErrorIs(err, context.DeadlineExceeded)

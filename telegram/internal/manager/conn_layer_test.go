@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/cenkalti/backoff/v4"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/clock"
@@ -28,16 +29,35 @@ func TestConnInvokeUsesConfiguredLayer(t *testing.T) {
 	p := &captureProto{}
 	c := newTestConn(ConnModeData, p)
 	c.layer = 42
-	c.gotConfig.Signal()
+	c.connBackoff = func(ctx context.Context) backoff.BackOff { return &backoff.StopBackOff{} }
 
-	a.NoError(c.Invoke(context.Background(), &tg.HelpGetConfigRequest{}, &tg.Config{}))
-
-	outer, ok := p.lastInput.(*tg.InvokeWithoutUpdatesRequest)
+	// init sends the layer with initConnection.
+	a.NoError(c.init(context.Background()))
+	outer, ok := p.inputs[0].(*tg.InvokeWithoutUpdatesRequest)
 	a.True(ok)
-
 	withLayer, ok := outer.Query.(*tg.InvokeWithLayerRequest)
 	a.True(ok)
 	a.Equal(42, withLayer.Layer)
+
+	// After init, queries go without invokeWithLayer, like Telegram Desktop
+	// and TDLib.
+	a.NoError(c.Invoke(context.Background(), &tg.HelpGetNearestDCRequest{}, &tg.NearestDC{}))
+	outer, ok = p.lastInput.(*tg.InvokeWithoutUpdatesRequest)
+	a.True(ok)
+	q, ok := outer.Query.(noopDecoder)
+	a.True(ok, "%T", outer.Query)
+	_, ok = q.Encoder.(*tg.HelpGetNearestDCRequest)
+	a.True(ok)
+
+	// The layer is sent again only after the server loses the state.
+	c.needsInit.Store(true)
+	a.NoError(c.Invoke(context.Background(), &tg.HelpGetNearestDCRequest{}, &tg.NearestDC{}))
+	outer, ok = p.lastInput.(*tg.InvokeWithoutUpdatesRequest)
+	a.True(ok)
+	withLayer, ok = outer.Query.(*tg.InvokeWithLayerRequest)
+	a.True(ok)
+	a.Equal(42, withLayer.Layer)
+	a.False(c.needsInit.Load())
 }
 
 func TestCreateConnPropagatesLayer(t *testing.T) {
