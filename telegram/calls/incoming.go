@@ -80,9 +80,18 @@ func (ic *IncomingCall) Accept(ctx context.Context) (*Conn, error) {
 		c.clearActive(cl)
 		return nil, errors.New("g_a hash commitment mismatch")
 	}
-	key, _, err := dh.computeKey(obj.GAOrB, b)
+	key, fingerprint, err := dh.computeKey(obj.GAOrB, b)
 	if err != nil {
 		c.clearActive(cl)
+		return nil, err
+	}
+	// The caller sends the fingerprint of the key it derived; both sides
+	// must have the same key (TDLib CallActor: "Key fingerprints mismatch").
+	if obj.KeyFingerprint != fingerprint {
+		err := errors.New("key fingerprint mismatch")
+		if dErr := c.Discard(ctx, DiscardHangup); dErr != nil {
+			err = errors.Wrapf(err, "discard: %v", dErr)
+		}
 		return nil, err
 	}
 	c.setInput(cl, tg.InputPhoneCall{ID: obj.ID, AccessHash: obj.AccessHash})

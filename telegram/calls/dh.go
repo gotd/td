@@ -6,9 +6,11 @@ import (
 	"crypto/sha256"
 	"io"
 	"math/big"
+	"sync"
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/tg"
 )
 
@@ -20,6 +22,14 @@ const keySize = 256
 var (
 	bigOne = big.NewInt(1)
 	bigTwo = big.NewInt(2)
+
+	// dhValueMargin is 2^{2048-64}: public values must lie in
+	// (dhValueMargin, p - dhValueMargin).
+	dhValueMargin = new(big.Int).Lsh(bigOne, keySize*8-64)
+
+	// checkedGroups caches groups that passed validate, keyed by
+	// SHA256(p) and g, so the primality test runs once per group.
+	checkedGroups sync.Map
 )
 
 // dhConfig holds the Diffie-Hellman group used for a call, as returned by
@@ -51,17 +61,25 @@ func getDHConfig(ctx context.Context, api *tg.Client) (*dhConfig, []byte, error)
 	return dh, obj.Random, nil
 }
 
-// validate performs the sanity checks required before using the group.
+// validate checks the group like the official clients: p is a 2048-bit safe
+// prime (p and (p-1)/2 are prime) and g is 2..7 and generates the subgroup of
+// order (p-1)/2 (the p mod 4g condition).
 func (dh *dhConfig) validate() error {
-	if dh.p.BitLen() != keySize*8 {
-		return errors.Errorf("dh prime is not %d-bit (got %d)", keySize*8, dh.p.BitLen())
-	}
 	if dh.p.Sign() <= 0 {
 		return errors.New("dh prime is not positive")
 	}
-	if dh.g < 2 || dh.g > 7 {
-		return errors.Errorf("dh generator out of range: %d", dh.g)
+	type groupKey struct {
+		p [sha256.Size]byte
+		g int
 	}
+	key := groupKey{p: sha256.Sum256(dh.p.Bytes()), g: dh.g}
+	if _, ok := checkedGroups.Load(key); ok {
+		return nil
+	}
+	if err := crypto.CheckDH(dh.g, dh.p); err != nil {
+		return errors.Wrap(err, "check dh group")
+	}
+	checkedGroups.Store(key, struct{}{})
 	return nil
 }
 
@@ -93,14 +111,18 @@ func (dh *dhConfig) randomExp(rnd io.Reader, serverRandom []byte) (exp, pub *big
 	return nil, nil, errors.New("failed to generate valid dh exponent")
 }
 
-// checkValue ensures a received or computed public value lies in (1, p-1),
-// rejecting the small-subgroup confinement values.
+// checkValue ensures a received or computed public value lies in (1, p-1)
+// and, as recommended by Telegram and enforced by TDLib, in
+// (2^{2048-64}, p - 2^{2048-64}).
 func (dh *dhConfig) checkValue(v *big.Int) error {
 	if v.Cmp(bigOne) <= 0 {
 		return errors.New("dh value too small")
 	}
 	if v.Cmp(new(big.Int).Sub(dh.p, bigOne)) >= 0 {
 		return errors.New("dh value too large")
+	}
+	if !crypto.InRange(v, dhValueMargin, new(big.Int).Sub(dh.p, dhValueMargin)) {
+		return errors.New("dh value outside of the safety range")
 	}
 	return nil
 }
