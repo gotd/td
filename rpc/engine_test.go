@@ -534,3 +534,96 @@ func runTest(
 	require.NoError(t, g.Wait())
 	e.Close()
 }
+
+// The server neither acks nor answers within all resends but answers later:
+// Do must keep waiting and return the result, not a retry limit error.
+func TestRPCResultAfterRetryLimit(t *testing.T) {
+	clock := neo.NewTime(defaultNow)
+	observer := clock.Observe()
+	log := zaptest.NewLogger(t)
+
+	const maxRetries = 2
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		// First send and maxRetries resends, none acknowledged.
+		for i := 0; i <= maxRetries; i++ {
+			require.Equal(t, request{
+				MsgID: msgID,
+				SeqNo: seqNo,
+				Input: &mt.PingRequest{PingID: pingID},
+			}, <-incoming)
+			<-observer
+			clock.Travel(time.Second * 4)
+		}
+
+		var b bin.Buffer
+		if err := b.Encode(&mt.Pong{MsgID: msgID, PingID: pingID}); err != nil {
+			return err
+		}
+		return e.NotifyResult(msgID, &b)
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		var out mt.Pong
+		require.NoError(t, e.Do(context.TODO(), Request{
+			MsgID:  msgID,
+			SeqNo:  seqNo,
+			Input:  &mt.PingRequest{PingID: pingID},
+			Output: &out,
+		}))
+		require.Equal(t, mt.Pong{MsgID: msgID, PingID: pingID}, out)
+		return nil
+	}
+
+	runTest(t, Options{
+		RetryInterval: time.Second * 3,
+		MaxRetries:    maxRetries,
+		Clock:         clock,
+		Logger:        logzap.New(log.Named("rpc")),
+	}, server, client)
+}
+
+// After the retry limit the wait is bounded by the caller's context, and the
+// request is dropped on the server.
+func TestRPCRetryLimitContextDone(t *testing.T) {
+	clock := neo.NewTime(defaultNow)
+	observer := clock.Observe()
+	log := zaptest.NewLogger(t)
+
+	const maxRetries = 2
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	dropped := make(chan int64, 1)
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		for i := 0; i <= maxRetries; i++ {
+			<-incoming
+			<-observer
+			clock.Travel(time.Second * 4)
+		}
+		cancel()
+		return nil
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		err := e.Do(ctx, Request{
+			MsgID:  msgID,
+			SeqNo:  seqNo,
+			Input:  &mt.PingRequest{PingID: pingID},
+			Output: &mt.Pong{},
+		})
+		require.ErrorIs(t, err, context.Canceled)
+		require.Equal(t, msgID, <-dropped)
+		return nil
+	}
+
+	runTest(t, Options{
+		RetryInterval: time.Second * 3,
+		MaxRetries:    maxRetries,
+		Clock:         clock,
+		Logger:        logzap.New(log.Named("rpc")),
+		DropHandler: func(req Request) error {
+			dropped <- req.MsgID
+			return nil
+		},
+	}, server, client)
+}
