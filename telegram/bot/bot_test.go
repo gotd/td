@@ -12,9 +12,9 @@ import (
 
 	"github.com/gotd/log/logzap"
 
+	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/tgtest"
