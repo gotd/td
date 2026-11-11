@@ -170,6 +170,7 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	)
 	lg.Debug(ctx, "Run")
 	defer lg.Debug(ctx, "Done")
+	m.warnHashers(ctx, lg)
 
 	wg, ctx := errgroup.WithContext(ctx)
 
@@ -402,4 +403,23 @@ func (m *Manager) Reset() {
 	m.early = nil
 	m.earlyDropped = 0
 	m.replaying = false
+}
+
+// warnHashers warns when the update state is persistent but an access hasher
+// is in memory: channel states are dropped on restart without their hashes,
+// and users are forgotten.
+func (m *Manager) warnHashers(ctx context.Context, lg log.Helper) {
+	if _, mem := m.cfg.Storage.(*memStorage); mem {
+		return
+	}
+	_, memChannels := m.cfg.AccessHasher.(*memAccessHasher)
+	_, memUsers := m.cfg.UserAccessHasher.(*memUserAccessHasher)
+	if memChannels || memUsers {
+		lg.Warn(ctx, "Update state is persistent but access hashes are kept in memory: "+
+			"set Config.AccessHasher (and UserAccessHasher) to a persistent hasher or *peers.Manager, "+
+			"otherwise tracked channels are dropped on restart",
+			log.Bool("memory_channel_hashes", memChannels),
+			log.Bool("memory_user_hashes", memUsers),
+		)
+	}
 }

@@ -111,3 +111,20 @@ func TestFileStorageCorrupted(t *testing.T) {
 	_, _, err = NewFileStorage(path).GetState(ctx, 1)
 	require.ErrorContains(t, err, "unsupported version")
 }
+
+func TestFileStorageUserAccessHash(t *testing.T) {
+	ctx := context.Background()
+	path := filepath.Join(t.TempDir(), "updates.json")
+	s := NewFileStorage(path)
+	_, found, err := s.GetUserAccessHash(ctx, 1, 10)
+	require.NoError(t, err)
+	require.False(t, found)
+	require.NoError(t, s.SetUserAccessHash(ctx, 1, 10, 777))
+
+	// Survives a restart.
+	s = NewFileStorage(path)
+	hash, found, err := s.GetUserAccessHash(ctx, 1, 10)
+	require.NoError(t, err)
+	require.True(t, found)
+	require.EqualValues(t, 777, hash)
+}
