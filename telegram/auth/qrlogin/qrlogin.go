@@ -169,30 +169,7 @@ func (q QR) importToken(ctx context.Context) (*tg.AuthAuthorization, error) {
 
 	switch t := result.(type) {
 	case *tg.AuthLoginTokenMigrateTo:
-		if q.migrate == nil {
-			return nil, &MigrationNeededError{
-				MigrateTo: t,
-			}
-		}
-		if err := q.migrate(ctx, t.DCID); err != nil {
-			return nil, errors.Wrap(err, "migrate")
-		}
-
-		res, err := q.api.AuthImportLoginToken(ctx, t.Token)
-		if err != nil {
-			return nil, errors.Wrap(err, "import")
-		}
-
-		success, ok := res.(*tg.AuthLoginTokenSuccess)
-		if !ok {
-			return nil, errors.Errorf("unexpected type %T", res)
-		}
-
-		auth, ok := success.Authorization.(*tg.AuthAuthorization)
-		if !ok {
-			return nil, errors.Errorf("unexpected type %T", success.Authorization)
-		}
-		return auth, nil
+		return q.importMigrated(ctx, t)
 	case *tg.AuthLoginTokenSuccess:
 		auth, ok := t.Authorization.(*tg.AuthAuthorization)
 		if !ok {
@@ -202,6 +179,45 @@ func (q QR) importToken(ctx context.Context) (*tg.AuthAuthorization, error) {
 	default:
 		return nil, errors.Errorf("unexpected type %T", result)
 	}
+}
+
+// importMigrated completes the login of an account on another DC: migrates
+// to it and imports the token there. It returns *MigrationNeededError if no
+// migrate function is set.
+func (q QR) importMigrated(ctx context.Context, t *tg.AuthLoginTokenMigrateTo) (*tg.AuthAuthorization, error) {
+	if q.migrate == nil {
+		return nil, &MigrationNeededError{
+			MigrateTo: t,
+		}
+	}
+	if err := q.migrate(ctx, t.DCID); err != nil {
+		return nil, errors.Wrap(err, "migrate")
+	}
+
+	res, err := q.api.AuthImportLoginToken(ctx, t.Token)
+	if err != nil {
+		return nil, errors.Wrap(err, "import")
+	}
+
+	success, ok := res.(*tg.AuthLoginTokenSuccess)
+	if !ok {
+		return nil, errors.Errorf("unexpected type %T", res)
+	}
+
+	auth, ok := success.Authorization.(*tg.AuthAuthorization)
+	if !ok {
+		return nil, errors.Errorf("unexpected type %T", success.Authorization)
+	}
+	return auth, nil
+}
+
+// finishMigrated is importMigrated with the 2FA check of Import.
+func (q QR) finishMigrated(ctx context.Context, t *tg.AuthLoginTokenMigrateTo) (*tg.AuthAuthorization, error) {
+	a, err := q.importMigrated(ctx, t)
+	if q.needPassword(err) {
+		return q.checkPassword(ctx)
+	}
+	return a, err
 }
 
 // LoggedIn is signal channel to notify about tg.UpdateLoginToken.
@@ -263,6 +279,11 @@ func nextRetryDelay(prev time.Duration, err error) time.Duration {
 // NB: Show callback may be called more than once if QR expires.
 //
 // Transient errors of token refresh are retried with backoff.
+//
+// If the token is accepted by an account of another DC, the login is
+// completed there via Options.Migrate (as in Import), also when the
+// acceptance is seen on a token refresh instead of updateLoginToken. Without
+// Options.Migrate, *MigrationNeededError is returned.
 func (q QR) Auth(
 	ctx context.Context,
 	loggedIn LoggedIn,
@@ -287,7 +308,8 @@ func (q QR) Auth(
 		// session): the update has already happened, do not wait for it.
 		return r.Authorization, nil
 	case r.MigrateTo != nil:
-		return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
+		// Token was already accepted by an account of another DC.
+		return q.finishMigrated(ctx, r.MigrateTo)
 	}
 	token := r.Token
 
@@ -339,7 +361,9 @@ func (q QR) Auth(
 			// QR was scanned and accepted, no need to export again.
 			return r.Authorization, nil
 		case r.MigrateTo != nil:
-			return nil, &MigrationNeededError{MigrateTo: r.MigrateTo}
+			// QR was accepted by an account of another DC (the update
+			// may come late or not at all): complete the login there.
+			return q.finishMigrated(ctx, r.MigrateTo)
 		}
 
 		token = r.Token
