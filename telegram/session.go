@@ -102,6 +102,15 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 
 func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	sessionData := dcSessionFromMTProto(cfg.ThisDC, s)
+	if c.isDroppedKey(sessionData) {
+		// A connection that was still running on a key dropped after
+		// ErrPFSDropKeysRequired reported its session: storing it would make
+		// new connections reuse the dropped key.
+		c.log.Debug(context.Background(), "Ignoring session with dropped auth key",
+			log.Int("dc_id", sessionData.DC),
+		)
+		return nil
+	}
 	// Track per-DC session in memory for pool reconnections/migrations.
 	c.storeDCSess(c.sessions, sessionData)
 
@@ -129,6 +138,18 @@ func (c *Client) onCDNSession(cfg tg.Config, s mtproto.Session) error {
 	// triggers differ (fingerprint misses, CDN-specific reconnects).
 	c.storeDCSess(c.cdnSessions, dcSessionFromMTProto(cfg.ThisDC, s))
 	return nil
+}
+
+// isDroppedKey reports whether data carries an auth key dropped for its DC
+// after ErrPFSDropKeysRequired.
+func (c *Client) isDroppedKey(data pool.Session) bool {
+	if data.AuthKey.Zero() {
+		return false
+	}
+	c.sessionsMux.Lock()
+	defer c.sessionsMux.Unlock()
+	dropped, ok := c.droppedKeys[data.DC]
+	return ok && dropped == data.AuthKey.ID
 }
 
 func (c *Client) storeDCSess(target map[int]*pool.SyncSession, data pool.Session) {
