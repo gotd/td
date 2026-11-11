@@ -61,8 +61,10 @@ func (b *Builder) Verify(ctx context.Context, r io.ReaderAt, size int64) (verifi
 		}
 
 		verified = hash.Offset + n
-		if n < int64(hash.Limit) {
-			// Last (short) window of the file.
+		if n < int64(hash.Limit) || verified >= size {
+			// Last (short) window of the file, or all local data is
+			// verified: do not ask for hashes past it, Telegram answers
+			// VOLUME_LOC_NOT_FOUND at the end of the file.
 			return verified, nil
 		}
 	}

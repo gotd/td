@@ -25,7 +25,10 @@ type verifier struct {
 	offset int64
 	// skip is the offset to start from: hash windows before it are skipped.
 	skip int64
-	mux  sync.Mutex
+	// fetched is set once the server returned hashes, so the location is
+	// valid and VOLUME_LOC_NOT_FOUND at offset means the end of the file.
+	fetched bool
+	mux     sync.Mutex
 }
 
 func newVerifier(client schema, hashes ...tg.FileHash) *verifier {
@@ -132,7 +135,16 @@ func (v *verifier) next(ctx context.Context) (tg.FileHash, bool, error) {
 				reportSchemaRetry(v.client, RetryOperationReaderHashes, retryAttempt, err)
 				continue
 			}
+			if v.fetched && tgerr.Is(err, "VOLUME_LOC_NOT_FOUND") {
+				// Telegram answers past the end of the file with
+				// VOLUME_LOC_NOT_FOUND, e.g. after the last hash window of
+				// a file that ends on a window border.
+				return tg.FileHash{}, false, nil
+			}
 			return tg.FileHash{}, false, errors.Wrap(err, "get hashes")
+		}
+		if len(hashes) > 0 {
+			v.fetched = true
 		}
 
 		hash, ok = v.update(hashes...)
