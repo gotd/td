@@ -107,7 +107,8 @@ type Data struct {
 	// restarts without a new key exchange and authorization transfer.
 	DCs map[int]DCKey `json:",omitempty"`
 	// ServerTimeOffset is the difference between server and local time, if
-	// known.
+	// known. The telegram client saves the observed offset and seeds the
+	// next run with it (unless Options.ServerTimeOffset is set).
 	ServerTimeOffset time.Duration `json:",omitempty"`
 	// UserID is the ID of the authorized user or bot, if known.
 	UserID int64 `json:",omitempty"`

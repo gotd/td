@@ -61,6 +61,10 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	c.connMux.Unlock()
 
 	c.restoreDCKeys(ctx, data)
+	if data.ServerTimeOffset != 0 && !c.serverTimeSet && c.serverTime != nil {
+		// The offset of the previous run, until the server corrects it.
+		c.serverTime.Seed(data.ServerTimeOffset)
+	}
 	if data.UserID != 0 {
 		c.selfID.Store(data.UserID)
 		c.selfBot.Store(data.Bot)
@@ -288,6 +292,9 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 	data.DC = cfg.ThisDC
 	data.Salt = s.Salt
 	c.fillDCKeys(data)
+	if c.serverTime != nil && c.serverTime.Known() {
+		data.ServerTimeOffset = c.serverTime.Offset()
+	}
 	if id := c.selfID.Load(); id != 0 {
 		data.UserID = id
 		data.Bot = c.selfBot.Load()
