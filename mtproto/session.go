@@ -86,7 +86,32 @@ func (c *Conn) releaseSessionState() {
 		// PFS: the temporary key and its session end with the connection.
 		id = 0
 	}
+	select {
+	case <-c.sessionFailed.Ready():
+		// The next connection starts a new session.
+		id = 0
+	default:
+	}
 	c.sessionState.release(s.Key.ID, id, n)
+}
+
+// errSessionFailed stops Run when the server session can't be used any more,
+// see failSession.
+var errSessionFailed = errors.New("server session failed")
+
+// failSession ends the server session after bad_msg_notification "msg_id
+// too high": msg_ids already sent in it were ahead of the server time, and
+// ids must keep increasing within a session, so corrected ids can only be
+// used in a new one. The message id generator is reset to the corrected
+// time and the connection is replaced by one in a new session; pending
+// requests are sent again there. This is what TDLib does
+// (SessionConnection: "Session will be closed", a new Session with new
+// AuthData follows).
+func (c *Conn) failSession() {
+	if r, ok := c.messageID.(interface{ Reset() }); ok {
+		r.Reset()
+	}
+	c.sessionFailed.Signal()
 }
 
 // errSessionReset is reported to requests that were pending in a session

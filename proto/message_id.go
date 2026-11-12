@@ -165,6 +165,16 @@ func (g *MessageIDGen) New(t MessageType) int64 {
 	return id
 }
 
+// Reset forgets the last generated id, so the next ids follow the current
+// time again even if earlier ones were higher, e.g. generated before the
+// server time offset was corrected. Ids must keep increasing within a
+// server session, so Reset is for a new session only.
+func (g *MessageIDGen) Reset() {
+	g.mux.Lock()
+	g.last = 0
+	g.mux.Unlock()
+}
+
 // NewMessageIDGen creates new message id generator.
 //
 // Current time will be provided by now() function, e.g. the server time of

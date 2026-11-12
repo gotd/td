@@ -9,8 +9,10 @@ import (
 	"github.com/gotd/neo"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/mt"
 	"github.com/gotd/td/proto"
+	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/testutil"
 )
 
@@ -59,8 +61,10 @@ func TestHandleBadMsgTooHighResetsServerTime(t *testing.T) {
 }
 
 // A request refused for its msg_id time is sent again with a new msg_id.
+// "msg_id too high" is handled by a new session instead, see
+// TestInvokeMsgIDTooHighNewSession.
 func TestInvokeResendsAfterBadMsgTime(t *testing.T) {
-	for _, code := range []int{codeMessageIDTooLow, codeMessageIDTooHigh, codeMessageTooOld} {
+	for _, code := range []int{codeMessageIDTooLow, codeMessageTooOld} {
 		a := require.New(t)
 		var ids []int64
 		c := newTestClient(func(msgID int64, _ int32, in bin.Encoder) (bin.Encoder, error) {
@@ -88,4 +92,56 @@ func TestInvokeBadMsgTimeResendLimit(t *testing.T) {
 	var bad *badMessageError
 	a.ErrorAs(err, &bad)
 	a.Equal(1+maxTimeResends, calls)
+}
+
+// "msg_id too high": the request is not sent again in the failed session
+// (see failSession) but reported as retryable on the next connection.
+func TestInvokeMsgIDTooHighRetryable(t *testing.T) {
+	a := require.New(t)
+	calls := 0
+	c := newTestClient(func(int64, int32, bin.Encoder) (bin.Encoder, error) {
+		calls++
+		return nil, &badMessageError{Code: codeMessageIDTooHigh}
+	})
+	var pong mt.Pong
+	err := c.Invoke(t.Context(), &mt.PingRequest{PingID: 1}, &pong)
+	a.ErrorIs(err, rpc.ErrEngineClosed, "retryable on a new connection")
+	a.Equal(1, calls, "no resend in the failed session")
+}
+
+// handleBadMsg with "msg_id too high" ends the session: the id generator is
+// reset to the corrected time, Run is stopped (sessionFailed) and the next
+// connection does not continue the session.
+func TestHandleBadMsgTooHighFailsSession(t *testing.T) {
+	a := require.New(t)
+	clk := neo.NewTime(testutil.Date())
+	skew := 10 * time.Minute
+	gen := proto.NewMessageIDGen(func() time.Time { return clk.Now().Add(skew) })
+	high := gen.New(proto.MessageFromClient) // sent with the clock ahead
+	skew = 0                                 // the server time is corrected
+
+	c := newTestClient(func(int64, int32, bin.Encoder) (bin.Encoder, error) { return nil, nil })
+	c.messageID = gen
+	c.serverTime = NewServerTime(clk, 0)
+	state := NewSessionState()
+	a.True(state.TryAcquire())
+	c.sessionState = state
+	key := crypto.Key{1}.WithID()
+	c.authKey = key
+	c.sessionID = 42
+
+	a.Greater(gen.New(proto.MessageFromClient), high, "ids keep increasing within the session")
+	var b bin.Buffer
+	a.NoError(b.Encode(&mt.BadMsgNotification{BadMsgID: high, ErrorCode: codeMessageIDTooHigh}))
+	a.NoError(c.handleBadMsg(int64(proto.NewMessageID(clk.Now(), proto.MessageFromServer)), &b))
+
+	select {
+	case <-c.sessionFailed.Ready():
+	default:
+		a.Fail("session not failed")
+	}
+	a.Less(gen.New(proto.MessageFromClient), high, "ids follow the corrected time again")
+	c.releaseSessionState()
+	_, _, ok := state.load(key.ID)
+	a.False(ok, "failed session must not be continued")
 }

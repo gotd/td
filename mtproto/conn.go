@@ -118,6 +118,10 @@ type Conn struct {
 
 	// gotSession is a signal channel for wait for handleSessionCreated message.
 	gotSession *tdsync.Ready
+	// sessionFailed is signaled when the server session can't be used any
+	// more (msg_id too high): Run stops, so the connection is replaced by
+	// one in a new session.
+	sessionFailed *tdsync.Ready
 
 	// exchangeLock locks write calls during key exchange.
 	exchangeLock sync.RWMutex
@@ -178,6 +182,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		pingInterval: opt.PingInterval,
 
 		gotSession:     tdsync.NewReady(),
+		sessionFailed:  tdsync.NewReady(),
 		pfsBindingLost: tdsync.NewReady(),
 
 		rpc:               opt.engine,
@@ -289,6 +294,14 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) (rErr
 		}
 		g.Go("pingLoop", c.pingLoop)
 		g.Go("ackLoop", c.ackLoop)
+		g.Go("sessionFailed", func(ctx context.Context) error {
+			select {
+			case <-c.sessionFailed.Ready():
+				return errSessionFailed
+			case <-ctx.Done():
+				return nil
+			}
+		})
 		if c.saltFetchInterval > 0 {
 			g.Go("saltsLoop", c.saltLoop)
 		}
