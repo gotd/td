@@ -160,6 +160,10 @@ type Client struct {
 	// authorization was transferred to, so that pools using it skip the
 	// transfer and the key is persisted. Guarded by sessionsMux.
 	dcAuthorized map[int][8]byte
+	// dcAuthPending holds DCs whose authorization was transferred before the
+	// session (key) of the new connection was reported; the mark is set when
+	// it is. Guarded by sessionsMux.
+	dcAuthPending map[int]bool
 	// sessionStates are server session slots per DC, reused across
 	// reconnects. Guarded by sessionsMux.
 	sessionStates map[int][]*mtproto.SessionState
@@ -362,6 +366,7 @@ func (c *Client) init() {
 	c.cdnSessions = map[int]*pool.SyncSession{}
 	c.droppedKeys = map[int][8]byte{}
 	c.dcAuthorized = map[int][8]byte{}
+	c.dcAuthPending = map[int]bool{}
 	c.sessionStates = map[int][]*mtproto.SessionState{}
 	c.subConns = newDCPoolCache(1, poolKindMigrate)
 	if c.filePoolSize <= 0 {

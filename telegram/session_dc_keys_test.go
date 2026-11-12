@@ -14,6 +14,7 @@ import (
 	"github.com/gotd/log/logzap"
 
 	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
@@ -185,4 +186,32 @@ func TestClientDCAuthorizedMark(t *testing.T) {
 	other.Value[0] = 2
 	client.sessions[4].Store(pool.Session{DC: 4, AuthKey: other.Value.WithID()})
 	a.False(client.dcKeyAuthorized(4))
+}
+
+// The connection of a new DC pool reports its session (OnSession) after it is
+// ready, so the authorization transfer may finish before the key is stored:
+// the key is marked authorized when it arrives.
+func TestClientDCAuthorizedBeforeSession(t *testing.T) {
+	a := require.New(t)
+	client := &Client{log: log.For(log.Nop)}
+	client.init()
+	client.session = pool.NewSyncSession(pool.Session{DC: 2})
+
+	client.setDCAuthorized(context.Background(), 4, true)
+	a.False(client.dcKeyAuthorized(4), "no key yet")
+
+	var key crypto.AuthKey
+	key.Value[0] = 1
+	key = key.Value.WithID()
+	a.NoError(client.onSession(tg.Config{ThisDC: 4}, mtproto.Session{Key: key, Salt: 3}))
+	a.True(client.dcKeyAuthorized(4))
+	data := &session.Data{DC: 2}
+	client.fillDCKeys(data)
+	a.Contains(data.DCs, 4)
+
+	// A 401 before the key arrived cancels the pending mark.
+	client.setDCAuthorized(context.Background(), 5, true)
+	client.setDCAuthorized(context.Background(), 5, false)
+	a.NoError(client.onSession(tg.Config{ThisDC: 5}, mtproto.Session{Key: key, Salt: 3}))
+	a.False(client.dcKeyAuthorized(5))
 }
