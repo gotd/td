@@ -152,6 +152,10 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	c.sessionMux.Lock()
 	oldSession := c.sessionID
 	c.authKey = r.AuthKey
+	if !c.pfs {
+		// In non-PFS mode the auth key is the permanent key.
+		c.permKeyCreatedAt = c.clock.Now().Unix()
+	}
 	c.sessionID = r.SessionID
 	c.salt = r.ServerSalt
 	c.sessionMux.Unlock()

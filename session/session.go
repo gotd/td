@@ -4,6 +4,7 @@ package session
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"github.com/go-faster/errors"
 
@@ -86,6 +87,10 @@ func (c Config) TG() tg.Config {
 }
 
 // Data of session.
+//
+// Format (JSON, {"Version":1,"Data":{...}}). All fields after Salt are
+// optional additions to version 1: older gotd versions ignore them and
+// files written by older versions load with them unset.
 type Data struct {
 	Config    Config
 	DC        int
@@ -93,6 +98,33 @@ type Data struct {
 	AuthKey   []byte
 	AuthKeyID []byte
 	Salt      int64
+
+	// AuthKeyCreatedAt is the creation time of AuthKey (the permanent key in
+	// PFS mode), Unix seconds; zero if unknown (e.g. created by an older
+	// version).
+	AuthKeyCreatedAt int64 `json:",omitempty"`
+	// DCs holds auth keys of the other DCs, by DC ID, so that they survive
+	// restarts without a new key exchange and authorization transfer.
+	DCs map[int]DCKey `json:",omitempty"`
+	// ServerTimeOffset is the difference between server and local time, if
+	// known.
+	ServerTimeOffset time.Duration `json:",omitempty"`
+	// UserID is the ID of the authorized user or bot, if known.
+	UserID int64 `json:",omitempty"`
+	// Bot reports whether UserID is a bot.
+	Bot bool `json:",omitempty"`
+}
+
+// DCKey is the auth key of a non-home DC.
+type DCKey struct {
+	AuthKey   []byte
+	AuthKeyID []byte
+	// CreatedAt is the key creation time, Unix seconds; zero if unknown.
+	CreatedAt int64 `json:",omitempty"`
+	// Authorized reports whether the authorization was transferred to the
+	// key (auth.importAuthorization), so it can be used without a transfer.
+	Authorized bool  `json:",omitempty"`
+	Salt       int64 `json:",omitempty"`
 }
 
 // Storage is secure persistent storage for client session.
@@ -107,6 +139,11 @@ type Storage interface {
 
 // ErrNotFound means that session is not found in storage.
 var ErrNotFound = errors.New("session storage: not found")
+
+// ErrVersionUnsupported means that session was written by a newer version of
+// the format: it is not ErrNotFound, so a client does not start a new login
+// over a valid key.
+var ErrVersionUnsupported = errors.New("session storage: unsupported version")
 
 // Loader wraps Storage implementing Data (un-)marshaling.
 type Loader struct {
@@ -133,6 +170,9 @@ func (l *Loader) Load(ctx context.Context) (*Data, error) {
 	var v jsonData
 	if err := json.Unmarshal(buf, &v); err != nil {
 		return nil, errors.Wrap(err, "unmarshal")
+	}
+	if v.Version > latestVersion {
+		return nil, errors.Wrapf(ErrVersionUnsupported, "version %d (latest supported %d)", v.Version, latestVersion)
 	}
 	if v.Version != latestVersion {
 		// HACK(ernado): backward compatibility super shenanigan.

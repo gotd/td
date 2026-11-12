@@ -88,6 +88,10 @@ type Options struct {
 	PermKey crypto.AuthKey
 	// Salt from server that can be used to restore previous connection.
 	Salt int64
+	// KeyCreatedAt is the creation time of the permanent key (Key, or PermKey
+	// in PFS mode), Unix seconds; zero if unknown. It is reported back in
+	// Session.KeyCreatedAt and used by the PFS key recovery policy.
+	KeyCreatedAt int64
 
 	// EnablePFS enables Perfect Forward Secrecy using temporary auth keys.
 	EnablePFS bool

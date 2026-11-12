@@ -103,7 +103,12 @@ func (c *Client) logOutGuests(ctx context.Context) {
 	for dc := range c.sessions {
 		delete(c.sessions, dc)
 	}
+	for dc := range c.dcAuthorized {
+		delete(c.dcAuthorized, dc)
+	}
 	c.sessionsMux.Unlock()
+	c.selfID.Store(0)
+	c.selfBot.Store(false)
 }
 
 // wipeSession clears the stored session: the session loader treats empty

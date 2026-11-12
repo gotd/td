@@ -153,7 +153,16 @@ type Client struct {
 	// ErrPFSDropKeysRequired, so that a connection still running on a dropped
 	// key can't store it back (see storeDCSess). Guarded by sessionsMux.
 	droppedKeys map[int][8]byte
-	sessionsMux sync.Mutex
+	// dcAuthorized holds, per non-home DC, the id of the auth key the
+	// authorization was transferred to, so that pools using it skip the
+	// transfer and the key is persisted. Guarded by sessionsMux.
+	dcAuthorized map[int][8]byte
+	sessionsMux  sync.Mutex
+	// saveMux serializes load-modify-save of the stored session.
+	saveMux sync.Mutex
+	// selfID and selfBot are the authorized user, if known (selfID != 0).
+	selfID  atomic.Int64
+	selfBot atomic.Bool
 	// CDN public keys loaded from help.getCdnConfig and cached per CDN DC.
 	cdnKeys     []PublicKey
 	cdnKeysByDC map[int][]PublicKey
@@ -339,6 +348,7 @@ func (c *Client) init() {
 	c.sessions = map[int]*pool.SyncSession{}
 	c.cdnSessions = map[int]*pool.SyncSession{}
 	c.droppedKeys = map[int][8]byte{}
+	c.dcAuthorized = map[int][8]byte{}
 	c.subConns = newDCPoolCache(1, poolKindMigrate)
 	if c.filePoolSize <= 0 {
 		c.filePoolSize = defaultFilePoolSize
