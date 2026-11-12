@@ -77,6 +77,11 @@ type Conn struct {
 	permKeyCreatedAt int64
 	// sessionState keeps the server session across reconnects, nillable.
 	sessionState *SessionState
+	// pfsBindingLost is signaled when the server reports AUTH_KEY_PERM_EMPTY
+	// in PFS mode: the connection is recreated with a new temporary key.
+	pfsBindingLost *tdsync.Ready
+	// permKeyCheck overrides checkPermKey in tests.
+	permKeyCheck func(ctx context.Context) (unknown bool, err error)
 	// sessionContinued is set by connect when the connection continues a
 	// session from sessionState: the server sends no new_session_created.
 	sessionContinued bool
@@ -172,7 +177,8 @@ func New(dialer Dialer, opt Options) *Conn {
 		pingTimeout:  opt.PingTimeout,
 		pingInterval: opt.PingInterval,
 
-		gotSession: tdsync.NewReady(),
+		gotSession:     tdsync.NewReady(),
+		pfsBindingLost: tdsync.NewReady(),
 
 		rpc:               opt.engine,
 		compressThreshold: opt.CompressThreshold,
@@ -291,6 +297,14 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) (rErr
 		if c.pfs {
 			// Renewal loop requests reconnect before temp key expiry.
 			g.Go("tempKeyRenewal", c.tempKeyRenewalLoop)
+			g.Go("bindingLost", func(ctx context.Context) error {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case <-c.pfsBindingLost.Ready():
+					return errors.Wrap(ErrPFSReconnectRequired, "temporary key binding lost")
+				}
+			})
 		}
 		g.Go("userCallback", f)
 

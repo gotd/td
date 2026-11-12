@@ -135,6 +135,10 @@ func (c *Client) isPermanentError(err error) bool {
 	if tgerr.Is(err, "AUTH_KEY_UNREGISTERED", "SESSION_EXPIRED", "AUTH_KEY_DUPLICATED") {
 		return true
 	}
+	if tgerr.Is(err, "AUTH_KEY_PERM_EMPTY") {
+		// PFS: the temporary key binding was lost, a reconnect re-binds.
+		return false
+	}
 	if auth.IsUnauthorized(err) {
 		return true
 	}

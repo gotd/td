@@ -9,6 +9,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
 	"github.com/gotd/td/proto"
+	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/tgerr"
 )
 
@@ -57,6 +58,17 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 			log.Int("err_code", rpcErr.ErrorCode),
 			log.String("err_msg", rpcErr.ErrorMessage),
 		)
+		if c.pfs && rpcErr.ErrorCode == 401 && rpcErr.ErrorMessage == "AUTH_KEY_PERM_EMPTY" {
+			// The server forgot the binding of the temporary key. Like TDLib
+			// (and Telegram Android/Desktop), drop the temporary key and
+			// reconnect: the request fails as sent on a dead connection, so
+			// callers resend it on the new one after re-bind.
+			c.log.Warn(ctx, "Temporary key binding lost (AUTH_KEY_PERM_EMPTY), reconnecting", msgID)
+			c.rpc.NotifyError(res.RequestMessageID,
+				errors.Wrap(rpc.ErrEngineClosed, "temporary key binding lost (AUTH_KEY_PERM_EMPTY)"))
+			c.pfsBindingLost.Signal()
+			return nil
+		}
 		c.rpc.NotifyError(res.RequestMessageID, tgerr.New(rpcErr.ErrorCode, rpcErr.ErrorMessage))
 
 		return nil

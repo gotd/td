@@ -18,6 +18,9 @@ type SessionState struct {
 	id              int64
 	contentMessages int32
 	inUse           bool
+	// lastBindAt is the time of the last successful auth.bindTempAuthKey
+	// of the slot, Unix seconds (PFS key recovery policy).
+	lastBindAt int64
 }
 
 // NewSessionState returns an empty SessionState.
@@ -56,4 +59,16 @@ func (s *SessionState) release(keyID [8]byte, id int64, contentMessages int32) {
 	s.id = id
 	s.contentMessages = contentMessages
 	s.inUse = false
+}
+
+func (s *SessionState) setLastBind(at int64) {
+	s.mux.Lock()
+	s.lastBindAt = at
+	s.mux.Unlock()
+}
+
+func (s *SessionState) lastBind() int64 {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	return s.lastBindAt
 }

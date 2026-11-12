@@ -62,6 +62,7 @@ func (s *SyncSession) Options(opts mtproto.Options) (mtproto.Options, Session) {
 		opts.Key = data.AuthKey
 	}
 	opts.Salt = data.Salt
+	opts.KeyCreatedAt = data.KeyCreatedAt
 	return opts, data
 }
 
