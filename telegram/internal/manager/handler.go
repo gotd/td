@@ -12,6 +12,12 @@ type Handler interface {
 	OnMessage(b *bin.Buffer) error
 }
 
+// NewSessionHandler is implemented by a Handler that wants to know when the
+// server created a new session (new_session_created).
+type NewSessionHandler interface {
+	OnNewSession(firstMsgID int64) error
+}
+
 // NoopHandler is a noop handler.
 type NoopHandler struct{}
 

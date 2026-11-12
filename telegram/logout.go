@@ -106,6 +106,9 @@ func (c *Client) logOutGuests(ctx context.Context) {
 	for dc := range c.dcAuthorized {
 		delete(c.dcAuthorized, dc)
 	}
+	for dc := range c.sessionStates {
+		delete(c.sessionStates, dc)
+	}
 	c.sessionsMux.Unlock()
 	c.selfID.Store(0)
 	c.selfBot.Store(false)

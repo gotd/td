@@ -158,6 +158,9 @@ func (c *Client) dc(
 		c.sessionsMux.Unlock()
 
 		options, data := session.Options(opts)
+		if mode != manager.ConnModeCDN {
+			options.SessionState = c.acquireSessionState(dcID)
+		}
 		setup := manager.SetupCallback(nil)
 		handler := c.asHandler()
 		if mode != manager.ConnModeCDN &&

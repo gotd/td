@@ -186,6 +186,43 @@ func (c *Client) setDCAuthorized(ctx context.Context, dc int, authorized bool) {
 	}
 }
 
+// acquireSessionState returns a free server session slot of dc for a new
+// connection, see mtproto.SessionState.
+func (c *Client) acquireSessionState(dc int) *mtproto.SessionState {
+	c.sessionsMux.Lock()
+	defer c.sessionsMux.Unlock()
+	for _, s := range c.sessionStates[dc] {
+		if s.TryAcquire() {
+			return s
+		}
+	}
+	s := mtproto.NewSessionState()
+	s.TryAcquire()
+	c.sessionStates[dc] = append(c.sessionStates[dc], s)
+	return s
+}
+
+// onPrimaryNewSession recovers updates after the server started a new
+// session on the primary connection: updates sent to the previous session
+// may be lost, so the update handler gets updatesTooLong (getDifference in
+// telegram/updates), like TDLib and Telegram Desktop. The first session of
+// the client is skipped: there is no previous one.
+func (c *Client) onPrimaryNewSession() {
+	if c.primarySessions.Inc() == 1 || c.noUpdatesMode || c.updateHandler == nil {
+		return
+	}
+	ctx := c.ctx
+	if ctx == nil {
+		return
+	}
+	c.log.Info(ctx, "New server session on primary connection, recovering updates")
+	go func() {
+		if err := c.updateHandler.Handle(ctx, &tg.UpdatesTooLong{}); err != nil {
+			c.log.Debug(ctx, "Update handler failed on updatesTooLong", log.Error(err))
+		}
+	}()
+}
+
 // SelfID returns the ID of the authorized user or bot and whether it is a
 // bot, without a request: ok is false if it is not known yet. It is known
 // after a successful Self call (including the one Run makes on connect) and

@@ -32,6 +32,18 @@ func (c *Client) asHandler() manager.Handler {
 	}
 }
 
+// primaryHandler is the handler of the primary connection: it also recovers
+// updates when the server starts a new session.
+type primaryHandler struct {
+	clientHandler
+}
+
+// OnNewSession implements manager.NewSessionHandler.
+func (c primaryHandler) OnNewSession(int64) error {
+	c.client.onPrimaryNewSession()
+	return nil
+}
+
 type cdnClientHandler struct {
 	client *Client
 }
@@ -119,6 +131,11 @@ func (c *Client) createConnWith(
 	}
 
 	dc := s.DC
+	opts.SessionState = c.acquireSessionState(dc)
+	handler := c.asHandler()
+	if id == 0 {
+		handler = primaryHandler{clientHandler: clientHandler{client: c}}
+	}
 	var onConnDead func(error)
 	if onDead != nil {
 		onConnDead = func(err error) { onDead(dc, err) }
@@ -130,7 +147,7 @@ func (c *Client) createConnWith(
 			Test:    c.testDC,
 			Layer:   c.layer,
 			Device:  c.device,
-			Handler: c.asHandler(),
+			Handler: handler,
 			Setup:   setup,
 			OnDead:  onConnDead,
 		},

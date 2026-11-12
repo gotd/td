@@ -39,7 +39,7 @@ func (s *Server) rpcHandle(ctx context.Context, c transport.Conn, b *bin.Buffer)
 	if conn := s.users.createConnection(msg.SessionID, c); !conn.sentCreated() {
 		s.log.Debug(ctx, "Send handleSessionCreated event", session.LogAttr())
 		salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
-		if err := s.sendSessionCreated(ctx, session, salt); err != nil {
+		if err := s.sendSessionCreated(ctx, session, salt, msg.MessageID); err != nil {
 			return err
 		}
 	}

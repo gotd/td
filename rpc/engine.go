@@ -313,6 +313,25 @@ func (e *Engine) NotifyErrorAll(rpcErr error) {
 	}
 }
 
+// NotifyErrorBefore notifies pending requests with msg_id less than msgID
+// about rpcErr, e.g. requests sent in a server session that was replaced
+// (new_session_created with first_msg_id).
+func (e *Engine) NotifyErrorBefore(msgID int64, rpcErr error) {
+	e.mux.Lock()
+	var handlers []func(*bin.Buffer, error) error
+	for id, fn := range e.rpc {
+		if id < msgID {
+			handlers = append(handlers, fn)
+		}
+	}
+	e.mux.Unlock()
+
+	for _, fn := range handlers {
+		// Callback with rpcError always return nil.
+		_ = fn(nil, rpcErr)
+	}
+}
+
 // NotifyError notifies engine about received RPC error.
 func (e *Engine) NotifyError(msgID int64, rpcErr error) {
 	e.mux.Lock()

@@ -49,7 +49,7 @@ func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, messa
 	ctx, cancel := context.WithTimeout(ctx, s.writeTimeout)
 	defer cancel()
 
-	if err := conn.Send(ctx, &b); err != nil {
+	if err := conn.get().Send(ctx, &b); err != nil {
 		return errors.Wrap(err, "send")
 	}
 
@@ -113,9 +113,12 @@ func (s *Server) SendVector(req *Request, msgs ...bin.Encoder) error {
 }
 
 // sendSessionCreated sends mt.NewSessionCreated `new_session_created` notification.
-func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt int64) error {
+//
+// firstMsgID is the msg_id of the first client message of the session, as
+// the server reports it.
+func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt, firstMsgID int64) error {
 	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.NewSessionCreated{
-		FirstMsgID: s.msgID.New(proto.MessageFromClient),
+		FirstMsgID: firstMsgID,
 		ServerSalt: serverSalt,
 	}); err != nil {
 		return errors.Wrap(err, "send sessionCreated")
@@ -182,6 +185,13 @@ func (s *Server) SendAck(ctx context.Context, k Session, ids ...int64) error {
 	}
 
 	return nil
+}
+
+// ForgetSession makes the server forget session k while keeping the
+// connection: the next message of the session starts a new server session
+// (new_session_created), as when Telegram loses the session state.
+func (s *Server) ForgetSession(k Session) {
+	s.users.forgetSession(k.ID)
 }
 
 // ForceDisconnect forcibly disconnect user from server.

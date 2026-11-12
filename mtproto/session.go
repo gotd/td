@@ -1,7 +1,10 @@
 package mtproto
 
 import (
+	"context"
+
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/crypto"
 )
@@ -47,6 +50,43 @@ func (c *Conn) newSessionID() error {
 
 	c.traceSession(old, id)
 	return nil
+}
+
+// reuseSession continues the server session saved in sessionState for key,
+// if any.
+func (c *Conn) reuseSession(ctx context.Context, key crypto.AuthKey) bool {
+	if c.sessionState == nil || c.pfs {
+		return false
+	}
+	id, n, ok := c.sessionState.load(key.ID)
+	if !ok {
+		return false
+	}
+	c.sessionMux.Lock()
+	old := c.sessionID
+	c.sessionID = id
+	c.sessionMux.Unlock()
+	c.reqMux.Lock()
+	c.sentContentMessages = n
+	c.reqMux.Unlock()
+	c.sessionContinued = true
+	c.log.Debug(ctx, "Continuing session", log.Int32("content_messages", n))
+	c.traceSession(old, id)
+	return true
+}
+
+// releaseSessionState saves the session of this connection for the next one.
+func (c *Conn) releaseSessionState() {
+	s := c.session()
+	c.reqMux.Lock()
+	n := c.sentContentMessages
+	c.reqMux.Unlock()
+	id := s.ID
+	if c.pfs || s.Key.Zero() {
+		// PFS: the temporary key and its session end with the connection.
+		id = 0
+	}
+	c.sessionState.release(s.Key.ID, id, n)
 }
 
 // errSessionReset is reported to requests that were pending in a session
