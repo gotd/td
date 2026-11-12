@@ -53,6 +53,15 @@ func (t *ServerTime) Offset() time.Duration {
 	return time.Duration(t.offset.Load())
 }
 
+// Seed sets the offset, e.g. one persisted by a previous run, unless it was
+// already observed from the server.
+func (t *ServerTime) Seed(offset time.Duration) {
+	if t.Known() {
+		return
+	}
+	t.offset.Store(int64(offset))
+}
+
 // Known reports whether the offset was observed from the server.
 func (t *ServerTime) Known() bool {
 	t.mux.Lock()

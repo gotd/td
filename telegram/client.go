@@ -105,6 +105,9 @@ type Client struct {
 	opts mtproto.Options // immutable
 	// serverTime is the server time offset shared by all connections.
 	serverTime *mtproto.ServerTime // immutable
+	// serverTimeSet reports whether Options.ServerTimeOffset was set, so the
+	// persisted offset doesn't override it.
+	serverTimeSet bool // immutable
 
 	// DCList state.
 	// Domain list (for websocket)
@@ -305,6 +308,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 
 	client.serverTime = mtproto.NewServerTime(opt.Clock, opt.ServerTimeOffset)
+	client.serverTimeSet = opt.ServerTimeOffset != 0
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(client.serverTime.Now)
 	}

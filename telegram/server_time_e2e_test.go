@@ -12,6 +12,7 @@ import (
 	"github.com/gotd/log/logzap"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/tg"
@@ -44,6 +45,7 @@ func TestClientServerTimeOffset(t *testing.T) {
 			c.Dispatch(dcID, "dc").Vector(tg.UsersGetUsersRequestTypeID, &tg.User{ID: 10})
 
 			var offset time.Duration
+			storage := &session.StorageMemory{}
 			g := tdsync.NewCancellableGroup(ctx)
 			g.Go(c.Up)
 			g.Go(func(ctx context.Context) error {
@@ -59,7 +61,7 @@ func TestClientServerTimeOffset(t *testing.T) {
 					DCList:         c.List(),
 					DC:             dcID,
 					Logger:         logzap.New(zapLog.Named("client")),
-					SessionStorage: &session.StorageMemory{},
+					SessionStorage: storage,
 					NoUpdates:      true,
 					Clock:          skewedClock{skew: skew},
 				})
@@ -78,6 +80,41 @@ func TestClientServerTimeOffset(t *testing.T) {
 			require.NoError(t, err)
 			require.InDelta(t, float64(-skew), float64(offset), float64(2*time.Second),
 				"offset %s for clock skew %s", offset, skew)
+
+			// The offset is saved with the session for the next run.
+			data, err := (&session.Loader{Storage: storage}).Load(context.Background())
+			require.NoError(t, err)
+			require.InDelta(t, float64(-skew), float64(data.ServerTimeOffset), float64(2*time.Second))
+		})
+	}
+}
+
+func TestClientRestoreSeedsServerTime(t *testing.T) {
+	key := crypto.Key{1}.WithID()
+	data := &session.Data{
+		DC:               2,
+		AuthKey:          key.Value[:],
+		AuthKeyID:        key.ID[:],
+		ServerTimeOffset: 42 * time.Second,
+	}
+	for _, tc := range []struct {
+		name   string
+		option time.Duration
+		want   time.Duration
+	}{
+		{"FromSession", 0, 42 * time.Second},
+		{"OptionWins", 7 * time.Second, 7 * time.Second},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			storage := &session.StorageMemory{}
+			require.NoError(t, (&session.Loader{Storage: storage}).Save(context.Background(), data))
+			client := NewClient(1, "hash", Options{
+				SessionStorage:   storage,
+				NoUpdates:        true,
+				ServerTimeOffset: tc.option,
+			})
+			require.NoError(t, client.restoreConnection(context.Background()))
+			require.Equal(t, tc.want, client.ServerTimeOffset())
 		})
 	}
 }
