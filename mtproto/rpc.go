@@ -25,6 +25,12 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 			c.log.Info(ctx, "Resending request in new session")
 			continue
 		}
+		if code, ok := badMsgTimeCode(err); ok && code == codeMessageIDTooHigh {
+			// The session is closed (failSession) and the server did not
+			// process the request: send it again on the next connection,
+			// in a new session.
+			return errors.Wrap(rpc.ErrEngineClosed, "msg_id too high, resend in a new session")
+		}
 		if code, ok := badMsgTimeCode(err); ok && timeResends < maxTimeResends {
 			// The server refused the msg_id because of its time; the server
 			// time offset is corrected by now (see handleBadMsg and

@@ -1,9 +1,11 @@
 package mtproto
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/log"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
@@ -62,6 +64,12 @@ func (c *Conn) handleBadMsg(msgID int64, b *bin.Buffer) error {
 			// For "too low" the offset was already raised from that msg_id
 			// when it was received.
 			c.serverTime.reset(proto.MessageID(msgID).Time())
+		}
+		if bad.ErrorCode == codeMessageIDTooHigh {
+			c.log.Warn(context.Background(), "msg_id too high, starting a new session",
+				log.Int64("bad_msg_id", bad.BadMsgID),
+			)
+			c.failSession()
 		}
 		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode})
 		return nil
