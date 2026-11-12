@@ -32,7 +32,15 @@ var (
 )
 
 // ForumTopicDeleted represents TL type `forumTopicDeleted#23f109b`.
-// Represents a deleted forum topic.
+// Represents a deleted forum topic¹.
+// This constructor is returned in place of a forumTopic¹ by messages
+// getForumTopicsByID² (and the other topic-fetching methods) when a topic no longer
+// exists, allowing clients and bots to confirm that a topic was deleted.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
+//  2. https://core.telegram.org/constructor/forumTopic
+//  3. https://core.telegram.org/method/messages.getForumTopicsByID
 //
 // See https://core.telegram.org/constructor/forumTopicDeleted for reference.
 type ForumTopicDeleted struct {
@@ -198,7 +206,12 @@ type ForumTopic struct {
 	Short bool
 	// Whether the topic is hidden (only valid for the "General" topic, id=1)
 	Hidden bool
-	// TitleMissing field of ForumTopic.
+	// If set, the topic has no user-defined title, can only be set for the per-user topics
+	// of bot forums¹; if this field is set, the topic title likely needs to be changed by
+	// the bot.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	TitleMissing bool
 	// Topic ID¹
 	//
@@ -207,7 +220,14 @@ type ForumTopic struct {
 	ID int
 	// Topic creation date
 	Date int
-	// Contains the supergroup/private chat where the topic is located.
+	// Contains the supergroup/private chat where the topic is located.  This field is useful
+	// especially when this object is returned by methods like messages.getMessages¹, which
+	// can return messages and forum topics belonging to different (private chat) peers in
+	// the same method call, making it impossible to tell the topic's peer based on the
+	// method call parameters or surrounding context.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getMessages
 	Peer PeerClass
 	// Topic title
 	Title string
@@ -236,7 +256,11 @@ type ForumTopic struct {
 	UnreadMentionsCount int
 	// Number of unread reactions to messages you sent
 	UnreadReactionsCount int
-	// UnreadPollVotesCount field of ForumTopic.
+	// Number of unread votes cast in non-anonymous polls »¹ owned by the user in this
+	// forum topic.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#unread-poll-votes
 	UnreadPollVotesCount int
 	// ID of the peer that created the topic
 	FromID PeerClass

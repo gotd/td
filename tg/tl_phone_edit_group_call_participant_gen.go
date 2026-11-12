@@ -32,11 +32,13 @@ var (
 )
 
 // PhoneEditGroupCallParticipantRequest represents TL type `phone.editGroupCallParticipant#a5273abf`.
-// Edit information about a given group call¹ participant.
+// Edit information about a participant of a non-RTMP video chat/livestream or conference
+// The raise_hand field is only supported in video chats/livestreams, see here »¹ for
+// more info.
 // Note: flags¹.N?Bool² parameters can have three possible values:
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#managing-an-active-group-call
 //  2. https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 //  3. https://core.telegram.org/type/Bool
 //
@@ -47,31 +49,33 @@ type PhoneEditGroupCallParticipantRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// The group call
+	// Non-RTMP video chat/livestream or conference
 	Call InputGroupCallClass
 	// The group call participant (can also be the user itself)
 	Participant InputPeerClass
-	// Whether to mute or unmute the specified participant
+	// Change the participant's mute state; allowing a forcibly muted participant to
+	// self-unmute does not immediately unmute them
 	//
 	// Use SetMuted and GetMuted helpers.
 	Muted bool
-	// New volume
+	// New volume, between 1 and 20000; 10000 represents 100%. Without moderation rights,
+	// changing another participant's volume affects only local playback
 	//
 	// Use SetVolume and GetVolume helpers.
 	Volume int
-	// Raise or lower hand
+	// Raise or lower hand; only supported in video chats/livestreams
 	//
 	// Use SetRaiseHand and GetRaiseHand helpers.
 	RaiseHand bool
-	// Start or stop the video stream
+	// Start or stop the current user's video stream
 	//
 	// Use SetVideoStopped and GetVideoStopped helpers.
 	VideoStopped bool
-	// Pause or resume the video stream
+	// Pause or resume the current user's video stream
 	//
 	// Use SetVideoPaused and GetVideoPaused helpers.
 	VideoPaused bool
-	// Pause or resume the screen sharing stream
+	// Pause or resume the current user's presentation stream
 	//
 	// Use SetPresentationPaused and GetPresentationPaused helpers.
 	PresentationPaused bool
@@ -514,20 +518,23 @@ func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bo
 }
 
 // PhoneEditGroupCallParticipant invokes method phone.editGroupCallParticipant#a5273abf returning error if any.
-// Edit information about a given group call¹ participant.
+// Edit information about a participant of a non-RTMP video chat/livestream or conference
+// The raise_hand field is only supported in video chats/livestreams, see here »¹ for
+// more info.
 // Note: flags¹.N?Bool² parameters can have three possible values:
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#managing-an-active-group-call
 //  2. https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 //  3. https://core.telegram.org/type/Bool
 //
 // Possible errors:
 //
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
 //	400 RAISE_HAND_FORBIDDEN: You cannot raise your hand.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //	400 USER_VOLUME_INVALID: The specified user volume is invalid.
 //	400 VIDEO_PAUSE_FORBIDDEN: You cannot pause the video stream.
 //	400 VIDEO_STOP_FORBIDDEN: You cannot stop the video stream.

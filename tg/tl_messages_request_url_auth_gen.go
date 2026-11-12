@@ -419,6 +419,12 @@ func (r *MessagesRequestURLAuthRequest) GetInAppOrigin() (value string, ok bool)
 // Links:
 //  1. https://core.telegram.org/api/url-authorization
 //
+// Possible errors:
+//
+//	500 OAUTH_REQUEST_INVALID: The specified OAuth request is invalid.
+//	400 URL_EXPIRED: The specified OAuth request has expired.
+//	400 URL_INVALID: Invalid URL provided.
+//
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 func (c *Client) MessagesRequestURLAuth(ctx context.Context, request *MessagesRequestURLAuthRequest) (URLAuthResultClass, error) {
 	var result URLAuthResultBox

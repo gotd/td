@@ -32,6 +32,10 @@ var (
 )
 
 // GroupCallDonor represents TL type `groupCallDonor#ee430c85`.
+// Describes a live story donor in the donation leaderboard »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#paid-live-story-donations
 //
 // See https://core.telegram.org/constructor/groupCallDonor for reference.
 type GroupCallDonor struct {
@@ -40,15 +44,15 @@ type GroupCallDonor struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Top field of GroupCallDonor.
+	// Whether this donor is included in the top-donor leaderboard
 	Top bool
-	// My field of GroupCallDonor.
+	// Whether this entry describes the current user's donations
 	My bool
-	// PeerID field of GroupCallDonor.
+	// Donor displayed in the leaderboard
 	//
 	// Use SetPeerID and GetPeerID helpers.
 	PeerID PeerClass
-	// Stars field of GroupCallDonor.
+	// Total Stars donated by this donor
 	Stars int64
 }
 

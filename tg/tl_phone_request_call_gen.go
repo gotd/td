@@ -48,7 +48,11 @@ type PhoneRequestCallRequest struct {
 	Video bool
 	// Destination of the phone call
 	UserID InputUserClass
-	// Random ID to avoid resending the same object
+	// Random ID to avoid resending the same object. See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int
 	// Parameter for E2E encryption key exchange »¹
 	//
@@ -320,7 +324,6 @@ func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
 //	400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid.
 //	400 CALL_PROTOCOL_LAYER_INVALID: The specified protocol layer version range is invalid.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
-//	500 PARTICIPANT_CALL_FAILED:
 //	400 PARTICIPANT_VERSION_OUTDATED: The other participant does not use an up to date telegram client with support for calls.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 USER_ID_INVALID: The provided user ID is invalid.

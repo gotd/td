@@ -47,7 +47,11 @@ type MessagesSendQuickReplyMessagesRequest struct {
 	// them.
 	ID []int
 	// Unique client IDs required to prevent message resending, one for each message we're
-	// sending, may be empty (but not recommended).
+	// sending, may be empty (but not recommended). See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []int64
 }
 

@@ -32,18 +32,37 @@ var (
 )
 
 // BotsCreateBotRequest represents TL type `bots.createBot#e5b17f2b`.
+// Create a managed bot »¹ owned by the current user and controlled by the specified
+// manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#creating-a-managed-bot
 //
 // See https://core.telegram.org/method/bots.createBot for reference.
 type BotsCreateBotRequest struct {
-	// Flags field of BotsCreateBotRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaDeeplink field of BotsCreateBotRequest.
+	// Set only if the creation prompt was opened from a managed bot creation request deep
+	// link »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#managed-bot-creation-request-links
 	ViaDeeplink bool
-	// Name field of BotsCreateBotRequest.
+	// Display name of the bot, 1–64 characters
 	Name string
-	// Username field of BotsCreateBotRequest.
+	// Username for the bot, as validated by bots.checkUsername¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/bots.checkUsername
 	Username string
-	// ManagerID field of BotsCreateBotRequest.
+	// The manager bot that will control the created bot; must have the user¹
+	// bot_can_manage_bots flag set
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/user
 	ManagerID InputUserClass
 }
 
@@ -273,6 +292,21 @@ func (c *BotsCreateBotRequest) GetManagerID() (value InputUserClass) {
 }
 
 // BotsCreateBot invokes method bots.createBot#e5b17f2b returning error if any.
+// Create a managed bot »¹ owned by the current user and controlled by the specified
+// manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#creating-a-managed-bot
+//
+// Possible errors:
+//
+//	400 BOT_CREATE_LIMIT_EXCEEDED: The current user already owns the maximum allowed number of owned bots, as specified by bots_create_limit_default » and bots_create_limit_premium »; if the current user doesn't have Telegram Premium, upgrading to Premium will allow them to create more bots.
+//	400 MANAGER_INVALID: The specified manager bot is invalid.
+//	400 MANAGER_PERMISSION_MISSING: The specified manager bot does not have the user.bot_can_manage_bots flag set.
+//	400 NAME_INVALID: The specified bot name is invalid.
+//	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USERNAME_OCCUPIED: The provided username is already occupied.
+//	400 USERNAME_SUFFIX_MISSING: The required bot suffix is missing from the passed username.
 //
 // See https://core.telegram.org/method/bots.createBot for reference.
 func (c *Client) BotsCreateBot(ctx context.Context, request *BotsCreateBotRequest) (UserClass, error) {

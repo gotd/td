@@ -32,18 +32,21 @@ var (
 )
 
 // PhoneSendGroupCallEncryptedMessageRequest represents TL type `phone.sendGroupCallEncryptedMessage#e5afa56d`.
-// Send an E2E-encrypted message to all participants of a conference call¹, using the
-// E2E encryption protocol².
+// Send an E2E-encrypted message or emoji reaction to all participants of a conference
+// call. This method can only be used with conferences; see here »¹ for the
+// serialization and encryption process.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
-//  2. https://core.telegram.org/api/end-to-end/group-calls#encryption-protocol
+//  1. https://core.telegram.org/api/end-to-end/group-calls#conference-in-call-messages
 //
 // See https://core.telegram.org/method/phone.sendGroupCallEncryptedMessage for reference.
 type PhoneSendGroupCallEncryptedMessageRequest struct {
-	// Call field of PhoneSendGroupCallEncryptedMessageRequest.
+	// Conference call that should receive the encrypted message or reaction
 	Call InputGroupCallClass
-	// EncryptedMessage field of PhoneSendGroupCallEncryptedMessageRequest.
+	// Complete encrypted message or reaction packet produced as specified here »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/group-calls#encrypting-and-sending-a-message
 	EncryptedMessage []byte
 }
 
@@ -199,12 +202,12 @@ func (s *PhoneSendGroupCallEncryptedMessageRequest) GetEncryptedMessage() (value
 }
 
 // PhoneSendGroupCallEncryptedMessage invokes method phone.sendGroupCallEncryptedMessage#e5afa56d returning error if any.
-// Send an E2E-encrypted message to all participants of a conference call¹, using the
-// E2E encryption protocol².
+// Send an E2E-encrypted message or emoji reaction to all participants of a conference
+// call. This method can only be used with conferences; see here »¹ for the
+// serialization and encryption process.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
-//  2. https://core.telegram.org/api/end-to-end/group-calls#encryption-protocol
+//  1. https://core.telegram.org/api/end-to-end/group-calls#conference-in-call-messages
 //
 // Possible errors:
 //

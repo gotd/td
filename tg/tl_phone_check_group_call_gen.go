@@ -32,19 +32,27 @@ var (
 )
 
 // PhoneCheckGroupCallRequest represents TL type `phone.checkGroupCall#b59cf977`.
-// Check whether the group call¹ Server Forwarding Unit is currently receiving the
-// streams with the specified WebRTC source IDs.
-// Returns an intersection of the source IDs specified in sources, and the source IDs
-// currently being forwarded by the SFU.
+// Check which of the specified source IDs the server still recognizes as joined to a
+// group call. This method can be used with all group call types, see here »¹ for more
+// info.
+// After joining the main connection with phone.joinGroupCall¹, pass its non-zero
+// SSRC/source ID to this method periodically. If a presentation connection is also
+// active, include the separate source registered using phone.joinGroupCallPresentation².
+// The method returns the subset of the supplied sources that are still joined. A missing
+// source means that the corresponding connection must be recreated and joined again; it
+// does not indicate whether media packets are currently flowing. If the method returns
+// GROUPCALL_JOIN_MISSING, the main connection must be rejoined.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#maintaining-group-call-connections
+//  2. https://core.telegram.org/method/phone.joinGroupCall
+//  3. https://core.telegram.org/method/phone.joinGroupCallPresentation
 //
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 type PhoneCheckGroupCallRequest struct {
-	// Group call
+	// Group call whose WebRTC connections should be checked
 	Call InputGroupCallClass
-	// Source IDs
+	// Non-zero SSRC/source IDs of the caller's main and presentation connections
 	Sources []int
 }
 
@@ -213,13 +221,21 @@ func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
 }
 
 // PhoneCheckGroupCall invokes method phone.checkGroupCall#b59cf977 returning error if any.
-// Check whether the group call¹ Server Forwarding Unit is currently receiving the
-// streams with the specified WebRTC source IDs.
-// Returns an intersection of the source IDs specified in sources, and the source IDs
-// currently being forwarded by the SFU.
+// Check which of the specified source IDs the server still recognizes as joined to a
+// group call. This method can be used with all group call types, see here »¹ for more
+// info.
+// After joining the main connection with phone.joinGroupCall¹, pass its non-zero
+// SSRC/source ID to this method periodically. If a presentation connection is also
+// active, include the separate source registered using phone.joinGroupCallPresentation².
+// The method returns the subset of the supplied sources that are still joined. A missing
+// source means that the corresponding connection must be recreated and joined again; it
+// does not indicate whether media packets are currently flowing. If the method returns
+// GROUPCALL_JOIN_MISSING, the main connection must be rejoined.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#maintaining-group-call-connections
+//  2. https://core.telegram.org/method/phone.joinGroupCall
+//  3. https://core.telegram.org/method/phone.joinGroupCallPresentation
 //
 // Possible errors:
 //

@@ -38,7 +38,10 @@ var (
 type MessagesMessages struct {
 	// List of messages
 	Messages []MessageClass
-	// Topics field of MessagesMessages.
+	// Forum topics¹ the returned messages belong to.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	Topics []ForumTopicClass
 	// List of chats mentioned in dialogs
 	Chats []ChatClass
@@ -378,7 +381,10 @@ type MessagesMessagesSlice struct {
 	SearchFlood SearchPostsFlood
 	// List of messages
 	Messages []MessageClass
-	// Topics field of MessagesMessagesSlice.
+	// Forum topics¹ the returned messages belong to.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	Topics []ForumTopicClass
 	// List of chats mentioned in messages
 	Chats []ChatClass
@@ -1565,7 +1571,10 @@ type ModifiedMessagesMessages interface {
 	// List of messages
 	GetMessages() (value []MessageClass)
 
-	// Topics field of MessagesMessages.
+	// Forum topics¹ the returned messages belong to.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	GetTopics() (value []ForumTopicClass)
 
 	// List of chats mentioned in dialogs

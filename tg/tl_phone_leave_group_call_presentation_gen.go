@@ -32,14 +32,16 @@ var (
 )
 
 // PhoneLeaveGroupCallPresentationRequest represents TL type `phone.leaveGroupCallPresentation#1c50d144`.
-// Stop screen sharing in a group call¹.
+// Stop screen sharing in a non-RTMP video chat/livestream or conference. Presentations
+// are not supported in live stories or RTMP-mode video chats/livestreams, see here »¹
+// for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#presentations
 //
 // See https://core.telegram.org/method/phone.leaveGroupCallPresentation for reference.
 type PhoneLeaveGroupCallPresentationRequest struct {
-	// The group call
+	// Group call whose presentation connection should be stopped
 	Call InputGroupCallClass
 }
 
@@ -170,10 +172,12 @@ func (l *PhoneLeaveGroupCallPresentationRequest) GetCall() (value InputGroupCall
 }
 
 // PhoneLeaveGroupCallPresentation invokes method phone.leaveGroupCallPresentation#1c50d144 returning error if any.
-// Stop screen sharing in a group call¹.
+// Stop screen sharing in a non-RTMP video chat/livestream or conference. Presentations
+// are not supported in live stories or RTMP-mode video chats/livestreams, see here »¹
+// for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#presentations
 //
 // Possible errors:
 //

@@ -38,7 +38,11 @@ var (
 type MessagesSendEncryptedServiceRequest struct {
 	// Secret chat ID
 	Peer InputEncryptedChat
-	// Unique client message ID required to prevent message resending
+	// Unique client message ID required to prevent message resending. See here »¹ for more
+	// info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// TL-serialization of  DecryptedMessage¹ type, encrypted with a key generated during
 	// chat initialization
@@ -226,6 +230,7 @@ func (s *MessagesSendEncryptedServiceRequest) GetData() (value []byte) {
 //
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 DATA_INVALID: Encrypted data invalid.
+//	400 DATA_TOO_LONG: Data too long.
 //	400 ENCRYPTION_DECLINED: The secret chat was declined.
 //	400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid.
 //	500 MSG_WAIT_FAILED: A waiting call returned an error.

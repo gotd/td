@@ -79,7 +79,11 @@ type MessagesSendMessageRequest struct {
 	ReplyTo InputReplyToClass
 	// The message
 	Message string
-	// Unique client message ID required to prevent message resending
+	// Unique client message ID required to prevent message resending. See here »¹ for more
+	// info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Reply markup for sending bot buttons
 	//
@@ -1171,10 +1175,13 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	403 CHAT_SEND_PLAIN_FORBIDDEN: You can't send non-media (text) messages in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
-//	400 EFFECT_CHAT_INVALID:
+//	400 EFFECT_CHAT_INVALID: Message effects can only be used in private 1-on-1 chats, but the caller tried to send a message with an effect to a group or channel.
 //	400 ENCRYPTION_DECLINED: The secret chat was declined.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 ENTITY_DATE_FORMAT_INVALID: One of the passed messageEntityFormattedDate objects has an invalid format (i.e. an invalid combination of the format flags).
+//	400 ENTITY_DATE_INVALID: One of the passed messageEntityFormattedDate objects has an invalid date: the allowed value ranges from 0 to the current date plus 1098 days (time()+1098*86400).
+//	400 ENTITY_DATE_TOO_LONG: The maximum text span that can be covered by a date entity is 31 UTF-16 code units if any of the date formatting flags is set, or 127 UTF-16 code units without.  .
 //	400 ENTITY_MENTION_USER_INVALID: You mentioned an invalid user.
 //	400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
@@ -1193,6 +1200,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	400 QUOTE_TEXT_INVALID: The specified reply_to.quote_text field is invalid.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
+//	400 RANDOM_ID_EMPTY: Random ID empty.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 REPLY_MESSAGES_TOO_MUCH: Each shortcut can contain a maximum of appConfig.quick_reply_messages_limit messages, the limit was reached.
@@ -1213,6 +1221,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 USER_BOT_TO_BOT_DISABLED: Bot-to-bot messaging is disabled because one of the two bots hasn't enabled the Bot to Bot setting in @BotFather.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
 //	400 WC_CONVERT_URL_INVALID: WC convert URL invalid.

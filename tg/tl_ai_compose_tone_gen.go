@@ -32,38 +32,66 @@ var (
 )
 
 // AiComposeTone represents TL type `aiComposeTone#cff63ea9`.
+// A custom AI composer tone »¹, used to rephrase messages in a specific style with the
+// AI message composer².
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//  2. https://core.telegram.org/api/ai#compose-messages
 //
 // See https://core.telegram.org/constructor/aiComposeTone for reference.
 type AiComposeTone struct {
-	// Flags field of AiComposeTone.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Creator field of AiComposeTone.
+	// Whether the current user is the creator of this tone
 	Creator bool
-	// ID field of AiComposeTone.
+	// Tone identifier
 	ID int64
-	// AccessHash field of AiComposeTone.
+	// Tone access hash
 	AccessHash int64
-	// Slug field of AiComposeTone.
+	// Unique tone slug, used to share and install the tone via AI compose tone links »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#ai-compose-tone-links
 	Slug string
-	// Title field of AiComposeTone.
+	// Human-readable tone name, up to aicompose_tone_title_length_max »¹ UTF-8 characters
+	// long
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-title-length-max
 	Title string
-	// EmojiID field of AiComposeTone.
+	// Custom emoji ID¹ of the tone's icon
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetEmojiID and GetEmojiID helpers.
 	EmojiID int64
-	// Prompt field of AiComposeTone.
+	// The prompt that describes how the AI should rephrase messages using this tone, up to
+	// aicompose_tone_prompt_length_max »¹ UTF-8 characters long; only present for tones
+	// created by the current user
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-prompt-length-max
 	//
 	// Use SetPrompt and GetPrompt helpers.
 	Prompt string
-	// InstallsCount field of AiComposeTone.
+	// Number of users that have installed this tone
 	//
 	// Use SetInstallsCount and GetInstallsCount helpers.
 	InstallsCount int
-	// AuthorID field of AiComposeTone.
+	// ID of the user that created this tone, if made public by the author.
 	//
 	// Use SetAuthorID and GetAuthorID helpers.
 	AuthorID int64
-	// ExampleEnglish field of AiComposeTone.
+	// An example showing how a sample English message is rephrased by this tone; use
+	// aicompose.getToneExample¹ to fetch more examples.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/aicompose.getToneExample
 	//
 	// Use SetExampleEnglish and GetExampleEnglish helpers.
 	ExampleEnglish AiComposeToneExample
@@ -540,14 +568,25 @@ func (a *AiComposeTone) GetExampleEnglish() (value AiComposeToneExample, ok bool
 }
 
 // AiComposeToneDefault represents TL type `aiComposeToneDefault#9bad6414`.
+// A built-in, default AI composer tone »¹, identified by a string identifier rather
+// than by a numeric ID.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/constructor/aiComposeToneDefault for reference.
 type AiComposeToneDefault struct {
-	// Tone field of AiComposeToneDefault.
+	// String identifier of the built-in tone, to be passed to inputAiComposeToneDefault¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputAiComposeToneDefault
 	Tone string
-	// EmojiID field of AiComposeToneDefault.
+	// Custom emoji ID¹ of the tone's icon
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	EmojiID int64
-	// Title field of AiComposeToneDefault.
+	// Localized, human-readable name of the tone
 	Title string
 }
 
@@ -767,7 +806,11 @@ type AiComposeToneClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Title field of AiComposeTone.
+	// Human-readable tone name, up to aicompose_tone_title_length_max »¹ UTF-8 characters
+	// long
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-title-length-max
 	GetTitle() (value string)
 }
 

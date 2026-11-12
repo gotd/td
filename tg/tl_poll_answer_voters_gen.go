@@ -54,7 +54,7 @@ type PollAnswerVoters struct {
 	//
 	// Use SetVoters and GetVoters helpers.
 	Voters int
-	// RecentVoters field of PollAnswerVoters.
+	// Peers of the most recent voters for this option; mutually exclusive with voters
 	//
 	// Use SetRecentVoters and GetRecentVoters helpers.
 	RecentVoters []PeerClass

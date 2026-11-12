@@ -32,6 +32,11 @@ var (
 )
 
 // BotsCheckUsernameRequest represents TL type `bots.checkUsername#e3ac4c61`.
+// Check whether a username is available and valid for use when creating a managed bot
+// »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#creating-a-managed-bot
 //
 // See https://core.telegram.org/method/bots.checkUsername for reference.
 type BotsCheckUsernameRequest struct {
@@ -39,7 +44,8 @@ type BotsCheckUsernameRequest struct {
 	Flags bin.Fields
 	// Additional field of BotsCheckUsernameRequest.
 	Additional bool
-	// Username field of BotsCheckUsernameRequest.
+	// Username to check; only letters, digits and underscores are allowed, must end in bot,
+	// and the full username must be 5–32 characters long
 	Username string
 }
 
@@ -214,6 +220,17 @@ func (c *BotsCheckUsernameRequest) GetUsername() (value string) {
 }
 
 // BotsCheckUsername invokes method bots.checkUsername#e3ac4c61 returning error if any.
+// Check whether a username is available and valid for use when creating a managed bot
+// »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#creating-a-managed-bot
+//
+// Possible errors:
+//
+//	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USERNAME_OCCUPIED: The provided username is already occupied.
+//	400 USERNAME_SUFFIX_MISSING: The required bot suffix is missing from the passed username.
 //
 // See https://core.telegram.org/method/bots.checkUsername for reference.
 func (c *Client) BotsCheckUsername(ctx context.Context, request *BotsCheckUsernameRequest) (bool, error) {

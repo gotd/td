@@ -312,7 +312,6 @@ func (u *AccountUpdateConnectedBotRequest) GetRecipients() (value InputBusinessB
 //
 //	400 BOT_BUSINESS_MISSING: The specified bot is not a business bot (the user.bot_business flag is not set).
 //	400 BUSINESS_RECIPIENTS_EMPTY: You didn't set any flag in inputBusinessBotRecipients, thus the bot cannot work with any peer.
-//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.updateConnectedBot for reference.
 func (c *Client) AccountUpdateConnectedBot(ctx context.Context, request *AccountUpdateConnectedBotRequest) (UpdatesClass, error) {

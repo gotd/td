@@ -32,7 +32,7 @@ var (
 )
 
 // PhoneCreateGroupCallRequest represents TL type `phone.createGroupCall#48cdc6d8`.
-// Create a group call or livestream¹.
+// Create a video chat or livestream, see here »¹ for the full flow.
 //
 // Links:
 //  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
@@ -44,26 +44,32 @@ type PhoneCreateGroupCallRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether RTMP stream support should be enabled: only the group/supergroup/channel¹
-	// owner can use this flag.
+	// Create the call in RTMP livestream mode »¹, where one external streamer publishes
+	// all audio and video
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/channel
+	//  1) https://core.telegram.org/api/group-calls#stream-mode
 	RtmpStream bool
 	// Associate the group call or livestream to the provided group/supergroup/channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Peer InputPeerClass
-	// Unique client message ID required to prevent creation of duplicate group calls
+	// Unique client message ID required to prevent creation of duplicate group calls. See
+	// here »¹ for more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int
 	// Call title, if not set defaults to the group/channel's name.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// For scheduled group call or livestreams, the absolute date (unixtime) when the group
-	// call is expected to start: the date must be at least 10 seconds and at most 8 days in
-	// the future.
+	// Schedule date, at least 10 seconds and at most 8 days in the future; the call must
+	// still be manually started using phone.startScheduledGroupCall¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.startScheduledGroupCall
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -358,7 +364,7 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 }
 
 // PhoneCreateGroupCall invokes method phone.createGroupCall#48cdc6d8 returning error if any.
-// Create a group call or livestream¹.
+// Create a video chat or livestream, see here »¹ for the full flow.
 //
 // Links:
 //  1. https://core.telegram.org/api/group-calls#video-chats-livestreams

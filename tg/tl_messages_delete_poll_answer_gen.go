@@ -32,14 +32,18 @@ var (
 )
 
 // MessagesDeletePollAnswerRequest represents TL type `messages.deletePollAnswer#ac8505a5`.
+// Remove an answer option from an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
 //
 // See https://core.telegram.org/method/messages.deletePollAnswer for reference.
 type MessagesDeletePollAnswerRequest struct {
-	// Peer field of MessagesDeletePollAnswerRequest.
+	// Peer where the poll is located
 	Peer InputPeerClass
-	// MsgID field of MessagesDeletePollAnswerRequest.
+	// Message ID of the poll
 	MsgID int
-	// Option field of MessagesDeletePollAnswerRequest.
+	// The option identifier of the answer to remove
 	Option []byte
 }
 
@@ -220,6 +224,14 @@ func (d *MessagesDeletePollAnswerRequest) GetOption() (value []byte) {
 }
 
 // MessagesDeletePollAnswer invokes method messages.deletePollAnswer#ac8505a5 returning error if any.
+// Remove an answer option from an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.deletePollAnswer for reference.
 func (c *Client) MessagesDeletePollAnswer(ctx context.Context, request *MessagesDeletePollAnswerRequest) (UpdatesClass, error) {

@@ -4243,7 +4243,7 @@ type MessageActionGroupCall struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Group call
+	// Video chat/livestream that started or ended
 	Call InputGroupCallClass
 	// Duration of the group call in seconds, for terminated calls.
 	//
@@ -4443,14 +4443,14 @@ func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
 }
 
 // MessageActionInviteToGroupCall represents TL type `messageActionInviteToGroupCall#502f92f7`.
-// A set of users was invited to a group call¹.
+// A set of users was invited to a video chat/livestream »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // See https://core.telegram.org/constructor/messageActionInviteToGroupCall for reference.
 type MessageActionInviteToGroupCall struct {
-	// The group call
+	// Video chat/livestream to which the users were invited
 	Call InputGroupCallClass
 	// The invited users
 	Users []int64
@@ -4844,7 +4844,7 @@ func (m *MessageActionSetMessagesTTL) GetAutoSettingFrom() (value int64, ok bool
 //
 // See https://core.telegram.org/constructor/messageActionGroupCallScheduled for reference.
 type MessageActionGroupCallScheduled struct {
-	// The group call
+	// Scheduled video chat/livestream
 	Call InputGroupCallClass
 	// When is the group call scheduled to start
 	ScheduleDate int
@@ -5944,7 +5944,12 @@ type MessageActionTopicCreate struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// TitleMissing field of MessageActionTopicCreate.
+	// If set, the topic has no user-defined title, can only be set for the per-user topics
+	// of bot forums¹; if this field is set, the topic title likely needs to be changed by
+	// the bot.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	TitleMissing bool
 	// Topic name.
 	Title string
@@ -9504,11 +9509,24 @@ type MessageActionStarGift struct {
 	//
 	// Use SetGiftMsgID and GetGiftMsgID helpers.
 	GiftMsgID int
-	// ToID field of MessageActionStarGift.
+	// For gifts acquired in an auction »¹ (i.e. when auction_acquired is set), the peer
+	// the gift was assigned to; only present if the target peer is different from the bidder
+	// in which case it will only be present to the messageActionStarGift sent to the bidder
+	// not to the messageActionStarGift sent to the target peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
 	//
 	// Use SetToID and GetToID helpers.
 	ToID PeerClass
-	// GiftNum field of MessageActionStarGift.
+	// For gifts acquired in an auction »¹, the collectible number of the won collectible
+	// gift »²; this field is disjoint from auction_acquired because only auction
+	// collectibles won before this field was introduced in the API will not have this flag
+	// set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auctions
+	//  2) https://core.telegram.org/api/gifts#collectible-gifts
 	//
 	// Use SetGiftNum and GetGiftNum helpers.
 	GiftNum int
@@ -10498,10 +10516,10 @@ type MessageActionStarGiftUnique struct {
 	Refunded bool
 	// The sender has pre-paid for the upgrade of this gift to a collectible gift.
 	PrepaidUpgrade bool
-	// This collectible gift was assigned from the TON blockchain »¹.
+	// This collectible gift was linked from the TON blockchain to a Telegram profile »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/gifts#withdraw-a-collectible-gift-to-the-ton-blockchain
+	//  1) https://core.telegram.org/api/gifts#hosted-collectible-gifts
 	Assigned bool
 	// This collectible gift was transferred after a purchase offer »¹ was accepted.
 	//
@@ -11905,14 +11923,14 @@ func (m *MessageActionPaidMessagesPrice) GetStars() (value int64) {
 }
 
 // MessageActionConferenceCall represents TL type `messageActionConferenceCall#2ffe2f7a`.
-// Represents a conference call¹ (or an invitation to a conference call, if neither the
-// missed nor active flags are set).
+// Represents a conference call »¹, or an invitation to one if neither the missed nor
+// active flags are set.
 // If call_requests_disabled¹ is not set or false, an incoming
 // messageActionConferenceCall² with the missed and active flags not set should trigger
 // ringing and an incoming call screen, just like for one-on-one calls.
 //
 // Links:
-//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //  2. https://core.telegram.org/api/config#call-requests-disabled
 //  3. https://core.telegram.org/constructor/messageActionConferenceCall
 //
@@ -13308,7 +13326,7 @@ func (m *MessageActionSuggestedPostRefund) GetPayerInitiated() (value bool) {
 }
 
 // MessageActionGiftTon represents TL type `messageActionGiftTon#a8a3c699`.
-// You were gifted some toncoins.
+// You were gifted some Grams.
 // This service message should be displayed below the appropriate sticker from the
 // inputStickerSetTonGifts »¹ stickerset »²:
 //
@@ -13331,7 +13349,7 @@ type MessageActionGiftTon struct {
 	// Name of the cryptocurrency.
 	CryptoCurrency string
 	// Amount in the smallest unit of the cryptocurrency (for TONs, one billionth of a ton,
-	// AKA a nanoton).
+	// AKA a nanogram).
 	CryptoAmount int64
 	// Transaction ID.
 	//
@@ -14949,10 +14967,14 @@ func (m *MessageActionNoForwardsRequest) GetNewValue() (value bool) {
 }
 
 // MessageActionPollAppendAnswer represents TL type `messageActionPollAppendAnswer#9da1cd6c`.
+// A new answer option was added to an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
 //
 // See https://core.telegram.org/constructor/messageActionPollAppendAnswer for reference.
 type MessageActionPollAppendAnswer struct {
-	// Answer field of MessageActionPollAppendAnswer.
+	// The answer that was added
 	Answer PollAnswerClass
 }
 
@@ -15088,10 +15110,14 @@ func (m *MessageActionPollAppendAnswer) GetAnswer() (value PollAnswerClass) {
 }
 
 // MessageActionPollDeleteAnswer represents TL type `messageActionPollDeleteAnswer#399674dc`.
+// An answer option was removed from an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
 //
 // See https://core.telegram.org/constructor/messageActionPollDeleteAnswer for reference.
 type MessageActionPollDeleteAnswer struct {
-	// Answer field of MessageActionPollDeleteAnswer.
+	// The answer that was removed
 	Answer PollAnswerClass
 }
 
@@ -15227,10 +15253,19 @@ func (m *MessageActionPollDeleteAnswer) GetAnswer() (value PollAnswerClass) {
 }
 
 // MessageActionManagedBotCreated represents TL type `messageActionManagedBotCreated#16605e3e`.
+// Service message sent by a user to a manager bot when a new managed bot »¹ is created
+// through it, by invoking messages.sendBotRequestedPeer² with a
+// requestPeerTypeCreateBot³, see here »⁴ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots
+//  2. https://core.telegram.org/method/messages.sendBotRequestedPeer
+//  3. https://core.telegram.org/constructor/requestPeerTypeCreateBot
+//  4. https://core.telegram.org/api/bots/buttons#requesting-a-managed-bot
 //
 // See https://core.telegram.org/constructor/messageActionManagedBotCreated for reference.
 type MessageActionManagedBotCreated struct {
-	// BotID field of MessageActionManagedBotCreated.
+	// ID of the newly created managed bot
 	BotID int64
 }
 

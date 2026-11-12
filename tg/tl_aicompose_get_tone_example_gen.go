@@ -32,12 +32,21 @@ var (
 )
 
 // AicomposeGetToneExampleRequest represents TL type `aicompose.getToneExample#d1b4ab14`.
+// Fetch an example showing how an AI composer tone »¹ rephrases a sample message, used
+// as a preview in the tone picker.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.getToneExample for reference.
 type AicomposeGetToneExampleRequest struct {
-	// Tone field of AicomposeGetToneExampleRequest.
+	// The tone to preview
 	Tone InputAiComposeToneClass
-	// Num field of AicomposeGetToneExampleRequest.
+	// 0-based index of the example to fetch, to cycle through the available examples (there
+	// are aicompose_tone_examples_num »¹ examples per tone)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-examples-num
 	Num int
 }
 
@@ -193,6 +202,15 @@ func (g *AicomposeGetToneExampleRequest) GetNum() (value int) {
 }
 
 // AicomposeGetToneExample invokes method aicompose.getToneExample#d1b4ab14 returning error if any.
+// Fetch an example showing how an AI composer tone »¹ rephrases a sample message, used
+// as a preview in the tone picker.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_TONE_INVALID: The specified tone is invalid.
 //
 // See https://core.telegram.org/method/aicompose.getToneExample for reference.
 func (c *Client) AicomposeGetToneExample(ctx context.Context, request *AicomposeGetToneExampleRequest) (*AiComposeToneExample, error) {

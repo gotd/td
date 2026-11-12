@@ -36,11 +36,12 @@ var (
 // same base gift type.
 // The passed gifts must all have the same starGiftUnique¹.gift_id, must be usable for
 // crafting, and must not be blocked by a future can_craft_at timestamp.
-// The first passed gift must not be located on the TON blockchain.
+// The first passed gift must not be located on the TON blockchain¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/gifts#collectible-gifts
 //  2. https://core.telegram.org/constructor/starGiftUnique
+//  3. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.craftStarGift for reference.
 type PaymentsCraftStarGiftRequest struct {
@@ -201,11 +202,12 @@ func (c *PaymentsCraftStarGiftRequest) MapStargift() (value InputSavedStarGiftCl
 // same base gift type.
 // The passed gifts must all have the same starGiftUnique¹.gift_id, must be usable for
 // crafting, and must not be blocked by a future can_craft_at timestamp.
-// The first passed gift must not be located on the TON blockchain.
+// The first passed gift must not be located on the TON blockchain¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/gifts#collectible-gifts
 //  2. https://core.telegram.org/constructor/starGiftUnique
+//  3. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //
 // Possible errors:
 //

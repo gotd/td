@@ -32,12 +32,19 @@ var (
 )
 
 // PhoneSaveDefaultSendAsRequest represents TL type `phone.saveDefaultSendAs#4167add1`.
+// Save the default peer displayed as the author of live story comments and reactions,
+// see in-call messages »¹.
+// It cannot be used for normal video chats/livestreams, where in-call messages are sent
+// as the peer used to join the call (join_as).
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/method/phone.saveDefaultSendAs for reference.
 type PhoneSaveDefaultSendAsRequest struct {
-	// Call field of PhoneSaveDefaultSendAsRequest.
+	// Live story group call
 	Call InputGroupCallClass
-	// SendAs field of PhoneSaveDefaultSendAsRequest.
+	// Peer to display as the author of subsequent comments and reactions
 	SendAs InputPeerClass
 }
 
@@ -198,6 +205,13 @@ func (s *PhoneSaveDefaultSendAsRequest) GetSendAs() (value InputPeerClass) {
 }
 
 // PhoneSaveDefaultSendAs invokes method phone.saveDefaultSendAs#4167add1 returning error if any.
+// Save the default peer displayed as the author of live story comments and reactions,
+// see in-call messages »¹.
+// It cannot be used for normal video chats/livestreams, where in-call messages are sent
+// as the peer used to join the call (join_as).
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // Possible errors:
 //

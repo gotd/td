@@ -1421,7 +1421,7 @@ type StarGiftUnique struct {
 	// Links:
 	//  1) https://core.telegram.org/api/premium
 	RequirePremium bool
-	// Whether the gift can be bought only using Toncoins.
+	// Whether the gift can be bought only using Grams.
 	ResaleTonOnly bool
 	// A chat theme associated to this gift is available, see here »¹ for more info on how
 	// to use it.
@@ -1526,10 +1526,11 @@ type StarGiftUnique struct {
 	//
 	// Use SetPeerColor and GetPeerColor helpers.
 	PeerColor PeerColorClass
-	// If set, the gift is currently hosted on the specified user or channel profile even
-	// though ownership belongs to a TON wallet. The owner may transfer, resell or export the
-	// gift, while the host or owner may show it on the profile, use it as a theme/status and
-	// add it to a collection.
+	// If set, the gift is currently hosted on the specified user or channel profile »¹,
+	// while ownership remains with the TON wallet in owner_address.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#hosted-collectible-gifts
 	//
 	// Use SetHostID and GetHostID helpers.
 	HostID PeerClass

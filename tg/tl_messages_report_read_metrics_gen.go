@@ -32,12 +32,17 @@ var (
 )
 
 // MessagesReportReadMetricsRequest represents TL type `messages.reportReadMetrics#4067c5e6`.
+// Report viewport read metrics for visible messages, indicating how long each message
+// stayed in the chat viewport, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/views#read-metrics
 //
 // See https://core.telegram.org/method/messages.reportReadMetrics for reference.
 type MessagesReportReadMetricsRequest struct {
-	// Peer field of MessagesReportReadMetricsRequest.
+	// Peer where the messages are located
 	Peer InputPeerClass
-	// Metrics field of MessagesReportReadMetricsRequest.
+	// List of read metrics for individual messages
 	Metrics []InputMessageReadMetric
 }
 
@@ -208,6 +213,11 @@ func (r *MessagesReportReadMetricsRequest) GetMetrics() (value []InputMessageRea
 }
 
 // MessagesReportReadMetrics invokes method messages.reportReadMetrics#4067c5e6 returning error if any.
+// Report viewport read metrics for visible messages, indicating how long each message
+// stayed in the chat viewport, see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/views#read-metrics
 //
 // See https://core.telegram.org/method/messages.reportReadMetrics for reference.
 func (c *Client) MessagesReportReadMetrics(ctx context.Context, request *MessagesReportReadMetricsRequest) (bool, error) {

@@ -227,6 +227,7 @@ func (i *AuthImportWebTokenAuthorizationRequest) GetWebAuthToken() (value string
 // Possible errors:
 //
 //	400 API_ID_INVALID: API ID invalid.
+//	400 WEBAUTH_TOKEN_EXPIRED: The specified auth token has expired.
 //
 // See https://core.telegram.org/method/auth.importWebTokenAuthorization for reference.
 func (c *Client) AuthImportWebTokenAuthorization(ctx context.Context, request *AuthImportWebTokenAuthorizationRequest) (AuthAuthorizationClass, error) {

@@ -32,7 +32,11 @@ var (
 )
 
 // PhoneGroupCall represents TL type `phone.groupCall#9e727aad`.
-// Contains info about a group call, and partial info about its participants.
+// Contains group call information and an initial participant page, see getting info
+// about a group call »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 //
 // See https://core.telegram.org/constructor/phone.groupCall for reference.
 type PhoneGroupCall struct {

@@ -32,16 +32,21 @@ var (
 )
 
 // PhoneGroupCallStars represents TL type `phone.groupCallStars#9d1dbd26`.
+// Contains a live story's total donations and top donors, see paid live story donations
+// »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#paid-live-story-donations
 //
 // See https://core.telegram.org/constructor/phone.groupCallStars for reference.
 type PhoneGroupCallStars struct {
-	// TotalStars field of PhoneGroupCallStars.
+	// Total Stars donated to the live story
 	TotalStars int64
-	// TopDonors field of PhoneGroupCallStars.
+	// Top donors
 	TopDonors []GroupCallDonor
-	// Chats field of PhoneGroupCallStars.
+	// Chats mentioned in top_donors
 	Chats []ChatClass
-	// Users field of PhoneGroupCallStars.
+	// Users mentioned in top_donors
 	Users []UserClass
 }
 

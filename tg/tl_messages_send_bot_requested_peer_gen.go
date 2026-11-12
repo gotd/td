@@ -57,7 +57,12 @@ type MessagesSendBotRequestedPeerRequest struct {
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
-	// WebappReqID field of MessagesSendBotRequestedPeerRequest.
+	// If the button was prepared for a Mini App »¹, the Mini App request ID returned by
+	// bots.requestWebViewButton².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/buttons#requesting-peers-via-mini-apps
+	//  2) https://core.telegram.org/method/bots.requestWebViewButton
 	//
 	// Use SetWebappReqID and GetWebappReqID helpers.
 	WebappReqID string

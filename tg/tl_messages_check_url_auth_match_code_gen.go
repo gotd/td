@@ -219,6 +219,10 @@ func (c *MessagesCheckURLAuthMatchCodeRequest) GetMatchCode() (value string) {
 //  4. https://core.telegram.org/constructor/boolTrue
 //  5. https://core.telegram.org/method/messages.acceptUrlAuth
 //
+// Possible errors:
+//
+//	400 URL_INVALID: Invalid URL provided.
+//
 // See https://core.telegram.org/method/messages.checkUrlAuthMatchCode for reference.
 func (c *Client) MessagesCheckURLAuthMatchCode(ctx context.Context, request *MessagesCheckURLAuthMatchCodeRequest) (bool, error) {
 	var result BoolBox

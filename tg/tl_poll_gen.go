@@ -50,19 +50,32 @@ type Poll struct {
 	// Whether multiple options can be chosen as answer
 	MultipleChoice bool
 	// Whether this is a quiz (with wrong and correct answers, results shown in the return
-	// type)
+	// type). When creating a poll, the correct answers are specified in inputMediaPoll¹
+	// correct_answers.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputMediaPoll
 	Quiz bool
-	// OpenAnswers field of Poll.
+	// Whether users can add new answer options after the poll is created, see open-answer
+	// polls »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#open-answer-polls
 	OpenAnswers bool
-	// RevotingDisabled field of Poll.
+	// If set, users cannot change their vote after casting it
 	RevotingDisabled bool
-	// ShuffleAnswers field of Poll.
+	// Whether answer options are displayed in a randomized order to each user
 	ShuffleAnswers bool
-	// HideResultsUntilClose field of Poll.
+	// Whether vote results are hidden from all participants until the poll is closed
 	HideResultsUntilClose bool
-	// Creator field of Poll.
+	// Whether the current user created this poll
 	Creator bool
-	// SubscribersOnly field of Poll.
+	// Whether only subscribers can vote: a user may vote only if they are currently a member
+	// of the channel/supergroup and joined it at least 24 hours before the poll was posted,
+	// see subscriber-only polls »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#subscriber-only-polls
 	SubscribersOnly bool
 	// The question of the poll (only Premium¹ users can use custom emoji entities² here).
 	//
@@ -76,22 +89,37 @@ type Poll struct {
 	//  1) https://core.telegram.org/api/config#poll-answers-max
 	//  2) https://core.telegram.org/method/messages.sendVote
 	Answers []PollAnswerClass
-	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used
-	// together with close_date.
+	// Amount of time in seconds the poll will be active after creation, up to
+	// poll_close_period_max »¹ seconds. Can't be used together with close_date.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#poll-close-period-max
 	//
 	// Use SetClosePeriod and GetClosePeriod helpers.
 	ClosePeriod int
-	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at
-	// least 5 and no more than 600 seconds in the future; can't be used together with
+	// Point in time (Unix timestamp) when the poll will be automatically closed. Up to
+	// poll_close_period_max »¹ seconds in the future; can't be used together with
 	// close_period.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#poll-close-period-max
 	//
 	// Use SetCloseDate and GetCloseDate helpers.
 	CloseDate int
-	// CountriesISO2 field of Poll.
+	// If set, only users from the specified ISO 3166-1 alpha-2 country codes may vote, see
+	// country-restricted polls »¹; a user may vote only if the phone_country_iso2 »²
+	// configuration parameter is contained in this list.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#country-restricted-polls
+	//  2) https://core.telegram.org/api/config#phone-country-iso2
 	//
 	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
 	CountriesISO2 []string
-	// Hash field of Poll.
+	// Hash for use with messages.getPollResults¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getPollResults
 	Hash int64
 }
 

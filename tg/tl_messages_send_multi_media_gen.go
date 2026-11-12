@@ -833,7 +833,7 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 EFFECT_ID_INVALID: The specified effect ID is invalid.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
-//	400 FILE_REFERENCE_%d_EMPTY:
+//	400 FILE_REFERENCE_%d_EMPTY: The file reference of the media file at offset %d in the multi_media array is invalid.
 //	400 FILE_REFERENCE_%d_EXPIRED: The file reference of the media file at index %d in the passed media array expired, it must be refreshed as specified in the documentation. .
 //	400 FILE_REFERENCE_%d_INVALID: The file reference of the media file at index %d in the passed media array is invalid.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
@@ -842,6 +842,7 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
 //	406 PEER_ID_INVALID: The provided peer id is invalid.
+//	403 PRIVACY_PREMIUM_REQUIRED: You need a Telegram Premium subscription to send a message to this user.
 //	400 QUICK_REPLIES_BOT_NOT_ALLOWED: Quick replies cannot be used by bots.
 //	400 QUICK_REPLIES_TOO_MUCH: A maximum of appConfig.quick_replies_limit shortcuts may be created, the limit was reached.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
@@ -855,6 +856,7 @@ func (s *MessagesSendMultiMediaRequest) GetAllowPaidStars() (value int64, ok boo
 //	400 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	400 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 USER_IS_BLOCKED: You were blocked by this user.
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 func (c *Client) MessagesSendMultiMedia(ctx context.Context, request *MessagesSendMultiMediaRequest) (UpdatesClass, error) {

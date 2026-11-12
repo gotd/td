@@ -953,6 +953,10 @@ func (t *TopPeerCategoryBotsApp) DecodeBare(b *bin.Buffer) error {
 }
 
 // TopPeerCategoryBotsGuestChat represents TL type `topPeerCategoryBotsGuestChat#6c24f3dd`.
+// Top guest bots »¹, i.e. bots most frequently invoked as guests in chats.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/guest-mode
 //
 // See https://core.telegram.org/constructor/topPeerCategoryBotsGuestChat for reference.
 type TopPeerCategoryBotsGuestChat struct {

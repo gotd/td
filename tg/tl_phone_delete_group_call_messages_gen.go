@@ -32,10 +32,12 @@ var (
 )
 
 // PhoneDeleteGroupCallMessagesRequest represents TL type `phone.deleteGroupCallMessages#f64f54f7`.
-// Delete messages from the in-call message overlay of a group call or livestream¹.
+// Delete specific messages from the in-call message overlay »¹ of a video
+// chat/livestream or live story, including in RTMP mode.
+// Non-admin participants may delete messages they sent; admins may delete any message.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/method/phone.deleteGroupCallMessages for reference.
 type PhoneDeleteGroupCallMessagesRequest struct {
@@ -44,11 +46,11 @@ type PhoneDeleteGroupCallMessagesRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ReportSpam field of PhoneDeleteGroupCallMessagesRequest.
+	// When moderating another participant's messages, also report them as spam
 	ReportSpam bool
-	// Call field of PhoneDeleteGroupCallMessagesRequest.
+	// Video chat/livestream or live story containing the messages
 	Call InputGroupCallClass
-	// Messages field of PhoneDeleteGroupCallMessagesRequest.
+	// IDs of the messages to delete
 	Messages []int
 }
 
@@ -266,10 +268,12 @@ func (d *PhoneDeleteGroupCallMessagesRequest) GetMessages() (value []int) {
 }
 
 // PhoneDeleteGroupCallMessages invokes method phone.deleteGroupCallMessages#f64f54f7 returning error if any.
-// Delete messages from the in-call message overlay of a group call or livestream¹.
+// Delete specific messages from the in-call message overlay »¹ of a video
+// chat/livestream or live story, including in RTMP mode.
+// Non-admin participants may delete messages they sent; admins may delete any message.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // Possible errors:
 //

@@ -39,7 +39,7 @@ var (
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
-	// Group call
+	// Group call whose participants should be fetched
 	Call InputGroupCallClass
 	// If specified, will fetch group participant info about the specified peers
 	IDs []InputPeerClass

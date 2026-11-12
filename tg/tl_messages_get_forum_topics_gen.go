@@ -372,6 +372,7 @@ func (g *MessagesGetForumTopicsRequest) GetLimit() (value int) {
 //
 // Possible errors:
 //
+//	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/messages.getForumTopics for reference.

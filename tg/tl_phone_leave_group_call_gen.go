@@ -32,16 +32,17 @@ var (
 )
 
 // PhoneLeaveGroupCallRequest represents TL type `phone.leaveGroupCall#500377f9`.
-// Leave a group call¹.
+// Leave a group call without ending it for other participants. This method can be used
+// with all group call types, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#managing-an-active-group-call
 //
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 type PhoneLeaveGroupCallRequest struct {
-	// The group call
+	// Group call to leave
 	Call InputGroupCallClass
-	// Your source ID
+	// Source ID of the main group call stream
 	Source int
 }
 
@@ -197,10 +198,11 @@ func (l *PhoneLeaveGroupCallRequest) GetSource() (value int) {
 }
 
 // PhoneLeaveGroupCall invokes method phone.leaveGroupCall#500377f9 returning error if any.
-// Leave a group call¹.
+// Leave a group call without ending it for other participants. This method can be used
+// with all group call types, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#managing-an-active-group-call
 //
 // Possible errors:
 //

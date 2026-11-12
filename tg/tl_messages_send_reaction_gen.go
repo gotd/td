@@ -381,7 +381,6 @@ func (s *MessagesSendReactionRequest) MapReaction() (value ReactionClassArray, o
 //
 // Possible errors:
 //
-//	403 ANONYMOUS_REACTIONS_DISABLED: Sorry, anonymous administrators cannot leave reactions or participate in polls.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
@@ -395,7 +394,7 @@ func (s *MessagesSendReactionRequest) MapReaction() (value ReactionClassArray, o
 //	400 REACTIONS_TOO_MANY: The message already has exactly reactions_uniq_max reaction emojis, you can't react with a new emoji, see the docs for more info ».
 //	400 REACTION_EMPTY: Empty reaction provided.
 //	400 REACTION_INVALID: The specified reaction is invalid.
-//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	403 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.
 func (c *Client) MessagesSendReaction(ctx context.Context, request *MessagesSendReactionRequest) (UpdatesClass, error) {

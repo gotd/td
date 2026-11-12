@@ -234,6 +234,10 @@ func (e *MessagesEditChatParticipantRankRequest) GetRank() (value string) {
 // Links:
 //  1. https://core.telegram.org/api/rank
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.editChatParticipantRank for reference.
 func (c *Client) MessagesEditChatParticipantRank(ctx context.Context, request *MessagesEditChatParticipantRankRequest) (UpdatesClass, error) {
 	var result UpdatesBox

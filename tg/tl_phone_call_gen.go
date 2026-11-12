@@ -1278,10 +1278,12 @@ type PhoneCall struct {
 	P2PAllowed bool
 	// Whether this is a video call
 	Video bool
-	// If set, the other party supports upgrading of the call to a conference call¹.
+	// If set, the other party supports migrating the call to a conference call »¹; clients
+	// should only offer the migrate/"Add participants" option in the call UI when this flag
+	// is set.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/end-to-end/group-calls
+	//  1) https://core.telegram.org/api/calls#migrating-to-a-conference-call
 	ConferenceSupported bool
 	// Call ID
 	ID int64

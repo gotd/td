@@ -1816,7 +1816,11 @@ func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
 }
 
 // InputGroupCallStream represents TL type `inputGroupCallStream#598a92a`.
-// Chunk of a livestream
+// Identifies a media chunk of an RTMP-mode video chat, livestream or live story, see
+// playing an RTMP livestream »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#downloading-media-chunks
 //
 // See https://core.telegram.org/constructor/inputGroupCallStream for reference.
 type InputGroupCallStream struct {
@@ -1825,14 +1829,18 @@ type InputGroupCallStream struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Livestream info
+	// RTMP-mode group call
 	Call InputGroupCallClass
-	// Timestamp in milliseconds
+	// Timestamp of the chunk to fetch, in milliseconds
 	TimeMs int64
-	// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting
+	// Specifies the duration of the media segment to fetch in milliseconds, by bitshifting
 	// 1000 to the right scale times: duration_ms := 1000 >> scale
 	Scale int
-	// Selected video channel
+	// groupCallStreamChannel¹.channel value of the video channel to fetch; unified video
+	// uses channel 1. Omit together with video_quality to fetch audio
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/groupCallStreamChannel
 	//
 	// Use SetVideoChannel and GetVideoChannel helpers.
 	VideoChannel int

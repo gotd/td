@@ -61,7 +61,9 @@ type StarGiftAuctionAcquiredGift struct {
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message TextWithEntities
-	// If set, the collectible number of the won gift among all collectibles of the same type.
+	// If set, the collectible number of the won gift among all collectibles of the same type
+	// This field is optional because only auction collectibles won before this field was
+	// introduced in the API will not have this flag set.
 	//
 	// Use SetGiftNum and GetGiftNum helpers.
 	GiftNum int

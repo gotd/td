@@ -72,7 +72,11 @@ type Dialog struct {
 	UnreadMentionsCount int
 	// Number of unread reactions to messages you sent
 	UnreadReactionsCount int
-	// UnreadPollVotesCount field of Dialog.
+	// Number of unread votes cast in non-anonymous polls »¹ owned by the user in this
+	// dialog.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#unread-poll-votes
 	UnreadPollVotesCount int
 	// Notification settings
 	NotifySettings PeerNotifySettings

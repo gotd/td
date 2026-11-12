@@ -32,12 +32,17 @@ var (
 )
 
 // AiComposeToneExample represents TL type `aiComposeToneExample#f1d628ec`.
+// An example showing how an AI composer tone »¹ rephrases a message, used as a preview
+// in the tone picker.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/constructor/aiComposeToneExample for reference.
 type AiComposeToneExample struct {
-	// From field of AiComposeToneExample.
+	// The original, un-transformed sample message
 	From TextWithEntities
-	// To field of AiComposeToneExample.
+	// The same sample message after being rephrased with this tone
 	To TextWithEntities
 }
 

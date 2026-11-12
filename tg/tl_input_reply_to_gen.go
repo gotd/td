@@ -93,7 +93,11 @@ type InputReplyToMessage struct {
 	//
 	// Use SetTodoItemID and GetTodoItemID helpers.
 	TodoItemID int
-	// PollOption field of InputReplyToMessage.
+	// If set, sends the message as a reply to a specific poll answer option »¹, containing
+	// the option bytes of the desired answer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#replying-to-poll-options
 	//
 	// Use SetPollOption and GetPollOption helpers.
 	PollOption []byte

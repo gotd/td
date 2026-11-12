@@ -32,12 +32,24 @@ var (
 )
 
 // BotsGetRequestedWebViewButtonRequest represents TL type `bots.getRequestedWebViewButton#bf25b7f3`.
+// Fetch the peer request button a bot prepared for a Mini App¹ with bots
+// requestWebViewButton², invoked when the Mini App emits a web_app_request_chat³ event
+// see here »⁴ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/method/bots.requestWebViewButton
+//  3. https://core.telegram.org/api/web-events#web-app-request-chat
+//  4. https://core.telegram.org/api/bots/buttons#requesting-peers-via-mini-apps
 //
 // See https://core.telegram.org/method/bots.getRequestedWebViewButton for reference.
 type BotsGetRequestedWebViewButtonRequest struct {
-	// Bot field of BotsGetRequestedWebViewButtonRequest.
+	// The bot that owns the Mini App
 	Bot InputUserClass
-	// WebappReqID field of BotsGetRequestedWebViewButtonRequest.
+	// The Mini App request ID, taken from the web_app_request_chat¹ event's req_id
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/web-events#web-app-request-chat
 	WebappReqID string
 }
 
@@ -193,6 +205,20 @@ func (g *BotsGetRequestedWebViewButtonRequest) GetWebappReqID() (value string) {
 }
 
 // BotsGetRequestedWebViewButton invokes method bots.getRequestedWebViewButton#bf25b7f3 returning error if any.
+// Fetch the peer request button a bot prepared for a Mini App¹ with bots
+// requestWebViewButton², invoked when the Mini App emits a web_app_request_chat³ event
+// see here »⁴ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/method/bots.requestWebViewButton
+//  3. https://core.telegram.org/api/web-events#web-app-request-chat
+//  4. https://core.telegram.org/api/bots/buttons#requesting-peers-via-mini-apps
+//
+// Possible errors:
+//
+//	400 BOT_ID_INVALID: The specified bot ID is invalid.
+//	400 WEBAPP_REQ_ID_INVALID: The specified webapp_req_id is invalid.
 //
 // See https://core.telegram.org/method/bots.getRequestedWebViewButton for reference.
 func (c *Client) BotsGetRequestedWebViewButton(ctx context.Context, request *BotsGetRequestedWebViewButtonRequest) (*KeyboardButton, error) {

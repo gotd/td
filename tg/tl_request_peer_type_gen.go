@@ -977,18 +977,29 @@ func (r *RequestPeerTypeBroadcast) GetBotAdminRights() (value ChatAdminRights, o
 }
 
 // RequestPeerTypeCreateBot represents TL type `requestPeerTypeCreateBot#3e81e078`.
+// Used in a keyboardButtonRequestPeer¹ by a manager bot² to ask a user to create a new
+// managed bot »³, see here »⁴ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
+//  2. https://core.telegram.org/api/bots/managed-bots
+//  3. https://core.telegram.org/api/bots/managed-bots
+//  4. https://core.telegram.org/api/bots/buttons#requesting-a-managed-bot
 //
 // See https://core.telegram.org/constructor/requestPeerTypeCreateBot for reference.
 type RequestPeerTypeCreateBot struct {
-	// Flags field of RequestPeerTypeCreateBot.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BotManaged field of RequestPeerTypeCreateBot.
+	// If set, requests to create a managed bot; must always be set.
 	BotManaged bool
-	// SuggestedName field of RequestPeerTypeCreateBot.
+	// If set, the name to pre-fill in the managed bot creation flow
 	//
 	// Use SetSuggestedName and GetSuggestedName helpers.
 	SuggestedName string
-	// SuggestedUsername field of RequestPeerTypeCreateBot.
+	// If set, the username to pre-fill in the managed bot creation flow
 	//
 	// Use SetSuggestedUsername and GetSuggestedUsername helpers.
 	SuggestedUsername string

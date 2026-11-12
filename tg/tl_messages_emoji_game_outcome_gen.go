@@ -32,14 +32,15 @@ var (
 )
 
 // MessagesEmojiGameOutcome represents TL type `messages.emojiGameOutcome#da2ad647`.
+// Dice game outcome.
 //
 // See https://core.telegram.org/constructor/messages.emojiGameOutcome for reference.
 type MessagesEmojiGameOutcome struct {
-	// Seed field of MessagesEmojiGameOutcome.
+	// Seed.
 	Seed []byte
-	// StakeTonAmount field of MessagesEmojiGameOutcome.
+	// Staked amount.
 	StakeTonAmount int64
-	// TonAmount field of MessagesEmojiGameOutcome.
+	// Amount.
 	TonAmount int64
 }
 

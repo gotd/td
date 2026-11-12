@@ -39,7 +39,7 @@ var (
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 type PhoneGetGroupCallRequest struct {
-	// The group call
+	// Group call of any type to fetch
 	Call InputGroupCallClass
 	// Maximum number of participants to return in this call (0 to return a server-defined
 	// amount). If the number of returned participants is less than groupCall¹
@@ -217,7 +217,7 @@ func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
 //
 // Possible errors:
 //
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.

@@ -32,7 +32,11 @@ var (
 )
 
 // GroupCallParticipant represents TL type `groupCallParticipant#2a3dc7ac`.
-// Info about a group call participant
+// Describes a group call participant and their current state, see applying group call
+// updates »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#applying-group-call-updates
 //
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
@@ -43,21 +47,18 @@ type GroupCallParticipant struct {
 	Flags bin.Fields
 	// Whether the participant is muted
 	Muted bool
-	// Whether the participant has left
+	// Whether the participant left the media layer; in conferences, another participant must
+	// then prune them from the E2E blockchain
 	Left bool
 	// Whether the participant can unmute themselves
 	CanSelfUnmute bool
 	// Whether the participant has just joined
 	JustJoined bool
-	// If set, and updateGroupCallParticipants¹.version < locally stored call.version, info
-	// about this participant should be ignored. If (...), and updateGroupCallParticipants²
-	// version > call.version+1, the participant list should be refetched using phone
-	// getGroupParticipants³.
+	// If set, the application logic for this update is slightly different, see here »¹ for
+	// more info on the full flow.
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/updateGroupCallParticipants
-	//  2) https://core.telegram.org/constructor/updateGroupCallParticipants
-	//  3) https://core.telegram.org/method/phone.getGroupParticipants
+	//  1) https://core.telegram.org/api/group-calls#applying-group-call-updates
 	Versioned bool
 	// If not set, the volume and muted_by_you fields can be safely used to overwrite locally
 	// cached information; otherwise, volume will contain valid information only if
@@ -71,7 +72,7 @@ type GroupCallParticipant struct {
 	Self bool
 	// Whether this participant is currently broadcasting video
 	VideoJoined bool
-	// Peer information
+	// Peer represented by this participant
 	Peer PeerClass
 	// When did this participant join the group call
 	Date int
@@ -79,9 +80,10 @@ type GroupCallParticipant struct {
 	//
 	// Use SetActiveDate and GetActiveDate helpers.
 	ActiveDate int
-	// Source ID
+	// Source ID of the participant's main audio stream
 	Source int
-	// Volume, if not set the volume is set to 100%.
+	// Volume, between 1 and 20000; 10000 represents 100% volume. If not set, the volume is
+	// set to 100%.
 	//
 	// Use SetVolume and GetVolume helpers.
 	Volume int
@@ -102,7 +104,7 @@ type GroupCallParticipant struct {
 	//
 	// Use SetPresentation and GetPresentation helpers.
 	Presentation GroupCallParticipantVideo
-	// PaidStarsTotal field of GroupCallParticipant.
+	// Total Stars donated by this participant in a live story
 	//
 	// Use SetPaidStarsTotal and GetPaidStarsTotal helpers.
 	PaidStarsTotal int64

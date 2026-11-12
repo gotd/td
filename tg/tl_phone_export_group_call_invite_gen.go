@@ -32,10 +32,16 @@ var (
 )
 
 // PhoneExportGroupCallInviteRequest represents TL type `phone.exportGroupCallInvite#e6aa647f`.
-// Get an invite link¹ for a group call or livestream
+// Get an invite link for a public video chat/livestream »¹.
+// Non-admin members or subscribers may export a link with can_self_unmute omitted. Only
+// group call admins may set can_self_unmute to export a link that allows users to speak.
+// Cannot be used for video chats/livestreams associated with private groups/channels,
+// conference calls »¹ or live stories »².
 //
 // Links:
-//  1. https://core.telegram.org/api/links#video-chat-livestream-links
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
+//  2. https://core.telegram.org/api/group-calls#conference-calls
+//  3. https://core.telegram.org/api/group-calls#live-stories
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.
 type PhoneExportGroupCallInviteRequest struct {
@@ -44,11 +50,14 @@ type PhoneExportGroupCallInviteRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// For livestreams or muted group chats, if set, users that join using this link will be
-	// able to speak without explicitly requesting permission by (for example by raising
-	// their hand).
+	// For public video chats/livestreams, group call admins only: allow users that join
+	// using this link to speak without explicitly requesting permission, for example by
+	// raising their hand.
 	CanSelfUnmute bool
-	// The group call
+	// The public video chat/livestream »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	Call InputGroupCallClass
 }
 
@@ -228,10 +237,16 @@ func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCallClass
 }
 
 // PhoneExportGroupCallInvite invokes method phone.exportGroupCallInvite#e6aa647f returning error if any.
-// Get an invite link¹ for a group call or livestream
+// Get an invite link for a public video chat/livestream »¹.
+// Non-admin members or subscribers may export a link with can_self_unmute omitted. Only
+// group call admins may set can_self_unmute to export a link that allows users to speak.
+// Cannot be used for video chats/livestreams associated with private groups/channels,
+// conference calls »¹ or live stories »².
 //
 // Links:
-//  1. https://core.telegram.org/api/links#video-chat-livestream-links
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
+//  2. https://core.telegram.org/api/group-calls#conference-calls
+//  3. https://core.telegram.org/api/group-calls#live-stories
 //
 // Possible errors:
 //

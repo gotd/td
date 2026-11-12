@@ -32,11 +32,12 @@ var (
 )
 
 // PhoneToggleGroupCallRecordRequest represents TL type `phone.toggleGroupCallRecord#f128c708`.
-// Start or stop recording a group call¹: the recorded audio and video streams will be
-// automatically sent to Saved messages (the chat with ourselves).
+// Start or stop recording a video chat/livestream, see here »¹ for more info. The
+// recorded audio and video streams will be automatically sent to Saved Messages (the
+// chat with ourselves).
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallRecord for reference.
 type PhoneToggleGroupCallRecordRequest struct {
@@ -49,7 +50,7 @@ type PhoneToggleGroupCallRecordRequest struct {
 	Start bool
 	// Whether to also record video streams
 	Video bool
-	// The group call or livestream
+	// Video chat/livestream to record
 	Call InputGroupCallClass
 	// Recording title
 	//
@@ -358,15 +359,16 @@ func (t *PhoneToggleGroupCallRecordRequest) GetVideoPortrait() (value bool, ok b
 }
 
 // PhoneToggleGroupCallRecord invokes method phone.toggleGroupCallRecord#f128c708 returning error if any.
-// Start or stop recording a group call¹: the recorded audio and video streams will be
-// automatically sent to Saved messages (the chat with ourselves).
+// Start or stop recording a video chat/livestream, see here »¹ for more info. The
+// recorded audio and video streams will be automatically sent to Saved Messages (the
+// chat with ourselves).
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // Possible errors:
 //
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
 //

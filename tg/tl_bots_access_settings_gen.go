@@ -32,14 +32,22 @@ var (
 )
 
 // BotsAccessSettings represents TL type `bots.accessSettings#dd1fbf93`.
+// Access restriction settings for a managed bot »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
 //
 // See https://core.telegram.org/constructor/bots.accessSettings for reference.
 type BotsAccessSettings struct {
-	// Flags field of BotsAccessSettings.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Restricted field of BotsAccessSettings.
+	// If set, only the owner and the users in add_users can access the managed bot
 	Restricted bool
-	// AddUsers field of BotsAccessSettings.
+	// Additional users (max 10, excluding the owner) who can access the managed bot; only
+	// present when restricted is set
 	//
 	// Use SetAddUsers and GetAddUsers helpers.
 	AddUsers []UserClass

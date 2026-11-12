@@ -167,23 +167,31 @@ func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
 }
 
 // MessagesDhConfig represents TL type `messages.dhConfig#2c221edd`.
-// New set of configuring parameters.
+// New set of Diffie-Hellman parameters.
 //
 // See https://core.telegram.org/constructor/messages.dhConfig for reference.
 type MessagesDhConfig struct {
-	// New value prime, see Wikipedia¹
+	// The primitive root, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	G int
-	// New value primitive root, see Wikipedia¹
+	// The prime, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	P []byte
-	// Version of set of parameters
+	// The version of these parameters, passed to messages.getDhConfig¹ to avoid refetching
+	// them if they haven't changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getDhConfig
 	Version int
-	// Random sequence of bytes of assigned length
+	// Random sequence of bytes of the length requested in messages.getDhConfig¹
+	// random_length.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getDhConfig
 	Random []byte
 }
 

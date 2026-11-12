@@ -174,11 +174,12 @@ func (c *ChatTheme) GetEmoticon() (value string) {
 //
 // See https://core.telegram.org/constructor/chatThemeUniqueGift for reference.
 type ChatThemeUniqueGift struct {
-	// The owned collectible gift on which this theme is based, as a starGiftUnique¹
-	// constructor.
+	// The owned or hosted collectible gift »¹ on which this theme is based, as a
+	// starGiftUnique² constructor.
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/starGiftUnique
+	//  1) https://core.telegram.org/api/gifts#hosted-collectible-gifts
+	//  2) https://core.telegram.org/constructor/starGiftUnique
 	Gift StarGiftClass
 	// Theme settings.
 	ThemeSettings []ThemeSettings

@@ -46,7 +46,7 @@ type ContactsGetContactsRequest struct {
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	//  2) https://core.telegram.org/api/offsets#hash-generation
 	//  3) https://core.telegram.org/constructor/contacts.contacts
-	//  4) https://github.com/tdlib/td/blob/63c7d0301825b78c30dc7307f1f1466be049eb79/td/telegram/UserManager.cpp#L5754
+	//  4) https://github.com/tdlib/td/blob/73035e4a69ed26df563652de14aa9c4c86d23420/td/telegram/UserManager.cpp#L7865
 	Hash int64
 }
 

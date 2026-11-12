@@ -44,7 +44,7 @@ type PhoneInviteConferenceCallParticipantRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Invite the user to also turn on their video feed.
+	// Whether this is a video conference invitation
 	Video bool
 	// The conference call.
 	Call InputGroupCallClass

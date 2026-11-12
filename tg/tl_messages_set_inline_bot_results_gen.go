@@ -522,6 +522,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //	400 SWITCH_PM_TEXT_EMPTY: The switch_pm.text field was empty.
 //	400 SWITCH_WEBVIEW_URL_INVALID: The URL specified in switch_webview.url is invalid!
 //	400 URL_INVALID: Invalid URL provided.
+//	403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 VIDEO_CONTENT_TYPE_INVALID: The video's content type is invalid.
 //	400 VIDEO_TITLE_EMPTY: The specified video title is empty.

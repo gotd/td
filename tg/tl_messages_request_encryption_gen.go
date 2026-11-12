@@ -39,7 +39,10 @@ type MessagesRequestEncryptionRequest struct {
 	// User ID
 	UserID InputUserClass
 	// Unique client request ID required to prevent resending. This also doubles as the chat
-	// ID.
+	// ID. See here »¹ for more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int
 	// A = g ^ a mod p, see Wikipedia¹
 	//
@@ -231,6 +234,7 @@ func (r *MessagesRequestEncryptionRequest) GetGA() (value []byte) {
 //
 //	400 DH_G_A_INVALID: g_a invalid.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//	400 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //

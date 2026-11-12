@@ -44,7 +44,12 @@ type MessagesCreateForumTopicRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// TitleMissing field of MessagesCreateForumTopicRequest.
+	// If set, the topic has no user-defined title, can only be set for the per-user topics
+	// of bot forums¹; if this field is set, the topic title likely needs to be changed by
+	// the bot.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#bot-forums
 	TitleMissing bool
 	// The supergroup, private chat (for forum-enabled bots) or forum bot (for users) where
 	// to create the topic.
@@ -67,7 +72,11 @@ type MessagesCreateForumTopicRequest struct {
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// Unique client message ID to prevent duplicate sending of the same event
+	// Unique client message ID to prevent duplicate sending of the same event. See here »¹
+	// for more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Create the topic as the specified peer
 	//
@@ -445,9 +454,11 @@ func (c *MessagesCreateForumTopicRequest) GetSendAs() (value InputPeerClass, ok 
 //
 // Possible errors:
 //
+//	403 BOT_FORUM_CREATE_FORBIDDEN: Since the bot's user.bot_forum_can_manage_topics flag is not set, the user cannot create or modify bot forum topics.
 //	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/messages.createForumTopic for reference.
 func (c *Client) MessagesCreateForumTopic(ctx context.Context, request *MessagesCreateForumTopicRequest) (UpdatesClass, error) {

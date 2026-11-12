@@ -54,7 +54,11 @@ type ReactionsNotifySettings struct {
 	//
 	// Use SetStoriesNotifyFrom and GetStoriesNotifyFrom helpers.
 	StoriesNotifyFrom ReactionNotificationsFromClass
-	// PollVotesNotifyFrom field of ReactionsNotifySettings.
+	// Non-anonymous poll vote »¹ notification settings, if not set completely disables
+	// notifications/updates about votes cast in the user's non-anonymous polls.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#unread-poll-votes
 	//
 	// Use SetPollVotesNotifyFrom and GetPollVotesNotifyFrom helpers.
 	PollVotesNotifyFrom ReactionNotificationsFromClass

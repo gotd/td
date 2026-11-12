@@ -88,7 +88,7 @@ type StoriesEditStoryRequest struct {
 	//
 	// Use SetPrivacyRules and GetPrivacyRules helpers.
 	PrivacyRules []InputPrivacyRuleClass
-	// Music field of StoriesEditStoryRequest.
+	// If set, the new audio track to play as background music for the story.
 	//
 	// Use SetMusic and GetMusic helpers.
 	Music InputDocumentClass

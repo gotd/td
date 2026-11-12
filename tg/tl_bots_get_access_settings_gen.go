@@ -32,10 +32,15 @@ var (
 )
 
 // BotsGetAccessSettingsRequest represents TL type `bots.getAccessSettings#213853a3`.
+// Get the access restriction settings »¹ of a managed bot; can only be called by the
+// manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
 //
 // See https://core.telegram.org/method/bots.getAccessSettings for reference.
 type BotsGetAccessSettingsRequest struct {
-	// Bot field of BotsGetAccessSettingsRequest.
+	// The managed bot whose access settings to retrieve
 	Bot InputUserClass
 }
 
@@ -166,6 +171,16 @@ func (g *BotsGetAccessSettingsRequest) GetBot() (value InputUserClass) {
 }
 
 // BotsGetAccessSettings invokes method bots.getAccessSettings#213853a3 returning error if any.
+// Get the access restriction settings »¹ of a managed bot; can only be called by the
+// manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.getAccessSettings for reference.
 func (c *Client) BotsGetAccessSettings(ctx context.Context, bot InputUserClass) (*BotsAccessSettings, error) {

@@ -468,6 +468,13 @@ func (w *WebPagePending) GetDate() (value int) {
 
 // WebPage represents TL type `webPage#e89c45b2`.
 // Webpage preview
+// The type field indicates the type of the web page, which influences how the preview is
+// rendered (i.e. which extra action button is offered, where the media is taken from,
+// and which WebPageAttribute¹ is present in the attributes field). It can be one of the
+// following:
+//
+// Links:
+//  1. https://core.telegram.org/type/WebPageAttribute
 //
 // See https://core.telegram.org/constructor/webPage for reference.
 type WebPage struct {
@@ -494,15 +501,13 @@ type WebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Type of the web page. One of the following: - app- article- document- gif- photo-
-	// profile- telegram_album- telegram_auction- telegram_background- telegram_bot-
-	// telegram_botapp- telegram_call- telegram_channel- telegram_channel_boost-
-	// telegram_channel_direct- telegram_channel_request- telegram_chat-
-	// telegram_chat_request- telegram_chatlist- telegram_collection- telegram_community-
-	// telegram_giftcode- telegram_group_boost- telegram_livestream- telegram_megagroup-
-	// telegram_megagroup_request- telegram_message- telegram_newbot- telegram_nft-
-	// telegram_stickerset- telegram_story- telegram_story_album- telegram_theme-
-	// telegram_user- telegram_videochat- telegram_voicechat- video
+	// Type of the web page, which influences how the preview is rendered (i.e. which extra
+	// action button is offered, where the media is taken from, and which WebPageAttribute¹
+	// is present in the attributes field). See above² for the list of possible values.
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/WebPageAttribute
+	//  2) https://core.telegram.org#
 	//
 	// Use SetType and GetType helpers.
 	Type string

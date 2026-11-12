@@ -145,17 +145,20 @@ type MessageMediaPhoto struct {
 	Flags bin.Fields
 	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
-	// LivePhoto field of MessageMediaPhoto.
+	// Whether this is a live photo, i.e. a still photo paired with the short video clip
+	// captured alongside it
 	LivePhoto bool
 	// Photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass
-	// Time to live in seconds of self-destructing photo
+	// Time to live of self-destructing photo, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the photo immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
-	// Video field of MessageMediaPhoto.
+	// The short video clip of the live photo
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video DocumentClass
@@ -1008,7 +1011,9 @@ type MessageMediaDocument struct {
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
-	// Time to live of self-destructing document
+	// Time to live of self-destructing document, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -3083,7 +3088,7 @@ type MessageMediaPoll struct {
 	Poll Poll
 	// The results of the poll
 	Results PollResults
-	// AttachedMedia field of MessageMediaPoll.
+	// Optional media attachment displayed alongside the poll
 	//
 	// Use SetAttachedMedia and GetAttachedMedia helpers.
 	AttachedMedia MessageMediaClass
@@ -3325,7 +3330,7 @@ type MessageMediaDice struct {
 	Value int
 	// The emoji, for now ,  and  are supported
 	Emoticon string
-	// GameOutcome field of MessageMediaDice.
+	// Dice game outcome.
 	//
 	// Use SetGameOutcome and GetGameOutcome helpers.
 	GameOutcome MessagesEmojiGameOutcome
@@ -5345,6 +5350,10 @@ func (m *MessageMediaToDo) GetCompletions() (value []TodoCompletion, ok bool) {
 }
 
 // MessageMediaVideoStream represents TL type `messageMediaVideoStream#ca5cab89`.
+// Identifies the active group call associated with a live story »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#live-stories
 //
 // See https://core.telegram.org/constructor/messageMediaVideoStream for reference.
 type MessageMediaVideoStream struct {
@@ -5353,9 +5362,12 @@ type MessageMediaVideoStream struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RtmpStream field of MessageMediaVideoStream.
+	// Whether the live story uses RTMP livestream mode »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#stream-mode
 	RtmpStream bool
-	// Call field of MessageMediaVideoStream.
+	// Active live story group call
 	Call InputGroupCallClass
 }
 

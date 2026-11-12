@@ -49,7 +49,11 @@ type MessagesClickSponsoredMessageRequest struct {
 	Media bool
 	// The user expanded the video to full screen, and then clicked on it.
 	Fullscreen bool
-	// The ad's unique ID.
+	// The ad's unique ID. See here »¹ for more info on random ID deduplication and
+	// updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []byte
 }
 

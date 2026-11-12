@@ -32,12 +32,22 @@ var (
 )
 
 // BotsRequestWebViewButtonRequest represents TL type `bots.requestWebViewButton#31a2a35e`.
+// Bots may use this method to prepare a peer request button for a Mini App¹, see here
+// »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/api/bots/buttons#requesting-peers-via-mini-apps
 //
 // See https://core.telegram.org/method/bots.requestWebViewButton for reference.
 type BotsRequestWebViewButtonRequest struct {
-	// UserID field of BotsRequestWebViewButtonRequest.
+	// The user that will use the prepared button in the Mini App
 	UserID InputUserClass
-	// Button field of BotsRequestWebViewButtonRequest.
+	// The button to prepare, an inputKeyboardButtonRequestPeer¹ of any RequestPeerType²
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputKeyboardButtonRequestPeer
+	//  2) https://core.telegram.org/type/RequestPeerType
 	Button KeyboardButton
 }
 
@@ -193,6 +203,18 @@ func (r *BotsRequestWebViewButtonRequest) GetButton() (value KeyboardButton) {
 }
 
 // BotsRequestWebViewButton invokes method bots.requestWebViewButton#31a2a35e returning error if any.
+// Bots may use this method to prepare a peer request button for a Mini App¹, see here
+// »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/api/bots/buttons#requesting-peers-via-mini-apps
+//
+// Possible errors:
+//
+//	400 BUTTON_INVALID: The specified button is invalid.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/bots.requestWebViewButton for reference.
 func (c *Client) BotsRequestWebViewButton(ctx context.Context, request *BotsRequestWebViewButtonRequest) (*BotsRequestedButton, error) {
