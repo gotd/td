@@ -32,10 +32,22 @@ var (
 )
 
 // BotsRequestedButton represents TL type `bots.requestedButton#f13bbcd7`.
+// Contains the request ID a bot should pass to a Mini App¹ after preparing a peer
+// request button with bots.requestWebViewButton², see here »³ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//  2. https://core.telegram.org/method/bots.requestWebViewButton
+//  3. https://core.telegram.org/api/bots/buttons#requesting-peers-via-mini-apps
 //
 // See https://core.telegram.org/constructor/bots.requestedButton for reference.
 type BotsRequestedButton struct {
-	// WebappReqID field of BotsRequestedButton.
+	// Mini App request ID, to be passed by the bot to the Mini App and then back to bots
+	// getRequestedWebViewButton¹ and messages.sendBotRequestedPeer²
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/bots.getRequestedWebViewButton
+	//  2) https://core.telegram.org/method/messages.sendBotRequestedPeer
 	WebappReqID string
 }
 

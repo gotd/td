@@ -109,7 +109,11 @@ type MessageReplyHeader struct {
 	//
 	// Use SetTodoItemID and GetTodoItemID helpers.
 	TodoItemID int
-	// PollOption field of MessageReplyHeader.
+	// If the message is a reply to a specific poll answer option »¹, the option bytes of
+	// the answer the reply is directed at.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#replying-to-poll-options
 	//
 	// Use SetPollOption and GetPollOption helpers.
 	PollOption []byte

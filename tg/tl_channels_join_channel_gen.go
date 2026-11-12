@@ -190,6 +190,7 @@ func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USERS_TOO_MUCH: The maximum number of users has been exceeded (to create a chat, for example).
 //	400 USER_ALREADY_PARTICIPANT: The user is already in the group.
+//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //	400 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.
 //
 // See https://core.telegram.org/method/channels.joinChannel for reference.

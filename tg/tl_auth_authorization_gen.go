@@ -49,10 +49,11 @@ type AuthAuthorization struct {
 	//
 	// Use SetOtherwiseReloginDays and GetOtherwiseReloginDays helpers.
 	OtherwiseReloginDays int
-	// Temporary passport¹ sessions
+	// Number of parallel sessions¹ the client may open to the main connection of its home
+	// DC to increase throughput; if absent or ≤ 1, a single main session must be used
 	//
 	// Links:
-	//  1) https://core.telegram.org/passport
+	//  1) https://core.telegram.org/api/datacenter#parallel-sessions
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int

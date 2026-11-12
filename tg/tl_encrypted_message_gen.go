@@ -36,7 +36,11 @@ var (
 //
 // See https://core.telegram.org/constructor/encryptedMessage for reference.
 type EncryptedMessage struct {
-	// Random message ID, assigned by the author of message
+	// Random message ID, assigned by the author of message. See here »¹ for more info on
+	// random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// ID of encrypted chat
 	ChatID int
@@ -288,7 +292,11 @@ func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
 //
 // See https://core.telegram.org/constructor/encryptedMessageService for reference.
 type EncryptedMessageService struct {
-	// Random message ID, assigned by the author of message
+	// Random message ID, assigned by the author of message. See here »¹ for more info on
+	// random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// ID of encrypted chat
 	ChatID int
@@ -543,7 +551,11 @@ type EncryptedMessageClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Random message ID, assigned by the author of message
+	// Random message ID, assigned by the author of message. See here »¹ for more info on
+	// random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	GetRandomID() (value int64)
 
 	// ID of encrypted chat

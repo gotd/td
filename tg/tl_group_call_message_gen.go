@@ -32,6 +32,11 @@ var (
 )
 
 // GroupCallMessage represents TL type `groupCallMessage#1a8afc7e`.
+// Represents an in-call message »¹, emoji reaction, paid live story comment or
+// standalone paid live story donation.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/constructor/groupCallMessage for reference.
 type GroupCallMessage struct {
@@ -40,17 +45,24 @@ type GroupCallMessage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// FromAdmin field of GroupCallMessage.
+	// Whether the message was sent by a group call admin
 	FromAdmin bool
-	// ID field of GroupCallMessage.
+	// Message ID
 	ID int
-	// FromID field of GroupCallMessage.
+	// Displayed message author
 	FromID PeerClass
-	// Date field of GroupCallMessage.
+	// Message date
 	Date int
-	// Message field of GroupCallMessage.
+	// Message text or emoji reaction; empty for standalone paid live story donations. Must
+	// be at most group_call_message_length_limit »¹ UTF-8 characters long. For paid chats,
+	// use stars_groupcall_message_limits »² to source limits according to the passed value
+	// of paid_message_stars, instead.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#group-call-message-length-limit
+	//  2) https://core.telegram.org/api/config#stars-groupcall-message-limits
 	Message TextWithEntities
-	// PaidMessageStars field of GroupCallMessage.
+	// Number of Telegram Stars donated with the message or standalone donation
 	//
 	// Use SetPaidMessageStars and GetPaidMessageStars helpers.
 	PaidMessageStars int64

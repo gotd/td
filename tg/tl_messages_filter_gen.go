@@ -1831,6 +1831,10 @@ func (i *InputMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputMessagesFilterPoll represents TL type `inputMessagesFilterPoll#fa2bc90a`.
+// Filter for poll messages, see searching for polls »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#searching-for-polls
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterPoll for reference.
 type InputMessagesFilterPoll struct {

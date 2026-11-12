@@ -32,18 +32,36 @@ var (
 )
 
 // AicomposeCreateToneRequest represents TL type `aicompose.createTone#4aa83913`.
+// Create a new custom AI composer tone »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.createTone for reference.
 type AicomposeCreateToneRequest struct {
-	// Flags field of AicomposeCreateToneRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// DisplayAuthor field of AicomposeCreateToneRequest.
+	// If set, the current user will be publicly credited as the author of the tone
 	DisplayAuthor bool
-	// EmojiID field of AicomposeCreateToneRequest.
+	// Custom emoji ID¹ of the tone's icon
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	EmojiID int64
-	// Title field of AicomposeCreateToneRequest.
+	// Human-readable tone name, up to aicompose_tone_title_length_max »¹ UTF-8 characters
+	// long
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-title-length-max
 	Title string
-	// Prompt field of AicomposeCreateToneRequest.
+	// The prompt that describes how the AI should rephrase messages using this tone, up to
+	// aicompose_tone_prompt_length_max »¹ UTF-8 characters long
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-prompt-length-max
 	Prompt string
 }
 
@@ -268,6 +286,14 @@ func (c *AicomposeCreateToneRequest) GetPrompt() (value string) {
 }
 
 // AicomposeCreateTone invokes method aicompose.createTone#4aa83913 returning error if any.
+// Create a new custom AI composer tone »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_TONE_TITLE_INVALID: The specified tone title is invalid.
 //
 // See https://core.telegram.org/method/aicompose.createTone for reference.
 func (c *Client) AicomposeCreateTone(ctx context.Context, request *AicomposeCreateToneRequest) (AiComposeToneClass, error) {

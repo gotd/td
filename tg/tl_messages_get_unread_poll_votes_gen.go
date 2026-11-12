@@ -32,26 +32,42 @@ var (
 )
 
 // MessagesGetUnreadPollVotesRequest represents TL type `messages.getUnreadPollVotes#43286cf2`.
+// Get messages containing polls with unread votes »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#unread-poll-votes
 //
 // See https://core.telegram.org/method/messages.getUnreadPollVotes for reference.
 type MessagesGetUnreadPollVotesRequest struct {
-	// Flags field of MessagesGetUnreadPollVotesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesGetUnreadPollVotesRequest.
+	// The chat to fetch unread poll votes from
 	Peer InputPeerClass
-	// TopMsgID field of MessagesGetUnreadPollVotesRequest.
+	// If the chat is a forum, restrict results to this topic
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// OffsetID field of MessagesGetUnreadPollVotesRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// AddOffset field of MessagesGetUnreadPollVotesRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Limit field of MessagesGetUnreadPollVotesRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// MaxID field of MessagesGetUnreadPollVotesRequest.
+	// Only return messages with IDs less than or equal to this value
 	MaxID int
-	// MinID field of MessagesGetUnreadPollVotesRequest.
+	// Only return messages with IDs greater than or equal to this value
 	MinID int
 }
 
@@ -367,6 +383,14 @@ func (g *MessagesGetUnreadPollVotesRequest) GetMinID() (value int) {
 }
 
 // MessagesGetUnreadPollVotes invokes method messages.getUnreadPollVotes#43286cf2 returning error if any.
+// Get messages containing polls with unread votes »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#unread-poll-votes
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getUnreadPollVotes for reference.
 func (c *Client) MessagesGetUnreadPollVotes(ctx context.Context, request *MessagesGetUnreadPollVotesRequest) (MessagesMessagesClass, error) {

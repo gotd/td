@@ -32,10 +32,10 @@ var (
 )
 
 // PaymentsSaveStarGiftRequest represents TL type `payments.saveStarGift#2a2a697c`.
-// Display or remove a received gift »¹ from our profile.
+// Display or remove a received or hosted gift »¹ from our profile.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.saveStarGift for reference.
 type PaymentsSaveStarGiftRequest struct {
@@ -46,7 +46,11 @@ type PaymentsSaveStarGiftRequest struct {
 	Flags bin.Fields
 	// If set, hides the gift from our profile.
 	Unsave bool
-	// The gift to display or remove.
+	// The gift to display or remove. A hosted collectible gift »¹ may be used by its host
+	// or owner.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#hosted-collectible-gifts
 	Stargift InputSavedStarGiftClass
 }
 
@@ -226,15 +230,16 @@ func (s *PaymentsSaveStarGiftRequest) GetStargift() (value InputSavedStarGiftCla
 }
 
 // PaymentsSaveStarGift invokes method payments.saveStarGift#2a2a697c returning error if any.
-// Display or remove a received gift »¹ from our profile.
+// Display or remove a received or hosted gift »¹ from our profile.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //
 // Possible errors:
 //
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 SAVED_ID_EMPTY: The passed inputSavedStarGiftChat.saved_id is empty.
+//	400 STARGIFT_OBJECT_INVALID: The specified star gift object is invalid.
 //	400 STARGIFT_OWNER_INVALID: You cannot transfer or sell a gift owned by another user.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //

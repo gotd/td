@@ -257,7 +257,11 @@ type Message struct {
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
 	Mentioned bool
-	// Whether there are unread media attachments in this message
+	// Whether there are unread media attachments in this message, see here »¹ for more
+	// info on how to clear this flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/views#read-message-contents
 	MediaUnread bool
 	// Whether this is a silent message (no notification triggered)
 	Silent bool
@@ -314,7 +318,7 @@ type Message struct {
 	//  1) https://core.telegram.org/api/suggested-posts
 	//  2) https://core.telegram.org/api/stars
 	PaidSuggestedPostStars bool
-	// Set if this is a suggested channel post »¹ that was paid using Toncoins.
+	// Set if this is a suggested channel post »¹ that was paid using Grams.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/suggested-posts
@@ -380,7 +384,11 @@ type Message struct {
 	//
 	// Use SetViaBusinessBotID and GetViaBusinessBotID helpers.
 	ViaBusinessBotID int64
-	// GuestchatViaFrom field of Message.
+	// If the message was posted by a guest bot »¹, the peer on whose behalf the bot sent
+	// the message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/guest-mode#guest-messages
 	//
 	// Use SetGuestchatViaFrom and GetGuestchatViaFrom helpers.
 	GuestchatViaFrom PeerClass
@@ -509,7 +517,11 @@ type Message struct {
 	//
 	// Use SetScheduleRepeatPeriod and GetScheduleRepeatPeriod helpers.
 	ScheduleRepeatPeriod int
-	// SummaryFromLanguage field of Message.
+	// If set, clients should offer a summarization button »¹ for this message; contains
+	// the two-letter ISO 639-1 language code of the inferred language of the current message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/ai#summarize-messages
 	//
 	// Use SetSummaryFromLanguage and GetSummaryFromLanguage helpers.
 	SummaryFromLanguage string
@@ -3506,7 +3518,11 @@ type NotEmptyMessage interface {
 	//  1) https://core.telegram.org/api/mentions
 	GetMentioned() (value bool)
 
-	// Whether there are unread media attachments in this message
+	// Whether there are unread media attachments in this message, see here »¹ for more
+	// info on how to clear this flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/views#read-message-contents
 	GetMediaUnread() (value bool)
 
 	// Whether this is a silent message (no notification triggered)

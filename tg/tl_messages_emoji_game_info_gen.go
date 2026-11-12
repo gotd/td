@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesEmojiGameUnavailable represents TL type `messages.emojiGameUnavailable#59e65335`.
+// Dice game information.
 //
 // See https://core.telegram.org/constructor/messages.emojiGameUnavailable for reference.
 type MessagesEmojiGameUnavailable struct {
@@ -133,6 +134,7 @@ func (e *MessagesEmojiGameUnavailable) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesEmojiGameDiceInfo represents TL type `messages.emojiGameDiceInfo#44e56023`.
+// Dice game information.
 //
 // See https://core.telegram.org/constructor/messages.emojiGameDiceInfo for reference.
 type MessagesEmojiGameDiceInfo struct {
@@ -141,15 +143,15 @@ type MessagesEmojiGameDiceInfo struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// GameHash field of MessagesEmojiGameDiceInfo.
+	// Game hash.
 	GameHash string
-	// PrevStake field of MessagesEmojiGameDiceInfo.
+	// Previous stake.
 	PrevStake int64
-	// CurrentStreak field of MessagesEmojiGameDiceInfo.
+	// Current streak.
 	CurrentStreak int
-	// Params field of MessagesEmojiGameDiceInfo.
+	// Parameters.
 	Params []int
-	// PlaysLeft field of MessagesEmojiGameDiceInfo.
+	// Plays left.
 	//
 	// Use SetPlaysLeft and GetPlaysLeft helpers.
 	PlaysLeft int

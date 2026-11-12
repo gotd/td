@@ -32,12 +32,23 @@ var (
 )
 
 // MessagesSetBotGuestChatResultRequest represents TL type `messages.setBotGuestChatResult#b8f106e3`.
+// Bots may use this method to answer a guest mode »¹ query received via an
+// updateBotGuestChatQuery² update, providing the message to post into the chat as a
+// guest, see here »³ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/guest-mode
+//  2. https://core.telegram.org/constructor/updateBotGuestChatQuery
+//  3. https://core.telegram.org/api/bots/guest-mode#handling-guest-queries-bot-side
 //
 // See https://core.telegram.org/method/messages.setBotGuestChatResult for reference.
 type MessagesSetBotGuestChatResultRequest struct {
-	// QueryID field of MessagesSetBotGuestChatResultRequest.
+	// Query identifier from the updateBotGuestChatQuery¹.query_id field
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateBotGuestChatQuery
 	QueryID int64
-	// Result field of MessagesSetBotGuestChatResultRequest.
+	// The result to send as the answer to the query
 	Result InputBotInlineResultClass
 }
 
@@ -193,6 +204,19 @@ func (s *MessagesSetBotGuestChatResultRequest) GetResult() (value InputBotInline
 }
 
 // MessagesSetBotGuestChatResult invokes method messages.setBotGuestChatResult#b8f106e3 returning error if any.
+// Bots may use this method to answer a guest mode »¹ query received via an
+// updateBotGuestChatQuery² update, providing the message to post into the chat as a
+// guest, see here »³ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/guest-mode
+//  2. https://core.telegram.org/constructor/updateBotGuestChatQuery
+//  3. https://core.telegram.org/api/bots/guest-mode#handling-guest-queries-bot-side
+//
+// Possible errors:
+//
+//	403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.setBotGuestChatResult for reference.
 func (c *Client) MessagesSetBotGuestChatResult(ctx context.Context, request *MessagesSetBotGuestChatResultRequest) (InputBotInlineMessageIDClass, error) {

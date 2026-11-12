@@ -1180,7 +1180,7 @@ type DocumentAttributeAudio struct {
 	// android¹.
 	//
 	// Links:
-	//  1) https://github.com/DrKLO/Telegram/blob/96dce2c9aabc33b87db61d830aa087b6b03fe397/TMessagesProj/jni/audio.c#L546
+	//  1) https://github.com/DrKLO/Telegram/blob/4d7a3a40c88ce28a211aa2814e9569389fc40567/TMessagesProj/jni/audio.c#L562
 	//
 	// Use SetWaveform and GetWaveform helpers.
 	Waveform []byte

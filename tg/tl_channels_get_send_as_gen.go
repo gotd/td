@@ -32,7 +32,11 @@ var (
 )
 
 // ChannelsGetSendAsRequest represents TL type `channels.getSendAs#e785a43f`.
-// Obtains a list of peers that can be used to send messages in a specific group
+// Obtains a list of peers that can be displayed as the sender in a specific context.
+// With for_live_stories, returns peers that may author live story in-call messages »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/method/channels.getSendAs for reference.
 type ChannelsGetSendAsRequest struct {
@@ -47,9 +51,14 @@ type ChannelsGetSendAsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/reactions#paid-reactions
 	ForPaidReactions bool
-	// ForLiveStories field of ChannelsGetSendAsRequest.
+	// Fetch the peers that may be passed to phone.sendGroupCallMessage¹.send_as to comment
+	// or react in a live story »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.sendGroupCallMessage
+	//  2) https://core.telegram.org/api/group-calls#in-call-messages
 	ForLiveStories bool
-	// The group where we intend to send messages
+	// The target peer; when for_live_stories is set, the peer that owns the live story.
 	Peer InputPeerClass
 }
 
@@ -262,7 +271,11 @@ func (g *ChannelsGetSendAsRequest) GetPeer() (value InputPeerClass) {
 }
 
 // ChannelsGetSendAs invokes method channels.getSendAs#e785a43f returning error if any.
-// Obtains a list of peers that can be used to send messages in a specific group
+// Obtains a list of peers that can be displayed as the sender in a specific context.
+// With for_live_stories, returns peers that may author live story in-call messages »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // Possible errors:
 //

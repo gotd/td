@@ -43,13 +43,15 @@ type SponsoredPeer struct {
 	Flags bin.Fields
 	// ID of the sponsored peer, to be passed to messages.viewSponsoredMessage¹, messages
 	// clickSponsoredMessage² or messages.reportSponsoredMessage³ (the same methods used
-	// for sponsored messages &raquo⁴).
+	// for sponsored messages &raquo⁴). See here »⁵ for more info on random ID
+	// deduplication and updateMessageID mapping.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.viewSponsoredMessage
 	//  2) https://core.telegram.org/method/messages.clickSponsoredMessage
 	//  3) https://core.telegram.org/method/messages.reportSponsoredMessage
 	//  4) https://core.telegram.org/api/sponsored-messages
+	//  5) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []byte
 	// The sponsored peer.
 	Peer PeerClass

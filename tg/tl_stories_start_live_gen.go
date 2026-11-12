@@ -32,6 +32,11 @@ var (
 )
 
 // StoriesStartLiveRequest represents TL type `stories.startLive#d069ccde`.
+// Start a live story, optionally using RTMP livestream mode, see here »¹ for the full
+// flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#live-stories
 //
 // See https://core.telegram.org/method/stories.startLive for reference.
 type StoriesStartLiveRequest struct {
@@ -40,15 +45,20 @@ type StoriesStartLiveRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of StoriesStartLiveRequest.
+	// Whether to pin the live story on the peer's profile
 	Pinned bool
-	// Noforwards field of StoriesStartLiveRequest.
+	// Whether viewers must be prevented from forwarding or saving the live story
 	Noforwards bool
-	// RtmpStream field of StoriesStartLiveRequest.
+	// Create the live story in RTMP livestream mode »¹, where one external streamer
+	// publishes all audio and video
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#stream-mode
 	RtmpStream bool
-	// Peer field of StoriesStartLiveRequest.
+	// User, supergroup or channel that will own the live story; basic groups cannot post
+	// live stories
 	Peer InputPeerClass
-	// Caption field of StoriesStartLiveRequest.
+	// Live story caption
 	//
 	// Use SetCaption and GetCaption helpers.
 	Caption string
@@ -59,15 +69,24 @@ type StoriesStartLiveRequest struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// PrivacyRules field of StoriesStartLiveRequest.
+	// Privacy rules defining who can view the live story
 	PrivacyRules []InputPrivacyRuleClass
-	// RandomID field of StoriesStartLiveRequest.
+	// Client-generated random ID used to prevent duplicate live stories. See here »¹ for
+	// more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
-	// MessagesEnabled field of StoriesStartLiveRequest.
+	// Whether the in-call message overlay »¹ should be enabled
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#in-call-messages
 	//
 	// Use SetMessagesEnabled and GetMessagesEnabled helpers.
 	MessagesEnabled bool
-	// SendPaidMessagesStars field of StoriesStartLiveRequest.
+	// Minimum Telegram Stars donation required from users other than the live story owner
+	// for each comment; the owner may always comment without donating, and 0 allows free
+	// comments for everyone
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
@@ -590,10 +609,18 @@ func (s *StoriesStartLiveRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 }
 
 // StoriesStartLive invokes method stories.startLive#d069ccde returning error if any.
+// Start a live story, optionally using RTMP livestream mode, see here »¹ for the full
+// flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#live-stories
 //
 // Possible errors:
 //
+//	400 CHANNEL_MONOFORUM_UNSUPPORTED: Monoforums do not support this feature.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_LIVE_ALREADY_%d: This peer already has an active live story, and its ID is equal to %d.
 //
 // See https://core.telegram.org/method/stories.startLive for reference.
 func (c *Client) StoriesStartLive(ctx context.Context, request *StoriesStartLiveRequest) (UpdatesClass, error) {

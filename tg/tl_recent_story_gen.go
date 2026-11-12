@@ -32,6 +32,14 @@ var (
 )
 
 // RecentStory represents TL type `recentStory#711d692d`.
+// Summary of a peer's active stories »¹, embedded in user².stories_max_id and
+// channel³.stories_max_id and returned by stories.getPeerMaxIDs⁴.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#recent-story-summaries
+//  2. https://core.telegram.org/constructor/user
+//  3. https://core.telegram.org/constructor/channel
+//  4. https://core.telegram.org/method/stories.getPeerMaxIDs
 //
 // See https://core.telegram.org/constructor/recentStory for reference.
 type RecentStory struct {
@@ -40,9 +48,16 @@ type RecentStory struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Live field of RecentStory.
+	// Whether the peer is currently broadcasting a live story »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#live-stories
 	Live bool
-	// MaxID field of RecentStory.
+	// If live is set, ID of the peer's active live story »¹; otherwise, ID of the peer's
+	// maximum active story.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#live-stories
 	//
 	// Use SetMaxID and GetMaxID helpers.
 	MaxID int

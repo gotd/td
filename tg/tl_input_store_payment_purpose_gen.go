@@ -842,7 +842,11 @@ type InputStorePaymentPremiumGiveaway struct {
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
-	// Random ID to avoid resending the giveaway
+	// Random ID to avoid resending the giveaway. See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// The end date of the giveaway, must be at most giveaway_period_max¹ seconds in the
 	// future; see here »² for more info on giveaways.
@@ -1912,7 +1916,11 @@ type InputStorePaymentStarsGiveaway struct {
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
-	// Random ID to avoid resending the giveaway
+	// Random ID to avoid resending the giveaway. See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// The end date of the giveaway, must be at most giveaway_period_max¹ seconds in the
 	// future; see here »² for more info on giveaways.
@@ -2491,7 +2499,12 @@ type InputStorePaymentAuthCode struct {
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
-	// PremiumDays field of InputStorePaymentAuthCode.
+	// Duration in days of the Telegram Premium¹ subscription granted by this purchase, as
+	// indicated in auth.sentCodePaymentRequired².premium_days.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/constructor/auth.sentCodePaymentRequired
 	PremiumDays int
 	// Three-letter ISO 4217 currency¹ code
 	//

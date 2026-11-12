@@ -32,7 +32,7 @@ var (
 )
 
 // ReplyKeyboardHide represents TL type `replyKeyboardHide#a03e5b85`.
-// Hide sent bot keyboard
+// Hide sent reply keyboard
 //
 // See https://core.telegram.org/constructor/replyKeyboardHide for reference.
 type ReplyKeyboardHide struct {
@@ -456,7 +456,7 @@ func (r *ReplyKeyboardForceReply) GetPlaceholder() (value string, ok bool) {
 }
 
 // ReplyKeyboardMarkup represents TL type `replyKeyboardMarkup#85dd99d1`.
-// Bot keyboard
+// Represents a reply keyboard
 //
 // See https://core.telegram.org/constructor/replyKeyboardMarkup for reference.
 type ReplyKeyboardMarkup struct {
@@ -860,7 +860,7 @@ func (r *ReplyKeyboardMarkup) GetPlaceholder() (value string, ok bool) {
 }
 
 // ReplyInlineMarkup represents TL type `replyInlineMarkup#b2b15770`.
-// Bot or inline keyboard
+// Represents an inline keyboard
 //
 // See https://core.telegram.org/constructor/replyInlineMarkup for reference.
 type ReplyInlineMarkup struct {

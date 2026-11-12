@@ -48,7 +48,7 @@ type PaymentsGetStarsRevenueWithdrawalURLRequest struct {
 	Ton bool
 	// Channel or bot from which to withdraw funds.
 	Peer InputPeerClass
-	// The amount of stars or nanotons to withdraw.
+	// The amount of stars or nanograms to withdraw.
 	//
 	// Use SetAmount and GetAmount helpers.
 	Amount int64

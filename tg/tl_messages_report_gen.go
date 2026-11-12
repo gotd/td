@@ -267,7 +267,7 @@ func (r *MessagesReportRequest) GetMessage() (value string) {
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 MESSAGE_REQUIRED:
+//	400 MESSAGE_REQUIRED: A non-empty list of IDs must be passed to id.
 //	400 OPTION_INVALID: Invalid option selected.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //

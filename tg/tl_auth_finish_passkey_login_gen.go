@@ -308,8 +308,8 @@ func (f *AuthFinishPasskeyLoginRequest) GetFromAuthKeyID() (value int64, ok bool
 // Possible errors:
 //
 //	500 AUTH_RESTART: Restart the authorization process.
-//	400 CREDENTIAL_INVALID:
-//	500 PASSKEY_AUTH_RESTART:
+//	400 CREDENTIAL_INVALID: The specified credential is invalid.
+//	400 PASSKEY_ORIGIN_MISMATCH: Third-party clients currently don't support passkeys even when changing the origin.
 //
 // See https://core.telegram.org/method/auth.finishPasskeyLogin for reference.
 func (c *Client) AuthFinishPasskeyLogin(ctx context.Context, request *AuthFinishPasskeyLoginRequest) (AuthAuthorizationClass, error) {

@@ -32,7 +32,7 @@ var (
 )
 
 // GroupCallDiscarded represents TL type `groupCallDiscarded#7780bcb4`.
-// An ended group call¹.
+// Describes an ended group call¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/group-calls
@@ -224,7 +224,18 @@ func (g *GroupCallDiscarded) GetDuration() (value int) {
 }
 
 // GroupCall represents TL type `groupCall#efb2b617`.
-// Info about a group call¹.
+// Describes a group call¹.
+// If the min flag is set, this is a partial (min) constructor: only a subset of its
+// fields contains up-to-date information, and it must be merged into a previously cached
+// non-min constructor as described below. If no full (non-min) constructor for this call
+// was cached previously, the min constructor must be discarded.
+// When min is set, the following mandatory fields may be used: id, access_hash,
+// participants_count and version. In addition, only the following conditional fields may
+// be used if present, subject to the usual version check:
+// When min is set, the following fields must be ignored, keeping the values from the
+// previously cached non-min constructor:
+// The join_date_asc flag is set only when the call is created and never changes
+// afterwards, so it too is not applied from a min constructor.
 //
 // Links:
 //  1. https://core.telegram.org/api/group-calls
@@ -236,24 +247,30 @@ type GroupCall struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the user should be muted upon joining the call
+	// Whether the user should be muted upon joining the call. Must be ignored if the min
+	// flag is set.
 	JoinMuted bool
 	// Whether the current user can change the value of the join_muted flag using phone
-	// toggleGroupCallSettings¹
+	// toggleGroupCallSettings¹. Must be ignored if the min flag is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/phone.toggleGroupCallSettings
 	CanChangeJoinMuted bool
 	// Specifies the ordering to use when locally sorting by date and displaying in the UI
-	// group call participants.
+	// group call participants. Set only when the call is created and never changed
+	// afterwards, so it is not applied from a min constructor.
 	JoinDateAsc bool
-	// Whether we subscribed to the scheduled call
+	// Whether we subscribed to the scheduled call. Must be ignored if the min flag is set.
 	ScheduleStartSubscribed bool
-	// Whether you can start streaming video into the call
+	// Whether you can start streaming video into the call. Must be ignored if the min flag
+	// is set.
 	CanStartVideo bool
 	// Whether the group call is currently being recorded
 	RecordVideoActive bool
-	// Whether RTMP streams are allowed
+	// Whether this call uses RTMP livestream mode »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#stream-mode
 	RtmpStream bool
 	// Whether the listeners list is hidden and cannot be fetched using phone
 	// getGroupParticipants¹. The phone.groupParticipants.count and groupCall
@@ -264,13 +281,22 @@ type GroupCall struct {
 	ListenersHidden bool
 	// Whether this is an E2E conference call.
 	Conference bool
-	// Whether we're created this group call.
+	// Whether the current user created this group call. Must be ignored if the min flag is
+	// set.
 	Creator bool
-	// MessagesEnabled field of GroupCall.
+	// Whether the in-call message overlay »¹ is enabled
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#in-call-messages
 	MessagesEnabled bool
-	// CanChangeMessagesEnabled field of GroupCall.
+	// Whether the current user may enable or disable the in-call message overlay »¹. Must
+	// be ignored if the min flag is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#in-call-messages
 	CanChangeMessagesEnabled bool
-	// Min field of GroupCall.
+	// Whether this is a partial constructor that must be merged into a previously cached
+	// non-min constructor, following the rules described above.
 	Min bool
 	// Group call ID
 	ID int64
@@ -282,7 +308,11 @@ type GroupCall struct {
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// DC ID to be used for livestream chunks
+	// Media DC ID to use for RTMP stream requests »¹. Must be ignored if the min flag is
+	// set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#downloading-media-chunks
 	//
 	// Use SetStreamDCID and GetStreamDCID helpers.
 	StreamDCID int
@@ -294,23 +324,39 @@ type GroupCall struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// Number of people currently streaming video into the call
+	// Number of people currently streaming video into the call. Must be ignored if the min
+	// flag is set.
 	//
 	// Use SetUnmutedVideoCount and GetUnmutedVideoCount helpers.
 	UnmutedVideoCount int
-	// Maximum number of people allowed to stream video into the call
+	// Maximum number of people allowed to stream video into the call. Must be ignored if the
+	// min flag is set.
 	UnmutedVideoLimit int
-	// Version
+	// Revision used to apply group call updates »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#applying-group-call-updates
 	Version int
-	// Invitation link for the conference.
+	// Invitation link for a conference call »¹. Must be ignored if the min flag is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#conference-calls
 	//
 	// Use SetInviteLink and GetInviteLink helpers.
 	InviteLink string
-	// SendPaidMessagesStars field of GroupCall.
+	// Minimum Stars donation required from users other than the live story owner to send a
+	// paid comment »¹; 0 or no value allows free comments
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#paid-live-story-comments
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
-	// DefaultSendAs field of GroupCall.
+	// Default peer displayed as the author of live story comments and reactions »¹. Must
+	// be ignored if the min flag is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#in-call-messages
 	//
 	// Use SetDefaultSendAs and GetDefaultSendAs helpers.
 	DefaultSendAs PeerClass

@@ -32,11 +32,12 @@ var (
 )
 
 // PhoneGetGroupCallStreamRtmpURLRequest represents TL type `phone.getGroupCallStreamRtmpUrl#5af4c73a`.
-// Get RTMP URL and stream key for RTMP livestreams. Can be used even before creating the
-// actual RTMP livestream with phone.createGroupCall¹ (the rtmp_stream flag must be set).
+// Get the RTMP URL and stream key used by the single external streamer that publishes
+// all audio and video for an RTMP-mode video chat, livestream or live story.
+// See here »¹ for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/method/phone.createGroupCall
+//  1. https://core.telegram.org/api/group-calls#creating-and-publishing-an-rtmp-livestream
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamRtmpUrl for reference.
 type PhoneGetGroupCallStreamRtmpURLRequest struct {
@@ -45,11 +46,12 @@ type PhoneGetGroupCallStreamRtmpURLRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// LiveStory field of PhoneGetGroupCallStreamRtmpURLRequest.
+	// Obtain credentials for an RTMP live story instead of a video chat/livestream
 	LiveStory bool
-	// Peer to livestream into
+	// Peer that will host the RTMP video chat, livestream or live story
 	Peer InputPeerClass
-	// Whether to revoke the previous stream key or simply return the existing one
+	// Whether to invalidate the previous stream key and generate a new one, instead of
+	// returning the existing key
 	Revoke bool
 }
 
@@ -254,11 +256,12 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) GetRevoke() (value bool) {
 }
 
 // PhoneGetGroupCallStreamRtmpURL invokes method phone.getGroupCallStreamRtmpUrl#5af4c73a returning error if any.
-// Get RTMP URL and stream key for RTMP livestreams. Can be used even before creating the
-// actual RTMP livestream with phone.createGroupCall¹ (the rtmp_stream flag must be set).
+// Get the RTMP URL and stream key used by the single external streamer that publishes
+// all audio and video for an RTMP-mode video chat, livestream or live story.
+// See here »¹ for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/method/phone.createGroupCall
+//  1. https://core.telegram.org/api/group-calls#creating-and-publishing-an-rtmp-livestream
 //
 // Possible errors:
 //

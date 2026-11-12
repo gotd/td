@@ -32,14 +32,21 @@ var (
 )
 
 // MessagesReadPollVotesRequest represents TL type `messages.readPollVotes#1720b4d8`.
+// Mark all unread poll votes »¹ in a chat as read
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#unread-poll-votes
 //
 // See https://core.telegram.org/method/messages.readPollVotes for reference.
 type MessagesReadPollVotesRequest struct {
-	// Flags field of MessagesReadPollVotesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesReadPollVotesRequest.
+	// The chat to mark poll votes as read in
 	Peer InputPeerClass
-	// TopMsgID field of MessagesReadPollVotesRequest.
+	// If the chat is a forum, restrict to this topic
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -232,6 +239,14 @@ func (r *MessagesReadPollVotesRequest) GetTopMsgID() (value int, ok bool) {
 }
 
 // MessagesReadPollVotes invokes method messages.readPollVotes#1720b4d8 returning error if any.
+// Mark all unread poll votes »¹ in a chat as read
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#unread-poll-votes
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.readPollVotes for reference.
 func (c *Client) MessagesReadPollVotes(ctx context.Context, request *MessagesReadPollVotesRequest) (*MessagesAffectedHistory, error) {

@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesGetEmojiGameInfoRequest represents TL type `messages.getEmojiGameInfo#fb7e8ca7`.
+// Fetch dice game information.
 //
 // See https://core.telegram.org/method/messages.getEmojiGameInfo for reference.
 type MessagesGetEmojiGameInfoRequest struct {
@@ -128,6 +129,7 @@ func (g *MessagesGetEmojiGameInfoRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesGetEmojiGameInfo invokes method messages.getEmojiGameInfo#fb7e8ca7 returning error if any.
+// Fetch dice game information.
 //
 // See https://core.telegram.org/method/messages.getEmojiGameInfo for reference.
 func (c *Client) MessagesGetEmojiGameInfo(ctx context.Context) (MessagesEmojiGameInfoClass, error) {

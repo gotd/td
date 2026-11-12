@@ -144,7 +144,12 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantSubExtend
 	SubExtend bool
-	// EditRank field of ChannelAdminLogEventsFilter.
+	// Events where a participant's custom tag (rank) »¹ was changed
+	// (channelAdminLogEventActionParticipantEditRank²).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
+	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantEditRank
 	EditRank bool
 }
 

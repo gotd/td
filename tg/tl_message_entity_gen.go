@@ -4243,12 +4243,23 @@ func (m *MessageEntityFormattedDate) GetDate() (value int) {
 }
 
 // MessageEntityDiffInsert represents TL type `messageEntityDiffInsert#71777116`.
+// Represents an diff addition: render it by simply underlining the specified section and
+// coloring it in green, see here »¹ for more info on how to render diff entities.
+//
+// Links:
+//  1. https://core.telegram.org/api/entities#diff-entities
 //
 // See https://core.telegram.org/constructor/messageEntityDiffInsert for reference.
 type MessageEntityDiffInsert struct {
-	// Offset field of MessageEntityDiffInsert.
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length field of MessageEntityDiffInsert.
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -4404,14 +4415,25 @@ func (m *MessageEntityDiffInsert) GetLength() (value int) {
 }
 
 // MessageEntityDiffReplace represents TL type `messageEntityDiffReplace#c6c1e5a7`.
+// Represents an diff replacement, render it as follows:
+// See here »¹ for more info on how to render diff entities.
+//
+// Links:
+//  1. https://core.telegram.org/api/entities#diff-entities
 //
 // See https://core.telegram.org/constructor/messageEntityDiffReplace for reference.
 type MessageEntityDiffReplace struct {
-	// Offset field of MessageEntityDiffReplace.
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length field of MessageEntityDiffReplace.
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
-	// OldText field of MessageEntityDiffReplace.
+	// The chunk of text that was removed.
 	OldText string
 }
 
@@ -4592,12 +4614,23 @@ func (m *MessageEntityDiffReplace) GetOldText() (value string) {
 }
 
 // MessageEntityDiffDelete represents TL type `messageEntityDiffDelete#652c1c5`.
+// Represents an diff deletion: render it by simply underlining the specified section and
+// coloring it in red, see here »¹ for more info on how to render diff entities.
+//
+// Links:
+//  1. https://core.telegram.org/api/entities#diff-entities
 //
 // See https://core.telegram.org/constructor/messageEntityDiffDelete for reference.
 type MessageEntityDiffDelete struct {
-	// Offset field of MessageEntityDiffDelete.
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length field of MessageEntityDiffDelete.
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 

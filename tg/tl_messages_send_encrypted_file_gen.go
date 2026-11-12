@@ -45,7 +45,11 @@ type MessagesSendEncryptedFileRequest struct {
 	Silent bool
 	// Secret chat ID
 	Peer InputEncryptedChat
-	// Unique client message ID necessary to prevent message resending
+	// Unique client message ID necessary to prevent message resending. See here »¹ for
+	// more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key generated during
 	// chat initialization

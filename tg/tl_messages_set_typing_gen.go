@@ -287,15 +287,17 @@ func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
 //	400 BUSINESS_PEER_INVALID: Messages can't be set to the specified peer through the current business connection.
 //	400 BUSINESS_PEER_USAGE_MISSING: You cannot send a message to a user through a business connection if the user hasn't recently contacted us.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_MONOFORUM_UNSUPPORTED: Monoforums do not support this feature.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	406 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 TEXTDRAFT_PEER_INVALID: sendMessageTextDraftAction can only be used in private 1-on-1 chats.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.

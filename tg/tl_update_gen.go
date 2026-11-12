@@ -238,7 +238,11 @@ type UpdateMessageID struct {
 	// Links:
 	//  1) https://core.telegram.org/type/Message
 	ID int
-	// Previously transferred client random_id identifier
+	// Previously transferred client random_id identifier. See here »¹ for more info on
+	// random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 }
 
@@ -13072,15 +13076,15 @@ type UpdateMessagePoll struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of UpdateMessagePoll.
+	// Peer of the message containing the poll
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
-	// MsgID field of UpdateMessagePoll.
+	// Message ID of the poll
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
-	// TopMsgID field of UpdateMessagePoll.
+	// If the poll is in a forum topic, the ID of the top message of the topic
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -15001,7 +15005,7 @@ func (u *UpdateLoginToken) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateMessagePollVote represents TL type `updateMessagePollVote#7699f014`.
-// A specific peer has voted in a poll
+// A specific peer has voted in a poll (this update can only be received by a bot).
 //
 // See https://core.telegram.org/constructor/updateMessagePollVote for reference.
 type UpdateMessagePollVote struct {
@@ -15011,7 +15015,8 @@ type UpdateMessagePollVote struct {
 	Peer PeerClass
 	// Chosen option(s)
 	Options [][]byte
-	// Positions field of UpdateMessagePollVote.
+	// 0-based indices of the voted options within the answers vector, corresponding
+	// element-by-element to options
 	Positions []int
 	// New qts value, see updates »¹ for more info.
 	//
@@ -17893,11 +17898,14 @@ func (u *UpdateChat) GetChatID() (value int64) {
 //
 // See https://core.telegram.org/constructor/updateGroupCallParticipants for reference.
 type UpdateGroupCallParticipants struct {
-	// Group call
+	// Group call whose participants changed
 	Call InputGroupCallClass
-	// New participant list
+	// Participants whose state changed
 	Participants []GroupCallParticipant
-	// Version
+	// Group call revision used by the update application rules »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#applying-group-call-updates
 	Version int
 }
 
@@ -18098,10 +18106,10 @@ func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
 }
 
 // UpdateGroupCall represents TL type `updateGroupCall#9d2216e0`.
-// Info about a group call¹ was updated.
+// Indicates that group call information changed, see applying group call updates »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#applying-group-call-updates
 //
 // See https://core.telegram.org/constructor/updateGroupCall for reference.
 type UpdateGroupCall struct {
@@ -18110,9 +18118,12 @@ type UpdateGroupCall struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// LiveStory field of UpdateGroupCall.
+	// Whether this update belongs to a live story »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#live-stories
 	LiveStory bool
-	// Peer field of UpdateGroupCall.
+	// Peer associated with the group call
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
@@ -18559,10 +18570,12 @@ func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
 }
 
 // UpdateChatParticipant represents TL type `updateChatParticipant#d087663a`.
-// A user has joined or left a specific basic group »¹
+// A user has joined or left a specific basic group »¹: this update can only be
+// received by bots, see here »² for the user version of this update.
 //
 // Links:
 //  1. https://core.telegram.org/api/channel#basic-groups
+//  2. https://core.telegram.org/api/peers#basic-group-updates
 //
 // See https://core.telegram.org/constructor/updateChatParticipant for reference.
 type UpdateChatParticipant struct {
@@ -19682,10 +19695,25 @@ func (u *UpdateBotStopped) GetQts() (value int) {
 }
 
 // UpdateGroupCallConnection represents TL type `updateGroupCallConnection#b783982`.
-// New WebRTC connection parameters for the currently joined group call¹.
+// Connection parameters returned after joining a group call, see presentations »¹ and
+// stream mode »².
+// If presentation is set, the parameters belong to the separate presentation
+// connection¹; otherwise they belong to the main connection.
+// For a normal WebRTC connection, pass params to the local tgcalls group-call engine as
+// its join response payload.
+// For stream-mode calls¹, where the client plays the call by downloading media chunks
+// »² instead of using WebRTC, params instead has one of the following shapes:
+// for a call that entered stream mode¹, or
+// for an RTMP-mode call¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#presentations
+//  2. https://core.telegram.org/api/group-calls#stream-mode
+//  3. https://core.telegram.org/api/group-calls#presentations
+//  4. https://core.telegram.org/api/group-calls#detecting-stream-mode
+//  5. https://core.telegram.org/api/group-calls#downloading-media-chunks
+//  6. https://core.telegram.org/api/group-calls#stream-mode
+//  7. https://core.telegram.org/api/group-calls#creating-and-publishing-an-rtmp-livestream
 //
 // See https://core.telegram.org/constructor/updateGroupCallConnection for reference.
 type UpdateGroupCallConnection struct {
@@ -19694,9 +19722,10 @@ type UpdateGroupCallConnection struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Are these parameters related to the screen capture session currently in progress?
+	// Whether these parameters belong to the separate presentation connection instead of the
+	// main connection
 	Presentation bool
-	// WebRTC parameters
+	// RTC join response parameters or broadcast-stream metadata, as described above
 	Params DataJSON
 }
 
@@ -23347,10 +23376,12 @@ func (u *UpdateReadStories) GetMaxID() (value int) {
 type UpdateStoryID struct {
 	// The id that was attributed to the story.
 	ID int
-	// The random_id that was passed to stories.sendStory¹.
+	// The random_id that was passed to stories.sendStory¹. See here »² for more info on
+	// random ID deduplication and updateMessageID mapping.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/stories.sendStory
+	//  2) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 }
 
@@ -28854,20 +28885,25 @@ func (u *UpdateSentPhoneCode) GetSentCode() (value AuthSentCodeClass) {
 }
 
 // UpdateGroupCallChainBlocks represents TL type `updateGroupCallChainBlocks#a477288f`.
-// Contains updates to the blockchain of a conference call, see here »¹ for more info.
+// Contains conference call blockchain blocks, see handling E2E group call updates »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#handling-updates
 //
 // See https://core.telegram.org/constructor/updateGroupCallChainBlocks for reference.
 type UpdateGroupCallChainBlocks struct {
-	// The conference call.
+	// Conference whose specified subchain received these blocks
 	Call InputGroupCallClass
-	// Subchain ID.
+	// 0 for the main state blockchain, 1 for the call verification subchain
 	SubChainID int
-	// Blocks.
+	// Serialized subchain blocks with the server-adjusted constructor IDs described in the
+	// subchain documentation »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/group-calls#subchains
 	Blocks [][]byte
-	// Offset of the next block.
+	// Height of the block located after the last block in blocks; the first returned block
+	// has height next_offset - blocks.length
 	NextOffset int
 }
 
@@ -29713,18 +29749,17 @@ func (u *UpdateMonoForumNoPaidException) GetSavedPeerID() (value PeerClass) {
 }
 
 // UpdateGroupCallMessage represents TL type `updateGroupCallMessage#d8326f0d`.
-// A new in-call message was received in a group call or livestream¹, sent using phone
-// sendGroupCallMessage².
+// A new message, reaction, paid comment or donation was received through the in-call
+// message overlay »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
-//  2. https://core.telegram.org/method/phone.sendGroupCallMessage
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/constructor/updateGroupCallMessage for reference.
 type UpdateGroupCallMessage struct {
-	// Call field of UpdateGroupCallMessage.
+	// Group call that received the message
 	Call InputGroupCallClass
-	// Message field of UpdateGroupCallMessage.
+	// Received in-call message
 	Message GroupCallMessage
 }
 
@@ -29885,20 +29920,19 @@ func (u *UpdateGroupCallMessage) GetMessage() (value GroupCallMessage) {
 }
 
 // UpdateGroupCallEncryptedMessage represents TL type `updateGroupCallEncryptedMessage#c957a766`.
-// A new E2E-encrypted message was received in a conference call¹, sent using phone
-// sendGroupCallEncryptedMessage².
+// A new E2E-encrypted message or emoji reaction was received in a conference call, see
+// here »¹ for the decryption process.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
-//  2. https://core.telegram.org/method/phone.sendGroupCallEncryptedMessage
+//  1. https://core.telegram.org/api/end-to-end/group-calls#receiving-and-decrypting-a-message
 //
 // See https://core.telegram.org/constructor/updateGroupCallEncryptedMessage for reference.
 type UpdateGroupCallEncryptedMessage struct {
-	// Call field of UpdateGroupCallEncryptedMessage.
+	// Conference call that received the encrypted message
 	Call InputGroupCallClass
-	// FromID field of UpdateGroupCallEncryptedMessage.
+	// Sender whose blockchain public key must be used to verify the encrypted packet
 	FromID PeerClass
-	// EncryptedMessage field of UpdateGroupCallEncryptedMessage.
+	// Complete encrypted packet
 	EncryptedMessage []byte
 }
 
@@ -30542,12 +30576,17 @@ func (u *UpdatePinnedForumTopics) GetOrder() (value []int, ok bool) {
 }
 
 // UpdateDeleteGroupCallMessages represents TL type `updateDeleteGroupCallMessages#3e85e92c`.
+// Indicates that messages were deleted from the in-call message overlay »¹ of a video
+// chat/livestream or live story, including in RTMP mode.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/constructor/updateDeleteGroupCallMessages for reference.
 type UpdateDeleteGroupCallMessages struct {
-	// Call field of UpdateDeleteGroupCallMessages.
+	// Video chat/livestream or live story from which the messages were deleted
 	Call InputGroupCallClass
-	// Messages field of UpdateDeleteGroupCallMessages.
+	// IDs of the deleted in-call messages
 	Messages []int
 }
 
@@ -31065,10 +31104,11 @@ func (u *UpdateStarGiftAuctionUserState) GetUserState() (value StarGiftAuctionUs
 }
 
 // UpdateEmojiGameInfo represents TL type `updateEmojiGameInfo#fb9c547a`.
+// Dice game update.
 //
 // See https://core.telegram.org/constructor/updateEmojiGameInfo for reference.
 type UpdateEmojiGameInfo struct {
-	// Info field of UpdateEmojiGameInfo.
+	// Dice game information.
 	Info MessagesEmojiGameInfoClass
 }
 
@@ -31533,14 +31573,22 @@ func (u *UpdateChatParticipantRank) GetVersion() (value int) {
 }
 
 // UpdateManagedBot represents TL type `updateManagedBot#4880ed9a`.
+// Manager bots¹ only: a bot managed by the currently logged in bot was created or
+// updated.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots
 //
 // See https://core.telegram.org/constructor/updateManagedBot for reference.
 type UpdateManagedBot struct {
-	// UserID field of UpdateManagedBot.
+	// The ID of the user that owns of the newly created or edited managed bot.
 	UserID int64
-	// BotID field of UpdateManagedBot.
+	// The ID of the managed bot.
 	BotID int64
-	// Qts field of UpdateManagedBot.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -31721,20 +31769,38 @@ func (u *UpdateManagedBot) GetQts() (value int) {
 }
 
 // UpdateBotGuestChatQuery represents TL type `updateBotGuestChatQuery#cdd4093d`.
+// Sent to guest bots »¹ when a user invokes the bot as a guest in a chat. The bot
+// should reply by invoking messages.setBotGuestChatResult², see here »³ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/guest-mode
+//  2. https://core.telegram.org/method/messages.setBotGuestChatResult
+//  3. https://core.telegram.org/api/bots/guest-mode#handling-guest-queries-bot-side
 //
 // See https://core.telegram.org/constructor/updateBotGuestChatQuery for reference.
 type UpdateBotGuestChatQuery struct {
-	// Flags field of UpdateBotGuestChatQuery.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// QueryID field of UpdateBotGuestChatQuery.
+	// Query identifier, to be passed to messages.setBotGuestChatResult¹ when replying
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setBotGuestChatResult
 	QueryID int64
-	// Message field of UpdateBotGuestChatQuery.
+	// The message that triggered the query
 	Message MessageClass
-	// ReferenceMessages field of UpdateBotGuestChatQuery.
+	// Additional context messages referenced by the triggering message (for example
+	// replied-to messages)
 	//
 	// Use SetReferenceMessages and GetReferenceMessages helpers.
 	ReferenceMessages []MessageClass
-	// Qts field of UpdateBotGuestChatQuery.
+	// Persistent timestamp¹ (qts) of the update, used by bots to receive updates of this
+	// type
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -32006,6 +32072,12 @@ func (u *UpdateBotGuestChatQuery) MapReferenceMessages() (value MessageClassArra
 }
 
 // UpdateAiComposeTones represents TL type `updateAiComposeTones#8c0f91fb`.
+// The list of saved AI composer tones »¹ of the current user has changed, and should
+// be refetched using aicompose.getTones².
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//  2. https://core.telegram.org/method/aicompose.getTones
 //
 // See https://core.telegram.org/constructor/updateAiComposeTones for reference.
 type UpdateAiComposeTones struct {

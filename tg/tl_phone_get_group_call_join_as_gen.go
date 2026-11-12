@@ -32,15 +32,21 @@ var (
 )
 
 // PhoneGetGroupCallJoinAsRequest represents TL type `phone.getGroupCallJoinAs#ef7c213a`.
-// Get a list of peers that can be used to join a group call¹, presenting yourself as a
-// specific user/channel.
+// Get a list of peers that can be used to join a video chat or livestream »¹,
+// presenting yourself as a specific user/channel.
+// This method cannot be used for live stories or conference calls. To comment or react
+// in a live story as another peer, use channels.getSendAs¹ with for_live_stories set
+// and pass one of the returned peers to phone.sendGroupCallMessage².send_as.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
+//  1. https://core.telegram.org/api/group-calls#joining-a-group-call-on-behalf-of-owned-channels
+//  2. https://core.telegram.org/method/channels.getSendAs
+//  3. https://core.telegram.org/method/phone.sendGroupCallMessage
 //
 // See https://core.telegram.org/method/phone.getGroupCallJoinAs for reference.
 type PhoneGetGroupCallJoinAsRequest struct {
-	// The dialog whose group call or livestream we're trying to join
+	// The basic group, supergroup or channel whose video chat/livestream we're trying to
+	// join; cannot target a live story.
 	Peer InputPeerClass
 }
 
@@ -171,11 +177,16 @@ func (g *PhoneGetGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
 }
 
 // PhoneGetGroupCallJoinAs invokes method phone.getGroupCallJoinAs#ef7c213a returning error if any.
-// Get a list of peers that can be used to join a group call¹, presenting yourself as a
-// specific user/channel.
+// Get a list of peers that can be used to join a video chat or livestream »¹,
+// presenting yourself as a specific user/channel.
+// This method cannot be used for live stories or conference calls. To comment or react
+// in a live story as another peer, use channels.getSendAs¹ with for_live_stories set
+// and pass one of the returned peers to phone.sendGroupCallMessage².send_as.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
+//  1. https://core.telegram.org/api/group-calls#joining-a-group-call-on-behalf-of-owned-channels
+//  2. https://core.telegram.org/method/channels.getSendAs
+//  3. https://core.telegram.org/method/phone.sendGroupCallMessage
 //
 // Possible errors:
 //

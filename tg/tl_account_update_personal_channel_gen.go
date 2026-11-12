@@ -191,6 +191,10 @@ func (u *AccountUpdatePersonalChannelRequest) GetChannelAsNotEmpty() (NotEmptyIn
 //  2. https://core.telegram.org/api/profile#personal-channel
 //  3. https://core.telegram.org/constructor/updateUser
 //
+// Possible errors:
+//
+//	400 PUBLIC_BROADCAST_EXPECTED: channel only accepts a channel, but a supergroup was passed.
+//
 // See https://core.telegram.org/method/account.updatePersonalChannel for reference.
 func (c *Client) AccountUpdatePersonalChannel(ctx context.Context, channel InputChannelClass) (bool, error) {
 	var result BoolBox

@@ -199,6 +199,7 @@ func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
 //
 // Possible errors:
 //
+//	400 CALL_NOT_ACTIVE: The specified call is not active.
 //	400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.

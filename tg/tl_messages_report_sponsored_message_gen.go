@@ -40,7 +40,11 @@ var (
 //
 // See https://core.telegram.org/method/messages.reportSponsoredMessage for reference.
 type MessagesReportSponsoredMessageRequest struct {
-	// The ad's unique ID.
+	// The ad's unique ID. See here »¹ for more info on random ID deduplication and
+	// updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []byte
 	// Chosen report option, initially an empty string, see here »¹ for more info on the
 	// full flow.

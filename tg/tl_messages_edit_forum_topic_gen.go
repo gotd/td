@@ -427,6 +427,8 @@ func (e *MessagesEditForumTopicRequest) GetHidden() (value bool, ok bool) {
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 TOPIC_CLOSE_SEPARATELY: The close flag cannot be provided together with any of the other flags.
+//	400 TOPIC_NOT_MODIFIED: The updated topic info is equal to the current topic info, nothing was changed.
 //
 // See https://core.telegram.org/method/messages.editForumTopic for reference.
 func (c *Client) MessagesEditForumTopic(ctx context.Context, request *MessagesEditForumTopicRequest) (UpdatesClass, error) {

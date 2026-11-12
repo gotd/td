@@ -32,10 +32,21 @@ var (
 )
 
 // PaymentsGetStarGiftActiveAuctionsRequest represents TL type `payments.getStarGiftActiveAuctions#a5d0514d`.
-// Fetches all currently active gift auctions¹ where the user has placed a bid.
+// Fetches all currently active gift auctions¹ the user has ever bid on (including
+// auctions where the user was outbid and their bid was returned), as long as the auction
+// hasn't ended yet.
+// This method is primarily used to display an auction badge in the chat list immediately
+// on app startup, without waiting for real-time updateStarGiftAuctionState¹ updates to
+// arrive: the client calls it to discover which auctions the user is participating in
+// and show the badge proactively.
+// To instead fetch the full state of a single auction, subscribe to its real-time
+// updates and render the detailed auction UI (typically when the user opens a specific
+// auction), use payments.getStarGiftAuctionState¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/auctions
+//  2. https://core.telegram.org/constructor/updateStarGiftAuctionState
+//  3. https://core.telegram.org/method/payments.getStarGiftAuctionState
 //
 // See https://core.telegram.org/method/payments.getStarGiftActiveAuctions for reference.
 type PaymentsGetStarGiftActiveAuctionsRequest struct {
@@ -168,10 +179,21 @@ func (g *PaymentsGetStarGiftActiveAuctionsRequest) GetHash() (value int64) {
 }
 
 // PaymentsGetStarGiftActiveAuctions invokes method payments.getStarGiftActiveAuctions#a5d0514d returning error if any.
-// Fetches all currently active gift auctions¹ where the user has placed a bid.
+// Fetches all currently active gift auctions¹ the user has ever bid on (including
+// auctions where the user was outbid and their bid was returned), as long as the auction
+// hasn't ended yet.
+// This method is primarily used to display an auction badge in the chat list immediately
+// on app startup, without waiting for real-time updateStarGiftAuctionState¹ updates to
+// arrive: the client calls it to discover which auctions the user is participating in
+// and show the badge proactively.
+// To instead fetch the full state of a single auction, subscribe to its real-time
+// updates and render the detailed auction UI (typically when the user opens a specific
+// auction), use payments.getStarGiftAuctionState¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/auctions
+//  2. https://core.telegram.org/constructor/updateStarGiftAuctionState
+//  3. https://core.telegram.org/method/payments.getStarGiftAuctionState
 //
 // See https://core.telegram.org/method/payments.getStarGiftActiveAuctions for reference.
 func (c *Client) PaymentsGetStarGiftActiveAuctions(ctx context.Context, hash int64) (PaymentsStarGiftActiveAuctionsClass, error) {

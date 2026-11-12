@@ -87,7 +87,10 @@ type ChatAdminRights struct {
 	AddAdmins bool
 	// Whether this admin is anonymous
 	Anonymous bool
-	// If set, allows the admin to change group call/livestream settings
+	// If set, allows the admin to create and administer video chats/livestreams »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	ManageCall bool
 	// Set this flag if none of the other flags are set, but you still want the user to be an
 	// admin: if this or any of the other flags are set, the admin can get the chat admin
@@ -130,7 +133,10 @@ type ChatAdminRights struct {
 	//  1) https://core.telegram.org/api/monoforum
 	//  2) https://core.telegram.org/api/suggested-posts
 	ManageDirectMessages bool
-	// ManageRanks field of ChatAdminRights.
+	// If set, allows the admin to modify the member tag »¹ of any user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
 	ManageRanks bool
 	// ManageLinkedPeers field of ChatAdminRights.
 	ManageLinkedPeers bool

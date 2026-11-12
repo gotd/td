@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneGroupParticipants represents TL type `phone.groupParticipants#f47751b6`.
-// Info about the participants of a group call or livestream
+// Contains a page of group call participants, see getting info about a group call »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#getting-info-about-a-group-call
 //
 // See https://core.telegram.org/constructor/phone.groupParticipants for reference.
 type PhoneGroupParticipants struct {
@@ -50,7 +53,11 @@ type PhoneGroupParticipants struct {
 	Chats []ChatClass
 	// Mentioned users
 	Users []UserClass
-	// Version info
+	// Current participant-list version, used to apply and detect gaps in versioned
+	// updateGroupCallParticipants¹ updates
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateGroupCallParticipants
 	Version int
 }
 

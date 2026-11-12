@@ -344,12 +344,12 @@ func (e *EmojiStatus) GetUntil() (value int, ok bool) {
 }
 
 // EmojiStatusCollectible represents TL type `emojiStatusCollectible#7184603b`.
-// An owned collectible gift »¹ as emoji status.
+// An owned or hosted collectible gift »¹ as emoji status.
 // Cannot be passed to account.updateEmojiStatus¹, must be converted to an
 // inputEmojiStatusCollectible² first before passing it to that method.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  1. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //  2. https://core.telegram.org/method/account.updateEmojiStatus
 //  3. https://core.telegram.org/constructor/inputEmojiStatusCollectible
 //
@@ -803,14 +803,14 @@ func (e *EmojiStatusCollectible) GetUntil() (value int, ok bool) {
 }
 
 // InputEmojiStatusCollectible represents TL type `inputEmojiStatusCollectible#7141dbf`.
-// An owned collectible gift »¹ as emoji status: can only be used in account
+// An owned or hosted collectible gift »¹ as emoji status: can only be used in account
 // updateEmojiStatus², is never returned by the API.
 // Note that once set, the status will be returned to users as a emojiStatusCollectible¹
 // constructor, instead (which cannot be passed to account.updateEmojiStatus², and must
 // be converted to an inputEmojiStatusCollectible³ first).
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  1. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //  2. https://core.telegram.org/method/account.updateEmojiStatus
 //  3. https://core.telegram.org/constructor/emojiStatusCollectible
 //  4. https://core.telegram.org/method/account.updateEmojiStatus

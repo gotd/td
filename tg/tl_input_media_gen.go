@@ -145,7 +145,8 @@ type InputMediaUploadedPhoto struct {
 	Flags bin.Fields
 	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
-	// LivePhoto field of InputMediaUploadedPhoto.
+	// Whether this is a live photo, i.e. a still photo paired with the short video clip
+	// captured alongside it
 	LivePhoto bool
 	// The uploaded file¹
 	//
@@ -156,11 +157,13 @@ type InputMediaUploadedPhoto struct {
 	//
 	// Use SetStickers and GetStickers helpers.
 	Stickers []InputDocumentClass
-	// Time to live in seconds of self-destructing photo
+	// Time to live of self-destructing photo, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the photo immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
-	// Video field of InputMediaUploadedPhoto.
+	// The short video clip of the live photo
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputDocumentClass
@@ -554,15 +557,18 @@ type InputMediaPhoto struct {
 	Flags bin.Fields
 	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
-	// LivePhoto field of InputMediaPhoto.
+	// Whether this is a live photo, i.e. a still photo paired with the short video clip
+	// captured alongside it
 	LivePhoto bool
 	// Photo to be forwarded
 	ID InputPhotoClass
-	// Time to live in seconds of self-destructing photo
+	// Time to live of self-destructing photo, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
-	// Video field of InputMediaPhoto.
+	// The short video clip of the live photo
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputDocumentClass
@@ -1276,7 +1282,9 @@ type InputMediaUploadedDocument struct {
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
-	// Time to live in seconds of self-destructing document
+	// Time to live of self-destructing document, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -1879,7 +1887,9 @@ type InputMediaDocument struct {
 	//
 	// Use SetVideoTimestamp and GetVideoTimestamp helpers.
 	VideoTimestamp int
-	// Time to live of self-destructing document
+	// Time to live of self-destructing document, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -2541,7 +2551,9 @@ type InputMediaPhotoExternal struct {
 	Spoiler bool
 	// URL of the photo
 	URL string
-	// Self-destruct time to live of photo
+	// Time to live of self-destructing photo, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the photo immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -2780,7 +2792,9 @@ type InputMediaDocumentExternal struct {
 	Spoiler bool
 	// URL of the document
 	URL string
-	// Self-destruct time to live of document
+	// Time to live of self-destructing document, can be 0 to disable self-destruction,
+	// 0x7FFFFFFF to self-destruct the document immediately after it's played; otherwise
+	// self-destructs ttl_seconds after it's played.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -4086,26 +4100,27 @@ type InputMediaPoll struct {
 	Flags bin.Fields
 	// The poll to send
 	Poll Poll
-	// Correct answer IDs (for quiz polls)
+	// 0-based indices of the correct answers in the answers vector (for quiz polls)
 	//
 	// Use SetCorrectAnswers and GetCorrectAnswers helpers.
 	CorrectAnswers []int
-	// AttachedMedia field of InputMediaPoll.
+	// Optional media attachment to display alongside the poll
 	//
 	// Use SetAttachedMedia and GetAttachedMedia helpers.
 	AttachedMedia InputMediaClass
-	// Explanation of quiz solution
+	// Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in
+	// a quiz-style poll, 0-200 characters with at most 2 line feeds.
 	//
 	// Use SetSolution and GetSolution helpers.
 	Solution string
-	// Message entities for styled text¹
+	// Styled text message entities¹ for the solution explanation.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass
-	// SolutionMedia field of InputMediaPoll.
+	// Optional media attachment shown alongside the quiz solution explanation
 	//
 	// Use SetSolutionMedia and GetSolutionMedia helpers.
 	SolutionMedia InputMediaClass
@@ -5496,14 +5511,15 @@ func (i *InputMediaTodo) GetTodo() (value TodoList) {
 }
 
 // InputMediaStakeDice represents TL type `inputMediaStakeDice#f3a9244a`.
+// Dice game media.
 //
 // See https://core.telegram.org/constructor/inputMediaStakeDice for reference.
 type InputMediaStakeDice struct {
-	// GameHash field of InputMediaStakeDice.
+	// Game hash.
 	GameHash string
-	// TonAmount field of InputMediaStakeDice.
+	// Amount.
 	TonAmount int64
-	// ClientSeed field of InputMediaStakeDice.
+	// Client seed.
 	ClientSeed []byte
 }
 

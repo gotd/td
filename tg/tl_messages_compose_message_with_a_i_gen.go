@@ -32,22 +32,36 @@ var (
 )
 
 // MessagesComposeMessageWithAIRequest represents TL type `messages.composeMessageWithAI#daecc589`.
+// Invokes telegram's AI Editor that can translate, transform, fixup and/or emojify your
+// message in a number of different ways, privately powered by Cocoon¹, see here »²
+// for more info!
+// All of the modes specified below can be combined.
+//
+// Links:
+//  1. https://cocoon.org
+//  2. https://core.telegram.org/api/ai#compose-messages
 //
 // See https://core.telegram.org/method/messages.composeMessageWithAI for reference.
 type MessagesComposeMessageWithAIRequest struct {
-	// Flags field of MessagesComposeMessageWithAIRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Proofread field of MessagesComposeMessageWithAIRequest.
+	// If set, proofreads and fixes mistakes in the message
 	Proofread bool
-	// Emojify field of MessagesComposeMessageWithAIRequest.
+	// If set, adds emojis to the message
 	Emojify bool
-	// Text field of MessagesComposeMessageWithAIRequest.
+	// The message
 	Text TextWithEntities
-	// TranslateToLang field of MessagesComposeMessageWithAIRequest.
+	// If set, translates the message to the specified language
 	//
 	// Use SetTranslateToLang and GetTranslateToLang helpers.
 	TranslateToLang string
-	// Tone field of MessagesComposeMessageWithAIRequest.
+	// If set, rephrases the message using the specified AI composer tone »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/ai#ai-compose-tones
 	//
 	// Use SetTone and GetTone helpers.
 	Tone InputAiComposeToneClass
@@ -350,6 +364,21 @@ func (c *MessagesComposeMessageWithAIRequest) GetTone() (value InputAiComposeTon
 }
 
 // MessagesComposeMessageWithAI invokes method messages.composeMessageWithAI#daecc589 returning error if any.
+// Invokes telegram's AI Editor that can translate, transform, fixup and/or emojify your
+// message in a number of different ways, privately powered by Cocoon¹, see here »²
+// for more info!
+// All of the modes specified below can be combined.
+//
+// Links:
+//  1. https://cocoon.org
+//  2. https://core.telegram.org/api/ai#compose-messages
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_FLOOD_PREMIUM: You've reached the daily limit of AI text transformations, upgrade to Telegram Premium to get 50x times more AI text transformations per day!
+//	500 AICOMPOSE_TIMEOUT: A timeout occurred while composing the message.
+//	400 AI_COMPOSE_TASK_MISSING: No AI task was specified. The caller must provide at least one of: proofread, translate (with a target language), tone, or emojify.
+//	400 MESSAGE_EMPTY: The provided message is empty.
 //
 // See https://core.telegram.org/method/messages.composeMessageWithAI for reference.
 func (c *Client) MessagesComposeMessageWithAI(ctx context.Context, request *MessagesComposeMessageWithAIRequest) (*MessagesComposedMessageWithAI, error) {

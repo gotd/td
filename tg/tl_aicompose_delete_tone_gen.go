@@ -32,10 +32,14 @@ var (
 )
 
 // AicomposeDeleteToneRequest represents TL type `aicompose.deleteTone#dd39316a`.
+// Permanently delete a custom AI composer tone »¹ created by the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.deleteTone for reference.
 type AicomposeDeleteToneRequest struct {
-	// Tone field of AicomposeDeleteToneRequest.
+	// The tone to delete
 	Tone InputAiComposeToneClass
 }
 
@@ -166,6 +170,14 @@ func (d *AicomposeDeleteToneRequest) GetTone() (value InputAiComposeToneClass) {
 }
 
 // AicomposeDeleteTone invokes method aicompose.deleteTone#dd39316a returning error if any.
+// Permanently delete a custom AI composer tone »¹ created by the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_TONE_INVALID: The specified tone is invalid.
 //
 // See https://core.telegram.org/method/aicompose.deleteTone for reference.
 func (c *Client) AicomposeDeleteTone(ctx context.Context, tone InputAiComposeToneClass) (bool, error) {

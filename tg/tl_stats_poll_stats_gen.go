@@ -32,10 +32,14 @@ var (
 )
 
 // StatsPollStats represents TL type `stats.pollStats#2999beed`.
+// Statistics¹ for a poll sent in a message.
+//
+// Links:
+//  1. https://core.telegram.org/api/stats#poll-statistics
 //
 // See https://core.telegram.org/constructor/stats.pollStats for reference.
 type StatsPollStats struct {
-	// VotesGraph field of StatsPollStats.
+	// A graph containing the number of votes cast in the poll over time
 	VotesGraph StatsGraphClass
 }
 

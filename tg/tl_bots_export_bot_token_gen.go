@@ -32,12 +32,19 @@ var (
 )
 
 // BotsExportBotTokenRequest represents TL type `bots.exportBotToken#bd0d99eb`.
+// Export the bot token of a managed bot »¹; can only be called by the manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
 //
 // See https://core.telegram.org/method/bots.exportBotToken for reference.
 type BotsExportBotTokenRequest struct {
-	// Bot field of BotsExportBotTokenRequest.
+	// The managed bot to export the token for
 	Bot InputUserClass
-	// Revoke field of BotsExportBotTokenRequest.
+	// If boolTrue¹, revoke the current token and generate a new one
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/boolTrue
 	Revoke bool
 }
 
@@ -193,6 +200,15 @@ func (e *BotsExportBotTokenRequest) GetRevoke() (value bool) {
 }
 
 // BotsExportBotToken invokes method bots.exportBotToken#bd0d99eb returning error if any.
+// Export the bot token of a managed bot »¹; can only be called by the manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.exportBotToken for reference.
 func (c *Client) BotsExportBotToken(ctx context.Context, request *BotsExportBotTokenRequest) (*BotsExportedBotToken, error) {

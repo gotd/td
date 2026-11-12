@@ -53,15 +53,20 @@ type PollAnswer struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
 	Option []byte
-	// Media field of PollAnswer.
+	// Optional media attachment displayed alongside the answer
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media MessageMediaClass
-	// AddedBy field of PollAnswer.
+	// The peer who added this answer; only set for answers dynamically added to an
+	// open-answer poll, see polls »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#open-answer-polls
 	//
 	// Use SetAddedBy and GetAddedBy helpers.
 	AddedBy PeerClass
-	// Date field of PollAnswer.
+	// When this answer was added; only set for answers dynamically added to an open-answer
+	// poll
 	//
 	// Use SetDate and GetDate helpers.
 	Date int
@@ -377,14 +382,21 @@ func (p *PollAnswer) GetDate() (value int, ok bool) {
 }
 
 // InputPollAnswer represents TL type `inputPollAnswer#199fed96`.
+// An answer option to add to an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
 //
 // See https://core.telegram.org/constructor/inputPollAnswer for reference.
 type InputPollAnswer struct {
-	// Flags field of InputPollAnswer.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Text field of InputPollAnswer.
+	// The answer text
 	Text TextWithEntities
-	// Media field of InputPollAnswer.
+	// Optional media attachment to display alongside the answer
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass

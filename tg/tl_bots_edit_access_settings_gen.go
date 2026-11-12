@@ -32,16 +32,26 @@ var (
 )
 
 // BotsEditAccessSettingsRequest represents TL type `bots.editAccessSettings#31813cd8`.
+// Edit the access restriction settings »¹ of a managed bot; can only be called by the
+// manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
 //
 // See https://core.telegram.org/method/bots.editAccessSettings for reference.
 type BotsEditAccessSettingsRequest struct {
-	// Flags field of BotsEditAccessSettingsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Restricted field of BotsEditAccessSettingsRequest.
+	// If set, restricts access to the managed bot to only the owner and the users in
+	// add_users
 	Restricted bool
-	// Bot field of BotsEditAccessSettingsRequest.
+	// The managed bot whose access settings to edit
 	Bot InputUserClass
-	// AddUsers field of BotsEditAccessSettingsRequest.
+	// Additional users (max 10, excluding the owner) allowed to access the managed bot when
+	// restricted is set
 	//
 	// Use SetAddUsers and GetAddUsers helpers.
 	AddUsers []InputUserClass
@@ -293,6 +303,16 @@ func (e *BotsEditAccessSettingsRequest) MapAddUsers() (value InputUserClassArray
 }
 
 // BotsEditAccessSettings invokes method bots.editAccessSettings#31813cd8 returning error if any.
+// Edit the access restriction settings »¹ of a managed bot; can only be called by the
+// manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.editAccessSettings for reference.
 func (c *Client) BotsEditAccessSettings(ctx context.Context, request *BotsEditAccessSettingsRequest) (bool, error) {

@@ -32,11 +32,11 @@ var (
 )
 
 // PhoneDeleteConferenceCallParticipantsRequest represents TL type `phone.deleteConferenceCallParticipants#8ca60525`.
-// Remove participants from a conference call¹.
+// Remove participants from a conference call »¹.
 // Exactly one of the only_left and kick flags must be set.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#removing-a-participant
 //
 // See https://core.telegram.org/method/phone.deleteConferenceCallParticipants for reference.
 type PhoneDeleteConferenceCallParticipantsRequest struct {
@@ -49,14 +49,15 @@ type PhoneDeleteConferenceCallParticipantsRequest struct {
 	OnlyLeft bool
 	// Whether this is a forced removal of active members in a conference call.
 	Kick bool
-	// The conference call.
+	// Conference from which to remove participants
 	Call InputGroupCallClass
-	// IDs of users to remove.
+	// User IDs to remove from the conference and E2E blockchain
 	IDs []int64
-	// The block containing an appropriate e2e.chain.changeSetGroupState event¹
+	// Main-chain block removing the specified users and establishing a new shared key, see
+	// removing a participant »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/end-to-end/group-calls
+	//  1) https://core.telegram.org/api/end-to-end/group-calls#removing-a-participant
 	Block []byte
 }
 
@@ -332,11 +333,11 @@ func (d *PhoneDeleteConferenceCallParticipantsRequest) GetBlock() (value []byte)
 }
 
 // PhoneDeleteConferenceCallParticipants invokes method phone.deleteConferenceCallParticipants#8ca60525 returning error if any.
-// Remove participants from a conference call¹.
+// Remove participants from a conference call »¹.
 // Exactly one of the only_left and kick flags must be set.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#removing-a-participant
 //
 // Possible errors:
 //

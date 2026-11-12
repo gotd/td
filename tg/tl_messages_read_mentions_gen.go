@@ -32,7 +32,11 @@ var (
 )
 
 // MessagesReadMentionsRequest represents TL type `messages.readMentions#36e5bf4d`.
-// Mark mentions as read
+// Mark mentions as read; can be used in forums¹ but cannot be used in monoforums².
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/api/monoforum
 //
 // See https://core.telegram.org/method/messages.readMentions for reference.
 type MessagesReadMentionsRequest struct {
@@ -43,7 +47,7 @@ type MessagesReadMentionsRequest struct {
 	Flags bin.Fields
 	// Dialog
 	Peer InputPeerClass
-	// Mark as read only mentions within the specified forum topic¹
+	// Mark as read only mentions within the specified forum topic¹ (except for monoforums).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics
@@ -239,7 +243,11 @@ func (r *MessagesReadMentionsRequest) GetTopMsgID() (value int, ok bool) {
 }
 
 // MessagesReadMentions invokes method messages.readMentions#36e5bf4d returning error if any.
-// Mark mentions as read
+// Mark mentions as read; can be used in forums¹ but cannot be used in monoforums².
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/api/monoforum
 //
 // Possible errors:
 //
@@ -247,7 +255,6 @@ func (r *MessagesReadMentionsRequest) GetTopMsgID() (value int, ok bool) {
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 SAVED_PEER_INVALID:
 //
 // See https://core.telegram.org/method/messages.readMentions for reference.
 func (c *Client) MessagesReadMentions(ctx context.Context, request *MessagesReadMentionsRequest) (*MessagesAffectedHistory, error) {

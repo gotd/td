@@ -32,10 +32,18 @@ var (
 )
 
 // AicomposeGetTonesRequest represents TL type `aicompose.getTones#abd59201`.
+// Fetch the list of saved AI composer tones »¹ of the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.getTones for reference.
 type AicomposeGetTonesRequest struct {
-	// Hash field of AicomposeGetTonesRequest.
+	// Hash from a previously cached aicompose.tones¹.hash to avoid refetching the list if
+	// it hasn't changed; initially 0.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/aicompose.tones
 	Hash int64
 }
 
@@ -161,6 +169,10 @@ func (g *AicomposeGetTonesRequest) GetHash() (value int64) {
 }
 
 // AicomposeGetTones invokes method aicompose.getTones#abd59201 returning error if any.
+// Fetch the list of saved AI composer tones »¹ of the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.getTones for reference.
 func (c *Client) AicomposeGetTones(ctx context.Context, hash int64) (AicomposeTonesClass, error) {

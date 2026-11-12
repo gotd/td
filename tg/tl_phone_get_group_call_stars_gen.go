@@ -32,14 +32,15 @@ var (
 )
 
 // PhoneGetGroupCallStarsRequest represents TL type `phone.getGroupCallStars#6f636302`.
-// Fetch the livestream¹ donor and paid-message leaderboard.
+// Fetch a live story's total donations and top donors, see paid live story donations
+// »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#livestreams
+//  1. https://core.telegram.org/api/group-calls#paid-live-story-donations
 //
 // See https://core.telegram.org/method/phone.getGroupCallStars for reference.
 type PhoneGetGroupCallStarsRequest struct {
-	// Call field of PhoneGetGroupCallStarsRequest.
+	// Live story group call
 	Call InputGroupCallClass
 }
 
@@ -170,10 +171,11 @@ func (g *PhoneGetGroupCallStarsRequest) GetCall() (value InputGroupCallClass) {
 }
 
 // PhoneGetGroupCallStars invokes method phone.getGroupCallStars#6f636302 returning error if any.
-// Fetch the livestream¹ donor and paid-message leaderboard.
+// Fetch a live story's total donations and top donors, see paid live story donations
+// »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#livestreams
+//  1. https://core.telegram.org/api/group-calls#paid-live-story-donations
 //
 // Possible errors:
 //

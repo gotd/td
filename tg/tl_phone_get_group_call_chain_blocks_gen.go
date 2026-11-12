@@ -32,20 +32,28 @@ var (
 )
 
 // PhoneGetGroupCallChainBlocksRequest represents TL type `phone.getGroupCallChainBlocks#ee9f88a6`.
-// Fetch the blocks of a conference blockchain »¹.
+// Fetch blocks from a conference call subchain »¹; handle the returned
+// updateGroupCallChainBlocks² as specified here »³.
+// If the number of blocks returned by any call to this method is equal to limit, this
+// method must be re-invoked immediately after processing the returned
+// updateGroupCallChainBlocks¹, with the newly committed offset (usually equal to the
+// returned next_offset).
 //
 // Links:
-//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#subchains
+//  2. https://core.telegram.org/constructor/updateGroupCallChainBlocks
+//  3. https://core.telegram.org/api/end-to-end/group-calls#handling-updates
+//  4. https://core.telegram.org/constructor/updateGroupCallChainBlocks
 //
 // See https://core.telegram.org/method/phone.getGroupCallChainBlocks for reference.
 type PhoneGetGroupCallChainBlocksRequest struct {
-	// The conference.
+	// Conference whose subchain blocks should be fetched
 	Call InputGroupCallClass
-	// Subchain ID.
+	// 0 for the main state blockchain, 1 for the call verification subchain
 	SubChainID int
-	// Offset for pagination.
+	// Fetch blocks starting from this height; pass -1 to fetch the latest block
 	Offset int
-	// Maximum number of blocks to return in this call, see pagination¹
+	// Maximum number of blocks to return in this call, see pagination¹, max 100.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
@@ -254,10 +262,18 @@ func (g *PhoneGetGroupCallChainBlocksRequest) GetLimit() (value int) {
 }
 
 // PhoneGetGroupCallChainBlocks invokes method phone.getGroupCallChainBlocks#ee9f88a6 returning error if any.
-// Fetch the blocks of a conference blockchain »¹.
+// Fetch blocks from a conference call subchain »¹; handle the returned
+// updateGroupCallChainBlocks² as specified here »³.
+// If the number of blocks returned by any call to this method is equal to limit, this
+// method must be re-invoked immediately after processing the returned
+// updateGroupCallChainBlocks¹, with the newly committed offset (usually equal to the
+// returned next_offset).
 //
 // Links:
-//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#subchains
+//  2. https://core.telegram.org/constructor/updateGroupCallChainBlocks
+//  3. https://core.telegram.org/api/end-to-end/group-calls#handling-updates
+//  4. https://core.telegram.org/constructor/updateGroupCallChainBlocks
 //
 // Possible errors:
 //

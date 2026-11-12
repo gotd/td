@@ -96,7 +96,10 @@ type ChatFull struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// Group call information
+	// Active or scheduled video chat »¹ associated with this basic group
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	//
 	// Use SetCall and GetCall helpers.
 	Call InputGroupCallClass
@@ -104,11 +107,11 @@ type ChatFull struct {
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
-	// When using phone.getGroupCallJoinAs¹ to get a list of peers that can be used to join
-	// a group call, this field indicates the peer that should be selected by default.
+	// Explicitly saved default peer used to join this group's video chat »¹; if absent,
+	// the current user is used
 	//
 	// Links:
-	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	//
 	// Use SetGroupcallDefaultJoinAs and GetGroupcallDefaultJoinAs helpers.
 	GroupcallDefaultJoinAs PeerClass
@@ -1354,7 +1357,10 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Livestream or group call information
+	// Active or scheduled video chat/livestream »¹ associated with this supergroup/channel
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	//
 	// Use SetCall and GetCall helpers.
 	Call InputGroupCallClass
@@ -1370,11 +1376,11 @@ type ChannelFull struct {
 	//
 	// Use SetPendingSuggestions and GetPendingSuggestions helpers.
 	PendingSuggestions []string
-	// When using phone.getGroupCallJoinAs¹ to get a list of peers that can be used to join
-	// a group call, this field indicates the peer that should be selected by default.
+	// Explicitly saved default peer used to join this supergroup/channel's video
+	// chat/livestream »¹; if absent, the current user is used
 	//
 	// Links:
-	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	//
 	// Use SetGroupcallDefaultJoinAs and GetGroupcallDefaultJoinAs helpers.
 	GroupcallDefaultJoinAs PeerClass

@@ -32,12 +32,23 @@ var (
 )
 
 // AicomposeSaveToneRequest represents TL type `aicompose.saveTone#1782cbb1`.
+// Install or uninstall an AI composer tone »¹, adding it to or removing it from the
+// list of saved tones of the current user.
+// Non-Premium¹ users may install up to aicompose_tone_saved_limit_default »² tones,
+// Premium³ users up to aicompose_tone_saved_limit_premium »⁴ tones.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//  2. https://core.telegram.org/api/premium
+//  3. https://core.telegram.org/api/config#aicompose-tone-saved-limit-default
+//  4. https://core.telegram.org/api/premium
+//  5. https://core.telegram.org/api/config#aicompose-tone-saved-limit-premium
 //
 // See https://core.telegram.org/method/aicompose.saveTone for reference.
 type AicomposeSaveToneRequest struct {
-	// Tone field of AicomposeSaveToneRequest.
+	// The tone to save or unsave
 	Tone InputAiComposeToneClass
-	// Unsave field of AicomposeSaveToneRequest.
+	// If false, installs (saves) the tone; if true, uninstalls (unsaves) it
 	Unsave bool
 }
 
@@ -193,6 +204,21 @@ func (s *AicomposeSaveToneRequest) GetUnsave() (value bool) {
 }
 
 // AicomposeSaveTone invokes method aicompose.saveTone#1782cbb1 returning error if any.
+// Install or uninstall an AI composer tone »¹, adding it to or removing it from the
+// list of saved tones of the current user.
+// Non-Premium¹ users may install up to aicompose_tone_saved_limit_default »² tones,
+// Premium³ users up to aicompose_tone_saved_limit_premium »⁴ tones.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//  2. https://core.telegram.org/api/premium
+//  3. https://core.telegram.org/api/config#aicompose-tone-saved-limit-default
+//  4. https://core.telegram.org/api/premium
+//  5. https://core.telegram.org/api/config#aicompose-tone-saved-limit-premium
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_TONE_INVALID: The specified tone is invalid.
 //
 // See https://core.telegram.org/method/aicompose.saveTone for reference.
 func (c *Client) AicomposeSaveTone(ctx context.Context, request *AicomposeSaveToneRequest) (bool, error) {

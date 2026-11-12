@@ -32,10 +32,11 @@ var (
 )
 
 // PhoneToggleGroupCallSettingsRequest represents TL type `phone.toggleGroupCallSettings#974392f2`.
-// Change group call¹ settings.
+// Change group call settings. Each setting supports different group call types, see here
+// »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#managing-an-active-group-call
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
 type PhoneToggleGroupCallSettingsRequest struct {
@@ -44,20 +45,22 @@ type PhoneToggleGroupCallSettingsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Invalidate existing invite links
+	// Invalidate existing invite links for video chats, livestreams and conferences
 	ResetInviteHash bool
-	// Group call
+	// Group call whose settings should be changed
 	Call InputGroupCallClass
-	// Whether all users will that join this group call are muted by default upon joining the
-	// group call
+	// Whether users joining a non-RTMP video chat/livestream should be muted by default
 	//
 	// Use SetJoinMuted and GetJoinMuted helpers.
 	JoinMuted bool
-	// MessagesEnabled field of PhoneToggleGroupCallSettingsRequest.
+	// Enable or disable the in-call message overlay in video chats/livestreams, conferences
+	// and live stories, including in RTMP mode
 	//
 	// Use SetMessagesEnabled and GetMessagesEnabled helpers.
 	MessagesEnabled bool
-	// SendPaidMessagesStars field of PhoneToggleGroupCallSettingsRequest.
+	// Set the minimum Telegram Stars donation required from users other than the live story
+	// owner for each comment; the owner may always comment without donating, and 0 allows
+	// free comments for everyone
 	//
 	// Use SetSendPaidMessagesStars and GetSendPaidMessagesStars helpers.
 	SendPaidMessagesStars int64
@@ -371,13 +374,16 @@ func (t *PhoneToggleGroupCallSettingsRequest) GetSendPaidMessagesStars() (value 
 }
 
 // PhoneToggleGroupCallSettings invokes method phone.toggleGroupCallSettings#974392f2 returning error if any.
-// Change group call¹ settings.
+// Change group call settings. Each setting supports different group call types, see here
+// »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#managing-an-active-group-call
 //
 // Possible errors:
 //
+//	403 GROUPCALL_CHANGE_FORBIDDEN: You cannot change this group call setting.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
 //

@@ -49,9 +49,15 @@ type PollResults struct {
 	//  1) https://core.telegram.org/api/min
 	//  2) https://core.telegram.org/method/messages.getPollResults
 	Min bool
-	// HasUnreadVotes field of PollResults.
+	// Whether there are unread votes in this non-anonymous poll, see polls »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/poll#unread-poll-votes
 	HasUnreadVotes bool
-	// CanViewStats field of PollResults.
+	// Whether the current user can view detailed poll statistics »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stats#poll-statistics
 	CanViewStats bool
 	// Poll results
 	//
@@ -76,7 +82,7 @@ type PollResults struct {
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass
-	// SolutionMedia field of PollResults.
+	// Optional media attachment shown alongside the quiz solution explanation
 	//
 	// Use SetSolutionMedia and GetSolutionMedia helpers.
 	SolutionMedia MessageMediaClass

@@ -150,7 +150,8 @@ type UserFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/content-protection#for-users
 	NoforwardsPeerEnabled bool
-	// UnofficialSecurityRisk field of UserFull.
+	// If set, this user uses an unofficial Telegram client, and messages sent to them may be
+	// less secure; clients should display a warning in the user's profile.
 	UnofficialSecurityRisk bool
 	// User ID
 	ID int64
@@ -384,7 +385,10 @@ type UserFull struct {
 	//
 	// Use SetNote and GetNote helpers.
 	Note TextWithEntities
-	// BotManagerID field of UserFull.
+	// If this user is a managed bot »¹, the ID of the user or manager bot that manages it.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/managed-bots
 	//
 	// Use SetBotManagerID and GetBotManagerID helpers.
 	BotManagerID int64

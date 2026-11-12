@@ -32,10 +32,17 @@ var (
 )
 
 // InputAiComposeToneDefault represents TL type `inputAiComposeToneDefault#1fe9a9bf`.
+// References a built-in, default AI composer tone »¹ by its string identifier.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/constructor/inputAiComposeToneDefault for reference.
 type InputAiComposeToneDefault struct {
-	// Tone field of InputAiComposeToneDefault.
+	// String identifier of the built-in tone, as returned in aiComposeToneDefault¹.tone
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/aiComposeToneDefault
 	Tone string
 }
 
@@ -166,12 +173,23 @@ func (i *InputAiComposeToneDefault) GetTone() (value string) {
 }
 
 // InputAiComposeToneID represents TL type `inputAiComposeToneID#773c080`.
+// References a custom AI composer tone »¹ by its ID and access hash.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/constructor/inputAiComposeToneID for reference.
 type InputAiComposeToneID struct {
-	// ID field of InputAiComposeToneID.
+	// Tone identifier, as returned in aiComposeTone¹.id
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/aiComposeTone
 	ID int64
-	// AccessHash field of InputAiComposeToneID.
+	// Tone access hash¹, as returned in aiComposeTone².access_hash
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/peers#access-hash
+	//  2) https://core.telegram.org/constructor/aiComposeTone
 	AccessHash int64
 }
 
@@ -327,10 +345,19 @@ func (i *InputAiComposeToneID) GetAccessHash() (value int64) {
 }
 
 // InputAiComposeToneSlug represents TL type `inputAiComposeToneSlug#1fa01357`.
+// References a custom AI composer tone »¹ by its public slug, used when opening an AI
+// compose tone link »².
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//  2. https://core.telegram.org/api/links#ai-compose-tone-links
 //
 // See https://core.telegram.org/constructor/inputAiComposeToneSlug for reference.
 type InputAiComposeToneSlug struct {
-	// Slug field of InputAiComposeToneSlug.
+	// Public tone slug, as returned in aiComposeTone¹.slug
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/aiComposeTone
 	Slug string
 }
 

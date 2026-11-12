@@ -187,7 +187,10 @@ type StoryItemSkipped struct {
 	// Links:
 	//  1) https://core.telegram.org/api/privacy
 	CloseFriends bool
-	// Live field of StoryItemSkipped.
+	// Whether this story is a live video stream »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	Live bool
 	// Story ID
 	ID int
@@ -558,7 +561,7 @@ type StoryItem struct {
 	//
 	// Use SetAlbums and GetAlbums helpers.
 	Albums []int
-	// Music field of StoryItem.
+	// If set, the audio track played as background music for the story.
 	//
 	// Use SetMusic and GetMusic helpers.
 	Music DocumentClass

@@ -278,7 +278,7 @@ func (r *AuthResendCodeRequest) GetReason() (value string, ok bool) {
 //
 // Possible errors:
 //
-//	400 EMAIL_INSTALL_MISSING:
+//	400 EMAIL_INSTALL_MISSING: Attempting to send a code to the recovery email, but no email is configured.
 //	400 PHONE_CODE_EMPTY: phone_code is missing.
 //	400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
 //	400 PHONE_CODE_HASH_EMPTY: phone_code_hash is missing.

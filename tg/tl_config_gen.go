@@ -110,7 +110,8 @@ type Config struct {
 	PushChatPeriodMs int
 	// Not for client use
 	PushChatLimit int
-	// Only messages with age smaller than the one specified can be edited
+	// Only messages with age (in seconds) smaller than the one specified in this field can
+	// be edited
 	EditTimeLimit int
 	// Only channel/supergroup messages with age smaller than the specified can be deleted
 	RevokeTimeLimit int
@@ -126,10 +127,11 @@ type Config struct {
 	// Indicates that round videos (video notes) and voice messages sent in channels and
 	// older than the specified period must be marked as read
 	ChannelsReadMediaPeriod int
-	// Temporary passport¹ sessions
+	// Number of parallel sessions¹ the client may open to the main connection of its home
+	// DC to increase throughput; if absent or ≤ 1, a single main session must be used
 	//
 	// Links:
-	//  1) https://core.telegram.org/passport
+	//  1) https://core.telegram.org/api/datacenter#parallel-sessions
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int

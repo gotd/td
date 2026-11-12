@@ -67,7 +67,11 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass
-	// Random ID to avoid resending the same query
+	// Random ID to avoid resending the same query. See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Query ID from messages.getInlineBotResults¹
 	//

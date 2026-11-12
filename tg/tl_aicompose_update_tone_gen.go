@@ -32,26 +32,46 @@ var (
 )
 
 // AicomposeUpdateToneRequest represents TL type `aicompose.updateTone#903bcf59`.
+// Edit a custom AI composer tone »¹ previously created by the current user. Only the
+// fields whose flag is set will be modified.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.updateTone for reference.
 type AicomposeUpdateToneRequest struct {
-	// Flags field of AicomposeUpdateToneRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Tone field of AicomposeUpdateToneRequest.
+	// The tone to edit
 	Tone InputAiComposeToneClass
-	// DisplayAuthor field of AicomposeUpdateToneRequest.
+	// If set, changes whether the current user is publicly credited as the author of the
+	// tone (ternary value, can be not set, set and true, set and false).
 	//
 	// Use SetDisplayAuthor and GetDisplayAuthor helpers.
 	DisplayAuthor bool
-	// EmojiID field of AicomposeUpdateToneRequest.
+	// If set, the new custom emoji ID¹ of the tone's icon
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetEmojiID and GetEmojiID helpers.
 	EmojiID int64
-	// Title field of AicomposeUpdateToneRequest.
+	// If set, the new human-readable tone name, up to aicompose_tone_title_length_max »¹
+	// UTF-8 characters long
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-title-length-max
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Prompt field of AicomposeUpdateToneRequest.
+	// If set, the new prompt that describes how the AI should rephrase messages using this
+	// tone, up to aicompose_tone_prompt_length_max »¹ UTF-8 characters long
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#aicompose-tone-prompt-length-max
 	//
 	// Use SetPrompt and GetPrompt helpers.
 	Prompt string
@@ -376,6 +396,15 @@ func (u *AicomposeUpdateToneRequest) GetPrompt() (value string, ok bool) {
 }
 
 // AicomposeUpdateTone invokes method aicompose.updateTone#903bcf59 returning error if any.
+// Edit a custom AI composer tone »¹ previously created by the current user. Only the
+// fields whose flag is set will be modified.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_TONE_INVALID: The specified tone is invalid.
 //
 // See https://core.telegram.org/method/aicompose.updateTone for reference.
 func (c *Client) AicomposeUpdateTone(ctx context.Context, request *AicomposeUpdateToneRequest) (AiComposeToneClass, error) {

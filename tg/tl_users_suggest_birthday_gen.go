@@ -206,6 +206,7 @@ func (s *UsersSuggestBirthdayRequest) GetBirthday() (value Birthday) {
 //
 // Possible errors:
 //
+//	400 BIRTHDAY_ALREADY: The target user already has a birthday set.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.suggestBirthday for reference.

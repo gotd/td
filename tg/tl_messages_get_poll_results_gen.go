@@ -40,7 +40,8 @@ type MessagesGetPollResultsRequest struct {
 	Peer InputPeerClass
 	// Message ID of poll message
 	MsgID int
-	// PollHash field of MessagesGetPollResultsRequest.
+	// Pass the poll.hash from the last received poll state; the server skips returning
+	// unchanged data
 	PollHash int64
 }
 

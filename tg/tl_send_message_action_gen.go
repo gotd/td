@@ -2201,7 +2201,7 @@ func (s *SendMessageEmojiInteractionSeen) GetEmoticon() (value string) {
 // Used by bots to implement live message streaming »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/ai#live-message-streaming
+//  1. https://core.telegram.org/api/bots/ai#live-response-streaming
 //
 // See https://core.telegram.org/constructor/sendMessageTextDraftAction for reference.
 type SendMessageTextDraftAction struct {
@@ -2212,10 +2212,12 @@ type SendMessageTextDraftAction struct {
 	// KeepOnStop field of SendMessageTextDraftAction.
 	KeepOnStop bool
 	// Live draft ID: used by graphical clients to slightly change the rendering behavior,
-	// see here »¹ for more info.
+	// see here »¹ for more info. See here »² for more info on random ID deduplication
+	// and updateMessageID mapping.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/bots/ai#live-message-streaming
+	//  1) https://core.telegram.org/api/bots/ai#live-response-streaming
+	//  2) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// The contents of the live draft.
 	Text TextWithEntities

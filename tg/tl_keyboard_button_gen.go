@@ -33,6 +33,13 @@ var (
 
 // KeyboardButton represents TL type `keyboardButton#2f67a72f`.
 // Bot keyboard button
+// Available only in reply keyboards¹.
+// When pressed, clients must send text as a message to the current chat, replying to the
+// message that attached the replyKeyboardMarkup¹.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/replyKeyboardMarkup
+//  2. https://core.telegram.org/constructor/replyKeyboardMarkup
 //
 // See https://core.telegram.org/constructor/keyboardButton for reference.
 type KeyboardButton struct {

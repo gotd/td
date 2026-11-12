@@ -47,7 +47,11 @@ type InputSingleMedia struct {
 	Flags bin.Fields
 	// The media
 	Media InputMediaClass
-	// Unique client media ID required to prevent message resending
+	// Unique client media ID required to prevent message resending. See here »¹ for more
+	// info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// A caption for the media
 	Message string

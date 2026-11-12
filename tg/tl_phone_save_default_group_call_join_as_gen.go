@@ -32,17 +32,22 @@ var (
 )
 
 // PhoneSaveDefaultGroupCallJoinAsRequest represents TL type `phone.saveDefaultGroupCallJoinAs#575e1f8c`.
-// Set the default peer that will be used to join a group call¹ in a specific dialog.
+// Set the default peer used to join a video chat/livestream »¹ associated with a
+// specific dialog.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
+//  1. https://core.telegram.org/api/group-calls#joining-a-group-call-on-behalf-of-owned-channels
 //
 // See https://core.telegram.org/method/phone.saveDefaultGroupCallJoinAs for reference.
 type PhoneSaveDefaultGroupCallJoinAsRequest struct {
-	// The dialog
+	// Basic group, supergroup or channel whose video chat/livestream default should be
+	// changed
 	Peer InputPeerClass
-	// The default peer that will be used to join group calls in this dialog, presenting
-	// yourself as a specific user/channel.
+	// Eligible peer to use by default when joining the dialog's video chats/livestreams,
+	// selected from phone.getGroupCallJoinAs¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
 	JoinAs InputPeerClass
 }
 
@@ -203,10 +208,11 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerCla
 }
 
 // PhoneSaveDefaultGroupCallJoinAs invokes method phone.saveDefaultGroupCallJoinAs#575e1f8c returning error if any.
-// Set the default peer that will be used to join a group call¹ in a specific dialog.
+// Set the default peer used to join a video chat/livestream »¹ associated with a
+// specific dialog.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#creating-joining-a-group-call-on-behalf-of-owned-channels
+//  1. https://core.telegram.org/api/group-calls#joining-a-group-call-on-behalf-of-owned-channels
 //
 // Possible errors:
 //

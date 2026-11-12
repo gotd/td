@@ -197,10 +197,12 @@ func (i *InputGroupCall) GetAccessHash() (value int64) {
 }
 
 // InputGroupCallSlug represents TL type `inputGroupCallSlug#fe06823f`.
-// Join a conference call through an invitation link »¹.
+// Identify a conference call »¹ using the slug from its invitation link.
+// This constructor can only be used for conference calls. It cannot be used for video
+// chats/livestreams, live stories or any other group call type.
 //
 // Links:
-//  1. https://core.telegram.org/api/links#conference-links
+//  1. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/constructor/inputGroupCallSlug for reference.
 type InputGroupCallSlug struct {
@@ -338,10 +340,12 @@ func (i *InputGroupCallSlug) GetSlug() (value string) {
 }
 
 // InputGroupCallInviteMessage represents TL type `inputGroupCallInviteMessage#8c10603f`.
-// Join a group call through a messageActionConferenceCall¹ invitation message.
+// Identifies a conference call »¹ using its messageActionConferenceCall² invitation
+// service message.
 //
 // Links:
-//  1. https://core.telegram.org/constructor/messageActionConferenceCall
+//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  2. https://core.telegram.org/constructor/messageActionConferenceCall
 //
 // See https://core.telegram.org/constructor/inputGroupCallInviteMessage for reference.
 type InputGroupCallInviteMessage struct {

@@ -32,14 +32,21 @@ var (
 )
 
 // MessagesAddPollAnswerRequest represents TL type `messages.addPollAnswer#19bc4b6d`.
+// Add an answer option to an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
 //
 // See https://core.telegram.org/method/messages.addPollAnswer for reference.
 type MessagesAddPollAnswerRequest struct {
-	// Peer field of MessagesAddPollAnswerRequest.
+	// Peer where the poll is located
 	Peer InputPeerClass
-	// MsgID field of MessagesAddPollAnswerRequest.
+	// Message ID of the poll
 	MsgID int
-	// Answer field of MessagesAddPollAnswerRequest.
+	// The new answer option to add, use inputPollAnswer¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPollAnswer
 	Answer PollAnswerClass
 }
 
@@ -225,6 +232,14 @@ func (a *MessagesAddPollAnswerRequest) GetAnswer() (value PollAnswerClass) {
 }
 
 // MessagesAddPollAnswer invokes method messages.addPollAnswer#19bc4b6d returning error if any.
+// Add an answer option to an open-answer poll »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/poll#open-answer-polls
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.addPollAnswer for reference.
 func (c *Client) MessagesAddPollAnswer(ctx context.Context, request *MessagesAddPollAnswerRequest) (UpdatesClass, error) {
