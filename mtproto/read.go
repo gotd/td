@@ -28,17 +28,11 @@ const (
 var errRejected = errors.New("message rejected")
 
 func checkMessageID(now time.Time, rawID int64) error {
-	id := proto.MessageID(rawID)
-
-	// Check that message is from server.
-	switch id.Type() {
-	case proto.MessageFromServer, proto.MessageServerResponse:
-		// Valid.
-	default:
-		return errors.Wrapf(errRejected, "unexpected type %s", id.Type())
+	if err := checkMessageType(rawID); err != nil {
+		return err
 	}
 
-	created := id.Time()
+	created := proto.MessageID(rawID).Time()
 	if created.Before(now) && now.Sub(created) > maxPast {
 		return errors.Wrap(errRejected, "created too far in past")
 	}
@@ -47,6 +41,38 @@ func checkMessageID(now time.Time, rawID int64) error {
 	}
 
 	return nil
+}
+
+// checkMessageType checks that message is from server.
+func checkMessageType(rawID int64) error {
+	switch id := proto.MessageID(rawID); id.Type() {
+	case proto.MessageFromServer, proto.MessageServerResponse:
+		return nil
+	default:
+		return errors.Wrapf(errRejected, "unexpected type %s", id.Type())
+	}
+}
+
+// serverNow returns the current server time, or local time if the connection
+// has no ServerTime.
+func (c *Conn) serverNow() time.Time {
+	if c.serverTime == nil {
+		return c.clock.Now()
+	}
+	return c.serverTime.Now()
+}
+
+// observeServerTime updates the server time offset from the time encoded in
+// a received msg_id.
+func (c *Conn) observeServerTime(rawID int64) {
+	if c.serverTime == nil {
+		return
+	}
+	if c.serverTime.observe(proto.MessageID(rawID).Time()) {
+		c.log.Debug(context.Background(), "Server time offset updated",
+			log.Duration("offset", c.serverTime.Offset()),
+		)
+	}
 }
 
 func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, error) {
@@ -65,7 +91,16 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 		c.traceRejected(msg.MessageID, "bad_session")
 		return nil, errors.Wrapf(errRejected, "invalid session (got %d, expected %d)", msg.SessionID, session.ID)
 	}
-	if err := checkMessageID(c.clock.Now(), msg.MessageID); err != nil {
+	// Like TDLib (AuthData::check_packet), update the server time offset from
+	// the msg_id first and only then check its time window, so that a skewed
+	// local clock doesn't make every message, including the server's
+	// bad_msg_notification about our msg_ids, look too old or too new.
+	if err := checkMessageType(msg.MessageID); err != nil {
+		c.traceRejected(msg.MessageID, "bad_msg_id")
+		return nil, errors.Wrapf(err, "bad message id %d", msg.MessageID)
+	}
+	c.observeServerTime(msg.MessageID)
+	if err := checkMessageID(c.serverNow(), msg.MessageID); err != nil {
 		c.traceRejected(msg.MessageID, "bad_msg_id")
 		return nil, errors.Wrapf(err, "bad message id %d", msg.MessageID)
 	}

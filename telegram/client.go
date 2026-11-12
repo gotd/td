@@ -18,6 +18,7 @@ import (
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/oteltg"
 	"github.com/gotd/td/pool"
+	"github.com/gotd/td/proto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tdsync"
 	"github.com/gotd/td/telegram/dcs"
@@ -102,6 +103,8 @@ type Client struct {
 
 	// MTProto options.
 	opts mtproto.Options // immutable
+	// serverTime is the server time offset shared by all connections.
+	serverTime *mtproto.ServerTime // immutable
 
 	// DCList state.
 	// Domain list (for websocket)
@@ -283,6 +286,10 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		}
 	}
 
+	client.serverTime = mtproto.NewServerTime(opt.Clock, opt.ServerTimeOffset)
+	if opt.MessageID == nil {
+		opt.MessageID = proto.NewMessageIDGen(client.serverTime.Now)
+	}
 	client.opts = mtproto.Options{
 		PublicKeys:        opt.PublicKeys,
 		Random:            opt.Random,
@@ -301,6 +308,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		EnablePFS:  opt.EnablePFS,
 		TempKeyTTL: opt.TempKeyTTL,
 		Clock:      opt.Clock,
+		ServerTime: client.serverTime,
 
 		Types: getTypesMapping(),
 
@@ -357,4 +365,11 @@ func (c *Client) init() {
 		next:   chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...),
 	}
 	c.tg = tg.NewClient(c.invoker)
+}
+
+// ServerTimeOffset returns the server time minus local time observed by the
+// client, to be passed as Options.ServerTimeOffset on the next start. It is
+// zero until the first connection to the server.
+func (c *Client) ServerTimeOffset() time.Duration {
+	return c.serverTime.Offset()
 }

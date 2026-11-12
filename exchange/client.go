@@ -31,4 +31,6 @@ type ClientExchangeResult struct {
 	ServerSalt int64
 	// ExpiresAt is unix timestamp for temporary keys, zero for permanent.
 	ExpiresAt int64
+	// ServerTime is the server_time of server_DH_inner_data, unix seconds.
+	ServerTime int64
 }

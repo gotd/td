@@ -2,6 +2,7 @@ package mtproto
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
@@ -148,6 +149,7 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	c.observeExchangeTime(r.ServerTime)
 
 	c.sessionMux.Lock()
 	oldSession := c.sessionID
@@ -173,6 +175,7 @@ func (c *Conn) createPermAuthKey(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	c.observeExchangeTime(r.ServerTime)
 
 	c.sessionMux.Lock()
 	c.permKey = r.AuthKey
@@ -193,6 +196,7 @@ func (c *Conn) createTempAuthKey(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	c.observeExchangeTime(r.ServerTime)
 
 	expiresAt := r.ExpiresAt
 	if expiresAt == 0 {
@@ -211,4 +215,13 @@ func (c *Conn) createTempAuthKey(ctx context.Context) error {
 	c.traceKey(WireKeyCreated, r.AuthKey, true)
 	c.traceSession(oldSession, r.SessionID)
 	return nil
+}
+
+// observeExchangeTime updates the server time offset from the server_time of
+// a key exchange (unix seconds, zero if unknown), like Telegram Desktop does.
+func (c *Conn) observeExchangeTime(serverTime int64) {
+	if c.serverTime == nil || serverTime == 0 {
+		return
+	}
+	c.serverTime.observe(time.Unix(serverTime, 0))
 }

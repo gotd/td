@@ -23,7 +23,7 @@ func (c *Conn) handleMessage(ctx context.Context, msgID int64, b *bin.Buffer) er
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
-		return c.handleBadMsg(b)
+		return c.handleBadMsg(msgID, b)
 	case mt.FutureSaltsTypeID:
 		return c.handleFutureSalts(b)
 	case proto.MessageContainerTypeID:

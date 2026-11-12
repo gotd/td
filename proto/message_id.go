@@ -2,6 +2,7 @@ package proto
 
 import (
 	"fmt"
+	"math/rand/v2"
 	"sync"
 	"time"
 )
@@ -19,21 +20,29 @@ const (
 )
 
 func newMessageID(nowNano int64, yield int) int64 {
+	return newMessageIDJitter(nowNano, yield, 0)
+}
+
+// newMessageIDJitter returns a message id for the time point nowNano: unix
+// seconds in the upper 32 bits and the fraction of the second in units of
+// 2^-32 s in the lower 32 bits (msg_id approximately equals unixtime * 2^32),
+// with the lower bits XORed with jitter (TDLib XORs 22 random bits, about
+// 1 ms, for clocks of low precision) and the two lowest bits set to yield.
+func newMessageIDJitter(nowNano int64, yield int, jitter uint32) int64 {
 	const nano = 1e9
-	// Must approximately equal unixtime*2^32.
 
 	// Important: to counter replay-attacks the lower 32 bits of msg_id
 	// passed by the client must not be empty and must present a
 	// fractional part of the time point when the message was created.
 	intPart := nowNano / nano
-	fracPart := nowNano % nano
+	frac := uint64(nowNano%nano) << 32 / nano
+	frac ^= uint64(jitter)
 
-	// Ensure that fracPart % 4 == 0.
-	fracPart &= -messageIDModulo
-	// Adding modulo 4 yield to ensure message type.
-	fracPart += int64(yield)
+	// Ensure that frac % 4 == 0 and add modulo 4 yield to ensure message
+	// type.
+	frac = frac&^(messageIDModulo-1) | uint64(yield)
 
-	return (intPart << 32) | fracPart
+	return intPart<<32 | int64(frac)
 }
 
 // MessageID represents 64-bit message id.
@@ -82,8 +91,9 @@ func (m MessageType) String() string {
 // Time returns approximate time when MessageID were generated.
 func (id MessageID) Time() time.Time {
 	intPart := int64(id) >> 32
-	fracPart := int64(int32(id))
-	return time.Unix(intPart, fracPart).UTC()
+	// The lower 32 bits are the fraction of the second in units of 2^-32 s.
+	nanos := int64(uint64(uint32(id)) * 1e9 >> 32)
+	return time.Unix(intPart, nanos).UTC()
 }
 
 // Type returns message type.
@@ -108,29 +118,36 @@ func NewMessageID(now time.Time, typ MessageType) MessageID {
 // NewMessageIDNano returns new message id for provided current unix
 // nanoseconds and type.
 func NewMessageIDNano(nano int64, typ MessageType) MessageID {
-	var yield int
+	return MessageID(newMessageID(nano, messageYield(typ)))
+}
+
+// messageYield returns the two lowest bits of message ids of type typ.
+func messageYield(typ MessageType) int {
 	switch typ {
-	case MessageFromClient:
-		yield = yieldClient
 	case MessageFromServer:
-		yield = yieldFromServer
+		return yieldFromServer
 	case MessageServerResponse:
-		yield = yieldServerResponse
+		return yieldServerResponse
 	default:
-		yield = yieldClient
+		return yieldClient
 	}
-	return MessageID(newMessageID(nano, yield))
 }
 
 // MessageIDGen is message id generator that provides collision prevention.
 //
-// The main reason of such structure is that now() can return same time during
-// multiple calls and that leads to duplicate message id.
+// Ids follow TDLib (AuthData::next_message_id): the time of now() with 22
+// random bits XORed into the fraction, and if that is not above the last id
+// (now() returned the same or an earlier time, e.g. after a correction of the
+// server time offset), the last id plus a random multiple of 4. So ids always
+// increase, and their lower bits don't reveal the clock resolution.
 type MessageIDGen struct {
 	mux  sync.Mutex
-	nano int64
+	last int64
 	now  func() time.Time
 }
+
+// jitterBits is the number of random lower bits of generated ids (TDLib).
+const jitterBits = 22
 
 // New generates new message id for provided type, protecting from collisions
 // that are caused by low system time resolution.
@@ -138,29 +155,20 @@ func (g *MessageIDGen) New(t MessageType) int64 {
 	g.mux.Lock()
 	defer g.mux.Unlock()
 
-	// Minimum resolution is required because id is only approximately
-	// equal to unix nano time, some part is replaced by message type.
-	const minResolutionNanos = 10
-
-	nano := g.now().UnixNano()
-	if nano > g.nano {
-		g.nano = nano
-	} else {
-		g.nano += minResolutionNanos
+	r := rand.Uint32() // #nosec G404: jitter, not a secret
+	id := newMessageIDJitter(g.now().UnixNano(), messageYield(t), r&(1<<jitterBits-1))
+	if id <= g.last {
+		step := int64(r>>jitterBits&1023) + 1
+		id = (g.last&^(messageIDModulo-1) + messageIDModulo*step) | int64(messageYield(t))
 	}
-
-	return int64(NewMessageIDNano(g.nano, t))
+	g.last = id
+	return id
 }
 
 // NewMessageIDGen creates new message id generator.
 //
-// Current time will be provided by now() function.
-//
-// This generator compensates time resolution problem removing
-// probability of id collision.
-//
-// Such problem can be observed for relatively high RPS, sequential calls to
-// time.Now() will return same time which leads to equal ids.
+// Current time will be provided by now() function, e.g. the server time of
+// mtproto.ServerTime.
 func NewMessageIDGen(now func() time.Time) *MessageIDGen {
 	return &MessageIDGen{
 		now: now,

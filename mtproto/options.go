@@ -80,6 +80,10 @@ type Options struct {
 	MessageID MessageIDSource
 	// Clock is current time source. Defaults to system time.
 	Clock clock.Clock
+	// ServerTime tracks the server time offset; share it between connections
+	// of a client. Defaults to a new ServerTime over Clock. Message ids of the
+	// default MessageID source and the msg_id time check use it.
+	ServerTime *ServerTime
 	// Types map, used in verbose logging of incoming message.
 	Types *tmap.Map
 	// Key that can be used to restore previous connection.
@@ -174,8 +178,11 @@ func (opt *Options) setDefaults() {
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}
+	if opt.ServerTime == nil {
+		opt.ServerTime = NewServerTime(opt.Clock, 0)
+	}
 	if opt.MessageID == nil {
-		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
+		opt.MessageID = proto.NewMessageIDGen(opt.ServerTime.Now)
 	}
 	if opt.TempKeyTTL == 0 {
 		opt.TempKeyTTL = defaultTempKeyTTL

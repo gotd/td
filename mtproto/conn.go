@@ -61,6 +61,7 @@ type Conn struct {
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
 	clock        clock.Clock
+	serverTime   *ServerTime
 	rand         io.Reader
 	cipher       Cipher
 	log          log.Helper
@@ -141,6 +142,7 @@ func New(dialer Dialer, opt Options) *Conn {
 
 		dialer:       dialer,
 		clock:        opt.Clock,
+		serverTime:   opt.ServerTime,
 		rand:         opt.Random,
 		cipher:       opt.Cipher,
 		log:          log.For(opt.Logger),

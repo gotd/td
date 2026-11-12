@@ -7,6 +7,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
+	"github.com/gotd/td/proto"
 )
 
 type badMessageError struct {
@@ -40,7 +41,9 @@ func (c badMessageError) Error() string {
 	return description
 }
 
-func (c *Conn) handleBadMsg(b *bin.Buffer) error {
+// handleBadMsg handles bad_msg_notification and bad_server_salt received in
+// the message msgID.
+func (c *Conn) handleBadMsg(msgID int64, b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
 		return err
@@ -52,6 +55,14 @@ func (c *Conn) handleBadMsg(b *bin.Buffer) error {
 			return err
 		}
 
+		if bad.ErrorCode == codeMessageIDTooHigh && c.serverTime != nil {
+			// Our clock is ahead of the server's: take the server time from
+			// the notification's own msg_id (not bad_msg_id, which is ours),
+			// like TDLib (reset_server_time_difference) and Telegram Desktop.
+			// For "too low" the offset was already raised from that msg_id
+			// when it was received.
+			c.serverTime.reset(proto.MessageID(msgID).Time())
+		}
 		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode})
 		return nil
 	case mt.BadServerSaltTypeID:
@@ -63,6 +74,6 @@ func (c *Conn) handleBadMsg(b *bin.Buffer) error {
 		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
 		return nil
 	default:
-		return errors.Errorf("unknown type id 0x%d", id)
+		return errors.Errorf("unknown type id %#x", id)
 	}
 }
