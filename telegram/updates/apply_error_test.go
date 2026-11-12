@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"testing"
 	"testing/synctest"
@@ -24,6 +25,15 @@ type applyFaultStore struct {
 	armed     atomic.Bool
 	hits      atomic.Int32
 	writes    atomic.Int32
+
+	mux sync.Mutex
+	ops []string // write operations after arming, in order
+}
+
+func (s *applyFaultStore) writeOps() []string {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+	return append([]string(nil), s.ops...)
 }
 
 func (s *applyFaultStore) check(operation string) error {
@@ -32,6 +42,9 @@ func (s *applyFaultStore) check(operation string) error {
 	}
 	if operation != "GetChannelPts" {
 		s.writes.Add(1)
+		s.mux.Lock()
+		s.ops = append(s.ops, operation)
+		s.mux.Unlock()
 	}
 	if operation == s.operation {
 		s.hits.Add(1)
@@ -296,10 +309,21 @@ func TestManagerStopOnApplyError(t *testing.T) {
 						if tc.name == "Seq/FinalCheckpoint" {
 							writes++
 						}
-						if tc.name == "ChannelControlRecovery" {
-							writes = 1 // The admitted channel response keeps its PTS before the common recovery.
-						}
-						if tc.name != "ChannelIdleRecovery" { // Common idle recovery may finish concurrently.
+						switch tc.name {
+						case "ChannelIdleRecovery":
+							// Common idle recovery may finish concurrently.
+						case "ChannelControlRecovery":
+							// The channel hands updatePtsChanged to the common
+							// state before it stores its own PTS, so the failed
+							// common recovery may stop Run before or after that
+							// write: at most the channel PTS is written, and no
+							// common checkpoint follows the failed handler.
+							ops := storage.writeOps()
+							require.LessOrEqual(t, len(ops), 1, "writes: %v", ops)
+							for _, op := range ops {
+								require.Equal(t, "SetChannelPts", op, "no checkpoint operation follows the failed step")
+							}
+						default:
 							require.Equal(t, writes, storage.writes.Load(), "no checkpoint operation follows the failed step")
 						}
 						if tc.difference != nil {
