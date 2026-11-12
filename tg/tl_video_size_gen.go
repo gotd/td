@@ -44,7 +44,10 @@ type VideoSize struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// u for animated profile pictures, and v for trimmed and downscaled video previews
+	// videoSize.type value »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#videosizetype-values
 	Type string
 	// Video width
 	W int

@@ -32,12 +32,17 @@ var (
 )
 
 // MessagesDeleteParticipantReactionsRequest represents TL type `messages.deleteParticipantReactions#a0b80cf8`.
+// As an admin, remove all of a specific participant's reactions¹ from every message in
+// a group or channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.deleteParticipantReactions for reference.
 type MessagesDeleteParticipantReactionsRequest struct {
-	// Peer field of MessagesDeleteParticipantReactionsRequest.
+	// The group or channel where the participant's reactions should be removed
 	Peer InputPeerClass
-	// Participant field of MessagesDeleteParticipantReactionsRequest.
+	// The participant whose reactions should be removed
 	Participant InputPeerClass
 }
 
@@ -198,6 +203,15 @@ func (d *MessagesDeleteParticipantReactionsRequest) GetParticipant() (value Inpu
 }
 
 // MessagesDeleteParticipantReactions invokes method messages.deleteParticipantReactions#a0b80cf8 returning error if any.
+// As an admin, remove all of a specific participant's reactions¹ from every message in
+// a group or channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteParticipantReactions for reference.
 func (c *Client) MessagesDeleteParticipantReactions(ctx context.Context, request *MessagesDeleteParticipantReactionsRequest) (bool, error) {

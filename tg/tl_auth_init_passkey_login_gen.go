@@ -209,7 +209,6 @@ func (i *AuthInitPasskeyLoginRequest) GetAPIHash() (value string) {
 //
 //	400 API_ID_INVALID: API ID invalid.
 //	500 AUTH_RESTART: Restart the authorization process.
-//	500 PASSKEY_AUTH_RESTART:
 //
 // See https://core.telegram.org/method/auth.initPasskeyLogin for reference.
 func (c *Client) AuthInitPasskeyLogin(ctx context.Context, request *AuthInitPasskeyLoginRequest) (*AuthPasskeyLoginOptions, error) {

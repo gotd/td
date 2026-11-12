@@ -145,9 +145,14 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	SendPlain bool
-	// EditRank field of ChatBannedRights.
+	// If set, does not allow a user to edit their own custom tag (rank) »¹ in a
+	// supergroup/chat².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rank
+	//  2) https://core.telegram.org/api/channel
 	EditRank bool
-	// SendReactions field of ChatBannedRights.
+	// If set, does not allow a user to react to messages in a chat.
 	SendReactions bool
 	// ManageLinkedPeers field of ChatBannedRights.
 	ManageLinkedPeers bool

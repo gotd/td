@@ -32,13 +32,14 @@ var (
 )
 
 // PaymentsGetSavedStarGiftsRequest represents TL type `payments.getSavedStarGifts#a319e569`.
-// Fetch the full list of gifts¹ owned by a peer.
+// Fetch the full list of gifts »¹ owned, received or hosted »² by a peer.
 // Note that unlike what the name suggests, the method can be used to fetch both "saved"
 // and "unsaved" gifts (aka gifts both pinned and not pinned) to the profile, depending
 // on the passed flags.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1. https://core.telegram.org/api/gifts#list-all-received-gifts
+//  2. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //
 // See https://core.telegram.org/method/payments.getSavedStarGifts for reference.
 type PaymentsGetSavedStarGiftsRequest struct {
@@ -73,20 +74,30 @@ type PaymentsGetSavedStarGiftsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/gifts#collectible-gifts
 	ExcludeUnupgradable bool
-	// PeerColorAvailable field of PaymentsGetSavedStarGiftsRequest.
-	PeerColorAvailable bool
-	// ExcludeHosted field of PaymentsGetSavedStarGiftsRequest.
-	ExcludeHosted bool
-	// Fetch only gifts owned by the specified peer, such as: a user, with
-	// peer=inputPeerUser¹; a channel, with peer=inputPeerChannel²; a connected business
-	// user³ (when executing the method as a bot, over the business connection), with
-	// peer=inputPeerUser⁴.
+	// If set, only returns collectible gifts¹ whose palette can be used as a collectible
+	// message palette »².
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/inputPeerUser
-	//  2) https://core.telegram.org/constructor/inputPeerChannel
-	//  3) https://core.telegram.org/api/bots/connected-business-bots
-	//  4) https://core.telegram.org/constructor/inputPeerUser
+	//  1) https://core.telegram.org/api/gifts#collectible-gifts
+	//  2) https://core.telegram.org/api/colors#collectible-message-palettes
+	PeerColorAvailable bool
+	// If set, excludes hosted collectible gifts »¹, returning only gifts owned or received
+	// by peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#hosted-collectible-gifts
+	ExcludeHosted bool
+	// Fetch only gifts owned, received or hosted »¹ by the specified peer, such as: a user
+	// with peer=inputPeerUser²; a channel, with peer=inputPeerChannel³; a connected
+	// business user »⁴ (when executing the method as a bot, over the business connection)
+	// with peer=inputPeerUser⁵.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/gifts#hosted-collectible-gifts
+	//  2) https://core.telegram.org/constructor/inputPeerUser
+	//  3) https://core.telegram.org/constructor/inputPeerChannel
+	//  4) https://core.telegram.org/api/bots/connected-business-bots
+	//  5) https://core.telegram.org/constructor/inputPeerUser
 	Peer InputPeerClass
 	// Only returns gifts within the specified collection »¹.
 	//
@@ -641,18 +652,19 @@ func (g *PaymentsGetSavedStarGiftsRequest) GetLimit() (value int) {
 }
 
 // PaymentsGetSavedStarGifts invokes method payments.getSavedStarGifts#a319e569 returning error if any.
-// Fetch the full list of gifts¹ owned by a peer.
+// Fetch the full list of gifts »¹ owned, received or hosted »² by a peer.
 // Note that unlike what the name suggests, the method can be used to fetch both "saved"
 // and "unsaved" gifts (aka gifts both pinned and not pinned) to the profile, depending
 // on the passed flags.
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts
+//  1. https://core.telegram.org/api/gifts#list-all-received-gifts
+//  2. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //
 // Possible errors:
 //
 //	400 BUSINESS_CONNECTION_INVALID: The connection_id passed to the wrapping invokeWithBusinessConnection call is invalid.
-//	400 COLLECTION_ID_INVALID:
+//	400 COLLECTION_ID_INVALID: The specified collection ID is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //

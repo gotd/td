@@ -46,7 +46,7 @@ type PaymentsGetStarsStatusRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, returns the channel/ad revenue balance in nanotons.
+	// If set, returns the channel/ad revenue balance in nanograms.
 	Ton bool
 	// Peer of which to get the balance.
 	Peer InputPeerClass

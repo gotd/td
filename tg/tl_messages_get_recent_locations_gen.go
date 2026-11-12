@@ -32,11 +32,16 @@ var (
 )
 
 // MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#702a40e0`.
-// Get live location history of a certain user
+// Get all recent live locations¹ sent to a specific chat: returns up to 1 location
+// message (messageMediaGeoLive²) per chat participant.
+//
+// Links:
+//  1. https://core.telegram.org/api/live-location
+//  2. https://core.telegram.org/constructor/messageMediaGeoLive
 //
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 type MessagesGetRecentLocationsRequest struct {
-	// User
+	// Target group or private chat.
 	Peer InputPeerClass
 	// Maximum number of results to return, see pagination¹
 	//
@@ -227,7 +232,12 @@ func (g *MessagesGetRecentLocationsRequest) GetHash() (value int64) {
 }
 
 // MessagesGetRecentLocations invokes method messages.getRecentLocations#702a40e0 returning error if any.
-// Get live location history of a certain user
+// Get all recent live locations¹ sent to a specific chat: returns up to 1 location
+// message (messageMediaGeoLive²) per chat participant.
+//
+// Links:
+//  1. https://core.telegram.org/api/live-location
+//  2. https://core.telegram.org/constructor/messageMediaGeoLive
 //
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 func (c *Client) MessagesGetRecentLocations(ctx context.Context, request *MessagesGetRecentLocationsRequest) (MessagesMessagesClass, error) {

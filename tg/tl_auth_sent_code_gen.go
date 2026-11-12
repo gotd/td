@@ -493,7 +493,10 @@ type AuthSentCodePaymentRequired struct {
 	SupportEmailAddress string
 	// The mandatory subject for the email.
 	SupportEmailSubject string
-	// PremiumDays field of AuthSentCodePaymentRequired.
+	// Duration in days of the Telegram Premium¹ subscription granted by this purchase.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	PremiumDays int
 	// Three-letter ISO 4217 currency¹ code.
 	//

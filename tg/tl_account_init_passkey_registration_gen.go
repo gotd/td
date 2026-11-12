@@ -141,7 +141,8 @@ func (i *AccountInitPasskeyRegistrationRequest) DecodeBare(b *bin.Buffer) error 
 //
 // Possible errors:
 //
-//	403 ACCESS_DENIED:
+//	403 ACCESS_DENIED: The account was deactivated, or is a bot/service account.
+//	406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
 //
 // See https://core.telegram.org/method/account.initPasskeyRegistration for reference.
 func (c *Client) AccountInitPasskeyRegistration(ctx context.Context) (*AccountPasskeyRegistrationOptions, error) {

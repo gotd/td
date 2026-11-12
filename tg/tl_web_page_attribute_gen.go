@@ -1281,10 +1281,21 @@ func (w *WebPageAttributeStarGiftAuction) GetEndDate() (value int) {
 }
 
 // WebPageAttributeAiComposeTone represents TL type `webPageAttributeAiComposeTone#7781fe18`.
+// Webpage attribute¹ attached to a webPage² of type telegram_aicomposetone, generated
+// when previewing a shared AI composer tone »³ via an AI compose tone link »⁴.
+//
+// Links:
+//  1. https://core.telegram.org/type/WebPageAttribute
+//  2. https://core.telegram.org/constructor/webPage
+//  3. https://core.telegram.org/api/ai#ai-compose-tones
+//  4. https://core.telegram.org/api/links#ai-compose-tone-links
 //
 // See https://core.telegram.org/constructor/webPageAttributeAiComposeTone for reference.
 type WebPageAttributeAiComposeTone struct {
-	// EmojiID field of WebPageAttributeAiComposeTone.
+	// Custom emoji ID¹ of the tone's icon
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	EmojiID int64
 }
 

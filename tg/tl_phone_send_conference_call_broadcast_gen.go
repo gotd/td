@@ -32,17 +32,16 @@ var (
 )
 
 // PhoneSendConferenceCallBroadcastRequest represents TL type `phone.sendConferenceCallBroadcast#c6701900`.
-// Broadcast a blockchain block to all members of a conference call, see here »¹ for
-// more info.
+// Submit a verification message to conference call subchain 1, see subchains »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#subchains
 //
 // See https://core.telegram.org/method/phone.sendConferenceCallBroadcast for reference.
 type PhoneSendConferenceCallBroadcastRequest struct {
-	// The conference where to broadcast the block.
+	// Conference whose verification subchain should receive the message
 	Call InputGroupCallClass
-	// The block to broadcast.
+	// Serialized e2e.chain.GroupBroadcast verification message.
 	Block []byte
 }
 
@@ -198,11 +197,10 @@ func (s *PhoneSendConferenceCallBroadcastRequest) GetBlock() (value []byte) {
 }
 
 // PhoneSendConferenceCallBroadcast invokes method phone.sendConferenceCallBroadcast#c6701900 returning error if any.
-// Broadcast a blockchain block to all members of a conference call, see here »¹ for
-// more info.
+// Submit a verification message to conference call subchain 1, see subchains »¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/end-to-end/group-calls
+//  1. https://core.telegram.org/api/end-to-end/group-calls#subchains
 //
 // Possible errors:
 //

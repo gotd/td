@@ -32,17 +32,18 @@ var (
 )
 
 // PhoneGetGroupCallStreamChannelsRequest represents TL type `phone.getGroupCallStreamChannels#1ab21940`.
-// Get info about RTMP streams in a group call or livestream.
-// This method should be invoked to the same group/channel-related DC used for
-// downloading livestream chunks¹.
-// As usual, the media DC is preferred, if available.
+// Get the available stream channels and current playback timestamp of an RTMP-mode video
+// chat, livestream or live story, see here »¹ for the full flow.
+// The group call must be joined before invoking this method. Send the request to the
+// media DC specified by groupCall².stream_dc_id.
 //
 // Links:
-//  1. https://core.telegram.org/api/files#downloading-files
+//  1. https://core.telegram.org/api/group-calls#rtmp-mode
+//  2. https://core.telegram.org/constructor/groupCall
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
 type PhoneGetGroupCallStreamChannelsRequest struct {
-	// Group call or livestream
+	// RTMP-mode video chat, livestream or live story
 	Call InputGroupCallClass
 }
 
@@ -173,13 +174,14 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) GetCall() (value InputGroupCall
 }
 
 // PhoneGetGroupCallStreamChannels invokes method phone.getGroupCallStreamChannels#1ab21940 returning error if any.
-// Get info about RTMP streams in a group call or livestream.
-// This method should be invoked to the same group/channel-related DC used for
-// downloading livestream chunks¹.
-// As usual, the media DC is preferred, if available.
+// Get the available stream channels and current playback timestamp of an RTMP-mode video
+// chat, livestream or live story, see here »¹ for the full flow.
+// The group call must be joined before invoking this method. Send the request to the
+// media DC specified by groupCall².stream_dc_id.
 //
 // Links:
-//  1. https://core.telegram.org/api/files#downloading-files
+//  1. https://core.telegram.org/api/group-calls#rtmp-mode
+//  2. https://core.telegram.org/constructor/groupCall
 //
 // Possible errors:
 //

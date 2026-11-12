@@ -32,11 +32,11 @@ var (
 )
 
 // PhoneDeleteGroupCallParticipantMessagesRequest represents TL type `phone.deleteGroupCallParticipantMessages#1dbfeca0`.
-// Delete all messages from a specific participant in the in-call message overlay of a
-// group call or livestream¹.
+// As an admin, delete all messages from a specific participant in the in-call message
+// overlay »¹ of a video chat/livestream or live story, including in RTMP mode.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // See https://core.telegram.org/method/phone.deleteGroupCallParticipantMessages for reference.
 type PhoneDeleteGroupCallParticipantMessagesRequest struct {
@@ -45,11 +45,11 @@ type PhoneDeleteGroupCallParticipantMessagesRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ReportSpam field of PhoneDeleteGroupCallParticipantMessagesRequest.
+	// Also report the participant's messages as spam
 	ReportSpam bool
-	// Call field of PhoneDeleteGroupCallParticipantMessagesRequest.
+	// Video chat/livestream or live story containing the messages
 	Call InputGroupCallClass
-	// Participant field of PhoneDeleteGroupCallParticipantMessagesRequest.
+	// The participant whose messages should be deleted
 	Participant InputPeerClass
 }
 
@@ -259,11 +259,11 @@ func (d *PhoneDeleteGroupCallParticipantMessagesRequest) GetParticipant() (value
 }
 
 // PhoneDeleteGroupCallParticipantMessages invokes method phone.deleteGroupCallParticipantMessages#1dbfeca0 returning error if any.
-// Delete all messages from a specific participant in the in-call message overlay of a
-// group call or livestream¹.
+// As an admin, delete all messages from a specific participant in the in-call message
+// overlay »¹ of a video chat/livestream or live story, including in RTMP mode.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
 //
 // Possible errors:
 //

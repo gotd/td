@@ -32,16 +32,23 @@ var (
 )
 
 // StatsGetPollStatsRequest represents TL type `stats.getPollStats#c27dfa68`.
+// Get statistics¹ for a poll sent in a message.
+//
+// Links:
+//  1. https://core.telegram.org/api/stats#poll-statistics
 //
 // See https://core.telegram.org/method/stats.getPollStats for reference.
 type StatsGetPollStatsRequest struct {
-	// Flags field of StatsGetPollStatsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Dark field of StatsGetPollStatsRequest.
+	// Whether to enable dark theme for graph colors
 	Dark bool
-	// Peer field of StatsGetPollStatsRequest.
+	// The peer where the poll was sent
 	Peer InputPeerClass
-	// MsgID field of StatsGetPollStatsRequest.
+	// ID of the message containing the poll
 	MsgID int
 }
 
@@ -246,6 +253,14 @@ func (g *StatsGetPollStatsRequest) GetMsgID() (value int) {
 }
 
 // StatsGetPollStats invokes method stats.getPollStats#c27dfa68 returning error if any.
+// Get statistics¹ for a poll sent in a message.
+//
+// Links:
+//  1. https://core.telegram.org/api/stats#poll-statistics
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stats.getPollStats for reference.
 func (c *Client) StatsGetPollStats(ctx context.Context, request *StatsGetPollStatsRequest) (*StatsPollStats, error) {

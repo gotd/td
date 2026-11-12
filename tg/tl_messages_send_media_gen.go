@@ -79,7 +79,11 @@ type MessagesSendMediaRequest struct {
 	Media InputMediaClass
 	// Caption
 	Message string
-	// Random ID to avoid resending the same message
+	// Random ID to avoid resending the same message. See here »¹ for more info on random
+	// ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Reply markup for bot keyboards
 	//
@@ -1122,13 +1126,14 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
-//	400 EFFECT_CHAT_INVALID:
+//	400 EFFECT_CHAT_INVALID: Message effects can only be used in private 1-on-1 chats, but the caller tried to send a message with an effect to a group or channel.
 //	400 EFFECT_ID_INVALID: The specified effect ID is invalid.
 //	400 EMOTICON_INVALID: The specified emoji is invalid.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 EXTENDED_MEDIA_AMOUNT_INVALID: The specified stars_amount of the passed inputMediaPaidMedia is invalid.
-//	400 EXTENDED_MEDIA_EMPTY:
+//	400 EXTENDED_MEDIA_EMPTY: The specified extended media is empty.
 //	400 EXTENDED_MEDIA_INVALID: The specified paid media is invalid.
+//	400 EXTENDED_MEDIA_PEER_INVALID: Paid media is not allowed for the target peer.
 //	400 EXTERNAL_URL_INVALID: External URL invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
@@ -1142,8 +1147,10 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 MD5_CHECKSUM_INVALID: The MD5 checksums do not match.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
+//	400 MEDIA_FILE_INVALID: The specified media file is invalid.
 //	400 MEDIA_INVALID: Media invalid.
 //	400 MESSAGE_EMPTY: The provided message is empty.
+//	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
 //	406 PEER_ID_INVALID: The provided peer id is invalid.
@@ -1182,11 +1189,13 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 SUGGESTED_POST_PEER_INVALID: You cannot send suggested posts to non-monoforum peers.
 //	400 TERMS_URL_INVALID: The specified invoice.terms_url is invalid.
 //	400 TODO_ITEMS_EMPTY: A checklist was specified, but no checklist items were passed.
+//	400 TODO_ITEMS_TOO_MUCH: You specified too many todo list items.
 //	400 TODO_ITEM_DUPLICATE: Duplicate checklist items detected.
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 TTL_MEDIA_INVALID: Invalid media Time To Live was provided.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 USER_BOT_TO_BOT_DISABLED: Bot-to-bot messaging is disabled because one of the two bots hasn't enabled the Bot to Bot setting in @BotFather.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
 //	400 VIDEO_CONTENT_TYPE_INVALID: The video's content type is invalid.

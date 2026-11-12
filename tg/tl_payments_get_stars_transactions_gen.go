@@ -52,7 +52,7 @@ type PaymentsGetStarsTransactionsRequest struct {
 	Outbound bool
 	// Return transactions in ascending order by date (instead of descending order by date).
 	Ascending bool
-	// If set, returns the channel/ad revenue transactions in nanotons, instead.
+	// If set, returns the channel/ad revenue transactions in nanograms, instead.
 	Ton bool
 	// If set, fetches only transactions for the specified Telegram Star subscription »¹.
 	//

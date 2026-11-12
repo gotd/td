@@ -39,7 +39,7 @@ var (
 //
 // See https://core.telegram.org/method/phone.startScheduledGroupCall for reference.
 type PhoneStartScheduledGroupCallRequest struct {
-	// The scheduled group call
+	// Scheduled video chat/livestream to start, before or after its scheduled date
 	Call InputGroupCallClass
 }
 

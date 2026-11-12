@@ -35,10 +35,19 @@ var (
 // Vote in a poll¹
 // Starting from layer 159, the vote will be sent from the peer specified using messages
 // saveDefaultSendAs¹.
+// Before voting, clients should check that the user is actually allowed to vote: voting
+// is not possible if the poll is closed, if it is subscriber-only »¹ and the user is
+// not an eligible subscriber, or if it is country-restricted »² and the user's
+// phone_country_iso2 »³ is not in the poll's allowed country list. See vote
+// restrictions »⁴ for the full list of conditions.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/poll
 //  2. https://core.telegram.org/method/messages.saveDefaultSendAs
+//  3. https://core.telegram.org/api/poll#subscriber-only-polls
+//  4. https://core.telegram.org/api/poll#country-restricted-polls
+//  5. https://core.telegram.org/api/config#phone-country-iso2
+//  6. https://core.telegram.org/api/poll#vote-restrictions
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
@@ -243,10 +252,19 @@ func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
 // Vote in a poll¹
 // Starting from layer 159, the vote will be sent from the peer specified using messages
 // saveDefaultSendAs¹.
+// Before voting, clients should check that the user is actually allowed to vote: voting
+// is not possible if the poll is closed, if it is subscriber-only »¹ and the user is
+// not an eligible subscriber, or if it is country-restricted »² and the user's
+// phone_country_iso2 »³ is not in the poll's allowed country list. See vote
+// restrictions »⁴ for the full list of conditions.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/poll
 //  2. https://core.telegram.org/method/messages.saveDefaultSendAs
+//  3. https://core.telegram.org/api/poll#subscriber-only-polls
+//  4. https://core.telegram.org/api/poll#country-restricted-polls
+//  5. https://core.telegram.org/api/config#phone-country-iso2
+//  6. https://core.telegram.org/api/poll#vote-restrictions
 //
 // Possible errors:
 //
@@ -258,6 +276,8 @@ func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
 //	400 OPTIONS_TOO_MUCH: Too many options provided.
 //	400 OPTION_INVALID: Invalid option selected.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	406 POLL_COUNTRY_RESTRICTED: Users from the current user's country cannot vote in this country-restricted poll ».
+//	406 POLL_MEMBER_RESTRICTED: Only channel subscribers can vote in this poll.
 //	400 REVOTE_NOT_ALLOWED: You cannot change your vote.
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.

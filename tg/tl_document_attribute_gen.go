@@ -1055,7 +1055,7 @@ type DocumentAttributeAudio struct {
 	// android¹.
 	//
 	// Links:
-	//  1) https://github.com/DrKLO/Telegram/blob/96dce2c9aabc33b87db61d830aa087b6b03fe397/TMessagesProj/jni/audio.c#L546
+	//  1) https://github.com/DrKLO/Telegram/blob/4d7a3a40c88ce28a211aa2814e9569389fc40567/TMessagesProj/jni/audio.c#L562
 	//
 	// Use SetWaveform and GetWaveform helpers.
 	Waveform []byte
@@ -1617,8 +1617,8 @@ type DocumentAttributeCustomEmoji struct {
 	Flags bin.Fields
 	// Whether this custom emoji can be sent by non-Premium users
 	Free bool
-	// Whether the color of this TGS custom emoji should be changed to the text color when
-	// used in messages, the accent color if used as emoji status, white on chat photos, or
+	// Whether the color of this custom emoji should be changed to the text color when used
+	// in messages, the accent color if used as emoji status, white on chat photos, or
 	// another appropriate color based on context.
 	TextColor bool
 	// The actual emoji

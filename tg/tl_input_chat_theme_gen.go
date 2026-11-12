@@ -272,11 +272,11 @@ func (i *InputChatTheme) GetEmoticon() (value string) {
 }
 
 // InputChatThemeUniqueGift represents TL type `inputChatThemeUniqueGift#87e5dfe4`.
-// Set a theme based on an owned collectible gift »¹, returned by account
+// Set a theme based on an owned or hosted collectible gift »¹, returned by account
 // getUniqueGiftChatThemes².
 //
 // Links:
-//  1. https://core.telegram.org/api/gifts#collectible-gifts
+//  1. https://core.telegram.org/api/gifts#hosted-collectible-gifts
 //  2. https://core.telegram.org/method/account.getUniqueGiftChatThemes
 //
 // See https://core.telegram.org/constructor/inputChatThemeUniqueGift for reference.

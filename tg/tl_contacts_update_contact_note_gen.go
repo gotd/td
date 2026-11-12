@@ -205,6 +205,7 @@ func (u *ContactsUpdateContactNoteRequest) GetNote() (value TextWithEntities) {
 // Possible errors:
 //
 //	400 CONTACT_ID_INVALID: The provided contact ID is invalid.
+//	400 CONTACT_MISSING: The specified user is not a contact.
 //
 // See https://core.telegram.org/method/contacts.updateContactNote for reference.
 func (c *Client) ContactsUpdateContactNote(ctx context.Context, request *ContactsUpdateContactNoteRequest) (bool, error) {

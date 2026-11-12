@@ -32,6 +32,12 @@ var (
 )
 
 // AicomposeTonesNotModified represents TL type `aicompose.tonesNotModified#c1f46103`.
+// The list of saved AI composer tones »¹ hasn't changed since the last time it was
+// fetched (i.e. the hash passed to aicompose.getTones² is still valid).
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//  2. https://core.telegram.org/method/aicompose.getTones
 //
 // See https://core.telegram.org/constructor/aicompose.tonesNotModified for reference.
 type AicomposeTonesNotModified struct {
@@ -133,14 +139,21 @@ func (t *AicomposeTonesNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // AicomposeTones represents TL type `aicompose.tones#6c9d0efe`.
+// The list of saved AI composer tones »¹ of the current user.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/constructor/aicompose.tones for reference.
 type AicomposeTones struct {
-	// Hash field of AicomposeTones.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// Tones field of AicomposeTones.
+	// The saved AI composer tones
 	Tones []AiComposeToneClass
-	// Users field of AicomposeTones.
+	// Mentioned users (i.e. the authors of the tones)
 	Users []UserClass
 }
 

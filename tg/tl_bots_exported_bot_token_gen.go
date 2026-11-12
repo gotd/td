@@ -32,10 +32,14 @@ var (
 )
 
 // BotsExportedBotToken represents TL type `bots.exportedBotToken#3c60b621`.
+// The bot token of a managed bot »¹, exported by the manager bot.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/managed-bots#managing-a-managed-bot
 //
 // See https://core.telegram.org/constructor/bots.exportedBotToken for reference.
 type BotsExportedBotToken struct {
-	// Token field of BotsExportedBotToken.
+	// The bot token of the managed bot
 	Token string
 }
 

@@ -51,7 +51,11 @@ type SponsoredMessage struct {
 	// Links:
 	//  1) https://core.telegram.org/api/sponsored-messages#reporting-sponsored-messages
 	CanReport bool
-	// Message ID
+	// Message ID. See here »¹ for more info on random ID deduplication and updateMessageID
+	// mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []byte
 	// Contains the URL to open when the user clicks on the sponsored message.
 	URL string

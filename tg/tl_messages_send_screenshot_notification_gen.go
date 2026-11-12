@@ -41,7 +41,11 @@ type MessagesSendScreenshotNotificationRequest struct {
 	// Indicates the message that was screenshotted (the specified message ID can also be 0
 	// to avoid indicating any specific message).
 	ReplyTo InputReplyToClass
-	// Random ID to avoid message resending
+	// Random ID to avoid message resending. See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 }
 

@@ -43,7 +43,11 @@ type MessagesStartBotRequest struct {
 	Bot InputUserClass
 	// The chat where to start the bot, can be the bot's private chat or a group
 	Peer InputPeerClass
-	// Random ID to avoid resending the same message
+	// Random ID to avoid resending the same message. See here »¹ for more info on random
+	// ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Deep linking parameter¹
 	//

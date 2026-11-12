@@ -71,7 +71,11 @@ type MessagesForwardMessagesRequest struct {
 	FromPeer InputPeerClass
 	// IDs of messages
 	ID []int
-	// Random ID to prevent resending of messages
+	// Random ID to prevent resending of messages. See here »¹ for more info on random ID
+	// deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []int64
 	// Destination peer
 	ToPeer InputPeerClass
@@ -1143,10 +1147,10 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	400 GROUPED_MEDIA_INVALID: Invalid grouped media.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
+//	400 MEDIA_FILE_INVALID: The specified media file is invalid.
 //	400 MESSAGE_IDS_EMPTY: No message ids were provided.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
-//	500 NEED_DOC_INVALID:
 //	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
 //	406 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
@@ -1168,6 +1172,7 @@ func (f *MessagesForwardMessagesRequest) GetSuggestedPost() (value SuggestedPost
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 USER_BOT_TO_BOT_DISABLED: Bot-to-bot messaging is disabled because one of the two bots hasn't enabled the Bot to Bot setting in @BotFather.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
 //	403 VOICE_MESSAGES_FORBIDDEN: This user's privacy settings forbid you from sending voice messages.

@@ -60,7 +60,11 @@ type MessagesTranslateTextRequest struct {
 	Text []TextWithEntities
 	// Two-letter ISO 639-1 language code of the language to which the message is translated
 	ToLang string
-	// Tone field of MessagesTranslateTextRequest.
+	// If set, rephrases the translation using the specified AI composer tone »¹ (pass the
+	// tone identifier)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/ai#ai-compose-tones
 	//
 	// Use SetTone and GetTone helpers.
 	Tone string

@@ -42,7 +42,11 @@ var (
 type MessagesSendWebViewDataRequest struct {
 	// Bot that owns the web app
 	Bot InputUserClass
-	// Unique client message ID to prevent duplicate sending of the same event
+	// Unique client message ID to prevent duplicate sending of the same event. See here »¹
+	// for more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Text of the keyboardButtonSimpleWebView¹ that was pressed to open the web app.
 	//

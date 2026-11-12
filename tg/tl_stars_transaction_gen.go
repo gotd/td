@@ -91,7 +91,11 @@ type StarsTransaction struct {
 	//  1) https://core.telegram.org/constructor/starGiftAttributeOriginalDetails
 	//  2) https://core.telegram.org/api/gifts#dropping-the-original-details-of-an-upgraded-gift
 	StargiftDropOriginalDetails bool
-	// PhonegroupMessage field of StarsTransaction.
+	// Represents payment for a paid text message sent during a group call or live video
+	// stream »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls
 	PhonegroupMessage bool
 	// Represents payment for placing a collectible gift auction bid »¹.
 	//

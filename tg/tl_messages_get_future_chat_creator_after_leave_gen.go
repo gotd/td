@@ -179,6 +179,10 @@ func (g *MessagesGetFutureChatCreatorAfterLeaveRequest) GetPeer() (value InputPe
 // Links:
 //  1. https://core.telegram.org/api/channel#leaving-groups-channels
 //
+// Possible errors:
+//
+//	400 CHANNEL_ID_INVALID: The specified supergroup ID is invalid.
+//
 // See https://core.telegram.org/method/messages.getFutureChatCreatorAfterLeave for reference.
 func (c *Client) MessagesGetFutureChatCreatorAfterLeave(ctx context.Context, peer InputPeerClass) (UserClass, error) {
 	var result UserBox

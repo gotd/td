@@ -36,10 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/photoSizeEmpty for reference.
 type PhotoSizeEmpty struct {
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 }
 
@@ -174,10 +174,10 @@ func (p *PhotoSizeEmpty) GetType() (value string) {
 //
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 	// Image width
 	W int
@@ -393,7 +393,10 @@ func (p *PhotoSize) GetSize() (value int) {
 //
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
-	// Thumbnail type
+	// PhotoSize.type value »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 	// Image width
 	W int
@@ -609,9 +612,12 @@ func (p *PhotoCachedSize) GetBytes() (value []byte) {
 //
 // See https://core.telegram.org/constructor/photoStrippedSize for reference.
 type PhotoStrippedSize struct {
-	// Thumbnail type
+	// PhotoSize.type value »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
-	// Thumbnail data, see here for more info on decompression »¹
+	// Thumbnail data, see stripped thumbnails »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#stripped-thumbnails
@@ -774,10 +780,10 @@ func (p *PhotoStrippedSize) GetBytes() (value []byte) {
 //
 // See https://core.telegram.org/constructor/photoSizeProgressive for reference.
 type PhotoSizeProgressive struct {
-	// Photosize type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 	// Photo width
 	W int
@@ -1008,9 +1014,12 @@ func (p *PhotoSizeProgressive) GetSizes() (value []int) {
 //
 // See https://core.telegram.org/constructor/photoPathSize for reference.
 type PhotoPathSize struct {
-	// Always j
+	// Always j »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#vector-thumbnails
 	Type string
-	// Compressed SVG path payload, see here for decompression instructions¹
+	// Compressed SVG path payload, see vector thumbnails »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#vector-thumbnails
@@ -1216,10 +1225,10 @@ type PhotoSizeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	GetType() (value string)
 
 	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
@@ -1245,10 +1254,10 @@ type NotEmptyPhotoSize interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	GetType() (value string)
 }
 

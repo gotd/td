@@ -33,9 +33,12 @@ var (
 
 // MessagesSummarizeTextRequest represents TL type `messages.summarizeText#abbbd346`.
 // Summarize the contents of a message with AI, see here »¹ for more info.
+// Clients should use message¹.summary_from_language as a hint for showing a
+// summarization button; its absence does not forbid invoking this method.
 //
 // Links:
 //  1. https://core.telegram.org/api/ai#summarize-messages
+//  2. https://core.telegram.org/constructor/message
 //
 // See https://core.telegram.org/method/messages.summarizeText for reference.
 type MessagesSummarizeTextRequest struct {
@@ -48,11 +51,16 @@ type MessagesSummarizeTextRequest struct {
 	Peer InputPeerClass
 	// Message ID.
 	ID int
-	// ToLang field of MessagesSummarizeTextRequest.
+	// If set, generates the summary in the specified target language (two-letter ISO 639-1
+	// language code) instead of the message's language.
 	//
 	// Use SetToLang and GetToLang helpers.
 	ToLang string
-	// Tone field of MessagesSummarizeTextRequest.
+	// If set, rephrases the summary using the specified AI composer tone »¹ (pass the tone
+	// identifier)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/ai#ai-compose-tones
 	//
 	// Use SetTone and GetTone helpers.
 	Tone string
@@ -315,12 +323,17 @@ func (s *MessagesSummarizeTextRequest) GetTone() (value string, ok bool) {
 
 // MessagesSummarizeText invokes method messages.summarizeText#abbbd346 returning error if any.
 // Summarize the contents of a message with AI, see here »¹ for more info.
+// Clients should use message¹.summary_from_language as a hint for showing a
+// summarization button; its absence does not forbid invoking this method.
 //
 // Links:
 //  1. https://core.telegram.org/api/ai#summarize-messages
+//  2. https://core.telegram.org/constructor/message
 //
 // Possible errors:
 //
+//	400 INPUT_TEXT_TOO_LONG: The specified text is too long.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.summarizeText for reference.

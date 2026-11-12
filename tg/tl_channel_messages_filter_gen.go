@@ -134,7 +134,8 @@ func (c *ChannelMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // ChannelMessagesFilter represents TL type `channelMessagesFilter#cd77d957`.
-// Filter for getting only certain types of channel messages
+// Filter for getting only certain types of channel messages.
+// This filter cannot be used to fetch messages older than the channel message box size.
 //
 // See https://core.telegram.org/constructor/channelMessagesFilter for reference.
 type ChannelMessagesFilter struct {

@@ -737,6 +737,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
+//	400 BUTTON_USER_PRIVACY_RESTRICTED: The privacy setting of the user specified in a inputKeyboardButtonUserProfile button do not allow creating such a button.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
@@ -744,6 +745,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	403 CHAT_SEND_GIFS_FORBIDDEN: You can't send gifs in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
+//	406 EDIT_MESSAGE_TEMP_RESTRICTED: Message editing is temporarily forbidden for this user due to regulatory restrictions.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.

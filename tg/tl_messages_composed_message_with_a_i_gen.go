@@ -32,14 +32,24 @@ var (
 )
 
 // MessagesComposedMessageWithAI represents TL type `messages.composedMessageWithAI#90d7adfa`.
+// Represents a message modified by AI.
 //
 // See https://core.telegram.org/constructor/messages.composedMessageWithAI for reference.
 type MessagesComposedMessageWithAI struct {
-	// Flags field of MessagesComposedMessageWithAI.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ResultText field of MessagesComposedMessageWithAI.
+	// The modified message.
 	ResultText TextWithEntities
-	// DiffText field of MessagesComposedMessageWithAI.
+	// If only the proofreading mode (messages.composeMessageWithAI¹.proofread) is enabled,
+	// this field will be populated with a "pre-rendered" diff between the old and the new
+	// message text using only diff entities »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.composeMessageWithAI
+	//  2) https://core.telegram.org/api/entities#diff-entities
 	//
 	// Use SetDiffText and GetDiffText helpers.
 	DiffText TextWithEntities

@@ -36,7 +36,7 @@ var (
 // here »¹ for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel#transferring-ownership-of-a-groupchannel
+//  1. https://core.telegram.org/api/channel#transferring-ownership-of-a-group-channel
 //
 // See https://core.telegram.org/method/messages.editChatCreator for reference.
 type MessagesEditChatCreatorRequest struct {
@@ -247,7 +247,24 @@ func (e *MessagesEditChatCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPas
 // here »¹ for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/channel#transferring-ownership-of-a-groupchannel
+//  1. https://core.telegram.org/api/channel#transferring-ownership-of-a-group-channel
+//
+// Possible errors:
+//
+//	400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_MEMBER_ADD_FAILED: Could not add participants.
+//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
+//	400 PASSWORD_MISSING: You must enable 2FA before executing this operation.
+//	400 PASSWORD_TOO_FRESH_%d: The password was modified less than 24 hours ago, try again in %d seconds.
+//	400 SESSION_TOO_FRESH_%d: This session was created less than 24 hours ago, try again in %d seconds.
+//	400 SRP_ID_INVALID: Invalid SRP ID provided.
+//	400 USERS_TOO_MUCH: The maximum number of users has been exceeded (to create a chat, for example).
+//	403 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.
+//	400 USER_NOT_MUTUAL_CONTACT: The provided user is not a mutual contact.
+//	403 USER_PRIVACY_RESTRICTED: The user's privacy settings do not allow you to do this.
 //
 // See https://core.telegram.org/method/messages.editChatCreator for reference.
 func (c *Client) MessagesEditChatCreator(ctx context.Context, request *MessagesEditChatCreatorRequest) (UpdatesClass, error) {

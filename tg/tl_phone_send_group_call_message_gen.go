@@ -32,10 +32,26 @@ var (
 )
 
 // PhoneSendGroupCallMessageRequest represents TL type `phone.sendGroupCallMessage#b1d11410`.
-// Send a transient in-call message to all participants of a group call or livestream¹.
+// Send an in-call message to all participants of a video chat/livestream or live story,
+// including in RTMP mode, see here »¹ for more info.
+// The send_as field can only be populated for live stories, where it optionally selects
+// the displayed author. If omitted, the server automatically selects the appropriate
+// author. Do not populate it for video chats/livestreams.
+// Video chats/livestreams and live stories support animated emoji reactions »¹,
+// encoded as messages containing only a standard available reaction emoji or a single
+// custom emoji entity.
+// For a paid live story comment, pass the user-confirmed donation amount in
+// allow_paid_stars. For commenters other than the live story owner, this amount must be
+// at least the current groupCall¹.send_paid_messages_stars minimum. A higher amount may
+// be donated to highlight the comment. The live story owner may comment without
+// populating allow_paid_stars. To send a standalone paid live story donation, pass a
+// positive allow_paid_stars value and an empty message, see here »² for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
+//  2. https://core.telegram.org/api/group-calls#in-call-reactions
+//  3. https://core.telegram.org/constructor/groupCall
+//  4. https://core.telegram.org/api/group-calls#paid-live-story-donations
 //
 // See https://core.telegram.org/method/phone.sendGroupCallMessage for reference.
 type PhoneSendGroupCallMessageRequest struct {
@@ -44,17 +60,25 @@ type PhoneSendGroupCallMessageRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Call field of PhoneSendGroupCallMessageRequest.
+	// Video chat/livestream or live story that should receive the message, reaction or
+	// donation
 	Call InputGroupCallClass
-	// RandomID field of PhoneSendGroupCallMessageRequest.
+	// Fresh client-generated random ID used to deduplicate the message or donation. See here
+	// »¹ for more info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
-	// Message field of PhoneSendGroupCallMessageRequest.
+	// Message text or emoji reaction; pass an empty value when sending a standalone paid
+	// live story donation
 	Message TextWithEntities
-	// AllowPaidStars field of PhoneSendGroupCallMessageRequest.
+	// User-confirmed number of Telegram Stars to donate with a live story comment or
+	// standalone donation
 	//
 	// Use SetAllowPaidStars and GetAllowPaidStars helpers.
 	AllowPaidStars int64
-	// SendAs field of PhoneSendGroupCallMessageRequest.
+	// Optional peer to display as the author of a live story message or reaction; can only
+	// be used for live stories
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -346,14 +370,31 @@ func (s *PhoneSendGroupCallMessageRequest) GetSendAs() (value InputPeerClass, ok
 }
 
 // PhoneSendGroupCallMessage invokes method phone.sendGroupCallMessage#b1d11410 returning error if any.
-// Send a transient in-call message to all participants of a group call or livestream¹.
+// Send an in-call message to all participants of a video chat/livestream or live story,
+// including in RTMP mode, see here »¹ for more info.
+// The send_as field can only be populated for live stories, where it optionally selects
+// the displayed author. If omitted, the server automatically selects the appropriate
+// author. Do not populate it for video chats/livestreams.
+// Video chats/livestreams and live stories support animated emoji reactions »¹,
+// encoded as messages containing only a standard available reaction emoji or a single
+// custom emoji entity.
+// For a paid live story comment, pass the user-confirmed donation amount in
+// allow_paid_stars. For commenters other than the live story owner, this amount must be
+// at least the current groupCall¹.send_paid_messages_stars minimum. A higher amount may
+// be donated to highlight the comment. The live story owner may comment without
+// populating allow_paid_stars. To send a standalone paid live story donation, pass a
+// positive allow_paid_stars value and an empty message, see here »² for the full flow.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls#conference-calls
+//  1. https://core.telegram.org/api/group-calls#in-call-messages
+//  2. https://core.telegram.org/api/group-calls#in-call-reactions
+//  3. https://core.telegram.org/constructor/groupCall
+//  4. https://core.telegram.org/api/group-calls#paid-live-story-donations
 //
 // Possible errors:
 //
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
+//	400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
 //
 // See https://core.telegram.org/method/phone.sendGroupCallMessage for reference.
 func (c *Client) PhoneSendGroupCallMessage(ctx context.Context, request *PhoneSendGroupCallMessageRequest) (UpdatesClass, error) {

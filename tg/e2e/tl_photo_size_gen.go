@@ -36,10 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/photoSizeEmpty for reference.
 type PhotoSizeEmpty struct {
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 }
 
@@ -167,10 +167,10 @@ func (p *PhotoSizeEmpty) GetType() (value string) {
 //
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 	// Location field of PhotoSize.
 	Location FileLocationClass
@@ -403,7 +403,10 @@ func (p *PhotoSize) GetSize() (value int) {
 //
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
-	// Thumbnail type
+	// PhotoSize.type value »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	Type string
 	// Location field of PhotoCachedSize.
 	Location FileLocationClass
@@ -673,10 +676,10 @@ type PhotoSizeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Thumbnail type »¹
+	// PhotoSize.type value »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files#image-thumbnail-types
+	//  1) https://core.telegram.org/api/files#photosizetype-values
 	GetType() (value string)
 }
 

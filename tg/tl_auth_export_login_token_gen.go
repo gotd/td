@@ -257,6 +257,7 @@ func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int64) {
 //
 //	400 API_ID_INVALID: API ID invalid.
 //	400 API_ID_PUBLISHED_FLOOD: This API id was published somewhere, you can't use it now.
+//	500 AUTH_RESTART: Restart the authorization process.
 //
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 func (c *Client) AuthExportLoginToken(ctx context.Context, request *AuthExportLoginTokenRequest) (AuthLoginTokenClass, error) {

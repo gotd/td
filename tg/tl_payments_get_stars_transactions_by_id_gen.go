@@ -44,7 +44,7 @@ type PaymentsGetStarsTransactionsByIDRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, returns channel/bot ad revenue transactions in nanotons.
+	// If set, returns channel/bot ad revenue transactions in nanograms.
 	Ton bool
 	// Channel or bot.
 	Peer InputPeerClass

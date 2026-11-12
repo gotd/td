@@ -32,13 +32,17 @@ var (
 )
 
 // PhoneGroupCallStreamRtmpURL represents TL type `phone.groupCallStreamRtmpUrl#2dbf3432`.
-// RTMP URL and stream key to be used in streaming software
+// Contains the RTMP publishing URL and secret stream key, see creating and publishing an
+// RTMP livestream »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#creating-and-publishing-an-rtmp-livestream
 //
 // See https://core.telegram.org/constructor/phone.groupCallStreamRtmpUrl for reference.
 type PhoneGroupCallStreamRtmpURL struct {
 	// RTMP URL
 	URL string
-	// Stream key
+	// Secret stream key
 	Key string
 }
 

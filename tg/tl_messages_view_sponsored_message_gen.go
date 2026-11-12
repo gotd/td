@@ -39,7 +39,11 @@ var (
 //
 // See https://core.telegram.org/method/messages.viewSponsoredMessage for reference.
 type MessagesViewSponsoredMessageRequest struct {
-	// The ad's unique ID.
+	// The ad's unique ID. See here »¹ for more info on random ID deduplication and
+	// updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID []byte
 }
 

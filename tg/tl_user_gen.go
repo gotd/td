@@ -176,7 +176,7 @@ func (u *UserEmpty) GetID() (value int64) {
 //
 // Links:
 //  1. https://core.telegram.org/api/peers
-//  2. https://github.com/tdlib/td/blob/cb164927417f22811c74cd8678ed4a5ab7cb80ba/td/telegram/UserManager.cpp#L2267
+//  2. https://github.com/tdlib/td/blob/73035e4a69ed26df563652de14aa9c4c86d23420/td/telegram/UserManager.cpp#L3106
 //  3. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/user for reference.
@@ -320,9 +320,17 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum#bot-forums
 	BotForumCanManageTopics bool
-	// BotCanManageBots field of User.
+	// If set, this bot is a manager bot¹ that can create and manage managed bots »² on
+	// behalf of the user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/managed-bots
+	//  2) https://core.telegram.org/api/bots/managed-bots
 	BotCanManageBots bool
-	// BotGuestchat field of User.
+	// If set, this bot can be invoked as a guest in chats »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/guest-mode
 	BotGuestchat bool
 	// BotGuard field of User.
 	BotGuard bool
@@ -456,11 +464,11 @@ type User struct {
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username
-	// ID of the maximum read story¹.  When updating the local peer database², do not apply
-	// changes to this field if the min flag of the incoming constructor is set.
+	// Summary of the user's active stories »¹.  When updating the local peer database²,
+	// do not apply changes to this field if the min flag of the incoming constructor is set.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/stories
+	//  1) https://core.telegram.org/api/stories#recent-story-summaries
 	//  2) https://core.telegram.org/api/peers
 	//
 	// Use SetStoriesMaxID and GetStoriesMaxID helpers.

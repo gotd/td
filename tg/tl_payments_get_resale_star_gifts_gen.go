@@ -548,7 +548,7 @@ func (g *PaymentsGetResaleStarGiftsRequest) MapAttributes() (value StarGiftAttri
 //
 // Possible errors:
 //
-//	400 STARGIFT_ATTRIBUTE_INVALID:
+//	400 STARGIFT_ATTRIBUTE_INVALID: One of the specified star gift attributes is invalid.
 //	400 STARGIFT_INVALID: The passed gift is invalid.
 //
 // See https://core.telegram.org/method/payments.getResaleStarGifts for reference.

@@ -32,11 +32,16 @@ var (
 )
 
 // PhoneGroupCallStreamChannels represents TL type `phone.groupCallStreamChannels#d0e482b2`.
-// Info about RTMP streams in a group call or livestream
+// Contains the available channels of an RTMP-mode group call, see playing an RTMP
+// livestream »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#rtmp-mode
 //
 // See https://core.telegram.org/constructor/phone.groupCallStreamChannels for reference.
 type PhoneGroupCallStreamChannels struct {
-	// RTMP streams
+	// Available RTMP stream channels; may be empty while the external publisher is not
+	// sending media
 	Channels []GroupCallStreamChannel
 }
 

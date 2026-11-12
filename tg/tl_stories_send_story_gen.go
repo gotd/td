@@ -57,7 +57,7 @@ type StoriesSendStoryRequest struct {
 	Pinned bool
 	// If set, disables forwards, screenshots, and downloads.
 	Noforwards bool
-	// Set this flag when reposting stories with fwd_from_id+fwd_from_id, if the media was
+	// Set this flag when reposting stories with fwd_from_id+fwd_from_story, if the media was
 	// modified before reposting.
 	FwdModified bool
 	// The peer to send the story as.
@@ -90,7 +90,11 @@ type StoriesSendStoryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/privacy
 	PrivacyRules []InputPrivacyRuleClass
-	// Unique client message ID required to prevent message resending.
+	// Unique client message ID required to prevent message resending. See here »¹ for more
+	// info on random ID deduplication and updateMessageID mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Period after which the story is moved to archive (and to the profile if pinned is set)
 	// in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram
@@ -112,7 +116,7 @@ type StoriesSendStoryRequest struct {
 	//
 	// Use SetAlbums and GetAlbums helpers.
 	Albums []int
-	// Music field of StoriesSendStoryRequest.
+	// If set, the audio track to play as background music for the story.
 	//
 	// Use SetMusic and GetMusic helpers.
 	Music InputDocumentClass
@@ -916,6 +920,7 @@ func (s *StoriesSendStoryRequest) GetMusicAsNotEmpty() (*InputDocument, bool) {
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
+//	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MEDIA_FILE_INVALID: The specified media file is invalid.
 //	400 MEDIA_TYPE_INVALID: The specified media type cannot be used in stories.
@@ -927,6 +932,7 @@ func (s *StoriesSendStoryRequest) GetMusicAsNotEmpty() (*InputDocument, bool) {
 //	400 STORIES_TOO_MUCH: You have hit the maximum active stories limit as specified by the story_expiring_limit_* client configuration parameters: you should buy a Premium subscription, delete an active story, or wait for the oldest story to expire.
 //	400 STORY_PERIOD_INVALID: The specified story period is invalid for this account.
 //	400 VENUE_ID_INVALID: The specified venue ID is invalid.
+//	400 VIDEO_DURATION_INVALID: The duration of the specified video is invalid.
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 func (c *Client) StoriesSendStory(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error) {

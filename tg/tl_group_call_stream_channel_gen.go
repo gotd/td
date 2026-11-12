@@ -32,14 +32,27 @@ var (
 )
 
 // GroupCallStreamChannel represents TL type `groupCallStreamChannel#80eb48af`.
-// Info about an RTMP stream in a group call or livestream
+// Describes an available RTMP stream channel and its current playback timestamp, see
+// playing an RTMP livestream »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/group-calls#rtmp-mode
 //
 // See https://core.telegram.org/constructor/groupCallStreamChannel for reference.
 type GroupCallStreamChannel struct {
-	// Channel ID
+	// Stream channel ID, used as a source of the synthetic unified video source group and as
+	// inputGroupCallStream¹.video_channel when fetching the corresponding video segment
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputGroupCallStream
 	Channel int
-	// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting
-	// 1000 to the right scale times: duration_ms := 1000 >> scale.
+	// Deprecated, ignored by clients »¹: use the media segment duration hardcoded in
+	// clients (1000 milliseconds, i.e. scale = 0) instead. Historically, it specified the
+	// duration of the media segment to fetch, obtained in milliseconds by bitshifting 1000
+	// to the right scale times: duration_ms := 1000 >> scale.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#rtmp-mode
 	Scale int
 	// Last seen timestamp to easily start fetching livestream chunks using
 	// inputGroupCallStream¹

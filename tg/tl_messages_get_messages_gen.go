@@ -187,6 +187,11 @@ func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassArray) {
 // MessagesGetMessages invokes method messages.getMessages#63c66506 returning error if any.
 // Returns the list of messages by their IDs.
 //
+// Possible errors:
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//
 // See https://core.telegram.org/method/messages.getMessages for reference.
 func (c *Client) MessagesGetMessages(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox

@@ -32,14 +32,20 @@ var (
 )
 
 // PhoneInviteToGroupCallRequest represents TL type `phone.inviteToGroupCall#7b393160`.
-// Invite a set of users to a group call¹.
+// Invite a set of users to a video chat/livestream »¹; cannot be used for live stories
+// »² or conference calls »³.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
+//  2. https://core.telegram.org/api/group-calls#live-stories
+//  3. https://core.telegram.org/api/group-calls#conference-calls
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
-	// The group call
+	// The video chat/livestream »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/group-calls#video-chats-livestreams
 	Call InputGroupCallClass
 	// The users to invite.
 	Users []InputUserClass
@@ -220,15 +226,18 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 }
 
 // PhoneInviteToGroupCall invokes method phone.inviteToGroupCall#7b393160 returning error if any.
-// Invite a set of users to a group call¹.
+// Invite a set of users to a video chat/livestream »¹; cannot be used for live stories
+// »² or conference calls »³.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
+//  2. https://core.telegram.org/api/group-calls#live-stories
+//  3. https://core.telegram.org/api/group-calls#conference-calls
 //
 // Possible errors:
 //
 //	403 CHAT_TYPE_INVALID: The specified user type is invalid.
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //	400 INVITE_FORBIDDEN_WITH_JOINAS: If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
 //	400 USER_ALREADY_INVITED: You have already invited this user.

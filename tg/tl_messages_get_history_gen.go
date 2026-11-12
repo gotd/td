@@ -373,10 +373,8 @@ func (g *MessagesGetHistoryRequest) GetHash() (value int64) {
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 FROZEN_PARTICIPANT_MISSING: The current account is frozen, and cannot access the specified peer.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
-//	500 NEED_DOC_INVALID:
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 TAKEOUT_INVALID: The specified takeout ID is invalid.
-//	500 VOLUME_MOVE_INVALID:
 //
 // See https://core.telegram.org/method/messages.getHistory for reference.
 func (c *Client) MessagesGetHistory(ctx context.Context, request *MessagesGetHistoryRequest) (MessagesMessagesClass, error) {

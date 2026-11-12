@@ -32,12 +32,20 @@ var (
 )
 
 // MessagesReportMusicListenRequest represents TL type `messages.reportMusicListen#ddbcd819`.
+// Report the listening duration of a music track (audio document without the voice flag)
+// see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/views#music-listens
 //
 // See https://core.telegram.org/method/messages.reportMusicListen for reference.
 type MessagesReportMusicListenRequest struct {
-	// ID field of MessagesReportMusicListenRequest.
+	// The InputDocument¹ of the listened song
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/InputDocument
 	ID InputDocumentClass
-	// ListenedDuration field of MessagesReportMusicListenRequest.
+	// Accumulated playing time in whole seconds
 	ListenedDuration int
 }
 
@@ -198,6 +206,11 @@ func (r *MessagesReportMusicListenRequest) GetIDAsNotEmpty() (*InputDocument, bo
 }
 
 // MessagesReportMusicListen invokes method messages.reportMusicListen#ddbcd819 returning error if any.
+// Report the listening duration of a music track (audio document without the voice flag)
+// see here »¹ for more info on the full flow.
+//
+// Links:
+//  1. https://core.telegram.org/api/views#music-listens
 //
 // See https://core.telegram.org/method/messages.reportMusicListen for reference.
 func (c *Client) MessagesReportMusicListen(ctx context.Context, request *MessagesReportMusicListenRequest) (bool, error) {

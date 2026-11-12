@@ -171,12 +171,12 @@ func (c *ChatEmpty) GetID() (value int64) {
 // When updating the local peer database¹, all fields from the newly received
 // constructor take priority over the old constructor cached locally (including by
 // removing fields that aren't set in the new constructor).
-// See here »¹ for an implementation of the logic to use when updating the local user
+// See here »¹ for an implementation of the logic to use when updating the local chat
 // peer database².
 //
 // Links:
 //  1. https://core.telegram.org/api/peers
-//  2. https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L5152
+//  2. https://github.com/tdlib/td/blob/077f71addad9db5d1a5692cc1255438793e75636/td/telegram/ChatManager.cpp#L5679
 //  3. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/chat for reference.
@@ -1019,12 +1019,12 @@ func (c *ChatForbidden) GetTitle() (value string) {
 // removing fields that aren't set in the new constructor).
 // The only exception to the above rule is when the min flag is set, in which case only
 // the following fields must be applied over any locally stored version:
-// See here »¹ for an implementation of the logic to use when updating the local user
-// peer database².
+// See here »¹ for an implementation of the logic to use when updating the local
+// channel peer database².
 //
 // Links:
 //  1. https://core.telegram.org/api/peers
-//  2. https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L8329
+//  2. https://github.com/tdlib/td/blob/077f71addad9db5d1a5692cc1255438793e75636/td/telegram/ChatManager.cpp#L9176
 //  3. https://core.telegram.org/api/peers
 //
 // See https://core.telegram.org/constructor/channel for reference.
@@ -1254,10 +1254,10 @@ type Channel struct {
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username
-	// ID of the maximum read story¹.
+	// Summary of the channel or supergroup's active stories »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/stories
+	//  1) https://core.telegram.org/api/stories#recent-story-summaries
 	//
 	// Use SetStoriesMaxID and GetStoriesMaxID helpers.
 	StoriesMaxID RecentStory

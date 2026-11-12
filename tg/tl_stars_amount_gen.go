@@ -199,11 +199,11 @@ func (s *StarsAmount) GetNanos() (value int) {
 }
 
 // StarsTonAmount represents TL type `starsTonAmount#74aee3e0`.
-// Describes an amount of toncoin in nanotons (i.e. 1/1_000_000_000 of a toncoin).
+// Describes an amount of Gram in nanograms (i.e. 1/1_000_000_000 of a Gram).
 //
 // See https://core.telegram.org/constructor/starsTonAmount for reference.
 type StarsTonAmount struct {
-	// The amount in nanotons.
+	// The amount in nanograms.
 	Amount int64
 }
 

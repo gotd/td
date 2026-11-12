@@ -39,9 +39,9 @@ var (
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallStartSubscription for reference.
 type PhoneToggleGroupCallStartSubscriptionRequest struct {
-	// Scheduled group call
+	// Scheduled video chat/livestream that has not started yet
 	Call InputGroupCallClass
-	// Enable or disable subscription
+	// Whether to receive a service-notification message when the call starts
 	Subscribed bool
 }
 
@@ -205,6 +205,7 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bo
 // Possible errors:
 //
 //	403 GROUPCALL_ALREADY_STARTED: The groupcall has already started, you can join directly using phone.joinGroupCall.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallStartSubscription for reference.

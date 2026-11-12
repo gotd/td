@@ -58,7 +58,11 @@ type MessagesSendPaidReactionRequest struct {
 	// Unique client message ID required to prevent message resending. Note: this argument
 	// must be composed of a 64-bit integer where the lower 32 bits are random, and the
 	// higher 32 bits are equal to the current unixtime, i.e. `uint64_t random_id = (time()
-	// << 32)
+	// << 32). See here »¹ for more info on random ID deduplication and updateMessageID
+	// mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// Each post with star reactions has a leaderboard with the top senders, but users can
 	// opt out of appearing there if they prefer more privacy. Not populating this field will
@@ -351,6 +355,7 @@ func (s *MessagesSendPaidReactionRequest) GetPrivate() (value PaidReactionPrivac
 //
 //	400 BALANCE_TOO_LOW: The transaction cannot be completed because the current Telegram Stars balance is too low.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.

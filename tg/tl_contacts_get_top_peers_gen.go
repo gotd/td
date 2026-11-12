@@ -62,7 +62,10 @@ type ContactsGetTopPeersRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps#main-mini-apps
 	BotsApp bool
-	// BotsGuestchat field of ContactsGetTopPeersRequest.
+	// Most frequently used guest bots »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/guest-mode
 	BotsGuestchat bool
 	// Offset for pagination¹
 	//

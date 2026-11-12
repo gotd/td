@@ -174,7 +174,8 @@ func (r *AccountRegisterPasskeyRequest) GetCredential() (value InputPasskeyCrede
 //
 // Possible errors:
 //
-//	400 CREDENTIAL_INVALID:
+//	400 CREDENTIAL_INVALID: The specified credential is invalid.
+//	400 PASSKEY_ORIGIN_MISMATCH: Third-party clients currently don't support passkeys even when changing the origin.
 //
 // See https://core.telegram.org/method/account.registerPasskey for reference.
 func (c *Client) AccountRegisterPasskey(ctx context.Context, credential InputPasskeyCredentialPublicKey) (*Passkey, error) {

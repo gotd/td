@@ -12,7 +12,7 @@ require (
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v1.0.0
 	github.com/google/uuid v1.6.0
-	github.com/gotd/getdoc v0.53.0
+	github.com/gotd/getdoc v0.54.0
 	github.com/gotd/ige v0.3.0
 	github.com/gotd/log v0.1.0
 	github.com/gotd/log/logzap v0.1.1
@@ -32,10 +32,10 @@ require (
 	github.com/rogpeppe/go-internal v1.16.0
 	github.com/stretchr/testify v1.11.1
 	github.com/yuin/goldmark v1.8.5
-	go.opentelemetry.io/otel v1.44.0
-	go.opentelemetry.io/otel/metric v1.44.0
-	go.opentelemetry.io/otel/sdk/metric v1.44.0
-	go.opentelemetry.io/otel/trace v1.44.0
+	go.opentelemetry.io/otel v1.45.0
+	go.opentelemetry.io/otel/metric v1.45.0
+	go.opentelemetry.io/otel/sdk/metric v1.45.0
+	go.opentelemetry.io/otel/trace v1.45.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/multierr v1.11.0
 	go.uber.org/zap v1.28.0
@@ -59,9 +59,9 @@ require (
 	github.com/dlclark/regexp2 v1.12.0 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
-	github.com/go-faster/sdk v0.34.0 // indirect
+	github.com/go-faster/sdk v0.39.1 // indirect
 	github.com/go-faster/yaml v0.4.6 // indirect
-	github.com/go-logr/logr v1.4.3 // indirect
+	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
@@ -80,7 +80,7 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/wlynxg/anet v0.0.5 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
-	go.opentelemetry.io/otel/sdk v1.44.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.45.0 // indirect
 	go.uber.org/ratelimit v0.3.1 // indirect
 	golang.org/x/exp v0.0.0-20230725093048-515e97ebf090 // indirect
 	golang.org/x/mod v0.38.0 // indirect

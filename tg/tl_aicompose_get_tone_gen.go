@@ -32,10 +32,15 @@ var (
 )
 
 // AicomposeGetToneRequest represents TL type `aicompose.getTone#b2e8ba03`.
+// Fetch information about a single AI composer tone »¹, for example to resolve a
+// shared tone deep link.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
 //
 // See https://core.telegram.org/method/aicompose.getTone for reference.
 type AicomposeGetToneRequest struct {
-	// Tone field of AicomposeGetToneRequest.
+	// The tone to fetch
 	Tone InputAiComposeToneClass
 }
 
@@ -166,6 +171,15 @@ func (g *AicomposeGetToneRequest) GetTone() (value InputAiComposeToneClass) {
 }
 
 // AicomposeGetTone invokes method aicompose.getTone#b2e8ba03 returning error if any.
+// Fetch information about a single AI composer tone »¹, for example to resolve a
+// shared tone deep link.
+//
+// Links:
+//  1. https://core.telegram.org/api/ai#ai-compose-tones
+//
+// Possible errors:
+//
+//	400 AICOMPOSE_TONE_INVALID: The specified tone is invalid.
 //
 // See https://core.telegram.org/method/aicompose.getTone for reference.
 func (c *Client) AicomposeGetTone(ctx context.Context, tone InputAiComposeToneClass) (AicomposeTonesClass, error) {

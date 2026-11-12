@@ -177,6 +177,10 @@ func (d *MessagesDeclineURLAuthRequest) GetURL() (value string) {
 // Links:
 //  1. https://core.telegram.org/api/url-authorization#oauth-authorization
 //
+// Possible errors:
+//
+//	400 URL_INVALID: Invalid URL provided.
+//
 // See https://core.telegram.org/method/messages.declineUrlAuth for reference.
 func (c *Client) MessagesDeclineURLAuth(ctx context.Context, url string) (bool, error) {
 	var result BoolBox

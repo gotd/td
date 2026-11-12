@@ -187,6 +187,7 @@ func (u *AccountUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyEm
 //
 //	400 COLLECTIBLE_INVALID: The specified collectible is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //
 // See https://core.telegram.org/method/account.updateEmojiStatus for reference.
 func (c *Client) AccountUpdateEmojiStatus(ctx context.Context, emojistatus EmojiStatusClass) (bool, error) {

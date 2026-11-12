@@ -262,6 +262,7 @@ func (g *StatsGetStoryStatsRequest) GetID() (value int) {
 //
 // Possible errors:
 //
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 STORIES_NEVER_CREATED: This peer hasn't ever posted any stories.
 //

@@ -32,14 +32,16 @@ var (
 )
 
 // InputEncryptedChat represents TL type `inputEncryptedChat#f141b5e1`.
-// Creates an encrypted chat.
+// An e2e encrypted chat¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/end-to-end
 //
 // See https://core.telegram.org/constructor/inputEncryptedChat for reference.
 type InputEncryptedChat struct {
 	// Chat ID
 	ChatID int
-	// Checking sum from constructor encryptedChat¹, encryptedChatWaiting² or
-	// encryptedChatRequested³
+	// Access hash from encryptedChat¹, encryptedChatWaiting² or encryptedChatRequested³
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedChat

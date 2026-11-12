@@ -257,26 +257,28 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 NO_PAYMENT_NEEDED: The upgrade/transfer of the specified gift was already paid for or is free.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 PREMIUM_PURPOSE_INVALID:
+//	400 PREMIUM_PURPOSE_INVALID: The specified InputStorePaymentPurpose is invalid.
 //	400 SLUG_INVALID: The specified invoice slug is invalid.
 //	400 STARGIFT_ALREADY_CONVERTED: The specified star gift was already converted to Stars.
 //	400 STARGIFT_ALREADY_REFUNDED: The specified star gift was already refunded.
 //	400 STARGIFT_ALREADY_UPGRADED: The specified gift was already upgraded to a collectible gift.
 //	406 STARGIFT_EXPORT_IN_PROGRESS: A gift export is in progress, a detailed and localized description for the error will be emitted via an updateServiceNotification as specified here ».
 //	400 STARGIFT_INVALID: The passed gift is invalid.
-//	400 STARGIFT_MESSAGE_INVALID:
+//	400 STARGIFT_MESSAGE_INVALID: The specified inputInvoiceStarGift.message is invalid.
 //	400 STARGIFT_NOT_FOUND: The specified gift was not found.
-//	400 STARGIFT_NOT_OWNER:
+//	400 STARGIFT_NOT_OWNER: You're not the owner of the gift you trying to transfer.
+//	400 STARGIFT_NOT_UNIQUE: You can't transfer a non-collectible gift.
 //	400 STARGIFT_OWNER_INVALID: You cannot transfer or sell a gift owned by another user.
 //	400 STARGIFT_PEER_INVALID: The specified inputSavedStarGiftChat.peer is invalid.
 //	400 STARGIFT_RESELL_CURRENCY_NOT_ALLOWED: You can't buy the gift using the specified currency (i.e. trying to pay in Stars for TON gifts).
-//	400 STARGIFT_RESELL_TOO_EARLY_%d:
+//	400 STARGIFT_RESELL_TOO_EARLY_%d: You will be able to resell this gift in %d seconds.
 //	400 STARGIFT_SLUG_INVALID: The specified gift slug is invalid.
 //	400 STARGIFT_TRANSFER_TOO_EARLY_%d: You cannot transfer this gift yet, wait %d seconds.
 //	400 STARGIFT_UPGRADE_UNAVAILABLE: A received gift can only be upgraded to a collectible gift if the messageActionStarGift/savedStarGift.can_upgrade flag is set.
 //	406 STARS_FORM_AMOUNT_MISMATCH: The form amount has changed, please fetch the new form using payments.getPaymentForm and restart the process.
 //	400 TO_ID_INVALID: The specified to_id of the passed inputInvoiceStarGiftResale or inputInvoiceStarGiftTransfer is invalid.
 //	400 UNTIL_DATE_INVALID: Invalid until date provided.
+//	403 USER_DISALLOWED_STARGIFTS: The recipient user has configured restrictions on which categories of star gifts they're willing to accept (unique, limited, or unlimited): the sender attempted to get a payment form for a gift that falls into a category the recipient has blocked.
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (PaymentsPaymentFormClass, error) {

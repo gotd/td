@@ -32,20 +32,25 @@ var (
 )
 
 // InputMessageReadMetric represents TL type `inputMessageReadMetric#402b4495`.
+// Read metric for a single message exposure, describing how long the message was visible
+// in the chat viewport.
 //
 // See https://core.telegram.org/constructor/inputMessageReadMetric for reference.
 type InputMessageReadMetric struct {
-	// MsgID field of InputMessageReadMetric.
+	// ID of the message
 	MsgID int
-	// ViewID field of InputMessageReadMetric.
+	// Random non-zero 64-bit ID generated for this exposure
 	ViewID int64
-	// TimeInViewMs field of InputMessageReadMetric.
+	// Total exposure time in milliseconds of at least one pixel of the message, after the
+	// 300 ms entry grace period
 	TimeInViewMs int
-	// ActiveTimeInViewMs field of InputMessageReadMetric.
+	// Part of time_in_view_ms accumulated while the user is active
 	ActiveTimeInViewMs int
-	// HeightToViewportRatioPermille field of InputMessageReadMetric.
+	// round(max_message_height * 1000 / max_viewport_height), may exceed 1000 when the
+	// message is taller than the viewport
 	HeightToViewportRatioPermille int
-	// SeenRangeRatioPermille field of InputMessageReadMetric.
+	// round(max_seen_vertical_range * 1000 / max_message_height), clamped to the 0–1000
+	// range
 	SeenRangeRatioPermille int
 }
 

@@ -32,14 +32,15 @@ var (
 )
 
 // PhoneEditGroupCallTitleRequest represents TL type `phone.editGroupCallTitle#1ca6ac0a`.
-// Edit the title of a group call or livestream¹.
+// Edit the title of a video chat or livestream. This method cannot be used with live
+// stories or conferences, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // See https://core.telegram.org/method/phone.editGroupCallTitle for reference.
 type PhoneEditGroupCallTitleRequest struct {
-	// Group call
+	// Video chat or livestream whose title should be changed
 	Call InputGroupCallClass
 	// New title
 	Title string
@@ -197,14 +198,15 @@ func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
 }
 
 // PhoneEditGroupCallTitle invokes method phone.editGroupCallTitle#1ca6ac0a returning error if any.
-// Edit the title of a group call or livestream¹.
+// Edit the title of a video chat or livestream. This method cannot be used with live
+// stories or conferences, see here »¹ for more info.
 //
 // Links:
-//  1. https://core.telegram.org/api/group-calls
+//  1. https://core.telegram.org/api/group-calls#video-chats-livestreams
 //
 // Possible errors:
 //
-//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	403 GROUPCALL_FORBIDDEN: The specified group call cannot be used in this context.
 //	400 GROUPCALL_INVALID: The specified group call is invalid.
 //
 // See https://core.telegram.org/method/phone.editGroupCallTitle for reference.

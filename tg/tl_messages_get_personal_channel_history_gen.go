@@ -32,18 +32,30 @@ var (
 )
 
 // MessagesGetPersonalChannelHistoryRequest represents TL type `messages.getPersonalChannelHistory#55fb0996`.
+// Fetch the message history of a user's personal channel »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#personal-channel
 //
 // See https://core.telegram.org/method/messages.getPersonalChannelHistory for reference.
 type MessagesGetPersonalChannelHistoryRequest struct {
-	// UserID field of MessagesGetPersonalChannelHistoryRequest.
+	// The user whose personal channel history to fetch
 	UserID InputUserClass
-	// Limit field of MessagesGetPersonalChannelHistoryRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// MaxID field of MessagesGetPersonalChannelHistoryRequest.
+	// If a positive value was transferred, the method will return only messages with IDs
+	// less than max_id
 	MaxID int
-	// MinID field of MessagesGetPersonalChannelHistoryRequest.
+	// If a positive value was transferred, the method will return only messages with IDs
+	// more than min_id
 	MinID int
-	// Hash field of MessagesGetPersonalChannelHistoryRequest.
+	// Result hash¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Hash int64
 }
 
@@ -274,6 +286,15 @@ func (g *MessagesGetPersonalChannelHistoryRequest) GetHash() (value int64) {
 }
 
 // MessagesGetPersonalChannelHistory invokes method messages.getPersonalChannelHistory#55fb0996 returning error if any.
+// Fetch the message history of a user's personal channel »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/profile#personal-channel
+//
+// Possible errors:
+//
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.getPersonalChannelHistory for reference.
 func (c *Client) MessagesGetPersonalChannelHistory(ctx context.Context, request *MessagesGetPersonalChannelHistoryRequest) (MessagesMessagesClass, error) {

@@ -61,7 +61,11 @@ type PaymentsSendStarGiftOfferRequest struct {
 	// or 259200; can also be 120 in test mode.
 	Duration int
 	// Random 64-bit identifier used to avoid sending the same offer twice in case of network
-	// issues.
+	// issues. See here »¹ for more info on random ID deduplication and updateMessageID
+	// mapping.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates#updatemessageid-updates
 	RandomID int64
 	// If the destination peer has paid messages »¹ enabled, specifies the amount of
 	// Telegram Stars² the sending user has agreed to pay in order to send the offer (in
@@ -375,14 +379,14 @@ func (s *PaymentsSendStarGiftOfferRequest) GetAllowPaidStars() (value int64, ok 
 //
 // Possible errors:
 //
-//	400 INPUT_STARS_AMOUNT_INVALID:
-//	400 INPUT_STARS_NANOS_INVALID:
+//	400 INPUT_STARS_AMOUNT_INVALID: The specified offer amount in stars is invalid, see here » for the allowed range.
+//	400 INPUT_STARS_NANOS_INVALID: The specified offer amount in nanotons is invalid, see here » for the allowed range.
 //	400 INVOICE_INVALID: The specified invoice is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 RESELL_STARS_TOO_FEW:
-//	400 RESELL_STARS_TOO_MUCH:
-//	400 STARGIFT_OFFER_INVALID:
-//	400 STARGIFT_OFFER_NOT_ALLOWED:
+//	400 RESELL_STARS_TOO_FEW: The offered price is too low.
+//	400 RESELL_STARS_TOO_MUCH: The offered price is too high.
+//	400 STARGIFT_OFFER_INVALID: The specified offer amount is invalid.
+//	400 STARGIFT_OFFER_NOT_ALLOWED: You can't send a purchase offer for this gift.
 //	400 STARGIFT_SLUG_INVALID: The specified gift slug is invalid.
 //
 // See https://core.telegram.org/method/payments.sendStarGiftOffer for reference.
