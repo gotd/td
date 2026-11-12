@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"sync"
+	"sync/atomic"
 
 	"github.com/go-faster/errors"
 
@@ -18,6 +19,9 @@ import (
 // (bounded by Options.MaxLoginWait); other errors fail Start.
 type Authenticator interface {
 	signIn(ctx context.Context, c signInContext) error
+	// retryFlood reports whether a FLOOD_WAIT of the last signIn may be
+	// waited out and signIn called again.
+	retryFlood() bool
 }
 
 // signInContext is what an Authenticator gets.
@@ -30,16 +34,38 @@ type signInContext struct {
 
 // Phone signs in with a phone code (and the 2FA password if the account has
 // one), see auth.NewFlow.
+//
+// A FLOOD_WAIT is waited out (up to Options.MaxLoginWait) only before a code
+// was requested from the authenticator: after that, signing in again would
+// send a new code, so the error is returned to the caller.
 func Phone(a auth.UserAuthenticator, opt auth.SendCodeOptions) Authenticator {
-	return phoneAuth{flow: auth.NewFlow(a, opt)}
+	return &phoneAuth{auth: a, opt: opt}
 }
 
 type phoneAuth struct {
-	flow auth.Flow
+	auth auth.UserAuthenticator
+	opt  auth.SendCodeOptions
+	// codeAsked is set once the authenticator was asked for a code, i.e.
+	// auth.sendCode succeeded.
+	codeAsked atomic.Bool
 }
 
-func (p phoneAuth) signIn(ctx context.Context, c signInContext) error {
-	return p.flow.Run(ctx, c.client.Auth())
+func (p *phoneAuth) signIn(ctx context.Context, c signInContext) error {
+	p.codeAsked.Store(false)
+	return auth.NewFlow(codeTracker{UserAuthenticator: p.auth, asked: &p.codeAsked}, p.opt).Run(ctx, c.client.Auth())
+}
+
+func (p *phoneAuth) retryFlood() bool { return !p.codeAsked.Load() }
+
+// codeTracker records that the code was requested.
+type codeTracker struct {
+	auth.UserAuthenticator
+	asked *atomic.Bool
+}
+
+func (t codeTracker) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
+	t.asked.Store(true)
+	return t.UserAuthenticator.Code(ctx, sentCode)
 }
 
 // QROptions are options of QR.
@@ -66,6 +92,9 @@ type qrAuth struct {
 	opt QROptions
 }
 
+// retryFlood: waiting out a FLOOD_WAIT of exporting a login token is safe.
+func (q qrAuth) retryFlood() bool { return true }
+
 func (q qrAuth) signIn(ctx context.Context, c signInContext) error {
 	if q.opt.Show == nil {
 		return errors.New("QROptions.Show is nil")
@@ -87,6 +116,9 @@ func AuthFunc(f func(ctx context.Context, client *telegram.Client) error) Authen
 }
 
 type funcAuth func(ctx context.Context, client *telegram.Client) error
+
+// retryFlood: f may have sent a login code, so it is never called again.
+func (f funcAuth) retryFlood() bool { return false }
 
 func (f funcAuth) signIn(ctx context.Context, c signInContext) error {
 	return f(ctx, c.client)

@@ -261,6 +261,12 @@ func (r *Runtime) start(ctx context.Context, so ...telegram.StartOption) error {
 // RetryFlood calls f, waiting out FLOOD_WAIT errors of it up to the total
 // MaxLoginWait. Other errors are returned at once.
 func (r *Runtime) RetryFlood(ctx context.Context, f func(ctx context.Context) error) error {
+	return r.RetryFloodIf(ctx, f, nil)
+}
+
+// RetryFloodIf is RetryFlood that waits out a FLOOD_WAIT only if retry (when
+// set) allows it, e.g. not after a login code was already sent.
+func (r *Runtime) RetryFloodIf(ctx context.Context, f func(ctx context.Context) error, retry func() bool) error {
 	var waited time.Duration
 	for {
 		err := f(ctx)
@@ -268,7 +274,7 @@ func (r *Runtime) RetryFlood(ctx context.Context, f func(ctx context.Context) er
 			return nil
 		}
 		d, ok := tgerr.AsFloodWait(err)
-		if !ok || r.maxLoginWait < 0 || waited+d > r.maxLoginWait {
+		if !ok || r.maxLoginWait < 0 || waited+d > r.maxLoginWait || (retry != nil && !retry()) {
 			return err
 		}
 		waited += d

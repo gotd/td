@@ -198,11 +198,11 @@ func (u *User) login(ctx context.Context, rt *bootstrap.Runtime) (*tg.User, erro
 		return nil, ErrNotAuthorized
 	}
 
-	if err := rt.RetryFlood(ctx, func(ctx context.Context) error {
+	if err := rt.RetryFloodIf(ctx, func(ctx context.Context) error {
 		return u.opt.Auth.signIn(ctx, signInContext{
 			client: rt.Client, appID: u.appID, appHash: u.appHash, tokens: &u.qr,
 		})
-	}); err != nil {
+	}, u.opt.Auth.retryFlood); err != nil {
 		return nil, errors.Wrap(err, "sign in")
 	}
 

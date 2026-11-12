@@ -41,6 +41,8 @@ type fakeServer struct {
 	account *tg.User
 	// sendCodeErrs are returned by the next auth.sendCode calls.
 	sendCodeErrs []*tgerr.Error
+	// signInErrs are returned by the next auth.signIn calls.
+	signInErrs []*tgerr.Error
 	// calls counts requests by method name.
 	calls map[string]int
 	// messages: messages[i] has pts i+1.
@@ -139,6 +141,12 @@ func (s *fakeServer) register(d *tgtest.Dispatcher) {
 			return server.SendErr(req, tgerr.New(400, "PHONE_CODE_INVALID"))
 		}
 		s.mux.Lock()
+		if len(s.signInErrs) > 0 {
+			e := s.signInErrs[0]
+			s.signInErrs = s.signInErrs[1:]
+			s.mux.Unlock()
+			return server.SendErr(req, e)
+		}
 		account := s.authorize()
 		s.mux.Unlock()
 		return server.SendResult(req, &tg.AuthAuthorization{User: account})
@@ -433,6 +441,19 @@ func TestUserPhoneFloodWait(t *testing.T) {
 	require.Equal(t, 2, e.server.count("auth.sendCode"))
 	require.Equal(t, 1, e.server.count("auth.signIn"))
 	require.NoError(t, u.Close())
+}
+
+// A FLOOD_WAIT after the code was sent is returned, not waited out: signing
+// in again would send a new code.
+func TestUserPhoneFloodWaitAfterCode(t *testing.T) {
+	e := newEnv(t)
+	e.server.signInErrs = []*tgerr.Error{tgerr.New(420, "FLOOD_WAIT_1")}
+	_, err := Start(e.ctx, 1, "hash", e.options("", nil, phoneAuthenticator()))
+	d, ok := tgerr.AsFloodWait(err)
+	require.True(t, ok, "got %v", err)
+	require.Equal(t, time.Second, d)
+	require.Equal(t, 1, e.server.count("auth.sendCode"), "a new code must not be requested")
+	require.Equal(t, 1, e.server.count("auth.signIn"))
 }
 
 func TestUserPhoneFloodWaitTooLong(t *testing.T) {
