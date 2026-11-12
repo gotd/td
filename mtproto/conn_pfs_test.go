@@ -57,29 +57,16 @@ func TestHandleAuthKeyNotFoundPFS(t *testing.T) {
 	a.ErrorIs(err, ErrPFSReconnectRequired)
 }
 
-func TestPermKeyOlderThan60s(t *testing.T) {
-	a := require.New(t)
-	now := time.Now().Unix()
-	conn := Conn{
-		clock: clock.System,
+func stubPermKeyCheck(unknown bool, calls *int) func(context.Context) (bool, error) {
+	return func(context.Context) (bool, error) {
+		*calls++
+		return unknown, nil
 	}
-
-	// Quote (PFS): "if ... ENCRYPTED_MESSAGE_INVALID and permanent key was generated more than 60 seconds ago..."
-	// Link: https://core.telegram.org/api/pfs
-	conn.permKeyCreatedAt = 0
-	a.False(conn.permKeyAgeKnown())
-	a.False(conn.permKeyOlderThan60s())
-
-	conn.permKeyCreatedAt = now - 61
-	a.True(conn.permKeyAgeKnown())
-	a.True(conn.permKeyOlderThan60s())
-
-	conn.permKeyCreatedAt = now - 10
-	a.False(conn.permKeyOlderThan60s())
 }
 
-func TestHandleBindEncryptedMessageInvalidDropsOldKeys(t *testing.T) {
+func TestHandleBindEncryptedMessageInvalidDropsUnknownKey(t *testing.T) {
 	a := require.New(t)
+	calls := 0
 	conn := Conn{
 		clock:            clock.System,
 		log:              log.For(log.Nop),
@@ -89,11 +76,12 @@ func TestHandleBindEncryptedMessageInvalidDropsOldKeys(t *testing.T) {
 		salt:             10,
 		sessionID:        11,
 		tempKeyExpiry:    12,
+		permKeyCheck:     stubPermKeyCheck(true, &calls),
 	}
 
-	err := conn.handleBindEncryptedMessageInvalid(1)
-	a.Error(err)
+	err := conn.handleBindEncryptedMessageInvalid(context.Background(), 1)
 	a.ErrorIs(err, ErrPFSDropKeysRequired)
+	a.Equal(1, calls)
 
 	// Both keys and session data are reset so reconnect starts from clean state.
 	session := conn.session()
@@ -103,10 +91,32 @@ func TestHandleBindEncryptedMessageInvalidDropsOldKeys(t *testing.T) {
 	a.Zero(session.ID)
 }
 
+// An old key the server still knows is kept: retry, then reconnect.
+func TestHandleBindEncryptedMessageInvalidKeepsKnownKey(t *testing.T) {
+	a := require.New(t)
+	calls := 0
+	perm := crypto.Key{2}.WithID()
+	conn := Conn{
+		clock:            clock.System,
+		log:              log.For(log.Nop),
+		authKey:          crypto.Key{1}.WithID(),
+		permKey:          perm,
+		permKeyCreatedAt: time.Now().Unix() - 3600,
+		permKeyCheck:     stubPermKeyCheck(false, &calls),
+	}
+	a.NoError(conn.handleBindEncryptedMessageInvalid(context.Background(), 1))
+	err := conn.handleBindEncryptedMessageInvalid(context.Background(), maxBindTempAuthKeyAttempts)
+	a.ErrorIs(err, ErrPFSReconnectRequired)
+	a.NotErrorIs(err, ErrPFSDropKeysRequired)
+	a.Equal(perm, conn.session().PermKey)
+	a.Equal(2, calls)
+}
+
 func TestHandleBindEncryptedMessageInvalidRetryFreshKey(t *testing.T) {
 	a := require.New(t)
 	temp := crypto.Key{3}.WithID()
 	perm := crypto.Key{4}.WithID()
+	calls := 0
 	conn := Conn{
 		clock:            clock.System,
 		log:              log.For(log.Nop),
@@ -116,22 +126,51 @@ func TestHandleBindEncryptedMessageInvalidRetryFreshKey(t *testing.T) {
 		salt:             20,
 		sessionID:        21,
 		tempKeyExpiry:    22,
+		permKeyCheck:     stubPermKeyCheck(true, &calls),
 	}
 
-	err := conn.handleBindEncryptedMessageInvalid(1)
-	a.NoError(err)
+	a.NoError(conn.handleBindEncryptedMessageInvalid(context.Background(), 1))
+	a.Zero(calls, "a fresh key is not checked")
 
 	session := conn.session()
 	a.Equal(temp, session.Key)
 	a.Equal(perm, session.PermKey)
 	a.Equal(int64(20), session.Salt)
 	a.Equal(int64(21), session.ID)
+
+	// After retries: reconnect, keep the key.
+	err := conn.handleBindEncryptedMessageInvalid(context.Background(), maxBindTempAuthKeyAttempts)
+	a.ErrorIs(err, ErrPFSReconnectRequired)
+	a.Equal(perm, conn.session().PermKey)
 }
 
+// A key older than a day that was bound within the last day is immune.
+func TestHandleBindEncryptedMessageInvalidImmuneOldKey(t *testing.T) {
+	a := require.New(t)
+	calls := 0
+	perm := crypto.Key{4}.WithID()
+	state := NewSessionState()
+	state.setLastBind(time.Now().Unix() - 3600)
+	conn := Conn{
+		clock:            clock.System,
+		log:              log.For(log.Nop),
+		authKey:          crypto.Key{3}.WithID(),
+		permKey:          perm,
+		permKeyCreatedAt: time.Now().Unix() - 2*86400,
+		sessionState:     state,
+		permKeyCheck:     stubPermKeyCheck(true, &calls),
+	}
+	a.NoError(conn.handleBindEncryptedMessageInvalid(context.Background(), 1))
+	a.Zero(calls)
+	a.Equal(perm, conn.session().PermKey)
+}
+
+// A restored key of unknown age is checked, not dropped blindly.
 func TestHandleBindEncryptedMessageInvalidUnknownAge(t *testing.T) {
 	a := require.New(t)
 	temp := crypto.Key{7}.WithID()
 	perm := crypto.Key{8}.WithID()
+	calls := 0
 	conn := Conn{
 		clock:         clock.System,
 		log:           log.For(log.Nop),
@@ -140,27 +179,23 @@ func TestHandleBindEncryptedMessageInvalidUnknownAge(t *testing.T) {
 		salt:          30,
 		sessionID:     31,
 		tempKeyExpiry: 32,
+		permKeyCheck:  stubPermKeyCheck(false, &calls),
 	}
 
-	// Unknown key age should retry first.
-	err := conn.handleBindEncryptedMessageInvalid(1)
-	a.NoError(err)
+	a.NoError(conn.handleBindEncryptedMessageInvalid(context.Background(), 1))
+	a.Equal(1, calls)
 	session := conn.session()
 	a.Equal(temp, session.Key)
 	a.Equal(perm, session.PermKey)
-	a.Equal(int64(30), session.Salt)
-	a.Equal(int64(31), session.ID)
 
-	// After retries are exhausted, key reset is forced to avoid reconnect loop.
-	err = conn.handleBindEncryptedMessageInvalid(maxBindTempAuthKeyAttempts)
-	a.Error(err)
-	a.ErrorIs(err, ErrPFSDropKeysRequired)
+	err := conn.handleBindEncryptedMessageInvalid(context.Background(), maxBindTempAuthKeyAttempts)
+	a.ErrorIs(err, ErrPFSReconnectRequired)
+	a.Equal(perm, conn.session().PermKey, "known key is not dropped")
+}
 
-	session = conn.session()
-	a.True(session.Key.Zero())
-	a.True(session.PermKey.Zero())
-	a.Zero(session.Salt)
-	a.Zero(session.ID)
+func TestBindRetryDelay(t *testing.T) {
+	require.Equal(t, []time.Duration{time.Second, 2 * time.Second, 4 * time.Second},
+		[]time.Duration{bindRetryDelay(1), bindRetryDelay(2), bindRetryDelay(3)})
 }
 
 func TestHandleBindConnectionNotInitedRetriesThenReconnects(t *testing.T) {

@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/pool"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func TestClientHandleDCConnDeadPFSDropResetsSession(t *testing.T) {
@@ -391,4 +392,12 @@ func TestClientDroppedDCKeyNotStoredBack(t *testing.T) {
 	a.NoError(client.onSession(cfg, mtproto.Session{Key: newKey, Salt: 79}))
 	a.Equal(newKey, session.Load().AuthKey)
 	a.Equal(int64(79), session.Load().Salt)
+}
+
+// AUTH_KEY_PERM_EMPTY (PFS binding lost) must not stop Run: a reconnect
+// re-binds the temporary key.
+func TestIsPermanentErrorPermEmpty(t *testing.T) {
+	client := &Client{log: log.For(log.Nop)}
+	require.False(t, client.isPermanentError(tgerr.New(401, "AUTH_KEY_PERM_EMPTY")))
+	require.True(t, client.isPermanentError(tgerr.New(401, "AUTH_KEY_UNREGISTERED")))
 }

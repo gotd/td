@@ -7,6 +7,7 @@ import (
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/tg"
@@ -15,18 +16,37 @@ import (
 
 const maxBindTempAuthKeyAttempts = 3
 
+// bindRetryDelay is the delay before bind attempt n+1 after
+// ENCRYPTED_MESSAGE_INVALID: a fresh permanent key may not have reached all
+// servers yet, so retries need time (1 s, 2 s, 4 s).
+func bindRetryDelay(attempt int) time.Duration {
+	return time.Second << (attempt - 1)
+}
+
 func (c *Conn) bindTempAuthKey(ctx context.Context) error {
 	var lastErr error
 	for attempt := 1; attempt <= maxBindTempAuthKeyAttempts; attempt++ {
 		err := c.bindTempAuthKeyAttempt(ctx)
 		if err == nil {
+			if c.sessionState != nil {
+				c.sessionState.setLastBind(c.clock.Now().Unix())
+			}
 			return nil
 		}
 		lastErr = err
 
 		if tgerr.Is(err, tg.ErrEncryptedMessageInvalid) {
-			if err := c.handleBindEncryptedMessageInvalid(attempt); err != nil {
+			if err := c.handleBindEncryptedMessageInvalid(ctx, attempt); err != nil {
 				return err
+			}
+			if attempt < maxBindTempAuthKeyAttempts {
+				timer := c.clock.Timer(bindRetryDelay(attempt))
+				select {
+				case <-ctx.Done():
+					clock.StopTimer(timer)
+					return ctx.Err()
+				case <-timer.C():
+				}
 			}
 			continue
 		}
@@ -139,41 +159,112 @@ func (c *Conn) bindTempAuthKeyAttempt(ctx context.Context) error {
 	return nil
 }
 
-func (c *Conn) handleBindEncryptedMessageInvalid(attempt int) error {
-	// Quote (PFS): "if auth.bindTempAuthKey returns ENCRYPTED_MESSAGE_INVALID
-	// and the permanent key was generated more than 60 seconds ago, both keys
-	// should be dropped and generated again."
-	// Link: https://core.telegram.org/api/pfs
-	if c.permKeyOlderThan60s() {
-		c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for old permanent key, dropping persisted PFS keys and reconnecting",
-			log.Int("attempt", attempt),
-		)
-		c.dropPFSKeys()
-		return errors.Wrap(ErrPFSDropKeysRequired, "pfs keys dropped after ENCRYPTED_MESSAGE_INVALID")
+// handleBindEncryptedMessageInvalid decides what to do when
+// auth.bindTempAuthKey returns ENCRYPTED_MESSAGE_INVALID: retry the bind
+// (nil), reconnect, or drop the permanent key (ErrPFSDropKeysRequired).
+//
+// The PFS docs say to drop both keys when the permanent key is older than
+// 60 seconds, but that loses the authorization on a false positive. Like
+// TDLib (Session::on_bind_result), the permanent key is immune when it is
+// younger than 60 seconds (not yet propagated), or older than a day and was
+// bound successfully within the last day. Otherwise it is checked with a
+// request encrypted with it (checkPermKey) and dropped only if the server
+// does not know it.
+func (c *Conn) handleBindEncryptedMessageInvalid(ctx context.Context, attempt int) error {
+	now := c.clock.Now().Unix()
+	c.sessionMux.RLock()
+	createdAt := c.permKeyCreatedAt
+	c.sessionMux.RUnlock()
+	var lastBind int64
+	if c.sessionState != nil {
+		lastBind = c.sessionState.lastBind()
 	}
-
-	if !c.permKeyAgeKnown() {
-		// For restored sessions key age is unknown, so we first follow retry path.
-		// If all retries fail, force key regeneration to avoid endless reconnect loop.
+	age := now - createdAt
+	immune := createdAt != 0 &&
+		(age < 60 || (age > 86400 && lastBind > now-86400))
+	if immune {
 		if attempt >= maxBindTempAuthKeyAttempts {
-			c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for key with unknown age after retries, dropping persisted PFS keys and reconnecting",
+			c.log.Warn(ctx, "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID after retries, reconnecting without dropping the permanent key",
 				log.Int("attempt", attempt),
+				log.Int64("perm_key_age", age),
 			)
-			c.dropPFSKeys()
-			return errors.Wrap(ErrPFSDropKeysRequired, "pfs keys dropped after repeated ENCRYPTED_MESSAGE_INVALID with unknown key age")
+			return errors.Wrap(ErrPFSReconnectRequired, "temporary key bind failed with ENCRYPTED_MESSAGE_INVALID")
 		}
-		c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for key with unknown age, retrying bind before dropping keys",
+		c.log.Warn(ctx, "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID, retrying bind",
 			log.Int("attempt", attempt),
+			log.Int64("perm_key_age", age),
 		)
 		return nil
 	}
 
-	// Quote (PFS): "Otherwise, the client should simply retry binding."
-	// Link: https://core.telegram.org/api/pfs
-	c.log.Warn(context.Background(), "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID for fresh permanent key, retrying bind",
+	check := c.permKeyCheck
+	if check == nil {
+		check = c.checkPermKey
+	}
+	unknown, err := check(ctx)
+	if err != nil {
+		c.log.Warn(ctx, "Permanent key check failed, reconnecting without dropping the key", log.Error(err))
+		return errors.Wrap(ErrPFSReconnectRequired, "permanent key check failed")
+	}
+	if !unknown {
+		if attempt >= maxBindTempAuthKeyAttempts {
+			return errors.Wrap(ErrPFSReconnectRequired, "temporary key bind failed with ENCRYPTED_MESSAGE_INVALID, permanent key is valid")
+		}
+		c.log.Warn(ctx, "auth.bindTempAuthKey returned ENCRYPTED_MESSAGE_INVALID, permanent key is valid, retrying bind",
+			log.Int("attempt", attempt),
+		)
+		return nil
+	}
+	c.log.Warn(ctx, "Server does not know the permanent key, dropping PFS keys",
 		log.Int("attempt", attempt),
 	)
-	return nil
+	c.dropPFSKeys()
+	return errors.Wrap(ErrPFSDropKeysRequired, "permanent key is unknown to the server")
+}
+
+// checkPermKey reports whether the server does not know the permanent key:
+// it sends help.getNearestDc encrypted with the permanent key (without PFS)
+// on a separate connection. The server answers -404 for an unknown key, which
+// makes that connection generate a new key.
+func (c *Conn) checkPermKey(ctx context.Context) (unknown bool, err error) {
+	c.sessionMux.RLock()
+	perm := c.permKey
+	c.sessionMux.RUnlock()
+	if perm.Zero() {
+		return true, nil
+	}
+	if c.dialer == nil {
+		return false, errors.New("no dialer")
+	}
+	probe := New(c.dialer, Options{
+		DC:              c.dcID,
+		PublicKeys:      c.rsaPublicKeys,
+		Random:          c.rand,
+		Logger:          c.log.Named("perm_key_check").Logger(),
+		Clock:           c.clock,
+		Key:             perm,
+		ExchangeTimeout: c.exchangeTimeout,
+		DialTimeout:     c.dialTimeout,
+	})
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+	runErr := probe.Run(ctx, func(ctx context.Context) error {
+		var out tg.NearestDC
+		err := probe.Invoke(ctx, &tg.HelpGetNearestDCRequest{}, &out)
+		if _, ok := tgerr.As(err); ok {
+			// Any RPC answer means the request was decrypted.
+			return nil
+		}
+		return err
+	})
+	if probe.session().Key.ID != perm.ID {
+		// -404: the probe had to generate a new key.
+		return true, nil
+	}
+	if runErr != nil {
+		return false, runErr
+	}
+	return false, nil
 }
 
 func (c *Conn) handleBindConnectionNotInited(attempt int) error {
@@ -190,23 +281,6 @@ func (c *Conn) handleBindConnectionNotInited(attempt int) error {
 		log.Int("attempt", attempt),
 	)
 	return errors.New("auth.bindTempAuthKey failed with CONNECTION_NOT_INITED after retries")
-}
-
-func (c *Conn) permKeyAgeKnown() bool {
-	c.sessionMux.RLock()
-	known := c.permKeyCreatedAt != 0
-	c.sessionMux.RUnlock()
-	return known
-}
-
-func (c *Conn) permKeyOlderThan60s() bool {
-	c.sessionMux.RLock()
-	createdAt := c.permKeyCreatedAt
-	c.sessionMux.RUnlock()
-	if createdAt == 0 {
-		return false
-	}
-	return c.clock.Now().Unix()-createdAt > 60
 }
 
 func (c *Conn) dropPFSKeys() {
