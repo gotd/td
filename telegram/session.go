@@ -147,6 +147,24 @@ func (c *Client) updateStoredSession(ctx context.Context, f func(data *session.D
 	return nil
 }
 
+// dcAuthPendingFor reports whether the authorization of the DC of data was
+// transferred before its key was stored, see setDCAuthorized.
+func (c *Client) dcAuthPendingFor(data pool.Session) bool {
+	if data.AuthKey.Zero() {
+		return false
+	}
+	c.sessionsMux.Lock()
+	defer c.sessionsMux.Unlock()
+	return c.dcAuthPending[data.DC]
+}
+
+func (c *Client) ctxOrBackground() context.Context {
+	if c.ctx != nil {
+		return c.ctx
+	}
+	return context.Background()
+}
+
 // dcKeyAuthorized reports whether the stored key of dc already has the
 // authorization transferred.
 func (c *Client) dcKeyAuthorized(dc int) bool {
@@ -166,12 +184,20 @@ func (c *Client) dcKeyAuthorized(dc int) bool {
 func (c *Client) setDCAuthorized(ctx context.Context, dc int, authorized bool) {
 	c.sessionsMux.Lock()
 	changed := false
+	delete(c.dcAuthPending, dc)
 	if authorized {
+		var key crypto.AuthKey
 		if s, ok := c.sessions[dc]; ok {
-			if key := s.Load().AuthKey; !key.Zero() && c.dcAuthorized[dc] != key.ID {
-				c.dcAuthorized[dc] = key.ID
-				changed = true
-			}
+			key = s.Load().AuthKey
+		}
+		switch {
+		case key.Zero():
+			// The connection reports its session after it is ready, so the
+			// transfer may finish first: mark the key when it is stored.
+			c.dcAuthPending[dc] = true
+		case c.dcAuthorized[dc] != key.ID:
+			c.dcAuthorized[dc] = key.ID
+			changed = true
 		}
 	} else if _, ok := c.dcAuthorized[dc]; ok {
 		delete(c.dcAuthorized, dc)
@@ -316,6 +342,9 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	}
 	// Track per-DC session in memory for pool reconnections/migrations.
 	c.storeDCSess(c.sessions, sessionData)
+	if c.dcAuthPendingFor(sessionData) {
+		c.setDCAuthorized(c.ctxOrBackground(), sessionData.DC, true)
+	}
 
 	primaryDC := c.session.Load().DC
 	// Do not save session for non-primary DC.
