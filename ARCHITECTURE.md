@@ -88,6 +88,10 @@ It owns all of the behavior that the lower layers deliberately leave out:
   connection states and deaths by DC, reconnects, restarts, migrations, lost
   authorization, request timeouts, cached DC pools and `Invoke` durations.
   Attributes are low-cardinality (DC, kind, state, result, RPC error code).
+- **Bootstraps** — [`bot`](telegram/bot) and [`user`](telegram/user) wire a
+  client, the updates manager with persisted state and access hashes, and the
+  peer manager in one call, with sign in only when the stored session is not
+  authorized; the shared machinery is in `telegram/internal/bootstrap`.
 - **Convenience helpers** — [`uploader`](telegram/uploader),
   [`downloader`](telegram/downloader), [`message`](telegram/message) builders,
   [`query`](telegram/query) pagination, [`peers`](telegram/peers),
