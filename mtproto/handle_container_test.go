@@ -73,3 +73,68 @@ func TestConnContainerAck(t *testing.T) {
 	}
 	a.Equal([]int64{contentID}, got, "only the odd-seqno inner message must be acked")
 }
+
+type countHandler struct{ n int }
+
+func (h *countHandler) OnMessage(*bin.Buffer) error { h.n++; return nil }
+func (h *countHandler) OnSession(Session) error     { return nil }
+
+// A content message the server sends again in a new container (e.g. after
+// our ack was lost) is acknowledged again but handled once.
+func TestConnContainerInnerDedup(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	clock := neo.NewTime(testutil.Date())
+
+	var key crypto.Key
+	_, err := io.ReadFull(rand.Reader, key[:])
+	a.NoError(err)
+	authKey := key.WithID()
+
+	gen := proto.NewMessageIDGen(clock.Now)
+	contentID := gen.New(proto.MessageFromServer)
+	body := func() []byte {
+		b := new(bin.Buffer)
+		b.PutID(0xdeadbeef) // handled by Handler.OnMessage
+		b.PutInt32(42)
+		return b.Copy()
+	}
+	encrypt := func(outerID int64) *bin.Buffer {
+		container := proto.MessageContainer{Messages: []proto.Message{
+			{ID: contentID, SeqNo: 1, Bytes: len(body()), Body: body()},
+		}}
+		plain := new(bin.Buffer)
+		a.NoError(container.Encode(plain))
+		msg := new(bin.Buffer)
+		a.NoError(crypto.NewServerCipher(rand.Reader).Encrypt(authKey, crypto.EncryptedMessageData{
+			MessageID:              outerID,
+			SeqNo:                  2,
+			MessageDataLen:         int32(plain.Len()),
+			MessageDataWithPadding: plain.Copy(),
+		}, msg))
+		return msg
+	}
+
+	h := &countHandler{}
+	acks := make(chan int64, 10)
+	c := &Conn{
+		handler:      h,
+		clock:        clock,
+		rand:         rand.Reader,
+		cipher:       crypto.NewClientCipher(rand.Reader),
+		log:          log.For(log.Nop),
+		messageIDBuf: proto.NewMessageIDBuf(10),
+		authKey:      authKey,
+		ackSendChan:  acks,
+	}
+	a.NoError(c.consumeMessage(ctx, encrypt(gen.New(proto.MessageFromServer))))
+	a.NoError(c.consumeMessage(ctx, encrypt(gen.New(proto.MessageFromServer))))
+
+	close(acks)
+	var got []int64
+	for id := range acks {
+		got = append(got, id)
+	}
+	a.Equal(1, h.n, "inner message handled once")
+	a.Equal([]int64{contentID, contentID}, got, "acked on every delivery")
+}
