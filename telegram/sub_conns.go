@@ -112,6 +112,9 @@ func (c *Client) invokeCachedDC(
 				attribute.String("reason", "unauthorized"),
 			))
 			cache.evict(dc, conn)
+			// The key of this DC is not authorized (any more): the next pool
+			// must transfer the authorization.
+			c.setDCAuthorized(ctx, dc, false)
 			continue
 		}
 		return err

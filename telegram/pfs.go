@@ -37,6 +37,7 @@ func (c *Client) dropKeyLocked(dc int, s *pool.SyncSession) {
 	if old := s.Load(); !old.AuthKey.Zero() {
 		c.droppedKeys[dc] = old.AuthKey.ID
 	}
+	delete(c.dcAuthorized, dc)
 	s.Store(pool.Session{DC: dc})
 }
 

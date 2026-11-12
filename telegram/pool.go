@@ -206,6 +206,15 @@ func (c *Client) dc(
 		return p, nil
 	}
 
+	if c.dcKeyAuthorized(dcID) {
+		// The stored key of this DC (e.g. restored from the session) already
+		// has the authorization: no export/import, like TDLib's DcAuthManager.
+		// If it turns out to be unauthorized, cached pools are evicted on 401
+		// and the mark is cleared, so the next pool transfers again.
+		c.log.Debug(ctx, "DC key is authorized, skipping transfer", log.Int("dc_id", dcID))
+		return p, nil
+	}
+
 	// First transfer is done explicitly to preserve old behavior: return
 	// transfer errors from DC pool creation. Setup callback remains enabled for
 	// future reconnections when keys are re-generated inside the pool.
@@ -222,6 +231,7 @@ func (c *Client) dc(
 		_ = p.Close()
 		return nil, errors.Wrap(err, "transfer")
 	}
+	c.setDCAuthorized(ctx, dcID, true)
 
 	return p, nil
 }

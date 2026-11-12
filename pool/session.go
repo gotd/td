@@ -12,6 +12,9 @@ type Session struct {
 	DC      int
 	AuthKey crypto.AuthKey
 	Salt    int64
+	// KeyCreatedAt is the creation time of AuthKey, Unix seconds; zero if
+	// unknown.
+	KeyCreatedAt int64
 }
 
 // SyncSession is synchronization helper for Session.

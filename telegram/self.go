@@ -21,6 +21,7 @@ func (c *Client) Self(ctx context.Context) (*tg.User, error) {
 	if !ok {
 		return nil, errors.Errorf("users response count: %v", users)
 	}
+	c.setSelf(ctx, user)
 
 	return user, nil
 }

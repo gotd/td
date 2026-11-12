@@ -78,11 +78,28 @@ func TDesktopSession(account tdesktop.Account) (*Data, error) {
 		}
 	}
 
-	return &Data{
+	data := &Data{
 		DC:        dc,
 		Addr:      addr,
 		Config:    mappedCfg,
 		AuthKey:   key[:],
 		AuthKeyID: keyID[:],
-	}, nil
+		UserID:    int64(auth.UserID),
+	}
+	// Keys of the other DCs were authorized by Telegram Desktop.
+	for id, k := range auth.Keys {
+		if id == dc {
+			continue
+		}
+		if data.DCs == nil {
+			data.DCs = map[int]DCKey{}
+		}
+		kid := k.ID()
+		data.DCs[id] = DCKey{
+			AuthKey:    k[:],
+			AuthKeyID:  kid[:],
+			Authorized: true,
+		}
+	}
+	return data, nil
 }

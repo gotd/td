@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 
@@ -51,14 +52,165 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 
 	c.connMux.Lock()
 	c.session.Store(pool.Session{
-		DC:      data.DC,
-		AuthKey: key,
-		Salt:    data.Salt,
+		DC:           data.DC,
+		AuthKey:      key,
+		Salt:         data.Salt,
+		KeyCreatedAt: data.AuthKeyCreatedAt,
 	})
 	c.replaceConn(c.createPrimaryConn(nil))
 	c.connMux.Unlock()
 
+	c.restoreDCKeys(ctx, data)
+	if data.UserID != 0 {
+		c.selfID.Store(data.UserID)
+		c.selfBot.Store(data.Bot)
+	}
+
 	return nil
+}
+
+// restoreDCKeys loads authorized keys of the other DCs, so that their pools
+// skip key exchange and authorization transfer.
+func (c *Client) restoreDCKeys(ctx context.Context, data *session.Data) {
+	for dc, k := range data.DCs {
+		if dc == data.DC || !k.Authorized {
+			continue
+		}
+		var key crypto.AuthKey
+		copy(key.Value[:], k.AuthKey)
+		copy(key.ID[:], k.AuthKeyID)
+		if key.Zero() || key.Value.ID() != key.ID {
+			c.log.Warn(ctx, "Skipping corrupted stored DC key", log.Int("dc_id", dc))
+			continue
+		}
+		c.sessionsMux.Lock()
+		c.sessions[dc] = pool.NewSyncSession(pool.Session{
+			DC:           dc,
+			AuthKey:      key,
+			Salt:         k.Salt,
+			KeyCreatedAt: k.CreatedAt,
+		})
+		c.dcAuthorized[dc] = key.ID
+		c.sessionsMux.Unlock()
+	}
+}
+
+// fillDCKeys sets data.DCs to the authorized keys of the other DCs.
+func (c *Client) fillDCKeys(data *session.Data) {
+	c.sessionsMux.Lock()
+	defer c.sessionsMux.Unlock()
+	keys := map[int]session.DCKey{}
+	for dc, id := range c.dcAuthorized {
+		s, ok := c.sessions[dc]
+		if !ok || dc == data.DC {
+			continue
+		}
+		v := s.Load()
+		if v.AuthKey.Zero() || v.AuthKey.ID != id {
+			continue
+		}
+		keys[dc] = session.DCKey{
+			AuthKey:    append([]byte(nil), v.AuthKey.Value[:]...),
+			AuthKeyID:  append([]byte(nil), v.AuthKey.ID[:]...),
+			CreatedAt:  v.KeyCreatedAt,
+			Authorized: true,
+			Salt:       v.Salt,
+		}
+	}
+	if len(keys) == 0 {
+		keys = nil
+	}
+	data.DCs = keys
+}
+
+// updateStoredSession loads the stored session, applies f and saves it. It
+// does nothing if there is no storage, no stored session yet, or after
+// LogOut.
+func (c *Client) updateStoredSession(ctx context.Context, f func(data *session.Data)) error {
+	if c.storage == nil || c.auth.loggedOut.Load() {
+		return nil
+	}
+	c.saveMux.Lock()
+	defer c.saveMux.Unlock()
+	data, err := c.storage.Load(ctx)
+	if errors.Is(err, session.ErrNotFound) {
+		// The primary session is saved first; it will include this.
+		return nil
+	}
+	if err != nil {
+		return errors.Wrap(err, "load")
+	}
+	f(data)
+	if err := c.storage.Save(ctx, data); err != nil {
+		return errors.Wrap(err, "save")
+	}
+	return nil
+}
+
+// dcKeyAuthorized reports whether the stored key of dc already has the
+// authorization transferred.
+func (c *Client) dcKeyAuthorized(dc int) bool {
+	c.sessionsMux.Lock()
+	defer c.sessionsMux.Unlock()
+	s, ok := c.sessions[dc]
+	if !ok {
+		return false
+	}
+	id, ok := c.dcAuthorized[dc]
+	key := s.Load().AuthKey
+	return ok && !key.Zero() && key.ID == id
+}
+
+// setDCAuthorized marks the current key of dc as authorized (or not) and
+// persists the authorized keys.
+func (c *Client) setDCAuthorized(ctx context.Context, dc int, authorized bool) {
+	c.sessionsMux.Lock()
+	changed := false
+	if authorized {
+		if s, ok := c.sessions[dc]; ok {
+			if key := s.Load().AuthKey; !key.Zero() && c.dcAuthorized[dc] != key.ID {
+				c.dcAuthorized[dc] = key.ID
+				changed = true
+			}
+		}
+	} else if _, ok := c.dcAuthorized[dc]; ok {
+		delete(c.dcAuthorized, dc)
+		changed = true
+	}
+	c.sessionsMux.Unlock()
+	if !changed {
+		return
+	}
+	if err := c.updateStoredSession(ctx, c.fillDCKeys); err != nil {
+		c.log.Warn(ctx, "Failed to save DC keys", log.Int("dc_id", dc), log.Error(err))
+	}
+}
+
+// SelfID returns the ID of the authorized user or bot and whether it is a
+// bot, without a request: ok is false if it is not known yet. It is known
+// after a successful Self call (including the one Run makes on connect) and
+// is restored from the stored session.
+func (c *Client) SelfID() (id int64, bot bool, ok bool) {
+	id = c.selfID.Load()
+	return id, c.selfBot.Load(), id != 0
+}
+
+// setSelf records the authorized user and persists it.
+func (c *Client) setSelf(ctx context.Context, u *tg.User) {
+	if u == nil || u.ID == 0 {
+		return
+	}
+	if c.selfID.Load() == u.ID && c.selfBot.Load() == u.Bot {
+		return
+	}
+	c.selfID.Store(u.ID)
+	c.selfBot.Store(u.Bot)
+	if err := c.updateStoredSession(ctx, func(data *session.Data) {
+		data.UserID = u.ID
+		data.Bot = u.Bot
+	}); err != nil {
+		c.log.Warn(ctx, "Failed to save self ID", log.Error(err))
+	}
 }
 
 func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
@@ -68,6 +220,8 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 		return nil
 	}
 
+	c.saveMux.Lock()
+	defer c.saveMux.Unlock()
 	data, err := c.storage.Load(c.ctx)
 	if errors.Is(err, session.ErrNotFound) {
 		// Initializing new state.
@@ -85,10 +239,22 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 		// Persist permanent key in PFS mode: temporary key is expected to rotate.
 		keyToSave = s.PermKey
 	}
+	switch {
+	case s.KeyCreatedAt != 0:
+		data.AuthKeyCreatedAt = s.KeyCreatedAt
+	case !bytes.Equal(data.AuthKeyID, keyToSave.ID[:]):
+		// A different key of unknown age.
+		data.AuthKeyCreatedAt = 0
+	}
 	data.AuthKey = keyToSave.Value[:]
 	data.AuthKeyID = keyToSave.ID[:]
 	data.DC = cfg.ThisDC
 	data.Salt = s.Salt
+	c.fillDCKeys(data)
+	if id := c.selfID.Load(); id != 0 {
+		data.UserID = id
+		data.Bot = c.selfBot.Load()
+	}
 
 	if err := c.storage.Save(c.ctx, data); err != nil {
 		return errors.Wrap(err, "save")
@@ -155,6 +321,10 @@ func (c *Client) isDroppedKey(data pool.Session) bool {
 func (c *Client) storeDCSess(target map[int]*pool.SyncSession, data pool.Session) {
 	c.sessionsMux.Lock()
 	if existing, ok := target[data.DC]; ok {
+		if prev := existing.Load(); data.KeyCreatedAt == 0 && prev.AuthKey.ID == data.AuthKey.ID {
+			// Same key reported by a connection that doesn't know its age.
+			data.KeyCreatedAt = prev.KeyCreatedAt
+		}
 		existing.Store(data)
 		c.sessionsMux.Unlock()
 		return
@@ -172,8 +342,9 @@ func dcSessionFromMTProto(dc int, s mtproto.Session) pool.Session {
 	}
 
 	return pool.Session{
-		DC:      dc,
-		Salt:    s.Salt,
-		AuthKey: keyToStore,
+		DC:           dc,
+		Salt:         s.Salt,
+		AuthKey:      keyToStore,
+		KeyCreatedAt: s.KeyCreatedAt,
 	}
 }

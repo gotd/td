@@ -157,9 +157,10 @@ func New(dialer Dialer, opt Options) *Conn {
 		handler:       opt.Handler,
 		types:         opt.Types,
 
-		authKey: opt.Key,
-		permKey: opt.PermKey,
-		salt:    opt.Salt,
+		authKey:          opt.Key,
+		permKey:          opt.PermKey,
+		permKeyCreatedAt: opt.KeyCreatedAt,
+		salt:             opt.Salt,
 
 		ping:         map[int64]chan struct{}{},
 		pingTimeout:  opt.PingTimeout,
