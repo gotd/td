@@ -39,5 +39,22 @@ func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
 	if err := c.handler.OnSession(c.session()); err != nil {
 		return errors.Wrap(err, "handler.OnSession")
 	}
+	// Requests sent before first_msg_id belong to a server session that is
+	// gone: send them again, like TDLib (Session::on_new_session_created).
+	if c.rpc != nil {
+		c.rpc.NotifyErrorBefore(s.FirstMsgID, errSessionReset)
+	}
+	if h, ok := c.handler.(NewSessionHandler); ok {
+		if err := h.OnNewSession(s.FirstMsgID); err != nil {
+			return errors.Wrap(err, "handler.OnNewSession")
+		}
+	}
 	return nil
+}
+
+// NewSessionHandler is implemented by a Handler that wants to know when the
+// server created a new session (new_session_created), e.g. to recover
+// updates it may have missed.
+type NewSessionHandler interface {
+	OnNewSession(firstMsgID int64) error
 }

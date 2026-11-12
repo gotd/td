@@ -362,6 +362,14 @@ func isNotInited(err error) bool {
 	return false
 }
 
+// OnNewSession implements mtproto.NewSessionHandler.
+func (c *Conn) OnNewSession(firstMsgID int64) error {
+	if h, ok := c.handler.(NewSessionHandler); ok {
+		return h.OnNewSession(firstMsgID)
+	}
+	return nil
+}
+
 // OnMessage implements mtproto.Handler.
 func (c *Conn) OnMessage(b *bin.Buffer) error {
 	return c.handler.OnMessage(b)

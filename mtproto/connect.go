@@ -65,6 +65,9 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 	}
 
 	c.log.Info(ctx, "Key already exists")
+	if session.ID == 0 && c.reuseSession(ctx, session.Key) {
+		return nil
+	}
 	if session.ID == 0 {
 		// NB: Telegram can return 404 error if session id is zero.
 		//

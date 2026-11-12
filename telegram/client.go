@@ -157,7 +157,12 @@ type Client struct {
 	// authorization was transferred to, so that pools using it skip the
 	// transfer and the key is persisted. Guarded by sessionsMux.
 	dcAuthorized map[int][8]byte
-	sessionsMux  sync.Mutex
+	// sessionStates are server session slots per DC, reused across
+	// reconnects. Guarded by sessionsMux.
+	sessionStates map[int][]*mtproto.SessionState
+	sessionsMux   sync.Mutex
+	// primarySessions counts new server sessions of the primary connection.
+	primarySessions atomic.Int64
 	// saveMux serializes load-modify-save of the stored session.
 	saveMux sync.Mutex
 	// selfID and selfBot are the authorized user, if known (selfID != 0).
@@ -349,6 +354,7 @@ func (c *Client) init() {
 	c.cdnSessions = map[int]*pool.SyncSession{}
 	c.droppedKeys = map[int][8]byte{}
 	c.dcAuthorized = map[int][8]byte{}
+	c.sessionStates = map[int][]*mtproto.SessionState{}
 	c.subConns = newDCPoolCache(1, poolKindMigrate)
 	if c.filePoolSize <= 0 {
 		c.filePoolSize = defaultFilePoolSize
