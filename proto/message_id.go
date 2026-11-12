@@ -167,16 +167,29 @@ func NewMessageIDGen(now func() time.Time) *MessageIDGen {
 	}
 }
 
-// MessageIDBuf stores last N message ids and is used in replay attack mitigation.
+// MessageIDBuf stores the last N received message ids and is used in replay
+// attack mitigation.
+//
+// It works like TDLib's MessageIdDuplicateChecker: ids are kept sorted in a
+// buffer of 2N, so an id is checked by binary search, an increasing id (the
+// common case) is appended, and the oldest N are dropped at once when the
+// buffer is full.
 type MessageIDBuf struct {
 	mux sync.Mutex
+	// buf[:end] holds the stored ids in increasing order.
 	buf []int64
+	end int
+	n   int
 }
 
 // NewMessageIDBuf initializes new message id buffer for last N stored values.
 func NewMessageIDBuf(n int) *MessageIDBuf {
+	if n < 1 {
+		n = 1
+	}
 	return &MessageIDBuf{
-		buf: make([]int64, n),
+		buf: make([]int64, 2*n),
+		n:   n,
 	}
 }
 
@@ -185,7 +198,7 @@ func (b *MessageIDBuf) Reset() {
 	b.mux.Lock()
 	defer b.mux.Unlock()
 
-	clear(b.buf)
+	b.end = 0
 }
 
 // Consume returns false if message should be discarded.
@@ -198,31 +211,45 @@ func (b *MessageIDBuf) Consume(newID int64) bool {
 	// (i. e. the lowest) is discarded.
 	//
 	// https://core.telegram.org/mtproto/security_guidelines#checking-msg-id
+	if newID <= 0 {
+		return false
+	}
 
 	b.mux.Lock()
 	defer b.mux.Unlock()
 
-	var (
-		minIDx int
-		minID  int64
-	)
-	for i, id := range b.buf {
-		if id == newID {
-			// Equal to stored value.
-			return false
-		}
-		// Searching for minimum value.
-		if id < minID {
-			minIDx = i
-			minID = id
-		}
+	if b.end == len(b.buf) {
+		// Forget the oldest N ids.
+		copy(b.buf[:b.n], b.buf[b.n:])
+		b.end = b.n
 	}
-	if newID < minID {
-		// Lower than all stored values.
+	if b.end == 0 || newID > b.buf[b.end-1] {
+		// Fast path: ids mostly increase.
+		b.buf[b.end] = newID
+		b.end++
+		return true
+	}
+	if b.end >= b.n && newID < b.buf[0] {
+		// Lower than all of the last N stored ids.
 		return false
 	}
 
-	// Message is accepted. Replacing lowest message id with new id.
-	b.buf[minIDx] = newID
+	// Binary search for the first stored id >= newID.
+	lo, hi := 0, b.end
+	for lo < hi {
+		mid := int(uint(lo+hi) >> 1)
+		if b.buf[mid] < newID {
+			lo = mid + 1
+		} else {
+			hi = mid
+		}
+	}
+	if b.buf[lo] == newID {
+		// Equal to a stored id.
+		return false
+	}
+	copy(b.buf[lo+1:b.end+1], b.buf[lo:b.end])
+	b.buf[lo] = newID
+	b.end++
 	return true
 }
