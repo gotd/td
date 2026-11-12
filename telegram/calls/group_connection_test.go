@@ -2,7 +2,9 @@ package calls
 
 import (
 	"encoding/json"
+	"sync"
 	"testing"
+	"time"
 
 	"github.com/pion/logging"
 	"github.com/pion/rtcp"
@@ -37,7 +39,24 @@ func TestGroupConnJoinPayload(t *testing.T) {
 
 	g := newGroupConn(log.For(logzap.New(zaptest.NewLogger(t))))
 	g.net = nw
-	defer func() { _ = g.close() }()
+	// pion reports state changes on its own goroutines, and the callback logs
+	// through the test logger: wait for the "closed" state before returning,
+	// so that it doesn't log after the test.
+	closed := make(chan struct{})
+	var closedOnce sync.Once
+	g.onStateChange = func(s string) {
+		if s == webrtc.PeerConnectionStateClosed.String() {
+			closedOnce.Do(func() { close(closed) })
+		}
+	}
+	defer func() {
+		_ = g.close()
+		select {
+		case <-closed:
+		case <-time.After(10 * time.Second):
+			t.Error("no closed state after close")
+		}
+	}()
 
 	require.Equal(t, webrtc.PeerConnectionStateClosed, g.connectionState(), "no pc before open")
 	require.Error(t, g.writeRTCP([]rtcp.Packet{&rtcp.SenderReport{}}), "no pc before open")
