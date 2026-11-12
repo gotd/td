@@ -16,7 +16,6 @@ import (
 	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/exchange"
 	"github.com/gotd/td/mtproto"
-	"github.com/gotd/td/proto"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/tg"
@@ -182,6 +181,11 @@ type Options struct {
 
 	MessageID mtproto.MessageIDSource
 	Clock     clock.Clock
+	// ServerTimeOffset is the initial server time minus local time, e.g.
+	// Client.ServerTimeOffset of a previous run. It is corrected from the
+	// first message of the server; message ids and the msg_id time check use
+	// server time, so a skewed local clock doesn't break the connection.
+	ServerTimeOffset time.Duration
 
 	// OpenTelemetry.
 	TracerProvider trace.TracerProvider
@@ -290,9 +294,6 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.MigrationTimeout == 0 {
 		opt.MigrationTimeout = time.Second * 15
-	}
-	if opt.MessageID == nil {
-		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
 	}
 	if opt.UpdateHandler == nil {
 		// No updates handler passed, so no sense to subscribe for updates.

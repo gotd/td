@@ -193,6 +193,7 @@ Loop:
 			return ClientExchangeResult{}, errors.Wrap(err, "check DH params")
 		}
 		gA := big.NewInt(0).SetBytes(innerData.GA)
+		serverTime := innerData.ServerTime
 
 		// 6. Random number b is computed:
 		randMax := big.NewInt(0).SetBit(big.NewInt(0), crypto.RSAKeyBits, 1)
@@ -282,6 +283,7 @@ Loop:
 				AuthKey:    crypto.AuthKey{Value: key, ID: authKeyID},
 				SessionID:  sessionID,
 				ServerSalt: serverSalt,
+				ServerTime: int64(serverTime),
 			}
 			if c.mode == ExchangeModeTemporary {
 				// Telegram does not return absolute expiry timestamp here, so we

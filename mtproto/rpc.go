@@ -2,6 +2,7 @@ package mtproto
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
@@ -15,15 +16,58 @@ import (
 //
 // NOTE: Assuming that call contains content message (seqno increment).
 func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	timeResends := 0
 	for {
 		err := c.invokeOnce(ctx, input, output)
-		if !errors.Is(err, errSessionReset) {
-			return err
+		if errors.Is(err, errSessionReset) {
+			// The session was replaced while the request was pending: send it
+			// again with a new msg_id and seqno of the new session.
+			c.log.Info(ctx, "Resending request in new session")
+			continue
 		}
-		// The session was replaced while the request was pending: send it
-		// again with a new msg_id and seqno of the new session.
-		c.log.Info(ctx, "Resending request in new session")
+		if code, ok := badMsgTimeCode(err); ok && timeResends < maxTimeResends {
+			// The server refused the msg_id because of its time; the server
+			// time offset is corrected by now (see handleBadMsg and
+			// observeServerTime), so send the request again with a new
+			// msg_id, like TDLib does for 16, 17 and 20.
+			timeResends++
+			c.log.Info(ctx, "Resending request with corrected msg_id",
+				log.Int("code", code),
+				log.Duration("server_time_offset", c.serverTimeOffset()),
+			)
+			continue
+		}
+		return err
 	}
+}
+
+// maxTimeResends limits resends of one request after bad_msg_notification
+// about its msg_id time.
+const maxTimeResends = 3
+
+// codeMessageTooOld is bad_msg_notification "message too old".
+const codeMessageTooOld = 20
+
+// badMsgTimeCode reports whether err is a bad_msg_notification about the
+// msg_id time (16, 17 or 20), after which the request can be sent again.
+func badMsgTimeCode(err error) (int, bool) {
+	var bad *badMessageError
+	if !errors.As(err, &bad) {
+		return 0, false
+	}
+	switch bad.Code {
+	case codeMessageIDTooLow, codeMessageIDTooHigh, codeMessageTooOld:
+		return bad.Code, true
+	}
+	return 0, false
+}
+
+// serverTimeOffset returns the server time offset, zero if unknown.
+func (c *Conn) serverTimeOffset() time.Duration {
+	if c.serverTime == nil {
+		return 0
+	}
+	return c.serverTime.Offset()
 }
 
 func (c *Conn) invokeOnce(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
