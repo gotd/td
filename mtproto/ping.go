@@ -23,18 +23,32 @@ func (c *Conn) Ping(ctx context.Context) error {
 		return err
 	}
 
+	return c.sendPing(ctx, pingID, &mt.PingRequest{PingID: pingID})
+}
+
+// sendPing sends a ping and waits for its pong. The server drops a message
+// with an expired salt (bad_server_salt), and a ping has no RPC callback to
+// retry it: the ping is sent again when the salt changes, as Telegram
+// Desktop resends everything (resendAll), instead of the pong never coming
+// and the connection being taken for dead.
+func (c *Conn) sendPing(ctx context.Context, pingID int64, req bin.Encoder) error {
 	pong := c.pong(pingID)
 	defer c.removePong(pingID)
 
-	if err := c.writeServiceMessage(ctx, &mt.PingRequest{PingID: pingID}); err != nil {
-		return errors.Wrap(err, "write")
-	}
-
-	select {
-	case <-pong:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
+	for {
+		salt := c.onSaltChange()
+		if err := c.writeServiceMessage(ctx, req); err != nil {
+			return errors.Wrap(err, "write")
+		}
+		select {
+		case <-pong:
+			return nil
+		case <-salt:
+			c.log.Debug(ctx, "Salt changed, sending the ping again", log.Int64("ping_id", pingID))
+			c.traceEvent(WireEvent{Type: WireRequestResend, Reason: "ping: bad_server_salt"})
+		case <-ctx.Done():
+			return ctx.Err()
+		}
 	}
 }
 
@@ -64,22 +78,10 @@ func (c *Conn) pingDelayDisconnect(ctx context.Context, delay int) error {
 		return err
 	}
 
-	pong := c.pong(pingID)
-	defer c.removePong(pingID)
-
-	if err := c.writeServiceMessage(ctx, &mt.PingDelayDisconnectRequest{
+	return c.sendPing(ctx, pingID, &mt.PingDelayDisconnectRequest{
 		PingID:          pingID,
 		DisconnectDelay: delay,
-	}); err != nil {
-		return errors.Wrap(err, "write")
-	}
-
-	select {
-	case <-pong:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
+	})
 }
 
 func (c *Conn) pong(pingID int64) chan struct{} {

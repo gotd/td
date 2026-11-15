@@ -15,6 +15,10 @@ func (c *Conn) storeSalt(salt int64) {
 	// Copy to log.
 	oldSalt := c.salt
 	c.salt = salt
+	if salt != oldSalt && c.saltChanged != nil {
+		close(c.saltChanged)
+		c.saltChanged = nil
+	}
 	c.sessionMux.Unlock()
 
 	if salt != oldSalt {
@@ -73,4 +77,14 @@ func (c *Conn) saltLoop(ctx context.Context) error {
 			return ctx.Err()
 		}
 	}
+}
+
+// onSaltChange returns a channel closed when the salt changes from now on.
+func (c *Conn) onSaltChange() <-chan struct{} {
+	c.sessionMux.Lock()
+	defer c.sessionMux.Unlock()
+	if c.saltChanged == nil {
+		c.saltChanged = make(chan struct{})
+	}
+	return c.saltChanged
 }

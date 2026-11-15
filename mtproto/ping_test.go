@@ -13,6 +13,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mt"
 	"github.com/gotd/td/proto"
+	"github.com/gotd/td/rpc"
 	"github.com/gotd/td/testutil"
 )
 
@@ -130,4 +131,31 @@ func TestPingLoopFixedInterval(t *testing.T) {
 	clk.Travel(10 * time.Second)
 	pings = waitPings(t, rec, 2)
 	require.Equal(t, 15, pings[1].DisconnectDelay)
+}
+
+// A ping rejected by bad_server_salt (the salt expired, about hourly) is sent
+// again with the new salt, like Telegram Desktop's resendAll: a ping has no
+// RPC callback, and before the fix the salt was dropped with it, the pong
+// never came and the connection was taken for dead after PingTimeout.
+func TestPingResentAfterBadServerSalt(t *testing.T) {
+	clk, c, rec, stop := runPingLoop(t, 0, 15*time.Second)
+	defer stop()
+	c.rpc = rpc.New(rpc.NopSend, rpc.Options{RetryInterval: time.Minute, Clock: clk})
+
+	clk.Travel(pingSendAfter)
+	pings := waitPings(t, rec, 1)
+
+	var b bin.Buffer
+	require.NoError(t, (&mt.BadServerSalt{BadMsgID: 1, BadMsgSeqno: 0, ErrorCode: codeIncorrectServerSalt, NewServerSalt: 99}).Encode(&b))
+	require.NoError(t, c.handleBadMsg(0, &b))
+
+	c.sessionMux.RLock()
+	salt := c.salt
+	c.sessionMux.RUnlock()
+	require.Equal(t, int64(99), salt, "the new salt is taken although no RPC waits for it")
+	pings = waitPings(t, rec, 2)
+	require.Equal(t, pings[0].PingID, pings[1].PingID, "the same ping is sent again")
+
+	// Its pong keeps the connection alive: the loop sets the next ping.
+	pong(t, clk, c, pings[1])
 }

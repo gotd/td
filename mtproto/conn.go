@@ -86,7 +86,10 @@ type Conn struct {
 	// session from sessionState: the server sends no new_session_created.
 	sessionContinued bool
 	salt             int64
-	sessionID        int64
+	// saltChanged is closed (and replaced) when salt changes: a pending
+	// ping, rejected by bad_server_salt, is sent again with the new salt.
+	saltChanged chan struct{}
+	sessionID   int64
 	// unix timestamp when temporary key expires.
 	tempKeyExpiry int64
 
