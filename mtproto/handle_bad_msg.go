@@ -79,6 +79,12 @@ func (c *Conn) handleBadMsg(msgID int64, b *bin.Buffer) error {
 			return err
 		}
 
+		// Take the new salt now, whatever the rejected message was, like
+		// Telegram Desktop (session_private.cpp, bad_server_salt): a
+		// request is retried by invoke, but a ping has no RPC callback, and
+		// its salt would be lost with it. A pending ping is sent again on
+		// the salt change (sendPing).
+		c.storeSalt(bad.NewServerSalt)
 		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
 		return nil
 	default:
