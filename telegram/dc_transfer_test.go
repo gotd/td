@@ -109,6 +109,24 @@ func TestDCTransferSetupAfterKeyDrop(t *testing.T) {
 				return errors.Errorf("expected 1 import after DC(), got %d", n)
 			}
 
+			// The first connection stores its key when it handles
+			// new_session_created, which may happen after DC() returns.
+			// Wait for it: a key reported after the drop below would be
+			// stored and reused by the next connection without a transfer.
+			for {
+				client.sessionsMux.Lock()
+				s, ok := client.sessions[otherDC]
+				client.sessionsMux.Unlock()
+				if ok && !s.Load().AuthKey.Zero() {
+					break
+				}
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case <-time.After(time.Millisecond):
+				}
+			}
+
 			// Server asked to drop keys: next pool connection generates a
 			// new key and must transfer authorization in setup.
 			client.handleDCConnDead(otherDC, mtproto.ErrPFSDropKeysRequired)
