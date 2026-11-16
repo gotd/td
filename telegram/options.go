@@ -191,8 +191,10 @@ type Options struct {
 	TracerProvider trace.TracerProvider
 	// MeterProvider is used for client metrics (gotd.client.*): connection
 	// states, dead connections, reconnects, migrations, lost authorization,
-	// request timeouts, cached DC pools and Invoke durations. No metrics by
-	// default; the global provider is not used.
+	// request timeouts, cached DC pools, Invoke durations and timings of
+	// updates pushed by the server (gotd.client.updates.*, see
+	// docs/update-latency.md). No metrics by default; the global provider is
+	// not used.
 	//
 	// It is also used by Client.Downloader and Client.Download* (gotd.downloader.*)
 	// and by schedulers of Options.DownloadScheduler, with attribute dc. The

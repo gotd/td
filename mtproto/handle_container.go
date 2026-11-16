@@ -2,6 +2,7 @@ package mtproto
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
@@ -10,13 +11,13 @@ import (
 	"github.com/gotd/td/proto"
 )
 
-func (c *Conn) handleContainer(ctx context.Context, b *bin.Buffer) error {
+func (c *Conn) handleContainer(ctx context.Context, received time.Time, b *bin.Buffer) error {
 	var container proto.MessageContainer
 	if err := container.Decode(b); err != nil {
 		return errors.Wrap(err, "container")
 	}
 	for _, msg := range container.Messages {
-		if err := c.processContainerMessage(ctx, msg); err != nil {
+		if err := c.processContainerMessage(ctx, received, msg); err != nil {
 			return err
 		}
 	}
@@ -33,10 +34,10 @@ func (c *Conn) handleContainer(ctx context.Context, b *bin.Buffer) error {
 // registers them in its received ids, Android checks isMessageIdProcessed): a
 // message the server sends again, e.g. in a new container after our ack was
 // lost, is acknowledged again but not handled twice.
-func (c *Conn) processContainerMessage(ctx context.Context, msg proto.Message) error {
+func (c *Conn) processContainerMessage(ctx context.Context, received time.Time, msg proto.Message) error {
 	var handleErr error
 	if c.messageIDBuf == nil || c.messageIDBuf.Consume(msg.ID) {
-		handleErr = c.handleMessage(ctx, msg.ID, &bin.Buffer{Buf: msg.Body})
+		handleErr = c.handleMessage(ctx, received, msg.ID, &bin.Buffer{Buf: msg.Body})
 	} else {
 		c.traceRejected(msg.ID, "bad_msg_id")
 		c.log.Debug(ctx, "Ignoring duplicate message in container", log.Int64("msg_id", msg.ID))

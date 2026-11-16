@@ -375,6 +375,14 @@ func (c *Conn) OnMessage(b *bin.Buffer) error {
 	return c.handler.OnMessage(b)
 }
 
+// OnMessageInfo implements mtproto.MessageInfoHandler.
+func (c *Conn) OnMessageInfo(info mtproto.MessageInfo, b *bin.Buffer) error {
+	if h, ok := c.handler.(mtproto.MessageInfoHandler); ok {
+		return h.OnMessageInfo(info, b)
+	}
+	return c.handler.OnMessage(b)
+}
+
 type noopDecoder struct {
 	bin.Encoder
 }

@@ -26,6 +26,11 @@ func (c clientHandler) OnMessage(b *bin.Buffer) error {
 	return c.client.handleUpdates(b)
 }
 
+// OnMessageInfo implements mtproto.MessageInfoHandler.
+func (c clientHandler) OnMessageInfo(info mtproto.MessageInfo, b *bin.Buffer) error {
+	return c.client.handleUpdatesInfo(info, b)
+}
+
 func (c *Client) asHandler() manager.Handler {
 	return clientHandler{
 		client: c,
