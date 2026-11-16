@@ -314,6 +314,7 @@ formal security audit were performed.
 ## Who is using gotd?
 
 - The [iyear/tdl](https://github.com/iyear/tdl), 📥 Telegram Downloader, but more than a downloader
+- [komarugif/komarugram-go](https://github.com/komarugif/komarugram-go), Telegram Desktop in Go, GPU accelerated
 
 [<img src="https://user-images.githubusercontent.com/43930873/142855897-7091ced0-4fe8-4f8d-ad43-e9db2723bacc.png" width="150">](https://telq.org)
 
