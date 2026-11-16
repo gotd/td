@@ -1,0 +1,49 @@
+name: pool-arm32
+
+on:
+  push:
+    paths:
+      - "pool/**"
+      - "go.mod"
+      - "go.sum"
+      - ".github/workflows/pool-arm32.yml"
+  pull_request:
+    paths:
+      - "pool/**"
+      - "go.mod"
+      - "go.sum"
+      - ".github/workflows/pool-arm32.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ["1.25.x", "stable"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: Install Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.go }}
+          cache: false
+      - name: Install ARM emulator
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y qemu-user
+      - name: Build ARMv7 pool tests
+        env:
+          GOOS: linux
+          GOARCH: arm
+          GOARM: "7"
+          CGO_ENABLED: "0"
+        run: go test -c -o "$RUNNER_TEMP/pool-arm.test" ./pool
+      - name: Run ARMv7 pool tests
+        run: qemu-arm -cpu cortex-a7 "$RUNNER_TEMP/pool-arm.test" -test.v -test.timeout 2m

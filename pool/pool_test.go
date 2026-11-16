@@ -105,6 +105,34 @@ func TestDC_InvokeNotRetryable(t *testing.T) {
 	a.Equal(1, created, "Pool must not retry on non-retryable error")
 }
 
+func TestDC_ConnectionIDs(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	p := NewDC(ctx, 2, func() Conn {
+		return newMockConn(true)
+	}, DCOptions{MaxOpenConnections: 3})
+	t.Cleanup(func() {
+		a.NoError(p.Close())
+	})
+
+	// Keep connections checked out so each acquire allocates a new ID.
+	var connections []*poolConn
+	for _, want := range []int64{1, 2, 3} {
+		conn, err := p.acquire(ctx)
+		a.NoError(err)
+		a.NotNil(conn)
+		a.Equal(want, conn.id)
+		connections = append(connections, conn)
+	}
+
+	p.release(connections[0])
+	reused, err := p.acquire(ctx)
+	a.NoError(err)
+	a.NotNil(reused)
+	a.Equal(int64(1), reused.id, "Reusing a connection must preserve its ID")
+	p.release(reused)
+}
+
 func TestDC_acquire(t *testing.T) {
 	t.Run("AcquireRelease", func(t *testing.T) {
 		a := require.New(t)

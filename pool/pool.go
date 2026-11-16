@@ -4,6 +4,7 @@ package pool
 import (
 	"context"
 	"sync"
+	stdatomic "sync/atomic"
 
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
@@ -33,8 +34,8 @@ type DC struct {
 	free []*poolConn
 	// Total connections.
 	total int64
-	// Connection id monotonic counter.
-	nextConn atomic.Int64
+	// Connection ID counter, aligned for 64-bit atomics on 32-bit platforms.
+	nextConn stdatomic.Int64
 	freeReq  *reqMap
 	// DC mutex.
 	mu sync.Mutex
@@ -176,7 +177,7 @@ retry:
 		c.total++
 		c.mu.Unlock()
 
-		id := c.nextConn.Inc()
+		id := c.nextConn.Add(1)
 		c.log.Debug(ctx, "Creating new connection",
 			log.Int64("conn_id", id),
 		)
