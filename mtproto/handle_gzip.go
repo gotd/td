@@ -2,6 +2,7 @@ package mtproto
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 
@@ -17,10 +18,10 @@ func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 	return &bin.Buffer{Buf: content.Data}, nil
 }
 
-func (c *Conn) handleGZIP(ctx context.Context, msgID int64, b *bin.Buffer) error {
+func (c *Conn) handleGZIP(ctx context.Context, received time.Time, msgID int64, b *bin.Buffer) error {
 	content, err := gzip(b)
 	if err != nil {
 		return errors.Wrap(err, "unzip")
 	}
-	return c.handleMessage(ctx, msgID, content)
+	return c.handleMessage(ctx, received, msgID, content)
 }

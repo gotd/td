@@ -87,7 +87,7 @@ func TestConnHandleMessage(t *testing.T) {
 			"000000000000",
 	} {
 		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
-			if err := c.handleMessage(context.Background(), 0, &bin.Buffer{Buf: []byte(input)}); err == nil {
+			if err := c.handleMessage(context.Background(), time.Time{}, 0, &bin.Buffer{Buf: []byte(input)}); err == nil {
 				t.Fatal("error expected")
 			}
 		})
@@ -169,7 +169,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 
 			testutil.MaxAlloc(t, allocThreshold, func() {
 				b.ResetTo(data)
-				_ = c.handleMessage(context.Background(), 0, b)
+				_ = c.handleMessage(context.Background(), time.Time{}, 0, b)
 			})
 		})
 	}

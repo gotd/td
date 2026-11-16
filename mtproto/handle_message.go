@@ -2,6 +2,7 @@ package mtproto
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-faster/errors"
 	"github.com/gotd/log"
@@ -11,7 +12,7 @@ import (
 	"github.com/gotd/td/proto"
 )
 
-func (c *Conn) handleMessage(ctx context.Context, msgID int64, b *bin.Buffer) error {
+func (c *Conn) handleMessage(ctx context.Context, received time.Time, msgID int64, b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
@@ -27,7 +28,7 @@ func (c *Conn) handleMessage(ctx context.Context, msgID int64, b *bin.Buffer) er
 	case mt.FutureSaltsTypeID:
 		return c.handleFutureSalts(b)
 	case proto.MessageContainerTypeID:
-		return c.handleContainer(ctx, b)
+		return c.handleContainer(ctx, received, b)
 	case proto.ResultTypeID:
 		return c.handleResult(b)
 	case mt.PongTypeID:
@@ -35,11 +36,18 @@ func (c *Conn) handleMessage(ctx context.Context, msgID int64, b *bin.Buffer) er
 	case mt.MsgsAckTypeID:
 		return c.handleAck(b)
 	case proto.GZIPTypeID:
-		return c.handleGZIP(ctx, msgID, b)
+		return c.handleGZIP(ctx, received, msgID, b)
 	case mt.MsgDetailedInfoTypeID,
 		mt.MsgNewDetailedInfoTypeID:
 		return nil
 	default:
+		if c.infoHandler != nil {
+			return c.infoHandler.OnMessageInfo(MessageInfo{
+				ID:               msgID,
+				Received:         received,
+				ServerTimeOffset: c.serverTimeOffset(),
+			}, b)
+		}
 		return c.handler.OnMessage(b)
 	}
 }

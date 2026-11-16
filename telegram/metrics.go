@@ -54,6 +54,12 @@ type clientMetrics struct {
 	invokeDuration metric.Float64Histogram
 	pools          metric.Int64ObservableGauge
 
+	// Timings of updates pushed by the server, see update_timing.go.
+	updateServerDelay  metric.Float64Histogram
+	updateReceiveDelay metric.Float64Histogram
+	updateProcess      metric.Float64Histogram
+	updateHandle       metric.Float64Histogram
+
 	meter metric.Meter
 
 	// Pre-built attributes of hot paths, as slices to pass without
@@ -61,6 +67,10 @@ type clientMetrics struct {
 	invokeOK       []metric.RecordOption
 	invokeCanceled []metric.RecordOption
 	invokeError    []metric.RecordOption
+	updateChannel  []metric.RecordOption
+	updateOther    []metric.RecordOption
+	updateOK       []metric.RecordOption
+	updateFailed   []metric.RecordOption
 	// rpcCodes caches attributes of RPC error codes: int -> []metric.RecordOption.
 	rpcCodes sync.Map
 }
@@ -77,6 +87,10 @@ func newClientMetrics(provider metric.MeterProvider) (*clientMetrics, error) {
 		invokeOK:       resultOptions(attribute.String("result", "ok")),
 		invokeCanceled: resultOptions(attribute.String("result", "canceled")),
 		invokeError:    resultOptions(attribute.String("result", "error")),
+		updateChannel:  resultOptions(attribute.String("kind", "channel")),
+		updateOther:    resultOptions(attribute.String("kind", "other")),
+		updateOK:       resultOptions(attribute.String("result", "ok")),
+		updateFailed:   resultOptions(attribute.String("result", "error")),
 	}
 
 	var err error
@@ -85,12 +99,15 @@ func newClientMetrics(provider metric.MeterProvider) (*clientMetrics, error) {
 		err = errors.Join(err, cErr)
 		return c
 	}
-	histogram := func(name, desc string) metric.Float64Histogram {
+	histogramOf := func(name, desc string, buckets metric.HistogramOption) metric.Float64Histogram {
 		h, hErr := meter.Float64Histogram(name,
-			metric.WithUnit("s"), metric.WithDescription(desc), durationBuckets,
+			metric.WithUnit("s"), metric.WithDescription(desc), buckets,
 		)
 		err = errors.Join(err, hErr)
 		return h
+	}
+	histogram := func(name, desc string) metric.Float64Histogram {
+		return histogramOf(name, desc, durationBuckets)
 	}
 
 	m.connState = counter("gotd.client.connection.state", "{event}",
@@ -122,6 +139,21 @@ func newClientMetrics(provider metric.MeterProvider) (*clientMetrics, error) {
 		"FILE_MIGRATE redirects followed, by target DC and source (primary, file).")
 	m.invokeDuration = histogram("gotd.client.invoke.duration",
 		"Duration of Client.Invoke, with middlewares, by result (ok, rpc_error with code, canceled, error).")
+
+	m.updateServerDelay = histogramOf("gotd.client.updates.server.delay",
+		"Time from the date of a new message to the creation of the server message (msg_id) "+
+			"that pushed it, by kind (channel, other). The date has one second resolution, "+
+			"so add up to a second of error.", delayBuckets)
+	m.updateReceiveDelay = histogramOf("gotd.client.updates.receive.delay",
+		"Time from the creation of the server message (msg_id) with updates to its read "+
+			"from the transport, on top of the fastest delivery seen: the clock difference "+
+			"is removed with the server time offset, which the fastest message sets.", delayBuckets)
+	m.updateProcess = histogramOf("gotd.client.updates.process.duration",
+		"Time from the read of updates from the transport to the UpdateHandler call: "+
+			"decryption, decompression, decoding and scheduling.", fastBuckets)
+	m.updateHandle = histogramOf("gotd.client.updates.handle.duration",
+		"Duration of the UpdateHandler call for updates pushed by the server, by result (ok, error).",
+		fastBuckets)
 
 	pools, pErr := meter.Int64ObservableGauge("gotd.client.pools",
 		metric.WithUnit("{pool}"),
