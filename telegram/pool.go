@@ -183,6 +183,7 @@ func (c *Client) dc(
 			dialer, mode, c.appID,
 			options, manager.ConnOptions{
 				DC:      dcID,
+				Test:    c.testDC,
 				Layer:   c.layer,
 				Device:  c.device,
 				Handler: handler,
