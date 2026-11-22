@@ -58,6 +58,14 @@ func (g *CancellableGroup) Cancel() {
 
 // Wait blocks until all function calls from the Go method have returned, then
 // returns the first non-nil error (if any) from them.
+//
+// Wait cancels the group context once the group is done, like errgroup.Wait
+// does for its own context. Otherwise the context, created with
+// context.WithCancel(parent), stays registered in its parent's children until
+// the parent is cancelled: a group started from a long-lived context (the
+// client's reconnect loop, every download and upload) would leak one context
+// per group.
 func (g *CancellableGroup) Wait() error {
+	defer g.cancel()
 	return g.group.Wait()
 }
