@@ -11,7 +11,8 @@ import (
 )
 
 // NewUpload creates new Upload struct using given
-// name and reader.
+// name and reader. Set total to the remaining byte count, or -1 for a
+// streaming upload of unknown size.
 func NewUpload(name string, from io.Reader, total int64) *Upload {
 	return &Upload{
 		name:       name,

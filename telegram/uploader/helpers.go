@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
@@ -57,13 +58,21 @@ func (u *Uploader) FromFS(ctx context.Context, filesystem fs.FS, path string) (_
 	return u.FromFile(ctx, f)
 }
 
-// FromReader uploads file from given io.Reader.
-// NB: totally stream should not exceed the limit for
-// small files (10 MB as docs says, may be a bit bigger).
-// Support For Big Files
-// https://core.telegram.org/api/files#streamed-uploads
+// FromReader uploads the remaining bytes in f. For a bytes.Buffer, bytes.Reader
+// or strings.Reader, the remaining length selects the small or big upload path.
+// Other readers stream as inputFileBig, even when the file is small. Use
+// Upload with NewUpload if the size of a different reader is known.
 func (u *Uploader) FromReader(ctx context.Context, name string, f io.Reader) (tg.InputFileClass, error) {
-	return u.Upload(ctx, NewUpload(name, f, -1))
+	size := int64(-1)
+	switch r := f.(type) {
+	case *bytes.Buffer:
+		size = int64(r.Len())
+	case *bytes.Reader:
+		size = int64(r.Len())
+	case *strings.Reader:
+		size = int64(r.Len())
+	}
+	return u.Upload(ctx, NewUpload(name, f, size))
 }
 
 // FromBytes uploads file from given byte slice.
