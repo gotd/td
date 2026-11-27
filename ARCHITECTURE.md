@@ -86,7 +86,9 @@ It owns all of the behavior that the lower layers deliberately leave out:
 - **Metrics** (`metrics.go`) — OpenTelemetry instruments `gotd.client.*` from
   `Options.MeterProvider` (noop by default, never the global provider):
   connection states and deaths by DC, reconnects, restarts, migrations, lost
-  authorization, request timeouts, cached DC pools and `Invoke` durations.
+  authorization, request timeouts, cached DC pools, `Invoke` durations and
+  timings of pushed updates (`gotd.client.updates.*`, see
+  [docs/update-latency.md](docs/update-latency.md)).
   Attributes are low-cardinality (DC, kind, state, result, RPC error code).
 - **Bootstraps** — [`bot`](telegram/bot) and [`user`](telegram/user) wire a
   client, the updates manager with persisted state and access hashes, and the

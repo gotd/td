@@ -112,7 +112,7 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 	return msg, nil
 }
 
-func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
+func (c *Conn) consumeMessage(ctx context.Context, received time.Time, buf *bin.Buffer) error {
 	msg, err := c.decryptMessage(buf)
 	if errors.Is(err, errRejected) {
 		c.log.Warn(ctx, "Ignoring rejected message", log.Error(err))
@@ -122,7 +122,7 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 		return errors.Wrap(err, "consume message")
 	}
 
-	if err := c.handleMessage(ctx, msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
+	if err := c.handleMessage(ctx, received, msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
 		// Probably we can return here, but this will shutdown whole
 		// connection which can be unexpected.
 		c.log.Warn(ctx, "Error while handling message", log.Error(err))
@@ -274,6 +274,10 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 		}
 
+		// Taken before decryption and scheduling of the handler goroutine,
+		// so handlers can measure how long the message waited in the client.
+		received := c.clock.Now()
+
 		handlers.Add(1)
 		go func() {
 			defer handlers.Done()
@@ -284,7 +288,7 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			// The "worker" model was replaced by this due to idle utilization
 			// overhead, especially on multi-CPU systems with multiple running
 			// clients.
-			if err := c.consumeMessage(ctx, buf); err != nil {
+			if err := c.consumeMessage(ctx, received, buf); err != nil {
 				logger.Error(ctx, "Failed to process message", log.Error(err))
 				lastErr.Store(errors.Wrap(err, "consume"))
 			}

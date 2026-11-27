@@ -64,7 +64,7 @@ func TestConnContainerAck(t *testing.T) {
 		authKey:      authKey,
 		ackSendChan:  acks,
 	}
-	a.NoError(c.consumeMessage(ctx, msg))
+	a.NoError(c.consumeMessage(ctx, clock.Now(), msg))
 
 	close(acks)
 	var got []int64
@@ -127,8 +127,8 @@ func TestConnContainerInnerDedup(t *testing.T) {
 		authKey:      authKey,
 		ackSendChan:  acks,
 	}
-	a.NoError(c.consumeMessage(ctx, encrypt(gen.New(proto.MessageFromServer))))
-	a.NoError(c.consumeMessage(ctx, encrypt(gen.New(proto.MessageFromServer))))
+	a.NoError(c.consumeMessage(ctx, clock.Now(), encrypt(gen.New(proto.MessageFromServer))))
+	a.NoError(c.consumeMessage(ctx, clock.Now(), encrypt(gen.New(proto.MessageFromServer))))
 
 	close(acks)
 	var got []int64

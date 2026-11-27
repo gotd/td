@@ -28,6 +28,27 @@ type Handler interface {
 	OnSession(session Session) error
 }
 
+// MessageInfo describes a message passed to MessageInfoHandler.
+type MessageInfo struct {
+	// ID is the msg_id of the message. Its time is the server clock at the
+	// moment the server created the message, see proto.MessageID.
+	ID int64
+	// Received is the local time when the transport returned the encrypted
+	// message that carried this one, before decryption.
+	Received time.Time
+	// ServerTimeOffset is the server clock minus the local one as known when
+	// the message is handled, zero without Options.ServerTime. See ServerTime:
+	// it is set by the fastest message received, so Received plus the offset
+	// minus the msg_id time is how much longer this message took.
+	ServerTimeOffset time.Duration
+}
+
+// MessageInfoHandler is an optional extension of Handler. If Handler
+// implements it, OnMessageInfo is called instead of OnMessage.
+type MessageInfoHandler interface {
+	OnMessageInfo(info MessageInfo, b *bin.Buffer) error
+}
+
 // MessageIDSource is message id generator.
 type MessageIDSource interface {
 	New(t proto.MessageType) int64
@@ -54,6 +75,7 @@ type Conn struct {
 	dialer        Dialer
 	conn          transport.Conn
 	handler       Handler
+	infoHandler   MessageInfoHandler // nil if handler does not implement it
 	rpc           *rpc.Engine
 	rsaPublicKeys []exchange.PublicKey
 	types         *tmap.Map
@@ -219,6 +241,8 @@ func New(dialer Dialer, opt Options) *Conn {
 			DropHandler:   conn.dropRPC,
 		})
 	}
+
+	conn.infoHandler, _ = opt.Handler.(MessageInfoHandler)
 
 	return conn
 }
