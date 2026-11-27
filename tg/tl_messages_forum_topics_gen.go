@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesForumTopics represents TL type `messages.forumTopics#367617d3`.
+// MessagesForumTopics represents TL type `messages.forumTopics#a9ce6e95`.
 // Contains information about multiple forum topics¹
 //
 // Links:
@@ -54,6 +54,10 @@ type MessagesForumTopics struct {
 	//  2) https://core.telegram.org/type/Message
 	//  3) https://core.telegram.org/constructor/forumTopic
 	OrderByCreateDate bool
+	// TopIcons field of MessagesForumTopics.
+	//
+	// Use SetTopIcons and GetTopIcons helpers.
+	TopIcons []int64
 	// Total number of topics matching query; may be more than the topics contained in topics
 	// in which case pagination¹ is required.
 	//
@@ -79,7 +83,7 @@ type MessagesForumTopics struct {
 }
 
 // MessagesForumTopicsTypeID is TL type id of MessagesForumTopics.
-const MessagesForumTopicsTypeID = 0x367617d3
+const MessagesForumTopicsTypeID = 0xa9ce6e95
 
 // Ensuring interfaces in compile-time for MessagesForumTopics.
 var (
@@ -97,6 +101,9 @@ func (f *MessagesForumTopics) Zero() bool {
 		return false
 	}
 	if !(f.OrderByCreateDate == false) {
+		return false
+	}
+	if !(f.TopIcons == nil) {
 		return false
 	}
 	if !(f.Count == 0) {
@@ -133,6 +140,7 @@ func (f *MessagesForumTopics) String() string {
 // FillFrom fills MessagesForumTopics from given interface.
 func (f *MessagesForumTopics) FillFrom(from interface {
 	GetOrderByCreateDate() (value bool)
+	GetTopIcons() (value []int64, ok bool)
 	GetCount() (value int)
 	GetTopics() (value []ForumTopicClass)
 	GetMessages() (value []MessageClass)
@@ -141,6 +149,10 @@ func (f *MessagesForumTopics) FillFrom(from interface {
 	GetPts() (value int)
 }) {
 	f.OrderByCreateDate = from.GetOrderByCreateDate()
+	if val, ok := from.GetTopIcons(); ok {
+		f.TopIcons = val
+	}
+
 	f.Count = from.GetCount()
 	f.Topics = from.GetTopics()
 	f.Messages = from.GetMessages()
@@ -178,6 +190,11 @@ func (f *MessagesForumTopics) TypeInfo() tdp.Type {
 			Null:       !f.Flags.Has(0),
 		},
 		{
+			Name:       "TopIcons",
+			SchemaName: "top_icons",
+			Null:       !f.Flags.Has(1),
+		},
+		{
 			Name:       "Count",
 			SchemaName: "count",
 		},
@@ -210,12 +227,15 @@ func (f *MessagesForumTopics) SetFlags() {
 	if !(f.OrderByCreateDate == false) {
 		f.Flags.Set(0)
 	}
+	if !(f.TopIcons == nil) {
+		f.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (f *MessagesForumTopics) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forumTopics#367617d3 as nil")
+		return fmt.Errorf("can't encode messages.forumTopics#a9ce6e95 as nil")
 	}
 	b.PutID(MessagesForumTopicsTypeID)
 	return f.EncodeBare(b)
@@ -224,47 +244,53 @@ func (f *MessagesForumTopics) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesForumTopics) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.forumTopics#367617d3 as nil")
+		return fmt.Errorf("can't encode messages.forumTopics#a9ce6e95 as nil")
 	}
 	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field flags: %w", err)
+	}
+	if f.Flags.Has(1) {
+		b.PutVectorHeader(len(f.TopIcons))
+		for _, v := range f.TopIcons {
+			b.PutLong(v)
+		}
 	}
 	b.PutInt(f.Count)
 	b.PutVectorHeader(len(f.Topics))
 	for idx, v := range f.Topics {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field topics element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field topics element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field topics element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field topics element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Messages))
 	for idx, v := range f.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Chats))
 	for idx, v := range f.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Users))
 	for idx, v := range f.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.forumTopics#367617d3: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.forumTopics#a9ce6e95: field users element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(f.Pts)
@@ -274,10 +300,10 @@ func (f *MessagesForumTopics) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *MessagesForumTopics) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forumTopics#367617d3 to nil")
+		return fmt.Errorf("can't decode messages.forumTopics#a9ce6e95 to nil")
 	}
 	if err := b.ConsumeID(MessagesForumTopicsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.forumTopics#367617d3: %w", err)
+		return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -285,25 +311,42 @@ func (f *MessagesForumTopics) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.forumTopics#367617d3 to nil")
+		return fmt.Errorf("can't decode messages.forumTopics#a9ce6e95 to nil")
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field flags: %w", err)
 		}
 	}
 	f.OrderByCreateDate = f.Flags.Has(0)
+	if f.Flags.Has(1) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field top_icons: %w", err)
+		}
+
+		if headerLen > 0 {
+			f.TopIcons = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field top_icons: %w", err)
+			}
+			f.TopIcons = append(f.TopIcons, value)
+		}
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field count: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field count: %w", err)
 		}
 		f.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field topics: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field topics: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -312,7 +355,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeForumTopic(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field topics: %w", err)
+				return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field topics: %w", err)
 			}
 			f.Topics = append(f.Topics, value)
 		}
@@ -320,7 +363,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field messages: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -329,7 +372,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field messages: %w", err)
+				return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field messages: %w", err)
 			}
 			f.Messages = append(f.Messages, value)
 		}
@@ -337,7 +380,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field chats: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -346,7 +389,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field chats: %w", err)
+				return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field chats: %w", err)
 			}
 			f.Chats = append(f.Chats, value)
 		}
@@ -354,7 +397,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -363,7 +406,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field users: %w", err)
 			}
 			f.Users = append(f.Users, value)
 		}
@@ -371,7 +414,7 @@ func (f *MessagesForumTopics) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.forumTopics#367617d3: field pts: %w", err)
+			return fmt.Errorf("unable to decode messages.forumTopics#a9ce6e95: field pts: %w", err)
 		}
 		f.Pts = value
 	}
@@ -395,6 +438,24 @@ func (f *MessagesForumTopics) GetOrderByCreateDate() (value bool) {
 		return
 	}
 	return f.Flags.Has(0)
+}
+
+// SetTopIcons sets value of TopIcons conditional field.
+func (f *MessagesForumTopics) SetTopIcons(value []int64) {
+	f.Flags.Set(1)
+	f.TopIcons = value
+}
+
+// GetTopIcons returns value of TopIcons conditional field and
+// boolean which is true if field was set.
+func (f *MessagesForumTopics) GetTopIcons() (value []int64, ok bool) {
+	if f == nil {
+		return
+	}
+	if !f.Flags.Has(1) {
+		return value, false
+	}
+	return f.TopIcons, true
 }
 
 // GetCount returns value of Count field.

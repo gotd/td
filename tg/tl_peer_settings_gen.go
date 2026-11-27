@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PeerSettings represents TL type `peerSettings#f47741f7`.
+// PeerSettings represents TL type `peerSettings#2441c84b`.
 // List of actions that are possible when interacting with this user, to be shown as
 // suggested actions in the chat action bar »¹, see here »² for more info.
 //
@@ -151,10 +151,18 @@ type PeerSettings struct {
 	//
 	// Use SetPhotoChangeDate and GetPhotoChangeDate helpers.
 	PhotoChangeDate int
+	// BotInviterID field of PeerSettings.
+	//
+	// Use SetBotInviterID and GetBotInviterID helpers.
+	BotInviterID int64
+	// BotOwnerID field of PeerSettings.
+	//
+	// Use SetBotOwnerID and GetBotOwnerID helpers.
+	BotOwnerID int64
 }
 
 // PeerSettingsTypeID is TL type id of PeerSettings.
-const PeerSettingsTypeID = 0xf47741f7
+const PeerSettingsTypeID = 0x2441c84b
 
 // Ensuring interfaces in compile-time for PeerSettings.
 var (
@@ -234,6 +242,12 @@ func (p *PeerSettings) Zero() bool {
 	if !(p.PhotoChangeDate == 0) {
 		return false
 	}
+	if !(p.BotInviterID == 0) {
+		return false
+	}
+	if !(p.BotOwnerID == 0) {
+		return false
+	}
 
 	return true
 }
@@ -270,6 +284,8 @@ func (p *PeerSettings) FillFrom(from interface {
 	GetPhoneCountry() (value string, ok bool)
 	GetNameChangeDate() (value int, ok bool)
 	GetPhotoChangeDate() (value int, ok bool)
+	GetBotInviterID() (value int64, ok bool)
+	GetBotOwnerID() (value int64, ok bool)
 }) {
 	p.ReportSpam = from.GetReportSpam()
 	p.AddContact = from.GetAddContact()
@@ -320,6 +336,14 @@ func (p *PeerSettings) FillFrom(from interface {
 
 	if val, ok := from.GetPhotoChangeDate(); ok {
 		p.PhotoChangeDate = val
+	}
+
+	if val, ok := from.GetBotInviterID(); ok {
+		p.BotInviterID = val
+	}
+
+	if val, ok := from.GetBotOwnerID(); ok {
+		p.BotOwnerID = val
 	}
 
 }
@@ -452,6 +476,16 @@ func (p *PeerSettings) TypeInfo() tdp.Type {
 			SchemaName: "photo_change_date",
 			Null:       !p.Flags.Has(18),
 		},
+		{
+			Name:       "BotInviterID",
+			SchemaName: "bot_inviter_id",
+			Null:       !p.Flags.Has(19),
+		},
+		{
+			Name:       "BotOwnerID",
+			SchemaName: "bot_owner_id",
+			Null:       !p.Flags.Has(20),
+		},
 	}
 	return typ
 }
@@ -521,12 +555,18 @@ func (p *PeerSettings) SetFlags() {
 	if !(p.PhotoChangeDate == 0) {
 		p.Flags.Set(18)
 	}
+	if !(p.BotInviterID == 0) {
+		p.Flags.Set(19)
+	}
+	if !(p.BotOwnerID == 0) {
+		p.Flags.Set(20)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PeerSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#f47741f7 as nil")
+		return fmt.Errorf("can't encode peerSettings#2441c84b as nil")
 	}
 	b.PutID(PeerSettingsTypeID)
 	return p.EncodeBare(b)
@@ -535,11 +575,11 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#f47741f7 as nil")
+		return fmt.Errorf("can't encode peerSettings#2441c84b as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerSettings#f47741f7: field flags: %w", err)
+		return fmt.Errorf("unable to encode peerSettings#2441c84b: field flags: %w", err)
 	}
 	if p.Flags.Has(6) {
 		b.PutInt(p.GeoDistance)
@@ -571,16 +611,22 @@ func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(18) {
 		b.PutInt(p.PhotoChangeDate)
 	}
+	if p.Flags.Has(19) {
+		b.PutLong(p.BotInviterID)
+	}
+	if p.Flags.Has(20) {
+		b.PutLong(p.BotOwnerID)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *PeerSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#f47741f7 to nil")
+		return fmt.Errorf("can't decode peerSettings#2441c84b to nil")
 	}
 	if err := b.ConsumeID(PeerSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerSettings#f47741f7: %w", err)
+		return fmt.Errorf("unable to decode peerSettings#2441c84b: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -588,11 +634,11 @@ func (p *PeerSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#f47741f7 to nil")
+		return fmt.Errorf("can't decode peerSettings#2441c84b to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field flags: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field flags: %w", err)
 		}
 	}
 	p.ReportSpam = p.Flags.Has(0)
@@ -609,72 +655,86 @@ func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field geo_distance: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field geo_distance: %w", err)
 		}
 		p.GeoDistance = value
 	}
 	if p.Flags.Has(9) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field request_chat_title: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field request_chat_title: %w", err)
 		}
 		p.RequestChatTitle = value
 	}
 	if p.Flags.Has(9) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field request_chat_date: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field request_chat_date: %w", err)
 		}
 		p.RequestChatDate = value
 	}
 	if p.Flags.Has(13) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field business_bot_id: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field business_bot_id: %w", err)
 		}
 		p.BusinessBotID = value
 	}
 	if p.Flags.Has(13) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field business_bot_manage_url: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field business_bot_manage_url: %w", err)
 		}
 		p.BusinessBotManageURL = value
 	}
 	if p.Flags.Has(14) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field charge_paid_message_stars: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field charge_paid_message_stars: %w", err)
 		}
 		p.ChargePaidMessageStars = value
 	}
 	if p.Flags.Has(15) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field registration_month: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field registration_month: %w", err)
 		}
 		p.RegistrationMonth = value
 	}
 	if p.Flags.Has(16) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field phone_country: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field phone_country: %w", err)
 		}
 		p.PhoneCountry = value
 	}
 	if p.Flags.Has(17) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field name_change_date: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field name_change_date: %w", err)
 		}
 		p.NameChangeDate = value
 	}
 	if p.Flags.Has(18) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#f47741f7: field photo_change_date: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field photo_change_date: %w", err)
 		}
 		p.PhotoChangeDate = value
+	}
+	if p.Flags.Has(19) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field bot_inviter_id: %w", err)
+		}
+		p.BotInviterID = value
+	}
+	if p.Flags.Has(20) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerSettings#2441c84b: field bot_owner_id: %w", err)
+		}
+		p.BotOwnerID = value
 	}
 	return nil
 }
@@ -1066,4 +1126,40 @@ func (p *PeerSettings) GetPhotoChangeDate() (value int, ok bool) {
 		return value, false
 	}
 	return p.PhotoChangeDate, true
+}
+
+// SetBotInviterID sets value of BotInviterID conditional field.
+func (p *PeerSettings) SetBotInviterID(value int64) {
+	p.Flags.Set(19)
+	p.BotInviterID = value
+}
+
+// GetBotInviterID returns value of BotInviterID conditional field and
+// boolean which is true if field was set.
+func (p *PeerSettings) GetBotInviterID() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(19) {
+		return value, false
+	}
+	return p.BotInviterID, true
+}
+
+// SetBotOwnerID sets value of BotOwnerID conditional field.
+func (p *PeerSettings) SetBotOwnerID(value int64) {
+	p.Flags.Set(20)
+	p.BotOwnerID = value
+}
+
+// GetBotOwnerID returns value of BotOwnerID conditional field and
+// boolean which is true if field was set.
+func (p *PeerSettings) GetBotOwnerID() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(20) {
+		return value, false
+	}
+	return p.BotOwnerID, true
 }

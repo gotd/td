@@ -67,6 +67,10 @@ type PaymentsGetResaleStarGiftsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stars
 	StarsOnly bool
+	// TonOnly field of PaymentsGetResaleStarGiftsRequest.
+	TonOnly bool
+	// FragmentOnly field of PaymentsGetResaleStarGiftsRequest.
+	FragmentOnly bool
 	// If a previous call to the method was made and payments.resaleStarGifts¹
 	// attributes_hash was set, pass it here to avoid returning any results if they haven't
 	// changed. Otherwise, set this flag and pass 0 to return payments.resaleStarGifts²
@@ -131,6 +135,12 @@ func (g *PaymentsGetResaleStarGiftsRequest) Zero() bool {
 	if !(g.StarsOnly == false) {
 		return false
 	}
+	if !(g.TonOnly == false) {
+		return false
+	}
+	if !(g.FragmentOnly == false) {
+		return false
+	}
 	if !(g.AttributesHash == 0) {
 		return false
 	}
@@ -165,6 +175,8 @@ func (g *PaymentsGetResaleStarGiftsRequest) FillFrom(from interface {
 	GetSortByNum() (value bool)
 	GetForCraft() (value bool)
 	GetStarsOnly() (value bool)
+	GetTonOnly() (value bool)
+	GetFragmentOnly() (value bool)
 	GetAttributesHash() (value int64, ok bool)
 	GetGiftID() (value int64)
 	GetAttributes() (value []StarGiftAttributeIDClass, ok bool)
@@ -175,6 +187,8 @@ func (g *PaymentsGetResaleStarGiftsRequest) FillFrom(from interface {
 	g.SortByNum = from.GetSortByNum()
 	g.ForCraft = from.GetForCraft()
 	g.StarsOnly = from.GetStarsOnly()
+	g.TonOnly = from.GetTonOnly()
+	g.FragmentOnly = from.GetFragmentOnly()
 	if val, ok := from.GetAttributesHash(); ok {
 		g.AttributesHash = val
 	}
@@ -232,6 +246,16 @@ func (g *PaymentsGetResaleStarGiftsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(5),
 		},
 		{
+			Name:       "TonOnly",
+			SchemaName: "ton_only",
+			Null:       !g.Flags.Has(6),
+		},
+		{
+			Name:       "FragmentOnly",
+			SchemaName: "fragment_only",
+			Null:       !g.Flags.Has(7),
+		},
+		{
 			Name:       "AttributesHash",
 			SchemaName: "attributes_hash",
 			Null:       !g.Flags.Has(0),
@@ -270,6 +294,12 @@ func (g *PaymentsGetResaleStarGiftsRequest) SetFlags() {
 	}
 	if !(g.StarsOnly == false) {
 		g.Flags.Set(5)
+	}
+	if !(g.TonOnly == false) {
+		g.Flags.Set(6)
+	}
+	if !(g.FragmentOnly == false) {
+		g.Flags.Set(7)
 	}
 	if !(g.AttributesHash == 0) {
 		g.Flags.Set(0)
@@ -342,6 +372,8 @@ func (g *PaymentsGetResaleStarGiftsRequest) DecodeBare(b *bin.Buffer) error {
 	g.SortByNum = g.Flags.Has(2)
 	g.ForCraft = g.Flags.Has(4)
 	g.StarsOnly = g.Flags.Has(5)
+	g.TonOnly = g.Flags.Has(6)
+	g.FragmentOnly = g.Flags.Has(7)
 	if g.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
@@ -464,6 +496,44 @@ func (g *PaymentsGetResaleStarGiftsRequest) GetStarsOnly() (value bool) {
 		return
 	}
 	return g.Flags.Has(5)
+}
+
+// SetTonOnly sets value of TonOnly conditional field.
+func (g *PaymentsGetResaleStarGiftsRequest) SetTonOnly(value bool) {
+	if value {
+		g.Flags.Set(6)
+		g.TonOnly = true
+	} else {
+		g.Flags.Unset(6)
+		g.TonOnly = false
+	}
+}
+
+// GetTonOnly returns value of TonOnly conditional field.
+func (g *PaymentsGetResaleStarGiftsRequest) GetTonOnly() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(6)
+}
+
+// SetFragmentOnly sets value of FragmentOnly conditional field.
+func (g *PaymentsGetResaleStarGiftsRequest) SetFragmentOnly(value bool) {
+	if value {
+		g.Flags.Set(7)
+		g.FragmentOnly = true
+	} else {
+		g.Flags.Unset(7)
+		g.FragmentOnly = false
+	}
+}
+
+// GetFragmentOnly returns value of FragmentOnly conditional field.
+func (g *PaymentsGetResaleStarGiftsRequest) GetFragmentOnly() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(7)
 }
 
 // SetAttributesHash sets value of AttributesHash conditional field.

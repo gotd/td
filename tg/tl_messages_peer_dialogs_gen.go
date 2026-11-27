@@ -31,11 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesPeerDialogs represents TL type `messages.peerDialogs#3371c354`.
+// MessagesPeerDialogs represents TL type `messages.peerDialogs#a749f3e5`.
 // Dialog info of multiple peers
 //
 // See https://core.telegram.org/constructor/messages.peerDialogs for reference.
 type MessagesPeerDialogs struct {
+	// Flags field of MessagesPeerDialogs.
+	Flags bin.Fields
+	// Topics field of MessagesPeerDialogs.
+	//
+	// Use SetTopics and GetTopics helpers.
+	Topics []ForumTopicClass
 	// Dialog info
 	Dialogs []DialogClass
 	// Messages mentioned in dialog info
@@ -52,7 +58,7 @@ type MessagesPeerDialogs struct {
 }
 
 // MessagesPeerDialogsTypeID is TL type id of MessagesPeerDialogs.
-const MessagesPeerDialogsTypeID = 0x3371c354
+const MessagesPeerDialogsTypeID = 0xa749f3e5
 
 // Ensuring interfaces in compile-time for MessagesPeerDialogs.
 var (
@@ -65,6 +71,12 @@ var (
 func (p *MessagesPeerDialogs) Zero() bool {
 	if p == nil {
 		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Topics == nil) {
+		return false
 	}
 	if !(p.Dialogs == nil) {
 		return false
@@ -96,12 +108,17 @@ func (p *MessagesPeerDialogs) String() string {
 
 // FillFrom fills MessagesPeerDialogs from given interface.
 func (p *MessagesPeerDialogs) FillFrom(from interface {
+	GetTopics() (value []ForumTopicClass, ok bool)
 	GetDialogs() (value []DialogClass)
 	GetMessages() (value []MessageClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 	GetState() (value UpdatesState)
 }) {
+	if val, ok := from.GetTopics(); ok {
+		p.Topics = val
+	}
+
 	p.Dialogs = from.GetDialogs()
 	p.Messages = from.GetMessages()
 	p.Chats = from.GetChats()
@@ -133,6 +150,11 @@ func (p *MessagesPeerDialogs) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Topics",
+			SchemaName: "topics",
+			Null:       !p.Flags.Has(0),
+		},
+		{
 			Name:       "Dialogs",
 			SchemaName: "dialogs",
 		},
@@ -156,10 +178,17 @@ func (p *MessagesPeerDialogs) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *MessagesPeerDialogs) SetFlags() {
+	if !(p.Topics == nil) {
+		p.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode messages.peerDialogs#3371c354 as nil")
+		return fmt.Errorf("can't encode messages.peerDialogs#a749f3e5 as nil")
 	}
 	b.PutID(MessagesPeerDialogsTypeID)
 	return p.EncodeBare(b)
@@ -168,46 +197,61 @@ func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *MessagesPeerDialogs) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode messages.peerDialogs#3371c354 as nil")
+		return fmt.Errorf("can't encode messages.peerDialogs#a749f3e5 as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field flags: %w", err)
+	}
+	if p.Flags.Has(0) {
+		b.PutVectorHeader(len(p.Topics))
+		for idx, v := range p.Topics {
+			if v == nil {
+				return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field topics element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field topics element with index %d: %w", idx, err)
+			}
+		}
 	}
 	b.PutVectorHeader(len(p.Dialogs))
 	for idx, v := range p.Dialogs {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field dialogs element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field dialogs element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field dialogs element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field dialogs element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(p.Messages))
 	for idx, v := range p.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(p.Chats))
 	for idx, v := range p.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field users element with index %d: %w", idx, err)
 		}
 	}
 	if err := p.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field state: %w", err)
+		return fmt.Errorf("unable to encode messages.peerDialogs#a749f3e5: field state: %w", err)
 	}
 	return nil
 }
@@ -215,10 +259,10 @@ func (p *MessagesPeerDialogs) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode messages.peerDialogs#3371c354 to nil")
+		return fmt.Errorf("can't decode messages.peerDialogs#a749f3e5 to nil")
 	}
 	if err := b.ConsumeID(MessagesPeerDialogsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: %w", err)
+		return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -226,12 +270,34 @@ func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode messages.peerDialogs#3371c354 to nil")
+		return fmt.Errorf("can't decode messages.peerDialogs#a749f3e5 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field flags: %w", err)
+		}
+	}
+	if p.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field topics: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Topics = make([]ForumTopicClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeForumTopic(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field topics: %w", err)
+			}
+			p.Topics = append(p.Topics, value)
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field dialogs: %w", err)
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field dialogs: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -240,7 +306,7 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDialog(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field dialogs: %w", err)
+				return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field dialogs: %w", err)
 			}
 			p.Dialogs = append(p.Dialogs, value)
 		}
@@ -248,7 +314,7 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field messages: %w", err)
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -257,7 +323,7 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field messages: %w", err)
+				return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field messages: %w", err)
 			}
 			p.Messages = append(p.Messages, value)
 		}
@@ -265,7 +331,7 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field chats: %w", err)
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -274,7 +340,7 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field chats: %w", err)
+				return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field chats: %w", err)
 			}
 			p.Chats = append(p.Chats, value)
 		}
@@ -282,7 +348,7 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -291,17 +357,35 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field users: %w", err)
 			}
 			p.Users = append(p.Users, value)
 		}
 	}
 	{
 		if err := p.State.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: field state: %w", err)
+			return fmt.Errorf("unable to decode messages.peerDialogs#a749f3e5: field state: %w", err)
 		}
 	}
 	return nil
+}
+
+// SetTopics sets value of Topics conditional field.
+func (p *MessagesPeerDialogs) SetTopics(value []ForumTopicClass) {
+	p.Flags.Set(0)
+	p.Topics = value
+}
+
+// GetTopics returns value of Topics conditional field and
+// boolean which is true if field was set.
+func (p *MessagesPeerDialogs) GetTopics() (value []ForumTopicClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.Topics, true
 }
 
 // GetDialogs returns value of Dialogs field.
@@ -342,6 +426,14 @@ func (p *MessagesPeerDialogs) GetState() (value UpdatesState) {
 		return
 	}
 	return p.State
+}
+
+// MapTopics returns field Topics wrapped in ForumTopicClassArray helper.
+func (p *MessagesPeerDialogs) MapTopics() (value ForumTopicClassArray, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return ForumTopicClassArray(p.Topics), true
 }
 
 // MapDialogs returns field Dialogs wrapped in DialogClassArray helper.

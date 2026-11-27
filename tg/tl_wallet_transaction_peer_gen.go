@@ -1173,6 +1173,145 @@ func (w *WalletTransactionPeerTelegramGift) GetOwnProfile() (value bool) {
 	return w.Flags.Has(0)
 }
 
+// WalletTransactionPeerOnchainGift represents TL type `walletTransactionPeerOnchainGift#4af4aff8`.
+//
+// See https://core.telegram.org/constructor/walletTransactionPeerOnchainGift for reference.
+type WalletTransactionPeerOnchainGift struct {
+	// Action field of WalletTransactionPeerOnchainGift.
+	Action WalletOnchainGiftActionClass
+}
+
+// WalletTransactionPeerOnchainGiftTypeID is TL type id of WalletTransactionPeerOnchainGift.
+const WalletTransactionPeerOnchainGiftTypeID = 0x4af4aff8
+
+// construct implements constructor of WalletTransactionPeerClass.
+func (w WalletTransactionPeerOnchainGift) construct() WalletTransactionPeerClass { return &w }
+
+// Ensuring interfaces in compile-time for WalletTransactionPeerOnchainGift.
+var (
+	_ bin.Encoder     = &WalletTransactionPeerOnchainGift{}
+	_ bin.Decoder     = &WalletTransactionPeerOnchainGift{}
+	_ bin.BareEncoder = &WalletTransactionPeerOnchainGift{}
+	_ bin.BareDecoder = &WalletTransactionPeerOnchainGift{}
+
+	_ WalletTransactionPeerClass = &WalletTransactionPeerOnchainGift{}
+)
+
+func (w *WalletTransactionPeerOnchainGift) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Action == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (w *WalletTransactionPeerOnchainGift) String() string {
+	if w == nil {
+		return "WalletTransactionPeerOnchainGift(nil)"
+	}
+	type Alias WalletTransactionPeerOnchainGift
+	return fmt.Sprintf("WalletTransactionPeerOnchainGift%+v", Alias(*w))
+}
+
+// FillFrom fills WalletTransactionPeerOnchainGift from given interface.
+func (w *WalletTransactionPeerOnchainGift) FillFrom(from interface {
+	GetAction() (value WalletOnchainGiftActionClass)
+}) {
+	w.Action = from.GetAction()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*WalletTransactionPeerOnchainGift) TypeID() uint32 {
+	return WalletTransactionPeerOnchainGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*WalletTransactionPeerOnchainGift) TypeName() string {
+	return "walletTransactionPeerOnchainGift"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WalletTransactionPeerOnchainGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "walletTransactionPeerOnchainGift",
+		ID:   WalletTransactionPeerOnchainGiftTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (w *WalletTransactionPeerOnchainGift) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode walletTransactionPeerOnchainGift#4af4aff8 as nil")
+	}
+	b.PutID(WalletTransactionPeerOnchainGiftTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WalletTransactionPeerOnchainGift) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode walletTransactionPeerOnchainGift#4af4aff8 as nil")
+	}
+	if w.Action == nil {
+		return fmt.Errorf("unable to encode walletTransactionPeerOnchainGift#4af4aff8: field action is nil")
+	}
+	if err := w.Action.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode walletTransactionPeerOnchainGift#4af4aff8: field action: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (w *WalletTransactionPeerOnchainGift) Decode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode walletTransactionPeerOnchainGift#4af4aff8 to nil")
+	}
+	if err := b.ConsumeID(WalletTransactionPeerOnchainGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode walletTransactionPeerOnchainGift#4af4aff8: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WalletTransactionPeerOnchainGift) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode walletTransactionPeerOnchainGift#4af4aff8 to nil")
+	}
+	{
+		value, err := DecodeWalletOnchainGiftAction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode walletTransactionPeerOnchainGift#4af4aff8: field action: %w", err)
+		}
+		w.Action = value
+	}
+	return nil
+}
+
+// GetAction returns value of Action field.
+func (w *WalletTransactionPeerOnchainGift) GetAction() (value WalletOnchainGiftActionClass) {
+	if w == nil {
+		return
+	}
+	return w.Action
+}
+
 // WalletTransactionPeerClassName is schema name of WalletTransactionPeerClass.
 const WalletTransactionPeerClassName = "WalletTransactionPeer"
 
@@ -1187,6 +1326,7 @@ const WalletTransactionPeerClassName = "WalletTransactionPeer"
 //   - [WalletTransactionPeerUnsupported]
 //   - [WalletTransactionPeerChannel]
 //   - [WalletTransactionPeerTelegramGift]
+//   - [WalletTransactionPeerOnchainGift]
 //
 // Example:
 //
@@ -1201,6 +1341,7 @@ const WalletTransactionPeerClassName = "WalletTransactionPeer"
 //	case *tg.WalletTransactionPeerUnsupported: // walletTransactionPeerUnsupported#728bed5a
 //	case *tg.WalletTransactionPeerChannel: // walletTransactionPeerChannel#54e70c31
 //	case *tg.WalletTransactionPeerTelegramGift: // walletTransactionPeerTelegramGift#f4729499
+//	case *tg.WalletTransactionPeerOnchainGift: // walletTransactionPeerOnchainGift#4af4aff8
 //	default: panic(v)
 //	}
 type WalletTransactionPeerClass interface {
@@ -1267,6 +1408,13 @@ func DecodeWalletTransactionPeer(buf *bin.Buffer) (WalletTransactionPeerClass, e
 	case WalletTransactionPeerTelegramGiftTypeID:
 		// Decoding walletTransactionPeerTelegramGift#f4729499.
 		v := WalletTransactionPeerTelegramGift{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode WalletTransactionPeerClass: %w", err)
+		}
+		return &v, nil
+	case WalletTransactionPeerOnchainGiftTypeID:
+		// Decoding walletTransactionPeerOnchainGift#4af4aff8.
+		v := WalletTransactionPeerOnchainGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WalletTransactionPeerClass: %w", err)
 		}
