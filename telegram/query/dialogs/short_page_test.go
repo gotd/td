@@ -87,3 +87,54 @@ func TestIteratorOffsetNotAdvancing(t *testing.T) {
 
 	require.Equal(t, dialogIDs(30, 28), collectDialogs(t, mock))
 }
+
+func TestIteratorPageEndsOnPeerlessDialog(t *testing.T) {
+	mock := tgmock.NewRequire(t)
+
+	// The first page ends on a dialogCommunity, which has no peer: the offset
+	// of the next page comes from the last dialog that has one.
+	first := dialogsPage(21, dialogIDs(30, 21)...)
+	first.Dialogs = append(first.Dialogs, &tg.DialogCommunity{})
+	mock.ExpectCall(dialogsRequest(0)).ThenResult(first)
+	mock.ExpectCall(dialogsRequest(21)).ThenResult(dialogsPage(21, dialogIDs(20, 11)...))
+
+	var (
+		got      []int
+		peerless int
+	)
+	err := NewQueryBuilder(tg.NewClient(mock)).GetDialogs().BatchSize(10).
+		ForEach(context.Background(), func(ctx context.Context, e Elem) error {
+			if _, ok := e.Dialog.(*tg.DialogCommunity); ok {
+				peerless++
+				require.Nil(t, e.Last)
+				return nil
+			}
+			got = append(got, e.Last.GetID())
+			return nil
+		})
+	require.NoError(t, err)
+	require.Equal(t, 1, peerless)
+	require.Equal(t, dialogIDs(30, 11), got)
+}
+
+func TestIteratorPeerlessOnlyPage(t *testing.T) {
+	mock := tgmock.NewRequire(t)
+
+	// A page with only peerless dialogs has no offset peer: its dialogs are
+	// still returned, then the iterator stops instead of failing.
+	first := dialogsPage(30, dialogIDs(30, 21)...)
+	mock.ExpectCall(dialogsRequest(0)).ThenResult(first)
+	mock.ExpectCall(dialogsRequest(21)).ThenResult(&tg.MessagesDialogsSlice{
+		Count:   30,
+		Dialogs: []tg.DialogClass{&tg.DialogCommunity{}},
+	})
+
+	var n int
+	err := NewQueryBuilder(tg.NewClient(mock)).GetDialogs().BatchSize(10).
+		ForEach(context.Background(), func(ctx context.Context, e Elem) error {
+			n++
+			return nil
+		})
+	require.NoError(t, err)
+	require.Equal(t, 11, n)
+}

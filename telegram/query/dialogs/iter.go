@@ -150,15 +150,20 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 	m.bufCur = -1
 	m.buf = m.buf[:0]
 
-	// last is the last message of the last dialog that has one, used as
-	// offset of the next batch.
-	var last tg.NotEmptyMessage
+	// last is the last message of the last dialog that has one, and lastPeer
+	// is the peer of the last dialog that has one. Both are used as offset of
+	// the next batch. Peerless dialogs (e.g. dialogCommunity) are skipped.
+	var (
+		last     tg.NotEmptyMessage
+		lastPeer tg.PeerClass
+	)
 	for _, dlg := range dialogs {
 		var (
 			p      tg.InputPeerClass = &tg.InputPeerEmpty{}
 			dlgMsg tg.NotEmptyMessage
 		)
 		if dlgPeer, ok := dialogPeer(dlg); ok {
+			lastPeer = dlgPeer
 			var key DialogKey
 			if err := key.FromPeer(dlgPeer); err == nil {
 				if msg, ok := msgMap[key]; ok {
@@ -186,13 +191,15 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 			m.offsetDate = last.GetDate()
 		}
 
-		dlgPeer, ok := dialogPeer(dialogs[len(m.buf)-1])
-		if !ok {
-			return errors.Errorf("get offset peer: dialog %T has no peer", dialogs[len(m.buf)-1])
+		if lastPeer == nil {
+			// Only peerless dialogs on this page: there is no offset peer
+			// for the next request, so this is the last batch.
+			m.lastBatch = true
+			return nil
 		}
 		// The server uses offset_peer only to order results: min or unknown
 		// peers are fine there.
-		m.offsetPeer = entities.OffsetPeer(dlgPeer)
+		m.offsetPeer = entities.OffsetPeer(lastPeer)
 
 		if m.offsetID == m.batchOffsetID &&
 			m.offsetDate == m.batchOffsetDate &&
