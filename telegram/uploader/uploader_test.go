@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"testing"
 	"testing/fstest"
@@ -119,6 +120,24 @@ func (m mockSource) Size() int64 {
 	return m.data.Size()
 }
 
+func TestUploaderFromReaderSize(t *testing.T) {
+	for _, reader := range []io.Reader{
+		bytes.NewBufferString("xab"), bytes.NewReader([]byte("xab")), strings.NewReader("xab"),
+	} {
+		_, err := io.CopyN(io.Discard, reader, 1)
+		require.NoError(t, err)
+		file, err := NewUploader(newMockClient(false)).FromReader(context.Background(), "file", reader)
+		require.NoError(t, err)
+		require.IsType(t, &tg.InputFile{}, file)
+		require.Equal(t, "187ef4436122d1cc2f40dc2b92f0eba0", file.(*tg.InputFile).MD5Checksum)
+	}
+
+	stream := struct{ io.Reader }{strings.NewReader("ab")}
+	file, err := NewUploader(newMockClient(false)).FromReader(context.Background(), "file", stream)
+	require.NoError(t, err)
+	require.IsType(t, &tg.InputFileBig{}, file)
+}
+
 func TestUploader_autoPartSize(t *testing.T) {
 	ctx := context.Background()
 	const mb = 1024 * 1024
@@ -164,7 +183,7 @@ func TestUploader_autoPartSize(t *testing.T) {
 	t.Run("UnaffectedForStream", func(t *testing.T) {
 		u := NewUploader(newMockClient(false))
 		// Unknown size (streamed upload): cannot compute, default is kept.
-		_, err := u.FromReader(ctx, "stream.bin", bytes.NewReader(tinyData))
+		_, err := u.FromReader(ctx, "stream.bin", struct{ io.Reader }{bytes.NewReader(tinyData)})
 		require.NoError(t, err)
 		require.Equal(t, defaultPartSize, u.partSize)
 	})

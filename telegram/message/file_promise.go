@@ -93,8 +93,10 @@ func FromFS(filesystem fs.FS, path string) UploadOption {
 }
 
 // FromReader uploads file from given io.Reader.
-// NB: totally stream should not exceed the limit for
-// small files (10 MB as docs says, may be a bit bigger).
+// With the default uploader, in-memory byte and string readers report their
+// remaining size. Readers of unknown size stream as inputFileBig without an MD5
+// checksum, which can affect how Telegram classifies animations and video notes.
+// Use FromFile when file metadata is available.
 func FromReader(name string, r io.Reader) UploadOption {
 	return Upload(func(ctx context.Context, b Uploader) (tg.InputFileClass, error) {
 		return b.FromReader(ctx, name, r)
