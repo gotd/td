@@ -18,6 +18,13 @@ import (
 // Up runs all servers in a cluster.
 func (c *Cluster) Up(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
+	// fail stops goroutines that are already started and releases the group
+	// context before returning early.
+	fail := func(err error) error {
+		g.Cancel()
+		_ = g.Wait()
+		return err
+	}
 
 	listen := func(ctx context.Context, _ int) (net.Listener, error) {
 		return newLocalListener(ctx)
@@ -26,7 +33,7 @@ func (c *Cluster) Up(ctx context.Context) error {
 		// Create local random listener
 		l, err := newLocalListener(ctx)
 		if err != nil {
-			return err
+			return fail(err)
 		}
 
 		mux := http.NewServeMux()
@@ -69,7 +76,7 @@ func (c *Cluster) Up(ctx context.Context) error {
 	for dcID, s := range c.setups {
 		l, err := listen(ctx, dcID)
 		if err != nil {
-			return errors.Wrapf(err, "DC %d: listen port", dcID)
+			return fail(errors.Wrapf(err, "DC %d: listen port", dcID))
 		}
 
 		if !c.web {
