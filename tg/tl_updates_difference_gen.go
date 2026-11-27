@@ -193,11 +193,17 @@ func (d *UpdatesDifferenceEmpty) GetSeq() (value int) {
 	return d.Seq
 }
 
-// UpdatesDifference represents TL type `updates.difference#f49ca0`.
+// UpdatesDifference represents TL type `updates.difference#b78fca40`.
 // Full list of occurred events.
 //
 // See https://core.telegram.org/constructor/updates.difference for reference.
 type UpdatesDifference struct {
+	// Flags field of UpdatesDifference.
+	Flags bin.Fields
+	// Topics field of UpdatesDifference.
+	//
+	// Use SetTopics and GetTopics helpers.
+	Topics []ForumTopicClass
 	// List of new messages
 	NewMessages []MessageClass
 	// List of new encrypted secret chat messages
@@ -213,7 +219,7 @@ type UpdatesDifference struct {
 }
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
-const UpdatesDifferenceTypeID = 0xf49ca0
+const UpdatesDifferenceTypeID = 0xb78fca40
 
 // construct implements constructor of UpdatesDifferenceClass.
 func (d UpdatesDifference) construct() UpdatesDifferenceClass { return &d }
@@ -231,6 +237,12 @@ var (
 func (d *UpdatesDifference) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Topics == nil) {
+		return false
 	}
 	if !(d.NewMessages == nil) {
 		return false
@@ -265,6 +277,7 @@ func (d *UpdatesDifference) String() string {
 
 // FillFrom fills UpdatesDifference from given interface.
 func (d *UpdatesDifference) FillFrom(from interface {
+	GetTopics() (value []ForumTopicClass, ok bool)
 	GetNewMessages() (value []MessageClass)
 	GetNewEncryptedMessages() (value []EncryptedMessageClass)
 	GetOtherUpdates() (value []UpdateClass)
@@ -272,6 +285,10 @@ func (d *UpdatesDifference) FillFrom(from interface {
 	GetUsers() (value []UserClass)
 	GetState() (value UpdatesState)
 }) {
+	if val, ok := from.GetTopics(); ok {
+		d.Topics = val
+	}
+
 	d.NewMessages = from.GetNewMessages()
 	d.NewEncryptedMessages = from.GetNewEncryptedMessages()
 	d.OtherUpdates = from.GetOtherUpdates()
@@ -304,6 +321,11 @@ func (d *UpdatesDifference) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Topics",
+			SchemaName: "topics",
+			Null:       !d.Flags.Has(0),
+		},
+		{
 			Name:       "NewMessages",
 			SchemaName: "new_messages",
 		},
@@ -331,10 +353,17 @@ func (d *UpdatesDifference) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *UpdatesDifference) SetFlags() {
+	if !(d.Topics == nil) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.difference#f49ca0 as nil")
+		return fmt.Errorf("can't encode updates.difference#b78fca40 as nil")
 	}
 	b.PutID(UpdatesDifferenceTypeID)
 	return d.EncodeBare(b)
@@ -343,55 +372,70 @@ func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *UpdatesDifference) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.difference#f49ca0 as nil")
+		return fmt.Errorf("can't encode updates.difference#b78fca40 as nil")
+	}
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updates.difference#b78fca40: field flags: %w", err)
+	}
+	if d.Flags.Has(0) {
+		b.PutVectorHeader(len(d.Topics))
+		for idx, v := range d.Topics {
+			if v == nil {
+				return fmt.Errorf("unable to encode updates.difference#b78fca40: field topics element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode updates.difference#b78fca40: field topics element with index %d: %w", idx, err)
+			}
+		}
 	}
 	b.PutVectorHeader(len(d.NewMessages))
 	for idx, v := range d.NewMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field new_messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field new_messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.NewEncryptedMessages))
 	for idx, v := range d.NewEncryptedMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_encrypted_messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field new_encrypted_messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field new_encrypted_messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field new_encrypted_messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.OtherUpdates))
 	for idx, v := range d.OtherUpdates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field other_updates element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field other_updates element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field other_updates element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field other_updates element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.difference#f49ca0: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.difference#b78fca40: field users element with index %d: %w", idx, err)
 		}
 	}
 	if err := d.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.difference#f49ca0: field state: %w", err)
+		return fmt.Errorf("unable to encode updates.difference#b78fca40: field state: %w", err)
 	}
 	return nil
 }
@@ -399,10 +443,10 @@ func (d *UpdatesDifference) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.difference#f49ca0 to nil")
+		return fmt.Errorf("can't decode updates.difference#b78fca40 to nil")
 	}
 	if err := b.ConsumeID(UpdatesDifferenceTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.difference#f49ca0: %w", err)
+		return fmt.Errorf("unable to decode updates.difference#b78fca40: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -410,12 +454,34 @@ func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.difference#f49ca0 to nil")
+		return fmt.Errorf("can't decode updates.difference#b78fca40 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field flags: %w", err)
+		}
+	}
+	if d.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field topics: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.Topics = make([]ForumTopicClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeForumTopic(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updates.difference#b78fca40: field topics: %w", err)
+			}
+			d.Topics = append(d.Topics, value)
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_messages: %w", err)
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field new_messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -424,7 +490,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_messages: %w", err)
+				return fmt.Errorf("unable to decode updates.difference#b78fca40: field new_messages: %w", err)
 			}
 			d.NewMessages = append(d.NewMessages, value)
 		}
@@ -432,7 +498,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_encrypted_messages: %w", err)
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field new_encrypted_messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -441,7 +507,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEncryptedMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field new_encrypted_messages: %w", err)
+				return fmt.Errorf("unable to decode updates.difference#b78fca40: field new_encrypted_messages: %w", err)
 			}
 			d.NewEncryptedMessages = append(d.NewEncryptedMessages, value)
 		}
@@ -449,7 +515,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field other_updates: %w", err)
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field other_updates: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -458,7 +524,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field other_updates: %w", err)
+				return fmt.Errorf("unable to decode updates.difference#b78fca40: field other_updates: %w", err)
 			}
 			d.OtherUpdates = append(d.OtherUpdates, value)
 		}
@@ -466,7 +532,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field chats: %w", err)
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -475,7 +541,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field chats: %w", err)
+				return fmt.Errorf("unable to decode updates.difference#b78fca40: field chats: %w", err)
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -483,7 +549,7 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field users: %w", err)
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -492,17 +558,35 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.difference#f49ca0: field users: %w", err)
+				return fmt.Errorf("unable to decode updates.difference#b78fca40: field users: %w", err)
 			}
 			d.Users = append(d.Users, value)
 		}
 	}
 	{
 		if err := d.State.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.difference#f49ca0: field state: %w", err)
+			return fmt.Errorf("unable to decode updates.difference#b78fca40: field state: %w", err)
 		}
 	}
 	return nil
+}
+
+// SetTopics sets value of Topics conditional field.
+func (d *UpdatesDifference) SetTopics(value []ForumTopicClass) {
+	d.Flags.Set(0)
+	d.Topics = value
+}
+
+// GetTopics returns value of Topics conditional field and
+// boolean which is true if field was set.
+func (d *UpdatesDifference) GetTopics() (value []ForumTopicClass, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Topics, true
 }
 
 // GetNewMessages returns value of NewMessages field.
@@ -553,6 +637,14 @@ func (d *UpdatesDifference) GetState() (value UpdatesState) {
 	return d.State
 }
 
+// MapTopics returns field Topics wrapped in ForumTopicClassArray helper.
+func (d *UpdatesDifference) MapTopics() (value ForumTopicClassArray, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return ForumTopicClassArray(d.Topics), true
+}
+
 // MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
 func (d *UpdatesDifference) MapNewMessages() (value MessageClassArray) {
 	return MessageClassArray(d.NewMessages)
@@ -578,11 +670,17 @@ func (d *UpdatesDifference) MapUsers() (value UserClassArray) {
 	return UserClassArray(d.Users)
 }
 
-// UpdatesDifferenceSlice represents TL type `updates.differenceSlice#a8fb1981`.
+// UpdatesDifferenceSlice represents TL type `updates.differenceSlice#7c52f53`.
 // Incomplete list of occurred events.
 //
 // See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
+	// Flags field of UpdatesDifferenceSlice.
+	Flags bin.Fields
+	// Topics field of UpdatesDifferenceSlice.
+	//
+	// Use SetTopics and GetTopics helpers.
+	Topics []ForumTopicClass
 	// List of new messages
 	NewMessages []MessageClass
 	// New messages from the encrypted event sequence¹
@@ -601,7 +699,7 @@ type UpdatesDifferenceSlice struct {
 }
 
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
-const UpdatesDifferenceSliceTypeID = 0xa8fb1981
+const UpdatesDifferenceSliceTypeID = 0x7c52f53
 
 // construct implements constructor of UpdatesDifferenceClass.
 func (d UpdatesDifferenceSlice) construct() UpdatesDifferenceClass { return &d }
@@ -619,6 +717,12 @@ var (
 func (d *UpdatesDifferenceSlice) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Topics == nil) {
+		return false
 	}
 	if !(d.NewMessages == nil) {
 		return false
@@ -653,6 +757,7 @@ func (d *UpdatesDifferenceSlice) String() string {
 
 // FillFrom fills UpdatesDifferenceSlice from given interface.
 func (d *UpdatesDifferenceSlice) FillFrom(from interface {
+	GetTopics() (value []ForumTopicClass, ok bool)
 	GetNewMessages() (value []MessageClass)
 	GetNewEncryptedMessages() (value []EncryptedMessageClass)
 	GetOtherUpdates() (value []UpdateClass)
@@ -660,6 +765,10 @@ func (d *UpdatesDifferenceSlice) FillFrom(from interface {
 	GetUsers() (value []UserClass)
 	GetIntermediateState() (value UpdatesState)
 }) {
+	if val, ok := from.GetTopics(); ok {
+		d.Topics = val
+	}
+
 	d.NewMessages = from.GetNewMessages()
 	d.NewEncryptedMessages = from.GetNewEncryptedMessages()
 	d.OtherUpdates = from.GetOtherUpdates()
@@ -692,6 +801,11 @@ func (d *UpdatesDifferenceSlice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Topics",
+			SchemaName: "topics",
+			Null:       !d.Flags.Has(0),
+		},
+		{
 			Name:       "NewMessages",
 			SchemaName: "new_messages",
 		},
@@ -719,10 +833,17 @@ func (d *UpdatesDifferenceSlice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *UpdatesDifferenceSlice) SetFlags() {
+	if !(d.Topics == nil) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceSlice#a8fb1981 as nil")
+		return fmt.Errorf("can't encode updates.differenceSlice#7c52f53 as nil")
 	}
 	b.PutID(UpdatesDifferenceSliceTypeID)
 	return d.EncodeBare(b)
@@ -731,55 +852,70 @@ func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *UpdatesDifferenceSlice) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode updates.differenceSlice#a8fb1981 as nil")
+		return fmt.Errorf("can't encode updates.differenceSlice#7c52f53 as nil")
+	}
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field flags: %w", err)
+	}
+	if d.Flags.Has(0) {
+		b.PutVectorHeader(len(d.Topics))
+		for idx, v := range d.Topics {
+			if v == nil {
+				return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field topics element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field topics element with index %d: %w", idx, err)
+			}
+		}
 	}
 	b.PutVectorHeader(len(d.NewMessages))
 	for idx, v := range d.NewMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field new_messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field new_messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.NewEncryptedMessages))
 	for idx, v := range d.NewEncryptedMessages {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_encrypted_messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field new_encrypted_messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field new_encrypted_messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field new_encrypted_messages element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.OtherUpdates))
 	for idx, v := range d.OtherUpdates {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field other_updates element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field other_updates element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field other_updates element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field other_updates element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.Chats))
 	for idx, v := range d.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(d.Users))
 	for idx, v := range d.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field users element with index %d: %w", idx, err)
 		}
 	}
 	if err := d.IntermediateState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field intermediate_state: %w", err)
+		return fmt.Errorf("unable to encode updates.differenceSlice#7c52f53: field intermediate_state: %w", err)
 	}
 	return nil
 }
@@ -787,10 +923,10 @@ func (d *UpdatesDifferenceSlice) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceSlice#a8fb1981 to nil")
+		return fmt.Errorf("can't decode updates.differenceSlice#7c52f53 to nil")
 	}
 	if err := b.ConsumeID(UpdatesDifferenceSliceTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: %w", err)
+		return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -798,12 +934,34 @@ func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode updates.differenceSlice#a8fb1981 to nil")
+		return fmt.Errorf("can't decode updates.differenceSlice#7c52f53 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field flags: %w", err)
+		}
+	}
+	if d.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field topics: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.Topics = make([]ForumTopicClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeForumTopic(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field topics: %w", err)
+			}
+			d.Topics = append(d.Topics, value)
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_messages: %w", err)
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field new_messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -812,7 +970,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_messages: %w", err)
+				return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field new_messages: %w", err)
 			}
 			d.NewMessages = append(d.NewMessages, value)
 		}
@@ -820,7 +978,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_encrypted_messages: %w", err)
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field new_encrypted_messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -829,7 +987,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeEncryptedMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field new_encrypted_messages: %w", err)
+				return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field new_encrypted_messages: %w", err)
 			}
 			d.NewEncryptedMessages = append(d.NewEncryptedMessages, value)
 		}
@@ -837,7 +995,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field other_updates: %w", err)
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field other_updates: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -846,7 +1004,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUpdate(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field other_updates: %w", err)
+				return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field other_updates: %w", err)
 			}
 			d.OtherUpdates = append(d.OtherUpdates, value)
 		}
@@ -854,7 +1012,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field chats: %w", err)
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -863,7 +1021,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field chats: %w", err)
+				return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field chats: %w", err)
 			}
 			d.Chats = append(d.Chats, value)
 		}
@@ -871,7 +1029,7 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field users: %w", err)
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -880,17 +1038,35 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field users: %w", err)
+				return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field users: %w", err)
 			}
 			d.Users = append(d.Users, value)
 		}
 	}
 	{
 		if err := d.IntermediateState.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: field intermediate_state: %w", err)
+			return fmt.Errorf("unable to decode updates.differenceSlice#7c52f53: field intermediate_state: %w", err)
 		}
 	}
 	return nil
+}
+
+// SetTopics sets value of Topics conditional field.
+func (d *UpdatesDifferenceSlice) SetTopics(value []ForumTopicClass) {
+	d.Flags.Set(0)
+	d.Topics = value
+}
+
+// GetTopics returns value of Topics conditional field and
+// boolean which is true if field was set.
+func (d *UpdatesDifferenceSlice) GetTopics() (value []ForumTopicClass, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Topics, true
 }
 
 // GetNewMessages returns value of NewMessages field.
@@ -939,6 +1115,14 @@ func (d *UpdatesDifferenceSlice) GetIntermediateState() (value UpdatesState) {
 		return
 	}
 	return d.IntermediateState
+}
+
+// MapTopics returns field Topics wrapped in ForumTopicClassArray helper.
+func (d *UpdatesDifferenceSlice) MapTopics() (value ForumTopicClassArray, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return ForumTopicClassArray(d.Topics), true
 }
 
 // MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
@@ -1125,8 +1309,8 @@ const UpdatesDifferenceClassName = "updates.Difference"
 //	}
 //	switch v := g.(type) {
 //	case *tg.UpdatesDifferenceEmpty: // updates.differenceEmpty#5d75a138
-//	case *tg.UpdatesDifference: // updates.difference#f49ca0
-//	case *tg.UpdatesDifferenceSlice: // updates.differenceSlice#a8fb1981
+//	case *tg.UpdatesDifference: // updates.difference#b78fca40
+//	case *tg.UpdatesDifferenceSlice: // updates.differenceSlice#7c52f53
 //	case *tg.UpdatesDifferenceTooLong: // updates.differenceTooLong#4afe8f6d
 //	default: panic(v)
 //	}
@@ -1164,14 +1348,14 @@ func DecodeUpdatesDifference(buf *bin.Buffer) (UpdatesDifferenceClass, error) {
 		}
 		return &v, nil
 	case UpdatesDifferenceTypeID:
-		// Decoding updates.difference#f49ca0.
+		// Decoding updates.difference#b78fca40.
 		v := UpdatesDifference{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", err)
 		}
 		return &v, nil
 	case UpdatesDifferenceSliceTypeID:
-		// Decoding updates.differenceSlice#a8fb1981.
+		// Decoding updates.differenceSlice#7c52f53.
 		v := UpdatesDifferenceSlice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", err)

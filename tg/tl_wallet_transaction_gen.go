@@ -47,6 +47,8 @@ type WalletTransaction struct {
 	KeyChange bool
 	// CommentEncrypted field of WalletTransaction.
 	CommentEncrypted bool
+	// SuspectedSpam field of WalletTransaction.
+	SuspectedSpam bool
 	// ID field of WalletTransaction.
 	ID string
 	// Amount field of WalletTransaction.
@@ -104,6 +106,9 @@ func (w *WalletTransaction) Zero() bool {
 	if !(w.CommentEncrypted == false) {
 		return false
 	}
+	if !(w.SuspectedSpam == false) {
+		return false
+	}
 	if !(w.ID == "") {
 		return false
 	}
@@ -148,6 +153,7 @@ func (w *WalletTransaction) FillFrom(from interface {
 	GetFailed() (value bool)
 	GetKeyChange() (value bool)
 	GetCommentEncrypted() (value bool)
+	GetSuspectedSpam() (value bool)
 	GetID() (value string)
 	GetAmount() (value int64)
 	GetFee() (value int64)
@@ -162,6 +168,7 @@ func (w *WalletTransaction) FillFrom(from interface {
 	w.Failed = from.GetFailed()
 	w.KeyChange = from.GetKeyChange()
 	w.CommentEncrypted = from.GetCommentEncrypted()
+	w.SuspectedSpam = from.GetSuspectedSpam()
 	w.ID = from.GetID()
 	w.Amount = from.GetAmount()
 	w.Fee = from.GetFee()
@@ -230,6 +237,11 @@ func (w *WalletTransaction) TypeInfo() tdp.Type {
 			Null:       !w.Flags.Has(6),
 		},
 		{
+			Name:       "SuspectedSpam",
+			SchemaName: "suspected_spam",
+			Null:       !w.Flags.Has(8),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -284,6 +296,9 @@ func (w *WalletTransaction) SetFlags() {
 	}
 	if !(w.CommentEncrypted == false) {
 		w.Flags.Set(6)
+	}
+	if !(w.SuspectedSpam == false) {
+		w.Flags.Set(8)
 	}
 	if !(w.Comment == "") {
 		w.Flags.Set(3)
@@ -364,6 +379,7 @@ func (w *WalletTransaction) DecodeBare(b *bin.Buffer) error {
 	w.Failed = w.Flags.Has(2)
 	w.KeyChange = w.Flags.Has(5)
 	w.CommentEncrypted = w.Flags.Has(6)
+	w.SuspectedSpam = w.Flags.Has(8)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -514,6 +530,25 @@ func (w *WalletTransaction) GetCommentEncrypted() (value bool) {
 		return
 	}
 	return w.Flags.Has(6)
+}
+
+// SetSuspectedSpam sets value of SuspectedSpam conditional field.
+func (w *WalletTransaction) SetSuspectedSpam(value bool) {
+	if value {
+		w.Flags.Set(8)
+		w.SuspectedSpam = true
+	} else {
+		w.Flags.Unset(8)
+		w.SuspectedSpam = false
+	}
+}
+
+// GetSuspectedSpam returns value of SuspectedSpam conditional field.
+func (w *WalletTransaction) GetSuspectedSpam() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(8)
 }
 
 // GetID returns value of ID field.

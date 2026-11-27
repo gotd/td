@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetForumTopicsRequest represents TL type `messages.getForumTopics#3ba47bff`.
+// MessagesGetForumTopicsRequest represents TL type `messages.getForumTopics#c68c219a`.
 // Get topics of a forum¹
 //
 // Links:
@@ -51,6 +51,14 @@ type MessagesGetForumTopicsRequest struct {
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
+	// IconEmojiID field of MessagesGetForumTopicsRequest.
+	//
+	// Use SetIconEmojiID and GetIconEmojiID helpers.
+	IconEmojiID int64
+	// Closed field of MessagesGetForumTopicsRequest.
+	//
+	// Use SetClosed and GetClosed helpers.
+	Closed bool
 	// Offsets for pagination, for more info click here¹, date of the last message of the
 	// last found topic. Use 0 or any date in the future to get results from the last topic.
 	//
@@ -79,7 +87,7 @@ type MessagesGetForumTopicsRequest struct {
 }
 
 // MessagesGetForumTopicsRequestTypeID is TL type id of MessagesGetForumTopicsRequest.
-const MessagesGetForumTopicsRequestTypeID = 0x3ba47bff
+const MessagesGetForumTopicsRequestTypeID = 0xc68c219a
 
 // Ensuring interfaces in compile-time for MessagesGetForumTopicsRequest.
 var (
@@ -100,6 +108,12 @@ func (g *MessagesGetForumTopicsRequest) Zero() bool {
 		return false
 	}
 	if !(g.Q == "") {
+		return false
+	}
+	if !(g.IconEmojiID == 0) {
+		return false
+	}
+	if !(g.Closed == false) {
 		return false
 	}
 	if !(g.OffsetDate == 0) {
@@ -131,6 +145,8 @@ func (g *MessagesGetForumTopicsRequest) String() string {
 func (g *MessagesGetForumTopicsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetQ() (value string, ok bool)
+	GetIconEmojiID() (value int64, ok bool)
+	GetClosed() (value bool, ok bool)
 	GetOffsetDate() (value int)
 	GetOffsetID() (value int)
 	GetOffsetTopic() (value int)
@@ -139,6 +155,14 @@ func (g *MessagesGetForumTopicsRequest) FillFrom(from interface {
 	g.Peer = from.GetPeer()
 	if val, ok := from.GetQ(); ok {
 		g.Q = val
+	}
+
+	if val, ok := from.GetIconEmojiID(); ok {
+		g.IconEmojiID = val
+	}
+
+	if val, ok := from.GetClosed(); ok {
+		g.Closed = val
 	}
 
 	g.OffsetDate = from.GetOffsetDate()
@@ -180,6 +204,16 @@ func (g *MessagesGetForumTopicsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
+			Name:       "IconEmojiID",
+			SchemaName: "icon_emoji_id",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Closed",
+			SchemaName: "closed",
+			Null:       !g.Flags.Has(2),
+		},
+		{
 			Name:       "OffsetDate",
 			SchemaName: "offset_date",
 		},
@@ -204,12 +238,18 @@ func (g *MessagesGetForumTopicsRequest) SetFlags() {
 	if !(g.Q == "") {
 		g.Flags.Set(0)
 	}
+	if !(g.IconEmojiID == 0) {
+		g.Flags.Set(1)
+	}
+	if !(g.Closed == false) {
+		g.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetForumTopicsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getForumTopics#3ba47bff as nil")
+		return fmt.Errorf("can't encode messages.getForumTopics#c68c219a as nil")
 	}
 	b.PutID(MessagesGetForumTopicsRequestTypeID)
 	return g.EncodeBare(b)
@@ -218,20 +258,26 @@ func (g *MessagesGetForumTopicsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetForumTopicsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getForumTopics#3ba47bff as nil")
+		return fmt.Errorf("can't encode messages.getForumTopics#c68c219a as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getForumTopics#3ba47bff: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.getForumTopics#c68c219a: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getForumTopics#3ba47bff: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getForumTopics#c68c219a: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getForumTopics#3ba47bff: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getForumTopics#c68c219a: field peer: %w", err)
 	}
 	if g.Flags.Has(0) {
 		b.PutString(g.Q)
+	}
+	if g.Flags.Has(1) {
+		b.PutLong(g.IconEmojiID)
+	}
+	if g.Flags.Has(2) {
+		b.PutBool(g.Closed)
 	}
 	b.PutInt(g.OffsetDate)
 	b.PutInt(g.OffsetID)
@@ -243,10 +289,10 @@ func (g *MessagesGetForumTopicsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetForumTopicsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getForumTopics#3ba47bff to nil")
+		return fmt.Errorf("can't decode messages.getForumTopics#c68c219a to nil")
 	}
 	if err := b.ConsumeID(MessagesGetForumTopicsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: %w", err)
+		return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -254,52 +300,66 @@ func (g *MessagesGetForumTopicsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetForumTopicsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getForumTopics#3ba47bff to nil")
+		return fmt.Errorf("can't decode messages.getForumTopics#c68c219a to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field q: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field q: %w", err)
 		}
 		g.Q = value
+	}
+	if g.Flags.Has(1) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field icon_emoji_id: %w", err)
+		}
+		g.IconEmojiID = value
+	}
+	if g.Flags.Has(2) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field closed: %w", err)
+		}
+		g.Closed = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field offset_topic: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field offset_topic: %w", err)
 		}
 		g.OffsetTopic = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getForumTopics#3ba47bff: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getForumTopics#c68c219a: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -330,6 +390,42 @@ func (g *MessagesGetForumTopicsRequest) GetQ() (value string, ok bool) {
 		return value, false
 	}
 	return g.Q, true
+}
+
+// SetIconEmojiID sets value of IconEmojiID conditional field.
+func (g *MessagesGetForumTopicsRequest) SetIconEmojiID(value int64) {
+	g.Flags.Set(1)
+	g.IconEmojiID = value
+}
+
+// GetIconEmojiID returns value of IconEmojiID conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetForumTopicsRequest) GetIconEmojiID() (value int64, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.IconEmojiID, true
+}
+
+// SetClosed sets value of Closed conditional field.
+func (g *MessagesGetForumTopicsRequest) SetClosed(value bool) {
+	g.Flags.Set(2)
+	g.Closed = value
+}
+
+// GetClosed returns value of Closed conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetForumTopicsRequest) GetClosed() (value bool, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.Closed, true
 }
 
 // GetOffsetDate returns value of OffsetDate field.
@@ -364,7 +460,7 @@ func (g *MessagesGetForumTopicsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// MessagesGetForumTopics invokes method messages.getForumTopics#3ba47bff returning error if any.
+// MessagesGetForumTopics invokes method messages.getForumTopics#c68c219a returning error if any.
 // Get topics of a forum¹
 //
 // Links:

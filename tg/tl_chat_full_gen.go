@@ -4350,7 +4350,7 @@ func (c *ChannelFull) GetShareTheme() (value ShareThemeClass, ok bool) {
 	return c.ShareTheme, true
 }
 
-// CommunityFull represents TL type `communityFull#cbb7a507`.
+// CommunityFull represents TL type `communityFull#706702fb`.
 //
 // See https://core.telegram.org/constructor/communityFull for reference.
 type CommunityFull struct {
@@ -4364,6 +4364,10 @@ type CommunityFull struct {
 	ChatPhoto PhotoClass
 	// LinkedPeers field of CommunityFull.
 	LinkedPeers []CommunityPeer
+	// NotifySettings field of CommunityFull.
+	//
+	// Use SetNotifySettings and GetNotifySettings helpers.
+	NotifySettings PeerNotifySettings
 	// AdminsCount field of CommunityFull.
 	//
 	// Use SetAdminsCount and GetAdminsCount helpers.
@@ -4379,7 +4383,7 @@ type CommunityFull struct {
 }
 
 // CommunityFullTypeID is TL type id of CommunityFull.
-const CommunityFullTypeID = 0xcbb7a507
+const CommunityFullTypeID = 0x706702fb
 
 // construct implements constructor of ChatFullClass.
 func (c CommunityFull) construct() ChatFullClass { return &c }
@@ -4413,6 +4417,9 @@ func (c *CommunityFull) Zero() bool {
 	if !(c.LinkedPeers == nil) {
 		return false
 	}
+	if !(c.NotifySettings.Zero()) {
+		return false
+	}
 	if !(c.AdminsCount == 0) {
 		return false
 	}
@@ -4441,6 +4448,7 @@ func (c *CommunityFull) FillFrom(from interface {
 	GetAbout() (value string)
 	GetChatPhoto() (value PhotoClass)
 	GetLinkedPeers() (value []CommunityPeer)
+	GetNotifySettings() (value PeerNotifySettings, ok bool)
 	GetAdminsCount() (value int, ok bool)
 	GetKickedCount() (value int, ok bool)
 	GetPeerLinkRequestsPending() (value int, ok bool)
@@ -4449,6 +4457,10 @@ func (c *CommunityFull) FillFrom(from interface {
 	c.About = from.GetAbout()
 	c.ChatPhoto = from.GetChatPhoto()
 	c.LinkedPeers = from.GetLinkedPeers()
+	if val, ok := from.GetNotifySettings(); ok {
+		c.NotifySettings = val
+	}
+
 	if val, ok := from.GetAdminsCount(); ok {
 		c.AdminsCount = val
 	}
@@ -4503,6 +4515,11 @@ func (c *CommunityFull) TypeInfo() tdp.Type {
 			SchemaName: "linked_peers",
 		},
 		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+			Null:       !c.Flags.Has(3),
+		},
+		{
 			Name:       "AdminsCount",
 			SchemaName: "admins_count",
 			Null:       !c.Flags.Has(1),
@@ -4523,6 +4540,9 @@ func (c *CommunityFull) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (c *CommunityFull) SetFlags() {
+	if !(c.NotifySettings.Zero()) {
+		c.Flags.Set(3)
+	}
 	if !(c.AdminsCount == 0) {
 		c.Flags.Set(1)
 	}
@@ -4537,7 +4557,7 @@ func (c *CommunityFull) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *CommunityFull) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode communityFull#cbb7a507 as nil")
+		return fmt.Errorf("can't encode communityFull#706702fb as nil")
 	}
 	b.PutID(CommunityFullTypeID)
 	return c.EncodeBare(b)
@@ -4546,24 +4566,29 @@ func (c *CommunityFull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CommunityFull) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode communityFull#cbb7a507 as nil")
+		return fmt.Errorf("can't encode communityFull#706702fb as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode communityFull#cbb7a507: field flags: %w", err)
+		return fmt.Errorf("unable to encode communityFull#706702fb: field flags: %w", err)
 	}
 	b.PutLong(c.ID)
 	b.PutString(c.About)
 	if c.ChatPhoto == nil {
-		return fmt.Errorf("unable to encode communityFull#cbb7a507: field chat_photo is nil")
+		return fmt.Errorf("unable to encode communityFull#706702fb: field chat_photo is nil")
 	}
 	if err := c.ChatPhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode communityFull#cbb7a507: field chat_photo: %w", err)
+		return fmt.Errorf("unable to encode communityFull#706702fb: field chat_photo: %w", err)
 	}
 	b.PutVectorHeader(len(c.LinkedPeers))
 	for idx, v := range c.LinkedPeers {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode communityFull#cbb7a507: field linked_peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode communityFull#706702fb: field linked_peers element with index %d: %w", idx, err)
+		}
+	}
+	if c.Flags.Has(3) {
+		if err := c.NotifySettings.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode communityFull#706702fb: field notify_settings: %w", err)
 		}
 	}
 	if c.Flags.Has(1) {
@@ -4581,10 +4606,10 @@ func (c *CommunityFull) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *CommunityFull) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode communityFull#cbb7a507 to nil")
+		return fmt.Errorf("can't decode communityFull#706702fb to nil")
 	}
 	if err := b.ConsumeID(CommunityFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode communityFull#cbb7a507: %w", err)
+		return fmt.Errorf("unable to decode communityFull#706702fb: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -4592,38 +4617,38 @@ func (c *CommunityFull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CommunityFull) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode communityFull#cbb7a507 to nil")
+		return fmt.Errorf("can't decode communityFull#706702fb to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field flags: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field id: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field about: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field about: %w", err)
 		}
 		c.About = value
 	}
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field chat_photo: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field chat_photo: %w", err)
 		}
 		c.ChatPhoto = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field linked_peers: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field linked_peers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -4632,29 +4657,34 @@ func (c *CommunityFull) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value CommunityPeer
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode communityFull#cbb7a507: field linked_peers: %w", err)
+				return fmt.Errorf("unable to decode communityFull#706702fb: field linked_peers: %w", err)
 			}
 			c.LinkedPeers = append(c.LinkedPeers, value)
+		}
+	}
+	if c.Flags.Has(3) {
+		if err := c.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode communityFull#706702fb: field notify_settings: %w", err)
 		}
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field admins_count: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field admins_count: %w", err)
 		}
 		c.AdminsCount = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field kicked_count: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field kicked_count: %w", err)
 		}
 		c.KickedCount = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode communityFull#cbb7a507: field peer_link_requests_pending: %w", err)
+			return fmt.Errorf("unable to decode communityFull#706702fb: field peer_link_requests_pending: %w", err)
 		}
 		c.PeerLinkRequestsPending = value
 	}
@@ -4691,6 +4721,24 @@ func (c *CommunityFull) GetLinkedPeers() (value []CommunityPeer) {
 		return
 	}
 	return c.LinkedPeers
+}
+
+// SetNotifySettings sets value of NotifySettings conditional field.
+func (c *CommunityFull) SetNotifySettings(value PeerNotifySettings) {
+	c.Flags.Set(3)
+	c.NotifySettings = value
+}
+
+// GetNotifySettings returns value of NotifySettings conditional field and
+// boolean which is true if field was set.
+func (c *CommunityFull) GetNotifySettings() (value PeerNotifySettings, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(3) {
+		return value, false
+	}
+	return c.NotifySettings, true
 }
 
 // SetAdminsCount sets value of AdminsCount conditional field.
@@ -4768,7 +4816,7 @@ const ChatFullClassName = "ChatFull"
 //	switch v := g.(type) {
 //	case *tg.ChatFull: // chatFull#2633421b
 //	case *tg.ChannelFull: // channelFull#c4c4dd40
-//	case *tg.CommunityFull: // communityFull#cbb7a507
+//	case *tg.CommunityFull: // communityFull#706702fb
 //	default: panic(v)
 //	}
 type ChatFullClass interface {
@@ -4818,7 +4866,7 @@ func DecodeChatFull(buf *bin.Buffer) (ChatFullClass, error) {
 		}
 		return &v, nil
 	case CommunityFullTypeID:
-		// Decoding communityFull#cbb7a507.
+		// Decoding communityFull#706702fb.
 		v := CommunityFull{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatFullClass: %w", err)

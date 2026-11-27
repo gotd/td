@@ -5202,7 +5202,7 @@ func (u *UpdateReadMessagesContents) GetDate() (value int, ok bool) {
 	return u.Date, true
 }
 
-// UpdateChannelTooLong represents TL type `updateChannelTooLong#108d941f`.
+// UpdateChannelTooLong represents TL type `updateChannelTooLong#f4e4e5a`.
 // There are new updates in the specified channel, the client must fetch them manually by
 // invoking updates.getChannelDifference¹ as specified in the documentation »².
 // If the channel's PTS isn't currently stored in the database (i.e. we joined this
@@ -5233,10 +5233,18 @@ type UpdateChannelTooLong struct {
 	//
 	// Use SetPts and GetPts helpers.
 	Pts int
+	// LastMsgID field of UpdateChannelTooLong.
+	//
+	// Use SetLastMsgID and GetLastMsgID helpers.
+	LastMsgID int
+	// LastMsgDate field of UpdateChannelTooLong.
+	//
+	// Use SetLastMsgDate and GetLastMsgDate helpers.
+	LastMsgDate int
 }
 
 // UpdateChannelTooLongTypeID is TL type id of UpdateChannelTooLong.
-const UpdateChannelTooLongTypeID = 0x108d941f
+const UpdateChannelTooLongTypeID = 0xf4e4e5a
 
 // construct implements constructor of UpdateClass.
 func (u UpdateChannelTooLong) construct() UpdateClass { return &u }
@@ -5264,6 +5272,12 @@ func (u *UpdateChannelTooLong) Zero() bool {
 	if !(u.Pts == 0) {
 		return false
 	}
+	if !(u.LastMsgID == 0) {
+		return false
+	}
+	if !(u.LastMsgDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -5281,10 +5295,20 @@ func (u *UpdateChannelTooLong) String() string {
 func (u *UpdateChannelTooLong) FillFrom(from interface {
 	GetChannelID() (value int64)
 	GetPts() (value int, ok bool)
+	GetLastMsgID() (value int, ok bool)
+	GetLastMsgDate() (value int, ok bool)
 }) {
 	u.ChannelID = from.GetChannelID()
 	if val, ok := from.GetPts(); ok {
 		u.Pts = val
+	}
+
+	if val, ok := from.GetLastMsgID(); ok {
+		u.LastMsgID = val
+	}
+
+	if val, ok := from.GetLastMsgDate(); ok {
+		u.LastMsgDate = val
 	}
 
 }
@@ -5321,6 +5345,16 @@ func (u *UpdateChannelTooLong) TypeInfo() tdp.Type {
 			SchemaName: "pts",
 			Null:       !u.Flags.Has(0),
 		},
+		{
+			Name:       "LastMsgID",
+			SchemaName: "last_msg_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "LastMsgDate",
+			SchemaName: "last_msg_date",
+			Null:       !u.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -5330,12 +5364,18 @@ func (u *UpdateChannelTooLong) SetFlags() {
 	if !(u.Pts == 0) {
 		u.Flags.Set(0)
 	}
+	if !(u.LastMsgID == 0) {
+		u.Flags.Set(1)
+	}
+	if !(u.LastMsgDate == 0) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChannelTooLong#108d941f as nil")
+		return fmt.Errorf("can't encode updateChannelTooLong#f4e4e5a as nil")
 	}
 	b.PutID(UpdateChannelTooLongTypeID)
 	return u.EncodeBare(b)
@@ -5344,15 +5384,21 @@ func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateChannelTooLong) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChannelTooLong#108d941f as nil")
+		return fmt.Errorf("can't encode updateChannelTooLong#f4e4e5a as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChannelTooLong#108d941f: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateChannelTooLong#f4e4e5a: field flags: %w", err)
 	}
 	b.PutLong(u.ChannelID)
 	if u.Flags.Has(0) {
 		b.PutInt(u.Pts)
+	}
+	if u.Flags.Has(1) {
+		b.PutInt(u.LastMsgID)
+	}
+	if u.Flags.Has(1) {
+		b.PutInt(u.LastMsgDate)
 	}
 	return nil
 }
@@ -5360,10 +5406,10 @@ func (u *UpdateChannelTooLong) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateChannelTooLong) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChannelTooLong#108d941f to nil")
+		return fmt.Errorf("can't decode updateChannelTooLong#f4e4e5a to nil")
 	}
 	if err := b.ConsumeID(UpdateChannelTooLongTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChannelTooLong#108d941f: %w", err)
+		return fmt.Errorf("unable to decode updateChannelTooLong#f4e4e5a: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -5371,26 +5417,40 @@ func (u *UpdateChannelTooLong) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateChannelTooLong) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChannelTooLong#108d941f to nil")
+		return fmt.Errorf("can't decode updateChannelTooLong#f4e4e5a to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChannelTooLong#108d941f: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateChannelTooLong#f4e4e5a: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelTooLong#108d941f: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode updateChannelTooLong#f4e4e5a: field channel_id: %w", err)
 		}
 		u.ChannelID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelTooLong#108d941f: field pts: %w", err)
+			return fmt.Errorf("unable to decode updateChannelTooLong#f4e4e5a: field pts: %w", err)
 		}
 		u.Pts = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelTooLong#f4e4e5a: field last_msg_id: %w", err)
+		}
+		u.LastMsgID = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelTooLong#f4e4e5a: field last_msg_date: %w", err)
+		}
+		u.LastMsgDate = value
 	}
 	return nil
 }
@@ -5419,6 +5479,42 @@ func (u *UpdateChannelTooLong) GetPts() (value int, ok bool) {
 		return value, false
 	}
 	return u.Pts, true
+}
+
+// SetLastMsgID sets value of LastMsgID conditional field.
+func (u *UpdateChannelTooLong) SetLastMsgID(value int) {
+	u.Flags.Set(1)
+	u.LastMsgID = value
+}
+
+// GetLastMsgID returns value of LastMsgID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelTooLong) GetLastMsgID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.LastMsgID, true
+}
+
+// SetLastMsgDate sets value of LastMsgDate conditional field.
+func (u *UpdateChannelTooLong) SetLastMsgDate(value int) {
+	u.Flags.Set(1)
+	u.LastMsgDate = value
+}
+
+// GetLastMsgDate returns value of LastMsgDate conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelTooLong) GetLastMsgDate() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.LastMsgDate, true
 }
 
 // UpdateChannel represents TL type `updateChannel#635b4c09`.
@@ -37547,7 +37643,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateReadHistoryOutbox: // updateReadHistoryOutbox#2f2f21bf
 //	case *tg.UpdateWebPage: // updateWebPage#7f891213
 //	case *tg.UpdateReadMessagesContents: // updateReadMessagesContents#f8227181
-//	case *tg.UpdateChannelTooLong: // updateChannelTooLong#108d941f
+//	case *tg.UpdateChannelTooLong: // updateChannelTooLong#f4e4e5a
 //	case *tg.UpdateChannel: // updateChannel#635b4c09
 //	case *tg.UpdateNewChannelMessage: // updateNewChannelMessage#62ba04d9
 //	case *tg.UpdateReadChannelInbox: // updateReadChannelInbox#922e6e10
@@ -37896,7 +37992,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateChannelTooLongTypeID:
-		// Decoding updateChannelTooLong#108d941f.
+		// Decoding updateChannelTooLong#f4e4e5a.
 		v := UpdateChannelTooLong{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

@@ -55,6 +55,8 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/type/DcOption
 	ForceTryIpv6 bool
+	// FpnvAllowed field of Config.
+	FpnvAllowed bool
 	// Current date at the server
 	Date int
 	// Expiration date of this config: when it expires it'll have to be refetched using help
@@ -243,6 +245,9 @@ func (c *Config) Zero() bool {
 	if !(c.ForceTryIpv6 == false) {
 		return false
 	}
+	if !(c.FpnvAllowed == false) {
+		return false
+	}
 	if !(c.Date == 0) {
 		return false
 	}
@@ -389,6 +394,7 @@ func (c *Config) FillFrom(from interface {
 	GetRevokePmInbox() (value bool)
 	GetBlockedMode() (value bool)
 	GetForceTryIpv6() (value bool)
+	GetFpnvAllowed() (value bool)
 	GetDate() (value int)
 	GetExpires() (value int)
 	GetTestMode() (value bool)
@@ -437,6 +443,7 @@ func (c *Config) FillFrom(from interface {
 	c.RevokePmInbox = from.GetRevokePmInbox()
 	c.BlockedMode = from.GetBlockedMode()
 	c.ForceTryIpv6 = from.GetForceTryIpv6()
+	c.FpnvAllowed = from.GetFpnvAllowed()
 	c.Date = from.GetDate()
 	c.Expires = from.GetExpires()
 	c.TestMode = from.GetTestMode()
@@ -561,6 +568,11 @@ func (c *Config) TypeInfo() tdp.Type {
 			Name:       "ForceTryIpv6",
 			SchemaName: "force_try_ipv6",
 			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "FpnvAllowed",
+			SchemaName: "fpnv_allowed",
+			Null:       !c.Flags.Has(17),
 		},
 		{
 			Name:       "Date",
@@ -762,6 +774,9 @@ func (c *Config) SetFlags() {
 	if !(c.ForceTryIpv6 == false) {
 		c.Flags.Set(14)
 	}
+	if !(c.FpnvAllowed == false) {
+		c.Flags.Set(17)
+	}
 	if !(c.TmpSessions == 0) {
 		c.Flags.Set(0)
 	}
@@ -918,6 +933,7 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	c.RevokePmInbox = c.Flags.Has(6)
 	c.BlockedMode = c.Flags.Has(8)
 	c.ForceTryIpv6 = c.Flags.Has(14)
+	c.FpnvAllowed = c.Flags.Has(17)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1318,6 +1334,25 @@ func (c *Config) GetForceTryIpv6() (value bool) {
 		return
 	}
 	return c.Flags.Has(14)
+}
+
+// SetFpnvAllowed sets value of FpnvAllowed conditional field.
+func (c *Config) SetFpnvAllowed(value bool) {
+	if value {
+		c.Flags.Set(17)
+		c.FpnvAllowed = true
+	} else {
+		c.Flags.Unset(17)
+		c.FpnvAllowed = false
+	}
+}
+
+// GetFpnvAllowed returns value of FpnvAllowed conditional field.
+func (c *Config) GetFpnvAllowed() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(17)
 }
 
 // GetDate returns value of Date field.

@@ -948,6 +948,32 @@ func (s MessageActionClassArray) AsMessageActionWalletTonConnectRequest() (to Me
 	return to
 }
 
+// AsMessageActionStarGiftOnchainOffer returns copy with only MessageActionStarGiftOnchainOffer constructors.
+func (s MessageActionClassArray) AsMessageActionStarGiftOnchainOffer() (to MessageActionStarGiftOnchainOfferArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionStarGiftOnchainOffer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionBotInvite returns copy with only MessageActionBotInvite constructors.
+func (s MessageActionClassArray) AsMessageActionBotInvite() (to MessageActionBotInviteArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionBotInvite)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -6184,6 +6210,170 @@ func (s *MessageActionWalletTonConnectRequestArray) PopFirst() (v MessageActionW
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionWalletTonConnectRequestArray) Pop() (v MessageActionWalletTonConnectRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionStarGiftOnchainOfferArray is adapter for slice of MessageActionStarGiftOnchainOffer.
+type MessageActionStarGiftOnchainOfferArray []MessageActionStarGiftOnchainOffer
+
+// Sort sorts slice of MessageActionStarGiftOnchainOffer.
+func (s MessageActionStarGiftOnchainOfferArray) Sort(less func(a, b MessageActionStarGiftOnchainOffer) bool) MessageActionStarGiftOnchainOfferArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionStarGiftOnchainOffer.
+func (s MessageActionStarGiftOnchainOfferArray) SortStable(less func(a, b MessageActionStarGiftOnchainOffer) bool) MessageActionStarGiftOnchainOfferArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionStarGiftOnchainOffer.
+func (s MessageActionStarGiftOnchainOfferArray) Retain(keep func(x MessageActionStarGiftOnchainOffer) bool) MessageActionStarGiftOnchainOfferArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionStarGiftOnchainOfferArray) First() (v MessageActionStarGiftOnchainOffer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionStarGiftOnchainOfferArray) Last() (v MessageActionStarGiftOnchainOffer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftOnchainOfferArray) PopFirst() (v MessageActionStarGiftOnchainOffer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionStarGiftOnchainOffer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionStarGiftOnchainOfferArray) Pop() (v MessageActionStarGiftOnchainOffer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionBotInviteArray is adapter for slice of MessageActionBotInvite.
+type MessageActionBotInviteArray []MessageActionBotInvite
+
+// Sort sorts slice of MessageActionBotInvite.
+func (s MessageActionBotInviteArray) Sort(less func(a, b MessageActionBotInvite) bool) MessageActionBotInviteArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionBotInvite.
+func (s MessageActionBotInviteArray) SortStable(less func(a, b MessageActionBotInvite) bool) MessageActionBotInviteArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionBotInvite.
+func (s MessageActionBotInviteArray) Retain(keep func(x MessageActionBotInvite) bool) MessageActionBotInviteArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionBotInviteArray) First() (v MessageActionBotInvite, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionBotInviteArray) Last() (v MessageActionBotInvite, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionBotInviteArray) PopFirst() (v MessageActionBotInvite, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionBotInvite
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionBotInviteArray) Pop() (v MessageActionBotInvite, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
