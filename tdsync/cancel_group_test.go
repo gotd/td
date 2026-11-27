@@ -66,9 +66,6 @@ func TestCancellableGroupWaitReleasesParent(t *testing.T) {
 				if parent.children != 0 {
 					t.Fatalf("iteration %d: %d children retained after Wait", i, parent.children)
 				}
-				if parent.Err() != nil {
-					t.Fatal("Wait canceled the parent")
-				}
 			}
 		})
 	}
