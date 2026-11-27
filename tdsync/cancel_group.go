@@ -58,6 +58,8 @@ func (g *CancellableGroup) Cancel() {
 
 // Wait blocks until all function calls from the Go method have returned, then
 // returns the first non-nil error (if any) from them.
+// Wait also cancels the group context and releases its connection to the parent.
 func (g *CancellableGroup) Wait() error {
+	defer g.cancel()
 	return g.group.Wait()
 }
